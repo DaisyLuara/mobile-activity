@@ -22,10 +22,21 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
+    modules: [
+      resolve('node_modules')
+    ],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
+      'assets': resolve('src/assets'),
+      'components': resolve('src/components'),
+      'pages': resolve('src/pages')
     }
+  },
+  resolveLoader: {
+    modules: [resolve('node_modules')],
+    extensions: [".js", ".json"],
+    mainFields: ["loader", "main"]
   },
   module: {
     rules: [
@@ -72,6 +83,10 @@ module.exports = {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
+      },
+      {
+        test: /\.less$/,
+        loader: "style-loader!css-loader!less-loader"
       }
     ]
   }

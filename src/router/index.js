@@ -1,15 +1,22 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import HelloWorld from '@/components/HelloWorld';
-
+import marketingHome from 'pages/marketingHome'
 Vue.use(Router);
 
 export default new Router({
+  // mode: 'history',
   routes: [
     {
-      path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld,
+      path: '/marketing',
+      name: 'H5营销',
+      component: marketingHome,
+      children: [
+        {
+          path: 'hello',
+          name: '测试页',
+          component: () => import(/* webpackChunkName: "hello" */ 'pages/hello.vue'),
+        }
+      ]
     },
   ],
 });
