@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import marketingHome from 'pages/marketingHome'
+import marketingHome from 'pages/marketingHome';
 Vue.use(Router);
 
 export default new Router({
@@ -8,13 +8,18 @@ export default new Router({
   routes: [
     {
       path: '/marketing',
-      name: 'H5营销',
+      name: 'marketing pages',
       component: marketingHome,
       children: [
         {
-          path: 'hello',
-          name: '测试页',
-          component: () => import(/* webpackChunkName: "hello" */ 'pages/hello.vue'),
+          path: 'psbh',
+          name: '浦商百货',
+          component: () => import(/* webpackChunkName: "psbh" */ 'pages/psbh/index.vue')
+        },
+        {
+          path: 'psbh/result',
+          name: '浦商百货结果页',
+          component: () => import(/* webpackChunkName: "psbh" */ 'pages/psbh/result.vue')
         }
       ]
     },

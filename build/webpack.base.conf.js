@@ -2,6 +2,7 @@
 const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
+const webpack = require("webpack")
 const vueLoaderConfig = require('./vue-loader.conf')
 
 function resolve (dir) {
@@ -29,8 +30,11 @@ module.exports = {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
       'assets': resolve('src/assets'),
-      'components': resolve('src/components'),
-      'pages': resolve('src/pages')
+      'jquery': 'jquery',
+      'templates': resolve('src/templates'),
+      'pages': resolve('src/pages'),
+      'modules': resolve('src/modules'),
+      'services': resolve('src/services')
     }
   },
   resolveLoader: {
@@ -89,5 +93,12 @@ module.exports = {
         loader: "style-loader!css-loader!less-loader"
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin('common.js'),
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery"
+    })
+  ]
 }

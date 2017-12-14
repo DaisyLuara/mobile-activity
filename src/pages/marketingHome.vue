@@ -1,6 +1,6 @@
 <template>
   <div id="marketing" class="marketing-wrap">
-    <router-view></router-view>
+    <router-view/>
   </div>
 </template>
 <script>
