@@ -12,6 +12,7 @@
   </div>
 </template>
 <script>
+  const marketing_image_server = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing';
   import { getParamsMap, getParameter, setParameter } from 'modules/util'
   export default {
     props: ['marketingOptions'],
@@ -22,9 +23,9 @@
           desc: this.marketingOptions.wxShareInfo.desc,
           imgUrl: this.marketingOptions.wxShareInfo.imgUrl,
           success: () => {
-            if(_hmt){
-              _hmt.push(['_trackEvent', '分享' + this.marketingOptions.name + '提取页', 'share', '分享', '']);
-            }
+            // if(_hmt){
+            //   _hmt.push(['_trackEvent', '分享' + this.marketingOptions.name + '提取页', 'share', '分享', '']);
+            // }
           }
         }
         return wxShareInfo;
@@ -77,16 +78,16 @@
       },
       linkToPhoto(){
         // 要把第一个页面的所有参数都带到photo页,因为photo页也需要链接上的参数
-        let redirect_url = window.location.origin + window.location.pathname + '/result/';
-        for(let param in this.$route.query){
-          redirect_url = setParameter(param, this.$route.query[param], redirect_url)
-        }
-        window.location.href = redirect_url;
+        this.$router.push({
+          'path': 'psbh/result',
+          'query': this.$route.query
+        })
       }
     }
   }
 </script>
 <style lang="less" scoped>
+  @imageHost: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/templates/christmas';
   .phone-wrap{
     background-repeat: no-repeat;
     background-size: cover;
@@ -138,7 +139,7 @@
         background-position: 10px center;
         background-color: rgba(0,0,0,.4);
         border: 1px solid rgba(255,255,255, .3);
-        background-image: url('~assets/images/christmas/icon_phone.png');
+        background-image: url("@{imageHost}/icon_phone.png");
         &::-webkit-input-placeholder{
           line-height: 23px;
           font-size: 14px;

@@ -5,7 +5,6 @@
 </template>
 <script>
 const marketing_image_server = process.env.IMAGE_SERVER + "/xingshidu_h5/marketing";
-import bgImage from 'assets/images/christmas/bg.jpg'
 import phoneTemplate from 'templates/christmas/index'
 export default {
   components: {
@@ -27,7 +26,7 @@ export default {
           imgUrl: marketing_image_server + '/wx_share_icon/psbh_share_icon.jpg',
         },
         bg: {
-          'backgroundImage':  'url('+ bgImage +')'
+          'backgroundImage':  'url('+ marketing_image_server + '/templates/christmas/bg.jpg)'
         },
         topLogo: {
           imgUrl: marketing_image_server + '/templates/christmas/top_logo.png',
@@ -47,7 +46,7 @@ export default {
           }
         },
         bottomLogo: {
-          imgUrl: marketing_image_server + '/templates/psbh/bottom_logo.png',
+          imgUrl: marketing_image_server + '/pages/psbh/bottom_logo.png',
           style: {
             'top': '87%',
             'width': '29%'

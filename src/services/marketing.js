@@ -14,5 +14,22 @@ export default {
         reject(err)
       })
     })
+  },
+  getImageById(context, id){
+    let promise = new Promise( (resolve, reject) => {
+      context.$http.get(IMAGE_API + id).then( response => {
+        if (response.status === 200) {
+          if (response.data.state === '1') {
+            resolve(response.data.results.image)
+          } else {
+            resolve('')
+          }
+        }
+      }).catch( err => {
+        reject(err);
+      })
+    })
+
+    return promise;
   }
 }

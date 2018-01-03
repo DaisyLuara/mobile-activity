@@ -35,6 +35,11 @@ export default {
     }).catch(err => {
       console.log(err);
     })
+    // marketingService.getImageById(this, this.$route.query.id).then(data => {
+    //   this.imgUrl = data;
+    // }).catch(err => {
+    //   console.log(err)
+    // })
   },
   mounted() {
     $(".photo-wrap").css('min-height', $(window).height());

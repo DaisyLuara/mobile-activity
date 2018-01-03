@@ -14,9 +14,9 @@
     methods: {
       init() {
         if (is_weixin() === true) {
-          let request_url = process.env.store_api_m + '/index.php?route=account/wechat/getJsSign';
+          let request_url = process.env.WX_API + '/wx/officialAccount/sign';
           this.$http.get(request_url).then( response => {
-            let resData = response.data;
+            let resData = response.data.data;
             let wx_config = {
               debug: false,
               appId: resData.appid,
