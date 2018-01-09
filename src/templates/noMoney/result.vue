@@ -24,7 +24,7 @@
 const marketing_image_server = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing';
 import { getParamsMap, getParameter, setParameter } from 'modules/util'
 import { customTrack } from 'services/customTrack'
-import WxShare from 'modules/WxShare.vue'
+import WxShare from 'modules/wxShare.vue'
 export default {
   props: ['marketingOptions'],
   components: {
