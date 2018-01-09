@@ -10,9 +10,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 
-const env = process.argv[2] === 'test'
-? require('../config/test.env')
-: require('../config/prod.env')
+const env = process.argv[2] === 'test' ?
+  require('../config/test.env') :
+  require('../config/prod.env')
 
 
 const webpackConfig = merge(baseWebpackConfig, {
@@ -53,9 +53,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     // Compress extracted CSS. We are using this plugin so that possible
     // duplicated CSS from different components can be deduped.
     new OptimizeCSSPlugin({
-      cssProcessorOptions: config.build.productionSourceMap
-      ? { safe: true, map: { inline: false } }
-      : { safe: true }
+      cssProcessorOptions: config.build.productionSourceMap ? { safe: true, map: { inline: false } } : { safe: true }
     }),
     // generate dist index.html with correct asset hash for caching.
     // you can customize output by editing /index.html
@@ -68,9 +66,10 @@ const webpackConfig = merge(baseWebpackConfig, {
         removeComments: true,
         collapseWhitespace: true,
         removeAttributeQuotes: true
-        // more options:
-        // https://github.com/kangax/html-minifier#options-quick-reference
+          // more options:
+          // https://github.com/kangax/html-minifier#options-quick-reference
       },
+      env: process.env,
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
       chunksSortMode: 'dependency'
     }),
@@ -81,7 +80,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     // split vendor js into its own file
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
-      minChunks: function (module) {
+      minChunks: function(module) {
         // any required modules inside node_modules are extracted to vendor
         return (
           module.resource &&
@@ -109,13 +108,11 @@ const webpackConfig = merge(baseWebpackConfig, {
     }),
 
     // copy custom static assets
-    new CopyWebpackPlugin([
-      {
-        from: path.resolve(__dirname, '../static'),
-        to: config.build.assetsSubDirectory,
-        ignore: ['.*']
-      }
-    ])
+    new CopyWebpackPlugin([{
+      from: path.resolve(__dirname, '../static'),
+      to: config.build.assetsSubDirectory,
+      ignore: ['.*']
+    }])
   ]
 })
 
