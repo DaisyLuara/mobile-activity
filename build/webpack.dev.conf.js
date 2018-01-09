@@ -21,8 +21,8 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     historyApiFallback: true,
     hot: true,
     compress: true,
-    host: process.env.HOST || config.dev.host,
-    port: process.env.PORT || config.dev.port,
+    host: process.env.HOST ||  config.dev.host,
+    port: process.env.PORT ||  config.dev.port,
     open: config.dev.autoOpenBrowser,
     overlay: config.dev.errorOverlay ? {
       warnings: false,
@@ -46,7 +46,9 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'index.html',
-      inject: true
+      inject: true,
+      env: require('../config/dev.env').NODE_ENV.trim().replace(/\"/g, "")
+        // env: process.env.NODE_ENV
     }),
   ]
 })
@@ -59,7 +61,7 @@ module.exports = new Promise((resolve, reject) => {
     } else {
       // publish the new Port, necessary for e2e tests
       process.env.PORT = port
-      // add port to devServer config
+        // add port to devServer config
       devWebpackConfig.devServer.port = port
 
       // Add FriendlyErrorsPlugin
@@ -67,9 +69,8 @@ module.exports = new Promise((resolve, reject) => {
         compilationSuccessInfo: {
           messages: [`Your application is running here: http://${config.dev.host}:${port}`],
         },
-        onErrors: config.dev.notifyOnErrors
-        ? utils.createNotifierCallback()
-        : undefined
+        onErrors: config.dev.notifyOnErrors ?
+          utils.createNotifierCallback() : undefined
       }))
 
       resolve(devWebpackConfig)
