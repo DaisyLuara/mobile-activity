@@ -17,12 +17,13 @@
   <div class="bottom-wrap" v-if="marketingOptions.bottom">
     <img class="title-img" :src="marketingOptions.bottom.imgUrl">
   </div>
-  <!-- <wx-share :WxShareInfo="wxShareInfo"></wx-share> -->
+  <wx-share :WxShareInfo="wxShareInfo"></wx-share>
 </div>
 </template>
 <script>
 const marketing_image_server = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing';
 import { getParamsMap, getParameter, setParameter } from 'modules/util'
+import { customTrack } from 'services/customTrack'
 import WxShare from 'modules/WxShare.vue'
 export default {
   props: ['marketingOptions'],
@@ -75,15 +76,7 @@ export default {
           desc: this.marketingOptions.wxShareInfo.desc,
           imgUrl: this.marketingOptions.wxShareInfo.imgUrl,
           success: () => {
-            // if(_hmt){
-              // _hmt.push(['_trackEvent', "分享" + this.marketingOptions.name + "提取页", 'share', '分享', '']);
-            // }
-
-            // 发送分享统计
-            // this.track1({
-            //   type: 1,
-            //   event: 'share'
-            // })
+            customTrack.shareWeChat(this.$route.query.ad_id, 'share')
           }
         }
         return wxShareInfo;

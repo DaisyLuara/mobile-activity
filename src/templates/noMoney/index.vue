@@ -21,6 +21,7 @@
 <script>
   const marketing_image_server = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing';
   import { getParamsMap, getParameter, setParameter } from 'modules/util'
+  import { customTrack } from 'services/customTrack'
   export default {
     props: ['marketingOptions'],
     computed: {
@@ -101,6 +102,7 @@
           this.errorText = '手机号码格式不正确';
           return;
         }
+        customTrack.sendMobile(this.$route.query.ad_id, this.mobileNum);
         this.linkToPhoto();
       },
       linkToPhoto(){
