@@ -8,7 +8,7 @@
   <script>
     var _paq = _paq || []; //piwik
   </script>
-  <% if (htmlWebpackPlugin.options.env === 'production') { %>
+  <% if (htmlWebpackPlugin.options.env.NODE_ENV === 'production') { %>
     <script>
       //Piwik
       (function() {
@@ -30,7 +30,7 @@
         })();
       })();
     </script>
-    <% } else if (htmlWebpackPlugin.options.env === 'test') { %>
+    <% } else if (htmlWebpackPlugin.options.env.NODE_ENV === 'test') { %>
       <script>
         //Piwik
         (function() {

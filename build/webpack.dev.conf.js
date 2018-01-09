@@ -47,8 +47,8 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       filename: 'index.html',
       template: 'index.html',
       inject: true,
-      env: require('../config/dev.env').NODE_ENV.trim().replace(/\"/g, "")
-        // env: process.env.NODE_ENV
+      // env: require('../config/dev.env').NODE_ENV.trim().replace(/\"/g, "")
+      env: process.env
     }),
   ]
 })
