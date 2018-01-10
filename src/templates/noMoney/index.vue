@@ -102,6 +102,7 @@
           this.errorText = '手机号码格式不正确';
           return;
         }
+        //提交手机号统计
         customTrack.sendMobile(this.mobileNum);
         this.linkToPhoto();
       },
