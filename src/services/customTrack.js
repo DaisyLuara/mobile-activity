@@ -1,7 +1,8 @@
 const customTrack = {
-  ad_id: '',
+  adId: 0,
   mobileRecords: process.env.SAAS_API + '/open/track/mobileRecords',
-  play_result_id: ''
+  play_result_id: 0,
+  laId: 0
 };
 /**
  *   customTrack send function
@@ -24,8 +25,10 @@ function GetRequest() {
   return theRequest;
 }
 var req = GetRequest();
-customTrack.ad_id = req['ad_id'];
+customTrack.adId = req['adId'];
+customTrack.laId = req['laId'];
 customTrack.play_result_id = req['recordId'];
+
 // mobile保存的方法
 function mobileRecords(mobileValue) {
   $.ajax({
@@ -49,18 +52,16 @@ function mobileRecords(mobileValue) {
 
 
 customTrack.sendMobile = function(mobileValue) {
-  if (customTrack.ad_id && customTrack.play_result_id) {
-    mobileRecords(mobileValue);
-    if (_paq) {
-      _paq.push(['trackEvent', customTrack.ad_id, customTrack.ad_id, 'submit_mobile_200'])
-    }
+  mobileRecords(mobileValue);
+  if (_paq) {
+    _paq.push(['trackEvent', customTrack.adId, customTrack.laId, 'submit_mobile_200'])
   }
 }
 
 customTrack.shareWeChat = function() {
   if (customTrack.ad_id) {
     if (_paq) {
-      _paq.push(['trackEvent', customTrack.ad_id, customTrack.ad_id, 'share_page_wechat_300'])
+      _paq.push(['trackEvent', customTrack.adId, customTrack.laId, 'share_page_wechat_300'])
     }
   }
 }
