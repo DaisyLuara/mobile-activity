@@ -49,8 +49,8 @@ function mobileRecords(mobileValue) {
 
 
 customTrack.sendMobile = function(mobileValue) {
-  mobileRecords(mobileValue);
-  if (customTrack.ad_id) {
+  if (customTrack.ad_id && customTrack.play_result_id) {
+    mobileRecords(mobileValue);
     if (_paq) {
       _paq.push(['trackEvent', customTrack.ad_id, customTrack.ad_id, 'submit_mobile_200'])
     }
