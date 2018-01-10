@@ -76,7 +76,7 @@ export default {
           desc: this.marketingOptions.wxShareInfo.desc,
           imgUrl: this.marketingOptions.wxShareInfo.imgUrl,
           success: () => {
-            customTrack.shareWeChat(this.$route.query.ad_id, 'share')
+            customTrack.shareWeChat(this.$route.query.ad_id)
           }
         }
         return wxShareInfo;
