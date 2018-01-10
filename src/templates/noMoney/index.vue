@@ -102,7 +102,7 @@
           this.errorText = '手机号码格式不正确';
           return;
         }
-        customTrack.sendMobile(this.$route.query.ad_id, this.mobileNum);
+        customTrack.sendMobile(this.mobileNum);
         this.linkToPhoto();
       },
       linkToPhoto(){
