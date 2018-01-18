@@ -10,10 +10,9 @@ const customTrack = {
  *   @param  {[string]}  [类别]
  *   @param  {[string]}  [值]
  */
-console.log(process.env.SAAS_API)
   //获得url中的参数
 function GetRequest() {
-  var url = window.location.href.split('?')[1]; //获取url中"?"符后的字串  
+  var url = window.location.href.split('?')[1]; //获取url中"?"符后的字串
   var theRequest = new Object();
   if (url.indexOf("?") == -1) {
     var str = url;
@@ -24,6 +23,7 @@ function GetRequest() {
   }
   return theRequest;
 }
+
 var req = GetRequest();
 customTrack.adId = req['adId'];
 customTrack.laId = req['laId'];
