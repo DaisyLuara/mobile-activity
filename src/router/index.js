@@ -39,12 +39,12 @@ export default new Router({
         component: () =>
           import ( /* webpackChunkName: "winPrize" */ 'pages/winPrize/client.vue')
       },
-      // {
-      //   path: 'winPrize',
-      //   name: '勇闯三关答题页',
-      //   component: () =>
-      //     import ( /* webpackChunkName: "winPrize" */ 'pages/winPrize/game.vue')
-      // },
+      {
+        path: 'winPrize',
+        name: '勇闯三关答题页',
+        component: () =>
+          import ( /* webpackChunkName: "winPrize" */ 'pages/winPrize/game.vue')
+      },
       // {
       //   path: 'winPrize/result',
       //   name: '勇闯三关结果页',
