@@ -151,9 +151,10 @@ export default {
         for(let i = 0, length = newCompetition.qids.length; i < length; i++){
           tempAnswerArry.push(Question[newCompetition.qids[i]].answer);
         }
-        newCompetition.answer_num = [];
+        newCompetition.answer_num = [[0,0,0],[0,0,0],[0,0,0]];
         newCompetition.answers = tempAnswerArry;
         newCompetition.prize = '1';
+        newCompetition.prize_id = '123';
         newCompetition.begin_time = (new Date()).getTime() + '';
         parseService.post(this, this.reqUrl, newCompetition).then(res => {
           this.curCompetition.objectId = res.data.objectId;

@@ -1,6 +1,6 @@
 <template>
   <div class="game-wrap">
-    <img class="abs title" :src="imgServerUrl + '/pages/win_prize/h5_title.png'" alt="">
+    <img class="abs title" :src="imgServerUrl + '/pages/win_prize/h5_title.png'">
     <div class="abs question">
       <div v-show="!curQuestion.end" class="abs clock">
         <svg id="mySvg" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
@@ -10,9 +10,9 @@
         <div class="clock-text">{{clockOpts.text}}</div>
       </div>
       <div v-show="curQuestion.end" class="abs icon-result">
-        <img v-show="curQuestion.status==0" class="abs icon icon-overtime" :src="imgServerUrl + '/pages/win_prize/h5_overtime.png'" alt="">
-        <img v-show="curQuestion.status==1" class="abs icon icon-true" :src="imgServerUrl + '/pages/win_prize/h5_true.png'" alt="">
-        <img v-show="curQuestion.status==2" class="abs icon icon-false" :src="imgServerUrl + '/pages/win_prize/h5_false.png'" alt="">
+        <img v-show="curQuestion.status==0" class="abs icon icon-overtime" :src="imgServerUrl + '/pages/win_prize/h5_overtime.png'">
+        <img v-show="curQuestion.status==1" class="abs icon icon-true" :src="imgServerUrl + '/pages/win_prize/h5_true.png'">
+        <img v-show="curQuestion.status==2" class="abs icon icon-false" :src="imgServerUrl + '/pages/win_prize/h5_false.png'">
       </div>
       <div v-show="curQuestion.end && showQuestionMessage" class="abs next-question-message"><span class="red">{{nextQuestionMessage}}</span>秒后进入下一题</div>
       <div class="question-name">{{curQuestion.name}}</div>
@@ -21,7 +21,7 @@
           <div class="abs choice-name">
             {{choice}}
           </div>
-          <div v-show='curQuestion.end' v-bind:style="{'width': (curQuestion.answer == index + 1 && (answerPercent[index] == '0px' || !answerPercent[index])) ? '110%' :  answerPercent[index]}" class="abs result" v-bind:class="{'true': curQuestion.answer == index + 1,'false': competitionRecord.answers[curQuestion.number -1] != curQuestion.answer  && competitionRecord.answers[curQuestion.number -1] == index + 1 && curQuestion.answer != index + 1,'no-choice': curQuestion.answer != index + 1 && competitionRecord.answers[curQuestion.number -1] != index + 1 }">
+          <div v-if='curQuestion.end' v-bind:style="{'width': (curQuestion.answer == index + 1 && (answerPercent[index] == '0px' || !answerPercent[index])) ? '110%' :  answerPercent[index]}" class="abs result" v-bind:class="{'true': curQuestion.answer == index + 1,'false': userCompetitionRecord.answers[curQuestion.number -1] != curQuestion.answer  && userCompetitionRecord.answers[curQuestion.number -1] == index + 1 && curQuestion.answer != index + 1,'no-choice': curQuestion.answer != index + 1 && userCompetitionRecord.answers[curQuestion.number -1] != index + 1 }">
           </div>
           <span class="answer-num" v-show="curQuestion.end">{{curQuestion.answer_num[index] ? curQuestion.answer_num[index]: 0}}人</span>
         </div>
@@ -34,17 +34,44 @@
       Copyright © 2018 星视度.com
     </div>
     <div class="cover" v-bind:class="{'show': showCover}">
-      <img class="abs title"  :src="imgServerUrl + '/pages/win_prize/h5_cover_title.png'" alt="">
+      <img class="abs title"  :src="imgServerUrl + '/pages/win_prize/h5_cover_title.png'">
       <div class="abs count-down">
-        <img class="count-1 count" :src="imgServerUrl + '/pages/win_prize/3.png'" alt="">
-        <img class="count-2 count" :src="imgServerUrl + '/pages/win_prize/2.png'" alt="">
-        <img class="count-3 count" :src="imgServerUrl + '/pages/win_prize/1.png'" alt="">
+        <img class="count-1 count" :src="imgServerUrl + '/pages/win_prize/3.png'">
+        <img class="count-2 count" :src="imgServerUrl + '/pages/win_prize/2.png'">
+        <img class="count-3 count" :src="imgServerUrl + '/pages/win_prize/1.png'">
       </div>
     </div>
     <div class="cover" v-bind:class="{'show': gameStatus}">
       <div class="message-box abs">
-        <p class="message-text abs">本轮答题已结束，下一轮答题将在3分钟后开始</p>
+        <p class="message-text abs">您已完成本轮答题，下一轮答题将在3分钟后开始</p>
         <div class="btn abs">知道了</div>
+      </div>
+    </div>
+    <div class="cover" v-bind:class="{'show': showPrize}">
+      <div class="prize-wrap">
+        <div class="abs red-package">
+          <img class="abs bg-red-package" :src="imgServerUrl + '/pages/win_prize/h5_red_bag.png'">
+          <div class="abs title">闯关成功</div>
+          <div class="abs subtitle">恭喜获得 价值<span class="money">¥ 218</span>大礼包</div>
+          <img @click="openPrize()" class="abs btn-open" :src="imgServerUrl + '/pages/win_prize/h5_btn_open.png'">
+        </div>
+        <div class="prize-get-wrap">
+          <img class="bg" :src="imgServerUrl + '/pages/win_prize/h5_banner.png'">
+          <div class="abs store-intro">
+            <div class="title">EXE颜镜店（长宁来福士店）</div>
+            <div class="subtitle">长宁来福士广场（E）04层12号</div>
+          </div>
+          <div class="abs prize-get">
+            <input class="abs input-mobile" v-model="mobile" type="text" placeholder="请输入手机号">
+            <img @click="getPrize()" class="abs btn-get-prize" :src="imgServerUrl + '/pages/win_prize/h5_get_prize.png'">
+            <img class="bg" :src="imgServerUrl + '/pages/win_prize/h5_prize_bg.png'">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cover" v-bind:class="{'show': showFailedCover}">
+      <div class="game-failed-wrap">
+        <img class="bg-failed" :src="imgServerUrl + '/pages/win_prize/h5_failed.png'">
       </div>
     </div>
   </div>
@@ -58,6 +85,7 @@ import parseService from 'modules/parseServer'
 export default {
   data(){
     return {
+      mobile: '',
       showPage: false,
       showCover: false,
       imgServerUrl: IMAGE_SERVER,
@@ -70,7 +98,11 @@ export default {
         endOldClock: false
       },
       nextQuestionMessage: 5, // 距离下一题开始秒数提示
-      showQuestionMessage: true,
+      showQuestionMessage: true, //显示轮次失败
+      showFailedCover: false, //显示失败
+      showMobileError: false, //显示手机错误提示,
+      mobileErrorText: '', //手机错误提示文案
+      showPrize: false, //显示奖励领取浮层
       gameStatus: 0, //未参赛
       userInfo: {
 
@@ -79,6 +111,7 @@ export default {
 
       },
       curQuestion: { //当前题目信息和状态
+        begin: false,
         qid: '',
         name: '',
         choices: [], //问题选项
@@ -86,9 +119,10 @@ export default {
         number: 0,  //题目序号
         answer: 0, //问题答案
         end: false, //是否结束
-        answer_num: [] //各选项回答人数
+        answer_num: [0, 0, 0] //各选项回答人数
       },
-      competitionRecord: {} //用户的答题信息
+      forPrizeUserRecord: {}, // 待领取红包的用户答题记录
+      userCompetitionRecord: {} // 用户的当前答题记录
     }
   },
   beforeCreate(){
@@ -123,10 +157,13 @@ export default {
         sum = sum + this.curQuestion.answer_num[i];
       }
 
-      for(let i = 0,length = this.curQuestion.answer_num.length; i < length; i++){
-        answerPercent.push(((this.curQuestion.answer_num[i] / sum) * $('.choice').width() * 1.1)+ 'px');
+      if(sum == 0){
+        answerPercent = ['0px', '0px', '0px']
+      }else{
+        for(let i = 0,length = this.curQuestion.answer_num.length; i < length; i++){
+          answerPercent.push(((this.curQuestion.answer_num[i] / sum) * $('.choice').width() * 1.1)+ 'px');
+        }
       }
-      console.log(answerPercent)
       return answerPercent;
     }
   },
@@ -150,32 +187,29 @@ export default {
             alert("竞赛超时，请刷新页面获取最新竞赛")
             return;
           }
-          // 查询用户是否参与过次轮比赛
-          let searchParams = {
-            'wx_open_id': this.userInfo.wx_openid,
-            'cid': this.curCompetition.objectId
+          // 1、题目都需要先初始化好，但不开始游戏
+          this.nextQuestion();
+          // 2、检查用户是否有相同类型优惠券，但未领取的记录
+          let prizeSearchParams = {
+            'prize_id': this.curCompetition.prize_id,
+            'prize_status': '0',
+            'result': '1'
           }
-          parseService.get(this, this.reqUrl + 'h5_competition_user_records?where=' + JSON.stringify(searchParams)).then(data => {
+          parseService.get(this, this.reqUrl + 'h5_competition_user_records?where=' + JSON.stringify(prizeSearchParams))
+          .then(data => {
             if(data.results && data.results.length){
-              this.competitionRecord = data.results[0];
-              this.competitionRecord.answers = [];
-              this.competitionRecord.results = '';
-              // todo用户参加并答题完本轮比赛，进行提示下一场次开始时间
-              if(data.results[0].status == '0'){
-                console.log('一大碗')
-                this.nextQuestion();
-                this.gameStatus = 1;
-                return;
-              }
-              //重新答题
-              this.initGame();
+              // 3、有则走领红包流程、领完走获取用户对当前答题的记录，然后开始游戏
+              this.forPrizeUserRecord = data.results[0]
+              this.startPrize();
             }else{
-              //参与答题
-              this.initGame();
+              // 4、无则开始走获取用户对当前答题的记录，然后开始游戏
+              this.checkUserCompetitionStatus()
             }
-          }).catch(err => {
+          })
+          .catch(err => {
             console.log(err)
           })
+
         }else{
           // 当前无竞赛
           // this.creatCompetition()
@@ -185,13 +219,40 @@ export default {
         console.log(err)
       })
     },
-    initGame(){
+    checkUserCompetitionStatus(){
+      // 查询用户是否参与过本轮比赛
+      let searchParams = {
+        'wx_open_id': this.userInfo.wx_openid,
+        'cid': this.curCompetition.objectId
+      }
+      parseService.get(this, this.reqUrl + 'h5_competition_user_records?where=' + JSON.stringify(searchParams)).then(data => {
+        if(data.results && data.results.length){
+          this.userCompetitionRecord = data.results[0];
+          this.userCompetitionRecord.answers = [];
+          this.userCompetitionRecord.result = '';
+          // todo用户参加并答题完本轮比赛，进行提示下一场次开始时间
+          if(data.results[0].status == '0'){
+            this.nextQuestion();
+            this.gameStatus = 1;
+            return;
+          }
+          //重新答题
+          this.beginGame();
+        }else{
+          //参与答题
+          this.beginGame();
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    beginGame(){
       let that = this;
       this.showPage = true;
-      this.showCover = true;
-      // 保存用户当前参赛信息
-      if(!this.competitionRecord.objectId){
-        this.competitionRecord = {
+
+      // 保存用户当前参赛信息,完成后开始游戏
+      if(!this.userCompetitionRecord.objectId){
+        this.userCompetitionRecord = {
           wx_open_id: this.userInfo.wx_openid,
           cid: this.curCompetition.objectId,
           qids: this.curCompetition.qids,
@@ -199,17 +260,23 @@ export default {
           status: '1',
           result: '',
           answers: [],
-          prize: ''
+          prize: this.curCompetition.prize,
+          prize_id: this.curCompetition.prize_id,
+          prize_status: '0' //未领取优惠券
         }
-        parseService.post(this, this.reqUrl + 'h5_competition_user_records', this.competitionRecord).then(res => {
-          // todo
-          this.competitionRecord.objectId = res.data.objectId;
+        parseService.post(this, this.reqUrl + 'h5_competition_user_records', this.userCompetitionRecord).then(res => {
+          this.showCover = true;
+          this.curQuestion.begin = true;
+          this.userCompetitionRecord.objectId = res.data.objectId;
+          // todo 可以更新参与人数，也可以不更新从用户表统计，这里先不更新了，涉及到锁死问题.
         }).catch(err => {
           console.log(err)
         });
+      }else{
+        this.showCover = true;
+        this.curQuestion.begin = true;
       }
-      // 初始化题目
-      this.nextQuestion();
+      // 4.5秒后开始游戏
       setTimeout(function(){
         that.showCover = false;
         that.initClock();
@@ -219,21 +286,22 @@ export default {
       this.curQuestion.number = this.curQuestion.number + 1;
       let curQuestionNum = this.curQuestion.number - 1;
       this.curQuestion.qid = this.curCompetition.qids[curQuestionNum];
+
       this.curQuestion.name = Question[this.curCompetition.qids[curQuestionNum]].name + '?';
       this.curQuestion.choices = Question[this.curCompetition.qids[curQuestionNum]].choices;
       this.curQuestion.answer = Question[this.curCompetition.qids[curQuestionNum]].answer;
       this.curQuestion.status = 0;
       this.curQuestion.end = false;
-      this.curQuestion.answer_num = [];
+      this.curQuestion.answer_num = [0,0,0];
     },
     answerQuestion(index){
       // step1 更新用户的答题记录
       // index = -1表明用户未作答
-      if(this.curQuestion.end){
+      if(this.curQuestion.end || !this.curQuestion.begin){
         return;
       }
-      this.competitionRecord.answers[this.curQuestion.number -1] = index + 1;
-      parseService.put(this,this.reqUrl + 'h5_competition_user_records/' + this.competitionRecord.objectId, JSON.stringify({'answers': this.competitionRecord.answers})).then(res => {
+      this.userCompetitionRecord.answers[this.curQuestion.number -1] = index + 1;
+      parseService.put(this,this.reqUrl + 'h5_competition_user_records/' + this.userCompetitionRecord.objectId, JSON.stringify({'answers': this.userCompetitionRecord.answers})).then(res => {
       }).catch(err => {})
 
       // step2 更新当前问题的状态，区分作答与未作答
@@ -251,32 +319,22 @@ export default {
         let curCompetitionAnswerNum = 1;
 
         if(index != -1){
-          if(!this.curCompetition.answer_num[this.curQuestion.number - 1]){
-              this.curCompetition.answer_num[this.curQuestion.number - 1] = [];
-          }
-          if(!this.curCompetition.answer_num[this.curQuestion.number - 1][index]){
-            this.curCompetition.answer_num[this.curQuestion.number - 1][index] = 1;
-          }else{
-            this.curCompetition.answer_num[this.curQuestion.number - 1][index] = this.curCompetition.answer_num[this.curQuestion.number - 1][index] + 1;
-          }
-
+          this.curCompetition.answer_num[this.curQuestion.number - 1][index] = this.curCompetition.answer_num[this.curQuestion.number - 1][index] + 1;
           parseService.put(this,
             this.reqUrl + 'h5_competition_records/' + this.curCompetition.objectId,
             JSON.stringify({'answer_num': this.curCompetition.answer_num})).then(res => {
-              console.log(res)
           }).catch(err => {})
         }
 
         // 显示当前问题最新的各选项人数，结束当前的问题
-        this.curQuestion.answer_num = this.curCompetition.answer_num[this.curQuestion.number - 1] ? this.curCompetition.answer_num[this.curQuestion.number - 1] : [];
+        this.curQuestion.answer_num = this.curCompetition.answer_num[this.curQuestion.number - 1] ? this.curCompetition.answer_num[this.curQuestion.number - 1] : [0,0,0];
         this.curQuestion.end = true;
         this.clockOpts.endOldClock = true;
-        if(!Question[this.curCompetition.qids[this.curQuestion.number]]){
+        if(!Question[this.curCompetition.qids[this.curQuestion.number]] || this.curQuestion.status == 0 || this.curQuestion.status == 2){
           // 答题结束
           this.endCompetition();
           return;
         }
-
 
         let that = this;
         let interval = setInterval(function(){
@@ -296,9 +354,65 @@ export default {
     },
     endCompetition(){
       this.showQuestionMessage = false;
-      // 设置用户次轮参赛状态为答完题
-      parseService.put(this,this.reqUrl + 'h5_competition_user_records/' + this.competitionRecord.objectId, JSON.stringify({'status': '0'})).then(res => {
+      // 更新用户答题状态、status、result
+      this.userCompetitionRecord.status = '0'
+      if(JSON.stringify(this.userCompetitionRecord.answers) == JSON.stringify(this.curCompetition.answers)){
+        this.userCompetitionRecord.result = '1' //闯关成功
+      }else{
+        this.userCompetitionRecord.result = '0' //闯关失败
+      }
+      let params = {
+        'status': this.userCompetitionRecord.status,
+        'result': this.userCompetitionRecord.result
+      };
+
+      parseService.put(this,this.reqUrl + 'h5_competition_user_records/' + this.userCompetitionRecord.objectId, JSON.stringify(params)).then(res => {
       }).catch(err => {})
+
+      if(this.userCompetitionRecord.result == '1'){
+        this.startPrize();
+      }else{
+        this.showFailedCover = true;
+      }
+    },
+    startPrize(){
+      this.showPrize = true;
+
+    },
+    openPrize(){
+      $(".red-package").addClass('hide');
+      $(".prize-get-wrap").addClass('show');
+    },
+    getPrize(){
+      // 已经有待领取的红包，那么是等领取结束后，要继续本轮游戏
+      let continueGompetition = false;
+      let prizeUserRecord = {} //领取红包的用户记录
+      if(this.forPrizeUserRecord.objectId){
+        continueGompetition = true;
+        prizeUserRecord = this.forPrizeUserRecord;
+      }else{
+        prizeUserRecord = this.userCompetitionRecord;
+      }
+
+      // 领券成功后，更新用户领券信息，检查用户是否需要继续比赛还是结束比赛
+      alert("领券成功")
+      let params = {
+        'prize_status': '1'
+      }
+      parseService.put(this,this.reqUrl + 'h5_competition_user_records/' + prizeUserRecord.objectId, JSON.stringify(params)).then(res => {
+        if(continueGompetition){
+          this.showPrize = false;
+          this.resetGetPrize();
+          this.checkUserCompetitionStatus();
+        }
+      }).catch(err => {})
+    },
+    resetGetPrize(){
+      $(".red-package").removeClass('hide');
+      $(".prize-get-wrap").removeClass('show');
+      this.mobile = '';
+      this.showMobileError = false;
+      this.mobileErrorText = '';
     },
     initClock(){
       let that = this;
@@ -583,6 +697,100 @@ export default {
         border: 1px solid #c1c1c1;
         border-radius: 50px;
       }
+    }
+    .prize-wrap{
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+      width: 100%;
+      height: 100%;
+      .red-package{
+        display: block;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        height: 100%;
+        &.hide{
+          display: none;
+        }
+        .bg-red-package{
+          width: 90%;
+          top: 13%;
+        }
+        .title{
+          top: 26%;
+          font-size: 42px;
+          width: 100%;
+          color: #fff;
+        }
+        .subtitle{
+          top: 40%;
+          font-size: 15px;
+          color: #fee6cc;
+          .money{
+            font-size: 30px;
+            color: #fac824;
+          }
+        }
+        .btn-open{
+          width: 30%;
+          top: 55%;
+        }
+      }
+      .prize-get-wrap{
+        display: none;
+        &.show{
+          display: block
+        }
+        .store-intro{
+          top: 25%;
+          width: 94%;
+          height: 50px;
+          text-align: center;
+          border-radius: 5px;
+          background-color: #861c13;
+          opacity: .8;
+          color: #fff;
+          .title{
+            width: 100%;
+            font-size: 15px;
+            margin-top: 8px;
+          }
+          .subtitle{
+            font-size: 11px;
+            margin-top: 3px;
+          }
+        }
+        .prize-get{
+          top: 35%;
+          width: 94%;
+          text-align: center;
+          .input-mobile{
+            top: 10%;
+            width: 87%;
+            height: 48px;
+            font-size: 14px;
+            color: #cecece;
+            line-height: 48px;
+            border-radius: 5px;
+            padding-left: 10px;
+            &::-webkit-input-placeholder{
+              color: #cecece;
+            }
+          }
+          .btn-get-prize{
+            top: 31%;
+            width: 87%;
+          }
+        }
+      }
+    }
+    .game-failed-wrap{
+      font-size: 42px;
+      color: #fff;
     }
   }
   @keyframes turn {

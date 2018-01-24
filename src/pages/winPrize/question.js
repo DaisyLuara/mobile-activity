@@ -436,7 +436,7 @@ export default {
     categary: 1
   },
   "63": {
-    name: '地球的周围有4个圈层,最外层称为 什么',
+    name: '地球的周围有4个圈层,最外层称为什么',
     choices: ["大气圈", " 水圈", "土壤岩石圈"],
     answer: 1,
     type: 1,
