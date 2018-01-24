@@ -1,8 +1,8 @@
 const customTrack = {
-  adId: 0,
+  adId: 100,
   mobileRecords: process.env.SAAS_API + '/open/track/mobileRecords',
   play_result_id: 0,
-  laId: 0
+  laId: 100
 };
 /**
  *   customTrack send function
@@ -10,7 +10,7 @@ const customTrack = {
  *   @param  {[string]}  [类别]
  *   @param  {[string]}  [值]
  */
-  //获得url中的参数
+//获得url中的参数
 function GetRequest() {
   var url = window.location.href.split('?')[1]; //获取url中"?"符后的字串
   var theRequest = new Object();
@@ -25,9 +25,11 @@ function GetRequest() {
 }
 
 var req = GetRequest();
-customTrack.adId = req['adId'];
-customTrack.laId = req['laId'];
-customTrack.play_result_id = req['recordId'];
+
+customTrack.adId = req['adId'] | undefined ? req['adId'] : 100;
+customTrack.laId = req['laId'] | undefined ? req['laId'] : 100;
+customTrack.play_result_id = req['recordId'] ? req['recordId'] : 0;
+console.log(customTrack)
 
 // mobile保存的方法
 function mobileRecords(mobileValue) {
@@ -53,6 +55,7 @@ function mobileRecords(mobileValue) {
 
 customTrack.sendMobile = function(mobileValue) {
   mobileRecords(mobileValue);
+  console.log(customTrack)
   if (_paq) {
     _paq.push(['trackEvent', customTrack.adId, customTrack.laId, 'submit_mobile_200'])
   }
