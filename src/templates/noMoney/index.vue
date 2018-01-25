@@ -108,7 +108,7 @@
       },
       linkToPhoto(){
         // 要把第一个页面的所有参数都带到photo页,因为photo页也需要链接上的参数
-        let redirect_url = window.location.origin +'/#'+ this.$route.path + '/result/';
+        let redirect_url = window.location.origin +'/#'+ this.$route.path + '/result';
         for(let param in this.$route.query){
           redirect_url = setParameter(param, this.$route.query[param], redirect_url)
         }
