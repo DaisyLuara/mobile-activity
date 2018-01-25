@@ -34,6 +34,30 @@ export default new Router({
           import ( /* webpackChunkName: "jinjia" */ 'pages/jinjia/result.vue')
       },
       {
+        path: 'winPrizeClient',
+        name: '勇闯三关屏幕端',
+        component: () =>
+          import ( /* webpackChunkName: "winPrize" */ 'pages/winPrize/client.vue')
+      },
+      {
+        path: 'winPrize',
+        name: '勇闯三关答题页',
+        component: () =>
+          import ( /* webpackChunkName: "winPrize" */ 'pages/winPrize/game.vue')
+      },
+      // {
+      //   path: 'winPrize/result',
+      //   name: '勇闯三关结果页',
+      //   component: () =>
+      //     import ( /* webpackChunkName: "winPrize" */ 'pages/winPrize/result.vue')
+      // },
+      // {
+      //   path: 'winPrize/prize',
+      //   name: '勇闯三关奖励页',
+      //   component: () =>
+      //     import ( /* webpackChunkName: "winPrize" */ 'pages/winPrize/prize.vue')
+      // }
+      {
         path: 'openBox',
         name: '开箱子',
         component: () =>
