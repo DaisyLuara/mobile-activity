@@ -25,13 +25,25 @@ export default new Router({
         path: 'jinjia',
         name: '金家',
         component: () =>
-          import ( /* webpackChunkName: "psbh" */ 'pages/jinjia/index.vue')
+          import ( /* webpackChunkName: "jinjia" */ 'pages/jinjia/index.vue')
       },
       {
         path: 'jinjia/result',
         name: '金家',
         component: () =>
-          import ( /* webpackChunkName: "psbh" */ 'pages/jinjia/result.vue')
+          import ( /* webpackChunkName: "jinjia" */ 'pages/jinjia/result.vue')
+      },
+      {
+        path: 'openBox',
+        name: '开箱子',
+        component: () =>
+          import ( /* webpackChunkName: "openBox" */ 'pages/openBox/index.vue')
+      },
+      {
+        path: 'openBox/result',
+        name: '开箱子',
+        component: () =>
+          import ( /* webpackChunkName: "openBox" */ 'pages/openBox/result.vue')
       }
     ]
   }, ],
