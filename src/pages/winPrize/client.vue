@@ -83,7 +83,7 @@ export default {
       clockOpts: {
         text: "05:00",
         sumSecs: 300,
-        n: -360 / 300, //每秒转的圆心角度
+        n: 0, //每秒转的圆心角度
         curOffset: 0,//当前弧长
       }
     }
@@ -165,7 +165,7 @@ export default {
         this.curCompetition = newCompetition;
         this.showPage = true;
         this.initQuestion();
-        this.initClock();
+        this.initClock(1);
       }).catch(err => {
         console.log(err)
       })
@@ -173,7 +173,7 @@ export default {
     restoreCompetition(inCompetition){
       let clockSec = (new Date()).getTime() - parseInt(inCompetition.begin_time);
       clockSec = Math.floor(clockSec / 1000);
-      if(clockSec >= 300){
+      if(clockSec >= this.clockOpts.sumSecs){
         this.endCurCompetition(inCompetition.objectId)
         this.creatCompetition();
         return;
@@ -222,19 +222,26 @@ export default {
     initClock(clockSec){
       // 设置半径
       let c = $("svg").width() * 0.4 * Math.PI *2;
+      let that = this;
+
+      $("#progress2").css('stroke-dashoffset', '0px');
       $("#progress1").css('stroke-dasharray',c);
       $("#progress2").css('stroke-dasharray',c);
-      if(!clockSec){
-        this.clock(1);
-      }else{
-        this.clockOpts.curOffset = (this.clockOpts.n * clockSec * Math.PI * $("svg").width() * 0.4) / 180;
-        this.clock(clockSec);
-      }
+      setTimeout(function(){
+        if(!clockSec){
+          that.clockOpts.n = 0;
+          that.clockOpts.curOffset = 0;
+          that.clock(1);
+        }else{
+          that.clockOpts.curOffset = (that.clockOpts.n * clockSec * Math.PI * $("svg").width() * 0.4) / 180;
+          that.clock(clockSec);
+        }
+      },0)
     },
     clock(sec){
       let that = this;
       let c = $("svg").width() * 0.4 * Math.PI *2;
-      if(sec >= this.clockOpts.sumSecs){
+      if(sec > this.clockOpts.sumSecs){
         // 超过5分钟新建比赛
         this.endCurCompetition(this.curCompetition.objectId);
         this.creatCompetition();
@@ -242,7 +249,7 @@ export default {
       }
 
       // 设置时间
-      let nowTime = 300 -sec;
+      let nowTime = this.clockOpts.sumSecs -sec;
       let nowTimeMin = Math.floor(nowTime / 60);
       let nowSec = nowTime % 60;
       if(nowSec < 10){
@@ -251,10 +258,9 @@ export default {
       this.clockOpts.text = "0" + nowTimeMin + ":" + nowSec;
 
       // 设置时间进度条
-      this.clockOpts.n = this.clockOpts.n - 1.2;
+      this.clockOpts.n = this.clockOpts.n - 360 / this.clockOpts.sumSecs;
       let offset = this.clockOpts.curOffset + (this.clockOpts.n * Math.PI * $("svg").width() * 0.4) / 180
       $("#progress2").css('stroke-dashoffset', offset);
-
       sec++;
       setTimeout(function(){
         that.clock(sec);
@@ -438,7 +444,7 @@ export default {
         right: 0;
         z-index: 1;
         #progress2{
-         transition: stroke-dashoffset .1s linear;
+        //  transition: stroke-dashoffset .1s linear;
         }
       }
       .clock-text{
