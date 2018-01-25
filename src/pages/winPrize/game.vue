@@ -373,7 +373,7 @@ export default {
             that.nextQuestion();
             that.clockOpts.endOldClock = false;
             that.initClock();
-            that.nextQuestionMessage = 5;
+            that.nextQuestionMessage = 3;
             clearInterval(interval);
             return;
           }
@@ -403,7 +403,9 @@ export default {
       if(this.userCompetitionRecord.result == '1'){
         this.startPrize();
       }else{
-        this.showFailedCover = true;
+        setTimeout(function(){
+          this.showFailedCover = true;
+        },3000)
       }
     },
     startPrize(){
