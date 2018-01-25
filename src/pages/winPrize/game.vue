@@ -62,8 +62,25 @@
             <div class="subtitle">长宁来福士广场（E）04层12号</div>
           </div>
           <div class="abs prize-get">
-            <input class="abs input-mobile" v-model="mobile" type="text" placeholder="请输入手机号">
-            <img @click="getPrize()" class="abs btn-get-prize" :src="imgServerUrl + '/pages/win_prize/h5_get_prize.png'">
+            <div v-show="mobileError.show" class="abs mobile-error-text">{{mobileError.text}}</div>
+            <input v-if="!showPrizeResult" class="abs input-mobile" v-model="mobile" type="text" placeholder="请输入手机号" @click="showMobileError = false">
+            <img v-if="!showPrizeResult" @click="getPrize()" class="abs btn-get-prize" :src="imgServerUrl + '/pages/win_prize/h5_get_prize.png'">
+            <div v-if="showPrizeResult" class="abs prize-result">
+              <div class="prize-account">礼包已放入账号： <span class="mobile">{{mobile}}</span></div>
+              <div class="link-use">去使用></div>
+            </div>
+            <div class="abs prize-list">
+              <div class="abs prize-item clearfix" v-for="prize in prizeInfo" v-bind:key="prize.coupon_batch_id">
+                <div class="abs left">
+                  <div class="prize-name">{{prize.name}}<span class="prize-num" v-if="prize.coupon_batch_id == 16"> X3</span></div>
+                  <div class="prize-description">{{prize.description}}</div>
+                </div>
+                <div class="abs right">
+                  <div class="prize-price">{{parseInt(prize.discount)}}元</div>
+                  <div class="prize-price-supplyment">满399使用</div>
+                </div>
+              </div>
+            </div>
             <img class="bg" :src="imgServerUrl + '/pages/win_prize/h5_prize_bg.png'">
           </div>
         </div>
@@ -74,6 +91,9 @@
         <img class="bg-failed" :src="imgServerUrl + '/pages/win_prize/h5_failed.png'">
       </div>
     </div>
+    <div class="message-alert">
+      <div class="abs text">{{messageBox.text}}</div>
+    </div>
   </div>
 </template>
 <script>
@@ -81,6 +101,7 @@ const IMAGE_SERVER = process.env.IMAGE_SERVER + "/xingshidu_h5/marketing";
 import { Cookies } from 'modules/util'
 import wxService from 'services/wx'
 import Question from './question'
+import CouponService from 'services/freecartCoupon'
 import parseService from 'modules/parseServer'
 export default {
   data(){
@@ -100,16 +121,19 @@ export default {
       nextQuestionMessage: 5, // 距离下一题开始秒数提示
       showQuestionMessage: true, //显示轮次失败
       showFailedCover: false, //显示失败
-      showMobileError: false, //显示手机错误提示,
-      mobileErrorText: '', //手机错误提示文案
+      showPrizeResult: false, //显示礼包结果
       showPrize: false, //显示奖励领取浮层
+      messageBox: {
+        // show: false,
+        text: ''
+      },
+      mobileError: {
+        show: false,
+        text: ''
+      },
       gameStatus: 0, //未参赛
-      userInfo: {
-
-      },
-      curCompetition:{ //当前轮次
-
-      },
+      userInfo: {},
+      curCompetition:{}, //当前轮次
       curQuestion: { //当前题目信息和状态
         begin: false,
         qid: '',
@@ -121,6 +145,7 @@ export default {
         end: false, //是否结束
         answer_num: [0, 0, 0] //各选项回答人数
       },
+      prizeInfo: null,
       forPrizeUserRecord: {}, // 待领取红包的用户答题记录
       userCompetitionRecord: {} // 用户的当前答题记录
     }
@@ -140,6 +165,7 @@ export default {
     // this.getWxUserInfo();
 
     // data for test
+
     this.userInfo.wx_openid = 'zjj';
     this.userInfo.head_image = 'xxxxx'
 
@@ -181,6 +207,8 @@ export default {
       parseService.get(this, this.reqUrl + 'h5_competition_records?where=' +  JSON.stringify({'status': '1'}) + '&order=-begin_time&limit=1').then(data => {
         if(data.results && data.results.length){
           this.curCompetition = data.results[0];
+          // 获取优惠券信息
+          this.getPrizeInfo();
           let timeDiffer = ((new Date()).getTime() - parseInt(this.curCompetition.begin_time)) / 1000
           // 最新竞赛已经超时
           if(timeDiffer > 300){
@@ -190,10 +218,13 @@ export default {
           // 1、题目都需要先初始化好，但不开始游戏
           this.nextQuestion();
           // 2、检查用户是否有相同类型优惠券，但未领取的记录
+          console.log(this.curCompetition.prize_id)
           let prizeSearchParams = {
-            'prize_id': this.curCompetition.prize_id,
+            'prize_type': this.curCompetition.prize_type,
+            'prize_id': {"$all":this.curCompetition.prize_id},
             'prize_status': '0',
-            'result': '1'
+            'result': '1',
+            'wx_open_id': this.userInfo.wx_openid
           }
           parseService.get(this, this.reqUrl + 'h5_competition_user_records?where=' + JSON.stringify(prizeSearchParams))
           .then(data => {
@@ -260,7 +291,7 @@ export default {
           status: '1',
           result: '',
           answers: [],
-          prize: this.curCompetition.prize,
+          prize_type: this.curCompetition.prize_type,
           prize_id: this.curCompetition.prize_id,
           prize_status: '0' //未领取优惠券
         }
@@ -307,7 +338,7 @@ export default {
       // step2 更新当前问题的状态，区分作答与未作答
       if(index == -1){
         this.curQuestion.status = 0; //未作答
-      }else if((index + 1) == Question[this.curCompetition.qids[0]].answer) {
+      }else if((index + 1) == Question[this.curCompetition.qids[this.curQuestion.number - 1]].answer) {
         this.curQuestion.status = 1; //答对
       }else {
         this.curQuestion.status = 2; //答错
@@ -384,35 +415,78 @@ export default {
       $(".prize-get-wrap").addClass('show');
     },
     getPrize(){
-      // 已经有待领取的红包，那么是等领取结束后，要继续本轮游戏
-      let continueGompetition = false;
-      let prizeUserRecord = {} //领取红包的用户记录
-      if(this.forPrizeUserRecord.objectId){
-        continueGompetition = true;
-        prizeUserRecord = this.forPrizeUserRecord;
-      }else{
-        prizeUserRecord = this.userCompetitionRecord;
-      }
-
-      // 领券成功后，更新用户领券信息，检查用户是否需要继续比赛还是结束比赛
-      alert("领券成功")
-      let params = {
-        'prize_status': '1'
-      }
-      parseService.put(this,this.reqUrl + 'h5_competition_user_records/' + prizeUserRecord.objectId, JSON.stringify(params)).then(res => {
-        if(continueGompetition){
-          this.showPrize = false;
-          this.resetGetPrize();
-          this.checkUserCompetitionStatus();
+      // 领礼包前先查询用户是否已领过此大礼包
+      let that = this;
+      if(this.forPrizeUserRecord.prize_status == '0' || this.userCompetitionRecord.prize_status == '0'){
+        // 已经有待领取的红包，那么是等领取结束后，要继续本轮游戏
+        let continueGompetition = false;
+        let prizeUserRecord = {} //领取红包的用户记录
+        if(this.forPrizeUserRecord.objectId){
+          continueGompetition = true;
+          prizeUserRecord = this.forPrizeUserRecord;
+        }else{
+          prizeUserRecord = this.userCompetitionRecord;
         }
-      }).catch(err => {})
+
+        if(!(/^1[34578]\d{9}$/.test(this.mobile))){
+          this.mobileError.show = true;
+          this.mobileError.text = '请输入正确的手机号';
+          return;
+        }
+        // 领礼包成功后，更新用户领礼包信息，检查用户是否需要继续比赛还是结束比赛
+        let params = {
+          "mobile": this.mobile,
+          "coupon_batch_id": this.curCompetition.prize_id,
+          "sms_template": 'SEND_MARKETING_COUPONS'
+        }
+        CouponService.createCoupon(this, params).then(data => {
+          let params = {
+            'prize_status': '1',
+            'mobile': this.mobile
+          }
+          parseService.put(this,this.reqUrl + 'h5_competition_user_records/' + prizeUserRecord.objectId, JSON.stringify(params)).then(res => {
+            this.userCompetitionRecord.prize_status = '1';
+            this.userCompetitionRecord.mobile = this.mobile;
+            this.forPrizeUserRecord.prize_status = '1';
+            this.forPrizeUserRecord.mobile = this.mobile;
+            this.showPrizeResult = true;
+            if(continueGompetition){
+              this.messageBox.text = '红包领取成功，请继续答题';
+              $(".message-alert").fadeIn(500);
+              setTimeout(function(){
+                $(".message-alert").fadeOut(500);
+              },1000)
+              setTimeout(function(){
+                that.showPrize = false;
+                that.resetGetPrize();
+                that.checkUserCompetitionStatus();
+              }, 2000)
+            }
+          }).catch(err => {
+            console.log(err)
+          })
+        }).catch(err => {
+          console.log(err)
+        })
+      }else{
+        this.showPrizeResult = true;
+      }
     },
     resetGetPrize(){
       $(".red-package").removeClass('hide');
       $(".prize-get-wrap").removeClass('show');
       this.mobile = '';
-      this.showMobileError = false;
-      this.mobileErrorText = '';
+      this.mobileError.show = false;
+      this.mobileError.text = '';
+    },
+    getPrizeInfo(){
+      CouponService.getCoupon(this, this.curCompetition.prize_id).then(res => {
+        if(res.data && res.data.length){
+          this.prizeInfo = res.data;
+        }
+      }).catch(err =>{
+        console.log(err)
+      })
     },
     initClock(){
       let that = this;
@@ -768,12 +842,92 @@ export default {
           top: 35%;
           width: 94%;
           text-align: center;
+          .mobile-error-text{
+            color: red;
+            top: 2.5%;
+            left: 7%;
+            right: auto;
+            font-size: 12px;
+            text-align: left;
+          }
+          .prize-result{
+            padding: 0 7%;
+            top: 25%;
+            .prize-account{
+              float: left;
+              font-size: 12px;
+              color: #000;
+              .mobile{
+                color: red;
+              }
+            }
+            .link-use{
+              float: right;
+              font-size: 13px;
+              font-weight: 100;
+              color: #a9a3a3;
+            }
+          }
+          .prize-list{
+            border: 1px solid red;
+            top: 52%;
+            width: 86%;
+            height: 0;
+            padding-bottom: 36%;
+            .prize-item{
+              top: 0;
+              height: 50%;
+              width: 100%;
+              &:nth-child(2){
+                top: 54%;
+              }
+              .left{
+                top: 0;
+                bottom: 0;
+                width: 73%;
+                height: 64%;
+                margin: auto 0;
+                text-align: left;
+                padding-left: 17%;
+                .prize-name{
+                  color: red;
+                  font-size: 15px;
+                  .prize-num{
+                    color: #000;
+                    font-size: 14px;
+                  }
+                }
+                .prize-description{
+                  font-size: 12px;
+                  color: #c1c1c1;
+                  margin-top: 5px;
+                }
+              }
+              .right{
+                top: 0;
+                bottom: 0;
+                right: 0;
+                width: 27%;
+                left: auto;
+                height: 80%;
+                margin: auto 0;
+                .prize-price{
+                  font-size: 26px;
+                  color: red;
+                }
+                .prize-price-supplyment{
+                  font-size: 12px;
+                  color: #c1c1c1;
+                }
+              }
+            }
+          }
           .input-mobile{
             top: 10%;
             width: 87%;
             height: 48px;
             font-size: 14px;
-            color: #cecece;
+            color: #000;
             line-height: 48px;
             border-radius: 5px;
             padding-left: 10px;
@@ -791,6 +945,39 @@ export default {
     .game-failed-wrap{
       font-size: 42px;
       color: #fff;
+      height: 100%;
+      img{
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+  .message-alert{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 200px;
+    margin: auto;
+    height: 100px;
+    z-index: 1000;
+    display: none;
+    border-radius: 10px;
+    // transition: all 500s;
+    background: rgba(0,0,0,.8);
+    .text{
+      font-size: 15px;
+      color: #fff;
+      padding: 0 30px;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      height: 30px;
+      .sec{
+        font-size: 15px;
+        color: red;
+      }
     }
   }
   @keyframes turn {

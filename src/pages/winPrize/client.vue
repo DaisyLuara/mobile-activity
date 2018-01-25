@@ -122,12 +122,14 @@ export default {
       let newCompetition = {
         qids: '',
         answers: '',
-        prize: '',
+        answer_num: [[0,0,0],[0,0,0],[0,0,0]],
+        prize_type: '1',
+        prize_id: [16,17],
         status: '1',
         begin_time: ''
       }
 
-      // 第一题从简单题1-26选择，后两题从27-end随机选择
+      // 第一题从简单题27-end选择，后两题1-26选择
       let searchArea = {
         'status': '0'
       }
@@ -151,10 +153,7 @@ export default {
         for(let i = 0, length = newCompetition.qids.length; i < length; i++){
           tempAnswerArry.push(Question[newCompetition.qids[i]].answer);
         }
-        newCompetition.answer_num = [[0,0,0],[0,0,0],[0,0,0]];
         newCompetition.answers = tempAnswerArry;
-        newCompetition.prize = '1';
-        newCompetition.prize_id = '123';
         newCompetition.begin_time = (new Date()).getTime() + '';
         parseService.post(this, this.reqUrl, newCompetition).then(res => {
           this.curCompetition.objectId = res.data.objectId;
@@ -188,7 +187,7 @@ export default {
     createQuestions(){
       let qids = [];
       while(qids.length < 1){
-        let firstQ = Math.floor(Math.random()*26+1);
+        let firstQ = Math.floor(Math.random()*(106-27+1)+27);
         if(!this.preQuestionIds.includes(firstQ.toString())){
           qids.push(firstQ)
         }
@@ -196,7 +195,7 @@ export default {
       }
 
       while(qids.length < 3){
-        let qid = Math.floor(Math.random()*(106-27+1)+27); //27 -106
+        let qid = Math.floor(Math.random()*106+1);
         if(!qids.includes(qid)){
           qids.push(qid)
         }
