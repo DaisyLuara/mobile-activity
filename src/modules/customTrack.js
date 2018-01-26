@@ -14,11 +14,13 @@ const customTrack = {
 function GetRequest() {
   var url = window.location.href.split('?')[1]; //获取url中"?"符后的字串
   var theRequest = new Object();
-  if (url.indexOf("?") == -1) {
-    var str = url;
-    var strs = str.split("&");
-    for (var i = 0; i < strs.length; i++) {
-      theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+  if (url) {
+    if (url.indexOf("?") == -1) {
+      var str = url;
+      var strs = str.split("&");
+      for (var i = 0; i < strs.length; i++) {
+        theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+      }
     }
   }
   return theRequest;
@@ -30,7 +32,6 @@ customTrack.adId = req['adId'] | undefined ? req['adId'] : 100;
 customTrack.laId = req['laId'] | undefined ? req['laId'] : 100;
 customTrack.play_result_id = req['recordId'] ? req['recordId'] : 0;
 console.log(customTrack)
-console.log(req['adId'])
 
 // mobile保存的方法
 function mobileRecords(mobileValue) {
