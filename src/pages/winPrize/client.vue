@@ -82,6 +82,7 @@ export default {
       Question: Question,
       clockOpts: {
         text: "05:00",
+        originText: '05:00',
         sumSecs: 300,
         n: 0, //每秒转的圆心角度
         curOffset: 0,//当前弧长
@@ -119,6 +120,7 @@ export default {
       })
     },
     creatCompetition(){
+      let that = this;
       let newCompetition = {
         qids: '',
         answers: '',
@@ -164,8 +166,11 @@ export default {
         // 显示页面、初始化时钟
         this.curCompetition = newCompetition;
         this.showPage = true;
+        this.clockOpts.text = this.clockOpts.originText;
+        setTimeout(function(){
+          that.initClock(1);
+        },1000)
         this.initQuestion();
-        this.initClock(1);
       }).catch(err => {
         console.log(err)
       })
@@ -228,7 +233,7 @@ export default {
       $("#progress1").css('stroke-dasharray',c);
       $("#progress2").css('stroke-dasharray',c);
       setTimeout(function(){
-        if(!clockSec){
+        if(clockSec == 1){
           that.clockOpts.n = 0;
           that.clockOpts.curOffset = 0;
           that.clock(1);
@@ -250,12 +255,13 @@ export default {
       }
 
       // 设置时间
-      let nowTime = this.clockOpts.sumSecs -sec;
+      let nowTime = this.clockOpts.sumSecs - sec;
       let nowTimeMin = Math.floor(nowTime / 60);
       let nowSec = nowTime % 60;
       if(nowSec < 10){
         nowSec = "0" + nowSec;
       }
+
       this.clockOpts.text = "0" + nowTimeMin + ":" + nowSec;
 
       // 设置时间进度条
