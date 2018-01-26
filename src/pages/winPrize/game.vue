@@ -373,7 +373,7 @@ export default {
             that.nextQuestion();
             that.clockOpts.endOldClock = false;
             that.initClock();
-            that.nextQuestionMessage = 5;
+            that.nextQuestionMessage = 3;
             clearInterval(interval);
             return;
           }
@@ -384,6 +384,7 @@ export default {
       })
     },
     endCompetition(){
+      let that = this;
       this.showQuestionMessage = false;
       // 更新用户答题状态、status、result
       this.userCompetitionRecord.status = '0'
@@ -403,7 +404,9 @@ export default {
       if(this.userCompetitionRecord.result == '1'){
         this.startPrize();
       }else{
-        this.showFailedCover = true;
+        setTimeout(function(){
+          that.showFailedCover = true;
+        },3000)
       }
     },
     startPrize(){
