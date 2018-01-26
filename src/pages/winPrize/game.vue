@@ -384,6 +384,7 @@ export default {
       })
     },
     endCompetition(){
+      let that = this;
       this.showQuestionMessage = false;
       // 更新用户答题状态、status、result
       this.userCompetitionRecord.status = '0'
@@ -404,7 +405,7 @@ export default {
         this.startPrize();
       }else{
         setTimeout(function(){
-          this.showFailedCover = true;
+          that.showFailedCover = true;
         },3000)
       }
     },
