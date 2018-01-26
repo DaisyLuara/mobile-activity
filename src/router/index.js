@@ -57,6 +57,18 @@ export default new Router({
       //   component: () =>
       //     import ( /* webpackChunkName: "winPrize" */ 'pages/winPrize/prize.vue')
       // }
+      {
+        path: 'openBox',
+        name: '开箱子',
+        component: () =>
+          import ( /* webpackChunkName: "openBox" */ 'pages/openBox/index.vue')
+      },
+      {
+        path: 'openBox/result',
+        name: '开箱子照片页',
+        component: () =>
+          import ( /* webpackChunkName: "openBox" */ 'pages/openBox/result.vue')
+      }
     ]
   }, ],
 });
