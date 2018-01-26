@@ -5,9 +5,7 @@
     <input type="text" class="mobile" maxlength="11" placeholder="请输入你的手机号" v-model="mobileNum" @click="phoneError = false"/>
     <div class="boots-wrap">
     <div class="error" v-show="phoneError">{{errorText}}</div>
-      <img class="phone_btn_1" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/open_box/phone_btn_1.png" @click="redirectToPhoto">
-      <!-- <img class="phone_btn_2" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/open_box/phone_btn_2.png"> -->
-      <!-- <div class="boot-img" ></div> -->
+      <img class="confrim_btn" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/open_box/confirm_btn.png" @click="redirectToPhoto">
     </div>
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
@@ -16,6 +14,9 @@
 import { setParameter } from 'modules/util'
 import { customTrack } from 'modules/customTrack'
 import WxShare from 'modules/wxShare.vue'
+import wxService from 'services/wx'
+import parseService from 'modules/parseServer'
+
 export default {
   components: {
     WxShare
@@ -25,11 +26,13 @@ export default {
       mobileNum: '',
       phoneError: true,
       errorText: '',
+      reqUrl: 'http://120.27.144.62:1337/parse/classes/',
       wxShareInfoValue:{
         title: '寻宝箱 开好礼',
         desc: '新年至 小星在各大商圈准备了海量神秘宝箱！找到小星 发现好礼！！',
         imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/openBox_share_icon.png'
-      }
+      },
+      userInfo: {}
     }
   },
   beforeCreate(){
@@ -37,66 +40,43 @@ export default {
   },
   mounted(){
     $(".phone-content").css('height', $(window).height());
-    // $('.boot-img').off('touchstart', this.slideEnter)
-    // $('.boot-img').on('touchstart', this.slideEnter)
   },
   created(){
+    
   },
   methods:{
+    saveWxInfo(data){
+      this.userInfo.name = 'test'
+      this.userInfo.headImgUrl = 'testUrl';
+      this.userInfo.gifType = this.$route.query.type
+      // this.userInfo.name = data.nickname
+      // this.userInfo.headImgUrl = data.headimgurl;
+      // this.userInfo.gifType = this.$route.query.type
+      parseService.post(this, this.reqUrl + 'open_the_box', this.userInfo).then(res => {
+        console.log('保存成功')
+      }).catch(err => {
+        console.log(err)
+      });
+    },
     redirectToPhoto(){
         if(!(/^1[34578]\d{9}$/.test(this.mobileNum))){
         this.phoneError = true;
         this.errorText = '手机号码格式不正确';
         return;
       }else{
+          //测试
+          this.saveWxInfo()
           customTrack.sendMobile(this.mobileNum);
           this.linkToPhoto()
       }
     },
-    // slideEnter(e){
-    //   e.preventDefault();
-    //   $('.boot-img').on('touchmove', this.slideMove);
-    //   $('.boot-img').on('touchend', this.slideEnd);
-    // },
-    // slideMove(e){
-    //   if(!(/^1[34578]\d{9}$/.test(this.mobileNum))){
-    //     this.phoneError = true;
-    //     this.errorText = '手机号码格式不正确';
-    //       $('.boot-img').off('touchstart', this.slideEnter);
-    //       $('.boot-img').on('touchstart', this.slideEnter)
-    //     return;
-    //   }else{
-    //     let slide_wid = $('.boots-wrap').width()*0.9,
-    //     start_pos = $('.boots-wrap').offset().left,
-    //     end_pos = start_pos + slide_wid - $('.boot-img').width();
-    //     let moveX = e.originalEvent.touches[0].clientX,
-    //       diff = moveX - start_pos,
-    //       curr_pos = 0,
-    //       percent = 0;
-    //     if (diff <= 0 || $('.boot-img').offset().left < start_pos) {
-    //       curr_pos = 0;
-    //     } else {
-    //       curr_pos = diff - $('.boot-img').width() / 2;
-    //     }
-    //     if (diff > end_pos) {
-    //       curr_pos = end_pos - start_pos;
-    //       $('.boot-img').off('touchstart', this.slideEnter);
-    //       $('.boot-img').off('touchmove', this.slideMove);
-    //       $('.boot-img').off('touchend', this.slideMove);
-    //     }
-    //     percent = curr_pos / (end_pos - start_pos) * 100;
-    //     if(percent == 100){
-    //       //提交手机号统计
-    //        customTrack.sendMobile(this.mobileNum);
-    //       this.linkToPhoto()
-    //     }
-    //     $('.boot-img').css('left', curr_pos);
-    //   }
-        
-    // },
-    // slideEnd(){
-    //   $('.boot-img').off('touchmove', this.slideMove);
-    // },
+    getWxUserInfo(){
+      wxService.getWxUserInfo(this).then(wdata => {
+        this.saveWxInfo(wdata)
+      }).catch(err => {
+        console.log('err')
+      })
+    },
     linkToPhoto(){
       let redirect_url = window.location.origin +'/#'+ this.$route.path + '/result';
       for(let param in this.$route.query){
@@ -164,34 +144,15 @@ export default {
     .error{
       position: absolute;
       top: 15%;
-      left: 29%;
+      left: 35%;
       color: red;
       font-size: 14px;
     }
-    .phone_btn_1{
-      width: 80%;
+    .confrim_btn{
+      width: 30%;
       top: 25%;
-      left: 10%;
+      left: 35%;
       position: absolute;
-    }
-    .phone_btn_2{
-      width: 80%;
-      top: 25%;
-      left: 10%;
-      position: absolute;
-      animation: arrowsBg 1.5s ease-out infinite alternate;
-    }
-    .boot-img{
-      position: absolute;
-      top: 24%;
-      bottom: 0;
-      left: 6%;
-      width: 20%;
-      z-index: 5;
-      background-repeat: no-repeat;
-      background-size: 100%;
-      background-image: url("@{imageHost}/phone_btn.png");
-      transition: background .5s;
     }
   }
   .mobile::-webkit-input-placeholder {
