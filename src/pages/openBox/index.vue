@@ -18,105 +18,105 @@ import { customTrack } from 'modules/customTrack'
 import WxShare from 'modules/wxShare.vue'
 export default {
   components: {
-      WxShare
-    },
-   data() {
-      return {
-        mobileNum: '',
-        phoneError: true,
-        errorText: '',
-        wxShareInfo:{
-          title: '寻宝箱 开好礼',
-          desc: '新年至 小星在各大商圈准备了海量神秘宝箱！找到小星 发现好礼！！',
-          imgUrl: ''
-        }
+    WxShare
+  },
+  data() {
+    return {
+      mobileNum: '',
+      phoneError: true,
+      errorText: '',
+      wxShareInfoValue:{
+        title: '寻宝箱 开好礼',
+        desc: '新年至 小星在各大商圈准备了海量神秘宝箱！找到小星 发现好礼！！',
+        imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/openBox_share_icon.png'
+      }
+    }
+  },
+  beforeCreate(){
+    document.title = '开箱子'
+  },
+  mounted(){
+    $(".phone-content").css('height', $(window).height());
+    // $('.boot-img').off('touchstart', this.slideEnter)
+    // $('.boot-img').on('touchstart', this.slideEnter)
+  },
+  created(){
+  },
+  methods:{
+    redirectToPhoto(){
+        if(!(/^1[34578]\d{9}$/.test(this.mobileNum))){
+        this.phoneError = true;
+        this.errorText = '手机号码格式不正确';
+        return;
+      }else{
+          customTrack.sendMobile(this.mobileNum);
+          this.linkToPhoto()
       }
     },
-    beforeCreate(){
-      document.title = '开箱子'
-    },
-    mounted(){
-      $(".phone-content").css('height', $(window).height());
-      // $('.boot-img').off('touchstart', this.slideEnter)
-      // $('.boot-img').on('touchstart', this.slideEnter)
-    },
-    created(){
-    },
-    methods:{
-      redirectToPhoto(){
-         if(!(/^1[34578]\d{9}$/.test(this.mobileNum))){
-          this.phoneError = true;
-          this.errorText = '手机号码格式不正确';
-          return;
-        }else{
-           customTrack.sendMobile(this.mobileNum);
-           this.linkToPhoto()
-        }
-      },
-      // slideEnter(e){
-      //   e.preventDefault();
-      //   $('.boot-img').on('touchmove', this.slideMove);
-      //   $('.boot-img').on('touchend', this.slideEnd);
-      // },
-      // slideMove(e){
-      //   if(!(/^1[34578]\d{9}$/.test(this.mobileNum))){
-      //     this.phoneError = true;
-      //     this.errorText = '手机号码格式不正确';
-      //       $('.boot-img').off('touchstart', this.slideEnter);
-      //       $('.boot-img').on('touchstart', this.slideEnter)
-      //     return;
-      //   }else{
-      //     let slide_wid = $('.boots-wrap').width()*0.9,
-      //     start_pos = $('.boots-wrap').offset().left,
-      //     end_pos = start_pos + slide_wid - $('.boot-img').width();
-      //     let moveX = e.originalEvent.touches[0].clientX,
-      //       diff = moveX - start_pos,
-      //       curr_pos = 0,
-      //       percent = 0;
-      //     if (diff <= 0 || $('.boot-img').offset().left < start_pos) {
-      //       curr_pos = 0;
-      //     } else {
-      //       curr_pos = diff - $('.boot-img').width() / 2;
-      //     }
-      //     if (diff > end_pos) {
-      //       curr_pos = end_pos - start_pos;
-      //       $('.boot-img').off('touchstart', this.slideEnter);
-      //       $('.boot-img').off('touchmove', this.slideMove);
-      //       $('.boot-img').off('touchend', this.slideMove);
-      //     }
-      //     percent = curr_pos / (end_pos - start_pos) * 100;
-      //     if(percent == 100){
-      //       //提交手机号统计
-      //        customTrack.sendMobile(this.mobileNum);
-      //       this.linkToPhoto()
-      //     }
-      //     $('.boot-img').css('left', curr_pos);
-      //   }
-         
-      // },
-      // slideEnd(){
-      //   $('.boot-img').off('touchmove', this.slideMove);
-      // },
-      linkToPhoto(){
-        let redirect_url = window.location.origin +'/#'+ this.$route.path + '/result';
-        for(let param in this.$route.query){
-          redirect_url = setParameter(param, this.$route.query[param], redirect_url)
-        }
-        window.location.href = redirect_url;
+    // slideEnter(e){
+    //   e.preventDefault();
+    //   $('.boot-img').on('touchmove', this.slideMove);
+    //   $('.boot-img').on('touchend', this.slideEnd);
+    // },
+    // slideMove(e){
+    //   if(!(/^1[34578]\d{9}$/.test(this.mobileNum))){
+    //     this.phoneError = true;
+    //     this.errorText = '手机号码格式不正确';
+    //       $('.boot-img').off('touchstart', this.slideEnter);
+    //       $('.boot-img').on('touchstart', this.slideEnter)
+    //     return;
+    //   }else{
+    //     let slide_wid = $('.boots-wrap').width()*0.9,
+    //     start_pos = $('.boots-wrap').offset().left,
+    //     end_pos = start_pos + slide_wid - $('.boot-img').width();
+    //     let moveX = e.originalEvent.touches[0].clientX,
+    //       diff = moveX - start_pos,
+    //       curr_pos = 0,
+    //       percent = 0;
+    //     if (diff <= 0 || $('.boot-img').offset().left < start_pos) {
+    //       curr_pos = 0;
+    //     } else {
+    //       curr_pos = diff - $('.boot-img').width() / 2;
+    //     }
+    //     if (diff > end_pos) {
+    //       curr_pos = end_pos - start_pos;
+    //       $('.boot-img').off('touchstart', this.slideEnter);
+    //       $('.boot-img').off('touchmove', this.slideMove);
+    //       $('.boot-img').off('touchend', this.slideMove);
+    //     }
+    //     percent = curr_pos / (end_pos - start_pos) * 100;
+    //     if(percent == 100){
+    //       //提交手机号统计
+    //        customTrack.sendMobile(this.mobileNum);
+    //       this.linkToPhoto()
+    //     }
+    //     $('.boot-img').css('left', curr_pos);
+    //   }
+        
+    // },
+    // slideEnd(){
+    //   $('.boot-img').off('touchmove', this.slideMove);
+    // },
+    linkToPhoto(){
+      let redirect_url = window.location.origin +'/#'+ this.$route.path + '/result';
+      for(let param in this.$route.query){
+        redirect_url = setParameter(param, this.$route.query[param], redirect_url)
       }
-    },
-    computed: {
+      window.location.href = redirect_url;
+    }
+  },
+  computed: {
     wxShareInfo() {
       let wxShareInfo = {
-        title: this.wxShareInfo.title,
-        desc: this.wxShareInfo.desc,
-        imgUrl: this.wxShareInfo.imgUrl,
+        title: this.wxShareInfoValue.title,
+        desc: this.wxShareInfoValue.desc,
+        imgUrl: this.wxShareInfoValue.imgUrl,
         success: () => {
           customTrack.shareWeChat()
         }
       }
       return wxShareInfo;
-     }
+    }
   }
 }
 </script>

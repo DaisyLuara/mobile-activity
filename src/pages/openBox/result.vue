@@ -11,13 +11,24 @@
        <img alt="" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/open_box/save.png" class="save"/>
       </div>
     </div>
+    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
 </template>
 <script>
+import { customTrack } from 'modules/customTrack'
+import WxShare from 'modules/wxShare.vue'
 export default {
+  components: {
+    WxShare
+  },
   data (){
     return {
-      resultImgUrl: ''
+      resultImgUrl: '',
+      wxShareInfoValue:{
+        title: '寻宝箱 开好礼',
+        desc: '新年至 小星在各大商圈准备了海量神秘宝箱！找到小星 发现好礼！！',
+        imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/openBox_share_icon.png'
+      }
     }
   },
   beforeCreate(){
@@ -40,6 +51,19 @@ export default {
   },
   mounted(){
     $(".report-wrap").css('min-height', $(window).height());
+  },
+  computed: {
+    wxShareInfo() {
+      let wxShareInfo = {
+        title: this.wxShareInfoValue.title,
+        desc: this.wxShareInfoValue.desc,
+        imgUrl: this.wxShareInfoValue.imgUrl,
+        success: () => {
+          customTrack.shareWeChat()
+        }
+      }
+      return wxShareInfo;
+    }
   }
 }
 </script>
