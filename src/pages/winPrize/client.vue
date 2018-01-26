@@ -200,7 +200,7 @@ export default {
       }
 
       while(qids.length < 3){
-        let qid = Math.floor(Math.random()*106+1);
+        let qid = Math.floor(Math.random()*26+1);
         if(!qids.includes(qid)){
           qids.push(qid)
         }
