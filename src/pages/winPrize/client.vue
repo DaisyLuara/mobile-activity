@@ -233,6 +233,7 @@ export default {
           that.clockOpts.curOffset = 0;
           that.clock(1);
         }else{
+          that.clockOpts.n = that.clockOpts.n - 360 / that.clockOpts.sumSecs;
           that.clockOpts.curOffset = (that.clockOpts.n * clockSec * Math.PI * $("svg").width() * 0.4) / 180;
           that.clock(clockSec);
         }
