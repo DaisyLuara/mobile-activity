@@ -9,10 +9,17 @@
       <img class="phone_btn_2" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/open_box/phone_btn_2.png">
       <div class="boot-img"></div>
     </div>
+    <!-- <wx-share :WxShareInfo="wxShareInfo"></wx-share> -->
   </div>
 </template>
 <script>
+import { setParameter } from 'modules/util'
+import { customTrack } from 'modules/customTrack'
+import WxShare from 'modules/wxShare.vue'
 export default {
+  components: {
+      WxShare
+    },
    data() {
       return {
         mobileNum: '',
@@ -64,6 +71,8 @@ export default {
           }
           percent = curr_pos / (end_pos - start_pos) * 100;
           if(percent == 100){
+            //提交手机号统计
+             customTrack.sendMobile(this.mobileNum);
             this.linkToPhoto()
           }
           $('.boot-img').css('left', curr_pos);
@@ -80,7 +89,20 @@ export default {
         }
         window.location.href = redirect_url;
       }
-    }
+    },
+    computed: {
+    // wxShareInfo() {
+    //   let wxShareInfo = {
+    //     title: this.marketingOptions.wxShareInfo.title,
+    //     desc: this.marketingOptions.wxShareInfo.desc,
+    //     imgUrl: this.marketingOptions.wxShareInfo.imgUrl,
+    //     success: () => {
+    //       customTrack.shareWeChat()
+    //     }
+    //   }
+    //   return wxShareInfo;
+    //  }
+  }
 }
 </script>
 <style lang="less" scoped>
@@ -192,11 +214,12 @@ export default {
     background-size: cover;
     background-repeat: no-repeat; 
   }
-}
-@keyframes arrowsBg {
+  @keyframes arrowsBg {
   0% {opacity: 0;}
   100% {opacity: 1;}
+  }
 }
+
 </style>
 
 

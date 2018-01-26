@@ -29,7 +29,7 @@ export default new Router({
       },
       {
         path: 'jinjia/result',
-        name: '金家',
+        name: '金家照片页',
         component: () =>
           import ( /* webpackChunkName: "jinjia" */ 'pages/jinjia/result.vue')
       },
@@ -65,7 +65,7 @@ export default new Router({
       },
       {
         path: 'openBox/result',
-        name: '开箱子',
+        name: '开箱子照片页',
         component: () =>
           import ( /* webpackChunkName: "openBox" */ 'pages/openBox/result.vue')
       }
