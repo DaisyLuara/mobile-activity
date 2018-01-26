@@ -29,7 +29,7 @@ export default new Router({
       },
       {
         path: 'jinjia/result',
-        name: '金家照片页',
+        name: '金家',
         component: () =>
           import ( /* webpackChunkName: "jinjia" */ 'pages/jinjia/result.vue')
       },
