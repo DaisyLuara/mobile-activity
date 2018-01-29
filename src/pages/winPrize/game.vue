@@ -119,7 +119,7 @@
 const IMAGE_SERVER = process.env.IMAGE_SERVER + "/xingshidu_h5/marketing";
 import { Cookies } from 'modules/util'
 import wxService from 'services/wx'
-import Question from './question'
+import Question from './question0129'
 import CouponService from 'services/freecartCoupon'
 import parseService from 'modules/parseServer'
 export default {
