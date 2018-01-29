@@ -21,7 +21,7 @@
 <script>
   const marketing_image_server = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing';
   import { getParamsMap, getParameter, setParameter } from 'modules/util'
-  import { customTrack } from 'services/customTrack'
+  import { customTrack } from 'modules/customTrack'
   export default {
     props: ['marketingOptions'],
     computed: {
@@ -102,12 +102,13 @@
           this.errorText = '手机号码格式不正确';
           return;
         }
-        customTrack.sendMobile(this.$route.query.ad_id, this.mobileNum);
+        //提交手机号统计
+        customTrack.sendMobile(this.mobileNum);
         this.linkToPhoto();
       },
       linkToPhoto(){
         // 要把第一个页面的所有参数都带到photo页,因为photo页也需要链接上的参数
-        let redirect_url = window.location.origin +'/#'+ this.$route.path + '/result/';
+        let redirect_url = window.location.origin +'/#'+ this.$route.path + '/result';
         for(let param in this.$route.query){
           redirect_url = setParameter(param, this.$route.query[param], redirect_url)
         }

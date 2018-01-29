@@ -19,9 +19,9 @@
             let resData = response.data.data;
             let wx_config = {
               debug: false,
-              appId: resData.appid,
+              appId: resData.appId,
               timestamp: resData.timestamp,
-              nonceStr: resData.noncestr,
+              nonceStr: resData.nonceStr,
               signature: resData.signature,
               jsApiList: [
                 'onMenuShareAppMessage',
