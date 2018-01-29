@@ -790,6 +790,10 @@ export default {
       .count-3{
         animation: turn4 .25s 3.5s ease-in-out;
       }
+      .prize-wrap{
+        animation: bounceIn .75s;
+        animation-fill-mode: both;
+      }
     }
     .title{
       width: 35%;
@@ -863,6 +867,7 @@ export default {
       margin: auto;
       width: 100%;
       height: 100%;
+      transform: scale(.1);
       .red-package{
         display: block;
         top: 0;
@@ -1126,6 +1131,32 @@ export default {
   @keyframes hide {
     100%{
       opacity: 0;
+    }
+  }
+  @keyframes bounceIn {
+    0%, 20%, 40%, 60%, 80%, 100% {
+    animation-timing-function: cubic-bezier(.215,.61,.355,1);
+    }
+    0% {
+        opacity: 0;
+        transform: scale3d(.3,.3,.3);
+    }
+    20% {
+        transform: scale3d(.6,.6,.6);
+    }
+    40% {
+        transform: scale3d(1,1,1);
+    }
+    60% {
+        opacity: 1;
+        transform: scale3d(1.04,1.04,1.04);
+    }
+    80% {
+        transform: scale3d(.99,.99,.99);
+    }
+    100% {
+        opacity: 1;
+        transform: scaleX(1);
     }
   }
 }
