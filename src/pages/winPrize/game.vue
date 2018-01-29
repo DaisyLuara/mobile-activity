@@ -111,6 +111,8 @@
     <div class="message-alert">
       <div class="abs text">{{messageBox.text}}</div>
     </div>
+    <audio id="beginMusic" loop="" preload="auto" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/win_prize/3.mp3"></audio>
+    <audio id="answerMusic" loop="" preload="auto" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/win_prize/10.mp3"></audio>
   </div>
 </template>
 <script>
@@ -329,6 +331,7 @@ export default {
           prize_status: '0' //未领取优惠券
         }
         parseService.post(this, this.reqUrl + 'h5_competition_user_records', this.userCompetitionRecord).then(res => {
+          $("#beginMusic")[0].play()
           this.showCover = true;
           this.curQuestion.begin = true;
           this.userCompetitionRecord.objectId = res.data.objectId;
@@ -337,14 +340,18 @@ export default {
           console.log(err)
         });
       }else{
+        $("#beginMusic")[0].play()
         this.showCover = true;
         this.curQuestion.begin = true;
       }
       // 4.5秒后开始游戏
       setTimeout(function(){
+        $("#beginMusic")[0].pause();
+        $("#beginMusic")[0].currentTime = 0;
+
         that.showCover = false;
         that.initClock();
-      },4500)
+      },6000)
     },
     nextQuestion(){
       this.curQuestion.number = this.curQuestion.number + 1;
@@ -394,6 +401,8 @@ export default {
         this.curQuestion.answer_num = this.curCompetition.answer_num[this.curQuestion.number - 1] ? this.curCompetition.answer_num[this.curQuestion.number - 1] : [0,0,0];
         this.curQuestion.end = true;
         this.clockOpts.endOldClock = true;
+        $("#answerMusic")[0].pause();
+        $("#answerMusic")[0].currentTime = 0;
         if(!Question[this.curCompetition.qids[this.curQuestion.number]] || this.curQuestion.status == 0 || this.curQuestion.status == 2){
           // 答题结束
           this.endCompetition();
@@ -536,6 +545,7 @@ export default {
       $("#progress1").css('stroke-dasharray',c).css('stroke-dashoffset','0px');
       $("#progress2").css('stroke-dasharray',c).css('stroke-dashoffset','0px');
       this.clockOpts.text = '10';
+      $("#answerMusic")[0].play();
       this.clock(0);
     },
     clock(sec){
@@ -770,13 +780,13 @@ export default {
     &.show{
       display: block;
       .count-1{
-        animation: turn .75s .5s ease-in-out;
+        animation: turn .25s 1.5s ease-in-out;
       }
       .count-2{
-        animation: turn2 .75s .5s ease-in-out, turn3 .75s 1.55s ease-in-out;
+        animation: turn2 .25s 1.5s ease-in-out, turn3 .25s 3.5s ease-in-out;
       }
       .count-3{
-        animation: turn4 .75s 1.55s ease-in-out;
+        animation: turn4 .25s 3.5s ease-in-out;
       }
     }
     .title{
@@ -1081,6 +1091,9 @@ export default {
         color: red;
       }
     }
+  }
+  #answerMusic,#beginMusic{
+    display: none;
   }
   @keyframes turn {
     100%{
