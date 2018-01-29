@@ -68,6 +68,12 @@ export default new Router({
         name: '开箱子照片页',
         component: () =>
           import ( /* webpackChunkName: "openBox" */ 'pages/openBox/result.vue')
+      },
+      {
+        path: 'dog',
+        name: '狗年汪情缘',
+        component: () =>
+          import ( /* webpackChunkName: "dog" */ 'pages/dog/index.vue')
       }
     ]
   }, ],

@@ -11,12 +11,11 @@
   </div>
 </template>
 <script>
-import { setParameter } from 'modules/util'
+import { setParameter, Cookies } from 'modules/util'
 import { customTrack } from 'modules/customTrack'
 import WxShare from 'modules/wxShare.vue'
 import wxService from 'services/wx'
 import parseService from 'modules/parseServer'
-import { Cookies } from 'modules/util'
 
 
 export default {
