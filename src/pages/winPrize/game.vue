@@ -43,7 +43,8 @@
     </div>
     <div class="cover" v-bind:class="{'show': gameStatus}">
       <div class="message-box abs">
-        <p class="message-text abs">您已完成本轮答题，下一轮答题将在3分钟后开始</p>
+        <p v-show="!competitionClockOpts.competitionStartText" class="message-text abs">您已完成本轮答题，下一轮答题将在<span class="time">{{competitionClockOpts.text}}后</span>开始</p>
+        <p v-show="competitionClockOpts.competitionStartText" class="message-text abs">下一轮答题已经开始，请刷新页面进行比赛~</p>
         <div class="btn abs">知道了</div>
       </div>
     </div>
@@ -73,11 +74,12 @@
               <div class="abs prize-item clearfix" v-for="prize in prizeInfo" v-bind:key="prize.coupon_batch_id">
                 <div class="abs left">
                   <div class="prize-name">{{prize.name}}<span class="prize-num" v-if="prize.coupon_batch_id == 16"> X3</span></div>
-                  <div class="prize-description">{{prize.description}}</div>
+                  <div v-show="prize.coupon_batch_id == 16" class="prize-description">仅限线下门店使用，仅适用于颜选镜架</div>
+                  <div v-show="prize.coupon_batch_id == 17" class="prize-description">仅限线下门店使用</div>
                 </div>
                 <div class="abs right">
                   <div class="prize-price">{{parseInt(prize.discount)}}<span class="rmb">元</span></div>
-                  <!-- <div class="prize-price-supplyment">满399使用</div> -->
+                  <div class="prize-price-supplyment">满399使用</div>
                 </div>
               </div>
             </div>
@@ -300,6 +302,7 @@ export default {
           if(data.results[0].status == '0'){
             this.nextQuestion();
             this.gameStatus = 1;
+            this.initCompetitionClock();
             return;
           }
           //重新答题
@@ -788,6 +791,10 @@ export default {
       .count-3{
         animation: turn4 .25s 3.5s ease-in-out;
       }
+      .prize-wrap{
+        animation: bounceIn .75s;
+        animation-fill-mode: both;
+      }
     }
     .title{
       width: 35%;
@@ -839,6 +846,9 @@ export default {
         margin: 0;
         padding: 0 10%;
         color: #c1c1c1;
+        .time{
+          color: red;
+        }
       }
       .btn{
         top: 70%;
@@ -858,6 +868,7 @@ export default {
       margin: auto;
       width: 100%;
       height: 100%;
+      transform: scale(.1);
       .red-package{
         display: block;
         top: 0;
@@ -889,7 +900,7 @@ export default {
         }
         .btn-open{
           width: 30%;
-          top: 55%;
+          top: 52%;
         }
       }
       .prize-get-wrap{
@@ -1004,7 +1015,7 @@ export default {
             }
           }
           .input-mobile{
-            top: 5%;
+            top: 8%;
             width: 87%;
             height: 48px;
             font-size: 14px;
@@ -1121,6 +1132,32 @@ export default {
   @keyframes hide {
     100%{
       opacity: 0;
+    }
+  }
+  @keyframes bounceIn {
+    0%, 20%, 40%, 60%, 80%, 100% {
+    animation-timing-function: cubic-bezier(.215,.61,.355,1);
+    }
+    0% {
+        opacity: 0;
+        transform: scale3d(.3,.3,.3);
+    }
+    20% {
+        transform: scale3d(.6,.6,.6);
+    }
+    40% {
+        transform: scale3d(1,1,1);
+    }
+    60% {
+        opacity: 1;
+        transform: scale3d(1.04,1.04,1.04);
+    }
+    80% {
+        transform: scale3d(.99,.99,.99);
+    }
+    100% {
+        opacity: 1;
+        transform: scaleX(1);
     }
   }
 }
