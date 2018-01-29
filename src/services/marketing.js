@@ -1,13 +1,14 @@
-const MARKETING_API = process.env.SAAS_API;
+const MARKETING_API = process.env.WX_API;
 const PLAY_RESULT_API = '/open/play/playResults/';
 
 export default {
-  getPlayResultById(context, id){
+  getPlayResultById(context, id) {
     return new Promise((resolve, reject) => {
-      context.$http.get(MARKETING_API + PLAY_RESULT_API + id).then(res =>{
-        if(res.data.success){
+      context.$http.get(MARKETING_API + PLAY_RESULT_API + id).then(res => {
+        console.log(res)
+        if (res.data.success) {
           resolve(res.data.data)
-        }else{
+        } else {
           reject(res.data.message)
         }
       }).catch(err => {
@@ -15,9 +16,9 @@ export default {
       })
     })
   },
-  getImageById(context, id){
-    let promise = new Promise( (resolve, reject) => {
-      context.$http.get(IMAGE_API + id).then( response => {
+  getImageById(context, id) {
+    let promise = new Promise((resolve, reject) => {
+      context.$http.get(IMAGE_API + id).then(response => {
         if (response.status === 200) {
           if (response.data.state === '1') {
             resolve(response.data.results.image)
@@ -25,7 +26,7 @@ export default {
             resolve('')
           }
         }
-      }).catch( err => {
+      }).catch(err => {
         reject(err);
       })
     })
