@@ -42,21 +42,26 @@ export default {
     $(".phone-content").css('height', $(window).height());
   },
   created(){
-    
+    console.log(this.$route.fullPath)
+    console.log(window.location.origin)
+    encodeURIComponent
+    console.log(window.location.origin+'/#'+this.$route.fullPath)
+    console.log(encodeURI(window.location.origin+'/#'+this.$route.fullPath))
+    console.log(encodeURIComponent(window.location.origin+'/#'+this.$route.fullPath))
   },
   methods:{
     saveWxInfo(data){
-      this.userInfo.name = 'test'
-      this.userInfo.headImgUrl = 'testUrl';
-      this.userInfo.gifType = this.$route.query.type
-      // this.userInfo.name = data.nickname
-      // this.userInfo.headImgUrl = data.headimgurl;
+      // this.userInfo.name = 'test'
+      // this.userInfo.headImgUrl = 'testUrl';
       // this.userInfo.gifType = this.$route.query.type
-      parseService.post(this, this.reqUrl + 'open_the_box', this.userInfo).then(res => {
-        console.log('保存成功')
-      }).catch(err => {
-        console.log(err)
-      });
+      // // this.userInfo.name = data.nickname
+      // // this.userInfo.headImgUrl = data.headimgurl;
+      // // this.userInfo.gifType = this.$route.query.type
+      // parseService.post(this, this.reqUrl + 'open_the_box', this.userInfo).then(res => {
+      //   console.log('保存成功')
+      // }).catch(err => {
+      //   console.log(err)
+      // });
     },
     redirectToPhoto(){
         if(!(/^1[34578]\d{9}$/.test(this.mobileNum))){
