@@ -4,6 +4,7 @@
       <!-- <img :src = "resultImgUrl" /> -->
       <img src = "http://ozwvqiu0u.bkt.clouddn.com/FvJDho0lyvIEhFNSMnFFz9P8hFg8" />
     </div>
+    <div class="save">长按保存照片到手机相册</div>
      <div class="cover" v-show="RedPageFlag">
       <div class="prize-wrap">
         <div class="red-package" v-show="openPackageFlag">
@@ -122,6 +123,14 @@ export default {
     img{
       width: 100%;
     }
+  }
+  .save{
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    position: absolute;
+    bottom: 2.5%;
+    width: 100%;
   }
   .cover{
     position: absolute;
