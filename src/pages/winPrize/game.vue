@@ -43,7 +43,8 @@
     </div>
     <div class="cover" v-bind:class="{'show': gameStatus}">
       <div class="message-box abs">
-        <p class="message-text abs">您已完成本轮答题，下一轮答题将在3分钟后开始</p>
+        <p v-show="!competitionClockOpts.competitionStartText" class="message-text abs">您已完成本轮答题，下一轮答题将在<span class="time">{{competitionClockOpts.text}}后</span>开始</p>
+        <p v-show="competitionClockOpts.competitionStartText" class="message-text abs">下一轮答题已经开始，请刷新页面进行比赛~</p>
         <div class="btn abs">知道了</div>
       </div>
     </div>
@@ -300,6 +301,7 @@ export default {
           if(data.results[0].status == '0'){
             this.nextQuestion();
             this.gameStatus = 1;
+            this.initCompetitionClock();
             return;
           }
           //重新答题
@@ -839,6 +841,9 @@ export default {
         margin: 0;
         padding: 0 10%;
         color: #c1c1c1;
+        .time{
+          color: red;
+        }
       }
       .btn{
         top: 70%;
