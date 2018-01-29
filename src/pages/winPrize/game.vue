@@ -52,7 +52,7 @@
         <div class="abs red-package">
           <img class="abs bg-red-package" :src="imgServerUrl + '/pages/win_prize/h5_red_bag.png'">
           <div class="abs title">闯关成功</div>
-          <div class="abs subtitle">恭喜获得 价值<span class="money">¥ 218</span>大礼包</div>
+          <div class="abs subtitle">恭喜获得 价值 <span class="money">¥ 218</span>大礼包</div>
           <img @click="openPrize()" class="abs btn-open" :src="imgServerUrl + '/pages/win_prize/h5_btn_open.png'">
         </div>
         <div class="prize-get-wrap">
@@ -67,7 +67,7 @@
             <img v-if="!showPrizeResult" @click="getPrize()" class="abs btn-get-prize" :src="imgServerUrl + '/pages/win_prize/h5_get_prize.png'">
             <div v-if="showPrizeResult" class="abs prize-result">
               <div class="prize-account">礼包已放入账号： <span class="mobile">{{mobile}}</span></div>
-              <div class="link-use">去使用></div>
+              <a href="http://m.jingfree.com/appointment/15" class="link-use" >去使用></a>
             </div>
             <div class="abs prize-list">
               <div class="abs prize-item clearfix" v-for="prize in prizeInfo" v-bind:key="prize.coupon_batch_id">
@@ -76,8 +76,8 @@
                   <div class="prize-description">{{prize.description}}</div>
                 </div>
                 <div class="abs right">
-                  <div class="prize-price">{{parseInt(prize.discount)}}元</div>
-                  <div class="prize-price-supplyment">满399使用</div>
+                  <div class="prize-price">{{parseInt(prize.discount)}}<span class="rmb">元</span></div>
+                  <!-- <div class="prize-price-supplyment">满399使用</div> -->
                 </div>
               </div>
             </div>
@@ -88,7 +88,24 @@
     </div>
     <div class="cover" v-bind:class="{'show': showFailedCover}">
       <div class="game-failed-wrap">
-        <img class="bg-failed" :src="imgServerUrl + '/pages/win_prize/h5_failed.png'">
+        <img class="abs img-title" :src="imgServerUrl + '/pages/win_prize/h5_failed_title.png'">
+        <div v-show="!competitionClockOpts.competitionStartText" class="abs message">
+          <div class="title">闯关失败</div>
+          <div class="subtitle">
+            <div>再接再厉，下一轮即将在<span class="time">{{competitionClockOpts.text}}后</span></div>
+            <div><span class="time">的星视度</span>大屏幕上开始，请做好准备</div>
+          </div>
+        </div>
+        <div v-show="competitionClockOpts.competitionStartText" class="abs message">
+          <div class="title">闯关失败</div>
+          <div class="subtitle">
+            下一轮答题已经开始，请刷新页面进行比赛~
+          </div>
+        </div>
+        <div class="abs bottom-text">
+          <div class="bottom-slogan">勇闯三关 扫码答题赢100元现金</div>
+          <div class="copyright">Copyright © 2018 星视度.com</div>
+        </div>
       </div>
     </div>
     <div class="message-alert">
@@ -118,7 +135,12 @@ export default {
         curOffset: 0,//当前弧长
         endOldClock: false
       },
-      nextQuestionMessage: 5, // 距离下一题开始秒数提示
+      competitionClockOpts: {
+        text: '',
+        sumSecs: 300,
+        competitionStartText: false
+      },
+      nextQuestionMessage: 2, // 距离下一题开始秒数提示
       showQuestionMessage: true, //显示轮次失败
       showFailedCover: false, //显示失败
       showPrizeResult: false, //显示礼包结果
@@ -146,6 +168,7 @@ export default {
         answer_num: [0, 0, 0] //各选项回答人数
       },
       prizeInfo: null,
+      gotPrizeUserRecord: {}, //此类礼包，用户的领取答题记录
       forPrizeUserRecord: {}, // 待领取红包的用户答题记录
       userCompetitionRecord: {} // 用户的当前答题记录
     }
@@ -218,11 +241,9 @@ export default {
           // 1、题目都需要先初始化好，但不开始游戏
           this.nextQuestion();
           // 2、检查用户是否有相同类型优惠券，但未领取的记录
-          console.log(this.curCompetition.prize_id)
           let prizeSearchParams = {
             'prize_type': this.curCompetition.prize_type,
             'prize_id': {"$all":this.curCompetition.prize_id},
-            'prize_status': '0',
             'result': '1',
             'wx_open_id': this.userInfo.wx_openid
           }
@@ -230,8 +251,20 @@ export default {
           .then(data => {
             if(data.results && data.results.length){
               // 3、有则走领红包流程、领完走获取用户对当前答题的记录，然后开始游戏
-              this.forPrizeUserRecord = data.results[0]
-              this.startPrize();
+              let flag = false; //用户是否已领取过此类礼包
+              for(let i = 0, length = data.results.length;i < length; i++){
+                if(data.results[i].prize_status == '1'){
+                  flag = true; //标记用户已领取过此类礼包
+                  this.gotPrizeUserRecord = data.results[i];
+                  break;
+                }
+              }
+              if(!flag){
+                this.forPrizeUserRecord = data.results[0];
+                this.startPrize();
+              }else{
+                this.checkUserCompetitionStatus();
+              }
             }else{
               // 4、无则开始走获取用户对当前答题的记录，然后开始游戏
               this.checkUserCompetitionStatus()
@@ -373,7 +406,7 @@ export default {
             that.nextQuestion();
             that.clockOpts.endOldClock = false;
             that.initClock();
-            that.nextQuestionMessage = 3;
+            that.nextQuestionMessage = 2;
             clearInterval(interval);
             return;
           }
@@ -405,15 +438,20 @@ export default {
         this.startPrize();
       }else{
         setTimeout(function(){
+          that.initCompetitionClock();
           that.showFailedCover = true;
         },3000)
       }
     },
     startPrize(){
       this.showPrize = true;
-
     },
     openPrize(){
+      // 判断用户是否已领取过优惠券
+      if(this.forPrizeUserRecord.prize_status == '1' || this.gotPrizeUserRecord.prize_status == '1'){
+        this.mobile = this.forPrizeUserRecord.mobile ||  this.gotPrizeUserRecord.mobile;
+        this.showPrizeResult = true;
+      }
       $(".red-package").addClass('hide');
       $(".prize-get-wrap").addClass('show');
     },
@@ -533,6 +571,32 @@ export default {
       sec++;
       setTimeout(function(){
         that.clock(sec);
+      }, 1000)
+    },
+    initCompetitionClock(){
+      let secDiffer = (new Date()).getTime() - parseInt(this.curCompetition.begin_time);
+      secDiffer = Math.floor(secDiffer / 1000);
+      this.competitionClock(secDiffer);
+    },
+    competitionClock(secDiffer){
+      if(secDiffer > this.competitionClockOpts.sumSecs){
+        this.competitionClockOpts.competitionStartText = true;
+        return ;
+      }
+      let that = this;
+      let timeRemain = this.competitionClockOpts.sumSecs - secDiffer;
+      let minRemain = Math.floor(timeRemain / 60);
+      let secRemain = timeRemain % 60;
+
+      if(secRemain < 10){
+        secRemain = "0" + secRemain;
+      }
+
+      this.competitionClockOpts.text = "0" + minRemain + ":" + secRemain;
+
+      secDiffer++;
+      setTimeout(function(){
+        that.competitionClock(secDiffer);
       }, 1000)
     }
   }
@@ -702,17 +766,17 @@ export default {
     z-index: 99;
     margin: auto;
     display: none;
-    background-color: rgba(0,0,0,.7);
+    background-color: rgba(0,0,0,.9);
     &.show{
       display: block;
       .count-1{
-        animation: turn 1s .5s ease-in-out;
+        animation: turn .75s .5s ease-in-out;
       }
       .count-2{
-        animation: turn2 1s .5s ease-in-out, turn3 1s 2.5s ease-in-out;
+        animation: turn2 .75s .5s ease-in-out, turn3 .75s 1.55s ease-in-out;
       }
       .count-3{
-        animation: turn4 1s 2.5s ease-in-out;
+        animation: turn4 .75s 1.55s ease-in-out;
       }
     }
     .title{
@@ -799,9 +863,10 @@ export default {
         }
         .title{
           top: 26%;
-          font-size: 42px;
           width: 100%;
           color: #fff;
+          font-size: 42px;
+          font-weight: 700;
         }
         .subtitle{
           top: 40%;
@@ -865,6 +930,7 @@ export default {
               }
             }
             .link-use{
+              display: block;
               float: right;
               font-size: 13px;
               font-weight: 100;
@@ -872,7 +938,6 @@ export default {
             }
           }
           .prize-list{
-            border: 1px solid red;
             top: 52%;
             width: 86%;
             height: 0;
@@ -917,6 +982,9 @@ export default {
                 .prize-price{
                   font-size: 26px;
                   color: red;
+                  .rmb{
+                    font-size: 20px;
+                  }
                 }
                 .prize-price-supplyment{
                   font-size: 12px;
@@ -926,7 +994,7 @@ export default {
             }
           }
           .input-mobile{
-            top: 10%;
+            top: 5%;
             width: 87%;
             height: 48px;
             font-size: 14px;
@@ -934,24 +1002,55 @@ export default {
             line-height: 48px;
             border-radius: 5px;
             padding-left: 10px;
+            box-shadow: 0px 0px 4px #9D9D9D inset;
             &::-webkit-input-placeholder{
               color: #cecece;
             }
           }
           .btn-get-prize{
-            top: 31%;
+            top: 25%;
             width: 87%;
           }
         }
       }
     }
     .game-failed-wrap{
+      background-color: #fff;
       font-size: 42px;
       color: #fff;
       height: 100%;
-      img{
+      .img-title{
+        top: 10%;
+        width: 71%;
+      }
+      .message{
+        top: 50%;
         width: 100%;
-        height: 100%;
+        text-align: center;
+        .title{
+          width: 100%;
+          color: #000;
+          font-size: 30px;
+        }
+        .subtitle{
+          font-size: 15px;
+          color: #cecece;
+          margin-top: 10px;
+          .time{
+            color: red;
+          }
+        }
+      }
+      .bottom-text{
+        top: 90%;
+        .bottom-slogan{
+          color: #000
+        }
+        .copyright{
+          font-size: 15px;
+          color: #cecece;
+          margin-top: 10px;
+        }
       }
     }
   }
