@@ -31,12 +31,7 @@
                 'onMenuShareQZone'
               ]
             };
-            alert(resData.appId)
-            alert(resData.timestamp)
-            alert(resData.nonceStr)
-            alert(resData.signature)
             wx.config(wx_config);
-            alert(this.WxShareInfo.title + this.WxShareInfo.desc)
             this.wxShare(this.WxShareInfo);
 
           })
