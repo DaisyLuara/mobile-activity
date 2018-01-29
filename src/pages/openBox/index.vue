@@ -63,9 +63,9 @@ export default {
         return;
       }else{
         alert(11)
-          // this.saveWxInfo()
-          // customTrack.sendMobile(this.mobileNum);
-          // this.linkToPhoto()
+          this.saveWxInfo()
+          customTrack.sendMobile(this.mobileNum);
+          this.linkToPhoto()
       }
     },
     getWxUserInfo(){
@@ -84,6 +84,7 @@ export default {
         let wx_auth_url = process.env.WX_API + '/wx/officialAccount/oauth?url=' + pageUrl + '&scope=snsapi_userinfo';
         console.log(wx_auth_url)
         window.location.href = wx_auth_url;
+        return;
       })
     },
     linkToPhoto(){
