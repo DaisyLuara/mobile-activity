@@ -16,6 +16,8 @@ import { customTrack } from 'modules/customTrack'
 import WxShare from 'modules/wxShare.vue'
 import wxService from 'services/wx'
 import parseService from 'modules/parseServer'
+import { Cookies } from 'modules/util'
+
 
 export default {
   components: {
@@ -40,14 +42,19 @@ export default {
   },
   mounted(){
     $(".phone-content").css('height', $(window).height());
+      
   },
   created(){
-    console.log(this.$route.fullPath)
-    console.log(window.location.origin)
-    encodeURIComponent
-    console.log(window.location.origin+'/#'+this.$route.fullPath)
-    console.log(encodeURI(window.location.origin+'/#'+this.$route.fullPath))
-    console.log(encodeURIComponent(window.location.origin+'/#'+this.$route.fullPath))
+    // if(!Cookies.get('wx_openid')){
+    //   let pageUrl = encodeURIComponent(window.location.href)
+    //   let wx_auth_url = process.env.WX_API + '/wx/officialAccount/oauth?url=' + pageUrl;
+    //   window.location.href = wx_auth_url;
+    //   console.log(document.cookie)
+    //   console.log(Cookies.get('wx_openid'))
+    //   return;
+    // }
+    this.getWxUserInfo()
+
   },
   methods:{
     saveWxInfo(data){
@@ -76,11 +83,8 @@ export default {
       }
     },
     getWxUserInfo(){
-      wxService.getWxUserInfo(this).then(wdata => {
-        this.saveWxInfo(wdata)
-      }).catch(err => {
-        console.log('err')
-      })
+      console.log('wx'+Cookies.get('wx_openid'))
+
     },
     linkToPhoto(){
       let redirect_url = window.location.origin +'/#'+ this.$route.path + '/result';
