@@ -7,13 +7,13 @@
     <div class="save">长按保存照片到手机相册</div>
      <div class="cover" v-show="RedPageFlag">
       <div class="prize-wrap">
-        <div class="red-package" v-show="openPackageFlag">
+        <div class="red-package">
           <img class="bg-red-package" :src="imgServerUrl + '/pages/dog/red_bag.png'">
           <div class="title">恭喜你获得</div>
           <div class="subtitle">“要發”大红包</div>
           <img class="btn-open" :src="imgServerUrl + '/pages/dog/btn_open.png'" @click="openBag">
         </div>
-        <div class="open-red-package" v-show="!openPackageFlag & !noPackageFlag">
+        <div class="open-red-package">
           <img class="bg-red-package" :src="imgServerUrl + '/pages/dog/red_bag_bg.png'">
           <div class="title">恭喜您获得消费红包</div>
           <div class="prompt-title">消费满100元仅使用一张</div>
@@ -47,7 +47,6 @@ export default {
     return {
       resultImgUrl: '',
       imgServerUrl: IMAGE_SERVER,
-      openPackageFlag: true,
       phoneError: false,
       errorText : '手机号码格式不正确',
       RedPageFlag: true,
@@ -79,7 +78,13 @@ export default {
       })
     },
     openBag() {
-      this.openPackageFlag = false
+      $('.btn-open').addClass("rotate");
+      setTimeout(function(){
+      $('.red-package').hide()
+      $('.open-red-package').show()
+      },1000)
+      //获取优惠券信息
+
     },
     getPhoto() {
       if(!(/^1[34578]\d{9}$/.test(this.mobileNum))){
@@ -189,7 +194,7 @@ export default {
         }
       }
       .open-red-package{
-        display: block;
+        display: none;
         top: 0;
         bottom: 0;
         margin: auto;
@@ -271,7 +276,7 @@ export default {
         }
       }
       .no-red-package{
-         display: block;
+        display: block;
         top: 0;
         bottom: 0;
         margin: auto;
@@ -279,7 +284,7 @@ export default {
         position: relative;
         .bg-red-package{
           width: 90%;
-          top: 15%;
+          top: 05%;
           left: 5%;
           position: absolute;
         }
@@ -313,6 +318,14 @@ export default {
       color: #aabbaa;
       text-indent: 10px;
     }
+  }
+  .rotate{
+    animation: anim .3s infinite alternate;
+  }
+
+  @keyframes anim {
+    from { transform: rotateY(180deg); }
+    to { transform: rotateY(360deg); }
   }
 }
 </style>
