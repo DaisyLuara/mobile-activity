@@ -18,7 +18,7 @@
           this.$http.get(request_url).then( response => {
             let resData = response.data.data;
             let wx_config = {
-              debug: false,
+              debug: true,
               appId: resData.appId,
               timestamp: resData.timestamp,
               nonceStr: resData.nonceStr,
@@ -31,8 +31,14 @@
                 'onMenuShareQZone'
               ]
             };
+            alert(resData.appId)
+            alert(resData.timestamp)
+            alert(resData.nonceStr)
+            alert(resData.signature)
             wx.config(wx_config);
+            alert(this.WxShareInfo.title + this.WxShareInfo.desc)
             this.wxShare(this.WxShareInfo);
+
           })
         }
       },
