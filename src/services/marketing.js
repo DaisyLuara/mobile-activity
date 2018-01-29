@@ -1,11 +1,10 @@
-const MARKETING_API = process.env.WX_API;
+const MARKETING_API = process.env.SAAS_API;
 const PLAY_RESULT_API = '/open/play/playResults/';
 
 export default {
   getPlayResultById(context, id) {
     return new Promise((resolve, reject) => {
       context.$http.get(MARKETING_API + PLAY_RESULT_API + id).then(res => {
-        console.log(res)
         if (res.data.success) {
           resolve(res.data.data)
         } else {
