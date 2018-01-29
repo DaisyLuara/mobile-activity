@@ -45,7 +45,7 @@ export default {
       
   },
   created(){
-    
+    this.getWxUserInfo()
   },
   methods:{
     saveWxInfo(){
@@ -62,22 +62,24 @@ export default {
         this.errorText = '手机号码格式不正确';
         return;
       }else{
-          this.getWxUserInfo()
-          customTrack.sendMobile(this.mobileNum);
-          this.linkToPhoto()
+        alert(11)
+          // this.saveWxInfo()
+          // customTrack.sendMobile(this.mobileNum);
+          // this.linkToPhoto()
       }
     },
     getWxUserInfo(){
       wxService.getWxUserInfo(this).then(result => {
         console.log(result.data)
+        alert(result)
         let data = result.data
         this.userInfo.name = data.nickname
         this.userInfo.headImgUrl = data.headimgurl
         alert(data.headimgurl)
         alert(data.nickname)
-        this.saveWxInfo()
       }).catch(err => {
         console.log(err)
+        alert(err)
         let pageUrl = encodeURIComponent(window.location.href)
         let wx_auth_url = process.env.WX_API + '/wx/officialAccount/oauth?url=' + pageUrl + '&scope=snsapi_userinfo';
         console.log(wx_auth_url)
