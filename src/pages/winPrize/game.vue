@@ -78,7 +78,7 @@
                 </div>
                 <div class="abs right">
                   <div class="prize-price">{{parseInt(prize.discount)}}<span class="rmb">元</span></div>
-                  <!-- <div class="prize-price-supplyment">满399使用</div> -->
+                  <div class="prize-price-supplyment">满399使用</div>
                 </div>
               </div>
             </div>
@@ -1014,7 +1014,7 @@ export default {
             }
           }
           .input-mobile{
-            top: 5%;
+            top: 8%;
             width: 87%;
             height: 48px;
             font-size: 14px;
