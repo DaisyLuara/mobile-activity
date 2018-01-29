@@ -45,30 +45,23 @@ export default {
       
   },
   created(){
-    // if(!Cookies.get('wx_openid')){
-    //   let pageUrl = encodeURIComponent(window.location.href)
-    //   let wx_auth_url = process.env.WX_API + '/wx/officialAccount/oauth?url=' + pageUrl;
-    //   window.location.href = wx_auth_url;
-    //   console.log(document.cookie)
-    //   console.log(Cookies.get('wx_openid'))
-    //   return;
-    // }
-    this.getWxUserInfo()
-
+    if(!Cookies.get('wx_openid')){
+      let pageUrl = encodeURIComponent(window.location.href)
+      let wx_auth_url = process.env.WX_API + '/wx/officialAccount/oauth?url=' + pageUrl;
+      window.location.href = wx_auth_url;
+      console.log(document.cookie)
+      console.log(Cookies.get('wx_openid'))
+      return;
+    }
   },
   methods:{
-    saveWxInfo(data){
-      // this.userInfo.name = 'test'
-      // this.userInfo.headImgUrl = 'testUrl';
-      // this.userInfo.gifType = this.$route.query.type
-      // // this.userInfo.name = data.nickname
-      // // this.userInfo.headImgUrl = data.headimgurl;
-      // // this.userInfo.gifType = this.$route.query.type
-      // parseService.post(this, this.reqUrl + 'open_the_box', this.userInfo).then(res => {
-      //   console.log('保存成功')
-      // }).catch(err => {
-      //   console.log(err)
-      // });
+    saveWxInfo(){
+      this.userInfo.gifType = this.$route.query.type
+      parseService.post(this, this.reqUrl + 'open_the_box', this.userInfo).then(res => {
+        console.log('保存成功')
+      }).catch(err => {
+        console.log(err)
+      });
     },
     redirectToPhoto(){
         if(!(/^1[34578]\d{9}$/.test(this.mobileNum))){
@@ -76,15 +69,24 @@ export default {
         this.errorText = '手机号码格式不正确';
         return;
       }else{
-          //测试
-          this.saveWxInfo()
+          this.getWxUserInfo()
           customTrack.sendMobile(this.mobileNum);
           this.linkToPhoto()
       }
     },
     getWxUserInfo(){
       console.log('wx'+Cookies.get('wx_openid'))
-
+      let opeId = Cookies.get('wx_openid')
+      // let opeId = 'oNN6q0gy8atMyqGiTtIjerzLfWp0';
+      wxService.getWxUserInfoByOpenId(this,opeId).then(result => {
+        console.log(result.data)
+        let data = result.data
+        this.userInfo.name = data.nickname
+        this.userInfo.headImgUrl = data.headimgurl
+        this.saveWxInfo()
+      }).catch(err => {
+      console.log(err)
+      })
     },
     linkToPhoto(){
       let redirect_url = window.location.origin +'/#'+ this.$route.path + '/result';
