@@ -18,7 +18,7 @@
           this.$http.get(request_url).then( response => {
             let resData = response.data.data;
             let wx_config = {
-              debug: false,
+              debug: true,
               appId: resData.appId,
               timestamp: resData.timestamp,
               nonceStr: resData.nonceStr,
@@ -33,6 +33,7 @@
             };
             wx.config(wx_config);
             this.wxShare(this.WxShareInfo);
+
           })
         }
       },
