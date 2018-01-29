@@ -144,9 +144,11 @@ export default {
     .error{
       position: absolute;
       top: 15%;
-      left: 35%;
+      // left: 35%;
       color: red;
       font-size: 14px;
+      width: 100%;
+      text-align: center;
     }
     .confrim_btn{
       width: 30%;
