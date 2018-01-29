@@ -55,7 +55,7 @@ export default {
       wxShareInfoValue:{
         title: '寻宝箱 开好礼',
         desc: '新年至 小星在各大商圈准备了海量神秘宝箱！找到小星 发现好礼！！',
-        imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/openBox_share_icon.png'
+        imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/dog_share_icon.png'
       }
     }
   },
