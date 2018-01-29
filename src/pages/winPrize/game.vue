@@ -74,7 +74,8 @@
               <div class="abs prize-item clearfix" v-for="prize in prizeInfo" v-bind:key="prize.coupon_batch_id">
                 <div class="abs left">
                   <div class="prize-name">{{prize.name}}<span class="prize-num" v-if="prize.coupon_batch_id == 16"> X3</span></div>
-                  <div class="prize-description">{{prize.description}}</div>
+                  <div v-show="prize.coupon_batch_id == 16" class="prize-description">仅限线下门店使用，仅适用于颜选镜架</div>
+                  <div v-show="prize.coupon_batch_id == 17" class="prize-description">仅限线下门店使用</div>
                 </div>
                 <div class="abs right">
                   <div class="prize-price">{{parseInt(prize.discount)}}<span class="rmb">元</span></div>
@@ -899,7 +900,7 @@ export default {
         }
         .btn-open{
           width: 30%;
-          top: 55%;
+          top: 52%;
         }
       }
       .prize-get-wrap{
