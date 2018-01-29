@@ -45,14 +45,7 @@ export default {
       
   },
   created(){
-    if(!Cookies.get('wx_openid')){
-      let pageUrl = encodeURIComponent(window.location.href)
-      let wx_auth_url = process.env.WX_API + '/wx/officialAccount/oauth?url=' + pageUrl;
-      window.location.href = wx_auth_url;
-      console.log(document.cookie)
-      console.log(Cookies.get('wx_openid'))
-      return;
-    }
+    
   },
   methods:{
     saveWxInfo(){
@@ -75,17 +68,20 @@ export default {
       }
     },
     getWxUserInfo(){
-      console.log('wx'+Cookies.get('wx_openid'))
-      let opeId = Cookies.get('wx_openid')
-      // let opeId = 'oNN6q0gy8atMyqGiTtIjerzLfWp0';
-      wxService.getWxUserInfoByOpenId(this,opeId).then(result => {
+      wxService.getWxUserInfo(this).then(result => {
         console.log(result.data)
         let data = result.data
         this.userInfo.name = data.nickname
         this.userInfo.headImgUrl = data.headimgurl
+        alert(data.headimgurl)
+        alert(data.nickname)
         this.saveWxInfo()
       }).catch(err => {
-      console.log(err)
+        console.log(err)
+        let pageUrl = encodeURIComponent(window.location.href)
+        let wx_auth_url = process.env.WX_API + '/wx/officialAccount/oauth?url=' + pageUrl + '&scope=snsapi_userinfo';
+        console.log(wx_auth_url)
+        window.location.href = wx_auth_url;
       })
     },
     linkToPhoto(){
