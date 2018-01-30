@@ -16,7 +16,7 @@ import { customTrack } from 'modules/customTrack'
 import WxShare from 'modules/wxShare.vue'
 import wxService from 'services/wx'
 import parseService from 'modules/parseServer'
-
+import CouponService from 'services/freecartCoupon'
 
 export default {
   components: {
@@ -61,24 +61,31 @@ export default {
         this.errorText = '手机号码格式不正确';
         return;
       }else{
-        alert(11)
-          this.saveWxInfo()
-          customTrack.sendMobile(this.mobileNum);
-          this.linkToPhoto()
+        this.getCoupon()
       }
+    },
+    getCoupon(){
+      let params = {
+        "mobile": this.mobileNum,
+        "sms_template": 'SEND_MARKETING_COUPONS'
+      }
+      CouponService.createCoupon(this, params).then(data => {
+        console.log(data)
+        this.saveWxInfo()
+        customTrack.sendMobile(this.mobileNum);
+        this.linkToPhoto()
+      }).catch(err => {
+        console.log(err)
+      })
     },
     getWxUserInfo(){
       wxService.getWxUserInfo(this).then(result => {
         console.log(result.data)
-        alert(result)
         let data = result.data
         this.userInfo.name = data.nickname
         this.userInfo.headImgUrl = data.headimgurl
-        alert(data.headimgurl)
-        alert(data.nickname)
       }).catch(err => {
         console.log(err)
-        alert(err)
         let pageUrl = encodeURIComponent(window.location.href)
         let wx_auth_url = process.env.WX_API + '/wx/officialAccount/oauth?url=' + pageUrl + '&scope=snsapi_userinfo';
         console.log(wx_auth_url)
