@@ -64,7 +64,7 @@
           </div>
           <div class="abs prize-get">
             <div v-show="mobileError.show" class="abs mobile-error-text">{{mobileError.text}}</div>
-            <input v-if="!showPrizeResult" class="abs input-mobile" v-model="mobile" type="text" placeholder="请输入手机号" @click="showMobileError = false">
+            <input v-if="!showPrizeResult" class="abs input-mobile" v-model="mobile" type="text" placeholder="请输入手机号" @click="mobileError.show = false">
             <img v-if="!showPrizeResult" @click="getPrize()" class="abs btn-get-prize" :src="imgServerUrl + '/pages/win_prize/h5_get_prize.png'">
             <div v-if="showPrizeResult" class="abs prize-result">
               <div class="prize-account">礼包已放入账号： <span class="mobile">{{mobile}}</span></div>
