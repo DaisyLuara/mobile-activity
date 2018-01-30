@@ -79,7 +79,7 @@
                 </div>
                 <div class="abs right">
                   <div class="prize-price">{{parseInt(prize.discount)}}<span class="rmb">元</span></div>
-                  <div class="prize-price-supplyment">满399使用</div>
+                  <div v-show="prize.coupon_batch_id == 16" class="prize-price-supplyment">满399使用</div>
                 </div>
               </div>
             </div>
@@ -464,6 +464,7 @@ export default {
     },
     openPrize(){
       // 判断用户是否已领取过优惠券
+      this.mobileError.show = false;
       if(this.forPrizeUserRecord.prize_status == '1' || this.gotPrizeUserRecord.prize_status == '1'){
         this.mobile = this.forPrizeUserRecord.mobile ||  this.gotPrizeUserRecord.mobile;
         this.showPrizeResult = true;
