@@ -53,8 +53,8 @@ export default {
       mobileNum: '',
       noPackageFlag: false,
       wxShareInfoValue:{
-        title: '寻宝箱 开好礼',
-        desc: '新年至 小星在各大商圈准备了海量神秘宝箱！找到小星 发现好礼！！',
+        title: '旺狗开春 情缘满分',
+        desc: '巴黎春天借旺狗报新春 送祝福 合家欢 情侣睦 诞生的汪早脱单',
         imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/dog_share_icon.png'
       }
     }
