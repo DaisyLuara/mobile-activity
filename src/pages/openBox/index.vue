@@ -41,13 +41,14 @@ export default {
   },
   mounted(){
     $(".phone-content").css('height', $(window).height());
-      
   },
   created(){
-    this.getWxUserInfo()
+    // this.getWxUserInfo()
   },
   methods:{
     saveWxInfo(){
+      this.userInfo.name = '🎀仲利敏🎀'
+      this.userInfo.headImgUrl = 'http://wx.qlogo.cn/mmopen/LHdtlaBo22cAgRSYqY9TYgrazeT5jHCOPLcz8gjuwYrxltdnfdKicULkM7kLQ8jUCPYNKwX9k7RSMjQYia4xM3Pw/0'
       this.userInfo.gifType = this.$route.query.type
       parseService.post(this, this.reqUrl + 'open_the_box', this.userInfo).then(res => {
         console.log('保存成功')
@@ -70,10 +71,14 @@ export default {
         "sms_template": 'SEND_MARKETING_COUPONS'
       }
       CouponService.createCoupon(this, params).then(data => {
-        console.log(data)
-        this.saveWxInfo()
-        customTrack.sendMobile(this.mobileNum);
-        this.linkToPhoto()
+        let res = data.data
+        if(JSON.stringify(res) == '{}'){
+          this.saveWxInfo()
+          customTrack.sendMobile(this.mobileNum);
+          this.linkToPhoto()
+        }else {
+          alert(res.error.msg)
+        }
       }).catch(err => {
         console.log(err)
       })
