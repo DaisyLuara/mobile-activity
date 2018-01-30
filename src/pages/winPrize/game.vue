@@ -334,7 +334,8 @@ export default {
           prize_status: '0' //未领取优惠券
         }
         parseService.post(this, this.reqUrl + 'h5_competition_user_records', this.userCompetitionRecord).then(res => {
-          $("#beginMusic")[0].play()
+          // $("#beginMusic")[0].play()
+          this.playMusic("beginMusic");
           this.showCover = true;
           this.curQuestion.begin = true;
           this.userCompetitionRecord.objectId = res.data.objectId;
@@ -343,14 +344,16 @@ export default {
           console.log(err)
         });
       }else{
-        $("#beginMusic")[0].play()
+        // $("#beginMusic")[0].play()
+        this.playMusic("beginMusic");
         this.showCover = true;
         this.curQuestion.begin = true;
       }
       // 4.5秒后开始游戏
       setTimeout(function(){
-        $("#beginMusic")[0].pause();
-        $("#beginMusic")[0].currentTime = 0;
+        that.stopMusic("beginMusic");
+        // $("#beginMusic")[0].pause();
+        // $("#beginMusic")[0].currentTime = 0;
 
         that.showCover = false;
         that.initClock();
@@ -404,8 +407,9 @@ export default {
         this.curQuestion.answer_num = this.curCompetition.answer_num[this.curQuestion.number - 1] ? this.curCompetition.answer_num[this.curQuestion.number - 1] : [0,0,0];
         this.curQuestion.end = true;
         this.clockOpts.endOldClock = true;
-        $("#answerMusic")[0].pause();
-        $("#answerMusic")[0].currentTime = 0;
+        this.stopMusic("answerMusic");
+        // $("#answerMusic")[0].pause();
+        // $("#answerMusic")[0].currentTime = 0;
         if(!Question[this.curCompetition.qids[this.curQuestion.number]] || this.curQuestion.status == 0 || this.curQuestion.status == 2){
           // 答题结束
           this.endCompetition();
@@ -548,7 +552,8 @@ export default {
       $("#progress1").css('stroke-dasharray',c).css('stroke-dashoffset','0px');
       $("#progress2").css('stroke-dasharray',c).css('stroke-dashoffset','0px');
       this.clockOpts.text = '10';
-      $("#answerMusic")[0].play();
+      this.playMusic("answerMusic");
+      // $("#answerMusic")[0].play();
       this.clock(0);
     },
     clock(sec){
@@ -611,6 +616,21 @@ export default {
       setTimeout(function(){
         that.competitionClock(secDiffer);
       }, 1000)
+    },
+    playMusic(elemId){
+      if (typeof WeixinJSBridge == "object" && typeof WeixinJSBridge.invoke == "function"){
+        WeixinJSBridge.invoke('getNetworkType', {}, function(e) {
+          document.getElementById(elemId).play();
+        });
+      }
+    },
+    stopMusic(elemId){
+      if (typeof WeixinJSBridge == "object" && typeof WeixinJSBridge.invoke == "function"){
+        WeixinJSBridge.invoke('getNetworkType', {}, function(e) {
+          document.getElementById(elemId).pause();
+          document.getElementById(elemId).currentTime = 0;
+        });
+      }
     }
   }
 }
