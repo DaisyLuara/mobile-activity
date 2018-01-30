@@ -33,6 +33,7 @@
             };
             wx.config(wx_config);
             this.wxShare(this.WxShareInfo);
+
           })
         }
       },
