@@ -1,4 +1,4 @@
-// 1-26是高级 27-最后是初级题目
+//// categary: 1=简单题 2=复杂题 3、4、5...可以继续拓展不同类型的题库
 export default {
   "1": {
     name: "科学揭示燃烧现象的是",
@@ -741,5 +741,5 @@ export default {
     answer: 3,
     type: 1,
     categary: 1
-  },
+  }
 }

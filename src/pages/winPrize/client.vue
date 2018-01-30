@@ -80,6 +80,7 @@ export default {
         hideIndex2: -1
       },
       Question: Question,
+      QuestionByCategary: {},
       clockOpts: {
         text: "05:00",
         originText: '05:00',
@@ -93,6 +94,7 @@ export default {
     document.title = "勇闯三关"
   },
   created(){
+    this.formatQuestionByCategary();
     this.initPage();
   },
   mounted(){
@@ -190,17 +192,22 @@ export default {
       this.initClock(clockSec);
     },
     createQuestions(){
+      // 简单题分类为2、复杂题分类为1
+      // 现在的逻辑，第一题从简单题里抽取1题，第2、3题分别从简单和复杂题库里抽取
       let qids = [];
+      let simpleQLength = this.QuestionByCategary[1].length;
+      let complexQLength = this.QuestionByCategary[2].length;
       while(qids.length < 1){
-        let firstQ = Math.floor(Math.random()*(106-27+1)+27);
+        let firstQ = Math.floor(Math.random() * simpleQLength);
+        firstQ = this.QuestionByCategary[1][firstQ].id;
         if(!this.preQuestionIds.includes(firstQ.toString())){
-          qids.push(firstQ)
+          qids.push(parseInt(firstQ))
         }
         // let intersection = qids.filter(v => this.preQuestionIds.includes(v))
       }
 
       while(qids.length < 3){
-        let qid = Math.floor(Math.random()*26+1);
+        let qid = Math.floor(Math.random() * (complexQLength + simpleQLength) + 1);
         if(!qids.includes(qid)){
           qids.push(qid)
         }
@@ -353,6 +360,17 @@ export default {
       setTimeout(function(){
         that.loopHeader2(loop,type)
       }, 1000)
+    },
+    formatQuestionByCategary(){
+      for(let i in this.Question){
+        if(!this.QuestionByCategary[this.Question[i].categary]){
+          this.QuestionByCategary[this.Question[i].categary] = [];
+        }
+        let tempQuestionObj = JSON.stringify(this.Question[i]);
+        tempQuestionObj = JSON.parse(tempQuestionObj);
+        tempQuestionObj.id = i;
+        this.QuestionByCategary[this.Question[i].categary].push(tempQuestionObj);
+      }
     }
   }
 }
