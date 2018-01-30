@@ -81,15 +81,11 @@ export default {
     getWxUserInfo(){
       wxService.getWxUserInfo(this).then(result => {
         console.log(result.data)
-        alert(result)
         let data = result.data
         this.userInfo.name = data.nickname
         this.userInfo.headImgUrl = data.headimgurl
-        alert(data.headimgurl)
-        alert(data.nickname)
       }).catch(err => {
         console.log(err)
-        alert(err)
         let pageUrl = encodeURIComponent(window.location.href)
         let wx_auth_url = process.env.WX_API + '/wx/officialAccount/oauth?url=' + pageUrl + '&scope=snsapi_userinfo';
         console.log(wx_auth_url)
