@@ -16,7 +16,7 @@ import { customTrack } from 'modules/customTrack'
 import WxShare from 'modules/wxShare.vue'
 import wxService from 'services/wx'
 import parseService from 'modules/parseServer'
-
+import CouponService from 'services/freecartCoupon'
 
 export default {
   components: {
@@ -41,13 +41,14 @@ export default {
   },
   mounted(){
     $(".phone-content").css('height', $(window).height());
-      
   },
   created(){
-    this.getWxUserInfo()
+    // this.getWxUserInfo()
   },
   methods:{
     saveWxInfo(){
+      this.userInfo.name = '🎀仲利敏🎀'
+      this.userInfo.headImgUrl = 'http://wx.qlogo.cn/mmopen/LHdtlaBo22cAgRSYqY9TYgrazeT5jHCOPLcz8gjuwYrxltdnfdKicULkM7kLQ8jUCPYNKwX9k7RSMjQYia4xM3Pw/0'
       this.userInfo.gifType = this.$route.query.type
       parseService.post(this, this.reqUrl + 'open_the_box', this.userInfo).then(res => {
         console.log('保存成功')
@@ -61,24 +62,35 @@ export default {
         this.errorText = '手机号码格式不正确';
         return;
       }else{
-        alert(11)
+        this.getCoupon()
+      }
+    },
+    getCoupon(){
+      let params = {
+        "mobile": this.mobileNum,
+        "sms_template": 'SEND_MARKETING_COUPONS'
+      }
+      CouponService.createCoupon(this, params).then(data => {
+        let res = data.data
+        if(JSON.stringify(res) == '{}'){
           this.saveWxInfo()
           customTrack.sendMobile(this.mobileNum);
           this.linkToPhoto()
-      }
+        }else {
+          alert(res.error.msg)
+        }
+      }).catch(err => {
+        console.log(err)
+      })
     },
     getWxUserInfo(){
       wxService.getWxUserInfo(this).then(result => {
         console.log(result.data)
-        alert(result)
         let data = result.data
         this.userInfo.name = data.nickname
         this.userInfo.headImgUrl = data.headimgurl
-        alert(data.headimgurl)
-        alert(data.nickname)
       }).catch(err => {
         console.log(err)
-        alert(err)
         let pageUrl = encodeURIComponent(window.location.href)
         let wx_auth_url = process.env.WX_API + '/wx/officialAccount/oauth?url=' + pageUrl + '&scope=snsapi_userinfo';
         console.log(wx_auth_url)

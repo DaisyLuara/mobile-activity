@@ -64,7 +64,7 @@
           </div>
           <div class="abs prize-get">
             <div v-show="mobileError.show" class="abs mobile-error-text">{{mobileError.text}}</div>
-            <input v-if="!showPrizeResult" class="abs input-mobile" v-model="mobile" type="text" placeholder="请输入手机号" @click="showMobileError = false">
+            <input v-if="!showPrizeResult" class="abs input-mobile" v-model="mobile" type="text" placeholder="请输入手机号" @click="mobileError.show = false">
             <img v-if="!showPrizeResult" @click="getPrize()" class="abs btn-get-prize" :src="imgServerUrl + '/pages/win_prize/h5_get_prize.png'">
             <div v-if="showPrizeResult" class="abs prize-result">
               <div class="prize-account">礼包已放入账号： <span class="mobile">{{mobile}}</span></div>
@@ -79,7 +79,7 @@
                 </div>
                 <div class="abs right">
                   <div class="prize-price">{{parseInt(prize.discount)}}<span class="rmb">元</span></div>
-                  <div class="prize-price-supplyment">满399使用</div>
+                  <div v-show="prize.coupon_batch_id == 16" class="prize-price-supplyment">满399使用</div>
                 </div>
               </div>
             </div>
@@ -114,7 +114,7 @@
       <div class="abs text">{{messageBox.text}}</div>
     </div>
     <audio id="beginMusic" loop="" preload="auto" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/win_prize/3.mp3"></audio>
-    <audio id="answerMusic" loop="" preload="auto" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/win_prize/10.mp3"></audio>
+    <audio id="answerMusic" loop="" preload="auto" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/win_prize/10_1.mp3"></audio>
   </div>
 </template>
 <script>
@@ -334,7 +334,8 @@ export default {
           prize_status: '0' //未领取优惠券
         }
         parseService.post(this, this.reqUrl + 'h5_competition_user_records', this.userCompetitionRecord).then(res => {
-          $("#beginMusic")[0].play()
+          // $("#beginMusic")[0].play()
+          this.playMusic("beginMusic");
           this.showCover = true;
           this.curQuestion.begin = true;
           this.userCompetitionRecord.objectId = res.data.objectId;
@@ -343,14 +344,16 @@ export default {
           console.log(err)
         });
       }else{
-        $("#beginMusic")[0].play()
+        // $("#beginMusic")[0].play()
+        this.playMusic("beginMusic");
         this.showCover = true;
         this.curQuestion.begin = true;
       }
       // 4.5秒后开始游戏
       setTimeout(function(){
-        $("#beginMusic")[0].pause();
-        $("#beginMusic")[0].currentTime = 0;
+        that.stopMusic("beginMusic");
+        // $("#beginMusic")[0].pause();
+        // $("#beginMusic")[0].currentTime = 0;
 
         that.showCover = false;
         that.initClock();
@@ -404,8 +407,9 @@ export default {
         this.curQuestion.answer_num = this.curCompetition.answer_num[this.curQuestion.number - 1] ? this.curCompetition.answer_num[this.curQuestion.number - 1] : [0,0,0];
         this.curQuestion.end = true;
         this.clockOpts.endOldClock = true;
-        $("#answerMusic")[0].pause();
-        $("#answerMusic")[0].currentTime = 0;
+        this.stopMusic("answerMusic");
+        // $("#answerMusic")[0].pause();
+        // $("#answerMusic")[0].currentTime = 0;
         if(!Question[this.curCompetition.qids[this.curQuestion.number]] || this.curQuestion.status == 0 || this.curQuestion.status == 2){
           // 答题结束
           this.endCompetition();
@@ -460,6 +464,7 @@ export default {
     },
     openPrize(){
       // 判断用户是否已领取过优惠券
+      this.mobileError.show = false;
       if(this.forPrizeUserRecord.prize_status == '1' || this.gotPrizeUserRecord.prize_status == '1'){
         this.mobile = this.forPrizeUserRecord.mobile ||  this.gotPrizeUserRecord.mobile;
         this.showPrizeResult = true;
@@ -548,7 +553,8 @@ export default {
       $("#progress1").css('stroke-dasharray',c).css('stroke-dashoffset','0px');
       $("#progress2").css('stroke-dasharray',c).css('stroke-dashoffset','0px');
       this.clockOpts.text = '10';
-      $("#answerMusic")[0].play();
+      this.playMusic("answerMusic");
+      // $("#answerMusic")[0].play();
       this.clock(0);
     },
     clock(sec){
@@ -611,6 +617,21 @@ export default {
       setTimeout(function(){
         that.competitionClock(secDiffer);
       }, 1000)
+    },
+    playMusic(elemId){
+      if (typeof WeixinJSBridge == "object" && typeof WeixinJSBridge.invoke == "function"){
+        WeixinJSBridge.invoke('getNetworkType', {}, function(e) {
+          document.getElementById(elemId).play();
+        });
+      }
+    },
+    stopMusic(elemId){
+      if (typeof WeixinJSBridge == "object" && typeof WeixinJSBridge.invoke == "function"){
+        WeixinJSBridge.invoke('getNetworkType', {}, function(e) {
+          document.getElementById(elemId).pause();
+          document.getElementById(elemId).currentTime = 0;
+        });
+      }
     }
   }
 }
