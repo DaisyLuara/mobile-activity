@@ -114,7 +114,7 @@
       <div class="abs text">{{messageBox.text}}</div>
     </div>
     <audio id="beginMusic" loop="" preload="auto" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/win_prize/3.mp3"></audio>
-    <audio id="answerMusic" loop="" preload="auto" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/win_prize/10.mp3"></audio>
+    <audio id="answerMusic" loop="" preload="auto" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/win_prize/10_1.mp3"></audio>
   </div>
 </template>
 <script>
