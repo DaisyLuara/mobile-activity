@@ -43,12 +43,12 @@ export default {
     $(".phone-content").css('height', $(window).height());
   },
   created(){
-    // this.getWxUserInfo()
+    this.getWxUserInfo()
   },
   methods:{
     saveWxInfo(){
-      this.userInfo.name = '🎀仲利敏🎀'
-      this.userInfo.headImgUrl = 'http://wx.qlogo.cn/mmopen/LHdtlaBo22cAgRSYqY9TYgrazeT5jHCOPLcz8gjuwYrxltdnfdKicULkM7kLQ8jUCPYNKwX9k7RSMjQYia4xM3Pw/0'
+      // this.userInfo.name = '🎀仲利敏🎀'
+      // this.userInfo.headImgUrl = 'http://wx.qlogo.cn/mmopen/LHdtlaBo22cAgRSYqY9TYgrazeT5jHCOPLcz8gjuwYrxltdnfdKicULkM7kLQ8jUCPYNKwX9k7RSMjQYia4xM3Pw/0'
       this.userInfo.gifType = this.$route.query.type
       parseService.post(this, this.reqUrl + 'open_the_box', this.userInfo).then(res => {
         console.log('保存成功')
@@ -85,15 +85,12 @@ export default {
     },
     getWxUserInfo(){
       wxService.getWxUserInfo(this).then(result => {
-        console.log(result.data)
         let data = result.data
         this.userInfo.name = data.nickname
         this.userInfo.headImgUrl = data.headimgurl
       }).catch(err => {
-        console.log(err)
         let pageUrl = encodeURIComponent(window.location.href)
         let wx_auth_url = process.env.WX_API + '/wx/officialAccount/oauth?url=' + pageUrl + '&scope=snsapi_userinfo';
-        console.log(wx_auth_url)
         window.location.href = wx_auth_url;
         return;
       })
