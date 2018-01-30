@@ -157,7 +157,9 @@ export default {
         for(let i = 0, length = newCompetition.qids.length; i < length; i++){
           tempAnswerArry.push(Question[newCompetition.qids[i]].answer);
         }
+
         newCompetition.answers = tempAnswerArry;
+        this.createAnswerNums(newCompetition);
         newCompetition.begin_time = (new Date()).getTime() + '';
         parseService.post(this, this.reqUrl, newCompetition).then(res => {
           this.curCompetition.objectId = res.data.objectId;
@@ -213,6 +215,32 @@ export default {
         }
       }
       return qids;
+    },
+    createAnswerNums(newCompetition){
+      // 初始化题目回答人数
+      // Easy:正确：50-100人 错误  10-20人 正确概率：55.6% - 83.3%
+      // Hard:正确：30-60人 错误  15-35人 正确概率：30% - 66.6%
+      for(let i = 0, length = newCompetition.qids.length;i < length; i++){
+        let curQuestionObj = this.Question[newCompetition.qids[i]];
+        let curQuestionAnswer = curQuestionObj.answer;
+        if(curQuestionObj.categary == 1){
+          for(let j = 0, length = newCompetition.answer_num[i].length;j<length;j++){
+            if(j == curQuestionAnswer - 1){
+              newCompetition.answer_num[i][j] = Math.floor(Math.random()*(100-50+1)+50);
+            }else{
+              newCompetition.answer_num[i][j] = Math.floor((Math.random()*(20-10+1)+10));
+            }
+          }
+        }else if(curQuestionObj.categary == 2){
+          for(let j = 0, length = newCompetition.answer_num[i].length;j<length;j++){
+            if(j == curQuestionAnswer - 1){
+              newCompetition.answer_num[i][j] = Math.floor(Math.random()*(60-30+1)+30);
+            }else{
+              newCompetition.answer_num[i][j] = Math.floor((Math.random()*(35-15+1)+15));
+            }
+          }
+        }
+      }
     },
     endCurCompetition(cid){
       parseService.put(this, this.reqUrl + '/' + cid, JSON.stringify({'status': '0'}) ).then(res => {
