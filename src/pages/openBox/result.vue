@@ -103,9 +103,9 @@ export default {
     }
     .save{
       position: absolute;
-      width: 40%;
-      bottom: -11%;
-      left: 30%;
+      width: 60%;
+      bottom: -17%;
+      left: 20%;;
     }
   }
   @keyframes arrows {
