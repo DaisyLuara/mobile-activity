@@ -420,11 +420,11 @@ export default {
     margin: 0 auto;
   }
   .slogan{
-    top: 14%;
+    top: 12%;
     width: 84%;
   }
   .info{
-    top: 25%;
+    top: 23%;
     .people-info{
       color: #fff;
       font-size: 42px;
@@ -519,7 +519,7 @@ export default {
     }
     .question-name{
       position: absolute;
-      top: 22%;
+      top: 20%;
       left: 0;
       right: 0;
       padding: 0 10%;
@@ -551,7 +551,7 @@ export default {
     .qr-code-wrap{
       right: 5%;
       margin: 0;
-      top: 42%;
+      top: 45%;
       width: 38%;
       left: auto;
       text-align: center;
