@@ -133,7 +133,7 @@ export default {
   data(){
     return {
       mobile: '',
-      showPage: false,
+      showPage: true,
       showCover: false,
       imgServerUrl: IMAGE_SERVER,
       reqUrl: 'http://120.27.144.62:1337/parse/classes/',
@@ -196,7 +196,8 @@ export default {
   created(){
     wxService.getWxUserInfo(this).then(result => {
       let data = result.data
-      this.userInfo.head_image = data.headimgurl;
+      this.userInfo.nick_name = data.nickname;
+      this.userInfo.head_img_url = data.headimgurl;
       this.userInfo.wx_openid = data.openid;
       this.initCompetition();
     }).catch(err => {
@@ -228,14 +229,6 @@ export default {
     }
   },
   methods: {
-    getWxUserInfo(){
-      wxService.getWxUserInfo(this).then(wdata => {
-        this.userInfo.wx_openid = wdata.openid;
-        this.userInfo.head_image = wdata.headimgurl;
-      }).catch(err => {
-        console.log('err')
-      })
-    },
     initCompetition(){
       // step1: 获取当前正在进行的竞赛轮次
       parseService.get(this, this.reqUrl + 'h5_competition_records?where=' +  JSON.stringify({'status': '1'}) + '&order=-begin_time&limit=1').then(data => {
@@ -338,7 +331,9 @@ export default {
           answers: [],
           prize_type: this.curCompetition.prize_type,
           prize_id: this.curCompetition.prize_id,
-          prize_status: '0' //未领取优惠券
+          prize_status: '0', //未领取优惠券,
+          head_img_url: this.userInfo.head_img_url,
+          nick_name: this.userInfo.nick_name
         }
         parseService.post(this, this.reqUrl + 'h5_competition_user_records', this.userCompetitionRecord).then(res => {
           // $("#beginMusic")[0].play()
