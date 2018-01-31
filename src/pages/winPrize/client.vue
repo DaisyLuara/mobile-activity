@@ -503,8 +503,8 @@ export default {
       }
       .clock-text{
         position: absolute;
-        font-size: 50px;
-        height: 57px;
+        font-size: 40px;
+        height: 40px;
         margin: auto;
         bottom: 0;
         top: 0;
