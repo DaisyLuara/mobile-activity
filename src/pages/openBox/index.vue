@@ -47,8 +47,6 @@ export default {
   },
   methods:{
     saveWxInfo(){
-      // this.userInfo.name = '🎀仲利敏🎀'
-      // this.userInfo.headImgUrl = 'http://wx.qlogo.cn/mmopen/LHdtlaBo22cAgRSYqY9TYgrazeT5jHCOPLcz8gjuwYrxltdnfdKicULkM7kLQ8jUCPYNKwX9k7RSMjQYia4xM3Pw/0'
       this.userInfo.gifType = this.$route.query.type
       parseService.post(this, this.reqUrl + 'open_the_box', this.userInfo).then(res => {
         console.log('保存成功')
@@ -78,6 +76,7 @@ export default {
           this.linkToPhoto()
         }else {
           alert(res.error.msg)
+          this.linkToPhoto()
         }
       }).catch(err => {
         console.log(err)
