@@ -7,12 +7,7 @@ import axios from 'axios';
 // axios.defaults.withCredentials = true ;
 Vue.prototype.$http = axios;
 Vue.config.productionTip = false;
-console.log(process.env.NODE_ENV)
-if (process.env.NODE_ENV == 'production') {
-  axios('http://sapi.xingstation.com/', {
-    withCredentials: true
-  });
-}
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
