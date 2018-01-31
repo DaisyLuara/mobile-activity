@@ -51,7 +51,6 @@
 <script>
 const IMAGE_SERVER = process.env.IMAGE_SERVER + "/xingshidu_h5/marketing";
 import { Cookies } from 'modules/util'
-import wxService from 'services/wx'
 import Question from './question0129'
 import parseService from 'modules/parseServer'
 export default {
@@ -80,6 +79,7 @@ export default {
         hideIndex2: -1
       },
       Question: Question,
+      QuestionByCategary: {},
       clockOpts: {
         text: "05:00",
         originText: '05:00',
@@ -93,10 +93,13 @@ export default {
     document.title = "勇闯三关"
   },
   created(){
+    this.formatQuestionByCategary();
     this.initPage();
   },
   mounted(){
     this.loopHeader(1, 'first');
+    document.getElementsByTagName('body')[0].style.width = window.innerWidth+'px';
+    document.getElementsByTagName('body')[0].style.height = ((1920 / 1080) * window.innerWidth) +'px';
   },
   methods: {
     initPage(){
@@ -155,7 +158,9 @@ export default {
         for(let i = 0, length = newCompetition.qids.length; i < length; i++){
           tempAnswerArry.push(Question[newCompetition.qids[i]].answer);
         }
+
         newCompetition.answers = tempAnswerArry;
+        this.createAnswerNums(newCompetition);
         newCompetition.begin_time = (new Date()).getTime() + '';
         parseService.post(this, this.reqUrl, newCompetition).then(res => {
           this.curCompetition.objectId = res.data.objectId;
@@ -190,22 +195,53 @@ export default {
       this.initClock(clockSec);
     },
     createQuestions(){
+      // 简单题分类为2、复杂题分类为1
+      // 现在的逻辑，第一题从简单题里抽取1题，第2、3题分别从简单和复杂题库里抽取
       let qids = [];
+      let simpleQLength = this.QuestionByCategary[1].length;
+      let complexQLength = this.QuestionByCategary[2].length;
       while(qids.length < 1){
-        let firstQ = Math.floor(Math.random()*(106-27+1)+27);
+        let firstQ = Math.floor(Math.random() * simpleQLength);
+        firstQ = this.QuestionByCategary[1][firstQ].id;
         if(!this.preQuestionIds.includes(firstQ.toString())){
-          qids.push(firstQ)
+          qids.push(parseInt(firstQ))
         }
         // let intersection = qids.filter(v => this.preQuestionIds.includes(v))
       }
 
       while(qids.length < 3){
-        let qid = Math.floor(Math.random()*26+1);
+        let qid = Math.floor(Math.random() * (complexQLength + simpleQLength) + 1);
         if(!qids.includes(qid)){
           qids.push(qid)
         }
       }
       return qids;
+    },
+    createAnswerNums(newCompetition){
+      // 初始化题目回答人数
+      // Easy:正确：50-100人 错误  10-20人 正确概率：55.6% - 83.3%
+      // Hard:正确：30-60人 错误  15-35人 正确概率：30% - 66.6%
+      for(let i = 0, length = newCompetition.qids.length;i < length; i++){
+        let curQuestionObj = this.Question[newCompetition.qids[i]];
+        let curQuestionAnswer = curQuestionObj.answer;
+        if(curQuestionObj.categary == 1){
+          for(let j = 0, length = newCompetition.answer_num[i].length;j<length;j++){
+            if(j == curQuestionAnswer - 1){
+              newCompetition.answer_num[i][j] = Math.floor(Math.random()*(100-50+1)+50);
+            }else{
+              newCompetition.answer_num[i][j] = Math.floor((Math.random()*(20-10+1)+10));
+            }
+          }
+        }else if(curQuestionObj.categary == 2){
+          for(let j = 0, length = newCompetition.answer_num[i].length;j<length;j++){
+            if(j == curQuestionAnswer - 1){
+              newCompetition.answer_num[i][j] = Math.floor(Math.random()*(60-30+1)+30);
+            }else{
+              newCompetition.answer_num[i][j] = Math.floor((Math.random()*(35-15+1)+15));
+            }
+          }
+        }
+      }
     },
     endCurCompetition(cid){
       parseService.put(this, this.reqUrl + '/' + cid, JSON.stringify({'status': '0'}) ).then(res => {
@@ -353,6 +389,17 @@ export default {
       setTimeout(function(){
         that.loopHeader2(loop,type)
       }, 1000)
+    },
+    formatQuestionByCategary(){
+      for(let i in this.Question){
+        if(!this.QuestionByCategary[this.Question[i].categary]){
+          this.QuestionByCategary[this.Question[i].categary] = [];
+        }
+        let tempQuestionObj = JSON.stringify(this.Question[i]);
+        tempQuestionObj = JSON.parse(tempQuestionObj);
+        tempQuestionObj.id = i;
+        this.QuestionByCategary[this.Question[i].categary].push(tempQuestionObj);
+      }
     }
   }
 }
@@ -514,7 +561,7 @@ export default {
         }
       }
       .qr-text{
-        font-size: 56px;
+        font-size: 50px;
         font-weight: 400;
         color: #ff5454;
         margin-top: 40px;
@@ -658,8 +705,8 @@ export default {
 </style>
 <style lang="less">
 body,html{
-  width: 1080px;
-  height: 1920px;
+  max-width: 1080px;
+  max-height: 1920px;
   margin: 0 auto;
 }
 #app{
