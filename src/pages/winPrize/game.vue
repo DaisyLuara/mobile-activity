@@ -138,9 +138,9 @@ export default {
       imgServerUrl: IMAGE_SERVER,
       reqUrl: 'http://120.27.144.62:1337/parse/classes/',
       wxShareInfo:{
-        title: '寻宝箱 开好礼',
-        desc: '新年至 小星在各大商圈准备了海量神秘宝箱！找到小星 发现好礼！！',
-        imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/openBox_share_icon.png',
+        title: '我在勇闯三关答题得到了218元红包，你也来试试',
+        desc: '勇闯三关，每5分钟刷新轮次。只要答对3道题，丰厚大奖等你赢取。',
+        imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/prize_share_icon.png',
         success: function () {
           customTrack.shareWeChat()
         }
