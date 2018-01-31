@@ -65,10 +65,8 @@ customTrack.sendMobile = function(mobileValue) {
 }
 
 customTrack.shareWeChat = function() {
-  if (customTrack.ad_id) {
-    if (_paq) {
-      _paq.push(['trackEvent', customTrack.adId, customTrack.laId, 'share_page_wechat_300'])
-    }
+  if (_paq) {
+    _paq.push(['trackEvent', customTrack.adId, customTrack.laId, 'share_page_wechat_300'])
   }
 }
 export { customTrack };
