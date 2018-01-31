@@ -83,7 +83,7 @@ export default {
       $('.red-package').hide()
       $('.open-red-package').show()
       },1000)
-      //获取优惠券信息
+      //优惠券生成
 
     },
     getPhoto() {
@@ -94,6 +94,7 @@ export default {
       }else{
           customTrack.sendMobile(this.mobileNum);
           this.RedPageFlag = false
+          //优惠券绑定
       }
     }
   },
