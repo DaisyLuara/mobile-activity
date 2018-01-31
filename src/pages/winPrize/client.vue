@@ -98,8 +98,8 @@ export default {
   },
   mounted(){
     this.loopHeader(1, 'first');
-    document.getElementsByTagName('body')[0].style.height = window.innerHeight+'px';
     document.getElementsByTagName('body')[0].style.width = window.innerWidth+'px';
+    document.getElementsByTagName('body')[0].style.height = ((1920 / 1080) * window.innerWidth) +'px';
   },
   methods: {
     initPage(){
