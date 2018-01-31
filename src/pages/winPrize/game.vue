@@ -120,13 +120,16 @@
 </template>
 <script>
 const IMAGE_SERVER = process.env.IMAGE_SERVER + "/xingshidu_h5/marketing";
-import { Cookies } from 'modules/util'
+import { customTrack } from 'modules/customTrack'
 import WxShare from 'modules/wxShare.vue'
 import wxService from 'services/wx'
 import Question from './question0129'
 import CouponService from 'services/freecartCoupon'
 import parseService from 'modules/parseServer'
 export default {
+  components: {
+    WxShare
+  },
   data(){
     return {
       mobile: '',
@@ -134,10 +137,13 @@ export default {
       showCover: false,
       imgServerUrl: IMAGE_SERVER,
       reqUrl: 'http://120.27.144.62:1337/parse/classes/',
-      wxShareInfoValue:{
+      wxShareInfo:{
         title: '寻宝箱 开好礼',
         desc: '新年至 小星在各大商圈准备了海量神秘宝箱！找到小星 发现好礼！！',
-        imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/openBox_share_icon.png'
+        imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/openBox_share_icon.png',
+        success: function () {
+          customTrack.shareWeChat()
+        }
       },
       clockOpts: {
         text: "10",
@@ -188,31 +194,17 @@ export default {
     document.title = "勇闯三关"
   },
   created(){
-    // check wechat login status
-    // if (!Cookies.get('wx_openid')) {
-    //   //unauthed
-    //   let fullUrl = window.location.href;
-    //   let wx_auth_url = process.ENV.WX_API + '/account/wechat/oauth?redirect_url=' + encodeURIComponent(fullUrl);
-    //   window.location.href = wx_auth_url;
-    //   return;
-    // }
-    // this.getWxUserInfo();
-
     wxService.getWxUserInfo(this).then(result => {
       let data = result.data
       this.userInfo.head_image = data.headimgurl;
       this.userInfo.wx_openid = data.openid;
+      this.initCompetition();
     }).catch(err => {
       let pageUrl = encodeURIComponent(window.location.href)
       let wx_auth_url = process.env.WX_API + '/wx/officialAccount/oauth?url=' + pageUrl + '&scope=snsapi_userinfo';
       window.location.href = wx_auth_url;
       return;
     })
-
-
-
-    this.initCompetition();
-
   },
   mounted(){
     document.getElementsByClassName('game-wrap')[0].style.height = window.innerHeight + 'px';
