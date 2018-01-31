@@ -51,7 +51,6 @@
 <script>
 const IMAGE_SERVER = process.env.IMAGE_SERVER + "/xingshidu_h5/marketing";
 import { Cookies } from 'modules/util'
-import wxService from 'services/wx'
 import Question from './question0129'
 import parseService from 'modules/parseServer'
 export default {
@@ -99,6 +98,8 @@ export default {
   },
   mounted(){
     this.loopHeader(1, 'first');
+    document.getElementsByTagName('body')[0].style.width = window.innerWidth+'px';
+    document.getElementsByTagName('body')[0].style.height = ((1920 / 1080) * window.innerWidth) +'px';
   },
   methods: {
     initPage(){
@@ -560,7 +561,7 @@ export default {
         }
       }
       .qr-text{
-        font-size: 56px;
+        font-size: 50px;
         font-weight: 400;
         color: #ff5454;
         margin-top: 40px;
@@ -704,8 +705,8 @@ export default {
 </style>
 <style lang="less">
 body,html{
-  width: 1080px;
-  height: 1920px;
+  max-width: 1080px;
+  max-height: 1920px;
   margin: 0 auto;
 }
 #app{

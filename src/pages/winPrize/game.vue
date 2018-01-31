@@ -115,23 +115,36 @@
     </div>
     <audio id="beginMusic" loop="" preload="auto" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/win_prize/3.mp3"></audio>
     <audio id="answerMusic" loop="" preload="auto" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/win_prize/10_1.mp3"></audio>
+    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
 </template>
 <script>
 const IMAGE_SERVER = process.env.IMAGE_SERVER + "/xingshidu_h5/marketing";
-import { Cookies } from 'modules/util'
+import { customTrack } from 'modules/customTrack'
+import WxShare from 'modules/wxShare.vue'
 import wxService from 'services/wx'
 import Question from './question0129'
 import CouponService from 'services/freecartCoupon'
 import parseService from 'modules/parseServer'
 export default {
+  components: {
+    WxShare
+  },
   data(){
     return {
       mobile: '',
-      showPage: false,
+      showPage: true,
       showCover: false,
       imgServerUrl: IMAGE_SERVER,
       reqUrl: 'http://120.27.144.62:1337/parse/classes/',
+      wxShareInfo:{
+        title: '我在勇闯三关答题得到了218元红包，你也来试试',
+        desc: '勇闯三关，每5分钟刷新轮次。只要答对3道题，丰厚大奖等你赢取。',
+        imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/prize_share_icon.png',
+        success: function () {
+          customTrack.shareWeChat()
+        }
+      },
       clockOpts: {
         text: "10",
         sumSecs: 10,
@@ -181,23 +194,18 @@ export default {
     document.title = "勇闯三关"
   },
   created(){
-    // check wechat login status
-    // if (!Cookies.get('wx_openid')) {
-    //   //unauthed
-    //   let fullUrl = window.location.href;
-    //   let wx_auth_url = process.ENV.WX_API + '/account/wechat/oauth?redirect_url=' + encodeURIComponent(fullUrl);
-    //   window.location.href = wx_auth_url;
-    //   return;
-    // }
-    // this.getWxUserInfo();
-
-    // data for test
-
-    this.userInfo.wx_openid = 'zjj';
-    this.userInfo.head_image = 'xxxxx'
-
-    this.initCompetition();
-
+    wxService.getWxUserInfo(this).then(result => {
+      let data = result.data
+      this.userInfo.nick_name = data.nickname;
+      this.userInfo.head_img_url = data.headimgurl;
+      this.userInfo.wx_openid = data.openid;
+      this.initCompetition();
+    }).catch(err => {
+      let pageUrl = encodeURIComponent(window.location.href)
+      let wx_auth_url = process.env.WX_API + '/wx/officialAccount/oauth?url=' + pageUrl + '&scope=snsapi_userinfo';
+      window.location.href = wx_auth_url;
+      return;
+    })
   },
   mounted(){
     document.getElementsByClassName('game-wrap')[0].style.height = window.innerHeight + 'px';
@@ -221,14 +229,6 @@ export default {
     }
   },
   methods: {
-    getWxUserInfo(){
-      wxService.getWxUserInfo(this).then(wdata => {
-        this.userInfo.wx_openid = wdata.openid;
-        this.userInfo.head_image = wdata.headimgurl;
-      }).catch(err => {
-        console.log('err')
-      })
-    },
     initCompetition(){
       // step1: 获取当前正在进行的竞赛轮次
       parseService.get(this, this.reqUrl + 'h5_competition_records?where=' +  JSON.stringify({'status': '1'}) + '&order=-begin_time&limit=1').then(data => {
@@ -331,7 +331,9 @@ export default {
           answers: [],
           prize_type: this.curCompetition.prize_type,
           prize_id: this.curCompetition.prize_id,
-          prize_status: '0' //未领取优惠券
+          prize_status: '0', //未领取优惠券,
+          head_img_url: this.userInfo.head_img_url,
+          nick_name: this.userInfo.nick_name
         }
         parseService.post(this, this.reqUrl + 'h5_competition_user_records', this.userCompetitionRecord).then(res => {
           // $("#beginMusic")[0].play()
