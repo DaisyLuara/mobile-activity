@@ -420,11 +420,11 @@ export default {
     margin: 0 auto;
   }
   .slogan{
-    top: 14%;
+    top: 12%;
     width: 84%;
   }
   .info{
-    top: 25%;
+    top: 23%;
     .people-info{
       color: #fff;
       font-size: 42px;
@@ -503,8 +503,8 @@ export default {
       }
       .clock-text{
         position: absolute;
-        font-size: 50px;
-        height: 57px;
+        font-size: 40px;
+        height: 40px;
         margin: auto;
         bottom: 0;
         top: 0;
@@ -519,19 +519,19 @@ export default {
     }
     .question-name{
       position: absolute;
-      top: 22%;
-      font-size: 80px;
-      color: #2f2f2f;
+      top: 20%;
       left: 0;
       right: 0;
       padding: 0 10%;
       margin: 0 auto;
+      font-size: 40px;
+      color: #2f2f2f;
       text-align: left;
       &.small{
-        font-size: 47px;
+        font-size: 40px;
       }
       &.middle{
-        font-size: 60px;
+        font-size: 50px;
       }
     }
     .choice-wrap{
@@ -551,7 +551,7 @@ export default {
     .qr-code-wrap{
       right: 5%;
       margin: 0;
-      top: 42%;
+      top: 45%;
       width: 38%;
       left: auto;
       text-align: center;
@@ -561,7 +561,7 @@ export default {
         }
       }
       .qr-text{
-        font-size: 50px;
+        font-size: 40px;
         font-weight: 400;
         color: #ff5454;
         margin-top: 40px;
