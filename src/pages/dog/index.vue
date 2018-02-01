@@ -16,9 +16,9 @@
         <div class="open-red-package">
           <img class="bg-red-package" :src="imgServerUrl + '/pages/dog/red_bag_bg.png'">
           <div class="title">恭喜您获得消费红包</div>
-          <div class="prompt-title">消费满100元仅使用一张</div>
-          <div class="count">18.00<span class="yuan">元</span></div>
-          <div class="prompt-title address">电子红包需至六楼服务台进行核销</div>
+          <div class="prompt-title">{{coupon_batch.name}}</div>
+          <div class="count">{{coupon_batch.total}}<span class="yuan">元</span></div>
+          <div class="prompt-title address">{{coupon_batch.desc}}</div>
           <div class="error" v-show="phoneError">{{errorText}}</div>
           <input type="text" placeholder="请输入手机号" class="mobile" maxlength="11" @click="phoneError = false" v-model="mobileNum"/>
           <div class="btn" @click="getPhoto">领取红包</div>
@@ -34,6 +34,7 @@
 </template>
 <script>
 import marketService from 'services/marketing'
+import couponService from 'services/coupon'
 import { customTrack } from 'modules/customTrack'
 import WxShare from 'modules/wxShare.vue'
 
@@ -56,6 +57,12 @@ export default {
         title: '旺狗开春 情缘满分',
         desc: '巴黎春天借旺狗报新春 送祝福 合家欢 情侣睦 诞生的汪早脱单',
         imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/dog_share_icon.png'
+      },
+      coupon_batch:{
+        name: '',
+        desc: '',
+        couponId: '',
+        total: ''
       }
     }
   },
@@ -79,12 +86,35 @@ export default {
     },
     openBag() {
       $('.btn-open').addClass("rotate");
-      setTimeout(function(){
-      $('.red-package').hide()
-      $('.open-red-package').show()
-      },1000)
-      //优惠券生成
-
+      let params = {
+        "coupon_batch_id": "32"
+      }
+      //判断优惠券数目
+      couponService.getV4CouponCount(this, '32').then(res => {
+        if(res.data.capacity == 0){
+          $('.red-package').hide()
+          $('.no-red-package').show()
+          setTimeout(function(){
+            $('.cover').hide()
+          },2000)
+        }else{
+          //优惠券生成
+          couponService.createV4Coupon(this,params).then(res => {
+            this.coupon_batch.name = res.coupon_batch.name
+            this.coupon_batch.desc = res.coupon_batch.description
+            this.coupon_batch.total = res.coupon_batch.total
+            this.coupon_batch.couponId = res.id
+             setTimeout(function(){
+              $('.red-package').hide()
+              $('.open-red-package').show()
+              },100)
+          }).catch(err => {
+            console.log(err)
+          })
+        }
+      }).catch(err => {
+        console.log(err)
+      })
     },
     getPhoto() {
       if(!(/^1[34578]\d{9}$/.test(this.mobileNum))){
@@ -92,9 +122,31 @@ export default {
         this.errorText = '手机号码格式不正确';
         return;
       }else{
-          customTrack.sendMobile(this.mobileNum);
+        customTrack.sendMobile(this.mobileNum);
+        //优惠券绑定
+        let params = {
+          "mobile": this.mobileNum,
+          "coupon_id": this.coupon_batch.couponId
+        }
+
+        console.log(params)
+        couponService.bindV4Coupon(this,params).then(res => {
+          if(res.success){
+            //调用发短信的接口
+            let smsParams = params
+            smsParams.sms_tmp_id = "2169978"
+            couponService.sendV4CouponSms(this,smsParams).then(Response => {
+              console.log(Response.message)
+            }).catch(err => {
+              console.log(err)
+            })
+          }else{
+            alert(res.message)
+          }
           this.RedPageFlag = false
-          //优惠券绑定
+        }).catch(err => {
+          console.log(err)
+        })
       }
     }
   },
