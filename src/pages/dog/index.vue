@@ -7,18 +7,18 @@
     <div class="save">长按保存照片到手机相册</div>
      <div class="cover" v-show="RedPageFlag">
       <div class="prize-wrap">
-        <div class="red-package" v-show="openPackageFlag">
+        <div class="red-package">
           <img class="bg-red-package" :src="imgServerUrl + '/pages/dog/red_bag.png'">
           <div class="title">恭喜你获得</div>
           <div class="subtitle">“要發”大红包</div>
           <img class="btn-open" :src="imgServerUrl + '/pages/dog/btn_open.png'" @click="openBag">
         </div>
-        <div class="open-red-package" v-show="!openPackageFlag & !noPackageFlag">
+        <div class="open-red-package">
           <img class="bg-red-package" :src="imgServerUrl + '/pages/dog/red_bag_bg.png'">
           <div class="title">恭喜您获得消费红包</div>
-          <div class="prompt-title">消费满100元仅使用一张</div>
-          <div class="count">18.00<span class="yuan">元</span></div>
-          <div class="prompt-title address">电子红包需至六楼服务台进行核销</div>
+          <div class="prompt-title">{{coupon_batch.name}}</div>
+          <div class="count">{{coupon_batch.total}}<span class="yuan">元</span></div>
+          <div class="prompt-title address">{{coupon_batch.desc}}</div>
           <div class="error" v-show="phoneError">{{errorText}}</div>
           <input type="text" placeholder="请输入手机号" class="mobile" maxlength="11" @click="phoneError = false" v-model="mobileNum"/>
           <div class="btn" @click="getPhoto">领取红包</div>
@@ -34,6 +34,7 @@
 </template>
 <script>
 import marketService from 'services/marketing'
+import couponService from 'services/coupon'
 import { customTrack } from 'modules/customTrack'
 import WxShare from 'modules/wxShare.vue'
 
@@ -47,16 +48,21 @@ export default {
     return {
       resultImgUrl: '',
       imgServerUrl: IMAGE_SERVER,
-      openPackageFlag: true,
       phoneError: false,
       errorText : '手机号码格式不正确',
       RedPageFlag: true,
       mobileNum: '',
       noPackageFlag: false,
       wxShareInfoValue:{
-        title: '寻宝箱 开好礼',
-        desc: '新年至 小星在各大商圈准备了海量神秘宝箱！找到小星 发现好礼！！',
+        title: '旺狗开春 情缘满分',
+        desc: '巴黎春天借旺狗报新春 送祝福 合家欢 情侣睦 诞生的汪早脱单',
         imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/dog_share_icon.png'
+      },
+      coupon_batch:{
+        name: '',
+        desc: '',
+        couponId: '',
+        total: ''
       }
     }
   },
@@ -79,7 +85,36 @@ export default {
       })
     },
     openBag() {
-      this.openPackageFlag = false
+      $('.btn-open').addClass("rotate");
+      let params = {
+        "coupon_batch_id": "32"
+      }
+      //判断优惠券数目
+      couponService.getV4CouponCount(this, '32').then(res => {
+        if(res.data.capacity == 0){
+          $('.red-package').hide()
+          $('.no-red-package').show()
+          setTimeout(function(){
+            $('.cover').hide()
+          },2000)
+        }else{
+          //优惠券生成
+          couponService.createV4Coupon(this,params).then(res => {
+            this.coupon_batch.name = res.coupon_batch.name
+            this.coupon_batch.desc = res.coupon_batch.description
+            this.coupon_batch.total = res.coupon_batch.total
+            this.coupon_batch.couponId = res.id
+             setTimeout(function(){
+              $('.red-package').hide()
+              $('.open-red-package').show()
+              },100)
+          }).catch(err => {
+            console.log(err)
+          })
+        }
+      }).catch(err => {
+        console.log(err)
+      })
     },
     getPhoto() {
       if(!(/^1[34578]\d{9}$/.test(this.mobileNum))){
@@ -87,8 +122,31 @@ export default {
         this.errorText = '手机号码格式不正确';
         return;
       }else{
-          customTrack.sendMobile(this.mobileNum);
+        customTrack.sendMobile(this.mobileNum);
+        //优惠券绑定
+        let params = {
+          "mobile": this.mobileNum,
+          "coupon_id": this.coupon_batch.couponId
+        }
+
+        console.log(params)
+        couponService.bindV4Coupon(this,params).then(res => {
+          if(res.success){
+            //调用发短信的接口
+            let smsParams = params
+            smsParams.sms_tmp_id = "2169978"
+            couponService.sendV4CouponSms(this,smsParams).then(Response => {
+              console.log(Response.message)
+            }).catch(err => {
+              console.log(err)
+            })
+          }else{
+            alert(res.message)
+          }
           this.RedPageFlag = false
+        }).catch(err => {
+          console.log(err)
+        })
       }
     }
   },
@@ -189,7 +247,7 @@ export default {
         }
       }
       .open-red-package{
-        display: block;
+        display: none;
         top: 0;
         bottom: 0;
         margin: auto;
@@ -271,7 +329,7 @@ export default {
         }
       }
       .no-red-package{
-         display: block;
+        display: block;
         top: 0;
         bottom: 0;
         margin: auto;
@@ -279,7 +337,7 @@ export default {
         position: relative;
         .bg-red-package{
           width: 90%;
-          top: 15%;
+          top: 05%;
           left: 5%;
           position: absolute;
         }
@@ -313,6 +371,14 @@ export default {
       color: #aabbaa;
       text-indent: 10px;
     }
+  }
+  .rotate{
+    animation: anim .3s infinite alternate;
+  }
+
+  @keyframes anim {
+    from { transform: rotateY(180deg); }
+    to { transform: rotateY(360deg); }
   }
 }
 </style>
