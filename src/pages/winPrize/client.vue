@@ -7,13 +7,13 @@
       </div>
       <div class="user-swiper-wrap clearfix">
         <div class="user-content first clearfix">
-          <div v-for="(head, index) in 20" v-bind:class="index > headImgAnimate.hideIndex1 ? 'hide' : ''" v-bind:key="head" style="background: #ffe221;" class="user">
-            {{index}}
+          <div v-for="(head, index) in 20" v-bind:class="index > headImgAnimate.hideIndex1 ? 'hide' : ''" v-bind:key="head" class="user">
+            <img class="image-header" :src="imgServerUrl + '/pages/win_prize/h'+ (index + 1)  +'.jpg'" alt="">
           </div>
         </div>
         <div class="user-content second clearfix">
-          <div v-for="(head, index) in 20" v-bind:class="index > headImgAnimate.hideIndex2 ? 'hide' : ''" v-bind:key="head" style="background: #ffe221;" class="user">
-            {{index}}
+          <div v-for="(head, index) in 20" v-bind:class="index > headImgAnimate.hideIndex2 ? 'hide' : ''" v-bind:key="head" class="user">
+            <img class="image-header" :src="imgServerUrl + '/pages/win_prize/h'+ (index + 1) +'.jpg'" alt="">
           </div>
         </div>
       </div>
@@ -471,6 +471,11 @@ export default {
           &.hide{
             opacity: 0;
             transform: scale(0);
+          }
+          .image-header{
+            width: 100%;
+            max-width: 100%;
+            border-radius: 50%;
           }
         }
       }
