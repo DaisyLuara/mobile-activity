@@ -15,7 +15,7 @@
         </div>
         <div class="open-red-package">
           <img class="bg-red-package" :src="imgServerUrl + '/pages/dog/red_bag_bg.png'">
-          <div class="title">恭喜您获得消费红包</div>
+          <div class="title">恭喜你获得消费红包</div>
           <div class="prompt-title">{{coupon_batch.name}}</div>
           <div class="count">{{coupon_batch.total}}<span class="yuan">元</span></div>
           <div class="prompt-title address">{{coupon_batch.desc}}</div>
@@ -92,8 +92,10 @@ export default {
       //判断优惠券数目
       couponService.getV4CouponCount(this, '32').then(res => {
         if(res.data.capacity == 0){
-          $('.red-package').hide()
-          $('.no-red-package').show()
+           setTimeout(function(){
+              $('.red-package').hide()
+              $('.no-red-package').show()
+              },100)
           setTimeout(function(){
             $('.cover').hide()
           },2000)
@@ -224,7 +226,7 @@ export default {
           position: absolute;
         }
         .title{
-          top: 32%;
+          top: 27%;
           width: 100%;
           font-size: 20px;
           color: #e9b96d;
@@ -232,7 +234,7 @@ export default {
           position: absolute;
         }
         .subtitle{
-          top: 40%;
+          top: 35%;
           width: 100%;
           font-size: 42px;
           color: #e9b96d;
@@ -312,7 +314,7 @@ export default {
           left: 17.35%;
           border-radius: 5px;
           text-indent: 10px;
-          box-shadow: 0px 1px 2px 1px #ababab;
+          box-shadow: 0px 0px 3px #ababab inset;
         }
         .btn{
           width: 65.3%;
