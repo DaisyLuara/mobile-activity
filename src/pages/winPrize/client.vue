@@ -467,7 +467,6 @@ export default {
           // margin-left: -5px
           margin-left: -12.5px;
           transition: all .3s .1s;
-          background-color: red;
           &.hide{
             opacity: 0;
             transform: scale(0);
