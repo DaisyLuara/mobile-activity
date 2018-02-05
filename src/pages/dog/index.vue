@@ -67,7 +67,7 @@ export default {
     }
   },
   beforeCreate() {
-    document.title = "狗年汪情缘"
+    document.title = "狗年旺情缘"
   },
   mounted(){
     $(".report-wrap").css('height', $(window).height());
