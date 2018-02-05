@@ -33,124 +33,130 @@
   </div>
 </template>
 <script>
-import marketService from 'services/marketing'
-import couponService from 'services/coupon'
-import { customTrack } from 'modules/customTrack'
-import WxShare from 'modules/wxShare.vue'
+import marketService from 'services/marketing';
+import couponService from 'services/coupon';
+import WxShare from 'modules/wxShare';
+import { customTrack } from 'modules/customTrack';
 
 const IMAGE_SERVER = process.env.IMAGE_SERVER + "/xingshidu_h5/marketing";
 
 export default {
   components: {
-    WxShare
+    WxShare,
   },
-  data () {
+  data() {
     return {
       resultImgUrl: '',
       imgServerUrl: IMAGE_SERVER,
       phoneError: false,
-      errorText : '手机号码格式不正确',
+      errorText: '手机号码格式不正确',
       RedPageFlag: true,
       mobileNum: '',
       noPackageFlag: false,
-      wxShareInfoValue:{
+      wxShareInfoValue: {
         title: '旺狗开春 情缘满分',
         desc: '巴黎春天借旺狗报新春 送祝福 合家欢 情侣睦 诞生的汪早脱单',
-        imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/dog_share_icon.png'
+        imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/dog_share_icon.png',
+        link: '',
       },
-      coupon_batch:{
+      coupon_batch: {
         name: '',
         desc: '',
         couponId: '',
-        total: ''
-      }
-    }
+        total: '',
+      },
+    };
   },
   beforeCreate() {
-    document.title = "狗年汪情缘"
+    document.title = '狗年旺情缘';
   },
-  mounted(){
-    $(".report-wrap").css('height', $(window).height());
+  mounted() {
+    $('.report-wrap').css('height', $(window).height());
   },
   created() {
-    this.getPeopleImage()
+    if (this.$route.query.show === 'true') {
+      this.RedPageFlag = false;
+      this.wxShareInfoValue.link = window.location.href;
+    } else {
+      this.wxShareInfoValue.link = window.location.href + '&show=true';
+    }
+    this.getPeopleImage();
   },
-  methods:{
+  methods: {
     getPeopleImage() {
       let recordId = decodeURI(this.$route.query.recordId);
-      marketService.getPlayResultById(this,recordId).then(result => {
+      marketService.getPlayResultById(this, recordId).then((result) => {
         this.resultImgUrl = result.result_img_url;
-      }).catch(err => {
-      console.log(err)
-      })
+      }).catch((err) => {
+      console.log(err);
+      });
     },
     openBag() {
-      $('.btn-open').addClass("rotate");
+      $('.btn-open').addClass('rotate');
       let params = {
-        "coupon_batch_id": "32"
-      }
-      //判断优惠券数目
-      couponService.getV4CouponCount(this, '32').then(res => {
-        if(res.data.capacity == 0){
-           setTimeout(function(){
-              $('.red-package').hide()
-              $('.no-red-package').show()
-              },100)
-          setTimeout(function(){
-            $('.cover').hide()
-          },2000)
-        }else{
-          //优惠券生成
-          couponService.createV4Coupon(this,params).then(res => {
-            this.coupon_batch.name = res.coupon_batch.name
-            this.coupon_batch.desc = res.coupon_batch.description
-            this.coupon_batch.total = res.coupon_batch.total
-            this.coupon_batch.couponId = res.id
-             setTimeout(function(){
-              $('.red-package').hide()
-              $('.open-red-package').show()
-              },100)
-          }).catch(err => {
-            console.log(err)
-          })
+        coupon_batch_id: '32',
+      };
+      // 判断优惠券数目
+      couponService.getV4CouponCount(this, '32').then((res) => {
+        if (res.data.capacity === 0) {
+          setTimeout(function() {
+            $('.red-package').hide();
+            $('.no-red-package').show();
+          }, 100);
+          setTimeout(function() {
+            $('.cover').hide();
+          }, 2000);
+        } else {
+          // 优惠券生成
+          couponService.createV4Coupon(this, params).then((res) => {
+            this.coupon_batch.name = res.coupon_batch.name;
+            this.coupon_batch.desc = res.coupon_batch.description;
+            this.coupon_batch.total = res.coupon_batch.total;
+            this.coupon_batch.couponId = res.id;
+            setTimeout(function() {
+              $('.red-package').hide();
+              $('.open-red-package').show();
+            }, 100);
+          }).catch((err) => {
+            console.log(err);
+          });
         }
-      }).catch(err => {
-        console.log(err)
-      })
+      }).catch((err) => {
+        console.log(err);
+      });
     },
     getPhoto() {
-      if(!(/^1[34578]\d{9}$/.test(this.mobileNum))){
+      if (!(/^1[34578]\d{9}$/.test(this.mobileNum))) {
         this.phoneError = true;
         this.errorText = '手机号码格式不正确';
-        return;
-      }else{
+      } else {
         customTrack.sendMobile(this.mobileNum);
-        //优惠券绑定
+        // 优惠券绑定
         let params = {
-          "mobile": this.mobileNum,
-          "coupon_id": this.coupon_batch.couponId
-        }
+          mobile: this.mobileNum,
+          coupon_id: this.coupon_batch.couponId,
+        };
 
-        console.log(params)
-        couponService.bindV4Coupon(this,params).then(res => {
-          if(res.success){
-            //调用发短信的接口
-            let smsParams = params
-            smsParams.sms_tmp_id = "2169978"
-            couponService.sendV4CouponSms(this,smsParams).then(Response => {
-              console.log(Response.message)
-            }).catch(err => {
-              console.log(err)
-            })
-          }else{
-            alert(res.message)
+        console.log(params);
+        couponService.bindV4Coupon(this, params).then((res) => {
+          if (res.success) {
+            // 调用发短信的接口
+            let smsParams = params;
+            smsParams.sms_tmp_id = '2169978';
+            couponService.sendV4CouponSms(this, smsParams).then((Response) => {
+              console.log(Response.message);
+            }).catch((err) => {
+              console.log(err);
+            });
+          } else {
+            alert(res.message);
           }
-          this.RedPageFlag = false
-        }).catch(err => {
-          console.log(err)
-        })
+          this.RedPageFlag = false;
+        }).catch((err) => {
+          console.log(err);
+        });
       }
-    }
+    },
   },
   computed: {
     wxShareInfo() {
@@ -158,14 +164,15 @@ export default {
         title: this.wxShareInfoValue.title,
         desc: this.wxShareInfoValue.desc,
         imgUrl: this.wxShareInfoValue.imgUrl,
+        link: this.wxShareInfoValue.link,
         success: () => {
-          customTrack.shareWeChat()
-        }
-      }
+          customTrack.shareWeChat();
+        },
+      };
       return wxShareInfo;
-      }
-    }
-  }
+    },
+  },
+};
 </script>
 <style lang="less" scoped>
   @imageHost: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/dog';
