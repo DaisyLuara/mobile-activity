@@ -74,9 +74,11 @@ export default {
     $('.report-wrap').css('height', $(window).height());
   },
   created() {
-    this.wxShareInfoValue.link = window.location.href + '&show=true';
     if (this.$route.query.show === 'true') {
       this.RedPageFlag = false;
+      this.wxShareInfoValue.link = window.location.href;
+    } else {
+      this.wxShareInfoValue.link = window.location.href + '&show=true';
     }
     this.getPeopleImage();
   },
@@ -86,7 +88,7 @@ export default {
       marketService.getPlayResultById(this, recordId).then((result) => {
         this.resultImgUrl = result.result_img_url;
       }).catch((err) => {
-      console.log(err)
+      console.log(err);
       });
     },
     openBag() {
