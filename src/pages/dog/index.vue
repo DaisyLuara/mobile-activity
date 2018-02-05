@@ -81,7 +81,6 @@ export default {
       this.wxShareInfoValue.link = window.location.href + '&show=true';
     }
     this.getPeopleImage();
-    console.log(this.wxShareInfoValue.link)
   },
   methods: {
     getPeopleImage() {
@@ -89,7 +88,7 @@ export default {
       marketService.getPlayResultById(this, recordId).then((result) => {
         this.resultImgUrl = result.result_img_url;
       }).catch((err) => {
-      console.log(err)
+      console.log(err);
       });
     },
     openBag() {
