@@ -1,8 +1,8 @@
 <template>
   <div class="report-wrap">
     <div class="photo-wrap">
-      <!-- <img :src ="resultImgUrl" alt=""/> -->
-      <img src="http://ozwvqiu0u.bkt.clouddn.com/FqndnPVU-WDIXwpkyflxdUfIfS0H" />
+      <img :src="resultImgUrl" alt=""/>
+      <!-- <img src="http://ozwvqiu0u.bkt.clouddn.com/FqndnPVU-WDIXwpkyflxdUfIfS0H" /> -->
     </div>
     <div class="save">长按保存照片到手机相册</div>
      <div class="cover" v-show="RedPageFlag">
