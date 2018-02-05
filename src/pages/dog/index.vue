@@ -74,11 +74,14 @@ export default {
     $('.report-wrap').css('height', $(window).height());
   },
   created() {
-    this.wxShareInfoValue.link = window.location.href + '&show=true';
     if (this.$route.query.show === 'true') {
       this.RedPageFlag = false;
+      this.wxShareInfoValue.link = window.location.href;
+    } else {
+      this.wxShareInfoValue.link = window.location.href + '&show=true';
     }
     this.getPeopleImage();
+    console.log(this.wxShareInfoValue.link)
   },
   methods: {
     getPeopleImage() {
