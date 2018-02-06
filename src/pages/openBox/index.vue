@@ -65,7 +65,7 @@ export default {
     getCoupon() {
       let adId = this.$route.query.adId;
       if (!adId) {
-        adId = 100;
+        adId = 20012;
       }
       let params = {
         mobile: this.mobileNum,
