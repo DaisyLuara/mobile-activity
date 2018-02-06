@@ -2,39 +2,13 @@
   <div class="report-wrap">
     <div class="photo-wrap">
       <img :src="resultImgUrl" alt=""/>
-      <!-- <img src="http://ozwvqiu0u.bkt.clouddn.com/Fo-_Ec2jv9sm7_FhmiNne1YlIlJ6" /> -->
     </div>
     <div class="save">长按保存照片到手机相册</div>
-     <!-- <div class="cover" v-show="RedPageFlag">
-      <div class="prize-wrap">
-        <div class="red-package">
-          <img class="bg-red-package" :src="imgServerUrl + '/pages/dog/red_bag.png'">
-          <div class="title">恭喜你获得</div>
-          <div class="subtitle">“要發”大红包</div>
-          <img class="btn-open" :src="imgServerUrl + '/pages/dog/btn_open.png'" @click="openBag">
-        </div>
-        <div class="open-red-package">
-          <img class="bg-red-package" :src="imgServerUrl + '/pages/dog/red_bag_bg.png'">
-          <div class="title">恭喜你获得消费红包</div>
-          <div class="prompt-title">{{coupon_batch.name}}</div>
-          <div class="count">{{coupon_batch.total}}<span class="yuan">元</span></div>
-          <div class="prompt-title address">{{coupon_batch.desc}}</div>
-          <div class="error" v-show="phoneError">{{errorText}}</div>
-          <input type="text" placeholder="请输入手机号" class="mobile" maxlength="11" @click="phoneError = false" v-model="mobileNum"/>
-          <div class="btn" @click="getPhoto">领取红包</div>
-        </div>
-        <div class="no-red-package" v-show="noPackageFlag">
-          <img class="bg-red-package" :src="imgServerUrl + '/pages/dog/no_red_package.png'">
-          <div class="title">现金红包已被领完</div>
-        </div>
-      </div>
-    </div> -->
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
 </template>
 <script>
 import marketService from 'services/marketing';
-// import couponService from 'services/coupon';
 import WxShare from 'modules/wxShare';
 import { customTrack } from 'modules/customTrack';
 
