@@ -74,6 +74,12 @@ export default new Router({
         name: '狗年汪情缘',
         component: () =>
           import ( /* webpackChunkName: "dog" */ 'pages/dog/index.vue')
+      },
+      {
+        path: 'hongyi',
+        name: '狗年汪情缘',
+        component: () =>
+          import ( /* webpackChunkName: "hongyi" */ 'pages/hongyi/index.vue')
       }
     ]
   }, ],
