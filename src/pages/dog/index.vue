@@ -1,8 +1,8 @@
 <template>
   <div class="report-wrap">
     <div class="photo-wrap">
-      <img :src ="resultImgUrl" alt=""/>
-      <!-- <img src = "http://ozwvqiu0u.bkt.clouddn.com/FvJDho0lyvIEhFNSMnFFz9P8hFg8" /> -->
+      <img :src="resultImgUrl" alt=""/>
+      <!-- <img src="http://ozwvqiu0u.bkt.clouddn.com/FqndnPVU-WDIXwpkyflxdUfIfS0H" /> -->
     </div>
     <div class="save">长按保存照片到手机相册</div>
      <div class="cover" v-show="RedPageFlag">
@@ -185,8 +185,8 @@ export default {
   .photo-wrap{
     position: absolute;
     top: 18%;
-    width: 65%;
-    left: 17.5%;
+    width: 60%;
+    left: 20%;
     img{
       width: 100%;
     }
