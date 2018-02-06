@@ -44,9 +44,7 @@ export default {
   methods: {
     getPeopleImage() {
       let recordId = decodeURI(this.$route.query.recordId);
-      console.log(recordId)
       marketService.getPlayResultById(this, recordId).then((result) => {
-        console.log(result)
         this.resultImgUrl = result.result_img_url;
       }).catch((err) => {
       console.log(err);
