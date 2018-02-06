@@ -11,16 +11,16 @@
   </div>
 </template>
 <script>
-import { setParameter, Cookies } from 'modules/util'
-import { customTrack } from 'modules/customTrack'
-import WxShare from 'modules/wxShare.vue'
-import wxService from 'services/wx'
-import parseService from 'modules/parseServer'
-import CouponService from 'services/freecartCoupon'
+import { setParameter } from 'modules/util';
+import { customTrack } from 'modules/customTrack';
+import WxShare from 'modules/wxShare';
+import wxService from 'services/wx';
+import parseService from 'modules/parseServer';
+import CouponService from 'services/freecartCoupon';
 
 export default {
   components: {
-    WxShare
+    WxShare,
   },
   data() {
     return {
@@ -28,79 +28,82 @@ export default {
       phoneError: true,
       errorText: '',
       reqUrl: 'http://120.27.144.62:1337/parse/classes/',
-      wxShareInfoValue:{
+      wxShareInfoValue: {
         title: '寻宝箱 开好礼',
         desc: '新年至 小星在各大商圈准备了海量神秘宝箱！找到小星 发现好礼！！',
-        imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/openBox_share_icon.png'
+        imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/openBox_share_icon.png',
       },
-      userInfo: {}
-    }
+      userInfo: {},
+    };
   },
-  beforeCreate(){
-    document.title = '开箱子'
+  beforeCreate() {
+    document.title = '开箱子';
   },
-  mounted(){
-    $(".phone-content").css('height', $(window).height());
+  mounted() {
+    $('.phone-content').css('height', $(window).height());
   },
-  created(){
-    this.getWxUserInfo()
+  created() {
+    // this.getWxUserInfo();
   },
-  methods:{
-    saveWxInfo(){
-      this.userInfo.gifType = this.$route.query.type
-      parseService.post(this, this.reqUrl + 'open_the_box', this.userInfo).then(res => {
-        console.log('保存成功')
-      }).catch(err => {
-        console.log(err)
+  methods: {
+    saveWxInfo() {
+      this.userInfo.gifType = this.$route.query.type;
+      parseService.post(this, this.reqUrl + 'open_the_box', this.userInfo).then((res) => {
+        console.log('保存成功');
+      }).catch((err) => {
+        console.log(err);
       });
     },
-    redirectToPhoto(){
-        if(!(/^1[34578]\d{9}$/.test(this.mobileNum))){
+    redirectToPhoto() {
+      if (!(/^1[34578]\d{9}$/.test(this.mobileNum))) {
         this.phoneError = true;
         this.errorText = '手机号码格式不正确';
-        return;
-      }else{
-        this.getCoupon()
+      } else {
+        this.getCoupon();
       }
     },
-    getCoupon(){
+    getCoupon() {
+      let adId = this.$route.query.adId;
+      if (!adId) {
+        adId = 20012;
+      }
       let params = {
-        "mobile": this.mobileNum,
-        "sms_template": 'SEND_MARKETING_COUPONS'
-      }
-      CouponService.createCoupon(this, params).then(data => {
-        let res = data.data
-        if(JSON.stringify(res) == '{}'){
-          this.saveWxInfo()
+        mobile: this.mobileNum,
+        sms_template: 'SEND_MARKETING_COUPONS',
+        adId: parseInt(adId),
+      };
+      CouponService.createCoupon(this, params).then((data) => {
+        let res = data.data;
+        if (JSON.stringify(res) === '{}') {
+          this.saveWxInfo();
           customTrack.sendMobile(this.mobileNum);
-          this.linkToPhoto()
-        }else {
-          alert(res.error.msg)
-          this.linkToPhoto()
+          this.linkToPhoto();
+        } else {
+          alert(res.error.msg);
+          this.linkToPhoto();
         }
-      }).catch(err => {
-        console.log(err)
-      })
+      }).catch((err) => {
+        console.log(err);
+      });
     },
-    getWxUserInfo(){
-      wxService.getWxUserInfo(this).then(result => {
-        let data = result.data
-        this.userInfo.name = data.nickname
-        this.userInfo.headImgUrl = data.headimgurl
-      }).catch(err => {
-        let pageUrl = encodeURIComponent(window.location.href)
-        let wx_auth_url = process.env.WX_API + '/wx/officialAccount/oauth?url=' + pageUrl + '&scope=snsapi_userinfo';
-        window.location.href = wx_auth_url;
-        return;
-      })
+    getWxUserInfo() {
+      wxService.getWxUserInfo(this).then((result) => {
+        let data = result.data;
+        this.userInfo.name = data.nickname;
+        this.userInfo.headImgUrl = data.headimgurl;
+      }).catch((err) => {
+        let pageUrl = encodeURIComponent(window.location.href);
+        let wxAuthUrl = process.env.WX_API + '/wx/officialAccount/oauth?url=' + pageUrl + '&scope=snsapi_userinfo';
+        window.location.href = wxAuthUrl;
+      });
     },
-    linkToPhoto(){
-      let redirect_url = window.location.origin +'/#'+ this.$route.path + '/result';
-      for(let param in this.$route.query){
-        redirect_url = setParameter(param, this.$route.query[param], redirect_url)
+    linkToPhoto() {
+      let redirectUrl = window.location.origin + '/#' + this.$route.path + '/result';
+      for (let param in this.$route.query) {
+        redirectUrl = setParameter(param, this.$route.query[param], redirectUrl);
       }
-      window.location.href = redirect_url;
-    }
+      window.location.href = redirectUrl;
+    },
   },
   computed: {
     wxShareInfo() {
@@ -109,13 +112,13 @@ export default {
         desc: this.wxShareInfoValue.desc,
         imgUrl: this.wxShareInfoValue.imgUrl,
         success: () => {
-          customTrack.shareWeChat()
-        }
-      }
+          customTrack.shareWeChat();
+        },
+      };
       return wxShareInfo;
-    }
-  }
-}
+    },
+  },
+};
 </script>
 <style lang="less" scoped>
   @imageHost: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/open_box';
