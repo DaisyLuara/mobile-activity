@@ -43,7 +43,7 @@ export default {
     $('.phone-content').css('height', $(window).height());
   },
   created() {
-    // this.getWxUserInfo();
+    this.getWxUserInfo();
   },
   methods: {
     saveWxInfo() {
