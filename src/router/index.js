@@ -71,15 +71,21 @@ export default new Router({
       },
       {
         path: 'dog',
-        name: '狗年汪情缘',
+        name: '狗年旺情缘',
         component: () =>
           import ( /* webpackChunkName: "dog" */ 'pages/dog/index.vue')
       },
       {
         path: 'hongyi',
-        name: '狗年汪情缘',
+        name: '狗年旺情缘',
         component: () =>
           import ( /* webpackChunkName: "hongyi" */ 'pages/hongyi/index.vue')
+      },
+      {
+        path: 'ps',
+        name: '狗年旺情缘',
+        component: () =>
+          import ( /* webpackChunkName: "ps" */ 'pages/ps/index.vue')
       }
     ]
   }, ],
