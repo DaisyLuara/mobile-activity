@@ -16,13 +16,12 @@ export default {
   getWxUserInfo(context) {
     let url = WX_API + '/wx/officialAccount/user?v=' + new Date().getTime();
     return new Promise((resolve, reject) => {
-      context.$http.get(url, { withCredentials: true }).then(res => {
+      context.$http.get(url, { withCredentials: true }).then((res) => {
         let wdata = res.data;
-        resolve(wdata)
-      }).catch(err => {
-        reject(err)
-      })
-    })
-
-  }
-}
+        resolve(wdata);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  },
+};

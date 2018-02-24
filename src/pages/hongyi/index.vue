@@ -12,7 +12,7 @@ import marketService from 'services/marketing';
 import WxShare from 'modules/wxShare';
 import { customTrack } from 'modules/customTrack';
 
-const IMAGE_SERVER = process.env.IMAGE_SERVER + "/xingshidu_h5/marketing";
+const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing';
 
 export default {
   components: {
@@ -47,7 +47,7 @@ export default {
       marketService.getPlayResultById(this, recordId).then((result) => {
         this.resultImgUrl = result.result_img_url;
       }).catch((err) => {
-      console.log(err);
+        console.log(err);
       });
     },
   },

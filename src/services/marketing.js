@@ -4,32 +4,31 @@ const PLAY_RESULT_API = '/open/play/playResults/';
 export default {
   getPlayResultById(context, id) {
     return new Promise((resolve, reject) => {
-      context.$http.get(MARKETING_API + PLAY_RESULT_API + id).then(res => {
+      context.$http.get(MARKETING_API + PLAY_RESULT_API + id).then((res) => {
         if (res.data.success) {
-          resolve(res.data.data)
+          resolve(res.data.data);
         } else {
-          reject(res.data.message)
+          reject(res.data.message);
         }
-      }).catch(err => {
-        reject(err)
-      })
-    })
+      }).catch((err) => {
+        reject(err);
+      });
+    });
   },
   getImageById(context, id) {
     let promise = new Promise((resolve, reject) => {
-      context.$http.get(IMAGE_API + id).then(response => {
+      context.$http.get(IMAGE_API + id).then((response) => {
         if (response.status === 200) {
           if (response.data.state === '1') {
-            resolve(response.data.results.image)
+            resolve(response.data.results.image);
           } else {
-            resolve('')
+            resolve('');
           }
         }
-      }).catch(err => {
+      }).catch((err) => {
         reject(err);
-      })
-    })
-
+      });
+    });
     return promise;
-  }
-}
+  },
+};
