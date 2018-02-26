@@ -38,7 +38,7 @@ import couponService from 'services/coupon';
 import WxShare from 'modules/wxShare';
 import { customTrack } from 'modules/customTrack';
 
-const IMAGE_SERVER = process.env.IMAGE_SERVER + "/xingshidu_h5/marketing";
+const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing';
 
 export default {
   components: {
@@ -50,7 +50,7 @@ export default {
       imgServerUrl: IMAGE_SERVER,
       phoneError: false,
       errorText: '手机号码格式不正确',
-      RedPageFlag: true,
+      RedPageFlag: false,
       mobileNum: '',
       noPackageFlag: false,
       wxShareInfoValue: {
@@ -88,7 +88,7 @@ export default {
       marketService.getPlayResultById(this, recordId).then((result) => {
         this.resultImgUrl = result.result_img_url;
       }).catch((err) => {
-      console.log(err);
+        console.log(err);
       });
     },
     openBag() {
@@ -99,11 +99,11 @@ export default {
       // 判断优惠券数目
       couponService.getV4CouponCount(this, '32').then((res) => {
         if (res.data.capacity === 0) {
-          setTimeout(function() {
+          setTimeout(() => {
             $('.red-package').hide();
             $('.no-red-package').show();
           }, 100);
-          setTimeout(function() {
+          setTimeout(() => {
             $('.cover').hide();
           }, 2000);
         } else {
@@ -113,7 +113,7 @@ export default {
             this.coupon_batch.desc = res.coupon_batch.description;
             this.coupon_batch.total = res.coupon_batch.total;
             this.coupon_batch.couponId = res.id;
-            setTimeout(function() {
+            setTimeout(() => {
               $('.red-package').hide();
               $('.open-red-package').show();
             }, 100);

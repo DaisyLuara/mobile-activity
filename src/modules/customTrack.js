@@ -56,14 +56,14 @@ function mobileRecords(mobileValue) {
 }
 
 
-customTrack.sendMobile = function(mobileValue) {
+customTrack.sendMobile = (mobileValue) => {
   mobileRecords(mobileValue);
   if (_paq) {
     _paq.push(['trackEvent', customTrack.adId, customTrack.laId, 'submit_mobile_200']);
   }
 };
 
-customTrack.shareWeChat = function() {
+customTrack.shareWeChat = () => {
   if (_paq) {
     _paq.push(['trackEvent', customTrack.adId, customTrack.laId, 'share_page_wechat_300']);
   }

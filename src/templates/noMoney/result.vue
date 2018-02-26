@@ -21,43 +21,43 @@
 </div>
 </template>
 <script>
-const marketing_image_server = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing';
-import { getParamsMap, getParameter, setParameter } from 'modules/util'
-import { customTrack } from 'modules/customTrack'
-import WxShare from 'modules/wxShare.vue'
+import { customTrack } from 'modules/customTrack';
+import WxShare from 'modules/wxShare';
+
+const marketingImageServer = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing';
 export default {
   props: ['marketingOptions'],
   components: {
-      WxShare
-    },
-  data(){
+    WxShare,
+  },
+  data() {
     return {
       imgUrl: '',
       showFlag: false,
       bg: null,
-      title: marketing_image_server + '/templates/noMoney/report.png',
-      arrow: marketing_image_server + '/templates/noMoney/arrow-icon.png'
-    }
+      title: marketingImageServer + '/templates/noMoney/report.png',
+      arrow: marketingImageServer + '/templates/noMoney/arrow-icon.png',
+    };
   },
   created() {
-   this.forbidWXShare();
-   let imageUrl = decodeURI(this.$route.query.imageUrl);
+    this.forbidWXShare();
+    let imageUrl = decodeURI(this.$route.query.imageUrl);
     this.imgUrl = imageUrl;
-    this.bg = {'backgroundImage': 'url('+ imageUrl +')'};
+    this.bg = { 'backgroundImage': 'url(' + imageUrl + ')' };
   },
   mounted() {
-    $(".report-content").css('height', $(window).height());
-    document.body.addEventListener("touchstart",function(){});
+    $('.report-content').css('height', $(window).height());
+    document.body.addEventListener('touchstart', () => {});
     let wid = $(window).width() > 640 ? 640 : $(window).width();
-    let img_hei = (wid - 28 - wid * 0.125 * 2) * 4 / 3;
-    $('.photo-bg').height(img_hei);
+    let imgHei = ((wid - 28 - (wid * 0.125 * 2)) * 4) / 3;
+    $('.photo-bg').height(imgHei);
   },
   methods: {
     onBridgeReady() {
       WeixinJSBridge.call('showOptionMenu');
     },
     forbidWXShare() {
-      if (typeof WeixinJSBridge == "undefined") {
+      if (typeof WeixinJSBridge === 'undefined') {
         if (document.addEventListener) {
           document.addEventListener('WeixinJSBridgeReady', this.onBridgeReady, true);
         } else if (document.attachEvent) {
@@ -76,13 +76,13 @@ export default {
           desc: this.marketingOptions.wxShareInfo.desc,
           imgUrl: this.marketingOptions.wxShareInfo.imgUrl,
           success: () => {
-            customTrack.shareWeChat()
-          }
-        }
-        return wxShareInfo;
-      }
-  }
-}
+            customTrack.shareWeChat();
+          },
+        };
+      return wxShareInfo;
+    },
+  },
+};
 </script>
 <style lang="less" scoped>
 .report-content {

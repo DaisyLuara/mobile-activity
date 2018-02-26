@@ -8,15 +8,15 @@ export default {
   name: 'marketingHome',
   data() {
     return {
-    }
+    };
   },
-  created () {
+  created() {
   },
   methods: {
   },
   components: {
-  }
-}
+  },
+};
 </script>
 
 <style lang="less">

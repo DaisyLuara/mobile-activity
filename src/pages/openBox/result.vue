@@ -15,42 +15,43 @@
   </div>
 </template>
 <script>
-import { customTrack } from 'modules/customTrack'
-import WxShare from 'modules/wxShare.vue'
+import { customTrack } from 'modules/customTrack';
+import WxShare from 'modules/wxShare.vue';
+
 export default {
   components: {
-    WxShare
+    WxShare,
   },
-  data (){
+  data() {
     return {
       resultImgUrl: '',
-      wxShareInfoValue:{
+      wxShareInfoValue: {
         title: '寻宝箱 开好礼',
         desc: '新年至 小星在各大商圈准备了海量神秘宝箱！找到小星 发现好礼！！',
-        imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/openBox_share_icon.png'
-      }
-    }
+        imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/openBox_share_icon.png',
+      },
+    };
   },
-  beforeCreate(){
-    document.title = '开箱子'
+  beforeCreate() {
+    document.title = '开箱子';
   },
-  created(){
-    this.getPeopleImage()
+  created() {
+    this.getPeopleImage();
   },
-  methods:{
+  methods: {
     getPeopleImage() {
       let recordId = decodeURI(this.$route.query.recordId);
-      this.$http.get(process.env.SAAS_API + "/open/play/playResults/" + recordId).then(result => {
+      this.$http.get(process.env.SAAS_API + '/open/play/playResults/' + recordId).then((result) => {
         let data = result.data.data;
-        console.log(data)
+        console.log(data);
         this.resultImgUrl = data.result_img_url;
-      }).catch(err => {
-      console.log(err)
-      })
-    }
+      }).catch((err) => {
+        console.log(err);
+      });
+    },
   },
-  mounted(){
-    $(".report-wrap").css('min-height', $(window).height());
+  mounted() {
+    $('.report-wrap').css('min-height', $(window).height());
   },
   computed: {
     wxShareInfo() {
@@ -59,13 +60,13 @@ export default {
         desc: this.wxShareInfoValue.desc,
         imgUrl: this.wxShareInfoValue.imgUrl,
         success: () => {
-          customTrack.shareWeChat()
-        }
-      }
+          customTrack.shareWeChat();
+        },
+      };
       return wxShareInfo;
-    }
-  }
-}
+    },
+  },
+};
 </script>
 <style lang="less" scoped>
 .report-wrap{

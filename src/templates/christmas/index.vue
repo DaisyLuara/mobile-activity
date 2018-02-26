@@ -12,8 +12,8 @@
   </div>
 </template>
 <script>
-  const marketing_image_server = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing';
-  import { getParamsMap, getParameter, setParameter } from 'modules/util'
+  const marketingImageServer = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing';
+
   export default {
     props: ['marketingOptions'],
     computed: {
@@ -23,68 +23,61 @@
           desc: this.marketingOptions.wxShareInfo.desc,
           imgUrl: this.marketingOptions.wxShareInfo.imgUrl,
           success: () => {
-            // if(_hmt){
-            //   _hmt.push(['_trackEvent', '分享' + this.marketingOptions.name + '提取页', 'share', '分享', '']);
-            // }
-          }
-        }
+          },
+        };
         return wxShareInfo;
-      }
+      },
     },
     data() {
       return {
         errorText: '',
         mobileNum: '',
-        phoneError: false
-      }
+        phoneError: false,
+      };
     },
-    mounted(){
-      $(".phone-wrap").css('min-height', $(window).height());
+    mounted() {
+      $('.phone-wrap').css('min-height', $(window).height());
 
-      document.body.addEventListener("touchstart",function(){});
+      document.body.addEventListener('touchstart', () => {});
 
-      if(window.localStorage){
-        if(window.localStorage.getItem(this.marketingOptions.name + '_mobile')){
+      if (window.localStorage) {
+        if (window.localStorage.getItem(this.marketingOptions.name + '_mobile')) {
           this.phoneError = true;
-          this.errorText = '正在跳转至照片页面....'
+          this.errorText = '正在跳转至照片页面....';
           this.linkToPhoto();
         }
       }
     },
-    created(){
+    created() {
     },
     methods: {
-      redirectToPhoto(){
-        if(!this.$route.query.id){
+      redirectToPhoto() {
+        if (!this.$route.query.id) {
           this.phoneError = true;
           this.errorText = '没有照片信息，请重新扫描二维码!';
           return;
         }
 
-        if(!(/^1[34578]\d{9}$/.test(this.mobileNum))){
+        if (!(/^1[34578]\d{9}$/.test(this.mobileNum))) {
           this.phoneError = true;
           this.errorText = '手机号码输入不正确，请重新输入';
           return;
         }
-
-
         // 跳转
-        if(window.localStorage){
+        if (window.localStorage) {
           window.localStorage.setItem(this.marketingOptions.name + '_mobile', this.mobileNum);
         }
-
         this.linkToPhoto();
-
       },
-      linkToPhoto(){
+      linkToPhoto() {
         // 要把第一个页面的所有参数都带到photo页,因为photo页也需要链接上的参数
         this.$router.push({
-          'path': 'psbh/result',
-          'query': this.$route.query
-        })
-      }
-    }
-  }
+          path: 'psbh/result',
+          query: this.$route.query,
+        });
+      },
+    },
+  };
 </script>
 <style lang="less" scoped>
   @imageHost: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/templates/christmas';

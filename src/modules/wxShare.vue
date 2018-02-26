@@ -2,22 +2,24 @@
   <div></div>
 </template>
 <script>
-  import { is_weixin } from './util';
+  import { isWeixin } from './util';
+
   const wx = require('weixin-js-sdk');
+
   export default {
     props: ['WxShareInfo'],
     created() {
-      if(Object.keys(this.WxShareInfo).length > 1){
+      if (Object.keys(this.WxShareInfo).length > 1) {
         this.init();
       }
     },
     methods: {
       init() {
-        if (is_weixin() === true) {
-          let request_url = process.env.WX_API + '/wx/officialAccount/sign';
-          this.$http.get(request_url).then( response => {
+        if (isWeixin() === true) {
+          let requestUrl = process.env.WX_API + '/wx/officialAccount/sign';
+          this.$http.get(requestUrl).then((response) => {
             let resData = response.data.data;
-            let wx_config = {
+            let wxConfig = {
               debug: false,
               appId: resData.appId,
               timestamp: resData.timestamp,
@@ -28,45 +30,43 @@
                 'onMenuShareTimeline',
                 'onMenuShareQQ',
                 'onMenuShareWeibo',
-                'onMenuShareQZone'
-              ]
+                'onMenuShareQZone',
+              ],
             };
-            wx.config(wx_config);
+            wx.config(wxConfig);
             this.wxShare(this.WxShareInfo);
-
-          })
+          });
         }
       },
       wxShare(shareInfo) {
-        wx.ready(function() {
+        wx.ready(() => {
           wx.onMenuShareAppMessage(shareInfo);
           wx.onMenuShareTimeline(shareInfo);
           wx.onMenuShareQQ(shareInfo);
           wx.onMenuShareWeibo(shareInfo);
           wx.onMenuShareQZone(shareInfo);
-        })
-      }
+        });
+      },
     },
     watch: {
-      'WxShareInfo.title': function() {
+      'WxShareInfo.title': () => {
         this.init();
       },
-      'WxShareInfo.desc': function(){
+      'WxShareInfo.desc': () => {
         this.init();
       },
-      'WxShareInfo.imgUrl': function(){
+      'WxShareInfo.imgUrl': () => {
         this.init();
       },
-      'WxShareInfo.link': function(){
+      'WxShareInfo.link': () => {
         this.init();
       },
-      'WxShareInfo.success': function(){
+      'WxShareInfo.success': () => {
         this.init();
       },
-      'WxShareInfo.cancel': function(){
+      'WxShareInfo.cancel': () => {
         this.init();
-      }
-    }
-
-  }
+      },
+    },
+  };
 </script>

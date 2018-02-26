@@ -4,32 +4,34 @@
   </div>
 </template>
 <script>
-const marketing_image_server = process.env.IMAGE_SERVER + "/xingshidu_h5/marketing";
-import phoneTemplate from 'templates/noMoney/index'
+import phoneTemplate from 'templates/noMoney/index';
+
+const marketingImageServer = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing';
+
 export default {
   components: {
-    phoneTemplate
+    phoneTemplate,
   },
-  beforeCreate(){
-    document.title = '金家'
+  beforeCreate() {
+    document.title = '金家';
   },
-  created(){
+  created() {
 
   },
-  data(){
+  data() {
     return {
       marketingOptions: {
         name: 'jinjia',
         bg: {
-          'backgroundImage':  'url('+ marketing_image_server +'/templates/noMoney/phone-bg.jpg)'
+          backgroundImage: 'url(' + marketingImageServer + '/templates/noMoney/phone-bg.jpg)',
         },
         phoneIcon: {
-          imgUrl: marketing_image_server +'/templates/noMoney/phone-icon.png'
-        }
-      }
-    }
-  }
-}
+          imgUrl: marketingImageServer + '/templates/noMoney/phone-icon.png',
+        },
+      },
+    };
+  },
+};
 </script>
 <style lang="less" scoped>
 .tes-phone-wrap{

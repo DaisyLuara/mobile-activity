@@ -4,14 +4,15 @@
   </div>
 </template>
 <script>
-const marketing_image_server = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing';
-import photoTemplate from 'templates/christmas/result'
+import photoTemplate from 'templates/christmas/result';
+
+const marketingImageServer = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing';
 export default {
   components: {
-    photoTemplate
+    photoTemplate,
   },
   beforeCreate() {
-    document.title = '浦商百货'
+    document.title = '浦商百货';
   },
   data() {
     return {
@@ -20,42 +21,42 @@ export default {
         wxShareInfo: {
           title: '圣诞节到了，我把自己包成礼物送给你',
           desc: '苏州中心商场有你，圣诞节惊喜有礼。',
-          imgUrl: marketing_image_server + '/wx_share_icon/share-icon-sz-lefit.jpg',
+          imgUrl: marketingImageServer + '/wx_share_icon/share-icon-sz-lefit.jpg',
         },
         bg: {
-          'backgroundImage': 'url('+ marketing_image_server + '/templates/christmas/photo_bg.png)'
+          backgroundImage: 'url(' + marketingImageServer + '/templates/christmas/photo_bg.png)',
         },
         topDecorate: {
-          imgUrl: marketing_image_server + '/templates/christmas/top_decorate.png'
+          imgUrl: marketingImageServer + '/templates/christmas/top_decorate.png',
         },
         title: {
-          imgUrl: marketing_image_server + '/templates/christmas/title.png',
+          imgUrl: marketingImageServer + '/templates/christmas/title.png',
           style: {
-            'width': '54%',
-            'marginTop': '33%'
-          }
+            width: '54%',
+            marginTop: '33%',
+          },
         },
         photo: {
           wrapStyle: {
 
           },
-          frameImgUrl: marketing_image_server + '/templates/christmas/frame.png',
+          frameImgUrl: marketingImageServer + '/templates/christmas/frame.png',
           style: {
-            'width': '63%',
-            'top': '12%',
-            'zIndex': '3'
-          }
+            width: '63%',
+            top: '12%',
+            zIndex: '3',
+          },
         },
         saveTip: {
-          imgUrl: marketing_image_server + '/templates/christmas/save_tip.png',
+          imgUrl: marketingImageServer + '/templates/christmas/save_tip.png',
           style: {
-            'width': '76%'
-          }
-        }
-      }
-    }
-  }
-}
+            width: '76%',
+          },
+        },
+      },
+    };
+  },
+};
 </script>
 <style lang="less" scoped>
 

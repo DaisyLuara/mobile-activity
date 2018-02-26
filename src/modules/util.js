@@ -1,4 +1,4 @@
-export { getParamsMap , getParameter , setParameter , Cookies} ;
+export { getParamsMap, getParameter, setParameter, Cookies};
 
 function getParamsMap(url) {
   if (!url) {
@@ -38,7 +38,6 @@ function getParameter(key, url) {
   let params = getParamsMap(url);
 
   return params[key];
-
 }
 
 function setParameter(key, value, url) {
@@ -83,7 +82,7 @@ function getUrl(base_url, params) {
   return result;
 }
 
-export function is_weixin(){
+export function isWeixin() {
   return (/micromessenger/i).test(navigator.userAgent);
 }
 
@@ -122,5 +121,5 @@ const Cookies = {
     var aKeys = document.cookie.replace(/((?:^|\s*;)[^\=]+)(?=;|$)|^\s*|\s*(?:\=[^;]*)?(?:\1|$)/g, "").split(/\s*(?:\=[^;]*)?;\s*/);
     for (var nIdx = 0; nIdx < aKeys.length; nIdx++) { aKeys[nIdx] = decodeURIComponent(aKeys[nIdx]); }
     return aKeys;
-  }
+  },
 };
