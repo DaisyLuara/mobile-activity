@@ -50,7 +50,7 @@ export default {
       imgServerUrl: IMAGE_SERVER,
       phoneError: false,
       errorText: '手机号码格式不正确',
-      RedPageFlag: true,
+      RedPageFlag: false,
       mobileNum: '',
       noPackageFlag: false,
       wxShareInfoValue: {
