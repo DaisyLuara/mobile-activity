@@ -87,6 +87,12 @@ export default new Router({
       component: () =>
         import(/* webpackChunkName: "ps" */ 'pages/ps/index.vue'),
     },
+    {
+      path: 'spm',
+      name: '小程序地图',
+      component: () =>
+        import(/* webpackChunkName: "ps" */ 'pages/smap/map.vue'),
+    },
     ],
   }],
 });
