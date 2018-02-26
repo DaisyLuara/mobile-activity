@@ -27,7 +27,7 @@ export default {
     dim: "3d"
   }
   var map = IndoorMap(params);
-  map.load('http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/smap/data//mapData.json', function(){
+  map.load('http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/smap/data/mapData.json', function(){
     map.showFloor(1);
     map.setSelectable(false);
     map.showPubPoints(true);
