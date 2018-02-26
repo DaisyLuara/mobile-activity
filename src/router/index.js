@@ -74,17 +74,25 @@ export default new Router({
       path: 'ps',
       name: '狗年旺情缘',
       component: () =>
-        import ( /* webpackChunkName: "ps" */ 'pages/ps/index.vue')
-    }]
-  }, {
-    path: '/wxMini',
-    name: 'wxMini pages',
-    component: wxMiniHome,
-    children: [
-      {
-        path: 'gaode',
-        name: '高德地图Demo',
-        component: () => import ( /* webpackChunkName: "gaoDemo" */ 'pages/gaoDemo/index.vue')
-      }]
+        import(/* webpackChunkName: "ps" */ 'pages/ps/index.vue'),
+    },
+    {
+      path: '/wxMini',
+      name: 'wxMini pages',
+      component: wxMiniHome,
+      children: [
+        {
+          path: 'gaode',
+          name: '高德地图Demo',
+          component: () => import(/* webpackChunkName: "gaoDemo" */ 'pages/gaoDemo/index.vue'),
+        }],
+    },
+    {
+      path: 'spm',
+      name: '小程序地图',
+      component: () =>
+        import(/* webpackChunkName: "ps" */ 'pages/smap/map.vue'),
+    },
+    ],
   }],
 });
