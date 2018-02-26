@@ -5,6 +5,6 @@ module.exports = {
   M_URL: JSON.stringify('http://h5.xingstation.com'),
   WX_API: JSON.stringify('http://120.27.144.62:40080/api'),
   STORE_API: JSON.stringify('http://store.loveqiche.com'),
-  SAAS_API: JSON.stringify('http://120.27.144.62:40080/api'),
+  SAAS_API: JSON.stringify('http://sapi.newgls.cn/api'),
   IMAGE_SERVER: JSON.stringify('http://h5-images.oss-cn-shanghai.aliyuncs.com')
 }
