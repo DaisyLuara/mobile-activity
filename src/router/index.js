@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import marketingHome from 'pages/marketingHome';
+import wxMiniHome from 'pages/wxMiniHome';
 Vue.use(Router);
 
 export default new Router({
@@ -45,48 +46,45 @@ export default new Router({
       component: () =>
         import(/* webpackChunkName: "winPrize" */ 'pages/winPrize/game.vue'),
     },
-      // {
-      //   path: 'winPrize/result',
-      //   name: '勇闯三关结果页',
-      //   component: () =>
-      //     import ( /* webpackChunkName: "winPrize" */ 'pages/winPrize/result.vue')
-      // },
-      // {
-      //   path: 'winPrize/prize',
-      //   name: '勇闯三关奖励页',
-      //   component: () =>
-      //     import ( /* webpackChunkName: "winPrize" */ 'pages/winPrize/prize.vue')
-      // }
     {
       path: 'openBox',
       name: '开箱子',
       component: () =>
-        import(/* webpackChunkName: "openBox" */ 'pages/openBox/index.vue'),
+        import ( /* webpackChunkName: "openBox" */ 'pages/openBox/index.vue')
     },
     {
       path: 'openBox/result',
       name: '开箱子照片页',
       component: () =>
-        import(/* webpackChunkName: "openBox" */ 'pages/openBox/result.vue'),
+        import ( /* webpackChunkName: "openBox" */ 'pages/openBox/result.vue')
     },
     {
       path: 'dog',
       name: '狗年旺情缘',
       component: () =>
-        import(/* webpackChunkName: "dog" */ 'pages/dog/index.vue'),
+        import ( /* webpackChunkName: "dog" */ 'pages/dog/index.vue')
     },
     {
       path: 'hongyi',
       name: '狗年旺情缘',
       component: () =>
-        import(/* webpackChunkName: "hongyi" */ 'pages/hongyi/index.vue'),
+        import ( /* webpackChunkName: "hongyi" */ 'pages/hongyi/index.vue')
     },
     {
       path: 'ps',
       name: '狗年旺情缘',
       component: () =>
-        import(/* webpackChunkName: "ps" */ 'pages/ps/index.vue'),
-    },
-    ],
+        import ( /* webpackChunkName: "ps" */ 'pages/ps/index.vue')
+    }]
+  }, {
+    path: '/wxMini',
+    name: 'wxMini pages',
+    component: wxMiniHome,
+    children: [
+      {
+        path: 'gaode',
+        name: '高德地图Demo',
+        component: () => import ( /* webpackChunkName: "gaoDemo" */ 'pages/gaoDemo/index.vue')
+      }]
   }],
 });
