@@ -474,7 +474,6 @@ var default2dTheme = {
     }
 }
 var default3dTheme = {
-    name: "test", //theme's name
     background: "#fff", //background color
 
     //building's style
@@ -600,8 +599,8 @@ var default3dTheme = {
 
     //room wires' style
     strokeStyle: {
-        color: "#000",
-        opacity: .8,
+        color: "#fff",
+        opacity: .2,
         transparent: true,
         linewidth: 1.5
     },
