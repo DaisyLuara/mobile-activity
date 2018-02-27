@@ -40,9 +40,9 @@ export default {
         //开发者申请应用下web服务的key
         key:'528b65fa54ac6b1b207691a4abeadfb2',
 				//地图数据位置
-				mapServerURL: 'static/data/' + that.fmapID,
+				mapServerURL: 'static/feng/data/' + that.fmapID,
 				//主题数据位置
-				// mapThemeURL: 'static/data/theme',
+				// mapThemeURL: 'static/feng/data/theme',
 				//设置主题
         // defaultThemeName: '3007',
         //开启2维，3维切换的动画显示
