@@ -85,7 +85,13 @@ export default new Router({
           path: 'gaode',
           name: '高德地图Demo',
           component: () => import(/* webpackChunkName: "gaoDemo" */ 'pages/gaoDemo/index.vue'),
-        }],
+        },
+        {
+          path: 'feng',
+          name: '蜂鸟云Demo',
+          component: () => import ( /* webpackChunkName: "fengDemo" */ 'pages/fengDemo/index.vue')
+        }
+      ],
     },
     {
       path: 'spm',
