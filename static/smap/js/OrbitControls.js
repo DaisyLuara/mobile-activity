@@ -498,7 +498,7 @@ THREE.OrbitControls = function ( object, domElement ) {
                 if (tscale >= 1) {
                     scale = 0.98;
                 }else{
-                    scale = 1.2;
+                    scale = 1.02;
                 }
                 break;
             case 1:

@@ -205,7 +205,7 @@ function Mall(){
     this.root = null; //the root scene
     this.is3d = true;
     this.jsonData = null; //original json data
-
+    var _curFloorName;
     var _curFloorId;
 
     //get building id
@@ -216,10 +216,20 @@ function Mall(){
 
     //get default floor id
     this.getDefaultFloorId = function(){
+        var name = _this.jsonData.data.building.DefaultFloor + '楼 -- ' + this.floors[_this.jsonData.data.building.DefaultFloor].Brief;
+        document.getElementsByClassName('floors-content')[0].innerHTML = name;
+        console.log(name)
         return _this.jsonData.data.building.DefaultFloor;
+    }
+    //get default floor Berif
+    this.getDefaultFloorBerif = function(){
+        return _this.jsonData.data.building.DefaultFloorBrief;
     }
     //get current floor id
     this.getCurFloorId = function() {
+        var name = _curFloorId + '楼 -- ' + _curFloorName;
+        document.getElementsByClassName('floors-content')[0].innerHTML = name;
+        
         return _curFloorId;
     }
 
@@ -265,7 +275,7 @@ function Mall(){
     }
 
     //show floor by id
-    this.showFloor = function(id){
+    this.showFloor = function(id,name){
         if(_this.is3d) {
             //set the building outline to invisible
             _this.root.remove(_this.building);
@@ -280,6 +290,7 @@ function Mall(){
                 }
             }
         }
+        _curFloorName = name;
         _curFloorId = id;
     }
 
@@ -465,7 +476,7 @@ var default2dTheme = {
 }
 var default3dTheme = {
     name: "test", //theme's name
-    background: "#F2F2F2", //background color
+    background: "#fff", //background color
 
     //building's style
     building: {
@@ -590,17 +601,17 @@ var default3dTheme = {
 
     //room wires' style
     strokeStyle: {
-        color: "#5C4433",
-        opacity: 0.5,
+        color: "#000",
+        opacity: .8,
         transparent: true,
-        linewidth: 2
+        linewidth: 1.5
     },
 
     fontStyle:{
-        color: "#231815",
-        fontsize: 40,
+        color: "#5d5454",
+        fontsize: 35,
         // fontface: "Helvetica, MicrosoftYaHei "
-        fontface: "'Lantinghei SC', 'Microsoft YaHei', 'Hiragino Sans GB', 'Helvetica Neue', Helvetica, STHeiTi, Arial, sans-serif  "
+        fontface: "sans-serif, Arial,'Microsoft YaHei', 'Lantinghei SC', 'Hiragino Sans GB', 'Helvetica Neue', Helvetica, STHeiTi "
         
     },
 
@@ -969,6 +980,8 @@ IndoorMap.getUI = function(indoorMap){
         li.appendChild(text);
         _uiRoot.appendChild(li);
         li.onclick = function () {
+            document.getElementsByClassName('floors-content')[0].innerHTML = '整个楼层';
+            
             _indoorMap.showAllFloors();
         }
     }
@@ -979,8 +992,10 @@ IndoorMap.getUI = function(indoorMap){
             li = document.createElement('li');
             text = document.createTextNode(floors[arg].Name);
             li.appendChild(text);
-            li.onclick = function () {
-                _indoorMap.showFloor(floors[arg]._id);
+            li.onclick = function (e) {
+            var name = floors[arg]._id +'楼 -- '+ floors[arg].Brief;
+            document.getElementsByClassName('floors-content')[0].innerHTML = name;
+               _indoorMap.showFloor(floors[arg]._id,floors[arg].Brief);
             }
             _uiRoot.appendChild(li);
         })(i);
