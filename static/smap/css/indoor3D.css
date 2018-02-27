@@ -45,10 +45,11 @@
 .floorsUI li, .testButton li{
     max-width: 100px;
     padding: 10px;
-    background-color: #e8e8e8 ;
-    border: 1px solid #bbbbbb;
+    background-color: #f5f3e3;
+    border: 1px solid #e2dddd;
     text-align: center;
     list-style-type:none;
+    color: #5d5454;
 
 }
 

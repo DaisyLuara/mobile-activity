@@ -91,7 +91,7 @@ IndoorMap3d = function(mapdiv){
             if(_curFloorId == 0){
                 _this.showAllFloors();
             }else{
-                _this.showFloor(_curFloorId);
+                _this.showFloor(_curFloorId, _this.mall.getDefaultFloorBerif());
             }
 
         });
@@ -105,7 +105,8 @@ IndoorMap3d = function(mapdiv){
         }
         _this.mall = ParseModel(json, _this.is3d, _theme);
         _scene.mall = _this.mall;
-        _this.showFloor(_this.mall.getDefaultFloorId());
+        console.log(_this.mall.getDefaultFloorBerif())
+        _this.showFloor(_this.mall.getDefaultFloorId(), _this.mall.getDefaultFloorBerif());
         _this.renderer.setClearColor(_theme.background);
         _scene.add(_this.mall.root);
         _mapDiv.style.background = _theme.background;
@@ -150,12 +151,12 @@ IndoorMap3d = function(mapdiv){
     }
 
     //show floor by id
-    this.showFloor = function(floorid) {
+    this.showFloor = function(floorid,floorName) {
         _curFloorId = floorid;
         if(_scene.mall == null){
             return;
         }
-        _scene.mall.showFloor(floorid);
+        _scene.mall.showFloor(floorid,floorName);
         _this.adjustCamera();
         if(_showPubPoints) {
             createPubPointSprites(floorid);
@@ -499,7 +500,7 @@ IndoorMap3d = function(mapdiv){
             parameters["fontsize"] : 18;
 
         var borderThickness = parameters.hasOwnProperty("borderThickness") ?
-            parameters["borderThickness"] : 2;
+            parameters["borderThickness"] : 1;
 
         var borderColor = parameters.hasOwnProperty("borderColor") ?
             parameters["borderColor"] : { r:0, g:0, b:0, a:1.0 };
@@ -508,7 +509,7 @@ IndoorMap3d = function(mapdiv){
             parameters["backgroundColor"] : { r:255, g:255, b:255, a:1.0 };
 
         var fontColor = parameters.hasOwnProperty("color")?
-            parameters["color"] : "#000000";
+            parameters["color"] : "#444";
 
         //var spriteAlignment = parameters.hasOwnProperty("alignment") ?
         //	parameters["alignment"] : THREE.SpriteAlignment.topLeft;

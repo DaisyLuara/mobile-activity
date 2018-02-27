@@ -1,5 +1,7 @@
 <template>
-  <div class="map-wrap"></div>
+  <div class="map-wrap">
+    <div class="floors-content"></div>
+  </div>
 </template>
 <script>
 export default {
@@ -42,5 +44,16 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style scoped lang="less">
+.map-wrap{
+  .floors-content{
+    width: 100%;
+    top: 0px;
+    left: 0px;
+    position: absolute;
+    overflow: hidden;
+    z-index: 300;
+    text-align: center;
+  }
+}
 </style>
