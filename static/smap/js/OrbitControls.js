@@ -40,6 +40,8 @@ THREE.OrbitControls = function ( object, domElement ) {
 
     this.viewChanged = true;
 
+    // Mouse buttons
+    this.mouseButtons = { ORBIT: THREE.MOUSE.LEFT, ZOOM: THREE.MOUSE.MIDDLE, PAN: THREE.MOUSE.RIGHT };
     // internals
 
     var scope = this;
@@ -68,6 +70,7 @@ THREE.OrbitControls = function ( object, domElement ) {
 
     var STATE = { NONE: -1, ROTATE: 0, ZOOM: 1, PAN: 2, TOUCH_ROTATE: 3, TOUCH_ZOOM_PAN: 4 };
     var state = STATE.NONE;
+    
 
     // events
 
@@ -259,14 +262,16 @@ THREE.OrbitControls = function ( object, domElement ) {
         if ( scope.userRotate === false ) return;
 
         event.preventDefault();
-
+        console.log(event.button)
+        console.log(scope.mouseButtons)
         if ( state === STATE.NONE )
         {
-            if ( event.button === 0 )
+            //修改了 event button 的 2 1 0 循序 原先是0 1 2
+            if ( event.button === 2 )
                 state = STATE.PAN;
             if ( event.button === 1 )
                 state = STATE.ZOOM;
-            if ( event.button === 2 )
+            if ( event.button === 0 )
                 state = STATE.ROTATE;
         }
 
@@ -302,16 +307,22 @@ THREE.OrbitControls = function ( object, domElement ) {
         event.preventDefault();
 
 
-
+        console.log(state)
         if ( state === STATE.ROTATE ) {
 
             rotateEnd.set( event.clientX, event.clientY );
             rotateDelta.subVectors( rotateEnd, rotateStart );
 
-            scope.rotateLeft( 2 * Math.PI * rotateDelta.x / PIXELS_PER_ROUND * scope.userRotateSpeed );
-            scope.rotateUp( 2 * Math.PI * rotateDelta.y / PIXELS_PER_ROUND * scope.userRotateSpeed );
+            // scope.rotateLeft( 2 * Math.PI * rotateDelta.x / PIXELS_PER_ROUND * scope.userRotateSpeed );
+            // scope.rotateUp( 2 * Math.PI * rotateDelta.y / PIXELS_PER_ROUND * scope.userRotateSpeed );
+            var element = scope.domElement === document ? scope.domElement.body : scope.domElement;
+            // rotating across whole screen goes 360 degrees around
+            scope.rotateLeft( 2 * Math.PI * rotateDelta.x / element.clientWidth * scope.userRotateSpeed );
 
+            // rotating up and down along whole screen attempts to go 360, but limited to 180
+            scope.rotateUp( 2 * Math.PI * rotateDelta.y / element.clientHeight * scope.userRotateSpeed );
             rotateStart.copy( rotateEnd );
+            scope.update();
 
         } else if ( state === STATE.ZOOM ) {
 
@@ -459,8 +470,10 @@ THREE.OrbitControls = function ( object, domElement ) {
 
 //                var x = ( event.touches[ 0 ].pageX + event.touches[ 1 ].pageX ) / 2;
 //                var y = ( event.touches[ 0 ].pageY + event.touches[ 1 ].pageY ) / 2;
-                panStart.set( event.touches[ 0 ].clientX, event.touches[ 0 ].clientY );
-                //panEnd.copy( panStart );
+//单指左右滑动
+                // panStart.set( event.touches[ 0 ].clientX, event.touches[ 0 ].clientY );
+                //单指旋转
+                rotateStart.set( event.touches[ 0 ].pageX, event.touches[ 0 ].pageY );
                 break;
 
             default:
@@ -508,10 +521,29 @@ THREE.OrbitControls = function ( object, domElement ) {
 //
 //                var x = ( event.touches[ 0 ].pageX + event.touches[ 1 ].pageX ) / 2;
 //                var y = ( event.touches[ 0 ].pageY + event.touches[ 1 ].pageY ) / 2;
-                panEnd.set( event.touches[ 0 ].clientX, event.touches[ 0 ].clientY );
-                panDelta.subVectors(panEnd, panStart);
-                scope.pan(new THREE.Vector3( - panDelta.x, panDelta.y , 0 ));
-                panStart.copy(panEnd);
+
+
+        // 单指左右滑动
+                // panEnd.set( event.touches[ 0 ].clientX, event.touches[ 0 ].clientY );
+                // panDelta.subVectors(panEnd, panStart);
+                // scope.pan(new THREE.Vector3( - panDelta.x, panDelta.y , 0 ));
+                // panStart.copy(panEnd);
+
+//单指旋转
+            rotateEnd.set( event.touches[ 0 ].pageX, event.touches[ 0 ].pageY );
+            rotateDelta.subVectors( rotateEnd, rotateStart );
+
+            var element = scope.domElement === document ? scope.domElement.body : scope.domElement;
+
+            // rotating across whole screen goes 360 degrees around
+            scope.rotateLeft( 2 * Math.PI * rotateDelta.x / element.clientWidth * scope.userRotateSpeed );
+
+            // rotating up and down along whole screen attempts to go 360, but limited to 180
+            scope.rotateUp( 2 * Math.PI * rotateDelta.y / element.clientHeight * scope.userRotateSpeed );
+
+            rotateStart.copy( rotateEnd );
+
+            scope.update();
                 
                 break;
 

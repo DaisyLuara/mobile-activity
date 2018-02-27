@@ -218,7 +218,6 @@ function Mall(){
     this.getDefaultFloorId = function(){
         var name = _this.jsonData.data.building.DefaultFloor + '楼 -- ' + this.floors[_this.jsonData.data.building.DefaultFloor].Brief;
         document.getElementsByClassName('floors-content')[0].innerHTML = name;
-        console.log(name)
         return _this.jsonData.data.building.DefaultFloor;
     }
     //get default floor Berif
