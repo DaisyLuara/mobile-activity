@@ -216,7 +216,7 @@ function Mall(){
 
     //get default floor id
     this.getDefaultFloorId = function(){
-        var name = _this.jsonData.data.building.DefaultFloor + '楼 -- ' + this.floors[_this.jsonData.data.building.DefaultFloor].Brief;
+        var name = _this.jsonData.data.building.DefaultFloor + '楼';
         document.getElementsByClassName('floors-content')[0].innerHTML = name;
         return _this.jsonData.data.building.DefaultFloor;
     }
@@ -226,7 +226,7 @@ function Mall(){
     }
     //get current floor id
     this.getCurFloorId = function() {
-        var name = _curFloorId + '楼 -- ' + _curFloorName;
+        var name = _curFloorId + '楼';
         document.getElementsByClassName('floors-content')[0].innerHTML = name;
         
         return _curFloorId;
@@ -607,7 +607,7 @@ var default3dTheme = {
 
     fontStyle:{
         color: "#5d5454",
-        fontsize: 35,
+        fontsize: 60,
         // fontface: "Helvetica, MicrosoftYaHei "
         fontface: "sans-serif, Arial,'Microsoft YaHei', 'Lantinghei SC', 'Hiragino Sans GB', 'Helvetica Neue', Helvetica, STHeiTi "
         
@@ -620,7 +620,8 @@ var default3dTheme = {
         "21001": System.imgPath+"/stair.png",
         "22006": System.imgPath+"/entry.png",
         "21002": System.imgPath+"/escalator.png",
-        "21003": System.imgPath+"/lift.png"
+        "21003": System.imgPath+"/lift.png",
+        "21009": System.imgPath+"/c.gif"
     }
 }
 
@@ -983,15 +984,19 @@ IndoorMap.getUI = function(indoorMap){
             _indoorMap.showAllFloors();
         }
     }
-
+    
     var floors = _indoorMap.mall.jsonData.data.Floors;
     for(var i = 0; i < floors.length; i++){
         (function(arg){
             li = document.createElement('li');
-            text = document.createTextNode(floors[arg].Name);
+            var imgName = System.imgPath + "/8.gif";
+            text = document.createTextNode(floors[arg].Name+ ' ');
             li.appendChild(text);
+            var img = document.createElement('img');
+            img.setAttribute('src', imgName);
+            li.appendChild(img);
             li.onclick = function (e) {
-            var name = floors[arg]._id +'楼 -- '+ floors[arg].Brief;
+            var name = floors[arg]._id +'楼';
             document.getElementsByClassName('floors-content')[0].innerHTML = name;
                _indoorMap.showFloor(floors[arg]._id,floors[arg].Brief);
             }

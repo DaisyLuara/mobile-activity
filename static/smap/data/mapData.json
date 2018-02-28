@@ -23,18 +23,18 @@
           },
           {
             "Brief": "",
-            "Name_en": "Toilet",
+            "Name_en": "company",
             "Outline": [
               [
                 [
-                  -499,
-                  -629
+                  -206,
+                  -85
                 ]
               ]
             ],
             "_id": 1071644733,
-            "Type": "11001",
-            "Name": "洗手间"
+            "Type": "21009",
+            "Name": "公司"
           },
           {
             "Brief": "",
