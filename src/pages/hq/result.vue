@@ -30,14 +30,10 @@ export default {
     return {
       imgServerUrl: IMAGE_SERVER,
       resultImgUrl: '',
-      imgServerUrl: IMAGE_SERVER,
-      phoneError: false,
-      errorText: '手机号码格式不正确',
-      mobileNum: '',
       wxShareInfoValue: {
         title: '旺狗开春 情缘满分',
         desc: '浦商百货借旺狗报新春 送祝福 合家欢 情侣睦 诞生的汪早脱单',
-        imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/dog_share_icon.png',
+        imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/hq_share_icon.jpg',
       },
     };
   },
@@ -58,14 +54,14 @@ export default {
         console.log(err);
       });
     },
-    getPeopleImage() {
-      let recordId = decodeURI(this.$route.query.recordId);
-      marketService.getPlayResultById(this, recordId).then((result) => {
-        this.resultImgUrl = result.result_img_url;
-      }).catch((err) => {
-        console.log(err);
-      });
-    },
+    // getPeopleImage() {
+    //   let recordId = decodeURI(this.$route.query.recordId);
+    //   marketService.getPlayResultById(this, recordId).then((result) => {
+    //     this.resultImgUrl = result.result_img_url;
+    //   }).catch((err) => {
+    //     console.log(err);
+    //   });
+    // },
   },
   computed: {
     wxShareInfo() {
