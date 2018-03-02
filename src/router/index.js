@@ -99,6 +99,12 @@ export default new Router({
       component: () =>
         import(/* webpackChunkName: "ps" */ 'pages/smap/map.vue'),
     },
+    {
+      path: 'hq',
+      name: '虹桥天地',
+      component: () =>
+        import(/* webpackChunkName: "ps" */ 'pages/hq/result.vue'),
+    },
     ],
   }],
 });
