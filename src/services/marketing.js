@@ -1,5 +1,6 @@
 const MARKETING_API = process.env.SAAS_API;
 const PLAY_RESULT_API = '/open/play/playResults/';
+const IMAGE_API= 'http://exelook.com:8010/goodsxsd/?api=json&id=';
 
 export default {
   getPlayResultById(context, id) {
@@ -20,6 +21,7 @@ export default {
       context.$http.get(IMAGE_API + id).then((response) => {
         if (response.status === 200) {
           if (response.data.state === '1') {
+            console.log(response);
             resolve(response.data.results.image);
           } else {
             resolve('');
