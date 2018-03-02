@@ -2,8 +2,8 @@
 <div class="report-content">
   <div class="report-wrap">
     <div class="photo-wrap">
-      <!-- <img :src="resultImgUrl" alt=""/> -->
-      <img src="http://o9xrbl1oc.bkt.clouddn.com/1007/image/knifeDog_108_377_1492925365544.jpg" alt=""/>
+      <img :src="resultImgUrl" alt=""/>
+      <!-- <img src="http://o9xrbl1oc.bkt.clouddn.com/1007/image/knifeDog_108_377_1492925365544.jpg" alt=""/> -->
     </div>
     <div class="save">
       <img :src="imgServerUrl + '/pages/hq/save.png'" alt=""/>
@@ -48,20 +48,13 @@ export default {
   },
   methods: {
     getImageById() {
+      let id = this.$route.query.id
       marketService.getImageById(this, '1281272').then((result) => {
-        console.log(result);
+        this.resultImgUrl = result;
       }).catch((err) => {
         console.log(err);
       });
     },
-    // getPeopleImage() {
-    //   let recordId = decodeURI(this.$route.query.recordId);
-    //   marketService.getPlayResultById(this, recordId).then((result) => {
-    //     this.resultImgUrl = result.result_img_url;
-    //   }).catch((err) => {
-    //     console.log(err);
-    //   });
-    // },
   },
   computed: {
     wxShareInfo() {
