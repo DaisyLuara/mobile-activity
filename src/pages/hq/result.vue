@@ -49,7 +49,7 @@ export default {
   methods: {
     getImageById() {
       let id = this.$route.query.id
-      marketService.getImageById(this, '1281272').then((result) => {
+      marketService.getImageById(this, id).then((result) => {
         this.resultImgUrl = result;
       }).catch((err) => {
         console.log(err);
