@@ -1,0 +1,50 @@
+.mapLabels {
+    font-size: 10px;
+    text-align:center;
+    text-shadow:#ffffff 1px 0 0,#ffffff 0 1px 0,#ffffff -1px 0 0,#ffffff 0 -1px 0;
+}
+
+.mapLabels img{
+    width: 15px;
+    height: 15px;
+}
+
+@media screen {
+    .mapLabels .pubPoints img {
+        width: 25px;
+        height: 25px;
+        -webkit-border-radius: 25px;
+        border: 2px #a72525 solid;
+    }
+}
+
+
+.floorsUI
+{
+    position: absolute;;
+    list-style: none;
+    padding: 0;
+    left: 0px;
+}
+
+.floorsUI{
+    top:100px;
+}
+
+
+.floorsUI li{
+    max-width: 200px;
+    padding: 10px;
+    /* background-color: #f5f3e3; */
+    background-color: #fff;
+    border: 1px solid #e2dddd;
+    text-align: center;
+    list-style-type:none;
+    color: #5d5454;
+    font-size: 32px;
+
+}
+
+.floorsUI .selected{
+    background-color: #cccccc !important;
+}
