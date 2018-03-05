@@ -2,9 +2,12 @@
   <div class="feng-wrap">
     <div id="mapContainer" class="container"></div>
     <div class="viewmode-group btn-group-vertical" data-toggle="buttons">
-	  	<div @click="change2d()" class="btn btn-default">2D</div>
-		  <div @click="change3d()" class="btn btn-default btn-primary">3D</div>
+	  	<div @click="change2d()" class="btn btn-2d" v-bind:class="{'selected': viewMode == '2d'}">2D</div>
+		  <div @click="change3d()" class="btn btn-3d" v-bind:class="{'selected': viewMode == '3d'}">3D</div>
 	  </div>
+    <!-- <div class="floor-img">
+      <img src="static/feng/image/1-1.gif" alt="">
+    </div> -->
   </div>
 </template>
 <script>
@@ -16,7 +19,8 @@ export default {
       ctlOpt: null,
       toolOpt: null,
       toolControl: null,
-      groupControl: null
+      groupControl: null,
+      viewMode: '2d'
     }
   },
   beforeCreate() {
@@ -62,6 +66,8 @@ export default {
 
 			//地图加载完成回掉方法
 			that.fMap.on('loadComplete',function() {
+        that.addImageMarker();
+        that.addLocationMarker();
 				//创建楼层(按钮型)，创建时请在地图加载后(loadComplete回调)创建。
 				that.groupControl = new fengmap.buttonGroupsControl(that.fMap, that.ctlOpt);
         // that.toolControl = new fengmap.toolControl(that.fMapmap,that.toolOpt);
@@ -71,12 +77,39 @@ export default {
 					//groups 表示当前要切换的楼层ID数组,
           //allLayer表示当前楼层是单层状态还是多层状态。
 				});
-			});
+      });
+
+      // 点击地图结点事件
+      that.fMap.on('mapClickNode', function(event){
+        if (event.nodeType == fengmap.FMNodeType.IMAGE_MARKER) {
+					//信息框控件大小配置
+					let ctlOpt = new fengmap.controlOptions({
+						mapCoord: {
+							//设置弹框的x轴
+							x: event.target.x,
+							//设置弹框的y轴
+							y: event.target.y,
+							//设置弹框位于的楼层
+							groupID: 1
+						},
+						//设置弹框的宽度
+						width: 200,
+						//设置弹框的高度
+						height: 100,
+						marginTop: 10,
+						//设置弹框的内容
+						content: '<a target="_bank" href="http://www.fengmap.com">这是一个信息框</a>'
+					});
+
+					//添加弹框到地图上
+					let popMarker = new fengmap.FMPopInfoWindow(that.fMap, ctlOpt);
+				}
+      })
     },
     initCtlOpt(){
       this.ctlOpt = new fengmap.controlOptions({
 				//默认在右上角
-				position: fengmap.controlPositon.RIGHT_TOP,
+				position: fengmap.controlPositon.LEFT_BOTTOM,
 				//默认显示楼层的个数
 				showBtnCount: 7,
 				//初始是否是多层显示，默认单层显示
@@ -97,11 +130,52 @@ export default {
         expanded:false //初始是否展开所有工具按钮。默认false
       });
     },
+    addImageMarker(){
+      let that = this;
+      let group = that.fMap.getFMGroup(that.fMap.groupIDs[0]);
+      let layer = group.getOrCreateLayer('imageMarker');
+      let im = new fengmap.FMImageMarker({
+          name: '测试',
+					//设置图片路径
+					url: 'static/feng/image/blueImageMarker.png',
+					//设置图片显示尺寸
+					size: 32,
+					callback: function() {
+						// 在图片载入完成后，设置 "一直可见"
+						im.alwaysShow();
+					}
+				});
+      layer.addMarker(im);
+    },
+    addLocationMarker(){
+      let that = this;
+      let locationMarker = new fengmap.FMLocationMarker({
+        //设置图片的路径
+        url:'static/feng/image/pointer.png',
+        //设置图片显示尺寸
+        size:46,
+        //设置图片高度
+        height:10,
+      });
+      that.fMap.addLocationMarker(locationMarker);
+      locationMarker.setPosition({
+        //设置定位点的x坐标
+        x:that.fMap.center.x,
+        //设置定位点的y坐标
+        y:that.fMap.center.y,
+        //设置定位点所在楼层
+        groupID: that.fMap.groupIDs[0],
+        //设置定位点的高于楼层多少
+        zOffset:1,
+      });
+    },
     change2d() {
       this.fMap.viewMode = fengmap.FMViewMode.MODE_2D;
+      this.viewMode = '2d';
     },
     change3d(){
       this.fMap.viewMode = fengmap.FMViewMode.MODE_3D;
+      this.viewMode = '3d';
     }
   },
 }
@@ -112,16 +186,45 @@ export default {
 }
 .viewmode-group{
   position: fixed;
-  left: 10%;
-  bottom: 100px;
-  width: 50px;
+  right: 30px;
+  top: 30px;
   .btn{
-    display: block;
+    float: left;
+    width: 50px;
     height: 38px;
+    color: #c1c1c1;
     background: #fff;
     text-align: center;
     line-height: 36px;
-    border: 1px solid blue;
+    border: 1px solid #c1c1c1;
+    &.selected{
+      border-color: #3dadeb;
+      background: rgba(179, 212, 252, .6);
+      color: #000;
+    }
+  }
+  .btn-2d{
+    border-radius: 50px 0 0 50px;
+    border-right: none;
+    &.selected{
+      border-right: 1px solid #3dadeb;
+    }
+  }
+  .btn-3d{
+    border-radius: 0 50px 50px 0;
+    border-left: none;
+    &.selected{
+      border-left: 1px solid #3dadeb;
+    }
+  }
+}
+.floor-img{
+  position: fixed;
+  right: 30px;
+  top: 30px;
+  width: 100px;
+  img{
+    width: 100%;
   }
 }
 </style>
