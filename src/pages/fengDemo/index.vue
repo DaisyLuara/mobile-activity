@@ -21,6 +21,7 @@ export default {
       toolControl: null,
       groupControl: null,
       viewMode: '2d',
+      jump: null
     }
   },
   beforeCreate() {
@@ -55,7 +56,7 @@ export default {
         //是否对不可见图层启用透明设置 默认为true
         focusAlphaMode: false,
         //对不聚焦图层启用透明设置，当focusAlphaMode = true时有效
-        focusAlpha: 0.1,
+        focusAlpha: 0.1
       })
 
       // that.fMap.visibleGroupIDs = that.fMap.groupIDs; //设置所有楼层可见
@@ -83,6 +84,7 @@ export default {
 
       // 点击地图结点事件
       that.fMap.on('mapClickNode', function(event) {
+        console.dir(event)
         if (event.nodeType == fengmap.FMNodeType.IMAGE_MARKER) {
           //信息框控件大小配置
           let ctlOpt = new fengmap.controlOptions({
@@ -92,7 +94,7 @@ export default {
               //设置弹框的y轴
               y: event.target.y,
               //设置弹框位于的楼层
-              groupID: 1,
+              groupID: 1
             },
             //设置弹框的宽度
             width: 200,
@@ -101,7 +103,7 @@ export default {
             marginTop: 10,
             //设置弹框的内容
             content:
-              '<a target="_bank" href="http://www.fengmap.com">这是一个信息框</a>',
+              '<a target="_bank" href="http://www.fengmap.com">这是一个信息框</a>'
           })
 
           //添加弹框到地图上
@@ -120,8 +122,8 @@ export default {
         //位置x,y的偏移量
         offset: {
           x: 20,
-          y: 10,
-        },
+          y: 10
+        }
       })
     },
     initToolOpt() {
@@ -130,12 +132,12 @@ export default {
         offset: { x: 0, y: 0 }, //位置偏移设置，默认(0,0)
         init2D: false, //二三维切换按钮初始是否2维状态。默认false.
         initGroups: false, //单楼层和多楼层切换控件初始显示是否是多楼层。默认false.
-        expanded: false, //初始是否展开所有工具按钮。默认false
+        expanded: false //初始是否展开所有工具按钮。默认false
       })
     },
     addImageMarker() {
       let that = this
-      var jump
+      let jump
       let group = that.fMap.getFMGroup(that.fMap.groupIDs[0])
       let layer = group.getOrCreateLayer('imageMarker')
       let im = new fengmap.FMImageMarker({
@@ -143,19 +145,23 @@ export default {
         //设置图片路径
         url: 'static/feng/image/1-1.gif',
         //设置图片显示尺寸
-        size: 32,
+        size: 64,
+        height: 0,
+        x: 13528081.142400462,
+        y: 3662348.646981331,
+        z: 1,
         callback: function() {
           // 在图片载入完成后，设置 "一直可见"
           im.alwaysShow()
-          jump = im.jump({
-            time: 0,
-            duration: 1,
-            delay: 0.5,
-            height: 10,
-          })
-        },
+        }
       })
       layer.addMarker(im)
+      this.jump = im.jump({
+        times: 0,
+        duration: 1,
+        delay: 0.5,
+        height: 2
+      })
     },
     addLocationMarker() {
       let that = this
@@ -165,7 +171,7 @@ export default {
         //设置图片显示尺寸
         size: 46,
         //设置图片高度
-        height: 10,
+        height: 10
       })
       that.fMap.addLocationMarker(locationMarker)
       locationMarker.setPosition({
@@ -176,7 +182,7 @@ export default {
         //设置定位点所在楼层
         groupID: that.fMap.groupIDs[0],
         //设置定位点的高于楼层多少
-        zOffset: 1,
+        zOffset: 1
       })
     },
     change2d() {
@@ -186,8 +192,8 @@ export default {
     change3d() {
       this.fMap.viewMode = fengmap.FMViewMode.MODE_3D
       this.viewMode = '3d'
-    },
-  },
+    }
+  }
 }
 </script>
 <style lang="less" scoped>
