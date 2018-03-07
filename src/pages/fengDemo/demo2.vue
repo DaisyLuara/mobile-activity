@@ -36,7 +36,8 @@ export default {
       currentGroup: 1,
       detailShow: false,
       detailInfo: {},
-      handleLock: false
+      handleLock: false,
+      controlStatus: false
     }
   },
   mounted() {
@@ -49,14 +50,8 @@ export default {
         this.ctlOpt = await this.ctlOptInit()
         await this.initMap()
         this.clickEventInit()
-
-        let btn = document.getElementsByClassName('fm-control-groups-btn')[0]
-        // btn.innerHTML = ''
-        // let btn_child = document.createElement('img')
-        // btn_child.src = 'static/feng/image/fm-control.png'
-        // btn_child.style =
-        // 'width: 100%; border-bottom-left-radius: 21px; border-bottom-right-radius: 21px; position: absolute; bottom: 0; left: 0;'
-        // btn.appendChild(btn_child)
+        this.addControlEventListener()
+        this.handleAddControlBtn()
       } catch (e) {
         console.log(e)
       }
@@ -71,6 +66,7 @@ export default {
           mapServerURL: 'static/data/' + this.fMapId,
           defaultMapScaleLevel: 20,
           focusAlphaMode: false,
+          modelSelectedEffect: false,
           focusAlpha: 0.1
         })
 
@@ -88,11 +84,41 @@ export default {
             //groups 表示当前要切换的楼层ID数组,
             //allLayer表示当前楼层是单层状态还是多层状态。
             //...
+            that.handleAddControlBtn()
             that.currentGroup = groups
           })
           resolve()
         })
       })
+    },
+    addControlEventListener() {
+      let that = this
+      let btn = document.getElementsByClassName('fm-control-groups-btn')[0]
+      btn.style.borderTopRightRadius = '21px'
+      btn.style.borderTopLeftRadius = '21px'
+      btn.addEventListener('click', () => {
+        console.log('clicked')
+        console.dir(btn.style.borderTopRightRadius)
+        if (btn.style.borderTopRightRadius === '21px') {
+          btn.style.borderTopRightRadius = '2px'
+          btn.style.borderTopLeftRadius = '2px'
+        } else if (btn.style.borderTopRightRadius === '2px') {
+          btn.style.borderTopRightRadius = '21px'
+          btn.style.borderTopLeftRadius = '21px'
+        }
+      })
+    },
+    handleAddControlBtn() {
+      let btn = document.getElementsByClassName('fm-control-groups-btn')[0]
+      let btn_div = document.createElement('div')
+      btn_div.style =
+        'width: 100%; height: 100%; border-bottom-left-radius: 21px; border-bottom-right-radius: 21px; position: absolute; bottom: -23px; left: 0; background-color: #ebecf4;'
+      let btn_child = document.createElement('img')
+      btn_child.src = 'static/feng/image/fm-control.png'
+      btn_child.style =
+        'width: 100%; border-bottom-left-radius: 21px; border-bottom-right-radius: 21px;'
+      btn_div.appendChild(btn_child)
+      btn.appendChild(btn_div)
     },
     ctlOptInit() {
       return new Promise(resolve => {
@@ -131,6 +157,7 @@ export default {
                 x: e.x - 0.5,
                 y: e.y,
                 z: 10,
+                // height: 5,
                 callback: () => {
                   addMarker.alwaysShow()
                   addMarker.jump({
@@ -151,6 +178,10 @@ export default {
               this.resetDetail()
               break
             case 0:
+              this.handleRemoveMarkers(layer)
+              this.resetDetail()
+              break
+            case 5:
               this.handleRemoveMarkers(layer)
               this.resetDetail()
               break
@@ -175,6 +206,7 @@ export default {
           size: 128,
           x: 13528113.343703128,
           y: 3662316.2432128466,
+          // height: 10,
           z: 0,
           callback: () => {
             F1_1.alwaysShow()
@@ -186,6 +218,7 @@ export default {
           size: 128,
           x: 13528069.603071805,
           y: 3662363.214140243,
+          // height: 10,
           z: 0,
           callback: () => {
             F1_2.alwaysShow()
@@ -197,6 +230,7 @@ export default {
           size: 128,
           x: 13528115.001994299,
           y: 3662355.7043745373,
+          // height: 10,
           z: 0,
           callback: () => {
             F1_3.alwaysShow()
@@ -303,12 +337,16 @@ hr {
   border-top: none !important;
 }
 .fm-control-groups-btn {
+  height: 23px !important;
+  line-height: 23px !important;
   margin-top: -14px;
   box-shadow: none !important;
-  border-bottom-left-radius: 21px !important;
-  border-bottom-right-radius: 21px !important;
-  // background-color: #d6b88a !important;
-  // color: white !important;
+  // border-bottom-left-radius: 21px !important;
+  // border-bottom-right-radius: 21px !important;
+  background-color: #ebecf4 !important;
+  color: black !important;
+  border-top-right-radius: 21px;
+  border-top-left-radius: 21px;
 }
 .fm-layer-list {
   border-top-left-radius: 21px !important;
