@@ -175,6 +175,7 @@ export default {
     addCurTypeImg() {
       // 获取图片url存入数据库
       marketService.getImageById(this, this.img_id).then((result) => {
+        console.log(result)
         this.img_url = result;
         let params = {
           img_id: this.img_id,
@@ -196,6 +197,7 @@ export default {
     },
     updateCurTypeImg(data){
       marketService.getImageById(this, this.img_id).then((result) => {
+        console.log(result)
         this.img_url = result;
         // 更新类型图片
         let params = {
