@@ -105,6 +105,10 @@ export default new Router({
       component: () =>
         import(/* webpackChunkName: "ps" */ 'pages/hq/result.vue'),
     },
-    ],
+    {
+      path: 'angel',
+      name: '黑白天使',
+      component: () => import(/* webpackChunkName: "angel" */ 'pages/angel/index.vue'),
+    }],
   }],
 });
