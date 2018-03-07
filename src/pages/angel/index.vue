@@ -181,6 +181,7 @@ export default {
       parseService.get(this, REQ_URL + 'angel?where=' + JSON.stringify(query)).then(data => {
         if(data.results && data.results.length){
           // 找到相同img_id判断是否为当前用户的图片
+alert(data.results[0].open_id, this.user_info.wx_openid);
           if(data.results[0].open_id != this.user_info.wx_openid){
 alert(1);
             this.user_info.wx_openid = data.results[0].open_id;
