@@ -271,12 +271,12 @@ export default {
         return;
       }
 
-      if(this.user_result[0].sex == 'male' || this.user_result[1].sex == 'female'){
+      if(this.user_result[0].sex == 'male' && this.user_result[1].sex == 'female'){
         this.join_img_url = this.IMAGE_SERVER + 'unknow.png';
         return;
       }
 
-      if(this.user_result[0].sex == 'female' || this.user_result[1].sex == 'male'){
+      if(this.user_result[0].sex == 'female' && this.user_result[1].sex == 'male'){
         this.join_img_url = this.IMAGE_SERVER + 'unknow.png';
         return;
       }
