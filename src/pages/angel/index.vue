@@ -182,13 +182,16 @@ export default {
         if(data.results && data.results.length){
           // 找到相同img_id判断是否为当前用户的图片
           if(data.results[0].open_id != this.user_info.wx_openid){
+alert(1);
             this.user_info.wx_openid = data.results[0].open_id;
             this.getWxUserResult();
           }else{
+alert(2)
             this.show_btn = true;
             this.checkCurTypeImg();
           }
         }else{
+alert(3)
           this.show_btn = true;
           this.checkCurTypeImg();
         }
