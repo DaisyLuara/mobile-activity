@@ -85,7 +85,7 @@ export default {
       user_info: {
         nick_name: '',
         head_img_url: '',
-        wx_openid: 'zkk'
+        wx_openid: ''
       },
       join_img_url: '',
       join_rule: [['86','92'],['86','84'],['92','84'],['63','75'],['63','58'],['75','58'],['46','32'],['46','38'],['32','38']],
