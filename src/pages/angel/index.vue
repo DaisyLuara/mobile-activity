@@ -84,19 +84,19 @@ export default {
     if(!this.num){
       alert("咦，没有找到您的钻石颗数哦，请重新和大屏进行互动拍照~");
     }
-    wxService.getWxUserInfo(this).then(result => {
-      let data = result.data
-      this.user_info.nick_name = data.nickname;
-      this.user_info.head_img_url = data.headimgurl;
-      this.user_info.wx_openid = data.openid;
-      this.checkCurStatus();
-    }).catch(err => {
-      let pageUrl = encodeURIComponent(window.location.href)
-      let wx_auth_url = process.env.WX_API + '/wx/officialAccount/oauth?url=' + pageUrl + '&scope=snsapi_userinfo';
-      window.location.href = wx_auth_url;
-      return;
-    })
-    // this.checkCurStatus();
+    // wxService.getWxUserInfo(this).then(result => {
+    //   let data = result.data
+    //   this.user_info.nick_name = data.nickname;
+    //   this.user_info.head_img_url = data.headimgurl;
+    //   this.user_info.wx_openid = data.openid;
+    //   this.checkCurStatus();
+    // }).catch(err => {
+    //   let pageUrl = encodeURIComponent(window.location.href)
+    //   let wx_auth_url = process.env.WX_API + '/wx/officialAccount/oauth?url=' + pageUrl + '&scope=snsapi_userinfo';
+    //   window.location.href = wx_auth_url;
+    //   return;
+    // })
+    this.checkCurStatus();
   },
   methods: {
     getImgUrl() {
