@@ -49,22 +49,22 @@
       },
     },
     watch: {
-      'WxShareInfo.title': () => {
+      'WxShareInfo.title': function() {
         this.init();
       },
-      'WxShareInfo.desc': () => {
+      'WxShareInfo.desc': function() {
         this.init();
       },
-      'WxShareInfo.imgUrl': () => {
+      'WxShareInfo.imgUrl': function() {
         this.init();
       },
-      'WxShareInfo.link': () => {
+      'WxShareInfo.link': function() {
         this.init();
       },
-      'WxShareInfo.success': () => {
+      'WxShareInfo.success': function() {
         this.init();
       },
-      'WxShareInfo.cancel': () => {
+      'WxShareInfo.cancel': function() {
         this.init();
       },
     },

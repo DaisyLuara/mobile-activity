@@ -26,6 +26,7 @@
     </div>
     <img v-if="show_btn" class="abs btn-join" @click="join" :src="IMAGE_SERVER + 'btn.png'" alt="">
     <img v-if="!show_btn" class="abs result-join" :src="join_img_url" alt="">
+    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
 </template>
 <script>
@@ -42,7 +43,7 @@ export default {
       IMAGE_SERVER: IMAGE_SERVER + '/pages/angel/',
       img_type: this.$route.query.img_type,
       img_id: this.$route.query.id,
-      img_url: this.$route.query.img_url,
+      img_url: '',
       num: this.$route.query.num,
       sex: this.$route.query.sex, //用户性别
       open_id: '',
@@ -54,7 +55,15 @@ export default {
       },
       join_img_url: '',
       join_rule: [['86','92'],['86','84'],['92','84'],['63','75'],['63','58'],['75','58'],['46','32'],['46','38'],['32','38']],
-      user_result: [{},{}]
+      user_result: [{},{}],
+      wxShareInfo:{
+        title: '浦商百货 致惠女神节',
+        desc: '黑白天使 成就致惠女神 真皙美白 唤醒青春美颜',
+        imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/prize_share_icon.png',
+        success: function () {
+          customTrack.shareWeChat()
+        }
+      },
     }
   },
   beforeCreate() {
@@ -75,19 +84,19 @@ export default {
     if(!this.num){
       alert("咦，没有找到您的钻石颗数哦，请重新和大屏进行互动拍照~");
     }
-    // wxService.getWxUserInfo(this).then(result => {
-    //   let data = result.data
-    //   this.user_info.nick_name = data.nickname;
-    //   this.user_info.head_img_url = data.headimgurl;
-    //   this.user_info.wx_openid = data.openid;
-    //   this.checkCurStatus();
-    // }).catch(err => {
-    //   let pageUrl = encodeURIComponent(window.location.href)
-    //   let wx_auth_url = process.env.WX_API + '/wx/officialAccount/oauth?url=' + pageUrl + '&scope=snsapi_userinfo';
-    //   window.location.href = wx_auth_url;
-    //   return;
-    // })
-    this.checkCurStatus();
+    wxService.getWxUserInfo(this).then(result => {
+      let data = result.data
+      this.user_info.nick_name = data.nickname;
+      this.user_info.head_img_url = data.headimgurl;
+      this.user_info.wx_openid = data.openid;
+      this.checkCurStatus();
+    }).catch(err => {
+      let pageUrl = encodeURIComponent(window.location.href)
+      let wx_auth_url = process.env.WX_API + '/wx/officialAccount/oauth?url=' + pageUrl + '&scope=snsapi_userinfo';
+      window.location.href = wx_auth_url;
+      return;
+    })
+    // this.checkCurStatus();
   },
   methods: {
     getImgUrl() {
@@ -121,7 +130,6 @@ export default {
         img_id: this.img_id
       }
       parseService.get(this, REQ_URL + 'angel?where=' + JSON.stringify(query)).then(data => {
-        console.log(data)
         if(data.results && data.results.length){
           // 找到相同img_id判断是否为当前用户的图片
           if(data.results[0].open_id != this.user_info.wx_openid){
@@ -131,6 +139,9 @@ export default {
             this.show_btn = true;
             this.checkCurTypeImg();
           }
+        }else{
+          this.show_btn = true;
+          this.checkCurTypeImg();
         }
       })
     },
@@ -163,8 +174,8 @@ export default {
     },
     addCurTypeImg() {
       // 获取图片url存入数据库
-      // marketService.getImageById(this, this.img_id).then((result) => {
-        // this.img_url = result.result_img_url;
+      marketService.getImageById(this, this.img_id).then((result) => {
+        this.img_url = result.result_img_url;
         let params = {
           img_id: this.img_id,
           open_id: this.user_info.wx_openid,
@@ -179,13 +190,13 @@ export default {
         }).catch(err => {
           console.log(err)
         });
-      // }).catch((err) => {
-        // console.log(err);
-      // });
+      }).catch((err) => {
+        console.log(err);
+      });
     },
     updateCurTypeImg(data){
-      // marketService.getImageById(this, this.img_id).then((result) => {
-        // this.img_url = result.result_img_url;
+      marketService.getImageById(this, this.img_id).then((result) => {
+        this.img_url = result.result_img_url;
         // 更新类型图片
         let params = {
           img_url: this.img_url,
@@ -197,12 +208,15 @@ export default {
           // 获取最新数据进行展示
           this.getWxUserResult();
         }).catch(err => {})
-      // }).catch((err) => {
-        // console.log(err);
-      // });
+      }).catch((err) => {
+        console.log(err);
+      });
     },
     creatJoinImgUrl(){
       if(!this.user_result[0].img_id || !this.user_result[1].img_id){
+        this.wxShareInfo.success = () => {
+          customTrack.shareWeChat('share_page_wechat_angel_with_one_photo');
+        }
         return;
       }
 
@@ -255,6 +269,9 @@ export default {
       }
       this.show_btn = false;
     }
+  },
+  components: {
+    WxShare
   }
 }
 </script>
