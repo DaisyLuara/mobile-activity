@@ -1,32 +1,64 @@
 <template>
-  <div class="angel-wrap">
-    <img class="bg" :src="IMAGE_SERVER + 'bg.jpg'" alt="">
-    <img class="slogan abs" :src="IMAGE_SERVER + 'slogan.png'" alt="">
-    <div class="img-wrap abs">
-      <div :class="{'white': angel.img_type == 'white', 'black': angel.img_type == 'black'}" class="angel-container" v-for="angel in user_result" v-bind:key="angel.img_id">
-        <img v-if="angel.img_type =='white'" class="frame frame-on" :src="IMAGE_SERVER + 'frame_on.png'" alt="">
-        <img v-if="angel.img_type == 'black'" class="frame frame-off" :src="IMAGE_SERVER + 'frame_off.png'" alt="">
+  <div v-if='showPage' class="angel-wrap">
+    <img class="wuliao" :src="IMAGE_SERVER + 'wuliao1.jpg'" alt="">
+    <div class="angel-container">
+      <!-- <img class="bg" :src="IMAGE_SERVER + 'bg.jpg'" alt=""> -->
+      <img class="slogan" :src="IMAGE_SERVER + 'slogan.png'" alt="">
+      <div class="img-wrap clearfix">
+        <div :class="{'white': angel.img_type == 'white', 'black': angel.img_type == 'black'}" class="angel-container" v-for="angel in user_result" v-bind:key="angel.img_id">
+          <img v-if="angel.img_type =='white'" class="frame frame-on" :src="IMAGE_SERVER + 'frame_on.png'" alt="">
+          <img v-if="angel.img_type == 'black'" class="frame frame-off" :src="IMAGE_SERVER + 'frame_off.png'" alt="">
 
-        <img class="lock abs" v-if="angel.img_type =='white' && !angel.img_id" :src="IMAGE_SERVER + 'lock_on.png'" alt="">
-        <img class="lock abs" v-if="angel.img_type =='black' && !angel.img_id" :src="IMAGE_SERVER + 'lock_off.png'" alt="">
-        <div v-if="!angel.img_id" class="cover abs"></div>
-        <div class="img-container abs">
-          <img v-if="!angel.img_id && angel.img_type == 'black'" class="img-example" :src="IMAGE_SERVER + 'b_angel.png'" alt="">
-          <img v-if="!angel.img_id && angel.img_type == 'white'" class="img-example" :src="IMAGE_SERVER + 'w_angel.png'" alt="">
-          <img class="img" :src="angel.img_url" alt="">
+          <img class="lock abs" v-if="angel.img_type =='white' && !angel.img_id" :src="IMAGE_SERVER + 'lock_white.png'" alt="">
+          <img class="lock abs" v-if="angel.img_type =='black' && !angel.img_id" :src="IMAGE_SERVER + 'lock_black.png'" alt="">
+          <div v-if="!angel.img_id" class="cover abs"></div>
+          <div v-show="angel.img_id && angel.img_type == 'white'" class="animate abs">
+            <img class="diamond d1" :src="IMAGE_SERVER + 'white.png'" alt="">
+            <img class="diamond d2" :src="IMAGE_SERVER + 'white.png'" alt="">
+            <img class="diamond d3" :src="IMAGE_SERVER + 'white.png'" alt="">
+            <img class="diamond d4" :src="IMAGE_SERVER + 'white.png'" alt="">
+            <img class="diamond d5" :src="IMAGE_SERVER + 'white.png'" alt="">
+            <img class="diamond d6" :src="IMAGE_SERVER + 'white.png'" alt="">
+            <img class="diamond d7" :src="IMAGE_SERVER + 'white.png'" alt="">
+            <img class="diamond d8" :src="IMAGE_SERVER + 'white.png'" alt="">
+            <img class="diamond d9" :src="IMAGE_SERVER + 'white.png'" alt="">
+            <img class="diamond d10" :src="IMAGE_SERVER + 'white.png'" alt="">
+            <img class="diamond d11" :src="IMAGE_SERVER + 'white.png'" alt="">
+          </div>
+          <div v-show="angel.img_id && angel.img_type == 'black'" class="animate abs">
+            <img class="diamond d1" :src="IMAGE_SERVER + 'blue.png'" alt="">
+            <img class="diamond d2" :src="IMAGE_SERVER + 'blue.png'" alt="">
+            <img class="diamond d3" :src="IMAGE_SERVER + 'blue.png'" alt="">
+            <img class="diamond d4" :src="IMAGE_SERVER + 'blue.png'" alt="">
+            <img class="diamond d5" :src="IMAGE_SERVER + 'blue.png'" alt="">
+            <img class="diamond d6" :src="IMAGE_SERVER + 'blue.png'" alt="">
+            <img class="diamond d7" :src="IMAGE_SERVER + 'blue.png'" alt="">
+            <img class="diamond d8" :src="IMAGE_SERVER + 'blue.png'" alt="">
+            <img class="diamond d9" :src="IMAGE_SERVER + 'blue.png'" alt="">
+            <img class="diamond d10" :src="IMAGE_SERVER + 'blue.png'" alt="">
+            <img class="diamond d11" :src="IMAGE_SERVER + 'blue.png'" alt="">
+          </div>
+          <div class="img-container abs">
+            <img v-if="!angel.img_id && angel.img_type == 'black'" class="img-example" :src="IMAGE_SERVER + 'b_angel.png'" alt="">
+            <img v-if="!angel.img_id && angel.img_type == 'white'" class="img-example" :src="IMAGE_SERVER + 'w_angel.png'" alt="">
+            <img class="img" :src="angel.img_url" alt="">
+          </div>
         </div>
       </div>
-    </div>
-    <div class="num-wrap abs">
-      <div class="num-container" :class="{'white': angel.img_type == 'white', 'black': angel.img_type == 'black'}" v-for="angel in user_result" v-bind:key="angel.img_id">
-        <img v-if="angel.img_type == 'white'" :src="IMAGE_SERVER + 'tianmei.png'" alt="">
-        <img v-if="angel.img_type == 'black'" :src="IMAGE_SERVER + 'gaoleng.png'" alt="">
-        <span :class="{'white': angel.img_type =='white', 'black': angel.img_type == 'black'}" class="abs num">{{angel.num ? angel.num : '0'}}</span>
+      <div class="num-wrap clearfix">
+        <div class="num-container" :class="{'white': angel.img_type == 'white', 'black': angel.img_type == 'black'}" v-for="angel in user_result" v-bind:key="angel.img_id">
+          <img v-if="angel.img_type == 'white'" :src="IMAGE_SERVER + 'tianmei.png'" alt="">
+          <img v-if="angel.img_type == 'black'" :src="IMAGE_SERVER + 'gaoleng.png'" alt="">
+          <span :class="{'white': angel.img_type =='white', 'black': angel.img_type == 'black'}" class="abs num">{{angel.num ? angel.num : '0'}}</span>
+        </div>
       </div>
+      <img v-if="show_btn" class="btn-join" @click="join" :src="IMAGE_SERVER + 'btn.png'" alt="">
+      <img v-if="!show_btn" class="result-join" :src="join_img_url" alt="">
+      <img class="img-za" :src="IMAGE_SERVER + 'za.png'" alt="">
+      <wx-share :WxShareInfo="wxShareInfo"></wx-share>
     </div>
-    <img v-if="show_btn" class="abs btn-join" @click="join" :src="IMAGE_SERVER + 'btn.png'" alt="">
-    <img v-if="!show_btn" class="abs result-join" :src="join_img_url" alt="">
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+    <img class="wuliao" :src="IMAGE_SERVER + 'wuliao2.jpg'" alt="">
+    <img class="wuliao" :src="IMAGE_SERVER + 'wuliao3.png'" alt="">
   </div>
 </template>
 <script>
@@ -48,6 +80,7 @@ export default {
       sex: this.$route.query.sex, //用户性别
       open_id: '',
       show_btn: false,
+      showPage: false,
       user_info: {
         nick_name: '',
         head_img_url: '',
@@ -89,13 +122,15 @@ export default {
       this.user_info.nick_name = data.nickname;
       this.user_info.head_img_url = data.headimgurl;
       this.user_info.wx_openid = data.openid;
+      this.showPage = true;
       this.checkCurStatus();
     }).catch(err => {
       let pageUrl = encodeURIComponent(window.location.href)
-      let wx_auth_url = process.env.WX_API + '/wx/officialAccount/oauth?url=' + pageUrl + '&scope=snsapi_userinfo';
+      let wx_auth_url = process.env.WX_API + '/api/wx/officialAccount/oauth?url=' + pageUrl + '&scope=snsapi_userinfo';
       window.location.href = wx_auth_url;
       return;
     })
+    // this.showPage = true;
     // this.checkCurStatus();
   },
   methods: {
@@ -181,7 +216,8 @@ export default {
           open_id: this.user_info.wx_openid,
           img_type: this.img_type,
           num: this.num,
-          img_url: this.img_url
+          img_url: this.img_url,
+          sex: this.sex
         }
 
         parseService.post(this, REQ_URL + 'angel', params).then(res => {
@@ -200,6 +236,7 @@ export default {
         // 更新类型图片
         let params = {
           img_url: this.img_url,
+          sex: this.sex,
           num: this.num,
           img_id: this.img_id
         }
@@ -217,6 +254,16 @@ export default {
         this.wxShareInfo.success = () => {
           customTrack.shareWeChat('share_page_wechat_angel_with_one_photo');
         }
+        return;
+      }
+
+      if(this.user_result[0].sex == 'male' || this.user_result[1].sex == 'female'){
+        this.join_img_url = this.IMAGE_SERVER + 'unknow.png';
+        return;
+      }
+
+      if(this.user_result[0].sex == 'female' || this.user_result[1].sex == 'male'){
+        this.join_img_url = this.IMAGE_SERVER + 'unknow.png';
         return;
       }
 
@@ -276,8 +323,132 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-.angel-wrap{
+@IMAGE_SERVER: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/angel';
+@keyframes fall1 {
+  0%{
+    top: 0%;
+    transform: rotate(0deg);
+  }
+  100%{
+    left: 22%;
+    top: 77%;
+    transform: rotate(-30deg);
+  }
+}
+@keyframes fall2 {
+  0%{
+    top: 0%;
+  }
+  100%{
+    top: 80%;
+    left: 5%;
+  }
+}
+@keyframes fall3 {
+  0%{
+    top: 0%;
+    transform: rotate(0deg);
+  }
+  100%{
+    top: 82%;
+    right: 19%;
+    transform: rotate(19deg);
+  }
+}
+@keyframes fall4 {
+  0%{
+    top: 0%;
+  }
+  100%{
+    top: 81%;
+  }
+}
+@keyframes fall5 {
+  0%{
+    top: 0%;
+    transform: rotate(0deg);
+  }
+  100%{
+    right: 38%;
+    top: 81%;
+    transform: rotate(-19deg);
+  }
+}
+@keyframes fall6 {
+  0%{
+    top: 0%;
+    transform: rotate(0deg);
+  }
+  100%{
+    top: 70%;
+    right: 7%;
+    opacity: 1;
+    transform: rotate(30deg);
+  }
+}
+@keyframes fall7 {
+  0%{
+    top: 0%;
+  }
+  100%{
+    top: 70%;
+    opacity: 1;
+    right: 27%;
+  }
+}
+@keyframes fall8 {
+  0%{
+    top: 0%;
+    transform: rotate(0deg);
+  }
+  100%{
+    top: 60%;
+    right: 17%;
+    opacity: 1;
+    transform: rotate(23deg);
+  }
+}
+@keyframes fall9 {
+  0%{
+    top: 0%;
+  }
+  100%{
+    top: 61%;
+    opacity: 1;
+    right: 58%;
+  }
+}
+@keyframes fall10 {
+  0%{
+    top: 0%;
+    transform: rotate(0deg);
+  }
+  100%{
+    top: 70%;
+    right: 45%;
+    opacity: 1;
+    transform: rotate(10deg);
+  }
+}
+@keyframes fall11 {
+  0%{
+    top: 0%;
+    transform: rotate(0deg);
+  }
+  100%{
+    left: 5%;
+    top: 67%;
+    opacity: 1;
+    transform: rotate(-21deg);
+  }
+}
+
+.angel-container{
   position: relative;
+  background-image: url("@{IMAGE_SERVER}/bg.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  text-align: center;
   .abs{
     position: absolute;
     left: 0;
@@ -292,6 +463,7 @@ export default {
   .img-wrap{
     top: 26%;
     width: 90%;
+    margin: -8% auto 0;
     .frame{
       position: relative;
       z-index: 3;
@@ -306,6 +478,68 @@ export default {
       background-color: rgba(0,0,0,.5);
       z-index: 2;
       width: 90%;
+    }
+    .animate{
+      height: 94%;
+      top: 0;
+      z-index: 5;
+      width: 90%;
+      .diamond{
+        position: absolute;
+        width: 20%;
+        margin: 0 auto;
+        &.d1{
+          left: 20%;
+          right: initial;
+          animation: fall1 1s .5s ease-in-out forwards;
+        }
+        &.d2{
+          left: 10%;
+          animation: fall2 1s linear forwards;
+        }
+        &.d3{
+          right: 10%;
+          animation: fall3 1s .5s linear forwards;
+        }
+        &.d4{
+          right: 0;
+          animation: fall4 1s .2s linear forwards;
+        }
+        &.d5{
+          right: 15%;
+          animation: fall5 1s .7s linear forwards;
+        }
+        &.d6{
+          opacity: 0;
+          right: 11%;
+          animation: fall6 1s 1.8s linear forwards;
+        }
+        &.d7{
+          opacity: 0;
+          right: 30%;
+          animation: fall7 1s 1.5s linear forwards;
+        }
+        &.d8{
+          opacity: 0;
+          right: 40%;
+          animation: fall8 1s 2s linear forwards;
+        }
+        &.d9{
+          opacity: 0;
+          right: 50%;
+          animation: fall9 1s 1.5s linear forwards;
+        }
+        &.d10{
+          opacity: 0;
+          right: 55%;
+          animation: fall10 1s 1.2s linear forwards;
+        }
+        &.d11{
+          opacity: 0;
+          left: 11%;
+          animation: fall11 1s 1.3s linear forwards;
+        }
+      }
     }
     .angel-container{
       position: relative;
@@ -326,6 +560,7 @@ export default {
   .num-wrap{
     width: 90%;
     top: 57%;
+    margin: 6% auto;
     .num-container{
       position: relative;
       &.white{
@@ -353,10 +588,14 @@ export default {
   }
   .btn-join{
     top: 70%;
-    width: 60%!important;
+    width: 60%;
   }
   .result-join{
     top: 70%;
+  }
+  .img-za{
+    width: 90%;
+    margin: 10% auto;
   }
 }
 </style>
