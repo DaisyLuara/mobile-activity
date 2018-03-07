@@ -3,7 +3,7 @@
     <img class="wuliao" :src="IMAGE_SERVER + 'wuliao1.jpg'" alt="">
     <div class="angel-container">
       <!-- <img class="bg" :src="IMAGE_SERVER + 'bg.jpg'" alt=""> -->
-      <img class="slogan" :src="IMAGE_SERVER + 'slogan.png'" alt="">
+      <img class="slogan" @load="loadImg" :src="IMAGE_SERVER + 'slogan.png'" alt="">
       <div class="img-wrap clearfix">
         <div :class="{'white': angel.img_type == 'white', 'black': angel.img_type == 'black'}" class="angel-container" v-for="angel in user_result" v-bind:key="angel.img_id">
           <img v-if="angel.img_type =='white'" class="frame frame-on" :src="IMAGE_SERVER + 'frame_on.png'" alt="">
@@ -12,7 +12,7 @@
           <img class="lock abs" v-if="angel.img_type =='white' && !angel.img_id" :src="IMAGE_SERVER + 'lock_white.png'" alt="">
           <img class="lock abs" v-if="angel.img_type =='black' && !angel.img_id" :src="IMAGE_SERVER + 'lock_black.png'" alt="">
           <div v-if="!angel.img_id" class="cover abs"></div>
-          <div v-show="angel.img_id && angel.img_type == 'white'" class="animate abs">
+          <div :class="{'animate': animate}" v-show="angel.img_id && angel.img_type == 'white'" class="diamond-wrap abs">
             <img class="diamond d1" :src="IMAGE_SERVER + 'white.png'" alt="">
             <img class="diamond d2" :src="IMAGE_SERVER + 'white.png'" alt="">
             <img class="diamond d3" :src="IMAGE_SERVER + 'white.png'" alt="">
@@ -25,7 +25,7 @@
             <img class="diamond d10" :src="IMAGE_SERVER + 'white.png'" alt="">
             <img class="diamond d11" :src="IMAGE_SERVER + 'white.png'" alt="">
           </div>
-          <div v-show="angel.img_id && angel.img_type == 'black'" class="animate abs">
+          <div :class="{'animate': animate}" v-show="angel.img_id && angel.img_type == 'black'" class="diamond-wrap abs">
             <img class="diamond d1" :src="IMAGE_SERVER + 'blue.png'" alt="">
             <img class="diamond d2" :src="IMAGE_SERVER + 'blue.png'" alt="">
             <img class="diamond d3" :src="IMAGE_SERVER + 'blue.png'" alt="">
@@ -79,12 +79,13 @@ export default {
       num: this.$route.query.num,
       sex: this.$route.query.sex, //用户性别
       open_id: '',
+      animate: false,
       show_btn: false,
       showPage: false,
       user_info: {
         nick_name: '',
         head_img_url: '',
-        wx_openid: ''
+        wx_openid: 'zkk'
       },
       join_img_url: '',
       join_rule: [['86','92'],['86','84'],['92','84'],['63','75'],['63','58'],['75','58'],['46','32'],['46','38'],['32','38']],
@@ -100,7 +101,7 @@ export default {
     }
   },
   beforeCreate() {
-    document.title = '黑白天使';
+    document.title = '致惠女神节';
   },
   mounted() {
     $('.angel-wrap').css('min-height', $(window).height());
@@ -134,6 +135,19 @@ export default {
     // this.checkCurStatus();
   },
   methods: {
+    loadImg() {
+      let that = this;
+      let targetTop = $(".slogan").offset().top;
+      if($(window).scrollTop() >= targetTop){
+        this.animate = true;
+      }
+      window.onscroll = function(e){
+        let windowScrollTop = $(window).scrollTop();
+        if(windowScrollTop >= targetTop){
+          that.animate = true;
+        }
+      }
+    },
     getImgUrl() {
       marketService.getImageById(this, this.img_id).then((result) => {
         this.img_url = result.result_img_url;
@@ -332,6 +346,7 @@ export default {
   100%{
     left: 22%;
     top: 77%;
+    opacity: 1;
     transform: rotate(-30deg);
   }
 }
@@ -341,6 +356,7 @@ export default {
   }
   100%{
     top: 80%;
+    opacity: 1;
     left: 5%;
   }
 }
@@ -351,6 +367,7 @@ export default {
   }
   100%{
     top: 82%;
+    opacity: 1;
     right: 19%;
     transform: rotate(19deg);
   }
@@ -360,6 +377,7 @@ export default {
     top: 0%;
   }
   100%{
+    opacity: 1;
     top: 81%;
   }
 }
@@ -370,6 +388,7 @@ export default {
   }
   100%{
     right: 38%;
+    opacity: 1;
     top: 81%;
     transform: rotate(-19deg);
   }
@@ -479,65 +498,84 @@ export default {
       z-index: 2;
       width: 90%;
     }
-    .animate{
+    .diamond-wrap{
       height: 94%;
       top: 0;
       z-index: 5;
       width: 90%;
+      &.animate{
+        .d1{
+          animation: fall1 1s .5s ease-in-out forwards;
+        }
+        .d2{
+          animation: fall2 1s linear forwards;
+        }
+        .d3{
+          animation: fall3 1s .5s linear forwards;
+        }
+        .d4{
+          animation: fall4 1s .2s linear forwards;
+        }
+        .d5{
+          animation: fall5 1s .7s linear forwards;
+        }
+        .d6{
+          animation: fall6 1s 1.8s linear forwards;
+        }
+        .d7{
+          animation: fall7 1s 1.5s linear forwards;
+        }
+        .d8{
+          animation: fall8 1s 2s linear forwards;
+        }
+        .d9{
+          animation: fall9 1s 1.5s linear forwards;
+        }
+        .d10{
+          animation: fall10 1s 1.2s linear forwards;
+        }
+        .d11{
+          animation: fall11 1s 1.3s linear forwards;
+        }
+      }
       .diamond{
         position: absolute;
         width: 20%;
         margin: 0 auto;
+        opacity: 0;
         &.d1{
           left: 20%;
           right: initial;
-          animation: fall1 1s .5s ease-in-out forwards;
         }
         &.d2{
           left: 10%;
-          animation: fall2 1s linear forwards;
         }
         &.d3{
           right: 10%;
-          animation: fall3 1s .5s linear forwards;
         }
         &.d4{
           right: 0;
-          animation: fall4 1s .2s linear forwards;
         }
         &.d5{
           right: 15%;
-          animation: fall5 1s .7s linear forwards;
         }
         &.d6{
-          opacity: 0;
           right: 11%;
-          animation: fall6 1s 1.8s linear forwards;
         }
         &.d7{
-          opacity: 0;
           right: 30%;
-          animation: fall7 1s 1.5s linear forwards;
         }
         &.d8{
-          opacity: 0;
           right: 40%;
-          animation: fall8 1s 2s linear forwards;
         }
         &.d9{
-          opacity: 0;
           right: 50%;
-          animation: fall9 1s 1.5s linear forwards;
         }
         &.d10{
-          opacity: 0;
           right: 55%;
-          animation: fall10 1s 1.2s linear forwards;
         }
         &.d11{
-          opacity: 0;
           left: 11%;
-          animation: fall11 1s 1.3s linear forwards;
         }
       }
     }
