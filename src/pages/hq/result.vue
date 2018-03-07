@@ -31,8 +31,8 @@ export default {
       imgServerUrl: IMAGE_SERVER,
       resultImgUrl: '',
       wxShareInfoValue: {
-        title: '旺狗开春 情缘满分',
-        desc: '浦商百货借旺狗报新春 送祝福 合家欢 情侣睦 诞生的汪早脱单',
+        title: '虹桥天地 口红主题',
+        desc: '虹桥天地 口红主题',
         imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/hq_share_icon.jpg',
       },
     };
