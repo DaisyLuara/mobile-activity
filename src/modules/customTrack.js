@@ -63,9 +63,9 @@ customTrack.sendMobile = (mobileValue) => {
   }
 };
 
-customTrack.shareWeChat = () => {
+customTrack.shareWeChat = (desc = 'share_page_wechat_300') => {
   if (_paq) {
-    _paq.push(['trackEvent', customTrack.adId, customTrack.laId, 'share_page_wechat_300']);
+    _paq.push(['trackEvent', customTrack.adId, customTrack.laId, desc]);
   }
 };
 export { customTrack };
