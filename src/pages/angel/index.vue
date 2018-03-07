@@ -92,7 +92,7 @@ export default {
       this.checkCurStatus();
     }).catch(err => {
       let pageUrl = encodeURIComponent(window.location.href)
-      let wx_auth_url = process.env.WX_API + '/wx/officialAccount/oauth?url=' + pageUrl + '&scope=snsapi_userinfo';
+      let wx_auth_url = process.env.WX_API + '/api/wx/officialAccount/oauth?url=' + pageUrl + '&scope=snsapi_userinfo';
       window.location.href = wx_auth_url;
       return;
     })
