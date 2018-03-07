@@ -1,6 +1,6 @@
 <template>
   <div class="angel-wrap">
-    <img class="bg" :src="IMAGE_SERVER + 'bg.png'" alt="">
+    <img class="bg" :src="IMAGE_SERVER + 'bg.jpg'" alt="">
     <img class="slogan abs" :src="IMAGE_SERVER + 'slogan.png'" alt="">
     <div class="img-wrap abs">
       <div :class="{'white': angel.img_type == 'white', 'black': angel.img_type == 'black'}" class="angel-container" v-for="angel in user_result" v-bind:key="angel.img_id">
@@ -59,7 +59,7 @@ export default {
       wxShareInfo:{
         title: '浦商百货 致惠女神节',
         desc: '黑白天使 成就致惠女神 真皙美白 唤醒青春美颜',
-        imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/prize_share_icon.png',
+        imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/angel_share_icon.png',
         success: function () {
           customTrack.shareWeChat()
         }
