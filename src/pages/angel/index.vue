@@ -77,7 +77,7 @@ export default {
       img_id: this.$route.query.id,
       img_url: '',
       num: this.$route.query.num,
-      sex: this.$route.query.sex, //用户性别
+      sex: (this.$route.query.sex).toLowerCase(), //用户性别
       open_id: '',
       animate: false,
       show_btn: false,
