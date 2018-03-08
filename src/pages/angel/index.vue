@@ -38,6 +38,7 @@
             <img class="diamond d10" :src="IMAGE_SERVER + 'blue.png'" alt="">
             <img class="diamond d11" :src="IMAGE_SERVER + 'blue.png'" alt="">
           </div>
+          <img class="img-download abs" :src="angel.img_url" alt="">
           <div class="img-container abs">
             <img v-if="!angel.img_id && angel.img_type == 'black'" class="img-example" :src="IMAGE_SERVER + 'b_angel.png'" alt="">
             <img v-if="!angel.img_id && angel.img_type == 'white'" class="img-example" :src="IMAGE_SERVER + 'w_angel.png'" alt="">
@@ -118,21 +119,21 @@ export default {
     if(!this.num){
       alert("咦，没有找到您的钻石颗数哦，请重新和大屏进行互动拍照~");
     }
-    wxService.getWxUserInfo(this).then(result => {
-      let data = result.data
-      this.user_info.nick_name = data.nickname;
-      this.user_info.head_img_url = data.headimgurl;
-      this.user_info.wx_openid = data.openid;
-      this.showPage = true;
-      this.checkCurStatus();
-    }).catch(err => {
-      let pageUrl = encodeURIComponent(window.location.href)
-      let wx_auth_url = process.env.WX_API + '/wx/officialAccount/oauth?url=' + pageUrl + '&scope=snsapi_userinfo';
-      window.location.href = wx_auth_url;
-      return;
-    })
-    // this.showPage = true;
-    // this.checkCurStatus();
+    // wxService.getWxUserInfo(this).then(result => {
+    //   let data = result.data
+    //   this.user_info.nick_name = data.nickname;
+    //   this.user_info.head_img_url = data.headimgurl;
+    //   this.user_info.wx_openid = data.openid;
+    //   this.showPage = true;
+    //   this.checkCurStatus();
+    // }).catch(err => {
+    //   let pageUrl = encodeURIComponent(window.location.href)
+    //   let wx_auth_url = process.env.WX_API + '/wx/officialAccount/oauth?url=' + pageUrl + '&scope=snsapi_userinfo';
+    //   window.location.href = wx_auth_url;
+    //   return;
+    // })
+    this.showPage = true;
+    this.checkCurStatus();
   },
   methods: {
     loadImg() {
@@ -181,19 +182,14 @@ export default {
       parseService.get(this, REQ_URL + 'angel?where=' + JSON.stringify(query)).then(data => {
         if(data.results && data.results.length){
           // 找到相同img_id判断是否为当前用户的图片
-alert(data.results[0].open_id);
-alert(this.user_info.wx_openid);
           if(data.results[0].open_id != this.user_info.wx_openid){
-alert(1);
             this.user_info.wx_openid = data.results[0].open_id;
             this.getWxUserResult();
           }else{
-alert(2)
             this.show_btn = true;
             this.checkCurTypeImg();
           }
         }else{
-alert(3)
           this.show_btn = true;
           this.checkCurTypeImg();
         }
@@ -276,12 +272,7 @@ alert(3)
         return;
       }
 
-      if(this.user_result[0].sex == 'male' || this.user_result[1].sex == 'female'){
-        this.join_img_url = this.IMAGE_SERVER + 'unknow.png';
-        return;
-      }
-
-      if(this.user_result[0].sex == 'female' || this.user_result[1].sex == 'male'){
+      if(this.user_result[0].sex == 'male' || this.user_result[1].sex == 'male'){
         this.join_img_url = this.IMAGE_SERVER + 'unknow.png';
         return;
       }
@@ -596,6 +587,11 @@ alert(3)
       .img-container{
         top: 3%;
         width: 92%;
+      }
+      .img-download{
+        top: 0;
+        z-index: 99;
+        opacity: 0;
       }
     }
 
