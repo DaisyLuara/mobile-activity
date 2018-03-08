@@ -1,5 +1,5 @@
 <template>
-  <div class="feng-wrap">
+  <div class="feng-wrap" id="feng-root">
     <div id="mapContainer" class="container"></div>
     <div class="viewmode-group btn-group" data-toggle="buttons">
     </div>
@@ -19,10 +19,11 @@
       </div>
       <div class="detail-into">
         这里游戏介绍 游戏说明这里游戏介绍 游戏说明这里游戏介绍 游戏说明这
-这里游戏介绍 游戏说明这里游戏介绍 游戏说明这里游戏介绍 游戏说明这
-这里游戏介绍 游戏说明这里游戏介绍 
+        这里游戏介绍 游戏说明这里游戏介绍 游戏说明这里游戏介绍 游戏说明这
+        这里游戏介绍 游戏说明这里游戏介绍 
       </div>
     </div>
+    <img @click="handleNaviToMini" src="static/feng/image/list-button.png" class="list-change"/>
   </div>
 </template>
 
@@ -48,8 +49,15 @@ export default {
     this.init()
   },
   methods: {
+    handleNaviToMini() {
+      // wx.miniProgram.getEnv(function(res) {
+      //   console.log(res.miniprogram)
+      // })
+      wx.miniProgram.navigateTo({ url: '/pages/floor' })
+    },
     async init() {
       try {
+        await this.getWxJSSDKReady()
         this.ctlOpt = await this.ctlOptInit()
         await this.initMap()
         this.clickEventInit()
@@ -58,6 +66,15 @@ export default {
       } catch (e) {
         console.log(e)
       }
+    },
+    getWxJSSDKReady() {
+      return new Promise((resolve, reject) => {
+        let script = document.createElement('script')
+        script.src = 'https://res.wx.qq.com/open/js/jweixin-1.3.2.js'
+        let fengDiv = document.getElementById('feng-root')
+        fengDiv.appendChild(script)
+        resolve()
+      })
     },
     initMap() {
       return new Promise((resolve, reject) => {
@@ -147,7 +164,7 @@ export default {
     clickEventInit() {
       let that = this
       this.fMap.on('mapClickNode', e => {
-        console.dir(e)
+        // console.dir(e)
         if (this.handleLock) {
           if (e.nodeType !== fengmap.FMNodeType.IMAGE_MARKER) {
             this.handleLock = false
@@ -192,7 +209,6 @@ export default {
               break
             case 5:
               this.handleRemoveMarkers(e.groupID)
-
               this.resetDetail()
               break
             default:
@@ -325,6 +341,13 @@ export default {
 <style lang="less" scoped>
 #mapContainer {
   height: 100%;
+}
+.list-change {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
 }
 .detail-wrap {
   position: absolute;
