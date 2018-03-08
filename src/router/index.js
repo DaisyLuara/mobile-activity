@@ -101,6 +101,12 @@ export default new Router({
           name: '蜂鸟云Demo',
           component: () =>
             import(/* webpackChunkName: "fengDemo" */ 'pages/fengDemo/index.vue')
+        },
+        {
+          path: 'feng2',
+          name: 'fengMapDemo2',
+          component: () =>
+            import(/* webpackChunkName: "fengDemo2" */ 'pages/fengDemo/demo2.vue')
         }
       ]
     },
@@ -120,12 +126,6 @@ export default new Router({
       name: '黑白天使',
       component: () =>
         import(/* webpackChunkName: "angel" */ 'pages/angel/index.vue')
-    },
-    {
-      path: 'feng2',
-      name: 'fengMapDemo2',
-      component: () =>
-        import(/* webpackChunkName: "fengDemo2" */ 'pages/fengDemo/demo2.vue')
     }
   ]
 })

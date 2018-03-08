@@ -84,7 +84,7 @@ export default {
           defaultThemeName: 3006,
           appName: 'xingstation_mini',
           key: '528b65fa54ac6b1b207691a4abeadfb2',
-          mapServerURL: 'static/data/' + this.fMapId,
+          mapServerURL: 'static/feng/data/' + this.fMapId,
           defaultMapScaleLevel: 20,
           focusAlphaMode: false,
           modelSelectedEffect: false,
