@@ -53,7 +53,7 @@ export default {
       // wx.miniProgram.getEnv(function(res) {
       //   console.log(res.miniprogram)
       // })
-      wx.miniProgram.navigateTo({ url: '/pages/floor' })
+      wx.miniProgram.redirectTo({ url: '/pages/floor' })
     },
     async init() {
       try {
