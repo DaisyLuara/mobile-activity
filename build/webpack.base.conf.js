@@ -2,10 +2,10 @@
 const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
-const webpack = require("webpack")
+const webpack = require('webpack')
 const vueLoaderConfig = require('./vue-loader.conf')
 
-function resolve (dir) {
+function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
 
@@ -17,43 +17,46 @@ module.exports = {
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
-    publicPath: process.env.NODE_ENV === 'production'
-      ? config.build.assetsPublicPath
-      : config.dev.assetsPublicPath
+    publicPath:
+      process.env.NODE_ENV === 'production'
+        ? config.build.assetsPublicPath
+        : config.dev.assetsPublicPath
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
-    modules: [
-      resolve('node_modules')
-    ],
+    modules: [resolve('node_modules')],
     alias: {
-      'vue$': 'vue/dist/vue.esm.js',
+      vue$: 'vue/dist/vue.esm.js',
       '@': resolve('src'),
-      'assets': resolve('src/assets'),
-      'jquery': 'jquery',
-      'templates': resolve('src/templates'),
-      'pages': resolve('src/pages'),
-      'modules': resolve('src/modules'),
-      'services': resolve('src/services')
+      assets: resolve('src/assets'),
+      jquery: 'jquery',
+      templates: resolve('src/templates'),
+      pages: resolve('src/pages'),
+      modules: resolve('src/modules'),
+      services: resolve('src/services')
     }
   },
   resolveLoader: {
     modules: [resolve('node_modules')],
-    extensions: [".js", ".json"],
-    mainFields: ["loader", "main"]
+    extensions: ['.js', '.json'],
+    mainFields: ['loader', 'main']
   },
   module: {
     rules: [
-      ...(config.dev.useEslint? [{
-        test: /\.(js|vue)$/,
-        loader: 'eslint-loader',
-        enforce: 'pre',
-        include: [resolve('src'), resolve('test')],
-        options: {
-          formatter: require('eslint-friendly-formatter'),
-          emitWarning: !config.dev.showEslintErrorsInOverlay
-        }
-      }] : []),
+      ...(config.dev.useEslint
+        ? [
+            {
+              test: /\.(js|vue)$/,
+              loader: 'eslint-loader',
+              enforce: 'pre',
+              include: [resolve('src'), resolve('test')],
+              options: {
+                formatter: require('eslint-friendly-formatter'),
+                emitWarning: !config.dev.showEslintErrorsInOverlay
+              }
+            }
+          ]
+        : []),
       {
         test: /\.vue$/,
         loader: 'vue-loader',
@@ -90,15 +93,15 @@ module.exports = {
       },
       {
         test: /\.less$/,
-        loader: "style-loader!css-loader!less-loader"
+        loader: 'style-loader!css-loader!less-loader'
       }
     ]
   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin('common.js'),
     new webpack.ProvidePlugin({
-      $: "jquery",
-      jQuery: "jquery"
+      $: 'jquery',
+      jQuery: 'jquery'
     })
   ]
 }

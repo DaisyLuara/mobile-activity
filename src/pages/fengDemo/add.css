@@ -1,0 +1,40 @@
+hr {
+  border-top: none !important;
+}
+.fm-control-groups-btn {
+  height: 23px !important;
+  line-height: 23px !important;
+  margin-top: -14px;
+  box-shadow: none !important;
+  background-color: #ebecf4 !important;
+  color: black !important;
+  border-top-right-radius: 21px;
+  border-top-left-radius: 21px;
+}
+.fm-layer-list {
+  border-top-left-radius: 21px !important;
+  border-top-right-radius: 21px !important;
+  box-shadow: none !important;
+  overflow: hidden;
+  background-color: #ebecf4 !important;
+  margin-top: 65px;
+  height: auto !important;
+  padding-top: 13px;
+}
+.fm-control-groups-layer.fm-layer-btn-default {
+  height: 23px !important;
+  line-height: 23px !important;
+}
+.fm-control-groups-layer.fm-layer-btn-default.active {
+  color: white !important;
+  background-color: #d6b88a;
+  height: 23px !important;
+  line-height: 23px !important;
+}
+.detail-container {
+  height: 134px;
+  width: 100%;
+  background-color: white;
+  position: absolute;
+  top: 0;
+}
