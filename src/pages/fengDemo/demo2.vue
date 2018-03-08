@@ -57,20 +57,20 @@ export default {
       }
     },
     initMap() {
-      let that = this
       return new Promise((resolve, reject) => {
         this.fMap = new fengmap.FMMap({
           container: document.getElementById('mapContainer'),
+          mapThemeURL: 'static/data/theme',
+          defaultThemeName: 3006,
           appName: 'xingstation_mini',
           key: '528b65fa54ac6b1b207691a4abeadfb2',
           mapServerURL: 'static/data/' + this.fMapId,
           defaultMapScaleLevel: 20,
           focusAlphaMode: false,
           modelSelectedEffect: false,
-          focusAlpha: 0.1
+          focusAlpha: 0
         })
 
-        this.fMap.focusGroupID = 1
         this.fMap.openMapById(this.fMapId)
 
         this.fMap.on('loadComplete', () => {
@@ -80,13 +80,19 @@ export default {
             this.ctlOpt
           )
           this.addImageMarker()
+          let that = this
           this.groupControl.onChange(function(groups, allLayer) {
             //groups 表示当前要切换的楼层ID数组,
             //allLayer表示当前楼层是单层状态还是多层状态。
             //...
             that.handleAddControlBtn()
-            that.currentGroup = groups
+            that.currentGroup = groups[0]
           })
+          that.fMap.setMapScaleLevelRange(20, 20)
+          that.fMap.gestureEnableController_.enableMapRotate = false
+          that.fMap.gestureEnableController_.enableMapIncline = false
+          that.fMap.gestureEnableController_.enableMapPinch = false
+
           resolve()
         })
       })
@@ -97,8 +103,6 @@ export default {
       btn.style.borderTopRightRadius = '21px'
       btn.style.borderTopLeftRadius = '21px'
       btn.addEventListener('click', () => {
-        console.log('clicked')
-        console.dir(btn.style.borderTopRightRadius)
         if (btn.style.borderTopRightRadius === '21px') {
           btn.style.borderTopRightRadius = '2px'
           btn.style.borderTopLeftRadius = '2px'
@@ -146,18 +150,17 @@ export default {
             this.handleLock = false
           }
         } else {
-          let group = this.fMap.getFMGroup(this.fMap.groupIDs[1])
+          let group = this.fMap.getFMGroup(e.groupID || this.currentGroup)
           let layer = group.getOrCreateLayer('imageMarker')
           switch (e.nodeType) {
             case fengmap.FMNodeType.IMAGE_MARKER:
               this.handleLock = true
               let addMarker = new fengmap.FMImageMarker({
                 url: 'static/feng/image/redpack.png',
-                size: 32,
-                x: e.x - 0.5,
+                size: 16,
+                x: e.x,
                 y: e.y,
                 z: 10,
-                // height: 5,
                 callback: () => {
                   addMarker.alwaysShow()
                   addMarker.jump({
@@ -168,21 +171,22 @@ export default {
                   })
                 }
               })
-              this.handleRemoveMarkers(layer)
+              this.handleRemoveMarkers(e.groupID)
               layer.addMarker(addMarker)
               this.handleDetailShow(e)
               e.eventInfo.domEvent.cancelBubble = true
               break
             case 4:
-              this.handleRemoveMarkers(layer)
+              this.handleRemoveMarkers(e.groupID)
               this.resetDetail()
               break
             case 0:
-              this.handleRemoveMarkers(layer)
+              this.handleRemoveMarkers(e.groupID)
               this.resetDetail()
               break
             case 5:
-              this.handleRemoveMarkers(layer)
+              this.handleRemoveMarkers(e.groupID)
+
               this.resetDetail()
               break
             default:
@@ -191,9 +195,13 @@ export default {
         }
       })
     },
-    handleRemoveMarkers(layer) {
-      for (let i = 3; i <= layer.markers.length; i++) {
-        layer.removeMarker(layer.markers[i])
+    handleRemoveMarkers(id) {
+      if (id >= 2 && id <= 4) {
+        let group = this.fMap.getFMGroup(id)
+        let layer = group.getOrCreateLayer('imageMarker')
+        for (let i = 5 - id; i <= layer.markers.length; i++) {
+          layer.removeMarker(layer.markers[i])
+        }
       }
     },
     addImageMarker() {
@@ -203,7 +211,7 @@ export default {
         let F1_1 = new fengmap.FMImageMarker({
           name: 'f1_1',
           url: 'static/feng/image/machine-0.png',
-          size: 128,
+          size: 64,
           x: 13528113.343703128,
           y: 3662316.2432128466,
           // height: 10,
@@ -215,7 +223,7 @@ export default {
         let F1_2 = new fengmap.FMImageMarker({
           name: 'f1_2',
           url: 'static/feng/image/machine-0.png',
-          size: 128,
+          size: 64,
           x: 13528069.603071805,
           y: 3662363.214140243,
           // height: 10,
@@ -227,7 +235,7 @@ export default {
         let F1_3 = new fengmap.FMImageMarker({
           name: 'f1_3',
           url: 'static/feng/image/machine-0.png',
-          size: 128,
+          size: 64,
           x: 13528115.001994299,
           y: 3662355.7043745373,
           // height: 10,
@@ -239,6 +247,53 @@ export default {
         layer.addMarker(F1_1)
         layer.addMarker(F1_2)
         layer.addMarker(F1_3)
+
+        let group2 = this.fMap.getFMGroup(this.fMap.groupIDs[2])
+        let layer2 = group2.getOrCreateLayer('imageMarker')
+
+        let F2_1 = new fengmap.FMImageMarker({
+          name: 'f2_1',
+          url: 'static/feng/image/machine-0.png',
+          size: 64,
+          x: 13528121.494989906,
+          y: 3662306.967850478,
+          // height: 10,
+          z: 0,
+          callback: () => {
+            F2_1.alwaysShow()
+          }
+        })
+        let F2_2 = new fengmap.FMImageMarker({
+          name: 'f2_2',
+          url: 'static/feng/image/machine-0.png',
+          size: 64,
+          x: 13528057.774711452,
+          y: 3662370.564898199,
+          // height: 10,
+          z: 0,
+          callback: () => {
+            F2_2.alwaysShow()
+          }
+        })
+        layer2.addMarker(F2_1)
+        layer2.addMarker(F2_2)
+
+        let group3 = this.fMap.getFMGroup(this.fMap.groupIDs[3])
+        let layer3 = group3.getOrCreateLayer('imageMarker')
+
+        let F3_1 = new fengmap.FMImageMarker({
+          name: 'f3_1',
+          url: 'static/feng/image/machine-0.png',
+          size: 64,
+          x: 13528141.977265798,
+          y: 3662355.9839765457,
+          // height: 10,
+          z: 0,
+          callback: () => {
+            F3_1.alwaysShow()
+          }
+        })
+        layer3.addMarker(F3_1)
         resolve()
       })
     },
@@ -321,13 +376,22 @@ export default {
   }
   .detail-into {
     border-top: 1px #d4d5de solid;
-    font-size: 10px;
+    font-size: 12px;
     font-weight: normal;
     font-style: normal;
     font-stretch: normal;
     line-height: normal;
     letter-spacing: 0.8px;
     text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    display: flex;
+    word-break: break-all;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
   }
 }
 </style>
