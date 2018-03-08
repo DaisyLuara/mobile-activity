@@ -38,6 +38,7 @@
             <img class="diamond d10" :src="IMAGE_SERVER + 'blue.png'" alt="">
             <img class="diamond d11" :src="IMAGE_SERVER + 'blue.png'" alt="">
           </div>
+          <img class="img-download abs" :src="angel.img_url" alt="">
           <div class="img-container abs">
             <img v-if="!angel.img_id && angel.img_type == 'black'" class="img-example" :src="IMAGE_SERVER + 'b_angel.png'" alt="">
             <img v-if="!angel.img_id && angel.img_type == 'white'" class="img-example" :src="IMAGE_SERVER + 'w_angel.png'" alt="">
@@ -271,12 +272,7 @@ export default {
         return;
       }
 
-      if(this.user_result[0].sex == 'male' && this.user_result[1].sex == 'female'){
-        this.join_img_url = this.IMAGE_SERVER + 'unknow.png';
-        return;
-      }
-
-      if(this.user_result[0].sex == 'female' && this.user_result[1].sex == 'male'){
+      if(this.user_result[0].sex == 'male' || this.user_result[1].sex == 'male'){
         this.join_img_url = this.IMAGE_SERVER + 'unknow.png';
         return;
       }
@@ -591,6 +587,11 @@ export default {
       .img-container{
         top: 3%;
         width: 92%;
+      }
+      .img-download{
+        top: 0;
+        z-index: 99;
+        opacity: 0;
       }
     }
 
