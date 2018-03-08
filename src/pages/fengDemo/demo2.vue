@@ -136,7 +136,7 @@ export default {
       let btn = document.getElementsByClassName('fm-control-groups-btn')[0]
       let btn_div = document.createElement('div')
       btn_div.style =
-        'width: 100%; height: 100%; border-bottom-left-radius: 21px; border-bottom-right-radius: 21px; position: absolute; bottom: -23px; left: 0; background-color: #ebecf4;'
+        'width: 100%; height: 100%; position: absolute; bottom: -23px; left: 0; background-color: #ebecf4;'
       let btn_child = document.createElement('img')
       btn_child.src = 'static/feng/image/fm-control.png'
       btn_child.style =
