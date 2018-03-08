@@ -4,9 +4,10 @@
     <div class="viewmode-group btn-group" data-toggle="buttons">
     </div>
     <div class="detail-wrap" v-if="detailShow">
+      <img class="detail-button" src="static/feng/image/info.png"/>
       <div class="detail-title">
         <span class="title-text">{{detailInfo.name}}</span>
-        <img class="title-img" src="static/feng/image/redpack.png" />
+        <img class="title-img" src="static/feng/image/redpack-list.png" />
       </div>
       <div class="detail-next">
         <span class="next-inner">
@@ -159,7 +160,7 @@ export default {
               this.handleLock = true
               let addMarker = new fengmap.FMImageMarker({
                 url: 'static/feng/image/redpack.png',
-                size: 16,
+                size: 20,
                 x: e.x,
                 y: e.y,
                 z: 10,
@@ -174,9 +175,12 @@ export default {
                 }
               })
               this.handleRemoveMarkers(e.groupID)
-              layer.addMarker(addMarker)
-              this.handleDetailShow(e)
-              e.eventInfo.domEvent.cancelBubble = true
+              if (e.name === 'f1_1' || e.name === 'f1_2' || e.name === 'f2_1') {
+                layer.addMarker(addMarker)
+                this.handleDetailShow(e)
+              } else {
+                this.resetDetail()
+              }
               break
             case 4:
               this.handleRemoveMarkers(e.groupID)
@@ -333,6 +337,13 @@ export default {
   display: flex;
   flex-direction: column;
   padding: 8px;
+  .detail-button {
+    width: 68px;
+    height: 68px;
+    position: absolute;
+    top: -34px;
+    right: 20px;
+  }
   .detail-title {
     padding: 3px 0;
     height: 30px;
