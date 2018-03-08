@@ -382,6 +382,7 @@ export default {
     .title-img {
       padding-left: 10px;
       height: 13px;
+      width: 13px;
     }
   }
   .detail-next {
