@@ -380,7 +380,7 @@ export default {
       font-weight: 500;
     }
     .title-img {
-      padding-left: 10px;
+      margin-left: 10px;
       height: 13px;
       width: 13px;
     }
