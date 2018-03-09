@@ -3,7 +3,7 @@
     <div id="mapContainer" class="container"></div>
     <div class="viewmode-group btn-group" data-toggle="buttons">
     </div>
-    <div class="detail-wrap" v-if="detailShow">
+    <div class="detail-wrap" :class="{'detail-wrap': detailShow , 'fold': !detailShow}">
       <img class="detail-button" src="static/feng/image/info.png"/>
       <div class="detail-title">
         <span class="title-text">{{detailInfo.name}}</span>
@@ -20,17 +20,24 @@
       <div class="detail-into">
         这里游戏介绍 游戏说明这里游戏介绍 游戏说明这里游戏介绍 游戏说明这
         这里游戏介绍 游戏说明这里游戏介绍 游戏说明这里游戏介绍 游戏说明这
-        这里游戏介绍 游戏说明这里游戏介绍 
+        这里游戏介绍 游戏说明这里游戏介绍  
       </div>
     </div>
     <img @click="handleNaviToMini" src="static/feng/image/list-button.png" class="list-change"/>
+    <div class="rp" v-if="rpShow === true" @click="handleRpClose">
+      <RedPackRain />
+    </div>
   </div>
 </template>
 
 
 <script>
+import RedPackRain from './components/redPack'
 import './add.css'
 export default {
+  components: {
+    RedPackRain
+  },
   data() {
     return {
       fMap: null,
@@ -41,7 +48,8 @@ export default {
       detailShow: false,
       detailInfo: {},
       handleLock: false,
-      controlStatus: false
+      controlStatus: true,
+      rpShow: false
     }
   },
   mounted() {
@@ -60,9 +68,10 @@ export default {
         await this.getWxJSSDKReady()
         this.ctlOpt = await this.ctlOptInit()
         await this.initMap()
+        this.handleMapStartAnimation()
+        this.handleAddControlBtn()
         this.clickEventInit()
         this.addControlEventListener()
-        this.handleAddControlBtn()
       } catch (e) {
         console.log(e)
       }
@@ -76,19 +85,35 @@ export default {
         resolve()
       })
     },
+    handleMapStartAnimation() {
+      let startRotate = -45
+      let that = this
+      // setTimeout(() => {
+      //   that.fMap.rotateAngle = startRotate + 1
+      //   startRotate++
+      //   console.log(that.fMap.rotateAngle)
+      // }, 100)
+      // setTimeout(() => {
+      //   that.fMap.rotateAngle = startRotate + 1
+      //   startRotate++
+      //   console.log(that.fMap.rotateAngle)
+      // }, 200)
+      // this.fMap.rotateAngle = startRotate + 1
+    },
     initMap() {
       return new Promise((resolve, reject) => {
         this.fMap = new fengmap.FMMap({
           container: document.getElementById('mapContainer'),
           mapThemeURL: 'static/data/theme',
-          defaultThemeName: 3006,
+          defaultThemeName: 3010,
           appName: 'xingstation_mini',
           key: '528b65fa54ac6b1b207691a4abeadfb2',
           mapServerURL: 'static/feng/data/' + this.fMapId,
           defaultMapScaleLevel: 20,
           focusAlphaMode: false,
           modelSelectedEffect: false,
-          focusAlpha: 0
+          focusAlpha: 0,
+          defaultControlsPose: -45
         })
 
         this.fMap.openMapById(this.fMapId)
@@ -108,11 +133,10 @@ export default {
             that.handleAddControlBtn()
             that.currentGroup = groups[0]
           })
-          that.fMap.setMapScaleLevelRange(20, 20)
-          that.fMap.gestureEnableController_.enableMapRotate = false
+          that.fMap.setMapScaleLevelRange(19, 20)
+          // that.fMap.gestureEnableController_.enableMapRotate = false
           that.fMap.gestureEnableController_.enableMapIncline = false
-          that.fMap.gestureEnableController_.enableMapPinch = false
-
+          // that.fMap.gestureEnableController_.enableMapPinch = false
           resolve()
         })
       })
@@ -120,29 +144,52 @@ export default {
     addControlEventListener() {
       let that = this
       let btn = document.getElementsByClassName('fm-control-groups-btn')[0]
-      btn.style.borderTopRightRadius = '21px'
-      btn.style.borderTopLeftRadius = '21px'
+      let list = document.getElementsByClassName('fm-layer-list')[0]
+      let ele = document.getElementById('ele')
+
+      list.style.setProperty('height', '108px', 'important')
+      // list.style.setProperty('margin-top', '83px')
+      list.style.setProperty('padding-top', '13px')
+      btn.style.setProperty('height', '65px', 'important')
+
+      setTimeout(() => {
+        list.style.transition = '0.1s ease-out'
+      }, 100)
+
       btn.addEventListener('click', () => {
-        if (btn.style.borderTopRightRadius === '21px') {
+        this.controlStatus = !this.controlStatus
+        if (this.controlStatus) {
           btn.style.borderTopRightRadius = '2px'
           btn.style.borderTopLeftRadius = '2px'
-        } else if (btn.style.borderTopRightRadius === '2px') {
+
+          list.style.setProperty('height', '108px', 'important')
+          list.style.setProperty('padding-top', '13px')
+          // list.style.setProperty('margin-top', '83px')
+        } else {
           btn.style.borderTopRightRadius = '21px'
           btn.style.borderTopLeftRadius = '21px'
+
+          list.style.setProperty('height', '0px', 'important')
+          list.style.setProperty('padding-top', '0px')
+          // list.style.setProperty('margin-top', '65px')
         }
       })
     },
     handleAddControlBtn() {
       let btn = document.getElementsByClassName('fm-control-groups-btn')[0]
-      let btn_div = document.createElement('div')
-      btn_div.style =
-        'width: 100%; height: 100%; position: absolute; bottom: -23px; left: 0; background-color: #ebecf4;'
+      btn.style.borderBottomLeftRadius = '21px'
+      btn.style.borderBottomRightRadius = '21px'
+
+      // let btn_div = document.createElement('div')
+      // btn_div.style =
+      // 'width: 100%; height: 100%; position: absolute; bottom: -23px; left: 0; background-color: #ebecf4;'
       let btn_child = document.createElement('img')
       btn_child.src = 'static/feng/image/fm-control.png'
+      btn_child.id = 'ele'
       btn_child.style =
-        'width: 100%; border-bottom-left-radius: 21px; border-bottom-right-radius: 21px;'
-      btn_div.appendChild(btn_child)
-      btn.appendChild(btn_div)
+        'width: 100%; border-bottom-left-radius: 21px; border-bottom-right-radius: 21px; position: absolute; top: 21px; left: 0;'
+      // btn_div.appendChild(btn_child)
+      btn.appendChild(btn_child)
     },
     ctlOptInit() {
       return new Promise(resolve => {
@@ -158,13 +205,11 @@ export default {
         resolve(ctlOpt)
       })
     },
-    changeGroupInit() {
-      this.fMap.on()
-    },
     clickEventInit() {
       let that = this
+
       this.fMap.on('mapClickNode', e => {
-        // console.dir(e)
+        console.dir(e)
         if (this.handleLock) {
           if (e.nodeType !== fengmap.FMNodeType.IMAGE_MARKER) {
             this.handleLock = false
@@ -175,40 +220,55 @@ export default {
           switch (e.nodeType) {
             case fengmap.FMNodeType.IMAGE_MARKER:
               this.handleLock = true
-              let addMarker = new fengmap.FMImageMarker({
-                url: 'static/feng/image/redpack.png',
-                size: 20,
-                x: e.x,
-                y: e.y,
-                z: 10,
-                callback: () => {
-                  addMarker.alwaysShow()
-                  addMarker.jump({
-                    times: 0,
-                    duration: 1,
-                    dalay: 0.5,
-                    height: 1
-                  })
-                }
-              })
-              this.handleRemoveMarkers(e.groupID)
-              if (e.name === 'f1_1' || e.name === 'f1_2' || e.name === 'f2_1') {
-                layer.addMarker(addMarker)
+              if (
+                e.name === 'f1_1' ||
+                e.name === 'f1_2' ||
+                e.name === 'f2_1' ||
+                e.name === 'f1_3' ||
+                e.name === 'f2_2' ||
+                e.name === 'f3_1' ||
+                e.name.slice(0, 3) === 'new'
+              ) {
                 this.handleDetailShow(e)
+                if (e.name.slice(0, 3) !== 'new') {
+                  this.handleMarkerReset(e)
+                }
+                if (
+                  e.name === 'f1_1' ||
+                  e.name === 'f1_2' ||
+                  e.name === 'f2_1'
+                ) {
+                  this.rpShow = true
+                  let addMarker = new fengmap.FMImageMarker({
+                    url: 'static/feng/image/redpack.png',
+                    size: 35,
+                    x: e.x,
+                    y: e.y,
+                    z: 10,
+                    callback: () => {
+                      addMarker.alwaysShow()
+                      addMarker.jump({
+                        times: 0,
+                        duration: 1,
+                        dalay: 0.5,
+                        height: 1
+                      })
+                    }
+                  })
+                  layer.addMarker(addMarker)
+                }
               } else {
+                this.rpShow = false
                 this.resetDetail()
               }
               break
             case 4:
-              this.handleRemoveMarkers(e.groupID)
               this.resetDetail()
               break
             case 0:
-              this.handleRemoveMarkers(e.groupID)
               this.resetDetail()
               break
             case 5:
-              this.handleRemoveMarkers(e.groupID)
               this.resetDetail()
               break
             default:
@@ -217,14 +277,23 @@ export default {
         }
       })
     },
-    handleRemoveMarkers(id) {
-      if (id >= 2 && id <= 4) {
-        let group = this.fMap.getFMGroup(id)
-        let layer = group.getOrCreateLayer('imageMarker')
-        for (let i = 5 - id; i <= layer.markers.length; i++) {
-          layer.removeMarker(layer.markers[i])
+    handleMarkerReset(e) {
+      let group = this.fMap.getFMGroup(e.groupID)
+      let layer = group.getOrCreateLayer('imageMarker')
+      layer.removeMarker(e)
+      let newMarker = new fengmap.FMImageMarker({
+        name: 'new_' + e.name,
+        url: 'static/feng/image/machine-1.png',
+        size: 64,
+        x: e.x,
+        y: e.y,
+        // height: 10,
+        z: 0,
+        callback: () => {
+          newMarker.alwaysShow()
         }
-      }
+      })
+      layer.addMarker(newMarker)
     },
     addImageMarker() {
       return new Promise((resolve, reject) => {
@@ -333,12 +402,26 @@ export default {
       let groupBtn = document.getElementsByClassName('fm-control-groups-btn')[0]
       groupBtn.style.marginTop = -14 + 'px'
       this.detailShow = false
+    },
+    handleRpClose() {
+      this.rpShow = false
     }
   }
 }
 </script>
 
 <style lang="less" scoped>
+.feng-wrap {
+  overflow: hidden;
+  position: relative;
+  .rp {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+  }
+}
 #mapContainer {
   height: 100%;
 }
@@ -359,7 +442,11 @@ export default {
   border-top: solid 0.5px rgba(151, 151, 151, 0.43);
   display: flex;
   flex-direction: column;
-  padding: 8px;
+  padding: 10px;
+  transition: 0.2s ease-in;
+  &.fold {
+    bottom: -200px;
+  }
   .detail-button {
     width: 68px;
     height: 68px;

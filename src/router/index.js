@@ -107,6 +107,12 @@ export default new Router({
           name: 'fengMapDemo2',
           component: () =>
             import(/* webpackChunkName: "fengDemo2" */ 'pages/fengDemo/demo2.vue')
+        },
+        {
+          path: 'rp',
+          name: 'redPack',
+          component: () =>
+            import(/* webpackChunkName: "redPack" */ 'pages/fengDemo/components/redPack.vue')
         }
       ]
     },
