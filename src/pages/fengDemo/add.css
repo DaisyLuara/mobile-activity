@@ -10,6 +10,7 @@ hr {
   color: black !important;
   border-top-right-radius: 21px;
   border-top-left-radius: 21px;
+  overflow: hidden;
 }
 .fm-layer-list {
   border-top-left-radius: 21px !important;
@@ -18,7 +19,7 @@ hr {
   overflow: hidden;
   background-color: #ebecf4 !important;
   margin-top: 65px;
-  height: auto !important;
+  display: block !important;
   padding-top: 13px;
 }
 .fm-control-groups-layer.fm-layer-btn-default {
@@ -27,7 +28,7 @@ hr {
 }
 .fm-control-groups-layer.fm-layer-btn-default.active {
   color: white !important;
-  background-color: #d6b88a;
+  background-color: #e7c594;
   height: 23px !important;
   line-height: 23px !important;
 }
