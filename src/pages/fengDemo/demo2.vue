@@ -10,13 +10,14 @@
       @touchmove="handleTouchMove"
       @touchend="handleTouchEnd">
         <img v-if="liandongStatus === true" @click="ldWindowOpen()" class="detail-button" src="static/feng/image/info.png"/>
-        <div class="detail-arrow">
+        <div @click="handleArrow" class="detail-arrow">
           <img class="arrow-inner" v-show="detailScrollToTop === false" src="static/feng/image/arrow-up.png" />
           <img class="arrow-inner" v-show="detailScrollToTop === true" src="static/feng/image/arrow-down.png" />
         </div>
         <div class="detail-title">
           <span class="title-text">{{displayTitle}}</span>
-          <img class="title-img" src="static/feng/image/redpack-list.png" />
+          <img v-if="this.currentAct === 0" class="title-img" src="static/feng/image/redpack-list.png" />
+          <img v-if="this.currentAct === 1" class="title-img" src="static/feng/image/air-list.png" />
         </div>
         <div class="detail-next">
           <span class="next-inner">
@@ -109,12 +110,14 @@ export default {
         {
           id: 'f1_1',
           name: 'F1层136-138',
-          ld: '恭喜找到藏在吞云小莳的宝物，现在可以去百丽发现新的宝藏了'
+          ld:
+            '快来F1层136-138寻找藏在屏幕里的宝物吧！然后就可以去F2层205探索新的宝藏了！'
         },
         {
           id: 'f1_2',
           name: 'F1层106',
-          ld: '恭喜找到藏在百丽宝物，现在可以去渔乐鱼乐发现新的宝藏了'
+          ld:
+            '快来F1层106寻找藏在屏幕里的宝物吧！然后就可以去F1层136-138探索新的宝藏了！'
         },
         {
           id: 'f1_3',
@@ -123,7 +126,8 @@ export default {
         {
           id: 'f2_1',
           name: 'F2层205',
-          ld: '恭喜找到藏在渔乐鱼乐的宝物了，现在可以去吞云小莳的宝藏了'
+          ld:
+            '快来F2层205寻找藏在屏幕里的宝物吧！然后就可以去F1层106探索新的宝藏了！'
         },
         {
           id: 'f2_2',
@@ -151,6 +155,7 @@ export default {
   },
   mounted() {
     $('.feng-wrap').css('height', $(window).height())
+    document.title = '地图导览'
     this.init()
   },
   methods: {
@@ -292,6 +297,18 @@ export default {
       btn_img.style = 'width: 100%; height: 100%'
       btn_div.appendChild(btn_img)
       btn.appendChild(btn_div)
+
+      let btns = document.getElementsByClassName('fm-layer-btn-default')
+      for (let i = 0; i < btns.length; i++) {
+        if (btns[i].dataset.gid === '1' || btns[i].dataset.gid === '2') {
+          let redPoint = document.createElement('span')
+          redPoint.style.setProperty('background-color', '#FF424B')
+          redPoint.style.setProperty('border-radius', '50%')
+          redPoint.style.width = '6px'
+          redPoint.style.height = '6px'
+          btns[i].appendChild(redPoint)
+        }
+      }
     },
     ctlOptInit() {
       return new Promise(resolve => {
@@ -323,36 +340,57 @@ export default {
           switch (e.nodeType) {
             case fengmap.FMNodeType.IMAGE_MARKER:
               this.handleLock = true
-              if (e.name === 'f1_1' || e.name === 'new_f1_1') {
-                this.currentAct = 0
+              if (
+                e.name === 'f1_1' ||
+                e.name === 'new_f1_1' ||
+                e.name === 'HB_F1_1'
+              ) {
+                this.currentAct = 1
                 this.liandongStatus = true
                 this.currentActAddress = this.address[0].name
                 this.currentLd = this.address[0].ld
-              } else if (e.name === 'f1_2' || e.name === 'new_f1_2') {
-                this.currentAct = 0
+              } else if (
+                e.name === 'f1_2' ||
+                e.name === 'new_f1_2' ||
+                e.name === 'HB_F1_2'
+              ) {
+                this.currentAct = 1
                 this.liandongStatus = true
                 this.currentActAddress = this.address[1].name
                 this.currentLd = this.address[1].ld
-              } else if (e.name === 'f1_3' || e.name === 'new_f1_3') {
-                this.currentAct = 1
+              } else if (
+                e.name === 'f1_3' ||
+                e.name === 'new_f1_3' ||
+                e.name === 'HB_F1_3'
+              ) {
+                this.currentAct = 0
                 this.liandongStatus = false
                 this.currentActAddress = this.address[2].name
-              } else if (e.name === 'f2_1' || e.name === 'new_f2_1') {
+                this.rpShow = true
+              } else if (
+                e.name === 'f2_1' ||
+                e.name === 'new_f2_1' ||
+                e.name === 'HB_F2_1'
+              ) {
                 this.liandongStatus = true
-                this.currentAct = 0
+                this.currentAct = 1
                 this.currentActAddress = this.address[3].name
                 this.currentLd = this.address[3].ld
-              } else if (e.name === 'f2_2' || e.name === 'new_f2_2') {
+              } else if (
+                e.name === 'f2_2' ||
+                e.name === 'new_f2_2' ||
+                e.name === 'HB_F2_2'
+              ) {
                 this.liandongStatus = false
-                this.currentAct = 1
+                this.currentAct = 0
                 this.currentActAddress = this.address[4].name
+                this.rpShow = true
               } else if (e.name === 'f3_1' || e.name === 'new_f3_1') {
                 this.liandongStatus = false
                 this.currentAct = 2
                 this.currentActAddress = this.address[5].name
               }
 
-              // this.currentAct = e.id
               if (
                 e.name === 'f1_1' ||
                 e.name === 'f1_2' ||
@@ -360,10 +398,14 @@ export default {
                 e.name === 'f1_3' ||
                 e.name === 'f2_2' ||
                 e.name === 'f3_1' ||
-                e.name.slice(0, 3) === 'new'
+                e.name.slice(0, 3) === 'new' ||
+                e.name.slice(0, 2) === 'HB'
               ) {
                 this.handleDetailShow(e)
-                if (e.name.slice(0, 3) !== 'new') {
+                if (
+                  e.name.slice(0, 3) !== 'new' &&
+                  e.name.slice(0, 2) !== 'HB'
+                ) {
                   this.handleMarkerReset(e)
                 } else if (
                   e.name === 'f1_1' ||
@@ -413,9 +455,9 @@ export default {
       let group = this.fMap.getFMGroup(e.groupID)
       let layer = group.getOrCreateLayer('imageMarker')
       layer.removeMarker(e)
-      if (e.name_ === 'f1_1' || e.name === 'f1_2' || e.name === 'f2_1') {
-        this.rpShow = true
-      }
+      // if (e.name_ === 'f1_1' || e.name === 'f1_2' || e.name === 'f2_1') {
+      //   this.rpShow = true
+      // }
       for (let i = 0; i <= layer.markers.length - 1; i++) {
         console.dir(layer.markers[i])
         if (layer.markers[i].hasOwnProperty('name_')) {
@@ -473,7 +515,7 @@ export default {
         })
         let HB_F1_1 = new fengmap.FMImageMarker({
           name: 'HB_F1_1',
-          url: 'static/feng/image/redpack.png',
+          url: 'static/feng/image/qq.png',
           size: 35,
           x: 13528113.343703128,
           y: 3662316.2432128466,
@@ -504,7 +546,7 @@ export default {
 
         let HB_F1_2 = new fengmap.FMImageMarker({
           name: 'HB_F1_2',
-          url: 'static/feng/image/redpack.png',
+          url: 'static/feng/image/qq.png',
           size: 35,
           x: 13528069.603071805,
           y: 3662363.214140243,
@@ -532,11 +574,31 @@ export default {
             F1_3.alwaysShow()
           }
         })
+
+        let HB_F1_3 = new fengmap.FMImageMarker({
+          name: 'HB_F1_3',
+          url: 'static/feng/image/redpack.png',
+          size: 35,
+          x: 13528115.001994299,
+          y: 3662355.7043745373,
+          // height: 10,
+          z: 10,
+          callback: () => {
+            HB_F1_3.alwaysShow()
+            HB_F1_3.jump({
+              times: 0,
+              duration: 1,
+              dalay: 0.5,
+              height: 1
+            })
+          }
+        })
         layer.addMarker(F1_1)
         layer.addMarker(F1_2)
         layer.addMarker(F1_3)
         layer.addMarker(HB_F1_1)
         layer.addMarker(HB_F1_2)
+        layer.addMarker(HB_F1_3)
 
         let group2 = this.fMap.getFMGroup(this.fMap.groupIDs[2])
         let layer2 = group2.getOrCreateLayer('imageMarker')
@@ -556,7 +618,7 @@ export default {
 
         let HB_F2_1 = new fengmap.FMImageMarker({
           name: 'HB_f2_1',
-          url: 'static/feng/image/redpack.png',
+          url: 'static/feng/image/qq.png',
           size: 35,
           x: 13528121.494989906,
           y: 3662306.967850478,
@@ -585,9 +647,29 @@ export default {
             F2_2.alwaysShow()
           }
         })
+
+        let HB_F2_2 = new fengmap.FMImageMarker({
+          name: 'HB_f2_2',
+          url: 'static/feng/image/redpack.png',
+          size: 35,
+          x: 13528057.774711452,
+          y: 3662370.564898199,
+          // height: 10,
+          z: 10,
+          callback: () => {
+            HB_F2_2.alwaysShow()
+            HB_F2_2.jump({
+              times: 0,
+              duration: 1,
+              dalay: 0.5,
+              height: 1
+            })
+          }
+        })
         layer2.addMarker(F2_1)
         layer2.addMarker(F2_2)
         layer2.addMarker(HB_F2_1)
+        layer2.addMarker(HB_F2_2)
 
         let group3 = this.fMap.getFMGroup(this.fMap.groupIDs[3])
         let layer3 = group3.getOrCreateLayer('imageMarker')
@@ -637,13 +719,21 @@ export default {
       this.rpShow = false
     },
     handleTouchStart(e) {
-      if (e.target.classList[0] !== 'detail-button') {
+      if (
+        e.target.classList[0] !== 'detail-button' &&
+        e.target.classList[0] !== 'detail-arrow' &&
+        e.target.classList[0] !== 'arrow-inner'
+      ) {
         e.preventDefault()
       }
       this.touch.targetTouch.Y = e.targetTouches[0].clientY
     },
     handleTouchMove(e) {
-      if (e.target.classList[0] !== 'detail-button') {
+      if (
+        e.target.classList[0] !== 'detail-button' &&
+        e.target.classList[0] !== 'detail-arrow' &&
+        e.target.classList[0] !== 'arrow-inner'
+      ) {
         e.preventDefault()
       }
       if (this.touch.targetTouch.Y - e.targetTouches[0].clientY > 100) {
@@ -655,8 +745,21 @@ export default {
       }
     },
     handleTouchEnd(e) {
-      if (e.target.classList[0] !== 'detail-button') {
+      if (
+        e.target.classList[0] !== 'detail-button' &&
+        e.target.classList[0] !== 'detail-arrow' &&
+        e.target.classList[0] !== 'arrow-inner'
+      ) {
         e.preventDefault()
+      }
+    },
+    handleArrow() {
+      if (this.detailScrollToTop === true) {
+        this.detailScrollToTop = false
+        this.$refs['detail'].style.setProperty('bottom', '-218px')
+      } else {
+        this.detailScrollToTop = true
+        this.$refs['detail'].style.setProperty('bottom', '0')
       }
     }
   }
@@ -719,6 +822,8 @@ export default {
     }
     .ld-close {
       margin-top: 10%;
+      width: 50px;
+      height: 50px;
     }
   }
 }
