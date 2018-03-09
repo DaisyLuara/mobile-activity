@@ -24,13 +24,20 @@
       </div>
     </div>
     <img @click="handleNaviToMini" src="static/feng/image/list-button.png" class="list-change"/>
+    <div class="rp" v-if="rpShow === true" @click="handleRpClose">
+      <RedPackRain />
+    </div>
   </div>
 </template>
 
 
 <script>
+import RedPackRain from './components/redPack'
 import './add.css'
 export default {
+  components: {
+    RedPackRain
+  },
   data() {
     return {
       fMap: null,
@@ -41,7 +48,8 @@ export default {
       detailShow: false,
       detailInfo: {},
       handleLock: false,
-      controlStatus: true
+      controlStatus: true,
+      rpShow: false
     }
   },
   mounted() {
@@ -140,7 +148,7 @@ export default {
       let ele = document.getElementById('ele')
 
       list.style.setProperty('height', '108px', 'important')
-      list.style.setProperty('margin-top', '83px')
+      // list.style.setProperty('margin-top', '83px')
       list.style.setProperty('padding-top', '13px')
       btn.style.setProperty('height', '65px', 'important')
 
@@ -154,21 +162,16 @@ export default {
           btn.style.borderTopRightRadius = '2px'
           btn.style.borderTopLeftRadius = '2px'
 
-          console.log('expend')
           list.style.setProperty('height', '108px', 'important')
           list.style.setProperty('padding-top', '13px')
-          list.style.setProperty('margin-top', '83px')
+          // list.style.setProperty('margin-top', '83px')
         } else {
-          console.log('fold')
           btn.style.borderTopRightRadius = '21px'
           btn.style.borderTopLeftRadius = '21px'
 
           list.style.setProperty('height', '0px', 'important')
           list.style.setProperty('padding-top', '0px')
-          list.style.setProperty('margin-top', '65px')
-        }
-        if (btn.style.borderTopRightRadius === '21px') {
-        } else if (btn.style.borderTopRightRadius === '2px') {
+          // list.style.setProperty('margin-top', '65px')
         }
       })
     },
@@ -202,11 +205,9 @@ export default {
         resolve(ctlOpt)
       })
     },
-    changeGroupInit() {
-      this.fMap.on()
-    },
     clickEventInit() {
       let that = this
+
       this.fMap.on('mapClickNode', e => {
         console.dir(e)
         if (this.handleLock) {
@@ -229,12 +230,15 @@ export default {
                 e.name.slice(0, 3) === 'new'
               ) {
                 this.handleDetailShow(e)
-                this.handleMarkerReset(e)
+                if (e.name.slice(0, 3) !== 'new') {
+                  this.handleMarkerReset(e)
+                }
                 if (
                   e.name === 'f1_1' ||
                   e.name === 'f1_2' ||
                   e.name === 'f2_1'
                 ) {
+                  this.rpShow = true
                   let addMarker = new fengmap.FMImageMarker({
                     url: 'static/feng/image/redpack.png',
                     size: 35,
@@ -254,6 +258,7 @@ export default {
                   layer.addMarker(addMarker)
                 }
               } else {
+                this.rpShow = false
                 this.resetDetail()
               }
               break
@@ -397,6 +402,9 @@ export default {
       let groupBtn = document.getElementsByClassName('fm-control-groups-btn')[0]
       groupBtn.style.marginTop = -14 + 'px'
       this.detailShow = false
+    },
+    handleRpClose() {
+      this.rpShow = false
     }
   }
 }
@@ -406,6 +414,13 @@ export default {
 .feng-wrap {
   overflow: hidden;
   position: relative;
+  .rp {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+  }
 }
 #mapContainer {
   height: 100%;
