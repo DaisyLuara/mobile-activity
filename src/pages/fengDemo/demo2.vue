@@ -760,6 +760,7 @@ export default {
     align-items: center;
     .arrow-inner {
       height: 8px;
+      width: 20px;
     }
   }
   .detail-title {
