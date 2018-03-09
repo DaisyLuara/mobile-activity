@@ -3,29 +3,50 @@
     <div id="mapContainer" class="container"></div>
     <div class="viewmode-group btn-group" data-toggle="buttons">
     </div>
-    <div class="detail-wrap" :class="{'detail-wrap': detailShow , 'fold': !detailShow}">
-      <img class="detail-button" src="static/feng/image/info.png"/>
-      <div class="detail-title">
-        <span class="title-text">{{detailInfo.name}}</span>
-        <img class="title-img" src="static/feng/image/redpack-list.png" />
-      </div>
-      <div class="detail-next">
-        <span class="next-inner">
-          下一个游戏: 你为什么没有
-        </span>
-      </div>
-      <div class="detail-address">
-        地址：B1中庭
-      </div>
-      <div class="detail-into">
-        这里游戏介绍 游戏说明这里游戏介绍 游戏说明这里游戏介绍 游戏说明这
-        这里游戏介绍 游戏说明这里游戏介绍 游戏说明这里游戏介绍 游戏说明这
-        这里游戏介绍 游戏说明这里游戏介绍  
-      </div>
+    <div 
+      ref="detail"
+      class="detail-wrap" 
+      @touchstart="handleTouchStart"
+      @touchmove="handleTouchMove"
+      @touchend="handleTouchEnd">
+        <img v-if="liandongStatus === true" @click="ldWindowOpen()" class="detail-button" src="static/feng/image/info.png"/>
+        <div class="detail-arrow">
+          <img class="arrow-inner" v-show="detailScrollToTop === false" src="static/feng/image/arrow-up.png" />
+          <img class="arrow-inner" v-show="detailScrollToTop === true" src="static/feng/image/arrow-down.png" />
+        </div>
+        <div class="detail-title">
+          <span class="title-text">{{displayTitle}}</span>
+          <img class="title-img" src="static/feng/image/redpack-list.png" />
+        </div>
+        <div class="detail-next">
+          <span class="next-inner">
+            下一个游戏: 你为什么没有
+          </span>
+        </div>
+        <div class="detail-address">
+          地址：{{currentActAddress}}
+        </div>
+        <div class="detail-into">
+          {{displayContext}}
+        </div>
+        <div class="detail-div">
+        </div>
+        <div class="detail-img"> 
+          <img class="inner-img" :src="this.act[this.currentAct].img"/>
+        </div>
     </div>
     <img @click="handleNaviToMini" src="static/feng/image/list-button.png" class="list-change"/>
     <div class="rp" v-if="rpShow === true" @click="handleRpClose">
       <RedPackRain />
+    </div>
+    <div class="liandong-wrap" v-if="ldWindow === true">
+      <div class="ld-context">
+        <div class="ld-title">联动说明</div>
+        <div class="ld-content">
+          {{currentLd}}
+        </div>
+      </div>
+      <img @click="ldWindowClose" class="ld-close" src="static/feng/image/close.png" />
     </div>
   </div>
 </template>
@@ -46,10 +67,86 @@ export default {
       redPack: null,
       currentGroup: 1,
       detailShow: false,
+      detailScrollToTop: false,
       detailInfo: {},
       handleLock: false,
       controlStatus: true,
-      rpShow: false
+      rpShow: false,
+      bindInnerImg: 'static/feng/image/pro.png',
+      p: {
+        list: {
+          marginTop: 65
+        },
+        groupBtn: {
+          marginTop: -14
+        },
+        detailShowPosition: 134
+      },
+      touch: {
+        targetTouch: {
+          Y: null
+        }
+      },
+      act: [
+        {
+          name: '天降红包',
+          des: '找到红包屏，扫描屏内二维码，获得红包福利。',
+          img: 'static/feng/image/act_0.png'
+        },
+        {
+          name: '城市寻宝',
+          img: 'static/feng/image/act_1.png',
+          des:
+            '扫描屏幕二维码，获取藏宝图，跟随地图指引，发现埋藏在商场里的神秘宝藏吧。'
+        },
+        {
+          name: '勇闯三关',
+          img: 'static/feng/image/act_2.png',
+          des: '摇头摆脑 冲顶智慧高峰 闯敢连连 获取福利不断'
+        }
+      ],
+      address: [
+        {
+          id: 'f1_1',
+          name: 'F1层136-138',
+          ld: '恭喜找到藏在吞云小莳的宝物，现在可以去百丽发现新的宝藏了'
+        },
+        {
+          id: 'f1_2',
+          name: 'F1层106',
+          ld: '恭喜找到藏在百丽宝物，现在可以去渔乐鱼乐发现新的宝藏了'
+        },
+        {
+          id: 'f1_3',
+          name: 'F1层156'
+        },
+        {
+          id: 'f2_1',
+          name: 'F2层205',
+          ld: '恭喜找到藏在渔乐鱼乐的宝物了，现在可以去吞云小莳的宝藏了'
+        },
+        {
+          id: 'f2_2',
+          name: 'F2层228'
+        },
+        {
+          id: 'f3_1',
+          name: 'F3层303'
+        }
+      ],
+      currentAct: 0,
+      liandongStatus: false,
+      currentActAddress: '',
+      ldWindow: false,
+      currentLd: ''
+    }
+  },
+  computed: {
+    displayTitle: function() {
+      return this.act[this.currentAct].name
+    },
+    displayContext: function() {
+      return this.act[this.currentAct].des
     }
   },
   mounted() {
@@ -76,6 +173,7 @@ export default {
         console.log(e)
       }
     },
+    showLianDong() {},
     getWxJSSDKReady() {
       return new Promise((resolve, reject) => {
         let script = document.createElement('script')
@@ -99,6 +197,12 @@ export default {
       //   console.log(that.fMap.rotateAngle)
       // }, 200)
       // this.fMap.rotateAngle = startRotate + 1
+    },
+    ldWindowClose() {
+      this.ldWindow = false
+    },
+    ldWindowOpen() {
+      this.ldWindow = true
     },
     initMap() {
       return new Promise((resolve, reject) => {
@@ -131,7 +235,6 @@ export default {
             //allLayer表示当前楼层是单层状态还是多层状态。
             //...
             that.handleAddControlBtn()
-            console.log('append')
             that.currentGroup = groups[0]
           })
           that.fMap.setMapScaleLevelRange(19, 20)
@@ -142,6 +245,7 @@ export default {
         })
       })
     },
+    showLianDong() {},
     addControlEventListener() {
       let that = this
       let btn = document.getElementsByClassName('fm-control-groups-btn')[0]
@@ -219,6 +323,36 @@ export default {
           switch (e.nodeType) {
             case fengmap.FMNodeType.IMAGE_MARKER:
               this.handleLock = true
+              if (e.name === 'f1_1' || e.name === 'new_f1_1') {
+                this.currentAct = 0
+                this.liandongStatus = true
+                this.currentActAddress = this.address[0].name
+                this.currentLd = this.address[0].ld
+              } else if (e.name === 'f1_2' || e.name === 'new_f1_2') {
+                this.currentAct = 0
+                this.liandongStatus = true
+                this.currentActAddress = this.address[1].name
+                this.currentLd = this.address[1].ld
+              } else if (e.name === 'f1_3' || e.name === 'new_f1_3') {
+                this.currentAct = 1
+                this.liandongStatus = false
+                this.currentActAddress = this.address[2].name
+              } else if (e.name === 'f2_1' || e.name === 'new_f2_1') {
+                this.liandongStatus = true
+                this.currentAct = 0
+                this.currentActAddress = this.address[3].name
+                this.currentLd = this.address[3].ld
+              } else if (e.name === 'f2_2' || e.name === 'new_f2_2') {
+                this.liandongStatus = false
+                this.currentAct = 1
+                this.currentActAddress = this.address[4].name
+              } else if (e.name === 'f3_1' || e.name === 'new_f3_1') {
+                this.liandongStatus = false
+                this.currentAct = 2
+                this.currentActAddress = this.address[5].name
+              }
+
+              // this.currentAct = e.id
               if (
                 e.name === 'f1_1' ||
                 e.name === 'f1_2' ||
@@ -231,30 +365,29 @@ export default {
                 this.handleDetailShow(e)
                 if (e.name.slice(0, 3) !== 'new') {
                   this.handleMarkerReset(e)
-                }
-                if (
+                } else if (
                   e.name === 'f1_1' ||
                   e.name === 'f1_2' ||
                   e.name === 'f2_1'
                 ) {
-                  this.rpShow = true
-                  let addMarker = new fengmap.FMImageMarker({
-                    url: 'static/feng/image/redpack.png',
-                    size: 35,
-                    x: e.x,
-                    y: e.y,
-                    z: 10,
-                    callback: () => {
-                      addMarker.alwaysShow()
-                      addMarker.jump({
-                        times: 0,
-                        duration: 1,
-                        dalay: 0.5,
-                        height: 1
-                      })
-                    }
-                  })
-                  layer.addMarker(addMarker)
+                  // this.rpShow = true
+                  // let addMarker = new fengmap.FMImageMarker({
+                  //   url: 'static/feng/image/redpack.png',
+                  //   size: 35,
+                  //   x: e.x,
+                  //   y: e.y,
+                  //   z: 10,
+                  //   callback: () => {
+                  //     addMarker.alwaysShow()
+                  //     addMarker.jump({
+                  //       times: 0,
+                  //       duration: 1,
+                  //       dalay: 0.5,
+                  //       height: 1
+                  //     })
+                  //   }
+                  // })
+                  // layer.addMarker(addMarker)
                 }
               } else {
                 this.rpShow = false
@@ -280,6 +413,34 @@ export default {
       let group = this.fMap.getFMGroup(e.groupID)
       let layer = group.getOrCreateLayer('imageMarker')
       layer.removeMarker(e)
+      if (e.name_ === 'f1_1' || e.name === 'f1_2' || e.name === 'f2_1') {
+        this.rpShow = true
+      }
+      for (let i = 0; i <= layer.markers.length - 1; i++) {
+        console.dir(layer.markers[i])
+        if (layer.markers[i].hasOwnProperty('name_')) {
+          console.log(layer.markers[i].name_)
+          if (layer.markers[i].name_.slice(0, 3) === 'new') {
+            let newName = layer.markers[i].name_.slice(4)
+            let newX = layer.markers[i].x
+            let newY = layer.markers[i].y
+            layer.removeMarker(layer.markers[i])
+            let newMarker = new fengmap.FMImageMarker({
+              name: newName,
+              url: 'static/feng/image/machine-0.png',
+              size: 64,
+              x: newX,
+              y: newY,
+              // height: 10,
+              z: 0,
+              callback: () => {
+                newMarker.alwaysShow()
+              }
+            })
+            layer.addMarker(newMarker)
+          }
+        }
+      }
       let newMarker = new fengmap.FMImageMarker({
         name: 'new_' + e.name,
         url: 'static/feng/image/machine-1.png',
@@ -310,6 +471,24 @@ export default {
             F1_1.alwaysShow()
           }
         })
+        let HB_F1_1 = new fengmap.FMImageMarker({
+          name: 'HB_F1_1',
+          url: 'static/feng/image/redpack.png',
+          size: 35,
+          x: 13528113.343703128,
+          y: 3662316.2432128466,
+          z: 10,
+          callback: () => {
+            HB_F1_1.alwaysShow()
+            HB_F1_1.jump({
+              times: 0,
+              duration: 1,
+              dalay: 0.5,
+              height: 1
+            })
+          }
+        })
+
         let F1_2 = new fengmap.FMImageMarker({
           name: 'f1_2',
           url: 'static/feng/image/machine-0.png',
@@ -322,6 +501,25 @@ export default {
             F1_2.alwaysShow()
           }
         })
+
+        let HB_F1_2 = new fengmap.FMImageMarker({
+          name: 'HB_F1_2',
+          url: 'static/feng/image/redpack.png',
+          size: 35,
+          x: 13528069.603071805,
+          y: 3662363.214140243,
+          z: 10,
+          callback: () => {
+            HB_F1_2.alwaysShow()
+            HB_F1_2.jump({
+              times: 0,
+              duration: 1,
+              dalay: 0.5,
+              height: 1
+            })
+          }
+        })
+
         let F1_3 = new fengmap.FMImageMarker({
           name: 'f1_3',
           url: 'static/feng/image/machine-0.png',
@@ -337,6 +535,8 @@ export default {
         layer.addMarker(F1_1)
         layer.addMarker(F1_2)
         layer.addMarker(F1_3)
+        layer.addMarker(HB_F1_1)
+        layer.addMarker(HB_F1_2)
 
         let group2 = this.fMap.getFMGroup(this.fMap.groupIDs[2])
         let layer2 = group2.getOrCreateLayer('imageMarker')
@@ -353,6 +553,26 @@ export default {
             F2_1.alwaysShow()
           }
         })
+
+        let HB_F2_1 = new fengmap.FMImageMarker({
+          name: 'HB_f2_1',
+          url: 'static/feng/image/redpack.png',
+          size: 35,
+          x: 13528121.494989906,
+          y: 3662306.967850478,
+          // height: 10,
+          z: 10,
+          callback: () => {
+            HB_F2_1.alwaysShow()
+            HB_F2_1.jump({
+              times: 0,
+              duration: 1,
+              dalay: 0.5,
+              height: 1
+            })
+          }
+        })
+
         let F2_2 = new fengmap.FMImageMarker({
           name: 'f2_2',
           url: 'static/feng/image/machine-0.png',
@@ -367,6 +587,7 @@ export default {
         })
         layer2.addMarker(F2_1)
         layer2.addMarker(F2_2)
+        layer2.addMarker(HB_F2_1)
 
         let group3 = this.fMap.getFMGroup(this.fMap.groupIDs[3])
         let layer3 = group3.getOrCreateLayer('imageMarker')
@@ -389,21 +610,54 @@ export default {
     },
     handleDetailShow(e) {
       let list = document.getElementsByClassName('fm-layer-list')[0]
-      list.style.marginTop = 65 - 134 + 'px'
       let groupBtn = document.getElementsByClassName('fm-control-groups-btn')[0]
-      groupBtn.style.marginTop = -14 - 134 + 'px'
-      this.detailShow = true
+
+      list.style.marginTop =
+        this.p.list.marginTop - this.p.detailShowPosition + 'px'
+      groupBtn.style.marginTop =
+        this.p.groupBtn.marginTop - this.p.detailShowPosition + 'px'
+
+      // this.detailShow = true
+      this.$refs['detail'].style.setProperty('bottom', '-218px')
+
       this.detailInfo = e
     },
     resetDetail() {
       let list = document.getElementsByClassName('fm-layer-list')[0]
-      list.style.marginTop = 65 + 'px'
       let groupBtn = document.getElementsByClassName('fm-control-groups-btn')[0]
-      groupBtn.style.marginTop = -14 + 'px'
-      this.detailShow = false
+
+      list.style.marginTop = this.p.list.marginTop + 'px'
+      groupBtn.style.marginTop = this.p.groupBtn.marginTop + 'px'
+
+      this.$refs['detail'].style.setProperty('bottom', '-403px')
+
+      // this.detailShow = false
     },
     handleRpClose() {
       this.rpShow = false
+    },
+    handleTouchStart(e) {
+      if (e.target.classList[0] !== 'detail-button') {
+        e.preventDefault()
+      }
+      this.touch.targetTouch.Y = e.targetTouches[0].clientY
+    },
+    handleTouchMove(e) {
+      if (e.target.classList[0] !== 'detail-button') {
+        e.preventDefault()
+      }
+      if (this.touch.targetTouch.Y - e.targetTouches[0].clientY > 100) {
+        this.$refs['detail'].style.setProperty('bottom', '0')
+        this.detailScrollToTop = true
+      } else if (this.touch.targetTouch.Y - e.targetTouches[0].clientY < 100) {
+        this.$refs['detail'].style.setProperty('bottom', '-218px')
+        this.detailScrollToTop = false
+      }
+    },
+    handleTouchEnd(e) {
+      if (e.target.classList[0] !== 'detail-button') {
+        e.preventDefault()
+      }
     }
   }
 }
@@ -421,6 +675,52 @@ export default {
     z-index: 1000;
     width: 100%;
   }
+  .liandong-wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 40% 0;
+    .ld-context {
+      width: 328px;
+      height: 285px;
+      border-radius: 4px;
+      background-color: #ffffff;
+      border: solid 1px #979797;
+      .ld-title {
+        font-size: 18px;
+        font-weight: 500;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: -0.4px;
+        padding: 10px;
+        color: #d9bb90;
+        text-align: center;
+      }
+      .ld-content {
+        font-size: 14px;
+        font-weight: 500;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: -0.3px;
+        text-align: left;
+        color: #bbbac0;
+        padding: 8px;
+      }
+    }
+    .ld-close {
+      margin-top: 10%;
+    }
+  }
 }
 #mapContainer {
   height: 100%;
@@ -434,19 +734,16 @@ export default {
 }
 .detail-wrap {
   position: absolute;
-  bottom: 0;
-  height: 134px;
+  bottom: -403px;
+  height: 366px;
   left: 0;
   width: 100%;
   background-color: white;
   border-top: solid 0.5px rgba(151, 151, 151, 0.43);
   display: flex;
   flex-direction: column;
-  padding: 10px;
+  // padding: 10px;
   transition: 0.2s ease-in;
-  &.fold {
-    bottom: -200px;
-  }
   .detail-button {
     width: 68px;
     height: 68px;
@@ -454,8 +751,19 @@ export default {
     top: -34px;
     right: 20px;
   }
+  .detail-arrow {
+    width: 100%;
+    height: 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    .arrow-inner {
+      height: 8px;
+    }
+  }
   .detail-title {
-    padding: 3px 0;
+    padding: 3px 8px;
     height: 30px;
     width: 100%;
     display: flex;
@@ -480,6 +788,7 @@ export default {
     font-stretch: normal;
     line-height: normal;
     letter-spacing: 0.8px;
+    padding: 0 8px;
     text-align: left;
     .next-inner {
       background-color: #d8d8d8;
@@ -496,9 +805,11 @@ export default {
     line-height: normal;
     letter-spacing: 0.8px;
     text-align: left;
-    padding: 8px 0;
+    padding: 8px 8px;
   }
   .detail-into {
+    height: 54px;
+    padding: 0 8px;
     border-top: 1px #d4d5de solid;
     font-size: 12px;
     font-weight: normal;
@@ -509,13 +820,31 @@ export default {
     text-align: left;
     overflow: hidden;
     text-overflow: ellipsis;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 3;
     display: flex;
     word-break: break-all;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 3;
     overflow: hidden;
+  }
+  .detail-div {
+    height: 10px;
+    width: 100%;
+    background-color: #eeeeee;
+  }
+  .detail-img {
+    height: 200px;
+    width: 100%;
+    padding: 4px 3px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: hidden;
+    .inner-img {
+      width: 100%;
+    }
   }
 }
 </style>
