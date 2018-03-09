@@ -66,9 +66,9 @@ export default {
     async init() {
       try {
         await this.getWxJSSDKReady()
-        this.ctlOpt = await this.ctlOptInit()
         await this.initMap()
-        this.handleMapStartAnimation()
+        await this.ctlOptInit()
+        // this.handleMapStartAnimation()
         this.handleAddControlBtn()
         this.clickEventInit()
         this.addControlEventListener()
@@ -131,6 +131,7 @@ export default {
             //allLayer表示当前楼层是单层状态还是多层状态。
             //...
             that.handleAddControlBtn()
+            console.log('append')
             that.currentGroup = groups[0]
           })
           that.fMap.setMapScaleLevelRange(19, 20)
@@ -145,7 +146,6 @@ export default {
       let that = this
       let btn = document.getElementsByClassName('fm-control-groups-btn')[0]
       let list = document.getElementsByClassName('fm-layer-list')[0]
-      let ele = document.getElementById('ele')
 
       list.style.setProperty('height', '108px', 'important')
       // list.style.setProperty('margin-top', '83px')
@@ -157,6 +157,7 @@ export default {
       }, 100)
 
       btn.addEventListener('click', () => {
+        this.handleAddControlBtn()
         this.controlStatus = !this.controlStatus
         if (this.controlStatus) {
           btn.style.borderTopRightRadius = '2px'
@@ -180,16 +181,13 @@ export default {
       btn.style.borderBottomLeftRadius = '21px'
       btn.style.borderBottomRightRadius = '21px'
 
-      // let btn_div = document.createElement('div')
-      // btn_div.style =
-      // 'width: 100%; height: 100%; position: absolute; bottom: -23px; left: 0; background-color: #ebecf4;'
-      let btn_child = document.createElement('img')
-      btn_child.src = 'static/feng/image/fm-control.png'
-      btn_child.id = 'ele'
-      btn_child.style =
-        'width: 100%; border-bottom-left-radius: 21px; border-bottom-right-radius: 21px; position: absolute; top: 21px; left: 0;'
-      // btn_div.appendChild(btn_child)
-      btn.appendChild(btn_child)
+      let btn_div = document.createElement('div')
+      btn_div.style = 'width: 100%; position: absolute; top: 21px; left: 0;'
+      let btn_img = document.createElement('img')
+      btn_img.src = 'static/feng/image/fm-control.png'
+      btn_img.style = 'width: 100%; height: 100%'
+      btn_div.appendChild(btn_img)
+      btn.appendChild(btn_div)
     },
     ctlOptInit() {
       return new Promise(resolve => {
@@ -202,7 +200,8 @@ export default {
             y: 10
           }
         })
-        resolve(ctlOpt)
+        this.ctlOpt = ctlOpt
+        resolve()
       })
     },
     clickEventInit() {
@@ -414,6 +413,7 @@ export default {
 .feng-wrap {
   overflow: hidden;
   position: relative;
+  -webkit-tap-highlight-color: none;
   .rp {
     position: absolute;
     top: 0;
