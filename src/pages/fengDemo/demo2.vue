@@ -156,7 +156,6 @@ export default {
   },
   mounted() {
     $('.feng-wrap').css('height', $(window).height())
-    // this.overHeight = 0.2 * $(window).height()
     this.p.detailShowPosition = 0.2 * $(window).height()
     document.title = '地图导览'
     this.init()
@@ -193,18 +192,6 @@ export default {
     },
     handleMapStartAnimation() {
       let startRotate = -45
-      let that = this
-      // setTimeout(() => {
-      //   that.fMap.rotateAngle = startRotate + 1
-      //   startRotate++
-      //   console.log(that.fMap.rotateAngle)
-      // }, 100)
-      // setTimeout(() => {
-      //   that.fMap.rotateAngle = startRotate + 1
-      //   startRotate++
-      //   console.log(that.fMap.rotateAngle)
-      // }, 200)
-      // this.fMap.rotateAngle = startRotate + 1
     },
     ldWindowClose() {
       this.ldWindow = false
@@ -266,22 +253,28 @@ export default {
       btn.style.setProperty('height', '65px', 'important')
 
       setTimeout(() => {
-        list.style.transition = '0.1s ease-out'
+        list.style.setProperty('transition', '0.1s', 'ease-out')
       }, 100)
 
       btn.addEventListener('click', () => {
         this.handleAddControlBtn()
         this.controlStatus = !this.controlStatus
         if (this.controlStatus) {
-          btn.style.borderTopRightRadius = '2px'
-          btn.style.borderTopLeftRadius = '2px'
+          btn.style.setProperty('borderTopRightRadius', '2px')
+          btn.style.setProperty('borderTopLeftRadius', '2px')
+
+          // btn.style.borderTopRightRadius = '2px'
+          // btn.style.borderTopLeftRadius = '2px'
 
           list.style.setProperty('height', '108px', 'important')
           list.style.setProperty('padding-top', '13px')
           // list.style.setProperty('margin-top', '83px')
         } else {
-          btn.style.borderTopRightRadius = '21px'
-          btn.style.borderTopLeftRadius = '21px'
+          btn.style.setProperty('borderTopRightRadius', '21px')
+          btn.style.setProperty('borderTopLeftRadius', '21px')
+
+          // btn.style.borderTopRightRadius = '21px'
+          // btn.style.borderTopLeftRadius = '21px'
 
           list.style.setProperty('height', '0px', 'important')
           list.style.setProperty('padding-top', '0px')
@@ -291,8 +284,11 @@ export default {
     },
     handleAddControlBtn() {
       let btn = document.getElementsByClassName('fm-control-groups-btn')[0]
-      btn.style.borderBottomLeftRadius = '21px'
-      btn.style.borderBottomRightRadius = '21px'
+      btn.style.setProperty('borderBottomLeftRadius', '21px')
+      btn.style.setProperty('borderBottomRightRadius', '21px')
+
+      // btn.style.borderBottomLeftRadius = '21px'
+      // btn.style.borderBottomRightRadius = '21px'
 
       let btn_div = document.createElement('div')
       btn_div.style.setProperty('width', '100%')
@@ -302,7 +298,8 @@ export default {
 
       // btn_div.style = 'width: 100%; position: absolute; top: 21px; left: 0;'
       let btn_img = document.createElement('img')
-      btn_img.src = 'static/feng/image/fm-control.png'
+      btn_img.setAttribute('src', 'static/feng/image/fm-control.png')
+      // btn_img.src = 'static/feng/image/fm-control.png'
       btn_img.style.setProperty('width', '100%')
       btn_img.style.setProperty('height', '100%')
       btn_div.appendChild(btn_img)
@@ -314,13 +311,20 @@ export default {
           let redPoint = document.createElement('span')
           redPoint.style.setProperty('background-color', '#FF424B')
           redPoint.style.setProperty('border-radius', '50%')
-          redPoint.style.width = '6px'
-          redPoint.style.height = '6px'
-          redPoint.style.top = '8.5px'
-          redPoint.style.left = '30px'
-          redPoint.style.position = 'absolute'
+          redPoint.style.setProperty('width', '6px')
+          redPoint.style.setProperty('height', '6px')
+          redPoint.style.setProperty('top', '8.5px')
+          redPoint.style.setProperty('left', '30px')
+          redPoint.style.setProperty('position', 'absolute')
 
-          btns[i].style.position = 'relative'
+          // redPoint.style.width = '6px'
+          // redPoint.style.height = '6px'
+          // redPoint.style.top = '8.5px'
+          // redPoint.style.left = '30px'
+          // redPoint.style.position = 'absolute'
+
+          btns[i].style.setProperty('position', 'relative')
+          // btns[i].style.position = 'relative'
           btns[i].appendChild(redPoint)
         }
       }
@@ -683,10 +687,19 @@ export default {
       let list = document.getElementsByClassName('fm-layer-list')[0]
       let groupBtn = document.getElementsByClassName('fm-control-groups-btn')[0]
 
-      list.style.marginTop =
+      list.style.setProperty(
+        'marginTop',
         this.p.list.marginTop - this.p.detailShowPosition + 'px'
-      groupBtn.style.marginTop =
+      )
+      groupBtn.style.setProperty(
+        'marginTop',
         this.p.groupBtn.marginTop - this.p.detailShowPosition + 'px'
+      )
+
+      // list.style.marginTop =
+      //   this.p.list.marginTop - this.p.detailShowPosition + 'px'
+      // groupBtn.style.marginTop =
+      //   this.p.groupBtn.marginTop - this.p.detailShowPosition + 'px'
 
       // this.detailShow = true
       this.$refs['detail'].style.setProperty('bottom', '-218px')
@@ -697,8 +710,10 @@ export default {
       let list = document.getElementsByClassName('fm-layer-list')[0]
       let groupBtn = document.getElementsByClassName('fm-control-groups-btn')[0]
 
-      list.style.marginTop = this.p.list.marginTop + 'px'
-      groupBtn.style.marginTop = this.p.groupBtn.marginTop + 'px'
+      list.style.setProperty('marginTop', this.p.list.marginTop + 'px')
+      groupBtn.style.setProperty('marginTop', this.p.groupBtn.marginTop + 'px')
+      // list.style.marginTop = this.p.list.marginTop + 'px'
+      // groupBtn.style.marginTop = this.p.groupBtn.marginTop + 'px'
 
       this.$refs['detail'].style.setProperty('bottom', '-403px')
 
@@ -823,8 +838,8 @@ export default {
   position: absolute;
   top: 20px;
   right: 20px;
-  width: 50px;
-  height: 50px;
+  width: 56px;
+  height: 56px;
 }
 .detail-wrap {
   position: absolute;
@@ -905,7 +920,7 @@ export default {
   .detail-into {
     height: 54px;
     padding: 0 8px;
-    border-top: 1px #d4d5de solid;
+    border-top: 0.5px #d4d5de solid;
     font-size: 12px;
     font-weight: normal;
     font-style: normal;
