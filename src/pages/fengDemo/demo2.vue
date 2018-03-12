@@ -76,12 +76,12 @@ export default {
       bindInnerImg: 'static/feng/image/pro.png',
       p: {
         list: {
-          marginTop: 65
+          marginTop: -45
         },
         groupBtn: {
-          marginTop: -14
+          marginTop: -124
         },
-        detailShowPosition: 134
+        detailShowPosition: 150
       },
       touch: {
         targetTouch: {
@@ -142,7 +142,8 @@ export default {
       liandongStatus: false,
       currentActAddress: '',
       ldWindow: false,
-      currentLd: ''
+      currentLd: '',
+      overHeight: 0
     }
   },
   computed: {
@@ -155,6 +156,8 @@ export default {
   },
   mounted() {
     $('.feng-wrap').css('height', $(window).height())
+    // this.overHeight = 0.2 * $(window).height()
+    this.p.detailShowPosition = 0.2 * $(window).height()
     document.title = '地图导览'
     this.init()
   },
@@ -252,7 +255,6 @@ export default {
         })
       })
     },
-    showLianDong() {},
     addControlEventListener() {
       let that = this
       let btn = document.getElementsByClassName('fm-control-groups-btn')[0]
@@ -414,29 +416,6 @@ export default {
                   e.name.slice(0, 2) !== 'HB'
                 ) {
                   this.handleMarkerReset(e)
-                } else if (
-                  e.name === 'f1_1' ||
-                  e.name === 'f1_2' ||
-                  e.name === 'f2_1'
-                ) {
-                  // this.rpShow = true
-                  // let addMarker = new fengmap.FMImageMarker({
-                  //   url: 'static/feng/image/redpack.png',
-                  //   size: 35,
-                  //   x: e.x,
-                  //   y: e.y,
-                  //   z: 10,
-                  //   callback: () => {
-                  //     addMarker.alwaysShow()
-                  //     addMarker.jump({
-                  //       times: 0,
-                  //       duration: 1,
-                  //       dalay: 0.5,
-                  //       height: 1
-                  //     })
-                  //   }
-                  // })
-                  // layer.addMarker(addMarker)
                 }
               } else {
                 this.rpShow = false
@@ -832,7 +811,7 @@ export default {
   }
 }
 #mapContainer {
-  height: 100%;
+  height: 120%;
 }
 .list-change {
   position: absolute;
