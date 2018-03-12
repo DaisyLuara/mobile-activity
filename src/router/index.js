@@ -68,13 +68,13 @@ export default new Router({
         },
         {
           path: 'hongyi',
-          name: '狗年旺情缘',
+          name: '狗年旺情缘宏伊',
           component: () =>
             import(/* webpackChunkName: "hongyi" */ 'pages/hongyi/index.vue')
         },
         {
           path: 'ps',
-          name: '狗年旺情缘',
+          name: '狗年旺情缘浦商',
           component: () =>
             import(/* webpackChunkName: "ps" */ 'pages/ps/index.vue')
         },
