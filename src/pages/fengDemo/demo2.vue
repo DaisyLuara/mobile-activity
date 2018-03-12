@@ -632,7 +632,7 @@ export default {
         })
 
         let HB_F2_2 = new fengmap.FMImageMarker({
-          name: 'HB_f2_2',
+          name: 'HB_F2_2',
           url: 'static/feng/image/redpack.png',
           size: 35,
           x: 13528057.774711452,
