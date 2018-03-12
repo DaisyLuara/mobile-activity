@@ -222,7 +222,9 @@ export default {
           focusAlphaMode: false,
           modelSelectedEffect: false,
           focusAlpha: 0,
-          defaultControlsPose: -45
+          defaultControlsPose: -45,
+          defaultVisibleGroups: [2],
+          defaultFocusGroup: 2
         })
 
         this.fMap.openMapById(this.fMapId)
@@ -300,12 +302,17 @@ export default {
 
       let btns = document.getElementsByClassName('fm-layer-btn-default')
       for (let i = 0; i < btns.length; i++) {
-        if (btns[i].dataset.gid === '1' || btns[i].dataset.gid === '2') {
+        if (btns[i].dataset.gid === '3' || btns[i].dataset.gid === '2') {
           let redPoint = document.createElement('span')
           redPoint.style.setProperty('background-color', '#FF424B')
           redPoint.style.setProperty('border-radius', '50%')
           redPoint.style.width = '6px'
           redPoint.style.height = '6px'
+          redPoint.style.top = '8.5px'
+          redPoint.style.left = '30px'
+          redPoint.style.position = 'absolute'
+
+          btns[i].style.position = 'relative'
           btns[i].appendChild(redPoint)
         }
       }
@@ -455,9 +462,6 @@ export default {
       let group = this.fMap.getFMGroup(e.groupID)
       let layer = group.getOrCreateLayer('imageMarker')
       layer.removeMarker(e)
-      // if (e.name_ === 'f1_1' || e.name === 'f1_2' || e.name === 'f2_1') {
-      //   this.rpShow = true
-      // }
       for (let i = 0; i <= layer.markers.length - 1; i++) {
         console.dir(layer.markers[i])
         if (layer.markers[i].hasOwnProperty('name_')) {
