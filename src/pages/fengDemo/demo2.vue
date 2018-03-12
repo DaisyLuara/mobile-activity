@@ -295,10 +295,16 @@ export default {
       btn.style.borderBottomRightRadius = '21px'
 
       let btn_div = document.createElement('div')
-      btn_div.style = 'width: 100%; position: absolute; top: 21px; left: 0;'
+      btn_div.style.setProperty('width', '100%')
+      btn_div.style.setProperty('position', 'absolute')
+      btn_div.style.setProperty('top', '21px')
+      btn_div.style.setProperty('left', '0')
+
+      // btn_div.style = 'width: 100%; position: absolute; top: 21px; left: 0;'
       let btn_img = document.createElement('img')
       btn_img.src = 'static/feng/image/fm-control.png'
-      btn_img.style = 'width: 100%; height: 100%'
+      btn_img.style.setProperty('width', '100%')
+      btn_img.style.setProperty('height', '100%')
       btn_div.appendChild(btn_img)
       btn.appendChild(btn_div)
 
