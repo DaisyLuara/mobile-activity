@@ -2,7 +2,7 @@
 module.exports = {
   NODE_ENV: JSON.stringify('test'),
   DOMAIN: JSON.stringify('.loveqiche.com'),
-  M_URL: JSON.stringify('http://h5.xingstation.com'),
+  M_URL: JSON.stringify('http://h5.newgls.cn'),
   WX_API: JSON.stringify('http://sapi.newgls.cn/api'),
   STORE_API: JSON.stringify('http://store.loveqiche.com'),
   SAAS_API: JSON.stringify('http://sapi.newgls.cn/api'),
