@@ -77,13 +77,25 @@ export default new Router({
           name: '狗年旺情缘',
           component: () =>
             import(/* webpackChunkName: "ps" */ 'pages/ps/index.vue')
+        },
+        {
+          path: 'spm',
+          name: '小程序地图',
+          component: () => import(/* webpackChunkName: "ps" */ 'pages/smap/map.vue')
+        },
+        {
+          path: 'hq',
+          name: '虹桥天地',
+          component: () =>
+            import(/* webpackChunkName: "ps" */ 'pages/hq/result.vue')
+        },
+        {
+          path: 'angel',
+          name: '黑白天使',
+          component: () =>
+            import(/* webpackChunkName: "angel" */ 'pages/angel/index.vue')
         }
       ]
-    },
-    {
-      path: 'ps',
-      name: '狗年旺情缘',
-      component: () => import(/* webpackChunkName: "ps" */ 'pages/ps/index.vue')
     },
     {
       path: '/wxMini',
@@ -115,23 +127,6 @@ export default new Router({
             import(/* webpackChunkName: "redPack" */ 'pages/fengDemo/components/redPack.vue')
         }
       ]
-    },
-    {
-      path: 'spm',
-      name: '小程序地图',
-      component: () => import(/* webpackChunkName: "ps" */ 'pages/smap/map.vue')
-    },
-    {
-      path: 'hq',
-      name: '虹桥天地',
-      component: () =>
-        import(/* webpackChunkName: "ps" */ 'pages/hq/result.vue')
-    },
-    {
-      path: 'angel',
-      name: '黑白天使',
-      component: () =>
-        import(/* webpackChunkName: "angel" */ 'pages/angel/index.vue')
     }
   ]
 })
