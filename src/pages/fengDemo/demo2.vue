@@ -899,7 +899,7 @@ export default {
   .detail-into {
     height: 54px;
     padding: 0 8px;
-    border-top: 1px #d4d5de solid;
+    border-top: 0.5px #d4d5de solid;
     font-size: 12px;
     font-weight: normal;
     font-style: normal;
