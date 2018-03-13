@@ -19,8 +19,8 @@ export default {
       marketingOptions: {
         name: '浦商百货',
         wxShareInfo: {
-          title: '浦商百货折上折',
-          desc: '体验异域风情 尽享优惠折扣',
+          title: '旺狗开春 情缘满分',
+          desc: '宏伊国际广场借旺狗报新春 送祝福 合家欢 情侣睦 诞生的汪早脱单',
           imgUrl: marketingImageServer + '/wx_share_icon/psbh_travel_share_icon.jpeg',
         },
         bg: {
