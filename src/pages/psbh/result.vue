@@ -19,9 +19,9 @@ export default {
       marketingOptions: {
         name: '浦商百货',
         wxShareInfo: {
-          title: '圣诞节到了，我把自己包成礼物送给你',
-          desc: '苏州中心商场有你，圣诞节惊喜有礼。',
-          imgUrl: marketingImageServer + '/wx_share_icon/share-icon-sz-lefit.jpg',
+          title: '浦商百货折上折',
+          desc: '体验异域风情 尽享优惠折扣',
+          imgUrl: marketingImageServer + '/wx_share_icon/psbh_travel_share_icon.jpeg',
         },
         bg: {
           backgroundImage: 'url(' + marketingImageServer + '/templates/christmas/photo_bg.png)',
