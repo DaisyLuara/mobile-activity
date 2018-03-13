@@ -151,7 +151,7 @@ export default {
     },
     getImgUrl() {
       marketService.getImageById(this, this.img_id).then((result) => {
-        this.img_url = result.result_img_url;
+        this.img_url = result;
       }).catch((err) => {
         console.log(err);
       });

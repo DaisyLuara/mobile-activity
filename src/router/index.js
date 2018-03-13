@@ -94,6 +94,11 @@ export default new Router({
           name: '黑白天使',
           component: () =>
             import(/* webpackChunkName: "angel" */ 'pages/angel/index.vue')
+        },
+        {
+          path: 'psbh_travel',
+          name: 'psbh_travel',
+          component: () => import(/* webpackChunkName: "psbh_travel" */ 'pages/psbh_travel/index.vue')
         }
       ]
     },
