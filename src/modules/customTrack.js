@@ -57,9 +57,9 @@ function mobileRecords(mobileValue) {
 
 
 customTrack.sendMobile = (mobileValue) => {
-  mobileRecords(mobileValue);
+  // mobileRecords(mobileValue);
   if (_paq) {
-    _paq.push(['trackEvent', customTrack.adId, customTrack.laId, 'submit_mobile_200']);
+    _paq.push(['trackEvent', customTrack.adId, customTrack.laId, 'submit_mobile_200_' + mobileValue]);
   }
 };
 
