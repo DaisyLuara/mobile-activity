@@ -44,7 +44,15 @@
       <div class="ld-context">
         <div class="ld-title">联动说明</div>
         <div class="ld-content">
-          {{currentLd}}
+          恭喜找到
+          <span class="floor-name">
+          {{currentFloorName}}
+          </span>
+          的宝物吧！然后就可以去
+          <span class="floor-name">
+          {{nextFloorName}}
+          </span>
+          发现新的宝藏了！
         </div>
       </div>
       <img @click="ldWindowClose" class="ld-close" src="static/feng/image/close.png" />
@@ -110,14 +118,12 @@ export default {
         {
           id: 'f1_1',
           name: 'F1层136-138',
-          ld:
-            '快来F1层136-138寻找藏在屏幕里的宝物吧！然后就可以去F2层205探索新的宝藏了！'
+          nextActIndex: 1
         },
         {
           id: 'f1_2',
           name: 'F1层106',
-          ld:
-            '快来F1层106寻找藏在屏幕里的宝物吧！然后就可以去F1层136-138探索新的宝藏了！'
+          nextActIndex: 3
         },
         {
           id: 'f1_3',
@@ -126,8 +132,7 @@ export default {
         {
           id: 'f2_1',
           name: 'F2层205',
-          ld:
-            '快来F2层205寻找藏在屏幕里的宝物吧！然后就可以去F1层106探索新的宝藏了！'
+          nextActIndex: 0
         },
         {
           id: 'f2_2',
@@ -139,10 +144,10 @@ export default {
         }
       ],
       currentAct: 0,
+      currentMarker: 0,
       liandongStatus: false,
       currentActAddress: '',
       ldWindow: false,
-      currentLd: '',
       overHeight: 0
     }
   },
@@ -152,6 +157,14 @@ export default {
     },
     displayContext: function() {
       return this.act[this.currentAct].des
+    },
+    currentFloorName: function() {
+      return this.address[this.currentMarker].name
+    },
+    nextFloorName: function() {
+      if (this.address[this.currentMarker].hasOwnProperty('nextActIndex')) {
+        return this.address[this.address[this.currentMarker].nextActIndex].name
+      }
     }
   },
   mounted() {
@@ -172,7 +185,6 @@ export default {
         await this.getWxJSSDKReady()
         await this.initMap()
         await this.ctlOptInit()
-        // this.handleMapStartAnimation()
         this.handleAddControlBtn()
         this.clickEventInit()
         this.addControlEventListener()
@@ -180,7 +192,6 @@ export default {
         console.log(e)
       }
     },
-    showLianDong() {},
     getWxJSSDKReady() {
       return new Promise((resolve, reject) => {
         let script = document.createElement('script')
@@ -189,9 +200,6 @@ export default {
         fengDiv.appendChild(script)
         resolve()
       })
-    },
-    handleMapStartAnimation() {
-      let startRotate = -45
     },
     ldWindowClose() {
       this.ldWindow = false
@@ -248,7 +256,6 @@ export default {
       let list = document.getElementsByClassName('fm-layer-list')[0]
 
       list.style.setProperty('height', '108px', 'important')
-      // list.style.setProperty('margin-top', '83px')
       list.style.setProperty('padding-top', '13px')
       btn.style.setProperty('height', '65px', 'important')
 
@@ -263,22 +270,14 @@ export default {
           btn.style.setProperty('borderTopRightRadius', '2px')
           btn.style.setProperty('borderTopLeftRadius', '2px')
 
-          // btn.style.borderTopRightRadius = '2px'
-          // btn.style.borderTopLeftRadius = '2px'
-
           list.style.setProperty('height', '108px', 'important')
           list.style.setProperty('padding-top', '13px')
-          // list.style.setProperty('margin-top', '83px')
         } else {
           btn.style.setProperty('borderTopRightRadius', '21px')
           btn.style.setProperty('borderTopLeftRadius', '21px')
 
-          // btn.style.borderTopRightRadius = '21px'
-          // btn.style.borderTopLeftRadius = '21px'
-
           list.style.setProperty('height', '0px', 'important')
           list.style.setProperty('padding-top', '0px')
-          // list.style.setProperty('margin-top', '65px')
         }
       })
     },
@@ -287,19 +286,14 @@ export default {
       btn.style.setProperty('borderBottomLeftRadius', '21px')
       btn.style.setProperty('borderBottomRightRadius', '21px')
 
-      // btn.style.borderBottomLeftRadius = '21px'
-      // btn.style.borderBottomRightRadius = '21px'
-
       let btn_div = document.createElement('div')
       btn_div.style.setProperty('width', '100%')
       btn_div.style.setProperty('position', 'absolute')
       btn_div.style.setProperty('top', '21px')
       btn_div.style.setProperty('left', '0')
 
-      // btn_div.style = 'width: 100%; position: absolute; top: 21px; left: 0;'
       let btn_img = document.createElement('img')
       btn_img.setAttribute('src', 'static/feng/image/fm-control.png')
-      // btn_img.src = 'static/feng/image/fm-control.png'
       btn_img.style.setProperty('width', '100%')
       btn_img.style.setProperty('height', '100%')
       btn_div.appendChild(btn_img)
@@ -317,14 +311,7 @@ export default {
           redPoint.style.setProperty('left', '30px')
           redPoint.style.setProperty('position', 'absolute')
 
-          // redPoint.style.width = '6px'
-          // redPoint.style.height = '6px'
-          // redPoint.style.top = '8.5px'
-          // redPoint.style.left = '30px'
-          // redPoint.style.position = 'absolute'
-
           btns[i].style.setProperty('position', 'relative')
-          // btns[i].style.position = 'relative'
           btns[i].appendChild(redPoint)
         }
       }
@@ -365,24 +352,25 @@ export default {
                 e.name === 'HB_F1_1'
               ) {
                 this.currentAct = 1
+                this.currentMarker = 0
                 this.liandongStatus = true
                 this.currentActAddress = this.address[0].name
-                this.currentLd = this.address[0].ld
               } else if (
                 e.name === 'f1_2' ||
                 e.name === 'new_f1_2' ||
                 e.name === 'HB_F1_2'
               ) {
                 this.currentAct = 1
+                this.currentMarker = 1
                 this.liandongStatus = true
                 this.currentActAddress = this.address[1].name
-                this.currentLd = this.address[1].ld
               } else if (
                 e.name === 'f1_3' ||
                 e.name === 'new_f1_3' ||
                 e.name === 'HB_F1_3'
               ) {
                 this.currentAct = 0
+                this.currentMarker = 2
                 this.liandongStatus = false
                 this.currentActAddress = this.address[2].name
                 this.rpShow = true
@@ -392,21 +380,23 @@ export default {
                 e.name === 'HB_F2_1'
               ) {
                 this.liandongStatus = true
+                this.currentMarker = 3
                 this.currentAct = 1
                 this.currentActAddress = this.address[3].name
-                this.currentLd = this.address[3].ld
               } else if (
                 e.name === 'f2_2' ||
                 e.name === 'new_f2_2' ||
                 e.name === 'HB_F2_2'
               ) {
                 this.liandongStatus = false
+                this.currentMarker = 4
                 this.currentAct = 0
                 this.currentActAddress = this.address[4].name
                 this.rpShow = true
               } else if (e.name === 'f3_1' || e.name === 'new_f3_1') {
                 this.liandongStatus = false
                 this.currentAct = 2
+                this.currentMarker = 5
                 this.currentActAddress = this.address[5].name
               }
 
@@ -466,7 +456,6 @@ export default {
               size: 64,
               x: newX,
               y: newY,
-              // height: 10,
               z: 0,
               callback: () => {
                 newMarker.alwaysShow()
@@ -482,7 +471,6 @@ export default {
         size: 64,
         x: e.x,
         y: e.y,
-        // height: 10,
         z: 0,
         callback: () => {
           newMarker.alwaysShow()
@@ -500,7 +488,6 @@ export default {
           size: 64,
           x: 13528113.343703128,
           y: 3662316.2432128466,
-          // height: 10,
           z: 0,
           callback: () => {
             F1_1.alwaysShow()
@@ -530,7 +517,6 @@ export default {
           size: 64,
           x: 13528069.603071805,
           y: 3662363.214140243,
-          // height: 10,
           z: 0,
           callback: () => {
             F1_2.alwaysShow()
@@ -561,7 +547,6 @@ export default {
           size: 64,
           x: 13528115.001994299,
           y: 3662355.7043745373,
-          // height: 10,
           z: 0,
           callback: () => {
             F1_3.alwaysShow()
@@ -574,7 +559,6 @@ export default {
           size: 35,
           x: 13528115.001994299,
           y: 3662355.7043745373,
-          // height: 10,
           z: 10,
           callback: () => {
             HB_F1_3.alwaysShow()
@@ -602,7 +586,6 @@ export default {
           size: 64,
           x: 13528121.494989906,
           y: 3662306.967850478,
-          // height: 10,
           z: 0,
           callback: () => {
             F2_1.alwaysShow()
@@ -615,7 +598,6 @@ export default {
           size: 35,
           x: 13528121.494989906,
           y: 3662306.967850478,
-          // height: 10,
           z: 10,
           callback: () => {
             HB_F2_1.alwaysShow()
@@ -634,7 +616,6 @@ export default {
           size: 64,
           x: 13528057.774711452,
           y: 3662370.564898199,
-          // height: 10,
           z: 0,
           callback: () => {
             F2_2.alwaysShow()
@@ -647,7 +628,6 @@ export default {
           size: 35,
           x: 13528057.774711452,
           y: 3662370.564898199,
-          // height: 10,
           z: 10,
           callback: () => {
             HB_F2_2.alwaysShow()
@@ -673,7 +653,6 @@ export default {
           size: 64,
           x: 13528141.977265798,
           y: 3662355.9839765457,
-          // height: 10,
           z: 0,
           callback: () => {
             F3_1.alwaysShow()
@@ -696,14 +675,7 @@ export default {
         this.p.groupBtn.marginTop - this.p.detailShowPosition + 'px'
       )
 
-      // list.style.marginTop =
-      //   this.p.list.marginTop - this.p.detailShowPosition + 'px'
-      // groupBtn.style.marginTop =
-      //   this.p.groupBtn.marginTop - this.p.detailShowPosition + 'px'
-
-      // this.detailShow = true
       this.$refs['detail'].style.setProperty('bottom', '-218px')
-
       this.detailInfo = e
     },
     resetDetail() {
@@ -712,12 +684,7 @@ export default {
 
       list.style.setProperty('marginTop', this.p.list.marginTop + 'px')
       groupBtn.style.setProperty('marginTop', this.p.groupBtn.marginTop + 'px')
-      // list.style.marginTop = this.p.list.marginTop + 'px'
-      // groupBtn.style.marginTop = this.p.groupBtn.marginTop + 'px'
-
       this.$refs['detail'].style.setProperty('bottom', '-403px')
-
-      // this.detailShow = false
     },
     handleRpClose() {
       this.rpShow = false
@@ -801,6 +768,9 @@ export default {
       border-radius: 4px;
       background-color: #ffffff;
       border: solid 1px #979797;
+      .floor-name {
+        color: #e7565c;
+      }
       .ld-title {
         font-size: 18px;
         font-weight: 500;
@@ -930,7 +900,6 @@ export default {
     text-align: left;
     overflow: hidden;
     text-overflow: ellipsis;
-    -webkit-line-clamp: 3;
     display: flex;
     word-break: break-all;
     display: -webkit-box;
