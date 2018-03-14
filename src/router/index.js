@@ -99,6 +99,18 @@ export default new Router({
           path: 'psbh_travel',
           name: 'psbh_travel',
           component: () => import(/* webpackChunkName: "psbh_travel" */ 'pages/psbh_travel/index.vue')
+        },
+        {
+          path: 'popcorn',
+          name: '爆米花奥斯卡',
+          component: () =>
+            import(/* webpackChunkName: "popcorn" */ 'pages/popcorn/index.vue'),
+        },
+        {
+          path: 'popcorn/result',
+          name: '爆米花奥斯卡结果页',
+          component: () =>
+            import(/* webpackChunkName: "popcorn" */ 'pages/popcorn/result.vue'),
         }
       ]
     },
