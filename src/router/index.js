@@ -81,7 +81,8 @@ export default new Router({
         {
           path: 'spm',
           name: '小程序地图',
-          component: () => import(/* webpackChunkName: "ps" */ 'pages/smap/map.vue')
+          component: () =>
+            import(/* webpackChunkName: "ps" */ 'pages/smap/map.vue')
         },
         {
           path: 'hq',
@@ -98,7 +99,14 @@ export default new Router({
         {
           path: 'psbh_travel',
           name: 'psbh_travel',
-          component: () => import(/* webpackChunkName: "psbh_travel" */ 'pages/psbh_travel/index.vue')
+          component: () =>
+            import(/* webpackChunkName: "psbh_travel" */ 'pages/psbh_travel/index.vue')
+        },
+        {
+          path: 'worldcupplanet',
+          name: 'worldCupPlanet',
+          component: () =>
+            import(/* webpackChunkName: "worldCupPlanet" */ 'pages/worldCupPlanet/index.vue')
         }
       ]
     },
