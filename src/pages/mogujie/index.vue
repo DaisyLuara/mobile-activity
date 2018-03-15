@@ -39,7 +39,7 @@
       document.title = '蘑菇街女装';
     },
     mounted(){
-      $('.mogu-coupon-wrap').css('height', $(window).height());
+      $('.mogu-coupon-wrap').css('min-height', $(window).height());
     },
     created() {
       //拿取图片id
