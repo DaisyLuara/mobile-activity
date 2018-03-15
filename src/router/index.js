@@ -113,6 +113,12 @@ export default new Router({
             import(/* webpackChunkName: "popcorn" */ 'pages/popcorn/result.vue'),
         },
         {
+          path: 'mogujie',
+          name: '蘑菇街女装',
+          component: () =>
+            import(/* webpackChunkName: "moguujie" */ 'pages/mogujie/index.vue'),
+        },
+        {
           path: 'tree',
           name: '树成长手机号输入页',
           component: () =>
