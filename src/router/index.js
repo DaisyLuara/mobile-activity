@@ -117,6 +117,18 @@ export default new Router({
           name: '蘑菇街女装',
           component: () =>
             import(/* webpackChunkName: "moguujie" */ 'pages/mogujie/index.vue'),
+        },
+        {
+          path: 'tree',
+          name: '树成长手机号输入页',
+          component: () =>
+            import(/* webpackChunkName: "tree" */ 'pages/tree/index.vue'),
+        },
+        {
+          path: 'tree/result',
+          name: '树成长结果页',
+          component: () =>
+            import(/* webpackChunkName: "result" */ 'pages/tree/result.vue'),
         }
       ]
     },
