@@ -111,6 +111,18 @@ export default new Router({
           name: '爆米花奥斯卡结果页',
           component: () =>
             import(/* webpackChunkName: "popcorn" */ 'pages/popcorn/result.vue'),
+        },
+        {
+          path: 'tree',
+          name: '树成长手机号输入页',
+          component: () =>
+            import(/* webpackChunkName: "tree" */ 'pages/tree/index.vue'),
+        },
+        {
+          path: 'tree/result',
+          name: '树成长结果页',
+          component: () =>
+            import(/* webpackChunkName: "tree" */ 'pages/tree/result.vue'),
         }
       ]
     },
