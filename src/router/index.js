@@ -111,6 +111,12 @@ export default new Router({
           name: '爆米花奥斯卡结果页',
           component: () =>
             import(/* webpackChunkName: "popcorn" */ 'pages/popcorn/result.vue'),
+        },
+        {
+          path: 'mogujie',
+          name: '蘑菇街女装',
+          component: () =>
+            import(/* webpackChunkName: "moguujie" */ 'pages/mogujie/index.vue'),
         }
       ]
     },
