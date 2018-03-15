@@ -89,9 +89,10 @@ export default {
     this.height=this.$refs.element.offsetHeight;
     this.winWidth=window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
     this.init();
-    
+
   },
   created() {
+    
     console.log(this.$route.query.num)
     console.log(this.$route.query.position)
     wxService.getWxUserInfo(this).then(result => {
