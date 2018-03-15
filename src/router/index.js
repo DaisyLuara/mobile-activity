@@ -128,7 +128,7 @@ export default new Router({
           path: 'tree/result',
           name: '树成长结果页',
           component: () =>
-            import(/* webpackChunkName: "tree" */ 'pages/tree/result.vue'),
+            import(/* webpackChunkName: "result" */ 'pages/tree/result.vue'),
         }
       ]
     },
