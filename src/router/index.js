@@ -79,11 +79,6 @@ export default new Router({
             import(/* webpackChunkName: "ps" */ 'pages/ps/index.vue')
         },
         {
-          path: 'spm',
-          name: '小程序地图',
-          component: () => import(/* webpackChunkName: "ps" */ 'pages/smap/map.vue')
-        },
-        {
           path: 'hq',
           name: '虹桥天地',
           component: () =>
