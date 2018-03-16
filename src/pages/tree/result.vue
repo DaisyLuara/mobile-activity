@@ -6,8 +6,8 @@
       <p class="userName">{{nick_name}}</p>
     </div>
     <div class="showtree">
-      <img class="word" id="tip2" :src="imgServerUrl + '/tip2.png'" alt="" v-show="ashow"/>
-      <img class="word" id="tip1" :src="imgServerUrl + '/tip1.png'" alt="" v-show="bshow"/>
+      <img class="word" id="tip1" :src="imgServerUrl + '/tip1.png'" alt="" v-show="ashow"/>
+      <img class="word" id="tip2" :src="imgServerUrl + '/tip2.png'" alt="" v-show="bshow"/>
       <div class="trees" id="treeDiv" ref="element"></div>
     </div>
     <img class="titnote clearfix" :src="imgServerUrl + '/board.png'">
@@ -199,48 +199,20 @@ export default {
 }
 .translate2d(@x,@y){
   transform:translate(@x,@y);
-  -webkit-transform:translate(@x,@y);
-  -moz-transform:translate(@x,@y);
-  -ms-transform:translate(@x,@y);
-  -o-transform:translate(@x,@y);
 }
 .rotate2d(@x,@y){
   transform:rotate(@x,@y);
-  -webkit-transform:rotate(@x,@y);
-  -moz-transform:rotate(@x,@y);
-  -ms-transform:rotate(@x,@y);
-  -o-transform:rotate(@x,@y);
 }
 .translate3d(@x,@y,@z){
   transform:translate(@x,@y,@z);
-  -webkit-transform:translate(@x,@y,@z);
-  -moz-transform:translate(@x,@y,@z);
-  -ms-transform:translate(@x,@y,@z);
-  -o-transform:translate(@x,@y,@z);
 }
 .rotate3d(@x,@y,@z){
   transform:rotateX(@x);
-  -webkit-transform:rotateX(@x);
-  -moz-transform:rotateX(@x);
-  -ms-transform:rotateX(@x);
-  -o-transform:rotateX(@x);
   transform:rotateY(@y);
-  -webkit-transform:rotateY(@y);
-  -moz-transform:rotateY(@y);
-  -ms-transform:rotateY(@y);
-  -o-transform:rotateY(@y);
   transform:rotateZ(@z);
-  -webkit-transform:rotateZ(@z);
-  -moz-transform:rotateZ(@z);
-  -ms-transform:rotateZ(@z);
-  -o-transform:rotateZ(@z);
 }
 .border(@radius:50%){
   border-radius: @radius;
-  -webkit-border-radius: @radius;
-  -moz-border-radius: @radius;
-  -ms-border-radius: @radius;
-  -o-border-radius: @radius;
 }
 .greenlife-content{
   width:100%;
@@ -257,44 +229,44 @@ export default {
     background-position:center 6%,center top,center bottom;
     background-color:#030d01;
     .user{
-    position: absolute;
-    right:0;
-    //top:7%;
-    top:7vh;
-    width:26vw;
-    z-index: 9999;
-    //top:;
-    .cover{
-      width:100%;
-      position: relative;
-      z-index: 999;
-    }
-    #userImg{
       position: absolute;
-      .border();
-      width:16vw;
-      left:26%;
-      top:26%;
-      z-index: 9;
-      
-    }
-    .userName{
-      position: absolute;
-      bottom: 17%;
-      right:6%;
+      right:0;
+      //top:7%;
+      top:5.5vh;
+      width:26vw;
       z-index: 9999;
-      width:19vw;
-      height:1.7rem;
-      font-size: 0.7rem;
-      line-height: 2rem;
-      color:#f3f1ef;
-      text-align: center;
-      overflow:hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+      //top:;
+      .cover{
+        width:100%;
+        position: relative;
+        z-index: 999;
+      }
+      #userImg{
+        position: absolute;
+        .border();
+        width:16vw;
+        left:26%;
+        top:26%;
+        z-index: 9;
+        
+      }
+      .userName{
+        position: absolute;
+        bottom: 17%;
+        right:6%;
+        z-index: 9999;
+        width:19vw;
+        height:1.7rem;
+        font-size: 0.7rem;
+        line-height: 2rem;
+        color:#f3f1ef;
+        text-align: center;
+        overflow:hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
 
+      }
     }
-  }
 
   .showtree{
     position: relative;
@@ -333,7 +305,6 @@ export default {
   .titnote{
     position: relative;
     width:51.5vw;
-    // .translate2d(0,-37%);
     margin-top:-5%;
     margin-left:1%;
     float: left;
@@ -348,7 +319,6 @@ export default {
       display: inline-block;
       width:95%;
       margin:0 auto;
-      //margin-top:-1%;
     }
     ul li{
       list-style: none;
