@@ -125,7 +125,20 @@ export default new Router({
           name: '蘑菇街女装',
           component: () =>
             import(/* webpackChunkName: "moguujie" */ 'pages/mogujie/index.vue')
+        },
+        {
+          path: 'tree',
+          name: '凯德绿享新生活',
+          component: () =>
+            import(/* webpackChunkName: "tree" */ 'pages/tree/index.vue')
+        },
+        {
+          path: 'tree/result',
+          name: '凯德绿享新生活结果页',
+          component: () =>
+            import(/* webpackChunkName: "tree" */ 'pages/tree/result.vue')
         }
+
       ]
     },
     {
