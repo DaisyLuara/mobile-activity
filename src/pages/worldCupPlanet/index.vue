@@ -43,7 +43,7 @@ export default {
       },
       spiderStyle: {
         position: 'absolute',
-        top: window.innerWidth * 0.15 + 'px',
+        top: window.innerWidth * 0.16 + 'px',
         padding: '0 25%',
         left: '-4px'
       }

@@ -26,6 +26,24 @@
         <img :src="'/static/wcp/' + item + '.png'" />
       </div>
     </div>
+
+    <div :style="rightBottomSpace">
+      <div 
+        :style="numberStyle" 
+        v-for="(item, index) in powerData[3][1].toString().split('')" 
+        :key="index">
+        <img :src="'/static/wcp/' + item + '.png'" />
+      </div>
+    </div>
+
+    <div :style="leftBottomSpace">
+      <div 
+        :style="numberStyle" 
+        v-for="(item, index) in powerData[4][1].toString().split('')" 
+        :key="index">
+        <img :src="'/static/wcp/' + item + '.png'" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -68,7 +86,17 @@ export default {
       rightSpace: {
         position: 'absolute',
         top: window.innerWidth * 0.19 + 'px',
-        right: window.innerWidth * 0.15 + 'px'
+        right: window.innerWidth * 0.14 + 'px'
+      },
+      rightBottomSpace: {
+        position: 'absolute',
+        bottom: '-' + window.innerWidth * 0.17 + 'px',
+        right: window.innerWidth * 0.28 + 'px'
+      },
+      leftBottomSpace: {
+        position: 'absolute',
+        bottom: '-' + window.innerWidth * 0.17 + 'px',
+        left: window.innerWidth * 0.25 + 'px'
       }
     }
   },
