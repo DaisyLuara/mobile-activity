@@ -7,19 +7,15 @@
 export default {
   name: 'marketingHome',
   data() {
-    return {
-    };
+    return {}
   },
-  created() {
-  },
-  methods: {
-  },
-  components: {
-  },
-};
+  created() {},
+  methods: {},
+  components: {}
+}
 </script>
 
 <style lang="less">
-  // marketing page 的公用样式
-  @import '~assets/css/marketing.less';
+// marketing page 的公用样式
+@import '~assets/css/marketing.less';
 </style>

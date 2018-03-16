@@ -58,7 +58,7 @@ export default new Router({
           path: 'openBox/result',
           name: '开箱子照片页',
           component: () =>
-            import(/* webpackChunkName: "openBox" */ 'pages/openBox/result.vue')
+            import(/* webpackChunkName: "openBoxPhoto" */ 'pages/openBox/result.vue')
         },
         {
           path: 'dog',
@@ -78,11 +78,17 @@ export default new Router({
           component: () =>
             import(/* webpackChunkName: "ps" */ 'pages/ps/index.vue')
         },
+        // {
+        //   path: 'spm',
+        //   name: '小程序地图',
+        //   component: () =>
+        //     import(/* webpackChunkName: "spm" */ 'pages/smap/map.vue')
+        // },
         {
           path: 'hq',
           name: '虹桥天地',
           component: () =>
-            import(/* webpackChunkName: "ps" */ 'pages/hq/result.vue')
+            import(/* webpackChunkName: "hq" */ 'pages/hq/result.vue')
         },
         {
           path: 'angel',
@@ -93,25 +99,32 @@ export default new Router({
         {
           path: 'psbh_travel',
           name: 'psbh_travel',
-          component: () => import(/* webpackChunkName: "psbh_travel" */ 'pages/psbh_travel/index.vue')
+          component: () =>
+            import(/* webpackChunkName: "psbh_travel" */ 'pages/psbh_travel/index.vue')
+        },
+        {
+          path: 'worldcupplanet',
+          name: 'worldCupPlanet',
+          component: () =>
+            import(/* webpackChunkName: "worldCupPlanet" */ 'pages/worldCupPlanet/index.vue')
         },
         {
           path: 'popcorn',
           name: '爆米花奥斯卡',
           component: () =>
-            import(/* webpackChunkName: "popcorn" */ 'pages/popcorn/index.vue'),
+            import(/* webpackChunkName: "popcorn" */ 'pages/popcorn/index.vue')
         },
         {
           path: 'popcorn/result',
           name: '爆米花奥斯卡结果页',
           component: () =>
-            import(/* webpackChunkName: "popcorn" */ 'pages/popcorn/result.vue'),
+            import(/* webpackChunkName: "popcorn" */ 'pages/popcorn/result.vue')
         },
         {
           path: 'mogujie',
           name: '蘑菇街女装',
           component: () =>
-            import(/* webpackChunkName: "moguujie" */ 'pages/mogujie/index.vue'),
+            import(/* webpackChunkName: "moguujie" */ 'pages/mogujie/index.vue')
         }
       ]
     },
