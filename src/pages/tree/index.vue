@@ -105,48 +105,20 @@ export default {
 }
 .translate2d(@x,@y){
   transform:translate(@x,@y);
-  -webkit-transform:translate(@x,@y);
-  -moz-transform:translate(@x,@y);
-  -ms-transform:translate(@x,@y);
-  -o-transform:translate(@x,@y);
 }
 .rotate2d(@x,@y){
   transform:rotate(@x,@y);
-  -webkit-transform:rotate(@x,@y);
-  -moz-transform:rotate(@x,@y);
-  -ms-transform:rotate(@x,@y);
-  -o-transform:rotate(@x,@y);
 }
 .translate3d(@x,@y,@z){
   transform:translate(@x,@y,@z);
-  -webkit-transform:translate(@x,@y,@z);
-  -moz-transform:translate(@x,@y,@z);
-  -ms-transform:translate(@x,@y,@z);
-  -o-transform:translate(@x,@y,@z);
 }
 .rotate3d(@x,@y,@z){
   transform:rotateX(@x);
-  -webkit-transform:rotateX(@x);
-  -moz-transform:rotateX(@x);
-  -ms-transform:rotateX(@x);
-  -o-transform:rotateX(@x);
   transform:rotateY(@y);
-  -webkit-transform:rotateY(@y);
-  -moz-transform:rotateY(@y);
-  -ms-transform:rotateY(@y);
-  -o-transform:rotateY(@y);
   transform:rotateZ(@z);
-  -webkit-transform:rotateZ(@z);
-  -moz-transform:rotateZ(@z);
-  -ms-transform:rotateZ(@z);
-  -o-transform:rotateZ(@z);
 }
 .border(@radius:50%){
   border-radius: @radius;
-  -webkit-border-radius: @radius;
-  -moz-border-radius: @radius;
-  -ms-border-radius: @radius;
-  -o-border-radius: @radius;
 }
 .greenlife-content{
       width:100%;
