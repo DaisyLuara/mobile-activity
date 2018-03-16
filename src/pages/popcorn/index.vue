@@ -59,10 +59,10 @@ export default {
     //拿取图片id
     getImageById() {
       let id = this.$route.query.id
-      marketService.getImageById(this, id).then((result) => {
+      marketService.getInfoById(this, id).then((result) => {
         // console.log(result);
         // console.log(this.resultImgUrl)
-        this.resultImgUrl = result;
+        this.resultImgUrl = result.image;
       }).catch((err) => {
         console.log(err);
       });

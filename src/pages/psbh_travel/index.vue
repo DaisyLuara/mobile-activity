@@ -71,8 +71,8 @@ export default {
   methods: {
     getPeopleImage() {
       let id = decodeURI(this.$route.query.id);
-      marketService.getImageById(this, id).then((result) => {
-        this.img_url = result;
+      marketService.getInfoById(this, id).then((result) => {
+        this.img_url = result.image;
       }).catch((err) => {
         console.log(err);
       });

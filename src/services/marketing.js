@@ -16,16 +16,10 @@ export default {
       });
     });
   },
-  getImageById(context, id) {
+  getInfoById(context, id) {
     let promise = new Promise((resolve, reject) => {
       context.$http.get(IMAGE_API + id).then((response) => {
-        if (response.status === 200) {
-          if (response.data.state === '1') {
-            resolve(response.data.results.image);
-          } else {
-            resolve('');
-          }
-        }
+        resolve(response.data.results);
       }).catch((err) => {
         reject(err);
       });
