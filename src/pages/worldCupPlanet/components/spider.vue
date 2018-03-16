@@ -12,7 +12,7 @@
     <div :style="leftSpace">
       <div 
         :style="numberStyle" 
-        v-for="(item, index) in powerData[1][1].toString().split('')" 
+        v-for="(item, index) in powerData[4][1].toString().split('')" 
         :key="index">
         <img :src="'/static/wcp/' + item + '.png'" />
       </div>
@@ -21,7 +21,7 @@
     <div :style="rightSpace">
       <div 
         :style="numberStyle" 
-        v-for="(item, index) in powerData[2][1].toString().split('')" 
+        v-for="(item, index) in powerData[1][1].toString().split('')" 
         :key="index">
         <img :src="'/static/wcp/' + item + '.png'" />
       </div>
@@ -30,7 +30,7 @@
     <div :style="rightBottomSpace">
       <div 
         :style="numberStyle" 
-        v-for="(item, index) in powerData[3][1].toString().split('')" 
+        v-for="(item, index) in powerData[2][1].toString().split('')" 
         :key="index">
         <img :src="'/static/wcp/' + item + '.png'" />
       </div>
@@ -39,7 +39,7 @@
     <div :style="leftBottomSpace">
       <div 
         :style="numberStyle" 
-        v-for="(item, index) in powerData[4][1].toString().split('')" 
+        v-for="(item, index) in powerData[3][1].toString().split('')" 
         :key="index">
         <img :src="'/static/wcp/' + item + '.png'" />
       </div>
@@ -81,7 +81,7 @@ export default {
       leftSpace: {
         position: 'absolute',
         top: window.innerWidth * 0.19 + 'px',
-        left: window.innerWidth * 0.15 + 'px'
+        right: window.innerWidth * 0.79 + 'px'
       },
       rightSpace: {
         position: 'absolute',
@@ -96,7 +96,7 @@ export default {
       leftBottomSpace: {
         position: 'absolute',
         bottom: '-' + window.innerWidth * 0.17 + 'px',
-        left: window.innerWidth * 0.25 + 'px'
+        right: window.innerWidth * 0.665 + 'px'
       }
     }
   },
