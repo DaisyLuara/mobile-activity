@@ -33,12 +33,7 @@ export default {
   beforeCreate() {
     document.title = '凯德绿享新生活';
     let treeTel=localStorage.getItem("treeTel")
-    let testnum=this.$route.query.num;
-    let testposition=this.$route.query.position;
     let result_url='/marketing/tree/result?id='+ this.$route.query.id+'&mobile='+treeTel
-        if(testnum){
-          result_url=result_url+'&num='+testnum+'&position='+testposition;
-        }
     if(treeTel){
       this.$router.push({
           path: result_url
@@ -62,13 +57,7 @@ export default {
       },
     //跳转的操作
       linkToPhoto(){
-        let testnum=this.$route.query.num;
-        let testposition=this.$route.query.position;
-
         let result_url='/marketing/tree/result?id='+ this.$route.query.id+"&mobile="+this.mobileNum
-        if(testnum){
-          result_url=result_url+'&num='+testnum+'&position='+testposition;
-        }
         this.$router.push({
           path: result_url
         });

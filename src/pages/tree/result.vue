@@ -94,20 +94,23 @@ export default {
   },
   created() {
     this.getInfoById();
-    wxService.getWxUserInfo(this).then(result => {
-      console.log(result)
-      let data = result.data
-      this.nick_name = data.nickname;
-      this.head_img_url = data.headimgurl;
-      this.wx_openid = data.openid;
-    }).catch(err => {
-      let pageUrl = encodeURIComponent(window.location.href)
-      let wx_auth_url = process.env.WX_API + '/wx/officialAccount/oauth?url=' + pageUrl + '&scope=snsapi_userinfo';
-      window.location.href = wx_auth_url;
-      return;
-    }) 
+    this.getUserInfo();
   },
   methods: {
+    getUserInfo() {
+      wxService.getWxUserInfo(this).then(result => {
+        console.log(result)
+        let data = result.data
+        this.nick_name = data.nickname;
+        this.head_img_url = data.headimgurl;
+        this.wx_openid = data.openid;
+      }).catch(err => {
+        let pageUrl = encodeURIComponent(window.location.href)
+        let wx_auth_url = process.env.WX_API + '/wx/officialAccount/oauth?url=' + pageUrl + '&scope=snsapi_userinfo';
+        window.location.href = wx_auth_url;
+        return;
+      }) 
+    },
     getValueByName(parms,strings){
       let string=strings.split('&');
       for(var i=0;i<string.length;i++){
@@ -120,10 +123,10 @@ export default {
     getInfoById() {
     	let id = this.$route.query.id;
 	    marketService.getInfoById(this,id).then((res) => {
-	        //this.num=this.getValueByName("num",res.parms);
-	        //this.position=this.getValueByName("position",res.parms);
-	        this.num=this.$route.query.num;
-	        this.position=this.$route.query.position;
+	        this.num=this.getValueByName("num",res.parms);
+	        this.position=this.getValueByName("position",res.parms);
+	        // this.num=this.$route.query.num;
+	        // this.position=this.$route.query.position;
 	        this.init(this.num,this.position)
 	    }).catch((err)=>{
 	        console.log(err)
