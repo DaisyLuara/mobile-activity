@@ -46,12 +46,17 @@ export default {
       head_img_url:'',
       wx_openid:'',
       placeUrl:{
-        'hklongzhimeng':' https://mall.capitaland.com.cn/hongkoulongzhimeng/lottery/egg?id=C6E2DC4D9F8D9BBB',//虹口龙之梦
-        'qibao':'https://mall.capitaland.com.cn/qibao/lottery/egg?id=F95FA6A17E920423',//七宝
-        'lzmmh':'https://mall.capitaland.com.cn/LZMmh/lottery/egg?id=AE93BAC25DC90BBD',//闵行龙之梦
-        'laifushi':'https://mall.capitaland.com.cn/sh_rafflescity/lottery/egg?id=70910977F879C80E',//上海来福士
-        'changning':'https://mall.capitaland.com.cn/RCC/lottery/egg?id=A2BB2EE7E59B25A6',//长宁来福士
-        'default':'https://mall.capitaland.com.cn/hongkoulongzhimeng/lottery/egg?id=C6E2DC4D9F8D9BBB'//默认
+        '27':' https://mall.capitaland.com.cn/hongkoulongzhimeng/lottery/egg?id=C6E2DC4D9F8D9BBB',//虹口龙之梦
+        '235':' https://mall.capitaland.com.cn/hongkoulongzhimeng/lottery/egg?id=C6E2DC4D9F8D9BBB',//虹口龙之梦
+        '234':' https://mall.capitaland.com.cn/hongkoulongzhimeng/lottery/egg?id=C6E2DC4D9F8D9BBB',//虹口龙之梦
+        '233':'https://mall.capitaland.com.cn/qibao/lottery/egg?id=F95FA6A17E920423',//七宝
+        '232':'https://mall.capitaland.com.cn/qibao/lottery/egg?id=F95FA6A17E920423',//七宝
+        '231':'https://mall.capitaland.com.cn/LZMmh/lottery/egg?id=AE93BAC25DC90BBD',//闵行龙之梦
+        '230':'https://mall.capitaland.com.cn/LZMmh/lottery/egg?id=AE93BAC25DC90BBD',//闵行龙之梦
+        '229':'https://mall.capitaland.com.cn/LZMmh/lottery/egg?id=AE93BAC25DC90BBD',//闵行龙之梦
+        '228':'https://mall.capitaland.com.cn/sh_rafflescity/lottery/egg?id=70910977F879C80E',//上海来福士
+        '21':'https://mall.capitaland.com.cn/RCC/lottery/egg?id=A2BB2EE7E59B25A6',//长宁来福士
+        '20':'https://mall.capitaland.com.cn/RCC/lottery/egg?id=A2BB2EE7E59B25A6',//长宁来福士
       },
       ashow:false,
       bshow:false,
@@ -63,10 +68,11 @@ export default {
       width:'',
       height:'',
       winWidth:'',
-      animation:'',
+      animation:null,
       num:null,
       position:null,
       phoneError: false,
+      treeData:null,
       //微信分享信息
       wxShareInfoValue: {
         title: '凯德绿享新生活~',
@@ -85,7 +91,6 @@ export default {
     this.width=this.$refs.element.offsetWidth;
     this.height=this.$refs.element.offsetHeight;
     this.winWidth=window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-    this.init();
   },
   created() {
     this.getInfoById();
@@ -100,68 +105,70 @@ export default {
       let wx_auth_url = process.env.WX_API + '/wx/officialAccount/oauth?url=' + pageUrl + '&scope=snsapi_userinfo';
       window.location.href = wx_auth_url;
       return;
-    })
+    }) 
   },
   methods: {
-    getValueByName(parms,strings,point){
-      let string1=strings.split(point);
-      for(let i=0;i<string1.length;i++){
-          let equal=string1[i].split("=");
+    getValueByName(parms,strings){
+      let string=strings.split('&');
+      for(var i=0;i<string.length;i++){
+          var equal=string[i].split("=");
           if(parms==equal[0]){
             return equal[1];
           }
       }
     },
     getInfoById() {
-      let id = this.$route.query.id;
-      marketService.getInfoById(this, id).then((res)=>{
-        this.num=this.getValueByName("num",res.parms,"&");
-        this.position=this.getValueByName("position",res.parms,"&");
-        this.num=this.num?this.num:this.$route.query.num;
-        this.position=this.position?this.position:this.$route.query.position;
-        if(this.num=='1'){
-          this.ashow=true;
-          this.bshow=false;
-          this.locked1=false;
-        }
-        if(this.num=='2'){
-          this.ashow=false;
-          this.bshow=true;
-          this.locked1=false;
-          this.locked2=false;
-        }
-        if(this.num=='3'){
-          this.ashow=false;
-          this.bshow=false;
-          this.locked1=false;
-          this.locked2=false;
-          this.locked3=false;
-          this.locked4=false;
-          this.giftUrl=this.placeUrl[this.position];
-          this.tagshow=true;
-        }
-        console.log(res.parms)
-      }).catch((err)=>{
-        console.log(err)
-
-      });
+    	let id = this.$route.query.id;
+	    marketService.getInfoById(this,id).then((res) => {
+	        //this.num=this.getValueByName("num",res.parms);
+	        //this.position=this.getValueByName("position",res.parms);
+	        this.num=this.$route.query.num;
+	        this.position=this.$route.query.position;
+	        this.init(this.num,this.position)
+	    }).catch((err)=>{
+	        console.log(err)
+	        return;
+	    });
     },
-    init() {
+    init(num,position) {
       this.renderer = new PIXI.CanvasRenderer(this.width, this.height);
       document.getElementById("treeDiv").appendChild(this.renderer.view);
       this.stage = new PIXI.Container();
       let that=this;
        PIXI.loader.add('spineCharacter', 'http://p22vy0aug.bkt.clouddn.com/spine/greenlife/treeH5.json')
                   .load(function (loader, resources) {
-                      let animation= new PIXI.spine.Spine(resources.spineCharacter.spineData);
-                      that.stage.addChild(animation);
-                      animation.state.addAnimationByName(0, that.num, true, 0); 
-                      animation.x = that.width/2+5;
-                      animation.y = that.height*7/8;
-                      animation.scale.x = that.winWidth*0.9/750;
-                      animation.scale.y = that.winWidth*0.9/750;
+                      that.animation= new PIXI.spine.Spine(resources.spineCharacter.spineData);
+                      that.stage.addChild(that.animation); 
+                      that.animation.state.addAnimationByName(0, num, true, 0); 
+                      that.animation.x = that.width/2+5;
+                      that.animation.y = that.height*7/8;
+                      that.animation.scale.x = that.winWidth*0.9/750;
+                      that.animation.scale.y = that.winWidth*0.9/750;
                       that.animate();
+                      console.log("that.num="+num)
        })
+
+       if(num=='1'){
+          this.ashow=true;
+          this.bshow=false;
+          this.locked1=false;
+        }
+        if(num=='2'){
+          this.ashow=false;
+          this.bshow=true;
+          this.locked1=false;
+          this.locked2=false;
+        }
+        if(num=='3'){
+          this.ashow=false;
+          this.bshow=false;
+          this.locked1=false;
+          this.locked2=false;
+          this.locked3=false;
+          this.locked4=false;
+          this.giftUrl=this.placeUrl[position];
+          this.tagshow=true;
+        }
     },
     animate(){
       requestAnimationFrame(this.animate);
@@ -255,15 +262,18 @@ export default {
         bottom: 17%;
         right:6%;
         z-index: 9999;
-        width:19vw;
-        height:1.7rem;
+        //width:19vw;
+        width:100%;
+        height:1.3rem;
         font-size: 0.7rem;
-        line-height: 2rem;
+        line-height: 1.3rem;
         color:#f3f1ef;
         text-align: center;
         overflow:hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        padding-left:32%;
+        padding-right:5%;
 
       }
     }
