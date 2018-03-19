@@ -186,7 +186,6 @@ export default {
 </script>
 <style lang="less" scoped>
 @imageHost: 'http://p22vy0aug.bkt.clouddn.com/image/kaidegreenlife';
-
 .clearfix:after {  
   content: ".";  
   display: block;  
