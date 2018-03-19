@@ -1,9 +1,9 @@
 <template>
     <div class="popcorn-content">
-      
         <img  class="title" :src="imgServerUrl + '/pages/popcorn/top_title.png'" alt=""/>
         <img  class="coupon" :src="imgServerUrl + '/pages/popcorn/coupon.png'" alt=""/>
         <!--手机号-->
+        <img  class="cell-icon" :src="imgServerUrl + '/pages/popcorn/cell_icon.png'" alt=""/>
         <input class="num" type="text" placeholder="请输入你的手机号" maxlength="11"   v-model="mobileNum" @click="phoneError = false" >
         <!--错误信息 autocomplete="off"-->
         <div class="error" v-show="phoneError">{{errorText}}</div>
@@ -66,7 +66,7 @@ export default {
          setTimeout(()=>{
            $(".success").css('display','none');
            this.mobileNum='';
-        },1000)  
+        },3000)  
       },  
   },
   computed: {
@@ -100,7 +100,7 @@ export default {
     img{
         border:none;
       }
-      
+
     .title{
       width: 95%;
       position:absolute;
@@ -118,9 +118,17 @@ export default {
     .error{
       display: block;
       position: absolute;
-      left: 28%;
+      left: 31%;
       top: 60%;
       color: #fff;
+      font-size:15px;
+    }
+    .cell-icon{
+      width: 6%;
+      position: absolute;
+      left: 22%;
+      top: 67%;
+      z-index: 1;
     }
     .num{
       width: 70%;
@@ -152,6 +160,7 @@ export default {
       top: 75%;
       transform: translate(-50%,-50%);
       display:none;
+      z-index:2;
       img{
         width:100%;
         height:100%;
