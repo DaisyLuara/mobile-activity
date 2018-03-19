@@ -123,10 +123,10 @@ export default {
     getInfoById() {
     	let id = this.$route.query.id;
 	    marketService.getInfoById(this,id).then((res) => {
-	        this.num=this.getValueByName("num",res.parms);
-	        this.position=this.getValueByName("position",res.parms);
-	        // this.num=this.$route.query.num;
-	        // this.position=this.$route.query.position;
+	        //this.num=this.getValueByName("num",res.parms);
+	        //this.position=this.getValueByName("position",res.parms);
+	        this.num=this.$route.query.num;
+	        this.position=this.$route.query.position;
 	        this.init(this.num,this.position)
 	    }).catch((err)=>{
 	        console.log(err)
