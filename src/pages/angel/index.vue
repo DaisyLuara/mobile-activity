@@ -150,8 +150,8 @@ export default {
       }
     },
     getImgUrl() {
-      marketService.getImageById(this, this.img_id).then((result) => {
-        this.img_url = result;
+      marketService.getInfoById(this, this.img_id).then((result) => {
+        this.img_url = result.image;
       }).catch((err) => {
         console.log(err);
       });
@@ -224,8 +224,8 @@ export default {
     },
     addCurTypeImg() {
       // 获取图片url存入数据库
-      marketService.getImageById(this, this.img_id).then((result) => {
-        this.img_url = result;
+      marketService.getInfoById(this, this.img_id).then((result) => {
+        this.img_url = result.image;
         let params = {
           img_id: this.img_id,
           open_id: this.user_info.wx_openid,
@@ -246,8 +246,8 @@ export default {
       });
     },
     updateCurTypeImg(data){
-      marketService.getImageById(this, this.img_id).then((result) => {
-        this.img_url = result;
+      marketService.getInfoById(this, this.img_id).then((result) => {
+        this.img_url = result.image;
         // 更新类型图片
         let params = {
           img_url: this.img_url,

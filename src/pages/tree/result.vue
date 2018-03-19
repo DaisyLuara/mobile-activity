@@ -6,8 +6,8 @@
       <p class="userName">{{nick_name}}</p>
     </div>
     <div class="showtree">
-      <img class="word" id="tip2" :src="imgServerUrl + '/tip2.png'" alt="" v-show="ashow"/>
-      <img class="word" id="tip1" :src="imgServerUrl + '/tip1.png'" alt="" v-show="bshow"/>
+      <img class="word" id="tip1" :src="imgServerUrl + '/tip1.png'" alt="" v-show="ashow"/>
+      <img class="word" id="tip2" :src="imgServerUrl + '/tip2.png'" alt="" v-show="bshow"/>
       <div class="trees" id="treeDiv" ref="element"></div>
     </div>
     <img class="titnote clearfix" :src="imgServerUrl + '/board.png'">
@@ -30,9 +30,7 @@
 import marketService from 'services/marketing';
 import WxShare from 'modules/wxShare';
 import wxService from 'services/wx';
-import parseService from 'modules/parseServer';
 import { customTrack } from 'modules/customTrack';
-import CouponService from 'services/freecartCoupon'
 import Pixi from  './pixi.js';
 import Spine from  './pixi-spine.js';
 
@@ -66,7 +64,7 @@ export default {
       height:'',
       winWidth:'',
       animation:'',
-      num:'0',
+      num:null,
       position:null,
       phoneError: false,
       //微信分享信息
@@ -83,18 +81,14 @@ export default {
     document.title = '凯德绿享新生活';
   },
   mounted(){
-    
     $('.greenlife-content').css('min-height', $(window).height());
     this.width=this.$refs.element.offsetWidth;
     this.height=this.$refs.element.offsetHeight;
     this.winWidth=window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
     this.init();
-
   },
   created() {
-    
-    console.log(this.$route.query.num)
-    console.log(this.$route.query.position)
+    this.getInfoById();
     wxService.getWxUserInfo(this).then(result => {
       console.log(result)
       let data = result.data
@@ -107,34 +101,51 @@ export default {
       window.location.href = wx_auth_url;
       return;
     })
-    
-    this.num=this.$route.query.num;
-    this.position=this.$route.query.position;
-    if(this.num=='1'){
-      this.ashow=true;
-      this.bshow=false;
-      this.locked1=false;
-    }
-    if(this.num=='2'){
-      this.ashow=false;
-      this.bshow=true;
-      this.locked1=false;
-      this.locked2=false;
-    }
-    if(this.num=='3'){
-      this.ashow=false;
-      this.bshow=false;
-      this.locked1=false;
-      this.locked2=false;
-      this.locked3=false;
-      this.locked4=false;
-      this.giftUrl=this.placeUrl[this.position];
-      this.tagshow=true;
-    }
-    
-    
   },
   methods: {
+    getValueByName(parms,strings,point){
+      let string1=strings.split(point);
+      for(let i=0;i<string1.length;i++){
+          let equal=string1[i].split("=");
+          if(parms==equal[0]){
+            return equal[1];
+          }
+      }
+    },
+    getInfoById() {
+      let id = this.$route.query.id;
+      marketService.getInfoById(this, id).then((res)=>{
+        this.num=this.getValueByName("num",res.parms,"&");
+        this.position=this.getValueByName("position",res.parms,"&");
+        this.num=this.num?this.num:this.$route.query.num;
+        this.position=this.position?this.position:this.$route.query.position;
+        if(this.num=='1'){
+          this.ashow=true;
+          this.bshow=false;
+          this.locked1=false;
+        }
+        if(this.num=='2'){
+          this.ashow=false;
+          this.bshow=true;
+          this.locked1=false;
+          this.locked2=false;
+        }
+        if(this.num=='3'){
+          this.ashow=false;
+          this.bshow=false;
+          this.locked1=false;
+          this.locked2=false;
+          this.locked3=false;
+          this.locked4=false;
+          this.giftUrl=this.placeUrl[this.position];
+          this.tagshow=true;
+        }
+        console.log(res.parms)
+      }).catch((err)=>{
+        console.log(err)
+
+      });
+    },
     init() {
       this.renderer = new PIXI.CanvasRenderer(this.width, this.height);
       document.getElementById("treeDiv").appendChild(this.renderer.view);
@@ -143,9 +154,8 @@ export default {
        PIXI.loader.add('spineCharacter', 'http://p22vy0aug.bkt.clouddn.com/spine/greenlife/treeH5.json')
                   .load(function (loader, resources) {
                       let animation= new PIXI.spine.Spine(resources.spineCharacter.spineData);
-                     
                       that.stage.addChild(animation);
-                      animation.state.addAnimationByName(0, that.num, true, 0);
+                      animation.state.addAnimationByName(0, that.num, true, 0); 
                       animation.x = that.width/2+5;
                       animation.y = that.height*7/8;
                       animation.scale.x = that.winWidth*0.9/750;
@@ -156,8 +166,7 @@ export default {
     animate(){
       requestAnimationFrame(this.animate);
       this.renderer.render(this.stage);
-    }
-   
+    },
   },
   computed: {
     //微信分享
@@ -189,48 +198,20 @@ export default {
 }
 .translate2d(@x,@y){
   transform:translate(@x,@y);
-  -webkit-transform:translate(@x,@y);
-  -moz-transform:translate(@x,@y);
-  -ms-transform:translate(@x,@y);
-  -o-transform:translate(@x,@y);
 }
 .rotate2d(@x,@y){
   transform:rotate(@x,@y);
-  -webkit-transform:rotate(@x,@y);
-  -moz-transform:rotate(@x,@y);
-  -ms-transform:rotate(@x,@y);
-  -o-transform:rotate(@x,@y);
 }
 .translate3d(@x,@y,@z){
   transform:translate(@x,@y,@z);
-  -webkit-transform:translate(@x,@y,@z);
-  -moz-transform:translate(@x,@y,@z);
-  -ms-transform:translate(@x,@y,@z);
-  -o-transform:translate(@x,@y,@z);
 }
 .rotate3d(@x,@y,@z){
   transform:rotateX(@x);
-  -webkit-transform:rotateX(@x);
-  -moz-transform:rotateX(@x);
-  -ms-transform:rotateX(@x);
-  -o-transform:rotateX(@x);
   transform:rotateY(@y);
-  -webkit-transform:rotateY(@y);
-  -moz-transform:rotateY(@y);
-  -ms-transform:rotateY(@y);
-  -o-transform:rotateY(@y);
   transform:rotateZ(@z);
-  -webkit-transform:rotateZ(@z);
-  -moz-transform:rotateZ(@z);
-  -ms-transform:rotateZ(@z);
-  -o-transform:rotateZ(@z);
 }
 .border(@radius:50%){
   border-radius: @radius;
-  -webkit-border-radius: @radius;
-  -moz-border-radius: @radius;
-  -ms-border-radius: @radius;
-  -o-border-radius: @radius;
 }
 .greenlife-content{
   width:100%;
@@ -247,44 +228,44 @@ export default {
     background-position:center 6%,center top,center bottom;
     background-color:#030d01;
     .user{
-    position: absolute;
-    right:0;
-    //top:7%;
-    top:7vh;
-    width:26vw;
-    z-index: 9999;
-    //top:;
-    .cover{
-      width:100%;
-      position: relative;
-      z-index: 999;
-    }
-    #userImg{
       position: absolute;
-      .border();
-      width:16vw;
-      left:26%;
-      top:26%;
-      z-index: 9;
-      
-    }
-    .userName{
-      position: absolute;
-      bottom: 17%;
-      right:6%;
+      right:0;
+      //top:7%;
+      top:5.5vh;
+      width:26vw;
       z-index: 9999;
-      width:19vw;
-      height:1.7rem;
-      font-size: 0.7rem;
-      line-height: 2rem;
-      color:#f3f1ef;
-      text-align: center;
-      overflow:hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+      //top:;
+      .cover{
+        width:100%;
+        position: relative;
+        z-index: 999;
+      }
+      #userImg{
+        position: absolute;
+        .border();
+        width:16vw;
+        left:26%;
+        top:26%;
+        z-index: 9;
+        
+      }
+      .userName{
+        position: absolute;
+        bottom: 17%;
+        right:6%;
+        z-index: 9999;
+        width:19vw;
+        height:1.7rem;
+        font-size: 0.7rem;
+        line-height: 2rem;
+        color:#f3f1ef;
+        text-align: center;
+        overflow:hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
 
+      }
     }
-  }
 
   .showtree{
     position: relative;
@@ -323,7 +304,6 @@ export default {
   .titnote{
     position: relative;
     width:51.5vw;
-    // .translate2d(0,-37%);
     margin-top:-5%;
     margin-left:1%;
     float: left;
@@ -338,7 +318,6 @@ export default {
       display: inline-block;
       width:95%;
       margin:0 auto;
-      //margin-top:-1%;
     }
     ul li{
       list-style: none;

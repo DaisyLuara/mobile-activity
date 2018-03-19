@@ -4,18 +4,12 @@
         <input class="num" type="text" placeholder="请输入你的手机号" maxlength="11"   v-model="mobileNum" @click="phoneError = false" >
         <!--错误信息 autocomplete="off"-->
         <div class="error" v-show="phoneError">{{errorText}}</div>
-        <img class="phone-button" :src="imgServerUrl + '/button.png'" alt="" @click="redirectToPhoto()"/>
-        <div class="success">
-          <img :src="imgServerUrl + '/button2.png'" alt=""/>
-        </div>
+        <button class="phone-button"  @click="redirectToPhoto()"></button>
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
    </div>
 </template>
 <script>
-import marketService from 'services/marketing';
 import WxShare from 'modules/wxShare';
-import wxService from 'services/wx';
-import parseService from 'modules/parseServer';
 import { customTrack } from 'modules/customTrack';
 
 export default {
@@ -38,6 +32,18 @@ export default {
   },
   beforeCreate() {
     document.title = '凯德绿享新生活';
+    let treeTel=localStorage.getItem("treeTel")
+    let testnum=this.$route.query.num;
+    let testposition=this.$route.query.position;
+    let result_url='/marketing/tree/result?id='+ this.$route.query.id+'&mobile='+treeTel
+        if(testnum){
+          result_url=result_url+'&num='+testnum+'&position='+testposition;
+        }
+    if(treeTel){
+      this.$router.push({
+          path: result_url
+        });
+    }
   },
   mounted(){
     $('.greenlife-content').css('min-height', $(window).height());
@@ -56,16 +62,18 @@ export default {
       },
     //跳转的操作
       linkToPhoto(){
-       console.log("111111");
-        $(".success").css('display','block');
+        let testnum=this.$route.query.num;
+        let testposition=this.$route.query.position;
+
+        let result_url='/marketing/tree/result?id='+ this.$route.query.id+"&mobile="+this.mobileNum
+        if(testnum){
+          result_url=result_url+'&num='+testnum+'&position='+testposition;
+        }
         this.$router.push({
-          path: '/marketing/tree/result'
+          path: result_url
         });
-         setTimeout(()=>{
-           $(".success").css('display','none');
-           this.mobileNum='';
-        },1000)  
-      },  
+        localStorage.setItem("treeTel",this.mobileNum); 
+      },
   },
   computed: {
     //微信分享
@@ -97,48 +105,20 @@ export default {
 }
 .translate2d(@x,@y){
   transform:translate(@x,@y);
-  -webkit-transform:translate(@x,@y);
-  -moz-transform:translate(@x,@y);
-  -ms-transform:translate(@x,@y);
-  -o-transform:translate(@x,@y);
 }
 .rotate2d(@x,@y){
   transform:rotate(@x,@y);
-  -webkit-transform:rotate(@x,@y);
-  -moz-transform:rotate(@x,@y);
-  -ms-transform:rotate(@x,@y);
-  -o-transform:rotate(@x,@y);
 }
 .translate3d(@x,@y,@z){
   transform:translate(@x,@y,@z);
-  -webkit-transform:translate(@x,@y,@z);
-  -moz-transform:translate(@x,@y,@z);
-  -ms-transform:translate(@x,@y,@z);
-  -o-transform:translate(@x,@y,@z);
 }
 .rotate3d(@x,@y,@z){
   transform:rotateX(@x);
-  -webkit-transform:rotateX(@x);
-  -moz-transform:rotateX(@x);
-  -ms-transform:rotateX(@x);
-  -o-transform:rotateX(@x);
   transform:rotateY(@y);
-  -webkit-transform:rotateY(@y);
-  -moz-transform:rotateY(@y);
-  -ms-transform:rotateY(@y);
-  -o-transform:rotateY(@y);
   transform:rotateZ(@z);
-  -webkit-transform:rotateZ(@z);
-  -moz-transform:rotateZ(@z);
-  -ms-transform:rotateZ(@z);
-  -o-transform:rotateZ(@z);
 }
 .border(@radius:50%){
   border-radius: @radius;
-  -webkit-border-radius: @radius;
-  -moz-border-radius: @radius;
-  -ms-border-radius: @radius;
-  -o-border-radius: @radius;
 }
 .greenlife-content{
       width:100%;
@@ -178,6 +158,9 @@ export default {
     }
     .phone-button{
       width: 70%;
+      height: 7.5%;
+      border:none;
+      background-color: transparent;
       position: absolute;
       left: 50%;
       top: 56%;
