@@ -118,9 +118,10 @@ export default {
     .error{
       display: block;
       position: absolute;
-      left: 28%;
+      left: 31%;
       top: 60%;
       color: #fff;
+      font-size:15px;
     }
     .cell-icon{
       width: 6%;
