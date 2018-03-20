@@ -82,6 +82,7 @@ export default {
 </script>
 <style lang="less" scoped>
 @imageHost: 'http://p22vy0aug.bkt.clouddn.com/image/kaidegreenlife';
+iframe { display:block; }
 .clearfix:after {  
   content: ".";  
   display: block;  
