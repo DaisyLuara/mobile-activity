@@ -178,7 +178,7 @@ export default {
           this.locked2=false;
           this.locked3=false;
           this.locked4=false;
-          this.giftUrl=this.placeUrl[pos];
+          this.giftUrl=this.placeUrl[pos] ? this.placeUrl[pos] : this.placeUrl['default'];
           this.tagshow=true;
         }
     },
