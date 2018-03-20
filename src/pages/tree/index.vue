@@ -25,7 +25,7 @@ export default {
       //微信分享信息
       wxShareInfoValue: {
         title: '凯德绿享新生活',
-        desc: '凯德绿享新生活',
+        desc: '争当森林小卫士',
         imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/kaidegreenlife/icon.jpg',
       },
     };
@@ -82,7 +82,6 @@ export default {
 </script>
 <style lang="less" scoped>
 @imageHost: 'http://p22vy0aug.bkt.clouddn.com/image/kaidegreenlife';
-iframe { display:block; }
 .clearfix:after {  
   content: ".";  
   display: block;  
