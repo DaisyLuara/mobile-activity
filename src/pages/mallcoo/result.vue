@@ -27,6 +27,8 @@ export default {
 			mallMsg:'',
 			quanMsg:'',
 			user_open_id:null,
+			//授权链接
+			auto_url:'https://m.mallcoo.cn/a/open/User/V2/OAuth/BaseInfo/?AppID=5aa65a593ae74e0fd06d1b64&PublicKey=q4Cfej&CallbackUrl=http%3A%2F%2Fsapi.newgls.cn%2Fapi%2Fs%2FR6q',
 			//微信分享信息
 			wxShareInfoValue: {
 				title:'马里奥2.0',
@@ -39,7 +41,7 @@ export default {
 		document.title = '马里奥2.0';
 	},
 	created(){
-
+		this.linkToMall(this.auto_url);
 	},
 	mounted(){
 		$('.mallcoo-content').css('min-height',$(window).height());

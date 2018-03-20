@@ -100,12 +100,19 @@ export default {
     this.getInfoById();
   },
   created() {
+    console.log(this.$route)
     // this.getInfoById();
-    this.getUserInfo();
+    if(this.$route.query.nick_name){
+      this.nick_name=this.$route.query.nick_name;
+      this.head_img_url=this.$route.query.head_img_url;
+    }else{
+      this.getUserInfo();
+    }
     this.pushHistory();
   },
   methods: {
     getUserInfo() {
+      if(this.$route)
       wxService.getWxUserInfo(this).then(result => {
         console.log(result)
         let data = result.data
@@ -131,8 +138,6 @@ export default {
     getInfoById() {
     	let id = this.$route.query.id;
 	    marketService.getInfoById(this,id).then((res) => {
-          // this.num=this.$route.query.num;
-          // this.pos=this.$route.query.pos;
 	        this.num=this.getValueByName("num",res.parms);
 	        this.pos=this.getValueByName("pos",res.parms);
           console.log(this.num+"&"+this.pos)
@@ -203,6 +208,7 @@ export default {
         title: this.wxShareInfoValue.title,
         desc: this.wxShareInfoValue.desc,
         imgUrl: this.wxShareInfoValue.imgUrl,
+        link:window.location.href+'&nick_name='+this.nick_name+'&head_img_url='+head_img_url,
         success: () => {
           customTrack.shareWeChat();
         },
@@ -254,6 +260,7 @@ export default {
 .greenlife-content{
   width:100%;
   overflow-x: hidden;
+  transform: translate3d(0,0,0);
   -webkit-overflow-scrolling:touch;
   text-align: center;
   background-image: url("@{imageHost}/title.png"),url("@{imageHost}/leaf1.png"),url("@{imageHost}/leaf2.png");
