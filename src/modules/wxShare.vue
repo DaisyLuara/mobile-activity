@@ -20,7 +20,7 @@
           this.$http.get(requestUrl).then((response) => {
             let resData = response.data.data;
             let wxConfig = {
-              debug: false,
+              debug: true,
               appId: resData.appId,
               timestamp: resData.timestamp,
               nonceStr: resData.nonceStr,

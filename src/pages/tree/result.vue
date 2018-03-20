@@ -106,15 +106,16 @@ export default {
       this.nick_name=this.$route.query.nick_name;
       this.head_img_url=this.$route.query.head_img_url;
     }else{
-      this.getUserInfo();
+      console.log("aaa")
+      // this.getUserInfo();
     }
     this.pushHistory();
   },
   methods: {
     getUserInfo() {
-      if(this.$route)
+      // if(this.$route)
       wxService.getWxUserInfo(this).then(result => {
-        console.log(result)
+        // console.log(result)
         let data = result.data
         this.nick_name = data.nickname;
         this.head_img_url = data.headimgurl;
@@ -204,17 +205,11 @@ export default {
   computed: {
     //微信分享
     wxShareInfo() {
-      let link = ''
-      if(this.$route.query.nick_name || this.$route.query.head_img_url){
-        link = window.location.href;
-      }else{
-        link = window.location.href+'&nick_name='+this.nick_name+'&head_img_url='+this.head_img_url
-      }
       let wxShareInfo = {
         title: this.wxShareInfoValue.title,
         desc: this.wxShareInfoValue.desc,
         imgUrl: this.wxShareInfoValue.imgUrl,
-        link: link,
+        link: this.$route.query.nick_name ? window.location.href : window.location.href+'&nick_name='+this.nick_name+'&head_img_url='+this.head_img_url,
         success: () => {
           customTrack.shareWeChat();
         },
