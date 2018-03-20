@@ -57,7 +57,8 @@ export default {
         '228':'https://mall.capitaland.com.cn/sh_rafflescity/lottery/egg?id=70910977F879C80E',//上海来福士
         '21':'https://mall.capitaland.com.cn/RCC/lottery/egg?id=A2BB2EE7E59B25A6',//长宁来福士
         '20':'https://mall.capitaland.com.cn/RCC/lottery/egg?id=A2BB2EE7E59B25A6',//长宁来福士
-        'default':'https://mall.capitaland.com.cn/hongkoulongzhimeng/lottery/egg?id=41D47A1728D82E6D'//默认链接
+        '30':'https://mall.capitaland.com.cn/hongkoulongzhimeng/lottery/egg?id=41D47A1728D82E6D',//测试链接
+        '31':'https://mall.capitaland.com.cn/hongkoulongzhimeng/lottery/egg?id=41D47A1728D82E6D'//开发链接
       },
       ashow:false,
       bshow:false,
@@ -178,7 +179,7 @@ export default {
           this.locked2=false;
           this.locked3=false;
           this.locked4=false;
-          this.giftUrl=this.placeUrl[pos] ? this.placeUrl[pos] : this.placeUrl['default'];
+          this.giftUrl=this.placeUrl[pos];
           this.tagshow=true;
         }
     },

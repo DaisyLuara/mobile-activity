@@ -54,11 +54,13 @@ export default {
 
 		},
 		//跳转操作
-		linkToMall(){
-
+		linkToMall(result_url){
+			this.router.push({
+				path:result_url,
+			})
 		},
 		saveUserOpenId(){
-
+			if()
 		}
 
 	},
