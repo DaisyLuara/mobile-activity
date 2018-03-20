@@ -208,7 +208,7 @@ export default {
         title: this.wxShareInfoValue.title,
         desc: this.wxShareInfoValue.desc,
         imgUrl: this.wxShareInfoValue.imgUrl,
-        link:window.location.href+'&nick_name='+this.nick_name+'&head_img_url='+head_img_url,
+        link:window.location.href+'&nick_name='+this.nick_name+'&head_img_url='+this.head_img_url,
         success: () => {
           customTrack.shareWeChat();
         },
