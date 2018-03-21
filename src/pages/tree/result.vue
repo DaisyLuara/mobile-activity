@@ -127,7 +127,7 @@ export default {
         this.head_img_url = data.headimgurl;
         this.wx_openid = data.openid;
         let link = setParameter('nick_name', encodeURIComponent(this.nick_name));
-        // link = setParameter('head_img_url', encodeURIComponent(this.head_img_url), link);
+        link = setParameter('head_img_url', encodeURIComponent(this.head_img_url), link);
         // alert(link)
         this.wxShareInfoValue.link = link ;
 
