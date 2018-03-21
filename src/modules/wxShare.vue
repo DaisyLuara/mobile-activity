@@ -40,7 +40,6 @@
       },
       wxShare(shareInfo) {
         wx.ready(() => {
-          alert('wxready: '+ shareInfo.link)
           wx.onMenuShareAppMessage(shareInfo);
           wx.onMenuShareTimeline(shareInfo);
           wx.onMenuShareQQ(shareInfo);
@@ -60,7 +59,6 @@
         this.init();
       },
       'WxShareInfo.link': function() {
-        alert(this.WxShareInfo.link)
         this.init();
       },
       'WxShareInfo.success': function() {
