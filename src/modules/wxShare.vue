@@ -59,6 +59,7 @@
         this.init();
       },
       'WxShareInfo.link': function() {
+        alert(this.WxShareInfo.link)
         this.init();
       },
       'WxShareInfo.success': function() {
