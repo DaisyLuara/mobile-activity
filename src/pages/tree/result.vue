@@ -79,7 +79,7 @@ export default {
       wxShareInfoValue: {
         title: '凯德绿享新生活~',
         desc: '争当森林小卫士',
-        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/kaidegreenlife/icon.jpg'
+        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/kaidegreenlife/icon.jpg',
       },
       renderer: null,
       stage: null,
@@ -89,7 +89,7 @@ export default {
     document.title = '凯德绿享新生活';
   },
   mounted(){
-    console.log(11111);
+    
     $('.greenlife-content').css('min-height', $(window).height());
     $('.showtree').css('height', $('.greenlife-content').height()*0.66);
     $('.lockgroup').css('min-height', $('.greenlife-content').height()*0.34);
@@ -102,32 +102,33 @@ export default {
   },
   created() {
     console.log(this.$route)
-    // this.getInfoById();
     if(this.$route.query.nick_name){
       this.nick_name=this.$route.query.nick_name;
       this.head_img_url=this.$route.query.head_img_url;
     }else{
-      console.log("aaa")
       this.getUserInfo();
     }
     this.pushHistory();
   },
   methods: {
     getUserInfo() {
-      // if(this.$route)
+      
       wxService.getWxUserInfo(this).then(result => {
-        // console.log(result)
+        
         let data = result.data
         this.nick_name = data.nickname;
         this.head_img_url = data.headimgurl;
         this.wx_openid = data.openid;
+        
       }).catch(err => {
         let pageUrl = encodeURIComponent(window.location.href)
         let wx_auth_url = process.env.WX_API + '/wx/officialAccount/oauth?url=' + pageUrl + '&scope=snsapi_userinfo';
         window.location.href = wx_auth_url;
         return;
       })
+
     },
+    
     getValueByName(parms,strings){
       let string=strings.split('&');
       for(var i=0;i<string.length;i++){
@@ -205,15 +206,16 @@ export default {
   },
   computed: {
     //微信分享
-    wxShareInfo() {
+    wxShareInfo(nickname,headimgurl) {
       let wxShareInfo = {
         title: this.wxShareInfoValue.title,
         desc: this.wxShareInfoValue.desc,
         imgUrl: this.wxShareInfoValue.imgUrl,
-        link: this.$route.query.nick_name ? window.location.href : window.location.href+'&nick_name='+this.nick_name+'&head_img_url='+this.head_img_url,
+        link: this.$route.query.nick_name ? window.location.href : window.location.href+encodeURIComponent('&nick_name='+this.nick_name+'&head_img_url='+this.head_img_url),
         success: () => {
           customTrack.shareWeChat();
           console.log(wxShareInfo.link)
+          console.log('cccc');
         },
       };
       return wxShareInfo;
@@ -264,7 +266,7 @@ export default {
   width:100%;
   overflow-x: hidden;
   transform: translate3d(0,0,0);
-  -webkit-overflow-scrolling:touch;
+  -webkit-overflow-scrolling:auto;
   text-align: center;
   background-image: url("@{imageHost}/title.png"),url("@{imageHost}/leaf1.png"),url("@{imageHost}/leaf2.png");
   background-size: 62% auto,100% auto,100% auto;
