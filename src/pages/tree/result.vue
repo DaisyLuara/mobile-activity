@@ -98,6 +98,7 @@ export default {
     this.height=this.$refs.element.offsetHeight;
     this.winWidth=window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
     this.getInfoById();
+
   },
   created() {
     console.log(this.$route)
@@ -107,7 +108,7 @@ export default {
       this.head_img_url=this.$route.query.head_img_url;
     }else{
       console.log("aaa")
-      // this.getUserInfo();
+      this.getUserInfo();
     }
     this.pushHistory();
   },
@@ -212,6 +213,7 @@ export default {
         link: this.$route.query.nick_name ? window.location.href : window.location.href+'&nick_name='+this.nick_name+'&head_img_url='+this.head_img_url,
         success: () => {
           customTrack.shareWeChat();
+          console.log(wxShareInfo.link)
         },
       };
       return wxShareInfo;
