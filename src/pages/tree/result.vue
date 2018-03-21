@@ -107,12 +107,12 @@ export default {
 
   },
   created() {
-    if(this.$route.query.nick_name){
-      alert('地址栏有nickname')
+    if(this.$route.query.nick_name || this.$route.query.head_img_url){
+      alert('地址栏有用户信息')
       this.nick_name=this.$route.query.nick_name;
       this.head_img_url=this.$route.query.head_img_url;
     }else{
-      alert('地址栏没有nickname')
+      alert('地址栏没有用户信息')
       this.getUserInfo();
     }
     // this.pushHistory();
@@ -126,7 +126,9 @@ export default {
         this.nick_name = data.nickname;
         this.head_img_url = data.headimgurl;
         this.wx_openid = data.openid;
-        let link = setParameter('nick_name', 'zjj');
+        let link = setParameter('nick_name', encodeURIComponent(this.nick_name));
+        // link = setParameter('head_img_url', encodeURIComponent(this.head_img_url), link);
+        // alert(link)
         this.wxShareInfoValue.link = link ;
 
       }).catch(err => {
