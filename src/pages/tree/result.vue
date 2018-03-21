@@ -80,6 +80,11 @@ export default {
         title: '凯德绿享新生活~',
         desc: '争当森林小卫士',
         imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/kaidegreenlife/icon.jpg',
+        link: '',
+        success: () => {
+          customTrack.shareWeChat();
+          console.log('微信分享成功');
+        }
       },
       renderer: null,
       stage: null,
@@ -101,7 +106,6 @@ export default {
 
   },
   created() {
-    console.log(this.$route)
     if(this.$route.query.nick_name){
       alert('地址栏有nickname')
       this.nick_name=this.$route.query.nick_name;
@@ -121,7 +125,8 @@ export default {
         this.nick_name = data.nickname;
         this.head_img_url = data.headimgurl;
         this.wx_openid = data.openid;
-        
+        this.wxShareInfoValue.link = window.location.href+'&nick_name='+this.nick_name+'&head_img_url='+this.head_img_url;
+
       }).catch(err => {
         let pageUrl = encodeURIComponent(window.location.href)
         let wx_auth_url = process.env.WX_API + '/wx/officialAccount/oauth?url=' + pageUrl + '&scope=snsapi_userinfo';
@@ -145,9 +150,9 @@ export default {
 	    marketService.getInfoById(this,id).then((res) => {
 	        this.num=this.getValueByName("num",res.parms);
 	        this.pos=this.getValueByName("pos",res.parms);
-          console.log(this.num+"&"+this.pos)
+          // console.log(this.num+"&"+this.pos)
 	        this.init(this.num,this.pos)
-          console.log(res.parms)
+          // console.log(res.parms)
 	    }).catch((err)=>{
 	        console.log(err)
 	        return;
