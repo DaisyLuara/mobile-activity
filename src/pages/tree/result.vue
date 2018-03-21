@@ -103,9 +103,11 @@ export default {
   created() {
     console.log(this.$route)
     if(this.$route.query.nick_name){
+      alert('地址栏有nickname')
       this.nick_name=this.$route.query.nick_name;
       this.head_img_url=this.$route.query.head_img_url;
     }else{
+      alert('地址栏没有nickname')
       this.getUserInfo();
     }
     this.pushHistory();
@@ -211,7 +213,7 @@ export default {
         title: this.wxShareInfoValue.title,
         desc: this.wxShareInfoValue.desc,
         imgUrl: this.wxShareInfoValue.imgUrl,
-        link: this.$route.query.nick_name ? window.location.href : window.location.href+encodeURIComponent('&nick_name='+this.nick_name+'&head_img_url='+this.head_img_url),
+        link: this.$route.query.nick_name ? window.location.href : window.location.href+'&nick_name='+this.nick_name+'&head_img_url='+this.head_img_url,
         success: () => {
           customTrack.shareWeChat();
           console.log(wxShareInfo.link)
