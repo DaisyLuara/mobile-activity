@@ -1,12 +1,12 @@
 <template>
-	<div class="mallcoo-content">
+	<div class="mallcoo-content" >
 		<div class="quan-img" @click="">
 			{{ quanMsg }}
 			<img :src="imgUrl" alt=""/>
-			}
 		</div>
 		<div class="mallMsg">{{mallMsg}}</div>
 		<div class="userMsg">{{userMsg}}</div>
+		<wx-share :WxShareInfo="wxShareInfo"></wx-share>
 	</div>
 </template>
 <script>
@@ -28,25 +28,34 @@ export default {
 			quanMsg:'',
 			user_open_id:null,
 			//授权链接
-			auto_url:'https://m.mallcoo.cn/a/open/User/V2/OAuth/BaseInfo/?AppID=5aa65a593ae74e0fd06d1b64&PublicKey=q4Cfej&CallbackUrl=http%3A%2F%2Fsapi.newgls.cn%2Fapi%2Fs%2FR6q',
+			authorize_url:'https://m.mallcoo.cn/a/open/User/V2/OAuth/BaseInfo/?AppID=5aa65a593ae74e0fd06d1b64&PublicKey=q4Cfej&CallbackUrl=http%3A%2F%2Fsapi.newgls.cn%2Fapi%2Fs%2FR6q',
+			url:'',
 			//微信分享信息
 			wxShareInfoValue: {
 				title:'马里奥2.0',
 				desc:'猫酷平台获取券',
-				imgUrl:''
+				imgUrl:'',
 			},
+			originUrl:null,
 		};
 	},
 	beforeCreate(){
 		document.title = '马里奥2.0';
 	},
 	created(){
-		this.linkToMall(this.auto_url);
+		window.location.href=ecodeURIComponent(this.authorize_url)+window.location.href;
+
 	},
 	mounted(){
 		$('.mallcoo-content').css('min-height',$(window).height());
+		console.log(decodeURIComponent(this.authorize_url))
 	},
 	methods:{
+		//授权跳转
+		getAuthorize(){
+			
+			
+		},
 		//获取券信息
 		getQuanMsg(){
 
@@ -56,14 +65,14 @@ export default {
 
 		},
 		//跳转操作
-		linkToMall(result_url){
-			this.router.push({
+		linkToPath(result_url){
+			this.$router.push({
 				path:result_url,
 			})
 		},
 		saveUserOpenId(){
-			if()
-		}
+			
+		},
 
 	},
 	computed: {
@@ -79,6 +88,7 @@ export default {
 			return wxShareInfo;
 		},
 	},
+
 };
 </script>
 <style  lang="less" scoped>
@@ -94,6 +104,21 @@ export default {
 			margin:0 auto;
 			text-align:center;
 			border:solid 1px red;
+			min-height:200px;
+			img{
+				width:100%;
+				height:auto;
+			}
+		}
+		.mallMsg{
+			font-size: 20px;
+			color:red;
+			line-height: 30px;
+		}
+		.userMsg{
+			font-size: 24px;
+			color:#666;
+			line-height: 30px;
 		}
 	}
 </style>
