@@ -23,7 +23,7 @@
       <a :href="giftUrl" :class="{agift:true,'locked':locked4}"><img :src="imgServerUrl + '/gift.png'"></a>
       <img class="tag" :src="imgServerUrl + '/tag.png'" v-show="tagshow"/>
     </div>
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+    <wx-share :WxShareInfo="wxShareInfoValue"></wx-share>
   </div>
 </template>
 <script>
@@ -80,6 +80,11 @@ export default {
         title: '凯德绿享新生活~',
         desc: '争当森林小卫士',
         imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/kaidegreenlife/icon.jpg',
+        link: '',
+        success: () => {
+          customTrack.shareWeChat();
+          console.log('微信分享成功');
+        }
       },
       renderer: null,
       stage: null,
@@ -89,7 +94,7 @@ export default {
     document.title = '凯德绿享新生活';
   },
   mounted(){
-    console.log(11111);
+
     $('.greenlife-content').css('min-height', $(window).height());
     $('.showtree').css('height', $('.greenlife-content').height()*0.66);
     $('.lockgroup').css('min-height', $('.greenlife-content').height()*0.34);
@@ -98,34 +103,39 @@ export default {
     this.height=this.$refs.element.offsetHeight;
     this.winWidth=window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
     this.getInfoById();
+
   },
   created() {
-    console.log(this.$route)
-    // this.getInfoById();
     if(this.$route.query.nick_name){
+      alert('地址栏有nickname')
       this.nick_name=this.$route.query.nick_name;
       this.head_img_url=this.$route.query.head_img_url;
     }else{
+      alert('地址栏没有nickname')
       this.getUserInfo();
     }
-    this.pushHistory();
+    // this.pushHistory();
   },
   methods: {
     getUserInfo() {
-      if(this.$route)
+
       wxService.getWxUserInfo(this).then(result => {
-        console.log(result)
+
         let data = result.data
         this.nick_name = data.nickname;
         this.head_img_url = data.headimgurl;
         this.wx_openid = data.openid;
+        this.wxShareInfoValue.link = window.location.href+'&nick_name='+this.nick_name;
+
       }).catch(err => {
         let pageUrl = encodeURIComponent(window.location.href)
         let wx_auth_url = process.env.WX_API + '/wx/officialAccount/oauth?url=' + pageUrl + '&scope=snsapi_userinfo';
         window.location.href = wx_auth_url;
         return;
       })
+
     },
+
     getValueByName(parms,strings){
       let string=strings.split('&');
       for(var i=0;i<string.length;i++){
@@ -140,9 +150,9 @@ export default {
 	    marketService.getInfoById(this,id).then((res) => {
 	        this.num=this.getValueByName("num",res.parms);
 	        this.pos=this.getValueByName("pos",res.parms);
-          console.log(this.num+"&"+this.pos)
+          // console.log(this.num+"&"+this.pos)
 	        this.init(this.num,this.pos)
-          console.log(res.parms)
+          // console.log(res.parms)
 	    }).catch((err)=>{
 	        console.log(err)
 	        return;
@@ -203,14 +213,16 @@ export default {
   },
   computed: {
     //微信分享
-    wxShareInfo() {
+    wxShareInfo(nickname,headimgurl) {
       let wxShareInfo = {
         title: this.wxShareInfoValue.title,
         desc: this.wxShareInfoValue.desc,
         imgUrl: this.wxShareInfoValue.imgUrl,
-        link:window.location.href+'&nick_name='+this.nick_name+'&head_img_url='+this.head_img_url,
+        link: this.$route.query.nick_name ? window.location.href : window.location.href+'&nick_name='+this.nick_name+'&head_img_url='+this.head_img_url,
         success: () => {
           customTrack.shareWeChat();
+          console.log(wxShareInfo.link)
+          console.log('cccc');
         },
       };
       return wxShareInfo;
@@ -261,7 +273,7 @@ export default {
   width:100%;
   overflow-x: hidden;
   transform: translate3d(0,0,0);
-  -webkit-overflow-scrolling:touch;
+  -webkit-overflow-scrolling:auto;
   text-align: center;
   background-image: url("@{imageHost}/title.png"),url("@{imageHost}/leaf1.png"),url("@{imageHost}/leaf2.png");
   background-size: 62% auto,100% auto,100% auto;
