@@ -27,6 +27,7 @@
   </div>
 </template>
 <script>
+import { getParamsMap, getParameter, setParameter } from 'modules/util'
 import marketService from 'services/marketing';
 import WxShare from 'modules/wxShare';
 import wxService from 'services/wx';
@@ -125,7 +126,8 @@ export default {
         this.nick_name = data.nickname;
         this.head_img_url = data.headimgurl;
         this.wx_openid = data.openid;
-        this.wxShareInfoValue.title = 'zjj';
+        let link = setParameter('nick_name', 'zjj');
+        this.wxShareInfoValue.link = link ;
 
       }).catch(err => {
         let pageUrl = encodeURIComponent(window.location.href)
