@@ -20,7 +20,7 @@
           this.$http.get(requestUrl).then((response) => {
             let resData = response.data.data;
             let wxConfig = {
-              debug: true,
+              debug: false,
               appId: resData.appId,
               timestamp: resData.timestamp,
               nonceStr: resData.nonceStr,
@@ -59,7 +59,6 @@
         this.init();
       },
       'WxShareInfo.link': function() {
-        alert(this.WxShareInfo.link)
         this.init();
       },
       'WxShareInfo.success': function() {
