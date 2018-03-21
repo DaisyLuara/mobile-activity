@@ -94,7 +94,7 @@ export default {
     document.title = '凯德绿享新生活';
   },
   mounted(){
-    
+
     $('.greenlife-content').css('min-height', $(window).height());
     $('.showtree').css('height', $('.greenlife-content').height()*0.66);
     $('.lockgroup').css('min-height', $('.greenlife-content').height()*0.34);
@@ -118,14 +118,14 @@ export default {
   },
   methods: {
     getUserInfo() {
-      
+
       wxService.getWxUserInfo(this).then(result => {
-        
+
         let data = result.data
         this.nick_name = data.nickname;
         this.head_img_url = data.headimgurl;
         this.wx_openid = data.openid;
-        // this.wxShareInfoValue.link = window.location.href+'&nick_name='+this.nick_name;
+        this.wxShareInfoValue.link = window.location.href+'&nick_name='+this.nick_name;
 
       }).catch(err => {
         let pageUrl = encodeURIComponent(window.location.href)
@@ -135,7 +135,7 @@ export default {
       })
 
     },
-    
+
     getValueByName(parms,strings){
       let string=strings.split('&');
       for(var i=0;i<string.length;i++){
