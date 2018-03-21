@@ -23,7 +23,7 @@
       <a :href="giftUrl" :class="{agift:true,'locked':locked4}"><img :src="imgServerUrl + '/gift.png'"></a>
       <img class="tag" :src="imgServerUrl + '/tag.png'" v-show="tagshow"/>
     </div>
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+    <wx-share :WxShareInfo="wxShareInfoValue"></wx-share>
   </div>
 </template>
 <script>
