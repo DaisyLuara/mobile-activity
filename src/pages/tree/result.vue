@@ -125,7 +125,7 @@ export default {
         this.nick_name = data.nickname;
         this.head_img_url = data.headimgurl;
         this.wx_openid = data.openid;
-        this.wxShareInfoValue.link = window.location.href+'&nick_name='+this.nick_name+'&head_img_url='+encodeURIComponent(this.head_img_url);
+        this.wxShareInfoValue.link = window.location.href+'&nick_name='+this.nick_name;
 
       }).catch(err => {
         let pageUrl = encodeURIComponent(window.location.href)
