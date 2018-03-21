@@ -34,38 +34,43 @@
               ],
             };
             wx.config(wxConfig);
-            this.wxShare(this.WxShareInfo);
+            // this.wxShare(this.WxShareInfo);
+            wx.ready(() => {
+              wx.onMenuShareAppMessage(this.WxShareInfo);
+              wx.onMenuShareTimeline(this.WxShareInfo);
+              wx.onMenuShareQQ(this.WxShareInfo);
+              wx.onMenuShareWeibo(this.WxShareInfo);
+              wx.onMenuShareQZone(this.WxShareInfo);
+            });
           });
         }
       },
-      wxShare(shareInfo) {
-        wx.ready(() => {
-          wx.onMenuShareAppMessage(shareInfo);
-          wx.onMenuShareTimeline(shareInfo);
-          wx.onMenuShareQQ(shareInfo);
-          wx.onMenuShareWeibo(shareInfo);
-          wx.onMenuShareQZone(shareInfo);
-        });
+      wxShare() {
+        wx.onMenuShareAppMessage(this.WxShareInfo);
+        wx.onMenuShareTimeline(this.WxShareInfo);
+        wx.onMenuShareQQ(this.WxShareInfo);
+        wx.onMenuShareWeibo(this.WxShareInfo);
+        wx.onMenuShareQZone(this.WxShareInfo);
       },
     },
     watch: {
       'WxShareInfo.title': function() {
-        this.init();
+        this.wxShare();
       },
       'WxShareInfo.desc': function() {
-        this.init();
+        this.wxShare();
       },
       'WxShareInfo.imgUrl': function() {
-        this.init();
+        this.wxShare();
       },
       'WxShareInfo.link': function() {
-        this.init();
+        this.wxShare();
       },
       'WxShareInfo.success': function() {
-        this.init();
+        this.wxShare();
       },
       'WxShareInfo.cancel': function() {
-        this.init();
+        this.wxShare();
       },
     },
   };
