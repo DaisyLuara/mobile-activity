@@ -110,7 +110,7 @@ export default {
       alert('地址栏没有nickname')
       this.getUserInfo();
     }
-    this.pushHistory();
+    // this.pushHistory();
   },
   methods: {
     getUserInfo() {
