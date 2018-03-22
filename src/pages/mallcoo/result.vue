@@ -1,12 +1,13 @@
 <template>
 	<div class="mallcoo-content" >
-		<div class="quanMsg" @click="getCoupon" v-if="pic_mid" >
-			点击领取：
-			<ul  v-for="item in quanMsg">
+		<div class="quanMsg" @click="toClick">
+			{{ isget }}
+			<ul v-if="pic_mid" v-for="item in quanMsg">
 				<li>{{ item }}</li>
 			</ul>
+			<div v-else>{{err}}</div>
 		</div>
-		<div v-else>{{err}}</div>
+		
 		<wx-share :WxShareInfo="wxShareInfo"></wx-share>
 	</div>
 </template>
@@ -26,9 +27,10 @@ export default {
 		return {
 			userMsg:'',
 			mallMsg:'',
+			isget:'点击领取优惠券',
 			quanMsg:{
-				CouponDesc:null,
 				MallName:null,
+				CouponDesc:null,
 			},
 			pic_mid:null,
 			err:null,
@@ -49,17 +51,21 @@ export default {
 		document.title = '马里奥2.0';
 	},
 	created(){
-		if(this.$route.query.open_user_id){
-			this.open_user_id=this.$route.query.open_user_id;
-			this.isFirstComeIn(this.$route.query.open_user_id);
-		}else{
-			this.getAuthorize();
-		}
+		
 	},
 	mounted(){
 		$('.mallcoo-content').css('min-height',$(window).height());
 	},
 	methods:{
+		//点击事件
+		toClick(){
+			if(this.$route.query.open_user_id){
+				this.open_user_id=this.$route.query.open_user_id;
+				this.isFirstComeIn(this.$route.query.open_user_id);
+			}else{
+				this.getAuthorize();
+			}
+		},
 		//授权跳转
 		getAuthorize(){
 			let pageUrl=encodeURIComponent(window.location.href);
@@ -78,21 +84,24 @@ export default {
 				this.quanMsg.CouponDesc  =list[coupon_num].CouponDesc;
 				this.quanMsg.MallName    =list[coupon_num].MallName;
 				this.pic_mid             =list[coupon_num].PICMID;
+				this.getCoupon(this.$route.query.open_user_id,list[coupon_num].PICMID)
 				console.log(coupon_num);
 				console.log(res);
+
 			}).catch(err => {
 				this.err='未获取到优惠券信息';
 				console.log("未获取到优惠券信息")
 			})
 		},
 		//发券，用户获取券
-		getCoupon(){
+		getCoupon(open_id,pic_mid){
 			this.$http.post(this.coupon_url,{
-				'open_user_id':this.$route.query.open_user_id,
-				'pic_mid':this.pic_mid
+				'open_user_id':open_id,
+				'pic_mid':pic_mid
 			}).then((res) => {
 				//success
 				let data=res.data;
+				this.isget='你已获得：'
 			},(res) => {
 				//err
 				
