@@ -1,15 +1,16 @@
 <template>
 	<div class="mallcoo-content" >
-		<div class="quan-img" @click="">
-			{{ quanMsg }}
-			<img :src="imgUrl" alt=""/>
+		<div class="quanMsg" @click="getCoupon" >
+			点击领取：
+			<ul v-for="item in quanMsg">
+				<li>{{ item }}</li>
+			</ul>
 		</div>
-		<div class="mallMsg">{{mallMsg}}</div>
-		<div class="userMsg">{{userMsg}}</div>
 		<wx-share :WxShareInfo="wxShareInfo"></wx-share>
 	</div>
 </template>
 <script>
+const REQ_URL = 'http://120.27.144.62:1337/parse/classes/';
 import marketService from 'services/marketing';
 import WxShare from 'modules/wxShare';
 import wxService from 'services/wx';
@@ -22,14 +23,22 @@ export default {
 	},
 	data(){
 		return {
-			imgUrl:null,
 			userMsg:'',
 			mallMsg:'',
-			quanMsg:'',
+			quanMsg:{
+				CouponDesc:null,
+				CouponName:null,
+				CouponRuleNo:null,
+				MallID:null,
+				MallName:null,
+			},
+			pic_mid:null,
 			user_open_id:null,
+			coupon_num:0,
 			//授权链接
-			authorize_url:'https://m.mallcoo.cn/a/open/User/V2/OAuth/BaseInfo/?AppID=5aa65a593ae74e0fd06d1b64&PublicKey=q4Cfej&CallbackUrl=http%3A%2F%2Fsapi.newgls.cn%2Fapi%2Fs%2FR6q',
-			url:'',
+			authorize_url:'http://sapi.newgls.cn/api/mallcoo/user/oauth?redirect_url=',
+			open_user_id:null,
+			coupon_url:'http://sapi.newgls.cn/api/mallcoo/coupon',
 			//微信分享信息
 			wxShareInfoValue: {
 				title:'马里奥2.0',
@@ -43,26 +52,71 @@ export default {
 		document.title = '马里奥2.0';
 	},
 	created(){
-		window.location.href=ecodeURIComponent(this.authorize_url)+window.location.href;
+		if(this.$route.query.open_user_id){
+			this.open_user_id=this.$route.query.open_user_id;
+			this.isFirstComeIn();
+			//this.getQuanMsg();
 
+		}else{
+			this.getAuthorize();
+		}
 	},
 	mounted(){
 		$('.mallcoo-content').css('min-height',$(window).height());
-		console.log(decodeURIComponent(this.authorize_url))
+		
 	},
 	methods:{
 		//授权跳转
 		getAuthorize(){
-			
-			
+			let pageUrl=encodeURIComponent(window.location.href);
+			this.$http.get(this.authorize_url + pageUrl).then(result => {
+				let data=result.data;
+				window.location.href=data;
+				return;
+			})
 		},
 		//获取券信息
 		getQuanMsg(){
-
+			this.$http.get(this.coupon_url).then((res) => {
+				//success
+				let data=res.data;
+				let list=data.data;
+				this.quanMsg.CouponDesc  =list[this.coupon_num].CouponDesc;
+				this.quanMsg.CouponName  =list[this.coupon_num].CouponName;
+				this.quanMsg.CouponRuleNo=list[this.coupon_num].CouponRuleNo;
+				this.quanMsg.MallID      =list[this.coupon_num].MallID;
+				this.quanMsg.MallName    =list[this.coupon_num].MallName;
+				this.pic_mid             =list[this.coupon_num].PICMID;
+				console.log(res);
+				//console.log(res.data.message)
+			},(res) =>{
+				//err
+			})
 		},
-		//获取用户信息
-		getUserInfo(){
+		//发券，用户获取券
+		getCoupon(){
+			this.$http.post(this.coupon_url,{
+				'open_user_id':this.open_user_id,
+				'pic_mid':this.pic_mid
+			}).then((res) => {
+				//success
+				let data=res.data;
+				console.log(res);
+				
+			},(res) => {
+				//err
+				
+			})
+		},
+		//存储open_user_id到parseServer,判断用户是否是新用户
+		isFirstComeIn(){
+			let query={
+				open_user_id:this.open_user_id
+			}
+			parseService.get(this,REQ_URL+'maliao_mall?where=' + JSON.stringify(query)).then(data => {
+				console.log(data)
 
+			})
 		},
 		//跳转操作
 		linkToPath(result_url){
@@ -97,18 +151,18 @@ export default {
 		height:100%;
 		overflow: hidden;
 		text-align:center;
-		font-size: 0;
+		font-size: 16px;
 
-		.quan-img{
+		.quanMsg{
 			width:90%;
-			margin:0 auto;
+			margin:15px auto;
 			text-align:center;
 			border:solid 1px red;
-			min-height:200px;
-			img{
-				width:100%;
-				height:auto;
-			}
+			letter-spacing: 2px;
+			font-weight:600;
+			font-size: 20px;
+			line-height: 40px;
+			padding:10px;
 		}
 		.mallMsg{
 			font-size: 20px;
