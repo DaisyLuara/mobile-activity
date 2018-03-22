@@ -1,11 +1,12 @@
 <template>
 	<div class="mallcoo-content" >
-		<div class="quanMsg" @click="getCoupon" >
+		<div class="quanMsg" @click="getCoupon" v-if="pic_mid" >
 			点击领取：
-			<ul v-for="item in quanMsg">
+			<ul  v-for="item in quanMsg">
 				<li>{{ item }}</li>
 			</ul>
 		</div>
+		<div v-else>{{err}}</div>
 		<wx-share :WxShareInfo="wxShareInfo"></wx-share>
 	</div>
 </template>
@@ -27,14 +28,10 @@ export default {
 			mallMsg:'',
 			quanMsg:{
 				CouponDesc:null,
-				CouponName:null,
-				CouponRuleNo:null,
-				MallID:null,
 				MallName:null,
 			},
 			pic_mid:null,
-			user_open_id:null,
-			coupon_num:0,
+			err:null,
 			//授权链接
 			authorize_url:'http://sapi.newgls.cn/api/mallcoo/user/oauth?redirect_url=',
 			open_user_id:null,
@@ -54,16 +51,13 @@ export default {
 	created(){
 		if(this.$route.query.open_user_id){
 			this.open_user_id=this.$route.query.open_user_id;
-			this.isFirstComeIn();
-			//this.getQuanMsg();
-
+			this.isFirstComeIn(this.$route.query.open_user_id);
 		}else{
 			this.getAuthorize();
 		}
 	},
 	mounted(){
 		$('.mallcoo-content').css('min-height',$(window).height());
-		
 	},
 	methods:{
 		//授权跳转
@@ -76,45 +70,60 @@ export default {
 			})
 		},
 		//获取券信息
-		getQuanMsg(){
+		getQuanMsg(coupon_num){
 			this.$http.get(this.coupon_url).then((res) => {
 				//success
 				let data=res.data;
 				let list=data.data;
-				this.quanMsg.CouponDesc  =list[this.coupon_num].CouponDesc;
-				this.quanMsg.CouponName  =list[this.coupon_num].CouponName;
-				this.quanMsg.CouponRuleNo=list[this.coupon_num].CouponRuleNo;
-				this.quanMsg.MallID      =list[this.coupon_num].MallID;
-				this.quanMsg.MallName    =list[this.coupon_num].MallName;
-				this.pic_mid             =list[this.coupon_num].PICMID;
+				this.quanMsg.CouponDesc  =list[coupon_num].CouponDesc;
+				this.quanMsg.MallName    =list[coupon_num].MallName;
+				this.pic_mid             =list[coupon_num].PICMID;
+				console.log(coupon_num);
 				console.log(res);
-				//console.log(res.data.message)
-			},(res) =>{
-				//err
+			}).catch(err => {
+				this.err='未获取到优惠券信息';
+				console.log("未获取到优惠券信息")
 			})
 		},
 		//发券，用户获取券
 		getCoupon(){
 			this.$http.post(this.coupon_url,{
-				'open_user_id':this.open_user_id,
+				'open_user_id':this.$route.query.open_user_id,
 				'pic_mid':this.pic_mid
 			}).then((res) => {
 				//success
 				let data=res.data;
-				console.log(res);
-				
 			},(res) => {
 				//err
 				
 			})
 		},
-		//存储open_user_id到parseServer,判断用户是否是新用户
-		isFirstComeIn(){
+		//从parseServer获取open_user_id,判断用户是否是新用户
+		isFirstComeIn(open_id){
 			let query={
-				open_user_id:this.open_user_id
+				open_user_id:open_id
 			}
 			parseService.get(this,REQ_URL+'maliao_mall?where=' + JSON.stringify(query)).then(data => {
-				console.log(data)
+				let results=data.results;
+				if(results.length){
+					this.getQuanMsg(1);
+				}else{
+					this.saveUserOpenId(open_id);
+					this.getQuanMsg(0);
+				}
+			}).catch(err => {
+				
+			})
+		},
+		//存储open_user_id到parseServer
+		saveUserOpenId(open_id){
+			let parms={
+				open_user_id:open_id
+			};
+			parseService.post(this,REQ_URL+'maliao_mall',parms).then(data => {
+				//将open_user_id保存到parseServer的class，maliao_mall中
+				console.log("已经将open_user_id保存到parseServer的maliao_mall中");
+			}).catch(err => {
 
 			})
 		},
@@ -124,10 +133,6 @@ export default {
 				path:result_url,
 			})
 		},
-		saveUserOpenId(){
-			
-		},
-
 	},
 	computed: {
 		wxShareInfo() {
