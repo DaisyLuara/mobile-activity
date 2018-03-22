@@ -1,13 +1,12 @@
 <template>
 	<div class="mallcoo-content" >
-		<div class="quanMsg" @click="toClick">
-			{{ isget }}
-			<ul v-if="pic_mid" v-for="item in quanMsg">
-				<li>{{ item }}</li>
+		<div class="quanMsg" v-if="pic_mid">
+			你已获得：
+			<ul>
+				<li v-for="item in quanMsg">{{ item }}</li>
 			</ul>
-			<div v-else>{{err}}</div>
 		</div>
-		
+		<div  class="quanClick" @click="getAuthorize" v-else>点击领取优惠券</div>
 		<wx-share :WxShareInfo="wxShareInfo"></wx-share>
 	</div>
 </template>
@@ -27,6 +26,8 @@ export default {
 		return {
 			userMsg:'',
 			mallMsg:'',
+			abtn:'true',
+			hasMsg:'false',
 			isget:'点击领取优惠券',
 			quanMsg:{
 				MallName:null,
@@ -51,21 +52,22 @@ export default {
 		document.title = '马里奥2.0';
 	},
 	created(){
-		
+		if(this.$route.query.open_user_id){
+			this.open_user_id=this.$route.query.open_user_id;
+			this.isFirstComeIn(this.$route.query.open_user_id);
+			this.abtn='false';
+			this.hasMsg='true';
+		}else{
+			this.abtn='true';
+			this.hasMsg='false';
+		}
 	},
 	mounted(){
 		$('.mallcoo-content').css('min-height',$(window).height());
 	},
 	methods:{
 		//点击事件
-		toClick(){
-			if(this.$route.query.open_user_id){
-				this.open_user_id=this.$route.query.open_user_id;
-				this.isFirstComeIn(this.$route.query.open_user_id);
-			}else{
-				this.getAuthorize();
-			}
-		},
+		isClick(){},
 		//授权跳转
 		getAuthorize(){
 			let pageUrl=encodeURIComponent(window.location.href);
@@ -168,6 +170,17 @@ export default {
 		font-size: 16px;
 
 		.quanMsg{
+			width:90%;
+			margin:15px auto;
+			text-align:center;
+			border:solid 1px red;
+			letter-spacing: 2px;
+			font-weight:600;
+			font-size: 20px;
+			line-height: 40px;
+			padding:10px;
+		}
+		.quanClick{
 			width:90%;
 			margin:15px auto;
 			text-align:center;
