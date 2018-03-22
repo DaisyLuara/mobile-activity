@@ -137,7 +137,13 @@ export default new Router({
           name: '凯德绿享新生活结果页',
           component: () =>
             import(/* webpackChunkName: "tree" */ 'pages/tree/result.vue')
-        }
+        },
+        {
+          path: 'mallcoo/result',
+          name: '猫酷获取券',
+          component: () =>
+            import(/*webpackChunkName: "mallcoo"*/ 'pages/mallcoo/result.vue')
+        },
 
       ]
     },
