@@ -10,7 +10,7 @@
     <!-- 礼物区 -->
     <div class="gift">
       <img class="gtit" :src="imgServerUrl + '/notetit.png'">
-      <a :herf="giftUrl"><img class="giftImg" :src="imgServerUrl + '/gift.png'"></a>
+      <a :href="giftUrl"><img class="giftImg" :src="imgServerUrl + '/gift.png'"></a>
       <img class="tag" :src="imgServerUrl + '/noteclick.png'">
     </div>
     <!-- 树动画显示 -->
@@ -135,17 +135,15 @@ export default {
     getInfoById() {
     	let id = this.$route.query.id;
 	    marketService.getInfoById(this,id).then((res) => {
-	        this.num=this.getValueByName("num",res.parms);
 	        this.pos=this.getValueByName("pos",res.parms);
-          // console.log(this.num+"&"+this.pos)
-	        this.init(this.num,this.pos)
-          // console.log(res.parms)
+	        this.init(this.pos)
+          console.log(res.parms)
 	    }).catch((err)=>{
 	        console.log(err)
 	        return;
 	    });
     },
-    init(num,pos) {
+    init(pos) {
       this.renderer = new PIXI.CanvasRenderer(this.width, this.height);
       document.getElementById("treeDiv").appendChild(this.renderer.view);
       this.stage = new PIXI.Container();
@@ -160,7 +158,6 @@ export default {
                       that.animation.scale.x = that.winWidth*0.9/750;
                       that.animation.scale.y = that.winWidth*0.9/750;
                       that.animate();
-                      console.log("that.num="+num)
        })
 
       this.giftUrl=this.placeUrl[pos];
