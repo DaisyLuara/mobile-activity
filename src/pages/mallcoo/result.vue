@@ -1,15 +1,17 @@
 <template>
-	<div class="mallcoo-content">
-		<div class="quan-img" @click="">
-			{{ quanMsg }}
-			<img :src="imgUrl" alt=""/>
-			}
+	<div class="mallcoo-content" >
+		<div class="quanMsg" v-if="pic_mid">
+			你已获得：
+			<ul>
+				<li v-for="item in quanMsg">{{ item }}</li>
+			</ul>
 		</div>
-		<div class="mallMsg">{{mallMsg}}</div>
-		<div class="userMsg">{{userMsg}}</div>
+		<div  class="quanClick" @click="getAuthorize" v-else>点击领取优惠券</div>
+		<wx-share :WxShareInfo="wxShareInfo"></wx-share>
 	</div>
 </template>
 <script>
+const REQ_URL = 'http://120.27.144.62:1337/parse/classes/';
 import marketService from 'services/marketing';
 import WxShare from 'modules/wxShare';
 import wxService from 'services/wx';
@@ -22,49 +24,126 @@ export default {
 	},
 	data(){
 		return {
-			imgUrl:null,
 			userMsg:'',
 			mallMsg:'',
-			quanMsg:'',
-			user_open_id:null,
+			abtn:'true',
+			hasMsg:'false',
+			isget:'点击领取优惠券',
+			quanMsg:{
+				MallName:null,
+				CouponDesc:null,
+			},
+			pic_mid:null,
+			err:null,
 			//授权链接
-			auto_url:'https://m.mallcoo.cn/a/open/User/V2/OAuth/BaseInfo/?AppID=5aa65a593ae74e0fd06d1b64&PublicKey=q4Cfej&CallbackUrl=http%3A%2F%2Fsapi.newgls.cn%2Fapi%2Fs%2FR6q',
+			authorize_url:'http://sapi.newgls.cn/api/mallcoo/user/oauth?redirect_url=',
+			open_user_id:null,
+			coupon_url:'http://sapi.newgls.cn/api/mallcoo/coupon',
 			//微信分享信息
 			wxShareInfoValue: {
 				title:'马里奥2.0',
 				desc:'猫酷平台获取券',
-				imgUrl:''
+				imgUrl:'',
 			},
+			originUrl:null,
 		};
 	},
 	beforeCreate(){
 		document.title = '马里奥2.0';
 	},
 	created(){
-		this.linkToMall(this.auto_url);
+		if(this.$route.query.open_user_id){
+			this.open_user_id=this.$route.query.open_user_id;
+			this.isFirstComeIn(this.$route.query.open_user_id);
+			this.abtn='false';
+			this.hasMsg='true';
+		}else{
+			this.abtn='true';
+			this.hasMsg='false';
+		}
 	},
 	mounted(){
 		$('.mallcoo-content').css('min-height',$(window).height());
 	},
 	methods:{
-		//获取券信息
-		getQuanMsg(){
-
+		//点击事件
+		isClick(){},
+		//授权跳转
+		getAuthorize(){
+			let pageUrl=encodeURIComponent(window.location.href);
+			this.$http.get(this.authorize_url + pageUrl).then(result => {
+				let data=result.data;
+				window.location.href=data;
+				return;
+			})
 		},
-		//获取用户信息
-		getUserInfo(){
+		//获取券信息
+		getQuanMsg(coupon_num){
+			this.$http.get(this.coupon_url).then((res) => {
+				//success
+				let data=res.data;
+				let list=data.data;
+				this.quanMsg.CouponDesc  =list[coupon_num].CouponDesc;
+				this.quanMsg.MallName    =list[coupon_num].MallName;
+				this.pic_mid             =list[coupon_num].PICMID;
+				this.getCoupon(this.$route.query.open_user_id,list[coupon_num].PICMID)
+				console.log(coupon_num);
+				console.log(res);
 
+			}).catch(err => {
+				this.err='未获取到优惠券信息';
+				console.log("未获取到优惠券信息")
+			})
+		},
+		//发券，用户获取券
+		getCoupon(open_id,pic_mid){
+			this.$http.post(this.coupon_url,{
+				'open_user_id':open_id,
+				'pic_mid':pic_mid
+			}).then((res) => {
+				//success
+				let data=res.data;
+				this.isget='你已获得：'
+			},(res) => {
+				//err
+				
+			})
+		},
+		//从parseServer获取open_user_id,判断用户是否是新用户
+		isFirstComeIn(open_id){
+			let query={
+				open_user_id:open_id
+			}
+			parseService.get(this,REQ_URL+'maliao_mall?where=' + JSON.stringify(query)).then(data => {
+				let results=data.results;
+				if(results.length){
+					this.getQuanMsg(1);
+				}else{
+					this.saveUserOpenId(open_id);
+					this.getQuanMsg(0);
+				}
+			}).catch(err => {
+				
+			})
+		},
+		//存储open_user_id到parseServer
+		saveUserOpenId(open_id){
+			let parms={
+				open_user_id:open_id
+			};
+			parseService.post(this,REQ_URL+'maliao_mall',parms).then(data => {
+				//将open_user_id保存到parseServer的class，maliao_mall中
+				console.log("已经将open_user_id保存到parseServer的maliao_mall中");
+			}).catch(err => {
+
+			})
 		},
 		//跳转操作
-		linkToMall(result_url){
-			this.router.push({
+		linkToPath(result_url){
+			this.$router.push({
 				path:result_url,
 			})
 		},
-		saveUserOpenId(){
-			if()
-		}
-
 	},
 	computed: {
 		wxShareInfo() {
@@ -79,6 +158,7 @@ export default {
 			return wxShareInfo;
 		},
 	},
+
 };
 </script>
 <style  lang="less" scoped>
@@ -87,13 +167,39 @@ export default {
 		height:100%;
 		overflow: hidden;
 		text-align:center;
-		font-size: 0;
+		font-size: 16px;
 
-		.quan-img{
+		.quanMsg{
 			width:90%;
-			margin:0 auto;
+			margin:15px auto;
 			text-align:center;
 			border:solid 1px red;
+			letter-spacing: 2px;
+			font-weight:600;
+			font-size: 20px;
+			line-height: 40px;
+			padding:10px;
+		}
+		.quanClick{
+			width:90%;
+			margin:15px auto;
+			text-align:center;
+			border:solid 1px red;
+			letter-spacing: 2px;
+			font-weight:600;
+			font-size: 20px;
+			line-height: 40px;
+			padding:10px;
+		}
+		.mallMsg{
+			font-size: 20px;
+			color:red;
+			line-height: 30px;
+		}
+		.userMsg{
+			font-size: 24px;
+			color:#666;
+			line-height: 30px;
 		}
 	}
 </style>
