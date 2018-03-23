@@ -10,7 +10,7 @@
     <!-- 礼物区 -->
     <div class="gift">
       <img class="gtit" :src="imgServerUrl + '/notetit.png'">
-      <a :href="giftUrl"><img class="giftImg" :src="imgServerUrl + '/gift.png'"></a>
+      <a :href="giftUrl" @click="sendcount"><img class="giftImg" :src="imgServerUrl + '/gift.png'"></a>
       <img class="tag" :src="imgServerUrl + '/noteclick.png'">
     </div>
     <!-- 树动画显示 -->
@@ -21,183 +21,226 @@
 </template>
 <script>
 import { getParamsMap, getParameter, setParameter } from 'modules/util'
-import marketService from 'services/marketing';
-import WxShare from 'modules/wxShare';
-import wxService from 'services/wx';
-import { customTrack } from 'modules/customTrack';
-import Pixi from  './pixi.js';
-import Spine from  './pixi-spine.js';
+import marketService from 'services/marketing'
+import WxShare from 'modules/wxShare'
+import wxService from 'services/wx'
+import { customTrack } from 'modules/customTrack'
+import Pixi from './pixi.js'
+import Spine from './pixi-spine.js'
 
 export default {
   components: {
-    WxShare,
+    WxShare
   },
   data() {
     return {
       imgServerUrl: 'http://p22vy0aug.bkt.clouddn.com/image/kaidegreenlife',
       giftUrl: 'javascript:void(0)',
-      nick_name:'',
-      head_img_url:'',
-      wx_openid:'',
-      placeUrl:{
-        '27':'https://mall.capitaland.com.cn/hongkoulongzhimeng/lottery/egg?id=41D47A1728D82E6D',//虹口龙之梦
-        '235':'https://mall.capitaland.com.cn/hongkoulongzhimeng/lottery/egg?id=41D47A1728D82E6D',//虹口龙之梦
-        '234':'https://mall.capitaland.com.cn/hongkoulongzhimeng/lottery/egg?id=41D47A1728D82E6D',//虹口龙之梦
-        '233':'https://mall.capitaland.com.cn/qibao/lottery/egg?id=F95FA6A17E920423',//七宝
-        '232':'https://mall.capitaland.com.cn/qibao/lottery/egg?id=F95FA6A17E920423',//七宝
-        '231':'https://mall.capitaland.com.cn/LZMmh/lottery/egg?id=AE93BAC25DC90BBD',//闵行龙之梦
-        '230':'https://mall.capitaland.com.cn/LZMmh/lottery/egg?id=AE93BAC25DC90BBD',//闵行龙之梦
-        '229':'https://mall.capitaland.com.cn/LZMmh/lottery/egg?id=AE93BAC25DC90BBD',//闵行龙之梦
-        '228':'https://mall.capitaland.com.cn/sh_rafflescity/lottery/egg?id=70910977F879C80E',//上海来福士
-        '21':'https://mall.capitaland.com.cn/RCC/lottery/egg?id=A2BB2EE7E59B25A6',//长宁来福士
-        '20':'https://mall.capitaland.com.cn/RCC/lottery/egg?id=A2BB2EE7E59B25A6',//长宁来福士
-        '30':'https://mall.capitaland.com.cn/hongkoulongzhimeng/lottery/egg?id=41D47A1728D82E6D',//测试链接
-        '31':'https://mall.capitaland.com.cn/hongkoulongzhimeng/lottery/egg?id=41D47A1728D82E6D'//开发链接
+      nick_name: '',
+      head_img_url: '',
+      wx_openid: '',
+      placeUrl: {
+        '27':
+          'https://mall.capitaland.com.cn/hongkoulongzhimeng/lottery/egg?id=41D47A1728D82E6D', //虹口龙之梦
+        '235':
+          'https://mall.capitaland.com.cn/hongkoulongzhimeng/lottery/egg?id=41D47A1728D82E6D', //虹口龙之梦
+        '234':
+          'https://mall.capitaland.com.cn/hongkoulongzhimeng/lottery/egg?id=41D47A1728D82E6D', //虹口龙之梦
+        '233':
+          'https://mall.capitaland.com.cn/qibao/lottery/egg?id=F95FA6A17E920423', //七宝
+        '232':
+          'https://mall.capitaland.com.cn/qibao/lottery/egg?id=F95FA6A17E920423', //七宝
+        '231':
+          'https://mall.capitaland.com.cn/LZMmh/lottery/egg?id=AE93BAC25DC90BBD', //闵行龙之梦
+        '230':
+          'https://mall.capitaland.com.cn/LZMmh/lottery/egg?id=AE93BAC25DC90BBD', //闵行龙之梦
+        '229':
+          'https://mall.capitaland.com.cn/LZMmh/lottery/egg?id=AE93BAC25DC90BBD', //闵行龙之梦
+        '228':
+          'https://mall.capitaland.com.cn/sh_rafflescity/lottery/egg?id=70910977F879C80E', //上海来福士
+        '21':
+          'https://mall.capitaland.com.cn/RCC/lottery/egg?id=A2BB2EE7E59B25A6', //长宁来福士
+        '20':
+          'https://mall.capitaland.com.cn/RCC/lottery/egg?id=A2BB2EE7E59B25A6', //长宁来福士
+        '30':
+          'https://mall.capitaland.com.cn/hongkoulongzhimeng/lottery/egg?id=41D47A1728D82E6D', //测试链接
+        '31':
+          'https://mall.capitaland.com.cn/hongkoulongzhimeng/lottery/egg?id=41D47A1728D82E6D' //开发链接
       },
-      
-      width:'',
-      height:'',
-      winWidth:'',
-      animation:null,
-      num:null,
-      pos:null,
+
+      width: '',
+      height: '',
+      winWidth: '',
+      animation: null,
+      num: null,
+      pos: null,
       phoneError: false,
-      treeData:null,
+      treeData: null,
       //微信分享信息
       wxShareInfoValue: {
         title: '凯德绿享新生活~',
         desc: '争当森林小卫士',
-        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/kaidegreenlife/icon.jpg',
+        imgUrl:
+          'http://p22vy0aug.bkt.clouddn.com/image/kaidegreenlife/icon.jpg',
         link: '',
         success: () => {
-          customTrack.shareWeChat();
-          console.log('微信分享成功');
+          customTrack.shareWeChat()
+          console.log('微信分享成功')
         }
       },
       renderer: null,
-      stage: null,
-    };
+      stage: null
+    }
   },
   beforeCreate() {
-    document.title = '凯德绿享新生活';
+    document.title = '凯德绿享新生活'
   },
-  mounted(){
+  mounted() {
+    $('.greenlife-content').css('min-height', $(window).height())
+    $('.trees').css('height', $('.greenlife-content').height() / 2)
 
-    $('.greenlife-content').css('min-height', $(window).height());
-    $('.trees').css('height', $('.greenlife-content').height()/2);
-
-    this.width=this.$refs.element.offsetWidth;
-    this.height=this.$refs.element.offsetHeight;
-    this.winWidth=window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-    this.getInfoById();
-
+    this.width = this.$refs.element.offsetWidth
+    this.height = this.$refs.element.offsetHeight
+    this.winWidth =
+      window.innerWidth ||
+      document.documentElement.clientWidth ||
+      document.body.clientWidth
+    this.getInfoById()
   },
   created() {
-    if(this.$route.query.nick_name || this.$route.query.head_img_url){
-      this.nick_name=this.$route.query.nick_name;
-      this.head_img_url=this.$route.query.head_img_url;
-    }else{
-      this.getUserInfo();
+    if (this.$route.query.nick_name || this.$route.query.head_img_url) {
+      this.nick_name = this.$route.query.nick_name
+      this.head_img_url = this.$route.query.head_img_url
+    } else {
+      this.getUserInfo()
     }
-   
   },
   methods: {
     getUserInfo() {
-
-      wxService.getWxUserInfo(this).then(result => {
-
-        let data = result.data
-        this.nick_name = data.nickname;
-        this.head_img_url = data.headimgurl;
-        this.wx_openid = data.openid;
-        let link = setParameter('nick_name', encodeURIComponent(this.nick_name));
-        link = setParameter('head_img_url', encodeURIComponent(this.head_img_url), link);
-        this.wxShareInfoValue.link = link ;
-
-      }).catch(err => {
-        let pageUrl = encodeURIComponent(window.location.href)
-        let wx_auth_url = process.env.WX_API + '/wx/officialAccount/oauth?url=' + pageUrl + '&scope=snsapi_userinfo';
-        window.location.href = wx_auth_url;
-        return;
-      })
-
+      wxService
+        .getWxUserInfo(this)
+        .then(result => {
+          let data = result.data
+          this.nick_name = data.nickname
+          this.head_img_url = data.headimgurl
+          this.wx_openid = data.openid
+          let link = setParameter(
+            'nick_name',
+            encodeURIComponent(this.nick_name)
+          )
+          link = setParameter(
+            'head_img_url',
+            encodeURIComponent(this.head_img_url),
+            link
+          )
+          this.wxShareInfoValue.link = link
+        })
+        .catch(err => {
+          let pageUrl = encodeURIComponent(window.location.href)
+          let wx_auth_url =
+            process.env.WX_API +
+            '/wx/officialAccount/oauth?url=' +
+            pageUrl +
+            '&scope=snsapi_userinfo'
+          window.location.href = wx_auth_url
+          return
+        })
     },
-
-    getValueByName(parms,strings){
-      let string=strings.split('&');
-      for(var i=0;i<string.length;i++){
-          var equal=string[i].split("=");
-          if(parms==equal[0]){
-            return equal[1];
-          }
+    sendcount() {
+      if (_paq) {
+        _paq.push(['trackEvent', 300, 300, 'click_gift_page'])
+      }
+    },
+    getValueByName(parms, strings) {
+      let string = strings.split('&')
+      for (var i = 0; i < string.length; i++) {
+        var equal = string[i].split('=')
+        if (parms == equal[0]) {
+          return equal[1]
+        }
       }
     },
     getInfoById() {
-    	let id = this.$route.query.id;
-	    marketService.getInfoById(this,id).then((res) => {
-	        this.pos=this.getValueByName("pos",res.parms);
-	        this.init(this.pos)
+      let id = this.$route.query.id
+      marketService
+        .getInfoById(this, id)
+        .then(res => {
+          this.pos = this.getValueByName('pos', res.parms)
+          this.init(this.pos)
           console.log(res.parms)
-	    }).catch((err)=>{
-	        console.log(err)
-	        return;
-	    });
+        })
+        .catch(err => {
+          console.log(err)
+          return
+        })
     },
     init(pos) {
-      this.renderer = new PIXI.CanvasRenderer(this.width, this.height);
-      document.getElementById("treeDiv").appendChild(this.renderer.view);
-      this.stage = new PIXI.Container();
-      let that=this;
-       PIXI.loader.add('spineCharacter', 'http://p22vy0aug.bkt.clouddn.com/spine/greenlife/treeH5.json')
-                  .load(function (loader, resources) {
-                      that.animation= new PIXI.spine.Spine(resources.spineCharacter.spineData);
-                      that.stage.addChild(that.animation);
-                      that.animation.state.addAnimationByName(0, '3', true, 0);
-                      that.animation.x = that.width/2+5;
-                      that.animation.y = that.height*5/6;
-                      that.animation.scale.x = that.winWidth*0.9/750;
-                      that.animation.scale.y = that.winWidth*0.9/750;
-                      that.animate();
-       })
+      this.renderer = new PIXI.CanvasRenderer(this.width, this.height)
+      document.getElementById('treeDiv').appendChild(this.renderer.view)
+      this.stage = new PIXI.Container()
+      let that = this
+      PIXI.loader
+        .add(
+          'spineCharacter',
+          'http://p22vy0aug.bkt.clouddn.com/spine/greenlife/treeH5.json'
+        )
+        .load(function(loader, resources) {
+          that.animation = new PIXI.spine.Spine(
+            resources.spineCharacter.spineData
+          )
+          that.stage.addChild(that.animation)
+          that.animation.state.addAnimationByName(0, '3', true, 0)
+          that.animation.x = that.width / 2 + 5
+          that.animation.y = that.height * 5 / 6
+          that.animation.scale.x = that.winWidth * 0.9 / 750
+          that.animation.scale.y = that.winWidth * 0.9 / 750
+          that.animate()
+        })
 
-      this.giftUrl=this.placeUrl[pos];
+      this.giftUrl = this.placeUrl[pos]
     },
-    animate(){
-      requestAnimationFrame(this.animate);
-      this.renderer.render(this.stage);
+    animate() {
+      requestAnimationFrame(this.animate)
+      this.renderer.render(this.stage)
     },
-     pushHistory() {
-        let pageUrl = window.location.href;
-        let state = {
-          title: 'title',
-          url: pageUrl
-        };
-        window.history.pushState(state, 'title', pageUrl);
+    pushHistory() {
+      let pageUrl = window.location.href
+      let state = {
+        title: 'title',
+        url: pageUrl
       }
+      window.history.pushState(state, 'title', pageUrl)
+    }
   },
   computed: {
     //微信分享
-    wxShareInfo(nickname,headimgurl) {
+    wxShareInfo(nickname, headimgurl) {
       let wxShareInfo = {
         title: this.wxShareInfoValue.title,
         desc: this.wxShareInfoValue.desc,
         imgUrl: this.wxShareInfoValue.imgUrl,
-        link: this.$route.query.nick_name ? window.location.href : window.location.href+'&nick_name='+this.nick_name+'&head_img_url='+this.head_img_url,
+        link: this.$route.query.nick_name
+          ? window.location.href
+          : window.location.href +
+            '&nick_name=' +
+            this.nick_name +
+            '&head_img_url=' +
+            this.head_img_url,
         success: () => {
-          customTrack.shareWeChat();
+          customTrack.shareWeChat()
           console.log(wxShareInfo.link)
-          console.log('cccc');
-        },
-      };
-      return wxShareInfo;
-    },
-  },
-};
+          console.log('cccc')
+        }
+      }
+      return wxShareInfo
+    }
+  }
+}
 </script>
 <style lang="less" scoped>
 @imageHost: 'http://p22vy0aug.bkt.clouddn.com/image/kaidegreenlife';
 .clearfix:after {
-  content: ".";
+  content: '.';
   display: block;
   height: 0;
   visibility: hidden;
@@ -206,124 +249,138 @@ export default {
 .clearfix {
   *zoom: 1;
 }
-.claerfix{
+.claerfix {
   overflow: hidden;
   clear: both;
 }
 @media screen and (min-width: 320px) {
-    html {font-size: 14px;}
+  html {
+    font-size: 14px;
+  }
 }
 @media screen and (min-width: 360px) {
-    html {font-size: 16px;}
+  html {
+    font-size: 16px;
+  }
 }
 @media screen and (min-width: 400px) {
-    html {font-size: 18px;}
+  html {
+    font-size: 18px;
+  }
 }
 @media screen and (min-width: 440px) {
-    html {font-size: 20px;}
+  html {
+    font-size: 20px;
+  }
 }
 @media screen and (min-width: 480px) {
-    html {font-size: 22px;}
+  html {
+    font-size: 22px;
+  }
 }
 @media screen and (min-width: 640px) {
-    html {font-size: 28px;}
+  html {
+    font-size: 28px;
+  }
 }
-.greenlife-content{
-  width:100%;
+.greenlife-content {
+  width: 100%;
   overflow-x: hidden;
-  transform: translate3d(0,0,0);
-  -webkit-overflow-scrolling:auto;
+  transform: translate3d(0, 0, 0);
+  -webkit-overflow-scrolling: auto;
   text-align: center;
-  background-image: url("@{imageHost}/leaf2.png"),url("@{imageHost}/leaf1.png"),url("@{imageHost}/grass.png");
-  background-size: 100% auto,100% auto,100% auto;
-  background-repeat:no-repeat,no-repeat,no-repeat;
-  background-position:center bottom,center top,center bottom;
-  background-color:#030d01;
-  .title{
-    width:66%;
+  background-image: url('@{imageHost}/leaf2.png'), url('@{imageHost}/leaf1.png'),
+    url('@{imageHost}/grass.png');
+  background-size: 100% auto, 100% auto, 100% auto;
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-position: center bottom, center top, center bottom;
+  background-color: #030d01;
+  .title {
+    width: 66%;
     position: relative;
-    margin-top:3%;
+    margin-top: 3%;
   }
-  .user{
+  .user {
+    position: absolute;
+    right: 0;
+    top: 23.5%;
+    width: 26vw;
+    z-index: 9999;
+    .cover {
+      width: 100%;
+      position: relative;
+      z-index: 999;
+    }
+    #userImg {
       position: absolute;
-      right:0;
-      top:23.5%;
-      width:26vw;
+      border-radius: 50%;
+      width: 16vw;
+      left: 26%;
+      top: 26%;
+      z-index: 9;
+    }
+    .userName {
+      position: absolute;
+      bottom: 17%;
+      right: 6%;
       z-index: 9999;
-      .cover{
-        width:100%;
-        position: relative;
-        z-index: 999;
-      }
-      #userImg{
-        position: absolute;
-        border-radius:50%;
-        width:16vw;
-        left:26%;
-        top:26%;
-        z-index: 9;
-
-      }
-      .userName{
-        position: absolute;
-        bottom: 17%;
-        right:6%;
-        z-index: 9999;
-        //width:19vw;
-        width:100%;
-        height:1.3rem;
-        font-size: 0.7rem;
-        line-height: 1.3rem;
-        color:#f3f1ef;
-        text-align: center;
-        overflow:hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        padding-left:32%;
-        padding-right:5%;
-      }
+      //width:19vw;
+      width: 100%;
+      height: 1.3rem;
+      font-size: 0.7rem;
+      line-height: 1.3rem;
+      color: #f3f1ef;
+      text-align: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      padding-left: 32%;
+      padding-right: 5%;
+    }
   }
-  .gift{
-    width:100%;
+  .gift {
+    width: 100%;
     text-align: center;
-    margin:0 auto;
-    margin-top:-10%;
+    margin: 0 auto;
+    margin-top: -10%;
     position: relative;
     z-index: 99;
-    .gtit{
-      margin:0 auto;
-      width:62%;
+    .gtit {
+      margin: 0 auto;
+      width: 62%;
     }
-    .giftImg{
-      width:56%;
-      animation:shake 1s linear infinite alternate;
-      margin-top:-10%;
+    .giftImg {
+      width: 56%;
+      animation: shake 1s linear infinite alternate;
+      margin-top: -10%;
     }
-    .tag{
-      width:30.5%;
+    .tag {
+      width: 30.5%;
       position: absolute;
-      left:4%;
-      bottom:-4%;
+      left: 4%;
+      bottom: -4%;
     }
   }
-  .trees{
-    width:100%;
-    height:50%;
+  .trees {
+    width: 100%;
+    height: 50%;
     position: absolute;
-    bottom:0;
+    bottom: 0;
     z-index: 9;
-    background-image: url("@{imageHost}/word.png"),url("@{imageHost}/glitz.png"),url("@{imageHost}/barrierleft.png"),url("@{imageHost}/barrier.png"),url("@{imageHost}/logo.png"),;
-    background-size:35% auto,100% auto,22% auto,22% auto,22% auto;
-    background-repeat:no-repeat,no-repeat,no-repeat,no-repeat,no-repeat;
-    background-position: center 91%,center center,left bottom,right bottom,7% 82%;
+    background-image: url('@{imageHost}/word.png'),
+      url('@{imageHost}/glitz.png'), url('@{imageHost}/barrierleft.png'),
+      url('@{imageHost}/barrier.png'), url('@{imageHost}/logo.png');
+    background-size: 35% auto, 100% auto, 22% auto, 22% auto, 22% auto;
+    background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+    background-position: center 91%, center center, left bottom, right bottom,
+      7% 82%;
   }
-  
 }
-@keyframes shake{
-  0%{
+@keyframes shake {
+  0% {
     transform: rotate(-5deg);
   }
-  100%{
+  100% {
     transform: rotate(5deg);
   }
 }
