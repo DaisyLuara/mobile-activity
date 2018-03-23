@@ -1,28 +1,21 @@
 <template>
   <div class="greenlife-content">
+    <!-- 用户信息显示 -->
     <div class="user">
       <img :src="imgServerUrl + '/people.png'" class="cover"/>
       <img :src="head_img_url" id="userImg"/>
       <p class="userName">{{nick_name}}</p>
     </div>
-    <div class="showtree">
-      <img class="word" id="tip1" :src="imgServerUrl + '/tip1.png'" alt="" v-show="ashow"/>
-      <img class="word" id="tip2" :src="imgServerUrl + '/tip2.png'" alt="" v-show="bshow"/>
-      <div class="trees" id="treeDiv" ref="element"></div>
+    <img class="title" :src="imgServerUrl + '/title.png'"/>
+    <!-- 礼物区 -->
+    <div class="gift">
+      <img class="gtit" :src="imgServerUrl + '/notetit.png'">
+      <a :href="giftUrl"><img class="giftImg" :src="imgServerUrl + '/gift.png'"></a>
+      <img class="tag" :src="imgServerUrl + '/noteclick.png'">
     </div>
-    <img class="titnote clearfix" :src="imgServerUrl + '/board.png'">
-    <div class="lockgroup">
-      <ul class="locks clearfix">
-        <li :class="{locked:locked1}"><img :src="imgServerUrl + '/step1.png'"></li>
-        <li><img :src="imgServerUrl + '/csun.png'"></li>
-        <li :class="{locked:locked2}"><img :src="imgServerUrl + '/step2.png'"></li>
-        <li><img :src="imgServerUrl + '/cwater.png'"></li>
-        <li :class="{locked:locked3}"><img class="maxHeight"  :src="imgServerUrl + '/step3.png'"></li>
-        <li><img :src="imgServerUrl + '/cgift.png'"></li>
-      </ul>
-      <a :href="giftUrl" :class="{agift:true,'locked':locked4}"><img :src="imgServerUrl + '/gift.png'"></a>
-      <img class="tag" :src="imgServerUrl + '/tag.png'" v-show="tagshow"/>
-    </div>
+    <!-- 树动画显示 -->
+    <!-- <div class="showtree"> </div> -->
+    <div class="trees" id="treeDiv" ref="element"></div>
     <wx-share :WxShareInfo="wxShareInfoValue"></wx-share>
   </div>
 </template>
@@ -61,13 +54,7 @@ export default {
         '30':'https://mall.capitaland.com.cn/hongkoulongzhimeng/lottery/egg?id=41D47A1728D82E6D',//测试链接
         '31':'https://mall.capitaland.com.cn/hongkoulongzhimeng/lottery/egg?id=41D47A1728D82E6D'//开发链接
       },
-      ashow:false,
-      bshow:false,
-      locked1:true,
-      locked2:true,
-      locked3:true,
-      locked4:true,
-      tagshow:false,
+      
       width:'',
       height:'',
       winWidth:'',
@@ -97,9 +84,8 @@ export default {
   mounted(){
 
     $('.greenlife-content').css('min-height', $(window).height());
-    $('.showtree').css('height', $('.greenlife-content').height()*0.66);
-    $('.lockgroup').css('min-height', $('.greenlife-content').height()*0.34);
-    $('.locks > li').css({'height':$('.lockgroup').height()*0.45,'lineHeight':$('.lockgroup').height()*0.45+'px'});
+    $('.trees').css('height', $('.greenlife-content').height()/2);
+
     this.width=this.$refs.element.offsetWidth;
     this.height=this.$refs.element.offsetHeight;
     this.winWidth=window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
@@ -113,7 +99,7 @@ export default {
     }else{
       this.getUserInfo();
     }
-    // this.pushHistory();
+   
   },
   methods: {
     getUserInfo() {
@@ -149,17 +135,15 @@ export default {
     getInfoById() {
     	let id = this.$route.query.id;
 	    marketService.getInfoById(this,id).then((res) => {
-	        this.num=this.getValueByName("num",res.parms);
 	        this.pos=this.getValueByName("pos",res.parms);
-          // console.log(this.num+"&"+this.pos)
-	        this.init(this.num,this.pos)
-          // console.log(res.parms)
+	        this.init(this.pos)
+          console.log(res.parms)
 	    }).catch((err)=>{
 	        console.log(err)
 	        return;
 	    });
     },
-    init(num,pos) {
+    init(pos) {
       this.renderer = new PIXI.CanvasRenderer(this.width, this.height);
       document.getElementById("treeDiv").appendChild(this.renderer.view);
       this.stage = new PIXI.Container();
@@ -168,36 +152,15 @@ export default {
                   .load(function (loader, resources) {
                       that.animation= new PIXI.spine.Spine(resources.spineCharacter.spineData);
                       that.stage.addChild(that.animation);
-                      that.animation.state.addAnimationByName(0, num, true, 0);
+                      that.animation.state.addAnimationByName(0, '3', true, 0);
                       that.animation.x = that.width/2+5;
-                      that.animation.y = that.height*7/8;
+                      that.animation.y = that.height*5/6;
                       that.animation.scale.x = that.winWidth*0.9/750;
                       that.animation.scale.y = that.winWidth*0.9/750;
                       that.animate();
-                      console.log("that.num="+num)
        })
 
-       if(num=='1'){
-          this.ashow=true;
-          this.bshow=false;
-          this.locked1=false;
-        }
-        if(num=='2'){
-          this.ashow=false;
-          this.bshow=true;
-          this.locked1=false;
-          this.locked2=false;
-        }
-        if(num=='3'){
-          this.ashow=false;
-          this.bshow=false;
-          this.locked1=false;
-          this.locked2=false;
-          this.locked3=false;
-          this.locked4=false;
-          this.giftUrl=this.placeUrl[pos];
-          this.tagshow=true;
-        }
+      this.giftUrl=this.placeUrl[pos];
     },
     animate(){
       requestAnimationFrame(this.animate);
@@ -250,23 +213,18 @@ export default {
 @media screen and (min-width: 320px) {
     html {font-size: 14px;}
 }
-
 @media screen and (min-width: 360px) {
     html {font-size: 16px;}
 }
-
 @media screen and (min-width: 400px) {
     html {font-size: 18px;}
 }
-
 @media screen and (min-width: 440px) {
     html {font-size: 20px;}
 }
-
 @media screen and (min-width: 480px) {
     html {font-size: 22px;}
 }
-
 @media screen and (min-width: 640px) {
     html {font-size: 28px;}
 }
@@ -276,15 +234,20 @@ export default {
   transform: translate3d(0,0,0);
   -webkit-overflow-scrolling:auto;
   text-align: center;
-  background-image: url("@{imageHost}/title.png"),url("@{imageHost}/leaf1.png"),url("@{imageHost}/leaf2.png");
-  background-size: 62% auto,100% auto,100% auto;
+  background-image: url("@{imageHost}/leaf2.png"),url("@{imageHost}/leaf1.png"),url("@{imageHost}/grass.png");
+  background-size: 100% auto,100% auto,100% auto;
   background-repeat:no-repeat,no-repeat,no-repeat;
-  background-position:center 6%,center top,center bottom;
+  background-position:center bottom,center top,center bottom;
   background-color:#030d01;
-    .user{
+  .title{
+    width:66%;
+    position: relative;
+    margin-top:3%;
+  }
+  .user{
       position: absolute;
       right:0;
-      top:5.5%;
+      top:23.5%;
       width:26vw;
       z-index: 9999;
       .cover{
@@ -319,126 +282,49 @@ export default {
         padding-left:32%;
         padding-right:5%;
       }
-    }
-
-  .showtree{
-    position: relative;
-    width:100vw;
-    //height:66vh;
-    background-image: url("http://p22vy0aug.bkt.clouddn.com/image/kaidegreenlife/leaf3.png"),url("http://p22vy0aug.bkt.clouddn.com/image/kaidegreenlife/barrierleft.png"),url("http://p22vy0aug.bkt.clouddn.com/image/kaidegreenlife/barrier.png"),url("http://p22vy0aug.bkt.clouddn.com/image/kaidegreenlife/logo.png"),url("http://p22vy0aug.bkt.clouddn.com/image/kaidegreenlife/grass.png");
-    background-size: 100% auto,22% auto,22% auto,22% auto,100% auto;
-    background-repeat:no-repeat,no-repeat,no-repeat,no-repeat,no-repeat;
-    background-position: center bottom,left 93%,right 93%,7% 82%,center 93%;
-    .word{
-      position: absolute;
-      width:30.5vw;
-      z-index: 999;
-    }
-    #tip1{
-      top:52.4%;
-      right:8vw;
-    }
-    #tip2{
-      top:52.4%;
-      right:10vw;
-    }
-    #treeDiv{
-      width:80vw;
-      height:54.6%;
-      position: absolute;
-      top:35%;
-      left: 50%;
-      transform:translate(-50%,0);
-      background-image: url("http://p22vy0aug.bkt.clouddn.com/image/kaidegreenlife/glitz.png");
-      background-position: center 0px;
-      background-size:100% auto;
-      background-repeat: no-repeat;
-    }
   }
-  .titnote{
-    position: relative;
-    width:51.5vw;
-    margin-top:-5%;
-    margin-left:1%;
-    float: left;
-    z-index: 9999;
-  }
-  .lockgroup{
+  .gift{
     width:100%;
     text-align: center;
-    padding:0;
-    ul{
-      list-style: none;
-      display: inline-block;
-      width:95vw;
+    margin:0 auto;
+    margin-top:-10%;
+    position: relative;
+    z-index: 99;
+    .gtit{
       margin:0 auto;
+      width:62%;
     }
-    ul li{
-      list-style: none;
-      display: inline-block;
-      float: left;
-      position: relative;
-      width:18vw;
-      //min-height:13vh;
-      //line-height: 13vh;
-
-      &:nth-child(odd){
-        position: relative;
-        z-index: 9;
-        img{
-          max-width:100%;
-          vertical-align: middle;
-        }
-      }
-      &:nth-child(even){
-        position: relative;
-       // transform:translate(0,-25%);
-        margin:0 1%;
-        z-index: 999;
-        img{
-          max-width:90%;
-          vertical-align: middle;
-          margin:auto auto;
-        }
-      }
-      &:last-child{
-        float: right;
-        margin-right:18%;
-        margin-top:-3%;
-      }
-    }
-    .locked{
-      &:after{
-          content:'';
-          width:100%;
-          height:110%;
-          position: absolute;
-          left:0;
-          bottom:0;
-          background-color: #030d01;
-          opacity: 0.7;
-          z-index: 9999;
-        }
-    }
-    .agift{
-      display: inline-block;
-      position: relative;
-      z-index: 9;
-      width:35vw;
-      margin-top:-19%;
-      img{
-        max-width:100%;
-        width:100%;
-
-      }
+    .giftImg{
+      width:56%;
+      animation:shake 1s linear infinite alternate;
+      margin-top:-10%;
     }
     .tag{
+      width:30.5%;
       position: absolute;
-      width:29.1vw;
-      z-index: 9999;
-      left:8vw;
-      transform:translate(0,-145%);
+      left:4%;
+      bottom:-4%;
     }
+  }
+  .trees{
+    width:100%;
+    height:50%;
+    position: absolute;
+    bottom:0;
+    z-index: 9;
+    background-image: url("@{imageHost}/word.png"),url("@{imageHost}/glitz.png"),url("@{imageHost}/barrierleft.png"),url("@{imageHost}/barrier.png"),url("@{imageHost}/logo.png"),;
+    background-size:35% auto,100% auto,22% auto,22% auto,22% auto;
+    background-repeat:no-repeat,no-repeat,no-repeat,no-repeat,no-repeat;
+    background-position: center 91%,center center,left bottom,right bottom,7% 82%;
+  }
+  
+}
+@keyframes shake{
+  0%{
+    transform: rotate(-5deg);
+  }
+  100%{
+    transform: rotate(5deg);
   }
 }
 </style>
