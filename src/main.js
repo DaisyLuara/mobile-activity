@@ -4,6 +4,11 @@ import Vue from 'vue'
 import axios from 'axios'
 import App from './App'
 import router from './router'
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+import 'swiper/dist/css/swiper.css'
+import animate from 'animate.css' 
+Vue.use(VueAwesomeSwiper)
+Vue.use(animate)
 // axios.defaults.withCredentials = true ;
 Vue.prototype.$http = axios
 Vue.config.productionTip = false

@@ -137,6 +137,12 @@ export default new Router({
           name: '凯德绿享新生活结果页',
           component: () =>
             import(/* webpackChunkName: "tree" */ 'pages/tree/result.vue')
+        },
+        {
+          path: 'dance',
+          name: '跳舞机',
+          component: () =>
+            import(/* webpackChunkName: "dance" */ 'pages/dance/index.vue')
         }
 
       ]
