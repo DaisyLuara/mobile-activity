@@ -1,0 +1,44 @@
+{
+	"Version": 3,
+	"FileReferences": {
+		"Moc": "export_example_PNG.moc3",
+		"Textures": [
+			{"file":"texture00","path":"export_example_PNG.1024/texture_00.png"},
+			{"file":"texture01","path":"export_example_PNG.1024/texture_01.png"},
+			{"file":"texture02","path":"export_example_PNG.1024/texture_02.png"},
+			{"file":"texture03","path":"export_example_PNG.1024/texture_03.png"},
+			{"file":"texture04","path":"export_example_PNG.1024/texture_04.png"},
+			{"file":"texture05","path":"export_example_PNG.1024/texture_05.png"},
+			{"file":"texture06","path":"export_example_PNG.1024/texture_06.png"},
+			{"file":"texture07","path":"export_example_PNG.1024/texture_07.png"},
+			{"file":"texture08","path":"export_example_PNG.1024/texture_08.png"},
+			{"file":"texture09","path":"export_example_PNG.1024/texture_09.png"},
+			{"file":"texture10","path":"export_example_PNG.1024/texture_10.png"},
+			{"file":"texture11","path":"export_example_PNG.1024/texture_11.png"},
+			{"file":"texture12","path":"export_example_PNG.1024/texture_12.png"},
+			{"file":"texture13","path":"export_example_PNG.1024/texture_13.png"},
+			{"file":"texture14","path":"export_example_PNG.1024/texture_14.png"},
+			{"file":"texture15","path":"export_example_PNG.1024/texture_15.png"},
+			{"file":"texture16","path":"export_example_PNG.1024/texture_16.png"},
+			{"file":"texture17","path":"export_example_PNG.1024/texture_17.png"},
+			{"file":"texture18","path":"export_example_PNG.1024/texture_18.png"},
+			{"file":"texture19","path":"export_example_PNG.1024/texture_19.png"}
+		],
+		"Physics": "Physics.physics3.json",
+		"Motion":{"Motion0":"motions/walk_2.motion3.json",
+			      "Motion1":"motions/wudaotest2.motion3.json",
+			      "Motion2":"motions/walk_2.motion3.json"}    
+	},
+	"Groups": [
+		{
+			"Target": "Parameter",
+			"Name": "LipSync",
+			"Ids": []
+		},
+		{
+			"Target": "Parameter",
+			"Name": "EyeBlink",
+			"Ids": []
+		}
+	]
+}
