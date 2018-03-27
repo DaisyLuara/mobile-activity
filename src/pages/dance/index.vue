@@ -48,9 +48,9 @@
     </div>
     <div class="dance-light">
     <!--舞台灯光-->
-        <img class="light1" :src="imgServerUrl + '/pages/dance/light1.png'" v-if="showStar.showStarOne" >
-        <img class="light2" :src="imgServerUrl + '/pages/dance/light2.png'"  v-if="showStar.showStarTwo">
-        <img class="light3" :src="imgServerUrl + '/pages/dance/light3.png'"  v-if="showStar.showStarThree">
+        <img class="light1 animated fadeIn infinite" :src="imgServerUrl + '/pages/dance/light1.png'" v-if="showStar.showStarOne" >
+        <img class="light2 animated fadeIn infinite" :src="imgServerUrl + '/pages/dance/light2.png'"  v-if="showStar.showStarTwo">
+        <img class="light3 animated fadeIn infinite" :src="imgServerUrl + '/pages/dance/light3.png'"  v-if="showStar.showStarThree">
     </div>
     <!--小偶-->
     <div id="div1"></div>
@@ -161,7 +161,6 @@ export default {
                 this.pageSize++;
                 if(this.imgDate[this.pageSize].imgaUrl==''||this.imgDate[this.pageSize].imgaUrl==null||this.imgDate[this.pageSize].imgaUrl==undefined)
                 {
-
                 this.pageSize++;
                 //表示切换到最后一个不显示小偶
                 }
@@ -326,8 +325,11 @@ export default {
     }
   }
   .dance-stage{
-    height:50%;
+    height:20%;
     text-align:center;
+    position: absolute;
+    left: 0;
+    bottom: 0;
     .stage{
          margin-top:5.5%;
          margin-right:10.5%;
@@ -339,24 +341,24 @@ export default {
   .light1{
     position: absolute;
     left: 0%;
-    top:40.5%;
+    bottom:-13%;
    }
  .light2{
     position: absolute;
     left: 0%;
-    top:0%;
+    bottom:-13.5%;
  }
  .light3{
     position: absolute;
-    left:0%;
-    top:0.5%;
+    left: 0%;
+    bottom:-13.5%;
     }
  }
  #div1{ 
     position: absolute;
     left: 50%;
-    top: 50%;
-    transform: translate(-50%,85%);
+    top: 70%;
+    transform: translate(-50%);
     z-index: 2;
     }
  .star-ornament{
@@ -505,7 +507,37 @@ export default {
  }
 }
 
-  
+@media screen and (max-width: 320px) { /*当屏幕尺寸小于320px时，应用下面的CSS样式*/
+  #div1 {
+      top: 64%!important;      
+  }
+  .light1,.light2,.light3{
+    bottom:-11.5%!important;
+  }
+}
+@media screen and (min-width: 375px) { /*当屏幕尺寸小于375px时，应用下面的CSS样式*/
+  #div1 {
+      top: 69%!important;       
+  }
+  .light1,.light2,.light3{
+        bottom:-10.5%!important;
+  }   
+}
+ @media screen and (min-width: 414px) { /*当屏幕尺寸小于414px时，应用下面的CSS样式*/
+  #div1 {
+      top: 70%!important;      
+  }
+  .light1,.light2,.light3{
+        bottom:-10.5%!important;
+  }   
+}
+@media only screen and (width: 375px) and (height: 812px){ /*适配x*/
+    .light1,.light2,.light3{
+        bottom:-5.5%!important;
+  }
+}
+
+
 
 </style>
  
