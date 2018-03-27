@@ -138,7 +138,12 @@ export default new Router({
           component: () =>
             import(/*webpackChunkName: "mallcoo"*/ 'pages/mallcoo/result.vue')
         },
-
+        {
+          path: 'dance',
+          name: '跳舞机',
+          component: () =>
+            import(/* webpackChunkName: "dance" */ 'pages/dance/index.vue')
+        }
       ]
     },
     {
