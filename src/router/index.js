@@ -133,6 +133,14 @@ export default new Router({
             import(/* webpackChunkName: "tree" */ 'pages/tree/result.vue')
         },
         {
+          path: 'mallcoo/result',
+          name: '猫酷获取券',
+          path: 'dance',
+          name: '跳舞机',
+          component: () =>
+            import(/*webpackChunkName: "mallcoo"*/ 'pages/mallcoo/result.vue')
+        },
+        {
           path: 'dance',
           name: '跳舞机',
           component: () =>
