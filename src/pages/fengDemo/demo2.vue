@@ -182,6 +182,7 @@ export default {
     },
     async init() {
       try {
+        await this.handleMapJsReady()
         await this.getWxJSSDKReady()
         await this.initMap()
         await this.ctlOptInit()
@@ -191,6 +192,23 @@ export default {
       } catch (e) {
         console.log(e)
       }
+    },
+    handleMapJsReady() {
+      return new Promise((resolve, reject) => {
+        let script = document.createElement('script')
+        script.src = 'static/feng/js/fengmap.min.js'
+        script.async = false
+        document.head.appendChild(script)
+        let layer = document.createElement('script')
+        layer.async = false
+        layer.src = 'static/feng/js/layerGroup.js'
+        document.head.appendChild(layer)
+        script.onload = () => {
+          layer.onload = () => {
+            resolve()
+          }
+        }
+      })
     },
     getWxJSSDKReady() {
       return new Promise((resolve, reject) => {
