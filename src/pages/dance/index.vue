@@ -325,15 +325,15 @@ export default {
     }
   }
   .dance-stage{
-    height:20%;
+    height:50%;
     text-align:center;
-    position: absolute;
-    left: 0;
-    bottom: 0;
+   
     .stage{
-         margin-top:5.5%;
-         margin-right:10.5%;
-         width:98%;
+         //margin-right:2%;
+          width:98%;
+          position: absolute;
+          left: 0;
+          bottom: 0;
     }
 }
 .dance-light{
@@ -341,17 +341,17 @@ export default {
   .light1{
     position: absolute;
     left: 0%;
-    bottom:-13%;
+    bottom:-8.5%;
    }
  .light2{
     position: absolute;
     left: 0%;
-    bottom:-13.5%;
+    bottom:-8.5%;
  }
  .light3{
     position: absolute;
     left: 0%;
-    bottom:-13.5%;
+    bottom:-8.5%;
     }
  }
  #div1{ 
@@ -511,30 +511,30 @@ export default {
   #div1 {
       top: 64%!important;      
   }
-  .light1,.light2,.light3{
-    bottom:-11.5%!important;
-  }
+  // .light1,.light2,.light3{
+  //   bottom:-11.5%!important;
+  // }
 }
 @media screen and (min-width: 375px) { /*当屏幕尺寸小于375px时，应用下面的CSS样式*/
   #div1 {
       top: 69%!important;       
   }
-  .light1,.light2,.light3{
-        bottom:-10.5%!important;
-  }   
+  // .light1,.light2,.light3{
+  //       bottom:-10.5%!important;
+  // }   
 }
  @media screen and (min-width: 414px) { /*当屏幕尺寸小于414px时，应用下面的CSS样式*/
   #div1 {
       top: 70%!important;      
   }
-  .light1,.light2,.light3{
-        bottom:-10.5%!important;
-  }   
+  // .light1,.light2,.light3{
+  //       bottom:-10.5%!important;
+  // }   
 }
 @media only screen and (width: 375px) and (height: 812px){ /*适配x*/
-    .light1,.light2,.light3{
-        bottom:-5.5%!important;
-  }
+  //   .light1,.light2,.light3{
+  //       bottom:-5.5%!important;
+  // }
 }
 
 
