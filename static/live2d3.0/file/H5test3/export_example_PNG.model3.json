@@ -25,9 +25,10 @@
 			{"file":"texture19","path":"export_example_PNG.1024/texture_19.png"}
 		],
 		"Physics": "Physics.physics3.json",
-		"Motion":{"Motion0":"motions/walk_2.motion3.json",
-			      "Motion1":"motions/wudaotest2.motion3.json",
-			      "Motion2":"motions/walk_2.motion3.json"}    
+		"Motion":{"Motion0":"motions/1.motion3.json",
+			        "Motion1":"motions/2.motion3.json",
+              "Motion2":"motions/3.motion3.json",
+              "Motion3":"motions/4.motion3.json"}    
 	},
 	"Groups": [
 		{

@@ -10,25 +10,33 @@
      <div   id="btnLeftChange"class="swiper-button-prev" ></div>
       <div class="swiper-container">
         <swiper :options="swiperOption"  ref="mySwiper">
-          <swiper-slide>
+        <swiper-slide v-for="(item,index) in imgDate" :key="index" v-if="item.imgaUrl!=''">
           <img :src="imgServerUrl + '/pages/dance/frame.png'" >
-          <!--<img class="gif_1" :src="img_gif_01" >-->
+         <img  class="gif_1" :src="imgServerUrl + item.imgaUrl" >
+        </swiper-slide>
+        <swiper-slide>
+          <img :src="imgServerUrl + '/pages/dance/frame.png'" >
+          <img class="gif_4" :src="imgServerUrl + '/pages/dance/red_packet.png'" >
+        </swiper-slide>
+          <!--<swiper-slide>
+          <img :src="imgServerUrl + '/pages/dance/frame.png'" >
+         
           <img class="gif_1" :src="imgServerUrl + '/pages/popcorn/Bronze.jpg'" >
           </swiper-slide>
           <swiper-slide>
           <img :src="imgServerUrl + '/pages/dance/frame.png'" >
-           <!--<img class="gif_1" :src="img_gif_02" >-->
+          
           <img class="gif_2" :src="imgServerUrl + '/pages/popcorn/Bronze.jpg'" >
           </swiper-slide>
           <swiper-slide>
           <img :src="imgServerUrl + '/pages/dance/frame.png'" >
-           <!--<img class="gif_1" :src="img_gif_03" >-->
+           
           <img class="gif_3" :src="imgServerUrl + '/pages/popcorn/Bronze.jpg'" >
           </swiper-slide>
           <swiper-slide>
           <img :src="imgServerUrl + '/pages/dance/frame.png'" >
           <img class="gif_4" :src="imgServerUrl + '/pages/dance/red_packet.png'" >
-          </swiper-slide>
+          </swiper-slide>-->
         </swiper>  
       </div>
           <!--按钮-->
@@ -97,9 +105,16 @@ export default {
   },
   data() {
     return {
-      img_gif_01: this.$route.query.img_gif_01,
-      img_gif_02: this.$route.query.img_gif_02,
-      img_gif_03: this.$route.query.img_gif_03,
+      pageSize: 0,
+      img_01: this.$route.query.img_01,
+      img_02: this.$route.query.img_02,
+      img_03: this.$route.query.img_03,
+      imgDate: [
+        {imgaUrl: '/pages/popcorn/Bronze.jpg', flg:false},
+        {imgaUrl: '/pages/popcorn/Bronze.jpg', flg:false},
+        {imgaUrl: '/pages/popcorn/Bronze.jpg', flg:false},
+        {imgaUrl: '', flg:false}
+      ],
       showStar:{
         showStarOne:false,
         showStarTwo:false,
@@ -134,24 +149,50 @@ export default {
               prevEl: '.swiper-button-prev',
             },
           on: {
-              slideChangeTransitionEnd:function (){
-                console.log(this.swiper);
-                this.showStar.showStarOne=false;
-                this.showStar.showStarTwo=false;
-                this.showStar.showStarThree=false;
-                switch (this.swiper.activeIndex)
-                  { 
-                    case 0 :   
-                        break; 
-                    case 1 :  this.showStar.showStarOne=true 
-                        break; 
-                    case 2 :  this.showStar.showStarTwo=true 
-                        break; 
-                    default : this.showStar.showStarThree=true 
-                        break; 
-                  }
-                   var model=new Model();
-                  model.loadModel(this.swiper.activeIndex);
+            slideChangeTransitionEnd:function (){
+              //满足条件表示向右滑动
+              if(this.swiper.activeIndex>=this.pageSize)
+              {
+                  if(this.swiper.activeIndex==3)
+                {
+                this.pageSize=4;
+                }
+                else{         
+                this.pageSize++;
+                if(this.imgDate[this.pageSize].imgaUrl==''||this.imgDate[this.pageSize].imgaUrl==null||this.imgDate[this.pageSize].imgaUrl==undefined)
+                {
+
+                this.pageSize++;
+                //表示切换到最后一个不显示小偶
+                }
+                }
+              }
+              //向左滑动
+              else{
+              this.pageSize--;
+              if(this.imgDate[this.pageSize].imgaUrl==''||this.imgDate[this.pageSize].imgaUrl==null||this.imgDate[this.pageSize].imgaUrl==undefined)
+              {
+              this.pageSize--;
+              }
+            }                                  
+                
+              this.showStar.showStarOne=false;
+              this.showStar.showStarTwo=false;
+              this.showStar.showStarThree=false;
+              switch (this.swiper.activeIndex)
+              { 
+                case 0 :   
+                    break; 
+                case 1 :  this.showStar.showStarOne=true 
+                    break; 
+                case 2 :  this.showStar.showStarTwo=true 
+                    break; 
+                default : this.showStar.showStarThree=true 
+                    break; 
+              }
+             console.log(this.pageSize);
+                var model=new Model();
+                model.loadModel(this.pageSize);
               }.bind(this)
             },    
         }
@@ -163,17 +204,23 @@ export default {
   mounted(){
     $('.dance-content').css('min-height', $(window).height());
     this.gitGo();  
-   
   },
   created() {
     //拿取图片id
     this.getImageById();
-    console.log(this.img_gif_01);
    },
   methods: {
     gitGo(){
+        for(var i=0;i<this.imgDate.length;i++)
+       {
+         if(this.imgDate[i].imgaUrl!='' && this.imgDate[i].imgaUrl!=null&&this.imgDate[i].imgaUrl!=undefined){
+         this.pageSize=i;
+         break;
+         }
+       }
+       console.log(this.pageSize);
       var model=new Model();
-      model.loadModel(this.swiper.activeIndex);
+      model.loadModel(this.pageSize);
     },
     //拿取图片id
     getImageById() {

@@ -14,7 +14,7 @@ var Model = function () {
   * pathing json文件
   */
 Model.prototype.loadModel = function (pageSize) {
-  if(pageSize<3){
+  if(pageSize<4){
     document.getElementById("div1").style.visibility="visible";   
     count=pageSize;
     //创建PIXI.loader
