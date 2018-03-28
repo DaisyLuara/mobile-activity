@@ -14,18 +14,23 @@ var Model = function () {
   * pathing json文件
   */
 Model.prototype.loadModel = function (pageSize) {
+     
   if(pageSize<4){
-    document.getElementById("div1").style.visibility="visible";   
+    //清除缓存
+    //---------------------------------
+    PIXI.utils.destroyTextureCache();
+    //---------------------------------
+    document.getElementById("div1").style.visibility="visible"; 
     count=pageSize;
     //创建PIXI.loader
-     var modelLoader = PIXI.loader;
-     modelLoader.resources={};
-     console.log(modelLoader);
-     var acc=this.manageLoader(jsonPath,modelLoader);
-     }
-     else{
-      document.getElementById("div1").style.visibility="hidden";  
-     }
+    var modelLoader = PIXI.loader;
+    modelLoader.resources={};
+    console.log(modelLoader);
+    var acc=this.manageLoader(jsonPath,modelLoader);
+    }
+    else{
+    document.getElementById("div1").style.visibility="hidden"; 
+    }
 };
 
 /**
@@ -49,6 +54,11 @@ Model.prototype.init=function(loader,textures){
     var thisRef=this;
         //moc
         loader.load(function (loader, resources) {
+           //---------------------------------
+          textures.forEach(element => {
+             PIXI.Texture.removeFromCache(resources[element.file].texture)
+          });
+          // //---------------------------------
             var app = new PIXI.Application(640, 360,{backgroundColor:0x000000,transparent:true,antialias:true,resolution:2});
             console.log(document.getElementById('myCanvas'));
           if(document.getElementById('myCanvas')!=null&&document.getElementById('myCanvas')!=undefined)
@@ -82,7 +92,6 @@ Model.prototype.init=function(loader,textures){
                 if (event === void 0) { event = null; }
                 var width = 100;
                 var height = 150;
- 
                 app.view.style.width = width + "px";
                 app.view.style.height = height + "px";
                 app.view.id ='myCanvas';
@@ -128,7 +137,7 @@ Model.prototype.loadBytes = function (path/*String*/, callback) {
 /**
  * 处理贴图
  */
-Model.prototype.manageJson = function (loader, textures) {
+Model.prototype.manageJson = function (loader, textures) { 
     //获取多层目录
     var path = this.getPath(jsonPath);
     textures.forEach(element => {
