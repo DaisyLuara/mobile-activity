@@ -24,8 +24,8 @@ export default {
       border: false,
       //微信分享
       wxShareInfo: {
-        title: '茶桔梗',
-        desc: '茶桔梗',
+        title: 'HEYJUICE等待着与你相遇',
+        desc: '健康时尚  美味畅享，好在天然，妙在鲜榨',
         imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/heyjuice/icon.png',
         success: function() {
           customTrack.shareWeChat()
