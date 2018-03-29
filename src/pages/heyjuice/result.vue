@@ -9,6 +9,7 @@
         </div>
         <img :src="imgPath + 'look.png'" class="look" v-show="border">
         <img :src="imgPath + 'note.png'" class="note" v-show="border">
+        <wx-share :WxShareInfo="wxShareInfo"></wx-share>
     </div>
 </template>
 <script>
@@ -23,11 +24,11 @@ export default {
       border: false,
       //微信分享
       wxShareInfo: {
-        title: '',
-        desc: '',
-        imgUrl: '',
+        title: '茶桔梗',
+        desc: '茶桔梗',
+        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/heyjuice/icon.png',
         success: function() {
-          customTrack.shareWechat()
+          customTrack.shareWeChat()
         }
       }
     }
@@ -64,6 +65,9 @@ export default {
           return
         })
     }
+  },
+  components: {
+    WxShare
   }
 }
 </script>
