@@ -72,6 +72,12 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+html,
+body {
+  background-color: #3a3836;
+  background: url('http://p22vy0aug.bkt.clouddn.com/image/heyjuice/bg.png')
+    center center/100% 100% no-repeat;
+}
 .tea-content {
   width: 100%;
   min-height: 100%;
