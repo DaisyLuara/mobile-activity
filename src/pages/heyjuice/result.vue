@@ -1,5 +1,6 @@
 <template>
-    <div class="tea-content" id="tea">
+  <div class="tea-main" id="tea">
+    <div class="tea-content" >
         <img :src="imgPath + 'bg.png'" class="bg"/>
         <img :src="imgPath + 'cover.png'" class="cover">
         <img :src="imgPath + 'shadow.png'" class="shadow">
@@ -11,6 +12,7 @@
         <img :src="imgPath + 'note.png'" class="note" v-show="border">
         <wx-share :WxShareInfo="wxShareInfo"></wx-share>
     </div>
+  </div>
 </template>
 <script>
 import marketService from 'services/marketing'
@@ -72,22 +74,23 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-html,
-body {
-  background-color: #3a3836;
-  background: url('http://p22vy0aug.bkt.clouddn.com/image/heyjuice/bg.png')
-    center center/100% 100% no-repeat;
-}
-.tea-content {
+@imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/heyjuice/';
+.tea-main {
   width: 100%;
   min-height: 100%;
   text-align: center;
   margin: 0 auto;
-
+  overflow: hidden;
+  background: url('@{imgUrl}bgcover.png') center bottom/100% auto repeat-y;
+}
+.tea-content {
+  width: 100%;
+  position: relative;
   .bg {
     text-align: center;
     margin: 0 auto;
-    width: 100%;
+    min-width: 100%;
+    min-height: 100%;
     z-index: 0;
   }
   .cover {
@@ -107,6 +110,7 @@ body {
   .picture {
     position: absolute;
     width: 100%;
+    height: 40%;
     top: 16%;
     margin: 0;
     padding: 0;
@@ -116,7 +120,8 @@ body {
       width: 89%;
       left: 5.5%;
       z-index: 999;
-      margin-top: 7.6%;
+      //margin-top: 7.6%;
+      margin-top: 5.2%;
       transform: translate(0, -115%);
       animation: sliderDown 2s ease-in-out forwards;
     }
@@ -125,21 +130,24 @@ body {
       position: absolute;
       left: 3%;
       z-index: 9;
-      margin-top: 5%;
+      //margin-top: 5%;
+      margin-top: 2.5%;
     }
   }
   .look {
     position: absolute;
-    bottom: -1.2%;
+    //bottom: -1.2%;
     width: 4.8%;
     left: 47.6%;
     animation: updown 0.8s linear infinite alternate;
+    bottom: 8.5%;
   }
   .note {
     position: absolute;
     width: 52%;
     left: 24%;
-    bottom: -7.5%;
+    //bottom: -7.5%;
+    bottom: 3%;
   }
 }
 
