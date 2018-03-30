@@ -1,5 +1,6 @@
 <template>
-    <div class="tea-content" id="tea">
+  <div class="tea-main" id="tea">
+    <div class="tea-content" >
         <img :src="imgPath + 'bg.png'" class="bg"/>
         <img :src="imgPath + 'cover.png'" class="cover">
         <img :src="imgPath + 'shadow.png'" class="shadow">
@@ -11,6 +12,7 @@
         <img :src="imgPath + 'note.png'" class="note" v-show="border">
         <wx-share :WxShareInfo="wxShareInfo"></wx-share>
     </div>
+  </div>
 </template>
 <script>
 import marketService from 'services/marketing'
@@ -24,8 +26,8 @@ export default {
       border: false,
       //微信分享
       wxShareInfo: {
-        title: '茶桔梗',
-        desc: '茶桔梗',
+        title: 'HEYJUICE等待着与你相遇',
+        desc: '健康时尚  美味畅享，好在天然，妙在鲜榨',
         imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/heyjuice/icon.png',
         success: function() {
           customTrack.shareWeChat()
@@ -72,16 +74,23 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-.tea-content {
+@imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/heyjuice/';
+.tea-main {
   width: 100%;
   min-height: 100%;
   text-align: center;
   margin: 0 auto;
-
+  overflow: hidden;
+  background: url('@{imgUrl}bgcover.png') center bottom/100% auto repeat-y;
+}
+.tea-content {
+  width: 100%;
+  position: relative;
   .bg {
     text-align: center;
     margin: 0 auto;
-    width: 100%;
+    min-width: 100%;
+    min-height: 100%;
     z-index: 0;
   }
   .cover {
@@ -101,6 +110,7 @@ export default {
   .picture {
     position: absolute;
     width: 100%;
+    height: 40%;
     top: 16%;
     margin: 0;
     padding: 0;
@@ -110,7 +120,8 @@ export default {
       width: 89%;
       left: 5.5%;
       z-index: 999;
-      margin-top: 7.6%;
+      //margin-top: 7.6%;
+      margin-top: 5.2%;
       transform: translate(0, -115%);
       animation: sliderDown 2s ease-in-out forwards;
     }
@@ -119,21 +130,24 @@ export default {
       position: absolute;
       left: 3%;
       z-index: 9;
-      margin-top: 5%;
+      //margin-top: 5%;
+      margin-top: 2.5%;
     }
   }
   .look {
     position: absolute;
-    bottom: -1.2%;
+    //bottom: -1.2%;
     width: 4.8%;
     left: 47.6%;
     animation: updown 0.8s linear infinite alternate;
+    bottom: 8.5%;
   }
   .note {
     position: absolute;
     width: 52%;
     left: 24%;
-    bottom: -7.5%;
+    //bottom: -7.5%;
+    bottom: 3%;
   }
 }
 
