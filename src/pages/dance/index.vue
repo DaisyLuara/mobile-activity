@@ -359,8 +359,10 @@ export default {
     }
  }
  #div1{ 
+    width:30%;
+    height:25%;
     position: absolute;
-    left: 50%;
+    left: 56%;
     bottom:5%;
     transform: translate(-50%);
     z-index: 1;
