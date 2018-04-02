@@ -287,9 +287,10 @@ export default {
     overflow:hidden;
     margin-top:30%;
     .swiper-container {
-      padding:1% 0;
-      width:75%;
-      height:80%;
+      padding:.5% 0;
+      width:70%;
+      height:68%;
+      z-index:3;
      }
   .swiper-slide {
     background-position: center;
@@ -342,24 +343,27 @@ export default {
     position: absolute;
     left: 0%;
     bottom:-8.5%;
+    z-index: 2;
    }
  .light2{
     position: absolute;
     left: 0%;
     bottom:-8.5%;
+    z-index: 2;
  }
  .light3{
     position: absolute;
     left: 0%;
     bottom:-8.5%;
+    z-index: 2;
     }
  }
  #div1{ 
     position: absolute;
     left: 50%;
-    top: 70%;
+    bottom:5%;
     transform: translate(-50%);
-    z-index: 2;
+    z-index: 1;
     }
  .star-ornament{
     width:100%;
@@ -508,34 +512,22 @@ export default {
 }
 
 @media screen and (max-width: 320px) { /*当屏幕尺寸小于320px时，应用下面的CSS样式*/
-  #div1 {
-      top: 64%!important;      
-  }
-  // .light1,.light2,.light3{
-  //   bottom:-11.5%!important;
+  // #div1 {
+  //     top: 64%!important;      
   // }
+
 }
 @media screen and (min-width: 375px) { /*当屏幕尺寸小于375px时，应用下面的CSS样式*/
-  #div1 {
-      top: 69%!important;       
-  }
-  // .light1,.light2,.light3{
-  //       bottom:-10.5%!important;
-  // }   
+  // #div1 {
+  //     top: 69%!important;       
+  // }  
 }
  @media screen and (min-width: 414px) { /*当屏幕尺寸小于414px时，应用下面的CSS样式*/
-  #div1 {
-      top: 70%!important;      
-  }
-  // .light1,.light2,.light3{
-  //       bottom:-10.5%!important;
-  // }   
+  // #div1 {
+  //     top: 68%!important;      
+  // } 
 }
-@media only screen and (width: 375px) and (height: 812px){ /*适配x*/
-  //   .light1,.light2,.light3{
-  //       bottom:-5.5%!important;
-  // }
-}
+
 
 
 

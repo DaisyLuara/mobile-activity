@@ -96,7 +96,7 @@ Model.prototype.init=function(loader,textures){
                 app.view.style.height = height + "px";
                 app.view.id ='myCanvas';
                 app.renderer.resize(width, height);
-                model.position = new PIXI.Point((width * 0.5), (height * 0.4));
+                model.position = new PIXI.Point((width * 0.4), (height * 0.35));
                 model.scale = new PIXI.Point((model.position.x * 2.2), (model.position.x * 2.2));
                 model.masks.resize(app.view.width, app.view.height);
             };
