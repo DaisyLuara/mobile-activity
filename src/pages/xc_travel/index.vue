@@ -37,8 +37,8 @@ export default {
       img_url: '',
       imgServerUrl: IMAGE_SERVER + '/pages/psbh_travel',
       wxShareInfo: {
-        title: '浦商百货折上折',
-        desc: '体验异域风情 尽享优惠折扣',
+        title: '我在携程未来旅行空间站，高清硬照求围观！',
+        desc: '4月5日-7日，苏州站邀你体验',
         imgUrl:
           'http://p22vy0aug.bkt.clouddn.com/image/xiecheng/travelicon.png',
         success: () => {
