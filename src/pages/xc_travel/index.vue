@@ -48,7 +48,7 @@ export default {
     }
   },
   beforeCreate() {
-    document.title = '浦商百货'
+    document.title = '携程旅行'
   },
   mounted() {
     $('.photo-content').css('min-height', $(window).height())

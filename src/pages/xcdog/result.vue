@@ -46,7 +46,7 @@ export default {
     }
   },
   beforeCreate() {
-    document.title = '携程-刀刀狗'
+    document.title = '携程旅行'
   },
   created() {
     this.getPeopleImage()
