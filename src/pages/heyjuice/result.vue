@@ -60,7 +60,7 @@ export default {
           var timer = setTimeout(function() {
             that.border = true
             clearTimeout(timer)
-          }, 1800)
+          }, 2800)
         })
         .catch(err => {
           console.log(err)
@@ -122,8 +122,9 @@ export default {
       z-index: 999;
       //margin-top: 7.6%;
       margin-top: 5.2%;
-      transform: translate(0, -115%);
-      animation: sliderDown 2s ease-in-out forwards;
+      // transform: translateY(-115%);
+      opacity: 0;
+      animation: sliderDown 1s 2s ease-in-out forwards;
     }
     .border {
       width: 94%;
@@ -152,11 +153,20 @@ export default {
 }
 
 @keyframes sliderDown {
+  // 0% {
+  //   transform: translateY(-115%);
+  // }
+  // 100% {
+  //   transform: translateY(0);
+  // }
   0% {
-    transform: translate(0, -115%);
+    opacity: 0;
+    transform: translate3d(0, -100%, 0);
   }
+
   100% {
-    transform: translate(0, 0);
+    opacity: 1;
+    transform: none;
   }
 }
 @keyframes updown {
