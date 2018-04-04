@@ -1,13 +1,11 @@
 <template>
   <div class="psbh-travel-wrap">
-    <img class="psbh-img" :src="imgServerUrl + '/img1_0403.jpg'" alt="">
     <div class="photo-content">
       <div class="boots-wrap">
         <div class="slide-wrap pos-common">
           <img class="boot-line pos-common" :src="imgServerUrl + '/boot-line.png'">
           <img class="boot-text pos-common" :src="imgServerUrl + '/boot-text.png'">
           <img class="gesture-img pos-common" :src="imgServerUrl + '/gesture-img.png'">
-          <!-- <img class="coupon-img pos-common" :src="imgServerUrl + '/coupon-img.png'"> -->
           <div class="boot-img"></div>
         </div>
       </div>
@@ -19,128 +17,128 @@
         </div>
         <img class="save-img" :src="imgServerUrl + '/save-img3.png'">
       </div>
-      <img class="slogan" :src="imgServerUrl + '/slogan.png'">
     </div>
-    <img class="psbh-img" :src="imgServerUrl + '/img2_0403.png'" alt="">
-    <img class="psbh-img" :src="imgServerUrl + '/img3_0403.jpg'" alt="">
-
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
 </template>
 <script>
-import marketService from 'services/marketing';
-import WxShare from 'modules/wxShare';
-import { customTrack } from 'modules/customTrack';
+import marketService from 'services/marketing'
+import WxShare from 'modules/wxShare'
+import { customTrack } from 'modules/customTrack'
 
-const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing';
+const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 
 export default {
   components: {
-    WxShare,
+    WxShare
   },
   data() {
     return {
       img_url: '',
       imgServerUrl: IMAGE_SERVER + '/pages/psbh_travel',
       wxShareInfo: {
-        title: '浦商百货折上折',
-        desc: '体验异域风情 尽享优惠折扣',
-        imgUrl: IMAGE_SERVER + '/wx_share_icon/psbh_travel_share_icon.jpeg',
+        title: '我在携程未来旅行空间站，高清硬照求围观！',
+        desc: '4月5日-7日，苏州站邀你体验',
+        imgUrl:
+          'http://p22vy0aug.bkt.clouddn.com/image/xiecheng/travelicon.png',
         success: () => {
-          customTrack.shareWeChat();
+          customTrack.shareWeChat()
         }
-      },
-    };
+      }
+    }
   },
   beforeCreate() {
-    document.title = '浦商百货';
+    document.title = '携程旅行'
   },
   mounted() {
-    $('.photo-content').css('min-height', $(window).height());
-    this.init();
+    $('.photo-content').css('min-height', $(window).height())
+    this.init()
   },
   created() {
-    this.getPeopleImage();
+    this.getPeopleImage()
   },
   methods: {
     getPeopleImage() {
-      let id = decodeURI(this.$route.query.id);
-      marketService.getInfoById(this, id).then((result) => {
-        this.img_url = result.image;
-      }).catch((err) => {
-        console.log(err);
-      });
+      let id = decodeURI(this.$route.query.id)
+      marketService
+        .getInfoById(this, id)
+        .then(result => {
+          this.img_url = result.image
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
-    init(){
+    init() {
       let wid = 0,
-      slogen_hei = 0,
-      adv_hei = 0,
-      bubble_hei = 0,
-      boot_hei = 0,
-      slide_wid = $('.slide-wrap').width(),
-      boot_obj = $('.boot-img'),
-      start_pos = $('.slide-wrap').offset().left,
-      end_pos = start_pos + slide_wid - $('.boot-img').width();
+        slogen_hei = 0,
+        adv_hei = 0,
+        bubble_hei = 0,
+        boot_hei = 0,
+        slide_wid = $('.slide-wrap').width(),
+        boot_obj = $('.boot-img'),
+        start_pos = $('.slide-wrap').offset().left,
+        end_pos = start_pos + slide_wid - $('.boot-img').width()
 
-      wid = $(window).width()>640 ? 640 : $(window).width();
-      boot_hei = wid*267/750;
-      $('.boots-wrap').height(boot_hei);
+      wid = $(window).width() > 640 ? 640 : $(window).width()
+      boot_hei = wid * 267 / 750
+      $('.boots-wrap').height(boot_hei)
 
-      document.addEventListener("touchstart", function(){}, true);
+      document.addEventListener('touchstart', function() {}, true)
 
-      boot_obj.off('touchstart', enter);
-      boot_obj.on('touchstart', enter);
+      boot_obj.off('touchstart', enter)
+      boot_obj.on('touchstart', enter)
 
       function enter(e) {
-        e.preventDefault();
-        boot_obj.on('touchmove', move);
-        boot_obj.on('touchend', end);
+        e.preventDefault()
+        boot_obj.on('touchmove', move)
+        boot_obj.on('touchend', end)
       }
 
       function move(e) {
         let moveX = e.originalEvent.touches[0].clientX,
-            diff = moveX-start_pos,
-            curr_pos = 0,
-            percent = 0;
+          diff = moveX - start_pos,
+          curr_pos = 0,
+          percent = 0
 
-        $('.gesture-img').addClass('disappear');
-        if(diff <= 0 || boot_obj.offset().left<start_pos) {
-          curr_pos = 0;
-        }else{
-          curr_pos = diff-boot_obj.width()/2;
+        $('.gesture-img').addClass('disappear')
+        if (diff <= 0 || boot_obj.offset().left < start_pos) {
+          curr_pos = 0
+        } else {
+          curr_pos = diff - boot_obj.width() / 2
         }
 
-        if(diff > end_pos) {
-          curr_pos = end_pos-start_pos;
-          setTimeout(function(){
-            $(".boots-wrap").addClass('hide')
-            $(".boots-btn-wrap").addClass('show');
-          },500)
-          $('.photo-wrap').addClass('appear');
-          $('.slide-wrap').addClass('slide');
-          boot_obj.off('touchstart', enter);
-          boot_obj.off('touchmove', move);
-          boot_obj.off('touchend', end);
+        if (diff > end_pos) {
+          curr_pos = end_pos - start_pos
+          setTimeout(function() {
+            $('.boots-wrap').addClass('hide')
+            $('.boots-btn-wrap').addClass('show')
+          }, 500)
+          $('.photo-wrap').addClass('appear')
+          $('.slide-wrap').addClass('slide')
+          boot_obj.off('touchstart', enter)
+          boot_obj.off('touchmove', move)
+          boot_obj.off('touchend', end)
         }
-        percent = curr_pos/(end_pos-start_pos)*100;
-        if(percent<0) {
-          $('.cover-img').css('transform', 'translateX(0)');
-        }else {
-          $('.cover-img').css('transform', 'translateX('+percent+'%)');
+        percent = curr_pos / (end_pos - start_pos) * 100
+        if (percent < 0) {
+          $('.cover-img').css('transform', 'translateX(0)')
+        } else {
+          $('.cover-img').css('transform', 'translateX(' + percent + '%)')
         }
-        boot_obj.css('left', curr_pos);
+        boot_obj.css('left', curr_pos)
       }
 
       function end() {
-        boot_obj.off('touchmove', move);
+        boot_obj.off('touchmove', move)
       }
     }
-  },
-};
+  }
+}
 </script>
 <style lang="less" scoped>
 @imgServerUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/psbh_travel';
-.psbh-travel-wrap{
+.psbh-travel-wrap {
   .photo-content {
     width: 100%;
     position: relative;
@@ -154,7 +152,7 @@ export default {
       text-align: center;
       overflow-x: hidden;
       margin-bottom: 10px;
-      .logo{
+      .logo {
         width: 30%;
       }
       .sun-img {
@@ -236,7 +234,7 @@ export default {
           .mask {
             background-size: 102%;
             background-position-x: -5px;
-            background-image: url("@{imgServerUrl}/adv2-img.png");
+            background-image: url('@{imgServerUrl}/adv2-img.png');
             -webkit-mask-image: url('@{imgServerUrl}/mask2-img.png');
             background-position: 50% 50%;
             animation: moveFromRight 1s 0.2s 1 forwards;
@@ -248,12 +246,12 @@ export default {
         &.frame3 {
           width: 40.26%;
           left: 7.5%;
-          top:53%;
+          top: 53%;
           .mask {
             background-position: -5px -10px;
             background-image: url('@{imgServerUrl}/adv3-img.png');
             -webkit-mask-image: url('@{imgServerUrl}/mask3-img.png');
-            animation: moveFromLest 1s .5s 1 forwards;
+            animation: moveFromLest 1s 0.5s 1 forwards;
           }
           .outer {
             background-image: url('@{imgServerUrl}/frame3-img.png');
@@ -275,7 +273,7 @@ export default {
               bottom: 0;
               width: 22.4%;
               transform: translateY(100%);
-              animation: fingerMotion .3s 1.3s ease-out 1 forwards;
+              animation: fingerMotion 0.3s 1.3s ease-out 1 forwards;
             }
             .text1-img {
               position: absolute;
@@ -308,7 +306,7 @@ export default {
     .boots-wrap {
       margin-top: -5%;
       opacity: 1;
-      transition: opacity .5s;
+      transition: opacity 0.5s;
       position: absolute;
       top: 51%;
       width: 100%;
@@ -316,7 +314,7 @@ export default {
       right: 0px;
       margin: 0px auto;
       z-index: 99;
-      &.hide{
+      &.hide {
         opacity: 0;
         z-index: 0;
       }
@@ -387,16 +385,18 @@ export default {
           &.proccess3 {
             background-image: url('@{imgServerUrl}/boot4-img.png');
           }
-          transition: background .5s;
+          transition: background 0.5s;
         }
         &.slide {
-          .gesture-img, .boot-line, .boot-text {
+          .gesture-img,
+          .boot-line,
+          .boot-text {
             display: none;
           }
         }
       }
     }
-    .boots-btn-wrap{
+    .boots-btn-wrap {
       text-align: center;
       position: absolute;
       top: 43%;
@@ -406,14 +406,14 @@ export default {
       width: 50%;
       opacity: 0;
       margin: 0px auto;
-      &.show{
+      &.show {
         opacity: 1;
         z-index: 100;
-        .boots-btn-bg{
+        .boots-btn-bg {
           animation: changeOpacity 1.1s infinite ease-in-out;
         }
       }
-      .boots-btn{
+      .boots-btn {
         position: absolute;
         top: 0;
         left: 0;
@@ -421,12 +421,12 @@ export default {
         width: 100%;
         z-index: 2;
         margin: 0 auto;
-        &.placeholder{
+        &.placeholder {
           position: relative;
           opacity: 0;
         }
       }
-      .boots-btn-bg{
+      .boots-btn-bg {
         position: absolute;
         top: 0;
         left: 0;
@@ -436,13 +436,13 @@ export default {
         margin: 0 auto;
       }
     }
-    .coupon-btn{
+    .coupon-btn {
       position: relative;
       width: 100%;
       margin: 40px auto 20px;
       display: block;
       text-align: center;
-      .boots-btn{
+      .boots-btn {
         position: absolute;
         top: 0;
         left: 0;
@@ -450,12 +450,12 @@ export default {
         width: 80%;
         z-index: 2;
         margin: 0 auto;
-        &.placeholder{
+        &.placeholder {
           position: relative;
           opacity: 0;
         }
       }
-      .boots-btn-bg{
+      .boots-btn-bg {
         position: absolute;
         top: 0;
         left: 0;
@@ -544,7 +544,7 @@ export default {
       }
       .save-img {
         position: absolute;
-        bottom: -7%;
+        bottom: -11%;
         left: 0;
         right: 0;
         margin: 0 auto;
@@ -555,7 +555,7 @@ export default {
       }
       &.appear {
         .seal-img {
-          animation: sealMotion .5s 1 forwards;
+          animation: sealMotion 0.5s 1 forwards;
         }
         .save-img {
           opacity: 1;
@@ -565,7 +565,7 @@ export default {
         }
       }
     }
-    .slogan{
+    .slogan {
       width: 48%;
       margin: 50px auto 0;
     }
@@ -609,7 +609,7 @@ export default {
             z-index: 7;
             transform: scale(0);
             &.appear {
-              animation: bubbleImgAppear .3s 1 forwards;
+              animation: bubbleImgAppear 0.3s 1 forwards;
             }
           }
         }
@@ -635,7 +635,8 @@ export default {
         width: 56%;
         animation: sunMotion 15s linear infinite;
       }
-      .compass-img-active, .compass-img {
+      .compass-img-active,
+      .compass-img {
         position: absolute;
         left: 0;
         right: 0;
@@ -673,16 +674,28 @@ export default {
   }
 
   @keyframes sunMotion {
-    0% {transform: rotate(0deg);}
-    100% {transform: rotate(360deg);}
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
   @keyframes cloudLeftMotion {
-    0% {transform: translateX(-15%);}
-    100% {transform: translateX(0%);}
+    0% {
+      transform: translateX(-15%);
+    }
+    100% {
+      transform: translateX(0%);
+    }
   }
   @keyframes cloudRightMotion {
-    0% {transform: translateX(0);}
-    100% {transform: translateX(15%);}
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(15%);
+    }
   }
   @keyframes moveFromLest {
     0% {
@@ -705,12 +718,20 @@ export default {
     }
   }
   @keyframes fingerMotion {
-    0% {transform: translateY(100%);}
-    100% {transform: translateY(0);}
+    0% {
+      transform: translateY(100%);
+    }
+    100% {
+      transform: translateY(0);
+    }
   }
   @keyframes textMotion {
-    0% {opacity: 0;}
-    100% {opacity: 1;}
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
   }
   @keyframes sealMotion {
     0% {
@@ -723,30 +744,46 @@ export default {
     }
   }
   @keyframes bubbleImgAppear {
-    0% {transform: scale(0);}
-    100% {transform: scale(1);}
+    0% {
+      transform: scale(0);
+    }
+    100% {
+      transform: scale(1);
+    }
   }
   @keyframes arrowDownMotion {
-    0% {transform: translateY(-5px);}
-    100% {transform: translateY(0px);}
+    0% {
+      transform: translateY(-5px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
   }
   @keyframes arrowMotion {
-    0% {transform: translateY(-3px);}
-    100% {transform: translateY(0px);}
+    0% {
+      transform: translateY(-3px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
   }
   @keyframes gestureMotion {
-    0% {left: 7%;}
-    100% {left: 85%;}
+    0% {
+      left: 7%;
+    }
+    100% {
+      left: 85%;
+    }
   }
 
   @keyframes changeOpacity {
-    0%{
+    0% {
       opacity: 1;
     }
-    50%{
+    50% {
       opacity: 0;
     }
-    100%{
+    100% {
       opacity: 1;
     }
   }
