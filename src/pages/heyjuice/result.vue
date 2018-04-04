@@ -121,8 +121,6 @@ export default {
       left: 5.5%;
       z-index: 999;
       margin-top: 5.2%;
-      // transform: translateY(-115%);
-      // opacity: 0;
       animation: sliderDown 1.5s 0.6s ease-in-out forwards;
     }
     .border {
@@ -149,19 +147,10 @@ export default {
 }
 
 @keyframes sliderDown {
-  // 0% {
-  //   transform: translateY(-115%);
-  // }
-  // 100% {
-  //   transform: translateY(0);
-  // }
   0% {
-    // opacity: 0;
-    transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -116%, 0);
   }
-
   100% {
-    // opacity: 1;
     transform: none;
   }
 }
