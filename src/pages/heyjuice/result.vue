@@ -120,10 +120,9 @@ export default {
       width: 89%;
       left: 5.5%;
       z-index: 999;
-      //margin-top: 7.6%;
       margin-top: 5.2%;
       // transform: translateY(-115%);
-      opacity: 0;
+      // opacity: 0;
       animation: sliderDown 1.5s 0.6s ease-in-out forwards;
     }
     .border {
@@ -131,13 +130,11 @@ export default {
       position: absolute;
       left: 3%;
       z-index: 9;
-      //margin-top: 5%;
       margin-top: 2.5%;
     }
   }
   .look {
     position: absolute;
-    //bottom: -1.2%;
     width: 4.8%;
     left: 47.6%;
     animation: updown 0.8s linear infinite alternate;
@@ -147,7 +144,6 @@ export default {
     position: absolute;
     width: 52%;
     left: 24%;
-    //bottom: -7.5%;
     bottom: 3%;
   }
 }
