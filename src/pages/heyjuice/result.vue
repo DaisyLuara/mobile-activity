@@ -60,7 +60,7 @@ export default {
           var timer = setTimeout(function() {
             that.border = true
             clearTimeout(timer)
-          }, 1800)
+          }, 2250)
         })
         .catch(err => {
           console.log(err)
@@ -121,7 +121,8 @@ export default {
       left: 5.5%;
       z-index: 999;
       margin-top: 5.2%;
-      animation: sliderDown 1.5s 0.6s ease-in-out forwards;
+      transform: translate3d(0, -116%, 0);
+      animation: sliderDown 2s 0.6s ease-in-out forwards;
     }
     .border {
       width: 94%;
