@@ -97,7 +97,7 @@ export default {
   created() {
     document.title = '球星卡'
     this.style.mid.height = window.innerWidth * 1124 / 690 + 'px'
-    this.style.bindWith = window.innerWidth * 0.66
+    this.style.bindWith = window.innerWidth * 0.65
   },
   methods: {
     handlePowerStatusChange() {
@@ -175,14 +175,14 @@ export default {
     flex-grow: 1;
     flex-shrink: 1;
     background-image: url('@{imgServerUrl}/bg_top.png');
-    background-size: cover;
+    background-size: contain;
     width: 100%;
   }
   .root-bottom {
     flex-grow: 1;
     flex-shrink: 1;
     background-image: url('@{imgServerUrl}/bg_bottom.png');
-    background-size: cover;
+    background-size: contain;
     width: 100%;
   }
 }

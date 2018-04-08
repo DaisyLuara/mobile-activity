@@ -3,6 +3,26 @@
     <canvas 
       class="spider-ca"
       id="spider" />
+    <img 
+      :style="topText"
+      :src="this.baseUrl + 'top.png'" />
+      
+    <img 
+      :style="leftText"
+      :src="this.baseUrl + 'left.png'" />
+
+    <img 
+      :style="rightText"
+      :src="this.baseUrl + 'right.png'" />
+
+    <img 
+      :style="leftBottomText"
+      :src="this.baseUrl + 'leftbottom.png'" />
+
+    <img 
+      :style="rightBottomText"
+      :src="this.baseUrl + 'rightbottom.png'" />
+
     <div :style="topSpace">
       <div 
         :style="numberStyle" 
@@ -64,6 +84,8 @@ export default {
   },
   data() {
     return {
+      baseUrl:
+        'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup/',
       base: 0,
       count: 5,
       x0: 0,
@@ -83,27 +105,57 @@ export default {
       topSpace: {
         position: 'absolute',
         top: this.width * 0.26 + 'px',
-        right: this.width * 0.47 + 'px'
+        right: this.width * 0.48 + 'px'
       },
       leftSpace: {
         position: 'absolute',
-        top: this.width * 0.6 + 'px',
-        right: this.width * 0.98 + 'px'
+        top: this.width * 0.64 + 'px',
+        right: this.width + 'px'
       },
       rightSpace: {
         position: 'absolute',
-        top: this.width * 0.6 + 'px',
+        top: this.width * 0.64 + 'px',
         right: this.width * 0.14 + 'px'
       },
       rightBottomSpace: {
         position: 'absolute',
-        bottom: this.width * 0.17 + 'px',
+        bottom: this.width * 0.22 + 'px',
         right: this.width * 0.28 + 'px'
       },
       leftBottomSpace: {
         position: 'absolute',
-        bottom: this.width * 0.17 + 'px',
-        right: this.width * 0.88 + 'px'
+        bottom: this.width * 0.22 + 'px',
+        right: this.width * 0.9 + 'px'
+      },
+      topText: {
+        position: 'absolute',
+        top: this.width * 0.26 + 'px',
+        right: this.width * 0.56 + 'px',
+        width: window.innerWidth * 0.1 + 'px'
+      },
+      leftText: {
+        position: 'absolute',
+        top: this.width * 0.58 + 'px',
+        right: this.width * 0.97 + 'px',
+        width: window.innerWidth * 0.1 + 'px'
+      },
+      rightText: {
+        position: 'absolute',
+        top: this.width * 0.58 + 'px',
+        right: this.width * 0.1 + 'px',
+        width: window.innerWidth * 0.1 + 'px'
+      },
+      leftBottomText: {
+        position: 'absolute',
+        bottom: this.width * 0.25 + 'px',
+        right: this.width * 0.85 + 'px',
+        width: window.innerWidth * 0.1 + 'px'
+      },
+      rightBottomText: {
+        position: 'absolute',
+        bottom: this.width * 0.25 + 'px',
+        right: this.width * 0.23 + 'px',
+        width: window.innerWidth * 0.1 + 'px'
       }
     }
   },
@@ -278,7 +330,7 @@ export default {
   position: relative;
   .spider-ca {
     position: absolute;
-    top: 4%;
+    top: 3%;
     bottom: 0;
     left: 0;
     right: 0;
