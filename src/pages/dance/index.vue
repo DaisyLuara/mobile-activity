@@ -200,6 +200,7 @@ export default {
   beforeCreate() {
     document.title = '跳舞机';
   },
+  
   mounted(){
     $('.dance-content').css('min-height', $(window).height());
     this.init();
