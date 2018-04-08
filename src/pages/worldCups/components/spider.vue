@@ -325,6 +325,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
+img {
+  width: 100%;
+}
 .spider-wrap {
   padding: 10px;
   position: relative;
