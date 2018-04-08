@@ -200,7 +200,7 @@ export default {
   beforeCreate() {
     document.title = '跳舞机';
   },
-  
+
   mounted(){
     $('.dance-content').css('min-height', $(window).height());
     this.init();
@@ -245,20 +245,20 @@ export default {
     handleMapJsReady() {
       return new Promise((resolve, reject) => {
         let script = document.createElement('script')
-        script.src = 'static/live2d3.0/js/utils/pixi.min.js'
+        script.src = '/static/live2d3.0/js/utils/pixi.min.js'
         script.async = false
         document.head.appendChild(script)
         let layer1 = document.createElement('script')
         layer1.async = false
-        layer1.src = 'static/live2d3.0/js/utils/live2dcubismcore.min.js'
+        layer1.src = '/static/live2d3.0/js/utils/live2dcubismcore.min.js'
         document.head.appendChild(layer1)
         let layer2 = document.createElement('script')
         layer2.async = false
-        layer2.src = 'static/live2d3.0/js/utils/live2dcubismframework.js'
+        layer2.src = '/static/live2d3.0/js/utils/live2dcubismframework.js'
         document.head.appendChild(layer2)
         let layer3 = document.createElement('script')
         layer3.async = false
-        layer3.src = 'static/live2d3.0/js/utils/live2dcubismpixi.js'
+        layer3.src = '/static/live2d3.0/js/utils/live2dcubismpixi.js'
         document.head.appendChild(layer3)
         script.onload = () => {
           layer1.onload = () => {
