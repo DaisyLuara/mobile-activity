@@ -90,14 +90,18 @@ Model.prototype.init=function(loader,textures){
             //计算页面的大小
             var onResize = function (event) {
                 if (event === void 0) { event = null; }
-                var width = 100;
-                var height = 150;
-                app.view.style.width = width + "px";
-                app.view.style.height = height + "px";
+                // var width = 100;
+                // var height = 150;
+                // app.view.style.width = width + "px";
+                // app.view.style.height = height + "px";
+                var width = 75;
+                var height = 100;
+                app.view.style.width = width + "%";
+                app.view.style.height = height + "%";
                 app.view.id ='myCanvas';
                 app.renderer.resize(width, height);
-                model.position = new PIXI.Point((width * 0.5), (height * 0.4));
-                model.scale = new PIXI.Point((model.position.x * 2.2), (model.position.x * 2.2));
+                model.position = new PIXI.Point((width * 0.4), (height * 0.4));
+                model.scale = new PIXI.Point((model.position.x * 2), (model.position.x * 2));
                 model.masks.resize(app.view.width, app.view.height);
             };
             onResize();
