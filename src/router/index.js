@@ -161,6 +161,12 @@ export default new Router({
           name: '携程版小泰',
           component: () =>
             import(/* webpackChunkName: "xc_travel" */ 'pages/xc_travel/index.vue')
+        },
+        {
+          path: 'wc_card',
+          name: 'WorldCupCard',
+          component: () =>
+            import(/* webpackChunkName: "WorldCupCard" */ 'pages/worldCups/card.vue')
         }
       ]
     },
