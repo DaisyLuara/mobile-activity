@@ -167,6 +167,12 @@ export default new Router({
           name: 'WorldCupCard',
           component: () =>
             import(/* webpackChunkName: "WorldCupCard" */ 'pages/worldCups/card.vue')
+        },
+        {
+          path: 'wc_shemen',
+          name: 'WorldCupShemen',
+          component: () =>
+            import(/* webpackChunkName: "WorldCup" */ 'pages/worldCups/shemen.vue')
         }
       ]
     },
