@@ -202,7 +202,8 @@ export default {
   },
   mounted(){
     $('.dance-content').css('min-height', $(window).height());
-    this.gitGo();  
+    this.init();
+    //this.gitGo();  
   },
   created() {
     //拿取图片id
@@ -229,6 +230,45 @@ export default {
       }).catch((err) => {
         console.log(err);
       });
+    },
+    async init() {
+      try {
+        await this.handleMapJsReady()
+        await this.gitGo();  
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    
+    //动态加载文件
+    handleMapJsReady() {
+      return new Promise((resolve, reject) => {
+        let script = document.createElement('script')
+        script.src = 'static/live2d3.0/js/utils/pixi.min.js'
+        script.async = false
+        document.head.appendChild(script)
+        let layer1 = document.createElement('script')
+        layer1.async = false
+        layer1.src = 'static/live2d3.0/js/utils/live2dcubismcore.min.js'
+        document.head.appendChild(layer1)
+        let layer2 = document.createElement('script')
+        layer2.async = false
+        layer2.src = 'static/live2d3.0/js/utils/live2dcubismframework.js'
+        document.head.appendChild(layer2)
+        let layer3 = document.createElement('script')
+        layer3.async = false
+        layer3.src = 'static/live2d3.0/js/utils/live2dcubismpixi.js'
+        document.head.appendChild(layer3)
+        script.onload = () => {
+          layer1.onload = () => {
+            layer2.onload = () =>{ 
+              layer3.onload = ()=>{
+                  resolve();
+              }
+            }
+          }
+        }
+      })
     }
   },
   computed: {
