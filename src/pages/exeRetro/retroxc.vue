@@ -29,9 +29,9 @@ export default {
       hasshake: 'hasshake',
       //微信分享
       wxShareInfo: {
-        title: '回到70年代',
-        desc: '穿越回70年代，复古装扮走一波',
-        imgUrl: BASE_URL + 'image/retro/icon.png',
+        title: '我在携程未来旅行空间站，高清硬照求围观！',
+        desc: '4月5日-7日，苏州站邀你体验',
+        imgUrl: BASE_URL + 'image/xiecheng/retroicon.jpg',
         success: function() {
           customTrack.shareWeChat()
         }
@@ -39,7 +39,7 @@ export default {
     }
   },
   beforeCreate() {
-    document.title = '复古通用版'
+    document.title = '携程旅行'
   },
   created() {
     this.getInfoById()

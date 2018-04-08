@@ -46,6 +46,7 @@ export default {
       document.body.clientHeight
     var tea = document.getElementById('tea')
     tea.style.minHeight = h + 'px'
+    console.log(h)
     this.getInfoById()
   },
   methods: {

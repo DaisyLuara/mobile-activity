@@ -29,7 +29,7 @@ export default {
       jietiap360:
         'https://mkt.360jie.com.cn/activity/ch/zrzakerh5/xinxiliu2?utm_content=sucai1&utm_term=datu1',
       giftUrl:
-        'http://engine.liulianqc.com/index/activity?appKey=2XDEZp6HaEr8y7hzRwkWcW4hZrCc&adslotId=7704',
+        'http://engine.liulianqc.com/index/activity?appKey=2XDEZp6HaEr8y7hzRwkWcW4hZrCc&adslotId=7702',
       giftImg: BASE_URL + 'image/springnew/red.gif',
       //微信分享
       wxShareInfo: {

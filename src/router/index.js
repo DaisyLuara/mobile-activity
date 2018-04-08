@@ -181,6 +181,12 @@ export default new Router({
             import(/* webpackChunkName: "gdbank" */ 'pages/exeMaliao/gdbank.vue')
         },
         {
+          path: 'gdbank2',
+          name: '马里奥-光大银行2',
+          component: () =>
+            import(/* webpackChunkName: "gdbank2" */ 'pages/exeMaliao/gdbank2.vue')
+        },
+        {
           path: 'retro',
           name: '复古通用版',
           component: () =>

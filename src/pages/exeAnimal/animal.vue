@@ -44,14 +44,12 @@ export default {
       imgUrl: BASE_URL + 'image/',
       audioUrl: BASE_URL + 'audio/mp3/',
       xlink: 'http://m.jingfree.com/marketing/brochure?trace_id=nakvx5',
-      mImg: null,
-      voice: null,
       mbtn: null,
       //微信分享
       wxShareInfo: {
         title: '星视度有嘻哈',
         desc: '你就是嘻哈王者',
-        imgUrl: BASE_URL + 'image/heyjuice/icon.png',
+        imgUrl: BASE_URL + 'image/kaide_animal/icon.png',
         success: function() {
           customTrack.shareWeChat()
         }
@@ -63,8 +61,6 @@ export default {
   },
   created() {
     this.getInfoById()
-    this.voice = document.getElementById('voice')
-    this.mbtn = document.getElementById('mbtn')
   },
   mounted() {
     this.playAudio()
@@ -83,6 +79,8 @@ export default {
         })
     },
     playAudio() {
+      var voice = document.getElementById('voice')
+      var mbtn = document.getElementById('mbtn')
       if (!voice) {
         return
       }
@@ -158,9 +156,9 @@ html,
 body {
   text-align: center;
   overflow-x: hidden;
+  height: 100%;
   -webkit-overflow-scrolling: touch;
   transform: translate3d(0, 0, 0);
-  height: 100%;
 }
 // 水平居中
 .horizon {

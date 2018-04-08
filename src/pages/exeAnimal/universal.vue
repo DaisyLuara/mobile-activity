@@ -51,7 +51,7 @@ export default {
       wxShareInfo: {
         title: '星视度有嘻哈',
         desc: '你就是嘻哈王者',
-        imgUrl: BASE_URL + 'image/heyjuice/icon.png',
+        imgUrl: BASE_URL + 'image/universal/icon.png',
         success: function() {
           customTrack.shareWeChat()
         }
