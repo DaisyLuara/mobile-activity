@@ -2,7 +2,7 @@
  * 初始对象
  */
 var count=2;
-var jsonPath='./static/live2d3.0/file/H5test3/export_example_PNG.model3.json';
+var jsonPath='/static/live2d3.0/file/H5test3/export_example_PNG.model3.json';
 var Model = function () {
     this.Moc = "Moc";
     this.TEXTURES = "Textures";
