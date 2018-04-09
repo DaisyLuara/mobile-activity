@@ -1,5 +1,6 @@
 <template>
-<div class="photo-content">
+<div class="travel-content">
+  <div class="photo-content">
     <audio id="voice" autobuffer autoloop loop autoplay hidden>
 			<source :src="audioUrl+'oldbgm.mp3'">
 		</audio>
@@ -11,19 +12,20 @@
         <img class="gesture-img" :src="imgServerUrl+'/gesture-img.png'"> 
         <div class="boot-img"></div>
       </div>
-	</div>
-	<div class="photo-wrap">
-	  <img class="envelope-bg" :src="imgServerUrl+'/photo_frame.png'">
-	  <img class="photo-img" :src="photo">
-	</div>
-	<div class="save-img">
-		<img class="hint" :src="imgServerUrl+'/save-img3.png'">
-	</div>
+	  </div>
+    <div class="photo-wrap">
+      <img class="envelope-bg" :src="imgServerUrl+'/photo_frame.png'">
+      <img class="photo-img" :src="photo">
+    </div>
 	  <div class="photo-cover">
 		  <img class="cover-img" :src="imgServerUrl+'/photo-cover2.png'">
 	  </div>
-      <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
+  <div class="save-img">
+		<img class="hint" :src="imgServerUrl+'/save-img3.png'"/>
+	</div>
+  <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+</div>
 </template>
 <script>
 import marketService from 'services/marketing'
@@ -224,163 +226,164 @@ export default {
 <style lang="less" scoped>
 @imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/travel';
 @imgServerUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/psbh_travel';
-
-.photo-content {
+.travel-content {
   width: 100%;
-  height: 100vh;
-  position: relative;
   background-color: #faf4e8;
-  overflow: hidden;
   text-align: center;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  -webkit-justify-content: space-between;
-  justify-content: space-between;
-  #mbtn {
-    position: absolute;
-    top: 2px;
-    right: 2px;
-    width: 30px;
-    height: 30px;
-    z-index: 9999;
-  }
-  .mplay {
-    animation: mycir 2s linear infinite;
-  }
-  .photo-cover {
-    position: absolute;
-    left: 50%;
-    top: 3.5%;
-    height: 92.5%;
-    margin: 0 auto;
-    z-index: 5;
-    overflow: hidden;
-    transform: translateX(-50%);
-    .cover-img {
-      height: 100%;
-      width: auto;
-      max-width: none;
-    }
-  }
-  .photo-wrap {
-    margin: 0 auto;
-    margin-top: 5%;
-    height: 93%;
+  .photo-content {
+    width: 100%;
+    height: 100vh;
     position: relative;
-    .envelope-bg {
-      height: 100%;
-      width: auto;
-      margin-left: 2px;
-    }
-    .photo-img {
+    overflow: hidden;
+    text-align: center;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    #mbtn {
       position: absolute;
-      top: 0;
-      left: 0.5%;
-      right: 0;
-      z-index: 4;
-      margin: 0 auto;
-      height: 99.5%;
-      width: auto;
-      padding: 2px;
+      top: 2px;
+      right: 2px;
+      width: 30px;
+      height: 30px;
+      z-index: 9999;
     }
-  }
-  .slogan {
-    width: 68%;
-    margin: 50px 0;
+    .mplay {
+      animation: mycir 2s linear infinite;
+    }
+    .photo-cover {
+      position: absolute;
+      left: 50%;
+      top: 3.5%;
+      height: 92.5%;
+      margin: 0 auto;
+      z-index: 5;
+      overflow: hidden;
+      transform: translateX(-50%);
+      .cover-img {
+        height: 100%;
+        width: auto;
+        max-width: none;
+      }
+    }
+    .photo-wrap {
+      margin: 0 auto;
+      margin-top: 5%;
+      height: 93%;
+      position: relative;
+      .envelope-bg {
+        height: 100%;
+        width: auto;
+        margin-left: 2px;
+      }
+      .photo-img {
+        position: absolute;
+        top: 0;
+        left: 0.5%;
+        right: 0;
+        z-index: 4;
+        margin: 0 auto;
+        height: 99.5%;
+        width: auto;
+        padding: 2px;
+      }
+    }
+    .boots-wrap {
+      margin-top: -5%;
+      opacity: 1;
+      transition: opacity 0.5s;
+      position: absolute;
+      top: 51%;
+      width: 100%;
+      left: 0px;
+      right: 0px;
+      margin: 0px auto;
+      z-index: 99;
+      &.hide {
+        opacity: 0;
+        z-index: 0;
+      }
+      .pos-common {
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+      }
+      .horizon-img {
+        width: 86%;
+        z-index: 1;
+        bottom: 0;
+      }
+      .slide-wrap {
+        width: 86%;
+        top: 0;
+        bottom: 0;
+        z-index: 2;
+        .boot-line {
+          width: 90%;
+          z-index: 4;
+          top: 3%;
+          left: 2%;
+          position: absolute;
+        }
+        .boot-text {
+          width: 51%;
+          z-index: 4;
+          top: -56%;
+        }
+        .gesture-img {
+          width: 11.78%;
+          top: 5%;
+          right: 7%;
+          margin: 0;
+          z-index: 10;
+          position: absolute;
+          animation: gestureMotion 5s infinite;
+          &.disappear {
+            display: none;
+          }
+        }
+
+        .boot-img {
+          position: absolute;
+          top: -18px;
+          bottom: 0;
+          right: 0;
+          width: 25%;
+          z-index: 5;
+          background-repeat: no-repeat;
+          background-size: 100%;
+          background-image: url('@{imgUrl}/plane.png');
+          transition: background 0.5s;
+        }
+        &.slide {
+          .gesture-img,
+          .boot-line,
+          .boot-text {
+            display: none;
+          }
+        }
+      }
+    }
+    .photo-cover {
+      z-index: 6;
+    }
   }
   .save-img {
     margin: 0 auto;
     animation: arrowMotion 0.6s infinite alternate;
     z-index: 8;
+    margin-top: -5%;
+    padding-bottom: 5%;
     .hint {
       width: 60%;
       height: 100%;
     }
-  }
-  .boots-wrap {
-    margin-top: -5%;
-    opacity: 1;
-    transition: opacity 0.5s;
-    position: absolute;
-    top: 51%;
-    width: 100%;
-    left: 0px;
-    right: 0px;
-    margin: 0px auto;
-    z-index: 99;
-    &.hide {
-      opacity: 0;
-      z-index: 0;
-    }
-    .pos-common {
-      position: absolute;
-      left: 0;
-      right: 0;
-      margin: 0 auto;
-    }
-    .horizon-img {
-      width: 86%;
-      z-index: 1;
-      bottom: 0;
-    }
-    .slide-wrap {
-      width: 86%;
-      top: 0;
-      bottom: 0;
-      z-index: 2;
-      .boot-line {
-        width: 90%;
-        z-index: 4;
-        top: 3%;
-        left: 2%;
-        position: absolute;
-      }
-      .boot-text {
-        width: 51%;
-        z-index: 4;
-        top: -56%;
-      }
-      .gesture-img {
-        width: 11.78%;
-        top: 5%;
-        right: 7%;
-        margin: 0;
-        z-index: 10;
-        position: absolute;
-        animation: gestureMotion 5s infinite;
-        &.disappear {
-          display: none;
-        }
-      }
-
-      .boot-img {
-        position: absolute;
-        top: -18px;
-        bottom: 0;
-        right: 0;
-        width: 25%;
-        z-index: 5;
-        background-repeat: no-repeat;
-        background-size: 100%;
-        background-image: url('@{imgUrl}/plane.png');
-        transition: background 0.5s;
-      }
-      &.slide {
-        .gesture-img,
-        .boot-line,
-        .boot-text {
-          display: none;
-        }
-      }
-    }
-  }
-  .photo-cover {
-    z-index: 6;
   }
 }
 
