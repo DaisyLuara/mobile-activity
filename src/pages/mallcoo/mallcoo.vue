@@ -43,7 +43,7 @@ export default {
       coupon_url: process.env.SAAS_API + '/mallcoo/coupon',
       //微信分享信息
       wxShareInfoValue: {
-        title: '马里奥2.0',
+        title: '老虎机',
         desc: '猫酷平台获取券',
         imgUrl: ''
       },
@@ -51,7 +51,7 @@ export default {
     }
   },
   beforeCreate() {
-    document.title = '马里奥2.0'
+    document.title = '老虎机'
   },
   created() {
     if (this.$route.query.open_user_id) {
