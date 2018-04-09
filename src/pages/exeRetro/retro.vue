@@ -1,6 +1,6 @@
 <template>
   <div class="retro-content" id="warp">
-        <audio id="voice" autobuffer autoloop loop autoplay hidden>
+    <audio id="voice" autobuffer autoloop loop autoplay hidden>
 			<source :src="audioUrl+'oldbgm.mp3'">
 		</audio>
 		<img id="mbtn" class="mplay" :src="imgUrl+'kaide/yinyue.png'"/>
@@ -15,7 +15,6 @@ import marketService from 'services/marketing'
 import WxShare from 'modules/wxShare'
 import { customTrack } from 'modules/customTrack'
 const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/'
-// 'http://o9xrbl1oc.bkt.clouddn.com/1007/image/gamexchfg_774_269_1492930592731.jpg'
 export default {
   data() {
     return {

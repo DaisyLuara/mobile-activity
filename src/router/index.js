@@ -134,9 +134,15 @@ export default new Router({
         },
         {
           path: 'mallcoo/result',
-          name: '猫酷获取券',
+          name: '猫酷获取券-马里奥',
           component: () =>
             import(/*webpackChunkName: "mallcoo"*/ 'pages/mallcoo/result.vue')
+        },
+        {
+          path: 'mallcoo/mallcoo',
+          name: '猫酷获取券-老虎机',
+          component: () =>
+            import(/*webpackChunkName: "mallcoo"*/ 'pages/mallcoo/mallcoo.vue')
         },
         {
           path: 'dance',
@@ -206,7 +212,13 @@ export default new Router({
         },
         {
           path: 'yanzhi',
-          name: '颜值印钞机通用版',
+          name: '颜值印钞机通用版手机号页',
+          component: () =>
+            import(/* webpackChunkName: "yanzhi" */ 'pages/exeYanzhi/index.vue')
+        },
+        {
+          path: 'yanzhi/result',
+          name: '颜值印钞机通用版内容页',
           component: () =>
             import(/* webpackChunkName: "yanzhi" */ 'pages/exeYanzhi/yanzhi.vue')
         },
