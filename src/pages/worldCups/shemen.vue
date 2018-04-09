@@ -2,6 +2,10 @@
   <div 
     :style="style.root"
     class="root-sm">
+
+    <!-- photo press to save -->
+    <img src="" class="root-real-photo" />
+
     <div class="root-head-img">
 
       <img :src="this.baseUrl + 'sm-header.png'" />
@@ -37,11 +41,15 @@
           :src="this.baseUrl + 'rm-r-1.png'" />
       </div>
     </div>
+
     <div class="root-header" />
+
     <div 
       :style="style.mid"
       class="root-mid">
 
+      <!-- cover photo -->
+      <img src="" />
 
       <div class="mid-l-s">
       </div>
@@ -105,8 +113,14 @@
         class="mid-card"
         :style="style.card"
         :src="this.baseUrl + 'sm-card.png'" />
+
+      <img
+        class="mid-card-text"
+        :style="style.cardText"
+        :src="this.baseUrl + 'word-1.png'" />
       
     </div>
+
     <div class="root-footer" />
   </div>
 </template>
@@ -245,6 +259,10 @@ export default {
         card: {
           width: window.innerWidth * 0.6 + 'px'
         },
+        cardText: {
+          width: window.innerWidth * 0.6 + 'px',
+          zIndex: '40'
+        },
         leftArrow: {
           position: 'absolute',
           top: window.innerWidth * 15 / 750 + 'px',
@@ -276,14 +294,14 @@ export default {
         mj1: {
           position: 'absolute',
           top: window.innerWidth * 80 / 750 + 'px',
-          left: window.innerWidth * 75 / 750 + 'px',
+          left: window.innerWidth * 80 / 750 + 'px',
           width: window.innerWidth * 20 / 750 + 'px',
           zIndex: '30'
         },
         mj2: {
           position: 'absolute',
           top: window.innerWidth * 80 / 750 + 'px',
-          left: window.innerWidth * 95 / 750 + 'px',
+          left: window.innerWidth * 100 / 750 + 'px',
           width: window.innerWidth * 20 / 750 + 'px',
           zIndex: '30'
         },
@@ -321,6 +339,15 @@ export default {
   justify-content: space-around;
   overflow: hidden;
   position: relative;
+  .root-real-photo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    opacity: 0;
+  }
   .root-head-img {
     position: absolute;
     top: 0;
@@ -361,6 +388,10 @@ export default {
       right: 7%;
     }
     .mid-card {
+      position: absolute;
+      bottom: -22%;
+    }
+    .mid-card-text {
       position: absolute;
       bottom: -22%;
     }
