@@ -1,0 +1,279 @@
+<template>
+  <div class="retro-content" id="warp">
+    <audio id="voice" autobuffer autoloop loop autoplay hidden>
+			<source :src="audioUrl+'oldbgm.mp3'">
+		</audio>
+		<img id="mbtn" class="mplay" :src="imgUrl+'kaide/yinyue.png'"/>
+		<img id="mImg" class="photo" :class="shake?noshake:hasshake" :src="mImg"/>
+		<img class="note" :src="imgUrl+'retro/note.png'" v-show="noteShow"/>
+		<img class="press" :src="imgUrl+'retro/save.png'" v-show="isshow"/>
+        <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+  </div>
+</template>
+<script>
+import marketService from 'services/marketing'
+import WxShare from 'modules/wxShare'
+import { customTrack } from 'modules/customTrack'
+const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/'
+export default {
+  data() {
+    return {
+      imgUrl: BASE_URL + 'image/',
+      audioUrl: BASE_URL + 'audio/mp3/',
+      mImg: null,
+      isshow: false,
+      noteShow: true,
+      shake: true,
+      noshake: 'noshake',
+      hasshake: 'hasshake',
+      //微信分享
+      wxShareInfo: {
+        title: '回到70年代',
+        desc: '穿越回70年代，复古装扮走一波',
+        imgUrl: BASE_URL + 'image/retro/icon.png',
+        success: function() {
+          customTrack.shareWeChat()
+        }
+      }
+    }
+  },
+  beforeCreate() {
+    document.title = '复古通用版'
+  },
+  created() {
+    this.getInfoById()
+  },
+  mounted() {
+    this.playAudio()
+    this.initShack()
+    var h =
+      window.innerHeight ||
+      document.documentElement.clientHeight ||
+      document.body.clientHeight
+    var warp = document.getElementById('warp')
+    warp.style.minHeight = h + 'px'
+  },
+  methods: {
+    initShack() {
+      var last_update = '',
+        x,
+        y,
+        z,
+        last_x,
+        last_y,
+        last_z = 0,
+        SHAKE_THRESHOLD = 3000,
+        that = this
+      if (window.DeviceMotionEvent) {
+        // 移动浏览器支持运动传感事件
+        window.addEventListener('devicemotion', deviceMotionHandler, false)
+      } else {
+        // 移动浏览器不支持运动传感事件
+        alert('移动浏览器不支持运动传感事件')
+      }
+      function deviceMotionHandler(eventData) {
+        // 获取含重力的加速度
+        var acceleration = eventData.accelerationIncludingGravity
+        // 获取当前时间
+        var curTime = new Date().getTime()
+        var diffTime = curTime - last_update
+        // 固定时间段
+        if (diffTime > 10) {
+          last_update = curTime
+          x = acceleration.x
+          y = acceleration.y
+          z = acceleration.z
+          var speed =
+            Math.abs(x + y + z - last_x - last_y - last_z) / diffTime * 10000
+          if (speed > SHAKE_THRESHOLD) {
+            //TODO:在此处可以实现摇一摇之后所要进行的数据逻辑操作
+            that.noteShow = false
+            that.shake = false
+          }
+          last_x = x
+          last_y = y
+          last_z = z
+        }
+      }
+    },
+    getInfoById() {
+      let id = this.$route.query.id
+      let that = this
+      marketService
+        .getInfoById(this, id)
+        .then(res => {
+          that.mImg = res.image
+          that.isshow = true
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    playAudio() {
+      var voice = document.getElementById('voice')
+      var mbtn = document.getElementById('mbtn')
+      if (!voice) {
+        return
+      }
+      //调用 <audio> 元素提供的方法 play()
+      voice.play()
+      if (voice.paused) {
+        mbtn.setAttribute('class', ' ')
+      }
+      //判斷 WeixinJSBridge 是否存在
+      if (
+        typeof WeixinJSBridge == 'object' &&
+        typeof WeixinJSBridge.invoke == 'function'
+      ) {
+        voice.play()
+      } else {
+        //監聽客户端抛出事件"WeixinJSBridgeReady"
+        if (document.addEventListener) {
+          document.addEventListener(
+            'WeixinJSBridgeReady',
+            function() {
+              voice.play()
+            },
+            false
+          )
+        } else if (document.attachEvent) {
+          document.attachEvent('WeixinJSBridgeReady', function() {
+            voice.play()
+          })
+          document.attachEvent('onWeixinJSBridgeReady', function() {
+            voice.play()
+          })
+        }
+      }
+
+      //voiceStatu用來記録狀態,使 touchstart 事件只能觸發一次有效,避免與 click 事件衝突
+      var voiceStatu = true
+      //监听 touchstart 事件进而调用 <audio> 元素提供的 play() 方法播放音频
+      document.addEventListener(
+        'touchstart',
+        function(e) {
+          if (voiceStatu) {
+            voice.play()
+            voiceStatu = false
+          }
+        },
+        false
+      )
+      voice.onplay = function() {
+        mbtn.setAttribute('class', 'mplay')
+      }
+      voice.onpause = function() {
+        mbtn.setAttribute('class', ' ')
+      }
+    },
+    playOrNot() {
+      // 依據 audio 的 paused 属性返回音频是否已暂停來判斷播放還是暫停音频。
+      if (voice.paused) {
+        voice.play()
+      } else {
+        voice.pause()
+      }
+    }
+  },
+  components: {
+    WxShare
+  }
+}
+</script>
+<style lang="less" scoped>
+@imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/';
+html,
+body {
+  overflow-x: hidden;
+  text-align: center;
+  -webkit-overflow-scrolling: touch;
+  transform: translate3d(0, 0, 0);
+  width: 100%;
+  height: 100%;
+}
+.retro-content {
+  width: 100%;
+  text-align: center;
+  position: relative;
+  z-index: -99;
+  margin: 0 auto;
+  background: url('@{imgUrl}retro/bg.jpg') center center/100% 100% no-repeat;
+  #mbtn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 30px;
+    height: 30px;
+    z-index: 9999;
+  }
+  .mplay {
+    animation: mycir 2s linear infinite;
+  }
+  .photo {
+    margin: 0 auto;
+    width: 66.5%;
+    position: relative;
+    margin-top: 40%;
+    z-index: 99;
+  }
+  .hasshake {
+    animation: twinkle 0.8s linear;
+  }
+  .noshake {
+    animation: twinkle 10s linear;
+  }
+  .press {
+    position: relative;
+    z-index: 99999;
+    width: 62.5%;
+    margin: 4% auto;
+    animation: updown 0.8s linear infinite alternate;
+  }
+  .note {
+    position: absolute;
+    width: 60%;
+    left: 20%;
+    top: 55%;
+    animation: shake 0.8s linear infinite alternate;
+  }
+}
+
+// 上下运动
+@keyframes updown {
+  0% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(5px);
+  }
+}
+
+// 晃动
+@keyframes shake {
+  0% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(5deg);
+  }
+}
+// 闪烁
+@keyframes twinkle {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes mycir {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+</style>
+
+

@@ -134,9 +134,15 @@ export default new Router({
         },
         {
           path: 'mallcoo/result',
-          name: '猫酷获取券',
+          name: '猫酷获取券-马里奥',
           component: () =>
             import(/*webpackChunkName: "mallcoo"*/ 'pages/mallcoo/result.vue')
+        },
+        {
+          path: 'mallcoo/mallcoo',
+          name: '猫酷获取券-老虎机',
+          component: () =>
+            import(/*webpackChunkName: "mallcoo"*/ 'pages/mallcoo/mallcoo.vue')
         },
         {
           path: 'dance',
@@ -161,6 +167,66 @@ export default new Router({
           name: '携程版小泰',
           component: () =>
             import(/* webpackChunkName: "xc_travel" */ 'pages/xc_travel/index.vue')
+        },
+        {
+          path: 'animal',
+          name: '嘻哈动物版',
+          component: () =>
+            import(/* webpackChunkName: "animal" */ 'pages/exeAnimal/animal.vue')
+        },
+        {
+          path: 'universal',
+          name: '动物嘻哈2',
+          component: () =>
+            import(/* webpackChunkName: "universal" */ 'pages/exeAnimal/universal.vue')
+        },
+        {
+          path: 'gdbank',
+          name: '马里奥-光大银行',
+          component: () =>
+            import(/* webpackChunkName: "gdbank" */ 'pages/exeMaliao/gdbank.vue')
+        },
+        {
+          path: 'gdbank2',
+          name: '马里奥-光大银行2',
+          component: () =>
+            import(/* webpackChunkName: "gdbank2" */ 'pages/exeMaliao/gdbank2.vue')
+        },
+        {
+          path: 'retro',
+          name: '复古通用版',
+          component: () =>
+            import(/* webpackChunkName: "retro" */ 'pages/exeRetro/retro.vue')
+        },
+        {
+          path: 'hiphop',
+          name: '嘻哈通用版',
+          component: () =>
+            import(/* webpackChunkName: "hiphop" */ 'pages/exeXiha/hiphop.vue')
+        },
+        {
+          path: 'travel',
+          name: '旅行通用版',
+          component: () =>
+            import(/* webpackChunkName: "travel" */ 'pages/exeTravel/travel.vue')
+        },
+        {
+          path: 'yanzhi',
+          name: '颜值印钞机通用版手机号页',
+          component: () =>
+            import(/* webpackChunkName: "yanzhi" */ 'pages/exeYanzhi/index.vue')
+        },
+        {
+          path: 'yanzhi/result',
+          name: '颜值印钞机通用版内容页',
+          component: () =>
+            import(/* webpackChunkName: "yanzhi" */ 'pages/exeYanzhi/yanzhi.vue')
+        },
+        {
+          path: 'dfyanzhi',
+          name: '颜值印钞机-东方商厦',
+          component: () =>
+            import(/* webpackChunkName: "dfyanzhi" */ 'pages/exeYanzhi/dongfang.vue')
         }
       ]
     },
