@@ -20,7 +20,7 @@ export default {
   data() {
     return {
       imgUrl: BASE_URL + 'image/',
-      mImg: 'http://o9xrbl1oc.bkt.clouddn.com/1007/image/1492786765568.jpg',
+      mImg: null,
       isshow: false,
       noteShow: true,
       shake: true,
