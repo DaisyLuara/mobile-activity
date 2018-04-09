@@ -2,19 +2,106 @@
   <div 
     :style="style.root"
     class="root-sm">
+    <div class="root-head-img">
+
+      <img :src="this.baseUrl + 'sm-header.png'" />
+
+
+      <div 
+        :style="style.headScore"
+        class="head-score">
+        <div v-for="(item, index) in score.toString()" :key="index" >
+          <img :src="baseUrl + 'df/' + item + '.png'" />
+        </div>
+      </div>
+
+      <div
+        :style="style.headPlayer" 
+        class="head-player">
+        <div
+          v-for="(item, index) in player.toString()" :key="index">
+          <img
+            :src="baseUrl + 'df/' + item + '.png'" />
+        </div>
+      </div>
+
+      <div class="head-l">
+        <img
+          :style="style.leftArrow" 
+          :src="this.baseUrl + 'sm-l-1.png'" />
+      </div>
+
+      <div class="head-r">
+        <img
+          :style="style.rightArrow" 
+          :src="this.baseUrl + 'rm-r-1.png'" />
+      </div>
+    </div>
     <div class="root-header" />
     <div 
       :style="style.mid"
       class="root-mid">
-      <img
+
+
+      <div class="mid-l-s">
+      </div>
+
+
+      <div class="mid-r-s">
+      </div>
+
+
+      <div 
         class="mid-mj"
-        :style="style.mj"
-        :src="this.baseUrl + 'sm-mj.png'" />
-      <img
-        class="mid-tl"
-        :style="style.tl"
-        :src="this.baseUrl + 'sm-tl.png'" />
+        :style="style.mj">
         <img
+          style="position: absolute; z-index: 20"
+          :src="this.baseUrl + 'sm-mj.png'" />
+
+        <canvas 
+          style="width: 100%; z-index: 20; position: absolute"
+          id="canvas-left" />
+
+        <canvas
+          style="width: 100%; z-index: 30; position: absolute"
+          id="canvas-left-min" />
+          
+        <img 
+          :style="style.mj1"
+          :src="this.baseUrl + 'mt/' + mj[0] + '.png'" />
+
+        <img 
+          :style="style.mj2"
+          :src="this.baseUrl + 'mt/' + mj[1] + '.png'" />
+          
+      </div>
+
+      <div
+        class="mid-tl"
+        :style="style.tl">
+        <img
+          style="position: absolute; z-index: 20" 
+          :src="this.baseUrl + 'sm-tl.png'" />
+
+        <canvas 
+          style="width: 100%; z-index: 20; position: absolute"
+          id="canvas-right" />
+
+        <canvas
+          style="width: 100%; z-index: 30; position: absolute"
+          id="canvas-right-min" />
+
+        <img 
+          :style="style.tl1"
+          :src="this.baseUrl + 'mt/' + tl[0] + '.png'" />
+
+        <img 
+          :style="style.tl2"
+          :src="this.baseUrl + 'mt/' + tl[1] + '.png'" />
+      </div>
+
+
+      <img
         class="mid-card"
         :style="style.card"
         :src="this.baseUrl + 'sm-card.png'" />
@@ -30,7 +117,115 @@ export default {
     document.title = '吹气射门'
     this.style.mid.height = window.innerWidth * 1334 / 750 + 'px'
   },
-  mounted() {},
+  mounted() {
+    this.handleDrawCircleLeftBase()
+    this.handleDrawCircleLeftMin()
+    this.handleDrawCircleRightBase()
+    this.handleDrawCircleRightMin()
+  },
+  methods: {
+    drawCircle(circleObj) {
+      let ctx = circleObj.ctx
+      ctx.beginPath()
+      ctx.arc(
+        circleObj.x,
+        circleObj.y,
+        circleObj.radius,
+        circleObj.startAngle,
+        circleObj.endAngle,
+        true
+      )
+      //设定曲线粗细度
+      ctx.lineWidth = circleObj.lineWidth
+      //给曲线着色
+      ctx.strokeStyle = circleObj.color
+      //连接处样式
+      // ctx.lineCap = 'round'
+      //给环着色
+      ctx.stroke()
+      ctx.closePath()
+    },
+    handleDrawCircleLeftBase(name) {
+      let canvasLeft = document.getElementById('canvas-left')
+      canvasLeft.width = window.innerWidth * 200 / 750
+      canvasLeft.height = window.innerWidth * 200 / 750
+      canvasLeft.zIndex = 30
+      let clCtx = canvasLeft.getContext('2d')
+      clCtx.globalCompositeOperation = 'destination-over'
+
+      let circleObj = {
+        ctx: clCtx,
+        x: 50 * canvasLeft.width / 100,
+        y: 48 * canvasLeft.width / 100,
+        radius: 22 * canvasLeft.width / 100,
+        lineWidth: 10 * canvasLeft.width / 100
+      }
+      circleObj.startAngle = Math.PI * 1 / 4
+      circleObj.endAngle = Math.PI * 2 * 0.5 - Math.PI * 1 / 4
+      circleObj.color = '#e24464'
+      this.drawCircle(circleObj)
+    },
+    handleDrawCircleLeftMin() {
+      let canvasLeft = document.getElementById('canvas-left-min')
+      canvasLeft.width = window.innerWidth * 200 / 750
+      canvasLeft.height = window.innerWidth * 200 / 750
+      canvasLeft.zIndex = 30
+      let clCtx = canvasLeft.getContext('2d')
+      clCtx.globalCompositeOperation = 'destination-over'
+
+      let circleObj = {
+        ctx: clCtx,
+        x: 50 * canvasLeft.width / 100,
+        y: 48 * canvasLeft.width / 100,
+        radius: 22 * canvasLeft.width / 100,
+        lineWidth: 10 * canvasLeft.width / 100
+      }
+      circleObj.startAngle = 0
+      circleObj.endAngle = Math.PI * 2 * 0.5 - Math.PI * 1 / 4
+      circleObj.color = '#22B5E7'
+      this.drawCircle(circleObj)
+    },
+    handleDrawCircleRightBase() {
+      let canvasLeft = document.getElementById('canvas-right')
+      canvasLeft.width = window.innerWidth * 200 / 750
+      canvasLeft.height = window.innerWidth * 200 / 750
+      canvasLeft.zIndex = 30
+      let clCtx = canvasLeft.getContext('2d')
+      clCtx.globalCompositeOperation = 'destination-over'
+
+      let circleObj = {
+        ctx: clCtx,
+        x: 52.5 * canvasLeft.width / 100,
+        y: 49 * canvasLeft.width / 100,
+        radius: 22 * canvasLeft.width / 100,
+        lineWidth: 10 * canvasLeft.width / 100
+      }
+      circleObj.startAngle = Math.PI * 1 / 4
+      circleObj.endAngle = Math.PI * 2 * 0.5 - Math.PI * 1 / 4
+      circleObj.color = '#e24464'
+      this.drawCircle(circleObj)
+    },
+    handleDrawCircleRightMin() {
+      let canvasLeft = document.getElementById('canvas-right-min')
+      canvasLeft.width = window.innerWidth * 200 / 750
+      canvasLeft.height = window.innerWidth * 200 / 750
+      canvasLeft.zIndex = 30
+      let clCtx = canvasLeft.getContext('2d')
+      clCtx.globalCompositeOperation = 'destination-over'
+
+      let circleObj = {
+        ctx: clCtx,
+        x: 52.5 * canvasLeft.width / 100,
+        y: 49 * canvasLeft.width / 100,
+        radius: 22 * canvasLeft.width / 100,
+        lineWidth: 10 * canvasLeft.width / 100
+      }
+      circleObj.startAngle = 0
+      circleObj.endAngle = Math.PI * 2 * 0.5 - Math.PI * 1 / 4
+      circleObj.color = '#22B5E7'
+      this.drawCircle(circleObj)
+    }
+  },
   data() {
     return {
       baseUrl:
@@ -49,8 +244,68 @@ export default {
         },
         card: {
           width: window.innerWidth * 0.6 + 'px'
+        },
+        leftArrow: {
+          position: 'absolute',
+          top: window.innerWidth * 15 / 750 + 'px',
+          left: window.innerWidth * 20 / 750 + 'px',
+          width: window.innerWidth * 100 / 750 + 'px'
+        },
+        rightArrow: {
+          position: 'absolute',
+          top: window.innerWidth * 15 / 750 + 'px',
+          right: window.innerWidth * 20 / 750 + 'px',
+          width: window.innerWidth * 100 / 750 + 'px'
+        },
+        headScore: {
+          position: 'absolute',
+          top: window.innerWidth * 10 / 750 + 'px',
+          right: window.innerWidth * 260 / 750 + 'px',
+          width: '30px',
+          display: 'flex',
+          zIndex: '30'
+        },
+        headPlayer: {
+          position: 'absolute',
+          top: window.innerWidth * 50 / 750 + 'px',
+          right: window.innerWidth * 340 / 750 + 'px',
+          width: '30px',
+          display: 'flex',
+          zIndex: '30'
+        },
+        mj1: {
+          position: 'absolute',
+          top: window.innerWidth * 80 / 750 + 'px',
+          left: window.innerWidth * 75 / 750 + 'px',
+          width: window.innerWidth * 20 / 750 + 'px',
+          zIndex: '30'
+        },
+        mj2: {
+          position: 'absolute',
+          top: window.innerWidth * 80 / 750 + 'px',
+          left: window.innerWidth * 95 / 750 + 'px',
+          width: window.innerWidth * 20 / 750 + 'px',
+          zIndex: '30'
+        },
+        tl1: {
+          position: 'absolute',
+          top: window.innerWidth * 80 / 750 + 'px',
+          left: window.innerWidth * 85 / 750 + 'px',
+          width: window.innerWidth * 20 / 750 + 'px',
+          zIndex: '30'
+        },
+        tl2: {
+          position: 'absolute',
+          top: window.innerWidth * 80 / 750 + 'px',
+          left: window.innerWidth * 105 / 750 + 'px',
+          width: window.innerWidth * 20 / 750 + 'px',
+          zIndex: '30'
         }
-      }
+      },
+      score: 100,
+      player: 1888,
+      mj: '30',
+      tl: '47'
     }
   }
 }
@@ -65,6 +320,13 @@ export default {
   flex-direction: column;
   justify-content: space-around;
   overflow: hidden;
+  position: relative;
+  .root-head-img {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+  }
   .root-mid {
     width: 100%;
     flex-grow: 0;
@@ -76,14 +338,26 @@ export default {
     justify-content: center;
     align-items: center;
     position: relative;
+    .mid-l-s {
+      position: absolute;
+      bottom: 0;
+      width: 100px;
+      height: 100px;
+      z-index: 20;
+      .circle {
+        stroke: rgb(53, 157, 218);
+        stroke-width: 5;
+        fill: none;
+      }
+    }
     .mid-mj {
       position: absolute;
-      bottom: 21.8%;
+      bottom: 37.2%;
       left: 7%;
     }
     .mid-tl {
       position: absolute;
-      bottom: 21.8%;
+      bottom: 37.2%;
       right: 7%;
     }
     .mid-card {

@@ -146,7 +146,15 @@ export default {
 
 <style lang="less" scoped>
 @imgServerUrl: 'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup';
+@keyframes flash {
+  from {
+    top: -20%;
+  }
 
+  to {
+    top: 120%;
+  }
+}
 .card-root {
   width: 100%;
   display: flex;
@@ -161,6 +169,7 @@ export default {
     right: 0;
     bottom: 0;
     margin: 0 auto;
+    width: auto;
   }
   .mid-power {
     position: absolute;
@@ -193,12 +202,16 @@ export default {
       position: absolute;
       left: 0;
       width: 5%;
+      animation: flash infinite 1s;
+      animation-timing-function: linear;
     }
     .mid-right {
       width: 10%;
       position: absolute;
       right: 0;
       width: 5%;
+      animation: flash infinite 1s;
+      animation-timing-function: linear;
     }
 
     .mid-case {
