@@ -32,9 +32,9 @@ export default {
       isShow: false,
       //微信分享
       wxShareInfo: {
-        title: '戴上TA，吴亦凡都直夸：一看就是“老江湖”了！',
-        desc: '张震岳Hot Dog 表示：我觉得很OK!',
-        imgUrl: BASE_URL + 'image/hiphop/icon.jpg',
+        title: '我在携程未来旅行空间站，高清硬照求围观！',
+        desc: '4月5日-7日，苏州站邀你体验',
+        imgUrl: BASE_URL + 'image/xiecheng/hiphopicon.jpg',
         success: function() {
           customTrack.shareWeChat()
         }
@@ -42,7 +42,7 @@ export default {
     }
   },
   beforeCreated() {
-    document.title = '嘻哈通用版'
+    document.title = '携程旅行'
   },
   created() {},
   mounted() {

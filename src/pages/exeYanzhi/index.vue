@@ -41,7 +41,7 @@ export default {
     let content = document.getElementById('content')
     content.style.minHeight = height + 'px'
     if (window.localStorage.getItem('yztel')) {
-      this.linkToPhoto()
+      this.linkToPhoto(window.localStorage.getItem('yztel'))
     }
   },
   methods: {
@@ -60,12 +60,12 @@ export default {
       if (window.localStorage) {
         window.localStorage.setItem('yztel', input.value)
       }
-      this.linkToPhoto()
+      this.linkToPhoto(input.value)
     },
-    linkToPhoto() {
+    linkToPhoto(mobile) {
       this.$router.push({
-        path: 'yanzhi/result',
-        query: this.$route.query
+        path: 'yanzhi/result?id=' + this.$route.query.id + '&mobile=' + mobile
+        // query: this.$route.query
       })
     }
   },

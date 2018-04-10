@@ -16,6 +16,7 @@
 			<img id="mImg" class="photo" :src="mImg"/>
 		</div>
 		<img class="press" :src="imgUrl+'hiphop/save.png'" v-show="isShow">
+        <img class="erma" :src="imgUrl+'lianyang/newma.jpg'"/>
 	</div>
 </template>
 <script>
@@ -32,9 +33,9 @@ export default {
       isShow: false,
       //微信分享
       wxShareInfo: {
-        title: '戴上TA，吴亦凡都直夸：一看就是“老江湖”了！',
-        desc: '张震岳Hot Dog 表示：我觉得很OK!',
-        imgUrl: BASE_URL + 'image/hiphop/icon.jpg',
+        title: '联洋十年 陪伴你我',
+        desc: '嘻哈陪你high翻天',
+        imgUrl: BASE_URL + 'image/lianyang/logo.png',
         success: function() {
           customTrack.shareWeChat()
         }
@@ -42,7 +43,7 @@ export default {
     }
   },
   beforeCreated() {
-    document.title = '嘻哈通用版'
+    document.title = '联洋广场'
   },
   created() {},
   mounted() {
@@ -50,6 +51,8 @@ export default {
       window.innerHeight ||
       document.documentElement.clientHeight ||
       document.body.clientHeight
+    let warp = document.getElementById('warp')
+    warp.style.minHeight = height + 'px'
     this.playAudio()
     this.getInfoById()
   },
@@ -158,13 +161,13 @@ body {
 }
 .warp {
   width: 100%;
-  min-height: 100%;
   background-image: url('@{imgUrl}/hiphop/bg.jpg');
   background-size: 100% 100%;
   background-position: center top;
   background-repeat: no-repeat;
   text-align: center;
   position: relative;
+  font-size: 0;
   #mbtn {
     position: absolute;
     top: 20px;
@@ -228,6 +231,12 @@ body {
       top: 4%;
       animation: twinkle 0.7s linear infinite alternate;
     }
+  }
+  .erma {
+    position: absolute;
+    transform: translate(0, -50%);
+    right: 8px;
+    width: 15%;
   }
   .press {
     width: 61%;
