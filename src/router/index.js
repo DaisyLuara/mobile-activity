@@ -230,7 +230,13 @@ export default new Router({
         },
         {
           path: 'travel',
-          name: '旅行通用版',
+          name: '旅行通用版手机号页面',
+          component: () =>
+            import(/* webpackChunkName: "travel" */ 'pages/exeTravel/index.vue')
+        },
+        {
+          path: 'travel/result',
+          name: '旅行通用版结果页',
           component: () =>
             import(/* webpackChunkName: "travel" */ 'pages/exeTravel/travel.vue')
         },
