@@ -74,14 +74,16 @@
           style="width: 100%; z-index: 30; position: absolute"
           id="canvas-left-min" />
           
-        <img 
-          :style="style.mj1"
-          :src="this.baseUrl + 'mt/' + mj[0] + '.png'" />
-
-        <img 
-          :style="style.mj2"
-          :src="this.baseUrl + 'mt/' + mj[1] + '.png'" />
-          
+        <div
+          :style="style.mj1">
+          <span
+          style="display:inline-block"
+          v-for="(item, index) in this.mj.toString()"
+          :key="index">
+            <img 
+            :src="baseUrl + 'mt/' + item + '.png'" />
+          </span>
+        </div>
       </div>
 
       <div
@@ -98,14 +100,17 @@
         <canvas
           style="width: 100%; z-index: 30; position: absolute"
           id="canvas-right-min" />
+        <div
+          :style="style.tl1">
+          <span
+          style="display:inline-block"
+          v-for="(item, index) in this.tl.toString()"
+          :key="index">
+            <img 
+            :src="baseUrl + 'mt/' + item + '.png'" />
+          </span>
+        </div>
 
-        <img 
-          :style="style.tl1"
-          :src="this.baseUrl + 'mt/' + tl[0] + '.png'" />
-
-        <img 
-          :style="style.tl2"
-          :src="this.baseUrl + 'mt/' + tl[1] + '.png'" />
       </div>
 
 
@@ -138,6 +143,10 @@ export default {
     this.handleDrawCircleRightMin()
   },
   methods: {
+    processStartAngle(score) {
+      return (score - 50) * 3 / 2 * Math.PI
+    },
+    processEndAngle(score) {},
     drawCircle(circleObj) {
       let ctx = circleObj.ctx
       ctx.beginPath()
@@ -159,7 +168,7 @@ export default {
       ctx.stroke()
       ctx.closePath()
     },
-    handleDrawCircleLeftBase(name) {
+    handleDrawCircleLeftBase() {
       let canvasLeft = document.getElementById('canvas-left')
       canvasLeft.width = window.innerWidth * 200 / 750
       canvasLeft.height = window.innerWidth * 200 / 750
@@ -174,7 +183,8 @@ export default {
         radius: 22 * canvasLeft.width / 100,
         lineWidth: 10 * canvasLeft.width / 100
       }
-      circleObj.startAngle = Math.PI * 1 / 4
+      circleObj.startAngle =
+        -Math.PI * 5 / 4 + Math.PI * 3 / 2 * this.mjadd / 100
       circleObj.endAngle = Math.PI * 2 * 0.5 - Math.PI * 1 / 4
       circleObj.color = '#e24464'
       this.drawCircle(circleObj)
@@ -194,8 +204,8 @@ export default {
         radius: 22 * canvasLeft.width / 100,
         lineWidth: 10 * canvasLeft.width / 100
       }
-      circleObj.startAngle = 0
-      circleObj.endAngle = Math.PI * 2 * 0.5 - Math.PI * 1 / 4
+      circleObj.startAngle = -Math.PI * 5 / 4 + Math.PI * 3 / 2 * this.mj / 100
+      circleObj.endAngle = Math.PI * 3 / 4
       circleObj.color = '#22B5E7'
       this.drawCircle(circleObj)
     },
@@ -214,8 +224,10 @@ export default {
         radius: 22 * canvasLeft.width / 100,
         lineWidth: 10 * canvasLeft.width / 100
       }
-      circleObj.startAngle = Math.PI * 1 / 4
-      circleObj.endAngle = Math.PI * 2 * 0.5 - Math.PI * 1 / 4
+      circleObj.startAngle =
+        -Math.PI * 5 / 4 + Math.PI * 3 / 2 * this.tladd / 100
+
+      circleObj.endAngle = Math.PI * 3 / 4
       circleObj.color = '#e24464'
       this.drawCircle(circleObj)
     },
@@ -234,8 +246,9 @@ export default {
         radius: 22 * canvasLeft.width / 100,
         lineWidth: 10 * canvasLeft.width / 100
       }
-      circleObj.startAngle = 0
-      circleObj.endAngle = Math.PI * 2 * 0.5 - Math.PI * 1 / 4
+      circleObj.startAngle = -Math.PI * 5 / 4 + Math.PI * 3 / 2 * this.tl / 100
+
+      circleObj.endAngle = Math.PI * 3 / 4
       circleObj.color = '#22B5E7'
       this.drawCircle(circleObj)
     }
@@ -293,10 +306,11 @@ export default {
         },
         mj1: {
           position: 'absolute',
-          top: window.innerWidth * 80 / 750 + 'px',
-          left: window.innerWidth * 80 / 750 + 'px',
-          width: window.innerWidth * 20 / 750 + 'px',
-          zIndex: '30'
+          top: window.innerWidth * 75 / 750 + 'px',
+          left: window.innerWidth * 85 / 750 + 'px',
+          width: window.innerWidth * 30 / 750 + 'px',
+          zIndex: '30',
+          display: 'flex'
         },
         mj2: {
           position: 'absolute',
@@ -307,23 +321,19 @@ export default {
         },
         tl1: {
           position: 'absolute',
-          top: window.innerWidth * 80 / 750 + 'px',
-          left: window.innerWidth * 85 / 750 + 'px',
-          width: window.innerWidth * 20 / 750 + 'px',
-          zIndex: '30'
-        },
-        tl2: {
-          position: 'absolute',
-          top: window.innerWidth * 80 / 750 + 'px',
-          left: window.innerWidth * 105 / 750 + 'px',
-          width: window.innerWidth * 20 / 750 + 'px',
-          zIndex: '30'
+          top: window.innerWidth * 75 / 750 + 'px',
+          left: window.innerWidth * 90 / 750 + 'px',
+          width: window.innerWidth * 30 / 750 + 'px',
+          zIndex: '30',
+          display: 'flex'
         }
       },
       score: 100,
       player: 1888,
-      mj: '30',
-      tl: '47'
+      mj: 30,
+      tl: 30,
+      mjadd: 34,
+      tladd: 45
     }
   }
 }
