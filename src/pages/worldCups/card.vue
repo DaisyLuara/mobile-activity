@@ -26,7 +26,7 @@
           style="width: 100%"
           :src="this.baseUrl + 'power.png'" />
       </div>
-
+ 
     <game-menu />
     <div class="root-header" >
 
@@ -46,7 +46,11 @@
         class="mid-right"
       />
 
-     
+      <!-- scan animation -->
+     <img
+        :src="this.baseUrl + 'scan.png'"
+        class="mid-scan"
+      />
 
       <!-- suitcase - -! -->
       <img 
@@ -155,6 +159,14 @@ export default {
     top: 120%;
   }
 }
+@keyframes scanFlash {
+  from {
+    top: -40%;
+  }
+  to {
+    top: 120%;
+  }
+}
 .card-root {
   width: 100%;
   display: flex;
@@ -212,6 +224,16 @@ export default {
       width: 5%;
       animation: flash infinite 1s;
       animation-timing-function: linear;
+    }
+
+    .mid-scan {
+      position: absolute;
+      top: -40%;
+      width: 69%;
+      animation: 5s scanFlash forwards;
+      animation-timing-function: linear;
+      z-index: -1;
+      animation-delay: 1s;
     }
 
     .mid-case {
