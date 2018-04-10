@@ -7,7 +7,7 @@
 		<img id="mImg" class="photo" :class="shake?noshake:hasshake" :src="mImg"/>
 		<img class="note" :src="imgUrl+'retro/note.png'" v-show="noteShow"/>
 		<img class="press" :src="imgUrl+'retro/save.png'" v-show="isshow"/>
-        <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
 </template>
 <script>

@@ -227,6 +227,18 @@ export default new Router({
           name: '颜值印钞机-东方商厦',
           component: () =>
             import(/* webpackChunkName: "dfyanzhi" */ 'pages/exeYanzhi/dongfang.vue')
+        },
+        {
+          path: 'lehui',
+          name: '乐荟',
+          component: () =>
+            import(/* webpackChunkName: "lehui" */ 'pages/exeLehui/lehui.vue')
+        },
+        {
+          path: 'lhwanda',
+          name: '乐荟-万达版',
+          component: () =>
+            import(/* webpackChunkName: "lehui" */ 'pages/exeLehui/wanda.vue')
         }
       ]
     },
