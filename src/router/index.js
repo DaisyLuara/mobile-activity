@@ -269,6 +269,12 @@ export default new Router({
           name: '乐荟-万达版',
           component: () =>
             import(/* webpackChunkName: "lehui" */ 'pages/exeLehui/wanda.vue')
+        },
+        {
+          path: '51act',
+          name: '星视度51活动',
+          component: () =>
+            import(/* webpackChunkName: "51xingshidu" */ 'pages/51act/index.vue')
         }
       ]
     },
