@@ -15,6 +15,7 @@
 </template>
 <script>
 const REQ_URL = 'http://120.27.144.62:1337/parse/classes/'
+import { getParamsMap, getParameter, setParameter } from 'modules/util'
 import marketService from 'services/marketing'
 import WxShare from 'modules/wxShare'
 import parseService from 'modules/parseServer'
@@ -41,21 +42,35 @@ export default {
       coupon_url: process.env.SAAS_API + '/mallcoo/coupon',
       open_user_id: null,
       //微信分享
-      wxShareInfo: {
+      wxShareInfoValue: {
         title: '马里奥2.0',
         desc: '猫酷获取券',
         imgUrl: BASE_URL + '/maliao/icon.png',
-        link: this.$route.path,
-        success: function() {
+        link: ''
+      }
+    }
+  },
+  computed: {
+    //微信分享
+    wxShareInfo() {
+      let wxShareInfo = {
+        title: this.wxShareInfoValue.title,
+        desc: this.wxShareInfoValue.desc,
+        imgUrl: this.wxShareInfoValue.imgUrl,
+        link: this.wxShareInfoValue.link,
+        success: () => {
+          console.log(202)
           customTrack.shareWeChat()
         }
       }
+      return wxShareInfo
     }
   },
   beforeCreate() {
     document.title = '马里奥2.0'
   },
   created() {
+    this.wxShareInfo.link = window.location.origin + this.$route.path
     if (this.$route.query.open_user_id) {
       this.open_user_id = this.$route.query.open_user_id
       this.isFirstComeIn(this.$route.query.open_user_id)
