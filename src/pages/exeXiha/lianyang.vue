@@ -16,7 +16,8 @@
 			<img id="mImg" class="photo" :src="mImg"/>
 		</div>
 		<img class="press" :src="imgUrl+'hiphop/save.png'" v-show="isShow">
-        <img class="erma" :src="imgUrl+'lianyang/newma.jpg'"/>
+    <img class="erma" :src="imgUrl+'lianyang/newma.jpg'"/>
+    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
 	</div>
 </template>
 <script>

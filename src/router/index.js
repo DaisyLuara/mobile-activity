@@ -208,7 +208,7 @@ export default new Router({
           path: 'retroxc',
           name: '复古-携程',
           component: () =>
-            import(/* webpackChunkName: "retro" */ 'pages/exeRetro/retroxc.vue')
+            import(/* webpackChunkName: "retroxc" */ 'pages/exeRetro/retroxc.vue')
         },
         {
           path: 'hiphop',
@@ -226,7 +226,7 @@ export default new Router({
           path: 'lyhiphop',
           name: '联洋广场嘻哈',
           component: () =>
-            import(/* webpackChunkName: "hiphop" */ 'pages/exeXiha/lianyang.vue')
+            import(/* webpackChunkName: "lyhiphop" */ 'pages/exeXiha/lianyang.vue')
         },
         {
           path: 'travel',
@@ -265,10 +265,28 @@ export default new Router({
             import(/* webpackChunkName: "lehui" */ 'pages/exeLehui/lehui.vue')
         },
         {
-          path: 'lhwanda',
-          name: '乐荟-万达版',
+          path: 'spring',
+          name: '狗年大吉手机页',
           component: () =>
-            import(/* webpackChunkName: "lehui" */ 'pages/exeLehui/wanda.vue')
+            import(/* webpackChunkName: "spring" */ 'pages/exeSpring/index.vue')
+        },
+        {
+          path: 'spring/result',
+          name: '狗年大吉结果页',
+          component: () =>
+            import(/* webpackChunkName: "spring" */ 'pages/exeSpring/spring.vue')
+        },
+        {
+          path: 'newSpring',
+          name: '新狗年大吉手机号页',
+          component: () =>
+            import(/* webpackChunkName: "newspring" */ 'pages/exeSpring/newindex.vue')
+        },
+        {
+          path: 'newSpring/result',
+          name: '新狗年大吉结果页',
+          component: () =>
+            import(/* webpackChunkName: "newspring" */ 'pages/exeSpring/newspring.vue')
         }
       ]
     },

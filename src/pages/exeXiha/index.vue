@@ -1,6 +1,5 @@
 <template>
  <div class="content-wrapper">
-  
   <div class="photo-content">
     <img class="phone-bg" :src="imgUrl+'phone-bg.png?v=1'">
 
@@ -19,6 +18,7 @@
       </div>
     </div>
   </div>
+  <wx-share :WxShareInfo="wxShareInfo"></wx-share>
 </div>
 </template>
 <script>

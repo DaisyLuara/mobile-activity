@@ -1,6 +1,5 @@
 <template>
  <div class="content-wrapper">
-  
   <div class="photo-content">
     <img class="phone-bg" :src="imgUrl+'phone-bg.png?v=1'">
 
@@ -10,7 +9,6 @@
     <div class="img-inner">
       <img class="img" :src="imgUrl+'inner-circle.png?v=1'">
     </div>
-
     <div class="phone-wrap">
       <div class="error">请输入正确的手机号</div>
       <div class="phone-num">

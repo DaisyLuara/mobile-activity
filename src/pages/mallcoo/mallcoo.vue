@@ -49,6 +49,7 @@ export default {
         title: '老虎机',
         desc: '老虎机',
         imgUrl: BASE_URL + '/maliao/icon.png',
+        link: this.$route.path + '?id=' + this.$route.query.id,
         success: function() {
           customTrack.shareWeChat()
         }

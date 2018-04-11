@@ -16,6 +16,7 @@
 			<img id="mImg" class="photo" :src="mImg"/>
 		</div>
 		<img class="press" :src="imgUrl+'hiphop/save.png'" v-show="isShow">
+    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
 	</div>
 </template>
 <script>
