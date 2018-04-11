@@ -49,6 +49,7 @@ export default {
         title: '马里奥2.0',
         desc: '猫酷获取券',
         imgUrl: BASE_URL + '/maliao/icon.png',
+        link: this.$route.path + '?id=' + this.$route.query.id,
         success: function() {
           customTrack.shareWeChat()
         }
