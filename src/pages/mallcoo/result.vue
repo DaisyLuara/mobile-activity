@@ -105,7 +105,7 @@ export default {
           this.pic_mid = list[coupon_num].PICMID
           this.getPrice(this.quanMsg.CouponDesc)
           //StoreOverGount
-          if (list[coupon_num].StoreOverGount) {
+          if (!list[coupon_num].StoreOverGount) {
             this.noZero = false
             this.isZero = true
             alert('该优惠券已发完！')
