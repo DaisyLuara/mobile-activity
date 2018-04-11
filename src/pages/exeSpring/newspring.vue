@@ -159,7 +159,6 @@ export default {
       }
 
       var kcount = 0
-
       function biNums(num, group) {
         var oneImg =
           "<img class='money' src='http://p22vy0aug.bkt.clouddn.com/image/springnew/qian.gif'>"

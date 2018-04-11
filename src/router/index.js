@@ -277,6 +277,12 @@ export default new Router({
             import(/* webpackChunkName: "lehui" */ 'pages/exeLehui/lehui.vue')
         },
         {
+          path: 'lhwanda',
+          name: '乐荟-万达版',
+          component: () =>
+            import(/* webpackChunkName: "lhwanda" */ 'pages/exeLehui/wanda.vue')
+        },
+        {
           path: 'spring',
           name: '狗年大吉手机页',
           component: () =>
