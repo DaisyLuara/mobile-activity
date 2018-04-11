@@ -17,7 +17,6 @@
 const REQ_URL = 'http://120.27.144.62:1337/parse/classes/'
 import marketService from 'services/marketing'
 import WxShare from 'modules/wxShare'
-import wxService from 'services/wx'
 import parseService from 'modules/parseServer'
 import { customTrack } from 'modules/customTrack'
 const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/image'
@@ -40,21 +39,17 @@ export default {
       //http://sapi.newgls.cn/api/mallcoo/coupon
       authorize_url: process.env.SAAS_API + '/mallcoo/user/oauth?redirect_url=',
       coupon_url: process.env.SAAS_API + '/mallcoo/coupon',
-      // authorize_url:
-      //   'http://sapi.newgls.cn/api/mallcoo/user/oauth?redirect_url=',
-      // coupon_url: 'http://sapi.newgls.cn/api/mallcoo/coupon',
       open_user_id: null,
       //微信分享
       wxShareInfo: {
         title: '马里奥2.0',
         desc: '猫酷获取券',
         imgUrl: BASE_URL + '/maliao/icon.png',
-        link: this.$route.path + '?id=' + this.$route.query.id,
+        link: this.$route.path,
         success: function() {
           customTrack.shareWeChat()
         }
-      },
-      originUrl: null
+      }
     }
   },
   beforeCreate() {
