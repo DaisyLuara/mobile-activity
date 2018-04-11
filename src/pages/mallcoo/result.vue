@@ -5,8 +5,9 @@
         <li class="q_name">{{quanMsg.MallName}}</li>
         <li class="q_price"><label>{{quanMsg.price}}<span>￥</span></label>
                             <p>代金券</p></li>
-        <li class="q_number"><span>{{quanMsg.Vcode}}</span></li>
-        <li class="q_time">有效期至：{{quanMsg.EndTime}}</li>
+        <li class="q_number" v-show="noZero"><span>{{quanMsg.Vcode}}</span></li>
+        <li class="q_time" v-show="noZero">有效期至：{{quanMsg.EndTime}}</li>
+        <li class="num_err" v-show="isZero">该券已经发完了</li>
       </ul>
     </div>
 		<wx-share :WxShareInfo="wxShareInfo"></wx-share>
@@ -32,11 +33,16 @@ export default {
       },
       pic_mid: null,
       err: null,
+      noZero: true,
+      isZero: false,
       //授权链接
       //http://sapi.newgls.cn/api/mallcoo/user/oauth?redirect_url=
       //http://sapi.newgls.cn/api/mallcoo/coupon
       authorize_url: process.env.SAAS_API + '/mallcoo/user/oauth?redirect_url=',
       coupon_url: process.env.SAAS_API + '/mallcoo/coupon',
+      // authorize_url:
+      //   'http://sapi.newgls.cn/api/mallcoo/user/oauth?redirect_url=',
+      // coupon_url: 'http://sapi.newgls.cn/api/mallcoo/coupon',
       open_user_id: null,
       //微信分享
       wxShareInfo: {
@@ -97,12 +103,19 @@ export default {
           this.quanMsg.CouponDesc = list[coupon_num].CouponDesc
           this.quanMsg.MallName = list[coupon_num].MallName
           this.pic_mid = list[coupon_num].PICMID
+          this.getPrice(this.quanMsg.CouponDesc)
+          //StoreOverGount
+          if (list[coupon_num].StoreOverGount) {
+            this.noZero = false
+            this.isZero = true
+            alert('该优惠券已发完！')
+            return
+          }
           this.getCoupon(
             this.$route.query.open_user_id,
             list[coupon_num].PICMID
           )
-          this.getPrice(this.quanMsg.CouponDesc)
-          console.log(coupon_num)
+          console.log(res)
         })
         .catch(err => {
           this.err = '未获取到优惠券信息'
@@ -224,7 +237,7 @@ body {
         font-size: 0.3rem;
         font-weight: 500;
         margin-top: 10px;
-        text-shadow: 1px 0px 0.5px #474443;
+        // text-shadow: 1px 0px 0.5px #474443;
       }
       .q_price {
         font-size: 2.2rem;
@@ -267,9 +280,16 @@ body {
         letter-spacing: 0.5px;
         font-size: 600;
         color: #474443;
-        text-shadow: 1px 0px 0.5px #474443;
+        // text-shadow: 1px 0px 0.5px #474443;
         position: absolute;
         bottom: 14%;
+      }
+      .num_err {
+        font-size: 0.4rem;
+        font-weight: 600;
+        color: red;
+        position: absolute;
+        bottom: 9%;
       }
     }
   }
