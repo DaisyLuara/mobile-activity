@@ -169,6 +169,18 @@ export default new Router({
             import(/* webpackChunkName: "xc_travel" */ 'pages/xc_travel/index.vue')
         },
         {
+          path: 'wc_card',
+          name: 'WorldCupCard',
+          component: () =>
+            import(/* webpackChunkName: "WorldCupCard" */ 'pages/worldCups/card.vue')
+        },
+        {
+          path: 'wc_shemen',
+          name: 'WorldCupShemen',
+          component: () =>
+            import(/* webpackChunkName: "WorldCup" */ 'pages/worldCups/shemen.vue')
+        },
+        {
           path: 'animal',
           name: '嘻哈动物版',
           component: () =>
