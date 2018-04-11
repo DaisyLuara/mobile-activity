@@ -19,6 +19,7 @@
       class="root-input"
       :style="style.input"
       />
+
     <img
       :style="style.bgadd" 
       :src="this.baseUrl + 'bg-add.png'" />
@@ -102,8 +103,10 @@ export default {
   .root-input {
     position: absolute;
     z-index: 30;
-    border-radius: 5px;
+    border-radius: 20px;
     height: 40px;
+    padding: 10px;
+    font-weight: 300;
   }
 }
 </style>
