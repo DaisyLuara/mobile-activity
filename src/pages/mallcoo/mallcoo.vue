@@ -20,12 +20,6 @@ import wxService from 'services/wx'
 import parseService from 'modules/parseServer'
 import { customTrack } from 'modules/customTrack'
 const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/image'
-/*草莓杂货铺
-10￥
-代金券
-
-957016824588417
-2018/04/16*/
 export default {
   data() {
     return {
@@ -219,6 +213,7 @@ body {
       width: 100%;
       height: 100%;
       display: inline-block;
+      position: relative;
       li {
         padding: 0;
         margin: 0;
@@ -226,7 +221,7 @@ body {
         color: #474443;
       }
       .q_name {
-        font-size: 0.36rem;
+        font-size: 0.3rem;
         font-weight: 500;
         margin-top: 10px;
         text-shadow: 1px 0px 0.5px #474443;
@@ -248,7 +243,7 @@ body {
         p {
           font-size: 0.85rem;
           margin: 0;
-          margin-top: -8%;
+          margin-top: -10%;
           margin-bottom: 6%;
           letter-spacing: 1px;
         }
@@ -257,6 +252,8 @@ body {
         color: #63f7ee;
         font-size: 0.25rem;
         margin: 5px 0px;
+        position: absolute;
+        bottom: 27%;
         span {
           background-color: #474443;
           padding: 2px 4px;
@@ -271,6 +268,8 @@ body {
         font-size: 600;
         color: #474443;
         text-shadow: 1px 0px 0.5px #474443;
+        position: absolute;
+        bottom: 14%;
       }
     }
   }
