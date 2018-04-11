@@ -46,8 +46,8 @@ export default {
       open_user_id: null,
       //微信分享
       wxShareInfo: {
-        title: '马里奥2.0',
-        desc: '猫酷获取券',
+        title: '老虎机',
+        desc: '老虎机',
         imgUrl: BASE_URL + '/maliao/icon.png',
         success: function() {
           customTrack.shareWeChat()
@@ -57,7 +57,7 @@ export default {
     }
   },
   beforeCreate() {
-    document.title = '马里奥2.0'
+    document.title = '老虎机'
   },
   created() {
     if (this.$route.query.open_user_id) {
