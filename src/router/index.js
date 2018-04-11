@@ -169,6 +169,18 @@ export default new Router({
             import(/* webpackChunkName: "xc_travel" */ 'pages/xc_travel/index.vue')
         },
         {
+          path: 'wc_card',
+          name: 'WorldCupCard',
+          component: () =>
+            import(/* webpackChunkName: "WorldCupCard" */ 'pages/worldCups/card.vue')
+        },
+        {
+          path: 'wc_shemen',
+          name: 'WorldCupShemen',
+          component: () =>
+            import(/* webpackChunkName: "WorldCup" */ 'pages/worldCups/shemen.vue')
+        },
+        {
           path: 'animal',
           name: '嘻哈动物版',
           component: () =>
@@ -194,19 +206,49 @@ export default new Router({
         },
         {
           path: 'retro',
-          name: '复古通用版',
+          name: '复古通用版手机号页面',
+          component: () =>
+            import(/* webpackChunkName: "retro" */ 'pages/exeRetro/index.vue')
+        },
+        {
+          path: 'retro/result',
+          name: '复古通用版结果页',
           component: () =>
             import(/* webpackChunkName: "retro" */ 'pages/exeRetro/retro.vue')
         },
         {
+          path: 'retroxc',
+          name: '复古-携程',
+          component: () =>
+            import(/* webpackChunkName: "retroxc" */ 'pages/exeRetro/retroxc.vue')
+        },
+        {
           path: 'hiphop',
-          name: '嘻哈通用版',
+          name: '嘻哈通用版手机号页',
+          component: () =>
+            import(/* webpackChunkName: "hiphop" */ 'pages/exeXiha/index.vue')
+        },
+        {
+          path: 'hiphop/result',
+          name: '嘻哈通用版结果页',
           component: () =>
             import(/* webpackChunkName: "hiphop" */ 'pages/exeXiha/hiphop.vue')
         },
         {
+          path: 'lyhiphop',
+          name: '联洋广场嘻哈',
+          component: () =>
+            import(/* webpackChunkName: "lyhiphop" */ 'pages/exeXiha/lianyang.vue')
+        },
+        {
           path: 'travel',
-          name: '旅行通用版',
+          name: '旅行通用版手机号页面',
+          component: () =>
+            import(/* webpackChunkName: "travel" */ 'pages/exeTravel/index.vue')
+        },
+        {
+          path: 'travel/result',
+          name: '旅行通用版结果页',
           component: () =>
             import(/* webpackChunkName: "travel" */ 'pages/exeTravel/travel.vue')
         },
@@ -227,6 +269,36 @@ export default new Router({
           name: '颜值印钞机-东方商厦',
           component: () =>
             import(/* webpackChunkName: "dfyanzhi" */ 'pages/exeYanzhi/dongfang.vue')
+        },
+        {
+          path: 'lehui',
+          name: '乐荟',
+          component: () =>
+            import(/* webpackChunkName: "lehui" */ 'pages/exeLehui/lehui.vue')
+        },
+        {
+          path: 'spring',
+          name: '狗年大吉手机页',
+          component: () =>
+            import(/* webpackChunkName: "spring" */ 'pages/exeSpring/index.vue')
+        },
+        {
+          path: 'spring/result',
+          name: '狗年大吉结果页',
+          component: () =>
+            import(/* webpackChunkName: "spring" */ 'pages/exeSpring/spring.vue')
+        },
+        {
+          path: 'newSpring',
+          name: '新狗年大吉手机号页',
+          component: () =>
+            import(/* webpackChunkName: "newspring" */ 'pages/exeSpring/newindex.vue')
+        },
+        {
+          path: 'newSpring/result',
+          name: '新狗年大吉结果页',
+          component: () =>
+            import(/* webpackChunkName: "newspring" */ 'pages/exeSpring/newspring.vue')
         }
       ]
     },

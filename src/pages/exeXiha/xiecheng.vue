@@ -1,14 +1,23 @@
 <template>
-  <div class="retro-content" id="warp">
-    <audio id="voice" autobuffer autoloop loop autoplay hidden>
-			<source :src="audioUrl+'oldbgm.mp3'">
+  <div id="warp" class="warp">
+		<audio id="voice" autobuffer autoloop loop autoplay hidden>
+			<source :src="audioUrl+'xiha.mp3'">
 		</audio>
-		<img id="mbtn" class="mplay" :src="imgUrl+'kaide/yinyue.png'"/>
-		<img id="mImg" class="photo" :class="shake?noshake:hasshake" :src="mImg"/>
-		<img class="note" :src="imgUrl+'retro/note.png'" v-show="noteShow"/>
-		<img class="press" :src="imgUrl+'retro/save.png'" v-show="isshow"/>
+		<img id="mbtn" class="mplay" :src="imgUrl+'kaide/yinyue.png'" @click="playOrNot"/>
+		<div class="top">
+			<img class="title1" :src="imgUrl+'hiphop/title.png'"/>
+			<img class="title2" :src="imgUrl+'hiphop/title2.png'"/>
+		</div>
+		<div class="main">
+			<img class="cloud" :src="imgUrl+'hiphop/cloud.png'"/>
+			<img class="jian" :src="imgUrl+'hiphop/jian.png'"/>
+			<img class="guang" :src="imgUrl+'hiphop/guang.png'"/>
+			<img class="jpgbg" :src="imgUrl+'hiphop/jpgbg.png'"/>
+			<img id="mImg" class="photo" :src="mImg"/>
+		</div>
+		<img class="press" :src="imgUrl+'hiphop/save.png'" v-show="isShow">
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
-  </div>
+	</div>
 </template>
 <script>
 import marketService from 'services/marketing'
@@ -21,81 +30,31 @@ export default {
       imgUrl: BASE_URL + 'image/',
       audioUrl: BASE_URL + 'audio/mp3/',
       mImg: null,
-      isshow: false,
-      noteShow: true,
-      shake: true,
-      noshake: 'noshake',
-      hasshake: 'hasshake',
+      isShow: false,
       //微信分享
       wxShareInfo: {
-        title: '回到70年代',
-        desc: '穿越回70年代，复古装扮走一波',
-        imgUrl: BASE_URL + 'image/retro/icon.png',
+        title: '我在携程未来旅行空间站，高清硬照求围观！',
+        desc: '4月5日-7日，苏州站邀你体验',
+        imgUrl: BASE_URL + 'image/xiecheng/hiphopicon.jpg',
         success: function() {
           customTrack.shareWeChat()
         }
       }
     }
   },
-  beforeCreate() {
-    document.title = '复古通用版'
+  beforeCreated() {
+    document.title = '携程旅行'
   },
-  created() {
-    this.getInfoById()
-  },
+  created() {},
   mounted() {
-    this.playAudio()
-    this.initShack()
-    var h =
+    let height =
       window.innerHeight ||
       document.documentElement.clientHeight ||
       document.body.clientHeight
-    var warp = document.getElementById('warp')
-    warp.style.minHeight = h + 'px'
+    this.playAudio()
+    this.getInfoById()
   },
   methods: {
-    initShack() {
-      var last_update = '',
-        x,
-        y,
-        z,
-        last_x,
-        last_y,
-        last_z = 0,
-        SHAKE_THRESHOLD = 3000,
-        that = this
-      if (window.DeviceMotionEvent) {
-        // 移动浏览器支持运动传感事件
-        window.addEventListener('devicemotion', deviceMotionHandler, false)
-      } else {
-        // 移动浏览器不支持运动传感事件
-        alert('移动浏览器不支持运动传感事件')
-      }
-      function deviceMotionHandler(eventData) {
-        // 获取含重力的加速度
-        var acceleration = eventData.accelerationIncludingGravity
-        // 获取当前时间
-        var curTime = new Date().getTime()
-        var diffTime = curTime - last_update
-        // 固定时间段
-        if (diffTime > 10) {
-          last_update = curTime
-          x = acceleration.x
-          y = acceleration.y
-          z = acceleration.z
-          var speed =
-            Math.abs(x + y + z - last_x - last_y - last_z) / diffTime * 10000
-          if (speed > SHAKE_THRESHOLD) {
-            //TODO:在此处可以实现摇一摇之后所要进行的数据逻辑操作
-            that.noteShow = false
-            that.shake = false
-          }
-          last_x = x
-          last_y = y
-          last_z = z
-        }
-      }
-    },
     getInfoById() {
       let id = this.$route.query.id
       let that = this
@@ -103,7 +62,7 @@ export default {
         .getInfoById(this, id)
         .then(res => {
           that.mImg = res.image
-          that.isshow = true
+          that.isShow = true
         })
         .catch(err => {
           console.log(err)
@@ -181,23 +140,32 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/';
+@imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image';
 html,
 body {
-  overflow-x: hidden;
-  text-align: center;
-  -webkit-overflow-scrolling: touch;
-  transform: translate3d(0, 0, 0);
   width: 100%;
   height: 100%;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  transform: translate3d(0, 0, 0);
 }
-.retro-content {
+@keyframes mycir {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.warp {
   width: 100%;
+  min-height: 100%;
+  background-image: url('@{imgUrl}/hiphop/bg.jpg');
+  background-size: 100% 100%;
+  background-position: center top;
+  background-repeat: no-repeat;
   text-align: center;
   position: relative;
-  z-index: -99;
-  margin: 0 auto;
-  background: url('@{imgUrl}retro/bg.jpg') center center/100% 100% no-repeat;
   #mbtn {
     position: absolute;
     top: 20px;
@@ -209,52 +177,73 @@ body {
   .mplay {
     animation: mycir 2s linear infinite;
   }
-  .photo {
-    margin: 0 auto;
-    width: 66.5%;
+  .top {
+    width: 100%;
     position: relative;
-    margin-top: 40%;
-    z-index: 99;
+    img {
+      width: 100%;
+    }
+    .title1 {
+      z-index: 9;
+      position: relative;
+    }
+    .title2 {
+      z-index: 999;
+      position: absolute;
+      top: 0;
+      left: 0;
+      animation: twinkle 0.4s linear infinite alternate;
+    }
   }
-  .hasshake {
-    animation: twinkle 0.8s linear;
-  }
-  .noshake {
-    animation: twinkle 10s linear;
+  .main {
+    width: 90%;
+    margin: 0 auto;
+    position: relative;
+    text-align: center;
+    margin-top: -13%;
+    .jpgbg {
+      width: 100%;
+    }
+    .photo {
+      width: 60.6vw;
+      position: absolute;
+      top: 6%;
+      left: 14.2vw;
+      animation: twinkle 0.6s linear;
+    }
+    .cloud {
+      width: 25vw;
+      left: -17%;
+      top: 4%;
+      animation: around 1s linear infinite alternate;
+    }
+    .jian {
+      width: 18.5vw;
+      right: -8.3%;
+      top: 4%;
+      z-index: 99999;
+    }
+    .guang {
+      width: 18.5vw;
+      right: -8.3%;
+      top: 4%;
+      animation: twinkle 0.7s linear infinite alternate;
+    }
   }
   .press {
+    width: 61%;
+    z-index: 99;
+    margin-top: -10%;
+    margin-bottom: 7%;
     position: relative;
-    z-index: 99999;
-    width: 62.5%;
-    margin: 4% auto;
     animation: updown 0.8s linear infinite alternate;
   }
-  .note {
+
+  .cloud,
+  .jian,
+  .guang {
     position: absolute;
-    width: 60%;
-    left: 20%;
-    top: 55%;
-    animation: shake 0.8s linear infinite alternate;
-  }
-}
-
-// 上下运动
-@keyframes updown {
-  0% {
-    transform: translateY(-5px);
-  }
-  100% {
-    transform: translateY(5px);
-  }
-}
-
-// 晃动
-@keyframes shake {
-  0% {
-    transform: rotate(-5deg);
-  }
-  100% {
-    transform: rotate(5deg);
+    z-index: 9999;
   }
 }
 // 闪烁
@@ -266,12 +255,31 @@ body {
     opacity: 1;
   }
 }
-@keyframes mycir {
+// 左右运动
+@keyframes around {
   0% {
-    transform: rotate(0deg);
+    transform: translateX(-5px);
   }
   100% {
-    transform: rotate(360deg);
+    transform: translateX(5px);
+  }
+}
+// 上下运动
+@keyframes updown {
+  0% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(5px);
+  }
+}
+// 晃动
+@keyframes shake {
+  0% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(5deg);
   }
 }
 </style>

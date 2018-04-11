@@ -47,8 +47,8 @@ export default {
       document.body.clientHeight
     var content = document.getElementById('content')
     content.style.minHeight = h + 'px'
-    if (window.localStorage.getItem('springtel')) {
-      this.linkToPhoto(window.localStorage.getItem('springtel'))
+    if (window.localStorage.getItem('newSpringtel')) {
+      this.linkToPhoto(window.localStorage.getItem('newSpringtel'))
     }
   },
   methods: {
@@ -65,13 +65,14 @@ export default {
         return
       }
       if (window.localStorage) {
-        window.localStorage.setItem('springtel', input.value)
+        window.localStorage.setItem('newSpringtel', input.value)
       }
       this.linkToPhoto(input.value)
     },
     linkToPhoto(mobile) {
       this.$router.push({
-        path: 'spring/result?id=' + this.$route.query.id + '&mobile=' + mobile
+        path:
+          'newSpring/result?id=' + this.$route.query.id + '&mobile=' + mobile
       })
     },
     playAudio() {

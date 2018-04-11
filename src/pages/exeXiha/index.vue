@@ -9,6 +9,7 @@
     <div class="img-inner">
       <img class="img" :src="imgUrl+'inner-circle.png?v=1'">
     </div>
+
     <div class="phone-wrap">
       <div class="error">请输入正确的手机号</div>
       <div class="phone-num">
@@ -17,6 +18,7 @@
       </div>
     </div>
   </div>
+  <wx-share :WxShareInfo="wxShareInfo"></wx-share>
 </div>
 </template>
 <script>
@@ -40,8 +42,8 @@ export default {
       window.innerHeight ||
       document.documentElement.clientHeight ||
       document.body.clientHeight
-    if (window.localStorage.getItem('retrotel')) {
-      this.linkToPhoto(window.localStorage.getItem('retrotel'))
+    if (window.localStorage.getItem('hiphoptel')) {
+      this.linkToPhoto(window.localStorage.getItem('hiphoptel'))
     }
   },
   methods: {
@@ -58,7 +60,7 @@ export default {
         return
       }
       if (window.localStorage) {
-        window.localStorage.setItem('retrotel', input.value)
+        window.localStorage.setItem('hiphoptel', input.value)
       }
       this.linkToPhoto(input.value)
     },
