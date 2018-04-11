@@ -194,19 +194,49 @@ export default new Router({
         },
         {
           path: 'retro',
-          name: '复古通用版',
+          name: '复古通用版手机号页面',
+          component: () =>
+            import(/* webpackChunkName: "retro" */ 'pages/exeRetro/index.vue')
+        },
+        {
+          path: 'retro/result',
+          name: '复古通用版结果页',
           component: () =>
             import(/* webpackChunkName: "retro" */ 'pages/exeRetro/retro.vue')
         },
         {
+          path: 'retroxc',
+          name: '复古-携程',
+          component: () =>
+            import(/* webpackChunkName: "retro" */ 'pages/exeRetro/retroxc.vue')
+        },
+        {
           path: 'hiphop',
-          name: '嘻哈通用版',
+          name: '嘻哈通用版手机号页',
+          component: () =>
+            import(/* webpackChunkName: "hiphop" */ 'pages/exeXiha/index.vue')
+        },
+        {
+          path: 'hiphop/result',
+          name: '嘻哈通用版结果页',
           component: () =>
             import(/* webpackChunkName: "hiphop" */ 'pages/exeXiha/hiphop.vue')
         },
         {
+          path: 'lyhiphop',
+          name: '联洋广场嘻哈',
+          component: () =>
+            import(/* webpackChunkName: "hiphop" */ 'pages/exeXiha/lianyang.vue')
+        },
+        {
           path: 'travel',
-          name: '旅行通用版',
+          name: '旅行通用版手机号页面',
+          component: () =>
+            import(/* webpackChunkName: "travel" */ 'pages/exeTravel/index.vue')
+        },
+        {
+          path: 'travel/result',
+          name: '旅行通用版结果页',
           component: () =>
             import(/* webpackChunkName: "travel" */ 'pages/exeTravel/travel.vue')
         },

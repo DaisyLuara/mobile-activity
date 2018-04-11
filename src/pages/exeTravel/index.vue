@@ -34,7 +34,7 @@ export default {
     }
   },
   beforeCreated() {
-    document.title = '复古通用版'
+    document.title = '旅行通用版'
   },
   created() {},
   mounted() {
@@ -42,8 +42,8 @@ export default {
       window.innerHeight ||
       document.documentElement.clientHeight ||
       document.body.clientHeight
-    if (window.localStorage.getItem('retrotel')) {
-      this.linkToPhoto(window.localStorage.getItem('retrotel'))
+    if (window.localStorage.getItem('traveltel')) {
+      this.linkToPhoto(window.localStorage.getItem('traveltel'))
     }
   },
   methods: {
@@ -60,7 +60,7 @@ export default {
         return
       }
       if (window.localStorage) {
-        window.localStorage.setItem('retrotel', input.value)
+        window.localStorage.setItem('traveltel', input.value)
       }
       this.linkToPhoto(input.value)
     },
