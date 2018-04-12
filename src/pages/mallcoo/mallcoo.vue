@@ -42,10 +42,10 @@ export default {
       open_user_id: null,
       //微信分享
       wxShareInfo: {
-        title: '老虎机',
-        desc: '老虎机',
-        imgUrl: BASE_URL + '/maliao/icon.png',
-        link: this.$route.path,
+        title: '吃饭睡觉领优惠券',
+        desc: '草莓杂货铺欢迎你',
+        imgUrl: BASE_URL + '/maliao/test/share.png',
+        link: window.location.origin + this.$route.path,
         success: function() {
           customTrack.shareWeChat()
         }

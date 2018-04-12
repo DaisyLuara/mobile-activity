@@ -14,8 +14,12 @@
 			<img class="cloud1" :src="imgUrl + 'springnew/cloud.png'">
 			<img class="cloud2" :src="imgUrl + 'springnew/cloud2.png'">
 			<img class="cloud3" :src="imgUrl + 'springnew/cloud3.png'">
+      <!-- 掉落的钱币 -->
+      <div v-for="item in money_group" :class="'group'+item" class="group">
+        <img v-for="item in money_num" class='money' :src="imgUrl+'springnew/qian.gif'"/>
+      </div>
 		</div>
-         <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
  	</div>
  </template>
  <script>
@@ -31,6 +35,9 @@ export default {
       mImg: null,
       word: null,
       isShow: false,
+      money_num: 8,
+      money_group: 4,
+      money_show: false,
       qian: ['qian1', 'qian2', 'qian3', 'qian4'],
       //微信分享
       wxShareInfo: {
@@ -79,9 +86,10 @@ export default {
         one_hei = 0,
         two_top = 0,
         two_hei = 0,
-        start_pos = 0
+        start_pos = 0,
+        that = this
       wid = $(window).width() > 640 ? 640 : $(window).width()
-      hei = $('.warp').height()
+      hei = $('#warp').height()
       one_hei = $('.one').height()
       two_hei = $('.two').height()
       two_top = $('.two').offset().top
@@ -114,6 +122,7 @@ export default {
           $('.two').off('touchstart', enter)
           $('.two').off('touchmove', move)
           $('.two').off('touchend', end)
+
           $('.one').animate(
             {
               marginTop: 0,
@@ -121,7 +130,7 @@ export default {
             },
             1000,
             function() {
-              //   biNums(8, 4)
+              biNums(that.money_num, that.money_group)
               $('.cloud1').animate(
                 {
                   right: '1.5%'
@@ -157,35 +166,34 @@ export default {
           $('.one').css({ transform: 'translate(0,' + -8 + '%)' })
         }
       }
-
       var kcount = 0
       function biNums(num, group) {
-        var oneImg =
-          "<img class='money' src='http://p22vy0aug.bkt.clouddn.com/image/springnew/qian.gif'>"
-        for (var i = 0; i < num; i++) {
-          $('.warp').append(oneImg)
-        }
-        $('.money').each(function(e) {
+        $('.group' + kcount).show()
+        $('.group' + kcount + ' .money').each(function(e) {
           $(this).css({ top: 0, left: Math.random() * wid + 'px' })
           $(this).animate(
             {
-              top: $('.warp').height() * 0.9 + 'px',
+              top: $('#warp').height() * 0.9 + 'px',
               left: Math.random() * wid + 'px'
             },
             1700 + Math.random() * 1800,
             function() {
               $(this).remove()
+              $(this)
+                .parent()
+                .hide()
             }
           )
         })
-        // var times = setTimeout(function() {
-        //   if (kcount < group) {
-        //     biNums(num, group)
-        //     kcount++
-        //   } else {
-        //     clearTimeout(times)
-        //   }
-        // }, 800)
+        var times = setTimeout(function() {
+          if (kcount < group) {
+            biNums(num, group)
+            kcount++
+          } else {
+            clearTimeout(times)
+            // that.money_show = false
+          }
+        }, 1000)
       }
     },
     playAudio() {
@@ -291,7 +299,7 @@ body {
     position: relative;
     // overflow: hidden;
     width: 100%;
-    padding-top: 42%;
+    padding-top: 27%;
     text-align: center;
     background: url('@{imgUrl}springnew/line.png') center top/3px 95% no-repeat;
     .one {
@@ -300,8 +308,8 @@ body {
       width: 87.5%;
       background: url('@{imgUrl}springnew/frame.png') center top/100% auto
         no-repeat;
-      margin-top: -198%;
-      //   margin-top: -150%;
+      // margin-top: -198%;
+      margin-top: -183%;
       transform: translate(0, -8%);
       .photo {
         margin: 0 auto;
@@ -356,7 +364,9 @@ body {
 .mplay {
   animation: mycir 2s linear infinite;
 }
-
+.group {
+  display: none;
+}
 .money {
   position: absolute;
   z-index: 9999;

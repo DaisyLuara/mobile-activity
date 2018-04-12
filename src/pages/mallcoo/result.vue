@@ -43,9 +43,9 @@ export default {
       open_user_id: null,
       //微信分享
       wxShareInfoValue: {
-        title: '马里奥2.0',
-        desc: '猫酷获取券',
-        imgUrl: BASE_URL + '/maliao/icon.png',
+        title: '旋转跳跃我领着券',
+        desc: '草莓杂货铺欢迎你',
+        imgUrl: BASE_URL + '/maliao/test/share.png',
         link: ''
       }
     }

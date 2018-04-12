@@ -30,6 +30,7 @@ export default {
         desc: '唯乐荟 更懂你',
         imgUrl: BASE_URL + 'image/lianyang/lhlogo.png',
         success: function() {
+          console.log(22)
           customTrack.shareWeChat()
         }
       }
@@ -38,7 +39,9 @@ export default {
   beforeCreated() {
     document.title = '乐荟陪你“美”一天'
   },
-  created() {},
+  created() {
+    console.log(this.wxShareInfo)
+  },
   mounted() {
     let height =
       window.innerHeight ||
