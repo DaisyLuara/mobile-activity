@@ -66,7 +66,7 @@ export default {
     },
     linkToPhoto(mobile) {
       this.$router.push({
-        path: 'retro/result?id=' + this.$route.query.id + '&mobile=' + mobile
+        path: 'travel/result?id=' + this.$route.query.id + '&mobile=' + mobile
       })
     }
   },

@@ -3,7 +3,7 @@
         <audio id="voice" autobuffer autoloop loop autoplay hidden>
 			<source :src="audioUrl+'oldbgm.mp3'">
 		</audio>
-		<img id="mbtn" class="mplay" :src="imgUrl+'kaide/yinyue.png'"/>
+		<img id="mbtn" class="mplay" :src="imgUrl+'kaide/yinyue.png'" @click="playOrNot" />
 		<img id="mImg" class="photo" :class="shake?noshake:hasshake" :src="mImg"/>
 		<img class="note" :src="imgUrl+'retro/note.png'" v-show="noteShow"/>
 		<img class="press" :src="imgUrl+'retro/save.png'" v-show="isshow"/>
@@ -169,6 +169,8 @@ export default {
     },
     playOrNot() {
       // 依據 audio 的 paused 属性返回音频是否已暂停來判斷播放還是暫停音频。
+      console.log('111112222223333')
+      let voice = document.getElementById('voice')
       if (voice.paused) {
         voice.play()
       } else {
@@ -196,20 +198,9 @@ body {
   width: 100%;
   text-align: center;
   position: relative;
-  z-index: -99;
   margin: 0 auto;
   background: url('@{imgUrl}retro/bg.jpg') center center/100% 100% no-repeat;
-  #mbtn {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 30px;
-    height: 30px;
-    z-index: 9999;
-  }
-  .mplay {
-    animation: mycir 2s linear infinite;
-  }
+
   .photo {
     margin: 0 auto;
     width: 66.5%;
@@ -238,7 +229,17 @@ body {
     animation: shake 0.8s linear infinite alternate;
   }
 }
-
+#mbtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 30px;
+  height: 30px;
+  z-index: 99999999;
+}
+.mplay {
+  animation: mycir 2s linear infinite;
+}
 // 上下运动
 @keyframes updown {
   0% {
