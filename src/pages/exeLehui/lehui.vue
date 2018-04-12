@@ -28,8 +28,7 @@ export default {
       wxShareInfoValue: {
         title: '乐荟陪你“美”一天',
         desc: '唯乐荟 更懂你',
-        imgUrl: BASE_URL + 'image/lianyang/lhlogo.png',
-        link: ''
+        imgUrl: BASE_URL + 'image/lianyang/lhlogo.png'
       }
     }
   },
@@ -56,7 +55,6 @@ export default {
         title: this.wxShareInfoValue.title,
         desc: this.wxShareInfoValue.desc,
         imgUrl: this.wxShareInfoValue.imgUrl,
-        link: this.wxShareInfoValue.link,
         success: function() {
           customTrack.shareWeChat()
         }
