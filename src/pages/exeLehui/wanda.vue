@@ -27,20 +27,19 @@ export default {
       noteShow: true,
       shake: true,
       //微信分享
-      wxShareInfo: {
+      wxShareInfoValue: {
         title: '万达陪你“美”一天',
         desc: '唯万达 更懂你',
-        imgUrl: BASE_URL + 'image/lehui/wanda.png',
-        success: function() {
-          customTrack.shareWeChat()
-        }
+        imgUrl: BASE_URL + 'image/lehui/wanda.png'
       }
     }
   },
   beforeCreated() {
     document.title = '万达'
   },
-  created() {},
+  created() {
+    this.wxShareInfo.link = window.location.origin + this.$route.path
+  },
   mounted() {
     let height =
       window.innerHeight ||
@@ -51,6 +50,21 @@ export default {
 
     this.getInfoById()
     this.initShack()
+  },
+  computed: {
+    //微信分享
+    wxShareInfo() {
+      let wxShareInfo = {
+        title: this.wxShareInfoValue.title,
+        desc: this.wxShareInfoValue.desc,
+        imgUrl: this.wxShareInfoValue.imgUrl,
+        link: this.wxShareInfoValue.link,
+        success: function() {
+          customTrack.shareWeChat()
+        }
+      }
+      return wxShareInfo
+    }
   },
   methods: {
     initShack() {
