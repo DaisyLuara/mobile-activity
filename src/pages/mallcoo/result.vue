@@ -96,7 +96,9 @@ export default {
   methods: {
     //授权跳转
     getAuthorize() {
-      let pageUrl = encodeURIComponent(window.location.href)
+      // let pageUrl = encodeURIComponent(window.location.href)
+      let pageUrl =
+        window.location.origin + this.$route.path + this.$route.query
       this.$http.get(this.authorize_url + pageUrl).then(result => {
         let data = result.data
         window.location.href = data
