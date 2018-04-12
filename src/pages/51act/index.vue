@@ -15,10 +15,15 @@
       :src="this.baseUrl + 'bg.png'" />
 
     <input 
+      v-model="bindPhoneNumber"
       placeholder="请输入手机号"
-      class="root-input"
       :style="style.input"
       />
+
+    <img
+      @click="handleButtonClick"
+      :style="style.button"
+      :src="this.baseUrl + 'button.png'" />
 
     <img
       :style="style.bgadd" 
@@ -59,8 +64,35 @@ export default {
           width: window.innerWidth + 'px',
           position: 'absolute',
           top: '0'
+        },
+        input: {
+          position: 'absolute',
+          zIndex: '30',
+          borderRadius: '20px',
+          height: window.innerWidth * 0.8 * 94 / 604 + 'px',
+          padding: '10px 20px',
+          fontWeight: '300',
+          margin: '0 auto',
+          left: window.innerWidth * 0.1 + 'px',
+          width: window.innerWidth * 0.8 + 'px',
+          top:
+            window.innerWidth * 303 / 750 * 1.2 +
+            window.innerWidth * 0.7 * 434 / 624 * 1.1 +
+            'px'
+        },
+        button: {
+          zIndex: '30',
+          position: 'absolute',
+          width: window.innerWidth * 0.8 + 'px',
+          left: window.innerWidth * 0.1 + 'px',
+          top:
+            window.innerWidth * 303 / 750 * 1.2 +
+            window.innerWidth * 0.7 * 434 / 624 * 1.1 +
+            window.innerWidth * 0.8 * 94 / 604 * 1.5 +
+            'px'
         }
-      }
+      },
+      bindPhoneNumber: null
     }
   },
   mounted() {
@@ -75,7 +107,8 @@ export default {
         },
         { passive: false }
       ) //passive 参数不能省略，用来兼容ios和android
-    }
+    },
+    handleButtonClick() {}
   }
 }
 </script>
@@ -100,13 +133,5 @@ export default {
 .act-root {
   position: relative;
   background-color: #f7ead3;
-  .root-input {
-    position: absolute;
-    z-index: 30;
-    border-radius: 20px;
-    height: 40px;
-    padding: 10px;
-    font-weight: 300;
-  }
 }
 </style>
