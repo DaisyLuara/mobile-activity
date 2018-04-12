@@ -14,7 +14,14 @@
       :style="style.bg"
       :src="this.baseUrl + 'bg.png'" />
 
+    <div
+      v-show="this.phoneError"
+      :style="style.errormsg">
+      手机号有误，请重新输入
+    </div>
     <input 
+      :class="{ 'phoneError': this.phoneError}"
+      @click="handlePhoneError"
       v-model="bindPhoneNumber"
       placeholder="请输入手机号"
       :style="style.input"
@@ -65,6 +72,18 @@ export default {
           position: 'absolute',
           top: '0'
         },
+        errormsg: {
+          position: 'absolute',
+          zIndex: '30',
+          left: window.innerWidth * 0.1 + 'px',
+          width: window.innerWidth * 0.8 + 'px',
+          top:
+            window.innerWidth * 303 / 750 * 1.2 +
+            window.innerWidth * 0.7 * 434 / 624 * 1 +
+            'px',
+          textAlign: 'center',
+          color: 'red'
+        },
         input: {
           position: 'absolute',
           zIndex: '30',
@@ -72,7 +91,6 @@ export default {
           height: window.innerWidth * 0.8 * 94 / 604 + 'px',
           padding: '10px 20px',
           fontWeight: '300',
-          margin: '0 auto',
           left: window.innerWidth * 0.1 + 'px',
           width: window.innerWidth * 0.8 + 'px',
           top:
@@ -92,7 +110,8 @@ export default {
             'px'
         }
       },
-      bindPhoneNumber: null
+      bindPhoneNumber: null,
+      phoneError: false
     }
   },
   mounted() {
@@ -108,12 +127,23 @@ export default {
         { passive: false }
       ) //passive 参数不能省略，用来兼容ios和android
     },
-    handleButtonClick() {}
+    handleButtonClick() {
+      if (!/^1[345678]\d{9}$/.test(this.bindPhoneNumber)) {
+        this.phoneError = true
+        return
+      }
+    },
+    handlePhoneError() {
+      this.phoneError = false
+    }
   }
 }
 </script>
 
 <style lang="less" scoped>
+.phoneError {
+  border: 1px solid red;
+}
 ::-webkit-input-placeholder {
   /* WebKit browsers */
   color: #999;
