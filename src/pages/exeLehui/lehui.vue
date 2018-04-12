@@ -25,14 +25,10 @@ export default {
       noteShow: true,
       shake: true,
       //微信分享
-      wxShareInfo: {
+      wxShareInfoValue: {
         title: '乐荟陪你“美”一天',
         desc: '唯乐荟 更懂你',
-        imgUrl: BASE_URL + 'image/lianyang/lhlogo.png',
-        success: function() {
-          console.log(22)
-          customTrack.shareWeChat()
-        }
+        imgUrl: BASE_URL + 'image/lianyang/lhlogo.png'
       }
     }
   },
@@ -52,6 +48,19 @@ export default {
 
     this.getInfoById()
     this.initShack()
+  },
+  computed: {
+    wxShareInfo() {
+      let wxShareInfo = {
+        title: this.wxShareInfoValue.title,
+        desc: this.wxShareInfoValue.desc,
+        imgUrl: this.wxShareInfoValue.imgUrl,
+        success: function() {
+          customTrack.shareWeChat()
+        }
+      }
+      return wxShareInfo
+    }
   },
   methods: {
     initShack() {

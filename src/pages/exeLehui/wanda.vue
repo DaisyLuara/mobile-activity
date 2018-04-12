@@ -56,7 +56,6 @@ export default {
         title: this.wxShareInfoValue.title,
         desc: this.wxShareInfoValue.desc,
         imgUrl: this.wxShareInfoValue.imgUrl,
-        link: this.wxShareInfoValue.link,
         success: function() {
           customTrack.shareWeChat()
         }
