@@ -4,7 +4,7 @@
     <audio id="voice" autobuffer autoloop loop autoplay hidden>
 			<source :src="audioUrl+'oldbgm.mp3'">
 		</audio>
-		<img id="mbtn" class="mplay" :src="imgPath+'kaide/yinyue.png'"/>
+		<img id="mbtn" class="mplay" :src="imgPath+'kaide/yinyue.png'" @click="playOrNot"/>
     <div class="boots-wrap">
       <div class="slide-wrap pos-common">
         <img class="boot-line" :src="imgPath+'travel/line.png'"> 
@@ -134,7 +134,6 @@ export default {
           boot_obj.off('touchend', end)
         }
         percent = curr_pos / (start_pos - end_pos) * 100
-        console.log('percent:' + percent)
         if (percent > 100) {
           $('.cover-img').css('transform', 'translateX(0)')
           return
@@ -156,8 +155,8 @@ export default {
       }
     },
     playAudio() {
-      var voice = document.getElementById('voice')
-      var mbtn = document.getElementById('mbtn')
+      let voice = document.getElementById('voice')
+      let mbtn = document.getElementById('mbtn')
       if (!voice) {
         return
       }
@@ -214,6 +213,7 @@ export default {
     },
     playOrNot() {
       // 依據 audio 的 paused 属性返回音频是否已暂停來判斷播放還是暫停音频。
+      let voice = document.getElementById('voice')
       if (voice.paused) {
         voice.play()
       } else {
@@ -245,17 +245,7 @@ export default {
     -ms-flex-pack: justify;
     -webkit-justify-content: space-between;
     justify-content: space-between;
-    #mbtn {
-      position: absolute;
-      top: 2px;
-      right: 2px;
-      width: 30px;
-      height: 30px;
-      z-index: 9999;
-    }
-    .mplay {
-      animation: mycir 2s linear infinite;
-    }
+
     .photo-cover {
       position: absolute;
       left: 50%;
@@ -386,7 +376,26 @@ export default {
     }
   }
 }
+#mbtn {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 30px;
+  height: 30px;
+  z-index: 9999;
+}
+.mplay {
+  animation: mycir 2s linear infinite;
+}
 
+@keyframes mycir {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 @keyframes sunMotion {
   0% {
     transform: rotate(0deg);
