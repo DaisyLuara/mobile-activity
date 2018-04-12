@@ -127,6 +127,7 @@ export default {
     },
     playOrNot() {
       // 依據 audio 的 paused 属性返回音频是否已暂停來判斷播放還是暫停音频。
+      var voice = document.getElementById('voice')
       if (voice.paused) {
         voice.play()
       } else {
