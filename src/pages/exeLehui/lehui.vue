@@ -52,7 +52,7 @@ export default {
   },
   computed: {
     wxShareInfo() {
-      let WxShareInfo = {
+      let wxShareInfo = {
         title: this.wxShareInfoValue.title,
         desc: this.wxShareInfoValue.desc,
         imgUrl: this.wxShareInfoValue.imgUrl,
@@ -61,7 +61,7 @@ export default {
           customTrack.shareWeChat()
         }
       }
-      return WxShareInfo
+      return wxShareInfo
     }
   },
   methods: {
