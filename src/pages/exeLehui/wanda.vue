@@ -37,9 +37,7 @@ export default {
   beforeCreated() {
     document.title = '万达'
   },
-  created() {
-    this.wxShareInfo.link = window.location.origin + this.$route.path
-  },
+  created() {},
   mounted() {
     let height =
       window.innerHeight ||
