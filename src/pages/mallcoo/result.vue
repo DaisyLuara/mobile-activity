@@ -43,9 +43,9 @@ export default {
       open_user_id: null,
       //微信分享
       wxShareInfoValue: {
-        title: '马里奥2.0',
-        desc: '猫酷获取券',
-        imgUrl: BASE_URL + '/maliao/icon.png',
+        title: '旋转跳跃我领着券',
+        desc: '草莓杂货铺欢迎你',
+        imgUrl: BASE_URL + '/maliao/test/share.png',
         link: ''
       }
     }
@@ -96,7 +96,9 @@ export default {
   methods: {
     //授权跳转
     getAuthorize() {
-      let pageUrl = encodeURIComponent(window.location.href)
+      // let pageUrl = encodeURIComponent(window.location.href)
+      let pageUrl =
+        window.location.origin + this.$route.path + this.$route.query
       this.$http.get(this.authorize_url + pageUrl).then(result => {
         let data = result.data
         window.location.href = data
