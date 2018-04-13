@@ -18,7 +18,6 @@
       </div>
     </div>
   </div>
-  <wx-share :WxShareInfo="wxShareInfo"></wx-share>
 </div>
 </template>
 <script>
