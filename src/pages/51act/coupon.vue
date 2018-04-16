@@ -336,8 +336,12 @@ export default {
 }
 .swiper-button-next {
   background-image: url('@{imgUrl}/r-arrow.png');
+  background-size: 19px 44px;
+  right: 0;
 }
 .swiper-button-prev {
   background-image: url('@{imgUrl}/l-arrow.png');
+  background-size: 19px 44px;
+  left: 0;
 }
 </style>
