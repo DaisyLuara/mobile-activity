@@ -2,7 +2,7 @@
 <div class="travel-content">
   <div class="photo-content">
     <audio id="voice" autobuffer autoloop loop autoplay hidden>
-			<source :src="audioUrl+'oldbgm.mp3'">
+			<source :src="audioUrl+'travelBGM.mp3'">
 		</audio>
 		<img id="mbtn" class="mplay" :src="imgPath+'kaide/yinyue.png'" @click="playOrNot"/>
     <div class="boots-wrap">

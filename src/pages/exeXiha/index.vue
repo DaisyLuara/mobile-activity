@@ -18,7 +18,6 @@
       </div>
     </div>
   </div>
-  <wx-share :WxShareInfo="wxShareInfo"></wx-share>
 </div>
 </template>
 <script>
@@ -66,7 +65,7 @@ export default {
     },
     linkToPhoto(mobile) {
       this.$router.push({
-        path: 'retro/result?id=' + this.$route.query.id + '&mobile=' + mobile
+        path: 'hiphop/result?id=' + this.$route.query.id + '&mobile=' + mobile
       })
     }
   },
