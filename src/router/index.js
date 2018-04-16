@@ -272,9 +272,15 @@ export default new Router({
         },
         {
           path: '51act',
-          name: '星视度51活动',
+          name: '51act',
           component: () =>
             import(/* webpackChunkName: "51xingshidu" */ 'pages/51act/index.vue')
+        },
+        {
+          path: '51actcp',
+          name: '51actcp',
+          component: () =>
+            import(/* webpackChunkName: "51xingshidu" */ 'pages/51act/coupon.vue')
         }
       ]
     },
