@@ -241,6 +241,12 @@ export default new Router({
             import(/* webpackChunkName: "lyhiphop" */ 'pages/exeXiha/lianyang.vue')
         },
         {
+          path: 'xchiphop',
+          name: '携程嘻哈',
+          component: () =>
+            import(/* webpackChunkName: "xchiphop" */ 'pages/exeXiha/xiecheng.vue')
+        },
+        {
           path: 'travel',
           name: '旅行通用版手机号页面',
           component: () =>

@@ -17,7 +17,6 @@
 				<img class="kbg2 boss2" :src="imgUrl+'kaide/cat2.png'" />
 				<img class="kbg3 boss3" :src="imgUrl+'kaide/dog2.png'" />
 				<img class="kbg4 boss4" :src="imgUrl+'kaide_animal/text3.png'" />
-
 				<img class="text1" :src="imgUrl+'kaide/text1.png'">
 				<img class="text2" :src="imgUrl+'kaide/text2.png'">
 			</div>

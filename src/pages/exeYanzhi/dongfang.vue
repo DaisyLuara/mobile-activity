@@ -1,6 +1,6 @@
 <template>
     <div class="yanzhi-result" id="warp">
-		<img class="title" src="htitle.png" data-v-content/>
+		<img class="title" :src="dfImg+'title.png'" data-v-content/>
 		<div class="content">
 			<div class="circles"> 
 				<img class="gear1" :src="imgUrl+'gear1.png'">
@@ -17,8 +17,8 @@
 			<img class="imgframe" :src="imgUrl+'frame.png'">
 		</div>
 		<img class="press" :src="imgUrl+'press.png'" v-show="press"/>
-        <img class="gift" :src="dfImg+'gift.png'"/>
-        <img class="logo" :src="dfImg+'logo.png'"/>
+    <img class="gift" :src="dfImg+'gift.png'"/>
+    <img class="logo" :src="dfImg+'logo.png'"/>
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
 	</div>
 </template>
@@ -194,7 +194,8 @@ export default {
   .logo {
     width: 35%;
     margin: 0 auto;
-    margin-top: -15%;
+    margin-top: -9%;
+    margin-bottom: 10%;
   }
 }
 @keyframes mycircle {
