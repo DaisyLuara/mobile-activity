@@ -150,6 +150,14 @@ export default {
         navigation: {
           nextEl: '.swiper-button-next',
           prevEl: '.swiper-button-prev'
+        },
+        on: {
+          init: () => {
+            console.dir('222')
+          },
+          slideChange: () => {
+            console.log(this.$refs.mySwiper.swiper.activeIndex)
+          }
         }
       },
       style: {
@@ -203,15 +211,22 @@ export default {
       baseUrl:
         'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/xsd51/cp/',
       control: {
-        pop: false
+        pop: false,
+        store: 0
       }
     }
   },
+  watch: {},
   methods: {
     handlePop() {
       this.control.pop = !this.control.pop
     },
-    swiperEvent() {}
+    swiperEvent(e) {
+      console.dir(e)
+    },
+    handleSlideChange(e) {
+      console.dir(e)
+    }
   },
   mounted() {}
 }
