@@ -39,9 +39,14 @@
       :src="this.baseUrl + 'button.png'" />
 
     <!-- coupon -->
-    <img 
-      :style="style.coupon"
-      :src="this.baseUrl + '30.png'" />
+    <div
+      class="root-coupon"
+      :style="style.coupon">
+       <img 
+        style="width: 100%"
+        :src="useCoupon" />
+    </div>
+   
 
     <!-- slide -->
     <div 
@@ -114,6 +119,7 @@
       :src="baseUrl + 'p2_06.jpg'" />
 
 
+    
     <!-- popup -->
     <div 
       class="root-popup"
@@ -129,28 +135,18 @@
         </div>
         <div class="pop-para"> 
           <div>有效期：</div>
-          <div>2018-04-26——2018-05-15</div>
+          <div>{{usePeriod}}</div>
         </div>
         <div class="pop-para">
           <div>使用条件：</div>
-          <div>消费EXE颜选产品即享100元优惠</div>
+          <div>{{useCondition}}</div>
         </div>
         <div class="pop-rule">
           <div>规则：</div>
-          <div>
-            1.消费任意EXE颜选产品可使用本券，适用于所有EXE线下门店。
-          </div>
-          <div>
-             3.请在付款之前向店员明示使用本券，每张仅限使用一次，本券一旦核销即失效。
-          </div>
-          <div>             
-            4.每一副镜架仅可享受一次该优惠，不与其他优惠同享，不与会员权益同享。
-          </div>
-          <div>
-            5.本券不可兑换或折换现金。
-          </div>
-          <div>
-            6.若发生退款，将仅退还用户实际支付的金额，券优惠金额不退回，券不再补偿。
+          <div 
+            :key="index"
+            v-for="(item, index) in useRules">
+            {{item}}
           </div>
         </div>
 
@@ -220,8 +216,9 @@ export default {
           display: 'inline-block'
         },
         coupon: {
-          top: window.innerWidth * 0.46 + 'px',
+          top: window.innerWidth * 0.4 + 'px',
           width: window.innerWidth * 0.42 + 'px',
+          height: window.innerWidth * 0.36 + 'px',
           left: window.innerWidth * 0.3 + 'px',
           zIndex: '4',
           position: 'absolute'
@@ -318,6 +315,72 @@ export default {
           id: [14, 82, 83],
           index: 7
         }
+      ],
+      coupons: [
+        {
+          period: '2018-04-24——2018-05-15',
+          condition:
+            '到EXE颜镜店即可领取TZ House音乐酒现场大宁店满199减30代金券。',
+          rules: [
+            '1.到任意EXE颜镜店即可领取TZ House音乐酒吧大宁店满199减30代金券。',
+            '2.所领取的实体券核销期限为2018-04-24——2018-05-31。',
+            '3.请向店员明示使用本券，每张仅限使用一次，本券一旦核销即失效。',
+            '4.本券不可兑换或折换现金。',
+            '5.其他规则详见券面信息。'
+          ],
+          img: burl + '30.png'
+        },
+        {
+          period: '2018-04-26——2018-05-15',
+          condition: '消费EXE颜选产品即享100元优惠。',
+          rules: [
+            '1.消费任意EXE颜选产品可使用本券，适用于所有EXE线下门店。',
+            '2.请在付款之前向店员明示使用本券，每张仅限使用一次，本券一旦核销即失效。',
+            '3.每一副镜架仅可享受一次该优惠，不与其他优惠同享，不与会员权益同享。',
+            '4.本券不可兑换或折换现金。',
+            '5.若发生退款，将仅退还用户实际支付的金额，券优惠金额不退回，券不再补偿。'
+          ],
+          img: burl + '100.png'
+        },
+        {
+          period: '领券后48小时内',
+          condition:
+            '消费EXE颜选产品，即可获赠店内任意太阳镜一副（价值399元）。',
+          rules: [
+            '1.获得本券后48小时内在EXE店内消费颜选产品可获赠店内任意太阳镜一副（价值399元），适用于所有EXE线下门店。',
+            '2.请在付款之前向店员明示使用本券，每张仅限使用一次，本券一旦核销即失效。',
+            '3.可与颜选产品优惠同享，不与其他优惠同享，不与会员权益同享。',
+            '4.本券不可兑换或折换现金。',
+            '5.若发生退款，将仅退还用户实际支付的金额，用户需同时退还赠品，券不再补偿。'
+          ],
+          img: burl + '399.png'
+        },
+        {
+          period: '领券后48小时内',
+          condition:
+            '消费EXE颜选产品，即可获赠价值380元的Borghese亮肤晶莹面膜。',
+          rules: [
+            '1.获得本券后48小时内在EXE店内消费任意颜选产品可获赠Borghese贝佳斯亮肤晶莹面膜，适用于所有EXE线下门店。',
+            '2.请在付款之前向店员明示使用本券，每张仅限使用一次，本券一旦核销即失效。',
+            '3.可与颜选产品优惠同享，不与其他优惠同享，不与会员权益同享。',
+            '4.本券不可兑换或折换现金。',
+            '5.若发生退款，将仅退还用户实际支付的金额，券不再补偿。'
+          ],
+          img: burl + '380mm.png'
+        },
+        {
+          period: '领券后48小时内',
+          condition:
+            '消费EXE颜选产品，即可获赠价值380元的Borghese活力亮采净透睡眠眼膜修护霜。',
+          rules: [
+            '1.获得本券后48小时内在EXE店内消费任意颜选镜架可获赠Borghese贝佳斯活力亮采净透睡眠眼膜修护霜，适用于所有EXE线下门店。',
+            '2.请在付款之前向店员明示使用本券，每张仅限使用一次，本券一旦核销即失效。',
+            '3.可与颜选产品优惠同享，不与其他优惠同享，不与会员权益同享。',
+            '4.本券不可兑换或折换现金。',
+            '5.若发生退款，将仅退还用户实际支付的金额，券不再补偿。'
+          ],
+          img: burl + '380ym.png'
+        }
       ]
     }
   },
@@ -327,6 +390,30 @@ export default {
   computed: {
     currentAddress: function() {
       return this.store[this.control.store].address
+    },
+    usePeriod: function() {
+      let id = this.$route.query.hasOwnProperty('cid')
+        ? this.$route.query.cid
+        : 0
+      return this.coupons[id].period
+    },
+    useCondition: function() {
+      let id = this.$route.query.hasOwnProperty('cid')
+        ? this.$route.query.cid
+        : 0
+      return this.coupons[id].condition
+    },
+    useRules: function() {
+      let id = this.$route.query.hasOwnProperty('cid')
+        ? this.$route.query.cid
+        : 0
+      return this.coupons[id].rules
+    },
+    useCoupon: function() {
+      let id = this.$route.query.hasOwnProperty('cid')
+        ? this.$route.query.cid
+        : 0
+      return this.coupons[id].img
     }
   },
   watch: {
@@ -381,6 +468,11 @@ export default {
     top: 20px;
     right: 20px;
     z-index: 2;
+  }
+  .root-coupon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .root-time {
     z-index: 3;
