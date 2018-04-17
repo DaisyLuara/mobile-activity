@@ -49,22 +49,17 @@
       class="slide-area">
       
       <div
+        id="slide"
         :style="style.sname" 
         class="slide-name">
         <div
+          @click="handleStoreClick(index)"
+          v-for="(item, index) in store"
+          :key="index"
           :style="style.nitem" 
-          class="name-item selected">
-          来福士店
-        </div>
-        <div
-          :style="style.nitem" 
-          class="name-item normal">
-          合生汇店
-        </div>
-        <div
-          :style="style.nitem" 
-          class="name-item normal">
-          七宝店
+          :class="{'selected': index === control.store, 'normal': index !== control.store}"
+          class="name-item">
+          {{item.name}}
         </div>
       </div>
 
@@ -75,13 +70,14 @@
           class="slide-itself" 
           :options="swiperOption" ref="mySwiper" @someSwiperEvent="swiperEvent">
           <!-- slides -->
-          <swiper-slide>I'm Slide 1</swiper-slide>
-          <swiper-slide>I'm Slide 2</swiper-slide>
-          <swiper-slide>I'm Slide 3</swiper-slide>
-          <swiper-slide>I'm Slide 4</swiper-slide>
-          <swiper-slide>I'm Slide 5</swiper-slide>
-          <swiper-slide>I'm Slide 6</swiper-slide>
-          <swiper-slide>I'm Slide 7</swiper-slide>
+          <swiper-slide 
+            v-for="(item, index) in store"
+            :key="index">
+            <img 
+              style="height: 100%"
+              :src="item.img" />
+          </swiper-slide>
+          
           <!-- Optional controls -->
           <div class="swiper-button-prev" slot="button-prev"></div>
           <div class="swiper-button-next" slot="button-next"></div>
@@ -91,7 +87,7 @@
       <div
         :style="style.address" 
         class="slide-address">
-        上海市长宁区长宁路1123号长宁来福士（E）04层12号
+        {{currentAddress}}
       </div>
 
     </div>
@@ -142,6 +138,8 @@
 </template>
 
 <script>
+const burl =
+  'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/xsd51/cp/'
 export default {
   data() {
     return {
@@ -152,11 +150,28 @@ export default {
           prevEl: '.swiper-button-prev'
         },
         on: {
-          init: () => {
-            console.dir('222')
-          },
           slideChange: () => {
-            console.log(this.$refs.mySwiper.swiper.activeIndex)
+            this.control.store = this.$refs.mySwiper.swiper.activeIndex
+            let s = document.getElementById('slide')
+            switch (this.control.store) {
+              case 0:
+                s.scrollTo(0, 0)
+                break
+              case 1:
+                s.scrollTo(70, 0)
+                break
+              case 2:
+                s.scrollTo(150, 0)
+                break
+              case 3:
+                s.scrollTo(210, 0)
+                break
+              case 4:
+                s.scrollTo(300, 0)
+                break
+              default:
+                s.scrollTo(300, 0)
+            }
           }
         }
       },
@@ -213,10 +228,66 @@ export default {
       control: {
         pop: false,
         store: 0
-      }
+      },
+      store: [
+        {
+          name: '来福士店',
+          img: burl + 'lfs.jpg',
+          address: '上海市长宁区长宁路1123号长宁来福士（E）04层12号',
+          id: [20, 21, 168, 167, 166, 165, 79, 80, 81, 37]
+        },
+        {
+          name: '香港广场店',
+          img: burl + 'sggc.jpg',
+          address: '上海市淮海中路283号 香港广场南座二楼10B',
+          id: [34, 130, 22, 33, 228, 32, 85, 109]
+        },
+        {
+          name: '合生汇店',
+          img: burl + 'hsh.jpg',
+          address: '上海杨浦区翔殷路1099号合生汇4层06室',
+          id: [27, 234, 235, 198, 199, 127, 8, 63, 102]
+        },
+        {
+          name: '江桥万达店',
+          img: burl + 'jqwd.jpg',
+          address: '上海市金沙江西路1051弄1号 万达广场2003室',
+          id: [186, 187, 12]
+        },
+        {
+          name: '七宝万科店',
+          img: burl + 'qbwk.jpg',
+          address: '上海市漕宝路3366号上海七宝万科广场商场四层L435号',
+          id: [232, 233, 6]
+        },
+        {
+          name: '日月光店',
+          img: burl + 'ryg.jpg',
+          address: '上海市徐汇区漕宝路33号徐汇日月光中心A座L2-35',
+          id: [229, 230, 231, 144]
+        },
+        {
+          name: '南丰店',
+          img: burl + 'nfc.jpg',
+          address: '上海长宁区遵义路100号南丰城1-L208',
+          id: [26]
+        },
+        {
+          name: '百联世纪店',
+          img: burl + 'blsj.jpg',
+          address:
+            '上海市浦东新区世纪大道1217号百联世纪购物中心B1层G59-B1-0-031',
+          id: [14, 82, 83]
+        }
+      ]
     }
   },
   watch: {},
+  computed: {
+    currentAddress: function() {
+      return this.store[this.control.store].address
+    }
+  },
   methods: {
     handlePop() {
       this.control.pop = !this.control.pop
@@ -226,6 +297,9 @@ export default {
     },
     handleSlideChange(e) {
       console.dir(e)
+    },
+    handleStoreClick(index) {
+      this.$refs.mySwiper.swiper.slideTo(index)
     }
   },
   mounted() {}
@@ -266,16 +340,14 @@ export default {
     display: flex;
     z-index: 4;
     flex-direction: column;
-
     .slide-name {
       display: flex;
-
       overflow-x: scroll;
       overflow-y: hidden;
+      border: #94e7d5 2px solid;
       .name-item {
         flex-shrink: 0;
         display: inline-block;
-        border: #45d2b4 2px solid;
         font-size: 14px;
         padding: 0 5px;
         &.normal {
