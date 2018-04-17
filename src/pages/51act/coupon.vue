@@ -149,28 +149,36 @@ export default {
           nextEl: '.swiper-button-next',
           prevEl: '.swiper-button-prev'
         },
+        initialSlide: 0,
         on: {
+          init: () => {
+            this.hasInit = true
+          },
           slideChange: () => {
-            this.control.store = this.$refs.mySwiper.swiper.activeIndex
-            let s = document.getElementById('slide')
-            switch (this.control.store) {
-              case 0:
-                s.scrollTo(0, 0)
-                break
-              case 1:
-                s.scrollTo(70, 0)
-                break
-              case 2:
-                s.scrollTo(150, 0)
-                break
-              case 3:
-                s.scrollTo(210, 0)
-                break
-              case 4:
-                s.scrollTo(300, 0)
-                break
-              default:
-                s.scrollTo(300, 0)
+            if (!this.hasInit) {
+              return
+            } else {
+              this.control.store = this.$refs.mySwiper.swiper.activeIndex
+              let s = document.getElementById('slide')
+              switch (this.control.store) {
+                case 0:
+                  s.scrollTo(0, 0)
+                  break
+                case 1:
+                  s.scrollTo(70, 0)
+                  break
+                case 2:
+                  s.scrollTo(150, 0)
+                  break
+                case 3:
+                  s.scrollTo(210, 0)
+                  break
+                case 4:
+                  s.scrollTo(300, 0)
+                  break
+                default:
+                  s.scrollTo(300, 0)
+              }
             }
           }
         }
@@ -229,63 +237,79 @@ export default {
         pop: false,
         store: 0
       },
+      hasInit: false,
       store: [
         {
           name: '来福士店',
           img: burl + 'lfs.jpg',
           address: '上海市长宁区长宁路1123号长宁来福士（E）04层12号',
-          id: [20, 21, 168, 167, 166, 165, 79, 80, 81, 37]
+          id: [20, 21, 168, 167, 166, 165, 79, 80, 81, 37],
+          index: 0
         },
         {
           name: '香港广场店',
           img: burl + 'sggc.jpg',
           address: '上海市淮海中路283号 香港广场南座二楼10B',
-          id: [34, 130, 22, 33, 228, 32, 85, 109]
+          id: [34, 130, 22, 33, 228, 32, 85, 109],
+          index: 1
         },
         {
           name: '合生汇店',
           img: burl + 'hsh.jpg',
           address: '上海杨浦区翔殷路1099号合生汇4层06室',
-          id: [27, 234, 235, 198, 199, 127, 8, 63, 102]
+          id: [27, 234, 235, 198, 199, 127, 8, 63, 102],
+          index: 2
         },
         {
           name: '江桥万达店',
           img: burl + 'jqwd.jpg',
           address: '上海市金沙江西路1051弄1号 万达广场2003室',
-          id: [186, 187, 12]
+          id: [186, 187, 12],
+          index: 3
         },
         {
           name: '七宝万科店',
           img: burl + 'qbwk.jpg',
           address: '上海市漕宝路3366号上海七宝万科广场商场四层L435号',
-          id: [232, 233, 6]
+          id: [232, 233, 6],
+          index: 4
         },
         {
           name: '日月光店',
           img: burl + 'ryg.jpg',
           address: '上海市徐汇区漕宝路33号徐汇日月光中心A座L2-35',
-          id: [229, 230, 231, 144]
+          id: [229, 230, 231, 144],
+          index: 5
         },
         {
           name: '南丰店',
           img: burl + 'nfc.jpg',
           address: '上海长宁区遵义路100号南丰城1-L208',
-          id: [26]
+          id: [26],
+          index: 6
         },
         {
           name: '百联世纪店',
           img: burl + 'blsj.jpg',
           address:
             '上海市浦东新区世纪大道1217号百联世纪购物中心B1层G59-B1-0-031',
-          id: [14, 82, 83]
+          id: [14, 82, 83],
+          index: 7
         }
       ]
     }
   },
-  watch: {},
+  created() {
+    this.handleStoreChooseById()
+  },
   computed: {
     currentAddress: function() {
       return this.store[this.control.store].address
+    }
+  },
+  watch: {
+    hasInit: function() {
+      this.$refs.mySwiper.swiper.slideTo(this.handleStoreChooseById())
     }
   },
   methods: {
@@ -300,9 +324,18 @@ export default {
     },
     handleStoreClick(index) {
       this.$refs.mySwiper.swiper.slideTo(index)
+    },
+    handleStoreChooseById() {
+      if (this.$route.query.hasOwnProperty('pid') === true) {
+        for (let item of this.store) {
+          if (item.id.indexOf(Number(this.$route.query.pid)) !== -1) {
+            return item.index
+            break
+          }
+        }
+      }
     }
-  },
-  mounted() {}
+  }
 }
 </script>
 
