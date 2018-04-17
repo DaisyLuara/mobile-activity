@@ -92,6 +92,28 @@
 
     </div>
 
+    <!-- pics -->
+    <img
+      class="root-singlep" 
+      :src="baseUrl + 'p2_02.png'" />
+
+    <img
+      class="root-singlep" 
+      :src="baseUrl + 'p2_03.png'" />
+
+    <img
+      class="root-singlep" 
+      :src="baseUrl + 'p2_04.png'" />
+
+    <img
+      class="root-singlep" 
+      :src="baseUrl + 'p2_05.png'" />
+
+    <img
+      class="root-singlep" 
+      :src="baseUrl + 'p2_06.jpg'" />
+
+
     <!-- popup -->
     <div 
       class="root-popup"
@@ -452,6 +474,10 @@ export default {
         font-weight: 300;
       }
     }
+  }
+  .root-singlep {
+    position: relative;
+    width: 100%;
   }
 }
 .swiper-button-next {
