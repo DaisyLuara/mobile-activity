@@ -311,6 +311,12 @@ export default new Router({
           name: '新狗年大吉结果页',
           component: () =>
             import(/* webpackChunkName: "newspring" */ 'pages/exeSpring/newspring.vue')
+        },
+        {
+          path: 'haoke',
+          name: '豪客牛排',
+          component: () =>
+            import(/* webpackChunkName: "haoke" */ 'pages/haoke/index.vue')
         }
       ]
     },
