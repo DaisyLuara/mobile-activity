@@ -2,10 +2,10 @@
     <div class="haoke-content">
      <img  class="photo-id" :src="resultImgUrl" alt=""/>
      <!--<img  class="photo-id" :src="imgServerUrl + '/pages/popcorn/Bronze.jpg'" alt=""/>-->
-    <div class="coupons">
-        <img  v-show="showCoupon.showFree" class="free" :src="imgServerUrl + '/pages/haoke/free.png'" alt="" @click="goUrl()"/>
-        <img  v-show="showCoupon.couponFive"  class="five" :src="imgServerUrl + '/pages/haoke/5.png'" alt="" @click="goUrl()"/>
-        <img  v-show="showCoupon.couponEightyFive" class="eighty-five" :src="imgServerUrl + '/pages/haoke/85.png'" alt="" @click="goUrl()"/>
+    <div class="coupons" @click="goUrl()">
+        <img  v-show="showCoupon.showFree" class="free" :src="imgServerUrl + '/pages/haoke/free.png'" alt="" />
+        <img  v-show="showCoupon.couponFive"  class="five" :src="imgServerUrl + '/pages/haoke/5.png'" alt=""/>
+        <img  v-show="showCoupon.couponEightyFive" class="eighty-five" :src="imgServerUrl + '/pages/haoke/85.png'" alt=""/>
     </div>
     <!--<wx-share :WxShareInfo="wxShareInfo"></wx-share>-->
    </div>
@@ -158,6 +158,11 @@ export default {
         height: 65%;
     }
   .coupons{
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 20%;
     .free{
         width: 60%;
         position: absolute;
