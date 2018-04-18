@@ -1,6 +1,6 @@
 <template>
     <div class="haoke-content">
-    <img  class="photo-id" :src="resultImgUrl" alt=""/>
+     <img  class="photo-id" :src="resultImgUrl" alt=""/>
      <!--<img  class="photo-id" :src="imgServerUrl + '/pages/popcorn/Bronze.jpg'" alt=""/>-->
     <div class="coupons">
         <img  v-show="showCoupon.showFree" class="free" :src="imgServerUrl + '/pages/haoke/free.png'" alt="" @click="goUrl()"/>
@@ -142,7 +142,7 @@ export default {
       width:100%;
       height:100%;
       background-repeat: no-repeat;
-      background-image: url("@{imageHost}/bg.jpg");
+      background-image: url("@{imageHost}/bg_2.jpg");
       background-size: 100% 100%;
       position: relative;
       text-align: center;
