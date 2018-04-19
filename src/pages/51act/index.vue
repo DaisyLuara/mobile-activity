@@ -20,6 +20,7 @@
       手机号有误，请重新输入
     </div>
     <input 
+      maxlength="11"
       :class="{ 'phoneError': this.phoneError}"
       @click="handlePhoneError"
       v-model="bindPhoneNumber"
@@ -39,7 +40,12 @@
 </template>
 
 <script>
+import WxShare from 'modules/wxShare'
+import { customTrack } from 'modules/customTrack'
 export default {
+  components: {
+    WxShare
+  },
   data() {
     return {
       baseUrl:
@@ -111,7 +117,16 @@ export default {
         }
       },
       bindPhoneNumber: null,
-      phoneError: false
+      phoneError: false,
+      wxShareInfo: {
+        title: '浦商百货 致惠女神节',
+        desc: '黑白天使 成就致惠女神 真皙美白 唤醒青春美颜',
+        imgUrl:
+          'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/xsd51/cp/exeicon.jpg',
+        success: function() {
+          customTrack.shareWeChat()
+        }
+      }
     }
   },
   methods: {

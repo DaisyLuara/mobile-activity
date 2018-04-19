@@ -2,6 +2,10 @@
   <div 
     :class="{'pop': this.control.pop}"
     class="coupon-root">
+    
+    <!-- wxshare -->
+    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+    
     <!-- bg -->
     <img
       class="root-bg" 
@@ -11,24 +15,51 @@
     <div
       :style="style.time" 
       class="root-time">
+      
+
       <div 
-        v-for="(item,index) in 8" 
-        :key="index"
-        :style="style.num"
-        >
-
+        v-for="(item,index) in hourString" 
+        :key="'hour' + index"
+        :style="style.num">
         <img
-        v-if="index === 2|| index === 5"
-        :src="baseUrl + 'semi.png'"
-        :style="style.num" 
-        class="num" />
-
-        <img
-        v-else
-        :src="baseUrl + '1.png'"
+        :src="baseUrl + item + '.png'"
         :style="style.num" 
         class="num" />
       </div>
+
+      <div :style="style.num">
+          <img
+            :src="baseUrl + 'semi.png'"
+            :style="style.num" 
+            class="num" />
+      </div>
+
+      <div 
+        v-for="(item,index) in minString" 
+        :key="'min' + index"
+        :style="style.num">
+        <img
+        :src="baseUrl + item + '.png'"
+        :style="style.num" 
+        class="num" />
+      </div>
+
+      <div :style="style.num">
+          <img
+            :src="baseUrl + 'semi.png'"
+            :style="style.num" 
+            class="num" />
+      </div>
+
+      <div 
+        v-for="(item,index) in secString" 
+        :key="'second' + index"
+        :style="style.num">
+        <img
+        :src="baseUrl + item + '.png'"
+        class="num" />
+      </div>
+
     </div>
 
     <!-- button -->
@@ -65,6 +96,9 @@
           :class="{'selected': index === control.store, 'normal': index !== control.store}"
           class="name-item">
           {{item.name}}
+          <div class="item-sep">
+
+          </div>
         </div>
       </div>
 
@@ -156,9 +190,15 @@
 </template>
 
 <script>
+import WxShare from 'modules/wxShare'
+import { customTrack } from 'modules/customTrack'
 const burl =
   'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/xsd51/cp/'
+const wi = window.innerWidth
 export default {
+  components: {
+    WxShare
+  },
   data() {
     return {
       swiperOption: {
@@ -203,36 +243,36 @@ export default {
       },
       style: {
         button: {
-          width: window.innerWidth * 0.2 + 'px'
+          width: wi * 0.2 + 'px'
         },
         time: {
           position: 'absolute',
-          top: window.innerWidth * 0.02 + 'px',
-          width: window.innerWidth * 0.8 + 'px',
-          left: window.innerWidth * 0.1 + 'px'
+          top: wi * 0.02 + 'px',
+          width: wi * 0.5 + 'px',
+          left: wi * 0.25 + 'px'
         },
         num: {
-          width: window.innerWidth * 0.05 + 'px',
+          height: '100%',
           display: 'inline-block'
         },
         coupon: {
-          top: window.innerWidth * 0.4 + 'px',
-          width: window.innerWidth * 0.42 + 'px',
-          height: window.innerWidth * 0.36 + 'px',
-          left: window.innerWidth * 0.3 + 'px',
+          top: wi * 0.4 + 'px',
+          width: wi * 0.42 + 'px',
+          height: wi * 0.36 + 'px',
+          left: wi * 0.3 + 'px',
           zIndex: '4',
           position: 'absolute'
         },
         slide: {
-          top: window.innerWidth * 1.22 + 'px',
-          width: window.innerWidth * 0.92 + 'px',
-          left: window.innerWidth * 0.04 + 'px',
-          height: window.innerWidth * 0.67 + '30px',
+          top: wi * 1.22 + 'px',
+          width: wi * 0.92 + 'px',
+          left: wi * 0.04 + 'px',
+          height: wi * 0.67 + '30px',
           backgroud: 'white',
-          marginTop: window.innerWidth * 0.05 + 'px'
+          marginTop: wi * 0.05 + 'px'
         },
         com: {
-          height: window.innerWidth * 0.67 - 60 + 'px'
+          height: wi * 0.67 - 60 + 'px'
         },
         address: {
           lineHeight: '30px',
@@ -240,13 +280,11 @@ export default {
           zIndex: '4'
         },
         sname: {
-          height: '30px',
+          height: '27px',
           zIndex: '4'
         },
         nitem: {
-          height: '30px',
           zIndex: '7',
-          lineHeight: '29px',
           textAlign: 'center'
         }
       },
@@ -254,7 +292,10 @@ export default {
         'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/xsd51/cp/',
       control: {
         pop: false,
-        store: 0
+        store: 0,
+        hour: 24,
+        min: 0,
+        second: 0
       },
       hasInit: false,
       store: [
@@ -381,11 +422,27 @@ export default {
           ],
           img: burl + '380ym.png'
         }
-      ]
+      ],
+      wxShareInfo: {
+        title: '浦商百货 致惠女神节',
+        desc: '黑白天使 成就致惠女神 真皙美白 唤醒青春美颜',
+        imgUrl:
+          'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/xsd51/cp/exeicon.jpg',
+        success: function() {
+          customTrack.shareWeChat()
+        }
+      },
+      tc: null
     }
   },
   created() {
     this.handleStoreChooseById()
+  },
+  mounted() {
+    this.initInterval()
+  },
+  beforeDestroy() {
+    this.clearSetInterval()
   },
   computed: {
     currentAddress: function() {
@@ -414,6 +471,23 @@ export default {
         ? this.$route.query.cid
         : 0
       return this.coupons[id].img
+    },
+    hourString: function() {
+      return this.control.hour.toString()
+    },
+    minString: function() {
+      if (this.control.min < 10) {
+        return '0' + this.control.min.toString()
+      } else {
+        return this.control.min.toString()
+      }
+    },
+    secString: function() {
+      if (this.control.second < 10) {
+        return '0' + this.control.second.toString()
+      } else {
+        return this.control.second.toString()
+      }
     }
   },
   watch: {
@@ -422,6 +496,32 @@ export default {
     }
   },
   methods: {
+    clearSetInterval() {
+      clearInterval(this.tc)
+    },
+    initInterval() {
+      this.tc = setInterval(() => {
+        this.caltime()
+      }, 1000)
+    },
+    caltime() {
+      if (this.control.second === 0) {
+        if (this.control.min === 0) {
+          if (this.control.hour === 0) {
+            this.clearSetInterval()
+          } else {
+            this.control.hour -= 1
+            this.control.min = 59
+            this.control.second = 59
+          }
+        } else {
+          this.control.min -= 1
+          this.control.second = 59
+        }
+      } else {
+        this.control.second -= 1
+      }
+    },
     handlePop() {
       this.control.pop = !this.control.pop
     },
@@ -465,8 +565,8 @@ export default {
   }
   .root-button {
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: 15px;
+    right: 15px;
     z-index: 2;
   }
   .root-coupon {
@@ -478,6 +578,7 @@ export default {
     z-index: 3;
     justify-content: center;
     display: flex;
+    align-items: center;
     .num {
       z-index: 4;
     }
@@ -487,16 +588,28 @@ export default {
     display: flex;
     z-index: 4;
     flex-direction: column;
+    font-size: 14px;
     .slide-name {
       display: flex;
       overflow-x: scroll;
       overflow-y: hidden;
-      border: #94e7d5 2px solid;
+      border: #31d4b5 1.5px solid;
       .name-item {
         flex-shrink: 0;
         display: inline-block;
-        font-size: 14px;
         padding: 0 5px;
+        height: 27px;
+        line-height: 27px;
+        position: relative;
+        .item-sep {
+          position: absolute;
+          right: 0;
+          width: 0.5px;
+          height: 30px;
+          top: -1.5px;
+          background-color: black;
+          z-index: 8;
+        }
         &.normal {
           background-color: #45d2b4;
           color: #2c2d25;
