@@ -16,7 +16,8 @@
 			<img id="mImg" class="photo" :src="mImg"/>
 		</div>
 		<img class="press" :src="imgUrl+'hiphop/save.png'" v-show="isShow">
-        <img class="erma" :src="imgUrl+'lianyang/newma.jpg'"/>
+    <img class="erma" :src="imgUrl+'lianyang/newma.jpg'"/>
+    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
 	</div>
 </template>
 <script>
@@ -129,6 +130,7 @@ export default {
     },
     playOrNot() {
       // 依據 audio 的 paused 属性返回音频是否已暂停來判斷播放還是暫停音频。
+      var voice = document.getElementById('voice')
       if (voice.paused) {
         voice.play()
       } else {

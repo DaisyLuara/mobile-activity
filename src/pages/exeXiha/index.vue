@@ -1,6 +1,5 @@
 <template>
  <div class="content-wrapper">
-  
   <div class="photo-content">
     <img class="phone-bg" :src="imgUrl+'phone-bg.png?v=1'">
 
@@ -66,7 +65,7 @@ export default {
     },
     linkToPhoto(mobile) {
       this.$router.push({
-        path: 'retro/result?id=' + this.$route.query.id + '&mobile=' + mobile
+        path: 'hiphop/result?id=' + this.$route.query.id + '&mobile=' + mobile
       })
     }
   },

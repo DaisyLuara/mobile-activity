@@ -1,6 +1,6 @@
 <template>
     <div class="yanzhi-result" id="warp">
-		<img class="title" src="htitle.png" data-v-content/>
+		<img class="title" :src="imgUrl+'title.png'" data-v-content/>
 		<div class="content">
 			<div class="circles"> 
 				<img class="gear1" :src="imgUrl+'gear1.png'">

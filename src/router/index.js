@@ -169,6 +169,18 @@ export default new Router({
             import(/* webpackChunkName: "xc_travel" */ 'pages/xc_travel/index.vue')
         },
         {
+          path: 'wc_card',
+          name: 'WorldCupCard',
+          component: () =>
+            import(/* webpackChunkName: "WorldCupCard" */ 'pages/worldCups/card.vue')
+        },
+        {
+          path: 'wc_shemen',
+          name: 'WorldCupShemen',
+          component: () =>
+            import(/* webpackChunkName: "WorldCup" */ 'pages/worldCups/shemen.vue')
+        },
+        {
           path: 'animal',
           name: '嘻哈动物版',
           component: () =>
@@ -208,7 +220,7 @@ export default new Router({
           path: 'retroxc',
           name: '复古-携程',
           component: () =>
-            import(/* webpackChunkName: "retro" */ 'pages/exeRetro/retroxc.vue')
+            import(/* webpackChunkName: "retroxc" */ 'pages/exeRetro/retroxc.vue')
         },
         {
           path: 'hiphop',
@@ -226,7 +238,13 @@ export default new Router({
           path: 'lyhiphop',
           name: '联洋广场嘻哈',
           component: () =>
-            import(/* webpackChunkName: "hiphop" */ 'pages/exeXiha/lianyang.vue')
+            import(/* webpackChunkName: "lyhiphop" */ 'pages/exeXiha/lianyang.vue')
+        },
+        {
+          path: 'xchiphop',
+          name: '携程嘻哈',
+          component: () =>
+            import(/* webpackChunkName: "xchiphop" */ 'pages/exeXiha/xiecheng.vue')
         },
         {
           path: 'travel',
@@ -281,6 +299,36 @@ export default new Router({
           name: '51actcp',
           component: () =>
             import(/* webpackChunkName: "51xingshidu" */ 'pages/51act/coupon.vue')
+        },
+        {
+          path: 'spring',
+          name: '狗年大吉手机页',
+          component: () =>
+            import(/* webpackChunkName: "spring" */ 'pages/exeSpring/index.vue')
+        },
+        {
+          path: 'spring/result',
+          name: '狗年大吉结果页',
+          component: () =>
+            import(/* webpackChunkName: "spring" */ 'pages/exeSpring/spring.vue')
+        },
+        {
+          path: 'newSpring',
+          name: '新狗年大吉手机号页',
+          component: () =>
+            import(/* webpackChunkName: "newspring" */ 'pages/exeSpring/newindex.vue')
+        },
+        {
+          path: 'newSpring/result',
+          name: '新狗年大吉结果页',
+          component: () =>
+            import(/* webpackChunkName: "newspring" */ 'pages/exeSpring/newspring.vue')
+        },
+        {
+          path: 'haoke',
+          name: '豪客牛排',
+          component: () =>
+            import(/* webpackChunkName: "haoke" */ 'pages/haoke/index.vue')
         }
       ]
     },

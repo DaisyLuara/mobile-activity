@@ -17,7 +17,6 @@
 				<img class="kbg2 boss2" :src="imgUrl+'kaide/cat2.png'" />
 				<img class="kbg3 boss3" :src="imgUrl+'kaide/dog2.png'" />
 				<img class="kbg4 boss4" :src="imgUrl+'kaide_animal/text3.png'" />
-
 				<img class="text1" :src="imgUrl+'kaide/text1.png'">
 				<img class="text2" :src="imgUrl+'kaide/text2.png'">
 			</div>
@@ -25,7 +24,7 @@
 				<img class="imgbg" :src="imgUrl+'kaide/frame.png'">
 				<img id="mImg" class="mImg" :src="mImg">
 			</div>
-			<img class="press" :src="imgUrl+'kaide/prompt.png'">
+			<img class="press" :src="imgUrl+'kaide/prompt.png'" v-show="press">
 			<a :href="xlink">
 				<img class="xinglink" :src="imgUrl+'kaide/sponsor.png?111'">
 			</a>
@@ -44,15 +43,13 @@ export default {
       imgUrl: BASE_URL + 'image/',
       audioUrl: BASE_URL + 'audio/mp3/',
       xlink: 'http://m.jingfree.com/marketing/brochure?trace_id=nakvx5',
-      mbtn: null,
+      mImg: null,
+      press: false,
       //微信分享
-      wxShareInfo: {
+      wxShareInfoValue: {
         title: '星视度有嘻哈',
         desc: '你就是嘻哈王者',
-        imgUrl: BASE_URL + 'image/kaide_animal/icon.png',
-        success: function() {
-          customTrack.shareWeChat()
-        }
+        imgUrl: BASE_URL + 'image/kaide_animal/icon.png'
       }
     }
   },
@@ -65,6 +62,19 @@ export default {
   mounted() {
     this.playAudio()
   },
+  computed: {
+    wxShareInfo() {
+      let wxShareInfo = {
+        title: this.wxShareInfoValue.title,
+        desc: this.wxShareInfoValue.desc,
+        imgUrl: this.wxShareInfoValue.imgUrl,
+        success: function() {
+          customTrack.shareWeChat()
+        }
+      }
+      return wxShareInfo
+    }
+  },
   methods: {
     getInfoById() {
       let id = this.$route.query.id
@@ -73,6 +83,7 @@ export default {
         .getInfoById(this, id)
         .then(res => {
           this.mImg = res.image
+          that.press = true
         })
         .catch(err => {
           console.log(err)
@@ -137,12 +148,11 @@ export default {
     },
     playOrNot() {
       // 依據 audio 的 paused 属性返回音频是否已暂停來判斷播放還是暫停音频。
+      let voice = document.getElementById('voice')
       if (voice.paused) {
         voice.play()
-        //$("#mbtn").addClass("mplay");
       } else {
         voice.pause()
-        //$("#mbtn").removeClass("mplay");
       }
     }
   },
@@ -165,58 +175,44 @@ body {
   left: 50%;
   transform: translateX(-50%);
 }
-// 垂直居中
-.vertical {
-  top: 50%;
-  transform: translateY(-50%);
-}
-.rotate2d(@val) {
-  transform: rotate(@val);
-}
-.translate2d(@x,@y) {
-  transform: translate(@x, @y);
-}
-.scale2d(@x,@y) {
-  transform: scale(@x, @y);
-}
 @keyframes mycir {
   0% {
-    .rotate2d(0deg);
+    transform: rotate(0deg);
   }
   100% {
-    .rotate2d(360deg);
+    transform: rotate(360deg);
   }
 }
 @keyframes updown {
   0% {
-    .translate2d(0,-5px);
+    transform: translate(0, -5px);
   }
   100% {
-    .translate2d(0,5px);
+    transform: translate(0, 5px);
   }
 }
 @keyframes stext {
   0% {
-    .scale2d(0,0);
+    transform: scale(0, 0);
   }
   100% {
-    .scale2d(1,1);
+    transform: scale(1, 1);
   }
 }
 @keyframes toright {
   0% {
-    .translate2d(-100%,0);
+    transform: translate(-100%, 0);
   }
   100% {
-    .translate2d(0,0);
+    transform: translate(0, 0);
   }
 }
 @keyframes toleft {
   0% {
-    .translate2d(100%,0);
+    transform: translate(100%, 0);
   }
   100% {
-    .translate2d(0,0);
+    transform: translate(0, 0);
   }
 }
 .animal-content {
@@ -326,35 +322,35 @@ body {
       width: 19.7%;
       margin-top: 2%;
       margin-left: 5%;
-      .translate2d(-150%,0);
+      transform: translate(-150%, 0);
       animation: toright 0.8s linear forwards;
     }
     .boss2 {
       width: 21.2%;
       margin-top: 2%;
       margin-right: 0%;
-      .translate2d(150%,0);
+      transform: translate(150%, 0);
       animation: toleft 0.6s 0.2s linear forwards;
     }
     .boss3 {
       width: 13.8%;
       margin-top: 2%;
       margin-left: 4%;
-      .translate2d(-150%,0);
+      transform: translate(-150%, 0);
       animation: toright 0.6s 0.4s linear forwards;
     }
     .boss4 {
       width: 34.6%;
       right: 12%;
       bottom: 22%;
-      .translate2d(150%,0);
+      transform: translate(150%, 0);
       animation: toleft 0.6s 0.6s linear forwards;
     }
     .text1,
     .text2 {
       position: absolute;
       z-index: 9999;
-      .scale2d(0,0);
+      transform: scale(0, 0);
     }
     .text1 {
       width: 33.5%;
@@ -388,7 +384,6 @@ body {
     }
   }
   .press {
-    display: none;
     width: 70.4%;
     margin: 0 auto;
     padding-top: 2%;
