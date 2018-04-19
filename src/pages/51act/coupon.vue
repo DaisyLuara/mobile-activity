@@ -378,10 +378,37 @@ export default {
       this.coupon = JSON.parse(
         localStorage.getItem('xingstation51act')
       ).coupon_data
+
+      let date3 = new Date(this.coupon.date_end).getTime() - Date.now()
+
+      let days = Math.floor(date3 / (24 * 3600 * 1000))
+      let leave1 = date3 % (24 * 3600 * 1000) //计算天数后剩余的毫秒数
+      let hours = Math.floor(leave1 / (3600 * 1000))
+      //计算相差分钟数
+      let leave2 = leave1 % (3600 * 1000) //计算小时数后剩余的毫秒数
+      let minutes = Math.floor(leave2 / (60 * 1000))
+      //计算相差秒数
+      let leave3 = leave2 % (60 * 1000) //计算分钟数后剩余的毫秒数
+      let seconds = Math.round(leave3 / 1000)
+
+      this.control.hour = hours
+      this.control.min = minutes
+      this.control.seconds = seconds
+      console.log(
+        ' 相差 ' +
+          days +
+          '天' +
+          hours +
+          '小时 ' +
+          minutes +
+          ' 分钟' +
+          seconds +
+          ' 秒'
+      )
+      this.initInterval()
     } else {
       this.$router.push('51act')
     }
-    this.initInterval()
   },
   beforeDestroy() {
     this.clearSetInterval()
