@@ -86,7 +86,7 @@ export default {
           width: window.innerWidth * 0.8 + 'px',
           top:
             window.innerWidth * 303 / 750 * 1.2 +
-            window.innerWidth * 0.7 * 434 / 624 * 1 +
+            window.innerWidth * 0.7 * 434 / 624 * 0.98 +
             'px',
           textAlign: 'center',
           color: 'red'

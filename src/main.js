@@ -8,6 +8,9 @@ import router from './router'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.css'
 import animate from 'animate.css'
+
+import { Lazyload } from 'mint-ui'
+Vue.use(Lazyload)
 Vue.use(VueAwesomeSwiper)
 Vue.use(animate)
 // axios.defaults.withCredentials = true ;

@@ -134,23 +134,23 @@
     <!-- pics -->
     <img
       class="root-singlep" 
-      :src="baseUrl + 'p2_02.png'" />
+      v-lazy="baseUrl + 'p2_02.png'" />
 
     <img
       class="root-singlep" 
-      :src="baseUrl + 'p2_03.png'" />
+      v-lazy="baseUrl + 'p2_03.png'" />
 
     <img
       class="root-singlep" 
-      :src="baseUrl + 'p2_04.png'" />
+      v-lazy="baseUrl + 'p2_04.png'" />
 
     <img
       class="root-singlep" 
-      :src="baseUrl + 'p2_05.png'" />
+      v-lazy="baseUrl + 'p2_05.png'" />
 
     <img
       class="root-singlep" 
-      :src="baseUrl + 'p2_06.jpg'" />
+      v-lazy="baseUrl + 'p2_06.jpg'" />
 
 
     
@@ -192,6 +192,7 @@
 <script>
 import WxShare from 'modules/wxShare'
 import { customTrack } from 'modules/customTrack'
+
 const burl =
   'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/xsd51/cp/'
 const wi = window.innerWidth
