@@ -286,7 +286,19 @@ export default new Router({
           path: 'lhwanda',
           name: '乐荟-万达版',
           component: () =>
-            import(/* webpackChunkName: "lhwanda" */ 'pages/exeLehui/wanda.vue')
+            import(/* webpackChunkName: "lehui" */ 'pages/exeLehui/wanda.vue')
+        },
+        {
+          path: '51act',
+          name: '51act',
+          component: () =>
+            import(/* webpackChunkName: "51xingshidu" */ 'pages/51act/index.vue')
+        },
+        {
+          path: '51actcp',
+          name: '51actcp',
+          component: () =>
+            import(/* webpackChunkName: "51xingshidu" */ 'pages/51act/coupon.vue')
         },
         {
           path: 'spring',
