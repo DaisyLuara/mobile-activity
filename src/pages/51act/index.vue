@@ -42,6 +42,7 @@
 <script>
 import WxShare from 'modules/wxShare'
 import { customTrack } from 'modules/customTrack'
+import { Toast } from 'mint-ui'
 export default {
   components: {
     WxShare
@@ -129,19 +130,70 @@ export default {
       }
     }
   },
+  mounted() {
+    if (localStorage.getItem('xingstation51act') !== null) {
+      let pushData = {
+        params: JSON.parse(localStorage.getItem('xingstation51act')),
+        name: '51actcp',
+        query: {}
+      }
+      if (this.$route.query.hasOwnProperty('pid') === true) {
+        pushData.query.pid = this.$route.query.pid
+      }
+      this.$router.push(pushData)
+    }
+  },
   methods: {
     handleButtonClick() {
       if (!/^1[345678]\d{9}$/.test(this.bindPhoneNumber)) {
         this.phoneError = true
         return
       } else {
-        this.$router.push({
-          name: '51actcp'
-        })
+        this.checkCoupon()
       }
     },
     handlePhoneError() {
       this.phoneError = false
+    },
+    checkCoupon() {
+      const url = process.env.STORE_API + '/rest/coupon/'
+
+      if (this.$route.query.hasOwnProperty('coupon_id')) {
+        let pdata = {
+          mobile: this.bindPhoneNumber,
+          coupon_id: this.$route.query.coupon_id
+        }
+        this.$http
+          .put(url, pdata)
+          .then(r => {
+            console.dir(r)
+            if (r.status === 200) {
+              if (r.data.hasOwnProperty('error')) {
+                Toast(r.data.error.msg)
+              } else {
+                let para = {
+                  coupon_data: r.data,
+                  pid: this.$route.query.pid
+                }
+                localStorage.setItem('xingstation51act', JSON.stringify(para))
+                let pushData = {
+                  params: para,
+                  name: '51actcp',
+                  query: {}
+                }
+                if (this.$route.query.hasOwnProperty('pid')) {
+                  pushData.query.pid = this.$route.query.pid
+                }
+                this.$router.push(pushData)
+              }
+            }
+          })
+          .catch(err => {
+            Toast('网络错误，请重试')
+          })
+      } else {
+        Toast('未获取到优惠券，请重新扫码')
+      }
     }
   }
 }

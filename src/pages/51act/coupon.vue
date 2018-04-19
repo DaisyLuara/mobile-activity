@@ -75,7 +75,7 @@
       :style="style.coupon">
        <img 
         style="width: 100%"
-        :src="useCoupon" />
+        :src="coupon.img" />
     </div>
    
 
@@ -169,17 +169,17 @@
         </div>
         <div class="pop-para"> 
           <div>有效期：</div>
-          <div>{{usePeriod}}</div>
+          <div>{{coupon.date_end}}</div>
         </div>
         <div class="pop-para">
           <div>使用条件：</div>
-          <div>{{useCondition}}</div>
+          <div>{{coupon.condition}}</div>
         </div>
         <div class="pop-rule">
           <div>规则：</div>
           <div 
             :key="index"
-            v-for="(item, index) in useRules">
+            v-for="(item, index) in coupon.rules">
             {{item}}
           </div>
         </div>
@@ -357,72 +357,7 @@ export default {
           index: 7
         }
       ],
-      coupons: [
-        {
-          period: '2018-04-24——2018-05-15',
-          condition:
-            '到EXE颜镜店即可领取TZ House音乐酒现场大宁店满199减30代金券。',
-          rules: [
-            '1.到任意EXE颜镜店即可领取TZ House音乐酒吧大宁店满199减30代金券。',
-            '2.所领取的实体券核销期限为2018-04-24——2018-05-31。',
-            '3.请向店员明示使用本券，每张仅限使用一次，本券一旦核销即失效。',
-            '4.本券不可兑换或折换现金。',
-            '5.其他规则详见券面信息。'
-          ],
-          img: burl + '30.png'
-        },
-        {
-          period: '2018-04-26——2018-05-15',
-          condition: '消费EXE颜选产品即享100元优惠。',
-          rules: [
-            '1.消费任意EXE颜选产品可使用本券，适用于所有EXE线下门店。',
-            '2.请在付款之前向店员明示使用本券，每张仅限使用一次，本券一旦核销即失效。',
-            '3.每一副镜架仅可享受一次该优惠，不与其他优惠同享，不与会员权益同享。',
-            '4.本券不可兑换或折换现金。',
-            '5.若发生退款，将仅退还用户实际支付的金额，券优惠金额不退回，券不再补偿。'
-          ],
-          img: burl + '100.png'
-        },
-        {
-          period: '领券后48小时内',
-          condition:
-            '消费EXE颜选产品，即可获赠店内任意太阳镜一副（价值399元）。',
-          rules: [
-            '1.获得本券后48小时内在EXE店内消费颜选产品可获赠店内任意太阳镜一副（价值399元），适用于所有EXE线下门店。',
-            '2.请在付款之前向店员明示使用本券，每张仅限使用一次，本券一旦核销即失效。',
-            '3.可与颜选产品优惠同享，不与其他优惠同享，不与会员权益同享。',
-            '4.本券不可兑换或折换现金。',
-            '5.若发生退款，将仅退还用户实际支付的金额，用户需同时退还赠品，券不再补偿。'
-          ],
-          img: burl + '399.png'
-        },
-        {
-          period: '领券后48小时内',
-          condition:
-            '消费EXE颜选产品，即可获赠价值380元的Borghese亮肤晶莹面膜。',
-          rules: [
-            '1.获得本券后48小时内在EXE店内消费任意颜选产品可获赠Borghese贝佳斯亮肤晶莹面膜，适用于所有EXE线下门店。',
-            '2.请在付款之前向店员明示使用本券，每张仅限使用一次，本券一旦核销即失效。',
-            '3.可与颜选产品优惠同享，不与其他优惠同享，不与会员权益同享。',
-            '4.本券不可兑换或折换现金。',
-            '5.若发生退款，将仅退还用户实际支付的金额，券不再补偿。'
-          ],
-          img: burl + '380mm.png'
-        },
-        {
-          period: '领券后48小时内',
-          condition:
-            '消费EXE颜选产品，即可获赠价值380元的Borghese活力亮采净透睡眠眼膜修护霜。',
-          rules: [
-            '1.获得本券后48小时内在EXE店内消费任意颜选镜架可获赠Borghese贝佳斯活力亮采净透睡眠眼膜修护霜，适用于所有EXE线下门店。',
-            '2.请在付款之前向店员明示使用本券，每张仅限使用一次，本券一旦核销即失效。',
-            '3.可与颜选产品优惠同享，不与其他优惠同享，不与会员权益同享。',
-            '4.本券不可兑换或折换现金。',
-            '5.若发生退款，将仅退还用户实际支付的金额，券不再补偿。'
-          ],
-          img: burl + '380ym.png'
-        }
-      ],
+      coupon: [],
       wxShareInfo: {
         title: '浦商百货 致惠女神节',
         desc: '黑白天使 成就致惠女神 真皙美白 唤醒青春美颜',
@@ -439,6 +374,13 @@ export default {
     this.handleStoreChooseById()
   },
   mounted() {
+    if (localStorage.getItem('xingstation51act') !== null) {
+      this.coupon = JSON.parse(
+        localStorage.getItem('xingstation51act')
+      ).coupon_data
+    } else {
+      this.$router.push('51act')
+    }
     this.initInterval()
   },
   beforeDestroy() {
@@ -535,7 +477,7 @@ export default {
       this.$refs.mySwiper.swiper.slideTo(index)
     },
     handleStoreChooseById() {
-      if (this.$route.query.hasOwnProperty('pid') === true) {
+      if (this.$route.params.hasOwnProperty('pid') === true) {
         for (let item of this.store) {
           if (item.id.indexOf(Number(this.$route.query.pid)) !== -1) {
             return item.index
