@@ -2,6 +2,9 @@
   <div
     :style="style.root"
     class="hj-root">
+    <!-- wx-share -->
+    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+    
     <!-- top img -->
     <img 
       class="root-topimg"
@@ -16,7 +19,11 @@
       <img
         :style="style.remind"
         :src="this.baseUrl + 'remind.png'" />
-
+        <div class="inner-photo">
+          <img
+          :style="style.innerPhoto"
+          :src="this.bindImage" />
+        </div>
     </div>
     <!-- power -->
     <div
@@ -25,7 +32,7 @@
       <div
         :style="style.powerItem" 
         class="power-item">
-
+        
       </div>
       <div
         :style="style.powerItem" 
@@ -34,14 +41,47 @@
       </div>
 
     </div>
+
+    <!-- real photo -->
+    <img 
+      :src="bindImage"
+      class="top-img"/>
+    <GameMenu />
   </div>
 </template>
 
 <script>
 const wiw = window.innerWidth
+import marketService from 'services/marketing'
+import WxShare from 'modules/wxShare'
+import { customTrack } from 'modules/customTrack'
+import { Toast } from 'mint-ui'
+import GameMenu from './components/gameMenu'
 export default {
+  components: {
+    WxShare,
+    GameMenu
+  },
+  computed: {
+    wxShareInfo() {
+      let wxShareInfo = {
+        title: this.wxShareInfoValue.title,
+        desc: this.wxShareInfoValue.desc,
+        imgUrl: this.wxShareInfoValue.imgUrl,
+        success: function() {
+          customTrack.shareWeChat()
+        }
+      }
+      return wxShareInfo
+    }
+  },
   data() {
     return {
+      wxShareInfoValue: {
+        title: '万达陪你“美”一天',
+        desc: '唯万达 更懂你',
+        imgUrl: ''
+      },
       style: {
         root: {
           width: wiw + 'px',
@@ -72,11 +112,39 @@ export default {
           width: 126 / 750 * wiw + 'px',
           left: (55 / 75 * wiw - 126 / 750 * wiw) / 2 + 'px',
           bottom: -(126 / 750 * wiw * 169 / 133 / 2) + 'px'
+        },
+        innerPhoto: {
+          width: '100%'
         }
       },
       baseUrl:
         'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup/heijiu/',
-      control: {}
+      control: {
+        l: 0,
+        r: 0
+      },
+      bindImage: ''
+    }
+  },
+  mounted() {
+    this.getInfoById()
+  },
+  methods: {
+    getInfoById() {
+      if (this.$route.query.hasOwnProperty('id')) {
+        let id = this.$route.query.id
+        let that = this
+        marketService
+          .getInfoById(this, id)
+          .then(res => {
+            that.bindImage = res.image
+          })
+          .catch(err => {
+            Toast('网络错误，请重试')
+          })
+      } else {
+        Toast('没有照片id')
+      }
     }
   }
 }
@@ -103,6 +171,14 @@ export default {
     z-index: 3;
     border: solid 3px #325f32;
     background-color: white;
+    .inner-photo {
+      @diff : 10px;
+      width: calc(~'100% - @{diff}');
+      margin: 5px;
+      border: 1px solid black;
+      height: calc(~'100% - @{diff}');
+      overflow: hidden;
+    }
   }
   .root-power {
     z-index: 4;
@@ -113,6 +189,15 @@ export default {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+  }
+  .top-img {
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 }
 </style>
