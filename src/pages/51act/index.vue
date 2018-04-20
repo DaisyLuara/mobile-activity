@@ -145,13 +145,7 @@ export default {
             timestamp: resData.timestamp,
             nonceStr: resData.nonceStr,
             signature: resData.signature,
-            jsApiList: [
-              'onMenuShareAppMessage',
-              'onMenuShareTimeline',
-              'onMenuShareQQ',
-              'onMenuShareWeibo',
-              'onMenuShareQZone'
-            ]
+            jsApiList: ['showMenuItems']
           }
           wx.config(wxConfig)
           wx.ready(() => {
