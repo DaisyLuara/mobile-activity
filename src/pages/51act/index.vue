@@ -145,10 +145,11 @@ export default {
             timestamp: resData.timestamp,
             nonceStr: resData.nonceStr,
             signature: resData.signature,
-            jsApiList: ['hideMenuItems']
+            jsApiList: ['hideMenuItems', 'hideOptionMenu']
           }
           wx.config(wxConfig)
           wx.ready(() => {
+            wx.hideOptionMenu()
             wx.hideMenuItems({
               menuList: [
                 'onMenuShareAppMessage',
