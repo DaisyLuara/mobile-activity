@@ -479,6 +479,7 @@ export default {
               Toast(r.data.error.msg)
             } else {
               if (isWeixin() === true) {
+                let that = this
                 this.wxShareInfo.link =
                   window.location.href +
                   '?promo_mobile=' +
@@ -502,13 +503,15 @@ export default {
                     ]
                   }
                   wx.config(wxConfig)
+                  console.dir(that.WxShareInfo)
+                  console.dir(this.WxShareInfo)
                   // this.wxShare(this.WxShareInfo);
                   wx.ready(() => {
-                    wx.onMenuShareAppMessage(this.WxShareInfo)
-                    wx.onMenuShareTimeline(this.WxShareInfo)
-                    wx.onMenuShareQQ(this.WxShareInfo)
-                    wx.onMenuShareWeibo(this.WxShareInfo)
-                    wx.onMenuShareQZone(this.WxShareInfo)
+                    wx.onMenuShareAppMessage(that.WxShareInfo)
+                    wx.onMenuShareTimeline(that.WxShareInfo)
+                    wx.onMenuShareQQ(that.WxShareInfo)
+                    wx.onMenuShareWeibo(that.WxShareInfo)
+                    wx.onMenuShareQZone(that.WxShareInfo)
                   })
                 })
               }
