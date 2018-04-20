@@ -197,16 +197,17 @@ export default {
                 }
 
                 localStorage.setItem('xingstation51act', JSON.stringify(para))
-                let pushData = {
-                  params: para,
-                  name: '51actcp',
-                  query: {}
-                }
-                if (this.$route.query.hasOwnProperty('pid')) {
-                  pushData.query.pid = this.$route.query.pid
-                }
 
-                this.$router.push(pushData)
+                if (this.$route.query.hasOwnProperty('pid')) {
+                  window.location.href =
+                    window.location.origin +
+                    '/marketing/51actcp' +
+                    '?pid=' +
+                    String(this.$route.query.pid)
+                } else {
+                  window.location.href =
+                    window.location.origin + '/marketing/51actcp'
+                }
               }
             }
           })
@@ -248,15 +249,17 @@ export default {
                       'xingstation51act',
                       JSON.stringify(para)
                     )
-                    let pushData = {
-                      params: para,
-                      name: '51actcp',
-                      query: {}
-                    }
+
                     if (this.$route.query.hasOwnProperty('pid')) {
-                      pushData.query.pid = this.$route.query.pid
+                      window.location.href =
+                        window.location.origin +
+                        '/marketing/51actcp' +
+                        '?pid=' +
+                        String(this.$route.query.pid)
+                    } else {
+                      window.location.href =
+                        window.location.origin + '/marketing/51actcp'
                     }
-                    this.$router.push(pushData)
                   })
                   .catch(err => {
                     Toast('网络错误，请重试')
