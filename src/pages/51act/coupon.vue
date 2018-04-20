@@ -3,10 +3,6 @@
     :class="{'pop': this.control.pop}"
     class="coupon-root">
     
-    <!-- wxshare -->
-    <wx-share 
-      :WxShareInfo="wxShareInfo"/>
-    
     <!-- bg -->
     <img
       class="root-bg" 
@@ -191,16 +187,14 @@
 </template>
 
 <script>
-import WxShare from 'modules/wxShare'
 import { customTrack } from 'modules/customTrack'
 import { Toast } from 'mint-ui'
+import { isWeixin } from '../../modules/util'
+const wx = require('weixin-js-sdk')
 const burl =
   'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/xsd51/cp/'
 const wi = window.innerWidth
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
       swiperOption: {
@@ -382,7 +376,9 @@ export default {
         localStorage.getItem('xingstation51act')
       ).coupon_data
 
-      let date3 = new Date(this.coupon.date_end).getTime() - Date.now()
+      let date3 =
+        new Date(this.coupon.date_end.replace(/\-/g, '/')).getTime() -
+        Date.now()
 
       let days = Math.floor(date3 / (24 * 3600 * 1000))
       let leave1 = date3 % (24 * 3600 * 1000) //计算天数后剩余的毫秒数
@@ -482,12 +478,40 @@ export default {
             if (r.data.hasOwnProperty('error')) {
               Toast(r.data.error.msg)
             } else {
-              this.wxShareInfo.link =
-                window.location.href +
-                '?promo_mobile=' +
-                r +
-                'utm_keyword=wechat_share'
-              console.dir(r)
+              if (isWeixin() === true) {
+                this.wxShareInfo.link =
+                  window.location.href +
+                  '?promo_mobile=' +
+                  r +
+                  'utm_keyword=wechat_share'
+                let requestUrl = process.env.WX_API + '/wx/officialAccount/sign'
+                this.$http.get(requestUrl).then(response => {
+                  let resData = response.data.data
+                  let wxConfig = {
+                    debug: false,
+                    appId: resData.appId,
+                    timestamp: resData.timestamp,
+                    nonceStr: resData.nonceStr,
+                    signature: resData.signature,
+                    jsApiList: [
+                      'onMenuShareAppMessage',
+                      'onMenuShareTimeline',
+                      'onMenuShareQQ',
+                      'onMenuShareWeibo',
+                      'onMenuShareQZone'
+                    ]
+                  }
+                  wx.config(wxConfig)
+                  // this.wxShare(this.WxShareInfo);
+                  wx.ready(() => {
+                    wx.onMenuShareAppMessage(this.WxShareInfo)
+                    wx.onMenuShareTimeline(this.WxShareInfo)
+                    wx.onMenuShareQQ(this.WxShareInfo)
+                    wx.onMenuShareWeibo(this.WxShareInfo)
+                    wx.onMenuShareQZone(this.WxShareInfo)
+                  })
+                })
+              }
             }
           }
         })
