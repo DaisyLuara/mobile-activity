@@ -5,7 +5,6 @@
     
     <!-- wxshare -->
     <wx-share 
-      v-if="hasShareReady"
       :WxShareInfo="wxShareInfo"/>
     
     <!-- bg -->
@@ -204,7 +203,6 @@ export default {
   },
   data() {
     return {
-      hasShareReady: false,
       swiperOption: {
         direction: 'horizontal',
         navigation: {
@@ -489,7 +487,6 @@ export default {
                 '?promo_mobile=' +
                 r +
                 'utm_keyword=wechat_share'
-              this.hasShareReady = true
               console.dir(r)
             }
           }
