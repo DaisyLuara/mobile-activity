@@ -4,7 +4,9 @@
     class="coupon-root">
     
     <!-- wxshare -->
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+    <wx-share 
+      v-if="hasShareReady"
+      :WxShareInfo="wxShareInfo"/>
     
     <!-- bg -->
     <img
@@ -192,7 +194,7 @@
 <script>
 import WxShare from 'modules/wxShare'
 import { customTrack } from 'modules/customTrack'
-
+import { Toast } from 'mint-ui'
 const burl =
   'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/xsd51/cp/'
 const wi = window.innerWidth
@@ -202,6 +204,7 @@ export default {
   },
   data() {
     return {
+      hasShareReady: false,
       swiperOption: {
         direction: 'horizontal',
         navigation: {
@@ -360,6 +363,7 @@ export default {
       ],
       coupon: [],
       wxShareInfo: {
+        link: '', // 分享链接，该链接域名必须与当前企业的可信域名一致
         title: '浦商百货 致惠女神节',
         desc: '黑白天使 成就致惠女神 真皙美白 唤醒青春美颜',
         imgUrl:
@@ -406,6 +410,7 @@ export default {
           seconds +
           ' 秒'
       )
+      this.getMobileAndSetShareData()
       this.initInterval()
     } else {
       this.$router.push('51act')
@@ -466,6 +471,33 @@ export default {
     }
   },
   methods: {
+    getMobileAndSetShareData() {
+      let request_url = process.env.STORE_API + '/rest/coupon/mobile'
+      let para = {
+        mobile: JSON.parse(localStorage.getItem('xingstation51act')).mobile
+      }
+      console.dir(para)
+      this.$http
+        .post(request_url, para)
+        .then(r => {
+          if (r.status === 200) {
+            if (r.data.hasOwnProperty('error')) {
+              Toast(r.data.error.msg)
+            } else {
+              this.wxShareInfo.link =
+                window.location.href +
+                '?promo_mobile=' +
+                r +
+                'utm_keyword=wechat_share'
+              this.hasShareReady = true
+              console.dir(r)
+            }
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
     clearSetInterval() {
       clearInterval(this.tc)
     },

@@ -120,7 +120,7 @@ export default {
     }
   },
   mounted() {
-    // this.handleForbiddenShare()
+    this.handleForbiddenShare()
     if (localStorage.getItem('xingstation51act') !== null) {
       let pushData = {
         params: JSON.parse(localStorage.getItem('xingstation51act')),
@@ -197,8 +197,10 @@ export default {
               } else {
                 let para = {
                   coupon_data: r.data,
-                  pid: this.$route.query.pid
+                  pid: this.$route.query.pid,
+                  mobile: this.bindPhoneNumber
                 }
+
                 localStorage.setItem('xingstation51act', JSON.stringify(para))
                 let pushData = {
                   params: para,
@@ -208,7 +210,62 @@ export default {
                 if (this.$route.query.hasOwnProperty('pid')) {
                   pushData.query.pid = this.$route.query.pid
                 }
+
                 this.$router.push(pushData)
+              }
+            }
+          })
+          .catch(err => {
+            Toast('网络错误，请重试')
+          })
+      } else if (this.$route.query.hasOwnProperty('promo_mobile')) {
+        let rq_url = process.env.STORE_API + '/rest/coupon/ '
+        let rq_para = {}
+        let rq_head = {
+          headers: {
+            'Content-Type': 'application/json',
+            promo_mobile: String(this.$route.query.promo_mobile)
+          }
+        }
+        this.$http
+          .post(rq_url, null, rq_head)
+          .then(r => {
+            console.dir(r)
+            if (r.status === 200) {
+              if (r.data.hasOwnProperty('error')) {
+                Toast(r.data.error.msg)
+              } else {
+                let rq_url =
+                  process.env.STORE_API +
+                  '/rest/coupon/coupon' +
+                  '?coupon_id=' +
+                  String(r.data.coupon_id)
+                this.$http
+                  .get(rq_url)
+                  .then(r => {
+                    let para = {
+                      coupon_data: r.data,
+                      pid: this.$route.query.pid,
+                      mobile: this.bindPhoneNumber
+                    }
+
+                    localStorage.setItem(
+                      'xingstation51act',
+                      JSON.stringify(para)
+                    )
+                    let pushData = {
+                      params: para,
+                      name: '51actcp',
+                      query: {}
+                    }
+                    if (this.$route.query.hasOwnProperty('pid')) {
+                      pushData.query.pid = this.$route.query.pid
+                    }
+                    this.$router.push(pushData)
+                  })
+                  .catch(err => {
+                    Toast('网络错误，请重试')
+                  })
               }
             }
           })
