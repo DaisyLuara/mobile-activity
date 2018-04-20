@@ -286,7 +286,19 @@ export default new Router({
           path: 'lhwanda',
           name: '乐荟-万达版',
           component: () =>
-            import(/* webpackChunkName: "lhwanda" */ 'pages/exeLehui/wanda.vue')
+            import(/* webpackChunkName: "lehui" */ 'pages/exeLehui/wanda.vue')
+        },
+        {
+          path: '51act',
+          name: '51act',
+          component: () =>
+            import(/* webpackChunkName: "51xingshidu" */ 'pages/51act/index.vue')
+        },
+        {
+          path: '51actcp',
+          name: '51actcp',
+          component: () =>
+            import(/* webpackChunkName: "51xingshidu" */ 'pages/51act/coupon.vue')
         },
         {
           path: 'spring',
@@ -311,6 +323,12 @@ export default new Router({
           name: '新狗年大吉结果页',
           component: () =>
             import(/* webpackChunkName: "newspring" */ 'pages/exeSpring/newspring.vue')
+        },
+        {
+          path: 'haoke',
+          name: '豪客牛排',
+          component: () =>
+            import(/* webpackChunkName: "haoke" */ 'pages/haoke/index.vue')
         },
         {
           path: 'goodboy',
