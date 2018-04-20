@@ -503,15 +503,15 @@ export default {
                     ]
                   }
                   wx.config(wxConfig)
-                  console.dir(that.WxShareInfo)
-                  console.dir(this.WxShareInfo)
+                  console.dir(that.wxShareInfo)
+                  console.dir(this.wxShareInfo)
                   // this.wxShare(this.WxShareInfo);
                   wx.ready(() => {
-                    wx.onMenuShareAppMessage(that.WxShareInfo)
-                    wx.onMenuShareTimeline(that.WxShareInfo)
-                    wx.onMenuShareQQ(that.WxShareInfo)
-                    wx.onMenuShareWeibo(that.WxShareInfo)
-                    wx.onMenuShareQZone(that.WxShareInfo)
+                    wx.onMenuShareAppMessage(that.wxShareInfo)
+                    wx.onMenuShareTimeline(that.wxShareInfo)
+                    wx.onMenuShareQQ(that.wxShareInfo)
+                    wx.onMenuShareWeibo(that.wxShareInfo)
+                    wx.onMenuShareQZone(that.wxShareInfo)
                   })
                 })
               }
