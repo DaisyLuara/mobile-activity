@@ -145,11 +145,11 @@ export default {
             timestamp: resData.timestamp,
             nonceStr: resData.nonceStr,
             signature: resData.signature,
-            jsApiList: ['showMenuItems']
+            jsApiList: ['hideMenuItems']
           }
           wx.config(wxConfig)
           wx.ready(() => {
-            wx.showMenuItems({
+            wx.hideMenuItems({
               menuList: [
                 'onMenuShareAppMessage',
                 'onMenuShareTimeline',
