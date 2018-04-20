@@ -295,7 +295,7 @@ export default {
       control: {
         pop: false,
         store: 0,
-        hour: 24,
+        hour: 0,
         min: 0,
         second: 0
       },
@@ -380,33 +380,37 @@ export default {
       ).coupon_data
 
       let date3 =
-        new Date(this.coupon.date_end.replace(/\-/g, '/')).getTime() -
+        new Date(this.coupon.date_added.replace(/\-/g, '/')).getTime() +
+        24 * 60 * 60 * 1000 * 2 -
         Date.now()
 
-      let days = Math.floor(date3 / (24 * 3600 * 1000))
-      let leave1 = date3 % (24 * 3600 * 1000) //计算天数后剩余的毫秒数
-      let hours = Math.floor(leave1 / (3600 * 1000))
-      //计算相差分钟数
-      let leave2 = leave1 % (3600 * 1000) //计算小时数后剩余的毫秒数
-      let minutes = Math.floor(leave2 / (60 * 1000))
-      //计算相差秒数
-      let leave3 = leave2 % (60 * 1000) //计算分钟数后剩余的毫秒数
-      let seconds = Math.round(leave3 / 1000)
+      if (date3 > 0) {
+        let days = Math.floor(date3 / (24 * 3600 * 1000))
+        let leave1 = date3 % (24 * 3600 * 1000) //计算天数后剩余的毫秒数
+        let hours = Math.floor(leave1 / (3600 * 1000))
+        //计算相差分钟数
+        let leave2 = leave1 % (3600 * 1000) //计算小时数后剩余的毫秒数
+        let minutes = Math.floor(leave2 / (60 * 1000))
+        //计算相差秒数
+        let leave3 = leave2 % (60 * 1000) //计算分钟数后剩余的毫秒数
+        let seconds = Math.round(leave3 / 1000)
 
-      this.control.hour = hours
-      this.control.min = minutes
-      this.control.seconds = seconds
-      console.log(
-        ' 相差 ' +
-          days +
-          '天' +
-          hours +
-          '小时 ' +
-          minutes +
-          ' 分钟' +
-          seconds +
-          ' 秒'
-      )
+        this.control.hour = hours
+        this.control.min = minutes
+        this.control.seconds = seconds
+        console.log(
+          ' 相差 ' +
+            days +
+            '天' +
+            hours +
+            '小时 ' +
+            minutes +
+            ' 分钟' +
+            seconds +
+            ' 秒'
+        )
+      }
+
       this.getMobileAndSetShareData()
       this.initInterval()
     } else {
@@ -497,8 +501,8 @@ export default {
             } else {
               let that = this
               this.wxShareInfo.link =
-                window.location.href +
-                '?promo_mobile=' +
+                window.location.origin +
+                '/marketing/51act?promo_mobile=' +
                 r.data +
                 '&utm_keyword=wechat_share'
             }
