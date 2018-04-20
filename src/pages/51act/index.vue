@@ -40,13 +40,11 @@
 </template>
 
 <script>
-import WxShare from 'modules/wxShare'
-import { customTrack } from 'modules/customTrack'
 import { Toast } from 'mint-ui'
+import { isWeixin } from '../../modules/util'
+const wx = require('weixin-js-sdk')
+
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
       baseUrl:
@@ -118,19 +116,11 @@ export default {
         }
       },
       bindPhoneNumber: null,
-      phoneError: false,
-      wxShareInfo: {
-        title: '浦商百货 致惠女神节',
-        desc: '黑白天使 成就致惠女神 真皙美白 唤醒青春美颜',
-        imgUrl:
-          'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/xsd51/cp/exeicon.jpg',
-        success: function() {
-          customTrack.shareWeChat()
-        }
-      }
+      phoneError: false
     }
   },
   mounted() {
+    // this.handleForbiddenShare()
     if (localStorage.getItem('xingstation51act') !== null) {
       let pushData = {
         params: JSON.parse(localStorage.getItem('xingstation51act')),
@@ -144,6 +134,40 @@ export default {
     }
   },
   methods: {
+    handleForbiddenShare() {
+      if (isWeixin() === true) {
+        let requestUrl = process.env.WX_API + '/wx/officialAccount/sign'
+        this.$http.get(requestUrl).then(response => {
+          let resData = response.data.data
+          let wxConfig = {
+            debug: false,
+            appId: resData.appId,
+            timestamp: resData.timestamp,
+            nonceStr: resData.nonceStr,
+            signature: resData.signature,
+            jsApiList: [
+              'onMenuShareAppMessage',
+              'onMenuShareTimeline',
+              'onMenuShareQQ',
+              'onMenuShareWeibo',
+              'onMenuShareQZone'
+            ]
+          }
+          wx.config(wxConfig)
+          wx.ready(() => {
+            wx.showMenuItems({
+              menuList: [
+                'onMenuShareAppMessage',
+                'onMenuShareTimeline',
+                'onMenuShareQQ',
+                'onMenuShareWeibo',
+                'onMenuShareQZone'
+              ] // 要显示的菜单项，所有menu项见附录3
+            })
+          })
+        })
+      }
+    },
     handleButtonClick() {
       if (!/^1[345678]\d{9}$/.test(this.bindPhoneNumber)) {
         this.phoneError = true
