@@ -5,6 +5,11 @@
     <img 
       class="root-topimg"
       :src="this.baseUrl + 'bg1.png'" />
+    <div class="root-photo">
+    </div>
+    <div class="root-power">
+      
+    </div>
   </div>
 </template>
 
@@ -16,7 +21,8 @@ export default {
       style: {
         root: {
           width: wiw + 'px',
-          height: window.innerHeight + 'px'
+          height: window.innerHeight + 'px',
+          backgroundSize: window.innerWidth + 'px ' + '100px'
         }
       },
       baseUrl:
@@ -30,15 +36,20 @@ export default {
 @imgServerUrl: 'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup/heijiu/';
 .hj-root {
   background-image: url('@{imgServerUrl}bg2.png');
-  background-size: 745px 100px;
   background-repeat: repeat-y;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   .root-topimg {
     position: absolute;
     top: 0;
     width: 100%;
+  }
+  .root-power {
+    position: absolute;
+    bottom: 0;
+    left: 0;
   }
 }
 </style>
