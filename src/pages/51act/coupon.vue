@@ -183,10 +183,13 @@
 
       </div>
     </div>
+
+    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
 </template>
 
 <script>
+import WxShare from 'modules/wxShare'
 import { customTrack } from 'modules/customTrack'
 import { Toast } from 'mint-ui'
 import { isWeixin } from '../../modules/util'
@@ -195,6 +198,9 @@ const burl =
   'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/xsd51/cp/'
 const wi = window.innerWidth
 export default {
+  components: {
+    WxShare
+  },
   data() {
     return {
       swiperOption: {
@@ -354,15 +360,12 @@ export default {
         }
       ],
       coupon: [],
-      wxShareInfo: {
-        link: '', // 分享链接，该链接域名必须与当前企业的可信域名一致
-        title: '浦商百货 致惠女神节',
-        desc: '黑白天使 成就致惠女神 真皙美白 唤醒青春美颜',
+      wxShareInfoValue: {
+        title: '乐荟陪你“美”一天',
+        desc: '唯乐荟 更懂你',
         imgUrl:
           'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/xsd51/cp/exeicon.jpg',
-        success: function() {
-          customTrack.shareWeChat()
-        }
+        link: ''
       },
       tc: null
     }
@@ -414,6 +417,17 @@ export default {
     this.clearSetInterval()
   },
   computed: {
+    wxShareInfo() {
+      let wxShareInfo = {
+        title: this.wxShareInfoValue.title,
+        desc: this.wxShareInfoValue.desc,
+        imgUrl: this.wxShareInfoValue.imgUrl,
+        success: function() {
+          customTrack.shareWeChat()
+        }
+      }
+      return wxShareInfo
+    },
     currentAddress: function() {
       return this.store[this.control.store].address
     },
@@ -464,6 +478,9 @@ export default {
       this.$refs.mySwiper.swiper.slideTo(this.handleStoreChooseById())
     }
   },
+  created() {
+    console.dir(this.wxShareInfo)
+  },
   methods: {
     getMobileAndSetShareData() {
       let request_url = process.env.STORE_API + '/rest/coupon/mobile'
@@ -478,43 +495,12 @@ export default {
             if (r.data.hasOwnProperty('error')) {
               Toast(r.data.error.msg)
             } else {
-              if (isWeixin() === true) {
-                let that = this
-                this.wxShareInfo.link =
-                  window.location.href +
-                  '?promo_mobile=' +
-                  r +
-                  'utm_keyword=wechat_share'
-                let requestUrl = process.env.WX_API + '/wx/officialAccount/sign'
-                this.$http.get(requestUrl).then(response => {
-                  let resData = response.data.data
-                  let wxConfig = {
-                    debug: false,
-                    appId: resData.appId,
-                    timestamp: resData.timestamp,
-                    nonceStr: resData.nonceStr,
-                    signature: resData.signature,
-                    jsApiList: [
-                      'onMenuShareAppMessage',
-                      'onMenuShareTimeline',
-                      'onMenuShareQQ',
-                      'onMenuShareWeibo',
-                      'onMenuShareQZone'
-                    ]
-                  }
-                  wx.config(wxConfig)
-                  console.dir(that.wxShareInfo)
-                  console.dir(this.wxShareInfo)
-                  // this.wxShare(this.WxShareInfo);
-                  wx.ready(() => {
-                    wx.onMenuShareAppMessage(that.wxShareInfo)
-                    wx.onMenuShareTimeline(that.wxShareInfo)
-                    wx.onMenuShareQQ(that.wxShareInfo)
-                    wx.onMenuShareWeibo(that.wxShareInfo)
-                    wx.onMenuShareQZone(that.wxShareInfo)
-                  })
-                })
-              }
+              let that = this
+              this.wxShareInfo.link =
+                window.location.href +
+                '?promo_mobile=' +
+                r.data +
+                '&utm_keyword=wechat_share'
             }
           }
         })
