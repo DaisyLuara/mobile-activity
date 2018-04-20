@@ -382,7 +382,9 @@ export default {
         localStorage.getItem('xingstation51act')
       ).coupon_data
 
-      let date3 = new Date(this.coupon.date_end).getTime() - Date.now()
+      let date3 =
+        new Date(this.coupon.date_end.replace(/\-/g, '/')).getTime() -
+        Date.now()
 
       let days = Math.floor(date3 / (24 * 3600 * 1000))
       let leave1 = date3 % (24 * 3600 * 1000) //计算天数后剩余的毫秒数
