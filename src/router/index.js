@@ -329,6 +329,12 @@ export default new Router({
           name: '豪客牛排',
           component: () =>
             import(/* webpackChunkName: "haoke" */ 'pages/haoke/index.vue')
+        },
+        {
+          path: 'goodboy',
+          name: '好孩子',
+          component: () =>
+            import(/* webpackChunkName: "goodboy" */ 'pages/goodboy/result.vue')
         }
       ]
     },
