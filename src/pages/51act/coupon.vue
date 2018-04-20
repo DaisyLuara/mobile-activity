@@ -4,7 +4,9 @@
     class="coupon-root">
     
     <!-- wxshare -->
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+    <wx-share 
+      v-if="hasShareReady"
+      :WxShareInfo="wxShareInfo"/>
     
     <!-- bg -->
     <img
@@ -134,23 +136,23 @@
     <!-- pics -->
     <img
       class="root-singlep" 
-      :src="baseUrl + 'p2_02.png'" />
+      v-lazy="baseUrl + 'p2_02.png'" />
 
     <img
       class="root-singlep" 
-      :src="baseUrl + 'p2_03.png'" />
+      v-lazy="baseUrl + 'p2_03.png'" />
 
     <img
       class="root-singlep" 
-      :src="baseUrl + 'p2_04.png'" />
+      v-lazy="baseUrl + 'p2_04.png'" />
 
     <img
       class="root-singlep" 
-      :src="baseUrl + 'p2_05.png'" />
+      v-lazy="baseUrl + 'p2_05.png'" />
 
     <img
       class="root-singlep" 
-      :src="baseUrl + 'p2_06.jpg'" />
+      v-lazy="baseUrl + 'p2_06.jpg'" />
 
 
     
@@ -192,6 +194,7 @@
 <script>
 import WxShare from 'modules/wxShare'
 import { customTrack } from 'modules/customTrack'
+import { Toast } from 'mint-ui'
 const burl =
   'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/xsd51/cp/'
 const wi = window.innerWidth
@@ -201,6 +204,7 @@ export default {
   },
   data() {
     return {
+      hasShareReady: false,
       swiperOption: {
         direction: 'horizontal',
         navigation: {
@@ -359,6 +363,7 @@ export default {
       ],
       coupon: [],
       wxShareInfo: {
+        link: '', // 分享链接，该链接域名必须与当前企业的可信域名一致
         title: '浦商百货 致惠女神节',
         desc: '黑白天使 成就致惠女神 真皙美白 唤醒青春美颜',
         imgUrl:
@@ -378,10 +383,38 @@ export default {
       this.coupon = JSON.parse(
         localStorage.getItem('xingstation51act')
       ).coupon_data
+
+      let date3 = new Date(this.coupon.date_end).getTime() - Date.now()
+
+      let days = Math.floor(date3 / (24 * 3600 * 1000))
+      let leave1 = date3 % (24 * 3600 * 1000) //计算天数后剩余的毫秒数
+      let hours = Math.floor(leave1 / (3600 * 1000))
+      //计算相差分钟数
+      let leave2 = leave1 % (3600 * 1000) //计算小时数后剩余的毫秒数
+      let minutes = Math.floor(leave2 / (60 * 1000))
+      //计算相差秒数
+      let leave3 = leave2 % (60 * 1000) //计算分钟数后剩余的毫秒数
+      let seconds = Math.round(leave3 / 1000)
+
+      this.control.hour = hours
+      this.control.min = minutes
+      this.control.seconds = seconds
+      console.log(
+        ' 相差 ' +
+          days +
+          '天' +
+          hours +
+          '小时 ' +
+          minutes +
+          ' 分钟' +
+          seconds +
+          ' 秒'
+      )
+      this.getMobileAndSetShareData()
+      this.initInterval()
     } else {
       this.$router.push('51act')
     }
-    this.initInterval()
   },
   beforeDestroy() {
     this.clearSetInterval()
@@ -438,6 +471,33 @@ export default {
     }
   },
   methods: {
+    getMobileAndSetShareData() {
+      let request_url = process.env.STORE_API + '/rest/coupon/mobile'
+      let para = {
+        mobile: JSON.parse(localStorage.getItem('xingstation51act')).mobile
+      }
+      console.dir(para)
+      this.$http
+        .post(request_url, para)
+        .then(r => {
+          if (r.status === 200) {
+            if (r.data.hasOwnProperty('error')) {
+              Toast(r.data.error.msg)
+            } else {
+              this.wxShareInfo.link =
+                window.location.href +
+                '?promo_mobile=' +
+                r +
+                'utm_keyword=wechat_share'
+              this.hasShareReady = true
+              console.dir(r)
+            }
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
     clearSetInterval() {
       clearInterval(this.tc)
     },
