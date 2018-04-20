@@ -329,6 +329,12 @@ export default new Router({
           name: '豪客牛排',
           component: () =>
             import(/* webpackChunkName: "haoke" */ 'pages/haoke/index.vue')
+        },
+        {
+          path: 'wc_hj',
+          name: 'worldCupPlanetHeiJiu',
+          component: () =>
+            import(/* webpackChunkName: "worldCupPlanet" */ 'pages/worldCups/heiqiu.vue')
         }
       ]
     },
