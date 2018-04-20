@@ -311,6 +311,12 @@ export default new Router({
           name: '新狗年大吉结果页',
           component: () =>
             import(/* webpackChunkName: "newspring" */ 'pages/exeSpring/newspring.vue')
+        },
+        {
+          path: 'goodboy',
+          name: '好孩子',
+          component: () =>
+            import(/* webpackChunkName: "goodboy" */ 'pages/goodboy/result.vue')
         }
       ]
     },
