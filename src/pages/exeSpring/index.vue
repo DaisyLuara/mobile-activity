@@ -35,7 +35,7 @@ export default {
       }
     }
   },
-  beforeCreated() {
+  beforeCreate() {
     document.title = '狗年大吉'
   },
   created() {},

@@ -3,15 +3,15 @@
     <div class="div_img">
         <img class="photo" :src="mImg">
     </div>
+    <img class="save" :src="IMAGE_URL + 'save.png'"/>
     <div class="div_text">
         <ul>
             <li class="name">规则：</li>
             <li v-for="item in textMsg[num]">{{item}}</li>
             <li class="name">优惠券规则：</li>
-            <li>凭此照片兑换，仅限本人使用，每人只可用一次，全场先秒先得！</li>
+            <li>凭此照片（含人脸及颜值贴图）兑换，仅限本人使用，每人只可用一次，全场先秒先得！</li>
         </ul>
     </div>
-    <img class="save" :src="IMAGE_URL + 'save.png'"/>
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
 </div>
 </template>
@@ -28,7 +28,6 @@ export default {
         this.$route.query.num - 10 > 0
           ? this.$route.query.num - 11
           : this.$route.query.num - 1,
-      // mImg: IMAGE_SERVER + '/pages/goodboy/test.jpg',
       mImg: null,
       textMsg: [
         {
@@ -57,8 +56,8 @@ export default {
       }
     }
   },
-  beforeCreated() {
-    document.title = '好孩子第18届大型特卖会'
+  beforeCreate() {
+    document.title = 'Happy Dino'
   },
   created() {
     this.getInfoById()
@@ -77,6 +76,7 @@ export default {
     }
     let rem = a / 7.5
     w.style.fontSize = rem + 'px'
+    console.log(w.style.fontSize)
   },
   methods: {
     getInfoById() {
@@ -129,6 +129,7 @@ body {
   .div_text {
     width: 100%;
     margin-top: 4%;
+    margin-bottom: 5.7%;
     ul {
       list-style: none;
       display: inline-block;
@@ -138,7 +139,7 @@ body {
       li {
         display: block;
         text-align: left;
-        font-size: 0.2rem;
+        font-size: 0.28rem;
         color: #fff;
         line-height: 0.5rem;
         letter-spacing: 1px;
@@ -149,7 +150,6 @@ body {
     width: 84%;
     margin: 0 auto;
     margin-top: 5.2%;
-    margin-bottom: 5.7%;
   }
 }
 </style>

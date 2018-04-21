@@ -35,7 +35,7 @@ export default {
       }
     }
   },
-  beforeCreated() {
+  beforeCreate() {
     document.title = '茶桔梗'
   },
   created() {},
