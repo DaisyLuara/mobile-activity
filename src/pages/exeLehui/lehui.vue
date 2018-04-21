@@ -32,7 +32,7 @@ export default {
       }
     }
   },
-  beforeCreated() {
+  beforeCreate() {
     document.title = '乐荟陪你“美”一天'
   },
   created() {

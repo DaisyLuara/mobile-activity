@@ -42,7 +42,7 @@ export default {
       }
     }
   },
-  beforeCreated() {
+  beforeCreate() {
     document.title = '携程旅行'
   },
   created() {},

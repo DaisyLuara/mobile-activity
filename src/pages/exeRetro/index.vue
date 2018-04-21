@@ -31,7 +31,7 @@ export default {
       mobile: null
     }
   },
-  beforeCreated() {
+  beforeCreate() {
     document.title = '复古通用版'
   },
   created() {},

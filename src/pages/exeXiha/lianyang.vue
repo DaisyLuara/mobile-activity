@@ -43,7 +43,7 @@ export default {
       }
     }
   },
-  beforeCreated() {
+  beforeCreate() {
     document.title = '联洋广场'
   },
   created() {},
