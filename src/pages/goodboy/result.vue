@@ -29,8 +29,8 @@ export default {
         this.$route.query.num - 10 > 0
           ? this.$route.query.num - 11
           : this.$route.query.num - 1,
-      mImg: IMAGE_SERVER + '/pages/goodboy/test.jpg',
-      // mImg: null,
+      // mImg: IMAGE_SERVER + '/pages/goodboy/test.jpg',
+      mImg: null,
       textMsg: [
         {
           a: 'A  可凭此券不限时秒杀HD1元特价产品',
@@ -62,7 +62,7 @@ export default {
     document.title = '好孩子第18届大型特卖会'
   },
   created() {
-    // this.getInfoById()
+    this.getInfoById()
   },
   mounted() {
     var height =
