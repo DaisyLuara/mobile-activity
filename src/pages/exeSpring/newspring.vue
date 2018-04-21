@@ -50,7 +50,7 @@ export default {
       }
     }
   },
-  beforeCreated() {
+  beforeCreate() {
     docuemnt.title = '狗年大吉'
   },
   created() {},

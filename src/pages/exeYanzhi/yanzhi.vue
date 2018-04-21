@@ -42,7 +42,7 @@ export default {
       }
     }
   },
-  beforeCreated() {
+  beforeCreate() {
     document.title = '颜值印钞机通用版'
   },
   created() {},

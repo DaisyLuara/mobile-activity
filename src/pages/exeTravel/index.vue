@@ -33,7 +33,7 @@ export default {
       mobile: null
     }
   },
-  beforeCreated() {
+  beforeCreate() {
     document.title = '旅行通用版'
   },
   created() {},

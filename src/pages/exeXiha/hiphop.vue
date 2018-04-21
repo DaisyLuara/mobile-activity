@@ -42,7 +42,7 @@ export default {
       }
     }
   },
-  beforeCreated() {
+  beforeCreate() {
     document.title = '嘻哈通用版'
   },
   created() {},

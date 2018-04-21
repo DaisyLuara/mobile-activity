@@ -34,7 +34,7 @@ export default {
       }
     }
   },
-  beforeCreated() {
+  beforeCreate() {
     document.title = '万达'
   },
   created() {},
