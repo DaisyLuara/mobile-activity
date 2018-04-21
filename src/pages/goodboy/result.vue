@@ -124,7 +124,6 @@ body {
     .photo {
       width: 83%;
       margin: 0 auto;
-      border-radius: 15px;
     }
   }
   .div_text {
