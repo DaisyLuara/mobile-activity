@@ -8,6 +8,8 @@
         <ul>
             <li class="name">规则：</li>
             <li v-for="item in textMsg[num]">{{item}}</li>
+            <li class="name">优惠券规则：</li>
+            <li>凭此照片兑换，仅限本人使用，每人只可用一次，全场先秒先得！</li>
         </ul>
     </div>
     <img class="save" :src="IMAGE_URL + 'save.png'"/>
@@ -23,9 +25,12 @@ export default {
   data() {
     return {
       IMAGE_URL: IMAGE_SERVER + '/pages/goodboy/',
-      num: this.$route.query.num,
-      //   mImg: IMAGE_SERVER + '/pages/goodboy/test.jpg',
-      mImg: null,
+      num:
+        this.$route.query.num - 10 > 0
+          ? this.$route.query.num - 11
+          : this.$route.query.num - 1,
+      mImg: IMAGE_SERVER + '/pages/goodboy/test.jpg',
+      // mImg: null,
       textMsg: [
         {
           a: 'A  可凭此券不限时秒杀HD1元特价产品',
@@ -33,12 +38,12 @@ export default {
           c: 'C  可凭此券任意参与99元、129元档秒杀特权'
         },
         {
-          a: 'A  可凭此券不限时秒杀HD 99元特价产品 ',
+          a: 'A  可凭此券不限时秒杀HD99元特价产品 ',
           b: 'B  限量秒杀，秒完为止 ',
           c: 'C  可凭此券参与129元秒杀档特权'
         },
         {
-          a: 'A  可凭此券不限时秒杀HD 129元特价产品 ',
+          a: 'A  可凭此券不限时秒杀HD129元特价产品 ',
           b: 'B  限量秒杀，秒完为止'
         }
       ],
@@ -57,7 +62,7 @@ export default {
     document.title = '好孩子第18届大型特卖会'
   },
   created() {
-    this.getInfoById()
+    // this.getInfoById()
   },
   mounted() {
     var height =
@@ -137,8 +142,9 @@ body {
     ul {
       list-style: none;
       display: inline-block;
-      width: 100%;
+      width: 75%;
       margin-left: 15%;
+      margin-right: 10%;
       li {
         display: block;
         text-align: left;
