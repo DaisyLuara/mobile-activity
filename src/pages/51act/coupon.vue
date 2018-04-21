@@ -361,8 +361,8 @@ export default {
       ],
       coupon: [],
       wxShareInfoValue: {
-        title: '乐荟陪你“美”一天',
-        desc: '唯乐荟 更懂你',
+        title: '眼镜戴的对，合影占C位',
+        desc: '本H5由EXE颜镜店霸屏赞助',
         imgUrl:
           'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/xsd51/cp/exeicon.jpg',
         link: ''
@@ -372,6 +372,7 @@ export default {
   },
   created() {
     this.handleStoreChooseById()
+    document.title = 'EXE颜镜店'
   },
   mounted() {
     if (localStorage.getItem('xingstation51act') !== null) {
