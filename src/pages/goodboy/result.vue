@@ -1,7 +1,6 @@
 <template>
 <div class="content" id="warp">
     <div class="div_img">
-        <img class="frame" :src="IMAGE_URL + 'frame.png'">
         <img class="photo" :src="mImg">
     </div>
     <div class="div_text">
@@ -118,22 +117,13 @@ body {
   padding-top: 5%;
   .div_img {
     width: 100%;
+    display: inline-block;
     margin: 0 auto;
     text-align: center;
     position: relative;
-    .frame {
-      width: 83%;
-      position: relative;
-      margin: 0 auto;
-      z-index: 0;
-    }
     .photo {
-      width: 75%;
+      width: 83%;
       margin: 0 auto;
-      position: absolute;
-      top: 2.6%;
-      left: 12.5%;
-      z-index: 99;
     }
   }
   .div_text {
