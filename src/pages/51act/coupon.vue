@@ -415,8 +415,6 @@ export default {
 
       this.getMobileAndSetShareData()
       this.initInterval()
-    } else {
-      this.$router.push('51act')
     }
     this.handleTrack()
   },
@@ -486,7 +484,7 @@ export default {
     }
   },
   created() {
-    console.dir(this.wxShareInfo)
+    // console.dir(this.wxShareInfo)
   },
   methods: {
     handleTrack() {
@@ -500,7 +498,7 @@ export default {
       let para = {
         mobile: JSON.parse(localStorage.getItem('xingstation51act')).mobile
       }
-      console.dir(para)
+      // console.dir(para)
       this.$http
         .post(request_url, para)
         .then(r => {

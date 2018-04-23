@@ -125,17 +125,17 @@ export default {
   },
   mounted() {
     this.handleForbiddenShare()
-    if (localStorage.getItem('xingstation51act') !== null) {
-      let pushData = {
-        params: JSON.parse(localStorage.getItem('xingstation51act')),
-        name: '51actcp',
-        query: {}
-      }
-      if (this.$route.query.hasOwnProperty('pid') === true) {
-        pushData.query.pid = this.$route.query.pid
-      }
-      this.$router.push(pushData)
-    }
+    // if (localStorage.getItem('xingstation51act') !== null) {
+    //   let pushData = {
+    //     params: JSON.parse(localStorage.getItem('xingstation51act')),
+    //     name: '51actcp',
+    //     query: {}
+    //   }
+    //   if (this.$route.query.hasOwnProperty('pid') === true) {
+    //     pushData.query.pid = this.$route.query.pid
+    //   }
+    //   this.$router.push(pushData)
+    // }
     this.handleTrack()
   },
   methods: {
@@ -206,7 +206,7 @@ export default {
                   pid: this.$route.query.pid,
                   mobile: this.bindPhoneNumber
                 }
-
+                console.dir(para)
                 localStorage.setItem('xingstation51act', JSON.stringify(para))
 
                 if (this.$route.query.hasOwnProperty('pid')) {
