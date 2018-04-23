@@ -362,8 +362,8 @@ export default {
       ],
       coupon: [],
       wxShareInfoValue: {
-        title: '眼镜戴的对，合影占C位',
-        desc: '本H5由EXE颜镜店霸屏赞助',
+        title: '我领取了EXE颜值礼包，也送你一份100元大礼！',
+        desc: '↑本活动由“眼镜带的对，合影占C位”的EXE颜镜店倾情赞助。',
         imgUrl:
           'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/xsd51/cp/exeicon.jpg',
         link: ''
