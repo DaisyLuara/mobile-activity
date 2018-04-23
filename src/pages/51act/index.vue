@@ -43,6 +43,7 @@
 import { Toast } from 'mint-ui'
 import { isWeixin } from '../../modules/util'
 const wx = require('weixin-js-sdk')
+import marketService from 'services/marketing'
 
 export default {
   data() {
@@ -135,8 +136,15 @@ export default {
       }
       this.$router.push(pushData)
     }
+    this.handleTrack()
   },
   methods: {
+    handleTrack() {
+      marketService
+        .getInfoById(this, this.$route.query.id)
+        .then(res => {})
+        .catch(err => {})
+    },
     handleForbiddenShare() {
       if (isWeixin() === true) {
         let requestUrl = process.env.WX_API + '/wx/officialAccount/sign'

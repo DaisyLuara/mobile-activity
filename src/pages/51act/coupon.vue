@@ -190,6 +190,7 @@
 
 <script>
 import WxShare from 'modules/wxShare'
+import marketService from 'services/marketing'
 import { customTrack } from 'modules/customTrack'
 import { Toast } from 'mint-ui'
 import { isWeixin } from '../../modules/util'
@@ -399,17 +400,17 @@ export default {
         this.control.hour = hours
         this.control.min = minutes
         this.control.seconds = seconds
-        console.log(
-          ' 相差 ' +
-            days +
-            '天' +
-            hours +
-            '小时 ' +
-            minutes +
-            ' 分钟' +
-            seconds +
-            ' 秒'
-        )
+        // console.log(
+        //   ' 相差 ' +
+        //     days +
+        //     '天' +
+        //     hours +
+        //     '小时 ' +
+        //     minutes +
+        //     ' 分钟' +
+        //     seconds +
+        //     ' 秒'
+        // )
       }
 
       this.getMobileAndSetShareData()
@@ -417,6 +418,7 @@ export default {
     } else {
       this.$router.push('51act')
     }
+    this.handleTrack()
   },
   beforeDestroy() {
     this.clearSetInterval()
@@ -487,6 +489,12 @@ export default {
     console.dir(this.wxShareInfo)
   },
   methods: {
+    handleTrack() {
+      marketService
+        .getInfoById(this, this.$route.query.id)
+        .then(res => {})
+        .catch(err => {})
+    },
     getMobileAndSetShareData() {
       let request_url = process.env.STORE_API + '/rest/coupon/mobile'
       let para = {
