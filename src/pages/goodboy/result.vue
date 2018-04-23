@@ -9,7 +9,7 @@
             <li class="name">规则：</li>
             <li v-for="item in textMsg[num]">{{item}}</li>
             <li class="name">优惠券规则：</li>
-            <li>凭此照片（含人脸及颜值贴图）兑换，仅限本人使用，每人只可用一次，全场先秒先得！</li>
+            <li>凭此照片兑换，仅限本人使用，每人只可用一次，全场先秒先得！</li>
         </ul>
     </div>
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
