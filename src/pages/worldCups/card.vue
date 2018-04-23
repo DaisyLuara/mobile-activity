@@ -3,6 +3,7 @@
     :style="style.root" 
     class="card-root">
       <div 
+        v-if="control.currentMenu === 0"
         :style="style.pic">
       <img
         class="root-pic-inner"
@@ -33,9 +34,10 @@
     </div>
 
     <div
+      v-if="control.currentMenu === 0"
       :style="style.mid" 
       class="root-mid">
-      <!-- lighting animation -->
+
       <img
         :src="this.baseUrl + 'light-left.png'"
         class="mid-left"
@@ -46,22 +48,34 @@
         class="mid-right"
       />
 
-      <!-- scan animation -->
      <img
         :src="this.baseUrl + 'scan.png'"
         class="mid-scan"
       />
 
-      <!-- suitcase - -! -->
       <img 
         :src="this.baseUrl + 'kuang.png'" 
         class="mid-case"
       />
 
-      <!-- your photo -->
+    </div>
 
-      
+    <div
+      v-if="control.currentMenu === 1"
+      :style="style.mid" 
+      class="root-mid">
+      <img 
+        style="width: 80%"
+        :src="baseUrl + 'card/rule.png'" />
+    </div>
 
+    <div
+      v-if="control.currentMenu === 2"
+      :style="style.mid" 
+      class="root-mid">
+      <img 
+        style="width: 80%"
+        :src="baseUrl + 'card/next.png'" />
     </div>
 
     <div class="root-bottom" />
@@ -118,7 +132,8 @@ export default {
         ['point5', 100]
       ],
       control: {
-        powerStatus: false
+        powerStatus: false,
+        currentMenu: 2
       }
     }
   },
@@ -210,6 +225,7 @@ export default {
     justify-content: center;
     align-items: center;
     position: relative;
+    background-color: #131314;
     .mid-left {
       position: absolute;
       left: 0;
