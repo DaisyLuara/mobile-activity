@@ -95,12 +95,21 @@ export default {
       this.$http
         .get(request_url)
         .then(r => {
-          this.$router.push({
-            name: 'WorldCupCard',
-            query: {
-              id: this.$route.query.id
-            }
-          })
+          let newurl =
+            window.location.origin +
+            '/marketing/wc_card' +
+            (this.$route.query.hasOwnProperty('id')
+              ? '?id=' + String(this.$route.query.id)
+              : '')
+          // console.log('url: ', newurl)
+          window.location.href = newurl
+
+          // this.$router.push({
+          //   name: 'WorldCupCard',
+          //   query: {
+          //     id: this.$route.query.id
+          //   }
+          // })
         })
         .catch(err => {
           Toast(err)
