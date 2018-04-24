@@ -344,13 +344,14 @@ export default {
     }
 
     .mid-case-div {
-      width: 90%;
+      width: 86%;
+      left: 5%;
       position: absolute;
-      top: 0;
+      top: 5%;
       z-index: 9;
       overflow: hidden;
       .scan-area {
-        height: 95%;
+        height: 90%;
         width: 100%;
         overflow: hidden;
         position: relative;
