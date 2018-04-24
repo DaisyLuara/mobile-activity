@@ -183,7 +183,12 @@ export default {
     if (localStorage.getItem('wc_card') === null) {
       this.handleAuth()
     } else {
-      this.getUserData()
+      let wc_store = JSON.parse(localStorage.getItem('wc_card'))
+      if (!wc_store.game_ids.includes(String(this.$route.query.game_id))) {
+        this.handleAuth()
+      } else {
+        this.getUserData()
+      }
     }
 
     document.title = '球星卡'
@@ -202,14 +207,21 @@ export default {
   },
   methods: {
     handleAuth() {
-      let storeData = {
-        redirct: true
+      if (localStorage.getItem('wc_card') === null) {
+        let storeData = {
+          game_ids: []
+        }
+        storeData.game_ids.push(String(this.$route.query.game_id))
+        localStorage.setItem('wc_card', JSON.stringify(storeData))
+      } else {
+        let storeData = JSON.parse(localStorage.getItem('wc_card'))
+        storeData.game_ids.push(String(this.$route.query.game_id))
+        localStorage.setItem('wc_card', JSON.stringify(storeData))
       }
-      localStorage.setItem('wc_card', JSON.stringify(storeData))
       let now_url = encodeURI(String(window.location.href))
       let redirct_url =
         process.env.WX_API +
-        '/wx/officialAccount/oauth?scope=snsapi_userinfo&url=' +
+        '/wx/officialAccount/oauth?scope=snsapi_basic&url=' +
         now_url
       window.location.href = redirct_url
     },
@@ -218,6 +230,7 @@ export default {
         process.env.WX_API +
         '/wx/officialAccount/user?game_id=' +
         String(this.$route.query.game_id)
+
       this.$http.get(rq, { withCredentials: true }).then(r => {
         console.dir(r)
         if (r.data.hasOwnProperty('data')) {
@@ -230,7 +243,7 @@ export default {
             ['point5', Number(score.face_score)]
           ]
         } else {
-          location.reload()
+          // location.reload()
         }
       })
     },
