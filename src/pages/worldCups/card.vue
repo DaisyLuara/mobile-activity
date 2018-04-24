@@ -179,42 +179,13 @@ export default {
       imgUrl: ''
     }
   },
-  beforeCreate() {
-    // if (localStorage.getItem('wc_card') === null) {
-    //   let storeData = {
-    //     redirct: true
-    //   }
-    //   localStorage.setItem('wc_card', storeData)
-    //   let now_url = encodeURI(String(window.location.href))
-    //   let redirct_url =
-    //     process.env.WX_API + '/wx/officialAccount/oauth?url=' + now_url
-    //   console.log(redirct_url)
-    // } else {
-    //   let request_url =
-    //     process.env.WX_API +
-    //     '/wx/officialAccount/user?game_id=' +
-    //     this.$route.query.game_id
-    //   this.$http.get(request_url).then(r => {
-    //     console.dir(r)
-    //   })
-    // }
-    wxService
-      .getWxUserInfo(this)
-      .then(result => {
-        console.dir('success: ' + result)
-      })
-      .catch(err => {
-        console.dir('error:' + err)
-        let pageUrl = encodeURIComponent(window.location.href)
-        let wxAuthUrl =
-          process.env.WX_API +
-          '/wx/officialAccount/oauth?url=' +
-          pageUrl +
-          '&scope=snsapi_userinfo'
-        window.location.href = wxAuthUrl
-      })
-  },
   created() {
+    if (localStorage.getItem('wc_card') === null) {
+      this.handleAuth()
+    } else {
+      this.getUserData()
+    }
+
     document.title = '球星卡'
     this.style.mid.height = window.innerWidth * 1124 / 690 + 'px'
     this.style.casediv.height = window.innerWidth * 0.9 * 1130 / 659 + 'px'
@@ -230,6 +201,27 @@ export default {
     this.getPhoto()
   },
   methods: {
+    handleAuth() {
+      let storeData = {
+        redirct: true
+      }
+      localStorage.setItem('wc_card', JSON.stringify(storeData))
+      let now_url = encodeURI(String(window.location.href))
+      let redirct_url =
+        process.env.WX_API +
+        '/wx/officialAccount/oauth?scope=snsapi_userinfo&url=' +
+        now_url
+      window.location.href = redirct_url
+    },
+    getUserData() {
+      let rq =
+        process.env.WX_API +
+        '/wx/officialAccount/user?game_id=' +
+        String(this.$route.query.game_id)
+      this.$http.get(rq).then(r => {
+        console.dir(r)
+      })
+    },
     getPhoto() {
       if (!this.$route.query.hasOwnProperty('id')) {
         Toast('没有获取到照片信息')
