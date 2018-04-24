@@ -221,8 +221,9 @@ export default {
       let now_url = encodeURI(String(window.location.href))
       let redirct_url =
         process.env.WX_API +
-        '/wx/officialAccount/oauth?scope=snsapi_base&url=' +
-        now_url
+        '/wx/officialAccount/oauth?&url=' +
+        now_url +
+        '&scope=snsapi_userinfo'
       window.location.href = redirct_url
     },
     getUserData() {
