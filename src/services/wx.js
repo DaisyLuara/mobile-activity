@@ -18,6 +18,7 @@ export default {
     return new Promise((resolve, reject) => {
       context.$http.get(url, { withCredentials: true }).then((res) => {
         let wdata = res.data;
+        console.log(res)
         resolve(wdata);
       }).catch((err) => {
         reject(err);
