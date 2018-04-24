@@ -159,7 +159,8 @@ export default {
         comming: {
           width: window.innerWidth * 0.3 + 'px',
           position: 'absolute',
-          top: '35%'
+          top: '35%',
+          left: window.innerWidth * 0.35 + 'px'
         },
         bindWith: 0
       },
