@@ -337,6 +337,12 @@ export default new Router({
             import(/* webpackChunkName: "goodboy" */ 'pages/goodboy/result.vue')
         },
         {
+          path: 'wc_card_pr',
+          name: 'WorldCupCardPhone',
+          component: () =>
+            import(/* webpackChunkName: "WorldCupCard" */ 'pages/worldCups/cardPre.vue')
+        },
+        {
           path: 'war',
           name: '芒果-三宝大战诸葛亮',
           component: () =>
