@@ -116,6 +116,7 @@ import GameMenu from './components/gameMenu'
 import Spider from './components/spider'
 import marketService from 'services/marketing'
 import { Toast } from 'mint-ui'
+import wxService from 'services/wx'
 export default {
   components: {
     GameMenu,
@@ -179,24 +180,39 @@ export default {
     }
   },
   beforeCreate() {
-    if (localStorage.getItem('wc_card') === null) {
-      let storeData = {
-        redirct: true
-      }
-      localStorage.setItem('wc_card', storeData)
-      let now_url = encodeURI(String(window.location.href))
-      let redirct_url =
-        process.env.WX_API + '/wx/officialAccount/oauth?url=' + now_url
-      console.log(redirct_url)
-    } else {
-      let request_url =
-        process.env.WX_API +
-        '/wx/officialAccount/user?game_id=' +
-        this.$route.query.game_id
-      this.$http.get(request_url).then(r => {
-        console.dir(r)
+    // if (localStorage.getItem('wc_card') === null) {
+    //   let storeData = {
+    //     redirct: true
+    //   }
+    //   localStorage.setItem('wc_card', storeData)
+    //   let now_url = encodeURI(String(window.location.href))
+    //   let redirct_url =
+    //     process.env.WX_API + '/wx/officialAccount/oauth?url=' + now_url
+    //   console.log(redirct_url)
+    // } else {
+    //   let request_url =
+    //     process.env.WX_API +
+    //     '/wx/officialAccount/user?game_id=' +
+    //     this.$route.query.game_id
+    //   this.$http.get(request_url).then(r => {
+    //     console.dir(r)
+    //   })
+    // }
+    wxService
+      .getWxUserInfo(this)
+      .then(result => {
+        console.dir('success: ' + result)
       })
-    }
+      .catch(err => {
+        console.dir('error:' + err)
+        let pageUrl = encodeURIComponent(window.location.href)
+        let wxAuthUrl =
+          process.env.WX_API +
+          '/wx/officialAccount/oauth?url=' +
+          pageUrl +
+          '&scope=snsapi_userinfo'
+        window.location.href = wxAuthUrl
+      })
   },
   created() {
     document.title = '球星卡'
