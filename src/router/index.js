@@ -353,6 +353,12 @@ export default new Router({
           name: '芒果-黄子韬演唱会',
           component: () =>
             import(/* webpackChunkName: "concert" */ 'pages/concert/result.vue')
+        },
+        {
+          path: 'miizz',
+          name: '觅作',
+          component: () =>
+            import(/* webpackChunkName: "miizz" */ 'pages/miizz/result.vue')
         }
       ]
     },
