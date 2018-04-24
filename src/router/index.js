@@ -335,6 +335,12 @@ export default new Router({
           name: '好孩子',
           component: () =>
             import(/* webpackChunkName: "goodboy" */ 'pages/goodboy/result.vue')
+        },
+        {
+          path: 'wc_card_pr',
+          name: 'WorldCupCardPhone',
+          component: () =>
+            import(/* webpackChunkName: "WorldCupCard" */ 'pages/worldCups/cardPre.vue')
         }
       ]
     },

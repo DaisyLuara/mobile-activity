@@ -177,6 +177,26 @@ export default {
       imgUrl: ''
     }
   },
+  beforeCreate() {
+    if (localStorage.getItem('wc_card') === null) {
+      let storeData = {
+        redirct: true
+      }
+      localStorage.setItem('wc_card', storeData)
+      let now_url = encodeURI(String(window.location.href))
+      let redirct_url =
+        process.env.WX_API + '/wx/officialAccount/oauth?url=' + now_url
+      console.log(redirct_url)
+    } else {
+      let request_url =
+        process.env.WX_API +
+        '/wx/officialAccount/user?game_id=' +
+        this.$route.query.game_id
+      this.$http.get(request_url).then(r => {
+        console.dir(r)
+      })
+    }
+  },
   created() {
     document.title = '球星卡'
     this.style.mid.height = window.innerWidth * 1124 / 690 + 'px'
