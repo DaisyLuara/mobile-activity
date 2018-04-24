@@ -2,7 +2,8 @@
   <div class="report-wrap">
     <div class="coupon-wrap">
       <img alt="" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/miizz/bg1.png" class="report_bg_1"/>
-      <img alt="" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/open_box/arrow_icon.png" class="arrow"/>
+      <img alt="" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/miizz/save.png" class="save"/>
+      <img alt="" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/miizz/up.png" class="arrow"/>
     </div>
     <div class="miizz-wrap">
       <img alt="" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/miizz/bg2.png" class="report_bg_2"/>
@@ -81,9 +82,15 @@ export default {
       width:100%;
     }
     position: relative;
+    .save{
+      position: absolute;
+      bottom: 12%;
+      width: 30%;
+      left: 35%;
+    }
     .arrow{
       position: absolute;
-      bottom: 20%;
+      bottom: 2%;
       width: 15%;
       left: 42.5%;
       animation: arrows .8s ease-out infinite alternate;
@@ -151,6 +158,10 @@ export default {
   @keyframes arrows {
     0% {transform: translateY(-3px);}
     100% {transform: translateY(0px);}
+  }
+  @keyframes opacitySave {
+    // 0% {transform: translateY(-3px);}
+    // 100% {transform: translateY(0px);}
   }
 }
 </style>
