@@ -34,48 +34,77 @@
     </div>
 
     <div
-      v-if="control.currentMenu === 0"
+      v-show="control.currentMenu === 0"
       :style="style.mid" 
       class="root-mid">
 
       <img
-        :src="this.baseUrl + 'light-left.png'"
+        :src="imgUrl" 
+        class="real-photo" />
+      <img
+        :src="baseUrl + 'light-left.png'"
         class="mid-left"
       />
 
       <img 
-        :src="this.baseUrl + 'light-right.png'"
+        :src="baseUrl + 'light-right.png'"
         class="mid-right"
       />
+     
+      <div
+        :style="style.casediv" 
+        class="mid-case-div">
+        <div class="scan-area">
+          <img
+            :src="baseUrl + 'scan.png'"
+            class="mid-scan"
+          />
+        </div>
+        <img 
+          :src="baseUrl + 'kuang.png'" 
+          class="mid-case"
+        />
 
-     <img
-        :src="this.baseUrl + 'scan.png'"
-        class="mid-scan"
-      />
-
-      <img 
-        :src="this.baseUrl + 'kuang.png'" 
-        class="mid-case"
-      />
+        <img 
+          :src="imgUrl" 
+          class="mid-photo"
+        />
+      </div>
+      
 
     </div>
 
     <div
-      v-if="control.currentMenu === 1"
-      :style="style.mid" 
-      class="root-mid">
-      <img 
-        style="width: 80%"
-        :src="baseUrl + 'card/rule.png'" />
-    </div>
-
-    <div
-      v-if="control.currentMenu === 2"
+      v-show="control.currentMenu === 1"
       :style="style.mid" 
       class="root-mid">
       <img 
         style="width: 80%"
         :src="baseUrl + 'card/next.png'" />
+      <img
+        :style="style.comming"
+        :src="baseUrl + 'card/act2.png'" />
+    </div>
+
+    <div
+      v-show="control.currentMenu === 2"
+      :style="style.mid" 
+      class="root-mid">
+      <img 
+        style="width: 80%"
+        :src="baseUrl + 'card/next.png'" />
+      <img
+        :style="style.comming"
+        :src="baseUrl + 'card/act3.png'" />
+    </div>
+
+    <div
+      v-show="control.currentMenu === 3"
+      :style="style.mid" 
+      class="root-mid">
+      <img 
+        style="width: 80%"
+        :src="baseUrl + 'card/rule.png'" />
     </div>
 
     <div class="root-bottom" />
@@ -85,6 +114,8 @@
 <script>
 import GameMenu from './components/gameMenu'
 import Spider from './components/spider'
+import marketService from 'services/marketing'
+import { Toast } from 'mint-ui'
 export default {
   components: {
     GameMenu,
@@ -113,6 +144,9 @@ export default {
           minHeight: window.innerHeight + 'px',
           maxHeight: window.innerHeight + 'px'
         },
+        casediv: {
+          height: '0px'
+        },
         mid: {},
         spider: {
           position: 'absolute',
@@ -121,6 +155,11 @@ export default {
           top: '0',
           right: '0',
           margin: '0 auto'
+        },
+        comming: {
+          width: window.innerWidth * 0.3 + 'px',
+          position: 'absolute',
+          top: '35%'
         },
         bindWith: 0
       },
@@ -133,13 +172,15 @@ export default {
       ],
       control: {
         powerStatus: false,
-        currentMenu: 2
-      }
+        currentMenu: 0
+      },
+      imgUrl: ''
     }
   },
   created() {
     document.title = '球星卡'
     this.style.mid.height = window.innerWidth * 1124 / 690 + 'px'
+    this.style.casediv.height = window.innerWidth * 0.9 * 1130 / 659 + 'px'
     this.style.bindWith = window.innerWidth * 0.65
     this.style.power.top =
       window.innerHeight - window.innerWidth * 0.8 * 0.2 + 'px'
@@ -148,7 +189,24 @@ export default {
         (window.innerHeight - window.innerWidth * 1124 / 690) / 2 + 'px'
     }
   },
+  mounted() {
+    this.getPhoto()
+  },
   methods: {
+    getPhoto() {
+      if (!this.$route.query.hasOwnProperty('id')) {
+        Toast('没有获取到照片信息')
+      } else {
+        marketService
+          .getInfoById(this, this.$route.query.id)
+          .then(res => {
+            this.imgUrl = res.image
+          })
+          .catch(err => {
+            Toast(err)
+          })
+      }
+    },
     handlePowerStatusChange() {
       if (this.control.powerStatus) {
         this.style.power.top =
@@ -158,6 +216,9 @@ export default {
           window.innerHeight - window.innerWidth * 0.8 + 'px'
       }
       this.control.powerStatus = !this.control.powerStatus
+    },
+    SwitchMenu(index) {
+      this.control.currentMenu = index
     }
   }
 }
@@ -168,18 +229,28 @@ export default {
 @keyframes flash {
   from {
     top: -20%;
+    opacity: 1;
   }
 
   to {
     top: 120%;
+    opacity: 0;
   }
 }
 @keyframes scanFlash {
   from {
-    top: -40%;
+    top: -30%;
   }
   to {
-    top: 120%;
+    top: 50%;
+  }
+}
+@keyframes photoFlash {
+  from {
+    top: -30%;
+  }
+  to {
+    top: 5%;
   }
 }
 .card-root {
@@ -204,7 +275,7 @@ export default {
     left: 10%;
     min-height: 100px;
     transition: ease-in 0.2s;
-    z-index: 10;
+    z-index: 10000;
     .power-img {
       position: absolute;
       bottom: 0;
@@ -226,6 +297,16 @@ export default {
     align-items: center;
     position: relative;
     background-color: #131314;
+    overflow: hidden;
+    .real-photo {
+      position: absolute;
+      width: 83%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      z-index: 100;
+      opacity: 0;
+    }
     .mid-left {
       position: absolute;
       left: 0;
@@ -242,18 +323,42 @@ export default {
       animation-timing-function: linear;
     }
 
-    .mid-scan {
-      position: absolute;
-      top: -40%;
-      width: 69%;
-      animation: 5s scanFlash forwards;
-      animation-timing-function: linear;
-      z-index: -1;
-      animation-delay: 1s;
-    }
-
-    .mid-case {
+    .mid-case-div {
       width: 90%;
+      position: absolute;
+      top: 0;
+      z-index: 9;
+      overflow: hidden;
+      .scan-area {
+        height: 95%;
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+        .mid-scan {
+          position: absolute;
+          top: -100%;
+          width: 80%;
+          left: 10%;
+          animation: 1s scanFlash forwards;
+          animation-timing-function: linear;
+          animation-delay: 0.5s;
+          z-index: 8;
+        }
+      }
+
+      .mid-case {
+        width: 100%;
+        position: absolute;
+        top: 0;
+        z-index: 9;
+      }
+      .mid-photo {
+        width: 80%;
+        left: 10%;
+        top: 5%;
+        position: absolute;
+        z-index: 7;
+      }
     }
   }
   .root-header {
