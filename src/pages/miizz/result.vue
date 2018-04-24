@@ -7,9 +7,10 @@
     <div class="miizz-wrap">
       <img alt="" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/miizz/bg2.png" class="report_bg_2"/>
         <img alt="" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/miizz/jewelry_text1.png" class="jewelry_text1"/>
-        <!-- <img alt="" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/miizz/jewelry_text2.png" class="jewelry_text2"/>
         <img alt="" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/miizz/jewelry1.png" class="jewelry1"/>
-        <img alt="" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/miizz/jewelry2.png" class="jewelry2"/> -->
+        <img alt="" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/miizz/jewelry_text2.png" class="jewelry_text2"/>
+        <img alt="" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/miizz/jewelry2.png" class="jewelry2"/> 
+        <img alt="" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/miizz/qrcode.png" class="qrcode"/> 
 
     </div>
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
@@ -97,6 +98,36 @@ export default {
     position: relative;
     .report_bg_2{
       width:100%;
+    }
+    .jewelry_text1{
+      position: absolute;
+      width: 30%;
+      top: 15%;
+      right: 6%;
+    }
+    .jewelry1{
+      position: absolute;
+      width: 40%;
+      top: 11%;
+      left: 13%;
+    }
+    .jewelry_text2{
+      position: absolute;
+      top: 50%;
+      width: 30%;
+      left: 6%;
+    }
+    .jewelry2{
+      position: absolute;
+      width: 40%;
+      top: 44%;
+      right: 12%;
+    }
+    .qrcode{
+      position: absolute;
+      width: 20%;
+      bottom: 9%;
+      left: 39%;
     }
     .photo-content{
       position: absolute;
