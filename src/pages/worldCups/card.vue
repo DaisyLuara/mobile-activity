@@ -209,7 +209,7 @@ export default {
       let now_url = encodeURI(String(window.location.href))
       let redirct_url =
         process.env.WX_API +
-        '/wx/officialAccount/oauth?scope=snsapi_base&url=' +
+        '/wx/officialAccount/oauth?scope=snsapi_userinfo&url=' +
         now_url
       window.location.href = redirct_url
     },
@@ -218,7 +218,7 @@ export default {
         process.env.WX_API +
         '/wx/officialAccount/user?game_id=' +
         String(this.$route.query.game_id)
-      this.$http.get(rq).then(r => {
+      this.$http.get(rq, { withCredentials: true }).then(r => {
         console.dir(r)
       })
     },
