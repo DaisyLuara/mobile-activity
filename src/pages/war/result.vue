@@ -55,12 +55,12 @@ export default {
     //微信授权
     getWxUserInfo() {
       wxService.getWxUserInfo(this).then((result) => {
-        console.log(result)
+        console.log('success: ' + result)
         let data = result.data;
         this.userInfo.name = data.nickname;
         this.userInfo.headImgUrl = data.headimgurl;
       }).catch((err) => {
-        console.log(err)
+        console.log('error:' + err)
         // let pageUrl = encodeURIComponent(window.location.href);
         // let wxAuthUrl = process.env.WX_API + '/wx/officialAccount/oauth?url=' + pageUrl + '&scope=snsapi_userinfo';
         // window.location.href = wxAuthUrl;
