@@ -341,6 +341,18 @@ export default new Router({
           name: 'WorldCupCardPhone',
           component: () =>
             import(/* webpackChunkName: "WorldCupCard" */ 'pages/worldCups/cardPre.vue')
+        },
+        {
+          path: 'war',
+          name: '芒果-三宝大战诸葛亮',
+          component: () =>
+            import(/* webpackChunkName: "war" */ 'pages/war/result.vue')
+        },
+        {
+          path: 'concert',
+          name: '芒果-黄子韬演唱会',
+          component: () =>
+            import(/* webpackChunkName: "concert" */ 'pages/concert/result.vue')
         }
       ]
     },
