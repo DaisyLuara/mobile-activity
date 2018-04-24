@@ -62,7 +62,7 @@ export default {
       }).catch((err) => {
         console.dir('error:' + err)
         let pageUrl = encodeURIComponent(window.location.href);
-        let wxAuthUrl = process.env.WX_API + '/wx/officialAccount/oauth?url=' + pageUrl + '&scope=snsapi_base';
+        let wxAuthUrl = process.env.WX_API + '/wx/officialAccount/oauth?url=' + pageUrl + '&scope=snsapi_userinfo';
         window.location.href = wxAuthUrl;
       });
     }
