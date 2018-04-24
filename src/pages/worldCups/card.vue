@@ -220,7 +220,7 @@ export default {
         marketService
           .getInfoById(this, this.$route.query.id)
           .then(res => {
-            this.imgUrl = res.image
+            this.imgUrl = res.code
           })
           .catch(err => {
             Toast(err)
@@ -371,12 +371,13 @@ export default {
         width: 100%;
         position: absolute;
         top: 0;
+        left: 0;
         z-index: 9;
       }
       .mid-photo {
         width: 80%;
         left: 10%;
-        top: 5%;
+        top: 7%;
         position: absolute;
         z-index: 7;
       }
