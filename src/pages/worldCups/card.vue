@@ -115,7 +115,7 @@
 import GameMenu from './components/gameMenu'
 import Spider from './components/spider'
 import marketService from 'services/marketing'
-import { Toast } from 'mint-ui'
+import { Toast, Indicator } from 'mint-ui'
 import wxService from 'services/wx'
 export default {
   components: {
@@ -220,6 +220,18 @@ export default {
         String(this.$route.query.game_id)
       this.$http.get(rq, { withCredentials: true }).then(r => {
         console.dir(r)
+        if (r.data.hasOwnProperty('data')) {
+          let score = r.data.data.games.total
+          this.bindData = [
+            ['point1', Number(score.intelligence)],
+            ['point2', Number(score.strength)],
+            ['point3', Number(score.balance)],
+            ['point4', Number(score.agile)],
+            ['point5', Number(score.face_score)]
+          ]
+        } else {
+          location.reload()
+        }
       })
     },
     getPhoto() {
