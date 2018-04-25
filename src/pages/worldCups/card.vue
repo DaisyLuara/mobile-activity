@@ -209,13 +209,15 @@ export default {
     handleAuth() {
       if (localStorage.getItem('wc_card') === null) {
         let storeData = {
-          game_ids: []
+          game_ids: [],
+          id: this.$route.query.id
         }
         storeData.game_ids.push(String(this.$route.query.game_id))
         localStorage.setItem('wc_card', JSON.stringify(storeData))
       } else {
         let storeData = JSON.parse(localStorage.getItem('wc_card'))
         storeData.game_ids.push(String(this.$route.query.game_id))
+        storeData.id = this.$route.query.id
         localStorage.setItem('wc_card', JSON.stringify(storeData))
       }
       let now_url = encodeURI(String(window.location.href))
@@ -224,6 +226,7 @@ export default {
         '/wx/officialAccount/oauth?&url=' +
         now_url +
         '&scope=snsapi_userinfo'
+      // 这狗娘养的参数必须拼在后面
       window.location.href = redirct_url
     },
     getUserData() {
@@ -249,9 +252,7 @@ export default {
       })
     },
     getPhoto() {
-      if (!this.$route.query.hasOwnProperty('id')) {
-        Toast('没有获取到照片信息')
-      } else {
+      if (this.$route.query.hasOwnProperty('id')) {
         marketService
           .getInfoById(this, this.$route.query.id)
           .then(res => {
@@ -260,6 +261,19 @@ export default {
           .catch(err => {
             Toast(err)
           })
+      } else if (
+        JSON.parse(localStorage.getItem('wc_card')).hasOwnProperty('id')
+      ) {
+        marketService
+          .getInfoById(this, JSON.parse(localStorage.getItem('wc_card')).id)
+          .then(res => {
+            this.imgUrl = res.code
+          })
+          .catch(err => {
+            Toast(err)
+          })
+      } else {
+        Toast('无法获得照片信息')
       }
     },
     handlePowerStatusChange() {

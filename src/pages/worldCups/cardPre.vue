@@ -97,10 +97,11 @@ export default {
         .then(r => {
           let newurl =
             window.location.origin +
-            '/marketing/wc_card' +
-            (this.$route.query.hasOwnProperty('id')
-              ? '?id=' + String(this.$route.query.id)
-              : '')
+            '/marketing/wc_card?id=' +
+            this.$route.query.id +
+            '&game_id=' +
+            this.$route.query.game_id
+
           // console.log('url: ', newurl)
           window.location.href = newurl
 
