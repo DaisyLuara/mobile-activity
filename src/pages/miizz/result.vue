@@ -1,18 +1,18 @@
 <template>
   <div class="report-wrap">
     <div class="coupon-wrap">
-      <img alt="" :src="IMAGE_SERVER + 'photo.png'" class="photo"/>
-      <img alt="" :src="IMAGE_SERVER + 'photo.png'" class="photo1"/>
-      <img alt="" :src="IMAGE_SERVER + 'save.png'" class="save"/>
-      <img alt="" :src="IMAGE_SERVER + 'up.png'" class="arrow"/>
+      <img alt="" :src="baseUrl + 'photo.png'" class="photo"/>
+      <img alt="" :src="baseUrl + 'photo.png'" class="photo1"/>
+      <img alt="" :src="baseUrl + 'save.png'" class="save"/>
+      <img alt="" :src="baseUrl + 'up.png'" class="arrow"/>
     </div>
     <div class="miizz-wrap">
-      <img alt="" :src="IMAGE_SERVER + 'bg2.png'" class="report_bg_2"/>
+      <img alt="" v-lazy="baseUrl + 'bg2.png'" class="report_bg_2"/>
         <img alt="" :src="jewelryTextOne" class="jewelry_text1"/>
         <img alt="" :src="jewelryOne" class="jewelry1"/>
         <img alt="" :src="jewelryTextTwo" class="jewelry_text2"/>
         <img alt="" :src="jewelryTwo" class="jewelry2"/> 
-        <img alt="" :src="IMAGE_SERVER + 'qrcode.png'" class="qrcode"/> 
+        <img alt="" v-lazy="baseUrl + 'qrcode.png'" class="qrcode"/> 
     </div>
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
@@ -30,7 +30,7 @@ export default {
   },
   data() {
     return {
-      IMAGE_SERVER: IMAGE_SERVER,
+      baseUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/miizz/',
       jewelryTextOne: IMAGE_SERVER + 'jewelry_text1.png',
       jewelryTextTwo: IMAGE_SERVER + 'jewelry_text2.png',
       jewelryOne: IMAGE_SERVER + 'jewelry1.png',
