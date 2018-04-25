@@ -1,7 +1,8 @@
 <template>
   <div class="report-wrap">
     <div class="coupon-wrap">
-      <img alt="" :src="IMAGE_SERVER + 'bg1.png'" class="report_bg_1"/>
+      <img alt="" :src="IMAGE_SERVER + 'photo.png'" class="photo"/>
+      <img alt="" :src="IMAGE_SERVER + 'photo.png'" class="photo1"/>
       <img alt="" :src="IMAGE_SERVER + 'save.png'" class="save"/>
       <img alt="" :src="IMAGE_SERVER + 'up.png'" class="arrow"/>
     </div>
@@ -38,7 +39,7 @@ export default {
       wxShareInfoValue: {
         title: '觅作',
         desc: '觅作',
-        imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/openBox_share_icon.png',
+        imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/miizz_share_icon.png',
       },
     };
   },
@@ -46,25 +47,12 @@ export default {
     document.title = '觅作';
   },
   created() {
-    // this.getInfoById();
   },
   methods: {
-   getInfoById() {
-      let id = this.$route.query.id
-      marketService
-        .getInfoById(this, id)
-        .then(res => {
-          this.ImgUrl = res.image
-          console.log(res)
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    }
   },
   mounted() {
     document.getElementsByClassName('coupon-wrap')[0].style.height = window.innerHeight + 'px'
-    // document.getElementsByClassName('miizz-wrap')[0].style.minHeight = window.innerHeight + 'px'
+    document.getElementsByClassName('miizz-wrap')[0].style.minHeight = window.innerHeight + 'px'
   },
   computed: {
     wxShareInfo() {
@@ -87,31 +75,36 @@ export default {
 .report-wrap{
   position: relative;
   .coupon-wrap{
-    .report_bg_1{
-      width:100%;
-    }
+    background-image: url('@{imageHost}/bg1.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
     position: relative;
+    .photo{
+      width: 80%;
+      left: 10%;
+      position: absolute;
+      z-index: -10;
+    }
+    .photo1{
+      opacity: 0;
+    }
     .save{
       position: absolute;
-      bottom: 12%;
+      bottom: 15%;
       width: 30%;
       left: 35%;
       animation: opacitySave .8s linear infinite alternate;
     }
     .arrow{
       position: absolute;
-      bottom: 2%;
-      width: 15%;
-      left: 42.5%;
+      bottom: 7%;
+      width: 11%;
+      left: 44.5%;
       animation: arrows .8s ease-out infinite alternate;
 
     }
   }
   .miizz-wrap{
-    // height: auto;
-    // background-repeat: no-repeat;
-    // background-image: url("@{imageHost}/bg2.png");
-    // background-size: 100%;
     position: relative;
     .report_bg_2{
       width:100%;
@@ -119,25 +112,25 @@ export default {
     .jewelry_text1{
       position: absolute;
       width: 30%;
-      top: 15%;
+      top: 7%;
       right: 6%;
     }
     .jewelry1{
       position: absolute;
       width: 40%;
-      top: 11%;
+      top: 3%;
       left: 13%;
     }
     .jewelry_text2{
       position: absolute;
-      top: 50%;
+      top: 46%;
       width: 30%;
       left: 6%;
     }
     .jewelry2{
       position: absolute;
       width: 40%;
-      top: 44%;
+      top: 39%;
       right: 12%;
     }
     .qrcode{
