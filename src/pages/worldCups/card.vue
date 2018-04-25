@@ -238,7 +238,7 @@ export default {
       this.$http.get(rq, { withCredentials: true }).then(r => {
         console.dir(r)
         if (r.data.hasOwnProperty('data')) {
-          let score = r.data.data.games.total
+          let score = r.data.data.games.init
           this.bindData = [
             ['point1', Number(score.intelligence)],
             ['point2', Number(score.strength)],
