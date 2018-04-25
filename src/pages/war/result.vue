@@ -24,9 +24,6 @@ export default {
     return {
       imgServerUrl: IMAGE_SERVER,
       resultImgUrl: '',
-      // userInfo:{
-      //   name
-      // }
       //微信分享信息
       wxShareInfoValue: {
         title: '脑洞大开！芒果TV《三宝大战诸葛亮》欢乐上线',
@@ -60,8 +57,6 @@ export default {
       wxService.getWxUserInfo(this).then((result) => {
         console.dir('success: ' + result)
         let data = result.data;
-        // this.userInfo.name = data.nickname;
-        // this.userInfo.headImgUrl = data.headimgurl;
       }).catch((err) => {
         console.dir('error:' + err)
         let pageUrl = encodeURIComponent(window.location.href);
