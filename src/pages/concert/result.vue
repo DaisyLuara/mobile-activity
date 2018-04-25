@@ -38,7 +38,7 @@ export default {
     $('.concert-content').css('min-height', $(window).height());
   },
   created() {
-    this.getWxUserInfo();
+    //this.getWxUserInfo();
     this.getImageById();
   },
   methods: {
@@ -52,17 +52,17 @@ export default {
       });
     },
     //微信授权
-   getWxUserInfo() {
-      wxService.getWxUserInfo(this).then((result) => {
-        console.dir('success: ' + result)
-        let data = result.data;
-      }).catch((err) => {
-        console.dir('error:' + err)
-        let pageUrl = encodeURIComponent(window.location.href);
-        let wxAuthUrl = process.env.WX_API + '/wx/officialAccount/oauth?url=' + pageUrl + '&scope=snsapi_userinfo';
-        window.location.href = wxAuthUrl;
-      });
-    }
+  //  getWxUserInfo() {
+  //     wxService.getWxUserInfo(this).then((result) => {
+  //       console.dir('success: ' + result)
+  //       let data = result.data;
+  //     }).catch((err) => {
+  //       console.dir('error:' + err)
+  //       let pageUrl = encodeURIComponent(window.location.href);
+  //       let wxAuthUrl = process.env.WX_API + '/wx/officialAccount/oauth?url=' + pageUrl + '&scope=snsapi_userinfo';
+  //       window.location.href = wxAuthUrl;
+  //     });
+  //   }
   },
   computed: {
     //微信分享
