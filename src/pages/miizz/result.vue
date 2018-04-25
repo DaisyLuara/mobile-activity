@@ -1,25 +1,27 @@
 <template>
   <div class="report-wrap">
     <div class="coupon-wrap">
-      <img alt="" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/miizz/bg1.png" class="report_bg_1"/>
-      <img alt="" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/miizz/save.png" class="save"/>
-      <img alt="" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/miizz/up.png" class="arrow"/>
+      <img alt="" :src="IMAGE_SERVER + 'bg1.png'" class="report_bg_1"/>
+      <img alt="" :src="IMAGE_SERVER + 'save.png'" class="save"/>
+      <img alt="" :src="IMAGE_SERVER + 'up.png'" class="arrow"/>
     </div>
     <div class="miizz-wrap">
-      <img alt="" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/miizz/bg2.png" class="report_bg_2"/>
-        <img alt="" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/miizz/jewelry_text1.png" class="jewelry_text1"/>
-        <img alt="" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/miizz/jewelry1.png" class="jewelry1"/>
-        <img alt="" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/miizz/jewelry_text2.png" class="jewelry_text2"/>
-        <img alt="" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/miizz/jewelry2.png" class="jewelry2"/> 
-        <img alt="" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/miizz/qrcode.png" class="qrcode"/> 
-
+      <img alt="" :src="IMAGE_SERVER + 'bg2.png'" class="report_bg_2"/>
+        <img alt="" :src="jewelryTextOne" class="jewelry_text1"/>
+        <img alt="" :src="jewelryOne" class="jewelry1"/>
+        <img alt="" :src="jewelryTextTwo" class="jewelry_text2"/>
+        <img alt="" :src="jewelryTwo" class="jewelry2"/> 
+        <img alt="" :src="IMAGE_SERVER + 'qrcode.png'" class="qrcode"/> 
     </div>
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
 </template>
 <script>
+const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing/pages/miizz/'
+
 import { customTrack } from 'modules/customTrack';
 import WxShare from 'modules/wxShare.vue';
+
 
 export default {
   components: {
@@ -27,7 +29,12 @@ export default {
   },
   data() {
     return {
-      resultImgUrl: '',
+      IMAGE_SERVER: IMAGE_SERVER,
+      jewelryTextOne: IMAGE_SERVER + 'jewelry_text1.png',
+      jewelryTextTwo: IMAGE_SERVER + 'jewelry_text2.png',
+      jewelryOne: IMAGE_SERVER + 'jewelry1.png',
+      jewelryTwo: IMAGE_SERVER + 'jewelry2.png',
+      ImgUrl: '',
       wxShareInfoValue: {
         title: '觅作',
         desc: '觅作',
@@ -39,23 +46,25 @@ export default {
     document.title = '觅作';
   },
   created() {
-    // this.getPeopleImage();
+    // this.getInfoById();
   },
   methods: {
-    getPeopleImage() {
-      let recordId = decodeURI(this.$route.query.recordId);
-      this.$http.get(process.env.SAAS_API + '/open/play/playResults/' + recordId).then((result) => {
-        let data = result.data.data;
-        console.log(data);
-        this.resultImgUrl = data.result_img_url;
-      }).catch((err) => {
-        console.log(err);
-      });
-    },
+   getInfoById() {
+      let id = this.$route.query.id
+      marketService
+        .getInfoById(this, id)
+        .then(res => {
+          this.ImgUrl = res.image
+          console.log(res)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
   },
   mounted() {
     document.getElementsByClassName('coupon-wrap')[0].style.height = window.innerHeight + 'px'
-    document.getElementsByClassName('miizz-wrap')[0].style.minHeight = window.innerHeight + 'px'
+    // document.getElementsByClassName('miizz-wrap')[0].style.minHeight = window.innerHeight + 'px'
   },
   computed: {
     wxShareInfo() {
@@ -87,6 +96,7 @@ export default {
       bottom: 12%;
       width: 30%;
       left: 35%;
+      animation: opacitySave .8s linear infinite alternate;
     }
     .arrow{
       position: absolute;
@@ -160,8 +170,8 @@ export default {
     100% {transform: translateY(0px);}
   }
   @keyframes opacitySave {
-    // 0% {transform: translateY(-3px);}
-    // 100% {transform: translateY(0px);}
+    0% {opacity: 0.3}
+    100% {opacity: 1}
   }
 }
 </style>
