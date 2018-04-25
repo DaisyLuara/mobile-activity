@@ -220,13 +220,17 @@ export default {
         storeData.id = this.$route.query.id
         localStorage.setItem('wc_card', JSON.stringify(storeData))
       }
+
+      console.log(window.location.href)
       let now_url = encodeURI(String(window.location.href))
+      console.dir(now_url)
       let redirct_url =
         process.env.WX_API +
         '/wx/officialAccount/oauth?&url=' +
         now_url +
         '&scope=snsapi_userinfo'
       // 这狗娘养的参数必须拼在后面
+      console.dir(redirct_url)
       window.location.href = redirct_url
     },
     getUserData() {
