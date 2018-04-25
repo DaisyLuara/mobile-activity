@@ -12,7 +12,12 @@
             <li>凭此照片兑换，仅限本人使用，每人只可用一次，全场先秒先得！</li>
         </ul>
     </div>
-    <div class="map"><img :src="IMAGE_URL + 'map.jpg'"/></div>
+    <div class="map">
+      <img :src="IMAGE_URL + 'map.jpg'"/>
+      <img :src="IMAGE_URL + '1.jpg'"/>
+      <img :src="IMAGE_URL + '99.jpg'"/>
+      <img :src="IMAGE_URL + '129.jpg'"/>
+    </div>
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
 </div>
 </template>
@@ -155,9 +160,9 @@ body {
   .map {
     width: 83%;
     margin: 0 auto;
-    margin-bottom: 10%;
     img {
       max-width: 100%;
+      margin-bottom: 10%;
     }
   }
 }
