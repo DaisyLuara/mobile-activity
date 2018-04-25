@@ -16,6 +16,7 @@
         :class="{'show': this.control.powerStatus, 'hide': !this.control.powerStatus}"
         class="mid-power">
         <Spider 
+          v-if="loadingData === false"
           :powerData="bindData" 
           :width="style.bindWith"
           :style="style.spider"/>
@@ -166,15 +167,16 @@ export default {
         bindWith: 0
       },
       bindData: [
-        ['point1', 90],
-        ['point2', 80],
-        ['point3', 80],
-        ['point4', 80],
-        ['point5', 100]
+        ['point1', 0],
+        ['point2', 0],
+        ['point3', 0],
+        ['point4', 0],
+        ['point5', 0]
       ],
       control: {
         powerStatus: false,
-        currentMenu: 0
+        currentMenu: 0,
+        loadingData: true
       },
       imgUrl: ''
     }
@@ -251,6 +253,7 @@ export default {
             ['point4', Number(score.agile)],
             ['point5', Number(score.face_score)]
           ]
+          this.control.loadingData = false
         } else {
           // location.reload()
         }
