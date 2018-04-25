@@ -387,10 +387,8 @@ export default {
         Date.now()
 
       if (date3 > 0) {
-        console.log(date3)
         let days = Math.ceil(date3 / (24 * 3600 * 1000))
-        console.log(days)
-        let leave1 = date3 % (24 * 3600 * 1000) //计算天数后剩余的毫秒数
+        let leave1 = days % (24 * 3600 * 1000) //计算天数后剩余的毫秒数
         let hours = Math.ceil(leave1 / (3600 * 1000))
         console.log(hours)
         //计算相差分钟数
