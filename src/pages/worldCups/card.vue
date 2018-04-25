@@ -182,16 +182,16 @@ export default {
     }
   },
   created() {
-    // if (localStorage.getItem('wc_card') === null) {
-    //   this.handleAuth()
-    // } else {
-    //   let wc_store = JSON.parse(localStorage.getItem('wc_card'))
-    //   if (!wc_store.game_ids.includes(String(this.$route.query.game_id))) {
-    //     this.handleAuth()
-    //   } else {
-    //     this.getUserData()
-    //   }
-    // }
+    if (localStorage.getItem('wc_card') === null) {
+      this.handleAuth()
+    } else {
+      let wc_store = JSON.parse(localStorage.getItem('wc_card'))
+      if (!wc_store.game_ids.includes(String(this.$route.query.game_id))) {
+        this.handleAuth()
+      } else {
+        this.getUserData()
+      }
+    }
 
     document.title = '球星卡'
     this.style.mid.height = window.innerWidth * 1124 / 690 + 'px'
