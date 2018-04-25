@@ -115,7 +115,8 @@
 import GameMenu from './components/gameMenu'
 import Spider from './components/spider'
 import marketService from 'services/marketing'
-import { Toast } from 'mint-ui'
+import { Toast, Indicator } from 'mint-ui'
+import wxService from 'services/wx'
 export default {
   components: {
     GameMenu,
@@ -159,7 +160,8 @@ export default {
         comming: {
           width: window.innerWidth * 0.3 + 'px',
           position: 'absolute',
-          top: '35%'
+          top: '35%',
+          left: window.innerWidth * 0.35 + 'px'
         },
         bindWith: 0
       },
@@ -177,27 +179,18 @@ export default {
       imgUrl: ''
     }
   },
-  beforeCreate() {
-    if (localStorage.getItem('wc_card') === null) {
-      let storeData = {
-        redirct: true
-      }
-      localStorage.setItem('wc_card', storeData)
-      let now_url = encodeURI(String(window.location.href))
-      let redirct_url =
-        process.env.WX_API + '/wx/officialAccount/oauth?url=' + now_url
-      console.log(redirct_url)
-    } else {
-      let request_url =
-        process.env.WX_API +
-        '/wx/officialAccount/user?game_id=' +
-        this.$route.query.game_id
-      this.$http.get(request_url).then(r => {
-        console.dir(r)
-      })
-    }
-  },
   created() {
+    if (localStorage.getItem('wc_card') === null) {
+      this.handleAuth()
+    } else {
+      let wc_store = JSON.parse(localStorage.getItem('wc_card'))
+      if (!wc_store.game_ids.includes(String(this.$route.query.game_id))) {
+        this.handleAuth()
+      } else {
+        this.getUserData()
+      }
+    }
+
     document.title = '球星卡'
     this.style.mid.height = window.innerWidth * 1124 / 690 + 'px'
     this.style.casediv.height = window.innerWidth * 0.9 * 1130 / 659 + 'px'
@@ -213,18 +206,78 @@ export default {
     this.getPhoto()
   },
   methods: {
-    getPhoto() {
-      if (!this.$route.query.hasOwnProperty('id')) {
-        Toast('没有获取到照片信息')
+    handleAuth() {
+      if (localStorage.getItem('wc_card') === null) {
+        let storeData = {
+          game_ids: [],
+          id: this.$route.query.id
+        }
+        storeData.game_ids.push(String(this.$route.query.game_id))
+        localStorage.setItem('wc_card', JSON.stringify(storeData))
       } else {
+        let storeData = JSON.parse(localStorage.getItem('wc_card'))
+        storeData.game_ids.push(String(this.$route.query.game_id))
+        storeData.id = this.$route.query.id
+        localStorage.setItem('wc_card', JSON.stringify(storeData))
+      }
+
+      console.log(window.location.href)
+      let now_url = encodeURI(String(window.location.href))
+      console.dir(now_url)
+      let redirct_url =
+        process.env.WX_API +
+        '/wx/officialAccount/oauth?&url=' +
+        now_url +
+        '&scope=snsapi_userinfo'
+      // 这狗娘养的参数必须拼在后面
+      console.dir(redirct_url)
+      window.location.href = redirct_url
+    },
+    getUserData() {
+      let rq =
+        process.env.WX_API +
+        '/wx/officialAccount/user?game_id=' +
+        String(this.$route.query.game_id)
+
+      this.$http.get(rq, { withCredentials: true }).then(r => {
+        console.dir(r)
+        if (r.data.hasOwnProperty('data')) {
+          let score = r.data.data.games.init
+          this.bindData = [
+            ['point1', Number(score.intelligence)],
+            ['point2', Number(score.strength)],
+            ['point3', Number(score.balance)],
+            ['point4', Number(score.agile)],
+            ['point5', Number(score.face_score)]
+          ]
+        } else {
+          // location.reload()
+        }
+      })
+    },
+    getPhoto() {
+      if (this.$route.query.hasOwnProperty('id')) {
         marketService
           .getInfoById(this, this.$route.query.id)
           .then(res => {
-            this.imgUrl = res.image
+            this.imgUrl = res.code
           })
           .catch(err => {
             Toast(err)
           })
+      } else if (
+        JSON.parse(localStorage.getItem('wc_card')).hasOwnProperty('id')
+      ) {
+        marketService
+          .getInfoById(this, JSON.parse(localStorage.getItem('wc_card')).id)
+          .then(res => {
+            this.imgUrl = res.code
+          })
+          .catch(err => {
+            Toast(err)
+          })
+      } else {
+        Toast('无法获得照片信息')
       }
     },
     handlePowerStatusChange() {
@@ -344,13 +397,14 @@ export default {
     }
 
     .mid-case-div {
-      width: 90%;
+      width: 86%;
+      left: 5%;
       position: absolute;
-      top: 0;
+      top: 5%;
       z-index: 9;
       overflow: hidden;
       .scan-area {
-        height: 95%;
+        height: 90%;
         width: 100%;
         overflow: hidden;
         position: relative;
@@ -370,12 +424,13 @@ export default {
         width: 100%;
         position: absolute;
         top: 0;
+        left: 0;
         z-index: 9;
       }
       .mid-photo {
         width: 80%;
         left: 10%;
-        top: 5%;
+        top: 7%;
         position: absolute;
         z-index: 7;
       }

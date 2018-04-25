@@ -3,11 +3,35 @@
     :style="style.root" 
     class="cp-root">
     <div class="root-header" />
+
     <div
       :style="style.mid" 
       class="root-mid">
-      <img :src="baseUrl + 'title.png'" />
+      <img 
+        class="mid-title"
+        :src="baseUrl + 'title.png'" />
+      <div
+        class="mid-input">
+        <input 
+          @focus="handleFocus(1)"
+          @blur="handleFocus(0)"
+          type="telephone" 
+          maxlength="11" 
+          v-model.number="bindData.phone"
+          class="input-real"
+          />
+        <img
+          class="input-img" 
+          :src="control.focous === 0 ? baseUrl + 'input.png' : baseUrl + 'btn-clicked.png'" />
+      </div>
+      <div
+        class="mid-button" 
+        @touchstart="handleTouch('start')"
+        @touchend="handleTouch('end')">
+        <img :src="control.buttonState === 'end'? baseUrl + 'btn-ok-1.png' : baseUrl + 'btn-ok-2.png'" />
+      </div>
     </div>
+
     <div class="root-bottom" />
   </div>
 </template>
@@ -15,6 +39,7 @@
 <script>
 const wiw = window.innerWidth
 const wih = window.innerHeight
+import { Toast } from 'mint-ui'
 export default {
   data() {
     return {
@@ -25,7 +50,13 @@ export default {
         },
         mid: {}
       },
-      bindData: {},
+      bindData: {
+        phone: null
+      },
+      control: {
+        buttonState: 'end',
+        focous: 0
+      },
       baseUrl:
         'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup/card_pr/'
     }
@@ -33,6 +64,58 @@ export default {
   created() {
     document.title = '球星卡'
     this.style.mid.height = window.innerWidth * 1124 / 690 + 'px'
+  },
+  methods: {
+    handleTouch(state) {
+      if (state === 'start') {
+        this.control.buttonState = 'start'
+      } else if (state === 'end') {
+        this.control.buttonState = 'end'
+        this.checkPhone()
+      }
+    },
+    checkPhone() {
+      if (!/^1[345678]\d{9}$/.test(this.bindData.phone)) {
+        Toast('输入的手机号有误')
+        return
+      } else {
+        this.goNext()
+      }
+    },
+    handleFocus(state) {
+      this.control.focous = state
+    },
+    goNext() {
+      let request_url =
+        'http://exelook.com/client/goodsxsd/?id=' +
+        String(this.$route.query.id) +
+        '&mobile=' +
+        String(this.bindData.phone) +
+        '&api=json'
+      this.$http
+        .get(request_url)
+        .then(r => {
+          let newurl =
+            window.location.origin +
+            '/marketing/wc_card?id=' +
+            this.$route.query.id +
+            '&game_id=' +
+            this.$route.query.game_id
+
+          // console.log('url: ', newurl)
+          window.location.href = newurl
+
+          // this.$router.push({
+          //   name: 'WorldCupCard',
+          //   query: {
+          //     id: this.$route.query.id
+          //   }
+          // })
+        })
+        .catch(err => {
+          Toast(err)
+        })
+    }
   }
 }
 </script>
@@ -66,7 +149,7 @@ export default {
     width: 100%;
     flex-grow: 0;
     flex-shrink: 0;
-    background-image: url('@{imgServerUrl}/bg_mid.png');
+    background-image: url('@{imgServerUrl}/card_pr/bg_02.png');
     background-size: contain;
     display: flex;
     flex-direction: column;
@@ -75,6 +158,36 @@ export default {
     position: relative;
     background-color: #131314;
     overflow: hidden;
+    .mid-title {
+      width: 65%;
+      margin-top: 20%;
+    }
+    .mid-input {
+      width: 65%;
+      position: relative;
+      z-index: 10;
+      .input-real {
+        position: absolute;
+        border: none;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 11;
+        background-color: transparent;
+        color: white;
+        padding: 5% 20%;
+      }
+      .input-img {
+        width: 100%;
+        height: 100%;
+        z-index: 12;
+      }
+    }
+    .mid-button {
+      width: 65%;
+      margin-bottom: 40%;
+    }
   }
 }
 </style>
