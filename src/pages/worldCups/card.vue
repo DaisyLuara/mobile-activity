@@ -223,6 +223,7 @@ export default {
 
       console.log(window.location.href)
       let now_url = encodeURIComponent(String(window.location.href))
+
       console.dir(now_url)
       let redirct_url =
         process.env.WX_API +
