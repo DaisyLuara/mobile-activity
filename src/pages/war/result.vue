@@ -1,8 +1,11 @@
 <template>
   <div class="war-content">
-       <img  class="photo" :src="resultImgUrl" alt=""/>
-       <!--<img  class="photo" :src="imgServerUrl + '/pages/popcorn/Bronze.jpg'" alt=""/>-->
-       <img class="bot" :src="imgServerUrl + '/pages/war/Bot.png'" alt="" >
+      <img  class="photo" :src="resultImgUrl" alt=""/>
+      <!--<img  class="photo" :src="imgServerUrl + '/pages/popcorn/Bronze.jpg'" alt=""/>-->
+      <img class="bot" :src="imgServerUrl + '/pages/war/Bot.png'" alt="" >
+      <div class="jiantou">
+          <img :src="imgServerUrl + '/pages/war/A.gif'" alt="" >
+      </div>
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
 </template>
@@ -33,7 +36,7 @@ export default {
     };
   },
   beforeCreate() {
-    document.title = "芒果TV & 星视度荣誉出版 ";
+    document.title = "芒果娱乐荣誉出品";
   },
   mounted(){
     $('.war-content').css('min-height', $(window).height());
@@ -106,6 +109,16 @@ export default {
       position:absolute;
       right:2%;
       bottom:12%;
+    }
+    .jiantou{
+      width: 100%;
+      position: absolute;
+      left: 0;
+      bottom: 10%;
+        img{
+          width:10%;
+          height:10%;
+        }
     }
     
 }
