@@ -387,15 +387,22 @@ export default {
         Date.now()
 
       if (date3 > 0) {
-        let days = Math.floor(date3 / (24 * 3600 * 1000))
+        console.log(date3)
+        let days = Math.ceil(date3 / (24 * 3600 * 1000))
+        console.log(days)
         let leave1 = date3 % (24 * 3600 * 1000) //计算天数后剩余的毫秒数
-        let hours = Math.floor(leave1 / (3600 * 1000))
+        let hours = Math.ceil(leave1 / (3600 * 1000))
+        console.log(hours)
         //计算相差分钟数
         let leave2 = leave1 % (3600 * 1000) //计算小时数后剩余的毫秒数
-        let minutes = Math.floor(leave2 / (60 * 1000))
+        let minutes = Math.ceil(leave2 / (60 * 1000))
+        console.log(minutes)
+        
         //计算相差秒数
         let leave3 = leave2 % (60 * 1000) //计算分钟数后剩余的毫秒数
         let seconds = Math.round(leave3 / 1000)
+        console.log(leave3)
+        
 
         this.control.hour = hours
         this.control.min = minutes
@@ -461,6 +468,7 @@ export default {
       return this.coupons[id].img
     },
     hourString: function() {
+      console.log(this.control.hour.toString())
       return this.control.hour.toString()
     },
     minString: function() {
