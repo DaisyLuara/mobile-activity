@@ -13,10 +13,7 @@
         </ul>
     </div>
     <div class="map">
-      <img :src="IMAGE_URL + 'map.jpg'"/>
-      <img :src="IMAGE_URL + '1.jpg'"/>
-      <img :src="IMAGE_URL + '99.jpg'"/>
-      <img :src="IMAGE_URL + '129.jpg'"/>
+      <img v-for="item in imgMsg" :src="item"/>
     </div>
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
 </div>
@@ -26,31 +23,15 @@ const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 import marketService from 'services/marketing'
 import WxShare from 'modules/wxShare'
 import { customTrack } from 'modules/customTrack'
+import Mydata from './data.js'
 export default {
   data() {
     return {
       IMAGE_URL: IMAGE_SERVER + '/pages/goodboy/',
-      num:
-        this.$route.query.num - 10 > 0
-          ? this.$route.query.num - 11
-          : this.$route.query.num - 1,
+      num: this.$route.query.num,
       mImg: null,
-      textMsg: [
-        {
-          a: 'A  可凭此券不限时秒杀HD129元特价产品 ',
-          b: 'B  限量秒杀，秒完为止'
-        },
-        {
-          a: 'A  可凭此券不限时秒杀HD99元特价产品 ',
-          b: 'B  限量秒杀，秒完为止 ',
-          c: 'C  可凭此券参与129元秒杀档特权'
-        },
-        {
-          a: 'A  可凭此券不限时秒杀HD1元特价产品',
-          b: 'B  限量秒杀，秒完为止',
-          c: 'C  可凭此券任意参与99元、129元档秒杀特权'
-        }
-      ],
+      textMsg: null,
+      imgMsg: null,
       //微信分享
       wxShareInfo: {
         title: 'Happy Dino 全民刷脸抢秒杀！颜值爆表1元抢抢抢抢抢！',
@@ -67,6 +48,8 @@ export default {
   },
   created() {
     this.getInfoById()
+    this.textMsg = Mydata[0].textMsg
+    this.imgMsg = Mydata[0].imgUrl
   },
   mounted() {
     var height =
@@ -148,7 +131,7 @@ body {
         font-size: 0.28rem;
         color: #fff;
         line-height: 0.5rem;
-        letter-spacing: 1px;
+        letter-spacing: 0.5px;
       }
     }
   }
