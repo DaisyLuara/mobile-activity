@@ -9,9 +9,9 @@
     <div class="miizz-wrap">
       <img alt="" v-lazy="baseUrl + 'bg2.png'" class="report_bg_2"/>
         <img alt="" :src="jewelryTextOne" class="jewelry_text1"/>
-        <img alt="" :src="jewelryOne" class="jewelry1"/>
+        <img alt="" :src="jewelryImgOne" class="jewelry1"/>
         <img alt="" :src="jewelryTextTwo" class="jewelry_text2"/>
-        <img alt="" :src="jewelryTwo" class="jewelry2"/> 
+        <img alt="" :src="jewelryImgTwo" class="jewelry2"/> 
         <img alt="" v-lazy="baseUrl + 'qrcode.png'" class="qrcode"/> 
     </div>
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
@@ -31,10 +31,10 @@ export default {
   data() {
     return {
       baseUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/miizz/',
-      jewelryTextOne: IMAGE_SERVER + 'jewelry_text1.png',
-      jewelryTextTwo: IMAGE_SERVER + 'jewelry_text2.png',
-      jewelryOne: IMAGE_SERVER + 'jewelry1.png',
-      jewelryTwo: IMAGE_SERVER + 'jewelry2.png',
+      jewelryTextOne: '',
+      jewelryTextTwo: '',
+      jewelryImgOne: '',
+      jewelryImgTwo: '',
       ImgUrl: '',
       wxShareInfoValue: {
         title: '觅作',
@@ -47,8 +47,38 @@ export default {
     document.title = '觅作';
   },
   created() {
+    this.handleShowPage()
   },
   methods: {
+    handleShowPage () {
+      let type = this.$route.query.type
+      switch(type) {
+        case 'A': 
+          this.jewelryTextOne = IMAGE_SERVER + 'jewelry_text_A1.png'
+          this.jewelryTextTwo = IMAGE_SERVER + 'jewelry_text_A2.png'
+          this.jewelryImgOne = IMAGE_SERVER + 'jewelry_img_A1.png'
+          this.jewelryImgTwo = IMAGE_SERVER + 'jewelry_img_A2.png'
+        break;
+        case 'B': 
+          this.jewelryTextOne = IMAGE_SERVER + 'jewelry_text_B1.png'
+          this.jewelryTextTwo = IMAGE_SERVER + 'jewelry_text_B2.png'
+          this.jewelryImgOne = IMAGE_SERVER + 'jewelry_img_B1.png'
+          this.jewelryImgTwo = IMAGE_SERVER + 'jewelry_img_B2.png'
+        break;
+        case 'C':
+          this.jewelryTextOne = IMAGE_SERVER + 'jewelry_text_C1.png'
+          this.jewelryTextTwo = IMAGE_SERVER + 'jewelry_text_C2.png'
+          this.jewelryImgOne = IMAGE_SERVER + 'jewelry_img_C1.png'
+          this.jewelryImgTwo = IMAGE_SERVER + 'jewelry_img_C2.png'
+        break;
+        case 'D':
+          this.jewelryTextOne = IMAGE_SERVER + 'jewelry_text_D1.png'
+          this.jewelryTextTwo = IMAGE_SERVER + 'jewelry_text_D2.png'
+          this.jewelryImgOne = IMAGE_SERVER + 'jewelry_img_D1.png'
+          this.jewelryImgTwo = IMAGE_SERVER + 'jewelry_img_D2.png'
+        break;
+      }
+    }
   },
   mounted() {
     document.getElementsByClassName('coupon-wrap')[0].style.height = window.innerHeight + 'px'
