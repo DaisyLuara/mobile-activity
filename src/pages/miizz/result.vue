@@ -18,7 +18,7 @@
   </div>
 </template>
 <script>
-const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing/pages/miizz/'
+const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing/'
 
 import { customTrack } from 'modules/customTrack';
 import WxShare from 'modules/wxShare.vue';
@@ -30,7 +30,7 @@ export default {
   },
   data() {
     return {
-      baseUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/miizz/',
+      baseUrl: IMAGE_SERVER + 'pages/miizz/',
       jewelryTextOne: '',
       jewelryTextTwo: '',
       jewelryImgOne: '',
@@ -39,7 +39,7 @@ export default {
       wxShareInfoValue: {
         title: '觅作',
         desc: '觅作',
-        imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/miizz_share_icon.png',
+        imgUrl: IMAGE_SERVER + 'wx_share_icon/miizz_share_icon.png',
       },
     };
   },
@@ -54,28 +54,28 @@ export default {
       let type = this.$route.query.type
       switch(type) {
         case 'A': 
-          this.jewelryTextOne = IMAGE_SERVER + 'jewelry_text_A1.png'
-          this.jewelryTextTwo = IMAGE_SERVER + 'jewelry_text_A2.png'
-          this.jewelryImgOne = IMAGE_SERVER + 'jewelry_img_A1.png'
-          this.jewelryImgTwo = IMAGE_SERVER + 'jewelry_img_A2.png'
+          this.jewelryTextOne = this.baseUrl + 'jewelry_text_A1.png'
+          this.jewelryTextTwo = this.baseUrl + 'jewelry_text_A2.png'
+          this.jewelryImgOne = this.baseUrl + 'jewelry_img_A1.png'
+          this.jewelryImgTwo = this.baseUrl + 'jewelry_img_A2.png'
         break;
         case 'B': 
-          this.jewelryTextOne = IMAGE_SERVER + 'jewelry_text_B1.png'
-          this.jewelryTextTwo = IMAGE_SERVER + 'jewelry_text_B2.png'
-          this.jewelryImgOne = IMAGE_SERVER + 'jewelry_img_B1.png'
-          this.jewelryImgTwo = IMAGE_SERVER + 'jewelry_img_B2.png'
+          this.jewelryTextOne = this.baseUrl + 'jewelry_text_B1.png'
+          this.jewelryTextTwo = this.baseUrl + 'jewelry_text_B2.png'
+          this.jewelryImgOne = this.baseUrl + 'jewelry_img_B1.png'
+          this.jewelryImgTwo = this.baseUrl + 'jewelry_img_B2.png'
         break;
         case 'C':
-          this.jewelryTextOne = IMAGE_SERVER + 'jewelry_text_C1.png'
-          this.jewelryTextTwo = IMAGE_SERVER + 'jewelry_text_C2.png'
-          this.jewelryImgOne = IMAGE_SERVER + 'jewelry_img_C1.png'
-          this.jewelryImgTwo = IMAGE_SERVER + 'jewelry_img_C2.png'
+          this.jewelryTextOne = this.baseUrl + 'jewelry_text_C1.png'
+          this.jewelryTextTwo = this.baseUrl + 'jewelry_text_C2.png'
+          this.jewelryImgOne = this.baseUrl + 'jewelry_img_C1.png'
+          this.jewelryImgTwo = this.baseUrl + 'jewelry_img_C2.png'
         break;
         case 'D':
-          this.jewelryTextOne = IMAGE_SERVER + 'jewelry_text_D1.png'
-          this.jewelryTextTwo = IMAGE_SERVER + 'jewelry_text_D2.png'
-          this.jewelryImgOne = IMAGE_SERVER + 'jewelry_img_D1.png'
-          this.jewelryImgTwo = IMAGE_SERVER + 'jewelry_img_D2.png'
+          this.jewelryTextOne = this.baseUrl + 'jewelry_text_D1.png'
+          this.jewelryTextTwo = this.baseUrl + 'jewelry_text_D2.png'
+          this.jewelryImgOne = this.baseUrl + 'jewelry_img_D1.png'
+          this.jewelryImgTwo = this.baseUrl + 'jewelry_img_D2.png'
         break;
       }
     }
