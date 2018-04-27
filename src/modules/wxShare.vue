@@ -36,10 +36,10 @@ export default {
           wx.config(wxConfig)
           // this.wxShare(this.WxShareInfo);
           if (this.WxShareInfo.link) {
-            this.WxShareInfo.link += '&utm_keyword=wechat_share'
+            this.WxShareInfo.link += '&utm_term=wechat_share'
           } else {
             this.WxShareInfo.link =
-              window.location.href + '&utm_keyword=wechat_share'
+              window.location.href + '&utm_term=wechat_share'
           }
           wx.ready(() => {
             wx.onMenuShareAppMessage(this.WxShareInfo)
