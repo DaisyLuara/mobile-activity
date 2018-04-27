@@ -38,7 +38,7 @@ export default {
       ImgUrl: '',
       wxShareInfoValue: {
         title: '觅作',
-        desc: '觅作',
+        desc: '让你点亮世界的穿衣首饰搭配指南',
         imgUrl: IMAGE_SERVER + 'wx_share_icon/miizz_share_icon.png',
       },
     };
