@@ -85,8 +85,16 @@ export default {
     }
   },
   mounted() {
+    console.log(window.innerHeight)
     document.getElementsByClassName('coupon-wrap')[0].style.height = window.innerHeight + 'px'
     document.getElementsByClassName('miizz-wrap')[0].style.minHeight = window.innerHeight + 'px'
+    if (window.innerHeight > 675) {
+      document.getElementsByClassName('photo')[0].style.width = '90%'
+      document.getElementsByClassName('photo')[0].style.left = '5%'
+    } else {
+      document.getElementsByClassName('photo')[0].style.width = '76%'
+      document.getElementsByClassName('photo')[0].style.left = '12%'
+    }
   },
   computed: {
     wxShareInfo() {
@@ -114,8 +122,8 @@ export default {
     background-size: 100% 100%;
     position: relative;
     .photo{
-      // width: 80%;
-      // left: 10%;
+      // width: 91%;
+      // left: 5%;
       width: 76%;
       left: 12%;
       position: absolute;
