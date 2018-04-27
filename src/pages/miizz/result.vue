@@ -9,16 +9,16 @@
     <div class="miizz-wrap">
       <img alt="" v-lazy="baseUrl + 'bg2.png'" class="report_bg_2"/>
         <img alt="" :src="jewelryTextOne" class="jewelry_text1"/>
-        <img alt="" :src="jewelryOne" class="jewelry1"/>
+        <img alt="" :src="jewelryImgOne" class="jewelry1"/>
         <img alt="" :src="jewelryTextTwo" class="jewelry_text2"/>
-        <img alt="" :src="jewelryTwo" class="jewelry2"/> 
+        <img alt="" :src="jewelryImgTwo" class="jewelry2"/> 
         <img alt="" v-lazy="baseUrl + 'qrcode.png'" class="qrcode"/> 
     </div>
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
 </template>
 <script>
-const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing/pages/miizz/'
+const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing/'
 
 import { customTrack } from 'modules/customTrack';
 import WxShare from 'modules/wxShare.vue';
@@ -30,16 +30,16 @@ export default {
   },
   data() {
     return {
-      baseUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/miizz/',
-      jewelryTextOne: IMAGE_SERVER + 'jewelry_text1.png',
-      jewelryTextTwo: IMAGE_SERVER + 'jewelry_text2.png',
-      jewelryOne: IMAGE_SERVER + 'jewelry1.png',
-      jewelryTwo: IMAGE_SERVER + 'jewelry2.png',
+      baseUrl: IMAGE_SERVER + 'pages/miizz/',
+      jewelryTextOne: '',
+      jewelryTextTwo: '',
+      jewelryImgOne: '',
+      jewelryImgTwo: '',
       ImgUrl: '',
       wxShareInfoValue: {
         title: '觅作',
-        desc: '觅作',
-        imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/miizz_share_icon.png',
+        desc: '让你点亮世界的穿衣首饰搭配指南',
+        imgUrl: IMAGE_SERVER + 'wx_share_icon/miizz_share_icon.png',
       },
     };
   },
@@ -47,8 +47,38 @@ export default {
     document.title = '觅作';
   },
   created() {
+    this.handleShowPage()
   },
   methods: {
+    handleShowPage () {
+      let type = this.$route.query.type
+      switch(type) {
+        case 'A': 
+          this.jewelryTextOne = this.baseUrl + 'jewelry_text_A1.png'
+          this.jewelryTextTwo = this.baseUrl + 'jewelry_text_A2.png'
+          this.jewelryImgOne = this.baseUrl + 'jewelry_img_A1.png'
+          this.jewelryImgTwo = this.baseUrl + 'jewelry_img_A2.png'
+        break;
+        case 'B': 
+          this.jewelryTextOne = this.baseUrl + 'jewelry_text_B1.png'
+          this.jewelryTextTwo = this.baseUrl + 'jewelry_text_B2.png'
+          this.jewelryImgOne = this.baseUrl + 'jewelry_img_B1.png'
+          this.jewelryImgTwo = this.baseUrl + 'jewelry_img_B2.png'
+        break;
+        case 'C':
+          this.jewelryTextOne = this.baseUrl + 'jewelry_text_C1.png'
+          this.jewelryTextTwo = this.baseUrl + 'jewelry_text_C2.png'
+          this.jewelryImgOne = this.baseUrl + 'jewelry_img_C1.png'
+          this.jewelryImgTwo = this.baseUrl + 'jewelry_img_C2.png'
+        break;
+        case 'D':
+          this.jewelryTextOne = this.baseUrl + 'jewelry_text_D1.png'
+          this.jewelryTextTwo = this.baseUrl + 'jewelry_text_D2.png'
+          this.jewelryImgOne = this.baseUrl + 'jewelry_img_D1.png'
+          this.jewelryImgTwo = this.baseUrl + 'jewelry_img_D2.png'
+        break;
+      }
+    }
   },
   mounted() {
     document.getElementsByClassName('coupon-wrap')[0].style.height = window.innerHeight + 'px'
@@ -93,6 +123,8 @@ export default {
       bottom: 15%;
       width: 30%;
       left: 35%;
+      opacity: 1;
+      z-index:2;
       animation: opacitySave .8s linear infinite alternate;
     }
     .arrow{
@@ -118,8 +150,8 @@ export default {
     .jewelry1{
       position: absolute;
       width: 40%;
-      top: 3%;
-      left: 13%;
+      top: 2.5%;
+      left: 13.3%;
     }
     .jewelry_text2{
       position: absolute;
@@ -130,8 +162,8 @@ export default {
     .jewelry2{
       position: absolute;
       width: 40%;
-      top: 39%;
-      right: 12%;
+      top: 40%;
+      right: 11.5%;
     }
     .qrcode{
       position: absolute;

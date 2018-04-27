@@ -395,12 +395,11 @@ export default {
         let leave2 = leave1 % (3600 * 1000) //计算小时数后剩余的毫秒数
         let minutes = Math.floor(leave2 / (60 * 1000))
         console.log(minutes)
-        
+
         //计算相差秒数
         let leave3 = leave2 % (60 * 1000) //计算分钟数后剩余的毫秒数
         let seconds = Math.round(leave3 / 1000)
         console.log(leave3)
-        
 
         this.control.hour = hours
         this.control.min = minutes
@@ -517,7 +516,7 @@ export default {
                 window.location.origin +
                 '/marketing/51act?promo_mobile=' +
                 r.data +
-                '&utm_keyword=wechat_share'
+                '&utm_term=wechat_share'
             }
           }
         })
