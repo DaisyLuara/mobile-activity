@@ -40,13 +40,12 @@
 </template>
 
 <script>
-import WxShare from 'modules/wxShare'
-import { customTrack } from 'modules/customTrack'
 import { Toast } from 'mint-ui'
+import { isWeixin } from '../../modules/util'
+const wx = require('weixin-js-sdk')
+import marketService from 'services/marketing'
+
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
       baseUrl:
@@ -86,7 +85,7 @@ export default {
           width: window.innerWidth * 0.8 + 'px',
           top:
             window.innerWidth * 303 / 750 * 1.2 +
-            window.innerWidth * 0.7 * 434 / 624 * 1 +
+            window.innerWidth * 0.7 * 434 / 624 * 0.98 +
             'px',
           textAlign: 'center',
           color: 'red'
@@ -118,32 +117,63 @@ export default {
         }
       },
       bindPhoneNumber: null,
-      phoneError: false,
-      wxShareInfo: {
-        title: '浦商百货 致惠女神节',
-        desc: '黑白天使 成就致惠女神 真皙美白 唤醒青春美颜',
-        imgUrl:
-          'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/xsd51/cp/exeicon.jpg',
-        success: function() {
-          customTrack.shareWeChat()
-        }
-      }
+      phoneError: false
     }
+  },
+  created() {
+    document.title = 'EXE颜镜店'
   },
   mounted() {
-    if (localStorage.getItem('xingstation51act') !== null) {
-      let pushData = {
-        params: JSON.parse(localStorage.getItem('xingstation51act')),
-        name: '51actcp',
-        query: {}
-      }
-      if (this.$route.query.hasOwnProperty('pid') === true) {
-        pushData.query.pid = this.$route.query.pid
-      }
-      this.$router.push(pushData)
-    }
+    this.handleForbiddenShare()
+    // if (localStorage.getItem('xingstation51act') !== null) {
+    //   let pushData = {
+    //     params: JSON.parse(localStorage.getItem('xingstation51act')),
+    //     name: '51actcp',
+    //     query: {}
+    //   }
+    //   if (this.$route.query.hasOwnProperty('pid') === true) {
+    //     pushData.query.pid = this.$route.query.pid
+    //   }
+    //   this.$router.push(pushData)
+    // }
+    this.handleTrack()
   },
   methods: {
+    handleTrack() {
+      marketService
+        .getInfoById(this, this.$route.query.id)
+        .then(res => {})
+        .catch(err => {})
+    },
+    handleForbiddenShare() {
+      if (isWeixin() === true) {
+        let requestUrl = process.env.WX_API + '/wx/officialAccount/sign'
+        this.$http.get(requestUrl).then(response => {
+          let resData = response.data.data
+          let wxConfig = {
+            debug: false,
+            appId: resData.appId,
+            timestamp: resData.timestamp,
+            nonceStr: resData.nonceStr,
+            signature: resData.signature,
+            jsApiList: ['hideMenuItems', 'hideOptionMenu']
+          }
+          wx.config(wxConfig)
+          wx.ready(() => {
+            wx.hideOptionMenu()
+            wx.hideMenuItems({
+              menuList: [
+                'onMenuShareAppMessage',
+                'onMenuShareTimeline',
+                'onMenuShareQQ',
+                'onMenuShareWeibo',
+                'onMenuShareQZone'
+              ] // 要显示的菜单项，所有menu项见附录3
+            })
+          })
+        })
+      }
+    },
     handleButtonClick() {
       if (!/^1[345678]\d{9}$/.test(this.bindPhoneNumber)) {
         this.phoneError = true
@@ -173,18 +203,78 @@ export default {
               } else {
                 let para = {
                   coupon_data: r.data,
-                  pid: this.$route.query.pid
+                  pid: this.$route.query.pid,
+                  mobile: this.bindPhoneNumber
                 }
+                console.dir(para)
                 localStorage.setItem('xingstation51act', JSON.stringify(para))
-                let pushData = {
-                  params: para,
-                  name: '51actcp',
-                  query: {}
-                }
+
                 if (this.$route.query.hasOwnProperty('pid')) {
-                  pushData.query.pid = this.$route.query.pid
+                  window.location.href =
+                    window.location.origin +
+                    '/marketing/51actcp' +
+                    '?pid=' +
+                    String(this.$route.query.pid)
+                } else {
+                  window.location.href =
+                    window.location.origin + '/marketing/51actcp'
                 }
-                this.$router.push(pushData)
+              }
+            }
+          })
+          .catch(err => {
+            Toast('网络错误，请重试')
+          })
+      } else if (this.$route.query.hasOwnProperty('promo_mobile')) {
+        let rq_url = process.env.STORE_API + '/rest/coupon/ '
+        let rq_para = {}
+        let rq_head = {
+          headers: {
+            'Content-Type': 'application/json',
+            promo_mobile: String(this.$route.query.promo_mobile)
+          }
+        }
+        this.$http
+          .post(rq_url, null, rq_head)
+          .then(r => {
+            console.dir(r)
+            if (r.status === 200) {
+              if (r.data.hasOwnProperty('error')) {
+                Toast(r.data.error.msg)
+              } else {
+                let rq_url =
+                  process.env.STORE_API +
+                  '/rest/coupon/coupon' +
+                  '?coupon_id=' +
+                  String(r.data.coupon_id)
+                this.$http
+                  .get(rq_url)
+                  .then(r => {
+                    let para = {
+                      coupon_data: r.data,
+                      pid: this.$route.query.pid,
+                      mobile: this.bindPhoneNumber
+                    }
+
+                    localStorage.setItem(
+                      'xingstation51act',
+                      JSON.stringify(para)
+                    )
+
+                    if (this.$route.query.hasOwnProperty('pid')) {
+                      window.location.href =
+                        window.location.origin +
+                        '/marketing/51actcp' +
+                        '?pid=' +
+                        String(this.$route.query.pid)
+                    } else {
+                      window.location.href =
+                        window.location.origin + '/marketing/51actcp'
+                    }
+                  })
+                  .catch(err => {
+                    Toast('网络错误，请重试')
+                  })
               }
             }
           })

@@ -42,7 +42,7 @@ export default {
       }
     }
   },
-  beforeCreated() {
+  beforeCreate() {
     document.title = '星视度送福利'
   },
   created() {},

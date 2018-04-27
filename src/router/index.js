@@ -335,6 +335,36 @@ export default new Router({
           name: 'worldCupPlanetHeiJiu',
           component: () =>
             import(/* webpackChunkName: "worldCupPlanet" */ 'pages/worldCups/heiqiu.vue')
+        },
+        {
+          path: 'goodboy',
+          name: '好孩子',
+          component: () =>
+            import(/* webpackChunkName: "goodboy" */ 'pages/goodboy/result.vue')
+        },
+        {
+          path: 'wc_card_pr',
+          name: 'WorldCupCardPhone',
+          component: () =>
+            import(/* webpackChunkName: "WorldCupCard" */ 'pages/worldCups/cardPre.vue')
+        },
+        {
+          path: 'war',
+          name: '芒果-三宝大战诸葛亮',
+          component: () =>
+            import(/* webpackChunkName: "war" */ 'pages/war/result.vue')
+        },
+        {
+          path: 'concert',
+          name: '芒果-黄子韬演唱会',
+          component: () =>
+            import(/* webpackChunkName: "concert" */ 'pages/concert/result.vue')
+        },
+        {
+          path: 'miizz',
+          name: '觅作',
+          component: () =>
+            import(/* webpackChunkName: "miizz" */ 'pages/miizz/result.vue')
         }
       ]
     },

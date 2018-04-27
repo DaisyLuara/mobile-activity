@@ -3,9 +3,6 @@
     :class="{'pop': this.control.pop}"
     class="coupon-root">
     
-    <!-- wxshare -->
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
-    
     <!-- bg -->
     <img
       class="root-bg" 
@@ -134,23 +131,23 @@
     <!-- pics -->
     <img
       class="root-singlep" 
-      :src="baseUrl + 'p2_02.png'" />
+      v-lazy="baseUrl + 'p2_02.png'" />
 
     <img
       class="root-singlep" 
-      :src="baseUrl + 'p2_03.png'" />
+      v-lazy="baseUrl + 'p2_03.png'" />
 
     <img
       class="root-singlep" 
-      :src="baseUrl + 'p2_04.png'" />
+      v-lazy="baseUrl + 'p2_04.png'" />
 
     <img
       class="root-singlep" 
-      :src="baseUrl + 'p2_05.png'" />
+      v-lazy="baseUrl + 'p2_05.png'" />
 
     <img
       class="root-singlep" 
-      :src="baseUrl + 'p2_06.jpg'" />
+      v-lazy="baseUrl + 'p2_06.jpg'" />
 
 
     
@@ -186,12 +183,18 @@
 
       </div>
     </div>
+
+    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
 </template>
 
 <script>
 import WxShare from 'modules/wxShare'
+import marketService from 'services/marketing'
 import { customTrack } from 'modules/customTrack'
+import { Toast } from 'mint-ui'
+import { isWeixin } from '../../modules/util'
+const wx = require('weixin-js-sdk')
 const burl =
   'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/xsd51/cp/'
 const wi = window.innerWidth
@@ -293,7 +296,7 @@ export default {
       control: {
         pop: false,
         store: 0,
-        hour: 24,
+        hour: 0,
         min: 0,
         second: 0
       },
@@ -358,35 +361,82 @@ export default {
         }
       ],
       coupon: [],
-      wxShareInfo: {
-        title: '浦商百货 致惠女神节',
-        desc: '黑白天使 成就致惠女神 真皙美白 唤醒青春美颜',
+      wxShareInfoValue: {
+        title: '我领取了EXE颜值礼包，也送你一份100元大礼！',
+        desc: '↑本活动由“眼镜带的对，合影占C位”的EXE颜镜店倾情赞助。',
         imgUrl:
           'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/xsd51/cp/exeicon.jpg',
-        success: function() {
-          customTrack.shareWeChat()
-        }
+        link: ''
       },
       tc: null
     }
   },
   created() {
     this.handleStoreChooseById()
+    document.title = 'EXE颜镜店'
   },
   mounted() {
     if (localStorage.getItem('xingstation51act') !== null) {
       this.coupon = JSON.parse(
         localStorage.getItem('xingstation51act')
       ).coupon_data
-    } else {
-      this.$router.push('51act')
+
+      let date3 =
+        new Date(this.coupon.date_added.replace(/\-/g, '/')).getTime() +
+        24 * 60 * 60 * 1000 * 2 -
+        Date.now()
+
+      if (date3 > 0) {
+        let days = Math.floor(date3 / (24 * 3600 * 1000))
+        let leave1 = date3 % (24 * 3600 * 1000) //计算天数后剩余的毫秒数
+        let hours = Math.floor(leave1 / (3600 * 1000)) + days * 24
+        console.log(hours)
+        //计算相差分钟数
+        let leave2 = leave1 % (3600 * 1000) //计算小时数后剩余的毫秒数
+        let minutes = Math.floor(leave2 / (60 * 1000))
+        console.log(minutes)
+
+        //计算相差秒数
+        let leave3 = leave2 % (60 * 1000) //计算分钟数后剩余的毫秒数
+        let seconds = Math.round(leave3 / 1000)
+        console.log(leave3)
+
+        this.control.hour = hours
+        this.control.min = minutes
+        this.control.seconds = seconds
+        // console.log(
+        //   ' 相差 ' +
+        //     days +
+        //     '天' +
+        //     hours +
+        //     '小时 ' +
+        //     minutes +
+        //     ' 分钟' +
+        //     seconds +
+        //     ' 秒'
+        // )
+      }
+
+      this.getMobileAndSetShareData()
+      this.initInterval()
     }
-    this.initInterval()
+    this.handleTrack()
   },
   beforeDestroy() {
     this.clearSetInterval()
   },
   computed: {
+    wxShareInfo() {
+      let wxShareInfo = {
+        title: this.wxShareInfoValue.title,
+        desc: this.wxShareInfoValue.desc,
+        imgUrl: this.wxShareInfoValue.imgUrl,
+        success: function() {
+          customTrack.shareWeChat()
+        }
+      }
+      return wxShareInfo
+    },
     currentAddress: function() {
       return this.store[this.control.store].address
     },
@@ -415,6 +465,7 @@ export default {
       return this.coupons[id].img
     },
     hourString: function() {
+      console.log(this.control.hour.toString())
       return this.control.hour.toString()
     },
     minString: function() {
@@ -437,7 +488,42 @@ export default {
       this.$refs.mySwiper.swiper.slideTo(this.handleStoreChooseById())
     }
   },
+  created() {
+    // console.dir(this.wxShareInfo)
+  },
   methods: {
+    handleTrack() {
+      marketService
+        .getInfoById(this, this.$route.query.id)
+        .then(res => {})
+        .catch(err => {})
+    },
+    getMobileAndSetShareData() {
+      let request_url = process.env.STORE_API + '/rest/coupon/mobile'
+      let para = {
+        mobile: JSON.parse(localStorage.getItem('xingstation51act')).mobile
+      }
+      // console.dir(para)
+      this.$http
+        .post(request_url, para)
+        .then(r => {
+          if (r.status === 200) {
+            if (r.data.hasOwnProperty('error')) {
+              Toast(r.data.error.msg)
+            } else {
+              let that = this
+              this.wxShareInfo.link =
+                window.location.origin +
+                '/marketing/51act?promo_mobile=' +
+                r.data +
+                '&utm_term=wechat_share'
+            }
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
     clearSetInterval() {
       clearInterval(this.tc)
     },

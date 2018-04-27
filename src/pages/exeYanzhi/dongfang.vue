@@ -45,7 +45,7 @@ export default {
       }
     }
   },
-  beforeCreated() {
+  beforeCreate() {
     document.title = '东方商厦'
   },
   created() {},
