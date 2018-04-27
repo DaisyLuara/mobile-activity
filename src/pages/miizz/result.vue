@@ -123,6 +123,8 @@ export default {
       bottom: 15%;
       width: 30%;
       left: 35%;
+      opacity: 1;
+      z-index:2;
       animation: opacitySave .8s linear infinite alternate;
     }
     .arrow{
@@ -148,8 +150,8 @@ export default {
     .jewelry1{
       position: absolute;
       width: 40%;
-      top: 3%;
-      left: 13%;
+      top: 2.5%;
+      left: 13.3%;
     }
     .jewelry_text2{
       position: absolute;
@@ -160,8 +162,8 @@ export default {
     .jewelry2{
       position: absolute;
       width: 40%;
-      top: 39%;
-      right: 12%;
+      top: 40%;
+      right: 11.5%;
     }
     .qrcode{
       position: absolute;
