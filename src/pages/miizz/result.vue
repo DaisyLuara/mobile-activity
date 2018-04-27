@@ -89,11 +89,14 @@ export default {
     document.getElementsByClassName('coupon-wrap')[0].style.height = window.innerHeight + 'px'
     document.getElementsByClassName('miizz-wrap')[0].style.minHeight = window.innerHeight + 'px'
     if (window.innerHeight > 675) {
-      document.getElementsByClassName('photo')[0].style.width = '90%'
+      document.getElementsByClassName('photo')[0].style.width = '88%'
       document.getElementsByClassName('photo')[0].style.left = '5%'
+      document.getElementsByClassName('photo')[0].style.top = '0'
+      
     } else {
       document.getElementsByClassName('photo')[0].style.width = '76%'
       document.getElementsByClassName('photo')[0].style.left = '12%'
+      document.getElementsByClassName('photo')[0].style.top = '-2%'
     }
   },
   computed: {
