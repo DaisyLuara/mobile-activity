@@ -31,12 +31,12 @@
       class="root-power">
       <div
         :style="style.powerItem" 
-        class="power-item">
+        :class="{'power-item p':control.l === 1, 'power-item':control.l === 0}">
         
       </div>
       <div
-        :style="style.powerItem" 
-        class="power-item">
+        :style="style.balanceItem" 
+        :class="{'balance-item p':control.r === 1, 'balance-item':control.r === 0}">
 
       </div>
 
@@ -94,7 +94,13 @@ export default {
         },
         powerItem: {
           width: 0.36 * wiw + 'px',
-          height: 0.36 * wiw + 'px'
+          height: 0.36 * wiw + 'px',
+          backgroundSize: 0.36 * wiw + 'px ' + 0.36 * wiw + 'px'
+        },
+        balanceItem: {
+          width: 0.36 * wiw + 'px',
+          height: 0.36 * wiw + 'px',
+          backgroundSize: 0.36 * wiw + 'px ' + 0.36 * wiw + 'px'
         },
         photoOuter: {
           width: 55 / 75 * wiw + 'px',
@@ -115,6 +121,10 @@ export default {
         },
         innerPhoto: {
           width: '100%'
+        },
+        control: {
+          l: false,
+          r: false
         }
       },
       baseUrl:
@@ -128,6 +138,9 @@ export default {
   },
   mounted() {
     this.getInfoById()
+    setTimeout(() => {
+      this.control.l = 1
+    }, 5000)
   },
   methods: {
     getInfoById() {
@@ -189,6 +202,21 @@ export default {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    .power-item {
+      animation: linear tineng 10s forwards;
+      transition-property: all;
+      &.p {
+        animation-play-state: paused;
+      }
+    }
+    .balance-item {
+      animation: linear pingheng 10s forwards;
+      transition-property: all;
+      &.p {
+        animation-play-state: paused;
+      }
+    }
+    background-size: contain;
   }
   .top-img {
     width: 100vw;
@@ -198,6 +226,232 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
+  }
+}
+@keyframes tineng {
+  0% {
+    background-image: url('@{imgServerUrl}tn/power01.png');
+  }
+  2% {
+    background-image: url('@{imgServerUrl}tn/power02.png');
+  }
+  4% {
+    background-image: url('@{imgServerUrl}tn/power03.png');
+  }
+  6% {
+    background-image: url('@{imgServerUrl}tn/power04.png');
+  }
+  7% {
+    background-image: url('@{imgServerUrl}tn/power05.png');
+  }
+  8% {
+    background-image: url('@{imgServerUrl}tn/power06.png');
+  }
+  9% {
+    background-image: url('@{imgServerUrl}tn/power07.png');
+  }
+  13% {
+    background-image: url('@{imgServerUrl}tn/power08.png');
+  }
+  14% {
+    background-image: url('@{imgServerUrl}tn/power09.png');
+  }
+  18% {
+    background-image: url('@{imgServerUrl}tn/power10.png');
+  }
+  22% {
+    background-image: url('@{imgServerUrl}tn/power11.png');
+  }
+  26% {
+    background-image: url('@{imgServerUrl}tn/power12.png');
+  }
+  30% {
+    background-image: url('@{imgServerUrl}tn/power13.png');
+  }
+  33% {
+    background-image: url('@{imgServerUrl}tn/power14.png');
+  }
+  36% {
+    background-image: url('@{imgServerUrl}tn/power15.png');
+  }
+  40% {
+    background-image: url('@{imgServerUrl}tn/power16.png');
+  }
+  44% {
+    background-image: url('@{imgServerUrl}tn/power17.png');
+  }
+  47% {
+    background-image: url('@{imgServerUrl}tn/power18.png');
+  }
+  50% {
+    background-image: url('@{imgServerUrl}tn/power19.png');
+  }
+  53% {
+    background-image: url('@{imgServerUrl}tn/power20.png');
+  }
+  57% {
+    background-image: url('@{imgServerUrl}tn/power21.png');
+  }
+  60% {
+    background-image: url('@{imgServerUrl}tn/power22.png');
+  }
+  63% {
+    background-image: url('@{imgServerUrl}tn/power23.png');
+  }
+  67% {
+    background-image: url('@{imgServerUrl}tn/power24.png');
+  }
+  70% {
+    background-image: url('@{imgServerUrl}tn/power25.png');
+  }
+  73% {
+    background-image: url('@{imgServerUrl}tn/power26.png');
+  }
+  76% {
+    background-image: url('@{imgServerUrl}tn/power27.png');
+  }
+  79% {
+    background-image: url('@{imgServerUrl}tn/power28.png');
+  }
+  81% {
+    background-image: url('@{imgServerUrl}tn/power29.png');
+  }
+  84% {
+    background-image: url('@{imgServerUrl}tn/power30.png');
+  }
+  86% {
+    background-image: url('@{imgServerUrl}tn/power31.png');
+  }
+  88% {
+    background-image: url('@{imgServerUrl}tn/power32.png');
+  }
+  90% {
+    background-image: url('@{imgServerUrl}tn/power33.png');
+  }
+  92% {
+    background-image: url('@{imgServerUrl}tn/power34.png');
+  }
+  96% {
+    background-image: url('@{imgServerUrl}tn/power35.png');
+  }
+  98% {
+    background-image: url('@{imgServerUrl}tn/power36.png');
+  }
+  100% {
+    background-image: url('@{imgServerUrl}tn/power37.png');
+  }
+}
+@keyframes pingheng {
+  0% {
+    background-image: url('@{imgServerUrl}ph/balance01.png');
+  }
+  2% {
+    background-image: url('@{imgServerUrl}ph/balance02.png');
+  }
+  4% {
+    background-image: url('@{imgServerUrl}ph/balance03.png');
+  }
+  6% {
+    background-image: url('@{imgServerUrl}ph/balance04.png');
+  }
+  7% {
+    background-image: url('@{imgServerUrl}ph/balance05.png');
+  }
+  8% {
+    background-image: url('@{imgServerUrl}ph/balance06.png');
+  }
+  9% {
+    background-image: url('@{imgServerUrl}ph/balance07.png');
+  }
+  13% {
+    background-image: url('@{imgServerUrl}ph/balance08.png');
+  }
+  14% {
+    background-image: url('@{imgServerUrl}ph/balance09.png');
+  }
+  18% {
+    background-image: url('@{imgServerUrl}ph/balance10.png');
+  }
+  22% {
+    background-image: url('@{imgServerUrl}ph/balance11.png');
+  }
+  26% {
+    background-image: url('@{imgServerUrl}ph/balance12.png');
+  }
+  30% {
+    background-image: url('@{imgServerUrl}ph/balance13.png');
+  }
+  33% {
+    background-image: url('@{imgServerUrl}ph/balance14.png');
+  }
+  36% {
+    background-image: url('@{imgServerUrl}ph/balance15.png');
+  }
+  40% {
+    background-image: url('@{imgServerUrl}ph/balance16.png');
+  }
+  44% {
+    background-image: url('@{imgServerUrl}ph/balance17.png');
+  }
+  47% {
+    background-image: url('@{imgServerUrl}ph/balance18.png');
+  }
+  50% {
+    background-image: url('@{imgServerUrl}ph/balance19.png');
+  }
+  53% {
+    background-image: url('@{imgServerUrl}ph/balance20.png');
+  }
+  57% {
+    background-image: url('@{imgServerUrl}ph/balance21.png');
+  }
+  60% {
+    background-image: url('@{imgServerUrl}ph/balance22.png');
+  }
+  63% {
+    background-image: url('@{imgServerUrl}ph/balance23.png');
+  }
+  67% {
+    background-image: url('@{imgServerUrl}ph/balance24.png');
+  }
+  70% {
+    background-image: url('@{imgServerUrl}ph/balance25.png');
+  }
+  73% {
+    background-image: url('@{imgServerUrl}ph/balance26.png');
+  }
+  76% {
+    background-image: url('@{imgServerUrl}ph/balance27.png');
+  }
+  79% {
+    background-image: url('@{imgServerUrl}ph/balance28.png');
+  }
+  81% {
+    background-image: url('@{imgServerUrl}ph/balance29.png');
+  }
+  84% {
+    background-image: url('@{imgServerUrl}ph/balance30.png');
+  }
+  86% {
+    background-image: url('@{imgServerUrl}ph/balance31.png');
+  }
+  88% {
+    background-image: url('@{imgServerUrl}ph/balance32.png');
+  }
+  90% {
+    background-image: url('@{imgServerUrl}ph/balance33.png');
+  }
+  92% {
+    background-image: url('@{imgServerUrl}ph/balance34.png');
+  }
+  96% {
+    background-image: url('@{imgServerUrl}ph/balance35.png');
+  }
+  98% {
+    background-image: url('@{imgServerUrl}ph/balance36.png');
+  }
+  100% {
+    background-image: url('@{imgServerUrl}ph/balance37.png');
   }
 }
 </style>
