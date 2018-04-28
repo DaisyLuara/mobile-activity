@@ -365,6 +365,12 @@ export default new Router({
           name: '觅作',
           component: () =>
             import(/* webpackChunkName: "miizz" */ 'pages/miizz/result.vue')
+        },
+        {
+          path: 'suning',
+          name: '苏宁嗨购',
+          component: () =>
+            import(/* webpackChunkName: "suning" */ 'pages/suning/result.vue')
         }
       ]
     },
