@@ -435,7 +435,8 @@ export default {
     },
     SwitchMenu(index) {
       this.control.currentMenu = index
-      let starfuse, hijiu
+      let starfuse,
+        hijiu = {}
       for (let item in this.gamerst) {
         if (item.belong === 'starfuse') {
           starfuse.id = item.id

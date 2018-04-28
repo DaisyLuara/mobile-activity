@@ -298,7 +298,8 @@ export default {
     },
     SwitchMenu(index) {
       this.control.currentMenu = index
-      let football, hijiu
+      let hijiu,
+        football = {}
       for (let item in this.gamerst) {
         if (item.belong === 'football') {
           football.id = item.id
