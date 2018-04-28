@@ -1,9 +1,8 @@
 <template>
   <div
+    v-if="loadingDone === true"
     :style="style.root"
     class="hj-root">
-    <!-- wx-share -->
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
     
     <!-- top img -->
     <img 
@@ -32,7 +31,18 @@
       <div
         :style="style.powerItem" 
         :class="{'power-item p':control.l === 1, 'power-item':control.l === 0}">
-        
+        <div
+          class="item-numbers">
+          <img
+          :style="style.number" 
+          :src="baseUrl + '1.png'" />
+        <img
+          :style="style.number" 
+          :src="baseUrl + '0.png'" />
+        </div>
+        <img 
+           :style="style.numberLabel" 
+           :src="baseUrl + 'power.png'" />
       </div>
       <div
         :style="style.balanceItem" 
@@ -53,30 +63,17 @@
 <script>
 const wiw = window.innerWidth
 import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
-import { customTrack } from 'modules/customTrack'
-import { Toast } from 'mint-ui'
+import { Toast, Indicator } from 'mint-ui'
 import GameMenu from './components/gameMenu'
 export default {
   components: {
-    WxShare,
     GameMenu
   },
-  computed: {
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
-        success: function() {
-          customTrack.shareWeChat()
-        }
-      }
-      return wxShareInfo
-    }
-  },
   data() {
+    const baseUrl =
+      'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup/heijiu/'
     return {
+      loadingDone: true,
       wxShareInfoValue: {
         title: '万达陪你“美”一天',
         desc: '唯万达 更懂你',
@@ -119,12 +116,23 @@ export default {
           left: (55 / 75 * wiw - 126 / 750 * wiw) / 2 + 'px',
           bottom: -(126 / 750 * wiw * 169 / 133 / 2) + 'px'
         },
+        number: {
+          width: 0.08 * wiw + 'px',
+          marginLeft: -0.01 * wiw + 'px'
+        },
+        numberLabel: {
+          width: 0.1 * wiw + 'px'
+        },
         innerPhoto: {
           width: '100%'
         },
         control: {
           l: false,
           r: false
+        },
+        bindData: {
+          l: null,
+          r: null
         }
       },
       baseUrl:
@@ -136,13 +144,82 @@ export default {
       bindImage: ''
     }
   },
-  mounted() {
-    this.getInfoById()
-    setTimeout(() => {
-      this.control.l = 1
-    }, 5000)
+  created() {
+    if (localStorage.getItem('wc_heijiu') === null) {
+      this.handleAuth()
+    } else {
+      let wc_store = JSON.parse(localStorage.getItem('wc_heijiu'))
+      if (!wc_store.game_ids.includes(String(this.$route.query.game_id))) {
+        this.handleAuth()
+      } else {
+        this.getUserData()
+      }
+    }
+    document.title = '嗨啾'
   },
   methods: {
+    handleAuth() {
+      if (localStorage.getItem('wc_heijiu') === null) {
+        let storeData = {
+          game_ids: [],
+          id: this.$route.query.id
+        }
+        storeData.game_ids.push(String(this.$route.query.game_id))
+        localStorage.setItem('wc_heijiu', JSON.stringify(storeData))
+      } else {
+        let storeData = JSON.parse(localStorage.getItem('wc_heijiu'))
+        storeData.game_ids.push(String(this.$route.query.game_id))
+        storeData.id = this.$route.query.id
+        localStorage.setItem('wc_heijiu', JSON.stringify(storeData))
+      }
+
+      console.log(window.location.href)
+      let now_url = encodeURIComponent(String(window.location.href))
+
+      console.dir(now_url)
+      let redirct_url =
+        process.env.WX_API +
+        '/wx/officialAccount/oauth?url=' +
+        now_url +
+        '&scope=snsapi_userinfo'
+      // 这狗娘养的参数必须拼在后面
+      console.dir(redirct_url)
+      window.location.href = redirct_url
+    },
+    getUserData() {
+      let rq =
+        process.env.WX_API +
+        '/wx/officialAccount/user?game_id=' +
+        String(this.$route.query.game_id)
+
+      this.$http.get(rq, { withCredentials: true }).then(r => {
+        console.dir(r)
+        if (r.data.hasOwnProperty('data')) {
+          let score = r.data.data.games.total
+          this.bindData.l = Number(score.strength)
+          this.bindData.r = Number(score.balance)
+          this.handleNext()
+        } else {
+          Indicator.open()
+          setTimeout(() => {
+            location.reload()
+          }, 2000)
+        }
+      })
+    },
+    handleNext() {
+      this.loadingDone = true
+      this.getInfoById()
+      let ltime = Int(this.bindData.l / 100 * 10000)
+      let rtime = Int(this.bindData.r / 100 * 10000)
+
+      setTimeout(() => {
+        this.control.l = 1
+      }, ltime)
+      setTimeout(() => {
+        this.control.r = 1
+      }, rtime)
+    },
     getInfoById() {
       if (this.$route.query.hasOwnProperty('id')) {
         let id = this.$route.query.id
@@ -205,6 +282,16 @@ export default {
     .power-item {
       animation: linear tineng 10s forwards;
       transition-property: all;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      .item-numbers {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+      }
       &.p {
         animation-play-state: paused;
       }
@@ -212,6 +299,16 @@ export default {
     .balance-item {
       animation: linear pingheng 10s forwards;
       transition-property: all;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      .item-numbers {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+      }
       &.p {
         animation-play-state: paused;
       }
