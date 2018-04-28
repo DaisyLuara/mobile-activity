@@ -301,6 +301,7 @@ export default {
       let hijiu,
         football = {}
       for (let item of this.gamerst) {
+        console.dir(item)
         if (item.belong === 'football') {
           football.id = item.id
           football.people_id = item.people_id
@@ -310,6 +311,9 @@ export default {
           hijiu.people_id = item.people_id
         }
       }
+      console.dir(hijiu)
+      console.dir(football)
+
       if (index === 0 && football.hasOwnProperty('id')) {
         let new_url =
           window.location.origin +
