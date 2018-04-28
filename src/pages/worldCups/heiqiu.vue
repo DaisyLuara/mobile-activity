@@ -217,14 +217,18 @@ export default {
                 delete storeData.try_times
               } else {
                 storeData.try_times = storeData.try_times + 1
+                localStorage.setItem('wc_heijiu', JSON.stringify(storeData))
                 setTimeout(() => {
                   location.reload()
                 }, 2000)
               }
             } else {
               storeData.try_times = 1
+              localStorage.setItem('wc_heijiu', JSON.stringify(storeData))
+              setTimeout(() => {
+                location.reload()
+              }, 2000)
             }
-            localStorage.setItem('wc_heijiu', JSON.stringify(storeData))
           }
         }
       })
