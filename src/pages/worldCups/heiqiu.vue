@@ -3,68 +3,87 @@
     v-if="loadingDone === true"
     :style="style.root"
     class="hj-root">
-    
-    <!-- top img -->
-    <img 
-      class="root-topimg"
-      :src="this.baseUrl + 'bg1.png'" />
-    <!-- mid photo -->
-    <div
-      :style="style.photoOuter" 
-      class="root-photo">
+
+    <div class="root-rule" v-if="control.currentMenu === 1">
+       <img 
+        class="rule-img"
+        src="https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup/card/next.png" />
+        <img 
+          :style="style.icon"
+          src="https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup/card/act2.png" />
+    </div>
+
+
+    <div class="root-game" v-if="control.currentMenu === 2">
+      <!-- top img -->
       <img 
-        :style="style.logo"
-        :src="this.baseUrl + 'logo.png'" />
-      <img
-        :style="style.remind"
-        :src="this.baseUrl + 'remind.png'" />
-        <div class="inner-photo">
-          <img
-          :style="style.innerPhoto"
-          :src="this.bindImage" />
-        </div>
-    </div>
-    <!-- power -->
-    <div
-      :style="style.power" 
-      class="root-power">
+        class="root-topimg"
+        :src="this.baseUrl + 'bg1.png'" />
+      <!-- mid photo -->
       <div
-        :style="style.powerItem" 
-        :class="{'power-item p':control.l === 1, 'power-item':control.l === 0}">
-        <div
-          class="item-numbers">
-          <img
-            v-for="(item, index) in String(bindData.l)"
-            :key="index"
-            :style="style.number" 
-            :src="baseUrl + item + '.png'" />
-        </div>
+        :style="style.photoOuter" 
+        class="root-photo">
         <img 
-           :style="style.numberLabel" 
-           :src="baseUrl + 'power.png'" />
+          :style="style.logo"
+          :src="this.baseUrl + 'logo.png'" />
+        <img
+          :style="style.remind"
+          :src="this.baseUrl + 'remind.png'" />
+          <div class="inner-photo">
+            <img
+            :style="style.innerPhoto"
+            :src="this.bindImage" />
+          </div>
       </div>
+      <!-- power -->
       <div
-        :style="style.balanceItem" 
-        :class="{'balance-item p':control.r === 1, 'balance-item':control.r === 0}">
+        :style="style.power" 
+        class="root-power">
         <div
-          class="item-numbers">
-          <img
-            v-for="(item, index) in String(bindData.r)"
-            :key="index"
-            :style="style.number" 
-            :src="baseUrl + item + '.png'" />
+          :style="style.powerItem" 
+          :class="{'power-item p':control.l === 1, 'power-item':control.l === 0}">
+          <div
+            class="item-numbers">
+            <img
+              v-for="(item, index) in String(bindData.l)"
+              :key="index"
+              :style="style.number" 
+              :src="baseUrl + item + '.png'" />
+          </div>
+          <img 
+            :style="style.numberLabel" 
+            :src="baseUrl + 'power.png'" />
         </div>
-        <img 
-           :style="style.numberLabel" 
-           :src="baseUrl + 'balance.png'" />
+        <div
+          :style="style.balanceItem" 
+          :class="{'balance-item p':control.r === 1, 'balance-item':control.r === 0}">
+          <div
+            class="item-numbers">
+            <img
+              v-for="(item, index) in String(bindData.r)"
+              :key="index"
+              :style="style.number" 
+              :src="baseUrl + item + '.png'" />
+          </div>
+          <img 
+            :style="style.numberLabel" 
+            :src="baseUrl + 'balance.png'" />
+        </div>
+
       </div>
 
+      <!-- real photo -->
+      <img 
+        :src="bindImage"
+        class="top-img"/>
     </div>
 
-    <!-- real photo -->
-    <img 
-      :src="bindImage"
-      class="top-img"/>
+    <div class="root-rule" v-if="control.currentMenu === 3">
+      <img 
+        class="rule-img"
+        src="https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup/card/rule.png" />
+    </div>
+
     <GameMenu />
   </div>
 </template>
@@ -133,19 +152,27 @@ export default {
         control: {
           l: false,
           r: false
+        },
+        icon: {
+          width: window.innerWidth * 0.3 + 'px',
+          position: 'absolute',
+          top: '35%',
+          left: window.innerWidth * 0.35 + 'px'
         }
       },
       baseUrl:
         'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup/heijiu/',
       control: {
         l: 0,
-        r: 0
+        r: 0,
+        currentMenu: 2
       },
       bindImage: '',
       bindData: {
         l: 0,
         r: 0
-      }
+      },
+      gamerst: null
     }
   },
   created() {
@@ -204,6 +231,7 @@ export default {
         console.dir(r)
         if (r.data.hasOwnProperty('data')) {
           let score = r.data.data.games.total
+          this.gamerst = r.data.data.games
           this.bindData.l = Number(score.strength)
           this.bindData.r = Number(score.balance)
           this.handleNext()
@@ -261,6 +289,18 @@ export default {
       } else {
         Toast('没有照片id')
       }
+    },
+    SwitchMenu(index) {
+      this.control.currentMenu = index
+      if (index === 1) {
+        let new_url =
+          window.location.origin +
+          '/marketing/wc_card?id=' +
+          String(this.gamerst.init.people_id) +
+          '&game_id=' +
+          this.gamerst.init.id
+        window.location.href = new_url
+      }
     }
   }
 }
@@ -274,81 +314,103 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  background-size: contain;
   align-items: center;
   position: relative;
   z-index: 1;
-  .root-topimg {
-    position: absolute;
-    top: 0;
+  .root-game {
     width: 100%;
-    z-index: 2;
-  }
-  .root-photo {
-    z-index: 3;
-    border: solid 3px #325f32;
-    background-color: white;
-    .inner-photo {
-      @diff : 10px;
-      width: calc(~'100% - @{diff}');
-      margin: 5px;
-      border: 1px solid black;
-      height: calc(~'100% - @{diff}');
-      overflow: hidden;
-    }
-  }
-  .root-power {
-    z-index: 4;
-    position: absolute;
-    bottom: 2%;
-    left: 0;
+    height: 100%;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    .power-item {
-      animation: linear tineng 10s forwards;
-      transition-property: all;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      .item-numbers {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-      }
-      &.p {
-        animation-play-state: paused;
-      }
-    }
-    .balance-item {
-      animation: linear pingheng 10s forwards;
-      transition-property: all;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      .item-numbers {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-      }
-      &.p {
-        animation-play-state: paused;
-      }
-    }
+    flex-direction: column;
+    justify-content: center;
     background-size: contain;
+    align-items: center;
+    position: relative;
+    .root-topimg {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      z-index: 2;
+    }
+    .root-photo {
+      z-index: 3;
+      border: solid 3px #325f32;
+      background-color: white;
+      .inner-photo {
+        @diff : 10px;
+        width: calc(~'100% - @{diff}');
+        margin: 5px;
+        border: 1px solid black;
+        height: calc(~'100% - @{diff}');
+        overflow: hidden;
+      }
+    }
+    .root-power {
+      z-index: 4;
+      position: absolute;
+      bottom: 2%;
+      left: 0;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      .power-item {
+        animation: linear tineng 10s forwards;
+        transition-property: all;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        .item-numbers {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+        }
+        &.p {
+          animation-play-state: paused;
+        }
+      }
+      .balance-item {
+        animation: linear pingheng 10s forwards;
+        transition-property: all;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        .item-numbers {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+        }
+        &.p {
+          animation-play-state: paused;
+        }
+      }
+      background-size: contain;
+    }
+    .top-img {
+      width: 80vw;
+      height: 100vh;
+      z-index: 1000;
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
   }
-  .top-img {
-    width: 100vw;
-    height: 100vh;
-    z-index: 1000;
-    opacity: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
+  .root-rule {
+    .rule-img {
+      width: 80%;
+    }
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 }
 @keyframes tineng {
