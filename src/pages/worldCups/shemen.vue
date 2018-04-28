@@ -440,18 +440,18 @@ export default {
       for (let item of this.gamerst) {
         if (item.belong === 'starfuse') {
           starfuse.id = item.id
-          starfuse.people_id = item.people_id
+          starfuse.face_id = item.face_id
         }
         if (item.belong === 'hijiu') {
           hijiu.id = item.id
-          hijiu.people_id = item.people_id
+          hijiu.face_id = item.face_id
         }
       }
       if (index === 0 && starfuse.hasOwnProperty('id')) {
         let new_url =
           window.location.origin +
           '/marketing/wc_card?id=' +
-          String(starfuse.people_id) +
+          String(starfuse.face_id) +
           '&game_id=' +
           String(starfuse.id)
         window.location.href = new_url
@@ -459,7 +459,7 @@ export default {
         let new_url =
           window.location.origin +
           '/marketing/wc_hj?id=' +
-          String(hijiu.people_id) +
+          String(hijiu.face_id) +
           '&game_id=' +
           String(hijiu.id)
         window.location.href = new_url

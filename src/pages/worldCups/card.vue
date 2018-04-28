@@ -328,11 +328,11 @@ export default {
         // console.dir(item)
         if (item.belong === 'football') {
           football.id = item.id
-          football.people_id = item.people_id
+          football.face_id = item.face_id
         }
         if (item.belong === 'hijiu') {
           hijiu.id = item.id
-          hijiu.people_id = item.people_id
+          hijiu.face_id = item.face_id
         }
       }
       // console.dir(hijiu)
@@ -342,7 +342,7 @@ export default {
         let new_url =
           window.location.origin +
           '/marketing/wc_shemen?id=' +
-          String(football.people_id) +
+          String(football.face_id) +
           '&game_id=' +
           String(football.id)
         window.location.href = new_url
@@ -350,7 +350,7 @@ export default {
         let new_url =
           window.location.origin +
           '/marketing/wc_hj?id=' +
-          String(hijiu.people_id) +
+          String(hijiu.face_id) +
           '&game_id=' +
           String(hijiu.id)
         window.location.href = new_url
