@@ -195,7 +195,7 @@ export default {
     GameMenu
   },
   created() {
-    // this.InitBasic()
+    this.InitBasic()
 
     this.Init()
   },
