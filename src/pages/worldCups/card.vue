@@ -298,7 +298,7 @@ export default {
     },
     SwitchMenu(index) {
       this.control.currentMenu = index
-      let hijiu,
+      let hijiu = {},
         football = {}
       for (let item of this.gamerst) {
         console.dir(item)
