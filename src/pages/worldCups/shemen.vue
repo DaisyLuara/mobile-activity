@@ -197,10 +197,10 @@ export default {
   created() {
     this.InitBasic()
 
-    // this.Init()
+    this.Init()
   },
   mounted() {
-    this.handleNext()
+    // this.handleNext()
   },
   methods: {
     InitBasic() {
