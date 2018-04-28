@@ -20,8 +20,8 @@
       <div 
         :style="style.headScore"
         class="head-score">
-        <div v-for="(item, index) in score.toString()" :key="index" >
-          <img :src="baseUrl + 'df/' + item + '.png'" />
+        <div v-for="(item, index) in score.toString()" :key="index" style="height: 100%">
+          <img style="height: 100%" :src="baseUrl + 'df/' + item + '.png'" />
         </div>
       </div>
 
@@ -29,8 +29,10 @@
         :style="style.headPlayer" 
         class="head-player">
         <div
+          style="height: 100%"
           v-for="(item, index) in player.toString()" :key="index">
           <img
+            style="height: 100%"
             :src="baseUrl + 'df/' + item + '.png'" />
         </div>
       </div>
@@ -189,18 +191,23 @@
 import marketService from 'services/marketing'
 import { Toast, Indicator } from 'mint-ui'
 import GameMenu from './components/gameMenu'
-const wcw = window.clientWidth
+const wiw = window.innerWidth
 export default {
   components: {
     GameMenu
   },
   created() {
     this.InitBasic()
-
-    // this.Init()
+    if (process.env.NODE_ENV !== 'development') {
+      this.Init()
+    } else {
+      this.loadingDone = true
+    }
   },
   mounted() {
-    this.handleNext()
+    if (process.env.NODE_ENV === 'development') {
+      this.handleNext()
+    }
   },
   methods: {
     InitBasic() {
@@ -208,7 +215,6 @@ export default {
       this.style.mid.height = window.innerWidth * 1334 / 750 + 'px'
     },
     handleNext() {
-      this.loadingDone = true
       this.getInfoById()
       this.handleDrawCircleLeftBase()
       this.handleDrawCircleLeftMin()
@@ -242,17 +248,17 @@ export default {
         localStorage.setItem('wc_shemen', JSON.stringify(storeData))
       }
 
-      console.log(window.location.href)
+      // console.log(window.location.href)
       let now_url = encodeURIComponent(String(window.location.href))
 
-      console.dir(now_url)
+      // console.dir(now_url)
       let redirct_url =
         process.env.WX_API +
         '/wx/officialAccount/oauth?url=' +
         now_url +
         '&scope=snsapi_userinfo'
       // 这狗娘养的参数必须拼在后面
-      console.dir(redirct_url)
+      // console.dir(redirct_url)
       window.location.href = redirct_url
     },
     getUserData() {
@@ -262,8 +268,10 @@ export default {
         String(this.$route.query.game_id)
 
       this.$http.get(rq, { withCredentials: true }).then(r => {
-        console.dir(r)
+        // console.dir(r)
         if (r.data.hasOwnProperty('data')) {
+          this.loadingDone = true
+          this.gamerst = r.data.data.games.played
           let score = r.data.data.games
           this.score = score.total.score
           this.player = Math.floor(Math.random() * (1000 - 1) + 1)
@@ -427,22 +435,36 @@ export default {
     },
     SwitchMenu(index) {
       this.control.currentMenu = index
-      if (index === 0) {
+      let starfuse = {},
+        hijiu = {}
+      for (let item of this.gamerst) {
+        if (item.belong === 'starfuse') {
+          starfuse.id = item.id
+          starfuse.people_id = item.people_id
+        }
+        if (item.belong === 'hijiu') {
+          hijiu.id = item.id
+          hijiu.people_id = item.people_id
+        }
+      }
+      if (index === 0 && starfuse.hasOwnProperty('id')) {
         let new_url =
           window.location.origin +
           '/marketing/wc_card?id=' +
-          String(this.gamerst.init.people_id) +
+          String(starfuse.people_id) +
           '&game_id=' +
-          this.gamerst.init.id
+          String(starfuse.id)
         window.location.href = new_url
-      } else if (index === 2) {
+      } else if (index === 2 && hijiu.hasOwnProperty('id')) {
         let new_url =
           window.location.origin +
           '/marketing/wc_hj?id=' +
-          String(this.gamerst.init.people_id) +
+          String(hijiu.people_id) +
           '&game_id=' +
-          this.gamerst.init.id
+          String(hijiu.id)
         window.location.href = new_url
+      } else {
+        Toast('你还没有玩过这个游戏')
       }
     }
   },
@@ -485,17 +507,19 @@ export default {
         },
         headScore: {
           position: 'absolute',
-          top: window.innerWidth * 10 / 750 + 'px',
-          right: window.innerWidth * 260 / 750 + 'px',
-          width: '30px',
+          top: wiw * 8 / 750 + 'px',
+          right: wiw * 260 / 750 + 'px',
+          width: wiw * 0.08 + 'px',
+          height: wiw * 0.034 + 'px',
           display: 'flex',
           zIndex: '30'
         },
         headPlayer: {
           position: 'absolute',
-          top: window.innerWidth * 50 / 750 + 'px',
-          right: window.innerWidth * 340 / 750 + 'px',
-          width: '30px',
+          top: wiw * 45 / 750 + 'px',
+          right: wiw * 340 / 750 + 'px',
+          height: wiw * 0.03 + 'px',
+          width: wiw * 0.08 + 'px',
           display: 'flex',
           zIndex: '30'
         },
@@ -523,8 +547,8 @@ export default {
           display: 'flex'
         }
       },
-      score: 100,
-      player: 1888,
+      score: 1000,
+      player: 100,
       mj: 30,
       tl: 30,
       mjadd: 34,
@@ -532,7 +556,8 @@ export default {
       control: {
         currentMenu: 1
       },
-      title: -1
+      title: -1,
+      gamerst: null
     }
   }
 }
