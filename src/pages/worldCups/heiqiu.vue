@@ -295,7 +295,7 @@ export default {
     },
     SwitchMenu(index) {
       this.control.currentMenu = index
-      let starfuse,
+      let starfuse = {},
         football = {}
       for (let item of this.gamerst) {
         if (item.belong === 'starfuse') {
