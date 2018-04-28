@@ -34,11 +34,10 @@
         <div
           class="item-numbers">
           <img
-          :style="style.number" 
-          :src="baseUrl + '1.png'" />
-        <img
-          :style="style.number" 
-          :src="baseUrl + '0.png'" />
+            v-for="(item, index) in String(bindData.l)"
+            :key="index"
+            :style="style.number" 
+            :src="baseUrl + item + '.png'" />
         </div>
         <img 
            :style="style.numberLabel" 
@@ -47,7 +46,17 @@
       <div
         :style="style.balanceItem" 
         :class="{'balance-item p':control.r === 1, 'balance-item':control.r === 0}">
-
+        <div
+          class="item-numbers">
+          <img
+            v-for="(item, index) in String(bindData.r)"
+            :key="index"
+            :style="style.number" 
+            :src="baseUrl + item + '.png'" />
+        </div>
+        <img 
+           :style="style.numberLabel" 
+           :src="baseUrl + 'balance.png'" />
       </div>
 
     </div>
@@ -73,12 +82,7 @@ export default {
     const baseUrl =
       'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup/heijiu/'
     return {
-      loadingDone: true,
-      wxShareInfoValue: {
-        title: '万达陪你“美”一天',
-        desc: '唯万达 更懂你',
-        imgUrl: ''
-      },
+      loadingDone: false,
       style: {
         root: {
           width: wiw + 'px',
@@ -129,10 +133,6 @@ export default {
         control: {
           l: false,
           r: false
-        },
-        bindData: {
-          l: null,
-          r: null
         }
       },
       baseUrl:
@@ -141,7 +141,11 @@ export default {
         l: 0,
         r: 0
       },
-      bindImage: ''
+      bindImage: '',
+      bindData: {
+        l: 0,
+        r: 0
+      }
     }
   },
   created() {
@@ -156,6 +160,7 @@ export default {
       }
     }
     document.title = '嗨啾'
+    // this.handleNext()
   },
   methods: {
     handleAuth() {
@@ -210,8 +215,8 @@ export default {
     handleNext() {
       this.loadingDone = true
       this.getInfoById()
-      let ltime = Int(this.bindData.l / 100 * 10000)
-      let rtime = Int(this.bindData.r / 100 * 10000)
+      let ltime = parseInt(this.bindData.l / 100 * 10000)
+      let rtime = parseInt(this.bindData.r / 100 * 10000)
 
       setTimeout(() => {
         this.control.l = 1
