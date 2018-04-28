@@ -149,20 +149,23 @@ export default {
     }
   },
   created() {
-    if (localStorage.getItem('wc_heijiu') === null) {
-      this.handleAuth()
-    } else {
-      let wc_store = JSON.parse(localStorage.getItem('wc_heijiu'))
-      if (!wc_store.game_ids.includes(String(this.$route.query.game_id))) {
-        this.handleAuth()
-      } else {
-        this.getUserData()
-      }
-    }
-    document.title = '嗨啾'
+    this.Init()
     // this.handleNext()
   },
   methods: {
+    Init() {
+      if (localStorage.getItem('wc_heijiu') === null) {
+        this.handleAuth()
+      } else {
+        let wc_store = JSON.parse(localStorage.getItem('wc_heijiu'))
+        if (!wc_store.game_ids.includes(String(this.$route.query.game_id))) {
+          this.handleAuth()
+        } else {
+          this.getUserData()
+        }
+      }
+      document.title = '嗨啾'
+    },
     handleAuth() {
       if (localStorage.getItem('wc_heijiu') === null) {
         let storeData = {
@@ -206,9 +209,23 @@ export default {
           this.handleNext()
         } else {
           Indicator.open()
-          setTimeout(() => {
-            location.reload()
-          }, 2000)
+          if (localStorage.getItem('wc_heijiu') !== null) {
+            let storeData = JSON.parse(localStorage.getItem('wc_heijiu'))
+            if (storeData.hasOwnProperty('try_times')) {
+              if (storeData.try_times > 2) {
+                Toast('数据生成中，请稍后刷新')
+                delete storeData.try_times
+              } else {
+                storeData.try_times = storeData.try_times + 1
+                setTimeout(() => {
+                  location.reload()
+                }, 2000)
+              }
+            } else {
+              storeData.try_times = 1
+            }
+            localStorage.setItem('wc_heijiu', JSON.stringify(storeData))
+          }
         }
       })
     },
