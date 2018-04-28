@@ -43,7 +43,7 @@
 import { Toast } from 'mint-ui'
 import { isWeixin } from '../../modules/util'
 const wx = require('weixin-js-sdk')
-import marketService from 'services/marketing'
+// import marketService from 'services/marketing'
 
 export default {
   data() {
@@ -125,25 +125,18 @@ export default {
   },
   mounted() {
     this.handleForbiddenShare()
-    // if (localStorage.getItem('xingstation51act') !== null) {
-    //   let pushData = {
-    //     params: JSON.parse(localStorage.getItem('xingstation51act')),
-    //     name: '51actcp',
-    //     query: {}
-    //   }
-    //   if (this.$route.query.hasOwnProperty('pid') === true) {
-    //     pushData.query.pid = this.$route.query.pid
-    //   }
-    //   this.$router.push(pushData)
-    // }
-    this.handleTrack()
   },
   methods: {
     handleTrack() {
-      marketService
-        .getInfoById(this, this.$route.query.id)
-        .then(res => {})
-        .catch(err => {})
+      let url =
+        'http://exelook.com/client/goodsxsd/?id=' +
+        String(this.$route.query.id) +
+        '&mobile=' +
+        String(this.bindPhoneNumber) +
+        '&api=json'
+      this.$http.get(url).then(r => {
+        console.log('ok')
+      })
     },
     handleForbiddenShare() {
       if (isWeixin() === true) {
@@ -179,6 +172,7 @@ export default {
         this.phoneError = true
         return
       } else {
+        this.handleTrack()
         this.checkCoupon()
       }
     },
