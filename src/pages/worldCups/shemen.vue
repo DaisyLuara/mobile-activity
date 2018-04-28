@@ -189,17 +189,18 @@
 import marketService from 'services/marketing'
 import { Toast, Indicator } from 'mint-ui'
 import GameMenu from './components/gameMenu'
+const wcw = window.clientWidth
 export default {
   components: {
     GameMenu
   },
   created() {
-    // this.InitBasic()
+    this.InitBasic()
 
-    this.Init()
+    // this.Init()
   },
   mounted() {
-    // this.handleNext()
+    this.handleNext()
   },
   methods: {
     InitBasic() {
@@ -629,12 +630,14 @@ export default {
   .root-header {
     flex-grow: 1;
     flex-shrink: 1;
+    position: relative;
     width: 100%;
     background-color: black;
   }
   .root-footer {
     flex-grow: 1;
     flex-shrink: 1;
+    position: relative;
     width: 100%;
     background-color: black;
   }
