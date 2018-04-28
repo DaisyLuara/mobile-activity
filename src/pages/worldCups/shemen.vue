@@ -448,7 +448,7 @@ export default {
   },
   data() {
     return {
-      loadingDone: true,
+      loadingDone: false,
       bindImage: null,
       baseUrl:
         'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup/',
