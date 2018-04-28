@@ -463,6 +463,8 @@ export default {
           '&game_id=' +
           String(hijiu.id)
         window.location.href = new_url
+      } else if (index === 1) {
+        return
       } else {
         Toast('你还没有玩过这个游戏')
       }

@@ -323,6 +323,8 @@ export default {
           '&game_id=' +
           String(football.id)
         window.location.href = new_url
+      } else if (index === 2) {
+        return
       } else {
         Toast('你还没有玩过这个游戏')
       }
