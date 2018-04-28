@@ -195,12 +195,12 @@ export default {
     GameMenu
   },
   created() {
-    this.InitBasic()
+    // this.InitBasic()
 
-    // this.Init()
+    this.Init()
   },
   mounted() {
-    this.handleNext()
+    // this.handleNext()
   },
   methods: {
     InitBasic() {
