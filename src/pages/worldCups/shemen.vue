@@ -1,10 +1,11 @@
 <template>
   <div 
+    v-if="loadingDone === true"
     :style="style.root"
     class="root-sm">
 
     <!-- photo press to save -->
-    <img src="" class="root-real-photo" />
+    <img :src="bindImage" class="root-real-photo" />
 
     <div class="root-head-img">
 
@@ -49,7 +50,9 @@
       class="root-mid">
 
       <!-- cover photo -->
-      <img src="" />
+      <img
+        class="mid-photo" 
+        :src="bindImage" />
 
       <div class="mid-l-s">
       </div>
@@ -131,18 +134,119 @@
 </template>
 
 <script>
+import marketService from 'services/marketing'
+import { Toast, Indicator } from 'mint-ui'
+import GameMenu from './components/gameMenu'
 export default {
+  components: {
+    GameMenu
+  },
   created() {
-    document.title = '吹气射门'
-    this.style.mid.height = window.innerWidth * 1334 / 750 + 'px'
+    this.InitBasic()
+
+    // this.Init()
   },
   mounted() {
-    this.handleDrawCircleLeftBase()
-    this.handleDrawCircleLeftMin()
-    this.handleDrawCircleRightBase()
-    this.handleDrawCircleRightMin()
+    this.handleNext()
   },
   methods: {
+    InitBasic() {
+      document.title = '吹气射门'
+      this.style.mid.height = window.innerWidth * 1334 / 750 + 'px'
+    },
+    handleNext() {
+      this.loadingDone = true
+      this.getInfoById()
+      this.handleDrawCircleLeftBase()
+      this.handleDrawCircleLeftMin()
+      this.handleDrawCircleRightBase()
+      this.handleDrawCircleRightMin()
+    },
+    Init() {
+      if (localStorage.getItem('wc_shemen') === null) {
+        this.handleAuth()
+      } else {
+        let wc_store = JSON.parse(localStorage.getItem('wc_shemen'))
+        if (!wc_store.game_ids.includes(String(this.$route.query.game_id))) {
+          this.handleAuth()
+        } else {
+          this.getUserData()
+        }
+      }
+    },
+    handleAuth() {
+      if (localStorage.getItem('wc_shemen') === null) {
+        let storeData = {
+          game_ids: [],
+          id: this.$route.query.id
+        }
+        storeData.game_ids.push(String(this.$route.query.game_id))
+        localStorage.setItem('wc_shemen', JSON.stringify(storeData))
+      } else {
+        let storeData = JSON.parse(localStorage.getItem('wc_shemen'))
+        storeData.game_ids.push(String(this.$route.query.game_id))
+        storeData.id = this.$route.query.id
+        localStorage.setItem('wc_shemen', JSON.stringify(storeData))
+      }
+
+      console.log(window.location.href)
+      let now_url = encodeURIComponent(String(window.location.href))
+
+      console.dir(now_url)
+      let redirct_url =
+        process.env.WX_API +
+        '/wx/officialAccount/oauth?url=' +
+        now_url +
+        '&scope=snsapi_userinfo'
+      // 这狗娘养的参数必须拼在后面
+      console.dir(redirct_url)
+      window.location.href = redirct_url
+    },
+    getUserData() {
+      let rq =
+        process.env.WX_API +
+        '/wx/officialAccount/user?game_id=' +
+        String(this.$route.query.game_id)
+
+      this.$http.get(rq, { withCredentials: true }).then(r => {
+        console.dir(r)
+        if (r.data.hasOwnProperty('data')) {
+          let score = r.data.data.games
+          this.score = score.total.score
+          this.player = 233
+          this.mjadd = score.total.agile
+          this.tladd = score.total.strength
+          this.mj = parseInt(score.total.agile) - parseInt(score.latest.agile)
+          this.tl =
+            parseInt(score.total.strength) - parseInt(score.latest.strength)
+          this.title = score.total.title
+          this.handleNext()
+        } else {
+          Indicator.open()
+          if (localStorage.getItem('wc_shemen') !== null) {
+            let storeData = JSON.parse(localStorage.getItem('wc_shemen'))
+            if (storeData.hasOwnProperty('try_times')) {
+              if (storeData.try_times > 2) {
+                Toast('数据生成中，请稍后刷新')
+                delete storeData.try_times
+              } else {
+                storeData.try_times = storeData.try_times + 1
+                localStorage.setItem('wc_shemen', JSON.stringify(storeData))
+                setTimeout(() => {
+                  location.reload()
+                }, 2000)
+              }
+            } else {
+              storeData.try_times = 1
+              localStorage.setItem('wc_shemen', JSON.stringify(storeData))
+              setTimeout(() => {
+                location.reload()
+              }, 2000)
+            }
+          }
+        }
+      })
+    },
     processStartAngle(score) {
       return (score - 50) * 3 / 2 * Math.PI
     },
@@ -251,10 +355,28 @@ export default {
       circleObj.endAngle = Math.PI * 3 / 4
       circleObj.color = '#22B5E7'
       this.drawCircle(circleObj)
+    },
+    getInfoById() {
+      if (this.$route.query.hasOwnProperty('id')) {
+        let id = this.$route.query.id
+        let that = this
+        marketService
+          .getInfoById(this, id)
+          .then(res => {
+            that.bindImage = res.image
+          })
+          .catch(err => {
+            Toast('网络错误，请重试')
+          })
+      } else {
+        Toast('没有照片id')
+      }
     }
   },
   data() {
     return {
+      loadingDone: true,
+      bindImage: null,
       baseUrl:
         'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup/',
       style: {
@@ -375,6 +497,10 @@ export default {
     justify-content: center;
     align-items: center;
     position: relative;
+    .mid-photo {
+      z-index: -1;
+      width: 80%;
+    }
     .mid-l-s {
       position: absolute;
       bottom: 0;
