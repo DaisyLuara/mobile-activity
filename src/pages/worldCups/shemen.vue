@@ -437,7 +437,7 @@ export default {
       this.control.currentMenu = index
       let starfuse,
         hijiu = {}
-      for (let item in this.gamerst) {
+      for (let item of this.gamerst) {
         if (item.belong === 'starfuse') {
           starfuse.id = item.id
           starfuse.people_id = item.people_id
