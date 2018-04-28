@@ -2,6 +2,9 @@
   <div class="suning-content">
     <img  class="photo" :src="resultImgUrl" alt=""/> 
     <!--<img  class="photo" :src="imgServerUrl + '/pages/popcorn/Bronze.jpg'" alt=""/>-->
+    <div class="jiantou">
+          <img :src="imgServerUrl + '/pages/concert/A.gif'" alt="" >
+    </div>
     <img  class="save" :src="imgServerUrl + '/pages/suning/Push.png'" alt=""/>
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
@@ -90,15 +93,20 @@ export default {
     width: 40%;
     position: absolute;
     left: 50%;
-    bottom: 5%;
+    bottom: 3%;
     transform: translate(-50%,-50%);
-    animation: opacitySave .8s linear infinite alternate;
   }
-  @keyframes opacitySave {
-    0% {opacity: 0.3}
-    100% {opacity: 1}
-  }
-    
+  .jiantou{
+      width: 100%;
+      position: absolute;
+      left: 0;
+      bottom: 10%;
+        img{
+          width:10%;
+          height:10%;
+        }
+    }
+      
 }
 
 </style>
