@@ -208,6 +208,7 @@ export default {
     if (process.env.NODE_ENV === 'development') {
       this.handleNext()
     }
+    this.getInfoById()
   },
   methods: {
     InitBasic() {
@@ -215,7 +216,6 @@ export default {
       this.style.mid.height = window.innerWidth * 1334 / 750 + 'px'
     },
     handleNext() {
-      this.getInfoById()
       this.handleDrawCircleLeftBase()
       this.handleDrawCircleLeftMin()
       this.handleDrawCircleRightBase()
