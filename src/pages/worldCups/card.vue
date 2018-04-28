@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="loadingDone === true"
     :style="style.root" 
     class="card-root">
       <div 
@@ -179,7 +180,8 @@ export default {
         loadingData: true
       },
       imgUrl: '',
-      gamerst: null
+      gamerst: null,
+      loadingDone: false
     }
   },
   created() {
@@ -246,6 +248,7 @@ export default {
       this.$http.get(rq, { withCredentials: true }).then(r => {
         // console.dir(r)
         if (r.data.hasOwnProperty('data')) {
+          this.loadingDone = true
           let score = r.data.data.games.init
           this.gamerst = r.data.data.games.played
           this.bindData = [
