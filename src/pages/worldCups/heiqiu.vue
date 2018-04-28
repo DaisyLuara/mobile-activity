@@ -176,8 +176,11 @@ export default {
     }
   },
   created() {
-    // this.Init()
-    this.handleNext()
+    if (process.env.NODE_ENV === 'development') {
+      this.handleNext()
+    } else {
+      this.Init()
+    }
   },
   methods: {
     Init() {
