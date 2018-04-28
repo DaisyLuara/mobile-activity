@@ -90,7 +90,7 @@ export default {
     },
     couponCount() {
       let parms = {
-        people_id: this.$route.query.id,
+        face_id: this.$route.query.id,
         coupon_batch_id: this.coupon_id[this.num]
       }
       couponService
