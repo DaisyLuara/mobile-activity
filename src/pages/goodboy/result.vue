@@ -21,6 +21,7 @@
 <script>
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 import marketService from 'services/marketing'
+import couponService from 'services/coupon'
 import WxShare from 'modules/wxShare'
 import { customTrack } from 'modules/customTrack'
 import Mydata from './data.js'
@@ -29,6 +30,12 @@ export default {
     return {
       IMAGE_URL: IMAGE_SERVER + '/pages/goodboy/',
       num: this.$route.query.num,
+      coupon_id: {
+        '1': 35,
+        '19': 36,
+        '99': 37,
+        '129': 38
+      },
       mImg: null,
       textMsg: null,
       imgMsg: null,
@@ -50,6 +57,7 @@ export default {
     this.getInfoById()
     this.textMsg = Mydata[0].textMsg
     this.imgMsg = Mydata[0].imgUrl
+    this.couponCount()
   },
   mounted() {
     var height =
@@ -74,6 +82,20 @@ export default {
         .getInfoById(this, id)
         .then(res => {
           this.mImg = res.image
+          console.log(res)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    couponCount() {
+      let parms = {
+        people_id: this.$route.query.face_id,
+        coupon_batch_id: this.coupon_id[this.num]
+      }
+      couponService
+        .createV5Coupon(this, parms)
+        .then(res => {
           console.log(res)
         })
         .catch(err => {
