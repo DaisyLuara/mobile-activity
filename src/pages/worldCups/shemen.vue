@@ -197,10 +197,10 @@ export default {
   created() {
     this.InitBasic()
 
-    this.Init()
+    // this.Init()
   },
   mounted() {
-    // this.handleNext()
+    this.handleNext()
   },
   methods: {
     InitBasic() {
@@ -539,6 +539,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
+img {
+  width: auto;
+}
 @imgServerUrl: 'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup';
 
 .root-sm {
