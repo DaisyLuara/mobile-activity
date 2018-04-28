@@ -331,6 +331,12 @@ export default new Router({
             import(/* webpackChunkName: "haoke" */ 'pages/haoke/index.vue')
         },
         {
+          path: 'wc_hj',
+          name: 'worldCupPlanetHeiJiu',
+          component: () =>
+            import(/* webpackChunkName: "worldCupPlanet" */ 'pages/worldCups/heiqiu.vue')
+        },
+        {
           path: 'goodboy',
           name: '好孩子',
           component: () =>
