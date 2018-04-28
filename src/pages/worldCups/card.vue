@@ -257,7 +257,28 @@ export default {
           ]
           this.control.loadingData = false
         } else {
-          // location.reload()
+          Indicator.open()
+          if (localStorage.getItem('wc_card') !== null) {
+            let storeData = JSON.parse(localStorage.getItem('wc_card'))
+            if (storeData.hasOwnProperty('try_times')) {
+              if (storeData.try_times > 2) {
+                Toast('数据生成中，请稍后刷新')
+                delete storeData.try_times
+              } else {
+                storeData.try_times = storeData.try_times + 1
+                localStorage.setItem('wc_card', JSON.stringify(storeData))
+                setTimeout(() => {
+                  location.reload()
+                }, 2000)
+              }
+            } else {
+              storeData.try_times = 1
+              localStorage.setItem('wc_card', JSON.stringify(storeData))
+              setTimeout(() => {
+                location.reload()
+              }, 2000)
+            }
+          }
         }
       })
     },
@@ -330,6 +351,8 @@ export default {
           '&game_id=' +
           String(hijiu.id)
         window.location.href = new_url
+      } else if (index === 0) {
+        return
       } else {
         Toast('你还没有玩过这个游戏')
       }
