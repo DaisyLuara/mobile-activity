@@ -20,8 +20,8 @@
       <div 
         :style="style.headScore"
         class="head-score">
-        <div v-for="(item, index) in score.toString()" :key="index" >
-          <img :src="baseUrl + 'df/' + item + '.png'" />
+        <div v-for="(item, index) in score.toString()" :key="index" style="height: 100%">
+          <img style="height: 100%" :src="baseUrl + 'df/' + item + '.png'" />
         </div>
       </div>
 
@@ -29,8 +29,10 @@
         :style="style.headPlayer" 
         class="head-player">
         <div
+          style="height: 100%"
           v-for="(item, index) in player.toString()" :key="index">
           <img
+            style="height: 100%"
             :src="baseUrl + 'df/' + item + '.png'" />
         </div>
       </div>
@@ -189,7 +191,7 @@
 import marketService from 'services/marketing'
 import { Toast, Indicator } from 'mint-ui'
 import GameMenu from './components/gameMenu'
-const wcw = window.clientWidth
+const wiw = window.innerWidth
 export default {
   components: {
     GameMenu
@@ -490,17 +492,19 @@ export default {
         },
         headScore: {
           position: 'absolute',
-          top: window.innerWidth * 10 / 750 + 'px',
-          right: window.innerWidth * 260 / 750 + 'px',
-          width: '30px',
+          top: wiw * 8 / 750 + 'px',
+          right: wiw * 260 / 750 + 'px',
+          width: wiw * 0.08 + 'px',
+          height: wiw * 0.034 + 'px',
           display: 'flex',
           zIndex: '30'
         },
         headPlayer: {
           position: 'absolute',
-          top: window.innerWidth * 50 / 750 + 'px',
-          right: window.innerWidth * 340 / 750 + 'px',
-          width: '30px',
+          top: wiw * 45 / 750 + 'px',
+          right: wiw * 340 / 750 + 'px',
+          height: wiw * 0.03 + 'px',
+          width: wiw * 0.08 + 'px',
           display: 'flex',
           zIndex: '30'
         },
@@ -528,8 +532,8 @@ export default {
           display: 'flex'
         }
       },
-      score: 100,
-      player: 1888,
+      score: 1000,
+      player: 100,
       mj: 30,
       tl: 30,
       mjadd: 34,
