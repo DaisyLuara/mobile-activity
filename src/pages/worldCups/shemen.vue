@@ -1,12 +1,18 @@
 <template>
   <div 
+    v-if="loadingDone === true"
     :style="style.root"
     class="root-sm">
+    <GameMenu />
 
-    <!-- photo press to save -->
-    <img src="" class="root-real-photo" />
+    <img 
+      :src="bindImage" 
+      v-if="control.currentMenu === 1"
+      class="root-real-photo" />
 
-    <div class="root-head-img">
+    <div 
+      v-if="control.currentMenu === 1"
+      class="root-head-img">
 
       <img :src="this.baseUrl + 'sm-header.png'" />
 
@@ -42,88 +48,137 @@
       </div>
     </div>
 
+
     <div class="root-header" />
 
     <div 
       :style="style.mid"
-      class="root-mid">
+      :class="{'root-mid hasBg':control.currentMenu === 1, 'root-mid offBg': control.currentMenu !== 1}">
 
-      <!-- cover photo -->
-      <img src="" />
-
-      <div class="mid-l-s">
-      </div>
-
-
-      <div class="mid-r-s">
-      </div>
-
-
+      <!-- 1 -->
       <div 
-        class="mid-mj"
-        :style="style.mj">
+        v-if="control.currentMenu === 1"
+        class="mid-game">
+        <!-- cover photo -->
         <img
-          style="position: absolute; z-index: 20"
-          :src="this.baseUrl + 'sm-mj.png'" />
+          class="mid-photo" 
+          :src="bindImage" />
 
-        <canvas 
-          style="width: 100%; z-index: 20; position: absolute"
-          id="canvas-left" />
-
-        <canvas
-          style="width: 100%; z-index: 30; position: absolute"
-          id="canvas-left-min" />
-          
-        <div
-          :style="style.mj1">
-          <span
-          style="display:inline-block"
-          v-for="(item, index) in this.mj.toString()"
-          :key="index">
-            <img 
-            :src="baseUrl + 'mt/' + item + '.png'" />
-          </span>
-        </div>
-      </div>
-
-      <div
-        class="mid-tl"
-        :style="style.tl">
-        <img
-          style="position: absolute; z-index: 20" 
-          :src="this.baseUrl + 'sm-tl.png'" />
-
-        <canvas 
-          style="width: 100%; z-index: 20; position: absolute"
-          id="canvas-right" />
-
-        <canvas
-          style="width: 100%; z-index: 30; position: absolute"
-          id="canvas-right-min" />
-        <div
-          :style="style.tl1">
-          <span
-          style="display:inline-block"
-          v-for="(item, index) in this.tl.toString()"
-          :key="index">
-            <img 
-            :src="baseUrl + 'mt/' + item + '.png'" />
-          </span>
+        <div class="mid-l-s">
         </div>
 
-      </div>
+
+        <div class="mid-r-s">
+        </div>
 
 
-      <img
-        class="mid-card"
-        :style="style.card"
-        :src="this.baseUrl + 'sm-card.png'" />
+        <div 
+          class="mid-mj"
+          :style="style.mj">
+          <img
+            style="position: absolute; z-index: 20"
+            :src="this.baseUrl + 'sm-mj.png'" />
 
-      <img
-        class="mid-card-text"
-        :style="style.cardText"
-        :src="this.baseUrl + 'word-1.png'" />
+          <canvas 
+            style="width: 100%; z-index: 20; position: absolute"
+            id="canvas-left" />
+
+          <canvas
+            style="width: 100%; z-index: 30; position: absolute"
+            id="canvas-left-min" />
+            
+          <div
+            :style="style.mj1">
+            <span
+            style="display:inline-block"
+            v-for="(item, index) in this.mj.toString()"
+            :key="index">
+              <img 
+              :src="baseUrl + 'mt/' + item + '.png'" />
+            </span>
+          </div>
+        </div>
+
+        <div
+          class="mid-tl"
+          :style="style.tl">
+          <img
+            style="position: absolute; z-index: 20" 
+            :src="this.baseUrl + 'sm-tl.png'" />
+
+          <canvas 
+            style="width: 100%; z-index: 20; position: absolute"
+            id="canvas-right" />
+
+          <canvas
+            style="width: 100%; z-index: 30; position: absolute"
+            id="canvas-right-min" />
+          <div
+            :style="style.tl1">
+            <span
+            style="display:inline-block"
+            v-for="(item, index) in this.tl.toString()"
+            :key="index">
+              <img 
+              :src="baseUrl + 'mt/' + item + '.png'" />
+            </span>
+          </div>
+
+        </div>
+
+
+        <img
+          class="mid-card"
+          :style="style.card"
+          :src="this.baseUrl + 'sm-card.png'" />
+
+        <img
+          v-if="this.title === 0"
+          class="mid-card-text"
+          :style="style.cardText"
+          :src="this.baseUrl + 'word-1.png'" />
+
+        <img
+          v-if="this.title === 1"
+          class="mid-card-text"
+          :style="style.cardText"
+          :src="this.baseUrl + 'word-2.png'" />
+
+        <img
+          v-if="this.title === 2"
+          class="mid-card-text"
+          :style="style.cardText"
+          :src="this.baseUrl + 'word-3.png'" />
+
+        <img
+          v-if="this.title === 3"
+          class="mid-card-text"
+          :style="style.cardText"
+          :src="this.baseUrl + 'word-4.png'" />
+
+        <img
+          v-if="this.title === 4"
+          class="mid-card-text"
+          :style="style.cardText"
+          :src="this.baseUrl + 'word-5.png'" />
+
+        <img
+          v-if="this.title < 0 || this.title > 4"
+          class="mid-card-text"
+          :style="style.cardText"
+          :src="this.baseUrl + 'word-5.png'" />
       
+      </div>
+
+      <!-- 3 -->
+      <div
+        class="mid-game"
+        style="width: 80%"
+        v-if="control.currentMenu === 3">
+        <img 
+          class="rule-img"
+          src="https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup/card/rule.png" />
+      </div>
     </div>
 
     <div class="root-footer" />
@@ -131,18 +186,120 @@
 </template>
 
 <script>
+import marketService from 'services/marketing'
+import { Toast, Indicator } from 'mint-ui'
+import GameMenu from './components/gameMenu'
+const wcw = window.clientWidth
 export default {
+  components: {
+    GameMenu
+  },
   created() {
-    document.title = '吹气射门'
-    this.style.mid.height = window.innerWidth * 1334 / 750 + 'px'
+    this.InitBasic()
+
+    // this.Init()
   },
   mounted() {
-    this.handleDrawCircleLeftBase()
-    this.handleDrawCircleLeftMin()
-    this.handleDrawCircleRightBase()
-    this.handleDrawCircleRightMin()
+    this.handleNext()
   },
   methods: {
+    InitBasic() {
+      document.title = '吹气射门'
+      this.style.mid.height = window.innerWidth * 1334 / 750 + 'px'
+    },
+    handleNext() {
+      this.loadingDone = true
+      this.getInfoById()
+      this.handleDrawCircleLeftBase()
+      this.handleDrawCircleLeftMin()
+      this.handleDrawCircleRightBase()
+      this.handleDrawCircleRightMin()
+    },
+    Init() {
+      if (localStorage.getItem('wc_shemen') === null) {
+        this.handleAuth()
+      } else {
+        let wc_store = JSON.parse(localStorage.getItem('wc_shemen'))
+        if (!wc_store.game_ids.includes(String(this.$route.query.game_id))) {
+          this.handleAuth()
+        } else {
+          this.getUserData()
+        }
+      }
+    },
+    handleAuth() {
+      if (localStorage.getItem('wc_shemen') === null) {
+        let storeData = {
+          game_ids: [],
+          id: this.$route.query.id
+        }
+        storeData.game_ids.push(String(this.$route.query.game_id))
+        localStorage.setItem('wc_shemen', JSON.stringify(storeData))
+      } else {
+        let storeData = JSON.parse(localStorage.getItem('wc_shemen'))
+        storeData.game_ids.push(String(this.$route.query.game_id))
+        storeData.id = this.$route.query.id
+        localStorage.setItem('wc_shemen', JSON.stringify(storeData))
+      }
+
+      console.log(window.location.href)
+      let now_url = encodeURIComponent(String(window.location.href))
+
+      console.dir(now_url)
+      let redirct_url =
+        process.env.WX_API +
+        '/wx/officialAccount/oauth?url=' +
+        now_url +
+        '&scope=snsapi_userinfo'
+      // 这狗娘养的参数必须拼在后面
+      console.dir(redirct_url)
+      window.location.href = redirct_url
+    },
+    getUserData() {
+      let rq =
+        process.env.WX_API +
+        '/wx/officialAccount/user?game_id=' +
+        String(this.$route.query.game_id)
+
+      this.$http.get(rq, { withCredentials: true }).then(r => {
+        console.dir(r)
+        if (r.data.hasOwnProperty('data')) {
+          let score = r.data.data.games
+          this.score = score.total.score
+          this.player = Math.floor(Math.random() * (1000 - 1) + 1)
+          this.mjadd = score.total.agile
+          this.tladd = score.total.strength
+          this.mj = parseInt(score.total.agile) - parseInt(score.latest.agile)
+          this.tl =
+            parseInt(score.total.strength) - parseInt(score.latest.strength)
+          this.title = Math.floor(Math.random() * (5 - 1) + 1)
+          this.handleNext()
+        } else {
+          Indicator.open()
+          if (localStorage.getItem('wc_shemen') !== null) {
+            let storeData = JSON.parse(localStorage.getItem('wc_shemen'))
+            if (storeData.hasOwnProperty('try_times')) {
+              if (storeData.try_times > 2) {
+                Toast('数据生成中，请稍后刷新')
+                delete storeData.try_times
+              } else {
+                storeData.try_times = storeData.try_times + 1
+                localStorage.setItem('wc_shemen', JSON.stringify(storeData))
+                setTimeout(() => {
+                  location.reload()
+                }, 2000)
+              }
+            } else {
+              storeData.try_times = 1
+              localStorage.setItem('wc_shemen', JSON.stringify(storeData))
+              setTimeout(() => {
+                location.reload()
+              }, 2000)
+            }
+          }
+        }
+      })
+    },
     processStartAngle(score) {
       return (score - 50) * 3 / 2 * Math.PI
     },
@@ -251,10 +408,48 @@ export default {
       circleObj.endAngle = Math.PI * 3 / 4
       circleObj.color = '#22B5E7'
       this.drawCircle(circleObj)
+    },
+    getInfoById() {
+      if (this.$route.query.hasOwnProperty('id')) {
+        let id = this.$route.query.id
+        let that = this
+        marketService
+          .getInfoById(this, id)
+          .then(res => {
+            that.bindImage = res.image
+          })
+          .catch(err => {
+            Toast('网络错误，请重试')
+          })
+      } else {
+        Toast('没有照片id')
+      }
+    },
+    SwitchMenu(index) {
+      this.control.currentMenu = index
+      if (index === 0) {
+        let new_url =
+          window.location.origin +
+          '/marketing/wc_card?id=' +
+          String(this.gamerst.init.people_id) +
+          '&game_id=' +
+          this.gamerst.init.id
+        window.location.href = new_url
+      } else if (index === 2) {
+        let new_url =
+          window.location.origin +
+          '/marketing/wc_hj?id=' +
+          String(this.gamerst.init.people_id) +
+          '&game_id=' +
+          this.gamerst.init.id
+        window.location.href = new_url
+      }
     }
   },
   data() {
     return {
+      loadingDone: false,
+      bindImage: null,
       baseUrl:
         'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup/',
       style: {
@@ -333,13 +528,20 @@ export default {
       mj: 30,
       tl: 30,
       mjadd: 34,
-      tladd: 45
+      tladd: 45,
+      control: {
+        currentMenu: 1
+      },
+      title: -1
     }
   }
 }
 </script>
 
 <style lang="less" scoped>
+img {
+  width: auto;
+}
 @imgServerUrl: 'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup';
 
 .root-sm {
@@ -353,7 +555,7 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 80%;
     height: 100%;
     z-index: 1000;
     opacity: 0;
@@ -369,52 +571,76 @@ export default {
     flex-grow: 0;
     flex-shrink: 0;
     display: flex;
-    background-image: url('@{imgServerUrl}/sm-bg.png');
+    &.hasBg {
+      background-image: url('@{imgServerUrl}/sm-bg.png');
+    }
+    &.offBg {
+      background-color: black;
+    }
     background-size: contain;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
-    .mid-l-s {
-      position: absolute;
-      bottom: 0;
-      width: 100px;
-      height: 100px;
-      z-index: 20;
-      .circle {
-        stroke: rgb(53, 157, 218);
-        stroke-width: 5;
-        fill: none;
+    .mid-game {
+      width: 100%;
+      height: 100%;
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      .rule-img {
+        width: 80%;
+      }
+      .mid-photo {
+        z-index: -1;
+        width: 80%;
+      }
+      .mid-l-s {
+        position: absolute;
+        bottom: 0;
+        width: 100px;
+        height: 100px;
+        z-index: 20;
+        .circle {
+          stroke: rgb(53, 157, 218);
+          stroke-width: 5;
+          fill: none;
+        }
+      }
+      .mid-mj {
+        position: absolute;
+        bottom: 37.2%;
+        left: 7%;
+      }
+      .mid-tl {
+        position: absolute;
+        bottom: 37.2%;
+        right: 7%;
+      }
+      .mid-card {
+        position: absolute;
+        bottom: -22%;
+      }
+      .mid-card-text {
+        position: absolute;
+        bottom: -22%;
       }
     }
-    .mid-mj {
-      position: absolute;
-      bottom: 37.2%;
-      left: 7%;
-    }
-    .mid-tl {
-      position: absolute;
-      bottom: 37.2%;
-      right: 7%;
-    }
-    .mid-card {
-      position: absolute;
-      bottom: -22%;
-    }
-    .mid-card-text {
-      position: absolute;
-      bottom: -22%;
-    }
   }
+
   .root-header {
     flex-grow: 1;
     flex-shrink: 1;
+    position: relative;
     width: 100%;
     background-color: black;
   }
   .root-footer {
     flex-grow: 1;
     flex-shrink: 1;
+    position: relative;
     width: 100%;
     background-color: black;
   }
