@@ -234,7 +234,7 @@ export default {
         // console.dir(r)
         if (r.data.hasOwnProperty('data')) {
           let score = r.data.data.games.total
-          this.gamerst = r.data.data.games
+          this.gamerst = r.data.data.games.played
           this.bindData.l = Number(score.strength)
           this.bindData.r = Number(score.balance)
           this.handleNext()
@@ -295,22 +295,35 @@ export default {
     },
     SwitchMenu(index) {
       this.control.currentMenu = index
-      if (index === 0) {
+      let starfuse, football
+      for (let item in this.gamerst) {
+        if (item.belong === 'starfuse') {
+          starfuse.id = item.id
+          starfuse.people_id = item.people_id
+        }
+        if (item.belong === 'football') {
+          football.id = item.id
+          football.people_id = item.people_id
+        }
+      }
+      if (index === 0 && starfuse.hasOwnProperty('id')) {
         let new_url =
           window.location.origin +
           '/marketing/wc_card?id=' +
-          String(this.gamerst.init.people_id) +
+          String(starfuse.people_id) +
           '&game_id=' +
-          this.gamerst.init.id
+          String(starfuse.id)
         window.location.href = new_url
-      } else if (index === 1) {
+      } else if (index === 1 && football.hasOwnProperty('id')) {
         let new_url =
           window.location.origin +
           '/marketing/wc_shemen?id=' +
-          String(this.gamerst.init.people_id) +
+          String(football.people_id) +
           '&game_id=' +
-          this.gamerst.init.id
+          String(football.id)
         window.location.href = new_url
+      } else {
+        Toast('你还没有玩过这个游戏')
       }
     }
   }
