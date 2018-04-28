@@ -178,7 +178,8 @@ export default {
         currentMenu: 0,
         loadingData: true
       },
-      imgUrl: ''
+      imgUrl: '',
+      gamerst: null
     }
   },
   created() {
@@ -246,6 +247,7 @@ export default {
         console.dir(r)
         if (r.data.hasOwnProperty('data')) {
           let score = r.data.data.games.init
+          this.gamerst = r.data.data.games.played
           this.bindData = [
             ['point1', Number(score.intelligence)],
             ['point2', Number(score.strength)],
@@ -296,6 +298,36 @@ export default {
     },
     SwitchMenu(index) {
       this.control.currentMenu = index
+      let football, hijiu
+      for (let item in this.gamerst) {
+        if (item.belong === 'football') {
+          football.id = item.id
+          football.people_id = item.people_id
+        }
+        if (item.belong === 'hijiu') {
+          hijiu.id = item.id
+          hijiu.people_id = item.people_id
+        }
+      }
+      if (index === 0 && football.hasOwnProperty('id')) {
+        let new_url =
+          window.location.origin +
+          '/marketing/wc_shemen?id=' +
+          String(football.people_id) +
+          '&game_id=' +
+          String(football.id)
+        window.location.href = new_url
+      } else if (index === 2 && hijiu.hasOwnProperty('id')) {
+        let new_url =
+          window.location.origin +
+          '/marketing/wc_hj?id=' +
+          String(hijiu.people_id) +
+          '&game_id=' +
+          String(hijiu.id)
+        window.location.href = new_url
+      } else {
+        Toast('你还没有玩过这个游戏')
+      }
     }
   }
 }

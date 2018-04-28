@@ -271,6 +271,7 @@ export default {
         console.dir(r)
         if (r.data.hasOwnProperty('data')) {
           this.loadingDone = true
+          this.gamerst = r.data.data.games.played
           let score = r.data.data.games
           this.score = score.total.score
           this.player = Math.floor(Math.random() * (1000 - 1) + 1)
@@ -434,22 +435,35 @@ export default {
     },
     SwitchMenu(index) {
       this.control.currentMenu = index
-      if (index === 0) {
+      let starfuse, hijiu
+      for (let item in this.gamerst) {
+        if (item.belong === 'starfuse') {
+          starfuse.id = item.id
+          starfuse.people_id = item.people_id
+        }
+        if (item.belong === 'hijiu') {
+          hijiu.id = item.id
+          hijiu.people_id = item.people_id
+        }
+      }
+      if (index === 0 && starfuse.hasOwnProperty('id')) {
         let new_url =
           window.location.origin +
           '/marketing/wc_card?id=' +
-          String(this.gamerst.init.people_id) +
+          String(starfuse.people_id) +
           '&game_id=' +
-          this.gamerst.init.id
+          String(starfuse.id)
         window.location.href = new_url
-      } else if (index === 2) {
+      } else if (index === 2 && hijiu.hasOwnProperty('id')) {
         let new_url =
           window.location.origin +
           '/marketing/wc_hj?id=' +
-          String(this.gamerst.init.people_id) +
+          String(hijiu.people_id) +
           '&game_id=' +
-          this.gamerst.init.id
+          String(hijiu.id)
         window.location.href = new_url
+      } else {
+        Toast('你还没有玩过这个游戏')
       }
     }
   },
@@ -541,7 +555,8 @@ export default {
       control: {
         currentMenu: 1
       },
-      title: -1
+      title: -1,
+      gamerst: null
     }
   }
 }
