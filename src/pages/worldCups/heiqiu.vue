@@ -295,10 +295,10 @@ export default {
       if (index === 1) {
         let new_url =
           window.location.origin +
-            '/marketing/wc_card?id=' +
-            String(this.gamerst.id) +
-            '&game_id=' +
-            this.gamerst.init.id || this.gamerst.init.game_id
+          '/marketing/wc_card?id=' +
+          String(this.gamerst.init.people_id) +
+          '&game_id=' +
+          this.gamerst.init.id
         window.location.href = new_url
       }
     }
