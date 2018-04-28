@@ -300,7 +300,7 @@ export default {
       this.control.currentMenu = index
       let hijiu,
         football = {}
-      for (let item in this.gamerst) {
+      for (let item of this.gamerst) {
         if (item.belong === 'football') {
           football.id = item.id
           football.people_id = item.people_id
