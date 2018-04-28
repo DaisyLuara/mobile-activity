@@ -196,11 +196,16 @@ export default {
   },
   created() {
     this.InitBasic()
-
-    // this.Init()
+    if (process.env.NODE_ENV !== 'development') {
+      this.Init()
+    } else {
+      this.loadingDone = true
+    }
   },
   mounted() {
-    this.handleNext()
+    if (process.env.NODE_ENV === 'development') {
+      this.handleNext()
+    }
   },
   methods: {
     InitBasic() {
@@ -208,7 +213,6 @@ export default {
       this.style.mid.height = window.innerWidth * 1334 / 750 + 'px'
     },
     handleNext() {
-      this.loadingDone = true
       this.getInfoById()
       this.handleDrawCircleLeftBase()
       this.handleDrawCircleLeftMin()
@@ -264,6 +268,7 @@ export default {
       this.$http.get(rq, { withCredentials: true }).then(r => {
         console.dir(r)
         if (r.data.hasOwnProperty('data')) {
+          this.loadingDone = true
           let score = r.data.data.games
           this.score = score.total.score
           this.player = Math.floor(Math.random() * (1000 - 1) + 1)
