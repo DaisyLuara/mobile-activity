@@ -292,7 +292,7 @@ export default {
     },
     SwitchMenu(index) {
       this.control.currentMenu = index
-      if (index === 1) {
+      if (index === 0) {
         let new_url =
           window.location.origin +
           '/marketing/wc_card?id=' +
