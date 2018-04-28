@@ -83,11 +83,6 @@ export default {
       'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup/heijiu/'
     return {
       loadingDone: false,
-      wxShareInfoValue: {
-        title: '万达陪你“美”一天',
-        desc: '唯万达 更懂你',
-        imgUrl: ''
-      },
       style: {
         root: {
           width: wiw + 'px',
