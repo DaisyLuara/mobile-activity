@@ -106,7 +106,7 @@ export default {
         root: {
           width: wiw + 'px',
           height: window.innerHeight + 'px',
-          backgroundSize: wiw + 'px ' + '100px'
+          backgroundSize: wiw + 'px '
         },
         power: {
           width: wiw + 'px',
@@ -176,8 +176,8 @@ export default {
     }
   },
   created() {
-    this.Init()
-    // this.handleNext()
+    // this.Init()
+    this.handleNext()
   },
   methods: {
     Init() {
@@ -317,6 +317,7 @@ export default {
   background-size: cover;
   align-items: center;
   position: relative;
+  overflow: hidden;
   z-index: 1;
   .root-game {
     width: 100%;
@@ -326,7 +327,9 @@ export default {
     justify-content: center;
     background-size: contain;
     align-items: center;
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
     .root-topimg {
       position: absolute;
       top: 0;
