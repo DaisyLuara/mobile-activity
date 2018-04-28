@@ -224,17 +224,17 @@ export default {
         localStorage.setItem('wc_card', JSON.stringify(storeData))
       }
 
-      console.log(window.location.href)
+      // console.log(window.location.href)
       let now_url = encodeURIComponent(String(window.location.href))
 
-      console.dir(now_url)
+      // console.dir(now_url)
       let redirct_url =
         process.env.WX_API +
         '/wx/officialAccount/oauth?url=' +
         now_url +
         '&scope=snsapi_userinfo'
       // 这狗娘养的参数必须拼在后面
-      console.dir(redirct_url)
+      // console.dir(redirct_url)
       window.location.href = redirct_url
     },
     getUserData() {
@@ -244,7 +244,7 @@ export default {
         String(this.$route.query.game_id)
 
       this.$http.get(rq, { withCredentials: true }).then(r => {
-        console.dir(r)
+        // console.dir(r)
         if (r.data.hasOwnProperty('data')) {
           let score = r.data.data.games.init
           this.gamerst = r.data.data.games.played
@@ -301,7 +301,7 @@ export default {
       let hijiu = {},
         football = {}
       for (let item of this.gamerst) {
-        console.dir(item)
+        // console.dir(item)
         if (item.belong === 'football') {
           football.id = item.id
           football.people_id = item.people_id
@@ -311,10 +311,10 @@ export default {
           hijiu.people_id = item.people_id
         }
       }
-      console.dir(hijiu)
-      console.dir(football)
+      // console.dir(hijiu)
+      // console.dir(football)
 
-      if (index === 0 && football.hasOwnProperty('id')) {
+      if (index === 1 && football.hasOwnProperty('id')) {
         let new_url =
           window.location.origin +
           '/marketing/wc_shemen?id=' +
