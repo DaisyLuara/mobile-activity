@@ -14,7 +14,7 @@
     </div>
 
 
-    <div class="root-game" v-if="control.currentMenu === 2">
+    <div class="root-game" v-show="control.currentMenu === 2">
       <!-- top img -->
       <img 
         class="root-topimg"
@@ -314,7 +314,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-size: contain;
+  background-size: cover;
   align-items: center;
   position: relative;
   z-index: 1;
