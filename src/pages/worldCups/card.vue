@@ -290,7 +290,11 @@ export default {
         marketService
           .getInfoById(this, this.$route.query.id)
           .then(res => {
-            this.imgUrl = res.code
+            if (res.code !== null) {
+              this.imgUrl = res.code
+            } else {
+              this.imgUrl = res.image
+            }
           })
           .catch(err => {
             Toast(err)
@@ -301,7 +305,11 @@ export default {
         marketService
           .getInfoById(this, JSON.parse(localStorage.getItem('wc_card')).id)
           .then(res => {
-            this.imgUrl = res.code
+            if (res.code !== null) {
+              this.imgUrl = res.code
+            } else {
+              this.imgUrl = res.image
+            }
           })
           .catch(err => {
             Toast(err)
@@ -354,7 +362,7 @@ export default {
           '&game_id=' +
           String(hijiu.id)
         window.location.href = new_url
-      } else if (index === 0) {
+      } else if (index === 0 || index === 3) {
         return
       } else {
         Toast('你还没有玩过这个游戏')
