@@ -290,7 +290,11 @@ export default {
         marketService
           .getInfoById(this, this.$route.query.id)
           .then(res => {
-            this.imgUrl = res.code
+            if (res.code !== null) {
+              this.imgUrl = res.code
+            } else {
+              this.imgUrl = res.image
+            }
           })
           .catch(err => {
             Toast(err)
@@ -301,7 +305,11 @@ export default {
         marketService
           .getInfoById(this, JSON.parse(localStorage.getItem('wc_card')).id)
           .then(res => {
-            this.imgUrl = res.code
+            if (res.code !== null) {
+              this.imgUrl = res.code
+            } else {
+              this.imgUrl = res.image
+            }
           })
           .catch(err => {
             Toast(err)
