@@ -4,7 +4,6 @@
       <img :src="IMAGE_URL + 'bg.jpg'" class="bg"/>
       <img :src="photo" class="photo"/>
       <img :src="IMAGE_URL + 'point.gif'" class="point"/>
-      <img :src="IMAGE_URL + 'point.gif'" class="point2"/>
       <a :href="alink"><img :src="IMAGE_URL + 'alink.png'"></a>
     </div>
     
@@ -131,11 +130,7 @@ body {
       z-index: 999;
       left: 50%;
       transform: translateX(-50%);
-      bottom: 26.5%;
-    }
-    .point2 {
-      .point;
-      bottom: 25.8%;
+      bottom: 25%;
     }
 
     a {
@@ -143,7 +138,7 @@ body {
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
-      bottom: 11%;
+      bottom: 10%;
       width: 73.5%;
       img {
         max-width: 100%;
