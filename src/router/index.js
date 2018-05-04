@@ -371,6 +371,12 @@ export default new Router({
           name: '苏宁嗨购',
           component: () =>
             import(/* webpackChunkName: "suning" */ 'pages/suning/result.vue')
+        },
+        {
+          path: 'mangguo',
+          name: '芒果TV',
+          component: () =>
+            import(/* webpackChunkName: "mangguo" */ 'pages/mangguo/result.vue')
         }
       ]
     },
