@@ -1,7 +1,7 @@
 <template>
   <div class="mgPage" id="mgPage">
     <div class="main">
-      <img :src="IMAGE_URL + 'bg.jpg'" class="bg"/>
+      <img :src="IMAGE_URL + 'bg2.jpg'" class="bg"/>
       <img :src="photo" class="photo"/>
       <img :src="IMAGE_URL + 'point.gif'" class="point"/>
       <a :href="alink"><img :src="IMAGE_URL + 'alink.png'"></a>
@@ -114,9 +114,9 @@ body {
     }
     .photo {
       width: 73.5%;
-      height: 61%;
+      height: 54.6%;
       position: absolute;
-      top: 7.4%;
+      top: 6.5%;
       left: 50%;
       transform: translateX(-50%);
       z-index: 999;
@@ -130,7 +130,7 @@ body {
       z-index: 999;
       left: 50%;
       transform: translateX(-50%);
-      bottom: 25%;
+      top: 61%;
     }
 
     a {
@@ -138,7 +138,7 @@ body {
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
-      bottom: 10%;
+      top: 75%;
       width: 73.5%;
       img {
         max-width: 100%;
