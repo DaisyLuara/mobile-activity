@@ -377,6 +377,12 @@ export default new Router({
           name: '芒果TV',
           component: () =>
             import(/* webpackChunkName: "mangguo" */ 'pages/mangguo/result.vue')
+        },
+        {
+          path: 'hiltonMla',
+          name: '马里奥希尔顿',
+          component: () =>
+            import(/* webpackChunkName: "hiltonMla" */ 'pages/hiltonMla/result.vue')
         }
       ]
     },
