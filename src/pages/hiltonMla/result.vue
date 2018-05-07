@@ -86,26 +86,26 @@ export default {
 .hilton-content{
       width:100%;
       height:100%;
-      background-image: url("@{imageHost}/bg.jpg");
+      background-image: url("@{imageHost}/bg.jpeg");
       background-repeat: no-repeat;
       background-size: 100% 100%;
       position: relative;
       text-align: center;
       overflow:hidden;
     .coupon{
-      width: 75%;
+      width: 85%;
       position: absolute;
       left: 50%;
-      top: 52%;
+      top: 50%;
       transform: translate(-50%,-50%)
     }
     .save{
       width:100%;
         position: absolute;
         left: 0%;
-        bottom: 6%;
+        bottom: 7%;
         text-align:center;
-        animation: arrows .8s ease-out infinite alternate;
+        animation: arrows .4s ease-out infinite alternate;
       .jiantou{
          width: 5%;
       }
