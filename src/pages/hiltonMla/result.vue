@@ -29,7 +29,6 @@ export default {
   data() {
     return {
       imgServerUrl: IMAGE_SERVER,
-      resultImgUrl: '',
       type:this.$route.query.type,
       showCoupon:{
           cp228:false,
