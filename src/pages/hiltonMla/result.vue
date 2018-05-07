@@ -44,7 +44,7 @@ export default {
     };
   },
   beforeCreate() {
-    document.title = "希尔顿马里奥";
+    document.title = "武汉光谷希尔顿酒店";
   },
   mounted(){
     $('.hilton-content').css('min-height', $(window).height());
