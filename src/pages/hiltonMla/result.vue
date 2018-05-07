@@ -93,7 +93,7 @@ export default {
       text-align: center;
       overflow:hidden;
     .coupon{
-      width: 80%;
+      width: 75%;
       position: absolute;
       left: 50%;
       top: 52%;
@@ -107,12 +107,12 @@ export default {
         text-align:center;
         animation: arrows .8s ease-out infinite alternate;
       .jiantou{
-         width: 6%;
+         width: 5%;
       }
       .title{
-        width:48%;
+        width:45%;
         display:block;
-        margin:1% 0 0 26%;
+        margin:1% 0 0 28%;
       }
     }
 }
