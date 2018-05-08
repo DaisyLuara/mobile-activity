@@ -1,13 +1,13 @@
 <template>
   <div class="hilton-content">
       <div class="coupon">
-         <img   v-show="showCoupon.cp228" class="cp-228" :src="imgServerUrl + '/pages/hiltonMla/228.png'" alt="" />
-         <img   v-show="showCoupon.cp268" class="cp-268" :src="imgServerUrl + '/pages/hiltonMla/268.png'" alt="" />
-         <img   v-show="showCoupon.cp298" class="cp-298" :src="imgServerUrl + '/pages/hiltonMla/298.png'" alt="" />
+         <img  v-show="showCoupon.cp228" class="cp-228" :src="imgServerUrl + '/pages/hiltonMla/228.png'" alt="" />
+         <img  v-show="showCoupon.cp268" class="cp-268" :src="imgServerUrl + '/pages/hiltonMla/268.png'" alt="" />
+         <img  v-show="showCoupon.cp298" class="cp-298" :src="imgServerUrl + '/pages/hiltonMla/298.png'" alt="" />
       </div>
       <div class="save">
           <img class="jiantou" :src="imgServerUrl + '/pages/hiltonMla/jiantou.png'" alt="" >
-           <img class="title" :src="imgServerUrl + '/pages/hiltonMla/title.png'" alt="" >
+          <img class="title" :src="imgServerUrl + '/pages/hiltonMla/title.png'" alt="" >
       </div>
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
@@ -44,7 +44,7 @@ export default {
     };
   },
   beforeCreate() {
-    document.title = "希尔顿马里奥";
+    document.title = "武汉光谷希尔顿酒店";
   },
   mounted(){
     $('.hilton-content').css('min-height', $(window).height());
@@ -86,33 +86,33 @@ export default {
 .hilton-content{
       width:100%;
       height:100%;
-      background-image: url("@{imageHost}/bg.jpg");
+      background-image: url("@{imageHost}/bg.jpeg");
       background-repeat: no-repeat;
       background-size: 100% 100%;
       position: relative;
       text-align: center;
       overflow:hidden;
     .coupon{
-      width: 75%;
+      width: 85%;
       position: absolute;
       left: 50%;
-      top: 52%;
+      top: 50%;
       transform: translate(-50%,-50%)
     }
     .save{
       width:100%;
         position: absolute;
         left: 0%;
-        bottom: 6%;
+        bottom: 7%;
         text-align:center;
-        animation: arrows .8s ease-out infinite alternate;
+        animation: arrows .4s ease-out infinite alternate;
       .jiantou{
-         width: 5%;
+         width: 3.5%;
       }
       .title{
-        width:45%;
+        width:40%;
         display:block;
-        margin:1% 0 0 28%;
+        margin:1% 0 0 30%;
       }
     }
 }
