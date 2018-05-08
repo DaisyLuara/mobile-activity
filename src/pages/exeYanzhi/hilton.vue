@@ -36,8 +36,8 @@ export default {
       name: this.$route.query.coupon,
       //微信分享
       wxShareInfo: {
-        title: '我在希尔顿领到了好多福利',
-        desc: '快来看看我都得到了什么吧~',
+        title: '靠颜值就能中大奖？',
+        desc: '快来看看我的颜“值”多少吧',
         imgUrl: IMAGE_SERVER + '/pages/yanzhi/hilton/share.jpg',
         success: function() {
           customTrack.shareWeChat()
@@ -46,9 +46,11 @@ export default {
     }
   },
   beforeCreate() {
-    document.title = '希尔顿'
+    document.title = '武汉光谷希尔顿酒店'
   },
-  created() {},
+  created() {
+    this.getInfoById()
+  },
   mounted() {
     let height =
       window.innerHeight ||
@@ -56,7 +58,6 @@ export default {
       document.body.clientHeight
     let warp = document.getElementById('warp')
     warp.style.minHeight = height + 'px'
-    this.getInfoById()
   },
   methods: {
     getInfoById() {
