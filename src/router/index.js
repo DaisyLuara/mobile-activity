@@ -383,6 +383,12 @@ export default new Router({
           name: '马里奥希尔顿',
           component: () =>
             import(/* webpackChunkName: "hiltonMla" */ 'pages/hiltonMla/result.vue')
+        },
+        {
+          path: 'hiltonYZ',
+          name: '希尔顿印钞机',
+          component: () =>
+            import(/* webpackChunkName: "hiltonYZ" */ 'pages/exeYanzhi/hilton.vue')
         }
       ]
     },
