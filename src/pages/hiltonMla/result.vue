@@ -1,13 +1,13 @@
 <template>
   <div class="hilton-content">
       <div class="coupon">
-         <img   v-show="showCoupon.cp228" class="cp-228" :src="imgServerUrl + '/pages/hiltonMla/228.png'" alt="" />
-         <img   v-show="showCoupon.cp268" class="cp-268" :src="imgServerUrl + '/pages/hiltonMla/268.png'" alt="" />
-         <img   v-show="showCoupon.cp298" class="cp-298" :src="imgServerUrl + '/pages/hiltonMla/298.png'" alt="" />
+         <img  v-show="showCoupon.cp228" class="cp-228" :src="imgServerUrl + '/pages/hiltonMla/228.png'" alt="" />
+         <img  v-show="showCoupon.cp268" class="cp-268" :src="imgServerUrl + '/pages/hiltonMla/268.png'" alt="" />
+         <img  v-show="showCoupon.cp298" class="cp-298" :src="imgServerUrl + '/pages/hiltonMla/298.png'" alt="" />
       </div>
       <div class="save">
           <img class="jiantou" :src="imgServerUrl + '/pages/hiltonMla/jiantou.png'" alt="" >
-           <img class="title" :src="imgServerUrl + '/pages/hiltonMla/title.png'" alt="" >
+          <img class="title" :src="imgServerUrl + '/pages/hiltonMla/title.png'" alt="" >
       </div>
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
@@ -107,12 +107,12 @@ export default {
         text-align:center;
         animation: arrows .4s ease-out infinite alternate;
       .jiantou{
-         width: 5%;
+         width: 3.5%;
       }
       .title{
-        width:45%;
+        width:40%;
         display:block;
-        margin:1% 0 0 28%;
+        margin:1% 0 0 30%;
       }
     }
 }
