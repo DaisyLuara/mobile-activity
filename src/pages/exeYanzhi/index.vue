@@ -83,7 +83,7 @@ export default {
   position: relative;
   min-height: 100%;
   font-size: 0;
-  background: url('@{imgUrl}index/back.jpg') center top/100% 100% no-repeat;
+  background: url('@{imgUrl}index/back.jpg') center top/100% 100% repeat-y;
   .title[data-v-index] {
     width: 97%;
     margin-top: 5%;

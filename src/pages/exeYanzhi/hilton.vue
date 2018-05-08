@@ -17,6 +17,8 @@
 			<img class="imgframe" :src="imgUrl+'frame.png'">
 		</div>
 		<img class="press" :src="imgUrl+'press.png'" v-show="press"/>
+        <img :src="imgUrl+name+'.png'" class="coupon" v-show="press"/>
+        <img :src="imgUrl+'logo.png'" class="logo"/>
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
 	</div>
 </template>
@@ -24,18 +26,19 @@
 import marketService from 'services/marketing'
 import WxShare from 'modules/wxShare'
 import { customTrack } from 'modules/customTrack'
-const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/'
+const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
   data() {
     return {
-      imgUrl: BASE_URL + 'image/yanzhi/content/',
+      imgUrl: IMAGE_SERVER + '/pages/yanzhi/hilton/',
       mImg: null,
       press: false,
+      name: this.$route.query.coupon,
       //微信分享
       wxShareInfo: {
-        title: '我的颜值太高了！居然被印上了钞票！',
-        desc: '你也来和我PK颜值吧~',
-        imgUrl: BASE_URL + 'image/yanzhi/index/share.jpg',
+        title: '我在希尔顿领到了好多福利',
+        desc: '快来看看我都得到了什么吧~',
+        imgUrl: IMAGE_SERVER + '/pages/yanzhi/hilton/share.jpg',
         success: function() {
           customTrack.shareWeChat()
         }
@@ -43,7 +46,7 @@ export default {
     }
   },
   beforeCreate() {
-    document.title = '颜值印钞机通用版'
+    document.title = '希尔顿'
   },
   created() {},
   mounted() {
@@ -75,14 +78,25 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/yanzhi/';
+@imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/yanzhi/hilton/';
+html,
+body {
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  transform: translate3d(0, 0, 0);
+}
 .yanzhi-result {
   width: 100%;
   text-align: center;
-  margin: 0 auto;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
   font-size: 0;
   position: relative;
-  background: url('@{imgUrl}index/back.jpg') center top/100% 100% repeat-y;
+  background: url('@{imgUrl}bg.jpg') center top/100% 100% no-repeat;
 
   .title[data-v-content] {
     width: 97%;
@@ -182,6 +196,20 @@ export default {
     width: 80%;
     margin: -12% auto 0;
     animation: updown 0.6s infinite linear alternate;
+  }
+  .coupon {
+    display: block;
+    width: 85.6%;
+    margin: 0 auto;
+    margin-top: 5%;
+    margin-bottom: 1%;
+  }
+  .logo {
+    width: 24%;
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 8%;
   }
 }
 @keyframes mycircle {
