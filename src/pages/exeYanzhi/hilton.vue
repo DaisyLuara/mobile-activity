@@ -47,9 +47,11 @@ export default {
   },
   beforeCreate() {
     document.title = '武汉光谷希尔顿酒店'
+    console.log(document.title)
   },
   created() {
     this.getInfoById()
+    console.log('create')
   },
   mounted() {
     let height =
