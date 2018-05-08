@@ -37,8 +37,8 @@ export default {
         },
       //微信分享信息
       wxShareInfoValue: {
-        title: '11111',
-        desc: '11111吧~',
+        title: '玩儿游戏居然能中大奖？',
+        desc: '快来围观头号玩家吧',
         imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/hiltonMla_share_icon.jpeg',
       },
     };
