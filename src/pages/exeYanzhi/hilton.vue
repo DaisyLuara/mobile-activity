@@ -46,9 +46,11 @@ export default {
     }
   },
   beforeCreate() {
-    document.title = '希尔顿'
+    document.title = '武汉光谷希尔顿酒店'
   },
-  created() {},
+  created() {
+    this.getInfoById()
+  },
   mounted() {
     let height =
       window.innerHeight ||
@@ -56,7 +58,6 @@ export default {
       document.body.clientHeight
     let warp = document.getElementById('warp')
     warp.style.minHeight = height + 'px'
-    this.getInfoById()
   },
   methods: {
     getInfoById() {
