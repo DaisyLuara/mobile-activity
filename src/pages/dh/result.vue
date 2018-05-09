@@ -33,7 +33,7 @@ export default {
       //微信分享信息
       wxShareInfoValue: {
         title: '光启城',
-        desc: '光启城',
+        desc: '快来光启城一起参加世界杯吧',
         imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/dh_share_icon.png',
       },
     };
