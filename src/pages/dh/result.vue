@@ -1,7 +1,7 @@
 <template>
   <div class="concert-content">
-      <!-- <img  class="photo" :src="resultImgUrl" alt=""/> -->
-      <img  class="photo" src="http://o9xrbl1oc.bkt.clouddn.com/1007/image/1492786765568.jpg" alt=""/>
+      <img class="photo" :src="resultImgUrl" alt=""/>
+      <!-- <img  class="photo" src="http://o9xrbl1oc.bkt.clouddn.com/1007/image/1492786765568.jpg" alt=""/> -->
       <img :src="imgServerUrl + '/pages/dh/cloud1.png'" alt="" class="cloud1">
       <img :src="imgServerUrl + '/pages/dh/cloud2.png'" alt="" class="cloud2">
       <img :src="imgServerUrl + '/pages/dh/cloud3.png'" alt="" class="cloud3">
