@@ -34,7 +34,7 @@ export default {
       wxShareInfoValue: {
         title: '光启城',
         desc: '光启城',
-        imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/dh_share_icon.jpg',
+        imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/dh_share_icon.png',
       },
     };
   },
