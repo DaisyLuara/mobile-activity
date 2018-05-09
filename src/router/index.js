@@ -389,6 +389,12 @@ export default new Router({
           name: '希尔顿印钞机',
           component: () =>
             import(/* webpackChunkName: "hiltonYZ" */ 'pages/exeYanzhi/hilton.vue')
+        },
+        {
+          path: 'danceTwo',
+          name: '跳舞机第二版',
+          component: () =>
+            import(/* webpackChunkName: "danceTwo" */ 'pages/danceTwo/index.vue')
         }
       ]
     },
