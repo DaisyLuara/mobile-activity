@@ -31,8 +31,7 @@ export default {
   created() {
     this.getImageById();
     var URL='https://mall.capitaland.com.cn/hongkoulongzhimeng/lottery/egg';
-    var A='?id=1990392&utm_source=30&utm_campaign=gamegadance&face_id=0ZSvDyI0DaVyQWwr&from=groupmessage&isappinstalled=0'
-    window.location.href=URL+A;
+    window.location.href=URL;
   },
   methods:{
     //拿取图片id
