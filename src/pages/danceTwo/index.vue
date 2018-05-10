@@ -1,5 +1,7 @@
 <template>
-  <div class="wrap"></div>
+  <div class="wrap">
+    <img  :src="resultImgUrl" alt=""/>
+  </div>
 </template>
 <script>
 import marketService from 'services/marketing';
@@ -14,6 +16,7 @@ export default {
   data() {
     return {
       imgServerUrl: IMAGE_SERVER,
+      resultImgUrl:'',
     };
   },
   beforeCreate() {
@@ -23,9 +26,24 @@ export default {
     $('.wrap').css('min-height', $(window).height());
   },
   created() {
+    this.getImageById();
     var URL='https://mall.capitaland.com.cn/hongkoulongzhimeng/lottery/egg';
     var A='?id=1990392&utm_source=30&utm_campaign=gamegadance&face_id=0ZSvDyI0DaVyQWwr&from=groupmessage&isappinstalled=0'
     window.location.href=URL+A;
+  },
+  methods:{
+    //拿取图片id
+    getImageById() {
+      let id = this.$route.query.id
+      marketService
+        .getInfoById(this, id)
+        .then(result => {
+          this.resultImgUrl = result.image
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
   }
 };
 </script>
