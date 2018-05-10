@@ -85,10 +85,12 @@ export default {
         title: '6嗨全球GO！',
         desc: '嗨翻世界杯，和足球宝贝亲密合影吧',
         imgUrl:
-          'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup/goal/share.png',
-        link: window.location.href
+          'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup/goal/share.png'
       }
     }
+  },
+  created() {
+    document.title = '6嗨全球GO！'
   },
   mounted() {
     this.getInfoById()
