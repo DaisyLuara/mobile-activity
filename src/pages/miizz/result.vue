@@ -54,28 +54,28 @@ export default {
       let type = this.$route.query.type
       switch(type) {
         case 'A': 
-          this.ImgUrl = this.baseUrl + 'photo_A.png'
+          this.ImgUrl = this.baseUrl + 'photo_A1.png'
           this.jewelryTextOne = this.baseUrl + 'jewelry_text_A1.png'
           this.jewelryTextTwo = this.baseUrl + 'jewelry_text_A2.png'
           this.jewelryImgOne = this.baseUrl + 'jewelry_img_A1.png'
           this.jewelryImgTwo = this.baseUrl + 'jewelry_img_A2.png'
         break;
         case 'B': 
-          this.ImgUrl = this.baseUrl + 'photo_B.png'
+          this.ImgUrl = this.baseUrl + 'photo_B1.png'
           this.jewelryTextOne = this.baseUrl + 'jewelry_text_B1.png'
           this.jewelryTextTwo = this.baseUrl + 'jewelry_text_B2.png'
           this.jewelryImgOne = this.baseUrl + 'jewelry_img_B1.png'
           this.jewelryImgTwo = this.baseUrl + 'jewelry_img_B2.png'
         break;
         case 'C':
-          this.ImgUrl = this.baseUrl + 'photo_C.png'
+          this.ImgUrl = this.baseUrl + 'photo_C1.png'
           this.jewelryTextOne = this.baseUrl + 'jewelry_text_C1.png'
           this.jewelryTextTwo = this.baseUrl + 'jewelry_text_C2.png'
           this.jewelryImgOne = this.baseUrl + 'jewelry_img_C1.png'
           this.jewelryImgTwo = this.baseUrl + 'jewelry_img_C2.png'
         break;
         case 'D':
-          this.ImgUrl = this.baseUrl + 'photo_D.png'
+          this.ImgUrl = this.baseUrl + 'photo_D1.png'
           this.jewelryTextOne = this.baseUrl + 'jewelry_text_D1.png'
           this.jewelryTextTwo = this.baseUrl + 'jewelry_text_D2.png'
           this.jewelryImgOne = this.baseUrl + 'jewelry_img_D1.png'
