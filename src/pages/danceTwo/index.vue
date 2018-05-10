@@ -1,6 +1,5 @@
 <template>
   <div class="wrap">
-    <img  :src="resultImgUrl" alt=""/>
   </div>
 </template>
 <script>
@@ -30,17 +29,21 @@ export default {
   },
   created() {
     this.getImageById();
-    var URL='https://mall.capitaland.com.cn/hongkoulongzhimeng/lottery/egg';
-    window.location.href=URL;
+    
   },
   methods:{
     //拿取图片id
     getImageById() {
       let id = this.$route.query.id
+      console.log(id)
       marketService
         .getInfoById(this, id)
         .then(result => {
-          this.resultImgUrl = result.image
+          console.log(result)
+          var URL='https://mall.capitaland.com.cn/hongkoulongzhimeng/lottery/egg';
+          // window.location.href=URL;
+          console.log(URL)
+          // this.resultImgUrl = result.image
         })
         .catch(err => {
           console.log(err)
