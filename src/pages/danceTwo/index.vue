@@ -17,6 +17,9 @@ export default {
     return {
       imgServerUrl: IMAGE_SERVER,
       resultImgUrl:'',
+      utm_term:this.$route.query.utm_term,
+      utm_campaign:this.$route.query.utm_campaign,
+      face_id:this.$route.query.utm_campaign,
     };
   },
   beforeCreate() {
