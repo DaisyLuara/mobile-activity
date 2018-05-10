@@ -401,6 +401,12 @@ export default new Router({
           name: '光启城',
           component: () =>
             import(/* webpackChunkName: "dh" */ 'pages/dh/result.vue')
+        },
+        {
+          path: 'wc_goal',
+          name: 'worldCupPlanetGoal',
+          component: () =>
+            import(/* webpackChunkName: "worldCupPlanet" */ 'pages/worldCups/goal.vue')
         }
       ]
     },
