@@ -1,5 +1,6 @@
 <template>
-  <div class="wrap"></div>
+  <div class="wrap">
+  </div>
 </template>
 <script>
 import marketService from 'services/marketing';
@@ -14,6 +15,9 @@ export default {
   data() {
     return {
       imgServerUrl: IMAGE_SERVER,
+      utm_term:this.$route.query.utm_term,
+      utm_campaign:this.$route.query.utm_campaign,
+      face_id:this.$route.query.utm_campaign,
     };
   },
   beforeCreate() {
@@ -23,9 +27,26 @@ export default {
     $('.wrap').css('min-height', $(window).height());
   },
   created() {
-    var URL='https://mall.capitaland.com.cn/hongkoulongzhimeng/lottery/egg';
-    var A='?id=1990392&utm_source=30&utm_campaign=gamegadance&face_id=0ZSvDyI0DaVyQWwr&from=groupmessage&isappinstalled=0'
-    window.location.href=URL+A;
+    this.getImageById();
+    
+  },
+  methods:{
+    //拿取图片id
+    getImageById() {
+      let id = this.$route.query.id
+      console.log(id)
+      marketService
+        .getInfoById(this, id)
+        .then(result => {
+          console.log(result)
+          var URL='https://mall.capitaland.com.cn/hongkoulongzhimeng/lottery/egg';
+          window.location.href=URL;
+          console.log(URL)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
   }
 };
 </script>
