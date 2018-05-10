@@ -1,9 +1,9 @@
 <template>
   <div class="hilton-content">
       <div class="coupon">
-         <img  v-show="showCoupon.cp228" class="cp-228" :src="imgServerUrl + '/pages/hiltonMla/228.png'" alt="" />
          <img  v-show="showCoupon.cp268" class="cp-268" :src="imgServerUrl + '/pages/hiltonMla/268.png'" alt="" />
-         <img  v-show="showCoupon.cp298" class="cp-298" :src="imgServerUrl + '/pages/hiltonMla/298.png'" alt="" />
+         <img  v-show="showCoupon.cp428" class="cp-428" :src="imgServerUrl + '/pages/hiltonMla/428.png'" alt="" />
+         <img  v-show="showCoupon.cp777" class="cp-777" :src="imgServerUrl + '/pages/hiltonMla/777.png'" alt="" />
       </div>
       <div class="save">
           <img class="jiantou" :src="imgServerUrl + '/pages/hiltonMla/jiantou.png'" alt="" >
@@ -29,11 +29,12 @@ export default {
   data() {
     return {
       imgServerUrl: IMAGE_SERVER,
+      resultImgUrl:'',
       type:this.$route.query.type,
       showCoupon:{
-          cp228:false,
           cp268:false,
-          cp298:false 
+          cp428:false,
+          cp777:false 
         },
       //微信分享信息
       wxShareInfoValue: {
@@ -50,20 +51,31 @@ export default {
     $('.hilton-content').css('min-height', $(window).height());
   },
   created() {
+    this.getImageById();
     this.show();
+
   },
   methods: {
-     show(){
+    show(){
       if(this.type==1){
-        this.showCoupon.cp228=true;
-      }
-      if(this.type==2){
         this.showCoupon.cp268=true;
       }
-      if(this.type==3){
-        this.showCoupon.cp298=true;
+      if(this.type==2){
+        this.showCoupon.cp428=true;
       }
-     }
+      if(this.type==3){
+        this.showCoupon.cp777=true;
+      }
+     },
+     //拿取图片id
+    getImageById() {
+      let id = this.$route.query.id
+      marketService.getInfoById(this, id).then((result) => {
+        this.resultImgUrl = result.image;
+      }).catch((err) => {
+        console.log(err);
+      });
+    },
   },
   computed: {
     //微信分享
