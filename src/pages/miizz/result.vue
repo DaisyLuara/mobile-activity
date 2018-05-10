@@ -7,7 +7,7 @@
       <img alt="" :src="baseUrl + 'up.png'" class="arrow"/>
     </div>
     <div class="miizz-wrap">
-      <img alt="" v-lazy="baseUrl + 'bg2.png?v=1'" class="report_bg_2"/>
+      <img alt="" v-lazy="baseUrl + 'bg_2.png?v=1'" class="report_bg_2"/>
         <img alt="" :src="jewelryTextOne" class="jewelry_text1"/>
         <img alt="" :src="jewelryImgOne" class="jewelry1"/>
         <img alt="" :src="jewelryTextTwo" class="jewelry_text2"/>
@@ -120,7 +120,7 @@ export default {
 .report-wrap{
   position: relative;
   .coupon-wrap{
-    background-image: url('@{imageHost}/bg1.png');
+    background-image: url('@{imageHost}/bg_1.png');
     background-repeat: no-repeat;
     background-size: 100% 100%;
     position: relative;
@@ -162,31 +162,31 @@ export default {
     .jewelry_text1{
       position: absolute;
       width: 30%;
-      top: 7%;
+      top: 46%;
       right: 6%;
     }
     .jewelry1{
       position: absolute;
       width: 40%;
-      top: 2.5%;
+      top: 43.5%;
       left: 13.3%;
     }
     .jewelry_text2{
       position: absolute;
-      top: 46%;
+      top: 68%;
       width: 30%;
       left: 6%;
     }
     .jewelry2{
       position: absolute;
       width: 40%;
-      top: 40%;
+      top: 64%;
       right: 11.5%;
     }
     .qrcode{
       position: absolute;
       width: 16%;
-      bottom: 9%;
+      bottom: 5.5%;
       left: 41%;
     }
     .photo-content{
