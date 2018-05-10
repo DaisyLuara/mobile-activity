@@ -42,6 +42,9 @@ const wiw = window.innerWidth
 const wih = window.innerHeight
 
 export default {
+  components: {
+    WxShare
+  },
   data() {
     const baseUrl =
       'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup/goal/'
