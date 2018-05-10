@@ -1,16 +1,19 @@
 <template>
   <div class="concert-content">
+    <div class="main">
+      <img :src="imgServerUrl + '/pages/dh/bg.png'" class="bg"/>
       <img class="photo" :src="resultImgUrl" alt=""/>
       <!-- <img  class="photo" src="http://o9xrbl1oc.bkt.clouddn.com/1007/image/1492786765568.jpg" alt=""/> -->
       <img :src="imgServerUrl + '/pages/dh/cloud1.png'" alt="" class="cloud1">
       <img :src="imgServerUrl + '/pages/dh/cloud2.png'" alt="" class="cloud2">
       <img :src="imgServerUrl + '/pages/dh/cloud3.png'" alt="" class="cloud3">
       <div class="jiantou">
-        <img :src="imgServerUrl + '/pages/dh/arrow.png'" alt="" >
+        <img :src="imgServerUrl + '/pages/dh/arrow.png?v=1'" alt="" >
        </div>
        <div class="text">
         <img :src="imgServerUrl + '/pages/dh/text.png'" alt="" >
        </div>
+    </div>
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
 </template>
@@ -79,82 +82,98 @@ export default {
 .concert-content{
       width:100%;
       height:100%;
-      background-repeat: no-repeat;
-      background-image: url("@{imageHost}/bg.png");
-      background-size: 100% 100%;
-      position: relative;
-      overflow:hidden;
+      // background-repeat: no-repeat;
+      // background-image: url("@{imageHost}/bg.png");
+      // background-size: 100% 100%;
+      // position: relative;
+      // overflow:hidden;
       text-align:center;
-    .photo{
-      // width: 73.5%;
-      // height:73.5%;
-      // position: absolute;
-      // left: 50%;
-      // top: 50%;
-        width: 62.5%;
-        height: 54.7%;
-        position: absolute;
-        left: 50%;
-        top: 49.8%;
-      transform: translate(-50%,-56.5%)
-    }
-    .cloud1{
-      width: 25%;
-      position: absolute;
-      top: 14%;
-      right: 5%;
-      z-index: 9999;
-      animation: around 1s linear infinite alternate;
-    }
-    .cloud2{
-      width: 20%;
-      position: absolute;
-      top: 31%;
-      left: 5%;
-      z-index: 9999;
-      animation: around 1s linear infinite alternate;
-    }
-    .cloud3{
-      width: 36%;
-      position: absolute;
-      bottom: 22%;
-      right: 5%;
-      z-index: 9999;
-      animation: around 1s linear infinite alternate;
-    }
-    .jiantou{
-      width: 100%;
-      position: absolute;
-      left: 0;
-      bottom: 21%;
-      img{
-        width:6%;
-        // height:10%;
+      .main{
+        position: relative;
+        text-align: center;
+        margin: 0 auto;
+        display: inline-block;
+        width: 100%;
+        .photo{
+          // width: 73.5%;
+          // height:73.5%;
+          // position: absolute;
+          // left: 50%;
+          // top: 50%;
+          width: 64%;
+          height: 55.5%;
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%,-56.5%)
+        }
+        .cloud1{
+          width: 25%;
+          position: absolute;
+          top: 18%;
+          right: 5%;
+          z-index: 9999;
+          animation: around 1s  linear infinite alternate;
+        }
+        .cloud2{
+          width: 20%;
+          position: absolute;
+          top: 35%;
+          left: 5%;
+          z-index: 9999;
+          animation: cloud2 1s linear infinite alternate;
+        }
+        .cloud3{
+          width: 36%;
+          position: absolute;
+          top: 54%;
+          right: 5%;
+          z-index: 9999;
+          animation: around 1.6s linear infinite alternate;
+        }
+        .jiantou{
+          width: 100%;
+          position: absolute;
+          left: 0;
+          bottom: 21%;
+          img{
+            width:6%;
+            // height:10%;
+          }
+          animation: arrows .8s ease-out infinite alternate;
+        }
+        .text{
+          width: 100%;
+          position: absolute;
+          left: 0;
+          bottom: 18%;
+          img{
+            width:60%;
+            height:10%;
+          }
+        }
       }
-      animation: arrows .8s ease-out infinite alternate;
-    }
-    .text{
-      width: 100%;
-      position: absolute;
-      left: 0;
-      bottom: 18%;
-      img{
-        width:60%;
-        height:10%;
-      }
-    }
+    
    @keyframes arrows {
     0% {transform: translateY(-3px);}
     100% {transform: translateY(0px);}
   }
   @keyframes around {
-  0% {
-    transform: translateX(-5px);
+    0% {
+      transform: translateX(-5px);
+    }
+    100% {
+      transform: translateX(5px);
+    }
   }
-  100% {
-    transform: translateX(5px);
+  @keyframes cloud2 {
+    0% {
+      transform: translateX(5px);
+    }
+    100% {
+      transform: translateX(-5px);
+    }
   }
-}
 }
 
 </style>
