@@ -15,7 +15,6 @@ export default {
   data() {
     return {
       imgServerUrl: IMAGE_SERVER,
-      resultImgUrl:'',
       utm_term:this.$route.query.utm_term,
       utm_campaign:this.$route.query.utm_campaign,
       face_id:this.$route.query.utm_campaign,
@@ -41,9 +40,8 @@ export default {
         .then(result => {
           console.log(result)
           var URL='https://mall.capitaland.com.cn/hongkoulongzhimeng/lottery/egg';
-          // window.location.href=URL;
+          window.location.href=URL;
           console.log(URL)
-          // this.resultImgUrl = result.image
         })
         .catch(err => {
           console.log(err)
