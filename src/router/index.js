@@ -407,6 +407,12 @@ export default new Router({
           name: 'worldCupPlanetGoal',
           component: () =>
             import(/* webpackChunkName: "worldCupPlanet" */ 'pages/worldCups/goal.vue')
+        },
+        {
+          path: 'ppt',
+          name: '星视度玩法宣传',
+          component: () =>
+            import(/* webpackChunkName: "ppt" */ 'pages/ppt/result.vue')
         }
       ]
     },
