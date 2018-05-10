@@ -9,6 +9,7 @@
     </div>
     <div class="video-group">
       <video  v-for="item in 4" :key="item.id" :src="IMGURL + 'video/' + item +'.mp4'" :id="video[item]"></video>
+      <div class="closeDiv"><img :src="IMGURL + 'v-close.png'" class="close" v-show="vclose" @click="videoClose"/></div>
     </div>
     <wx-share :WxShareInfo = 'wxShareInfo'></wx-share>
 </div>
@@ -24,6 +25,8 @@ export default {
       IMGURL: IMAGE_SERVER + '/pages/promotion/',
       video: ['', 'video1', 'video2', 'video3', 'video4'],
       menuShow: true,
+      playNow: null,
+      vclose: false,
       //微信分享信息
       wxShareInfoValue: {
         title: '星视度',
@@ -35,7 +38,9 @@ export default {
   beforeCreate() {
     document.title = '星视度宣传'
   },
-  created() {},
+  created() {
+    this.getInfoById()
+  },
   mounted() {
     var height =
       window.innerHeight ||
@@ -45,22 +50,39 @@ export default {
     content.style.minHeight = height + 'px'
   },
   methods: {
+    getInfoById() {
+      let id = this.$route.query.id
+      marketService
+        .getInfoById(this, id)
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
     playVideo(item) {
-      let target = event.target
+      let that = this
       let videoId = document.getElementById('video' + item)
       videoId.style.display = 'block'
       videoId.play()
+      this.playNow = videoId
+      this.vclose = true
       videoId.onplay = function() {
         this.menuShow = false
       }
-
       videoId.onended = function() {
-        videoId.style.display = 'none'
-        this.menuShow = true
-        console.log('aaaa')
+        that.videoClose()
       }
     },
-    videoStart(videoId) {}
+    videoClose() {
+      if (!this.playNow.ended) {
+        this.playNow.pause()
+      }
+      this.playNow.style.display = 'none'
+      this.menuShow = true
+      this.vclose = false
+    }
   },
   components: {
     WxShare
@@ -146,11 +168,23 @@ body {
     padding: 0;
     margin: 0;
     position: absolute;
-    z-index: 99999;
+    z-index: 999;
     top: 0;
     video {
       width: 100%;
       display: none;
+    }
+    .closeDiv {
+      position: fixed;
+      z-index: 9999;
+      top: 0;
+      width: 100%;
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.5);
+      .close {
+        width: 10%;
+        margin: 10px auto;
+      }
     }
   }
 }
