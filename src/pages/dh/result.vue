@@ -3,7 +3,7 @@
     <div class="main">
       <img :src="imgServerUrl + '/pages/dh/bg.png'" class="bg"/>
       <img class="photo" :src="resultImgUrl" alt=""/>
-      <!-- <img  class="photo" src="http://o9xrbl1oc.bkt.clouddn.com/1007/image/1492786765568.jpg" alt=""/> -->
+      <!-- <img  class="photo" :src="imgServerUrl + '/pages/dh/photo.png'" alt=""/> -->
       <img :src="imgServerUrl + '/pages/dh/cloud1.png'" alt="" class="cloud1">
       <img :src="imgServerUrl + '/pages/dh/cloud2.png'" alt="" class="cloud2">
       <img :src="imgServerUrl + '/pages/dh/cloud3.png'" alt="" class="cloud3">
@@ -82,11 +82,6 @@ export default {
 .concert-content{
       width:100%;
       height:100%;
-      // background-repeat: no-repeat;
-      // background-image: url("@{imageHost}/bg.png");
-      // background-size: 100% 100%;
-      // position: relative;
-      // overflow:hidden;
       text-align:center;
       .main{
         position: relative;
@@ -95,11 +90,6 @@ export default {
         display: inline-block;
         width: 100%;
         .photo{
-          // width: 73.5%;
-          // height:73.5%;
-          // position: absolute;
-          // left: 50%;
-          // top: 50%;
           width: 64%;
           height: 55.5%;
           position: absolute;
@@ -108,9 +98,9 @@ export default {
           transform: translate(-50%,-56.5%)
         }
         .cloud1{
-          width: 25%;
+          width: 30%;
           position: absolute;
-          top: 18%;
+          top: 13.5%;
           right: 5%;
           z-index: 9999;
           animation: around 1s  linear infinite alternate;
@@ -138,7 +128,6 @@ export default {
           bottom: 21%;
           img{
             width:6%;
-            // height:10%;
           }
           animation: arrows .8s ease-out infinite alternate;
         }
