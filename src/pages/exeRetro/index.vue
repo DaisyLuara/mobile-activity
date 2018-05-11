@@ -74,6 +74,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+.photo-content,
 .photo-content .img-inner,
 .photo-content .img-outer,
 .photo-content .phone-wrap {

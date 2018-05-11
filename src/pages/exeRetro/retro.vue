@@ -190,13 +190,14 @@ body {
   -webkit-overflow-scrolling: touch;
   transform: translate3d(0, 0, 0);
   width: 100%;
-  height: 100%;
 }
 .retro-content {
   width: 100%;
   text-align: center;
   position: relative;
   margin: 0 auto;
+  font-size: 0;
+  overflow-x: hidden;
   background: url('@{imgUrl}retro/bg.jpg') center center/100% 100% no-repeat;
   #mbtn {
     position: absolute;
@@ -212,8 +213,11 @@ body {
   .photo {
     margin: 0 auto;
     width: 66.5%;
-    position: relative;
-    margin-top: 40%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 66%;
+    top: 22%;
     z-index: 99;
   }
   .hasshake {
@@ -223,10 +227,12 @@ body {
     animation: twinkle 10s linear;
   }
   .press {
-    position: relative;
+    position: absolute;
+    bottom: 2%;
+    left: 50%;
+    transform: translate(-50%, 0);
     z-index: 99999;
     width: 62.5%;
-    margin: 4% auto;
     animation: updown 0.8s linear infinite alternate;
   }
   .note {
@@ -241,10 +247,10 @@ body {
 // 上下运动
 @keyframes updown {
   0% {
-    transform: translateY(-5px);
+    transform: translate(-50%, -5px);
   }
   100% {
-    transform: translateY(5px);
+    transform: translate(-50%, 5px);
   }
 }
 
