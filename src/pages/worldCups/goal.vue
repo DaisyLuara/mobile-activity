@@ -2,7 +2,7 @@
   <div
     :style="style.root"
     class="hj-root">
-     
+      <wx-share :WxShareInfo="wxShareInfo"/>
       <div
         :style="style.photoOuter" 
         class="root-photo">
@@ -33,12 +33,18 @@
 </template>
 
 <script>
+import WxShare from 'modules/wxShare'
+import marketService from 'services/marketing'
+import { customTrack } from 'modules/customTrack'
+import { Toast, Indicator } from 'mint-ui'
+
 const wiw = window.innerWidth
 const wih = window.innerHeight
-import { Toast, Indicator } from 'mint-ui'
-import marketService from 'services/marketing'
 
 export default {
+  components: {
+    WxShare
+  },
   data() {
     const baseUrl =
       'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup/goal/'
@@ -74,11 +80,33 @@ export default {
           right: '-' + (1 - 55 / 75) / 2 * wiw + 'px',
           bottom: -(126 / 750 * wiw * 169 / 133 / 2) + 'px'
         }
+      },
+      wxShareInfoValue: {
+        title: '6嗨全球GO！',
+        desc: '嗨翻世界杯，和足球宝贝亲密合影吧',
+        imgUrl:
+          'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup/goal/share.png'
       }
     }
   },
+  created() {
+    document.title = '6嗨全球GO！'
+  },
   mounted() {
     this.getInfoById()
+  },
+  computed: {
+    wxShareInfo() {
+      let wxShareInfo = {
+        title: this.wxShareInfoValue.title,
+        desc: this.wxShareInfoValue.desc,
+        imgUrl: this.wxShareInfoValue.imgUrl,
+        success: function() {
+          customTrack.shareWeChat()
+        }
+      }
+      return wxShareInfo
+    }
   },
   methods: {
     getInfoById() {
