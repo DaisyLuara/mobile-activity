@@ -2,13 +2,13 @@
 <div class="video-content" id="content" >
     <div class="navDiv" @click="returnMenu"></div>
     <div class="vDiv" >
-      <!-- x5-video-player-type="h5"  -->
-        <video  id="video"  autoplay  webkit-playsinline="true" playsinline="true" x-webkit-airplay="true"  controls loop
-         :style="style">
+        <video  id="video"  webkit-playsinline="true" playsinline="true" x-webkit-airplay="true"  controls width="100%" height="100%">
         <source :src="IMGURL + 'video/' + vNum +'.mp4'" type="video/mp4">
             您的浏览器不支持video标签.
         </video>
     </div>
+    <img :src="IMGURL + 'video/bg' + vNum +'.jpg'" class="vbg" v-show="bgshow">
+    <a @click="vPlay" class="vplay" v-show="bgshow"><img :src="IMGURL + 'video/play'+vNum+'.png'"/></a>
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
 </div>
 </template>
@@ -25,18 +25,13 @@ export default {
       vNum: this.$route.query.utm_source,
       playNow: null,
       playerType: 'h5',
-      style:
-        'background-image:url(' +
-        IMAGE_SERVER +
-        '/pages/promotion/video/' +
-        this.$route.query.utm_source +
-        '.jpg)',
+      bgshow: true,
       title: ['', '互动导视', '活动发布', '会员运营', '商场运营'],
       //微信分享
       wxShareInfo: {
         title: '星视度',
         desc: '',
-        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/heyjuice/icon.png',
+        imgUrl: IMAGE_SERVER + '/pages/promotion/icon.jpg',
         success: function() {
           customTrack.shareWeChat()
         }
@@ -56,12 +51,20 @@ export default {
     var content = document.getElementById('content')
     content.style.minHeight = height + 'px'
     this.playNow = document.getElementById('video')
-    this.playNow.play()
+    this.playNow.load()
   },
   methods: {
     returnMenu() {
       window.location.href =
         window.location.origin + '/marketing/ppt?utm_source=0'
+    },
+    vPlay() {
+      this.playNow.currentTime = 0
+      this.playNow.play()
+      this.bgshow = false
+      this.playNow.onended = function() {
+        this.bgshow = true
+      }
     }
   },
   components: {
@@ -96,13 +99,33 @@ body {
   }
   .vDiv {
     width: 100%;
-    height: 90%;
+    position: relative;
+    overflow: hidden;
     video {
       width: 100%;
       height: 100%;
-      background-position: center 49px;
-      background-size: 100% 100%;
-      background-repeat: no-repeat;
+      position: relative;
+      z-index: 0;
+    }
+  }
+  .vbg {
+    position: absolute;
+    top: 49px;
+    left: 0;
+    width: 100%;
+    z-index: 99;
+  }
+  .vplay {
+    width: 25%;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-top: 49px;
+    z-index: 999;
+    img {
+      width: 100%;
     }
   }
 }
