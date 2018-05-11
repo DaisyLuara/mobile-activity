@@ -413,6 +413,12 @@ export default new Router({
           name: '星视度玩法宣传',
           component: () =>
             import(/* webpackChunkName: "ppt" */ 'pages/ppt/result.vue')
+        },
+        {
+          path: 'ppt/video',
+          name: '星视度玩法宣传视频',
+          component: () =>
+            import(/* webpackChunkName: "ppt" */ 'pages/ppt/v1.vue')
         }
       ]
     },
