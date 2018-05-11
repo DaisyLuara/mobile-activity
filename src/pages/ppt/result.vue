@@ -29,7 +29,7 @@ export default {
       //微信分享信息
       wxShareInfoValue: {
         title: '星视度',
-        desc: '星视度',
+        desc: '星视度 创想新视界',
         imgUrl: IMAGE_SERVER + '/pages/promotion/icon.jpg'
       }
     }
