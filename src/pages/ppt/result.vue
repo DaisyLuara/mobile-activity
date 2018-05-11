@@ -5,7 +5,7 @@
         <ul class="btn-group">
           <!-- <img :src="IMGURL + item + '.png'" /> -->
             <!-- <a v-for = "item in 4" :key="item.id"  :href="ahref + item"><li></li></a> -->
-            <a v-for = "item in 4" :key="item.id"  @click="linkPage(item)" href="#"><li></li></a>
+            <a v-for = "item in 4" :key="item.id"  @click="linkPage(item)"><li></li></a>
         </ul>
         <img class="text" :src="IMGURL + 'click.png'"/>
     </div>
@@ -43,7 +43,7 @@ export default {
       window.location.origin +
       '/marketing/ppt/video' +
       location.search +
-      '&vNum='
+      '&utm_source='
   },
   mounted() {
     var height =
@@ -68,7 +68,7 @@ export default {
     linkPage(item) {
       let that = this
       this.$router.push({
-        path: 'ppt/video' + location.search + '&vNum=' + item
+        path: 'ppt/video?utm_source=' + item
       })
     }
   },
