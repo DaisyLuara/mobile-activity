@@ -8,6 +8,9 @@
     </div>
     <div class="miizz-wrap">
       <img alt="" v-lazy="baseUrl + 'bg_2.png?v=1'" class="report_bg_2"/>
+        <img alt="" :src="jewelrySingle" class="jewelry_single"/>
+        <img alt="" :src="jewelryText" class="jewelry_text"/>
+        <img alt="" :src="jewelryMulti" class="jewelry_multi"/>
         <img alt="" :src="jewelryTextOne" class="jewelry_text1"/>
         <img alt="" :src="jewelryImgOne" class="jewelry1"/>
         <img alt="" :src="jewelryTextTwo" class="jewelry_text2"/>
@@ -32,6 +35,9 @@ export default {
     return {
       baseUrl: IMAGE_SERVER + 'pages/miizz/',
       jewelryTextOne: '',
+      jewelrySingle: '',
+      jewelryMulti: '',
+      jewelryText: '',
       jewelryTextTwo: '',
       jewelryImgOne: '',
       jewelryImgTwo: '',
@@ -59,6 +65,9 @@ export default {
           this.jewelryTextTwo = this.baseUrl + 'jewelry_text_A2.png'
           this.jewelryImgOne = this.baseUrl + 'jewelry_img_A1.png'
           this.jewelryImgTwo = this.baseUrl + 'jewelry_img_A2.png'
+          this.jewelrySingle = this.baseUrl + 'jewelry_single_A.png'
+          this.jewelryMulti = this.baseUrl + 'jewelry_multi_A.png'
+          this.jewelryText = this.baseUrl + 'jewelry_A.png'
         break;
         case 'B': 
           this.ImgUrl = this.baseUrl + 'photo_B1.png'
@@ -66,6 +75,11 @@ export default {
           this.jewelryTextTwo = this.baseUrl + 'jewelry_text_B2.png'
           this.jewelryImgOne = this.baseUrl + 'jewelry_img_B1.png'
           this.jewelryImgTwo = this.baseUrl + 'jewelry_img_B2.png'
+          this.jewelrySingle = this.baseUrl + 'jewelry_single_B.png'
+          this.jewelryMulti = this.baseUrl + 'jewelry_multi_B.png'
+          this.jewelryText = this.baseUrl + 'jewelry_B.png'
+          
+          
         break;
         case 'C':
           this.ImgUrl = this.baseUrl + 'photo_C1.png'
@@ -73,6 +87,11 @@ export default {
           this.jewelryTextTwo = this.baseUrl + 'jewelry_text_C2.png'
           this.jewelryImgOne = this.baseUrl + 'jewelry_img_C1.png'
           this.jewelryImgTwo = this.baseUrl + 'jewelry_img_C2.png'
+          this.jewelrySingle = this.baseUrl + 'jewelry_single_C.png'
+          this.jewelryMulti = this.baseUrl + 'jewelry_multi_C.png'
+          this.jewelryText = this.baseUrl + 'jewelry_C.png'
+          
+          
         break;
         case 'D':
           this.ImgUrl = this.baseUrl + 'photo_D1.png'
@@ -80,6 +99,9 @@ export default {
           this.jewelryTextTwo = this.baseUrl + 'jewelry_text_D2.png'
           this.jewelryImgOne = this.baseUrl + 'jewelry_img_D1.png'
           this.jewelryImgTwo = this.baseUrl + 'jewelry_img_D2.png'
+          this.jewelrySingle = this.baseUrl + 'jewelry_single_D.png'
+          this.jewelryText = this.baseUrl + 'jewelry_D.png'
+          this.jewelryMulti = this.baseUrl + 'jewelry_multi_D.png'
         break;
       }
     }
@@ -158,6 +180,24 @@ export default {
     position: relative;
     .report_bg_2{
       width:100%;
+    }
+    .jewelry_single{
+      position: absolute;
+      width: 48%;
+      top: -0.7%;
+      right: 26.5%;
+    }
+    .jewelry_text{
+      position: absolute;
+      width: 35%;
+      top: 14%;
+      right: 33%;
+    }
+    .jewelry_multi{
+      position: absolute;
+      width: 80%;
+      top: 25.3%;
+      right: 10%;
     }
     .jewelry_text1{
       position: absolute;
