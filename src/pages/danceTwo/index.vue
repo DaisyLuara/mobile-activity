@@ -39,7 +39,7 @@ export default {
         .getInfoById(this, id)
         .then(result => {
           console.log(result)
-          var URL='https://mall.capitaland.com.cn/hongkoulongzhimeng/lottery/egg';
+          var URL='https://mall.capitaland.com.cn/hongkoulongzhimeng/lottery/egg?id=115B7636F396DF71';
           window.location.href=URL;
           console.log(URL)
         })
