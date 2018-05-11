@@ -200,12 +200,15 @@ body {
   position: relative;
   margin: 0 auto;
   background: url('@{imgUrl}retro/bg.jpg') center center/100% 100% no-repeat;
-
+  font-size: 0;
   .photo {
     margin: 0 auto;
     width: 66.5%;
-    position: relative;
-    margin-top: 40%;
+    height: 66%;
+    position: absolute;
+    top: 22%;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 99;
   }
   .hasshake {
@@ -215,7 +218,10 @@ body {
     animation: twinkle 10s linear;
   }
   .press {
-    position: relative;
+    position: absolute;
+    left: 50%;
+    bottom: 1%;
+    transform: translate(-50%, 0);
     z-index: 99999;
     width: 62.5%;
     margin: 4% auto;
@@ -243,10 +249,10 @@ body {
 // 上下运动
 @keyframes updown {
   0% {
-    transform: translateY(-5px);
+    transform: translate(-50%, -5px);
   }
   100% {
-    transform: translateY(5px);
+    transform: translate(-50%, 5px);
   }
 }
 
