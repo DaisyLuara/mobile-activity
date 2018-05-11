@@ -22,14 +22,14 @@ export default {
   data() {
     return {
       IMGURL: IMAGE_SERVER + '/pages/promotion/',
-      vNum: this.$route.query.vNum,
+      vNum: this.$route.query.utm_source,
       playNow: null,
       playerType: 'h5',
       style:
         'background-image:url(' +
         IMAGE_SERVER +
         '/pages/promotion/video/' +
-        this.$route.query.vNum +
+        this.$route.query.utm_source +
         '.jpg)',
       title: ['', '互动导视', '活动发布', '会员运营', '商场运营'],
       //微信分享
@@ -61,7 +61,7 @@ export default {
   methods: {
     returnMenu() {
       window.location.href =
-        window.location.origin + '/marketing/ppt?id=' + this.$route.query.id
+        window.location.origin + '/marketing/ppt?utm_source=0'
     }
   },
   components: {
