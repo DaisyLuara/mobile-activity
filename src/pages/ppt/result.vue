@@ -1,15 +1,13 @@
 <template>
 <div class="content" id="content">
-    <div class="main" v-show="menuShow">
+    <div class="main">
         <img :src="IMGURL + 'bg1.jpg'" class="bg"/>
         <ul class="btn-group">
-            <li v-for = "item in 4" :key="item.id" @click="playVideo(item)"><img :src="IMGURL + item + '.png'"/></li>
+          <!-- <img :src="IMGURL + item + '.png'" /> -->
+            <!-- <a v-for = "item in 4" :key="item.id"  :href="ahref + item"><li></li></a> -->
+            <a v-for = "item in 4" :key="item.id"  @click="linkPage(item)" href="#"><li></li></a>
         </ul>
         <img class="text" :src="IMGURL + 'click.png'"/>
-    </div>
-    <div class="video-group">
-      <video  v-for="item in 4" :key="item.id" :src="IMGURL + 'video/' + item +'.mp4'" :id="video[item]"></video>
-      <div class="closeDiv"><img :src="IMGURL + 'v-close.png'" class="close" v-show="vclose" @click="videoClose"/></div>
     </div>
     <wx-share :WxShareInfo = 'wxShareInfo'></wx-share>
 </div>
@@ -25,6 +23,7 @@ export default {
       IMGURL: IMAGE_SERVER + '/pages/promotion/',
       video: ['', 'video1', 'video2', 'video3', 'video4'],
       menuShow: true,
+      ahref: null,
       playNow: null,
       vclose: false,
       //微信分享信息
@@ -40,6 +39,11 @@ export default {
   },
   created() {
     this.getInfoById()
+    this.ahref =
+      window.location.origin +
+      '/marketing/ppt/video' +
+      location.search +
+      '&vNum='
   },
   mounted() {
     var height =
@@ -61,27 +65,11 @@ export default {
           console.log(err)
         })
     },
-    playVideo(item) {
+    linkPage(item) {
       let that = this
-      let videoId = document.getElementById('video' + item)
-      videoId.style.display = 'block'
-      videoId.play()
-      this.playNow = videoId
-      this.vclose = true
-      videoId.onplay = function() {
-        this.menuShow = false
-      }
-      videoId.onended = function() {
-        that.videoClose()
-      }
-    },
-    videoClose() {
-      if (!this.playNow.ended) {
-        this.playNow.pause()
-      }
-      this.playNow.style.display = 'none'
-      this.menuShow = true
-      this.vclose = false
+      this.$router.push({
+        path: 'ppt/video' + location.search + '&vNum=' + item
+      })
     }
   },
   components: {
@@ -112,6 +100,9 @@ body {
   -webkit-overflow-scrolling: touch;
   transform: translate3d(0, 0, 0);
 }
+img {
+  pointer-events: none;
+}
 .content {
   width: 100%;
   overflow-x: hidden;
@@ -121,6 +112,7 @@ body {
   .main {
     position: relative;
     width: 100%;
+    overflow: hidden;
     .bg {
       width: 100%;
       position: relative;
@@ -131,26 +123,36 @@ body {
       top: 15%;
       right: 0;
       width: 50%;
+      height: 100%;
       display: inline-block;
       z-index: 999;
-      li {
+
+      a {
         display: inline-block;
         width: 100%;
-        margin: 5% 0 16% 0;
-        img {
+        height: 9.4%;
+        li {
+          display: inline-block;
           width: 100%;
+          height: 100%;
+          overflow: hidden;
+          margin: 5% 0 16% 0;
         }
-        &:nth-child(1) {
+        &:nth-child(1) > li {
           transform: translate(-27%, 14%);
+          background: url('@{imgURL}1.png') center center/100% 100% no-repeat;
         }
-        &:nth-child(2) {
+        &:nth-child(2) > li {
           transform: translate(-7%, 12%);
+          background: url('@{imgURL}2.png') center center/100% 100% no-repeat;
         }
-        &:nth-child(3) {
+        &:nth-child(3) > li {
           transform: translate(-7%, 12%);
+          background: url('@{imgURL}3.png') center center/100% 100% no-repeat;
         }
-        &:nth-child(4) {
+        &:nth-child(4) > li {
           transform: translate(-28%, 6%);
+          background: url('@{imgURL}4.png') center center/100% 100% no-repeat;
         }
       }
     }
@@ -169,21 +171,23 @@ body {
     margin: 0;
     position: absolute;
     z-index: 999;
-    top: 0;
+    top: 0%;
     video {
       width: 100%;
+      height: 100%;
       display: none;
     }
     .closeDiv {
       position: fixed;
       z-index: 9999;
-      top: 0;
+      top: 0%;
       width: 100%;
       text-align: center;
       background-color: rgba(0, 0, 0, 0.5);
       .close {
         width: 10%;
         margin: 10px auto;
+        pointer-events: auto;
       }
     }
   }
