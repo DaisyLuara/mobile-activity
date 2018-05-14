@@ -23,6 +23,7 @@
 <script>
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing/'
 
+import marketService from 'services/marketing';
 import { customTrack } from 'modules/customTrack';
 import WxShare from 'modules/wxShare.vue';
 
@@ -54,8 +55,17 @@ export default {
   },
   created() {
     this.handleShowPage()
+    this.getImageById()
   },
   methods: {
+    getImageById() {
+      let id = this.$route.query.id
+      marketService.getInfoById(this, id).then((result) => {
+        console.log(result)
+      }).catch((err) => {
+        console.log(err);
+      });
+    },
     handleShowPage () {
       let type = this.$route.query.type
       switch(type) {
