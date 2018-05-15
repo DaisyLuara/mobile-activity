@@ -419,6 +419,12 @@ export default new Router({
           name: '星视度玩法宣传视频',
           component: () =>
             import(/* webpackChunkName: "ppt" */ 'pages/ppt/v1.vue')
+        },
+        {
+          path: 'kissMe',
+          name: 'kissMe电影通用版',
+          component: () =>
+            import(/* webpackChunkName: "kissMe" */ 'pages/kissMe/result.vue')
         }
       ]
     },
