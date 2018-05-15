@@ -2,8 +2,8 @@
   <div class="concert-content">
     <div class="main">
       <img :src="imgServerUrl + '/pages/drc/bg.png'" class="bg"/>
-      <!-- <img class="photo" :src="resultImgUrl" alt=""/> -->
-      <img  class="photo" :src="imgServerUrl + '/pages/drc/photo.png'" alt=""/>
+      <img class="photo" :src="resultImgUrl" alt=""/>
+      <!-- <img  class="photo" :src="imgServerUrl + '/pages/drc/photo.png'" alt=""/> -->
       <img :src="imgServerUrl + '/pages/drc/cloud1.png'" alt="" class="cloud1">
       <img :src="imgServerUrl + '/pages/drc/cloud1.png'" alt="" class="cloud2">
       <img :src="imgServerUrl + '/pages/drc/doll.png'" alt="" class="doll">
@@ -111,7 +111,7 @@ export default {
           top: 61.5%;
           left: 14%;
           z-index: 9999;
-          animation: around 1.2s  linear infinite alternate;
+          animation: around 1.6s  linear infinite alternate;
         }
         .cloud2{
           width: 21%;
