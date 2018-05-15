@@ -425,7 +425,13 @@ export default new Router({
           name: 'kissMe电影通用版',
           component: () =>
             import(/* webpackChunkName: "kissMe" */ 'pages/kissMe/result.vue')
-        }
+        },
+        {
+          path: 'drc',
+          name: '大融城',
+          component: () =>
+            import(/* webpackChunkName: "drc" */ 'pages/drc/result.vue')
+        },
       ]
     },
     {
