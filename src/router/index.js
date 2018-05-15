@@ -419,7 +419,12 @@ export default new Router({
           name: '星视度玩法宣传视频',
           component: () =>
             import(/* webpackChunkName: "ppt" */ 'pages/ppt/v1.vue')
-        }
+        },{
+          path: 'drc',
+          name: '大融城',
+          component: () =>
+            import(/* webpackChunkName: "drc" */ 'pages/drc/result.vue')
+        },
       ]
     },
     {
