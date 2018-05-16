@@ -2,8 +2,8 @@
   <div class="hilton-content">
       <div class="coupon">
          <img  v-show="showCoupon.cp268" class="cp-268" :src="imgServerUrl + '/pages/hiltonMla/268.png'" alt="" />
-         <img  v-show="showCoupon.cp428" class="cp-428" :src="imgServerUrl + '/pages/hiltonMla/428.png'" alt="" />
-         <img  v-show="showCoupon.cp777" class="cp-777" :src="imgServerUrl + '/pages/hiltonMla/777.png'" alt="" />
+         <img  v-show="showCoupon.cp428" class="cp-428" :src="imgServerUrl + '/pages/hiltonMla/428_2.png'" alt="" />
+         <img  v-show="showCoupon.cp777" class="cp-777" :src="imgServerUrl + '/pages/hiltonMla/777_2.png'" alt="" />
       </div>
       <div class="save">
           <img class="jiantou" :src="imgServerUrl + '/pages/hiltonMla/jiantou.png'" alt="" >
