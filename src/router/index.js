@@ -437,6 +437,24 @@ export default new Router({
           name: '热血狂篮',
           component: () =>
             import(/* webpackChunkName: 'hotblood' */ 'pages/mangguo/hotblood.vue')
+        },
+        {
+          path: 'ppt_index',
+          name: '星视度玩法宣传视频组菜单页',
+          component: () =>
+            import(/* webpackChunkName: "ppt" */ 'pages/ppt/index.vue')
+        },
+        {
+          path: 'ppt_videos',
+          name: '星视度玩法宣传视频组',
+          component: () =>
+            import(/* webpackChunkName: "ppt" */ 'pages/ppt/video.vue')
+        },
+        {
+          path: 'tea',
+          name: '茶桔便2.0',
+          component: () =>
+            import(/* webpackChunkName: "heyjuice" */ 'pages/heyjuice/tea.vue')
         }
       ]
     },
