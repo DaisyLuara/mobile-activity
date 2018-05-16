@@ -1,32 +1,77 @@
 <template>
 <div class="video-content" id="content" >
-    <div class="navDiv" @click="returnMenu"></div>
-    <div class="vDiv" >
-        <video  id="video"  webkit-playsinline="true" playsinline="true" x-webkit-airplay="true"  controls width="100%" height="100%">
-        <source :src="IMGURL + 'video/' + vNum +'.mp4'" type="video/mp4">
-            您的浏览器不支持video标签.
-        </video>
+    <div class="container">
+      <swiper :options="swiperOption" ref="Swiper1" class="vSwiper">
+        <swiper-slide v-for="(item,index) in videoData" :key="index" class="slider1">
+          <video  :id="'video'+index"  webkit-playsinline="true" playsinline="true" x-webkit-airplay="true"  controls width="100%" height="100%" v-show="!bgshow">
+            <source :src="item.vUrl" type="video/mp4">
+              您的浏览器不支持video标签.
+          </video>
+          <img :src="item.bgUrl + '?1212'" class="vbg" v-show="bgshow">
+          <a @click="vPlay(index)" class="vplay" v-show="bgshow"><img :src="IMGURL + 'video/play.png'"/></a>
+        </swiper-slide>
+      </swiper>
+      <swiper :options="labelOption" ref="Swiper2" class="labels">
+        <swiper-slide v-for="(item,index) of videoData" :key="index" class="slider2">
+         {{item.labelText}}
+        </swiper-slide>
+      </swiper>
+      <div class="swiper-pagination swiper-pagination-white" slot="pagination"></div>
     </div>
-    <img :src="IMGURL + 'video/bg' + vNum +'.jpg'" class="vbg" v-show="bgshow">
-    <a @click="vPlay" class="vplay" v-show="bgshow"><img :src="IMGURL + 'video/play'+vNum+'.png'"/></a>
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
 </div>
 </template>
 
 <script>
+const REQ_URL = 'http://120.27.144.62:1337/parse/classes/'
 import marketService from 'services/marketing'
 import WxShare from 'modules/wxShare'
+import parseService from 'modules/parseServer'
 import { customTrack } from 'modules/customTrack'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
   data() {
     return {
       IMGURL: IMAGE_SERVER + '/pages/promotion/',
-      vNum: this.$route.query.utm_source,
+      videoData: null,
+      vType: this.$route.query.vtype,
       playNow: null,
-      playerType: 'h5',
       bgshow: true,
-      title: ['', '互动导视', '活动发布', '会员运营', '商场运营'],
+      swiperOption: {
+        slideToClickedSlide: true,
+        centeredSlides: true,
+        preventLinksPropagation: true,
+        paginationClickable: true,
+        slidesPerGroup: 1,
+        loop: true,
+        loopFillGroupWithBlank: true,
+        pagination: {
+          el: '.swiper-pagination',
+          type: 'bullets',
+          clickable: true
+        },
+        on: {
+          init: () => {},
+          slideChange: () => {
+            this.playNow = document.getElementById(
+              'video' + this.$refs.Swiper1.swiper.previousIndex
+            )
+            this.playNow.pause()
+          }
+        }
+      },
+      labelOption: {
+        centeredSlides: true,
+        slidesPerView: 3,
+        slideToClickedSlide: true,
+        // slidesPerGroup: 1,
+        // loop: true,
+        // loopFillGroupWithBlank: true,
+        on: {
+          init: () => {},
+          slideChange: () => {}
+        }
+      },
       //微信分享
       wxShareInfo: {
         title: '星视度',
@@ -38,10 +83,11 @@ export default {
       }
     }
   },
-  beforeCreate() {},
+  beforeCreate() {
+    document.title = '星视度'
+  },
   created() {
-    let num = this.vNum
-    document.title = this.title[num]
+    this.getDataByType()
   },
   mounted() {
     var height =
@@ -50,21 +96,40 @@ export default {
       document.body.clientHeight
     var content = document.getElementById('content')
     content.style.minHeight = height + 'px'
-    this.playNow = document.getElementById('video')
-    this.playNow.load()
+    this.$refs.Swiper1.swiper.controller.control = this.$refs.Swiper2.swiper
+    this.$refs.Swiper2.swiper.controller.control = this.$refs.Swiper1.swiper
   },
   methods: {
     returnMenu() {
       window.location.href =
         window.location.origin + '/marketing/ppt?utm_source=0'
     },
-    vPlay() {
-      this.playNow.currentTime = 0
+    vPlay(index) {
+      let that = this
+      this.playNow = document.getElementById('video' + index)
       this.playNow.play()
       this.bgshow = false
       this.playNow.onended = function() {
-        this.bgshow = true
+        that.bgshow = true
       }
+      this.playNow.onpause = function() {
+        that.bgshow = true
+        console.log('pause')
+      }
+    },
+    getDataByType() {
+      let query = {
+        vType: this.vType
+      }
+      parseService
+        .get(this, REQ_URL + 'promotion?where=' + JSON.stringify(query))
+        .then(data => {
+          this.videoData = data.results
+          console.log(data.results)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   },
   components: {
@@ -87,46 +152,70 @@ body {
   text-align: center;
   overflow-x: hidden;
   position: relative;
-
-  .navDiv {
+  background-color: #11181e;
+  .vSwiper {
     width: 100%;
-    height: 49px;
-    background-image: url('@{imgURL}return.png');
-    background-position: center center;
-    background-size: 50% auto;
-    background-repeat: no-repeat;
-    background-color: #000;
-  }
-  .vDiv {
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-    video {
-      width: 100%;
-      height: 100%;
+    text-align: center;
+    margin-top: 5%;
+    .slider1 {
+      margin: 0 auto;
+      text-align: center;
       position: relative;
-      z-index: 0;
+      video {
+        width: 100%;
+        position: relative;
+        z-index: 0;
+      }
+      .vbg {
+        width: 90%;
+        // filter: url(blur.svg#blur); /* FireFox, Chrome, Opera */
+        filter: blur(10px);
+        filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=10, MakeShadow=false); /* IE6~IE9 */
+      }
+      .vplay {
+        width: 30%;
+        display: inline-block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 999;
+        img {
+          max-width: 100%;
+        }
+      }
     }
   }
-  .vbg {
-    position: absolute;
-    top: 49px;
-    left: 0;
+  .labels {
     width: 100%;
-    z-index: 99;
-  }
-  .vplay {
-    width: 25%;
-    display: block;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    margin-top: 49px;
-    z-index: 999;
-    img {
-      width: 100%;
+    height: 3.4%;
+    margin-bottom: 10%;
+    .slider2 {
+      background: url('@{imgURL}label.png') center center/auto 90% no-repeat;
+      width: 33.3%;
+      height: 100%;
+      color: #fff;
+      text-align: center;
+      font-size: 14px;
+      padding: 5% 0 5% 0;
+      opacity: 0.6;
+      // transform: translate(40%, 0);
+    }
+    .swiper-slide-active {
+      opacity: 1;
+      // transform: translate(40%, 0) scale(1.4, 1.4);
+      transform: scale(1.4, 1.4);
     }
   }
+  .swiper-pagination {
+    width: 100%;
+    top: 95%;
+  }
+}
+</style>
+<style lang="less">
+.swiper-pagination-bullet {
+  background: #fff !important;
+  margin: 0px 5px !important;
 }
 </style>

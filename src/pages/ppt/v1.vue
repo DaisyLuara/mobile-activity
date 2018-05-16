@@ -119,7 +119,7 @@ body {
     width: 25%;
     display: block;
     position: absolute;
-    top: 50%;
+    top: 42%;
     left: 50%;
     transform: translate(-50%, -50%);
     margin-top: 49px;
