@@ -1,13 +1,19 @@
 <template>
   <div class="hilton-content">
-      <div class="coupon">
+      <img class="bg" :src="imgServerUrl + '/pages/hiltonMla/bg.jpg'" alt="" >
+      <img class="pingzi" :src="imgServerUrl + '/pages/hiltonMla/pingzi.png'" alt="" >
+      <img class="light" :src="imgServerUrl + '/pages/hiltonMla/light.png'" alt="">
+     <div class="coupon">
          <img  v-show="showCoupon.cp268" class="cp-268" :src="imgServerUrl + '/pages/hiltonMla/268.png'" alt="" />
-         <img  v-show="showCoupon.cp428" class="cp-428" :src="imgServerUrl + '/pages/hiltonMla/428_2.png'" alt="" />
-         <img  v-show="showCoupon.cp777" class="cp-777" :src="imgServerUrl + '/pages/hiltonMla/777_2.png'" alt="" />
+         <img  v-show="showCoupon.cp428" class="cp-428" :src="imgServerUrl + '/pages/hiltonMla/428.png'" alt="" />
+         <img  v-show="showCoupon.cp777" class="cp-777" :src="imgServerUrl + '/pages/hiltonMla/777.png'" alt="" />
       </div>
       <div class="save">
           <img class="jiantou" :src="imgServerUrl + '/pages/hiltonMla/jiantou.png'" alt="" >
           <img class="title" :src="imgServerUrl + '/pages/hiltonMla/title.png'" alt="" >
+      </div>
+      <div class="bg2">
+         <img :src="imgServerUrl + '/pages/hiltonMla/bg2.png'" alt="" >
       </div>
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
@@ -98,18 +104,28 @@ export default {
 .hilton-content{
       width:100%;
       height:100%;
-      background-image: url("@{imageHost}/bg.jpeg");
-      background-repeat: no-repeat;
-      background-size: 100% 100%;
       position: relative;
       text-align: center;
       overflow:hidden;
+   .pingzi{
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+    .light{
+        position: absolute;
+        left: 0;
+        top: 8%;
+      }
     .coupon{
       width: 85%;
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%,-50%)
+      img{
+       position: absolute;
+        left: 50%;
+        top: 48%;
+        transform: translate(-50%,-50%)
+      }
+     
     }
     .save{
       width:100%;
@@ -119,13 +135,19 @@ export default {
         text-align:center;
         animation: arrows .4s ease-out infinite alternate;
       .jiantou{
-         width: 3.5%;
+         width: 5.5%;
       }
       .title{
-        width:40%;
-        display:block;
-        margin:1% 0 0 30%;
+        width: 52%;
+        display: block;
+        margin: 2% 0 0 25%
       }
+    }
+    .bg2{
+        width:100%;
+        position: absolute;
+        left: 0%;
+        bottom: 0%;
     }
 }
 @keyframes arrows {
