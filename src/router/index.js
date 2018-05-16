@@ -432,6 +432,12 @@ export default new Router({
           component: () =>
             import(/* webpackChunkName: "drc" */ 'pages/drc/result.vue')
         },
+        {
+          path: 'hotblood',
+          name: '热血狂篮',
+          component: () =>
+            import(/* webpackChunkName: 'hotblood' */ 'pages/mangguo/hotblood.vue')
+        }
       ]
     },
     {
