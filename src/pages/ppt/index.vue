@@ -42,11 +42,11 @@ export default {
     this.getInfoById()
   },
   mounted() {
-    var height =
+    let height =
       window.innerHeight ||
       document.documentElement.clientHeight ||
       document.body.clientHeight
-    var content = document.getElementById('content')
+    let content = document.getElementById('content')
     content.style.minHeight = height + 'px'
   },
   methods: {
@@ -64,7 +64,7 @@ export default {
     linkPage(item, type) {
       let that = this
       this.$router.push({
-        path: 'ppt_videos?utm_source=11&vtype=' + type
+        path: 'ppt_videos?utm_source=2' + item + '&vtype=' + type
       })
     }
   },
