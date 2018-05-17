@@ -64,7 +64,7 @@ export default {
     linkPage(item, type) {
       let that = this
       this.$router.push({
-        path: 'ppt_videos?utm_source=11&vtype=' + type
+        path: 'ppt_videos?utm_source=2' + item + '&vtype=' + type
       })
     }
   },

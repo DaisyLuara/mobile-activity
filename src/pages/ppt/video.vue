@@ -42,9 +42,6 @@ export default {
         centeredSlides: true,
         preventLinksPropagation: true,
         paginationClickable: true,
-        slidesPerGroup: 1,
-        loop: true,
-        loopFillGroupWithBlank: true,
         pagination: {
           el: '.swiper-pagination',
           type: 'bullets',
@@ -57,6 +54,7 @@ export default {
               'video' + this.$refs.Swiper1.swiper.previousIndex
             )
             this.playNow.pause()
+            that.playNow.currentTime = 0
           }
         }
       },
@@ -64,9 +62,6 @@ export default {
         centeredSlides: true,
         slidesPerView: 3,
         slideToClickedSlide: true,
-        // slidesPerGroup: 1,
-        // loop: true,
-        // loopFillGroupWithBlank: true,
         on: {
           init: () => {},
           slideChange: () => {}
@@ -109,12 +104,14 @@ export default {
       this.playNow = document.getElementById('video' + index)
       this.playNow.play()
       this.bgshow = false
+      this.playNow.onplay = function() {
+        that.playNow.currentTime = 0
+      }
       this.playNow.onended = function() {
         that.bgshow = true
       }
       this.playNow.onpause = function() {
         that.bgshow = true
-        console.log('pause')
       }
     },
     getDataByType() {
