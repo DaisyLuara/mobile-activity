@@ -156,7 +156,8 @@ img {
       width: 29%;
       display: block;
       position: absolute;
-      bottom: 5%;
+      top: 81%;
+      // bottom: 5%;
       left: 35.5%;
       z-index: 99;
     }

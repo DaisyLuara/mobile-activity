@@ -55,6 +55,7 @@ export default {
             )
             this.playNow.pause()
             this.playNow.currentTime = 0
+            scrollTo(0, 0)
           }
         }
       },
@@ -64,7 +65,9 @@ export default {
         slideToClickedSlide: true,
         on: {
           init: () => {},
-          slideChange: () => {}
+          slideChange: () => {
+            scrollTo(0, 0)
+          }
         }
       },
       //微信分享
@@ -164,7 +167,7 @@ body {
         z-index: 0;
       }
       .vbg {
-        width: 90%;
+        width: 70%;
         // filter: url(blur.svg#blur); /* FireFox, Chrome, Opera */
         filter: blur(10px);
         filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=10, MakeShadow=false); /* IE6~IE9 */
@@ -198,10 +201,16 @@ body {
       opacity: 0.6;
       // transform: translate(40%, 0);
     }
+    .swiper-slide-active {
+      // transform: translate(40%, 0) scale(1.4, 1.4);
+      transform: scale(1.4, 1.4);
+      opacity: 1 !important;
+    }
   }
   .swiper-pagination {
     width: 100%;
     top: 95%;
+    // bottom: 3%;
   }
 }
 </style>
