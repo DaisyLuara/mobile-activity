@@ -45,8 +45,18 @@ export default {
         pagination: {
           el: '.swiper-pagination',
           type: 'bullets',
-          clickable: true
+          clickable: true,
+          renderBullet: function(index, className) {
+            return (
+              '<span style="background:#fff;margin:0px 5px;" class="' +
+              className +
+              '">' +
+              '' +
+              '</span>'
+            )
+          }
         },
+
         on: {
           init: () => {},
           slideChange: () => {
@@ -203,7 +213,7 @@ body {
     }
     .swiper-slide-active {
       // transform: translate(40%, 0) scale(1.4, 1.4);
-      transform: scale(1.4, 1.4);
+      transform: scale(1.4, 1.4) !important;
       opacity: 1 !important;
     }
   }
@@ -212,16 +222,5 @@ body {
     top: 95%;
     // bottom: 3%;
   }
-}
-</style>
-<style lang="less">
-.swiper-slide-active {
-  // transform: translate(40%, 0) scale(1.4, 1.4);
-  transform: scale(1.4, 1.4);
-  opacity: 1 !important;
-}
-.swiper-pagination-bullet {
-  background: #fff !important;
-  margin: 0px 5px !important;
 }
 </style>
