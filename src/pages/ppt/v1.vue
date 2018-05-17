@@ -44,11 +44,11 @@ export default {
     document.title = this.title[num]
   },
   mounted() {
-    var height =
+    let height =
       window.innerHeight ||
       document.documentElement.clientHeight ||
       document.body.clientHeight
-    var content = document.getElementById('content')
+    let content = document.getElementById('content')
     content.style.minHeight = height + 'px'
     this.playNow = document.getElementById('video')
     this.playNow.load()
