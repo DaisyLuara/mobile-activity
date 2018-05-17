@@ -15,7 +15,11 @@
       :src="IMAGE_URL + 'nav.png'" />
     <img
       class="bg"
-      :src="IMAGE_URL + 'bg.png'" />
+      :src="IMAGE_URL + 'bg-new.png'" />
+
+    <img
+      class="qr-code"
+      :src="IMAGE_URL + 'qr-aiqiyi.png'"/>
     
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
@@ -116,6 +120,13 @@ export default {
     width: 74%;
     left: 13%;
     z-index: 9;
+  }
+  .qr-code {
+    z-index: 20;
+    position: absolute;
+    top: 82.5%;
+    width: 27%;
+    left: 13%;
   }
 }
 </style>
