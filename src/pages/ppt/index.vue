@@ -42,11 +42,11 @@ export default {
     this.getInfoById()
   },
   mounted() {
-    var height =
+    let height =
       window.innerHeight ||
       document.documentElement.clientHeight ||
       document.body.clientHeight
-    var content = document.getElementById('content')
+    let content = document.getElementById('content')
     content.style.minHeight = height + 'px'
   },
   methods: {

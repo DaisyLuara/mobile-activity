@@ -85,11 +85,11 @@ export default {
     this.getDataByType()
   },
   mounted() {
-    var height =
+    let height =
       window.innerHeight ||
       document.documentElement.clientHeight ||
       document.body.clientHeight
-    var content = document.getElementById('content')
+    let content = document.getElementById('content')
     content.style.minHeight = height + 'px'
     this.$refs.Swiper1.swiper.controller.control = this.$refs.Swiper2.swiper
     this.$refs.Swiper2.swiper.controller.control = this.$refs.Swiper1.swiper
