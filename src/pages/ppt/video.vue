@@ -54,7 +54,7 @@ export default {
               'video' + this.$refs.Swiper1.swiper.previousIndex
             )
             this.playNow.pause()
-            that.playNow.currentTime = 0
+            this.playNow.currentTime = 0
           }
         }
       },
@@ -198,11 +198,6 @@ body {
       opacity: 0.6;
       // transform: translate(40%, 0);
     }
-    .swiper-slide-active {
-      opacity: 1;
-      // transform: translate(40%, 0) scale(1.4, 1.4);
-      transform: scale(1.4, 1.4);
-    }
   }
   .swiper-pagination {
     width: 100%;
@@ -211,6 +206,11 @@ body {
 }
 </style>
 <style lang="less">
+.swiper-slide-active {
+  // transform: translate(40%, 0) scale(1.4, 1.4);
+  transform: scale(1.4, 1.4);
+  opacity: 1 !important;
+}
 .swiper-pagination-bullet {
   background: #fff !important;
   margin: 0px 5px !important;
