@@ -6,9 +6,9 @@
         <img :src="imgPath + 'shadow.png'" class="shadow">
         <div class="picture">
             <img :src="photo" class="pImg"/>
-            <img :src="imgPath + 'border.png'" class="border" v-show="border"/>
+            <img :src="imgPath + 'border.png'" :class="{border:true,afterShow:isShow}"/>
         </div>
-        <img :src="imgPath + 'press.png'" class="note" v-show="border">
+        <img :src="imgPath + 'press.png'" :class="{note:true,afterShow:isShow}"/>
        <a :href="null" class="abtn"></a>
         <wx-share :WxShareInfo="wxShareInfo"></wx-share>
     </div>
@@ -25,6 +25,7 @@ export default {
       imgPath: IMG_SERVER + '/heyjiuce/tea/',
       photo: null,
       border: false,
+      isShow: false,
       //微信分享
       wxShareInfo: {
         title: 'HEYJUICE等待着与你相遇',
@@ -41,28 +42,24 @@ export default {
   },
   created() {},
   mounted() {
-    var h =
+    let h =
       window.innerHeight ||
       document.documentElement.clientHeight ||
       document.body.clientHeight
-    var tea = document.getElementById('tea')
+    let tea = document.getElementById('tea')
     tea.style.minHeight = h + 'px'
-    console.log(h)
     this.getInfoById()
   },
   methods: {
     getInfoById() {
       let id = this.$route.query.id
-      var that = this
+      let that = this
       marketService
         .getInfoById(this, id)
         .then(res => {
           this.photo = res.image
           console.log(res)
-          var timer = setTimeout(function() {
-            that.border = true
-            clearTimeout(timer)
-          }, 2250)
+          this.isShow = true
         })
         .catch(err => {
           console.log(err)
@@ -132,6 +129,7 @@ export default {
       left: 3%;
       z-index: 9;
       margin-top: 2.5%;
+      opacity:0;
     }
   }
   .note {
@@ -140,6 +138,7 @@ export default {
     left: 35.5%;
     top: 81%;
     // animation: updown 0.8s linear infinite alternate;
+    opacity:0;
   }
   .abtn {
     display: block;
@@ -154,6 +153,11 @@ export default {
     &:link {
       background: url('@{imgUrl}btn2.png') center center/auto 90% no-repeat;
     }
+    
+  }
+  .afterShow {
+    animation: toShow 0.1s 2.25s linear forwards;
+    
   }
 }
 
@@ -171,6 +175,14 @@ export default {
   }
   100% {
     transform: translateY(5px);
+  }
+}
+@keyframes toShow {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
 </style>

@@ -40,13 +40,12 @@ export default {
   },
   created() {},
   mounted() {
-    var h =
+    let h =
       window.innerHeight ||
       document.documentElement.clientHeight ||
       document.body.clientHeight
-    var tea = document.getElementById('tea')
+    let tea = document.getElementById('tea')
     tea.style.minHeight = h + 'px'
-    console.log(h)
     this.getInfoById()
   },
   methods: {
