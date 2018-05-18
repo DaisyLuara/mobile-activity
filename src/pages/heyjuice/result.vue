@@ -36,17 +36,16 @@ export default {
     }
   },
   beforeCreate() {
-    document.title = '茶桔梗'
+    document.title = '茶桔便'
   },
   created() {},
   mounted() {
-    var h =
+    let h =
       window.innerHeight ||
       document.documentElement.clientHeight ||
       document.body.clientHeight
-    var tea = document.getElementById('tea')
+    let tea = document.getElementById('tea')
     tea.style.minHeight = h + 'px'
-    console.log(h)
     this.getInfoById()
   },
   methods: {
