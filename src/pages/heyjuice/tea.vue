@@ -9,7 +9,7 @@
             <img :src="imgPath + 'border.png'" :class="{border:true,afterShow:isShow}"/>
         </div>
         <img :src="imgPath + 'press.png'" :class="{note:true,afterShow:isShow}"/>
-       <a :href="null" class="abtn"></a>
+       <a :href="menu" class="abtn"></a>
         <wx-share :WxShareInfo="wxShareInfo"></wx-share>
     </div>
   </div>
@@ -26,6 +26,9 @@ export default {
       photo: null,
       border: false,
       isShow: false,
+      menuUrl:'http://papi.xingstation.com/api/point_configs/',
+      menu:null,
+      source:this.$route.query.utm_source,
       //微信分享
       wxShareInfo: {
         title: 'HEYJUICE等待着与你相遇',
@@ -38,7 +41,7 @@ export default {
     }
   },
   beforeCreate() {
-    document.title = '茶桔梗'
+    document.title = '茶桔便'
   },
   created() {},
   mounted() {
@@ -49,6 +52,7 @@ export default {
     let tea = document.getElementById('tea')
     tea.style.minHeight = h + 'px'
     this.getInfoById()
+    this.toMenu(this.source)
   },
   methods: {
     getInfoById() {
@@ -58,13 +62,17 @@ export default {
         .getInfoById(this, id)
         .then(res => {
           this.photo = res.image
-          console.log(res)
           this.isShow = true
         })
         .catch(err => {
           console.log(err)
           return
         })
+    },
+    toMenu(source){
+      this.$http.get(this.menuUrl + source).then(res => {
+        this.menu = res.data.url;
+      }).catch(err => {console.log(err)})
     }
   },
   components: {

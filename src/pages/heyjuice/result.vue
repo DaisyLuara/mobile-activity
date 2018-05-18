@@ -36,7 +36,7 @@ export default {
     }
   },
   beforeCreate() {
-    document.title = '茶桔梗'
+    document.title = '茶桔便'
   },
   created() {},
   mounted() {
