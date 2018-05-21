@@ -43,8 +43,8 @@ export default {
       vType: this.$route.query.vtype,
       playNow: null,
       bgshow: true,
-      left:false,
-      right:false,
+      left: false,
+      right: false,
       swiperOption: {
         slideToClickedSlide: true,
         centeredSlides: true,
@@ -65,7 +65,7 @@ export default {
           }
         },
         on: {
-          init: () => { },
+          init: () => {},
           slideChange: () => {
             this.playNow = document.getElementById(
               'video' + this.$refs.Swiper1.swiper.previousIndex
@@ -128,7 +128,7 @@ export default {
       // window.location.href =
       //   window.location.origin + '/marketing/ppt_index?utm_source=20'
       this.$router.push({
-        path:'ppt_index?utm_source=20'
+        path: 'ppt_index?utm_source=20'
       })
     },
     vPlay(index) {
@@ -155,20 +155,24 @@ export default {
         .then(data => {
           this.videoData = data.results
           console.log(data.results)
-          this.toPointer();
+          this.toPointer()
         })
         .catch(err => {
           console.log(err)
         })
     },
-    toPointer(){
-      let index = this.$refs.Swiper2.swiper.activeIndex;
-      index = Number(index);
-      let all = $('.slider2');
+    toPointer() {
+      let index = this.$refs.Swiper2.swiper.activeIndex
+      index = Number(index)
+      let all = $('.slider2')
       let active = $('.slider2:eq(' + index + ')')
-     index < this.videoData.length-1 ? all.removeClass('slider2-right')&&active.addClass('slider2-right') : all.removeClass('slider2-right');
-     index > 0 ? all.removeClass('slider2-left')&&active.addClass('slider2-left') : all.removeClass('slider2-left');
-     active = null;
+      index < this.videoData.length - 1
+        ? all.removeClass('slider2-right') && active.addClass('slider2-right')
+        : all.removeClass('slider2-right')
+      index > 0
+        ? all.removeClass('slider2-left') && active.addClass('slider2-left')
+        : all.removeClass('slider2-left')
+      active = null
     }
   },
   components: {
@@ -195,7 +199,7 @@ body {
   .vSwiper {
     width: 100%;
     text-align: center;
-    margin-top:3%;
+    margin-top: 3%;
     .slider1 {
       margin: 0 auto;
       text-align: center;
@@ -210,7 +214,7 @@ body {
         // filter: url(blur.svg#blur); /* FireFox, Chrome, Opera */
         filter: blur(10px);
         filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=10, MakeShadow=false); /* IE6~IE9 */
-        overflow:hidden;
+        overflow: hidden;
       }
       .vplay {
         width: 30%;
@@ -230,7 +234,7 @@ body {
     width: 100%;
     height: 3.4%;
     // margin-bottom: 10%;
-    margin-top:13%;
+    margin-top: 13%;
     .slider2 {
       //background: url('@{imgURL}label.png') center center/auto 90% no-repeat;
       width: 33.3%;
@@ -239,59 +243,58 @@ body {
       text-align: center;
       font-size: 14px;
       opacity: 0.6;
-      position:relative;
-      .label-bg{
-        width:100%;
-        height:auto;
-        position:relative;
-        margin:0 auto;
-        z-index:0;
+      position: relative;
+      .label-bg {
+        width: 100%;
+        height: auto;
+        position: relative;
+        margin: 0 auto;
+        z-index: 0;
       }
-      .label-text{
-        width:100%;
-        height:100%;
-        text-align:center;
-        position:absolute;
-        top:0%;
-        left:50%;
-        transform:translate(-50%,0%);
-        z-index:9;
-        font-size:0.14rem;
+      .label-text {
+        width: 100%;
+        text-align: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 9;
+        font-size: 0.14rem;
+        margin: 0;
       }
-      .toleft{
-        height:65%;
-        width:auto;
-        position:absolute;
-        top:50%;
-        left:5%;
-        transform:translateY(-50%);
-        z-index:99;
+      .toleft {
+        height: 65%;
+        width: auto;
+        position: absolute;
+        top: 50%;
+        left: 5%;
+        transform: translateY(-50%);
+        z-index: 99;
         //display:none;
-        opacity:0;
-        
+        opacity: 0;
       }
-      .toright{
-        height:65%;
-        width:auto;
-        position:absolute;
-        top:50%;
-        right:5%;
-        transform:translateY(-50%);
-        z-index:99;
+      .toright {
+        height: 65%;
+        width: auto;
+        position: absolute;
+        top: 50%;
+        right: 5%;
+        transform: translateY(-50%);
+        z-index: 99;
         //display:none;
-        opacity:0;
+        opacity: 0;
       }
     }
-    .slider2-left{
-      .toleft{
-       opacity:1;
-        animation:shake 0.5s linear infinite alternate;
+    .slider2-left {
+      .toleft {
+        opacity: 1;
+        animation: shake 0.5s linear infinite alternate;
       }
     }
-    .slider2-right{
-      .toright{
-         opacity:1;
-        animation:shake 0.5s linear infinite alternate;
+    .slider2-right {
+      .toright {
+        opacity: 1;
+        animation: shake 0.5s linear infinite alternate;
       }
     }
     .swiper-slide-active {
@@ -301,27 +304,27 @@ body {
   }
   .swiper-pagination {
     width: 100%;
-    top:-2%;
+    top: -2%;
   }
 
-  .home{
-    display:inline-block;
-    width:13%;
-    position:fixed;
-    left:10px;
-    bottom:20px;
-    z-index:99999;
-    img{
-      width:100%;
+  .home {
+    display: inline-block;
+    width: 13%;
+    position: fixed;
+    left: 10px;
+    bottom: 20px;
+    z-index: 99999999;
+    img {
+      width: 100%;
     }
   }
 }
-@keyframes shake{
-  0%{
-    opacity:0;
+@keyframes shake {
+  0% {
+    opacity: 0;
   }
-  100%{
-    opacity:1;
+  100% {
+    opacity: 1;
   }
 }
 </style>
