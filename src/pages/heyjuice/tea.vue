@@ -5,7 +5,7 @@
         <img :src="imgPath + 'cover.png'" class="cover">
         <img :src="imgPath + 'shadow.png'" class="shadow">
         <div class="picture">
-            <img :src="photo" class="pImg"/>
+            <img :src="photo" :class="{pImg:true,slider:slider}"/>
             <img :src="imgPath + 'border.png'" :class="{border:true,afterShow:isShow}"/>
         </div>
         <img :src="imgPath + 'press.png'" :class="{note:true,afterShow:isShow}"/>
@@ -26,9 +26,10 @@ export default {
       photo: null,
       border: false,
       isShow: false,
-      menuUrl:'http://papi.xingstation.com/api/point_configs/',
-      menu:null,
-      source:this.$route.query.utm_source,
+      menuUrl: 'http://papi.xingstation.com/api/point_configs/',
+      menu: null,
+      slider: false,
+      source: this.$route.query.utm_source,
       //微信分享
       wxShareInfo: {
         title: 'HEYJUICE等待着与你相遇',
@@ -63,16 +64,22 @@ export default {
         .then(res => {
           this.photo = res.image
           this.isShow = true
+          this.slider = true
         })
         .catch(err => {
           console.log(err)
           return
         })
     },
-    toMenu(source){
-      this.$http.get(this.menuUrl + source).then(res => {
-        this.menu = res.data.url;
-      }).catch(err => {console.log(err)})
+    toMenu(source) {
+      this.$http
+        .get(this.menuUrl + source)
+        .then(res => {
+          this.menu = res.data.url
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   },
   components: {
@@ -129,6 +136,8 @@ export default {
       z-index: 999;
       margin-top: 5.2%;
       transform: translate3d(0, -116%, 0);
+    }
+    .slider {
       animation: sliderDown 2s 0.6s ease-in-out forwards;
     }
     .border {
@@ -137,7 +146,7 @@ export default {
       left: 3%;
       z-index: 9;
       margin-top: 2.5%;
-      opacity:0;
+      opacity: 0;
     }
   }
   .note {
@@ -146,7 +155,7 @@ export default {
     left: 35.5%;
     top: 81%;
     // animation: updown 0.8s linear infinite alternate;
-    opacity:0;
+    opacity: 0;
   }
   .abtn {
     display: block;
@@ -161,11 +170,9 @@ export default {
     &:link {
       background: url('@{imgUrl}btn2.png') center center/auto 90% no-repeat;
     }
-    
   }
   .afterShow {
-    animation: toShow 0.1s 2.25s linear forwards;
-    
+    animation: toShow 0.1s 2.55s linear forwards;
   }
 }
 
