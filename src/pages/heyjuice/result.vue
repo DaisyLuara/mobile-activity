@@ -5,7 +5,7 @@
         <img :src="imgPath + 'cover.png'" class="cover">
         <img :src="imgPath + 'shadow.png'" class="shadow">
         <div class="picture">
-            <img :src="photo" class="pImg"/>
+            <img :src="photo" :class="{pImg:true,slider:slider}"/>
             <img :src="imgPath + 'border.png'" class="border" v-show="border"/>
         </div>
         <img :src="imgPath + 'look.png'" class="look" v-show="border">
@@ -24,6 +24,7 @@ export default {
       imgPath: 'http://p22vy0aug.bkt.clouddn.com/image/heyjuice/',
       photo: null,
       border: false,
+      slider: false,
       //微信分享
       wxShareInfo: {
         title: 'HEYJUICE等待着与你相遇',
@@ -36,17 +37,16 @@ export default {
     }
   },
   beforeCreate() {
-    document.title = '茶桔梗'
+    document.title = '茶桔便'
   },
   created() {},
   mounted() {
-    var h =
+    let h =
       window.innerHeight ||
       document.documentElement.clientHeight ||
       document.body.clientHeight
-    var tea = document.getElementById('tea')
+    let tea = document.getElementById('tea')
     tea.style.minHeight = h + 'px'
-    console.log(h)
     this.getInfoById()
   },
   methods: {
@@ -57,11 +57,12 @@ export default {
         .getInfoById(this, id)
         .then(res => {
           this.photo = res.image
+          this.slider = true
           console.log(res)
           var timer = setTimeout(function() {
             that.border = true
             clearTimeout(timer)
-          }, 2250)
+          }, 2550)
         })
         .catch(err => {
           console.log(err)
@@ -123,6 +124,8 @@ export default {
       z-index: 999;
       margin-top: 5.2%;
       transform: translate3d(0, -116%, 0);
+    }
+    .slider {
       animation: sliderDown 2s 0.6s ease-in-out forwards;
     }
     .border {

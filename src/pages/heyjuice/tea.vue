@@ -5,11 +5,11 @@
         <img :src="imgPath + 'cover.png'" class="cover">
         <img :src="imgPath + 'shadow.png'" class="shadow">
         <div class="picture">
-            <img :src="photo" class="pImg"/>
-            <img :src="imgPath + 'border.png'" class="border" v-show="border"/>
+            <img :src="photo" :class="{pImg:true,slider:slider}"/>
+            <img :src="imgPath + 'border.png'" :class="{border:true,afterShow:isShow}"/>
         </div>
-        <img :src="imgPath + 'press.png'" class="note" v-show="border">
-       <a :href="null" class="abtn"></a>
+        <img :src="imgPath + 'press.png'" :class="{note:true,afterShow:isShow}"/>
+       <a :href="menu" class="abtn"></a>
         <wx-share :WxShareInfo="wxShareInfo"></wx-share>
     </div>
   </div>
@@ -25,6 +25,11 @@ export default {
       imgPath: IMG_SERVER + '/heyjiuce/tea/',
       photo: null,
       border: false,
+      isShow: false,
+      menuUrl: 'http://papi.xingstation.com/api/point_configs/',
+      menu: null,
+      slider: false,
+      source: this.$route.query.utm_source,
       //微信分享
       wxShareInfo: {
         title: 'HEYJUICE等待着与你相遇',
@@ -37,36 +42,43 @@ export default {
     }
   },
   beforeCreate() {
-    document.title = '茶桔梗'
+    document.title = '茶桔便'
   },
   created() {},
   mounted() {
-    var h =
+    let h =
       window.innerHeight ||
       document.documentElement.clientHeight ||
       document.body.clientHeight
-    var tea = document.getElementById('tea')
+    let tea = document.getElementById('tea')
     tea.style.minHeight = h + 'px'
-    console.log(h)
     this.getInfoById()
+    this.toMenu(this.source)
   },
   methods: {
     getInfoById() {
       let id = this.$route.query.id
-      var that = this
+      let that = this
       marketService
         .getInfoById(this, id)
         .then(res => {
           this.photo = res.image
-          console.log(res)
-          var timer = setTimeout(function() {
-            that.border = true
-            clearTimeout(timer)
-          }, 2250)
+          this.isShow = true
+          this.slider = true
         })
         .catch(err => {
           console.log(err)
           return
+        })
+    },
+    toMenu(source) {
+      this.$http
+        .get(this.menuUrl + source)
+        .then(res => {
+          this.menu = res.data.url
+        })
+        .catch(err => {
+          console.log(err)
         })
     }
   },
@@ -124,6 +136,8 @@ export default {
       z-index: 999;
       margin-top: 5.2%;
       transform: translate3d(0, -116%, 0);
+    }
+    .slider {
       animation: sliderDown 2s 0.6s ease-in-out forwards;
     }
     .border {
@@ -132,6 +146,7 @@ export default {
       left: 3%;
       z-index: 9;
       margin-top: 2.5%;
+      opacity: 0;
     }
   }
   .note {
@@ -140,6 +155,7 @@ export default {
     left: 35.5%;
     top: 81%;
     // animation: updown 0.8s linear infinite alternate;
+    opacity: 0;
   }
   .abtn {
     display: block;
@@ -154,6 +170,9 @@ export default {
     &:link {
       background: url('@{imgUrl}btn2.png') center center/auto 90% no-repeat;
     }
+  }
+  .afterShow {
+    animation: toShow 0.1s 2.55s linear forwards;
   }
 }
 
@@ -171,6 +190,14 @@ export default {
   }
   100% {
     transform: translateY(5px);
+  }
+}
+@keyframes toShow {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
 </style>
