@@ -10,9 +10,9 @@
         </div>
       </div>
       <div class="photo-wrap">
-        <img class="envelope-bg" :src="imgServerUrl+ '/photo.png'">
+        <!-- <img class="envelope-bg" :src="imgServerUrl+ '/photo.png'"> -->
         <!-- <canvas id="myCanvas" class="canvas-content"></canvas> -->
-        <img class="photo-img" :src="img_url">
+        <img class="envelope-bg" :src="img_url">
         <div class="photo-cover">
           <img class="cover-img" :src="imgServerUrl + '/photo-cover2.png'">
         </div>
