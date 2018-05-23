@@ -42,7 +42,7 @@ export default {
       wxShareInfo: {
         title: '俄罗斯世界杯来啦',
         desc: '快来光启城一起参加世界杯吧',
-        imgUrl: IMAGE_SERVER + '/wx_share_icon/drc_share_icon.png',
+        imgUrl: IMAGE_SERVER + '/wx_share_icon/drc-share-icon.png',
         success: () => {
           customTrack.shareWeChat()
         }
@@ -72,16 +72,12 @@ export default {
       let photoImage = new Image();
       photoImage.setAttribute('crossOrigin', 'Anonymous');
       let needleImage = new Image();
-      // needleImage.src = "/static/drc/needle.png";
       image.onload = function() {
         canvas.width = image.width;
         canvas.height = image.height;
         ctx.drawImage(image, 0, 0, image.width, image.height);
         photoImage.onload = function() {
         ctx.drawImage(photoImage, 0, 0, photoImage.width, photoImage.height, 87, 107, photoImage.width *0.51, photoImage.height *0.513);
-          // let url = canvas.toDataURL("image/png");
-          // let img = document.getElementById("test");
-          // img.src = url
           needleImage.onload = function() {
           ctx.drawImage(needleImage, 0, 0, needleImage.width, needleImage.height, 107, -7, needleImage.width, needleImage.height);
             let url = canvas.toDataURL("image/png");
