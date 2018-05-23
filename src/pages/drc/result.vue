@@ -11,7 +11,7 @@
       </div>
       <div class="photo-wrap">
         <canvas id="myCanvas" class="canvas-content" style="display: none"></canvas>
-        <img class="envelope-bg" id="test" :src="img_url">
+        <img class="envelope-bg" id="test" src="">
         <div class="photo-cover">
           <img class="cover-img" :src="imgServerUrl + '/photo-cover2.png'">
         </div>
@@ -42,7 +42,7 @@ export default {
       wxShareInfo: {
         title: '俄罗斯世界杯来啦',
         desc: '快来光启城一起参加世界杯吧',
-        imgUrl: IMAGE_SERVER + '/wx_share_icon/drc_share_icon.png',
+        imgUrl: IMAGE_SERVER + '/wx_share_icon/drc-share-icon.png',
         success: () => {
           customTrack.shareWeChat()
         }
@@ -53,74 +53,42 @@ export default {
     document.title = '大融城'
   },
   mounted() {
+    // this.syntheticCanvas()
     $('.photo-content').css('min-height', $(window).height())
-    // var canvas = document.getElementById("myCanvas");
-    // var height = Math.round(parseFloat(($(window).width() / 727) * 822));
-    // var width = Math.round(parseFloat($(window).width()));
-    // $('#myCanvas').css({ 'height': height, 'width': width });
-    // var image = new Image();
-    // image.src = "/static/drc/photo.png";
-    // var ctx = canvas.getContext("2d");
-    // image.onload = function() {
-    //   canvas.width = image.width;
-    //   canvas.height = image.height;
-    //   ctx.drawImage(image, 0, 0, image.width, image.height);
-    //   var photoImage = new Image();
-    //   photoImage.src = 'http://o9xrbl1oc.bkt.clouddn.com/1007/image/theBigCity_532_980_1492922362981.jpg';
-    //   photoImage.setAttribute('crossOrigin', 'Anonymous');
-    //   photoImage.onload = function() {
-    //     ctx.drawImage(photoImage, 0, 0, photoImage.width, photoImage.height, 86, 113, photoImage.width *0.51, photoImage.height *0.54);
-    //   }
-    //   // setTimeout(function() {
-    //   //   var img = document.getElementById("test");
-    //   //   img.src = canvas.toDataURL("image/png");
-    //   // }, 1000)
-     
-    // }
-    // this.initd()
-   
-    this.init()
+    this.getPeopleImage()
+    this.animateHandle()
   },
   created() {
-    this.getPeopleImage()
   },
   methods: {
-     async initd() {
-      try {
-        await this.syntheticCanvas()
-        //  let canvas = document.getElementById("myCanvas")
-        //  var img = document.getElementById("test");
-        // img.src = canvas.toDataURL("image/png");
-      } catch (e) {
-        console.log(e)
-      }
-    },
-    syntheticCanvas() {
-      return new Promise((resolve, reject) => {
-        let canvas = document.getElementById("myCanvas");
-        var height = Math.round(parseFloat(($(window).width() / 727) * 822));
-        var width = Math.round(parseFloat($(window).width()));
-        $('#myCanvas').css({ 'height': height, 'width': width });
-        var image = new Image();
-        image.src = "/static/drc/photo.png";
-        var ctx = canvas.getContext("2d");
-        image.setAttribute('crossOrigin', 'Anonymous');
-        console.log(image)
-        image.onload = function() {
-          canvas.width = image.width;
-          canvas.height = image.height;
-          ctx.drawImage(image, 0, 0, image.width, image.height);
-        }
-        var photoImage = new Image();
-          photoImage.src = 'http://o9xrbl1oc.bkt.clouddn.com/1007/image/theBigCity_532_980_1492922362981.jpg';
-          photoImage.setAttribute('crossOrigin', 'Anonymous');
-          photoImage.onload = function() {
-            ctx.drawImage(photoImage, 0, 0, photoImage.width, photoImage.height, 86, 113, photoImage.width *0.51, photoImage.height *0.54);
+    syntheticCanvas(imagUrl) {
+      let canvas = document.getElementById("myCanvas");
+      let height = Math.round(parseFloat(($(window).width() / 727) * 822));
+      let width = Math.round(parseFloat($(window).width()));
+      $('#myCanvas').css({ 'height': height, 'width': width });
+      let image = new Image();
+      image.src = "/static/drc/photo.png";
+      let ctx = canvas.getContext("2d");
+      let photoImage = new Image();
+      photoImage.setAttribute('crossOrigin', 'Anonymous');
+      let needleImage = new Image();
+      image.onload = function() {
+        canvas.width = image.width;
+        canvas.height = image.height;
+        ctx.drawImage(image, 0, 0, image.width, image.height);
+        photoImage.onload = function() {
+        ctx.drawImage(photoImage, 0, 0, photoImage.width, photoImage.height, 87, 107, photoImage.width *0.51, photoImage.height *0.513);
+          needleImage.onload = function() {
+          ctx.drawImage(needleImage, 0, 0, needleImage.width, needleImage.height, 107, -7, needleImage.width, needleImage.height);
             let url = canvas.toDataURL("image/png");
-            var img = document.getElementById("test");
+            let img = document.getElementById("test");
             img.src = url
           }
-      })
+          needleImage.src = "/static/drc/needle.png";
+        }
+        // photoImage.src = 'http://o9xrbl1oc.bkt.clouddn.com/1007/image/theBigCity_532_980_1492922362981.jpg';
+        photoImage.src = imagUrl;
+      }
     },
 
     getPeopleImage() {
@@ -129,13 +97,14 @@ export default {
         .getInfoById(this, id)
         .then(result => {
           this.img_url = result.image
+          this.syntheticCanvas(result.image)
         })
         .catch(err => {
           console.log(err)
         })
       
     },
-    init() {
+    animateHandle() {
       let wid = 0,
         slogen_hei = 0,
         adv_hei = 0,
@@ -622,7 +591,7 @@ export default {
         bottom: 30%;
         margin: 0 auto;
         width: 11.2%;
-        animation: arrowMotion-data-v-1edc57db 0.6s infinite alternate;
+        animation: arrowMotion 0.6s infinite alternate;
         opacity: 1;
         z-index: 8;
       }
