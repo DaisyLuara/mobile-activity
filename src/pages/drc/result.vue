@@ -40,8 +40,8 @@ export default {
       img_url: '',
       imgServerUrl: IMAGE_SERVER + '/pages/drc',
       wxShareInfo: {
-        title: '俄罗斯世界杯来啦',
-        desc: '快来大融城一起参加世界杯吧',
+        title: '我要去看世界杯啦',
+        desc: '大融城邀您一起观看精彩世界杯',
         imgUrl: IMAGE_SERVER + '/wx_share_icon/drc-share-icon.png',
         success: () => {
           customTrack.shareWeChat()
