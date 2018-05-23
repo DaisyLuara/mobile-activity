@@ -10,9 +10,8 @@
         </div>
       </div>
       <div class="photo-wrap">
-        <!-- <img class="envelope-bg" :src="imgServerUrl+ '/photo.png'"> -->
-        <!-- <canvas id="myCanvas" class="canvas-content"></canvas> -->
-        <img class="envelope-bg" :src="img_url">
+        <canvas id="myCanvas" class="canvas-content" style="display: none"></canvas>
+        <img class="envelope-bg" id="test" :src="img_url">
         <div class="photo-cover">
           <img class="cover-img" :src="imgServerUrl + '/photo-cover2.png'">
         </div>
@@ -55,12 +54,75 @@ export default {
   },
   mounted() {
     $('.photo-content').css('min-height', $(window).height())
+    // var canvas = document.getElementById("myCanvas");
+    // var height = Math.round(parseFloat(($(window).width() / 727) * 822));
+    // var width = Math.round(parseFloat($(window).width()));
+    // $('#myCanvas').css({ 'height': height, 'width': width });
+    // var image = new Image();
+    // image.src = "/static/drc/photo.png";
+    // var ctx = canvas.getContext("2d");
+    // image.onload = function() {
+    //   canvas.width = image.width;
+    //   canvas.height = image.height;
+    //   ctx.drawImage(image, 0, 0, image.width, image.height);
+    //   var photoImage = new Image();
+    //   photoImage.src = 'http://o9xrbl1oc.bkt.clouddn.com/1007/image/theBigCity_532_980_1492922362981.jpg';
+    //   photoImage.setAttribute('crossOrigin', 'Anonymous');
+    //   photoImage.onload = function() {
+    //     ctx.drawImage(photoImage, 0, 0, photoImage.width, photoImage.height, 86, 113, photoImage.width *0.51, photoImage.height *0.54);
+    //   }
+    //   // setTimeout(function() {
+    //   //   var img = document.getElementById("test");
+    //   //   img.src = canvas.toDataURL("image/png");
+    //   // }, 1000)
+     
+    // }
+    // this.initd()
+   
     this.init()
   },
   created() {
     this.getPeopleImage()
   },
   methods: {
+     async initd() {
+      try {
+        await this.syntheticCanvas()
+        //  let canvas = document.getElementById("myCanvas")
+        //  var img = document.getElementById("test");
+        // img.src = canvas.toDataURL("image/png");
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    syntheticCanvas() {
+      return new Promise((resolve, reject) => {
+        let canvas = document.getElementById("myCanvas");
+        var height = Math.round(parseFloat(($(window).width() / 727) * 822));
+        var width = Math.round(parseFloat($(window).width()));
+        $('#myCanvas').css({ 'height': height, 'width': width });
+        var image = new Image();
+        image.src = "/static/drc/photo.png";
+        var ctx = canvas.getContext("2d");
+        image.setAttribute('crossOrigin', 'Anonymous');
+        console.log(image)
+        image.onload = function() {
+          canvas.width = image.width;
+          canvas.height = image.height;
+          ctx.drawImage(image, 0, 0, image.width, image.height);
+        }
+        var photoImage = new Image();
+          photoImage.src = 'http://o9xrbl1oc.bkt.clouddn.com/1007/image/theBigCity_532_980_1492922362981.jpg';
+          photoImage.setAttribute('crossOrigin', 'Anonymous');
+          photoImage.onload = function() {
+            ctx.drawImage(photoImage, 0, 0, photoImage.width, photoImage.height, 86, 113, photoImage.width *0.51, photoImage.height *0.54);
+            let url = canvas.toDataURL("image/png");
+            var img = document.getElementById("test");
+            img.src = url
+          }
+      })
+    },
+
     getPeopleImage() {
       let id = decodeURI(this.$route.query.id)
       marketService
@@ -71,6 +133,7 @@ export default {
         .catch(err => {
           console.log(err)
         })
+      
     },
     init() {
       let wid = 0,
@@ -594,7 +657,7 @@ export default {
         bottom: 20%;
         margin: 0 auto;
         width: 9.2%;
-        animation: arrowMotion-data-v-1edc57db 0.6s infinite alternate;
+        animation: arrowMotion 0.6s infinite alternate;
         opacity: 1;
         z-index: 3;
       }
