@@ -53,7 +53,7 @@ export default {
     document.title = '大融城'
   },
   mounted() {
-    this.syntheticCanvas()
+    // this.syntheticCanvas()
     $('.photo-content').css('min-height', $(window).height())
     this.getPeopleImage()
     this.animateHandle()
@@ -90,8 +90,8 @@ export default {
           }
           needleImage.src = "/static/drc/needle.png";
         }
-        photoImage.src = 'http://o9xrbl1oc.bkt.clouddn.com/1007/image/theBigCity_532_980_1492922362981.jpg';
-        // photoImage.src = imagUrl;
+        // photoImage.src = 'http://o9xrbl1oc.bkt.clouddn.com/1007/image/theBigCity_532_980_1492922362981.jpg';
+        photoImage.src = imagUrl;
       }
     },
 
