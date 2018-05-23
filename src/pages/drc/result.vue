@@ -53,7 +53,7 @@ export default {
     document.title = '大融城'
   },
   mounted() {
-    // this.syntheticCanvas()
+    this.syntheticCanvas()
     $('.photo-content').css('min-height', $(window).height())
     this.getPeopleImage()
     this.animateHandle()
@@ -69,21 +69,29 @@ export default {
       let image = new Image();
       image.src = "/static/drc/photo.png";
       let ctx = canvas.getContext("2d");
-      // image.setAttribute('crossOrigin', 'Anonymous');
       let photoImage = new Image();
       photoImage.setAttribute('crossOrigin', 'Anonymous');
+      let needleImage = new Image();
+      // needleImage.src = "/static/drc/needle.png";
       image.onload = function() {
         canvas.width = image.width;
         canvas.height = image.height;
         ctx.drawImage(image, 0, 0, image.width, image.height);
         photoImage.onload = function() {
-        ctx.drawImage(photoImage, 0, 0, photoImage.width, photoImage.height, 86, 113, photoImage.width *0.51, photoImage.height *0.54);
-          let url = canvas.toDataURL("image/png");
-          let img = document.getElementById("test");
-          img.src = url
+        ctx.drawImage(photoImage, 0, 0, photoImage.width, photoImage.height, 87, 107, photoImage.width *0.51, photoImage.height *0.513);
+          // let url = canvas.toDataURL("image/png");
+          // let img = document.getElementById("test");
+          // img.src = url
+          needleImage.onload = function() {
+          ctx.drawImage(needleImage, 0, 0, needleImage.width, needleImage.height, 107, -7, needleImage.width, needleImage.height);
+            let url = canvas.toDataURL("image/png");
+            let img = document.getElementById("test");
+            img.src = url
+          }
+          needleImage.src = "/static/drc/needle.png";
         }
-        // photoImage.src = 'http://o9xrbl1oc.bkt.clouddn.com/1007/image/theBigCity_532_980_1492922362981.jpg';
-        photoImage.src = imagUrl;
+        photoImage.src = 'http://o9xrbl1oc.bkt.clouddn.com/1007/image/theBigCity_532_980_1492922362981.jpg';
+        // photoImage.src = imagUrl;
       }
     },
 
