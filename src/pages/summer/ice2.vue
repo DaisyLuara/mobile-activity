@@ -4,9 +4,19 @@
       <img class="photo" src="" id="photo"/>
       <div class="mask" v-show="mask">
           <div class="ice_all" id="ice">
-            <div :class="{group:true,run:run}">
-              <img  v-for="item in 6" :key="item.id" :class="'ice' + item" :src="IMGURL + '/ice'+item%3+'.png'"/>
+            <div class="ice-drop">
+                <img class="run1" v-for="item in 16" :key="item.id" :src="IMGURL + '/ice0.png'" 
+                :style="'position:absolute;width:' + (20 + Math.random()*10) +'%;left:' + (-30 + item*20) + '%;top:-' + Math.random()*20 + '%;'"/>
+                <img class="run2" v-for="item in 17" :key="item.id" :src="IMGURL + '/ice1.png'"
+                :style="'position:absolute;width:' + (20 + Math.random()*10) +'%;left:' + (-10 + item*15) + '%;top:-' + Math.random()*100 + '%;'"/>
+                <img class="run3" v-for="item in 18" :key="item.id" :src="IMGURL + '/ice2.png'"
+                :style="'position:absolute;width:' + (20 + Math.random()*10) +'%;left:' + (-30 + item*20) + '%;top:-' + Math.random()*170 + '%;'"/>
+                <img class="run4" v-for="item in 18" :key="item.id" :src="IMGURL + '/ice2.png'"
+                :style="'position:absolute;width:' + (20 + Math.random()*10) +'%;left:' + (-30 + item*20) + '%;top:-' + Math.random()*170 + '%;'"/>
+                <img class="run5" v-for="item in 18" :key="item.id" :src="IMGURL + '/ice2.png'"
+                :style="'position:absolute;width:' + (20 + Math.random()*10) +'%;left:' + (-30 + item*20) + '%;top:-' + Math.random()*170 + '%;'"/>
             </div>
+            <div class="over-ice"></div>
             <a class="slide" v-show="text"><img :src="IMGURL + '/note.png'"/></a>
           </div>
           <div class="water">
@@ -24,6 +34,7 @@
 import marketService from 'services/marketing'
 import WxShare from 'modules/wxShare'
 import { customTrack } from 'modules/customTrack'
+import Snow from './snow-plugin.js'
 const IMG_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing/pages'
 export default {
   data() {
@@ -34,7 +45,6 @@ export default {
       mImg: null,
       text: true,
       run: false,
-      shake: false,
       //微信分享
       wxShareInfo: {
         title: '让你的夏天清爽一下',
@@ -59,6 +69,7 @@ export default {
     let photo = document.getElementById('photo')
     phone.style.minHeight = height + 'px'
     this.getInfoById()
+    this.iceDrop()
   },
   methods: {
     getInfoById() {
@@ -82,13 +93,14 @@ export default {
       ice.off('touchstart', fingerDown)
       ice.on('touchstart', fingerDown)
       function fingerDown(e) {
+        that.text = false
         ice.on('touchmove', fingerMove)
         ice.on('touchend', fingerUp)
-        that.text = false
       }
       function fingerMove(e) {
         let moveX = e.originalEvent.touches[0].clientX
         that.run = true
+        console.log(2)
         $('.mask').animate(
           {
             opacity: 0
@@ -125,6 +137,54 @@ export default {
         //   'http://o9xrbl1oc.bkt.clouddn.com/1007/image/1492786765568.jpg'
         mImg.src = photo
       }
+    },
+    iceDrop() {
+      $('.run1').each(function() {
+        $(this).animate(
+          {
+            top: 50 + Math.random() * 20 + '%'
+          },
+          300 + 800 * Math.random()
+        )
+      })
+      $('.run2').each(function() {
+        $(this).animate(
+          {
+            top: 35 + Math.random() * 10 + '%'
+          },
+          500 + 800 * Math.random()
+        )
+      })
+      $('.run3').each(function() {
+        $(this).animate(
+          {
+            top: 25 + Math.random() * 10 + '%'
+          },
+          500 + 800 * Math.random()
+        )
+      })
+      $('.run4').each(function() {
+        $(this).animate(
+          {
+            top: 15 + Math.random() * 10 + '%'
+          },
+          500 + 800 * Math.random(),
+          function() {
+            $(this).css('top', Math.random() * 40 + '%')
+          }
+        )
+      })
+      $('.run5').each(function() {
+        $(this).animate(
+          {
+            top: Math.random() * 10 + '%'
+          },
+          500 + 800 * Math.random(),
+          function() {
+            $(this).css('top', Math.random() * 40 + '%')
+          }
+        )
+      })
     }
   },
   components: {
@@ -224,67 +284,29 @@ body {
       overflow: hidden;
       height: 100%;
       z-index: 0;
-      .group {
+      canvas {
+        z-index: 0;
+      }
+      .ice-drop {
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 99;
+        width: 100%;
+        height: 100%;
+      }
+      .over-ice {
         position: absolute;
         top: 0;
         left: 0;
+        z-index: 9;
         width: 100%;
         height: 100%;
         background-image: url('@{imgUrl}/icebg.png');
+        background-position: center -200%;
         background-size: 100% auto;
-        background-repeat: no-repeat;
-        background-position: center center;
-        img {
-          position: absolute;
-          width: 30%;
-        }
-        .ice1 {
-          width: 34%;
-          top: 1%;
-          left: 5%;
-        }
-        .ice2 {
-          top: 28%;
-          right: 0%;
-        }
-        .ice3 {
-          left: 30%;
-        }
-        .ice4 {
-          top: 40%;
-          left: 15%;
-        }
-        .ice5 {
-          width: 30%;
-          top: 60%;
-          left: 30%;
-        }
-        .ice6 {
-          width: 25%;
-          top: 58%;
-          right: 1%;
-        }
-      }
-      .run {
-        .ice1 {
-          animation: run1 0.3s linear infinite alternate;
-        }
-        .ice2 {
-          animation: run3 0.3s ease-in-out infinite alternate;
-          animation: run3 0.4s ease infinite alternate;
-        }
-        .ice3 {
-          animation: run3 0.3s ease-out infinite alternate;
-        }
-        .ice4 {
-          animation: run3 0.4s ease infinite alternate-reverse;
-        }
-        .ice5 {
-          animation: run2 0.4s ease-in-out infinite alternate;
-        }
-        .ice6 {
-          animation: run3 0.3s linear infinite alternate-reverse;
-        }
+        background-repeat: repeat-x;
+        animation: bgrun 1s ease-in 1 forwards;
       }
     }
     .slide {
@@ -302,30 +324,7 @@ body {
     }
   }
 }
-@keyframes run1 {
-  0% {
-    transform: translate(-15px, 5px) rotate(-13deg);
-  }
-  100% {
-    transform: translate(15px, -5px) rotate(13deg);
-  }
-}
-@keyframes run2 {
-  0% {
-    transform: translate(-100%, 0) rotate(-15deg);
-  }
-  100% {
-    transform: translate(100%, 0) rotate(15deg);
-  }
-}
-@keyframes run3 {
-  0% {
-    transform: translate(0px, -5px) rotate(30deg);
-  }
-  100% {
-    transform: translate(0px, 0px) rotate(-30deg);
-  }
-}
+
 @keyframes water1 {
   0% {
     transform: translate(0, 5px) rotate(-4deg);
@@ -358,20 +357,12 @@ body {
     background-position: -1241px 0;
   }
 }
-@keyframes myleft {
+@keyframes bgrun {
   0% {
-    transform: translate(0, 0);
+    background-position: center -250%;
   }
   100% {
-    transform: translate(-100%, 0);
-  }
-}
-@keyframes myright {
-  0% {
-    transform: translate(0, 0);
-  }
-  100% {
-    transform: translate(100%, 0);
+    background-position: center 38%;
   }
 }
 </style>
