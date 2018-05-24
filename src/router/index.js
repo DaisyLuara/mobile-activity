@@ -455,6 +455,12 @@ export default new Router({
           name: '茶桔便2.0',
           component: () =>
             import(/* webpackChunkName: "heyjuice" */ 'pages/heyjuice/tea.vue')
+        },
+        {
+          path: 'summer_ice',
+          name: '镜世界通用模板-夏天',
+          component: () =>
+            import(/* webpackChunkName: "summer" */ 'pages/summer/ice.vue')
         }
       ]
     },
