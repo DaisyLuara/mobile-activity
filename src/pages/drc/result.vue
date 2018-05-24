@@ -58,36 +58,55 @@ export default {
     this.getPeopleImage()
     this.animateHandle()
   },
-  created() {
-  },
+  created() {},
   methods: {
     syntheticCanvas(imagUrl) {
-      let canvas = document.getElementById("myCanvas");
-      let height = Math.round(parseFloat(($(window).width() / 727) * 822));
-      let width = Math.round(parseFloat($(window).width()));
-      $('#myCanvas').css({ 'height': height, 'width': width });
-      let image = new Image();
-      image.src = "/static/drc/photo.png";
-      let ctx = canvas.getContext("2d");
-      let photoImage = new Image();
-      photoImage.setAttribute('crossOrigin', 'Anonymous');
-      let needleImage = new Image();
+      let canvas = document.getElementById('myCanvas')
+      let height = Math.round(parseFloat($(window).width() / 727 * 822))
+      let width = Math.round(parseFloat($(window).width()))
+      $('#myCanvas').css({ height: height, width: width })
+      let image = new Image()
+      image.src = '/static/drc/photo.png'
+      let ctx = canvas.getContext('2d')
+      let photoImage = new Image()
+      photoImage.setAttribute('crossOrigin', 'Anonymous')
+      let needleImage = new Image()
       image.onload = function() {
-        canvas.width = image.width;
-        canvas.height = image.height;
-        ctx.drawImage(image, 0, 0, image.width, image.height);
+        canvas.width = image.width
+        canvas.height = image.height
+        ctx.drawImage(image, 0, 0, image.width, image.height)
         photoImage.onload = function() {
-        ctx.drawImage(photoImage, 0, 0, photoImage.width, photoImage.height, 87, 107, photoImage.width *0.51, photoImage.height *0.513);
+          ctx.drawImage(
+            photoImage,
+            0,
+            0,
+            photoImage.width,
+            photoImage.height,
+            87,
+            107,
+            photoImage.width * 0.51,
+            photoImage.height * 0.513
+          )
           needleImage.onload = function() {
-          ctx.drawImage(needleImage, 0, 0, needleImage.width, needleImage.height, 107, -7, needleImage.width, needleImage.height);
-            let url = canvas.toDataURL("image/png");
-            let img = document.getElementById("test");
+            ctx.drawImage(
+              needleImage,
+              0,
+              0,
+              needleImage.width,
+              needleImage.height,
+              107,
+              -7,
+              needleImage.width,
+              needleImage.height
+            )
+            let url = canvas.toDataURL('image/png')
+            let img = document.getElementById('test')
             img.src = url
           }
-          needleImage.src = "/static/drc/needle.png";
+          needleImage.src = '/static/drc/needle.png'
         }
         // photoImage.src = 'http://o9xrbl1oc.bkt.clouddn.com/1007/image/theBigCity_532_980_1492922362981.jpg';
-        photoImage.src = imagUrl;
+        photoImage.src = imagUrl
       }
     },
 
@@ -102,7 +121,6 @@ export default {
         .catch(err => {
           console.log(err)
         })
-      
     },
     animateHandle() {
       let wid = 0,
@@ -584,7 +602,7 @@ export default {
           height: 100%;
         }
       }
-      .arrow{
+      .arrow {
         position: absolute;
         left: 0;
         right: 0;
@@ -618,8 +636,8 @@ export default {
         }
       }
     }
-    .save-arrow-wrap{
-      .arrow{
+    .save-arrow-wrap {
+      .arrow {
         position: absolute;
         left: 0;
         right: 0;

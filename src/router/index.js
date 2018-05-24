@@ -455,6 +455,18 @@ export default new Router({
                         import ( /* webpackChunkName: "heyjuice" */ 'pages/heyjuice/tea.vue')
                 },
                 {
+                    path: 'summer_ice',
+                    name: '镜世界通用模板-夏天',
+                    component: () =>
+                        import ( /* webpackChunkName: "summer" */ 'pages/summer/ice.vue')
+                },
+                {
+                    path: 'summer',
+                    name: '镜世界通用模板-夏天2',
+                    component: () =>
+                        import ( /* webpackChunkName: "summer" */ 'pages/summer/ice2.vue')
+                },
+                {
                     path: 'qixi_glassWord',
                     name: '七夕-镜世界通用版',
                     component: () =>
