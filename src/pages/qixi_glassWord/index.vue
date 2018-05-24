@@ -4,9 +4,8 @@
        <img class="heart" v-if="showShade"  :src="imgServerUrl + '/pages/glassword/heart.png'" alt="" >
       </div>
      <div class="get-photo" v-if="showImg" >
-        
          <div class="photo" >
-        <img   :src="imgServerUrl + '/pages/popcorn/Bronze.jpg'" alt=""/>
+          <img  class="photo" :src="resultImgUrl" alt=""/> 
         </div>
        <img class="save"  :src="imgServerUrl + '/pages/glassword/button.png'" alt="" > 
       </div>
@@ -46,8 +45,16 @@ export default {
     document.title = "星视度";
   },
   mounted(){
-    $('.glass-wrap').css('min-height', $(window).height());
-    
+    $('.glass-wrap').css('height', $(window).height());
+    var h=$('.glass-wrap').height();
+    console.log(h)
+    if (h==812) {
+       $('.heart').css('width','70%');
+      $('.heart').css('left','12%');
+      $('.heart').css('top','32%');
+     
+      
+    }
   },
   created() {
     this.getImageById();
@@ -103,12 +110,13 @@ export default {
       z-index: 1;
       }
     .heart{  
-      width:58%;
+      width:60%;
       position: absolute;
-      left: 19%;
-      top: 35%;
+      left: 18%;
+      top: 32%;
       z-index: 2;
-      animation: shake 2s ;
+      animation: heart 2.6s linear  infinite;
+      transform: scale(1)
     }
   }
       .get-photo{
@@ -131,23 +139,13 @@ export default {
         }
       }
 }
-@keyframes shake {
-		0%{
-       transform: scale(1, 1);
+ @keyframes heart {
+        0%{transform: scale(1)}
+        10%{transform: scale(0.8)}
+        15%{transform: scale(1)}
+        20%{transform: scale(0.7)}
+        30%{transform: scale(1)}
     }
-    30%{
-      transform: scale(1.1, 1.1);
-    }
-     30%{
-      transform: scale(1.2, 1.2);
-    }
-     60%{
-      transform: scale(1.3, 1.3);
-    }
-     70%{
-      transform: scale(1, 1);
-    }
-}
 
 
 </style>
