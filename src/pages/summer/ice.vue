@@ -35,9 +35,9 @@ export default {
       run: false,
       //微信分享
       wxShareInfo: {
-        title: '',
-        desc: '',
-        imgUrl: '',
+        title: '让你的夏天清爽一下',
+        desc: '来星视度获取您的夏日照片',
+        imgUrl: IMG_SERVER + '/summer/icon.png',
         success: function() {
           customTrack.shareWeChat()
         }
@@ -56,14 +56,6 @@ export default {
     let phone = document.getElementById('phoneContent')
     let photo = document.getElementById('photo')
     phone.style.minHeight = height + 'px'
-    photo.style.height = height * 0.93 + 'px'
-    console.log(height)
-    if (height >= 700) {
-      photo.style.paddingTop = '5.5%'
-      photo.style.paddingBottom = '18.5%'
-    }
-    // this.drawCanvas()
-    // this.init()
     this.getInfoById()
   },
   methods: {
@@ -167,15 +159,18 @@ body {
   }
   .photo {
     width: 92%;
-    margin-top: 3%;
+    margin-top: 3.2%;
+    margin-bottom: 7%;
   }
 
   .mask {
     width: 100%;
     height: 100%;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
+    right: 0;
+    bottom: 0;
     overflow: hidden;
     img {
       pointer-events: none;
@@ -197,21 +192,25 @@ body {
         left: -7%;
         top: 22%;
         width: 25%;
+        animation: water2 0.8s ease-in infinite alternate;
       }
       .ice2 {
         left: 53%;
         top: 65%;
         width: 20%;
+        animation: water2 0.9s ease-out infinite alternate-reverse;
       }
       .juice {
         left: 59%;
         top: 5%;
         width: 34%;
+        animation: water2 0.9s linear infinite alternate;
       }
       .fruit {
         left: 14%;
         top: 68%;
         width: 25%;
+        animation: water1 1.2s ease-in-out infinite alternate;
       }
       .cover {
         left: 0;
@@ -262,18 +261,21 @@ body {
     }
   }
 }
-@keyframes updown {
+
+@keyframes water1 {
   0% {
-    background-position: center 87%, -12% 35%, 91% 5%, 62% 45%, 18% 46%,
-      center bottom;
-  }
-  80% {
-    background-position: center 87%, -12% 58%, 91% 26%, 62% 109%, 18% 126%,
-      center bottom;
+    transform: translate(0, 5px) rotate(-4deg);
   }
   100% {
-    background-position: center 87%, -12% 50%, 91% 19%, 62% 100%, 18% 112%,
-      center bottom;
+    transform: translate(0, -15px) rotate(4deg);
+  }
+}
+@keyframes water2 {
+  0% {
+    transform: translate(0, 5px) rotate(2deg);
+  }
+  100% {
+    transform: translate(0, -5px) rotate(-2deg);
   }
 }
 @keyframes slider {
