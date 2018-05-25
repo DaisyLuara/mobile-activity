@@ -6,15 +6,15 @@
           <div class="ice_all" id="ice">
             <div class="ice-drop">
                 <img class="run1" v-for="(index,item) in 6" :key="item.id" :src="IMGURL + '/ice0.png'" 
-                :style="'left:' + (-30 + item*20) + '%;top:' + (Math.random()*100 - Math.random()*30) + 'px;'"/>
-                <img class="run2" v-for="item in 7" :key="item.id" :src="IMGURL + '/ice1.png'"
-                :style="'left:' + (-10 + item*15) + '%;top:' + (Math.random()*70 - Math.random()*150) + '%;'"/>
-                <img class="run3" v-for="item in 8" :key="item.id" :src="IMGURL + '/ice2.png'"
-                :style="'left:' + (-30 + item*20) + '%;top:' + (Math.random()*20 - Math.random()*100) + '%;'"/>
-                <img class="run4" v-for="item in 8" :key="item.id" :src="IMGURL + '/ice2.png'"
-                :style="'left:' + (-30 + item*20) + '%;top:' + (0 - Math.random()*170) + '%;'"/>
-                <img class="run5" v-for="item in 8" :key="item.id" :src="IMGURL + '/ice2.png'"
-                :style="'left:' + (-30 + item*20) + '%;top:' + (Math.random()*30 - Math.random()*200) + '%;'"/>
+                :style="'left:' + (-30 + item*27) + '%;top:' + (Math.random()*100 - Math.random()*400) + 'px;'"/>
+                <img class="run2" v-for="item in 5" :key="item.id" :src="IMGURL + '/ice1.png'"
+                :style="'left:' + (-27 + item*22) + '%;top:' + (Math.random()*70 - Math.random()*150) + '%;'"/>
+                <img class="run3" v-for="item in 4" :key="item.id" :src="IMGURL + '/ice2.png'"
+                :style="'left:' + (-30 + item*25) + '%;top:' + (Math.random()*20 - Math.random()*100) + '%;'"/>
+                 <img class="run4" v-for="item in 5" :key="item.id" :src="IMGURL + '/ice0.png'"
+                :style="'left:' + (-30 + item*22) + '%;top:' + (0 - Math.random()*170) + '%;'"/>
+                <!-- <img class="run5" v-for="item in 5" :key="item.id" :src="IMGURL + '/ice2.png'"
+                :style="'left:' + (-30 + item*20) + '%;top:' + (Math.random()*30 - Math.random()*200) + '%;'"/> -->
             </div>
             <div class="over-ice"></div>
             <a class="slide" v-show="text"><img :src="IMGURL + '/note.png'"/></a>
@@ -100,7 +100,7 @@ export default {
       function fingerMove(e) {
         let moveX = e.originalEvent.touches[0].clientX
         that.run = true
-        console.log(2)
+
         $('.mask').animate(
           {
             opacity: 0
@@ -139,23 +139,19 @@ export default {
       }
     },
     iceDrop() {
-      $('.over-ice').animate(
-        {
-          top: '-10%'
-        },
-        1000
-      )
       $('.run1').each(function() {
         $(this).animate(
           {
-            top: 50 + Math.random() * 20 + '%'
+            // top: 50 + Math.random() * 20 + '%'
+            top: 50 + Math.random() * 15 + '%'
           },
-          300 + 800 * Math.random(),
+          // 300 + 800 * Math.random(),
+          700 + 500 * Math.random(),
           function() {
             $(this).css({
+              animation: 'none',
               transform:
-                'rotate(' + Math.ceil(-30 + Math.random() * 60) + 'deg)',
-              animation: 'none'
+                'rotate(' + Math.ceil(-30 + Math.random() * 60) + 'deg)'
             })
           }
         )
@@ -163,14 +159,16 @@ export default {
       $('.run2').each(function() {
         $(this).animate(
           {
-            top: 35 + Math.random() * 10 + '%'
+            //top: 35 + Math.random() * 10 + '%'
+            top: 30 + Math.random() * 15 + '%'
           },
-          500 + 800 * Math.random(),
+          // 500 + 800 * Math.random(),
+          700 + 400 * Math.random(),
           function() {
             $(this).css({
               animation: 'none',
               transform:
-                'rotate(' + Math.ceil(-15 + Math.random() * 45) + 'deg)'
+                'rotate(' + Math.ceil(-15 + (1 - Math.random()) * 45) + 'deg)'
             })
           }
         )
@@ -178,14 +176,20 @@ export default {
       $('.run3').each(function() {
         $(this).animate(
           {
-            top: 15 + Math.random() * 20 + '%'
+            // top: 10 + Math.random() * 20 + '%'
+            top: 13 + Math.random() * 18 + '%'
           },
-          500 + 800 * Math.random(),
+          // 500 + 800 * Math.random(),
+          800,
           function() {
             $(this).css({
               animation: 'none',
               transform:
-                'rotate(' + Math.ceil(-30 + Math.random() * 90) + 'deg)'
+                'rotate(' +
+                Math.ceil(-30 + Math.random() * 90) +
+                'deg) translate(0,' +
+                Math.ceil(-100 + Math.random() * 200) +
+                '%)'
             })
           }
         )
@@ -193,54 +197,40 @@ export default {
       $('.run4').each(function(index, element) {
         $(this).animate(
           {
-            top: 200 + Math.random() * 80 + 'px'
+            // top: 5 + Math.random() * 15 + '%'
+            top: -5 + Math.random() * 15 + '%'
           },
-          300 + 500 * Math.random(),
+          // 300 + 500 * Math.random(),
+          600 + 500 * Math.random(),
           function() {
-            $(this).animate(
-              {
-                top: 85 + Math.random() * 80 + 'px'
-              },
-              200 + 100 * Math.random(),
-              function() {
-                $(this).css({
-                  //top: Math.random() * 40 + 'px',
-                  animation: 'none',
-                  transform:
-                    'rotate(' +
-                    Math.ceil(-index * 20 + Math.random() * 100) +
-                    'deg)'
-                })
-              }
-            )
+            $(this).css({
+              animation: 'none',
+              transform:
+                'rotate(' +
+                Math.ceil(-index * 20 + Math.random() * 100) +
+                'deg) translate(0,' +
+                Math.ceil(-100 + Math.random() * 200) +
+                '%)'
+            })
           }
         )
       })
       $('.run5').each(function(index, element) {
         $(this).animate(
           {
-            top: 120 + Math.random() * 50 + 'px'
+            top: -5 + Math.random() * 10 + '%'
           },
           500 + 400 * Math.random(),
           function() {
-            $(this).animate(
-              {
-                top: 20 + Math.random() * 50 + 'px'
-              },
-              300 + 100 * Math.random(),
-              function() {
-                $(this).css({
-                  //top: Math.random() * 40 + '%',
-                  animation: 'none',
-                  // transform:
-                  //   'rotate(' + Math.ceil(-60 + Math.random() * 100) + 'deg)'
-                  transform:
-                    'rotate(' +
-                    Math.ceil(-100 * Math.random() + index * 20) +
-                    'deg)'
-                })
-              }
-            )
+            $(this).css({
+              animation: 'none',
+              transform:
+                'rotate(' +
+                Math.ceil(-100 * Math.random() + index * 20) +
+                'deg) translate(0,' +
+                Math.ceil(-100 + Math.random() * 200) +
+                '%)'
+            })
           }
         )
       })
@@ -350,11 +340,11 @@ body {
         position: absolute;
         left: 0;
         top: 0;
-        z-index: 99;
+        z-index: 999;
         width: 100%;
         height: 100%;
         img {
-          width: 25%;
+          width: 32%;
           position: absolute;
           top: 0;
           left: 0;
@@ -371,11 +361,10 @@ body {
         width: 100%;
         height: 100%;
         background-image: url('@{imgUrl}/icebg.png');
-        // background-position: center -200%;
         background-position: center 0%;
         background-size: 100% auto;
         background-repeat: repeat-x;
-        //animation: bgrun 0.8s ease-in 1 forwards;
+        animation: bgrun 0.8s linear forwards;
       }
     }
     .slide {
@@ -428,10 +417,10 @@ body {
 }
 @keyframes bgrun {
   0% {
-    background-position: center -200%;
+    top: 68%;
   }
   100% {
-    background-position: center 0%;
+    top: -10%;
   }
 }
 @keyframes myrotate {
