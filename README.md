@@ -2,6 +2,14 @@
 
 > develop static web page
 
+## 注意事项
+
+不要再使用 jQuery
+https://github.com/nefe/You-Dont-Need-jQuery
+https://github.com/nefe/You-Dont-Need-jQuery/blob/master/README.zh-CN.md
+
+后续逐步移除 jQuery
+
 ## Build Setup
 
 ```bash
