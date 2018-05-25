@@ -11,8 +11,9 @@
     "lint": "eslint --ext .js,.vue src",
     "production": "node build/build.js",
     "test":
-      "rm -rf ./predist && npm run production test && rm -rf ./dist && mkdir dist && cp -r ./predist/* ./dist",
-    "release": "npm run production && cp -r ./predist/* ./dist"
+      "rm -rf ./predist/* && npm run production test && rm -rf ./dist/* && cp -r ./predist/* ./dist",
+    "release":
+      "rm -rf ./predist/* && npm run production && rm -rf ./dist/* && cp -r ./predist/* ./dist"
   },
   "dependencies": {
     "animate.css": "^3.6.1",
