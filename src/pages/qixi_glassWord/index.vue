@@ -5,8 +5,8 @@
       </div>
      <div class="get-photo" v-if="showImg" >
          <div class="photo" >
-          <!-- <img  class="photo-2" :src="resultImgUrl" alt=""/>  -->
-          <img  class="photo" :src="imgServerUrl + '/pages/popcorn/Bronze.jpg'" alt=""/>
+          <img  class="photo-2" :src="resultImgUrl" alt=""/> 
+          <!-- <img  class="photo" :src="imgServerUrl + '/pages/popcorn/Bronze.jpg'" alt=""/> -->
         </div>
        <img class="save"  :src="imgServerUrl + '/pages/glassword/button.png'" alt="" > 
       </div>
