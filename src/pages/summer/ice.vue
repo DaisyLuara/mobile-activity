@@ -6,13 +6,13 @@
           <div class="ice_all" id="ice">
             <div class="ice-drop">
                 <img class="run1" v-for="(index,item) in 6" :key="item.id" :src="IMGURL + '/ice0.png'" 
-                :style="'left:' + (-30 + item*27) + '%;top:' + (Math.random()*100 - Math.random()*400) + 'px;'"/>
+                :style="'left:' + (-30 + item*27) + '%;top:' + (- Math.random()*400-200) + 'px;'"/>
                 <img class="run2" v-for="item in 5" :key="item.id" :src="IMGURL + '/ice1.png'"
-                :style="'left:' + (-27 + item*22) + '%;top:' + (Math.random()*70 - Math.random()*150) + '%;'"/>
+                :style="'left:' + (-27 + item*22) + '%;top:' + (- Math.random()*150-70) + '%;'"/>
                 <img class="run3" v-for="item in 4" :key="item.id" :src="IMGURL + '/ice2.png'"
-                :style="'left:' + (-30 + item*25) + '%;top:' + (Math.random()*20 - Math.random()*100) + '%;'"/>
+                :style="'left:' + (-30 + item*25) + '%;top:' + (- Math.random()*100-130) + '%;'"/>
                  <img class="run4" v-for="item in 5" :key="item.id" :src="IMGURL + '/ice0.png'"
-                :style="'left:' + (-30 + item*22) + '%;top:' + (0 - Math.random()*170) + '%;'"/>
+                :style="'left:' + (-30 + item*22) + '%;top:' + (- Math.random()*170-250) + '%;'"/>
                 <!-- <img class="run5" v-for="item in 5" :key="item.id" :src="IMGURL + '/ice2.png'"
                 :style="'left:' + (-30 + item*20) + '%;top:' + (Math.random()*30 - Math.random()*200) + '%;'"/> -->
             </div>
@@ -364,7 +364,7 @@ body {
         background-position: center 0%;
         background-size: 100% auto;
         background-repeat: repeat-x;
-        animation: bgrun 0.8s linear forwards;
+        animation: bgrun 0.8s 0.2s linear forwards;
       }
     }
     .slide {
