@@ -19,69 +19,71 @@
   </div>
 </template>
 <script>
-import marketService from 'services/marketing';
-import WxShare from 'modules/wxShare';
-import wxService from 'services/wx';
-import parseService from 'modules/parseServer';
-import { customTrack } from 'modules/customTrack';
+import marketService from 'services/marketing'
+import WxShare from 'modules/wxShare'
+import wxService from 'services/wx'
+import parseService from 'modules/parseServer'
+import { customTrack } from 'modules/customTrack'
 
-
-const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing';
+const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 
 export default {
   components: {
-    WxShare,
+    WxShare
   },
   data() {
     return {
       imgServerUrl: IMAGE_SERVER,
-      resultImgUrl:'',
-      type:this.$route.query.type,
-      showCoupon:{
-          cp268:false,
-          cp428:false,
-          cp777:false 
-        },
+      resultImgUrl: '',
+      type: this.$route.query.type,
+      showCoupon: {
+        cp268: false,
+        cp428: false,
+        cp777: false
+      },
       //微信分享信息
       wxShareInfoValue: {
         title: '玩儿游戏居然能中大奖？',
         desc: '快来围观头号玩家吧',
-        imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/hiltonMla_share_icon.jpeg',
-      },
-    };
+        imgUrl:
+          'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/hiltonMla_share_icon.jpeg'
+      }
+    }
   },
   beforeCreate() {
-    document.title = "武汉光谷希尔顿酒店";
+    document.title = '武汉光谷希尔顿酒店'
   },
-  mounted(){
-    $('.hilton-content').css('min-height', $(window).height());
+  mounted() {
+    $('.hilton-content').css('min-height', $(window).height())
   },
   created() {
-    this.getImageById();
-    this.show();
-
+    this.getImageById()
+    this.show()
   },
   methods: {
-    show(){
-      if(this.type==1){
-        this.showCoupon.cp268=true;
+    show() {
+      if (this.type == 1) {
+        this.showCoupon.cp268 = true
       }
-      if(this.type==2){
-        this.showCoupon.cp428=true;
+      if (this.type == 2) {
+        this.showCoupon.cp428 = true
       }
-      if(this.type==3){
-        this.showCoupon.cp777=true;
+      if (this.type == 3) {
+        this.showCoupon.cp777 = true
       }
-     },
-     //拿取图片id
+    },
+    //拿取图片id
     getImageById() {
       let id = this.$route.query.id
-      marketService.getInfoById(this, id).then((result) => {
-        this.resultImgUrl = result.image;
-      }).catch((err) => {
-        console.log(err);
-      });
-    },
+      marketService
+        .getInfoById(this, id)
+        .then(result => {
+          this.resultImgUrl = result.image
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
   },
   computed: {
     //微信分享
@@ -91,70 +93,75 @@ export default {
         desc: this.wxShareInfoValue.desc,
         imgUrl: this.wxShareInfoValue.imgUrl,
         success: () => {
-          customTrack.shareWeChat();
-        },
-      };
-      return wxShareInfo;
-    },
-  },
-};
+          customTrack.shareWeChat()
+        }
+      }
+      return wxShareInfo
+    }
+  }
+}
 </script>
 <style lang="less" scoped>
+img {
+  width: 100%;
+}
 @imageHost: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/hiltonMla';
-.hilton-content{
-      width:100%;
-      height:100%;
-      position: relative;
-      text-align: center;
-      overflow:hidden;
-   .pingzi{
-        position: absolute;
-        left: 0;
-        top: 0;
-      }
-    .light{
-        position: absolute;
-        left: 0;
-        top: 8%;
-      }
-    .coupon{
-      width: 85%;
-      img{
-       position: absolute;
-        left: 50%;
-        top: 48%;
-        transform: translate(-50%,-50%)
-      }
-     
+.hilton-content {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  text-align: center;
+  overflow: hidden;
+  .pingzi {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  .light {
+    position: absolute;
+    left: 0;
+    top: 8%;
+  }
+  .coupon {
+    width: 85%;
+    img {
+      position: absolute;
+      left: 50%;
+      top: 48%;
+      transform: translate(-50%, -50%);
     }
-    .save{
-      width:100%;
-        position: absolute;
-        left: 0%;
-        bottom: 7%;
-        text-align:center;
-        animation: arrows .4s ease-out infinite alternate;
-      .jiantou{
-         width: 5.5%;
-      }
-      .title{
-        width: 52%;
-        display: block;
-        margin: 2% 0 0 25%
-      }
+  }
+  .save {
+    width: 100%;
+    position: absolute;
+    left: 0%;
+    bottom: 7%;
+    text-align: center;
+    animation: arrows 0.4s ease-out infinite alternate;
+    .jiantou {
+      width: 5.5%;
     }
-    .bg2{
-        width:100%;
-        position: absolute;
-        left: 0%;
-        bottom: 0%;
+    .title {
+      width: 52%;
+      display: block;
+      margin: 2% 0 0 25%;
     }
+  }
+  .bg2 {
+    width: 100%;
+    position: absolute;
+    left: 0%;
+    bottom: 0%;
+  }
 }
 @keyframes arrows {
-    0% {transform: translateY(-3px);}
-    100% {transform: translateY(0px);}
+  0% {
+    transform: translateY(-3px);
   }
-
+  100% {
+    transform: translateY(0px);
+  }
+}
 </style>
 
 

@@ -142,6 +142,9 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+img {
+  width: 100%;
+}
 @imgServerUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/psbh_travel';
 .psbh-travel-wrap {
   .photo-content {

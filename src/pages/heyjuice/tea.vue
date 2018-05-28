@@ -88,6 +88,9 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+img {
+  width: 100%;
+}
 @imgUrl: 'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/heyjiuce/tea/';
 .tea-main {
   width: 100%;
