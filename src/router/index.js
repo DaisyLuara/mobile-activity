@@ -479,6 +479,12 @@ export default new Router({
           name: '镜世界通用模板-世界杯',
           component: () =>
             import(/* webpackChunkName: "summer" */ 'pages/world_cup/index.vue')
+        },
+        {
+          path: 'wc_ct',
+          name: 'wordCupCirlceTalent',
+          component: () =>
+            import(/* webpackChunkName: "wordCupCirlceTalent" */ 'pages/worldCups/circletalent.vue')
         }
       ]
     },
