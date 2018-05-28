@@ -467,6 +467,18 @@ export default new Router({
           name: 'pujiangfandian',
           component: () =>
             import(/* webpackChunkName: "pujiangfandian" */ 'pages/pjfd/index.vue')
+        },
+        {
+          path: 'circus',
+          name: '镜世界通用模板-马戏团',
+          component: () =>
+            import(/* webpackChunkName: "summer" */ 'pages/circus/index.vue')
+        },
+        {
+          path: 'world_cup',
+          name: '镜世界通用模板-世界杯',
+          component: () =>
+            import(/* webpackChunkName: "summer" */ 'pages/world_cup/index.vue')
         }
       ]
     },

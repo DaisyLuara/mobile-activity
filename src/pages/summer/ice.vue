@@ -138,28 +138,24 @@ export default {
     },
     iceDrop() {
       $('.run1').each(function(index, element) {
-        let that = $(this)
-        $(this).animate(
-          {
-            top: index * 3 - 15 + '%'
-          },
-          500 + Math.ceil(Math.random() * 500),
-          function() {
-            $(this).css({ animation: 'myrotate 0.2s linear 1 alternate' })
-          }
-        )
+        $(this)
+          .delay(500)
+          .animate(
+            {
+              top: index * 3 - 15 + '%'
+            },
+            500 + Math.ceil(Math.random() * 500)
+          )
       })
       $('.run2').each(function(index, element) {
-        let that = $(this)
-        $(this).animate(
-          {
-            top: index * 3 - 5 + '%'
-          },
-          800 + Math.ceil(Math.random() * 300),
-          function() {
-            $(this).css({ animation: 'myrotate 0.2s linear 1 alternate' })
-          }
-        )
+        $(this)
+          .delay(500)
+          .animate(
+            {
+              top: index * 3 - 5 + '%'
+            },
+            800 + Math.ceil(Math.random() * 300)
+          )
       })
     }
   },
