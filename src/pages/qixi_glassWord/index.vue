@@ -121,14 +121,15 @@ export default {
   }
       .get-photo{
           width: 70%;
-          height: 80%;
+          height: 85%;
           position: absolute;
           left: 50%;
-          top: 50%;
+          top: 47.5%;
           transform: translate(-50%, -43%);
         .photo{
-             height:87%;
-             border: 3px solid #fff;
+            height:87%;
+            background: #fff;
+            padding: 3px;
           img{
             height:100%;
           }
