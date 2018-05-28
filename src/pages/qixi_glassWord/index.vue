@@ -121,7 +121,7 @@ export default {
     }
   }
       .get-photo{
-          width: 70%;
+          width: 75%;
           height: 85%;
           position: absolute;
           left: 50%;
