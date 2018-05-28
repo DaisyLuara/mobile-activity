@@ -76,6 +76,9 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+img {
+  width: 100%;
+}
 @imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/heyjuice/';
 .tea-main {
   width: 100%;

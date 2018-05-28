@@ -78,12 +78,6 @@ export default new Router({
           component: () =>
             import(/* webpackChunkName: "ps" */ 'pages/ps/index.vue')
         },
-        // {
-        //   path: 'spm',
-        //   name: '小程序地图',
-        //   component: () =>
-        //     import(/* webpackChunkName: "spm" */ 'pages/smap/map.vue')
-        // },
         {
           path: 'hq',
           name: '虹桥天地',
@@ -467,6 +461,12 @@ export default new Router({
           name: '七夕-镜世界通用版',
           component: () =>
             import(/* webpackChunkName: "qixi_glassWord" */ 'pages/qixi_glassWord/index.vue')
+        },
+        {
+          path: 'pjfd',
+          name: 'pujiangfandian',
+          component: () =>
+            import(/* webpackChunkName: "pujiangfandian" */ 'pages/pjfd/index.vue')
         }
       ]
     },

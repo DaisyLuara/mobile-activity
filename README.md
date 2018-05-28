@@ -10,6 +10,10 @@ https://github.com/nefe/You-Dont-Need-jQuery/blob/master/README.zh-CN.md
 
 后续逐步移除 jQuery
 
+## 注意事项 2018-5-28
+
+去掉 assets/css/marketing.css 里面对图片 width: 100% 的定义，因为有可能你需要 height: 100%, 此时无法把 width 属性删去……
+
 ## Build Setup
 
 ```bash
