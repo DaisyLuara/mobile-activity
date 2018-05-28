@@ -467,6 +467,12 @@ export default new Router({
           name: 'pujiangfandian',
           component: () =>
             import(/* webpackChunkName: "pujiangfandian" */ 'pages/pjfd/index.vue')
+        },
+        {
+          path: 'wc_ct',
+          name: 'wordCupCirlceTalent',
+          component: () =>
+            import(/* webpackChunkName: "wordCupCirlceTalent" */ 'pages/worldCups/circletalent.vue')
         }
       ]
     },
