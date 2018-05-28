@@ -6,7 +6,7 @@
      <div class="get-photo" v-if="showImg" >
          <div class="photo" >
           <img  class="photo-2" :src="resultImgUrl" alt=""/> 
-          <!-- <img  class="photo" :src="imgServerUrl + '/pages/popcorn/Bronze.jpg'" alt=""/> -->
+          <!-- <img  class="photo-2" :src="imgServerUrl + '/pages/glassword/111.jpg'" alt=""/> -->
         </div>
        <img class="save"  :src="imgServerUrl + '/pages/glassword/button.png'" alt="" > 
       </div>
@@ -121,7 +121,7 @@ export default {
     }
   }
       .get-photo{
-          width: 75%;
+          width: 70%;
           height: 85%;
           position: absolute;
           left: 50%;
@@ -133,17 +133,16 @@ export default {
             background: #fff;
             padding: 3px;
             border:none;
+            overflow: hidden;
           .photo-2{
-            border:none;
-          }
-          img{
+            width:100%;
             height:100%;
             border:none;
           }
         }
         .save{
           width: 73%;
-          margin-top: 5%;
+          margin-top: 2%;
         }
       }
 }
