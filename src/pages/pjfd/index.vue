@@ -49,6 +49,7 @@ export default {
   },
   created() {
     this.getInfoById()
+    this.handleHorn()
   },
   methods: {
     getInfoById() {
@@ -57,11 +58,15 @@ export default {
         .getInfoById(this, id)
         .then(res => {
           this.photo = res.image
-          this.isHorn = res.isHorn
         })
         .catch(err => {
           Toast(err)
         })
+    },
+    handleHorn() {
+      if (this.$route.query.isHorn == true || this.$route.query.isHorn == 1) {
+        this.isHorn = true
+      }
     }
   }
 }
