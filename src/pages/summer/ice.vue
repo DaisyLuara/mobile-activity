@@ -5,16 +5,14 @@
       <div class="mask" v-show="mask">
           <div class="ice_all" id="ice">
             <div class="ice-drop">
-                <img class="run1" v-for="(index,item) in 6" :key="item.id" :src="IMGURL + '/ice0.png'" 
-                :style="'left:' + (-30 + item*27) + '%;top:' + (Math.random()*100 - Math.random()*400) + 'px;'"/>
-                <img class="run2" v-for="item in 5" :key="item.id" :src="IMGURL + '/ice1.png'"
-                :style="'left:' + (-27 + item*22) + '%;top:' + (Math.random()*70 - Math.random()*150) + '%;'"/>
-                <img class="run3" v-for="item in 4" :key="item.id" :src="IMGURL + '/ice2.png'"
-                :style="'left:' + (-30 + item*25) + '%;top:' + (Math.random()*20 - Math.random()*100) + '%;'"/>
-                 <img class="run4" v-for="item in 5" :key="item.id" :src="IMGURL + '/ice0.png'"
-                :style="'left:' + (-30 + item*22) + '%;top:' + (0 - Math.random()*170) + '%;'"/>
-                <!-- <img class="run5" v-for="item in 5" :key="item.id" :src="IMGURL + '/ice2.png'"
-                :style="'left:' + (-30 + item*20) + '%;top:' + (Math.random()*30 - Math.random()*200) + '%;'"/> -->
+                <div class="run1" v-for="(item,index) in 30" :key="item.id" 
+                :style="'left:'+ (index%5*27-20) +'%;top:'+ (Math.floor(index/5)*20-300) +'%'">
+                  <img :src="IMGURL + '/ice' + item%3 + '.png'" :style="'transform:rotate(' +  Math.ceil(Math.random()*360)  + 'deg)'"/>
+                </div>
+                <div class="run2" v-for="(item,index) in 30" :key="item.id" 
+                :style="'left:'+ (index%5*27) +'%;top:'+ (Math.floor(index/5)*20-350) +'%'">
+                  <img :src="IMGURL + '/ice' + item%3 + '.png'" :style="'transform:rotate(-' +  Math.ceil(Math.random()*360)  + 'deg)'"/>
+                </div>
             </div>
             <div class="over-ice"></div>
             <a class="slide" v-show="text"><img :src="IMGURL + '/note.png'"/></a>
@@ -139,98 +137,27 @@ export default {
       }
     },
     iceDrop() {
-      $('.run1').each(function() {
+      $('.run1').each(function(index, element) {
+        let that = $(this)
         $(this).animate(
           {
-            // top: 50 + Math.random() * 20 + '%'
-            top: 50 + Math.random() * 15 + '%'
+            top: index * 3 - 15 + '%'
           },
-          // 300 + 800 * Math.random(),
-          700 + 500 * Math.random(),
+          500 + Math.ceil(Math.random() * 500),
           function() {
-            $(this).css({
-              animation: 'none',
-              transform:
-                'rotate(' + Math.ceil(-30 + Math.random() * 60) + 'deg)'
-            })
+            $(this).css({ animation: 'myrotate 0.2s linear 1 alternate' })
           }
         )
       })
-      $('.run2').each(function() {
+      $('.run2').each(function(index, element) {
+        let that = $(this)
         $(this).animate(
           {
-            //top: 35 + Math.random() * 10 + '%'
-            top: 30 + Math.random() * 15 + '%'
+            top: index * 3 - 5 + '%'
           },
-          // 500 + 800 * Math.random(),
-          700 + 400 * Math.random(),
+          800 + Math.ceil(Math.random() * 300),
           function() {
-            $(this).css({
-              animation: 'none',
-              transform:
-                'rotate(' + Math.ceil(-15 + (1 - Math.random()) * 45) + 'deg)'
-            })
-          }
-        )
-      })
-      $('.run3').each(function() {
-        $(this).animate(
-          {
-            // top: 10 + Math.random() * 20 + '%'
-            top: 13 + Math.random() * 18 + '%'
-          },
-          // 500 + 800 * Math.random(),
-          800,
-          function() {
-            $(this).css({
-              animation: 'none',
-              transform:
-                'rotate(' +
-                Math.ceil(-30 + Math.random() * 90) +
-                'deg) translate(0,' +
-                Math.ceil(-100 + Math.random() * 200) +
-                '%)'
-            })
-          }
-        )
-      })
-      $('.run4').each(function(index, element) {
-        $(this).animate(
-          {
-            // top: 5 + Math.random() * 15 + '%'
-            top: -5 + Math.random() * 15 + '%'
-          },
-          // 300 + 500 * Math.random(),
-          600 + 500 * Math.random(),
-          function() {
-            $(this).css({
-              animation: 'none',
-              transform:
-                'rotate(' +
-                Math.ceil(-index * 20 + Math.random() * 100) +
-                'deg) translate(0,' +
-                Math.ceil(-100 + Math.random() * 200) +
-                '%)'
-            })
-          }
-        )
-      })
-      $('.run5').each(function(index, element) {
-        $(this).animate(
-          {
-            top: -5 + Math.random() * 10 + '%'
-          },
-          500 + 400 * Math.random(),
-          function() {
-            $(this).css({
-              animation: 'none',
-              transform:
-                'rotate(' +
-                Math.ceil(-100 * Math.random() + index * 20) +
-                'deg) translate(0,' +
-                Math.ceil(-100 + Math.random() * 200) +
-                '%)'
-            })
+            $(this).css({ animation: 'myrotate 0.2s linear 1 alternate' })
           }
         )
       })
@@ -338,18 +265,22 @@ body {
       }
       .ice-drop {
         position: absolute;
-        left: 0;
+        left: 50%;
         top: 0;
         z-index: 999;
-        width: 100%;
+        width: 130%;
+        transform: translate(-50%, 0);
         height: 100%;
-        img {
-          width: 32%;
+        div {
+          width: 27%;
+          display: inline-block;
           position: absolute;
           top: 0;
           left: 0;
-          transform: rotate(-15deg);
-          animation: myrotate 0.3s linear infinite alternate;
+          margin-left: -5%;
+          img {
+            max-width: 100%;
+          }
         }
       }
       .over-ice {
@@ -360,11 +291,6 @@ body {
         z-index: 9;
         width: 100%;
         height: 100%;
-        background-image: url('@{imgUrl}/icebg.png');
-        background-position: center 0%;
-        background-size: 100% auto;
-        background-repeat: repeat-x;
-        animation: bgrun 0.8s linear forwards;
       }
     }
     .slide {
@@ -425,10 +351,18 @@ body {
 }
 @keyframes myrotate {
   0% {
-    transform: rotate(-15deg);
+    transform: rotate(-45deg);
   }
   100% {
-    transform: rotate(15deg);
+    transform: rotate(45deg);
+  }
+}
+@keyframes allrun {
+  0% {
+    transform: translate(5%, -550%);
+  }
+  100% {
+    transform: translate(-5%, 0%);
   }
 }
 </style>
