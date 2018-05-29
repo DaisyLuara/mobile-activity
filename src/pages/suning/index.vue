@@ -66,7 +66,7 @@ export default {
     };
   },
   beforeCreate() {
-    document.title = "天将福利";
+    document.title = "天降福利";
   },
   mounted(){
     $('.snRedPacket-wrap').css('min-height', $(window).height()); 
