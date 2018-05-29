@@ -2,8 +2,8 @@
 <div id="wrap">
   <div class="snRedPacket-wrap">
     <div class="photo-wrap">
-      <img  class="photo" :src="resultImgUrl" alt=""/>
-       <!-- <img  class="photo" :src="imgServerUrl + '/pages/glassword/111.jpg'" alt=""/> -->
+      <!-- <img  class="photo" :src="resultImgUrl" alt=""/> -->
+       <img  class="photo" :src="imgServerUrl + '/pages/glassword/111.jpg'" alt=""/>
        <img  class="circle_1" :src="imgServerUrl + '/pages/sn_redPacke/cicle.png'">
        <img  class="circle_2" :src="imgServerUrl + '/pages/sn_redPacke/cicle.png'">
        <img  class="circle_3" :src="imgServerUrl + '/pages/sn_redPacke/cicle.png'">
@@ -92,7 +92,7 @@ export default {
         　　var scrollTop = $(this).scrollTop();
         　　var scrollHeight = $(document).height();
         　　var windowHeight = $(this).height();
-    　　if(scrollTop + windowHeight == scrollHeight){
+    　　if(scrollTop + windowHeight >= scrollHeight){
             oThef.show=false;
     　　}
         else{
@@ -137,10 +137,10 @@ export default {
 
     .photo{
       width: 63.5%;
-      height: 65%;
+      height: 63.8%;
       position: absolute;
       left: 18%;
-      top: 12%;
+      top: 12.8%;
     }
     .button{
         text-align: center;
