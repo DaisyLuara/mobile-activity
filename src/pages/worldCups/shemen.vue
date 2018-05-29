@@ -567,7 +567,7 @@ export default {
 
 <style lang="less" scoped>
 img {
-  width: auto;
+  width: 100%;
 }
 @imgServerUrl: 'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup';
 

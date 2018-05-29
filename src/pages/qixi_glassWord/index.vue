@@ -5,7 +5,8 @@
       </div>
      <div class="get-photo" v-if="showImg" >
          <div class="photo" >
-          <img  class="photo" :src="resultImgUrl" alt=""/> 
+          <img  class="photo-2" :src="resultImgUrl" alt=""/> 
+          <!-- <img  class="photo-2" :src="imgServerUrl + '/pages/glassword/111.jpg'" alt=""/> -->
         </div>
        <img class="save"  :src="imgServerUrl + '/pages/glassword/button.png'" alt="" > 
       </div>
@@ -121,21 +122,27 @@ export default {
   }
       .get-photo{
           width: 70%;
-          height: 80%;
+          height: 85%;
           position: absolute;
           left: 50%;
-          top: 50%;
+          top: 47.5%;
           transform: translate(-50%, -43%);
+          border:none;
         .photo{
-             height:87%;
-             border: 3px solid #fff;
-          img{
+            height:87%;
+            background: #fff;
+            padding: 3px;
+            border:none;
+            overflow: hidden;
+          .photo-2{
+            width:100%;
             height:100%;
+            border:none;
           }
         }
         .save{
           width: 73%;
-          margin-top: 5%;
+          margin-top: 2%;
         }
       }
 }
