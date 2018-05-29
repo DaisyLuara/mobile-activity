@@ -2,8 +2,8 @@
 <div id="wrap">
   <div class="snRedPacket-wrap">
     <div class="photo-wrap">
-      <!-- <img  class="photo" :src="resultImgUrl" alt=""/> -->
-       <img  class="photo" :src="imgServerUrl + '/pages/glassword/111.jpg'" alt=""/>
+      <img  class="photo" :src="resultImgUrl" alt=""/>
+       <!-- <img  class="photo" :src="imgServerUrl + '/pages/glassword/111.jpg'" alt=""/> -->
        <img  class="circle_1" :src="imgServerUrl + '/pages/sn_redPacke/cicle.png'">
        <img  class="circle_2" :src="imgServerUrl + '/pages/sn_redPacke/cicle.png'">
        <img  class="circle_3" :src="imgServerUrl + '/pages/sn_redPacke/cicle.png'">
