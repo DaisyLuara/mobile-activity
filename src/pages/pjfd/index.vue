@@ -57,7 +57,7 @@ export default {
       marketService
         .getInfoById(this, id)
         .then(res => {
-          this.photo = res.image
+          this.photo = res.code
         })
         .catch(err => {
           Toast(err)
