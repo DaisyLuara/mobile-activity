@@ -467,11 +467,29 @@ export default new Router({
                         import ( /* webpackChunkName: "pujiangfandian" */ 'pages/pjfd/index.vue')
                 },
                 {
+                    path: 'circus',
+                    name: '镜世界通用模板-马戏团',
+                    component: () =>
+                        import ( /* webpackChunkName: "summer" */ 'pages/circus/index.vue')
+                },
+                {
+                    path: 'world_cup',
+                    name: '镜世界通用模板-世界杯',
+                    component: () =>
+                        import ( /* webpackChunkName: "summer" */ 'pages/world_cup/index.vue')
+                },
+                {
+                    path: 'wc_ct',
+                    name: 'wordCupCirlceTalent',
+                    component: () =>
+                        import ( /* webpackChunkName: "wordCupCirlceTalent" */ 'pages/worldCups/circletalent.vue')
+                },
+                {
                     path: 'sn_redPacket',
                     name: '苏宁天降红包',
                     component: () =>
                         import ( /* webpackChunkName: "suning" */ 'pages/suning/index.vue')
-                },
+                }
             ]
         },
         {
