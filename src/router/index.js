@@ -489,6 +489,12 @@ export default new Router({
                     name: '苏宁天降红包',
                     component: () =>
                         import ( /* webpackChunkName: "suning" */ 'pages/suning/index.vue')
+                },
+                {
+                    path: 'hi_play',
+                    name: '嗨玩',
+                    component: () =>
+                        import ( /* webpackChunkName: "hiPlay" */ 'pages/hiPlay/index.vue')
                 }
             ]
         },
