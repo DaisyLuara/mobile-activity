@@ -26,6 +26,10 @@
     <img
       class="remind"
       :src="IMAGE_URL + 'remind.png'" />
+      
+    <!-- wxshare -->
+    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+    
   </div>  
 </template>
 
