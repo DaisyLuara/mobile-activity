@@ -3,14 +3,14 @@
       <canvas id="canvas"></canvas>
         <div class="line"></div>
         <div class="printer">
-          <span :class="{dolt:true,dshake:dshake}"></span>
+          <span class="dolt"></span>
           <img class="cover" :src="IMG_URL + '/cover.png'"/>
           <img class="card" :src="IMG_URL + '/card.png'"/>
           <img class="shadow" :src="IMG_URL + '/shadow.png'"/>
           <img class="topRect" :src="IMG_URL + '/slider.png'"/>
           <img class="bottom" :src="IMG_URL + '/bottom.png'"/>
         </div>
-        <div :class="{photo:true,photoSlider:photoSlider}"><img src=""/></div>
+        <div class="photo"><img id="mImg"  src=""/></div>
         <img class="press" :src="IMG_URL +'/press.png'" v-show="press"/>
         <wx-share :WxShareInfo="wxShareInfo"></wx-share>
     </div>
@@ -24,14 +24,11 @@ export default {
   data() {
     return {
       IMG_URL: IMG_SERVER + '/circus',
-      topSlider: false,
-      photoSlider: false,
-      dshake: false,
       press: false,
       //微信分享
       wxShareInfo: {
-        title: '马戏团',
-        desc: '镜世界通用模板',
+        title: '欢迎来到近铁马戏城！',
+        desc: '旋转、跳跃、我闭着眼！',
         imgUrl: IMG_SERVER + '/circus/share.png',
         success: function() {
           customTrack.shareWeChat()
@@ -61,9 +58,7 @@ export default {
           this.drawCanvas(res.image)
           this.press = true
         })
-        .catch(err => {
-          console.log(err)
-        })
+        .catch(err => {})
     },
     drawCanvas(image) {
       let canvas = document.getElementById('canvas')
@@ -72,29 +67,19 @@ export default {
       frame.src = '/static/circus/frame.png'
       let mImg = new Image()
       mImg.setAttribute('crossOrigin', 'Anonymous')
-      mImg.onload = function() {
-        canvas.width = mImg.width
-        canvas.height = mImg.height
-        ctx.drawImage(mImg, 0, 0)
-        frame.onload = function() {
-          ctx.drawImage(
-            frame,
-            0,
-            0,
-            frame.width,
-            frame.height,
-            0,
-            0,
-            mImg.width,
-            mImg.height
-          )
+
+      frame.onload = function() {
+        canvas.width = frame.width
+        canvas.height = frame.height
+        mImg.onload = function() {
+          ctx.drawImage(mImg, 0, 0, frame.width, frame.height)
+          ctx.drawImage(frame, 0, 0)
           let url = canvas.toDataURL('image/png')
-          let imgDiv = document.querySelector('.photo')
-          let img = imgDiv.querySelector('img')
+          let img = document.querySelector('#mImg')
           img.src = url
         }
+        mImg.src = image
       }
-      mImg.src = image
     }
   },
   components: {
