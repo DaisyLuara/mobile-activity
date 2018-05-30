@@ -51,8 +51,8 @@ export default {
         }
       },
       wxShareInfoValue: {
-        title: '梦想必燃，热血开战！《热血狂篮》圆你灌篮高手梦。',
-        desc: '2018最燃青春剧《热血狂篮》5月16日爱奇艺首播。',
+        title: '浦江饭店',
+        desc: '与浦江合影留念',
         imgUrl: IMAGE_SERVER + 'share.png'
       },
       isHorn: false,
