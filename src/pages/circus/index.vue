@@ -72,7 +72,6 @@ export default {
       frame.src = '/static/circus/frame.png'
       let mImg = new Image()
       mImg.setAttribute('crossOrigin', 'Anonymous')
-      mImg.src = image
       mImg.onload = function() {
         canvas.width = mImg.width
         canvas.height = mImg.height
@@ -95,6 +94,7 @@ export default {
           img.src = url
         }
       }
+      mImg.src = image
     }
   },
   components: {
