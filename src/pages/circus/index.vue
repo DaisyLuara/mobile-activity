@@ -118,7 +118,7 @@ body {
     margin: 0 auto;
     margin-top: -1px;
     background-color: #ffd649;
-    animation: myline 1.2s 1 forwards;
+    animation: myline 1.5s 1 forwards;
   }
   .printer {
     width: 100%;
@@ -134,6 +134,7 @@ body {
       font-size: 0;
       padding: 0;
       margin: 0 auto;
+      user-select: none;
     }
 
     .dolt {
@@ -196,6 +197,7 @@ body {
     margin-bottom: 20px;
     opacity: 0;
     animation: toShow 0.5s 5s 1 forwards;
+    user-select: none;
   }
 }
 
@@ -336,11 +338,11 @@ body {
   }
   80% {
     transform: translate(-50%, -10%);
-    opacity: 0.8;
+    opacity: 1;
   }
-  90% {
+  99% {
     transform: translate(-50%, 5%);
-    opacity: 0.8;
+    opacity: 1;
   }
   100% {
     transform: translate(-50%, 5%);
