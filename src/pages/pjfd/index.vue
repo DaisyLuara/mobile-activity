@@ -122,6 +122,7 @@ export default {
     // border: 1px solid white;
     height: 50%;
     top: 30%;
+    left: 0;
     z-index: 11;
     .photo-inner-horn {
       width: 90%;
