@@ -139,7 +139,7 @@ export default {
     iceDrop() {
       $('.run1').each(function(index, element) {
         $(this)
-          .delay(500)
+          .delay(200)
           .animate(
             {
               top: index * 3 - 15 + '%'
@@ -149,7 +149,7 @@ export default {
       })
       $('.run2').each(function(index, element) {
         $(this)
-          .delay(500)
+          .delay(200)
           .animate(
             {
               top: index * 3 - 5 + '%'
