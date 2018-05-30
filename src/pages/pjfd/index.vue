@@ -26,14 +26,25 @@
     <img
       class="remind"
       :src="IMAGE_URL + 'remind.png'" />
+      
+    <!-- wxshare -->
+    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+    
   </div>  
 </template>
 
 <script>
 const wih = window.innerHeight
 import marketService from 'services/marketing'
+import WxShare from 'modules/wxShare'
+import { customTrack } from 'modules/customTrack'
 import { Toast } from 'mint-ui'
+const IMAGE_SERVER =
+  'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/pjfd/'
 export default {
+  components: {
+    WxShare
+  },
   data() {
     return {
       IMAGE_URL:
@@ -43,11 +54,31 @@ export default {
           height: wih + 'px'
         }
       },
+      wxShareInfoValue: {
+        title: '浦江饭店',
+        desc: '与浦江合影留念',
+        imgUrl: IMAGE_SERVER + 'share.png'
+      },
       isHorn: false,
       photo: null
     }
   },
+  computed: {
+    //微信分享
+    wxShareInfo() {
+      let wxShareInfo = {
+        title: this.wxShareInfoValue.title,
+        desc: this.wxShareInfoValue.desc,
+        imgUrl: this.wxShareInfoValue.imgUrl,
+        success: () => {
+          customTrack.shareWeChat()
+        }
+      }
+      return wxShareInfo
+    }
+  },
   created() {
+    document.title = '浦江饭店'
     this.getInfoById()
     this.handleHorn()
   },
@@ -91,15 +122,25 @@ export default {
     // border: 1px solid white;
     height: 50%;
     top: 30%;
+    left: 0;
     z-index: 11;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     .photo-inner-horn {
       width: 90%;
+      top: 0;
+      margin: auto;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
     }
     .photo-inner-nothorn {
       height: 100%;
+      top: 0;
+      margin: 0 auto;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
     }
   }
   .photo-real {
