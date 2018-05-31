@@ -6,7 +6,6 @@
         </div>
         <div class="ballDiv">
           <img class="ball" :src="IMG_URL + '/ball.png'"/>
-          <!-- <img class="bg" :src="IMG_URL + '/bg.png'"/> -->
           <img class="pao" :src="IMG_URL + '/pao.png'"/>
           <img class="gogo" :src="IMG_URL + '/gogo.png'"/>
         </div>
@@ -109,7 +108,6 @@ body {
 .content {
   width: 100%;
   height: 100%;
-  // overflow: hidden;
   text-align: center;
   margin: 0;
   padding: 0;
@@ -137,21 +135,13 @@ body {
     img {
       user-select: none;
     }
-    // .bg {
-    //   width: 100%;
-    //   opacity: 0;
-    //   position: relative;
-    //   z-index: 9;
-    //   animation: toShow 1s 1 forwards;
-    // }
     .ball {
       width: 11.5%;
       position: absolute;
       top: 35%;
       left: 32%;
       z-index: 99;
-      animation: step1 1s 1 forwards;
-      animation: step2 0.8s 0.9s 1 forwards;
+      animation: step1 0.5s forwards;
     }
     .pao {
       width: 69%;
@@ -160,24 +150,21 @@ body {
       left: 32%;
       z-index: 999;
       opacity: 0;
-      animation: toShow 0.2s 0.9s 1;
+      animation: toShow 0.1s 0.3s;
     }
     .gogo {
       width: 86%;
       position: absolute;
-      top: 22%;
-      left: 7.5%;
+      top: 20%;
+      left: 7%;
       opacity: 0;
-      animation: toShow 0.3s 1.2s 1;
+      animation: toShow 0.1s 0.55s;
     }
   }
   .photo {
     width: 95%;
     position: relative;
     opacity: 0;
-    // top: 100%;
-    // left: 50%;
-    // transform: translate(-50%, 0);
     margin: 0 auto;
     transform: translateY(103%);
     text-align: center;
@@ -187,7 +174,7 @@ body {
     background-position: center 15%;
     background-size: 100% auto;
     background-repeat: no-repeat;
-    animation: slider 0.6s 1.1s 1 forwards;
+    animation: slider 0.5s 0.6s 1 forwards;
     #mImg {
       width: 93.5%;
       margin: 0 auto;
@@ -202,40 +189,40 @@ body {
     width: 11.5%;
     top: 35%;
     left: 32%;
+    transform: rotate(0deg);
   }
-  5% {
+  20% {
     width: 22%;
     top: 37.5%;
     left: 39%;
+    transform: rotate(45deg);
   }
   40% {
     width: 29.5%;
     top: 42%;
     left: 48.5%;
+    transform: rotate(90deg);
   }
-  90% {
+  60% {
     width: 41%;
     top: 46%;
     left: 37%;
+    transform: rotate(135deg);
+  }
+  80% {
+    width: 29%;
+    top: 64.5%;
+    left: 58%;
+    transform: rotate(90deg);
   }
   100% {
-    width: 41%;
-    top: 46%;
-    left: 37%;
+    width: 18%;
+    top: 85%;
+    left: 65%;
+    transform: rotate(45deg);
   }
 }
-@keyframes step2 {
-  0% {
-    width: 41%;
-    top: 46%;
-    left: 37%;
-  }
-  100% {
-    width: 15%;
-    top: 100%;
-    left: 73%;
-  }
-}
+
 @keyframes toShow {
   0% {
     opacity: 0;
