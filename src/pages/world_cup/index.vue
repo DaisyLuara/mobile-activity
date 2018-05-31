@@ -197,6 +197,12 @@ body {
     left: 39%;
     transform: rotate(30deg);
   }
+  30% {
+    width: 25.5%;
+    top: 40%;
+    left: 43.5%;
+    transform: rotate(40deg);
+  }
   50% {
     width: 29.5%;
     top: 42%;
