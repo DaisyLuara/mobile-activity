@@ -174,7 +174,7 @@ body {
       left: 50%;
       transform: translate(-50%, -100%);
       z-index: 3;
-      animation: printer 4s 0.4s 1 forwards;
+      animation: printer 3s 0.4s 1 forwards;
     }
     .bottom {
       margin-top: -1px;
@@ -186,7 +186,7 @@ body {
     position: relative;
     margin: 15px auto;
     text-align: center;
-    animation: photo 1.2s 3.5s 1 forwards;
+    animation: photo 1.2s 3s 1 forwards;
     img {
       max-width: 100%;
     }
@@ -308,32 +308,16 @@ body {
     transform: translate(-50%, -100%);
     opacity: 1;
   }
-  10% {
-    transform: translate(-50%, -80%);
-    opacity: 1;
-  }
   20% {
-    transform: translate(-50%, -70%);
-    opacity: 1;
-  }
-  30% {
-    transform: translate(-50%, -60%);
+    transform: translate(-50%, -80%);
     opacity: 1;
   }
   40% {
     transform: translate(-50%, -50%);
     opacity: 1;
   }
-  50% {
-    transform: translate(-50%, -40%);
-    opacity: 1;
-  }
   60% {
     transform: translate(-50%, -30%);
-    opacity: 1;
-  }
-  70% {
-    transform: translate(-50%, -20%);
     opacity: 1;
   }
   80% {
@@ -341,11 +325,11 @@ body {
     opacity: 1;
   }
   99% {
-    transform: translate(-50%, 5%);
+    transform: translate(-50%, -5%);
     opacity: 1;
   }
   100% {
-    transform: translate(-50%, 5%);
+    transform: translate(-50%, -5%);
     opacity: 0;
   }
 }

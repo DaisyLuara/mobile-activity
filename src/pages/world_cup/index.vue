@@ -1,14 +1,14 @@
 <template>
     <div class="content" id="content">
         <canvas id="canvas"></canvas>
+        <div class="photo">
+          <img id="mImg" src=""/>
+        </div>
         <div class="ballDiv">
-          <img class="bg" :src="IMG_URL + '/bg.png'"/>
           <img class="ball" :src="IMG_URL + '/ball.png'"/>
+          <!-- <img class="bg" :src="IMG_URL + '/bg.png'"/> -->
           <img class="pao" :src="IMG_URL + '/pao.png'"/>
           <img class="gogo" :src="IMG_URL + '/gogo.png'"/>
-        </div>
-        <div class="photo">
-          <img class="mImg" src=""/>
         </div>
         <wx-share :WxShareInfo="wxShareInfo"></wx-share>
     </div>
@@ -24,8 +24,8 @@ export default {
       IMG_URL: IMG_SERVER + '/world_bei',
       //微信分享
       wxShareInfo: {
-        title: '世界杯',
-        desc: '镜世界通用模板',
+        title: '你不是一个在战斗',
+        desc: '2018世界杯等你 GOOOOOAL!!!!',
         imgUrl: IMG_SERVER + '/world_bei/share.png',
         success: function() {
           customTrack.shareWeChat()
@@ -43,7 +43,9 @@ export default {
       document.documentElement.clientHeight ||
       document.body.clientHeight
     let content = document.getElementById('content')
-    content.style.innerHeight = height + 'px'
+    let ballDiv = content.querySelector('.ballDiv')
+    content.style.minHeight = height + 'px'
+    ballDiv.style.minHeight = height + 'px'
     this.getInfoById()
   },
   methods: {
@@ -52,7 +54,6 @@ export default {
       marketService
         .getInfoById(this, id)
         .then(res => {
-          //this.mImg = res.image
           this.drawCanvas(res.image)
         })
         .catch(err => {})
@@ -62,6 +63,7 @@ export default {
       let ctx = canvas.getContext('2d')
       let border = new Image()
       let mImg = new Image()
+      mImg.setAttribute('crossOrigin', 'Anonymous')
       border.src = '/static/world_cup/border.png'
       border.onload = function() {
         canvas.width = border.width
@@ -80,7 +82,7 @@ export default {
             border.height - 39
           )
           let url = canvas.toDataURL('image/png')
-          let img = document.querySelector('.mImg')
+          let img = document.querySelector('#mImg')
           img.src = url
         }
         mImg.src = image
@@ -107,12 +109,13 @@ body {
 .content {
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  // overflow: hidden;
   text-align: center;
   margin: 0;
   padding: 0;
   font-size: 0;
   position: relative;
+
   #canvas {
     width: 100%;
     height: 100%;
@@ -121,26 +124,34 @@ body {
   .ballDiv {
     width: 100%;
     height: 100%;
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     z-index: 0;
+    overflow: hidden;
+    background: url('@{imgUrl}bg.png') center top / 100% 100% no-repeat;
+    opacity: 0;
+    animation: toShow 1.5s 1 forwards;
     img {
       user-select: none;
     }
-    .bg {
-      width: 100%;
-      opacity: 0;
-      position: relative;
-      z-index: 9;
-      animation: toShow 1s 1 forwards;
-    }
+    // .bg {
+    //   width: 100%;
+    //   opacity: 0;
+    //   position: relative;
+    //   z-index: 9;
+    //   animation: toShow 1s 1 forwards;
+    // }
     .ball {
       width: 11.5%;
       position: absolute;
       top: 35%;
       left: 32%;
       z-index: 99;
-      animation: step1 2s 1 forwards;
-      animation: step2 1s 2s 1 forwards;
+      animation: step1 1s 1 forwards;
+      animation: step2 0.8s 0.9s 1 forwards;
     }
     .pao {
       width: 69%;
@@ -149,7 +160,7 @@ body {
       left: 32%;
       z-index: 999;
       opacity: 0;
-      animation: toShow 0.3s 2s 1;
+      animation: toShow 0.2s 0.9s 1;
     }
     .gogo {
       width: 86%;
@@ -157,28 +168,31 @@ body {
       top: 22%;
       left: 7.5%;
       opacity: 0;
-      animation: toShow 0.3s 2.3s 1;
+      animation: toShow 0.3s 1.2s 1;
     }
   }
   .photo {
     width: 95%;
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translate(-50%, 0);
+    position: relative;
+    opacity: 0;
+    // top: 100%;
+    // left: 50%;
+    // transform: translate(-50%, 0);
+    margin: 0 auto;
+    transform: translateY(103%);
     text-align: center;
     z-index: 9999;
     background-color: #033bb2;
     background-image: url('@{imgUrl}bgborder.png');
-    background-position: center 35%;
+    background-position: center 15%;
     background-size: 100% auto;
     background-repeat: no-repeat;
-    animation: slider 0.8s 2.2s 1 forwards;
-    .mImg {
+    animation: slider 0.6s 1.1s 1 forwards;
+    #mImg {
       width: 93.5%;
       margin: 0 auto;
       margin-top: 3.5%;
-      margin-bottom: 30%;
+      margin-bottom: 15%;
     }
   }
 }
@@ -189,21 +203,20 @@ body {
     top: 35%;
     left: 32%;
   }
-
-  20% {
-    width: 11.5%;
-    top: 35%;
-    left: 32%;
-  }
-  50% {
+  5% {
     width: 22%;
     top: 37.5%;
     left: 39%;
   }
-  80% {
+  40% {
     width: 29.5%;
     top: 42%;
     left: 48.5%;
+  }
+  90% {
+    width: 41%;
+    top: 46%;
+    left: 37%;
   }
   100% {
     width: 41%;
@@ -227,11 +240,11 @@ body {
   0% {
     opacity: 0;
   }
-  30% {
-    opacity: 1;
+  10% {
+    opacity: 0.1;
   }
-  50% {
-    opacity: 1;
+  30% {
+    opacity: 0.3;
   }
   100% {
     opacity: 1;
@@ -239,10 +252,19 @@ body {
 }
 @keyframes slider {
   0% {
-    top: 100%;
+    //top: 100%;
+    opacity: 0;
+    transform: translateY(103%);
+  }
+  5% {
+    //top: 100%;
+    opacity: 1;
+    transform: translateY(93%);
   }
   100% {
-    top: 3.5%;
+    // top: 3.5%;
+    opacity: 1;
+    transform: translateY(3%);
   }
 }
 </style>
