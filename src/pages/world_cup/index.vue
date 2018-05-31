@@ -248,6 +248,11 @@ body {
     opacity: 1;
     transform: translateY(93%);
   }
+  95% {
+    // top: 3.5%;
+    opacity: 1;
+    transform: translateY(0%);
+  }
   100% {
     // top: 3.5%;
     opacity: 1;
