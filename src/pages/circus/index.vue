@@ -112,13 +112,19 @@ body {
     width: 100%;
   }
   .line {
-    height: 5px;
+    // height: 5px;
+    // position: absolute;
+    // top: 0;
+    // left: 50%;
+    // transform: translate(-50%, 0);
+    width: 0px;
     position: relative;
-    z-index: 9999;
     margin: 0 auto;
+    z-index: 9999;
     margin-top: -1px;
     background-color: #ffd649;
-    animation: myline 1.5s 1 forwards;
+    // opacity: 1;
+    animation: myline 0.8s;
   }
   .printer {
     width: 100%;
@@ -126,7 +132,7 @@ body {
     margin: 0 auto;
     text-align: center;
     transform: translate3d(0, -300px, 0);
-    animation: slider 0.5s linear forwards;
+    animation: slider 0.4s forwards;
     z-index: 0;
     img {
       width: 80%;
@@ -162,7 +168,7 @@ body {
     .shadow {
       width: 48.5%;
       position: absolute;
-      top: 35%;
+      top: 33.6%;
       left: 50%;
       transform: translate(-50%, 0);
       z-index: 5;
@@ -187,6 +193,7 @@ body {
     margin: 15px auto;
     text-align: center;
     animation: photo 1.2s 3s 1 forwards;
+    z-index: 99999;
     img {
       max-width: 100%;
     }
@@ -261,11 +268,17 @@ body {
   }
 }
 @keyframes myline {
-  from {
+  0% {
     width: 0px;
+    height: 5px;
   }
-  to {
+  85% {
+    width: 800px;
+    height: 5px;
+  }
+  100% {
     width: 1000px;
+    height: 0px;
   }
 }
 @keyframes bgshake {
@@ -336,32 +349,32 @@ body {
 @keyframes photo {
   0% {
     width: 37%;
-    transform: translateY(-100%) rotateX(0deg);
+    transform: translateY(-100%);
     opacity: 0;
   }
   20% {
     width: 37%;
-    transform: translateY(-70%) rotateX(30deg);
+    transform: translateY(-70%);
     opacity: 0.4;
   }
   40% {
     width: 37%;
-    transform: translateY(-50%) rotateX(60deg);
+    transform: translateY(-50%);
     opacity: 0.7;
   }
   60% {
     width: 37%;
-    transform: translateY(-30%) rotateX(90deg);
+    transform: translateY(-30%);
     opacity: 0.9;
   }
   80% {
     width: 57%;
-    transform: translateY(-10%) rotateX(0deg);
+    transform: translateY(-10%);
     opacity: 1;
   }
   100% {
     width: 77%;
-    transform: translateY(0) rotateX(0deg);
+    transform: translateY(0);
     opacity: 1;
   }
 }
