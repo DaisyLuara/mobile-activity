@@ -1,13 +1,14 @@
 <template>
   <div class="fourShoot-content">
-      <!-- <img  class="photo" :src="resultImgUrl" alt=""/> -->
-      <img  class="photo" :src="imgServerUrl + '/pages/fourShoot/1111.png'" alt=""/>
-      
+      <img  class="photo" :src="resultImgUrl" alt=""/>
+      <!-- <img  class="photo" :src="imgServerUrl + '/pages/fourShoot/1111.png'" alt=""/> -->
       <div class="button">
-        <div  > 
+        <div> 
           <img  class="jiantou" :src="imgServerUrl + '/pages/fourShoot/nav.png'" alt=""/> 
         </div>
-        <div> <img class="title" :src="imgServerUrl + '/pages/fourShoot/title.png'" alt=""/> </div>
+        <div> 
+          <img class="title" :src="imgServerUrl + '/pages/fourShoot/title.png'" alt=""/> 
+        </div>
       </div> 
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
@@ -32,9 +33,9 @@ export default {
       resultImgUrl: '',
       //微信分享信息
       wxShareInfoValue: {
-        title: '',
-        desc: '',
-        imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/war_share_icon.jpg',
+        title: '我的夏日缤纷心情',
+        desc: '灼灼烈日，心情不百变，还怎么过夏天！',
+        imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/fourShoot_share_icon.jpeg',
       },
     };
   },
@@ -43,11 +44,6 @@ export default {
   },
   mounted(){
     $('.fourShoot-content').css('min-height', $(window).height());
-    // var h=$('.fourShoot-content').height();
-    // console.log(h)
-    // if (h==812) {
-    //    $('.photo').css('height','59%');  
-    // }
   },
   created() {
     this.getImageById();
@@ -104,15 +100,14 @@ export default {
       bottom:3%;
       padding:8%;
       .jiantou{
-        width:20%;
-        animation: arrows .8s ease-out infinite alternate;
+        width:18%;
+        animation: arrows .5s ease-out infinite alternate;
       }
       .title{
         width:80%;
-        animation: arrows .8s ease-out infinite alternate;
+        animation: arrows .5s ease-out infinite alternate;
       }
-    }
-    
+    }  
 }
 @keyframes arrows {
     0% {transform: translateY(-2px);}
