@@ -10,7 +10,7 @@
 <script>
 import marketService from 'services/marketing'
 import WxShare from 'modules/wxShare'
-import Pixi from './pixi.min.js'
+import * as PIXI from 'pixi.js'
 import { customTrack } from 'modules/customTrack'
 const IMG_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing/pages'
 export default {
@@ -34,7 +34,9 @@ export default {
   beforeCreate() {
     document.title = '世界杯'
   },
-  created() {},
+  created() {
+    console.log(new PIXI.spine.Spine())
+  },
   mounted() {
     this.width =
       window.innerWidth ||

@@ -25,8 +25,8 @@ import marketService from 'services/marketing'
 import WxShare from 'modules/wxShare'
 import wxService from 'services/wx'
 import { customTrack } from 'modules/customTrack'
-import Pixi from './pixi.js'
-import Spine from './pixi-spine.js'
+import * as PIXI from 'pixi.js'
+import Spine from 'pixi-spine'
 
 export default {
   components: {
@@ -96,8 +96,12 @@ export default {
     document.title = '凯德绿享新生活'
   },
   mounted() {
-    $('.greenlife-content').css('min-height', $(window).height())
-    $('.trees').css('height', $('.greenlife-content').height() / 2)
+    let height =
+      window.innerHeight ||
+      document.documentElement.clientHeight ||
+      document.body.clientHeight
+    document.querySelector('.greenlife-content').style.minHeight = height + 'px'
+    document.querySelector('.trees').style.height = height / 2 + 'px'
 
     this.width = this.$refs.element.offsetWidth
     this.height = this.$refs.element.offsetHeight
@@ -175,8 +179,11 @@ export default {
         })
     },
     init(pos) {
-      this.renderer = new PIXI.CanvasRenderer(this.width, this.height)
+      this.renderer = new PIXI.CanvasRenderer(this.width, this.height, {
+        transparent: true
+      })
       document.getElementById('treeDiv').appendChild(this.renderer.view)
+      this.renderer.view.transparent = true
       this.stage = new PIXI.Container()
       let that = this
       PIXI.loader
