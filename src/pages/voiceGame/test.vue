@@ -81,9 +81,9 @@ export default {
         wx.stopRecord({
           success: function(res) {
             that.currentLocalId = res.localId
+            that.handleVoiceTranslate()
           }
         })
-        this.handleVoiceTranslate()
       } else {
         this.isRecording = !this.isRecording
         this.handleStartRecord()
