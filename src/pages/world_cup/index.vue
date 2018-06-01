@@ -1,13 +1,8 @@
 <template>
     <div class="content" id="content">
         <canvas id="canvas"></canvas>
-        <div class="photo">
+        <div :class="{photo:true,toslider:toslider}">
           <img id="mImg" src=""/>
-        </div>
-        <div class="ballDiv">
-          <img class="ball" :src="IMG_URL + '/ball.png'"/>
-          <img class="pao" :src="IMG_URL + '/pao.png'"/>
-          <img class="gogo" :src="IMG_URL + '/gogo.png'"/>
         </div>
         <wx-share :WxShareInfo="wxShareInfo"></wx-share>
     </div>
@@ -15,12 +10,16 @@
 <script>
 import marketService from 'services/marketing'
 import WxShare from 'modules/wxShare'
+import Pixi from './pixi.min.js'
 import { customTrack } from 'modules/customTrack'
 const IMG_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing/pages'
 export default {
   data() {
     return {
       IMG_URL: IMG_SERVER + '/world_bei',
+      width: null,
+      height: null,
+      toslider: false,
       //微信分享
       wxShareInfo: {
         title: '你不是一个在战斗',
@@ -37,15 +36,18 @@ export default {
   },
   created() {},
   mounted() {
-    let height =
+    this.width =
+      window.innerWidth ||
+      document.documentElement.clientWidth ||
+      document.body.clientWidth
+    this.height =
       window.innerHeight ||
       document.documentElement.clientHeight ||
       document.body.clientHeight
     let content = document.getElementById('content')
-    let ballDiv = content.querySelector('.ballDiv')
-    content.style.minHeight = height + 'px'
-    ballDiv.style.minHeight = height + 'px'
+    content.style.minHeight = this.height + 'px'
     this.getInfoById()
+    this.playAnim()
   },
   methods: {
     getInfoById() {
@@ -54,8 +56,90 @@ export default {
         .getInfoById(this, id)
         .then(res => {
           this.drawCanvas(res.image)
+          this.toslider = true
         })
         .catch(err => {})
+    },
+    playAnim() {
+      let type = 'WebGL'
+      if (!PIXI.utils.isWebGLSupported()) {
+        type = 'canvas'
+      }
+      PIXI.utils.sayHello(type)
+      let that = this
+      let app = new PIXI.Application(this.width, this.height * 1.1, {
+        transparent: true
+      })
+      app.renderer.view.style.position = 'absolute'
+      app.renderer.view.style.top = 0
+      app.renderer.view.style.left = 0
+      app.renderer.view.style.zIndex = 0
+      app.renderer.autoResize = true
+      app.renderer.resize(window.innerWidth, window.innerHeight * 1.1)
+      document.getElementById('content').appendChild(app.view)
+
+      //背景
+      let bg = new PIXI.Sprite.fromImage('/static/world_cup/bg.png')
+      bg.width = app.screen.width
+      bg.height = app.screen.height
+      bg.alpha = 0
+      app.stage.addChild(bg)
+      //球
+      let ball = new PIXI.Sprite.fromImage('/static/world_cup/ball.png')
+      ball.x = this.width * 0.32
+      ball.y = this.height * 0.3
+      ball.scale.set(0.11)
+      // ball.width = 88
+      // ball.height = 88
+      ball.anchor.set(0.5)
+      app.stage.addChild(ball)
+      //泡泡
+      let pao = new PIXI.Sprite.fromImage('/static/world_cup/pao.png')
+      pao.scale.set(0.4)
+      pao.x = this.width * 0.32
+      pao.y = this.height * 0.32
+      pao.visible = false
+      app.stage.addChild(pao)
+      //gogo文本
+      let gogo = new PIXI.Sprite.fromImage('/static/world_cup/gogo.png')
+      gogo.scale.set(0.5)
+      gogo.x = this.width * 0.07
+      gogo.y = this.width * 0.3
+      gogo.visible = false
+      app.stage.addChild(gogo)
+      let ball_scale = 0.115
+      let counter = 0
+      let bigger = true
+      ball.vx = 0
+      ball.vy = 0
+      app.ticker.add(function() {
+        counter++
+        ball.rotation += 0.1
+        bg.alpha = bg.alpha > 1 ? 1 : bg.alpha + 0.015
+        if (counter < 5) {
+          return
+        }
+        if (counter <= 25) {
+          ball_scale += 0.015 + Math.random() / 100
+          ball.vx = 2.5 + Math.sin(Math.random()) * 2
+          ball.vy = 4 + Math.cos(Math.random())
+          pao.visible = counter > 20 ? true : false
+          gogo.visible = false
+        } else if (counter < 120) {
+          pao.visible = counter < 34 ? true : false
+          gogo.visible = counter > 35 ? true : false
+          if (counter < 90 && counter > 30) {
+            ball_scale -= 0.004 + Math.random() / 70
+            ball.vx = Math.sin(Math.random())
+            ball.vy = 7.5 + Math.cos(Math.random())
+          }
+        } else {
+          return
+        }
+        ball.x += ball.vx
+        ball.y += ball.vy
+        ball.scale.set(ball_scale)
+      })
     },
     drawCanvas(image) {
       let canvas = document.getElementById('canvas')
@@ -75,16 +159,18 @@ export default {
             0,
             mImg.width,
             mImg.height,
-            14,
-            20,
-            border.width - 28,
-            border.height - 39
+            34,
+            36,
+            border.width - 68,
+            border.height - 72
           )
           let url = canvas.toDataURL('image/png')
           let img = document.querySelector('#mImg')
           img.src = url
         }
         mImg.src = image
+        //mImg.src =
+        //'http://o9xrbl1oc.bkt.clouddn.com/1007/image/1492786765568.jpg'
       }
     }
   },
@@ -119,47 +205,12 @@ body {
     height: 100%;
     display: none;
   }
-  .ballDiv {
-    width: 100%;
-    height: 100%;
+  canvas {
     position: absolute;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 0;
-    overflow: hidden;
-    background: url('@{imgUrl}bg.png') center top / 100% 100% no-repeat;
-    opacity: 0;
-    animation: toShow 1.5s 1 forwards;
-    img {
-      user-select: none;
-    }
-    .ball {
-      width: 11.5%;
-      position: absolute;
-      top: 35%;
-      left: 32%;
-      z-index: 99;
-      animation: step1 0.6s 0.1s forwards;
-    }
-    .pao {
-      width: 69%;
-      position: absolute;
-      top: 35.5%;
-      left: 32%;
-      z-index: 999;
-      opacity: 0;
-      animation: toShow 0.2s 0.4s;
-    }
-    .gogo {
-      width: 86%;
-      position: absolute;
-      top: 20%;
-      left: 7%;
-      opacity: 0;
-      animation: toShow 0.3s 0.65s;
-    }
+    width: 100%;
+    height: 100%;
   }
   .photo {
     width: 95%;
@@ -174,13 +225,16 @@ body {
     background-position: center 15%;
     background-size: 100% auto;
     background-repeat: no-repeat;
-    animation: slider 0.7s 0.8s 1 forwards;
+
     #mImg {
       width: 93.5%;
       margin: 0 auto;
       margin-top: 3.5%;
       margin-bottom: 15%;
     }
+  }
+  .toslider {
+    animation: slider 0.8s 1s forwards;
   }
 }
 
@@ -195,43 +249,31 @@ body {
     width: 22%;
     top: 37.5%;
     left: 39%;
-    transform: rotate(30deg);
+    transform: rotate(45deg);
   }
-  30% {
-    width: 25.5%;
-    top: 40%;
-    left: 43.5%;
-    transform: rotate(40deg);
-  }
-  50% {
+  40% {
     width: 29.5%;
     top: 42%;
     left: 48.5%;
-    transform: rotate(45deg);
+    transform: rotate(90deg);
   }
   60% {
     width: 41%;
     top: 46%;
     left: 37%;
-    transform: rotate(60deg);
-  }
-  70% {
-    width: 41%;
-    top: 46%;
-    left: 37%;
-    transform: rotate(60deg);
+    transform: rotate(135deg);
   }
   80% {
     width: 29%;
     top: 64.5%;
     left: 58%;
-    transform: rotate(45deg);
+    transform: rotate(90deg);
   }
   100% {
     width: 18%;
     top: 85%;
     left: 65%;
-    transform: rotate(30deg);
+    transform: rotate(45deg);
   }
 }
 
@@ -258,13 +300,13 @@ body {
     opacity: 1;
     transform: translateY(93%);
   }
-  85% {
+  95% {
     opacity: 1;
     transform: translateY(0%);
   }
   100% {
     opacity: 1;
-    transform: translateY(5%);
+    transform: translateY(3%);
   }
 }
 </style>
