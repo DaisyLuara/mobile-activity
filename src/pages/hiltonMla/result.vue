@@ -4,9 +4,8 @@
       <img class="pingzi" :src="imgServerUrl + '/pages/hiltonMla/pingzi.png'" alt="" >
       <img class="light" :src="imgServerUrl + '/pages/hiltonMla/light.png'" alt="">
      <div class="coupon">
-         <img  v-show="showCoupon.cp268" class="cp-268" :src="imgServerUrl + '/pages/hiltonMla/268.png'" alt="" />
-         <img  v-show="showCoupon.cp428" class="cp-428" :src="imgServerUrl + '/pages/hiltonMla/428.png'" alt="" />
-         <img  v-show="showCoupon.cp777" class="cp-777" :src="imgServerUrl + '/pages/hiltonMla/777.png'" alt="" />
+         <img  v-show="showCoupon.cp1" class="cp-1" :src="imgServerUrl + '/pages/hiltonMla/langouste.png'" alt="" />
+         <img  v-show="showCoupon.cp2" class="cp-2" :src="imgServerUrl + '/pages/hiltonMla/world_cup.png'" alt="" />
       </div>
       <div class="save">
           <img class="jiantou" :src="imgServerUrl + '/pages/hiltonMla/jiantou.png'" alt="" >
@@ -34,13 +33,12 @@ export default {
   data() {
     return {
       imgServerUrl: IMAGE_SERVER,
-      resultImgUrl: '',
-      type: this.$route.query.type,
-      showCoupon: {
-        cp268: false,
-        cp428: false,
-        cp777: false
-      },
+      resultImgUrl:'',
+      type:this.$route.query.type,
+      showCoupon:{
+          cp1:false,
+          cp2:false 
+        },
       //微信分享信息
       wxShareInfoValue: {
         title: '玩儿游戏居然能中大奖？',
@@ -61,15 +59,12 @@ export default {
     this.show()
   },
   methods: {
-    show() {
-      if (this.type == 1) {
-        this.showCoupon.cp268 = true
+    show(){
+      if(this.type==1){
+        this.showCoupon.cp1=true;
       }
-      if (this.type == 2) {
-        this.showCoupon.cp428 = true
-      }
-      if (this.type == 3) {
-        this.showCoupon.cp777 = true
+      if(this.type==2){
+        this.showCoupon.cp2=true;
       }
     },
     //拿取图片id
