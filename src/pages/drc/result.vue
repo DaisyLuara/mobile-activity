@@ -1,29 +1,26 @@
 <template>
   <div class="psbh-travel-wrap">
-    <img class="psbh-img" :src="imgServerUrl + '/ad_0526_1.png'" alt="">
     <div class="photo-content">
       <div class="boots-wrap">
         <div class="slide-wrap pos-common">
-          <img class="boot-line pos-common" :src="imgServerUrl + '/boot-line.png'">
-          <img class="boot-text pos-common" :src="imgServerUrl + '/boot-text.png'">
-          <img class="gesture-img pos-common" :src="imgServerUrl + '/gesture-img.png'">
+          <img class="boot-line pos-common" :src="imgServerUrl + '/line.png'">
+          <img class="boot-text pos-common" :src="imgServerUrl + '/text.png'">
+          <img class="gesture-img pos-common" :src="imgServerUrl + '/hand.png'">
           <div class="boot-img"></div>
         </div>
       </div>
       <div class="photo-wrap">
-        <img class="envelope-bg" :src="imgServerUrl + '/photo_frame.png'">
-        <img class="photo-img" :src="img_url">
+        <canvas id="myCanvas" class="canvas-content" style="display: none"></canvas>
+        <img class="envelope-bg" id="test" src="">
         <div class="photo-cover">
           <img class="cover-img" :src="imgServerUrl + '/photo-cover2.png'">
         </div>
-        <img class="save-img" :src="imgServerUrl + '/save-img3.png'">
       </div>
-      <img class="slogan" :src="imgServerUrl + '/slogan.png'">
+      <div class="save-arrow-wrap">
+        <img class="arrow" :src="imgServerUrl + '/arrow.png'">
+        <img class="save-img" :src="imgServerUrl + '/share.png'">
+      </div>
     </div>
-    <img class="psbh-img" :src="imgServerUrl + '/ad_0526_3.jpg'" alt="">
-    <img class="psbh-img" :src="imgServerUrl + '/ad_0526_4.jpg'" alt="">
-    <img class="psbh-img" :src="imgServerUrl + '/ad_0526_5.jpg'" alt="">
-
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
 </template>
@@ -41,11 +38,11 @@ export default {
   data() {
     return {
       img_url: '',
-      imgServerUrl: IMAGE_SERVER + '/pages/psbh_travel',
+      imgServerUrl: IMAGE_SERVER + '/pages/drc',
       wxShareInfo: {
-        title: '浦商百货折上折',
-        desc: '体验异域风情 尽享优惠折扣',
-        imgUrl: IMAGE_SERVER + '/wx_share_icon/psbh_travel_share_icon.jpeg',
+        title: '我要去看世界杯啦',
+        desc: '大融城邀您一起观看精彩世界杯',
+        imgUrl: IMAGE_SERVER + '/wx_share_icon/drc-share-icon.png',
         success: () => {
           customTrack.shareWeChat()
         }
@@ -53,28 +50,79 @@ export default {
     }
   },
   beforeCreate() {
-    document.title = '浦商百货'
+    document.title = '大融城'
   },
   mounted() {
+    // this.syntheticCanvas()
     $('.photo-content').css('min-height', $(window).height())
-    this.init()
-  },
-  created() {
     this.getPeopleImage()
+    this.animateHandle()
   },
+  created() {},
   methods: {
+    syntheticCanvas(imagUrl) {
+      let canvas = document.getElementById('myCanvas')
+      let height = Math.round(parseFloat($(window).width() / 727 * 822))
+      let width = Math.round(parseFloat($(window).width()))
+      $('#myCanvas').css({ height: height, width: width })
+      let image = new Image()
+      image.src = '/static/drc/photo.png'
+      let ctx = canvas.getContext('2d')
+      let photoImage = new Image()
+      photoImage.setAttribute('crossOrigin', 'Anonymous')
+      let needleImage = new Image()
+      image.onload = function() {
+        canvas.width = image.width
+        canvas.height = image.height
+        ctx.drawImage(image, 0, 0, image.width, image.height)
+        photoImage.onload = function() {
+          ctx.drawImage(
+            photoImage,
+            0,
+            0,
+            photoImage.width,
+            photoImage.height,
+            87,
+            107,
+            photoImage.width * 0.51,
+            photoImage.height * 0.513
+          )
+          needleImage.onload = function() {
+            ctx.drawImage(
+              needleImage,
+              0,
+              0,
+              needleImage.width,
+              needleImage.height,
+              107,
+              -7,
+              needleImage.width,
+              needleImage.height
+            )
+            let url = canvas.toDataURL('image/png')
+            let img = document.getElementById('test')
+            img.src = url
+          }
+          needleImage.src = '/static/drc/needle.png'
+        }
+        // photoImage.src = 'http://o9xrbl1oc.bkt.clouddn.com/1007/image/theBigCity_532_980_1492922362981.jpg';
+        photoImage.src = imagUrl
+      }
+    },
+
     getPeopleImage() {
       let id = decodeURI(this.$route.query.id)
       marketService
         .getInfoById(this, id)
         .then(result => {
           this.img_url = result.image
+          this.syntheticCanvas(result.image)
         })
         .catch(err => {
           console.log(err)
         })
     },
-    init() {
+    animateHandle() {
       let wid = 0,
         slogen_hei = 0,
         adv_hei = 0,
@@ -142,16 +190,14 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-img {
-  width: 100%;
-}
-@imgServerUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/psbh_travel';
+@imgServerUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/drc';
 .psbh-travel-wrap {
   .photo-content {
     width: 100%;
     position: relative;
-    background-color: #faf4e8;
-    padding-top: 10px;
+    background: url('@{imgServerUrl}/bg1.png');
+    background-size: 100% 100%;
+    // padding-top: 10px;
     overflow: hidden;
     text-align: center;
     .slogen-wrap {
@@ -338,12 +384,12 @@ img {
         bottom: 0;
       }
       .slide-wrap {
-        width: 86%;
+        width: 100%;
         top: 0;
         bottom: 0;
         z-index: 2;
         .boot-line {
-          width: 75%;
+          width: 100%;
           z-index: 4;
           top: 3%;
         }
@@ -354,7 +400,7 @@ img {
         }
         .gesture-img {
           width: 11.78%;
-          top: 5%;
+          top: 77%;
           left: 7%;
           margin: 0;
           z-index: 10;
@@ -376,14 +422,14 @@ img {
         }
         .boot-img {
           position: absolute;
-          top: 0;
+          top: 43%;
           bottom: 0;
-          left: -10px;
-          width: 20%;
-          z-index: 5;
+          left: -3%;
+          width: 26%;
+          z-index: 10;
           background-repeat: no-repeat;
           background-size: 100%;
-          background-image: url('@{imgServerUrl}/plane.png');
+          background-image: url('@{imgServerUrl}/ball.png');
           &.proccess1 {
             background-image: url('@{imgServerUrl}/boot2-img.png');
           }
@@ -493,14 +539,18 @@ img {
     }
 
     .photo-wrap {
-      position: relative;
+      // position: relative;
       text-align: center;
       margin-bottom: 8%;
-      width: 87%;
+      width: 100%;
+      margin-top: 4%;
       margin: 0 auto;
       .envelope-bg {
-        width: 83%;
+        width: 100%;
         margin-left: 2px;
+        position: absolute;
+        left: 0;
+        top: 2%;
       }
       .photo-img {
         position: absolute;
@@ -541,18 +591,31 @@ img {
         position: absolute;
         left: 0;
         right: 0;
-        top: 2px;
-        width: 81.3%;
+        top: 0;
+        bottom: 0;
+        width: 100%;
         margin: 0 auto;
         z-index: 5;
         overflow: hidden;
         .cover-img {
           width: 100%;
+          height: 100%;
         }
+      }
+      .arrow {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 30%;
+        margin: 0 auto;
+        width: 11.2%;
+        animation: arrowMotion 0.6s infinite alternate;
+        opacity: 1;
+        z-index: 8;
       }
       .save-img {
         position: absolute;
-        bottom: -7%;
+        bottom: 25%;
         left: 0;
         right: 0;
         margin: 0 auto;
@@ -572,6 +635,41 @@ img {
           display: none;
         }
       }
+    }
+    .save-arrow-wrap {
+      .arrow {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 20%;
+        margin: 0 auto;
+        width: 9.2%;
+        animation: arrowMotion 0.6s infinite alternate;
+        opacity: 1;
+        z-index: 3;
+      }
+      .save-img {
+        position: absolute;
+        bottom: 15%;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        width: 68.2%;
+        animation: arrowMotion 0.6s infinite alternate;
+        opacity: 1;
+        z-index: 3;
+      }
+      // &.appear {
+      //   .seal-img {
+      //     animation: sealMotion 0.5s 1 forwards;
+      //   }
+      //   .save-img {
+      //     opacity: 1;
+      //   }
+      //   .photo-cover {
+      //     display: none;
+      //   }
+      // }
     }
     .slogan {
       width: 48%;

@@ -6,10 +6,10 @@
         <img :src="imgPath + 'shadow.png'" class="shadow">
         <div class="picture">
             <img :src="photo" :class="{pImg:true,slider:slider}"/>
-            <img :src="imgPath + 'border.png'" class="border" v-show="border"/>
+            <img :src="imgPath + 'border.png'" :class="{border:true,afterShow:isShow}"/>
         </div>
-        <img :src="imgPath + 'look.png'" class="look" v-show="border">
-        <img :src="imgPath + 'note.png'" class="note" v-show="border">
+        <img :src="imgPath + 'press.png'" :class="{note:true,afterShow:isShow}"/>
+       <a :href="menu" class="abtn"></a>
         <wx-share :WxShareInfo="wxShareInfo"></wx-share>
     </div>
   </div>
@@ -18,13 +18,18 @@
 import marketService from 'services/marketing'
 import WxShare from 'modules/wxShare'
 import { customTrack } from 'modules/customTrack'
+const IMG_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing/pages'
 export default {
   data() {
     return {
-      imgPath: 'http://p22vy0aug.bkt.clouddn.com/image/heyjuice/',
+      imgPath: IMG_SERVER + '/heyjiuce/tea/',
       photo: null,
       border: false,
+      isShow: false,
+      menuUrl: 'http://papi.xingstation.com/api/point_configs/',
+      menu: null,
       slider: false,
+      source: this.$route.query.utm_source,
       //微信分享
       wxShareInfo: {
         title: 'HEYJUICE等待着与你相遇',
@@ -48,25 +53,32 @@ export default {
     let tea = document.getElementById('tea')
     tea.style.minHeight = h + 'px'
     this.getInfoById()
+    this.toMenu(this.source)
   },
   methods: {
     getInfoById() {
       let id = this.$route.query.id
-      var that = this
+      let that = this
       marketService
         .getInfoById(this, id)
         .then(res => {
           this.photo = res.image
+          this.isShow = true
           this.slider = true
-          console.log(res)
-          var timer = setTimeout(function() {
-            that.border = true
-            clearTimeout(timer)
-          }, 2550)
         })
         .catch(err => {
           console.log(err)
           return
+        })
+    },
+    toMenu(source) {
+      this.$http
+        .get(this.menuUrl + source)
+        .then(res => {
+          this.menu = res.data.url
+        })
+        .catch(err => {
+          console.log(err)
         })
     }
   },
@@ -79,7 +91,7 @@ export default {
 img {
   width: 100%;
 }
-@imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/heyjuice/';
+@imgUrl: 'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/heyjiuce/tea/';
 .tea-main {
   width: 100%;
   min-height: 100%;
@@ -116,14 +128,14 @@ img {
     position: absolute;
     width: 100%;
     height: 40%;
-    top: 16%;
+    top: 14%;
     margin: 0;
     padding: 0;
     z-index: 99;
     .pImg {
       position: absolute;
-      width: 89%;
-      left: 5.5%;
+      width: 86.3%;
+      left: 6.85%;
       z-index: 999;
       margin-top: 5.2%;
       transform: translate3d(0, -116%, 0);
@@ -137,20 +149,33 @@ img {
       left: 3%;
       z-index: 9;
       margin-top: 2.5%;
+      opacity: 0;
     }
-  }
-  .look {
-    position: absolute;
-    width: 4.8%;
-    left: 47.6%;
-    animation: updown 0.8s linear infinite alternate;
-    bottom: 8.5%;
   }
   .note {
     position: absolute;
-    width: 52%;
-    left: 24%;
-    bottom: 3%;
+    width: 29%;
+    left: 35.5%;
+    top: 81%;
+    // animation: updown 0.8s linear infinite alternate;
+    opacity: 0;
+  }
+  .abtn {
+    display: block;
+    width: 100%;
+    height: 9.5%;
+    position: absolute;
+    top: 88.8%;
+    background: url('@{imgUrl}btn1.png') center center/auto 90% no-repeat;
+    &:hover {
+      background: url('@{imgUrl}btn2.png') center center/auto 90% no-repeat;
+    }
+    &:link {
+      background: url('@{imgUrl}btn2.png') center center/auto 90% no-repeat;
+    }
+  }
+  .afterShow {
+    animation: toShow 0.1s 2.55s linear forwards;
   }
 }
 
@@ -168,6 +193,14 @@ img {
   }
   100% {
     transform: translateY(5px);
+  }
+}
+@keyframes toShow {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
 </style>
