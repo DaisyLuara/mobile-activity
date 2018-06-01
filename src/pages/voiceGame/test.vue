@@ -37,7 +37,7 @@ export default {
         this.$http.get(requestUrl).then(response => {
           let resData = response.data.data
           let wxConfig = {
-            debug: true,
+            debug: false,
             appId: resData.appId,
             timestamp: resData.timestamp,
             nonceStr: resData.nonceStr,
@@ -81,9 +81,9 @@ export default {
         wx.stopRecord({
           success: function(res) {
             that.currentLocalId = res.localId
+            that.handleVoiceTranslate()
           }
         })
-        this.handleVoiceTranslate()
       } else {
         this.isRecording = !this.isRecording
         this.handleStartRecord()
