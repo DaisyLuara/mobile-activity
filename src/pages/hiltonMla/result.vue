@@ -33,22 +33,12 @@ export default {
   data() {
     return {
       imgServerUrl: IMAGE_SERVER,
-<<<<<<< HEAD
       resultImgUrl:'',
       type:this.$route.query.type,
       showCoupon:{
           cp1:false,
           cp2:false 
         },
-=======
-      resultImgUrl: '',
-      type: this.$route.query.type,
-      showCoupon: {
-        cp268: false,
-        cp428: false,
-        cp777: false
-      },
->>>>>>> develop
       //微信分享信息
       wxShareInfoValue: {
         title: '玩儿游戏居然能中大奖？',
@@ -69,24 +59,12 @@ export default {
     this.show()
   },
   methods: {
-<<<<<<< HEAD
     show(){
       if(this.type==1){
         this.showCoupon.cp1=true;
       }
       if(this.type==2){
         this.showCoupon.cp2=true;
-=======
-    show() {
-      if (this.type == 1) {
-        this.showCoupon.cp268 = true
-      }
-      if (this.type == 2) {
-        this.showCoupon.cp428 = true
-      }
-      if (this.type == 3) {
-        this.showCoupon.cp777 = true
->>>>>>> develop
       }
     },
     //拿取图片id
