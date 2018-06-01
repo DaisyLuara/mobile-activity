@@ -112,18 +112,12 @@ body {
     width: 100%;
   }
   .line {
-    // height: 5px;
-    // position: absolute;
-    // top: 0;
-    // left: 50%;
-    // transform: translate(-50%, 0);
     width: 0px;
     position: relative;
     margin: 0 auto;
     z-index: 9999;
     margin-top: -1px;
     background-color: #ffd649;
-    // opacity: 1;
     animation: myline 0.8s;
   }
   .printer {
@@ -192,7 +186,7 @@ body {
     position: relative;
     margin: 15px auto;
     text-align: center;
-    animation: photo 1.2s 3s 1 forwards;
+    animation: photo 1.2s 3.2s 1 forwards;
     z-index: 99999;
     img {
       max-width: 100%;
@@ -348,30 +342,31 @@ body {
 }
 @keyframes photo {
   0% {
-    width: 37%;
-    transform: translateY(-100%);
+    //width: 37%;
+    width: 0%;
+    transform: translateY(-110%);
     opacity: 0;
   }
-  20% {
-    width: 37%;
-    transform: translateY(-70%);
-    opacity: 0.4;
-  }
-  40% {
-    width: 37%;
-    transform: translateY(-50%);
-    opacity: 0.7;
-  }
-  60% {
-    width: 37%;
-    transform: translateY(-30%);
-    opacity: 0.9;
-  }
-  80% {
-    width: 57%;
-    transform: translateY(-10%);
-    opacity: 1;
-  }
+  // 20% {
+  //   width: 37%;
+  //   transform: translateY(-70%);
+  //   opacity: 0.4;
+  // }
+  // 40% {
+  //   width: 37%;
+  //   transform: translateY(-50%);
+  //   opacity: 0.7;
+  // }
+  // 60% {
+  //   width: 37%;
+  //   transform: translateY(-30%);
+  //   opacity: 0.9;
+  // }
+  // 80% {
+  //   width: 57%;
+  //   transform: translateY(-10%);
+  //   opacity: 1;
+  // }
   100% {
     width: 77%;
     transform: translateY(0);

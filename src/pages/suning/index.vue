@@ -61,7 +61,7 @@ export default {
       wxShareInfoValue: {
         title: '提取照片 领取福利',
         desc: '608来苏宁 年中大促',
-        imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/redPacket_share_icon.png',
+        imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/redPacket_share_icon2.png',
       },
     };
   },
