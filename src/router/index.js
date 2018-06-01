@@ -497,6 +497,12 @@ export default new Router({
           name: '嗨玩',
           component: () =>
             import(/* webpackChunkName: "hiPlay" */ 'pages/hiPlay/index.vue')
+        },
+        {
+          path: 'voice',
+          name: 'vocieTest',
+          component: () =>
+            import(/* webpackChunkName: "voiceTest" */ 'pages/voiceGame/test.vue')
         }
       ]
     },
