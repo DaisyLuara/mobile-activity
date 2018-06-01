@@ -141,7 +141,7 @@ body {
       top: 35%;
       left: 32%;
       z-index: 99;
-      animation: step1 0.5s forwards;
+      animation: step1 0.6s 0.1s forwards;
     }
     .pao {
       width: 69%;
@@ -150,7 +150,7 @@ body {
       left: 32%;
       z-index: 999;
       opacity: 0;
-      animation: toShow 0.1s 0.3s;
+      animation: toShow 0.2s 0.4s;
     }
     .gogo {
       width: 86%;
@@ -158,7 +158,7 @@ body {
       top: 20%;
       left: 7%;
       opacity: 0;
-      animation: toShow 0.1s 0.55s;
+      animation: toShow 0.3s 0.65s;
     }
   }
   .photo {
@@ -174,7 +174,7 @@ body {
     background-position: center 15%;
     background-size: 100% auto;
     background-repeat: no-repeat;
-    animation: slider 0.5s 0.6s 1 forwards;
+    animation: slider 0.7s 0.8s 1 forwards;
     #mImg {
       width: 93.5%;
       margin: 0 auto;
@@ -195,31 +195,43 @@ body {
     width: 22%;
     top: 37.5%;
     left: 39%;
-    transform: rotate(45deg);
+    transform: rotate(30deg);
   }
-  40% {
+  30% {
+    width: 25.5%;
+    top: 40%;
+    left: 43.5%;
+    transform: rotate(40deg);
+  }
+  50% {
     width: 29.5%;
     top: 42%;
     left: 48.5%;
-    transform: rotate(90deg);
+    transform: rotate(45deg);
   }
   60% {
     width: 41%;
     top: 46%;
     left: 37%;
-    transform: rotate(135deg);
+    transform: rotate(60deg);
+  }
+  70% {
+    width: 41%;
+    top: 46%;
+    left: 37%;
+    transform: rotate(60deg);
   }
   80% {
     width: 29%;
     top: 64.5%;
     left: 58%;
-    transform: rotate(90deg);
+    transform: rotate(45deg);
   }
   100% {
     width: 18%;
     top: 85%;
     left: 65%;
-    transform: rotate(45deg);
+    transform: rotate(30deg);
   }
 }
 
@@ -239,24 +251,20 @@ body {
 }
 @keyframes slider {
   0% {
-    //top: 100%;
     opacity: 0;
     transform: translateY(103%);
   }
   5% {
-    //top: 100%;
     opacity: 1;
     transform: translateY(93%);
   }
-  95% {
-    // top: 3.5%;
+  85% {
     opacity: 1;
     transform: translateY(0%);
   }
   100% {
-    // top: 3.5%;
     opacity: 1;
-    transform: translateY(3%);
+    transform: translateY(5%);
   }
 }
 </style>
