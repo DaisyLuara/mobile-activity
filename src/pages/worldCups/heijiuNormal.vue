@@ -79,15 +79,15 @@ export default {
         }
       },
       wxShareInfoValue: {
-        title: '6嗨全球GO！',
-        desc: '嗨翻世界杯，和足球宝贝亲密合影吧',
+        title: 'Hi啾拍照嗨翻天',
+        desc: '会吻你的小姐姐那里有？快来嗨啾拍照吧',
         imgUrl:
-          'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup/goal/share.png'
+          'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup/goal/hj_normal_share.png'
       }
     }
   },
   created() {
-    document.title = '6嗨全球GO！'
+    document.title = 'Hi啾拍照嗨翻天'
   },
   mounted() {
     this.getInfoById()
@@ -127,6 +127,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
+img {
+  width: 100%;
+}
 @imgServerUrl: 'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup/goal/';
 
 .hj-root {
