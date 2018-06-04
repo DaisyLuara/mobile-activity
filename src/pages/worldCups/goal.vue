@@ -131,7 +131,9 @@ export default {
 
 <style lang="less" scoped>
 @imgServerUrl: 'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup/goal/';
-
+img {
+  width: 100%;
+}
 .hj-root {
   background-image: url('@{imgServerUrl}bg.png');
   background-repeat: repeat-y;

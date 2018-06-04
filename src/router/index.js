@@ -491,6 +491,12 @@ export default new Router({
           name: 'heijiuNormal',
           component: () =>
             import(/* webpackChunkName: "heijiuNormal" */ 'pages/worldCups/heijiuNormal.vue')
+        },
+        {
+          path: 'ynf',
+          name: '御泥坊',
+          component: () =>
+            import(/* webpackChunkName: "yunifang" */ 'pages/yunifang/index.vue')
         }
       ]
     },
