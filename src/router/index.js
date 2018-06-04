@@ -23,18 +23,6 @@ export default new Router({
                         import ( /* webpackChunkName: "psbh" */ 'pages/psbh/result.vue')
                 },
                 {
-                    path: 'jinjia',
-                    name: '金家',
-                    component: () =>
-                        import ( /* webpackChunkName: "jinjia" */ 'pages/jinjia/index.vue')
-                },
-                {
-                    path: 'jinjia/result',
-                    name: '金家结果页',
-                    component: () =>
-                        import ( /* webpackChunkName: "jinjia" */ 'pages/jinjia/result.vue')
-                },
-                {
                     path: 'winPrizeClient',
                     name: '勇闯三关屏幕端',
                     component: () =>
@@ -75,12 +63,6 @@ export default new Router({
                     name: '狗年旺情缘浦商',
                     component: () =>
                         import ( /* webpackChunkName: "ps" */ 'pages/ps/index.vue')
-                },
-                {
-                    path: 'hq',
-                    name: '虹桥天地',
-                    component: () =>
-                        import ( /* webpackChunkName: "hq" */ 'pages/hq/result.vue')
                 },
                 {
                     path: 'angel',
@@ -135,12 +117,6 @@ export default new Router({
                     name: '猫酷获取券-老虎机',
                     component: () =>
                         import ( /*webpackChunkName: "mallcoo"*/ 'pages/mallcoo/mallcoo.vue')
-                },
-                {
-                    path: 'dance',
-                    name: '跳舞机',
-                    component: () =>
-                        import ( /* webpackChunkName: "dance" */ 'pages/dance/index.vue')
                 },
                 {
                     path: 'heyjuice',
