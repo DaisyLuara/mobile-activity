@@ -3,21 +3,18 @@
     <div class="main">
       <img class="bg" :src="imgServerUrl + '/pages/ynf/bg2.png'">
     </div>
-     <div class="photo-area">
-      <img  class="photo" :src="resultImgUrl" alt=""/>
-      <!-- <img class="photo"  :src="imgServerUrl + '/pages/ynf/3.png'" alt=""/> -->
-     </div>
-      
-     
-      <img class="mouse1" :src="imgServerUrl + '/pages/ynf/mouse1.png'" alt=""/>
-      <img class="mouse2" :src="imgServerUrl + '/pages/ynf/mouse2.png'" alt=""/>
-      <div class="jiantou">
-        <img  :src="imgServerUrl + '/pages/ynf/nav.png'" alt="">
-      </div>
-      <div class="text">
-        <img  :src="imgServerUrl + '/pages/ynf/title.png'" alt="">
-      </div> 
-    
+    <div class="photo-area">
+    <img  class="photo" :src="resultImgUrl" alt=""/>
+    <!-- <img class="photo"  :src="imgServerUrl + '/pages/ynf/3.png'" alt=""/> -->
+    </div>
+    <img class="mouse1" :src="imgServerUrl + '/pages/ynf/mouse1.png'" alt=""/>
+    <img class="mouse2" :src="imgServerUrl + '/pages/ynf/mouse2.png'" alt=""/>
+    <div class="jiantou">
+      <img  :src="imgServerUrl + '/pages/ynf/nav.png'" alt="">
+    </div>
+    <div class="text">
+      <img  :src="imgServerUrl + '/pages/ynf/title.png'" alt="">
+    </div> 
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
 
@@ -55,21 +52,11 @@ export default {
   beforeCreate() {
     document.title = '美爆头条'
   },
-  mounted() {
-    var height =
-      window.innerHeight ||
-      document.documentElement.clientHeight ||
-      document.body.clientHeight
-    var mgPage = document.querySelector('#content')
-    mgPage.style.minHeight = height + 'px'
-  },
+  mounted() {},
   created() {
     this.getImageById()
   },
   methods: {
-    go() {
-      window.location.href = 'https://sale.jd.com/act/XAhdysDo4P.html'
-    },
     //拿取图片id
     getImageById() {
       let id = this.$route.query.id
