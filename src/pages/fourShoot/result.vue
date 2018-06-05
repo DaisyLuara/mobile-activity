@@ -7,25 +7,24 @@
           <img  class="jiantou" :src="imgServerUrl + '/pages/fourShoot/nav.png'" alt=""/> 
         </div>
         <div> 
-          <img class="title" :src="imgServerUrl + '/pages/fourShoot/title.png'" alt=""/> 
+          <img class="title" @click="go()" :src="imgServerUrl + '/pages/fourShoot/title.png'" alt=""/> 
         </div>
       </div> 
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
 </template>
 <script>
-import marketService from 'services/marketing';
-import WxShare from 'modules/wxShare';
-import wxService from 'services/wx';
-import parseService from 'modules/parseServer';
-import { customTrack } from 'modules/customTrack';
+import marketService from 'services/marketing'
+import WxShare from 'modules/wxShare'
+import wxService from 'services/wx'
+import parseService from 'modules/parseServer'
+import { customTrack } from 'modules/customTrack'
 
-
-const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing';
+const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 
 export default {
   components: {
-    WxShare,
+    WxShare
   },
   data() {
     return {
@@ -35,29 +34,36 @@ export default {
       wxShareInfoValue: {
         title: '我的夏日缤纷心情',
         desc: '灼灼烈日，心情不百变，还怎么过夏天！',
-        imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/fourShoot_share_icon.jpeg',
-      },
-    };
+        imgUrl:
+          'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/fourShoot_share_icon.jpeg'
+      }
+    }
   },
   beforeCreate() {
-    document.title = "星视度";
+    document.title = '星视度'
   },
-  mounted(){
-    $('.fourShoot-content').css('min-height', $(window).height());
+  mounted() {
+    $('.fourShoot-content').css('min-height', $(window).height())
   },
   created() {
-    this.getImageById();
+    this.getImageById()
   },
   methods: {
+    go() {
+      window.location.href = 'https://sale.jd.com/act/XAhdysDo4P.html'
+    },
     //拿取图片id
     getImageById() {
       let id = this.$route.query.id
-      marketService.getInfoById(this, id).then((result) => {
-        this.resultImgUrl = result.image;
-      }).catch((err) => {
-        console.log(err);
-      });
-    },
+      marketService
+        .getInfoById(this, id)
+        .then(result => {
+          this.resultImgUrl = result.image
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
   },
   computed: {
     //微信分享
@@ -67,53 +73,56 @@ export default {
         desc: this.wxShareInfoValue.desc,
         imgUrl: this.wxShareInfoValue.imgUrl,
         success: () => {
-          customTrack.shareWeChat();
-        },
-      };
-      return wxShareInfo;
-    },
-  },
-};
+          customTrack.shareWeChat()
+        }
+      }
+      return wxShareInfo
+    }
+  }
+}
 </script>
 <style lang="less" scoped>
 @imageHost: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/fourShoot';
-.fourShoot-content{
-      width:100%;
-      height:100%;
-      background-repeat: no-repeat;
-      background-image: url("@{imageHost}/bg.png");
-      background-size: 100% 100%;
-      position: relative;
-      text-align: center;
-      overflow:hidden;  
-    .photo{
-      width: 87%;
-      height:59.5%;
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%,-54%);
+.fourShoot-content {
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-image: url('@{imageHost}/bg.png');
+  background-size: 100% 100%;
+  position: relative;
+  text-align: center;
+  overflow: hidden;
+  .photo {
+    width: 87%;
+    height: 59.5%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -54%);
+  }
+  .button {
+    position: absolute;
+    left: 0;
+    bottom: 3%;
+    padding: 8%;
+    .jiantou {
+      width: 18%;
+      animation: arrows 0.5s ease-out infinite alternate;
     }
-    .button{
-      position: absolute;
-      left:0;
-      bottom:3%;
-      padding:8%;
-      .jiantou{
-        width:18%;
-        animation: arrows .5s ease-out infinite alternate;
-      }
-      .title{
-        width:80%;
-        animation: arrows .5s ease-out infinite alternate;
-      }
-    }  
+    .title {
+      width: 80%;
+      animation: arrows 0.5s ease-out infinite alternate;
+    }
+  }
 }
 @keyframes arrows {
-    0% {transform: translateY(-2px);}
-    100% {transform: translateY(0px);}
+  0% {
+    transform: translateY(-2px);
   }
-
+  100% {
+    transform: translateY(0px);
+  }
+}
 </style>
 
 

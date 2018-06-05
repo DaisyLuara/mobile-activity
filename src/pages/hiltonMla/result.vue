@@ -33,12 +33,12 @@ export default {
   data() {
     return {
       imgServerUrl: IMAGE_SERVER,
-      resultImgUrl:'',
-      type:this.$route.query.type,
-      showCoupon:{
-          cp1:false,
-          cp2:false 
-        },
+      resultImgUrl: '',
+      type: this.$route.query.type,
+      showCoupon: {
+        cp1: false,
+        cp2: false
+      },
       //微信分享信息
       wxShareInfoValue: {
         title: '玩儿游戏居然能中大奖？',
@@ -49,7 +49,7 @@ export default {
     }
   },
   beforeCreate() {
-    document.title = '武汉光谷希尔顿酒店'
+    document.title = ''
   },
   mounted() {
     $('.hilton-content').css('min-height', $(window).height())
@@ -59,12 +59,12 @@ export default {
     this.show()
   },
   methods: {
-    show(){
-      if(this.type==1){
-        this.showCoupon.cp1=true;
+    show() {
+      if (this.type == 1) {
+        this.showCoupon.cp1 = true
       }
-      if(this.type==2){
-        this.showCoupon.cp2=true;
+      if (this.type == 2) {
+        this.showCoupon.cp2 = true
       }
     },
     //拿取图片id
