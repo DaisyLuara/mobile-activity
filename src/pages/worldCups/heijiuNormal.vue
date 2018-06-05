@@ -12,6 +12,7 @@
           :src="this.baseUrl + 'logo.png'" />
 
         <img
+          @click="handleNavi"
           :style="style.remind"
           :src="this.baseUrl + 'remind.png'" />
 
@@ -75,7 +76,8 @@ export default {
           position: 'absolute',
           width: 300 / 750 * wiw + 'px',
           right: '-' + (1 - 55 / 75) / 2 * wiw + 'px',
-          bottom: -(126 / 750 * wiw * 169 / 133 / 2) + 'px'
+          bottom: -(126 / 750 * wiw * 169 / 133 / 2) + 'px',
+          zIndex: 2000
         }
       },
       wxShareInfoValue: {
@@ -106,6 +108,9 @@ export default {
     }
   },
   methods: {
+    handleNavi() {
+      window.location.href = 'https://sale.jd.com/act/XAhdysDo4P.html'
+    },
     getInfoById() {
       if (this.$route.query.hasOwnProperty('id')) {
         let id = this.$route.query.id
@@ -159,7 +164,7 @@ img {
     z-index: 2;
   }
   .root-photo {
-    z-index: 3;
+    z-index: 1001;
     border: solid 3px #325f32;
     background-color: white;
     .inner-photo {
