@@ -1,22 +1,29 @@
 <template>
-  <div id="content">
+  <div id="content" :style="style.root">
     <div class="main">
-      <img :src="imgServerUrl + '/pages/ynf/bg750.png'" class="bg"/>
+      <img class="bg" :src="imgServerUrl + '/pages/ynf/bg2.png'">
+    </div>
+     <div class="photo-area">
       <img  class="photo" :src="resultImgUrl" alt=""/>
       <!-- <img class="photo"  :src="imgServerUrl + '/pages/ynf/3.png'" alt=""/> -->
-      <img class="mouse1" @click="go()" :src="imgServerUrl + '/pages/ynf/mouse1.png'" alt=""/>
-      <img class="mouse2" @click="go()" :src="imgServerUrl + '/pages/ynf/mouse2.png'" alt=""/>
+     </div>
+      
+     
+      <img class="mouse1" :src="imgServerUrl + '/pages/ynf/mouse1.png'" alt=""/>
+      <img class="mouse2" :src="imgServerUrl + '/pages/ynf/mouse2.png'" alt=""/>
       <div class="jiantou">
         <img  :src="imgServerUrl + '/pages/ynf/nav.png'" alt="">
       </div>
       <div class="text">
         <img  :src="imgServerUrl + '/pages/ynf/title.png'" alt="">
       </div> 
-    </div>
+    
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
+
 </template>
 <script>
+const wih = window.innerHeight
 import marketService from 'services/marketing'
 import WxShare from 'modules/wxShare'
 import { customTrack } from 'modules/customTrack'
@@ -31,6 +38,11 @@ export default {
     return {
       imgServerUrl: IMAGE_SERVER,
       resultImgUrl: '',
+      style: {
+        root: {
+          height: wih + 'px'
+        }
+      },
       //微信分享信息
       wxShareInfoValue: {
         title: '美爆头条',
@@ -44,7 +56,12 @@ export default {
     document.title = '美爆头条'
   },
   mounted() {
-    $('#content').css('min-height', $(window).height())
+    var height =
+      window.innerHeight ||
+      document.documentElement.clientHeight ||
+      document.body.clientHeight
+    var mgPage = document.querySelector('#content')
+    mgPage.style.minHeight = height + 'px'
   },
   created() {
     this.getImageById()
@@ -86,92 +103,108 @@ export default {
 img {
   width: 100%;
 }
-@imageHost: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/dh';
+@imageHost: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/ynf';
 #content {
   width: 100%;
-  height: 100%;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
   animation: bgTab 10s infinite;
   .main {
     position: relative;
-    text-align: center;
-    margin: 0 auto;
-    display: inline-block;
+    overflow: hidden;
+    .bg {
+      position: relative;
+      z-index: 3;
+    }
+  }
+  .photo-area {
+    width: 78%;
+    height: 74%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 4;
+    background: #000;
+    transform: translate(-51%, -56%);
+    padding: 2%;
+  }
+  .photo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 93%;
+    height: 96%;
+    z-index: 5;
+    transform: translate(-50%, -50%);
+  }
+  .mouse1 {
+    width: 21%;
+    position: absolute;
+    left: -1%;
+    top: 25%;
+    z-index: 6;
+  }
+  .mouse2 {
+    width: 32%;
+    position: absolute;
+    right: 0%;
+    top: 0;
+    z-index: 6;
+  }
+  .jiantou {
     width: 100%;
-    .photo {
-      width: 75%;
-      height: 73.5%;
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -55.5%);
-    }
-    .mouse1 {
-      width: 21%;
-      position: absolute;
-      left: -1%;
-      top: 25%;
-      z-index: 5;
-    }
-    .mouse2 {
-      width: 32%;
-      position: absolute;
-      right: -1%;
-      top: 0;
-      z-index: 5;
-    }
-    .jiantou {
-      width: 100%;
-      position: absolute;
-      left: 0;
-      bottom: 11%;
-      img {
-        width: 9%;
-      }
-      animation: arrows 0.8s ease-out infinite alternate;
-    }
-    .text {
-      width: 100%;
-      position: absolute;
-      left: 0;
-      bottom: 4%;
-      img {
-        width: 60%;
-        height: 10%;
-      }
+    text-align: center;
+    position: absolute;
+    left: 0;
+    bottom: 9%;
+    animation: arrows 0.8s ease-out infinite alternate;
+    img {
+      width: 9%;
     }
   }
-
-  @keyframes arrows {
-    0% {
-      transform: translateY(-3px);
-    }
-    100% {
-      transform: translateY(0px);
+  .text {
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    left: 0;
+    bottom: 2%;
+    z-index: 4;
+    img {
+      width: 60%;
+      height: 10%;
     }
   }
-  @keyframes bgTab {
-    0% {
-      background: #ff3434;
-    }
-    20% {
-      background: #d850ff;
-    }
-    30% {
-      background: #0084ff;
-    }
-    50% {
-      background: #0cff12;
-    }
-    70% {
-      background: #ffe00c;
-    }
-    90% {
-      background: #ff7ec1;
-    }
-    100% {
-      background: #ff3434;
-    }
+}
+@keyframes arrows {
+  0% {
+    transform: translateY(-3px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+@keyframes bgTab {
+  0% {
+    background: #ff3434;
+  }
+  20% {
+    background: #d850ff;
+  }
+  30% {
+    background: #0084ff;
+  }
+  50% {
+    background: #0cff12;
+  }
+  70% {
+    background: #ffe00c;
+  }
+  90% {
+    background: #ff7ec1;
+  }
+  100% {
+    background: #ff3434;
   }
 }
 </style>
