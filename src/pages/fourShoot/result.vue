@@ -1,13 +1,13 @@
 <template>
   <div class="fourShoot-content">
       <img  class="photo" :src="resultImgUrl" alt=""/>
-      <!-- <img  class="photo" :src="imgServerUrl + '/pages/fourShoot/1111.png'" alt=""/> -->
+      <!-- <img  class="photo" :src="imgServerUrl + '/pages/fourShoot/1111.png'" alt=""/>-->
       <div class="button">
         <div> 
           <img  class="jiantou" :src="imgServerUrl + '/pages/fourShoot/nav.png'" alt=""/> 
         </div>
         <div> 
-          <img class="title" @click="go()" :src="imgServerUrl + '/pages/fourShoot/title.png'" alt=""/> 
+          <img class="title" :src="imgServerUrl + '/pages/fourShoot/title.png'" alt=""/> 
         </div>
       </div> 
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
@@ -49,9 +49,6 @@ export default {
     this.getImageById()
   },
   methods: {
-    go() {
-      window.location.href = 'https://sale.jd.com/act/XAhdysDo4P.html'
-    },
     //拿取图片id
     getImageById() {
       let id = this.$route.query.id
