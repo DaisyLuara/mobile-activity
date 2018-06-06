@@ -497,6 +497,12 @@ export default new Router({
           name: '御泥坊',
           component: () =>
             import(/* webpackChunkName: "yunifang" */ 'pages/yunifang/index.vue')
+        },
+        {
+          path: 'oh',
+          name: 'oh 秀发',
+          component: () =>
+            import(/* webpackChunkName: "suning" */ 'pages/suning/oh.vue')
         }
       ]
     },
