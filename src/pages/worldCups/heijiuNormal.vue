@@ -12,7 +12,6 @@
           :src="this.baseUrl + 'logo.png'" />
 
         <img
-          @click="handleNavi"
           :style="style.remind"
           :src="this.baseUrl + 'remind.png'" />
 
@@ -108,9 +107,6 @@ export default {
     }
   },
   methods: {
-    handleNavi() {
-      window.location.href = 'https://sale.jd.com/act/XAhdysDo4P.html'
-    },
     getInfoById() {
       if (this.$route.query.hasOwnProperty('id')) {
         let id = this.$route.query.id
@@ -151,7 +147,7 @@ img {
   .top-img {
     width: 100%;
     height: 100%;
-    z-index: 1000;
+    z-index: 1003;
     opacity: 0;
     position: absolute;
     top: 0;
