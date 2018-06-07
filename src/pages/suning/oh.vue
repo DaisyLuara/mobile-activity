@@ -1,9 +1,9 @@
 <template>
   <div class="oh-content" :style="style.root" >
-      <div class="photo">
-       <!-- <img  class="photo" :src="resultImgUrl" alt=""/> -->
-       <img :src="imgServerUrl + '/pages/oh/1111.png'" alt=""/>
-      </div>  
+    <div class="photo">
+      <!-- <img  class="photo" :src="resultImgUrl" alt=""/> -->
+      <img :src="imgServerUrl + '/pages/oh/1111.png'" alt=""/>
+    </div>  
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
 </template>
@@ -101,6 +101,7 @@ export default {
     top: 50%;
     transform: translate(-0%, -53%);
     overflow: hidden;
+    padding: 2%;
     img {
       width: 90%;
       height: 100%;
