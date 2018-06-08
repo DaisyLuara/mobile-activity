@@ -1,19 +1,19 @@
 <template>
   <div class="hilton-content">
-      <img class="bg" :src="imgServerUrl + '/pages/hiltonMla/bg.jpg'" alt="" >
-      <img class="pingzi" :src="imgServerUrl + '/pages/hiltonMla/pingzi.png'" alt="" >
-      <img class="light" :src="imgServerUrl + '/pages/hiltonMla/light.png'" alt="">
-     <div class="coupon">
-         <img  v-show="showCoupon.cp1" class="cp-1" :src="imgServerUrl + '/pages/hiltonMla/langouste.png'" alt="" />
-         <img  v-show="showCoupon.cp2" class="cp-2" :src="imgServerUrl + '/pages/hiltonMla/world_cup.png'" alt="" />
-      </div>
-      <div class="save">
-          <img class="jiantou" :src="imgServerUrl + '/pages/hiltonMla/jiantou.png'" alt="" >
-          <img class="title" :src="imgServerUrl + '/pages/hiltonMla/title.png'" alt="" >
-      </div>
-      <div class="bg2">
-         <img :src="imgServerUrl + '/pages/hiltonMla/bg2.png'" alt="" >
-      </div>
+    <img class="bg" :src="imgServerUrl + '/pages/hiltonMla/bg.jpg'" alt="" >
+    <img class="pingzi" :src="imgServerUrl + '/pages/hiltonMla/pingzi.png'" alt="" >
+    <img class="light" :src="imgServerUrl + '/pages/hiltonMla/light.png'" alt="">
+    <div class="coupon">
+      <img  v-show="showCoupon.cp1" class="cp-1" :src="imgServerUrl + '/pages/hiltonMla/langouste.png'" alt="" />
+      <img  v-show="showCoupon.cp2" class="cp-2" :src="imgServerUrl + '/pages/hiltonMla/world_cup.png'" alt="" />
+    </div>
+    <div class="save">
+      <img class="jiantou" :src="imgServerUrl + '/pages/hiltonMla/jiantou.png'" alt="" >
+      <img class="title" :src="imgServerUrl + '/pages/hiltonMla/title.png'" alt="" >
+    </div>
+    <div class="bg2">
+      <img :src="imgServerUrl + '/pages/hiltonMla/bg2.png'" alt="" >
+    </div>
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
 </template>
