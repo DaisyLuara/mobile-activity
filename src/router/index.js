@@ -503,12 +503,6 @@ export default new Router({
           name: 'weiXunGameIndex',
           component: () =>
             import(/* webpackChunkName: "weixunGameIndex" */ 'pages/weixun/gameIndex.vue')
-        },
-        {
-          path: 'weishare',
-          name: 'weiXunShare',
-          component: () =>
-            import(/* webpackChunkName: "weixunGameShare" */ 'pages/weixun/shareIndex.vue')
         }
       ]
     },
