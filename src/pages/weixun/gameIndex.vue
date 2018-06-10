@@ -549,7 +549,6 @@ export default {
     },
     getuserData() {
       wxService.getWxUserInfo(this).then(r => {
-        console.dir(r)
         if (!r.hasOwnProperty('data')) {
           setTimeout(() => {
             location.reload()
