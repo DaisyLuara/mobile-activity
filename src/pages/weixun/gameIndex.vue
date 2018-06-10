@@ -334,8 +334,8 @@ export default {
         }
       },
       wxShareInfoValue: {
-        title: 'weichenGame',
-        desc: 'weichenGameTest',
+        title: '音撩报告',
+        desc: '用最撩人的歌词，测试你声音的撩人指数，让声音成为你撩人的武器',
         imgUrl: serverUrl + 'share.png',
         link: window.location.origin + '/marketing/weiindex?sid=-1'
       },
@@ -412,6 +412,7 @@ export default {
         })
     },
     init() {
+      document.title = '测试你的音撩报告'
       // 设置Rem
       this.setUpRem()
       // 处理分享数据
