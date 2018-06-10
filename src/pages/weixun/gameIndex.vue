@@ -3,6 +3,7 @@
     id="root"
     class="root"
     :style="style.root"
+    v-if="status.hasFetchUserData || !status.isInWechat"
   >
     <img 
       @click.self="handleSuoHaOpen"
@@ -266,7 +267,7 @@ import shareCover from './components/shareCover'
 import suoha from './components/suoha'
 import marketService from 'services/marketing'
 import { isWeixin } from 'modules/util.js'
-import { Toast, Indicator } from 'mint-ui'
+import { Toast } from 'mint-ui'
 import wxService from 'services/wx'
 import { customTrack } from 'modules/customTrack'
 import WxShare from 'modules/wxShare'
@@ -305,7 +306,9 @@ export default {
         isAgainButtonTouch: false,
         isShareButtonTouch: false,
         shouldShareShow: false,
-        shouldSuoHaShow: false
+        shouldSuoHaShow: false,
+        hasFetchUserData: false,
+        isInWechat: false
       },
       control: {
         time: 0,
@@ -362,6 +365,7 @@ export default {
     this.init()
     if (isWeixin() === true) {
       this.handleWechatAuth()
+      this.status.isInWechat = true
     }
   },
   beforeDestroy() {
@@ -547,14 +551,12 @@ export default {
       wxService.getWxUserInfo(this).then(r => {
         console.dir(r)
         if (!r.hasOwnProperty('data')) {
-          Indicator.open({
-            text: '请稍后...'
-          })
           setTimeout(() => {
             location.reload()
           }, 2000)
         } else {
           this.userInfo.avatar = r.data.headimgurl
+          this.status.hasFetchUserData = true
         }
       })
     },
