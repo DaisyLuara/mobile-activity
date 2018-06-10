@@ -499,6 +499,12 @@ export default new Router({
             import(/* webpackChunkName: "yunifang" */ 'pages/yunifang/index.vue')
         },
         {
+          path: 'weiindex',
+          name: 'weiXunGameIndex',
+          component: () =>
+            import(/* webpackChunkName: "weixunGameIndex" */ 'pages/weixun/gameIndex.vue')
+        },
+        {
           path: 'oh',
           name: 'oh 秀发',
           component: () =>
