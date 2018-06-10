@@ -332,9 +332,7 @@ export default {
   },
   created() {
     this.init()
-    if (isWeixin === true) {
-      this.handleWechatAuth()
-    }
+    this.handleWechatAuth()
   },
   beforeDestroy() {
     document.body.style.overflow = ''
@@ -513,7 +511,7 @@ export default {
       }
     },
     getuserData() {
-      wxService.getWxUserInfo().then(r => {
+      wxService.getWxUserInfo(this).then(r => {
         console.dir(r)
       })
     },
