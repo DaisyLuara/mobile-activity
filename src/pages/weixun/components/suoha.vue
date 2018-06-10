@@ -5,7 +5,7 @@
     :style="style.root"
     class="suoha-root">
     <div
-      v-show="!hasButtonClicked"
+      v-show="!hasButtonClicked && isGetCoupon"
       class="phone-input">
       <img :src="serverUrl + 'card.png'" />
       <img class="prompt" :src="serverUrl + 'prompt.png'" />
@@ -36,8 +36,9 @@
         (需购票入场)
       </div>
     </div>
+
+
     <div 
-      
       class="result">
       <div
         v-show="isGetCoupon && hasButtonClicked">
@@ -57,7 +58,7 @@
         </div>
       </div>
       <div
-        v-show="!isGetCoupon && hasButtonClicked">
+        v-show="!isGetCoupon">
         <img 
           @click.self="handleSuoHaClose"
           class="not-bg"
@@ -99,7 +100,8 @@ export default {
       phoneValue: null,
       isPhoneError: false,
       isGetCoupon: false,
-      hasButtonClicked: false
+      hasButtonClicked: false,
+      savedId: null
     }
   },
   methods: {
@@ -108,15 +110,15 @@ export default {
         this.isPhoneError = true
         return
       } else {
-        this.checkCoupon()
+        this.sendSms(this.savedId)
+        this.showResult()
       }
     },
     clearError() {
       this.isPhoneError = false
     },
     checkCoupon() {
-      this.hasButtonClicked = true
-      let rq = process.env.WX_API + '/v4/common/coupon'
+      let rq = process.env.WX_API + '/v6/common/coupon'
       let rd = {
         coupon_batch_id: process.env.NODE_ENV === 'production' ? '39' : '46'
       }
@@ -124,14 +126,19 @@ export default {
         console.dir(r)
         if (r.data.data.coupon_batch.name === '签名海报一张') {
           this.isGetCoupon = true
-          this.sendSms(r.data.data.id)
+          this.savedId = r.data.data.id
         } else {
           this.isGetCoupon = false
         }
       })
+      localStorage.setItem('hasSuoha', JSON.stringify(false))
+      this.$parent.control.shouldBoxShow = false
+    },
+    showResult() {
+      this.hasButtonClicked = true
     },
     sendSms(id) {
-      let rq = process.env.WX_API + '/v4/common/coupon/sms'
+      let rq = process.env.WX_API + '/v6/common/coupon/sms'
       let rd = {
         mobile: this.phoneValue,
         coupon_id: id,

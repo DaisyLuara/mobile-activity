@@ -8,6 +8,7 @@
     <img 
       @click.self="handleSuoHaOpen"
       class="root-box"
+      v-show="control.shouldBoxShow"
       :src="serverUrl + 'lottery.png'" />
     <!-- bg -->
     <img 
@@ -101,7 +102,7 @@
         </div>
         <img
           class="copywriting" 
-          :src="serverUrl + 'copywriting_1.png'">
+          :src="serverUrl + 'copywriting_' + random4 + '.png'">
       </div>
 
       <!-- 结果卡片 -->
@@ -122,6 +123,10 @@
             >
             <img 
               :src="userInfo.avatar"  />
+          </div>
+          <div
+            class="card-nickname">
+            {{userInfo.nickname}}
           </div>
           
           <!-- 卡片信息 -->
@@ -254,7 +259,9 @@
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
 
     <!-- suoha -->
-    <suoha  :shouldShow="status.shouldSuoHaShow"/>
+    <suoha 
+      ref="suoha" 
+      :shouldShow="status.shouldSuoHaShow"/>
   </div>
 </template>
 
@@ -315,10 +322,12 @@ export default {
         intervalCount: null,
         commaInterval: null,
         commaCount: 0,
-        isInSharePage: false
+        isInSharePage: false,
+        shouldBoxShow: true
       },
       userInfo: {
-        avatar: null
+        avatar: null,
+        nickname: null
         // 'http://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJNrlPjqkUjXibZm64k9NRNQGZdtziap3BGyuNKefPfEgWfn5EU4ib3bjHC9icJAwuVa8pOqspoLYWopg/132'
       },
       serverDataId: null,
@@ -342,6 +351,7 @@ export default {
         imgUrl: serverUrl + 'share.png',
         link: window.location.origin + '/marketing/weiindex?sid=-1'
       },
+      random4: randomNum(1, 4),
       concertUrl:
         'https://m.damai.cn/damai/perform/item.html?projectId=150060&spm=a2o6e.search.0.0.6c286acelZQlgc'
     }
@@ -376,6 +386,7 @@ export default {
       let rq_data = {
         userData: {
           avatarUrl: this.userInfo.avatar,
+          nickname: this.userInfo.nickname,
           randomInfo: this.randomInfo
         }
       }
@@ -408,6 +419,7 @@ export default {
         .then(response => {
           let res = response.data.results[0].userData
           this.userInfo.avatar = res.avatarUrl
+          this.userInfo.nickname = res.nickname
           this.randomInfo = res.randomInfo
           this.status.shouldResultShow = true
         })
@@ -421,6 +433,9 @@ export default {
       this.setUpRem()
       // 处理分享数据
       this.processPath()
+      if (localStorage.getItem('hasSuoha') === 'false') {
+        this.control.shouldBoxShow = false
+      }
     },
     processPath() {
       if (this.$route.query.hasOwnProperty('sid')) {
@@ -539,6 +554,7 @@ export default {
     handleSuoHaOpen() {
       this.status.shouldSuoHaShow = true
       document.body.style.overflow = 'hidden'
+      this.$refs.suoha.checkCoupon()
     },
     handleWechatAuth() {
       if (localStorage.getItem('weixun') === null) {
@@ -555,6 +571,7 @@ export default {
           }, 2000)
         } else {
           this.userInfo.avatar = r.data.headimgurl
+          this.userInfo.nickname = r.data.nickname
           this.status.hasFetchUserData = true
         }
       })
@@ -788,10 +805,21 @@ export default {
             border-radius: 50%;
           }
         }
+        .card-nickname {
+          position: absolute;
+          z-index: 15;
+          top: 17%;
+          width: 100%;
+          height: 25px;
+          text-align: center;
+          color: #57168f;
+          font-size: 1.4rem;
+          line-height: 25px;
+        }
         .card-info {
           z-index: 15;
           position: absolute;
-          top: 19%;
+          top: 21%;
           left: 0;
           width: 90%;
           left: 5%;
