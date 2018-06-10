@@ -116,7 +116,7 @@ export default {
     },
     checkCoupon() {
       this.hasButtonClicked = true
-      let rq = process.env.WX_API + '/api/v4/common/coupon'
+      let rq = process.env.WX_API + '/v4/common/coupon'
       let rd = {
         coupon_batch_id: process.env.NODE_ENV === 'production' ? '39' : '46'
       }
@@ -130,7 +130,7 @@ export default {
       })
     },
     sendSms(id) {
-      let rq = process.env.WX_API + '/api/v4/common/coupon/sms'
+      let rq = process.env.WX_API + '/v4/common/coupon/sms'
       let rd = {
         mobile: this.phoneValue,
         coupon_id: id,
