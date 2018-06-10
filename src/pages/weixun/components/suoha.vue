@@ -132,6 +132,7 @@ export default {
         }
       })
       localStorage.setItem('hasSuoha', JSON.stringify(false))
+      this.$parent.control.shouldBoxShow = false
     },
     showResult() {
       this.hasButtonClicked = true
