@@ -545,7 +545,8 @@ export default {
     },
     getuserData() {
       wxService.getWxUserInfo(this).then(r => {
-        if (r.data.headimgurl === undefined) {
+        console.dir(r)
+        if (r.data.hasOwnProperty('headadimgurl')) {
           Indicator.open({
             text: '请稍后...'
           })
