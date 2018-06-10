@@ -1,5 +1,6 @@
 <template>
   <div
+    id="root"
     class="root"
     :style="style.root"
   >
@@ -104,6 +105,7 @@
 
       <!-- 结果卡片 -->
       <div
+        id="resultcard"
         class="result-contianer"
         v-show="status.shouldResultShow">
         <div
@@ -251,6 +253,7 @@ import marketService from 'services/marketing'
 import { isWeixin } from 'modules/util.js'
 import { Toast, Indicator } from 'mint-ui'
 import wxService from 'services/wx'
+import { customTrack } from 'modules/customTrack'
 import WxShare from 'modules/wxShare'
 import { generate, randomNum } from './random/index.js'
 export default {
@@ -330,6 +333,7 @@ export default {
         title: this.wxShareInfoValue.title,
         desc: this.wxShareInfoValue.desc,
         imgUrl: this.wxShareInfoValue.imgUrl,
+        link: this.wxShareInfoValue.link,
         success: () => {
           customTrack.shareWeChat()
         }
@@ -447,6 +451,7 @@ export default {
         this.status.isAnalyzing = false
         this.status.shouldResultShow = true
         clearInterval(this.control.commaInterval)
+        let node = document.getElementById('root')
       }, 2000)
     },
     handleRandomGenerate() {
