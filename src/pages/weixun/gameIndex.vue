@@ -295,8 +295,8 @@ export default {
         commaCount: 0
       },
       userInfo: {
-        avatar:
-          'http://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJNrlPjqkUjXibZm64k9NRNQGZdtziap3BGyuNKefPfEgWfn5EU4ib3bjHC9icJAwuVa8pOqspoLYWopg/132'
+        avatar: null
+        // 'http://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJNrlPjqkUjXibZm64k9NRNQGZdtziap3BGyuNKefPfEgWfn5EU4ib3bjHC9icJAwuVa8pOqspoLYWopg/132'
       },
       serverDataId: null,
       randomInfo: {
@@ -339,7 +339,7 @@ export default {
   },
   created() {
     this.init()
-    if (isWeixin === true) {
+    if (isWeixin() === true) {
       this.handleWechatAuth()
     }
   },
