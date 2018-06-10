@@ -546,12 +546,12 @@ export default {
     getuserData() {
       wxService.getWxUserInfo(this).then(r => {
         console.dir(r)
-        if (r.hasOwnProperty('data')) {
+        if (!r.hasOwnProperty('data')) {
           Indicator.open({
             text: '请稍后...'
           })
           setTimeout(() => {
-            window.reload()
+            location.reload()
           }, 2000)
         } else {
           this.userInfo.avatar = r.data.headimgurl
