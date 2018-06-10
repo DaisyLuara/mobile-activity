@@ -8,6 +8,7 @@
     <img 
       @click.self="handleSuoHaOpen"
       class="root-box"
+      v-show="control.shouldBoxShow"
       :src="serverUrl + 'lottery.png'" />
     <!-- bg -->
     <img 
@@ -321,7 +322,8 @@ export default {
         intervalCount: null,
         commaInterval: null,
         commaCount: 0,
-        isInSharePage: false
+        isInSharePage: false,
+        shouldBoxShow: true
       },
       userInfo: {
         avatar: null,
@@ -431,6 +433,9 @@ export default {
       this.setUpRem()
       // 处理分享数据
       this.processPath()
+      if (localStorage.getItem('hasSuoha') === 'false') {
+        this.control.shouldBoxShow = false
+      }
     },
     processPath() {
       if (this.$route.query.hasOwnProperty('sid')) {

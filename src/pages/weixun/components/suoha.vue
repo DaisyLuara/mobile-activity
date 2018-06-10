@@ -4,8 +4,6 @@
     v-if="shouldShow"
     :style="style.root"
     class="suoha-root">
-
-
     <div
       v-show="!hasButtonClicked && isGetCoupon"
       class="phone-input">
@@ -133,6 +131,7 @@ export default {
           this.isGetCoupon = false
         }
       })
+      localStorage.setItem('hasSuoha', JSON.stringify(false))
     },
     showResult() {
       this.hasButtonClicked = true
