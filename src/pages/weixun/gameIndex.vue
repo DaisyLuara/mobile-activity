@@ -114,6 +114,12 @@
           <img 
             class="card-avatar"
             :src="serverUrl + 'avatar.png'" />
+          <div 
+            class="card-avatar-top"
+            >
+            <img 
+              :src="userInfo.avatar"  />
+          </div>
           
           <!-- 卡片信息 -->
           <div class="card-info"> 
@@ -289,7 +295,8 @@ export default {
         commaCount: 0
       },
       userInfo: {
-        avatar: null
+        avatar:
+          'http://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJNrlPjqkUjXibZm64k9NRNQGZdtziap3BGyuNKefPfEgWfn5EU4ib3bjHC9icJAwuVa8pOqspoLYWopg/132'
       },
       serverDataId: null,
       randomInfo: {
@@ -332,7 +339,9 @@ export default {
   },
   created() {
     this.init()
-    this.handleWechatAuth()
+    if (isWeixin === true) {
+      this.handleWechatAuth()
+    }
   },
   beforeDestroy() {
     document.body.style.overflow = ''
@@ -341,7 +350,7 @@ export default {
     saveDataToServer() {
       let rq_data = {
         userData: {
-          avatarUrl: '',
+          avatarUrl: this.userInfo.avatar,
           randomInfo: this.randomInfo
         }
       }
@@ -512,7 +521,7 @@ export default {
     },
     getuserData() {
       wxService.getWxUserInfo(this).then(r => {
-        console.dir(r)
+        this.userInfo.avatar = r.data.headimgurl
       })
     },
     handleFirstAuth() {
@@ -721,6 +730,20 @@ export default {
           width: 42%;
           margin: 0 auto;
           right: 0;
+        }
+        .card-avatar-top {
+          z-index: 15;
+          position: absolute;
+          top: 2.3%;
+          left: 36%;
+          width: 23.2%;
+          right: 0;
+          height: 14%;
+          border-radius: 50%;
+          img {
+            width: 100%;
+            border-radius: 50%;
+          }
         }
         .card-info {
           z-index: 15;
