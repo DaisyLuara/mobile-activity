@@ -382,6 +382,7 @@ export default {
       let rq_data = {
         userData: {
           avatarUrl: this.userInfo.avatar,
+          nickname: this.userInfo.nickname,
           randomInfo: this.randomInfo
         }
       }
@@ -414,6 +415,7 @@ export default {
         .then(response => {
           let res = response.data.results[0].userData
           this.userInfo.avatar = res.avatarUrl
+          this.userInfo.nickname = res.nickname
           this.randomInfo = res.randomInfo
           this.status.shouldResultShow = true
         })
