@@ -1,6 +1,5 @@
 <template>
   <div 
-    id="sharecover"
     @click="handleShowClose"
     v-if="shouldShow"
     :style="style.root"

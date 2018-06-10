@@ -3,6 +3,10 @@
     class="root"
     :style="style.root"
   >
+    <img 
+      @click.self="handleSuoHaOpen"
+      class="root-box"
+      :src="serverUrl + 'lottery.png'" />
     <!-- bg -->
     <img 
       class="bg"
@@ -224,6 +228,9 @@
 
     <!-- wechat share -->
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+
+    <!-- suoha -->
+    <suoha  :shouldShow="status.shouldSuoHaShow"/>
   </div>
 </template>
 
@@ -233,6 +240,7 @@ const serverUrl =
 const wiw = window.innerWidth
 const wih = window.innerHeight
 import shareCover from './components/shareCover'
+import suoha from './components/suoha'
 import marketService from 'services/marketing'
 import { isWeixin } from 'modules/util.js'
 import { Toast, Indicator } from 'mint-ui'
@@ -242,6 +250,7 @@ import { generate, randomNum } from './random/index.js'
 export default {
   components: {
     'share-cover': shareCover,
+    suoha: suoha,
     WxShare
   },
   data() {
@@ -270,7 +279,8 @@ export default {
         hasPresseed: false,
         isAgainButtonTouch: false,
         isShareButtonTouch: false,
-        shouldShareShow: false
+        shouldShareShow: false,
+        shouldSuoHaShow: false
       },
       control: {
         time: 0,
@@ -382,10 +392,11 @@ export default {
     processPath() {
       if (this.$route.query.hasOwnProperty('sid')) {
         this.style.root.marginTop = '-156%'
-        if (this.$route.query.hasOwnProperty('sid') !== -1) {
+        if (this.$route.query.sid !== '-1') {
           this.getDataBySid()
         }
-      } else {
+      }
+      if (this.$route.query.hasOwnProperty('id')) {
         this.getPhotoById()
       }
     },
@@ -487,7 +498,39 @@ export default {
       this.status.shouldShareShow = true
       document.body.style.overflow = 'hidden'
     },
-    handleWechatAuth() {}
+    handleSuoHaClose() {
+      this.status.shouldSuoHaShow = false
+    },
+    handleSuoHaOpen() {
+      this.status.shouldSuoHaShow = true
+      document.body.style.overflow = 'hidden'
+    },
+    handleWechatAuth() {
+      if (localStorage.getItem('weixun') === null) {
+        this.handleFirstAuth()
+      } else {
+        this.getuserData()
+      }
+    },
+    getuserData() {
+      wxService.getWxUserInfo().then(r => {
+        console.dir(r)
+      })
+    },
+    handleFirstAuth() {
+      let storeData = {}
+      localStorage.setItem('weixun', JSON.stringify(storeData))
+      let now_url = encodeURIComponent(String(window.location.href))
+      // console.dir(now_url)
+      let redirct_url =
+        process.env.WX_API +
+        '/wx/officialAccount/oauth?url=' +
+        now_url +
+        '&scope=snsapi_userinfo'
+      // 这狗娘养的参数必须拼在后面
+      // console.dir(redirct_url)
+      window.location.href = redirct_url
+    }
   }
 }
 </script>
@@ -500,6 +543,13 @@ export default {
   flex-direction: column;
   justify-content: flex-start;
   position: relative;
+  .root-box {
+    z-index: 5000;
+    position: fixed;
+    width: 20%;
+    top: 5%;
+    right: 5%;
+  }
   .bg {
     width: 100%;
     z-index: 10;
