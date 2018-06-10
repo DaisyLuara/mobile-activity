@@ -122,7 +122,7 @@ export default {
       }
       this.$http.post(rq, rd).then(r => {
         console.dir(r)
-        if (r.data.success === true) {
+        if (r.data.data.coupon_batch.name === '签名海报一张') {
           this.isGetCoupon = true
           this.sendSms(r.data.data.id)
         } else {

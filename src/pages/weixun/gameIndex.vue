@@ -545,7 +545,16 @@ export default {
     },
     getuserData() {
       wxService.getWxUserInfo(this).then(r => {
-        this.userInfo.avatar = r.data.headimgurl
+        if (r.data.headimgurl === undefined) {
+          Indicator.open({
+            text: '请稍后...'
+          })
+          setTimeout(() => {
+            window.reload()
+          }, 2000)
+        } else {
+          this.userInfo.avatar = r.data.headimgurl
+        }
       })
     },
     handleFirstAuth() {
