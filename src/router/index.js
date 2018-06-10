@@ -503,6 +503,12 @@ export default new Router({
           name: 'weiXunGameIndex',
           component: () =>
             import(/* webpackChunkName: "weixunGameIndex" */ 'pages/weixun/gameIndex.vue')
+        },
+        {
+          path: 'oh',
+          name: 'oh 秀发',
+          component: () =>
+            import(/* webpackChunkName: "suning" */ 'pages/suning/oh.vue')
         }
       ]
     },
