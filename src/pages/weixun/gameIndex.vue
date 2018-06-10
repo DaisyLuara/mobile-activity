@@ -186,6 +186,7 @@
         <!-- 功能区域 -->
         <div class="func">
           <div
+            v-if="control.isInSharePage === false"
             @touchstart="handleAgainButtonTouch" 
             @touchend="handleAgainButtonTouchEnd" 
             class="button-contianer">
@@ -197,6 +198,7 @@
               :src="serverUrl + 'button_1_press.png'" />
           </div>
           <div
+            v-if="control.isInSharePage === false"
             @touchstart="handleShareButtonTouch" 
             @touchend.prevent="handleShareButtonTouchEnd"  
             class="button-contianer">
@@ -207,6 +209,19 @@
               v-show="status.isShareButtonTouch" 
               :src="serverUrl + 'button_2_press.png'" />
           </div>
+          <div 
+            v-if="control.isInSharePage === true"
+            @touchstart="handleIamGoPlayButtonTouch" 
+            @touchend="handleIamGoPlayButtonTouchEnd" 
+            class="button-contianer-middle">
+             <img
+              v-show="!status.isIamGoingToPlayClick" 
+              :src="serverUrl + 'button_3.png'" />
+            <img
+              v-show="status.isIamGoingToPlayClick" 
+              :src="serverUrl + 'button_3_press.png'" />
+          </div>
+        
         </div>      
       </div>
 
@@ -284,6 +299,7 @@ export default {
         shouldResultShow: false,
         isTimeButtonClick: false,
         isConcertButtonClick: false,
+        isIamGoingToPlayClick: false,
         isAnalyzing: false,
         hasPresseed: false,
         isAgainButtonTouch: false,
@@ -295,7 +311,8 @@ export default {
         time: 0,
         intervalCount: null,
         commaInterval: null,
-        commaCount: 0
+        commaCount: 0,
+        isInSharePage: false
       },
       userInfo: {
         avatar: null
@@ -317,8 +334,8 @@ export default {
         }
       },
       wxShareInfoValue: {
-        title: 'weichenGame',
-        desc: 'weichenGameTest',
+        title: '音撩报告',
+        desc: '用最撩人的歌词，测试你声音的撩人指数，让声音成为你撩人的武器',
         imgUrl: serverUrl + 'share.png',
         link: window.location.origin + '/marketing/weiindex?sid=-1'
       },
@@ -395,6 +412,7 @@ export default {
         })
     },
     init() {
+      document.title = '测试你的音撩报告'
       // 设置Rem
       this.setUpRem()
       // 处理分享数据
@@ -405,6 +423,7 @@ export default {
         this.style.root.marginTop = '-156%'
         if (this.$route.query.sid !== '-1') {
           this.getDataBySid()
+          this.control.isInSharePage = true
         }
       }
       if (this.$route.query.hasOwnProperty('id')) {
@@ -542,6 +561,14 @@ export default {
       // 这狗娘养的参数必须拼在后面
       // console.dir(redirct_url)
       window.location.href = redirct_url
+    },
+    handleIamGoPlayButtonTouch() {
+      this.status.isIamGoingToPlayClick = true
+    },
+    handleIamGoPlayButtonTouchEnd() {
+      this.handleGameReset()
+      this.status.isIamGoingToPlayClick = false
+      this.control.isInSharePage = false
     }
   }
 }
@@ -893,6 +920,13 @@ export default {
         .button-contianer {
           width: 47%;
           margin: auto 0;
+          img {
+            width: 100%;
+          }
+        }
+        .button-contianer-middle {
+          width: 47%;
+          margin: auto;
           img {
             width: 100%;
           }

@@ -17,6 +17,7 @@
         </div>
         <input 
           @click="clearError"
+          maxlength="11"
           placeholder="请输入手机号码"
           class="input-value"
           v-model="phoneValue" />
@@ -114,8 +115,28 @@ export default {
       this.isPhoneError = false
     },
     checkCoupon() {
-      // this.isGetCoupon = true
       this.hasButtonClicked = true
+      let rq = '/api/v4/common/coupon'
+      let rd = {
+        coupon_batch_id: process.env.NODE_ENV === 'production' ? '39' : '46'
+      }
+      this.$http.post(rq, rd).then(r => {
+        if (r.success === true) {
+          this.isGetCoupon = true
+          this.sendSms(r.data.id)
+        } else {
+          this.isGetCoupon = false
+        }
+      })
+    },
+    sendSms(id) {
+      let rq = '/api/v4/common/coupon/sms'
+      let rd = {
+        mobile: this.phoneValue,
+        coupon_id: id,
+        sms_tmp_id: '2169978'
+      }
+      this.$http.post(rq, rd).then(r => {})
     },
     handleSuoHaClose() {
       this.$parent.handleSuoHaClose()
