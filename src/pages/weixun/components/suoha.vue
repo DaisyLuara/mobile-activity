@@ -122,9 +122,9 @@ export default {
       }
       this.$http.post(rq, rd).then(r => {
         console.dir(r)
-        if (r.success === true) {
+        if (r.data.success === true) {
           this.isGetCoupon = true
-          this.sendSms(r.data.id)
+          this.sendSms(r.data.data.id)
         } else {
           this.isGetCoupon = false
         }
@@ -137,7 +137,9 @@ export default {
         coupon_id: id,
         sms_tmp_id: '2169978'
       }
-      this.$http.post(rq, rd).then(r => {})
+      this.$http.post(rq, rd).then(r => {
+        console.dir(r)
+      })
     },
     handleSuoHaClose() {
       this.$parent.handleSuoHaClose()
