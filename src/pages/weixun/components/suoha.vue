@@ -102,7 +102,8 @@ export default {
       phoneValue: null,
       isPhoneError: false,
       isGetCoupon: false,
-      hasButtonClicked: false
+      hasButtonClicked: false,
+      savedId: null
     }
   },
   created() {
@@ -114,6 +115,7 @@ export default {
         this.isPhoneError = true
         return
       } else {
+        this.sendSms(this.savedId)
         this.showResult()
       }
     },
@@ -129,7 +131,7 @@ export default {
         console.dir(r)
         if (r.data.data.coupon_batch.name === '签名海报一张') {
           this.isGetCoupon = true
-          this.sendSms(r.data.data.id)
+          this.savedId = r.data.data.id
         } else {
           this.isGetCoupon = false
         }
