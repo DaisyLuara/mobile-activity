@@ -511,7 +511,7 @@ export default {
       }
     },
     getuserData() {
-      wxService.getWxUserInfo().then(r => {
+      wxService.getWxUserInfo(this).then(r => {
         console.dir(r)
       })
     },
