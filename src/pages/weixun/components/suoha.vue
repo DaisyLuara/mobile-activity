@@ -121,6 +121,7 @@ export default {
         coupon_batch_id: process.env.NODE_ENV === 'production' ? '39' : '46'
       }
       this.$http.post(rq, rd).then(r => {
+        console.dir(r)
         if (r.success === true) {
           this.isGetCoupon = true
           this.sendSms(r.data.id)
