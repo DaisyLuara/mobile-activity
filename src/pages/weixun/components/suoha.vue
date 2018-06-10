@@ -4,8 +4,10 @@
     v-if="shouldShow"
     :style="style.root"
     class="suoha-root">
+
+
     <div
-      v-show="!hasButtonClicked"
+      v-show="!hasButtonClicked && isGetCoupon"
       class="phone-input">
       <img :src="serverUrl + 'card.png'" />
       <img class="prompt" :src="serverUrl + 'prompt.png'" />
@@ -36,8 +38,9 @@
         (需购票入场)
       </div>
     </div>
+
+
     <div 
-      
       class="result">
       <div
         v-show="isGetCoupon && hasButtonClicked">
@@ -57,7 +60,7 @@
         </div>
       </div>
       <div
-        v-show="!isGetCoupon && hasButtonClicked">
+        v-show="!isGetCoupon">
         <img 
           @click.self="handleSuoHaClose"
           class="not-bg"
@@ -102,20 +105,22 @@ export default {
       hasButtonClicked: false
     }
   },
+  created() {
+    this.checkCoupon()
+  },
   methods: {
     handleButtonClick() {
       if (!/^1[345678]\d{9}$/.test(this.phoneValue)) {
         this.isPhoneError = true
         return
       } else {
-        this.checkCoupon()
+        this.showResult()
       }
     },
     clearError() {
       this.isPhoneError = false
     },
     checkCoupon() {
-      this.hasButtonClicked = true
       let rq = process.env.WX_API + '/v4/common/coupon'
       let rd = {
         coupon_batch_id: process.env.NODE_ENV === 'production' ? '39' : '46'
@@ -129,6 +134,9 @@ export default {
           this.isGetCoupon = false
         }
       })
+    },
+    showResult() {
+      this.hasButtonClicked = true
     },
     sendSms(id) {
       let rq = process.env.WX_API + '/v4/common/coupon/sms'
