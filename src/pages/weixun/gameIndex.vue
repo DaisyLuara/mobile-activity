@@ -258,7 +258,9 @@
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
 
     <!-- suoha -->
-    <suoha  :shouldShow="status.shouldSuoHaShow"/>
+    <suoha 
+      ref="suoha" 
+      :shouldShow="status.shouldSuoHaShow"/>
   </div>
 </template>
 
@@ -547,6 +549,7 @@ export default {
     handleSuoHaOpen() {
       this.status.shouldSuoHaShow = true
       document.body.style.overflow = 'hidden'
+      this.$refs.suoha.checkCoupon()
     },
     handleWechatAuth() {
       if (localStorage.getItem('weixun') === null) {

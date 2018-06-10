@@ -106,9 +106,6 @@ export default {
       savedId: null
     }
   },
-  created() {
-    this.checkCoupon()
-  },
   methods: {
     handleButtonClick() {
       if (!/^1[345678]\d{9}$/.test(this.phoneValue)) {
@@ -123,7 +120,7 @@ export default {
       this.isPhoneError = false
     },
     checkCoupon() {
-      let rq = process.env.WX_API + '/v4/common/coupon'
+      let rq = process.env.WX_API + '/v6/common/coupon'
       let rd = {
         coupon_batch_id: process.env.NODE_ENV === 'production' ? '39' : '46'
       }
@@ -141,7 +138,7 @@ export default {
       this.hasButtonClicked = true
     },
     sendSms(id) {
-      let rq = process.env.WX_API + '/v4/common/coupon/sms'
+      let rq = process.env.WX_API + '/v6/common/coupon/sms'
       let rd = {
         mobile: this.phoneValue,
         coupon_id: id,
