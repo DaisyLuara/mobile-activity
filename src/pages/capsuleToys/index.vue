@@ -110,6 +110,7 @@ body {
   // background: url('@{imgUrl}bg.png') center top / 100% auto no-repeat;
  .egg-top{
     width: 100%;
+    height:28%;
     position: absolute;
     left: 0;
     top: 0;
@@ -117,6 +118,7 @@ body {
  }
  .egg-bot{
     width: 100%;
+    height:28%;
     position: absolute;
     left: 0;
     bottom: 0;
@@ -127,10 +129,10 @@ body {
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%,-48%);
+    transform: translate(-50%,-53%);
  }
  .copon{
-    width: 72%;
+    width: 67%;
     height: 70%;
     position: absolute;
     left: 50%;
@@ -139,7 +141,7 @@ body {
     z-index:3;
     img{
       width:100%;
-      height:100%;
+      height: 100%;
     }
  }
   
