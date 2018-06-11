@@ -142,7 +142,7 @@ export default {
       let rd = {
         mobile: this.phoneValue,
         coupon_id: id,
-        sms_tmp_id: '2169978'
+        sms_tmp_id: '2336866'
       }
       this.$http.post(rq, rd).then(r => {
         console.dir(r)
