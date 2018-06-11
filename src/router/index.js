@@ -509,6 +509,12 @@ export default new Router({
           name: 'oh 秀发',
           component: () =>
             import(/* webpackChunkName: "suning" */ 'pages/suning/oh.vue')
+        },
+        {
+          path: 'capsule_toys',
+          name: '扭蛋机',
+          component: () =>
+            import(/* webpackChunkName: "capsuleToys" */ 'pages/capsuleToys/index.vue')
         }
       ]
     },
