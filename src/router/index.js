@@ -509,6 +509,12 @@ export default new Router({
           name: 'oh 秀发',
           component: () =>
             import(/* webpackChunkName: "suning" */ 'pages/suning/oh.vue')
+        },
+        {
+          path: 'yp_worldCup',
+          name: '雅培世界杯',
+          component: () =>
+            import(/* webpackChunkName: "world_cup" */ 'pages/world_cup/ypWorldcup.vue')
         }
       ]
     },
