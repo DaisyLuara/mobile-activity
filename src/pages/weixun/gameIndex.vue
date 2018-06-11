@@ -428,7 +428,7 @@ export default {
         })
     },
     init() {
-      document.title = '测试你的音撩报告'
+      document.title = '测试你的音撩指数'
       // 设置Rem
       this.setUpRem()
       // 处理分享数据
@@ -474,7 +474,17 @@ export default {
       this.control.commaInterval = setInterval(() => {
         this.control.commaCount += 1
       }, 500)
-      this.handleHtmlToImage()
+      wxService.getWxUserInfo(this).then(r => {
+        if (!r.hasOwnProperty('data')) {
+          setTimeout(() => {
+            location.reload()
+          }, 2000)
+        } else {
+          this.userInfo.avatar = r.data.headimgurl
+          this.userInfo.nickname = r.data.nickname
+          this.handleHtmlToImage()
+        }
+      })
     },
     handleConcertButtonTouch() {
       this.status.isConcertButtonClick = true
