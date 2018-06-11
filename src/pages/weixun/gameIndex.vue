@@ -346,7 +346,7 @@ export default {
         }
       },
       wxShareInfoValue: {
-        title: '音撩报告',
+        title: '音撩指数',
         desc: '用最撩人的歌词，测试你声音的撩人指数，让声音成为你撩人的武器',
         imgUrl: serverUrl + 'share.png',
         link: window.location.origin + '/marketing/weiindex?sid=-1'
@@ -474,7 +474,17 @@ export default {
       this.control.commaInterval = setInterval(() => {
         this.control.commaCount += 1
       }, 500)
-      this.handleHtmlToImage()
+      wxService.getWxUserInfo(this).then(r => {
+        if (!r.hasOwnProperty('data')) {
+          setTimeout(() => {
+            location.reload()
+          }, 2000)
+        } else {
+          this.userInfo.avatar = r.data.headimgurl
+          this.userInfo.nickname = r.data.nickname
+          this.handleHtmlToImage()
+        }
+      })
     },
     handleConcertButtonTouch() {
       this.status.isConcertButtonClick = true
@@ -570,8 +580,10 @@ export default {
             location.reload()
           }, 2000)
         } else {
-          this.userInfo.avatar = r.data.headimgurl
-          this.userInfo.nickname = r.data.nickname
+          if (!this.$route.query.sid) {
+            this.userInfo.avatar = r.data.headimgurl
+            this.userInfo.nickname = r.data.nickname
+          }
           this.status.hasFetchUserData = true
         }
       })
