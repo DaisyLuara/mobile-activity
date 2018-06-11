@@ -570,8 +570,10 @@ export default {
             location.reload()
           }, 2000)
         } else {
-          this.userInfo.avatar = r.data.headimgurl
-          this.userInfo.nickname = r.data.nickname
+          if (!this.$route.query.sid) {
+            this.userInfo.avatar = r.data.headimgurl
+            this.userInfo.nickname = r.data.nickname
+          }
           this.status.hasFetchUserData = true
         }
       })
