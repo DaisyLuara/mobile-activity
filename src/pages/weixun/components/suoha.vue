@@ -273,7 +273,7 @@ export default {
       font-size: 1.6rem;
       width: 100%;
       position: absolute;
-      top: 40%;
+      top: 35%;
       text-align: center;
     }
   }
