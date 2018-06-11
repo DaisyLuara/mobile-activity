@@ -57,16 +57,16 @@ export default {
   },
   methods: {
      show() {
-      if (this.type == 1) {
+      if (this.type === 'A') {
         this.showCoupon.cp1 = true
       }
-      if (this.type == 2) {
+      if (this.type === 'B') {
         this.showCoupon.cp2 = true
       }
-      if (this.type == 3) {
+      if (this.type === 'C') {
         this.showCoupon.cp3 = true
       }
-      if (this.type == 4) {
+      if (this.type === 'D') {
         this.showCoupon.cp4 = true
       }
     },
