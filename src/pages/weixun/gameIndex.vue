@@ -122,7 +122,7 @@
             class="card-avatar-top"
             >
             <img 
-              :src="userInfo.avatar"  />
+              :src="userInfo.headimgurl"  />
           </div>
           <div
             class="card-nickname">
@@ -272,13 +272,13 @@ const wiw = window.innerWidth
 const wih = window.innerHeight
 import shareCover from './components/shareCover'
 import suoha from './components/suoha'
-import marketService from 'services/marketing'
-import { isWeixin } from 'modules/util.js'
+import { isWeixin, Cookies } from 'modules/util.js'
 import { Toast } from 'mint-ui'
-import wxService from 'services/wx'
 import { customTrack } from 'modules/customTrack'
-import WxShare from 'modules/wxShare'
 import { generate, randomNum } from './random/index.js'
+import marketService from 'services/marketing'
+import WxShare from 'modules/wxShare'
+import wxService from 'services/wx'
 export default {
   components: {
     'share-cover': shareCover,
@@ -326,7 +326,7 @@ export default {
         shouldBoxShow: true
       },
       userInfo: {
-        avatar: null,
+        headimgurl: null,
         nickname: null
         // 'http://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJNrlPjqkUjXibZm64k9NRNQGZdtziap3BGyuNKefPfEgWfn5EU4ib3bjHC9icJAwuVa8pOqspoLYWopg/132'
       },
@@ -351,6 +351,10 @@ export default {
         imgUrl: serverUrl + 'share.png',
         link: window.location.origin + '/marketing/weiindex?sid=-1'
       },
+      currentUserData: {
+        headimgurl: '',
+        nickname: ''
+      },
       random4: randomNum(1, 4),
       concertUrl:
         'https://m.damai.cn/damai/perform/item.html?projectId=150060&spm=a2o6e.search.0.0.6c286acelZQlgc'
@@ -373,6 +377,7 @@ export default {
   },
   created() {
     this.init()
+    console.log(this.$route.query.sid)
     if (isWeixin() === true) {
       this.handleWechatAuth()
       this.status.isInWechat = true
@@ -385,7 +390,7 @@ export default {
     saveDataToServer() {
       let rq_data = {
         userData: {
-          avatarUrl: this.userInfo.avatar,
+          headimgurl: this.userInfo.headimgurl,
           nickname: this.userInfo.nickname,
           randomInfo: this.randomInfo
         }
@@ -418,7 +423,7 @@ export default {
         .get(rq_url, this.parseServerSetting.rq_head)
         .then(response => {
           let res = response.data.results[0].userData
-          this.userInfo.avatar = res.avatarUrl
+          this.userInfo.headimgurl = res.headimgurl
           this.userInfo.nickname = res.nickname
           this.randomInfo = res.randomInfo
           this.status.shouldResultShow = true
@@ -438,8 +443,10 @@ export default {
       }
     },
     processPath() {
+      // sid 作为判断本页是否为分享之后的页面
       if (this.$route.query.hasOwnProperty('sid')) {
         this.style.root.marginTop = '-156%'
+        // -1代表没有分享内容，否则获取已经保存的数据
         if (this.$route.query.sid !== '-1') {
           this.getDataBySid()
           this.control.isInSharePage = true
@@ -474,24 +481,7 @@ export default {
       this.control.commaInterval = setInterval(() => {
         this.control.commaCount += 1
       }, 500)
-      wxService.getWxUserInfo(this).then(r => {
-        if (!r.hasOwnProperty('data')) {
-          setTimeout(() => {
-            location.reload()
-          }, 2000)
-        } else {
-          this.userInfo.avatar = r.data.headimgurl
-          this.userInfo.nickname = r.data.nickname
-          this.handleHtmlToImage()
-        }
-      })
-    },
-    handleConcertButtonTouch() {
-      this.status.isConcertButtonClick = true
-    },
-    handleConcertButtonTouchEnd() {
-      this.status.isConcertButtonClick = false
-      window.location.href = this.concertUrl
+      this.handleHtmlToImage()
     },
     handleHtmlToImage() {
       this.handleRandomGenerate()
@@ -499,7 +489,6 @@ export default {
         this.status.isAnalyzing = false
         this.status.shouldResultShow = true
         clearInterval(this.control.commaInterval)
-        let node = document.getElementById('root')
       }, 2000)
     },
     handleRandomGenerate() {
@@ -511,8 +500,20 @@ export default {
       this.randomInfo.xindongzhi = randomNum(0, 9) + randomNum(0, 9) / 10
       this.randomInfo.chenggonglv = String(randomNum(0, 100)) + '%'
       this.randomInfo.yinse = randomNum(3, 5)
+      wxService.getWxUserInfo(this).then(r => {
+        this.userInfo.headimgurl = r.data.headimgurl
+        this.userInfo.nickname = r.data.nickname
+      })
       this.saveDataToServer()
     },
+    handleConcertButtonTouch() {
+      this.status.isConcertButtonClick = true
+    },
+    handleConcertButtonTouchEnd() {
+      this.status.isConcertButtonClick = false
+      window.location.href = this.concertUrl
+    },
+
     handleCoverClose() {
       this.status.shouldShareShow = false
     },
@@ -567,7 +568,7 @@ export default {
       this.$refs.suoha.checkCoupon()
     },
     handleWechatAuth() {
-      if (localStorage.getItem('weixun') === null) {
+      if (Cookies.get('user_id') === null) {
         this.handleFirstAuth()
       } else {
         this.getuserData()
@@ -575,22 +576,20 @@ export default {
     },
     getuserData() {
       wxService.getWxUserInfo(this).then(r => {
-        if (!r.hasOwnProperty('data')) {
-          setTimeout(() => {
-            location.reload()
-          }, 2000)
-        } else {
-          if (!this.$route.query.sid) {
-            this.userInfo.avatar = r.data.headimgurl
-            this.userInfo.nickname = r.data.nickname
-          }
-          this.status.hasFetchUserData = true
+        // 如果是扫码（‘-1’代表网页入口,没有sid代表大屏）进入
+        // 则直接获取本用户信息
+        if (
+          this.$route.query.sid === '-1' ||
+          !this.$route.query.hasOwnProperty('sid')
+        ) {
+          this.userInfo.headimgurl = r.data.headimgurl
+          this.userInfo.nickname = r.data.nickname
         }
+        this.status.hasFetchUserData = true
       })
     },
     handleFirstAuth() {
       let storeData = {}
-      localStorage.setItem('weixun', JSON.stringify(storeData))
       let now_url = encodeURIComponent(String(window.location.href))
       // console.dir(now_url)
       let redirct_url =
@@ -598,7 +597,6 @@ export default {
         '/wx/officialAccount/oauth?url=' +
         now_url +
         '&scope=snsapi_userinfo'
-      // 这狗娘养的参数必须拼在后面
       // console.dir(redirct_url)
       window.location.href = redirct_url
     },
