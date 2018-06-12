@@ -2,8 +2,8 @@
   <div class="oh-content" :style="style.root" >
     <img class="title" :src="imgServerUrl + '/pages/oh/title.png'" alt="" >
     <div class="photo">
-      <!-- <img  class="photo" :src="resultImgUrl" alt=""/> -->
-      <img :src="imgServerUrl + '/pages/oh/1111.png'" alt=""/>
+      <img  class="photo" :src="resultImgUrl" alt=""/>
+      <!-- <img :src="imgServerUrl + '/pages/oh/1111.png'" alt=""/> -->
     </div> 
     <img class="save" :src="imgServerUrl + '/pages/oh/save.png'" alt="" > 
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
