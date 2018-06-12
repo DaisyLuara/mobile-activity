@@ -37,10 +37,10 @@ export default {
       },
       //微信分享
       wxShareInfo: {
-        title: '',
-        desc: '',
+        title: '我中奖啦',
+        desc: '星视度扭蛋机中大奖',
         imgUrl:
-          'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/concert_share_icon.jpg',
+          'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/capsuleToys_share_icon.png',
         success: function() {
           customTrack.shareWeChat()
         }
