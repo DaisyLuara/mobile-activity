@@ -123,14 +123,14 @@ img {
         width: 80%;
         position: fixed;
         left: 50%;
-        top: 50%;
+        top: 15%;
         transform: translate(-50%, -50%);
       }
       .hand {
-        width: 21%;
+        width: 18%;
         position: fixed;
-        right: 15%;
-        top: 32%;
+        right: 10%;
+        top: 1%;
         animation: point 0.8s linear infinite alternate;
       }
     }
