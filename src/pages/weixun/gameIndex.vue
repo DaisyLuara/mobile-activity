@@ -351,7 +351,10 @@ export default {
         imgUrl: serverUrl + 'share.png',
         link: window.location.origin + '/marketing/weiindex?sid=-1'
       },
-      currentUserData: null,
+      currentUserData: {
+        headimgurl: '',
+        nickname: ''
+      },
       random4: randomNum(1, 4),
       concertUrl:
         'https://m.damai.cn/damai/perform/item.html?projectId=150060&spm=a2o6e.search.0.0.6c286acelZQlgc'
@@ -498,7 +501,6 @@ export default {
       this.randomInfo.yinse = randomNum(3, 5)
       this.userInfo.headimgurl = this.currentUserData.headimgurl
       this.userInfo.nickname = this.currentUserData.nickname
-
       this.saveDataToServer()
     },
     handleConcertButtonTouch() {
