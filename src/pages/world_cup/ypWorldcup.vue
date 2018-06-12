@@ -5,21 +5,22 @@
       :style="style.root">
       <div class="main">
          <div class="shade" v-if="shade" @click="shadeDisappear()"> 
-           <img class="hand-title" :src="imgServerUrl + '/pages/yp/share_hand.png'">
-           <img class="hand" :src="imgServerUrl + '/pages/yp/hand.png'">
+          <img class="hand-title" :src="imgServerUrl + '/pages/yp/share_hand.png'">
+          <img class="hand" :src="imgServerUrl + '/pages/yp/hand.png'">
          </div>
         <img class="bg" :src="imgServerUrl + '/pages/yp/bg.png'">
         <div class="title">
           <img  :src="imgServerUrl + '/pages/yp/title.png'">
         </div>
-       <img class="ball1" :src="imgServerUrl + '/pages/yp/ball.png'">
+        <img class="ball1" :src="imgServerUrl + '/pages/yp/ball.png'">
         <img class="ball2" :src="imgServerUrl + '/pages/yp/ball.png'">
         <div class="photo-area">
-          <img class="photo" :src="imgServerUrl + '/pages/yp/111.png'">
+          <img  class="photo" :src="resultImgUrl" alt=""/>
+          <!-- <img class="photo" :src="imgServerUrl + '/pages/yp/111.png'"> -->
           <img  :src="imgServerUrl + '/pages/yp/kuang.png'">
         </div>
           <img class="get" :src="imgServerUrl + '/pages/yp/get_game.png'">
-           <img class="share" :src="imgServerUrl + '/pages/yp/share.png'" @click="share()">
+          <img class="share" :src="imgServerUrl + '/pages/yp/share.png'" @click="share()">
         <div class="ad">
           <img :src="imgServerUrl + '/pages/yp/ad.png'">
         </div>
@@ -37,6 +38,7 @@ export default {
   data() {
     return {
       imgServerUrl: IMAGE_SERVER,
+      resultImgUrl: '',
       shade: false,
       style: {
         root: {
@@ -45,10 +47,10 @@ export default {
       },
       //微信分享
       wxShareInfo: {
-        title: '',
-        desc: '',
+        title: '冠军我来猜',
+        desc: '恭喜您！获得游戏一次',
         imgUrl:
-          'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/war_share_icon.jpg',
+          'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/yp_share_icon.png',
         success: function() {
           customTrack.shareWeChat()
         }
@@ -60,18 +62,20 @@ export default {
   },
   created() {},
   mounted() {
-    this.getInfoById()
+    this.getImageById()
   },
   methods: {
-    getInfoById() {
+    //拿取图片id
+    getImageById() {
       let id = this.$route.query.id
       marketService
         .getInfoById(this, id)
-        .then(res => {
-          this.drawCanvas(res.image)
-          this.press = true
+        .then(result => {
+          this.resultImgUrl = result.image
         })
-        .catch(err => {})
+        .catch(err => {
+          console.log(err)
+        })
     },
     share() {
       this.shade = true
@@ -128,7 +132,7 @@ img {
         position: absolute;
         right: 8%;
         top: 4%;
-        z-index: 99;
+        z-index: 100;
         animation: point 0.8s linear infinite alternate;
       }
     }
