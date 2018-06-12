@@ -377,6 +377,7 @@ export default {
   },
   created() {
     this.init()
+    console.log(this.$route.query.sid)
     if (isWeixin() === true) {
       this.handleWechatAuth()
       this.status.isInWechat = true
@@ -499,8 +500,10 @@ export default {
       this.randomInfo.xindongzhi = randomNum(0, 9) + randomNum(0, 9) / 10
       this.randomInfo.chenggonglv = String(randomNum(0, 100)) + '%'
       this.randomInfo.yinse = randomNum(3, 5)
-      this.userInfo.headimgurl = this.currentUserData.headimgurl
-      this.userInfo.nickname = this.currentUserData.nickname
+      wxService.getWxUserInfo(this).then(r => {
+        this.userInfo.headimgurl = r.data.headimgurl
+        this.userInfo.nickname = r.data.nickname
+      })
       this.saveDataToServer()
     },
     handleConcertButtonTouch() {
@@ -581,9 +584,6 @@ export default {
         ) {
           this.userInfo.headimgurl = r.data.headimgurl
           this.userInfo.nickname = r.data.nickname
-        } else {
-          // 通过分享得到页面暂存用户信息
-          this.currentUserData = r.data
         }
         this.status.hasFetchUserData = true
       })
