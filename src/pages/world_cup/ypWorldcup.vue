@@ -1,23 +1,29 @@
 <template>
     <div 
       class="content" 
-      id="content"
       :style="style.root">
+       <audio id="voice" autobuffer autoloop loop autoplay hidden>
+				<source :src="audioUrl">
+			</audio>
       <div class="main">
          <div class="shade" v-if="shade" @click="shadeDisappear()"> 
           <img class="hand-title" :src="imgServerUrl + '/pages/yp/share_hand.png'">
           <img class="hand" :src="imgServerUrl + '/pages/yp/hand.png'">
-         </div>
+      </div>
         <img class="bg" :src="imgServerUrl + '/pages/yp/bg.png'">
         <div class="title">
-          <img  :src="imgServerUrl + '/pages/yp/title.png'">
+          <img class="tit1" :src="imgServerUrl + '/pages/yp/tit1.png'">
+          <img class="tit2" :src="imgServerUrl + '/pages/yp/tit2.png'">
+          <img class="tit3" :src="imgServerUrl + '/pages/yp/tit3.png'">
         </div>
+        <img class="mplay music" id="mbtn" :src="imgServerUrl + '/pages/yp/music.png'"  @click="playOrNot()">
         <img class="ball1" :src="imgServerUrl + '/pages/yp/ball.png'">
         <img class="ball2" :src="imgServerUrl + '/pages/yp/ball.png'">
         <div class="photo-area">
+          <img class="kuang" :src="imgServerUrl + '/pages/yp/kuang3.png'">
+          <img class="save" :src="imgServerUrl + '/pages/yp/save.png'">
           <img  class="photo" :src="resultImgUrl" alt=""/>
           <!-- <img class="photo" :src="imgServerUrl + '/pages/yp/111.png'"> -->
-          <img  :src="imgServerUrl + '/pages/yp/kuang.png'">
         </div>
           <img class="get" :src="imgServerUrl + '/pages/yp/get_game.png'">
           <img class="share" :src="imgServerUrl + '/pages/yp/share.png'" @click="share()">
@@ -38,6 +44,7 @@ export default {
   data() {
     return {
       imgServerUrl: IMAGE_SERVER,
+      audioUrl: 'http://122.112.236.76/mp3/motion.mp3',
       resultImgUrl: '',
       shade: false,
       style: {
@@ -82,6 +89,72 @@ export default {
     },
     shadeDisappear() {
       this.shade = false
+    },
+    playAudio() {
+      let mbtn = document.getElementById('content')
+      let voice = document.getElementById('voice')
+      if (!voice) {
+        return
+      }
+      //调用 <audio> 元素提供的方法 play()
+      voice.play()
+      if (voice.paused) {
+        mbtn.setAttribute('class', ' ')
+      }
+      //判斷 WeixinJSBridge 是否存在
+      if (
+        typeof WeixinJSBridge == 'object' &&
+        typeof WeixinJSBridge.invoke == 'function'
+      ) {
+        voice.play()
+      } else {
+        //監聽客户端抛出事件"WeixinJSBridgeReady"
+        if (document.addEventListener) {
+          document.addEventListener(
+            'WeixinJSBridgeReady',
+            function() {
+              voice.play()
+            },
+            false
+          )
+        } else if (document.attachEvent) {
+          document.attachEvent('WeixinJSBridgeReady', function() {
+            voice.play()
+          })
+          document.attachEvent('onWeixinJSBridgeReady', function() {
+            voice.play()
+          })
+        }
+      }
+
+      //voiceStatu用來記録狀態,使 touchstart 事件只能觸發一次有效,避免與 click 事件衝突
+      var voiceStatu = true
+      //监听 touchstart 事件进而调用 <audio> 元素提供的 play() 方法播放音频
+      document.addEventListener(
+        'touchstart',
+        function(e) {
+          if (voiceStatu) {
+            voice.play()
+            voiceStatu = false
+          }
+        },
+        false
+      )
+      voice.onplay = function() {
+        mbtn.setAttribute('class', 'mplay')
+      }
+      voice.onpause = function() {
+        mbtn.setAttribute('class', ' ')
+      }
+    },
+    playOrNot() {
+      // 依據 audio 的 paused 属性返回音频是否已暂停來判斷播放還是暫停音频。
+      let voice = document.getElementById('voice')
+      if (voice.paused) {
+        voice.play()
+      } else {
+        voice.pause()
+      }
     }
   },
   components: {
@@ -96,6 +169,16 @@ img {
 @imgUrl: 'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/yp/';
 .content {
   width: 100%;
+  .music {
+    width: 10%;
+    position: absolute;
+    left: 9%;
+    z-index: 7;
+    top: 12%;
+  }
+  .mplay {
+    animation: mycir 2s linear infinite;
+  }
   .main {
     position: relative;
     text-align: center;
@@ -128,6 +211,7 @@ img {
     }
     .title {
       width: 100%;
+      height: 15%;
       position: absolute;
       left: 0;
       top: 1%;
@@ -137,6 +221,27 @@ img {
       img {
         width: 92%;
       }
+      .tit1 {
+        width: 96%;
+        position: absolute;
+        left: 3%;
+        top: 0;
+        animation: titMove 2s linear infinite;
+      }
+      .tit2 {
+        width: 74%;
+        position: absolute;
+        left: 13%;
+        top: 25%;
+        animation: titMove 1s linear infinite;
+      }
+      .tit3 {
+        width: 54%;
+        position: absolute;
+        left: 25%;
+        top: 0;
+        // animation: titMove 1s linear infinite;
+      }
     }
     .ball1 {
       position: absolute;
@@ -144,6 +249,7 @@ img {
       top: 52%;
       z-index: 4;
       width: 15%;
+      animation: ballMove 1s ease-out infinite alternate;
     }
     .ball2 {
       position: absolute;
@@ -151,6 +257,7 @@ img {
       top: 28%;
       z-index: 4;
       width: 22%;
+      animation: ballMove 1.5s ease-out infinite alternate;
     }
     .photo-area {
       position: absolute;
@@ -159,6 +266,14 @@ img {
       width: 100%;
       text-align: center;
       z-index: 4;
+      .save {
+        width: 14%;
+        position: absolute;
+        left: 7%;
+        top: 9%;
+        transform: translate(0, -50%);
+        animation: saveMove 1s ease-out infinite alternate;
+      }
       .photo {
         position: absolute;
         left: 28%;
@@ -198,6 +313,14 @@ img {
     }
   }
 }
+@keyframes mycir {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 //动画
 @keyframes point {
   0% {
@@ -205,6 +328,33 @@ img {
   }
   100% {
     transform: translateY(-5px);
+  }
+}
+@keyframes titMove {
+  0% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1.05, 1.05);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+@keyframes saveMove {
+  0% {
+    transform: translateX(10px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
+@keyframes ballMove {
+  0% {
+    transform: translateY(20px);
+  }
+  100% {
+    transform: translateY(0px);
   }
 }
 </style>
