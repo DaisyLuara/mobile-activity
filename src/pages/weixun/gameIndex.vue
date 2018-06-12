@@ -580,13 +580,18 @@ export default {
       }
     },
     getuserData() {
-      wxService.getWxUserInfo(this).then(r => {
-        if (!this.$route.query.sid) {
-          this.userInfo.avatar = r.data.headimgurl
-          this.userInfo.nickname = r.data.nickname
-        }
-        this.status.hasFetchUserData = true
-      })
+      wxService
+        .getWxUserInfo(this)
+        .then(r => {
+          if (!this.$route.query.sid) {
+            this.userInfo.avatar = r.data.headimgurl
+            this.userInfo.nickname = r.data.nickname
+          }
+          this.status.hasFetchUserData = true
+        })
+        .catch(e => {
+          this.status.hasFetchUserData = true
+        })
     },
     handleFirstAuth() {
       let storeData = {}
