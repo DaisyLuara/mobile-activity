@@ -121,18 +121,16 @@ img {
       justify-content: flex-start;
       .hand-title {
         width: 80%;
-        position: absolute;
+        position: fixed;
         left: 50%;
-        top: 10%;
-        z-index: 99;
-        transform: translate(-50%);
+        top: 50%;
+        transform: translate(-50%, -50%);
       }
       .hand {
         width: 21%;
-        position: absolute;
-        right: 8%;
-        top: 4%;
-        z-index: 100;
+        position: fixed;
+        right: 15%;
+        top: 32%;
         animation: point 0.8s linear infinite alternate;
       }
     }
@@ -191,7 +189,7 @@ img {
       width: 78%;
       display: inline-block;
       position: absolute;
-      top: 63%;
+      top: 65%;
       left: 14%;
       z-index: 4;
     }
@@ -199,14 +197,14 @@ img {
       width: 19.1%;
       position: absolute;
       display: inline-block;
-      top: 63%;
+      top: 65%;
       right: 8.5%;
       z-index: 5;
     }
     .ad {
       position: absolute;
       left: 0;
-      bottom: 3%;
+      bottom: 2%;
       z-index: 4;
       text-align: center;
       img {
