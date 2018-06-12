@@ -4,10 +4,10 @@
         <img  class="egg-bot" :src="imgServerUrl + '/pages/capsule_toys/2.png'" alt="" >
         <img  class="light" :src="imgServerUrl + '/pages/capsule_toys/light.png'" alt="" >
         <div class="copon">
-          <img  class="cp-1"  v-show="showCoupon.cp1" :src="imgServerUrl + '/pages/capsule_toys/yjk.png'" alt="" >
+          <img  class="cp-1"  v-show="showCoupon.cp1" :src="imgServerUrl + '/pages/capsule_toys/zhy.png'" alt="" >
           <img  class="cp-2"  v-show="showCoupon.cp2" :src="imgServerUrl + '/pages/capsule_toys/hz.png'" alt="" >
           <img  class="cp-3"  v-show="showCoupon.cp3" :src="imgServerUrl + '/pages/capsule_toys/sc.png'" alt="" >
-          <img  class="cp-4"  v-show="showCoupon.cp4" :src="imgServerUrl + '/pages/capsule_toys/zhy.png'" alt="" >
+          <img  class="cp-4"  v-show="showCoupon.cp4" :src="imgServerUrl + '/pages/capsule_toys/yjk.png'" alt="" >
         </div>
         <wx-share :WxShareInfo="wxShareInfo"></wx-share>
     </div>
@@ -153,7 +153,6 @@ body {
   font-size: 0;
   background: #11101b;
   position: relative;
-  // background: url('@{imgUrl}bg.png') center top / 100% auto no-repeat;
   .egg-top {
     width: 100%;
     height: 28%;
