@@ -6,10 +6,6 @@
 				<source :src="audioUrl">
 			</audio>
       <div class="main">
-         <div class="shade" v-if="shade" @click="shadeDisappear()"> 
-          <img class="hand-title" :src="imgServerUrl + '/pages/yp/share_hand.png'">
-          <img class="hand" :src="imgServerUrl + '/pages/yp/hand.png'">
-      </div>
         <img class="bg" :src="imgServerUrl + '/pages/yp/bg.png'">
         <div class="title">
           <img class="tit1" :src="imgServerUrl + '/pages/yp/tit1.png'">
@@ -21,13 +17,10 @@
         <img class="ball2" :src="imgServerUrl + '/pages/yp/ball.png'">
         <div class="photo-area">
           <img class="kuang" :src="imgServerUrl + '/pages/yp/kuang3.png'">
-          <img class="kuang2" :src="imgServerUrl + '/pages/yp/kuang4.png'">
           <img class="save" :src="imgServerUrl + '/pages/yp/save.png'">
           <img  class="photo" :src="resultImgUrl" alt=""/>
           <!-- <img class="photo" :src="imgServerUrl + '/pages/yp/111.png'"> -->
         </div>
-          <img class="get" :src="imgServerUrl + '/pages/yp/get_game.png'">
-          <img class="share" :src="imgServerUrl + '/pages/yp/share.png'" @click="share()">
         <div class="ad">
           <img :src="imgServerUrl + '/pages/yp/ad.png'">
         </div>
@@ -84,12 +77,6 @@ export default {
         .catch(err => {
           console.log(err)
         })
-    },
-    share() {
-      this.shade = true
-    },
-    shadeDisappear() {
-      this.shade = false
     },
     playAudio() {
       let mbtn = document.getElementById('content')
@@ -246,7 +233,7 @@ img {
     }
     .ball1 {
       position: absolute;
-      left: 4%;
+      left: -6%;
       top: 52%;
       z-index: 4;
       width: 15%;
@@ -267,13 +254,6 @@ img {
       width: 100%;
       text-align: center;
       z-index: 4;
-      .kuang2 {
-        position: absolute;
-        left: 11%;
-        top: 0;
-        opacity: 0;
-        animation: opacityKuang 2s linear infinite alternate;
-      }
       .save {
         width: 14%;
         position: absolute;
@@ -311,7 +291,7 @@ img {
     .ad {
       position: absolute;
       left: 0;
-      bottom: 2%;
+      bottom: 17%;
       z-index: 4;
       text-align: center;
       img {
@@ -363,14 +343,6 @@ img {
   }
   100% {
     transform: translateY(0px);
-  }
-}
-@keyframes opacityKuang {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
   }
 }
 </style>
