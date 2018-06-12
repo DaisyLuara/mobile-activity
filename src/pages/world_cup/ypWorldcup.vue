@@ -3,22 +3,27 @@
       class="content" 
       id="content"
       :style="style.root">
+      <div class="main">
+         <div class="shade" v-if="shade" @click="shadeDisappear()"> 
+           <img class="hand-title" :src="imgServerUrl + '/pages/yp/share_hand.png'">
+           <img class="hand" :src="imgServerUrl + '/pages/yp/hand.png'">
+         </div>
         <img class="bg" :src="imgServerUrl + '/pages/yp/bg.png'">
         <div class="title">
           <img  :src="imgServerUrl + '/pages/yp/title.png'">
         </div>
-        <img class="ball1" :src="imgServerUrl + '/pages/yp/ball.png'">
+       <img class="ball1" :src="imgServerUrl + '/pages/yp/ball.png'">
         <img class="ball2" :src="imgServerUrl + '/pages/yp/ball.png'">
         <div class="photo-area">
+          <img class="photo" :src="imgServerUrl + '/pages/yp/111.png'">
           <img  :src="imgServerUrl + '/pages/yp/kuang.png'">
         </div>
-        <div class="getAwards">
           <img class="get" :src="imgServerUrl + '/pages/yp/get_game.png'">
-          <img class="share" :src="imgServerUrl + '/pages/yp/share.png'">
-        </div>
-        <!-- <div class="ad">
+           <img class="share" :src="imgServerUrl + '/pages/yp/share.png'" @click="share()">
+        <div class="ad">
           <img :src="imgServerUrl + '/pages/yp/ad.png'">
-        </div> -->
+        </div>
+      </div>
         <wx-share :WxShareInfo="wxShareInfo"></wx-share>
     </div>
 </template>
@@ -32,6 +37,7 @@ export default {
   data() {
     return {
       imgServerUrl: IMAGE_SERVER,
+      shade: false,
       style: {
         root: {
           height: wih + 'px'
@@ -66,6 +72,12 @@ export default {
           this.press = true
         })
         .catch(err => {})
+    },
+    share() {
+      this.shade = true
+    },
+    shadeDisappear() {
+      this.shade = false
     }
   },
   components: {
@@ -80,78 +92,133 @@ img {
 @imgUrl: 'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/yp/';
 .content {
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  position: relative;
-  overflow-x: hidden;
-  .bg {
+  .main {
     position: relative;
-    z-index: 3;
-  }
-  .title {
-    width: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 4;
     text-align: center;
-    img {
-      width: 90%;
+    margin: 0 auto;
+    display: inline-block;
+    width: 100%;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    .shade {
+      width: 100%;
+      height: 100%;
+      background: #000;
+      opacity: 0.8;
+      position: absolute;
+      z-index: 8;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      .hand-title {
+        width: 80%;
+        position: absolute;
+        left: 50%;
+        top: 10%;
+        z-index: 99;
+        transform: translate(-50%);
+      }
+      .hand {
+        width: 21%;
+        position: absolute;
+        right: 8%;
+        top: 4%;
+        z-index: 99;
+        animation: point 0.8s linear infinite alternate;
+      }
     }
-  }
-  .ball1 {
-    position: absolute;
-    left: -6%;
-    top: 62%;
-    z-index: 4;
-    width: 15%;
-  }
-  .ball2 {
-    position: absolute;
-    right: -7%;
-    top: 28%;
-    z-index: 4;
-    width: 20%;
-  }
-  .photo-area {
-    position: absolute;
-    left: 0;
-    top: 11%;
-    width: 100%;
-    text-align: center;
-    z-index: 4;
-    img {
-      width: 82%;
+    .title {
+      width: 100%;
+      position: absolute;
+      left: 0;
+      top: 1%;
+      z-index: 4;
+      text-align: center;
+      padding: 1%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      img {
+        width: 92%;
+      }
     }
-  }
-  .getAwards {
-    width: 100%;
-    position: absolute;
-    left: 0%;
-    top: 78%;
-    z-index: 4;
-    text-align: center;
+    .ball1 {
+      position: absolute;
+      left: -6%;
+      top: 52%;
+      z-index: 4;
+      width: 15%;
+    }
+    .ball2 {
+      position: absolute;
+      right: -7%;
+      top: 28%;
+      z-index: 4;
+      width: 22%;
+    }
+    .photo-area {
+      position: absolute;
+      left: 0;
+      top: 13.3%;
+      width: 100%;
+      text-align: center;
+      z-index: 4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      .photo {
+        position: absolute;
+        left: 28%;
+        top: 2%;
+        width: 57%;
+      }
+      img {
+        width: 78%;
+      }
+    }
     .get {
-      width: 85%;
+      width: 78%;
+      display: inline-block;
+      position: absolute;
+      top: 63%;
+      left: 14%;
+      z-index: 4;
     }
     .share {
-      width: 20.8%;
+      width: 19.1%;
       position: absolute;
-      right: 8%;
-      top: 0;
+      display: inline-block;
+      top: 63%;
+      right: 8.5%;
+      z-index: 5;
+    }
+    .ad {
+      position: absolute;
+      left: 0;
+      bottom: 3%;
+      z-index: 4;
+      text-align: center;
+      img {
+        width: 100%;
+        margin-left: 2.5%;
+      }
     }
   }
-  .ad {
-    position: absolute;
-    left: 0;
-    top: 100%;
-    z-index: 4;
-    text-align: center;
-    img {
-      width: 100%;
-      margin-left: 2.5%;
-    }
+}
+//动画
+@keyframes point {
+  0% {
+    transform: translateY(5px);
+  }
+  100% {
+    transform: translateY(-5px);
   }
 }
 </style>
