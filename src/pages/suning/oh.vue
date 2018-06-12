@@ -102,7 +102,7 @@ body {
   }
   .photo {
     width: 100%;
-    height: 70%;
+    //height: 70%;
     position: absolute;
     text-align: center;
     left: 50%;
