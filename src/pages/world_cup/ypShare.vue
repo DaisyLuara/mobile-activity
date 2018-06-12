@@ -6,7 +6,7 @@
 				<source :src="audioUrl">
 			</audio>
       <div class="main">
-        <img class="bg" :src="imgServerUrl + '/pages/yp/bg.png'">
+        <!-- <img class="bg" :src="imgServerUrl + '/pages/yp/bg.png'"> -->
         <div class="title">
           <img class="tit1" :src="imgServerUrl + '/pages/yp/tit1.png'">
           <img class="tit2" :src="imgServerUrl + '/pages/yp/tit2.png'">
@@ -17,6 +17,7 @@
         <img class="ball2" :src="imgServerUrl + '/pages/yp/ball.png'">
         <div class="photo-area">
           <img class="kuang" :src="imgServerUrl + '/pages/yp/kuang3.png'">
+          <img class="kuang2" :src="imgServerUrl + '/pages/yp/kuang4.png'">
           <img class="save" :src="imgServerUrl + '/pages/yp/save.png'">
           <img  class="photo" :src="resultImgUrl" alt=""/>
           <!-- <img class="photo" :src="imgServerUrl + '/pages/yp/111.png'"> -->
@@ -34,6 +35,7 @@ import marketService from 'services/marketing'
 import WxShare from 'modules/wxShare'
 import { customTrack } from 'modules/customTrack'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
+const URL = 'http://h5.xingstation.com'
 export default {
   data() {
     return {
@@ -50,6 +52,7 @@ export default {
       wxShareInfo: {
         title: '瞬感世界杯，冠军我来猜',
         desc: '...',
+        link: URL + '/marketing/yp_share?id=' + this.$route.query.id,
         imgUrl:
           'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/yapei_share_icon.png',
         success: function() {
@@ -157,12 +160,16 @@ img {
 @imgUrl: 'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/yp/';
 .content {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative;
   .music {
     width: 10%;
     position: absolute;
     left: 9%;
     z-index: 7;
-    top: 12%;
+    top: 14%;
   }
   .mplay {
     animation: mycir 2s linear infinite;
@@ -173,7 +180,14 @@ img {
     margin: 0 auto;
     display: inline-block;
     width: 100%;
+    height: 100%;
     overflow-x: hidden;
+    background: url('@{imgUrl}bg.png') center top / 100% 100% no-repeat;
+    // .bg {
+    //   width: 100%;
+    //   z-index: 1;
+    //   position: relative;
+    // }
     .shade {
       width: 100%;
       height: 100%;
@@ -233,8 +247,8 @@ img {
     }
     .ball1 {
       position: absolute;
-      left: -6%;
-      top: 52%;
+      left: 4%;
+      top: 63%;
       z-index: 4;
       width: 15%;
       animation: ballMove 1s ease-out infinite alternate;
@@ -250,10 +264,17 @@ img {
     .photo-area {
       position: absolute;
       left: 0;
-      top: 13.3%;
+      top: 17.3%;
       width: 100%;
       text-align: center;
       z-index: 4;
+      .kuang2 {
+        position: absolute;
+        left: 11%;
+        top: 0;
+        opacity: 0;
+        animation: opacityKuang 2s linear infinite alternate;
+      }
       .save {
         width: 14%;
         position: absolute;
@@ -291,7 +312,7 @@ img {
     .ad {
       position: absolute;
       left: 0;
-      bottom: 17%;
+      bottom: 0%;
       z-index: 4;
       text-align: center;
       img {
@@ -343,6 +364,14 @@ img {
   }
   100% {
     transform: translateY(0px);
+  }
+}
+@keyframes opacityKuang {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }
 </style>

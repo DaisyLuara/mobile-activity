@@ -41,6 +41,7 @@ import marketService from 'services/marketing'
 import WxShare from 'modules/wxShare'
 import { customTrack } from 'modules/customTrack'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
+const URL = 'http://h5.xingstation.com'
 export default {
   data() {
     return {
@@ -57,6 +58,7 @@ export default {
       wxShareInfo: {
         title: '瞬感世界杯，冠军我来猜',
         desc: '...',
+        link: URL + '/marketing/yp_share?id=' + this.$route.query.id,
         imgUrl:
           'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/yapei_share_icon.png',
         success: function() {
