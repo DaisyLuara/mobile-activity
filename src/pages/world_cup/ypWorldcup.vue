@@ -48,9 +48,9 @@ export default {
       //微信分享
       wxShareInfo: {
         title: '瞬感世界杯，冠军我来猜',
-        desc: '恭喜您！获得游戏一次',
+        desc: '',
         imgUrl:
-          'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/yp_share_icon.png',
+          'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/yapei_share_icon.png',
         success: function() {
           customTrack.shareWeChat()
         }
