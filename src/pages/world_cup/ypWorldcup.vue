@@ -47,10 +47,10 @@ export default {
       },
       //微信分享
       wxShareInfo: {
-        title: '冠军我来猜',
-        desc: '恭喜您！获得游戏一次',
+        title: '瞬感世界杯，冠军我来猜',
+        desc: '',
         imgUrl:
-          'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/yp_share_icon.png',
+          'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/yapei_share_icon.png',
         success: function() {
           customTrack.shareWeChat()
         }
@@ -103,10 +103,6 @@ img {
     display: inline-block;
     width: 100%;
     overflow-x: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
     .shade {
       width: 100%;
       height: 100%;
@@ -115,22 +111,18 @@ img {
       position: absolute;
       z-index: 8;
       text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
       .hand-title {
         width: 80%;
         position: fixed;
         left: 50%;
-        top: 50%;
+        top: 15%;
         transform: translate(-50%, -50%);
       }
       .hand {
-        width: 21%;
+        width: 18%;
         position: fixed;
-        right: 15%;
-        top: 32%;
+        right: 10%;
+        top: 1%;
         animation: point 0.8s linear infinite alternate;
       }
     }
@@ -142,10 +134,6 @@ img {
       z-index: 4;
       text-align: center;
       padding: 1%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
       img {
         width: 92%;
       }
@@ -171,10 +159,6 @@ img {
       width: 100%;
       text-align: center;
       z-index: 4;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
       .photo {
         position: absolute;
         left: 28%;
