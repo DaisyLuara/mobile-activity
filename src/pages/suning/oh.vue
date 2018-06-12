@@ -1,10 +1,8 @@
 <template>
   <div class="oh-content" :style="style.root" >
     <img class="title" :src="imgServerUrl + '/pages/oh/title.png'" alt="" >
-    <div class="photo">
-      <img  class="photo" :src="resultImgUrl" alt=""/>
-      <!-- <img :src="imgServerUrl + '/pages/oh/1111.png'" alt=""/> -->
-    </div> 
+    <img  class="photo" :src="resultImgUrl" alt=""/>
+    <!-- <img class="photo" :src="imgServerUrl + '/pages/oh/2222.jpg'" alt=""/> -->
     <img class="save" :src="imgServerUrl + '/pages/oh/save.png'" alt="" > 
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
@@ -98,11 +96,11 @@ body {
     width: 100%;
     position: absolute;
     left: 0;
-    top: 3%;
+    top: 2%;
   }
   .photo {
-    width: 100%;
-    height: 70%;
+    width: 85%;
+    height: 78%;
     position: absolute;
     text-align: center;
     left: 50%;
@@ -110,13 +108,10 @@ body {
     transform: translate(-50%, -50%);
     overflow: hidden;
     padding: 2%;
-    img {
-      width: 90%;
-      height: 100%;
-    }
   }
   .save {
     width: 70%;
+    height: 12%;
     position: absolute;
     left: 50%;
     bottom: 0%;
