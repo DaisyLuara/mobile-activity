@@ -122,7 +122,7 @@
             class="card-avatar-top"
             >
             <img 
-              :src="userInfo.avatar"  />
+              :src="userInfo.headimgurl"  />
           </div>
           <div
             class="card-nickname">
