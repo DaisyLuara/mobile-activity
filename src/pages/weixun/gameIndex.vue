@@ -272,13 +272,13 @@ const wiw = window.innerWidth
 const wih = window.innerHeight
 import shareCover from './components/shareCover'
 import suoha from './components/suoha'
-import marketService from 'services/marketing'
-import { isWeixin } from 'modules/util.js'
+import { isWeixin, Cookies } from 'modules/util.js'
 import { Toast } from 'mint-ui'
-import wxService from 'services/wx'
 import { customTrack } from 'modules/customTrack'
-import WxShare from 'modules/wxShare'
 import { generate, randomNum } from './random/index.js'
+import marketService from 'services/marketing'
+import WxShare from 'modules/wxShare'
+import wxService from 'services/wx'
 export default {
   components: {
     'share-cover': shareCover,
@@ -381,6 +381,10 @@ export default {
   beforeDestroy() {
     document.body.style.overflow = ''
   },
+  mounted() {
+    Cookies.set('22', '233')
+    console.log(Cookies.get('22'))
+  },
   methods: {
     saveDataToServer() {
       let rq_data = {
@@ -438,8 +442,10 @@ export default {
       }
     },
     processPath() {
+      // sid 作为判断本页是否为分享之后的页面
       if (this.$route.query.hasOwnProperty('sid')) {
         this.style.root.marginTop = '-156%'
+        // -1代表没有分享内容，否则获取已经保存的数据
         if (this.$route.query.sid !== '-1') {
           this.getDataBySid()
           this.control.isInSharePage = true
@@ -574,19 +580,18 @@ export default {
       }
     },
     getuserData() {
-      wxService.getWxUserInfo(this).then(r => {
-        if (!r.hasOwnProperty('data')) {
-          setTimeout(() => {
-            location.reload()
-          }, 2000)
-        } else {
+      wxService
+        .getWxUserInfo(this)
+        .then(r => {
           if (!this.$route.query.sid) {
             this.userInfo.avatar = r.data.headimgurl
             this.userInfo.nickname = r.data.nickname
           }
           this.status.hasFetchUserData = true
-        }
-      })
+        })
+        .catch(e => {
+          this.status.hasFetchUserData = true
+        })
     },
     handleFirstAuth() {
       let storeData = {}
