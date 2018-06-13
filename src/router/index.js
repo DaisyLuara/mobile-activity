@@ -518,7 +518,7 @@ export default new Router({
         },
         {
           path: 'yp_share',
-          name: '雅培世界杯分享',
+          name: '雅培世界杯分享页',
           component: () =>
             import(/* webpackChunkName: "world_cup" */ 'pages/world_cup/ypShare.vue')
         },

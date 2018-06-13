@@ -16,7 +16,7 @@
           <img class="tit2" :src="imgServerUrl + '/pages/yp/tit2.png'">
           <img class="tit3" :src="imgServerUrl + '/pages/yp/tit3.png'">
         </div>
-        <img class="mplay music" id="mbtn" :src="imgServerUrl + '/pages/yp/music.png'"  @click="playOrNot()">
+        <img  id="mbtn" class="mplay" :src="imgServerUrl + '/pages/yp/music.png'"  @click="playOrNot()">
         <img class="ball1" :src="imgServerUrl + '/pages/yp/ball.png'">
         <img class="ball2" :src="imgServerUrl + '/pages/yp/ball.png'">
         <div class="photo-area">
@@ -41,6 +41,7 @@ import marketService from 'services/marketing'
 import WxShare from 'modules/wxShare'
 import { customTrack } from 'modules/customTrack'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
+const URL = 'http://h5.xingstation.com'
 export default {
   data() {
     return {
@@ -54,9 +55,13 @@ export default {
         }
       },
       //微信分享
-      wxShareInfo: {
+      wxShareInfoValue: {
         title: '瞬感世界杯，冠军我来猜',
         desc: '...',
+        link:
+          window.location.origin +
+          '/marketing/yp_share?id=' +
+          this.$route.query.id,
         imgUrl:
           'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/yapei_share_icon.png',
         success: function() {
@@ -160,6 +165,21 @@ export default {
   },
   components: {
     WxShare
+  },
+  computed: {
+    //微信分享
+    wxShareInfo() {
+      let wxShareInfo = {
+        title: this.wxShareInfoValue.title,
+        desc: this.wxShareInfoValue.desc,
+        imgUrl: this.wxShareInfoValue.imgUrl,
+        link: this.wxShareInfoValue.link,
+        success: () => {
+          customTrack.shareWeChat()
+        }
+      }
+      return wxShareInfo
+    }
   }
 }
 </script>
@@ -170,7 +190,7 @@ img {
 @imgUrl: 'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/yp/';
 .content {
   width: 100%;
-  .music {
+  #mbtn {
     width: 10%;
     position: absolute;
     left: 9%;
@@ -273,6 +293,7 @@ img {
         top: 0;
         opacity: 0;
         animation: opacityKuang 2s linear infinite alternate;
+        z-index: 4;
       }
       .save {
         width: 14%;
@@ -287,6 +308,7 @@ img {
         left: 28%;
         top: 2%;
         width: 57%;
+        z-index: 999;
       }
       img {
         width: 78%;
