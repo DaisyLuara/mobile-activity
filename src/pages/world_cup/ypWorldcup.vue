@@ -58,10 +58,10 @@ export default {
       wxShareInfoValue: {
         title: '瞬感世界杯，冠军我来猜',
         desc: '...',
-        link:
-          window.location.origin +
-          '/marketing/yp_share?id=' +
-          this.$route.query.id,
+        // link:
+        //   window.location.origin +
+        //   '/marketing/yp_share?id=' +
+        //   this.$route.query.id,
         imgUrl:
           'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/yapei_share_icon.png',
         success: function() {
