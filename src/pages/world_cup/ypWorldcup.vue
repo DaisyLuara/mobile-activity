@@ -32,7 +32,7 @@
           <img :src="imgServerUrl + '/pages/yp/ad.png'">
         </div>
       </div>
-        <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+        <wx-share :WxShareInfo="wxShareInfoValue"></wx-share>
     </div>
 </template>
 <script>
@@ -58,7 +58,10 @@ export default {
       wxShareInfo: {
         title: '瞬感世界杯，冠军我来猜',
         desc: '...',
-        link: URL + '/marketing/yp_share?id=' + this.$route.query.id,
+        link:
+          window.location.origin +
+          '/marketing/yp_share?id=' +
+          this.$route.query.id,
         imgUrl:
           'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/yapei_share_icon.png',
         success: function() {
@@ -162,6 +165,21 @@ export default {
   },
   components: {
     WxShare
+  },
+  computed: {
+    //微信分享
+    wxShareInfo() {
+      let wxShareInfoValue = {
+        title: this.wxShareInfo.title,
+        desc: this.wxShareInfo.desc,
+        imgUrl: this.wxShareInfo.imgUrl,
+        link: this.wxShareInfo.link,
+        success: () => {
+          customTrack.shareWeChat()
+        }
+      }
+      return wxShareInfoValue
+    }
   }
 }
 </script>
