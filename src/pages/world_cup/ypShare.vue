@@ -6,21 +6,20 @@
 				<source :src="audioUrl">
 			</audio>
       <div class="main">
-        <!-- <img class="bg" :src="imgServerUrl + '/pages/yp/bg1.png'"> -->
+        <img class="bg" :src="imgServerUrl + '/pages/yp/bg4.png'">
         <div class="title">
           <img class="tit1" :src="imgServerUrl + '/pages/yp/tit1.png'">
           <img class="tit2" :src="imgServerUrl + '/pages/yp/tit2.png'">
-          <img class="tit3" :src="imgServerUrl + '/pages/yp/tit3.png'">
+          <img class="tit3" :src="imgServerUrl + '/pages/yp/tit4.png'">
         </div>
-        <img class="mplay music" id="mbtn" :src="imgServerUrl + '/pages/yp/music.png'"  @click="playOrNot()">
+        <img class="mplay" id="mbtn" :src="imgServerUrl + '/pages/yp/music.png'"  @click="playOrNot()">
         <img class="ball1" :src="imgServerUrl + '/pages/yp/ball.png'">
         <img class="ball2" :src="imgServerUrl + '/pages/yp/ball.png'">
         <div class="photo-area">
           <img class="kuang" :src="imgServerUrl + '/pages/yp/kuang3.png'">
-          <!-- <img class="kuang2" :src="imgServerUrl + '/pages/yp/kuang4.png'"> -->
           <img class="save" :src="imgServerUrl + '/pages/yp/save.png'">
           <img  class="photo" :src="resultImgUrl" alt=""/>
-          <!-- <img class="photo" :src="imgServerUrl + '/pages/yp/111.png'"> -->
+          <img class="photo" :src="imgServerUrl + '/pages/yp/111.png'">
         </div>
         <div class="ad">
           <img :src="imgServerUrl + '/pages/yp/ad.png'">
@@ -69,7 +68,9 @@ export default {
   created() {
     this.getImageById()
   },
-  mounted() {},
+  mounted() {
+    this.playAudio()
+  },
   methods: {
     //拿取图片id
     getImageById() {
@@ -84,7 +85,7 @@ export default {
         })
     },
     playAudio() {
-      let mbtn = document.getElementById('content')
+      let mbtn = document.getElementById('mbtn')
       let voice = document.getElementById('voice')
       if (!voice) {
         return
@@ -181,12 +182,12 @@ img {
   flex-direction: column;
   justify-content: flex-start;
   position: relative;
-  .music {
+  #mbtn {
     width: 10%;
     position: absolute;
     left: 9%;
     z-index: 7;
-    top: 14%;
+    top: 20%;
   }
   .mplay {
     animation: mycir 2s linear infinite;
@@ -199,12 +200,6 @@ img {
     width: 100%;
     height: 100%;
     overflow-x: hidden;
-    background: url('@{imgUrl}bg2.png') center top / 100% 100% no-repeat;
-    // .bg {
-    //   width: 100%;
-    //   z-index: 1;
-    //   position: relative;
-    // }
     .shade {
       width: 100%;
       height: 100%;
@@ -233,7 +228,7 @@ img {
       height: 15%;
       position: absolute;
       left: 0;
-      top: 1%;
+      top: 2%;
       z-index: 4;
       text-align: center;
       padding: 1%;
@@ -250,22 +245,21 @@ img {
       .tit2 {
         width: 74%;
         position: absolute;
-        left: 14%;
-        top: 29%;
+        left: 13%;
+        top: 32%;
         animation: titMove 1s linear infinite;
       }
       .tit3 {
         width: 54%;
         position: absolute;
         left: 25%;
-        top: 0;
-        // animation: titMove 1s linear infinite;
+        top: -2%;
       }
     }
     .ball1 {
       position: absolute;
       left: 4%;
-      top: 63%;
+      top: 80%;
       z-index: 4;
       width: 15%;
       animation: ballMove 1s ease-out infinite alternate;
@@ -281,22 +275,15 @@ img {
     .photo-area {
       position: absolute;
       left: 0;
-      top: 17.3%;
+      top: 20.3%;
       width: 100%;
       text-align: center;
       z-index: 4;
-      // .kuang2 {
-      //   position: absolute;
-      //   left: 11%;
-      //   top: 0;
-      //   opacity: 0;
-      //   animation: opacityKuang 2s linear infinite alternate;
-      // }
       .save {
         width: 14%;
         position: absolute;
         left: 7%;
-        top: 9%;
+        top: 14%;
         transform: translate(0, -50%);
         animation: saveMove 1s ease-out infinite alternate;
       }
@@ -313,7 +300,7 @@ img {
     .ad {
       position: absolute;
       left: 0;
-      top: 85%;
+      top: 96%;
       z-index: 4;
       text-align: center;
       img {
