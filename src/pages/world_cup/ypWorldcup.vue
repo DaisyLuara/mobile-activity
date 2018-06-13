@@ -55,13 +55,13 @@ export default {
       //微信分享
       wxShareInfoValue: {
         title: '瞬感世界杯，冠军我来猜',
-        desc: '...',
+        desc: '享自由，不放纵',
         link:
           window.location.origin +
           '/marketing/yp_share?id=' +
           this.$route.query.id,
         imgUrl:
-          'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/yapei_share_icon.png',
+          'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/yp_share_icon.jpg',
         success: function() {
           customTrack.shareWeChat()
         }
