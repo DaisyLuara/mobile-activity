@@ -78,7 +78,6 @@ export default {
         .getInfoById(this, id)
         .then(result => {
           this.resultImgUrl = result.image
-          window.location.reload()
         })
         .catch(err => {
           console.log(err)
