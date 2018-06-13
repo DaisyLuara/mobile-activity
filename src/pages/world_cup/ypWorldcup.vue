@@ -32,7 +32,7 @@
           <img :src="imgServerUrl + '/pages/yp/ad.png'">
         </div>
       </div>
-        <wx-share :WxShareInfo="wxShareInfoValue"></wx-share>
+        <wx-share :WxShareInfo="wxShareInfo"></wx-share>
     </div>
 </template>
 <script>
@@ -55,7 +55,7 @@ export default {
         }
       },
       //微信分享
-      wxShareInfo: {
+      wxShareInfoValue: {
         title: '瞬感世界杯，冠军我来猜',
         desc: '...',
         link:
@@ -169,16 +169,16 @@ export default {
   computed: {
     //微信分享
     wxShareInfo() {
-      let wxShareInfoValue = {
-        title: this.wxShareInfo.title,
-        desc: this.wxShareInfo.desc,
-        imgUrl: this.wxShareInfo.imgUrl,
-        link: this.wxShareInfo.link,
+      let wxShareInfo = {
+        title: this.wxShareInfoValue.title,
+        desc: this.wxShareInfoValue.desc,
+        imgUrl: this.wxShareInfoValue.imgUrl,
+        link: this.wxShareInfoValue.link,
         success: () => {
           customTrack.shareWeChat()
         }
       }
-      return wxShareInfoValue
+      return wxShareInfo
     }
   }
 }
