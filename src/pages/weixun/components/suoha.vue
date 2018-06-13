@@ -93,9 +93,6 @@ export default {
           width: window.innerWidth + 'px'
         }
       },
-      control: {
-        shouldResultShow: false
-      },
       serverUrl: serverUrl,
       phoneValue: null,
       isPhoneError: false,
@@ -105,34 +102,52 @@ export default {
     }
   },
   methods: {
-    handleButtonClick() {
-      if (!/^1[345678]\d{9}$/.test(this.phoneValue)) {
-        this.isPhoneError = true
-        return
-      } else {
-        this.sendSms(this.savedId)
-        this.showResult()
-      }
-    },
-    clearError() {
-      this.isPhoneError = false
-    },
     checkCoupon() {
+      this.handleReset()
       let rq = process.env.WX_API + '/v6/common/coupon'
       let rd = {
         coupon_batch_id: process.env.NODE_ENV === 'production' ? '39' : '46'
       }
       this.$http.post(rq, rd).then(r => {
-        console.dir(r)
-        if (r.data.data.coupon_batch.name === '签名海报一张') {
+        if (r.data.data.coupon_batch.id !== 1000) {
           this.isGetCoupon = true
           this.savedId = r.data.data.id
         } else {
           this.isGetCoupon = false
+          this.showResult()
         }
       })
-      localStorage.setItem('hasSuoha', JSON.stringify(false))
       this.$parent.control.shouldBoxShow = false
+    },
+    handleReset() {
+      this.isGetCoupon = false
+      this.hasButtonClicked = false
+      this.clearError()
+    },
+    handleButtonClick() {
+      if (!/^1[345678]\d{9}$/.test(this.phoneValue)) {
+        this.isPhoneError = true
+        return
+      } else {
+        this.handlePhoneBind()
+      }
+    },
+    handlePhoneBind() {
+      let rq = process.env.WX_API + '/v4/common/coupon'
+      let rd = {
+        mobile: this.phoneValue,
+        coupon_id: this.savedId
+      }
+      this.$http.put(rq, rd).then(r => {
+        if (r.data.success === 'false' || r.data.success === false) {
+          this.showResult()
+        } else {
+          this.sendSms(this.savedId)
+        }
+      })
+    },
+    clearError() {
+      this.isPhoneError = false
     },
     showResult() {
       this.hasButtonClicked = true
@@ -145,7 +160,7 @@ export default {
         sms_tmp_id: '2336866'
       }
       this.$http.post(rq, rd).then(r => {
-        console.dir(r)
+        this.showResult()
       })
     },
     handleSuoHaClose() {

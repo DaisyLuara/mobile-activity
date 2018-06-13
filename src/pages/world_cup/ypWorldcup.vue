@@ -16,12 +16,12 @@
           <img class="tit2" :src="imgServerUrl + '/pages/yp/tit2.png'">
           <img class="tit3" :src="imgServerUrl + '/pages/yp/tit3.png'">
         </div>
-        <img class="mplay music" id="mbtn" :src="imgServerUrl + '/pages/yp/music.png'"  @click="playOrNot()">
+        <img  id="mbtn" class="mplay" :src="imgServerUrl + '/pages/yp/music.png'"  @click="playOrNot()">
         <img class="ball1" :src="imgServerUrl + '/pages/yp/ball.png'">
         <img class="ball2" :src="imgServerUrl + '/pages/yp/ball.png'">
         <div class="photo-area">
           <img class="kuang" :src="imgServerUrl + '/pages/yp/kuang3.png'">
-          <img class="kuang2" :src="imgServerUrl + '/pages/yp/kuang4.png'">
+          <!-- <img class="kuang2" :src="imgServerUrl + '/pages/yp/kuang4.png'"> -->
           <img class="save" :src="imgServerUrl + '/pages/yp/save.png'">
           <img  class="photo" :src="resultImgUrl" alt=""/>
           <!-- <img class="photo" :src="imgServerUrl + '/pages/yp/111.png'"> -->
@@ -54,9 +54,13 @@ export default {
         }
       },
       //微信分享
-      wxShareInfo: {
+      wxShareInfoValue: {
         title: '瞬感世界杯，冠军我来猜',
         desc: '...',
+        link:
+          window.location.origin +
+          '/marketing/yp_share?id=' +
+          this.$route.query.id,
         imgUrl:
           'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/yapei_share_icon.png',
         success: function() {
@@ -68,10 +72,10 @@ export default {
   beforeCreate() {
     document.title = ''
   },
-  created() {},
-  mounted() {
+  created() {
     this.getImageById()
   },
+  mounted() {},
   methods: {
     //拿取图片id
     getImageById() {
@@ -160,6 +164,21 @@ export default {
   },
   components: {
     WxShare
+  },
+  computed: {
+    //微信分享
+    wxShareInfo() {
+      let wxShareInfo = {
+        title: this.wxShareInfoValue.title,
+        desc: this.wxShareInfoValue.desc,
+        imgUrl: this.wxShareInfoValue.imgUrl,
+        link: this.wxShareInfoValue.link,
+        success: () => {
+          customTrack.shareWeChat()
+        }
+      }
+      return wxShareInfo
+    }
   }
 }
 </script>
@@ -170,7 +189,7 @@ img {
 @imgUrl: 'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/yp/';
 .content {
   width: 100%;
-  .music {
+  #mbtn {
     width: 10%;
     position: absolute;
     left: 9%;
@@ -267,13 +286,14 @@ img {
       width: 100%;
       text-align: center;
       z-index: 4;
-      .kuang2 {
-        position: absolute;
-        left: 11%;
-        top: 0;
-        opacity: 0;
-        animation: opacityKuang 2s linear infinite alternate;
-      }
+      // .kuang2 {
+      //   position: absolute;
+      //   left: 11%;
+      //   top: 0;
+      //   opacity: 0;
+      //   animation: opacityKuang 2s linear infinite alternate;
+      //   z-index: 4;
+      // }
       .save {
         width: 14%;
         position: absolute;
@@ -287,6 +307,7 @@ img {
         left: 28%;
         top: 2%;
         width: 57%;
+        z-index: 999;
       }
       img {
         width: 78%;
