@@ -103,6 +103,7 @@ export default {
   },
   methods: {
     checkCoupon() {
+      this.handleReset()
       let rq = process.env.WX_API + '/v6/common/coupon'
       let rd = {
         coupon_batch_id: process.env.NODE_ENV === 'production' ? '39' : '46'
@@ -116,8 +117,12 @@ export default {
           this.showResult()
         }
       })
-      // localStorage.setItem('hasSuoha', JSON.stringify(false))
       this.$parent.control.shouldBoxShow = false
+    },
+    handleReset() {
+      this.isGetCoupon = false
+      this.hasButtonClicked = false
+      this.clearError()
     },
     handleButtonClick() {
       if (!/^1[345678]\d{9}$/.test(this.phoneValue)) {
@@ -155,7 +160,6 @@ export default {
         sms_tmp_id: '2336866'
       }
       this.$http.post(rq, rd).then(r => {
-        console.dir(r)
         this.showResult()
       })
     },
