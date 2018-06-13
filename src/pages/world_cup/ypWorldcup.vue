@@ -54,8 +54,8 @@ export default {
       },
       //微信分享
       wxShareInfoValue: {
-        title: '瞬感世界杯，冠军我来猜',
-        desc: '享自由，不放纵',
+        title: '瞬感世界杯，冠军我来猜\n享自由，不放纵',
+        desc: '...',
         link:
           window.location.origin +
           '/marketing/yp_share?id=' +
