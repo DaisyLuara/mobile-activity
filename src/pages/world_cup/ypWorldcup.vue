@@ -14,14 +14,13 @@
         <div class="title">
           <img class="tit1" :src="imgServerUrl + '/pages/yp/tit1.png'">
           <img class="tit2" :src="imgServerUrl + '/pages/yp/tit2.png'">
-          <img class="tit3" :src="imgServerUrl + '/pages/yp/tit3.png'">
+          <img class="tit3" :src="imgServerUrl + '/pages/yp/tit4.png'">
         </div>
         <img  id="mbtn" class="mplay" :src="imgServerUrl + '/pages/yp/music.png'"  @click="playOrNot()">
         <img class="ball1" :src="imgServerUrl + '/pages/yp/ball.png'">
         <img class="ball2" :src="imgServerUrl + '/pages/yp/ball.png'">
         <div class="photo-area">
           <img class="kuang" :src="imgServerUrl + '/pages/yp/kuang3.png'">
-          <!-- <img class="kuang2" :src="imgServerUrl + '/pages/yp/kuang4.png'"> -->
           <img class="save" :src="imgServerUrl + '/pages/yp/save.png'">
           <img  class="photo" :src="resultImgUrl" alt=""/>
           <!-- <img class="photo" :src="imgServerUrl + '/pages/yp/111.png'"> -->
@@ -75,7 +74,9 @@ export default {
   created() {
     this.getImageById()
   },
-  mounted() {},
+  mounted() {
+    this.playAudio()
+  },
   methods: {
     //拿取图片id
     getImageById() {
@@ -96,7 +97,7 @@ export default {
       this.shade = false
     },
     playAudio() {
-      let mbtn = document.getElementById('content')
+      let mbtn = document.getElementById('mbtn')
       let voice = document.getElementById('voice')
       if (!voice) {
         return
@@ -131,7 +132,6 @@ export default {
           })
         }
       }
-
       //voiceStatu用來記録狀態,使 touchstart 事件只能觸發一次有效,避免與 click 事件衝突
       var voiceStatu = true
       //监听 touchstart 事件进而调用 <audio> 元素提供的 play() 方法播放音频
@@ -259,8 +259,7 @@ img {
         width: 54%;
         position: absolute;
         left: 25%;
-        top: 0;
-        // animation: titMove 1s linear infinite;
+        top: -2%;
       }
     }
     .ball1 {
@@ -286,14 +285,6 @@ img {
       width: 100%;
       text-align: center;
       z-index: 4;
-      // .kuang2 {
-      //   position: absolute;
-      //   left: 11%;
-      //   top: 0;
-      //   opacity: 0;
-      //   animation: opacityKuang 2s linear infinite alternate;
-      //   z-index: 4;
-      // }
       .save {
         width: 14%;
         position: absolute;
