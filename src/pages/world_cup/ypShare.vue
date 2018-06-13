@@ -6,7 +6,7 @@
 				<source :src="audioUrl">
 			</audio>
       <div class="main">
-        <!-- <img class="bg" :src="imgServerUrl + '/pages/yp/bg.png'"> -->
+        <!-- <img class="bg" :src="imgServerUrl + '/pages/yp/bg1.png'"> -->
         <div class="title">
           <img class="tit1" :src="imgServerUrl + '/pages/yp/tit1.png'">
           <img class="tit2" :src="imgServerUrl + '/pages/yp/tit2.png'">
@@ -22,9 +22,9 @@
           <img  class="photo" :src="resultImgUrl" alt=""/>
           <!-- <img class="photo" :src="imgServerUrl + '/pages/yp/111.png'"> -->
         </div>
-        <div class="ad">
+        <!-- <div class="ad">
           <img :src="imgServerUrl + '/pages/yp/ad.png'">
-        </div>
+        </div> -->
       </div>
         <wx-share :WxShareInfo="wxShareInfo"></wx-share>
     </div>
@@ -182,7 +182,7 @@ img {
     width: 100%;
     height: 100%;
     overflow-x: hidden;
-    background: url('@{imgUrl}bg.png') center top / 100% 100% no-repeat;
+    background: url('@{imgUrl}bg1.png') center top / 100% 100% no-repeat;
     // .bg {
     //   width: 100%;
     //   z-index: 1;
@@ -233,8 +233,8 @@ img {
       .tit2 {
         width: 74%;
         position: absolute;
-        left: 13%;
-        top: 25%;
+        left: 14%;
+        top: 29%;
         animation: titMove 1s linear infinite;
       }
       .tit3 {
@@ -293,31 +293,15 @@ img {
         width: 78%;
       }
     }
-    .get {
-      width: 78%;
-      display: inline-block;
-      position: absolute;
-      top: 65%;
-      left: 14%;
-      z-index: 4;
-    }
-    .share {
-      width: 19.1%;
-      position: absolute;
-      display: inline-block;
-      top: 65%;
-      right: 8.5%;
-      z-index: 5;
-    }
     .ad {
       position: absolute;
       left: 0;
-      bottom: 0%;
+      top: 85%;
       z-index: 4;
       text-align: center;
       img {
-        width: 100%;
-        margin-left: 2.5%;
+        width: 90%;
+        margin-left: 5.5%;
       }
     }
   }

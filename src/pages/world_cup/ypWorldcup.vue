@@ -16,15 +16,15 @@
           <img class="tit2" :src="imgServerUrl + '/pages/yp/tit2.png'">
           <img class="tit3" :src="imgServerUrl + '/pages/yp/tit3.png'">
         </div>
-        <img class="mplay music" id="mbtn" :src="imgServerUrl + '/pages/yp/music.png'"  @click="playOrNot()">
+        <img  id="mbtn" class="mplay" :src="imgServerUrl + '/pages/yp/music.png'"  @click="playOrNot()">
         <img class="ball1" :src="imgServerUrl + '/pages/yp/ball.png'">
         <img class="ball2" :src="imgServerUrl + '/pages/yp/ball.png'">
         <div class="photo-area">
           <img class="kuang" :src="imgServerUrl + '/pages/yp/kuang3.png'">
           <img class="kuang2" :src="imgServerUrl + '/pages/yp/kuang4.png'">
           <img class="save" :src="imgServerUrl + '/pages/yp/save.png'">
-          <img  class="photo" :src="resultImgUrl" alt=""/>
-          <!-- <img class="photo" :src="imgServerUrl + '/pages/yp/111.png'"> -->
+          <!-- <img  class="photo" :src="resultImgUrl" alt=""/> -->
+          <img class="photo" :src="imgServerUrl + '/pages/yp/111.png'">
         </div>
           <img class="get" :src="imgServerUrl + '/pages/yp/get_game.png'">
           <img class="share" :src="imgServerUrl + '/pages/yp/share.png'" @click="share()">
@@ -172,7 +172,7 @@ img {
 @imgUrl: 'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/yp/';
 .content {
   width: 100%;
-  .music {
+  #mbtn {
     width: 10%;
     position: absolute;
     left: 9%;
@@ -275,6 +275,7 @@ img {
         top: 0;
         opacity: 0;
         animation: opacityKuang 2s linear infinite alternate;
+        z-index: 4;
       }
       .save {
         width: 14%;
@@ -289,6 +290,7 @@ img {
         left: 28%;
         top: 2%;
         width: 57%;
+        z-index: 999;
       }
       img {
         width: 78%;
