@@ -93,9 +93,6 @@ export default {
           width: window.innerWidth + 'px'
         }
       },
-      control: {
-        shouldResultShow: false
-      },
       serverUrl: serverUrl,
       phoneValue: null,
       isPhoneError: false,
