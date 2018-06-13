@@ -17,14 +17,14 @@
         <img class="ball2" :src="imgServerUrl + '/pages/yp/ball.png'">
         <div class="photo-area">
           <img class="kuang" :src="imgServerUrl + '/pages/yp/kuang3.png'">
-          <img class="kuang2" :src="imgServerUrl + '/pages/yp/kuang4.png'">
+          <!-- <img class="kuang2" :src="imgServerUrl + '/pages/yp/kuang4.png'"> -->
           <img class="save" :src="imgServerUrl + '/pages/yp/save.png'">
           <img  class="photo" :src="resultImgUrl" alt=""/>
           <!-- <img class="photo" :src="imgServerUrl + '/pages/yp/111.png'"> -->
         </div>
-        <!-- <div class="ad">
+        <div class="ad">
           <img :src="imgServerUrl + '/pages/yp/ad.png'">
-        </div> -->
+        </div>
       </div>
         <wx-share :WxShareInfo="wxShareInfo"></wx-share>
     </div>
@@ -199,7 +199,7 @@ img {
     width: 100%;
     height: 100%;
     overflow-x: hidden;
-    background: url('@{imgUrl}bg1.png') center top / 100% 100% no-repeat;
+    background: url('@{imgUrl}bg2.png') center top / 100% 100% no-repeat;
     // .bg {
     //   width: 100%;
     //   z-index: 1;
@@ -285,13 +285,13 @@ img {
       width: 100%;
       text-align: center;
       z-index: 4;
-      .kuang2 {
-        position: absolute;
-        left: 11%;
-        top: 0;
-        opacity: 0;
-        animation: opacityKuang 2s linear infinite alternate;
-      }
+      // .kuang2 {
+      //   position: absolute;
+      //   left: 11%;
+      //   top: 0;
+      //   opacity: 0;
+      //   animation: opacityKuang 2s linear infinite alternate;
+      // }
       .save {
         width: 14%;
         position: absolute;
