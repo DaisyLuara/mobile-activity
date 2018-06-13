@@ -139,7 +139,7 @@ export default {
         coupon_id: this.savedId
       }
       this.$http.put(rq, rd).then(r => {
-        if (r.data.success === 'false') {
+        if (r.data.success === 'false' || r.data.success === false) {
           this.showResult()
         } else {
           this.sendSms(this.savedId)
