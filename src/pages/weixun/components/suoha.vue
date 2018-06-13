@@ -117,7 +117,11 @@ export default {
         coupon_id: this.savedId
       }
       this.$http.put(rq, rd).then(r => {
-        this.sendSms(this.savedId)
+        if (r.data.success === 'false') {
+          this.showResult()
+        } else {
+          this.sendSms(this.savedId)
+        }
       })
     },
     clearError() {
