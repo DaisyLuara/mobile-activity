@@ -533,6 +533,12 @@ export default new Router({
           name: 'couponList',
           component: () =>
             import(/* webpackChunkName: "couponList" */ 'pages/couponList/index.vue')
+        },
+        {
+          path: 'lottie',
+          name: 'lottie',
+          component: () =>
+            import(/* webpackChunkName: "Lottie" */ 'pages/lottie/index')
         }
       ]
     },
