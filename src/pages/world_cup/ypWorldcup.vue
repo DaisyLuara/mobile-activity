@@ -21,7 +21,7 @@
         <img class="ball2" :src="imgServerUrl + '/pages/yp/ball.png'">
         <div class="photo-area">
           <img class="kuang" :src="imgServerUrl + '/pages/yp/kuang3.png'">
-          <img class="kuang2" :src="imgServerUrl + '/pages/yp/kuang4.png'">
+          <!-- <img class="kuang2" :src="imgServerUrl + '/pages/yp/kuang4.png'"> -->
           <img class="save" :src="imgServerUrl + '/pages/yp/save.png'">
           <img  class="photo" :src="resultImgUrl" alt=""/>
           <!-- <img class="photo" :src="imgServerUrl + '/pages/yp/111.png'"> -->
@@ -286,14 +286,14 @@ img {
       width: 100%;
       text-align: center;
       z-index: 4;
-      .kuang2 {
-        position: absolute;
-        left: 11%;
-        top: 0;
-        opacity: 0;
-        animation: opacityKuang 2s linear infinite alternate;
-        z-index: 4;
-      }
+      // .kuang2 {
+      //   position: absolute;
+      //   left: 11%;
+      //   top: 0;
+      //   opacity: 0;
+      //   animation: opacityKuang 2s linear infinite alternate;
+      //   z-index: 4;
+      // }
       .save {
         width: 14%;
         position: absolute;
