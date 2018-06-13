@@ -110,9 +110,18 @@ export default {
         this.isPhoneError = true
         return
       } else {
-        this.sendSms(this.savedId)
-        this.showResult()
+        this.handlePhoneBind()
       }
+    },
+    handlePhoneBind() {
+      let rq = process.env.WX_API + '/v4/common/coupon'
+      let rd = {
+        mobile: this.phoneValue,
+        coupon_id: this.savedId
+      }
+      this.$http.put(rq, rd).then(r => {
+        this.sendSms(this.savedId)
+      })
     },
     clearError() {
       this.isPhoneError = false
@@ -123,15 +132,21 @@ export default {
         coupon_batch_id: process.env.NODE_ENV === 'production' ? '39' : '46'
       }
       this.$http.post(rq, rd).then(r => {
-        console.dir(r)
+        if (r.data.data.mobile !== null) {
+          this.isGetCoupon = true
+          this.showResult()
+          return
+        }
         if (r.data.data.coupon_batch.name === '签名海报一张') {
           this.isGetCoupon = true
           this.savedId = r.data.data.id
+          this.showResult()
         } else {
           this.isGetCoupon = false
+          this.showResult()
         }
       })
-      localStorage.setItem('hasSuoha', JSON.stringify(false))
+      // localStorage.setItem('hasSuoha', JSON.stringify(false))
       this.$parent.control.shouldBoxShow = false
     },
     showResult() {
