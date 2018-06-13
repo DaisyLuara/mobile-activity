@@ -19,7 +19,7 @@
           <img class="kuang" :src="imgServerUrl + '/pages/yp/kuang3.png'">
           <img class="save" :src="imgServerUrl + '/pages/yp/save.png'">
           <img  class="photo" :src="resultImgUrl" alt=""/>
-          <img class="photo" :src="imgServerUrl + '/pages/yp/111.png'">
+          <!-- <img class="photo" :src="imgServerUrl + '/pages/yp/111.png'"> -->
         </div>
         <div class="ad">
           <img :src="imgServerUrl + '/pages/yp/ad.png'">
