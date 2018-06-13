@@ -152,6 +152,7 @@ export default {
       }
       this.$http.post(rq, rd).then(r => {
         console.dir(r)
+        this.showResult()
       })
     },
     handleSuoHaClose() {
