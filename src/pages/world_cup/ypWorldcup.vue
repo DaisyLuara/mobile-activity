@@ -23,8 +23,8 @@
           <img class="kuang" :src="imgServerUrl + '/pages/yp/kuang3.png'">
           <img class="kuang2" :src="imgServerUrl + '/pages/yp/kuang4.png'">
           <img class="save" :src="imgServerUrl + '/pages/yp/save.png'">
-          <!-- <img  class="photo" :src="resultImgUrl" alt=""/> -->
-          <img class="photo" :src="imgServerUrl + '/pages/yp/111.png'">
+          <img  class="photo" :src="resultImgUrl" alt=""/>
+          <!-- <img class="photo" :src="imgServerUrl + '/pages/yp/111.png'"> -->
         </div>
           <img class="get" :src="imgServerUrl + '/pages/yp/get_game.png'">
           <img class="share" :src="imgServerUrl + '/pages/yp/share.png'" @click="share()">
