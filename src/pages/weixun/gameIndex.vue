@@ -5,10 +5,11 @@
     :style="style.root"
     v-if="status.hasFetchUserData || !status.isInWechat"
   >
+    <!-- 宝箱 -->
     <img 
       @click.self="handleSuoHaOpen"
       class="root-box"
-      v-show="control.shouldBoxShow"
+      
       :src="serverUrl + 'lottery.png'" />
     <!-- bg -->
     <img 
@@ -25,7 +26,6 @@
       class="get-photo"
       :src="imgUrl" />
 
-    <!-- 宝箱 -->
     <!-- game -->
     <div
       :style="style.game" 
@@ -377,7 +377,6 @@ export default {
   },
   created() {
     this.init()
-    console.log(this.$route.query.sid)
     if (isWeixin() === true) {
       this.handleWechatAuth()
       this.status.isInWechat = true
