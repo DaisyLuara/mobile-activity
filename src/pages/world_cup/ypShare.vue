@@ -35,7 +35,6 @@ import marketService from 'services/marketing'
 import WxShare from 'modules/wxShare'
 import { customTrack } from 'modules/customTrack'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
-const URL = 'http://h5.xingstation.com'
 export default {
   data() {
     return {
@@ -67,10 +66,10 @@ export default {
   beforeCreate() {
     document.title = ''
   },
-  created() {},
-  mounted() {
+  created() {
     this.getImageById()
   },
+  mounted() {},
   methods: {
     //拿取图片id
     getImageById() {
