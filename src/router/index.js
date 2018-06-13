@@ -514,12 +514,12 @@ export default new Router({
           component: () =>
             import ( /* webpackChunkName: "world_cup" */ 'pages/world_cup/ypWorldcup.vue')
         },
-        {
-          path: 'yp_share',
-          name: '雅培世界杯分享页',
-          component: () =>
-            import ( /* webpackChunkName: "world_cup" */ 'pages/world_cup/ypShare.vue')
-        },
+        // {
+        //   path: 'yp_share',
+        //   name: '雅培世界杯分享页',
+        //   component: () =>
+        //     import ( /* webpackChunkName: "world_cup" */ 'pages/world_cup/ypShare.vue')
+        // },
         {
           path: 'capsule_toys',
           name: '扭蛋机',
