@@ -102,6 +102,23 @@ export default {
     }
   },
   methods: {
+    checkCoupon() {
+      let rq = process.env.WX_API + '/v6/common/coupon'
+      let rd = {
+        coupon_batch_id: process.env.NODE_ENV === 'production' ? '39' : '46'
+      }
+      this.$http.post(rq, rd).then(r => {
+        if (r.data.data.coupon_batch.id !== 1000) {
+          this.isGetCoupon = true
+          this.savedId = r.data.data.id
+        } else {
+          this.isGetCoupon = false
+          this.showResult()
+        }
+      })
+      // localStorage.setItem('hasSuoha', JSON.stringify(false))
+      this.$parent.control.shouldBoxShow = false
+    },
     handleButtonClick() {
       if (!/^1[345678]\d{9}$/.test(this.phoneValue)) {
         this.isPhoneError = true
@@ -126,23 +143,6 @@ export default {
     },
     clearError() {
       this.isPhoneError = false
-    },
-    checkCoupon() {
-      let rq = process.env.WX_API + '/v6/common/coupon'
-      let rd = {
-        coupon_batch_id: process.env.NODE_ENV === 'production' ? '39' : '46'
-      }
-      this.$http.post(rq, rd).then(r => {
-        if (r.data.data.coupon_batch.name === '签名海报一张') {
-          this.isGetCoupon = true
-          this.savedId = r.data.data.id
-        } else {
-          this.isGetCoupon = false
-          this.showResult()
-        }
-      })
-      // localStorage.setItem('hasSuoha', JSON.stringify(false))
-      this.$parent.control.shouldBoxShow = false
     },
     showResult() {
       this.hasButtonClicked = true
