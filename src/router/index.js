@@ -527,6 +527,12 @@ export default new Router({
           name: '扭蛋机',
           component: () =>
             import(/* webpackChunkName: "capsuleToys" */ 'pages/capsuleToys/index.vue')
+        },
+        {
+          path: 'couponlist',
+          name: 'couponList',
+          component: () =>
+            import(/* webpackChunkName: "couponList" */ 'pages/couponList/index.vue')
         }
       ]
     },
