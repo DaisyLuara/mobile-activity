@@ -5,10 +5,11 @@
     :style="style.root"
     v-if="status.hasFetchUserData || !status.isInWechat"
   >
+    <!-- 宝箱 -->
     <img 
       @click.self="handleSuoHaOpen"
       class="root-box"
-      v-show="control.shouldBoxShow"
+      
       :src="serverUrl + 'lottery.png'" />
     <!-- bg -->
     <img 
@@ -25,7 +26,6 @@
       class="get-photo"
       :src="imgUrl" />
 
-    <!-- 宝箱 -->
     <!-- game -->
     <div
       :style="style.game" 
@@ -377,7 +377,6 @@ export default {
   },
   created() {
     this.init()
-    console.log(this.$route.query.sid)
     if (isWeixin() === true) {
       this.handleWechatAuth()
       this.status.isInWechat = true
@@ -438,9 +437,9 @@ export default {
       this.setUpRem()
       // 处理分享数据
       this.processPath()
-      if (localStorage.getItem('hasSuoha') === 'false') {
-        this.control.shouldBoxShow = false
-      }
+      // if (localStorage.getItem('hasSuoha') === 'false') {
+      //   this.control.shouldBoxShow = false
+      // }
     },
     processPath() {
       // sid 作为判断本页是否为分享之后的页面
@@ -623,7 +622,7 @@ export default {
   .root-box {
     z-index: 5000;
     position: fixed;
-    width: 20%;
+    width: 28%;
     top: 5%;
     right: 5%;
   }
