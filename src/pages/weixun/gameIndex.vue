@@ -438,9 +438,9 @@ export default {
       this.setUpRem()
       // 处理分享数据
       this.processPath()
-      if (localStorage.getItem('hasSuoha') === 'false') {
-        this.control.shouldBoxShow = false
-      }
+      // if (localStorage.getItem('hasSuoha') === 'false') {
+      //   this.control.shouldBoxShow = false
+      // }
     },
     processPath() {
       // sid 作为判断本页是否为分享之后的页面
@@ -623,7 +623,7 @@ export default {
   .root-box {
     z-index: 5000;
     position: fixed;
-    width: 20%;
+    width: 28%;
     top: 5%;
     right: 5%;
   }

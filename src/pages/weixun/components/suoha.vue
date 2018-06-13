@@ -131,7 +131,7 @@ export default {
           this.isGetCoupon = false
         }
       })
-      localStorage.setItem('hasSuoha', JSON.stringify(false))
+      // localStorage.setItem('hasSuoha', JSON.stringify(false))
       this.$parent.control.shouldBoxShow = false
     },
     showResult() {
