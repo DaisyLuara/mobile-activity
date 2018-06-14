@@ -6,11 +6,18 @@
     v-if="status.hasFetchUserData || !status.isInWechat"
   >
     <!-- 宝箱 -->
-    <img 
-      @click.self="handleSuoHaOpen"
-      class="root-box"
+    <div 
+      :style="style.box"
+      @click="handleSuoHaOpen"
+      class="root-box">
+      <img 
+        class="box-box"
+        :src="serverUrl + 'lottery.png'" />
       
-      :src="serverUrl + 'lottery.png'" />
+      <img
+        class="box-text"
+        :src="serverUrl + 'suohua-text.png'" />
+    </div>
     <!-- bg -->
     <img 
       class="bg"
@@ -299,6 +306,9 @@ export default {
         },
         recording: {
           height: wiw * 0.41 + 'px'
+        },
+        box: {
+          height: window.innerWidth * 0.36 + 'px'
         }
       },
       serverUrl: serverUrl,
@@ -625,6 +635,20 @@ export default {
     width: 28%;
     top: 5%;
     right: 5%;
+    height: 20%;
+    .box-box {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      animation: scaleAnimation 1s infinite;
+    }
+    .box-text {
+      position: absolute;
+      bottom: 5%;
+      left: -3%;
+      width: 100%;
+    }
   }
   .bg {
     width: 100%;
@@ -998,6 +1022,17 @@ export default {
     img {
       width: 100%;
     }
+  }
+}
+@keyframes scaleAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
   }
 }
 </style>
