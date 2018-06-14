@@ -3,7 +3,7 @@
         <img  class="egg-top" :src="imgServerUrl + '/pages/capsule_toys/1.png'" alt="" >
         <img  class="egg-bot" :src="imgServerUrl + '/pages/capsule_toys/2.png'" alt="" >
         <img  class="light" :src="imgServerUrl + '/pages/capsule_toys/light.png'" alt="" >
-        <div class="copon">
+        <div class="copon" :style="style">
           <img  class="cp-1"  v-show="showCoupon.cp1" :src="imgServerUrl + '/pages/capsule_toys/zhy.png'" alt="" >
           <img  class="cp-2"  v-show="showCoupon.cp2" :src="imgServerUrl + '/pages/capsule_toys/hz.png'" alt="" >
           <img  class="cp-3"  v-show="showCoupon.cp3" :src="imgServerUrl + '/pages/capsule_toys/sc.png'" alt="" >
@@ -28,6 +28,9 @@ export default {
         typeID: 65,
         typeName: 'A',
         count: 1
+      },
+      style: {
+        height: Window.innerwidth * 0.8 * 737 / 380 + 'px'
       },
       showCoupon: {
         cp1: false,
@@ -160,6 +163,7 @@ body {
     left: 0;
     top: 0;
     z-index: 1;
+    animation: EggMove1 0.8s ease-out infinite alternate;
   }
   .egg-bot {
     width: 100%;
@@ -168,26 +172,52 @@ body {
     left: 0;
     bottom: 0;
     z-index: 1;
+    animation: EggMove2 0.8s ease-out infinite alternate;
   }
   .light {
     width: 100%;
     position: absolute;
-    left: 50%;
-    top: 50%;
+    left: 0%;
+    top: 20%;
     transform: translate(-50%, -53%);
+    animation: mycir 2s linear infinite;
   }
   .copon {
-    width: 67%;
-    height: 70%;
+    width: 60%;
+    //height: 67%;
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -49.5%);
     z-index: 3;
     img {
       width: 100%;
       height: 100%;
     }
+  }
+}
+@keyframes mycir {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}
+@keyframes EggMove1 {
+  0% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes EggMove2 {
+  0% {
+    transform: translateY(3px);
+  }
+  100% {
+    transform: translateY(0);
   }
 }
 </style>
