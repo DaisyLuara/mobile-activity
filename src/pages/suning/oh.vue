@@ -1,7 +1,7 @@
 <template>
   <div class="oh-content" :style="style.root" >
     <img class="title" :src="imgServerUrl + '/pages/oh/title.png'" alt="" >
-    <img  class="photo" :src="resultImgUrl" alt=""/>
+    <img  class="photo" :style="style.photoHei" :src="resultImgUrl" alt=""/>
     <!-- <img class="photo" :style="style.photoHei" :src="imgServerUrl + '/pages/oh/1111.jpg'" alt=""/> -->
     <img class="save" :src="imgServerUrl + '/pages/oh/save.png'" alt="" > 
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
