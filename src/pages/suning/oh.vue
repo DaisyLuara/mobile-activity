@@ -2,7 +2,7 @@
   <div class="oh-content" :style="style.root" >
     <img class="title" :src="imgServerUrl + '/pages/oh/title.png'" alt="" >
     <img  class="photo" :src="resultImgUrl" alt=""/>
-    <!-- <img class="photo" :src="imgServerUrl + '/pages/oh/2222.jpg'" alt=""/> -->
+    <!-- <img class="photo" :style="style.photoHei" :src="imgServerUrl + '/pages/oh/1111.jpg'" alt=""/> -->
     <img class="save" :src="imgServerUrl + '/pages/oh/save.png'" alt="" > 
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
@@ -27,6 +27,9 @@ export default {
       style: {
         root: {
           height: wih + 'px'
+        },
+        photoHei: {
+          height: Window.innerwidth * 0.78 * 1920 / 1080 + 'px'
         }
       },
       //微信分享信息
@@ -99,13 +102,12 @@ body {
     top: 2%;
   }
   .photo {
-    width: 85%;
-    height: 78%;
+    width: 72%;
     position: absolute;
     text-align: center;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -49%);
     overflow: hidden;
     padding: 2%;
   }
