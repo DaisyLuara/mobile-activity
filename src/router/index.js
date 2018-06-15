@@ -539,6 +539,12 @@ export default new Router({
           name: 'lottie',
           component: () =>
             import(/* webpackChunkName: "Lottie" */ 'pages/lottie/index')
+        },
+        {
+          path: 'risk',
+          name: '丛林大冒险',
+          component: () =>
+            import(/* webpackChunkName: "risk" */ 'pages/risk/index')
         }
       ]
     },
