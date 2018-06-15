@@ -545,6 +545,12 @@ export default new Router({
           name: '穿越前世今生',
           component: () =>
             import(/* webpackChunkName: "pandp" */ 'pages/pandp/index.vue')
+        },
+        {
+          path: 'risk',
+          name: '丛林大冒险',
+          component: () =>
+            import(/* webpackChunkName: "risk" */ 'pages/risk/index')
         }
       ]
     },
