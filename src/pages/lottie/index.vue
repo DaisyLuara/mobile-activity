@@ -54,7 +54,7 @@ export default {
       },
       wxShareInfoValue: {
         title: '激情世界杯 2018',
-        desc: '副标题 ；巅峰对决',
+        desc: '巅峰对决',
         imgUrl: serverUrl + 'share.png'
       },
       photo: null,
