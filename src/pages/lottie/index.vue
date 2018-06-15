@@ -17,10 +17,10 @@
     <div
       :style="style.score" 
       class="score">
-      <span>{{score[0]}}</span>
-      <span>{{score[1]}}</span>
-      <span>{{score[2]}}</span>
-      <span>{{score[3]}}</span>
+      <span>{{score.portugal}}</span>
+      <span>{{score.argentina}}</span>
+      <span>{{score.germany}}</span>
+      <span>{{score.brazil}}</span>
     </div>
 
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
