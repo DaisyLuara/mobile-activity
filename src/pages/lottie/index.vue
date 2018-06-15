@@ -53,8 +53,8 @@ export default {
         }
       },
       wxShareInfoValue: {
-        title: '浦江饭店',
-        desc: '与浦江合影留念',
+        title: '激情世界杯 2018',
+        desc: '副标题 ；巅峰对决',
         imgUrl: serverUrl + 'share.png'
       },
       photo: null,
@@ -76,7 +76,7 @@ export default {
     }
   },
   created() {
-    document.title = '世界杯'
+    document.title = '激情世界杯'
   },
   mounted() {
     this.initAnimation()
