@@ -3,7 +3,7 @@
         <canvas id="canvas"></canvas>
         <img id="border" src="/static/pandp/border.png"/>
         <img id="mImg" src=""/>
-        <img class="note" :src="IMG_URL + 'note.png'"/>
+        <img class="note" :src="IMG_URL + 'note.png'" v-show ="note"/>
         <wx-share :WxShareInfo="wxShareInfo"></wx-share>
     </div>
 
@@ -20,6 +20,7 @@ export default {
       content: null,
       width: null,
       height: null,
+      note: false,
       type: this.$route.query.type,
       id: this.$route.query.id,
       //微信分享
@@ -72,7 +73,7 @@ export default {
       bg.onload = function() {
         canvas.width = bg.width
         canvas.height = bg.height
-        ctx.drawImage(bg, 0, 0)
+        console.log(bg.height)
         img.onload = function() {
           ctx.drawImage(
             img,
@@ -81,10 +82,11 @@ export default {
             img.width,
             img.height,
             -bg.width * 0.09,
-            bg.height * 0.12,
+            bg.height * 0.24,
             bg.width * 1.18,
             img.height * bg.width * 1.18 / img.width
           )
+          ctx.drawImage(bg, 0, 0)
           cover.onload = function() {
             ctx.drawImage(
               cover,
@@ -97,7 +99,6 @@ export default {
               bg.width,
               bg.height * 0.95
             )
-
             word.onload = function() {
               ctx.drawImage(
                 word,
@@ -105,9 +106,9 @@ export default {
                 0,
                 word.width,
                 word.height,
-                bg.width * 0.12,
-                bg.height * 0.035,
-                bg.width * 0.76,
+                bg.width * 0.15,
+                bg.height * 0.052,
+                bg.width * 0.7,
                 bg.height * 0.19
               )
               text.onload = function() {
@@ -117,12 +118,12 @@ export default {
                   0,
                   text.width,
                   text.height,
-                  bg.width * 0.3,
-                  bg.height * 0.05,
-                  bg.width * 0.4,
-                  bg.height * 0.18
+                  bg.width * 0.32,
+                  bg.height * 0.07,
+                  bg.width * 0.36,
+                  bg.height * 0.167
                 )
-                that.drawPloygen(canvas, 5, bg.width * 0.115, bg.height * 0.085)
+                that.drawPloygen(canvas, 5, bg.width * 0.1, bg.height * 0.102)
               }
               text.src = b_url + './text.png'
             }
@@ -141,6 +142,12 @@ export default {
       let ctx = canvas.getContext('2d')
       let lineR = radius + 15
       let score = []
+      if (window.localStorage.getItem('ppscore')) {
+        score = window.localStorage.getItem('ppscore').split(',')
+      } else {
+        score = []
+      }
+
       ctx.translate(canvas.width / 2, radius + top)
       ctx.rotate(Math.PI)
       ctx.save()
@@ -162,30 +169,31 @@ export default {
       //圆心为（0，0）
       //内部不规则多边形
       ctx.beginPath()
-      ctx.lineWidth = 5 //5
+      ctx.lineWidth = 2 //5
       ctx.lineJoin = 'round'
-      //ctx.strokeStyle = '#baa7a3'
-      let gradient = ctx.createRadialGradient(0, 0, lineR, 0, 0, 10)
-      gradient.addColorStop(0, '#baa7a3')
-      gradient.addColorStop(1, '#f2ece7')
-      let gradient2 = ctx.createLinearGradient(0, 0, lineR, 0, 0, 10)
-      gradient2.addColorStop(0, 'rgba(186,167,163,1)')
-      gradient2.addColorStop(0.4, 'rgba(186,167,163,0.4)')
-      gradient2.addColorStop(0.6, 'rgba(186,167,163,0)')
-      gradient2.addColorStop(1, 'rgba(186,167,163,0)')
-      for (let i = 0; i < num; i++) {
-        let k = Math.random()
-        //k = k < 0.2 ? 0.2 : k
-        let x = lineR * Math.sin(angle * i),
-          y = lineR * Math.cos(angle * i)
-        ctx.lineTo(k * x, k * y)
-        let kScore = Math.floor(k * 100)
-        score.push(kScore)
+      ctx.strokeStyle = '#baa7a3'
+      if (!score.length) {
+        for (let i = 0; i < num; i++) {
+          let k = Math.random()
+          //k = k < 0.2 ? 0.2 : k
+          let x = lineR * Math.sin(angle * i),
+            y = lineR * Math.cos(angle * i)
+          ctx.lineTo(k * x, k * y)
+          let kScore = Math.floor(k * 100)
+          score.push(kScore)
+        }
+      } else {
+        for (let i = 0; i < num; i++) {
+          let k = score[i] / 100
+          //k = k < 0.2 ? 0.2 : k
+          let x = lineR * Math.sin(angle * i),
+            y = lineR * Math.cos(angle * i)
+          ctx.lineTo(k * x, k * y)
+        }
       }
-      ctx.fillStyle = gradient
+      window.localStorage.setItem('ppscore', score.toString())
       ctx.closePath()
       ctx.stroke()
-      ctx.fill()
       ctx.save()
       //画正多边形
       let points = []
@@ -207,12 +215,13 @@ export default {
       }
 
       //显示的数字值
+
       ctx.beginPath()
       ctx.rotate(-angle / 2)
       ctx.translate(0, -radius)
       ctx.rotate(-Math.PI)
       ctx.beginPath()
-      ctx.font = 'bold 28px sans-serif'
+      ctx.font = 'bold 24px sans-serif'
       ctx.textAlign = screenLeft
       ctx.textBaseline = 'middle'
       ctx.fillStyle = '#baa7a3'
@@ -222,27 +231,27 @@ export default {
       ctx.fillText(
         score[0],
         lineR * 1.5 * Math.sin(0) - 12,
-        -lineR * 1.5 * Math.cos(0) + 5
+        -lineR * 1.5 * Math.cos(0) + 8
       )
       ctx.fillText(
         score[4],
-        lineR * 1.5 * Math.sin(angle) - 33,
-        -lineR * 1.5 * Math.cos(angle) - 22
+        lineR * 1.5 * Math.sin(angle) - 30,
+        -lineR * 1.5 * Math.cos(angle) - 15
       )
       ctx.fillText(
         score[3],
-        lineR * 1.5 * Math.sin(angle * 2) - 14,
-        -lineR * 1.5 * Math.cos(angle * 2) - 50
+        lineR * 1.5 * Math.sin(angle * 2) - 13,
+        -lineR * 1.5 * Math.cos(angle * 2) - 43
       )
       ctx.fillText(
         score[2],
         lineR * 1.5 * Math.sin(angle * 3) - 15,
-        -lineR * 1.5 * Math.cos(angle * 3) - 50
+        -lineR * 1.5 * Math.cos(angle * 3) - 43
       )
       ctx.fillText(
         score[1],
         lineR * 1.5 * Math.sin(angle * 4) - 5,
-        -lineR * 1.5 * Math.cos(angle * 4) - 20
+        -lineR * 1.5 * Math.cos(angle * 4) - 15
       )
       ctx.closePath()
       ctx.fill()
@@ -253,6 +262,7 @@ export default {
       let url = canvas.toDataURL('image/png')
       let img = document.getElementById('mImg')
       img.src = url
+      this.note = true
     }
   },
   components: {
