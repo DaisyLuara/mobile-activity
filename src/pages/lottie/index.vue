@@ -22,6 +22,8 @@
       <span>{{score[2]}}</span>
       <span>{{score[3]}}</span>
     </div>
+
+    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
 </template>
 
@@ -48,9 +50,7 @@ export default {
         score: {
           top: window.innerWidth * 2.014 + 'px'
         },
-        photo: {
-          top: window.innerWidth * 120 / 375 + 'px'
-        }
+        photo: null
       },
       wxShareInfoValue: {
         title: '激情世界杯 2018',
@@ -127,6 +127,13 @@ export default {
         .getInfoById(this, id)
         .then(res => {
           this.photo = res.image
+          this.style.photo = {
+            width: '63.8%',
+            zIndex: '12',
+            position: 'absolute',
+            left: '18.2%',
+            top: window.innerWidth * 120 / 375 + 'px'
+          }
         })
         .catch(err => {
           Toast(err)
