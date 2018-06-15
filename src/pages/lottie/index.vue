@@ -17,10 +17,10 @@
     <div
       :style="style.score" 
       class="score">
-      <span>{{score[0]}}</span>
-      <span>{{score[1]}}</span>
-      <span>{{score[2]}}</span>
-      <span>{{score[3]}}</span>
+      <span>{{score.portugal}}</span>
+      <span>{{score.argentina}}</span>
+      <span>{{score.germany}}</span>
+      <span>{{score.brazil}}</span>
     </div>
 
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
@@ -58,7 +58,12 @@ export default {
         imgUrl: serverUrl + 'share.png'
       },
       photo: null,
-      score: [100, 200, 300, 400]
+      score: {
+        portugal: '0',
+        argentina: '0',
+        germany: '0',
+        brazil: '0'
+      }
     }
   },
   computed: {
@@ -102,21 +107,20 @@ export default {
         }
       }
       this.$http.get(rq, rd).then(r => {
-        console.dir(r)
         this.score = []
         let resData = r.data.data
         for (let item of resData) {
           if (item.team_name === 'portugal') {
-            this.score.push(item.total)
+            this.score.portugal = item.total
           }
           if (item.team_name === 'argentina') {
-            this.score.push(item.total)
+            this.score.argentina = item.total
           }
           if (item.team_name === 'germany') {
-            this.score.push(item.total)
+            this.score.germany = item.total
           }
           if (item.team_name === 'brazil') {
-            this.score.push(item.total)
+            this.score.brazil = item.total
           }
         }
       })
