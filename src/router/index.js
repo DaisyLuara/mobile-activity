@@ -541,6 +541,12 @@ export default new Router({
             import(/* webpackChunkName: "Lottie" */ 'pages/lottie/index')
         },
         {
+          path: 'pandp',
+          name: '穿越前世今生',
+          component: () =>
+            import(/* webpackChunkName: "pandp" */ 'pages/pandp/index.vue')
+        },
+        {
           path: 'risk',
           name: '丛林大冒险',
           component: () =>
