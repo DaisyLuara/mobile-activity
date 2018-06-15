@@ -82,7 +82,7 @@ export default {
             img.width,
             img.height,
             -bg.width * 0.09,
-            bg.height * 0.22,
+            bg.height * 0.24,
             bg.width * 1.18,
             img.height * bg.width * 1.18 / img.width
           )
