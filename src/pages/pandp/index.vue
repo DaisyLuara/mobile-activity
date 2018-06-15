@@ -3,7 +3,7 @@
         <canvas id="canvas"></canvas>
         <img id="border" src="/static/pandp/border.png"/>
         <img id="mImg" src=""/>
-        <img class="note" :src="ING_URL + 'note.png'"/>
+        <img class="note" :src="IMG_URL + 'note.png'"/>
         <wx-share :WxShareInfo="wxShareInfo"></wx-share>
     </div>
 
@@ -16,7 +16,7 @@ const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
   data() {
     return {
-      ING_URL: IMAGE_SERVER + '/pages/pandp/',
+      IMG_URL: IMAGE_SERVER + '/pages/pandp/',
       content: null,
       width: null,
       height: null,
@@ -24,14 +24,15 @@ export default {
       id: this.$route.query.id,
       //微信分享
       wxShareInfo: {
-        title: '',
-        desc: '',
-        imgUrl: ''
+        title: '天哪！我穿越了！',
+        desc: '快来看看我穿越成了谁？',
+        imgUrl:
+          'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/pandp/share.jpg'
       }
     }
   },
   beforeCreate() {
-    document.title = '穿越前世今生'
+    document.title = '星视度前世穿越机'
   },
   created() {},
   mounted() {
