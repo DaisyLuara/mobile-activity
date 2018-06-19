@@ -125,6 +125,7 @@
 <script>
 const wih = window.innerHeight
 const wiw = window.innerWidth
+import { isWeixin } from '../../modules/util'
 import Remind from './remind'
 const baseUrl =
   'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/lxxj/'
