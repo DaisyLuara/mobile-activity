@@ -150,7 +150,6 @@ export default {
       status: {
         // isPhoneError: false,
         isGetCoupon: null,
-        isGetCoupon: true,
         // step: 'coupon',
         step: 'input',
         shouldInputRemindShow: true,
