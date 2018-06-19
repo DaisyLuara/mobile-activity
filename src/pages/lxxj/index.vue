@@ -92,7 +92,8 @@
           class="inner-button"
           @click="handleRemindShow">
           <img
-          :src="baseUrl + 'btn-submit.png'" />
+            style="pointer-events: none; "
+            :src="baseUrl + 'btn-submit.png'" />
         </div>
         
       </div>
@@ -147,8 +148,10 @@ export default {
       coupon_code: 580870245930946,
       status: {
         isPhoneError: false,
-        isGetCoupon: null,
-        step: 'input',
+        // isGetCoupon: null,
+        isGetCoupon: true,
+        step: 'coupon',
+        // step: 'input',
         shouldInputRemindShow: true,
         shouldRemindShow: false
       }
