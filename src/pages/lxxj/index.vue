@@ -166,7 +166,7 @@ export default {
       }
       this.$http.post(rq, rd).then(r => {
         this.savedCounponId = r.data.data.id
-        if (r.data.data.coupon_batch_id === 1001) {
+        if (r.data.data.coupon_batch.name === '龙虾刑警观影券') {
           this.status.isGetCoupon = true
           this.counpon_code = r.data.data.code
         } else {
