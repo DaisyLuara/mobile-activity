@@ -126,6 +126,7 @@
 const wih = window.innerHeight
 const wiw = window.innerWidth
 import { isWeixin } from '../../modules/util'
+import marketService from 'services/marketing'
 const wx = require('weixin-js-sdk')
 import Remind from './remind'
 const baseUrl =
@@ -164,8 +165,13 @@ export default {
   },
   mounted() {
     this.handleForbiddenShare()
+    this.getInfoById()
   },
   methods: {
+    getInfoById() {
+      let id = this.$route.query.id
+      marketService.getInfoById(this, id).then(res => {})
+    },
     handleForbiddenShare() {
       if (isWeixin() === true) {
         let requestUrl = process.env.WX_API + '/wx/officialAccount/sign'
