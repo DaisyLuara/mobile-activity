@@ -71,36 +71,44 @@
 
       <!-- 宝箱 -->
       <img 
+        @click="jumpToLink"
         class="link"
         :src="baseUrl + 'box.png'"
         />
       
-
-      <!-- button -->
-      <!-- <img 
-        class="button"
-        :src="baseUrl + ''"
-        /> -->
       <div
-        v-show="status.resultType === 1"
+        v-show="status.resultType"
         :style="style.coupon1"
         class="coupon-inner-1">
         <img
           class="inner-cover"
           :src="baseUrl + 'coupon-1.png'" />
+
+        <div 
+          class="coupon-number">
+          <div
+            class="number-inner"
+            :key="index" 
+            v-for="(item, index) of String(counpon_code)">
+            <img 
+              :src="baseUrl + item + '.png'" />
+          </div>
+        </div>
+
         <img
           class="inner-button"
+          @click="handleRemindShow"
           :src="baseUrl + 'btn-submit.png'" />
       </div>
 
       <img
-        v-show="status.resultType === 2"
+        v-show="!status.resultType"
         :style="style.coupon2"
         class="coupon-inner-2"
         :src="baseUrl + 'coupon-2.png'" />
     </div>
     
-    <Remind />
+    <Remind v-show="status.shouldRemindShow"/>
   </div>
 </template>
 
@@ -127,58 +135,77 @@ export default {
         }
       },
       phoneValue: null,
+      counpon_code: 580870245930946,
       status: {
         isPhoneError: false,
         isGetCoupon: false,
-        step: 'coupon',
+        step: 'input',
         shouldInputRemindShow: true,
-        resultType: 1
+        isGetCoupon: false,
+        shouldRemindShow: false
       }
     }
   },
+  created() {
+    document.title = '龙虾大刑警'
+  },
   methods: {
     checkPhoneValue() {
-      console.log('clicked')
       if (!/^1[345678]\d{9}$/.test(this.phoneValue)) {
         this.status.isPhoneError = true
         return
       } else {
         this.status.step = 'coupon'
-        this.handlePhoneBind()
+        this.getCoupon()
       }
     },
-    checkCoupon() {
+    getCoupon() {
       let rq = process.env.WX_API + '/v6/common/coupon'
       let rd = {
-        coupon_batch_id: process.env.NODE_ENV === 'production' ? '39' : '46'
+        tenant_id: process.env.NODE_ENV === 'production' ? '18' : '20'
       }
       this.$http.post(rq, rd).then(r => {
-        if (r.data.data.coupon_batch_id !== 1000) {
-          this.savedCounponId = r.data.data.id
+        this.savedCounponId = r.data.data.id
+        if (r.data.data.coupon_batch_id === 1001) {
           this.status.isGetCoupon = true
+          this.counpon_code = r.data.data.code
         } else {
           this.status.isGetCoupon = false
         }
+        this.handlePhoneBind()
       })
+    },
+    handleRemindShow() {
+      this.status.shouldRemindShow = !this.status.shouldRemindShow
     },
     handlePhoneBind() {
       let rq = process.env.WX_API + '/v4/common/coupon'
       let rd = {
         mobile: this.phoneValue,
-        coupon_id: this.savedId
+        coupon_id: this.savedCounponId
       }
       this.$http.put(rq, rd).then(r => {
         if (r.data.success === 'false' || r.data.success === false) {
-          this.showResult()
         } else {
-          this.sendSms(this.savedId)
+          this.sendSms(this.savedCounponId)
         }
       })
+    },
+    sendSms(id) {
+      let rq = process.env.WX_API + '/v6/common/coupon/sms'
+      let rd = {
+        mobile: this.phoneValue,
+        coupon_id: id,
+        sms_tmp_id: '2336866'
+      }
     },
     clearError() {
       this.status.isPhoneError = false
       this.status.shouldInputRemindShow = false
       this.$refs.inputreal.focus()
+    },
+    jumpToLink() {
+      window.location.href = 'http://sapi.xingstation.com/api/s/52YA'
     }
   }
 }
@@ -307,6 +334,23 @@ export default {
       left: 0;
       right: 0;
       z-index: 12;
+      .coupon-number {
+        height: 12%;
+        position: absolute;
+        top: 51.8%;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 0 5%;
+        .number-inner {
+          height: 100%;
+          img {
+            width: 100%;
+          }
+        }
+      }
       .inner-cover {
         width: 100%;
       }
