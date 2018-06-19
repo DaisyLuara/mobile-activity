@@ -551,6 +551,12 @@ export default new Router({
           name: '丛林大冒险',
           component: () =>
             import(/* webpackChunkName: "risk" */ 'pages/risk/index')
+        },
+        {
+          path: 'lxxj',
+          name: 'longXiaXingJing',
+          component: () =>
+            import(/* webpackChunkName: "longXiaXingJing" */ 'pages/lxxj/index')
         }
       ]
     },
