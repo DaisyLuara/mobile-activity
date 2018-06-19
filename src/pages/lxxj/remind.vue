@@ -56,7 +56,7 @@ export default {
   border: #fcc96c 1.5px solid;
   border-radius: 8px;
   .title {
-    width: 87%;
+    width: 71%;
     height: 10%;
     display: flex;
     flex-direction: row;
@@ -65,7 +65,7 @@ export default {
     background-color: #090201;
     position: fixed;
     margin-top: 0;
-    padding: 0 8%;
+    margin: 0 7%;
     z-index: 9003;
     .title-word {
       width: 60%;
