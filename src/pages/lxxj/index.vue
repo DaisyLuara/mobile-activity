@@ -68,13 +68,6 @@
       <img
         class="coupon-bg"
         :src="baseUrl + 'coupon-bg.png'" />
-
-      <!-- 宝箱 -->
-      <img 
-        @click="jumpToLink"
-        class="link"
-        :src="baseUrl + 'box.png'"
-        />
       
       <div
         v-show="status.isGetCoupon"
@@ -89,7 +82,7 @@
           <div
             class="number-inner"
             :key="index" 
-            v-for="(item, index) of String(counpon_code)">
+            v-for="(item, index) of String(coupon_code)">
             <img 
               :src="baseUrl + item + '.png'" />
           </div>
@@ -109,6 +102,14 @@
     </div>
     
     <Remind v-show="status.shouldRemindShow"/>
+
+     <!-- 宝箱 -->
+    <img 
+      v-show="status.step === 'coupon'"
+      @click="jumpToLink"
+      class="link"
+      :src="baseUrl + 'box.png'"
+      />
   </div>
 </template>
 
@@ -135,7 +136,7 @@ export default {
         }
       },
       phoneValue: null,
-      counpon_code: 580870245930946,
+      coupon_code: 580870245930946,
       status: {
         isPhoneError: false,
         isGetCoupon: false,
@@ -147,9 +148,24 @@ export default {
     }
   },
   created() {
-    document.title = '龙虾大刑警'
+    document.title = '龙虾刑警'
+    this.handleStorage()
   },
   methods: {
+    handleStorage() {
+      if (localStorage.getItem('longxia') !== null) {
+        let getData = JSON.parse(localStorage.getItem('longxia'))
+        this.coupon_code = getData.coupon_code
+        this.isGetCoupon = getData.isGetCoupon
+      }
+    },
+    saveStorage() {
+      let saveData = {
+        coupon_code: this.coupon_code,
+        isGetCoupon: this.isGetCoupon
+      }
+      localStorage.setItem('longxia', JSON.stringify(saveData))
+    },
     checkPhoneValue() {
       if (!/^1[345678]\d{9}$/.test(this.phoneValue)) {
         this.status.isPhoneError = true
@@ -168,11 +184,12 @@ export default {
         this.savedCounponId = r.data.data.id
         if (r.data.data.coupon_batch.name === '龙虾刑警观影券') {
           this.status.isGetCoupon = true
-          this.counpon_code = r.data.data.code
+          this.coupon_code = r.data.data.code
         } else {
           this.status.isGetCoupon = false
         }
         this.handlePhoneBind()
+        this.saveStorage()
       })
     },
     handleRemindShow() {
@@ -205,7 +222,10 @@ export default {
       this.$refs.inputreal.focus()
     },
     jumpToLink() {
-      window.location.href = 'http://sapi.xingstation.com/api/s/52YA'
+      window.location.href =
+        process.env.NODE_ENV === 'production'
+          ? 'http://papi.xingstation.com/api/s/pyX'
+          : 'http://papi.newgls.cn/api/s/vm'
     }
   }
 }
@@ -318,13 +338,7 @@ export default {
       right: 0;
       z-index: 12;
     }
-    .link {
-      position: absolute;
-      width: 20%;
-      top: 38%;
-      right: 0;
-      z-index: 10000;
-    }
+
     .coupon-inner-1 {
       width: 50%;
       margin: auto;
@@ -372,6 +386,13 @@ export default {
       right: 0;
       z-index: 12;
     }
+  }
+  .link {
+    position: absolute;
+    width: 20%;
+    top: 38%;
+    right: 0;
+    z-index: 10000;
   }
 }
 </style>
