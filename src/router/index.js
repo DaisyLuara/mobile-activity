@@ -557,6 +557,12 @@ export default new Router({
           name: '表情包制造机',
           component: () =>
             import(/* webpackChunkName: "meme" */ 'pages/meme/result.vue')
+        },
+        {
+          path: 'lxxj',
+          name: 'longXiaXingJing',
+          component: () =>
+            import(/* webpackChunkName: "longXiaXingJing" */ 'pages/lxxj/index')
         }
       ]
     },

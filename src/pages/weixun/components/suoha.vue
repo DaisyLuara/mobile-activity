@@ -106,7 +106,7 @@ export default {
       this.handleReset()
       let rq = process.env.WX_API + '/v6/common/coupon'
       let rd = {
-        coupon_batch_id: process.env.NODE_ENV === 'production' ? '39' : '46'
+        tenant_id: process.env.NODE_ENV === 'production' ? '17' : '19'
       }
       this.$http.post(rq, rd).then(r => {
         if (r.data.data.coupon_batch.id !== 1000) {
