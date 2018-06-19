@@ -99,6 +99,11 @@
         :style="style.coupon2"
         class="coupon-inner-2"
         :src="baseUrl + 'coupon-2.png'" />
+
+      <img
+        class="wrapper-time"
+        :src="baseUrl + 'time.png'" />
+        
     </div>
     
     <Remind v-show="status.shouldRemindShow"/>
@@ -323,6 +328,13 @@ export default {
     }
   }
   .coupon-wrapper {
+    .wrapper-time {
+      z-index: 12;
+      width: 30%;
+      left: 35%;
+      position: absolute;
+      bottom: 5%;
+    }
     position: absolute;
     top: 0;
     left: 0;
@@ -333,7 +345,7 @@ export default {
       width: 100%;
       margin: auto;
       position: absolute;
-      top: 0;
+      top: -10%;
       bottom: 0;
       left: 0;
       right: 0;
@@ -344,7 +356,7 @@ export default {
       width: 50%;
       margin: auto;
       position: absolute;
-      top: 6%;
+      top: -2%;
       bottom: 0;
       left: 0;
       right: 0;
@@ -381,7 +393,7 @@ export default {
       width: 50%;
       margin: auto;
       position: absolute;
-      top: 6%;
+      top: -4%;
       bottom: 0;
       left: 0;
       right: 0;
