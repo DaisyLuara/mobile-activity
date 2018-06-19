@@ -246,7 +246,7 @@ export default {
         coupon_id: this.savedCounponId
       }
       this.$http.put(rq, rd).then(r => {
-        if (r.data.success === 'false' || r.data.success === false) {
+        if (r.data.success === false) {
         } else {
           this.sendSms(this.savedCounponId)
         }
@@ -259,6 +259,7 @@ export default {
         coupon_id: id,
         sms_tmp_id: '2351522'
       }
+      this.$http.post(rq, rd).then(r => {})
     },
     clearError() {
       this.status.isPhoneError = false
