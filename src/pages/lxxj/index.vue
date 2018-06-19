@@ -168,6 +168,15 @@ export default {
     this.getInfoById()
   },
   methods: {
+    handleTrack() {
+      let url =
+        'http://exelook.com/client/goodsxsd/?id=' +
+        String(this.$route.query.id) +
+        '&mobile=' +
+        String(this.phoneValue) +
+        '&api=json'
+      this.$http.get(url).then(r => {})
+    },
     getInfoById() {
       let id = this.$route.query.id
       marketService.getInfoById(this, id).then(res => {})
@@ -222,6 +231,7 @@ export default {
         return
       } else {
         this.status.step = 'coupon'
+        this.handleTrack()
         this.getCoupon()
       }
     },
@@ -254,7 +264,9 @@ export default {
       this.$http.put(rq, rd).then(r => {
         if (r.data.success === false) {
         } else {
-          this.sendSms(this.savedCounponId)
+          if (this.status.isGetCoupon === true) {
+            this.sendSms(this.savedCounponId)
+          }
         }
       })
     },
