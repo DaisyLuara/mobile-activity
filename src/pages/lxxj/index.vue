@@ -161,7 +161,39 @@ export default {
     document.title = '龙虾刑警'
     this.handleStorage()
   },
+  mounted() {
+    this.handleForbiddenShare()
+  },
   methods: {
+    handleForbiddenShare() {
+      if (isWeixin() === true) {
+        let requestUrl = process.env.WX_API + '/wx/officialAccount/sign'
+        this.$http.get(requestUrl).then(response => {
+          let resData = response.data.data
+          let wxConfig = {
+            debug: false,
+            appId: resData.appId,
+            timestamp: resData.timestamp,
+            nonceStr: resData.nonceStr,
+            signature: resData.signature,
+            jsApiList: ['hideMenuItems', 'hideOptionMenu']
+          }
+          wx.config(wxConfig)
+          wx.ready(() => {
+            wx.hideOptionMenu()
+            wx.hideMenuItems({
+              menuList: [
+                'onMenuShareAppMessage',
+                'onMenuShareTimeline',
+                'onMenuShareQQ',
+                'onMenuShareWeibo',
+                'onMenuShareQZone'
+              ] // 要显示的菜单项，所有menu项见附录3
+            })
+          })
+        })
+      }
+    },
     handleStorage() {
       if (localStorage.getItem('longxia') !== null) {
         let getData = JSON.parse(localStorage.getItem('longxia'))
