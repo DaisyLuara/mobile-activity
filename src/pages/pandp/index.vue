@@ -1,5 +1,12 @@
 <template>
     <div class="content" id="content">
+      <div class="loading">
+        <img class="circle1" :src="IMG_URL + 'circle.png'"/>
+        <img class="circle2" :src="IMG_URL + 'circle.png'"/>
+        <img class="he" :src="IMG_URL + 'he.png'"/>
+        <img class="text" :src="IMG_URL + 'loading.png'"/>
+        <img class="yu" :src="IMG_URL + 'yuyu.png'"/>
+      </div>
         <canvas id="canvas"></canvas>
         <img id="border" src="/static/pandp/border.png"/>
         <img id="mImg" src=""/>
@@ -17,6 +24,12 @@ export default {
   data() {
     return {
       IMG_URL: IMAGE_SERVER + '/pages/pandp/',
+      imgs: [
+        IMAGE_SERVER + '/pages/pandp/circle.png',
+        IMAGE_SERVER + '/pages/pandp/he.png',
+        IMAGE_SERVER + '/pages/pandp/loading.png',
+        IMAGE_SERVER + '/pages/pandp/yuyu.png'
+      ],
       content: null,
       width: null,
       height: null,
@@ -28,7 +41,10 @@ export default {
         title: '天哪！我穿越了！',
         desc: '快来看看我穿越成了谁？',
         imgUrl:
-          'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/pandp/share.jpg'
+          'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/pandp/share.jpg',
+        success: () => {
+          customTrack.shareWeChat()
+        }
       }
     }
   },
@@ -47,6 +63,17 @@ export default {
       document.documentElement.clientHeight
     this.content = document.getElementById('content')
     this.content.style.minHeight = this.height + 'px'
+    for (let i = 0; i < this.imgs.length; i++) {
+      let imgObj = new Image()
+      imgObj.src = this.imgs[i]
+      imgObj.addEventListener(
+        'load',
+        function() {
+          console.log('imgs' + i + '加载完毕')
+        },
+        false
+      )
+    }
     this.getInfoById()
   },
   methods: {
@@ -284,11 +311,57 @@ body {
   padding: 0;
   margin: 0;
   font-size: 0;
-  background-color: #f1ece8;
+  //background-color: #f1ece8;
 }
 .content {
   width: 100%;
   position: relative;
+  .loading {
+    width: 100%;
+    min-height: 100%;
+    background-color: #f1ece8;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    overflow: hidden;
+    img {
+      position: absolute;
+      transform: translate(-50%, -50%);
+    }
+    .circle1 {
+      top: 35.5%;
+      left: 32%;
+      z-index: 0;
+      animation: circle 5s 0.1s linear infinite forwards;
+    }
+    .circle2 {
+      top: 74%;
+      left: 51%;
+      //width: 26%;
+      z-index: 1;
+      animation: circle 7s linear infinite forwards;
+    }
+    .he {
+      width: 65%;
+      top: 50%;
+      left: 50%;
+      z-index: 9;
+    }
+    .text {
+      width: 24%;
+      top: 55%;
+      left: 50%;
+      z-index: 19;
+    }
+    .yu {
+      width: 40%;
+      top: 55%;
+      left: 50%;
+      z-index: 999;
+      animation: toRotate 5s linear infinite;
+    }
+  }
   #canvas {
     display: none;
     position: relative;
@@ -312,6 +385,29 @@ body {
     width: 100%;
     margin-top: -10%;
     z-index: 999;
+    user-select: none;
+  }
+}
+@keyframes circle {
+  0% {
+    width: 26%;
+    opacity: 1;
+  }
+  95% {
+    width: 150%;
+    opacity: 1;
+  }
+  100% {
+    width: 150%;
+    opacity: 0;
+  }
+}
+@keyframes toRotate {
+  0% {
+    transform: translate(-50%, -50%) rotate(0);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
   }
 }
 </style>

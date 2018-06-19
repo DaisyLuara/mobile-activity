@@ -553,6 +553,12 @@ export default new Router({
             import(/* webpackChunkName: "risk" */ 'pages/risk/index')
         },
         {
+          path: 'meme',
+          name: '表情包制造机',
+          component: () =>
+            import(/* webpackChunkName: "meme" */ 'pages/meme/result.vue')
+        },
+        {
           path: 'lxxj',
           name: 'longXiaXingJing',
           component: () =>
