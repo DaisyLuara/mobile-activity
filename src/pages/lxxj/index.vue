@@ -148,7 +148,7 @@ export default {
       phoneValue: null,
       coupon_code: 580870245930946,
       status: {
-        // isPhoneError: false,
+        isPhoneError: false,
         isGetCoupon: null,
         // step: 'coupon',
         step: 'input',
