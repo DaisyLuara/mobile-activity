@@ -77,7 +77,7 @@
         />
       
       <div
-        v-show="status.resultType"
+        v-show="status.isGetCoupon"
         :style="style.coupon1"
         class="coupon-inner-1">
         <img
@@ -102,7 +102,7 @@
       </div>
 
       <img
-        v-show="!status.resultType"
+        v-show="!status.isGetCoupon"
         :style="style.coupon2"
         class="coupon-inner-2"
         :src="baseUrl + 'coupon-2.png'" />
