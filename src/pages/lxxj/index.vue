@@ -156,14 +156,14 @@ export default {
       if (localStorage.getItem('longxia') !== null) {
         let getData = JSON.parse(localStorage.getItem('longxia'))
         this.coupon_code = getData.coupon_code
-        this.isGetCoupon = getData.isGetCoupon
+        this.status.isGetCoupon = getData.isGetCoupon
         this.status.step = 'coupon'
       }
     },
     saveStorage() {
       let saveData = {
         coupon_code: this.coupon_code,
-        isGetCoupon: this.isGetCoupon
+        isGetCoupon: this.status.isGetCoupon
       }
       localStorage.setItem('longxia', JSON.stringify(saveData))
     },
