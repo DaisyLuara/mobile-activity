@@ -70,7 +70,7 @@
         :src="baseUrl + 'coupon-bg.png'" />
       
       <div
-        v-show="status.isGetCoupon"
+        v-show="status.isGetCoupon === true"
         :style="style.coupon1"
         class="coupon-inner-1">
         <img
@@ -88,14 +88,17 @@
           </div>
         </div>
 
-        <img
+        <div
           class="inner-button"
-          @click="handleRemindShow"
+          @click="handleRemindShow">
+          <img
           :src="baseUrl + 'btn-submit.png'" />
+        </div>
+        
       </div>
 
       <img
-        v-show="!status.isGetCoupon"
+        v-show="status.isGetCoupon === false"
         :style="style.coupon2"
         class="coupon-inner-2"
         :src="baseUrl + 'coupon-2.png'" />
@@ -144,10 +147,9 @@ export default {
       coupon_code: 580870245930946,
       status: {
         isPhoneError: false,
-        isGetCoupon: false,
+        isGetCoupon: null,
         step: 'input',
         shouldInputRemindShow: true,
-        isGetCoupon: false,
         shouldRemindShow: false
       }
     }
@@ -387,6 +389,9 @@ export default {
         bottom: 10%;
         left: 10%;
         margin-top: 5%;
+        img {
+          width: 100%;
+        }
       }
     }
     .coupon-inner-2 {
