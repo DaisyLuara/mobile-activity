@@ -100,7 +100,7 @@ export default {
       // img.src = '/static/tmall/award.png'
       img.onload = function() {
         ctx.beginPath()
-        ctx.drawImage(img, 0, 250, width, height * 0.4)
+        ctx.drawImage(img, 0, 260, width, height * 0.35)
         ctx.closePath();
         /* 增加触摸监听*/
         //true  捕获 false  冒泡
@@ -162,7 +162,7 @@ export default {
                 iNum++
               }
             }
-            if (iNum >= allPX * 1 / 3) {
+            if (iNum >= allPX * 2 / 3) {
               that.award = false
             }
           },
@@ -276,8 +276,8 @@ body {
     .canvas-ele {
       position: absolute;
       bottom: 16%;
-      width: 47%;
-      left: 27%;
+      width: 52%;
+      left: 24%;
       z-index: 1000;
     }
     .award {
