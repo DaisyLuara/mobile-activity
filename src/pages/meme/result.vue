@@ -1,24 +1,20 @@
 <template>
     <div class="content" id="content">
         <div class="main">
-            <div class="ceng1" >
-                <img class="printer" :src="imgUrl + 'printer.png'"/>
-                <img class="lines" :src="imgUrl + 'lines.png'"/>
-                <img class="explain" :src="imgUrl + explain + '.png'"/>
-            </div>
-            <div class="ceng2">
-                <img class="logo" :src="imgUrl + 'logo.png'"/>
-                <img class="arrow" :src="imgUrl + 'arrow.png'"/>
-                <img class="title" :src="imgUrl + 'title.png'"/>
-                <img class="lightL" :src="imgUrl + 'lightL.png'"/>
-                <img class="lightR" :src="imgUrl + 'lightR.png'"/>
-                <div class="picture">
-                    <img class="support" :src="imgUrl + 'support.png'"/>
-                    <img class="frame" :src="imgUrl + 'frame.png'"/>
-                    <img :class="{border:true,slider1:slider1}" :src="imgUrl + 'photo.png'"/>
+                <img class="ceng5 relative title" :src="imgUrl + 'title.png'"/> 
+                <div class="ceng2 relative center">
+                    <img class="ceng1 relative printer" :src="imgUrl + 'printer.png'"/>
+                    <img class="ceng3 relative support" :src="imgUrl + 'support.png'"/>
+                    <img class="ceng4 absolute frame" :src="imgUrl + 'frame.png'"/>
+                    <img :class="{ceng2:true,border:true,slider1:slider1}" :src="imgUrl + 'photo.png'"/>
                     <img :class="{mImg:true,slider2:slider2}" :src="mImg"/>
                 </div>
-            </div>
+                <img class="ceng1 relative lines" :src="imgUrl + 'lines.png'"/>
+                <img class="ceng1 relative explain" :src="imgUrl + explain + '.png'"/>
+                <img class="ceng5 absolute logo" :src="imgUrl + 'logo.png'"/>
+                <img class="ceng5 absolute arrow" :src="imgUrl + 'arrow.png'"/>
+                <img class="ceng5 absolute lightL" :src="imgUrl + 'lightL.png'"/>
+                <img class="ceng5 absolute lightR" :src="imgUrl + 'lightR.png'"/>
         </div>
         <wx-share :WxShareInfo="wxShareInfo"></wx-share>
     </div>
@@ -93,6 +89,27 @@ body {
 img {
   user-select: none;
 }
+.relative {
+  position: relative;
+}
+.absolute {
+  position: absolute;
+}
+.ceng1 {
+  z-index: 0;
+}
+.ceng2 {
+  z-index: 5;
+}
+.ceng3 {
+  z-index: 10;
+}
+.ceng4 {
+  z-index: 50;
+}
+.ceng5 {
+  z-index: 100;
+}
 .content {
   width: 100%;
   overflow-x: hidden;
@@ -110,118 +127,90 @@ img {
     width: 100%;
     margin: 0 auto;
     text-align: center;
-    .ceng1 {
+    .title {
+      width: 84.5%;
+      margin-top: 5%;
+      margin-bottom: -5%;
+    }
+    .center {
       width: 100%;
-      position: relative;
-      z-index: 0;
-      margin: 0 auto;
+      overflow: hidden;
+      top: 21%;
+      left: 50%;
+      transform: translate(-50%, 0);
       text-align: center;
-      img {
-        max-width: 100%;
-        margin: 0 auto;
-        position: relative;
-        z-index: 1;
-      }
       .printer {
         width: 97%;
-        margin-top: 33.3%;
       }
-      .lines {
-        width: 72%;
+      .border {
+        width: 80%;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -80%);
       }
-      .explain {
-        width: 80.8%;
-        margin-top: -2.5%;
+      .mImg {
+        width: 52%;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        user-select: auto;
+        opacity: 0;
+        transform: translate(-50%, -80%);
+        z-index: 999;
+      }
+      .slider1 {
+        animation: slider 1.2s linear 1 forwards;
+      }
+      .slider2 {
+        animation: slider 1.2s linear 1 forwards,
+          shake 0.6s 1.2s linear 1 forwards;
+      }
+      .frame {
+        width: 97%;
+        top: 0%;
+        left: 50%;
+        transform: translate(-50%, 0);
+      }
+      .support {
+        width: 95%;
+        margin-top: -61%;
       }
     }
-    .ceng2 {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      text-align: center;
-      margin: 0 auto;
-      z-index: 99;
-      img {
-        position: absolute;
-      }
-      .logo {
-        width: 30%;
-        top: 23%;
-        left: 50%;
-        transform: translate(-50%, 0);
-        z-index: 149;
-      }
-      .arrow {
-        width: 5%;
-        top: 34%;
-        left: 50%;
-        transform: translate(-50%, 0);
-        z-index: 149;
-        animation: shake 0.8s linear infinite alternate;
-      }
-      .title {
-        width: 84.5%;
-        z-index: 139;
-        top: 3.2%;
-        left: 50%;
-        transform: translate(-50%, 0);
-      }
+    .lines {
+      width: 72%;
+      margin-top: -2%;
+    }
+    .explain {
+      width: 80.8%;
+      margin-bottom: 5%;
+      margin-top: -2.5%;
+    }
 
-      .lightL {
-        width: 2.6%;
-        top: 27.9%;
-        right: 19.7%;
-        z-index: 149;
-        animation: shake 0.8s linear infinite alternate;
-      }
-      .lightR {
-        width: 2.6%;
-        top: 27.9%;
-        right: 17.4%;
-        z-index: 149;
-      }
-
-      .picture {
-        position: absolute;
-        width: 100%;
-        height: 58%;
-        overflow: hidden;
-        top: 21%;
-        left: 50%;
-        transform: translate(-50%, 0);
-        text-align: center;
-        .support {
-          width: 95%;
-          //   top: 38%;
-          //   left: 50%;
-          top: 29%;
-          transform: translate(-50%, 0);
-          z-index: 109;
-        }
-        .frame {
-          width: 96.8%;
-          transform: translate(-50%, 0);
-          margin: 0 auto;
-          z-index: 129;
-        }
-        .slider1 {
-          animation: slider 1.2s linear 1 forwards;
-        }
-        .border {
-          width: 78%;
-          z-index: 99;
-        }
-        .mImg {
-          width: 52%;
-          user-select: auto;
-          z-index: 159;
-        }
-        .slider2 {
-          animation: slider 1.2s linear 1 forwards, shake 0.6s linear 1 forwards;
-        }
-      }
+    .logo {
+      width: 30%;
+      top: 22%;
+      left: 50%;
+      transform: translate(-50%, 0);
+    }
+    .arrow {
+      width: 5.5%;
+      top: 32.5%;
+      left: 50%;
+      transform: translate(-50%, 0);
+      z-index: 149;
+      animation: shake 0.8s linear infinite alternate;
+    }
+    .lightL {
+      width: 3%;
+      top: 26.5%;
+      right: 19.1%;
+      animation: shake 0.8s linear infinite alternate;
+    }
+    .lightR {
+      width: 3%;
+      top: 26.5%;
+      right: 16.7%;
     }
   }
 }
@@ -235,10 +224,10 @@ img {
 }
 @keyframes slider {
   0% {
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -80%);
   }
   100% {
-    transform: translate(-50%, 39%);
+    transform: translate(-50%, 38%);
   }
 }
 </style>

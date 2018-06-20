@@ -1,11 +1,14 @@
 <template>
     <div class="content" id="content">
-      <div class="loading">
+      <!-- <div class="loading">
         <img class="circle1" :src="IMG_URL + 'circle.png'"/>
         <img class="circle2" :src="IMG_URL + 'circle.png'"/>
         <img class="he" :src="IMG_URL + 'he.png'"/>
         <img class="text" :src="IMG_URL + 'loading.png'"/>
         <img class="yu" :src="IMG_URL + 'yuyu.png'"/>
+      </div> -->
+      <div class="loading" id="loading" v-show="loadingPage">
+       
       </div>
         <canvas id="canvas"></canvas>
         <img id="border" src="/static/pandp/border.png"/>
@@ -13,11 +16,11 @@
         <img class="note" :src="IMG_URL + 'note.png'" v-show ="note"/>
         <wx-share :WxShareInfo="wxShareInfo"></wx-share>
     </div>
-
 </template>
 <script>
 import marketService from 'services/marketing'
 import WxShare from 'modules/wxShare'
+import * as PIXI from 'pixi.js'
 import { customTrack } from 'modules/customTrack'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
@@ -25,15 +28,16 @@ export default {
     return {
       IMG_URL: IMAGE_SERVER + '/pages/pandp/',
       imgs: [
-        IMAGE_SERVER + '/pages/pandp/circle.png',
-        IMAGE_SERVER + '/pages/pandp/he.png',
         IMAGE_SERVER + '/pages/pandp/loading.png',
-        IMAGE_SERVER + '/pages/pandp/yuyu.png'
+        IMAGE_SERVER + '/pages/pandp/yuyu.png',
+        IMAGE_SERVER + '/pages/pandp/he.png',
+        IMAGE_SERVER + '/pages/pandp/circle.png'
       ],
       content: null,
       width: null,
       height: null,
       note: false,
+      loadingPage: true,
       type: this.$route.query.type,
       id: this.$route.query.id,
       //微信分享
@@ -74,6 +78,7 @@ export default {
         false
       )
     }
+    this.loadingCanvas()
     this.getInfoById()
   },
   methods: {
@@ -84,6 +89,78 @@ export default {
           this.drawCanvas(res.code)
         })
         .catch(err => {})
+    },
+    loadingCanvas() {
+      let type = 'WebGL'
+      if (!PIXI.utils.isWebGLSupported()) {
+        type = 'canvas'
+      }
+      PIXI.utils.sayHello(type)
+      let app = new PIXI.Application(window.innerWidth, innerHeight, {
+        antialias: true,
+        transparent: true
+      })
+      let loading = document.getElementById('loading')
+      loading.appendChild(app.view)
+      app.renderer.autoResize = true
+      app.renderer.resize(window.innerWidth, window.innerHeight)
+      let width = app.screen.width
+      let height = app.screen.height
+      PIXI.loader
+        .add('he', '/static/meme/he.png')
+        .add('bo', '/static/meme/circle.png')
+        .add('text', '/static/meme/text.png')
+        .add('yu', '/static/meme/yuyu.png')
+        .load(function(loader, resources) {
+          //水波1
+          let bo1 = new PIXI.Sprite(resources['bo'].texture)
+          bo1.anchor.set(0.5, 0.5)
+          bo1.position.set(width * 0.33, height * 0.34)
+          bo1.scale.set(0.2)
+          app.stage.addChild(bo1)
+          //水波2
+          let bo2 = new PIXI.Sprite(resources['bo'].texture)
+          bo2.anchor.set(0.5, 0.5)
+          bo2.position.set(width * 0.51, height * 0.73)
+          bo2.scale.set(0.2)
+          app.stage.addChild(bo2)
+          //荷花背景精灵
+          let he = new PIXI.Sprite(resources['he'].texture)
+          he.anchor.set(0.5, 0.5)
+          he.position.set(width / 2, height / 2)
+          he.width = width
+          he.height = 713 * width / 489
+          he.scale.set(0.5)
+          app.stage.addChild(he)
+          //文本
+          let text = new PIXI.Sprite(resources['text'].texture)
+          text.anchor.set(0.5, 0.5)
+          text.position.set(width / 2, height * 0.55)
+          text.width = width * 0.26
+          text.height = height * 0.025
+          app.stage.addChild(text)
+          //鱼
+          let yu = new PIXI.Sprite(resources['yu'].texture)
+          yu.scale.set(0.4)
+          yu.anchor.set(0.5)
+          yu.position.set(width / 2, height * 0.55)
+          app.stage.addChild(yu)
+          let scale1 = 0.2,
+            scale2 = 0.2,
+            angle = 0,
+            r = 70,
+            yuRotate = 0
+          app.ticker.add(function() {
+            scale1 = scale1 > 1.1 ? 0.2 : scale1 + 0.006
+            scale2 = scale2 > 1.6 ? 0.2 : scale2 + 0.01
+            bo1.alpha = scale1 > 0.9 ? bo1.alpha - 0.1 : 1
+            bo2.alpha = scale2 > 1 ? bo2.alpha - 0.005 : 1
+            angle += Math.PI * 0.005
+            bo1.scale.set(scale1)
+            bo2.scale.set(scale2)
+            yu.rotation += 0.015
+          })
+        })
     },
     drawCanvas(image) {
       let type = this.type
@@ -290,6 +367,7 @@ export default {
       let img = document.getElementById('mImg')
       img.src = url
       this.note = true
+      this.loadingPage = false
     }
   },
   components: {
@@ -316,10 +394,10 @@ body {
 .content {
   width: 100%;
   position: relative;
+  background-color: #f1ece8;
   .loading {
     width: 100%;
     min-height: 100%;
-    background-color: #f1ece8;
     position: absolute;
     top: 0;
     left: 0;
