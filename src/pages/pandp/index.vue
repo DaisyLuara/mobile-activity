@@ -1,15 +1,6 @@
 <template>
     <div class="content" id="content">
-      <!-- <div class="loading">
-        <img class="circle1" :src="IMG_URL + 'circle.png'"/>
-        <img class="circle2" :src="IMG_URL + 'circle.png'"/>
-        <img class="he" :src="IMG_URL + 'he.png'"/>
-        <img class="text" :src="IMG_URL + 'loading.png'"/>
-        <img class="yu" :src="IMG_URL + 'yuyu.png'"/>
-      </div> -->
-      <div class="loading" id="loading" v-show="loadingPage">
-       
-      </div>
+      <div class="loading" id="loading" v-show="loadingPage"></div>
         <canvas id="canvas"></canvas>
         <img id="border" src="/static/pandp/border.png"/>
         <img id="mImg" src=""/>
@@ -27,12 +18,6 @@ export default {
   data() {
     return {
       IMG_URL: IMAGE_SERVER + '/pages/pandp/',
-      imgs: [
-        IMAGE_SERVER + '/pages/pandp/loading.png',
-        IMAGE_SERVER + '/pages/pandp/yuyu.png',
-        IMAGE_SERVER + '/pages/pandp/he.png',
-        IMAGE_SERVER + '/pages/pandp/circle.png'
-      ],
       content: null,
       width: null,
       height: null,
@@ -67,17 +52,6 @@ export default {
       document.documentElement.clientHeight
     this.content = document.getElementById('content')
     this.content.style.minHeight = this.height + 'px'
-    for (let i = 0; i < this.imgs.length; i++) {
-      let imgObj = new Image()
-      imgObj.src = this.imgs[i]
-      imgObj.addEventListener(
-        'load',
-        function() {
-          console.log('imgs' + i + '加载完毕')
-        },
-        false
-      )
-    }
     this.loadingCanvas()
     this.getInfoById()
   },
@@ -177,7 +151,6 @@ export default {
       bg.onload = function() {
         canvas.width = bg.width
         canvas.height = bg.height
-        console.log(bg.height)
         img.onload = function() {
           ctx.drawImage(
             img,
@@ -403,42 +376,6 @@ body {
     left: 0;
     z-index: 0;
     overflow: hidden;
-    img {
-      position: absolute;
-      transform: translate(-50%, -50%);
-    }
-    .circle1 {
-      top: 35.5%;
-      left: 32%;
-      z-index: 0;
-      animation: circle 5s 0.1s linear infinite forwards;
-    }
-    .circle2 {
-      top: 74%;
-      left: 51%;
-      //width: 26%;
-      z-index: 1;
-      animation: circle 7s linear infinite forwards;
-    }
-    .he {
-      width: 65%;
-      top: 50%;
-      left: 50%;
-      z-index: 9;
-    }
-    .text {
-      width: 24%;
-      top: 55%;
-      left: 50%;
-      z-index: 19;
-    }
-    .yu {
-      width: 40%;
-      top: 55%;
-      left: 50%;
-      z-index: 999;
-      animation: toRotate 5s linear infinite;
-    }
   }
   #canvas {
     display: none;
