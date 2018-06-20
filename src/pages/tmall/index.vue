@@ -1,8 +1,8 @@
 <template>
   <div class="tmall-content" id="tmall">
       <img  class="bg" :src="imgServerUrl + '/pages/tmall/bg.jpg'" alt=""/>
-      <!-- <img  class="photo" :src="resultImgUrl" alt=""/> -->
-      <img  class="photo" src="http://o9xrbl1oc.bkt.clouddn.com/1007/image/1492786765568.jpg" alt=""/>
+      <img  class="photo" :src="resultImgUrl" alt=""/>
+      <!-- <img  class="photo" src="http://o9xrbl1oc.bkt.clouddn.com/1007/image/1492786765568.jpg" alt=""/> -->
       <img  class="paw" :src="imgServerUrl + '/pages/tmall/cat.png'" alt=""/>
       <div class="jiantou">
         <img :src="imgServerUrl + '/pages/tmall/arrow.gif'" alt="" >
@@ -59,25 +59,14 @@ export default {
       document.body.clientHeight
     let content = document.getElementById('tmall')
     content.style.minHeight = height + 'px'
-      // this.initCanvas()
     this.handleStorage()
   },
   created() {
     this.getImageById()
   },
-  // watch: {
-  //   imgUrl: function(newImgUrl) {
-  //     // if(newImgUrl){
-  //       if(this.award) {
-  //         this.initCanvas()
-  //       }
-  //     // }
-  //   }
-  // },
   methods: {
     handleStorage() {
       let data = localStorage.getItem('tmall')
-      console.log(data)
       if (data) {
         this.award = false
         if (data === '恭喜中奖') {
@@ -125,9 +114,6 @@ export default {
                 /* 根据手指移动画线，使之变透明*/
                 let x = device ? event.touches[0].clientX : event.clientX
                 let y = device ? event.touches[0].clientY : event.clientY
-                console.log(x)
-                console.log(y)
-                
                 ctx.beginPath()
                 ctx.globalCompositeOperation = 'destination-out'
                 ctx.arc(x, y, 20, 0, Math.PI * 2)
@@ -176,8 +162,6 @@ export default {
                 iNum++
               }
             }
-            console.log(iNum)
-            console.log(allPX * 1 / 3)
             if (iNum >= allPX * 1 / 3) {
               that.award = false
             }
@@ -206,7 +190,7 @@ export default {
     getCoupon() {
       let rq = process.env.WX_API + '/v6/common/coupon'
       let rd = {
-        tenant_id: process.env.NODE_ENV === 'production' ? '18' : '22'
+        tenant_id: process.env.NODE_ENV === 'production' ? '19' : '22'
       }
       this.$http.post(rq, rd).then(r => {
         this.desc = r.data.data.coupon_batch.name
@@ -292,8 +276,8 @@ body {
     .canvas-ele {
       position: absolute;
       bottom: 16%;
-      width: 52%;
-      left: 24%;
+      width: 47%;
+      left: 27%;
       z-index: 1000;
     }
     .award {
