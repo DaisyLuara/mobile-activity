@@ -8,7 +8,7 @@
       <img :src="imgServerUrl + '/num2.png'" alt="" class="num2"/>
       <img :src="imgServerUrl + '/02.gif'" alt="" class="gif_2"/>
       <img :src="imgServerUrl + '/num3.png'" alt="" class="num3"/>
-      <img :src="imgServerUrl + '/03.gif'" alt="" class="gif_3"/>
+      <img :src="imgServerUrl + '/05.gif'" alt="" class="gif_3"/>
     </div>
     <img :src="imgServerUrl + '/ad_03.png'" alt="" class="img"/>
     <div class="ad_04">
@@ -22,7 +22,7 @@
     </div>
     <div class="ad_05">
       <img :src="imgServerUrl + '/ad_05.png'" alt="" class="img"/>
-      <img :src="imgServerUrl + '/04.gif'" alt="" class="gif_4"/>
+      <img :src="imgServerUrl + '/06.gif'" alt="" class="gif_4"/>
     </div>
       <img :src="imgServerUrl + '/ad_06.png'" alt="" class="img"/>
   </div>
