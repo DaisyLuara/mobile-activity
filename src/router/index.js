@@ -567,8 +567,12 @@ export default new Router({
         {
           path: 'ad',
           name: 'ad',
-          component: () =>
-            import(/* webpackChunkName: "ad" */ 'pages/ad/index')
+          component: () => import(/* webpackChunkName: "ad" */ 'pages/ad/index')
+        },
+        {
+          path: 'tmall',
+          name: 'tmall',
+          component: () => import(/* webpackChunkName: "tmall" */ 'pages/tmall/index')
         }
       ]
     },
