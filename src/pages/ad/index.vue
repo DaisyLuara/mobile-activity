@@ -24,24 +24,36 @@
       <img :src="imgServerUrl + '/ad_05.png'" alt="" class="img"/>
       <img :src="imgServerUrl + '/06.gif'" alt="" class="gif_4"/>
     </div>
-      <img :src="imgServerUrl + '/ad_06.png'" alt="" class="img"/>
+    <img :src="imgServerUrl + '/ad_06.png'" alt="" class="img"/>
+    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
 </template>
 <script>
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
-
+import WxShare from 'modules/wxShare'
 export default {
+  components: {
+    WxShare
+  },
   data() {
     return {
       imgServerUrl: IMAGE_SERVER + '/pages/ad',
-      bgshow: true
+      bgshow: true,
+      wxShareInfoValue: {
+        title: '星视度智能召唤屏',
+        desc: '场景化解决方案',
+        imgUrl: IMAGE_SERVER + '/wx_share_icon/ad_share_icon.jpg',
+        success: function() {
+          customTrack.shareWeChat()
+        }
+      }
     }
   },
-   beforeCreate() {
+  beforeCreate() {
     document.title = '星视度'
   },
   methods: {
-    vPlay(){
+    vPlay() {
       let that = this
       this.playNow = document.getElementById('vedio')
       this.playNow.play()
@@ -57,83 +69,83 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-.ad-wrap{
-  .img{
+.ad-wrap {
+  .img {
     width: 100%;
   }
-  .ad_02{
+  .ad_02 {
     position: relative;
-    .ad_02_img{
+    .ad_02_img {
       width: 100%;
     }
-    .gif_1{
+    .gif_1 {
       position: absolute;
       top: 16%;
       width: 88%;
       left: 6%;
     }
-    .num1{
+    .num1 {
       position: absolute;
       top: 12%;
       width: 12%;
       z-index: 2;
       left: 44%;
     }
-    .num2{
+    .num2 {
       position: absolute;
       top: 40.8%;
       width: 12%;
       z-index: 2;
       left: 44%;
     }
-    .num3{
+    .num3 {
       position: absolute;
-      bottom: 24.8%;
+      bottom: 23.8%;
       width: 12%;
       z-index: 2;
       left: 44%;
     }
-    .gif_2{
+    .gif_2 {
       position: absolute;
       top: 44.8%;
       width: 88%;
       left: 6%;
     }
-    .gif_3{
+    .gif_3 {
       position: absolute;
       bottom: 2.5%;
       width: 88%;
       left: 6%;
     }
   }
-  .ad_05{
+  .ad_05 {
     position: relative;
-    .gif_4{
+    .gif_4 {
       position: absolute;
       bottom: 13.5%;
       width: 54%;
       left: 40%;
     }
   }
-  .ad_04{
+  .ad_04 {
     position: relative;
-    .vedio{
+    .vedio {
       position: absolute;
       bottom: 1%;
       width: 90%;
       left: 5%;
     }
-    .bg{
+    .bg {
       position: absolute;
       bottom: 1%;
       width: 90%;
       left: 5%;
     }
-    .vplay{
+    .vplay {
       position: absolute;
       bottom: 5%;
       left: 40%;
-      img{
+      img {
         width: 80%;
       }
     }
