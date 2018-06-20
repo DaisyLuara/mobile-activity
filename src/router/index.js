@@ -563,6 +563,12 @@ export default new Router({
           name: 'longXiaXingJing',
           component: () =>
             import(/* webpackChunkName: "longXiaXingJing" */ 'pages/lxxj/index')
+        },
+        {
+          path: 'ad',
+          name: 'ad',
+          component: () =>
+            import(/* webpackChunkName: "ad" */ 'pages/ad/index')
         }
       ]
     },
