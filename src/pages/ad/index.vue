@@ -31,6 +31,8 @@
 <script>
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 import WxShare from 'modules/wxShare'
+import { customTrack } from 'modules/customTrack'
+
 export default {
   components: {
     WxShare
@@ -39,10 +41,10 @@ export default {
     return {
       imgServerUrl: IMAGE_SERVER + '/pages/ad',
       bgshow: true,
-      wxShareInfoValue: {
+      wxShareInfo: {
         title: '星视度智能召唤屏',
         desc: '场景化解决方案',
-        imgUrl: IMAGE_SERVER + '/wx_share_icon/ad_share_icon.jpg',
+        imgUrl: IMAGE_SERVER + '/wx_share_icon/ad_share_icon.png',
         success: function() {
           customTrack.shareWeChat()
         }
