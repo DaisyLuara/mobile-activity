@@ -25,6 +25,7 @@
       <img :src="imgServerUrl + '/06.gif'" alt="" class="gif_4"/>
     </div>
     <img :src="imgServerUrl + '/ad_06.png'" alt="" class="img"/>
+    <img :src="imgServerUrl + '/ad_07.png'" alt="" class="img"/>
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
 </template>
