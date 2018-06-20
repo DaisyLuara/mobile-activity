@@ -54,20 +54,21 @@ export default {
     document.title = '觅作';
   },
   created() {
-    this.handleShowPage()
+    // this.handleShowPage()
     this.getImageById()
   },
   methods: {
     getImageById() {
       let id = this.$route.query.id
       marketService.getInfoById(this, id).then((result) => {
+        let type = result.url
+        this.handleShowPage(type)
         console.log(result)
       }).catch((err) => {
         console.log(err);
       });
     },
-    handleShowPage () {
-      let type = this.$route.query.type
+    handleShowPage (type) {
       switch(type) {
         case 'A': 
           this.ImgUrl = this.baseUrl + 'photo_A1.png'
@@ -117,7 +118,6 @@ export default {
     }
   },
   mounted() {
-    console.log(window.innerHeight)
     document.getElementsByClassName('coupon-wrap')[0].style.height = window.innerHeight + 'px'
     document.getElementsByClassName('miizz-wrap')[0].style.minHeight = window.innerHeight + 'px'
     if (window.innerHeight > 675) {
