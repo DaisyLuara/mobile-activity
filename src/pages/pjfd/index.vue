@@ -27,25 +27,18 @@
       class="remind"
       :src="IMAGE_URL + 'remind.png'" />
       
-    <!-- wxshare -->
-    <!-- <wx-share :WxShareInfo="wxShareInfo"></wx-share> -->
-    
   </div>  
 </template>
 
 <script>
 const wih = window.innerHeight
 import marketService from 'services/marketing'
-// import WxShare from 'modules/wxShare'
 import { customTrack } from 'modules/customTrack'
 import { Toast } from 'mint-ui'
 import { $_wechat } from 'services/wechat'
 const IMAGE_SERVER =
   'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/pjfd/'
 export default {
-  // components: {
-  //   WxShare
-  // },
   data() {
     return {
       IMAGE_URL:
@@ -64,20 +57,6 @@ export default {
       photo: null
     }
   },
-  computed: {
-    //微信分享
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
-        success: () => {
-          customTrack.shareWeChat()
-        }
-      }
-      return wxShareInfo
-    }
-  },
   created() {
     document.title = '浦江饭店'
     this.getInfoById()
@@ -86,13 +65,7 @@ export default {
   mounted() {
     $_wechat()
       .then(res => {
-        res.share({
-          // 配置分享
-          title: 'wechat-spa',
-          desc: 'Wechat SPA',
-          fullPath: '/home/index',
-          imgUrl: 'https://www.baidu.com/img/bd_logo1.png'
-        })
+        res.share(this.wxShareInfoValue)
       })
       .catch(_ => {
         console.warn(_.message)
