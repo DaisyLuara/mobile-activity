@@ -39,6 +39,7 @@ import marketService from 'services/marketing'
 import WxShare from 'modules/wxShare'
 import { customTrack } from 'modules/customTrack'
 import { Toast } from 'mint-ui'
+import { $_wechat, share } from 'services/wechat'
 const IMAGE_SERVER =
   'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/pjfd/'
 export default {
@@ -81,6 +82,21 @@ export default {
     document.title = '浦江饭店'
     this.getInfoById()
     this.handleHorn()
+  },
+  mounted() {
+    $_wechat()
+      .then(res => {
+        res.share({
+          // 配置分享
+          title: 'wechat-spa',
+          desc: 'Wechat SPA',
+          fullPath: '/home/index',
+          imgUrl: 'https://www.baidu.com/img/bd_logo1.png'
+        })
+      })
+      .catch(_ => {
+        console.warn(_.message)
+      })
   },
   methods: {
     getInfoById() {
