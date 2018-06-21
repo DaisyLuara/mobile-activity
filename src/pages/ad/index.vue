@@ -1,18 +1,18 @@
 <template>
   <div class="ad-wrap">
-    <img :src="imgServerUrl + '/ad_01.png'" alt="" class="img"/>
+    <img :src="imgServerUrl + '/xing1.png'" alt="" class="img"/>
     <div class="ad_02">
-      <img :src="imgServerUrl + '/ad_02.png'" alt="" class="ad_02_img"/>
+      <img :src="imgServerUrl + '/xing2.png'" alt="" class="ad_02_img"/>
       <img :src="imgServerUrl + '/num1.png'" alt="" class="num1"/>
-      <img :src="imgServerUrl + '/01.gif'" alt="" class="gif_1"/>
+      <img :src="imgServerUrl + '/one.gif'" alt="" class="gif_1"/>
       <img :src="imgServerUrl + '/num2.png'" alt="" class="num2"/>
-      <img :src="imgServerUrl + '/02.gif'" alt="" class="gif_2"/>
+      <img :src="imgServerUrl + '/two.gif'" alt="" class="gif_2"/>
       <img :src="imgServerUrl + '/num3.png'" alt="" class="num3"/>
-      <img :src="imgServerUrl + '/05.gif'" alt="" class="gif_3"/>
+      <img :src="imgServerUrl + '/three.gif'" alt="" class="gif_3"/>
     </div>
-    <img :src="imgServerUrl + '/ad_03.png'" alt="" class="img"/>
+    <img :src="imgServerUrl + '/xing3.png'" alt="" class="img"/>
     <div class="ad_04">
-      <img :src="imgServerUrl + '/ad_04.png'" alt="" class="img"/>
+      <img :src="imgServerUrl + '/xing4.png'" alt="" class="img"/>
       <video id="vedio"  webkit-playsinline="true" playsinline="true" x-webkit-airplay="true"  controls width="100%" class="vedio" v-show="!bgshow">
         <source :src="imgServerUrl+'/vedio.mp4'" type="video/mp4">
           您的浏览器不支持video标签.
@@ -21,11 +21,11 @@
       <a @click="vPlay" class="vplay" v-show="bgshow"><img :src="imgServerUrl + '/btn.png'"></a>
     </div>
     <div class="ad_05">
-      <img :src="imgServerUrl + '/ad_05.png'" alt="" class="img"/>
-      <img :src="imgServerUrl + '/06.gif'" alt="" class="gif_4"/>
+      <img :src="imgServerUrl + '/xing5.png'" alt="" class="img"/>
+      <img :src="imgServerUrl + '/four.gif'" alt="" class="gif_4"/>
     </div>
-    <img :src="imgServerUrl + '/ad_06.png'" alt="" class="img"/>
-    <img :src="imgServerUrl + '/ad_07.png'" alt="" class="img"/>
+    <img :src="imgServerUrl + '/xing6.png'" alt="" class="img"/>
+    <img :src="imgServerUrl + '/xing7.png'" alt="" class="img"/>
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
 </template>
