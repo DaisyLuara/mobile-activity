@@ -35,8 +35,8 @@ export default {
       stopShake: true,
       //微信分享
       wxShareInfo: {
-        title: '',
-        desc: '',
+        title: '表情包制造机',
+        desc: '表情包制造机',
         imgUrl: IMAGE_SERVER + '/pages/meme/share.png',
         success: () => {
           customTrack.shareWeChat()

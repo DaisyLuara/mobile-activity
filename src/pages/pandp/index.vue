@@ -110,8 +110,9 @@ export default {
           let text = new PIXI.Sprite(resources['text'].texture)
           text.anchor.set(0.5, 0.5)
           text.position.set(width / 2, height * 0.55)
-          text.width = width * 0.26
-          text.height = height * 0.025
+          // text.width = width * 0.26
+          // text.height = height * 0.025
+          text.scale.set(0.5)
           app.stage.addChild(text)
           //鱼
           let yu = new PIXI.Sprite(resources['yu'].texture)
@@ -157,11 +158,11 @@ export default {
             0,
             0,
             img.width,
-            img.height,
+            img.height * 0.94,
             -bg.width * 0.09,
             bg.height * 0.24,
             bg.width * 1.18,
-            img.height * bg.width * 1.18 / img.width
+            img.height * bg.width * 1.18 * 0.94 / img.width
           )
           ctx.drawImage(bg, 0, 0)
           cover.onload = function() {
@@ -382,7 +383,6 @@ body {
     position: relative;
     width: 100%;
     min-height: 100%;
-    // background-color: antiquewhite;
     background-color: #f1ece8;
     z-index: 0;
   }
