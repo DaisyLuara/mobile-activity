@@ -4,11 +4,11 @@
     <div class="ad_02">
       <img :src="imgServerUrl + '/xing2.png'" alt="" class="ad_02_img"/>
       <img :src="imgServerUrl + '/num1.png'" alt="" class="num1"/>
-      <img :src="imgServerUrl + '/01.gif'" alt="" class="gif_1"/>
+      <img :src="imgServerUrl + '/one.gif'" alt="" class="gif_1"/>
       <img :src="imgServerUrl + '/num2.png'" alt="" class="num2"/>
-      <img :src="imgServerUrl + '/02.gif'" alt="" class="gif_2"/>
+      <img :src="imgServerUrl + '/two.gif'" alt="" class="gif_2"/>
       <img :src="imgServerUrl + '/num3.png'" alt="" class="num3"/>
-      <img :src="imgServerUrl + '/05.gif'" alt="" class="gif_3"/>
+      <img :src="imgServerUrl + '/three.gif'" alt="" class="gif_3"/>
     </div>
     <img :src="imgServerUrl + '/xing3.png'" alt="" class="img"/>
     <div class="ad_04">
@@ -22,7 +22,7 @@
     </div>
     <div class="ad_05">
       <img :src="imgServerUrl + '/xing5.png'" alt="" class="img"/>
-      <img :src="imgServerUrl + '/06.gif'" alt="" class="gif_4"/>
+      <img :src="imgServerUrl + '/four.gif'" alt="" class="gif_4"/>
     </div>
     <img :src="imgServerUrl + '/xing6.png'" alt="" class="img"/>
     <img :src="imgServerUrl + '/xing7.png'" alt="" class="img"/>
