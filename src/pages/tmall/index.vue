@@ -7,7 +7,7 @@
       <div class="jiantou">
         <img :src="imgServerUrl + '/pages/tmall/arrow.gif'" alt="" >
       </div>
-      <div class="win-wrap" >
+      <div class="win-wrap" v-show="!shareFlag">
         <img :src="imgServerUrl + '/pages/tmall/ticket.png'" alt="" class="ticket">
         <img :src="imgUrl" alt="" class="win" v-show="winFlag">
         <img :src="imgUrl" alt="" class="no-win" v-show="!winFlag">
@@ -34,6 +34,7 @@ export default {
       winFlag: false,
       desc: '',
       needDraw: false,
+      shareFlag: false,
       showCover: true,
       showSaveTips: false,
       award: true,
@@ -66,6 +67,8 @@ export default {
   },
   methods: {
     handleStorage() {
+      let isShare = this.$route.query.utm_term
+      this.shareFlag = isShare === 'wechat_share' ? true : false
       let data = localStorage.getItem('tmall')
       if (data) {
         this.award = false
@@ -181,7 +184,7 @@ export default {
               iNum++
             }
           }
-          if (iNum >= allPX * 1 / 3) {
+          if (iNum >= allPX * 1 / 4) {
             that.award = false
           }
         },
