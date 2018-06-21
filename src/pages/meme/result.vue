@@ -1,19 +1,19 @@
 <template>
     <div class="content" id="content">
         <div class="main">
-                <img class="ceng5 relative title" :src="imgUrl + 'title.png'"/> 
+                <img class="ceng5 relative title" :src="imgUrl + 'title.png'" /> 
                 <div class="ceng2 relative center">
                     <img class="ceng1 relative printer" :src="imgUrl + 'printer.png'"/>
                     <img class="ceng3 relative support" :src="imgUrl + 'support.png'"/>
                     <img class="ceng4 absolute frame" :src="imgUrl + 'frame.png'"/>
-                    <img :class="{ceng2:true,border:true,slider1:slider1}" :src="imgUrl + 'photo.png'"/>
-                    <img :class="{mImg:true,slider2:slider2}" :src="mImg"/>
+                    <img :class="{ceng2:true,border:true}" :src="imgUrl + 'photo.png'"/>
+                    <img :class="{mImg:true}" :src="mImg"/>
                 </div>
                 <img class="ceng1 relative lines" :src="imgUrl + 'lines.png'"/>
                 <img class="ceng1 relative explain" :src="imgUrl + explain + '.png'"/>
                 <img class="ceng5 absolute logo" :src="imgUrl + 'logo.png'"/>
-                <img class="ceng5 absolute arrow" :src="imgUrl + 'arrow.png'"/>
-                <img class="ceng5 absolute lightL" :src="imgUrl + 'lightL.png'"/>
+                <img class="ceng5 absolute arrow" :src="imgUrl + 'arrow.png'" v-show="stopShake"/>
+                <img class="ceng5 absolute lightL" :src="imgUrl + 'lightL.png'" v-show="stopShake"/>
                 <img class="ceng5 absolute lightR" :src="imgUrl + 'lightR.png'"/>
         </div>
         <wx-share :WxShareInfo="wxShareInfo"></wx-share>
@@ -32,11 +32,12 @@ export default {
       explain: 'explain01',
       slider1: false,
       slider2: false,
+      stopShake: true,
       //微信分享
       wxShareInfo: {
-        title: '',
-        desc: '',
-        imgUrl: '',
+        title: '表情包制造机',
+        desc: '表情包制造机',
+        imgUrl: IMAGE_SERVER + '/pages/meme/share.png',
         success: () => {
           customTrack.shareWeChat()
         }
@@ -54,6 +55,18 @@ export default {
       document.body.clientHeight
     let content = document.getElementById('content')
     content.style.minHeight = height + 'px'
+    window.requestAnimationFrame = (function() {
+      return (
+        window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function(callback) {
+          window.setTimeout(callback, 1000 / 60)
+        }
+      )
+    })()
     this.getInfoById()
   },
   methods: {
@@ -63,12 +76,37 @@ export default {
         .getInfoById(this, id)
         .then(res => {
           console.log(res)
-          console.log(1)
           this.mImg = res.image
-          this.slider1 = true
-          this.slider2 = true
+          let that = this
+          that.playAnim(that.mImg)
         })
         .catch(err => {})
+    },
+    playAnim(image) {
+      let that = this
+      let border = document.querySelector('.border')
+      let img = document.querySelector('.mImg')
+      let top = border.offsetTop
+      let endTop = border.clientHeight * 0.37
+      let opacity = 0
+      let timer = null
+      if (image) {
+        toSlider()
+      }
+      function toSlider() {
+        if (opacity >= 1) {
+          that.stopShake = false
+          that.explain = 'explain02'
+          cancelAnimationFrame(timer)
+          return
+        }
+        top = top >= endTop ? top : top + 3
+        opacity = top >= endTop ? opacity + 0.05 : 0
+        border.style.top = top + 'px'
+        img.style.top = top + 'px'
+        img.style.opacity = opacity
+        requestAnimationFrame(toSlider)
+      }
     }
   },
   components: {
@@ -87,6 +125,7 @@ body {
   transform: translate3d(0, 0, 0);
 }
 img {
+  pointer-events: none;
   user-select: none;
 }
 .relative {
@@ -145,18 +184,18 @@ img {
       .border {
         width: 80%;
         position: absolute;
-        top: 0;
-        left: 50%;
-        transform: translate(-50%, -80%);
+        top: -60%;
+        left: 10%;
       }
       .mImg {
         width: 52%;
         position: absolute;
-        top: 0;
-        left: 50%;
+        top: -60%;
+        left: 24%;
+        pointer-events: auto;
         user-select: auto;
         opacity: 0;
-        transform: translate(-50%, -80%);
+        margin-top: 7%;
         z-index: 999;
       }
       .slider1 {
@@ -199,13 +238,13 @@ img {
       left: 50%;
       transform: translate(-50%, 0);
       z-index: 149;
-      animation: shake 0.8s linear infinite alternate;
+      animation: shake 0.6s linear infinite alternate;
     }
     .lightL {
       width: 3%;
       top: 26.5%;
       right: 19.1%;
-      animation: shake 0.8s linear infinite alternate;
+      animation: shake 0.6s linear infinite alternate;
     }
     .lightR {
       width: 3%;
