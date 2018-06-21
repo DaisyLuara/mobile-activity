@@ -9,10 +9,9 @@
       </div>
       <div class="win-wrap" >
         <img :src="imgServerUrl + '/pages/tmall/ticket.png'" alt="" class="ticket">
-        <!-- <img :src="imgServerUrl + '/pages/tmall/award.png'" alt="" class="award" v-show="award" ref="canvasWrap"> -->
         <img :src="imgUrl" alt="" class="win" v-show="winFlag">
         <img :src="imgUrl" alt="" class="no-win" v-show="!winFlag">
-        <canvas id="canvasDoodle" class="canvas-ele" width="300" height="400" v-show="award" ></canvas>
+        <canvas id="canvasDoodle" class="canvas-ele" width="200" height="90" v-show="award"></canvas>
       </div>
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
@@ -60,6 +59,7 @@ export default {
     let content = document.getElementById('tmall')
     content.style.minHeight = height + 'px'
     this.handleStorage()
+    // this.initCanvas()
   },
   created() {
     this.getImageById()
@@ -86,7 +86,9 @@ export default {
       let img = new Image()
       let canvas = document.getElementById('canvasDoodle')
       let ctx = canvas.getContext('2d')
-      img.crossOrigin = 'Anonymous'
+      img.setAttribute('crossOrigin', 'Anonymous')
+      canvas.height = 90
+      canvas.width = 200
       //获取当前画布的宽高
       let width = canvas.width
       let height = canvas.height
@@ -97,79 +99,94 @@ export default {
       let startEvtName = device ? 'touchstart' : 'mousedown'
       let moveEvtName = device ? 'touchmove' : 'mousemove'
       let endEvtName = device ? 'touchend' : 'mouseup'
-      // img.src = '/static/tmall/award.png'
+      var c = null
       img.onload = function() {
         ctx.beginPath()
-        ctx.drawImage(img, 0, 260, width, height * 0.35)
-        ctx.closePath();
-        /* 增加触摸监听*/
-        //true  捕获 false  冒泡
-        canvas.addEventListener(
-          startEvtName,
-          function() {
-            canvas.addEventListener(
-              moveEvtName,
-              function(event) {
-                event.preventDefault()
-                /* 根据手指移动画线，使之变透明*/
-                let x = device ? event.touches[0].clientX : event.clientX
-                let y = device ? event.touches[0].clientY : event.clientY
-                ctx.beginPath()
-                ctx.globalCompositeOperation = 'destination-out'
-                ctx.arc(x, y, 20, 0, Math.PI * 2)
-                ctx.fill()
-                ctx.closePath()
-              },
-              false
-            )
-          },
-          false
-        )
-
-        canvas.addEventListener(
-          endEvtName,
-          function() {
-            canvas.removeEventListener(
-              moveEvtName,
-              function(event) {
-                event.preventDefault()
-                /* 根据手指移动画线，使之变透明*/
-                let x = device ? event.touches[0].clientX : event.clientX
-                let y = device ? event.touches[0].clientY : event.clientY
-                ctx.beginPath()
-                ctx.globalCompositeOperation = 'destination-out'
-                ctx.arc(x, y, 20, 0, Math.PI * 2)
-                ctx.fill()
-                ctx.closePath()
-              },
-              false
-            )
-          },
-          false
-        )
-        canvas.addEventListener(
-          endEvtName,
-          function() {
-            /* 获取imageData对象*/
-            var imageDate = ctx.getImageData(0, 0, canvas.width, canvas.height)
-            /* */
-            var allPX = imageDate.width * imageDate.height
-
-            var iNum = 0 //记录刮开的像素点个数
-
-            for (var i = 0; i < allPX; i++) {
-              if (imageDate.data[i * 4 + 3] == 0) {
-                iNum++
-              }
-            }
-            if (iNum >= allPX * 2 / 3) {
-              that.award = false
-            }
-          },
-          false
-        )
+        ctx.drawImage(img, 0, 0, width, height)
+        ctx.closePath()
+        c = document.querySelector('.canvas-ele').getBoundingClientRect()
       }
       img.src = '/static/tmall/award.png'
+      /* 增加触摸监听*/
+      //true  捕获 false  冒泡
+      canvas.addEventListener(
+        startEvtName,
+        function() {
+          canvas.addEventListener(
+            moveEvtName,
+            function(event) {
+              event.preventDefault()
+              /* 根据手指移动画线，使之变透明*/
+              if (c.top > window.innerHeight) {
+                let x = device ? event.touches[0].pageX - c.left : event.clientX
+                let y = device ? event.touches[0].pageY - c.top : event.clientY
+                ctx.beginPath()
+                ctx.globalCompositeOperation = 'destination-out'
+                ctx.arc(x, y, 20, 0, Math.PI * 2)
+                ctx.fill()
+                ctx.closePath()
+              } else {
+                let x = device
+                  ? event.touches[0].clientX - c.left
+                  : event.clientX
+                let y = device
+                  ? event.touches[0].clientY - c.top
+                  : event.clientY
+                ctx.beginPath()
+                ctx.globalCompositeOperation = 'destination-out'
+                ctx.arc(x, y, 20, 0, Math.PI * 2)
+                ctx.fill()
+                ctx.closePath()
+              }
+            },
+            false
+          )
+        },
+        false
+      )
+
+      canvas.addEventListener(
+        endEvtName,
+        function() {
+          canvas.removeEventListener(
+            moveEvtName,
+            function(event) {
+              event.preventDefault()
+              /* 根据手指移动画线，使之变透明*/
+              let x = device ? event.touches[0].clientX - c.left : event.clientX
+              let y = device ? event.touches[0].clientY - c.top : event.clientY
+              ctx.beginPath()
+              ctx.globalCompositeOperation = 'destination-out'
+              ctx.arc(x, y, 20, 0, Math.PI * 2)
+              ctx.fill()
+              ctx.closePath()
+            },
+            false
+          )
+        },
+        false
+      )
+      canvas.addEventListener(
+        endEvtName,
+        function() {
+          /* 获取imageData对象*/
+          var imageDate = ctx.getImageData(0, 0, canvas.width, canvas.height)
+          /* */
+          var allPX = imageDate.width * imageDate.height
+
+          var iNum = 0 //记录刮开的像素点个数
+
+          for (var i = 0; i < allPX; i++) {
+            if (imageDate.data[i * 4 + 3] == 0) {
+              iNum++
+            }
+          }
+          if (iNum >= allPX * 1 / 3) {
+            that.award = false
+          }
+        },
+        false
+      )
     },
     //拿取图片id
     getImageById() {
@@ -266,7 +283,11 @@ body {
     position: absolute;
     bottom: 2%;
     z-index: 300;
-
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
     .win {
       position: absolute;
       bottom: 17%;
@@ -301,6 +322,11 @@ body {
       left: 25%;
     }
     .ticket {
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      -khtml-user-select: none;
+      user-select: none;
       width: 80%;
       margin: 0 10%;
     }
