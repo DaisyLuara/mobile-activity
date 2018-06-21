@@ -81,8 +81,12 @@ const $_wechat = () => {
 //       // 配置分享
 //       title: 'wechat-spa',
 //       desc: 'Wechat SPA',
-//       fullPath: '/home/index',
-//       imgUrl: 'https://www.baidu.com/img/bd_logo1.png'
+//       link: window.location.href,
+//       imgUrl: 'https://www.baidu.com/img/bd_logo1.png',
+//       不要忘记加入success回调统计分享成功
+//       success: function() {
+//         customTrack.shareWeChat()
+//       }
 //     })
 //   })
 //   .catch(_ => {
