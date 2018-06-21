@@ -400,6 +400,7 @@ body {
     width: 100%;
     margin-top: -10%;
     z-index: 999;
+    pointer-events: none;
     user-select: none;
   }
 }
