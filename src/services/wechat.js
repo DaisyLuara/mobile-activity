@@ -2,17 +2,35 @@ import wx from 'weixin-js-sdk'
 import axios from 'axios'
 
 const share = shareObject => {
+  // utm_term 为分享统计标记
   let link =
     window.location.href.indexOf('?') > -1
-      ? window.location.href + `&share_at=${Date.now()}`
-      : window.location.href + `?share_at=${Date.now()}`
+      ? window.location.href + `&share_at=${Date.now()}&utm_term=wechat_share`
+      : window.location.href + `?share_at=${Date.now()}&utm_term=wechat_share`
   shareObject.link = link
-  wx.showAllNonBaseMenuItem()
+
+  // 显示所有功能接口
+  // wx.showAllNonBaseMenuItem()
+
   wx.onMenuShareAppMessage(shareObject)
   wx.onMenuShareTimeline(shareObject)
   wx.onMenuShareQQ(shareObject)
   wx.onMenuShareWeibo(shareObject)
   wx.onMenuShareQZone(shareObject)
+}
+
+const forbidden = () => {
+  // 禁止分享
+  wx.hideOptionMenu()
+  wx.hideMenuItems({
+    menuList: [
+      'onMenuShareAppMessage',
+      'onMenuShareTimeline',
+      'onMenuShareQQ',
+      'onMenuShareWeibo',
+      'onMenuShareQZone'
+    ]
+  })
 }
 
 const $_wechat = () => {
@@ -24,7 +42,7 @@ const $_wechat = () => {
         // sign返回格式
         let r = response.data.data
         wx.config({
-          debug: true,
+          debug: false,
           appId: r.appId,
           timestamp: r.timestamp,
           nonceStr: r.nonceStr,
@@ -41,7 +59,8 @@ const $_wechat = () => {
           // 配置 wx.config 成功
           resolve({
             wx,
-            share
+            share,
+            forbidden
           })
         })
       })
@@ -51,8 +70,7 @@ const $_wechat = () => {
   })
 }
 
-const wxShareForbidden = () => {}
-
+// 书写示例
 // $_wechat()
 //   .then(res => {
 //     res.share({
