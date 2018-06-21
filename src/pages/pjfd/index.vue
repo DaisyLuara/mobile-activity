@@ -39,7 +39,7 @@ import marketService from 'services/marketing'
 // import WxShare from 'modules/wxShare'
 import { customTrack } from 'modules/customTrack'
 import { Toast } from 'mint-ui'
-import { $_wechat, share } from 'services/wechat'
+import { $_wechat } from 'services/wechat'
 const IMAGE_SERVER =
   'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/pjfd/'
 export default {
@@ -96,6 +96,7 @@ export default {
       })
       .catch(_ => {
         console.warn(_.message)
+        console.dir(_)
       })
   },
   methods: {
