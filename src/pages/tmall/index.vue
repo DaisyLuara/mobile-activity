@@ -256,6 +256,8 @@ body {
   overflow-y: scroll;
   .bg {
     width: 100%;
+    pointer-events: none;
+    user-select: none;
   }
   .photo {
     width: 73.6%;
@@ -322,10 +324,7 @@ body {
       left: 25%;
     }
     .ticket {
-      -moz-user-select: none;
-      -webkit-user-select: none;
-      -ms-user-select: none;
-      -khtml-user-select: none;
+      pointer-events: none;
       user-select: none;
       width: 80%;
       margin: 0 10%;
