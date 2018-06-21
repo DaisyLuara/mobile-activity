@@ -52,7 +52,9 @@ const $_wechat = () => {
             'onMenuShareTimeline',
             'onMenuShareQQ',
             'onMenuShareWeibo',
-            'onMenuShareQZone'
+            'onMenuShareQZone',
+            'hideMenuItems',
+            'hideOptionMenu'
           ]
         })
         wx.ready(() => {
