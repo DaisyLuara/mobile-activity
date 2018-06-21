@@ -73,6 +73,8 @@ const $_wechat = () => {
 }
 
 // 书写示例
+
+// 分享
 // $_wechat()
 //   .then(res => {
 //     res.share({
@@ -82,6 +84,15 @@ const $_wechat = () => {
 //       fullPath: '/home/index',
 //       imgUrl: 'https://www.baidu.com/img/bd_logo1.png'
 //     })
+//   })
+//   .catch(_ => {
+//     console.warn(_.message)
+//   })
+
+// 禁止分享
+// $_wechat()
+//   .then(res => {
+//     res.forbidden()
 //   })
 //   .catch(_ => {
 //     console.warn(_.message)
