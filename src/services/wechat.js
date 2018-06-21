@@ -3,7 +3,7 @@ import axios from 'axios'
 
 const share = shareObject => {
   let link =
-    fullPath.indexOf('?') > -1
+    window.location.href.indexOf('?') > -1
       ? window.location.href + `&share_at=${Date.now()}`
       : window.location.href + `?share_at=${Date.now()}`
   shareObject.link = link
@@ -20,7 +20,9 @@ const $_wechat = () => {
     let requestUrl = process.env.WX_API + '/wx/officialAccount/sign'
     axios
       .get(requestUrl)
-      .then(r => {
+      .then(response => {
+        // sign返回格式
+        let r = response.data.data
         wx.config({
           debug: true,
           appId: r.appId,
