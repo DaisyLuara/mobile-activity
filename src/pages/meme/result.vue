@@ -75,7 +75,6 @@ export default {
       marketService
         .getInfoById(this, id)
         .then(res => {
-          console.log(res)
           this.mImg = res.image
           let that = this
           that.playAnim(that.mImg)
@@ -103,7 +102,7 @@ export default {
         top = top >= endTop ? top : top + 3
         opacity = top >= endTop ? opacity + 0.05 : 0
         border.style.top = top + 'px'
-        img.style.top = top + 'px'
+        img.style.top = top + 3 + 'px'
         img.style.opacity = opacity
         requestAnimationFrame(toSlider)
       }
