@@ -1,31 +1,31 @@
 <template>
   <div class="ad-wrap">
-    <img :src="imgServerUrl + '/xing1.png'" alt="" class="img"/>
+    <img v-lazy="imgServerUrl + '/xing1.png'" alt="" class="img"/>
     <div class="ad_02">
-      <img :src="imgServerUrl + '/xing2.png'" alt="" class="ad_02_img"/>
-      <img :src="imgServerUrl + '/num1.png'" alt="" class="num1"/>
-      <img :src="imgServerUrl + '/one.gif'" alt="" class="gif_1"/>
-      <img :src="imgServerUrl + '/num2.png'" alt="" class="num2"/>
-      <img :src="imgServerUrl + '/two.gif'" alt="" class="gif_2"/>
-      <img :src="imgServerUrl + '/num3.png'" alt="" class="num3"/>
-      <img :src="imgServerUrl + '/three.gif'" alt="" class="gif_3"/>
+      <img v-lazy="imgServerUrl + '/xing2.png'" alt="" class="ad_02_img"/>
+      <img v-lazy="imgServerUrl + '/num1.png'" alt="" class="num1"/>
+      <img v-lazy="imgServerUrl + '/one.gif'" alt="" class="gif_1"/>
+      <img v-lazy="imgServerUrl + '/num2.png'" alt="" class="num2"/>
+      <img v-lazy="imgServerUrl + '/two.gif'" alt="" class="gif_2"/>
+      <img v-lazy="imgServerUrl + '/num3.png'" alt="" class="num3"/>
+      <img v-lazy="imgServerUrl + '/three.gif'" alt="" class="gif_3"/>
     </div>
-    <img :src="imgServerUrl + '/xing3.png'" alt="" class="img"/>
+    <img v-lazy="imgServerUrl + '/xing3.png'" alt="" class="img"/>
     <div class="ad_04">
-      <img :src="imgServerUrl + '/xing4.png'" alt="" class="img"/>
+      <img v-lazy="imgServerUrl + '/xing4.png'" alt="" class="img"/>
       <video id="vedio"  webkit-playsinline="true" playsinline="true" x-webkit-airplay="true"  controls width="100%" class="vedio" v-show="!bgshow">
         <source :src="imgServerUrl+'/vedio.mp4'" type="video/mp4">
           您的浏览器不支持video标签.
       </video>
-      <img :src="imgServerUrl+'/vedio_bg.png'" class="bg" v-show="bgshow">
+      <img v-lazy="imgServerUrl+'/vedio_bg.png'" class="bg" v-show="bgshow">
       <a @click="vPlay" class="vplay" v-show="bgshow"><img :src="imgServerUrl + '/btn.png'"></a>
     </div>
     <div class="ad_05">
-      <img :src="imgServerUrl + '/xing5.png'" alt="" class="img"/>
-      <img :src="imgServerUrl + '/four.gif'" alt="" class="gif_4"/>
+      <img v-lazy="imgServerUrl + '/xing5.png'" alt="" class="img"/>
+      <img v-lazy="imgServerUrl + '/four.gif'" alt="" class="gif_4"/>
     </div>
-    <img :src="imgServerUrl + '/xing6.png'" alt="" class="img"/>
-    <img :src="imgServerUrl + '/xing7.png'" alt="" class="img"/>
+    <img v-lazy="imgServerUrl + '/xing6.png'" alt="" class="img"/>
+    <img v-lazy="imgServerUrl + '/xing7.png'" alt="" class="img"/>
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
 </template>
