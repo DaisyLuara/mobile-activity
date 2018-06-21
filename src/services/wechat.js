@@ -22,11 +22,11 @@ const $_wechat = () => {
       .get(requestUrl)
       .then(r => {
         wx.config({
-          debug: false,
-          appId: resData.appId,
-          timestamp: resData.timestamp,
-          nonceStr: resData.nonceStr,
-          signature: resData.signature,
+          debug: true,
+          appId: r.appId,
+          timestamp: r.timestamp,
+          nonceStr: r.nonceStr,
+          signature: r.signature,
           jsApiList: [
             'onMenuShareAppMessage',
             'onMenuShareTimeline',
