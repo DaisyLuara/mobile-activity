@@ -43,8 +43,8 @@ const $_wechat = () => {
           })
         })
       })
-      .catch(() => {
-        reject(new Error('微信签名接口异常'))
+      .catch(e => {
+        reject(e)
       })
   })
 }
@@ -65,4 +65,4 @@ const wxShareForbidden = () => {}
 //     console.warn(_.message)
 //   })
 
-export { $_wechat, share }
+export { $_wechat }
