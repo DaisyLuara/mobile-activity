@@ -237,13 +237,13 @@ img {
       left: 50%;
       transform: translate(-50%, 0);
       z-index: 149;
-      animation: shake 0.6s linear infinite alternate;
+      animation: shake 0.4s linear infinite alternate;
     }
     .lightL {
       width: 3%;
       top: 26.7%;
       right: 19.1%;
-      animation: shake 0.6s linear infinite alternate;
+      animation: shake 0.4s linear infinite alternate;
     }
     .lightR {
       width: 3%;
