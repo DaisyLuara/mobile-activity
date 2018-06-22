@@ -6,8 +6,8 @@
                     <img class="ceng1 relative printer" :src="imgUrl + 'printer.png'"/>
                     <img class="ceng3 relative support" :src="imgUrl + 'support.png'"/>
                     <img class="ceng4 absolute frame" :src="imgUrl + 'frame.png'"/>
-                    <img :class="{ceng2:true,border:true}" :src="imgUrl + 'photo.png'"/>
-                    <img :class="{mImg:true}" :src="mImg"/>
+                    <img :class="{ceng2:true,border:true,slider1:slider1}" :src="imgUrl + 'photo.png'" />
+                    <img :class="{mImg:true,slider2:slider2}" :src="mImg"/>
                 </div>
                 <img class="ceng1 relative lines" :src="imgUrl + 'lines.png'"/>
                 <img class="ceng1 relative explain" :src="imgUrl + explain + '.png'"/>
@@ -28,7 +28,8 @@ export default {
   data() {
     return {
       imgUrl: IMAGE_SERVER + '/pages/meme/',
-      mImg: null,
+      mImg:
+        'http://image.exe666.com/1007/image/ExpressionFactory_510_935_1492923519793.gif',
       explain: 'explain01',
       slider1: false,
       slider2: false,
@@ -76,8 +77,7 @@ export default {
         .getInfoById(this, id)
         .then(res => {
           this.mImg = res.image
-          let that = this
-          that.playAnim(that.mImg)
+          this.imgsIsLoaded()
         })
         .catch(err => {})
     },
@@ -89,7 +89,9 @@ export default {
       let endTop = border.clientHeight * 0.37
       let opacity = 0
       let timer = null
-      if (image) {
+      border.style.opacity = 1
+      console.log(border.style.top)
+      if (image && endTop > 0) {
         toSlider()
       }
       function toSlider() {
@@ -105,6 +107,37 @@ export default {
         img.style.top = top + 3 + 'px'
         img.style.opacity = opacity
         requestAnimationFrame(toSlider)
+      }
+    },
+    imgsIsLoaded() {
+      let imgsUrl = [
+          'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/meme/back.jpg',
+          'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/meme/title.png',
+          'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/meme/printer.png',
+          'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/meme/lines.png',
+          'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/meme/explain01.png',
+          'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/meme/explain02.png',
+          'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/meme/frame.png',
+          'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/meme/support.png',
+          // 'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/meme/logo.png',
+          // 'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/meme/arrow.png',
+          // 'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/meme/lightL.png',
+          // 'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/meme/lightR.png',
+          'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/meme/photo.png'
+        ],
+        imgs = [],
+        flag = 0,
+        that = this
+      let total = imgsUrl.length
+      for (let i = 0; i < total; i++) {
+        imgs[i] = new Image()
+        imgs[i].src = imgsUrl[i]
+        imgs[i].onload = function() {
+          flag++
+          if (flag == total) {
+            that.playAnim(that.mImg)
+          }
+        }
       }
     }
   },
@@ -185,6 +218,7 @@ img {
         position: absolute;
         top: -60%;
         left: 10%;
+        opacity: 0;
       }
       .mImg {
         width: 52%;
@@ -237,18 +271,18 @@ img {
       left: 50%;
       transform: translate(-50%, 0);
       z-index: 149;
-      animation: shake 0.6s linear infinite alternate;
+      animation: shake 0.4s linear infinite alternate;
     }
     .lightL {
       width: 3%;
-      top: 26.5%;
+      top: 26.7%;
       right: 19.1%;
-      animation: shake 0.6s linear infinite alternate;
+      animation: shake 0.4s linear infinite alternate;
     }
     .lightR {
       width: 3%;
-      top: 26.5%;
-      right: 16.7%;
+      top: 26.7%;
+      right: 16.6%;
     }
   }
 }
