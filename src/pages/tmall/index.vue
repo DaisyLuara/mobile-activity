@@ -37,7 +37,7 @@ export default {
       //微信分享信息
       wxShareInfo: {
         title: '刷脸开启时尚运动派对，赢【天猫】限量超酷礼包！',
-        desc: '天猫国际丨秒物开仓日',
+        desc: '天猫国际丨妙物开仓日',
         imgUrl:
           'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/tmall_share_icon.jpg'
       }
