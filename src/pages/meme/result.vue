@@ -99,7 +99,7 @@ export default {
           cancelAnimationFrame(timer)
           return
         }
-        top = top >= endTop ? top : top + 3
+        top = top >= endTop ? top : top + 5
         opacity = top >= endTop ? opacity + 0.05 : 0
         border.style.top = top + 'px'
         img.style.top = top + 3 + 'px'
