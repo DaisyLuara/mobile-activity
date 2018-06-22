@@ -93,26 +93,27 @@ export default {
       let border = document.querySelector('.border')
       let img = document.querySelector('.mImg')
       let top = border.offsetTop
-      let endTop = border.clientHeight * 0.455
+      let endTop = border.clientHeight * 0.456
       let opacity = 0
       let timer = null
       border.style.opacity = 1
-      console.log(border.style.top)
+
       if (image && endTop > 0) {
         toSlider()
       }
       function toSlider() {
         if (opacity >= 1) {
-          //border.style.backgroundColor = '#fff'
           that.stopShake = false
-          that.explain = 'explain02'
+          // that.explain = 'explain02'
           cancelAnimationFrame(timer)
           return
         }
+        opacity >= 0.5 ? (border.style.backgroundColor = '#fff') : ''
+        opacity > 0 ? (that.explain = 'explain02') : ''
         top = top >= endTop ? top : top + 5
         opacity = top >= endTop ? opacity + 0.05 : 0
         border.style.top = top + 'px'
-        img.style.top = top + 3 + 'px'
+        img.style.top = top - 3 + 'px'
         img.style.opacity = opacity
         requestAnimationFrame(toSlider)
       }
@@ -230,10 +231,10 @@ img {
         box-sizing: border-box;
         border-style: solid;
         border-color: #fff;
-        border-top-width: 10px;
-        border-bottom-width: 10px;
-        border-left-width: 13px;
-        border-right-width: 13px;
+        border-top-width: 8px;
+        border-bottom-width: 8px;
+        border-left-width: 12px;
+        border-right-width: 12px;
         background-color: #000;
       }
       .mImg {
