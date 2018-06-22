@@ -241,14 +241,14 @@ img {
     }
     .lightL {
       width: 3%;
-      top: 26.5%;
+      top: 26.7%;
       right: 19.1%;
       animation: shake 0.6s linear infinite alternate;
     }
     .lightR {
       width: 3%;
-      top: 26.5%;
-      right: 16.7%;
+      top: 26.7%;
+      right: 16.6%;
     }
   }
 }
