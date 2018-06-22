@@ -32,10 +32,10 @@
 
 <script>
 const wih = window.innerHeight
-import marketService from 'services/marketing'
 import { customTrack } from 'modules/customTrack'
+import { $_wechat, getInfoById } from 'services'
 import { Toast } from 'mint-ui'
-import { $_wechat } from 'services/wechat'
+
 const IMAGE_SERVER =
   'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/pjfd/'
 export default {
@@ -59,7 +59,7 @@ export default {
   },
   created() {
     document.title = '浦江饭店'
-    this.getInfoById()
+    this.getInfo()
     this.handleHorn()
   },
   mounted() {
@@ -73,10 +73,9 @@ export default {
       })
   },
   methods: {
-    getInfoById() {
+    getInfo() {
       let id = this.$route.query.id
-      marketService
-        .getInfoById(this, id)
+      getInfoById(id)
         .then(res => {
           this.photo = res.code
         })
