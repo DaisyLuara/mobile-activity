@@ -13,20 +13,14 @@
         <img :src="imgUrl" alt="" class="no-win" v-show="!winFlag">
         <canvas id="canvasDoodle" class="canvas-ele" width="200" height="90" v-show="award"></canvas>
       </div>
-    <!-- <wx-share :WxShareInfo="wxShareInfo"></wx-share> -->
   </div>
 </template>
 <script>
-import marketService from 'services/marketing'
-// import WxShare from 'modules/wxShare'
 import { $_wechat, getInfoById, wechatShareTrack } from 'services'
 
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 
 export default {
-  // components: {
-  //   WxShare
-  // },
   data() {
     return {
       imgServerUrl: IMAGE_SERVER,
@@ -60,7 +54,6 @@ export default {
     let content = document.getElementById('tmall')
     content.style.minHeight = height + 'px'
     this.handleStorage()
-    // this.initCanvas()
   },
   created() {
     this.getInfoById()
@@ -74,7 +67,6 @@ export default {
             // 配置分享
             title: this.wxShareInfo.title,
             desc: this.wxShareInfo.desc,
-            // link: window.location.href,
             imgUrl: this.wxShareInfo.imgUrl,
             success: function() {
               wechatShareTrack()
@@ -82,7 +74,7 @@ export default {
           })
         })
         .catch(_ => {
-          // console.warn(_.message)
+          console.warn(_.message)
         })
     },
     handleStorage() {
@@ -195,9 +187,7 @@ export default {
           var imageDate = ctx.getImageData(0, 0, canvas.width, canvas.height)
           /* */
           var allPX = imageDate.width * imageDate.height
-
           var iNum = 0 //记录刮开的像素点个数
-
           for (var i = 0; i < allPX; i++) {
             if (imageDate.data[i * 4 + 3] == 0) {
               iNum++
@@ -220,18 +210,6 @@ export default {
           console.log(e)
         })
     },
-    //拿取图片id
-    // getImageById() {
-    //   let id = this.$route.query.id
-    //   marketService
-    //     .getInfoById(this, id)
-    //     .then(result => {
-    //       this.resultImgUrl = result.image
-    //     })
-    //     .catch(err => {
-    //       console.log(err)
-    //     })
-    // },
     saveStorage() {
       let saveData = this.desc
       localStorage.setItem('tmall', saveData)
@@ -253,20 +231,6 @@ export default {
         this.saveStorage()
       })
     }
-  },
-  computed: {
-    //微信分享
-    // wxShareInfo() {
-    //   let wxShareInfo = {
-    //     title: this.wxShareInfoValue.title,
-    //     desc: this.wxShareInfoValue.desc,
-    //     imgUrl: this.wxShareInfoValue.imgUrl,
-    //     success: () => {
-    //       customTrack.shareWeChat()
-    //     }
-    //   }
-    //   return wxShareInfo
-    // }
   }
 }
 </script>
