@@ -13,20 +13,20 @@
         <img :src="imgUrl" alt="" class="no-win" v-show="!winFlag">
         <canvas id="canvasDoodle" class="canvas-ele" width="200" height="90" v-show="award"></canvas>
       </div>
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+    <!-- <wx-share :WxShareInfo="wxShareInfo"></wx-share> -->
   </div>
 </template>
 <script>
 import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
-import wxService from 'services/wx'
+// import WxShare from 'modules/wxShare'
+import { $_wechat, getInfoById, wechatShareTrack } from 'services'
 
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 
 export default {
-  components: {
-    WxShare
-  },
+  // components: {
+  //   WxShare
+  // },
   data() {
     return {
       imgServerUrl: IMAGE_SERVER,
@@ -41,9 +41,9 @@ export default {
       imgUrl: '',
       winUrl: '',
       //微信分享信息
-      wxShareInfoValue: {
+      wxShareInfo: {
         title: '刷脸开启时尚运动派对，赢【天猫】限量超酷礼包！',
-        desc: '点击抽取您的幸运好礼！',
+        desc: '天猫国际丨秒物开仓日',
         imgUrl:
           'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/tmall_share_icon.jpg'
       }
@@ -63,9 +63,28 @@ export default {
     // this.initCanvas()
   },
   created() {
-    this.getImageById()
+    this.getInfoById()
+    this.wechatShare()
   },
   methods: {
+    wechatShare() {
+      $_wechat()
+        .then(res => {
+          res.share({
+            // 配置分享
+            title: this.wxShareInfo.title,
+            desc: this.wxShareInfo.desc,
+            // link: window.location.href,
+            imgUrl: this.wxShareInfo.imgUrl,
+            success: function() {
+              wechatShareTrack()
+            }
+          })
+        })
+        .catch(_ => {
+          // console.warn(_.message)
+        })
+    },
     handleStorage() {
       let isShare = this.$route.query.utm_term
       this.shareFlag = isShare === 'wechat_share' ? true : false
@@ -191,18 +210,28 @@ export default {
         false
       )
     },
-    //拿取图片id
-    getImageById() {
+    getInfoById() {
       let id = this.$route.query.id
-      marketService
-        .getInfoById(this, id)
-        .then(result => {
+      getInfoById(id)
+        .then(res => {
           this.resultImgUrl = result.image
         })
-        .catch(err => {
-          console.log(err)
+        .catch(e => {
+          console.log(e)
         })
     },
+    //拿取图片id
+    // getImageById() {
+    //   let id = this.$route.query.id
+    //   marketService
+    //     .getInfoById(this, id)
+    //     .then(result => {
+    //       this.resultImgUrl = result.image
+    //     })
+    //     .catch(err => {
+    //       console.log(err)
+    //     })
+    // },
     saveStorage() {
       let saveData = this.desc
       localStorage.setItem('tmall', saveData)
@@ -227,17 +256,17 @@ export default {
   },
   computed: {
     //微信分享
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
-        success: () => {
-          customTrack.shareWeChat()
-        }
-      }
-      return wxShareInfo
-    }
+    // wxShareInfo() {
+    //   let wxShareInfo = {
+    //     title: this.wxShareInfoValue.title,
+    //     desc: this.wxShareInfoValue.desc,
+    //     imgUrl: this.wxShareInfoValue.imgUrl,
+    //     success: () => {
+    //       customTrack.shareWeChat()
+    //     }
+    //   }
+    //   return wxShareInfo
+    // }
   }
 }
 </script>
