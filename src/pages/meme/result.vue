@@ -233,8 +233,8 @@ img {
         border-color: #fff;
         border-top-width: 8px;
         border-bottom-width: 8px;
-        border-left-width: 12px;
-        border-right-width: 12px;
+        border-left-width: 11px;
+        border-right-width: 11px;
         background-color: #000;
       }
       .mImg {
