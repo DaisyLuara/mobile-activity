@@ -126,9 +126,7 @@
 const wih = window.innerHeight
 const wiw = window.innerWidth
 import { isWeixin } from '../../modules/util'
-import marketService from 'services/marketing'
-import { $_wechat } from 'services/wechat'
-const wx = require('weixin-js-sdk')
+import { $_wechat, getInfoById } from 'services'
 import Remind from './remind'
 const baseUrl =
   'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/lxxj/'
@@ -166,7 +164,7 @@ export default {
   },
   mounted() {
     this.handleForbiddenShare()
-    this.getInfoById()
+    this.getInfo()
   },
   methods: {
     handleTrack() {
@@ -178,9 +176,9 @@ export default {
         '&api=json'
       this.$http.get(url).then(r => {})
     },
-    getInfoById() {
+    getInfo() {
       let id = this.$route.query.id
-      marketService.getInfoById(this, id).then(res => {})
+      getInfoById(id).then(res => {})
     },
     handleForbiddenShare() {
       $_wechat()
