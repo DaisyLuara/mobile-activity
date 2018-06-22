@@ -214,7 +214,7 @@ export default {
       let id = this.$route.query.id
       getInfoById(id)
         .then(res => {
-          this.resultImgUrl = result.image
+          this.resultImgUrl = res.image
         })
         .catch(e => {
           console.log(e)
