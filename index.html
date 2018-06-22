@@ -18,6 +18,7 @@
         _paq.push(['enableLinkTracking']);
         (function () {
           var u = "//track.xingstation.com/";
+          var cdnhost = "//h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/js/"
           _paq.push(['setTrackerUrl', u + 'piwik.php']);
           _paq.push(['setSiteId', '1']);
           _paq.push(["setCookieDomain", "*.xingstation.com"]);
@@ -27,7 +28,7 @@
           g.type = 'text/javascript';
           g.async = true;
           g.defer = true;
-          g.src = u + 'piwik.js';
+          g.src = cdnhost + 'piwik.js';
           s.parentNode.insertBefore(g, s);
         })();
         // GrowingIO 统计
@@ -48,6 +49,7 @@
           _paq.push(['enableLinkTracking']);
           (function () {
             var u = "//track.newgls.cn/";
+            var cdnhost = "//h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/js/"
             _paq.push(['setTrackerUrl', u + 'piwik.php']);
             _paq.push(['setSiteId', '4']);
             var d = document,
@@ -56,7 +58,7 @@
             g.type = 'text/javascript';
             g.async = true;
             g.defer = true;
-            g.src = u + 'piwik.js';
+            g.src = cdnhost + 'piwik.js';
             s.parentNode.insertBefore(g, s);
           })();
         })();
