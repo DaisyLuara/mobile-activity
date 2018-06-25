@@ -330,8 +330,6 @@ body {
     bottom: 0;
     z-index: 300;
     .share {
-      pointer-events: none;
-      user-select: none;
       width: 100%;
     }
   }
