@@ -10,7 +10,6 @@
 <script>
 import marketService from 'services/marketing'
 import WxShare from 'modules/wxShare'
-import * as PIXI from 'pixi.js'
 import { customTrack } from 'modules/customTrack'
 const IMG_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing/pages'
 export default {
@@ -34,9 +33,7 @@ export default {
   beforeCreate() {
     document.title = '世界杯'
   },
-  created() {
-    console.log(new PIXI.spine.Spine())
-  },
+  created() {},
   mounted() {
     this.width =
       window.innerWidth ||
@@ -58,89 +55,92 @@ export default {
         .getInfoById(this, id)
         .then(res => {
           this.drawCanvas(res.image)
-          this.toslider = true
+          // this.toslider = true
         })
         .catch(err => {})
     },
     playAnim() {
-      let type = 'WebGL'
-      if (!PIXI.utils.isWebGLSupported()) {
-        type = 'canvas'
-      }
-      PIXI.utils.sayHello(type)
-      let that = this
-      let app = new PIXI.Application(this.width, this.height * 1.1, {
-        transparent: true
-      })
-      app.renderer.view.style.position = 'absolute'
-      app.renderer.view.style.top = 0
-      app.renderer.view.style.left = 0
-      app.renderer.view.style.zIndex = 0
-      app.renderer.autoResize = true
-      app.renderer.resize(window.innerWidth, window.innerHeight * 1.1)
-      document.getElementById('content').appendChild(app.view)
+      import('pixi.js').then(PIXI => {
+        let type = 'WebGL'
+        if (!PIXI.utils.isWebGLSupported()) {
+          type = 'canvas'
+        }
+        PIXI.utils.sayHello(type)
+        let that = this
+        let app = new PIXI.Application(this.width, this.height * 1.1, {
+          transparent: true
+        })
+        app.renderer.view.style.position = 'absolute'
+        app.renderer.view.style.top = 0
+        app.renderer.view.style.left = 0
+        app.renderer.view.style.zIndex = 0
+        app.renderer.autoResize = true
+        app.renderer.resize(window.innerWidth, window.innerHeight * 1.1)
+        document.getElementById('content').appendChild(app.view)
 
-      //背景
-      let bg = new PIXI.Sprite.fromImage('/static/world_cup/bg.png')
-      bg.width = app.screen.width
-      bg.height = app.screen.height
-      bg.alpha = 0
-      app.stage.addChild(bg)
-      //球
-      let ball = new PIXI.Sprite.fromImage('/static/world_cup/ball.png')
-      ball.x = this.width * 0.32
-      ball.y = this.height * 0.3
-      ball.scale.set(0.11)
-      // ball.width = 88
-      // ball.height = 88
-      ball.anchor.set(0.5)
-      app.stage.addChild(ball)
-      //泡泡
-      let pao = new PIXI.Sprite.fromImage('/static/world_cup/pao.png')
-      pao.scale.set(0.4)
-      pao.x = this.width * 0.32
-      pao.y = this.height * 0.32
-      pao.visible = false
-      app.stage.addChild(pao)
-      //gogo文本
-      let gogo = new PIXI.Sprite.fromImage('/static/world_cup/gogo.png')
-      gogo.scale.set(0.5)
-      gogo.x = this.width * 0.07
-      gogo.y = this.width * 0.3
-      gogo.visible = false
-      app.stage.addChild(gogo)
-      let ball_scale = 0.115
-      let counter = 0
-      let bigger = true
-      ball.vx = 0
-      ball.vy = 0
-      app.ticker.add(function() {
-        counter++
-        ball.rotation += 0.1
-        bg.alpha = bg.alpha > 1 ? 1 : bg.alpha + 0.015
-        if (counter < 5) {
-          return
-        }
-        if (counter <= 25) {
-          ball_scale += 0.015 + Math.random() / 100
-          ball.vx = 2.5 + Math.sin(Math.random()) * 2
-          ball.vy = 4 + Math.cos(Math.random())
-          pao.visible = counter > 20 ? true : false
-          gogo.visible = false
-        } else if (counter < 120) {
-          pao.visible = counter < 34 ? true : false
-          gogo.visible = counter > 35 ? true : false
-          if (counter < 90 && counter > 30) {
-            ball_scale -= 0.004 + Math.random() / 70
-            ball.vx = Math.sin(Math.random())
-            ball.vy = 7.5 + Math.cos(Math.random())
+        //背景
+        let bg = new PIXI.Sprite.fromImage('/static/world_cup/bg.png')
+        bg.width = app.screen.width
+        bg.height = app.screen.height
+        bg.alpha = 0
+        app.stage.addChild(bg)
+        //球
+        let ball = new PIXI.Sprite.fromImage('/static/world_cup/ball.png')
+        ball.x = this.width * 0.32
+        ball.y = this.height * 0.3
+        ball.scale.set(0.11)
+        // ball.width = 88
+        // ball.height = 88
+        ball.anchor.set(0.5)
+        app.stage.addChild(ball)
+        //泡泡
+        let pao = new PIXI.Sprite.fromImage('/static/world_cup/pao.png')
+        pao.scale.set(0.4)
+        pao.x = this.width * 0.32
+        pao.y = this.height * 0.32
+        pao.visible = false
+        app.stage.addChild(pao)
+        //gogo文本
+        let gogo = new PIXI.Sprite.fromImage('/static/world_cup/gogo.png')
+        gogo.scale.set(0.5)
+        gogo.x = this.width * 0.07
+        gogo.y = this.width * 0.3
+        gogo.visible = false
+        app.stage.addChild(gogo)
+        let ball_scale = 0.115
+        let counter = 0
+        let bigger = true
+        ball.vx = 0
+        ball.vy = 0
+        app.ticker.add(function() {
+          counter++
+          ball.rotation += 0.1
+          bg.alpha = bg.alpha > 1 ? 1 : bg.alpha + 0.015
+          if (counter < 5) {
+            return
           }
-        } else {
-          return
-        }
-        ball.x += ball.vx
-        ball.y += ball.vy
-        ball.scale.set(ball_scale)
+          if (counter <= 25) {
+            ball_scale += 0.015 + Math.random() / 100
+            ball.vx = 2.5 + Math.sin(Math.random()) * 2
+            ball.vy = 4 + Math.cos(Math.random())
+            pao.visible = counter > 20 ? true : false
+            gogo.visible = false
+          } else if (counter < 120) {
+            pao.visible = counter < 34 ? true : false
+            gogo.visible = counter > 35 ? true : false
+            if (counter < 90 && counter > 30) {
+              ball_scale -= 0.004 + Math.random() / 70
+              ball.vx = Math.sin(Math.random())
+              ball.vy = 7.5 + Math.cos(Math.random())
+            }
+          } else {
+            return
+          }
+          ball.x += ball.vx
+          ball.y += ball.vy
+          ball.scale.set(ball_scale)
+        })
+        this.toslider = true
       })
     },
     drawCanvas(image) {

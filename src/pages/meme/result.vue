@@ -6,8 +6,8 @@
                     <img class="ceng1 relative printer" :src="imgUrl + 'printer.png'"/>
                     <img class="ceng3 relative support" :src="imgUrl + 'support.png'"/>
                     <img class="ceng4 absolute frame" :src="imgUrl + 'frame.png'"/>
-                    <img :class="{ceng2:true,border:true,slider1:slider1}" :src="imgUrl + 'photo.png'" />
-                    <img :class="{mImg:true,slider2:slider2}" :src="mImg"/>
+                    <div :class="{ceng2:true,border:true}"></div>
+                    <img :class="{mImg:true}" :src="mImg"/>
                 </div>
                 <img class="ceng1 relative lines" :src="imgUrl + 'lines.png'"/>
                 <img class="ceng1 relative explain" :src="imgUrl + explain + '.png'"/>
@@ -54,8 +54,15 @@ export default {
       window.innerHeight ||
       document.documentElement.clientHeight ||
       document.body.clientHeight
+    let width =
+      window.innerWidth ||
+      document.documentElement.clientWidth ||
+      document.body.clientWidth
     let content = document.getElementById('content')
+    let border = document.querySelector('.border')
     content.style.minHeight = height + 'px'
+    let border_width = width * 0.75
+    border.style.height = 499 / 604 * border_width + 'px'
     window.requestAnimationFrame = (function() {
       return (
         window.requestAnimationFrame ||
@@ -86,25 +93,27 @@ export default {
       let border = document.querySelector('.border')
       let img = document.querySelector('.mImg')
       let top = border.offsetTop
-      let endTop = border.clientHeight * 0.37
+      let endTop = border.clientHeight * 0.456
       let opacity = 0
       let timer = null
       border.style.opacity = 1
-      console.log(border.style.top)
+
       if (image && endTop > 0) {
         toSlider()
       }
       function toSlider() {
         if (opacity >= 1) {
           that.stopShake = false
-          that.explain = 'explain02'
+          // that.explain = 'explain02'
           cancelAnimationFrame(timer)
           return
         }
+        opacity >= 0.5 ? (border.style.backgroundColor = '#fff') : ''
+        opacity > 0 ? (that.explain = 'explain02') : ''
         top = top >= endTop ? top : top + 5
         opacity = top >= endTop ? opacity + 0.05 : 0
         border.style.top = top + 'px'
-        img.style.top = top + 3 + 'px'
+        img.style.top = top - 3 + 'px'
         img.style.opacity = opacity
         requestAnimationFrame(toSlider)
       }
@@ -118,12 +127,12 @@ export default {
           'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/meme/explain01.png',
           'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/meme/explain02.png',
           'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/meme/frame.png',
-          'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/meme/support.png',
+          'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/meme/support.png'
           // 'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/meme/logo.png',
           // 'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/meme/arrow.png',
           // 'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/meme/lightL.png',
           // 'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/meme/lightR.png',
-          'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/meme/photo.png'
+          // 'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/meme/photo.png'
         ],
         imgs = [],
         flag = 0,
@@ -214,11 +223,19 @@ img {
         width: 97%;
       }
       .border {
-        width: 80%;
+        width: 75%;
         position: absolute;
         top: -60%;
-        left: 10%;
+        left: 12.5%;
         opacity: 0;
+        box-sizing: border-box;
+        border-style: solid;
+        border-color: #fff;
+        border-top-width: 8px;
+        border-bottom-width: 8px;
+        border-left-width: 11px;
+        border-right-width: 11px;
+        background-color: #000;
       }
       .mImg {
         width: 52%;

@@ -25,8 +25,6 @@ import marketService from 'services/marketing'
 import WxShare from 'modules/wxShare'
 import wxService from 'services/wx'
 import { customTrack } from 'modules/customTrack'
-import * as PIXI from 'pixi.js'
-import Spine from 'pixi-spine'
 
 export default {
   components: {
@@ -179,36 +177,44 @@ export default {
         })
     },
     init(pos) {
-      this.renderer = new PIXI.CanvasRenderer(this.width, this.height, {
-        transparent: true
-      })
-      document.getElementById('treeDiv').appendChild(this.renderer.view)
-      this.renderer.view.transparent = true
-      this.stage = new PIXI.Container()
-      let that = this
-      PIXI.loader
-        .add(
-          'spineCharacter',
-          'http://p22vy0aug.bkt.clouddn.com/spine/greenlife/treeH5.json'
-        )
-        .load(function(loader, resources) {
-          that.animation = new PIXI.spine.Spine(
-            resources.spineCharacter.spineData
-          )
-          that.stage.addChild(that.animation)
-          that.animation.state.addAnimationByName(0, '3', true, 0)
-          that.animation.x = that.width / 2 + 5
-          that.animation.y = that.height * 5 / 6
-          that.animation.scale.x = that.winWidth * 0.9 / 750
-          that.animation.scale.y = that.winWidth * 0.9 / 750
-          that.animate()
-        })
+      import('pixi.js').then(PIXI => {
+        import('pixi-spine').then(Spine => {
+          this.renderer = new PIXI.CanvasRenderer(this.width, this.height, {
+            transparent: true
+          })
+          document.getElementById('treeDiv').appendChild(this.renderer.view)
+          this.renderer.view.transparent = true
+          this.stage = new PIXI.Container()
+          let that = this
+          PIXI.loader
+            .add(
+              'spineCharacter',
+              'http://p22vy0aug.bkt.clouddn.com/spine/greenlife/treeH5.json'
+            )
+            .load(function(loader, resources) {
+              that.animation = new PIXI.spine.Spine(
+                resources.spineCharacter.spineData
+              )
+              that.stage.addChild(that.animation)
+              that.animation.state.addAnimationByName(0, '3', true, 0)
+              that.animation.x = that.width / 2 + 5
+              that.animation.y = that.height * 5 / 6
+              that.animation.scale.x = that.winWidth * 0.9 / 750
+              that.animation.scale.y = that.winWidth * 0.9 / 750
+              that.animate()
+            })
 
-      this.giftUrl = this.placeUrl[pos]
+          this.giftUrl = this.placeUrl[pos]
+        })
+      })
     },
     animate() {
       requestAnimationFrame(this.animate)
-      this.renderer.render(this.stage)
+      import('pixi.js').then(PIXI => {
+        import('pixi-spine').then(Spine => {
+          this.renderer.render(this.stage)
+        })
+      })
     },
     pushHistory() {
       let pageUrl = window.location.href
