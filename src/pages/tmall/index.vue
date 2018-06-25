@@ -13,6 +13,10 @@
         <img :src="imgUrl" alt="" class="no-win" v-show="!winFlag">
         <canvas id="canvasDoodle" class="canvas-ele" width="200" height="90" v-show="award"></canvas>
       </div>
+      <div class="share-wrap" v-show="shareFlag">
+        <img :src="imgServerUrl + '/pages/tmall/advert.png'" alt="" class="share">
+      </div>
+      
   </div>
 </template>
 <script>
@@ -281,11 +285,6 @@ body {
     position: absolute;
     bottom: 2%;
     z-index: 300;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    -khtml-user-select: none;
-    user-select: none;
     .win {
       position: absolute;
       bottom: 17%;
@@ -324,6 +323,16 @@ body {
       user-select: none;
       width: 80%;
       margin: 0 10%;
+    }
+  }
+  .share-wrap{
+    position: absolute;
+    bottom: 0;
+    z-index: 300;
+    .share {
+      pointer-events: none;
+      user-select: none;
+      width: 100%;
     }
   }
 }
