@@ -194,13 +194,17 @@ import marketService from 'services/marketing'
 import { customTrack } from 'modules/customTrack'
 import { Toast } from 'mint-ui'
 import { isWeixin } from '../../modules/util'
+import 'swiper/dist/css/swiper.css'
+import { swiper, swiperSlide } from 'vue-awesome-swiper'
 const wx = require('weixin-js-sdk')
 const burl =
   'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/xsd51/cp/'
 const wi = window.innerWidth
 export default {
   components: {
-    WxShare
+    WxShare,
+    swiper,
+    swiperSlide
   },
   data() {
     return {
