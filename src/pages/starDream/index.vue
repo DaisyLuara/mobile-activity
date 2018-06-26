@@ -97,70 +97,70 @@ export default {
     left: 0.5%;
     width: 11%;
     top: 4.2%;
-    animation: twinkle 0.5s linear infinite alternate;
+    animation: twinkle 0.3s linear infinite alternate;
   }
   .lang-one-bright {
     position: absolute;
     left: 0.5%;
     width: 11%;
     top: 5%;
-    animation: twinkle 0.5s linear infinite alternate;
+    animation: twinkle 0.3s linear infinite alternate;
   }
   .two-bright {
     position: absolute;
     right: -4.3%;
     width: 16%;
     top: 2.2%;
-    animation: twinkle 0.5s linear infinite alternate;
+    animation: twinkle 0.3s linear infinite alternate;
   }
   .lang-two-bright {
     position: absolute;
     right: -4.3%;
     width: 16.2%;
     top: 3.1%;
-    animation: twinkle 0.5s linear infinite alternate;
+    animation: twinkle 0.3s linear infinite alternate;
   }
   .three-bright{
     position: absolute;
     right: 0.2%;
     width: 14%;
     top: 29.6%;
-    animation: twinkle 0.5s linear infinite alternate;
+    animation: twinkle 0.3s linear infinite alternate;
   }
   .lang-three-bright{
     position: absolute;
     right: -0.3%;
     width: 15%;
     top: 30.2%;
-    animation: twinkle 0.5s linear infinite alternate;
+    animation: twinkle 0.3s linear infinite alternate;
   }
   .four-bright{
     position: absolute;
     left: 0.3%;
     width: 9%;
     bottom: 31.2%;
-    animation: twinkle 0.5s linear infinite alternate;
+    animation: twinkle 0.3s linear infinite alternate;
   }
   .lang-four-bright{
     position: absolute;
     left: 0.3%;
     width: 9%;
     bottom: 32.1%;
-    animation: twinkle 0.5s linear infinite alternate;
+    animation: twinkle 0.3s linear infinite alternate;
   }
   .five-bright{
     position: absolute;
     right: 1.7%;
     width: 12.9%;
     bottom: 16.9%;
-    animation: twinkle 0.5s linear infinite alternate;
+    animation: twinkle 0.3s linear infinite alternate;
   }
   .lang-five-bright{
     position: absolute;
     right: 1.7%;
     width: 12.9%;
     bottom: 17.7%;
-    animation: twinkle 0.5s linear infinite alternate;
+    animation: twinkle 0.3s linear infinite alternate;
   }
   .photo {
     width: 76.9%;
@@ -187,6 +187,7 @@ export default {
     img {
       width: 77%;
     }
+    animation: arrows 0.8s ease-out infinite alternate;
   }
   @keyframes twinkle {
     0% {
