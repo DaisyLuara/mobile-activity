@@ -39,7 +39,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       compress: {
         warnings: false
       },
-      sourceMap: config.build.productionSourceMap,
+      // sourceMap: config.build.productionSourceMap,
       parallel: true,
       drop_debugger: true,
       drop_console: true
