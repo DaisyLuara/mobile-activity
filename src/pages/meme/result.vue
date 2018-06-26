@@ -6,8 +6,13 @@
           <img class="ceng1 relative printer" :src="imgUrl + 'printer.png'"/>
           <img class="ceng3 relative support" :src="imgUrl + 'support.png'"/>
           <img class="ceng4 absolute frame" :src="imgUrl + 'frame.png'"/>
-          <div :class="{ceng2:true,border:true}"></div>
-          <img :class="{mImg:true}" :src="mImg"/>
+          <div 
+            :class="{ceng2: true, border: true}">
+          </div>
+          <img 
+            :style="mImgStyle"
+            :class="{mImg: true}" 
+            :src="mImg"/>
       </div>
       <img class="ceng1 relative lines" :src="imgUrl + 'lines.png'"/>
       <img class="ceng1 relative explain" :src="imgUrl + explain + '.png'"/>
@@ -21,6 +26,10 @@
 <script>
 import { $_wechat, wechatShareTrack, getInfoById } from 'services'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
+const wiw =
+  window.innerWidth ||
+  document.documentElement.clientWidth ||
+  document.body.clientWidth
 export default {
   data() {
     return {
@@ -31,6 +40,10 @@ export default {
       slider1: false,
       slider2: false,
       stopShake: true,
+      mImgStyle: {
+        width: wiw * 198 / 375 + 'px',
+        height: wiw * 187 / 375 * 'px'
+      },
       //微信分享
       wxShareInfo: {
         title: '表情包制造机',
@@ -242,7 +255,7 @@ img {
         z-index: 15;
       }
       .mImg {
-        width: 52%;
+        // width: 52%;
         position: absolute;
         top: -60%;
         left: 24%;
