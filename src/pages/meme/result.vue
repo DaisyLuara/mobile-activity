@@ -1,29 +1,35 @@
 <template>
-    <div class="content" id="content">
-        <div class="main">
-                <img class="ceng5 relative title" :src="imgUrl + 'title.png'" /> 
-                <div class="ceng2 relative center">
-                    <img class="ceng1 relative printer" :src="imgUrl + 'printer.png'"/>
-                    <img class="ceng3 relative support" :src="imgUrl + 'support.png'"/>
-                    <img class="ceng4 absolute frame" :src="imgUrl + 'frame.png'"/>
-                    <div :class="{ceng2:true,border:true}"></div>
-                    <img :class="{mImg:true}" :src="mImg"/>
-                </div>
-                <img class="ceng1 relative lines" :src="imgUrl + 'lines.png'"/>
-                <img class="ceng1 relative explain" :src="imgUrl + explain + '.png'"/>
-                <img class="ceng5 absolute logo" :src="imgUrl + 'logo.png'"/>
-                <img class="ceng5 absolute arrow" :src="imgUrl + 'arrow.png'" v-show="stopShake"/>
-                <img class="ceng5 absolute lightL" :src="imgUrl + 'lightL.png'" v-show="stopShake"/>
-                <img class="ceng5 absolute lightR" :src="imgUrl + 'lightR.png'"/>
-        </div>
-        <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+  <div class="content" id="content">
+    <div class="main">
+      <img class="ceng5 relative title" :src="imgUrl + 'title.png'" /> 
+      <div class="ceng2 relative center">
+          <img class="ceng1 relative printer" :src="imgUrl + 'printer.png'"/>
+          <img class="ceng3 relative support" :src="imgUrl + 'support.png'"/>
+          <img class="ceng4 absolute frame" :src="imgUrl + 'frame.png'"/>
+          <div 
+            :class="{ceng2: true, border: true}">
+          </div>
+          <img 
+            :style="mImgStyle"
+            :class="{mImg: true}" 
+            :src="mImg"/>
+      </div>
+      <img class="ceng1 relative lines" :src="imgUrl + 'lines.png'"/>
+      <img class="ceng1 relative explain" :src="imgUrl + explain + '.png'"/>
+      <img class="ceng5 absolute logo" :src="imgUrl + 'logo.png'"/>
+      <img class="ceng5 absolute arrow" :src="imgUrl + 'arrow.png'" v-show="stopShake"/>
+      <img class="ceng5 absolute lightL" :src="imgUrl + 'lightL.png'" v-show="stopShake"/>
+      <img class="ceng5 absolute lightR" :src="imgUrl + 'lightR.png'"/>
     </div>
+  </div>
 </template>
 <script>
-import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
-import { customTrack } from 'modules/customTrack'
+import { $_wechat, wechatShareTrack, getInfoById } from 'services'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
+const wiw =
+  window.innerWidth ||
+  document.documentElement.clientWidth ||
+  document.body.clientWidth
 export default {
   data() {
     return {
@@ -34,13 +40,17 @@ export default {
       slider1: false,
       slider2: false,
       stopShake: true,
+      mImgStyle: {
+        width: wiw * 198 / 375 + 'px',
+        height: wiw * 187 / 375 * 'px'
+      },
       //微信分享
       wxShareInfo: {
         title: '表情包制造机',
         desc: '表情包制造机',
         imgUrl: IMAGE_SERVER + '/pages/meme/share.png',
         success: () => {
-          customTrack.shareWeChat()
+          wechatShareTrack()
         }
       }
     }
@@ -48,7 +58,6 @@ export default {
   beforeCreate() {
     document.title = '表情包制造机'
   },
-  created() {},
   mounted() {
     let height =
       window.innerHeight ||
@@ -76,12 +85,19 @@ export default {
       )
     })()
     this.getInfoById()
+    $_wechat()
+      .then(res => {
+        res.share(this.wxShareInfo)
+      })
+      .catch(_ => {
+        console.warn(_.message)
+        console.dir(_)
+      })
   },
   methods: {
     getInfoById() {
       let id = this.$route.query.id
-      marketService
-        .getInfoById(this, id)
+      getInfoById(id)
         .then(res => {
           this.mImg = res.image
           this.imgsIsLoaded()
@@ -149,9 +165,6 @@ export default {
         }
       }
     }
-  },
-  components: {
-    WxShare
   }
 }
 </script>
@@ -179,7 +192,7 @@ img {
   z-index: 0;
 }
 .ceng2 {
-  z-index: 5;
+  z-index: 12;
 }
 .ceng3 {
   z-index: 10;
@@ -202,11 +215,14 @@ img {
   margin: 0;
   font-size: 0;
   text-align: center;
+  position: relative;
+  z-index: 10;
   .main {
     position: relative;
     width: 100%;
     margin: 0 auto;
     text-align: center;
+    z-index: 11;
     .title {
       width: 84.5%;
       margin-top: 5%;
@@ -236,9 +252,10 @@ img {
         border-left-width: 11px;
         border-right-width: 11px;
         background-color: #000;
+        z-index: 15;
       }
       .mImg {
-        width: 52%;
+        // width: 52%;
         position: absolute;
         top: -60%;
         left: 24%;
