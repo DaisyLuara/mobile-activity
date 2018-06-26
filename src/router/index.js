@@ -572,7 +572,8 @@ export default new Router({
         {
           path: 'tmall',
           name: 'tmall',
-          component: () => import(/* webpackChunkName: "tmall" */ 'pages/tmall/index')
+          component: () =>
+            import(/* webpackChunkName: "tmall" */ 'pages/tmall/index')
         }
       ]
     },
