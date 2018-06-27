@@ -253,7 +253,7 @@ export default {
       ctx.strokeStyle = '#baa7a3'
       if (!score.length) {
         for (let i = 0; i < num; i++) {
-          let k = Math.random()
+          let k = 0.6 + Math.random() * 0.4 //Math.random()
           //k = k < 0.2 ? 0.2 : k
           let x = lineR * Math.sin(angle * i),
             y = lineR * Math.cos(angle * i)
