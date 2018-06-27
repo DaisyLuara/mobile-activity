@@ -4,6 +4,9 @@ const utils = require('./utils')
 const config = require('../config')
 const webpack = require('webpack')
 const vueLoaderConfig = require('./vue-loader.conf')
+const os = require('os')
+const HappyPack = require('happypack')
+const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length })
 
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
@@ -43,29 +46,39 @@ module.exports = {
   },
   module: {
     rules: [
-      ...(config.dev.useEslint
-        ? [
-            {
-              test: /\.(js|vue)$/,
-              loader: 'eslint-loader',
-              enforce: 'pre',
-              include: [resolve('src'), resolve('test')],
-              options: {
-                formatter: require('eslint-friendly-formatter'),
-                emitWarning: !config.dev.showEslintErrorsInOverlay
-              }
-            }
-          ]
-        : []),
+      // ...(config.dev.useEslint
+      //   ? [
+      //       {
+      //         test: /\.(js|vue)$/,
+      //         loader: 'eslint-loader',
+      //         enforce: 'pre',
+      //         include: [resolve('src'), resolve('test')],
+      //         options: {
+      //           formatter: require('eslint-friendly-formatter'),
+      //           emitWarning: !config.dev.showEslintErrorsInOverlay
+      //         },
+      //         exclude: /node_modules/
+      //       }
+      //     ]
+      //   : []),
+      {
+        test: /\.js[x]?$/,
+        include: [resolve('src')],
+        exclude: /node_modules/,
+        loader: 'happypack/loader?id=happybabel'
+      },
       {
         test: /\.vue$/,
         loader: 'vue-loader',
-        options: vueLoaderConfig
+        options: vueLoaderConfig,
+        include: [resolve('src')],
+        exclude: /node_modules\/(?!(autotrack|dom-utils))|vendor\.dll\.js/
       },
       {
         test: /\.js$/,
-        loader: 'babel-loader',
-        include: [resolve('src'), resolve('test')]
+        loader: 'babel-loader?cacheDirectory=true',
+        include: [resolve('src'), resolve('test')],
+        exclude: /node_modules/
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -93,11 +106,19 @@ module.exports = {
       },
       {
         test: /\.less$/,
-        loader: 'style-loader!css-loader!less-loader'
+        loader: 'style-loader!css-loader!less-loader',
+        include: [resolve('src')],
+        exclude: /node_modules/
       }
     ]
   },
   plugins: [
+    new HappyPack({
+      id: 'happybabel',
+      loaders: ['babel-loader'],
+      threadPool: happyThreadPool,
+      verbose: true
+    }),
     new webpack.optimize.CommonsChunkPlugin('common.js'),
     new webpack.ProvidePlugin({
       $: 'jquery',
