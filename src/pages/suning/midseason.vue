@@ -31,7 +31,7 @@ export default {
       wxShareInfo: {
         title: '颜值头条',
         desc: '',
-        imgUrl: serverUrl + '/pages/meme/share.png',
+        imgUrl: serverUrl + 'share.png',
         success: () => {
           wechatShareTrack()
         }
