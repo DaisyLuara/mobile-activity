@@ -6,6 +6,7 @@
         :src="serverUrl + 'ms-bg.png'" />
       <!-- button -->
       <img
+        @click="handleUrlJump"
         :style="style.button"
         class="button"
         :src="serverUrl + 'ms-btn.png'" />
@@ -28,8 +29,8 @@ export default {
       serverUrl: serverUrl,
       photoUrl: null,
       wxShareInfo: {
-        title: '表情包制造机',
-        desc: '表情包制造机',
+        title: '颜值头条',
+        desc: '颜值头条',
         imgUrl: serverUrl + '/pages/meme/share.png',
         success: () => {
           wechatShareTrack()
@@ -46,11 +47,14 @@ export default {
     }
   },
   mounted() {
-    document.title = '苏宁'
+    document.title = '颜值头条'
     this.handleWeChatShare()
     this.getPhoto()
   },
   methods: {
+    handleUrlJump() {
+      window.location.href = 'https://cuxiao.m.suning.com/qiangdianqi.html'
+    },
     handleWeChatShare() {
       if (isInWechat() === true) {
         $_wechat()
@@ -88,13 +92,15 @@ export default {
   }
   .button {
     position: absolute;
-    z-index: 11;
+    z-index: 12;
     width: 50%;
     margin: 0 auto;
     left: 0;
     right: 0;
     bottom: 0;
     animation: sf 1s infinite;
+    -webkit-touch-callout: none;
+    user-select: none;
   }
   .photo {
     position: absolute;
