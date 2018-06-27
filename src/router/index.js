@@ -580,6 +580,12 @@ export default new Router({
           name: 'star_dream',
           component: () =>
             import(/* webpackChunkName: "starDream" */ 'pages/starDream/index')
+        },
+        {
+          path: 'suning-ms',
+          name: 'suningMidSeasonSales',
+          component: () =>
+            import(/*webpackChunkName: "suningMidSeasonSales" */ 'pages/suning/midseason')
         }
       ]
     },
