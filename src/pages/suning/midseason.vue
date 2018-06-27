@@ -105,7 +105,7 @@ export default {
   .photo {
     position: absolute;
     z-index: 12;
-    width: 77.1%;
+    width: 75.1%;
     margin: 0 auto;
     left: 0;
     right: 0;
