@@ -185,11 +185,15 @@ export default {
                 0,
                 word.width,
                 word.height,
-                bg.width * 0.15,
-                bg.height * 0.052,
-                bg.width * 0.7,
-                bg.height * 0.19
+                (bg.width - word.width) / 2,
+                bg.height * 0.053,
+                word.width,
+                word.height
               )
+              // bg.width * 0.15,
+              // bg.height * 0.052,
+              // bg.width * 0.7,
+              // bg.height * 0.19
               text.onload = function() {
                 ctx.drawImage(
                   text,
@@ -221,8 +225,9 @@ export default {
       let ctx = canvas.getContext('2d')
       let lineR = radius + 15
       let score = []
-      if (window.localStorage.getItem('ppscore')) {
-        score = window.localStorage.getItem('ppscore').split(',')
+      let localName = 'ppscore' + this.$route.query.type
+      if (window.localStorage.getItem(localName)) {
+        score = window.localStorage.getItem(localName).split(',')
       } else {
         score = []
       }
@@ -270,7 +275,7 @@ export default {
           ctx.lineTo(k * x, k * y)
         }
       }
-      window.localStorage.setItem('ppscore', score.toString())
+      window.localStorage.setItem(localName, score.toString())
       ctx.closePath()
       ctx.stroke()
       ctx.save()
