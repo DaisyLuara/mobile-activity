@@ -210,7 +210,7 @@ export default {
               }
               text.src = b_url + './text.png'
             }
-            word.src = b_url + type + '.png'
+            word.src = b_url + type + '.png?v=122'
           }
           cover.src = b_url + 'cover.png'
         }
