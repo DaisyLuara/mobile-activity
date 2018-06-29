@@ -9,7 +9,7 @@
         @click="handleUrlJump"
         :style="style.button"
         class="button"
-        :src="serverUrl + 'btn.png'" />
+        :src="serverUrl + 'btn.png?v=1'"  />
       <!-- photo -->
       <img
         :style="style.photo"
