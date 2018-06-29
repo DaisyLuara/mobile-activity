@@ -1,6 +1,6 @@
 <template>
   <div class="psbh-travel-wrap">
-    <img class="psbh-img" :src="imgServerUrl + '/ad_0622_1.jpg'" alt="">
+    <img class="psbh-img" :src="imgServerUrl + '/ad_0629.jpg'" alt="">
     <div class="photo-content">
       <div class="boots-wrap">
         <div class="slide-wrap pos-common">
@@ -20,8 +20,8 @@
       </div>
       <img class="slogan" :src="imgServerUrl + '/slogan.png'">
     </div>
-    <img class="psbh-img" :src="imgServerUrl + '/ad_0622_3.jpg'" alt="">
-    <img class="psbh-img" :src="imgServerUrl + '/ad_0622_4.jpg'" alt="">
+    <!-- <img class="psbh-img" :src="imgServerUrl + '/ad_0622_3.jpg'" alt="">
+    <img class="psbh-img" :src="imgServerUrl + '/ad_0622_4.jpg'" alt=""> -->
     
     <!-- <img class="psbh-img" :src="imgServerUrl + '/img1.jpg'" alt="">
     <img class="psbh-img" :src="imgServerUrl + '/img2.jpg'" alt="">
