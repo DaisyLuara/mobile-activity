@@ -7,13 +7,19 @@
     <div class="div_text">
         <ul>
             <li class="name">规则：</li>
-            <li v-for="item in textMsg[num]">{{item}}</li>
+            <li 
+              :key="index"
+              v-for="(item, index) in textMsg[num]">{{item}}
+            </li>
             <li class="name">优惠券规则：</li>
             <li>凭此照片兑换，仅限本人使用，每人只可用一次，全场先秒先得！</li>
         </ul>
     </div>
     <div class="map">
-      <img v-for="item in imgMsg" :src="item"/>
+      <img
+        :key="index" 
+        v-for="(item, index) in imgMsg" 
+        :src="item"/>
     </div>
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
 </div>
@@ -49,9 +55,6 @@ export default {
         }
       }
     }
-  },
-  beforeCreate() {
-    document.title = 'Happy Dino'
   },
   created() {
     this.getInfoById()

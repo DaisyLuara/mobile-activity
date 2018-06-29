@@ -19,9 +19,6 @@ export default {
       face_id: this.$route.query.utm_campaign
     }
   },
-  beforeCreate() {
-    document.title = '星视度'
-  },
   mounted() {
     $('.wrap').css('min-height', $(window).height())
   },

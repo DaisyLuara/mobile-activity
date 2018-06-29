@@ -34,9 +34,6 @@ export default {
       }
     }
   },
-  beforeCreate() {
-    document.title = '芒果娱乐荣誉出品'
-  },
   mounted() {
     $('.concert-content').css('min-height', $(window).height())
   },

@@ -30,10 +30,6 @@ export default {
       }
     }
   },
-  beforeCreate() {
-    document.title = '世界杯'
-  },
-  created() {},
   mounted() {
     this.width =
       window.innerWidth ||

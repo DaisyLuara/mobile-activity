@@ -101,9 +101,6 @@ export default {
       }
     }
   },
-  beforeCreate() {
-    document.title = '星视度'
-  },
   created() {
     this.getDataByType()
   },
