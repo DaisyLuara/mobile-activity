@@ -35,9 +35,6 @@ export default {
       }
     }
   },
-  beforeCreate() {
-    document.title = '苏宁嗨购'
-  },
   mounted() {
     $('.suning-content').css('min-height', $(window).height())
   },
