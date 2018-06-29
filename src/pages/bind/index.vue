@@ -1,0 +1,286 @@
+<template>
+  <div class="bind-wrap" id="bind">
+    <div class="phone-wrap">
+      <!-- 手机号 -->
+      <div class="form-block">
+        <div class="phone-lable">手机号</div>
+        <input
+          maxlength="11"
+          @click="phoneError=false"
+          v-model="bindPhoneNumber"
+          placeholder="请输入手机号" class="phone"/>
+        <div class="send-code" @click="phoneSuccessHandle">图片验证码</div>
+        <div
+          v-show="this.phoneError"
+          class="error">
+          手机号有误，请重新输入
+        </div>
+      </div>
+      <!-- 图形验证码 -->
+      <div class="form-block" v-if="showImageCaptcha">
+        <div class="phone-code">图片验证码</div>
+        <input
+          maxlength="5"
+          @click="imageCaptchaError=false"
+          v-model="imageCaptcha.value"
+          placeholder="请输入图片验证码" class="code" @keyup="getSmsCaptcha" auto-complete="off"/>
+        <div class="send-code">
+          <img class="image-code" :src="image_url" @click="getImageCaptcha()" alt="验证码图片">
+        </div>
+        <div
+          v-show="this.imageCaptchaError"
+          class="error">
+          图片验证码长度不对
+        </div>
+      </div>
+      <!-- 短信验证码 -->
+      <div class="form-block" v-if="showSmsCaptcha">
+        <div class="phone-code">短信验证码</div>
+        <input
+          maxlength="6"
+          v-model="verificationCode"
+          placeholder="请输入短信验证码" class="code"/>
+          <div class="send-code" v-show="!sendingSmsCaptcha" @click="sendSmsCaptcha">发送验证码</div>
+          <div class="send-code" v-show="sendingSmsCaptcha">重新获取({{sendingSmsCaptchaTimer}}s)</div>
+      </div>
+      <!-- 提交 -->
+      <div class="form-block">
+        <div class="btn" @click="submit">绑定</div>
+      </div>      
+    </div>
+  </div>
+</template>
+<script>
+import { Toast } from 'mint-ui'
+import { Cookies } from 'services'
+
+const HOST = process.env.AD_API
+
+export default {
+  data() {
+    return {
+      imageCaptchaError: false,
+      bindPhoneNumber: '',
+      verificationCode: '',
+      showSmsCaptcha: false,
+      imageCaptcha: {
+        key: '',
+        value: ''
+      },
+      verification_key: '',
+      showImageCaptcha: false,
+      sendingSmsCaptcha: false,
+      sendingSmsCaptchaTimer: 60, //发送验证码计时器,
+      phoneError: false,
+      image_url: ''
+    }
+  },
+  mounted() {
+    document.title = '微信绑定'
+    let height =
+      window.innerHeight ||
+      document.documentElement.clientHeight ||
+      document.body.clientHeight
+    let content = document.getElementById('bind')
+    content.style.height = height + 'px'
+  },
+  created() {
+    if (Cookies.get('openid') === null) {
+      this.handleFirstAuth()
+    }
+  },
+  methods: {
+    submit() {
+      let phoneFlag = this.handleButtonClick()
+      let imageCaptchaFlag = this.handleimageCaptcha()
+      if (phoneFlag && imageCaptchaFlag) {
+        let args = {
+          verification_key: this.verification_key,
+          verification_code: this.verificationCode
+        }
+        this.$http
+          .post(HOST + '/api/user/bind/weixin', args)
+          .then(r => {
+            Toast('绑定成功')
+          })
+          .catch(e => {
+            console.log(e)
+            let status_401 = 'Error: Request failed with status code 401'
+            let status_422 = 'Error: Request failed with status code 422'
+            if (status_401 == e) {
+              Toast('短信验证码错误')
+            }
+            if (status_422 == e) {
+              Toast('图片验证码失效')
+            }
+          })
+      } else {
+        Toast('请输入完整的信息')
+      }
+    },
+    phoneSuccessHandle() {
+      this.imageCaptchaError = false
+      if (!/^1[345678]\d{9}$/.test(this.bindPhoneNumber)) {
+        this.phoneError = true
+        this.showImageCaptcha = false
+        return
+      } else {
+        this.ImageCaptchaHandle()
+      }
+    },
+    ImageCaptchaHandle() {
+      this.getImageCaptcha()
+    },
+    getImageCaptcha() {
+      let args = {
+        phone: this.bindPhoneNumber
+      }
+      this.$http
+        .post(HOST + '/api/captchas', args)
+        .then(r => {
+          let result = r.data
+          this.imageCaptcha.key = result.captcha_key
+          this.image_url = result.captcha_image_content
+          this.showImageCaptcha = true
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    },
+    handleimageCaptcha() {
+      if (this.imageCaptcha.value.length !== 5) {
+        this.imageCaptchaError = true
+        return false
+      } else {
+        return true
+      }
+    },
+    getSmsCaptcha() {
+      if (this.imageCaptcha.value.length == 5) {
+        this.showSmsCaptcha = true
+        this.sendSmsCaptcha()
+      }
+    },
+    sendSmsCaptcha() {
+      // 校验手机号码、验证码
+      let args = {
+        captcha_key: this.imageCaptcha.key,
+        captcha_code: this.imageCaptcha.value
+      }
+      this.$http
+        .post(HOST + '/api/verificationCodes', args)
+        .then(r => {
+          let result = r.data
+          let that = this
+          // 改变发送验证码的文字，倒计时,开启语音验证码
+          this.verification_key = result.key
+          this.sendingSmsCaptcha = true
+          let smsIntervel = function() {
+            // 倒计时结束： 改变发送验证码的文字为重新获取
+            if (that.sendingSmsCaptchaTimer == 0) {
+              window.clearInterval('smsIntervel')
+              that.sendingSmsCaptchaTimer = 59
+              that.sendingSmsCaptcha = false
+              return false
+            }
+            that.sendingSmsCaptchaTimer--
+            setTimeout(smsIntervel, 1000)
+          }
+          smsIntervel()
+        })
+        .catch(e => {
+          console.log(e)
+          let status_401 = 'Error: Request failed with status code 401'
+          let status_422 = 'Error: Request failed with status code 422'
+          if (status_401 == e) {
+            Toast('图片验证码错误')
+          }
+          if (status_422 == e) {
+            Toast('图片验证码失效')
+          }
+        })
+    },
+    handleButtonClick() {
+      if (!/^1[345678]\d{9}$/.test(this.bindPhoneNumber)) {
+        this.phoneError = true
+        return false
+      } else {
+        return true
+      }
+    },
+    handleFirstAuth() {
+      let now_url = encodeURIComponent(window.location.href)
+      let redirct_url =
+        process.env.WX_API +
+        '/wx/officialAccount/oauth?url=' +
+        now_url +
+        '&scope=snsapi_userinfo'
+      window.location.href = redirct_url
+    }
+  }
+}
+</script>
+<style lang="less" scoped>
+.bind-wrap {
+  padding: 20px;
+  overflow: hidden;
+  .phone-wrap {
+    margin: 20% auto;
+    .form-block {
+      margin-bottom: 30px;
+      position: relative;
+    }
+    .phone-lable {
+      color: #444;
+      font-size: 18px;
+      padding-bottom: 10px;
+    }
+    .error {
+      color: red;
+      font-size: 14px;
+      position: absolute;
+      // margin-top: -25px;
+      // margin-bottom: 10px;
+    }
+    .phone {
+      border-bottom: 1px solid #d8d3d3;
+      width: 100%;
+      padding: 10px 0;
+      font-size: 16px;
+    }
+    .phone-code {
+      color: #444;
+      font-size: 18px;
+      padding-bottom: 10px;
+    }
+    .code {
+      border-bottom: 1px solid #d8d3d3;
+      width: 100%;
+      padding: 10px 0;
+      font-size: 16px;
+    }
+    .send-code {
+      position: absolute;
+      // border: 1px solid #20A0FF;
+      // padding: 10px;
+      border-radius: 5px;
+      // background: #20A0FF;
+      color: #20a0ff;
+      bottom: 7%;
+      right: 0;
+    }
+    .btn {
+      border: 1px solid #20a0ff;
+      background: #20a0ff;
+      border-radius: 5px;
+      width: 100%;
+      text-align: center;
+      padding: 15px 0;
+      color: #fff;
+    }
+  }
+}
+</style>
+
+
+
