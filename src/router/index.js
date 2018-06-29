@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import marketingHome from 'pages/marketingHome'
 import wxMiniHome from 'pages/wxMiniHome'
+import bindHome from 'pages/bindHome'
 Vue.use(Router)
 
 export default new Router({
@@ -591,6 +592,19 @@ export default new Router({
           component: () =>
             import(/*webpackChunkName: "suningMidSeasonSales" */ 'pages/suning/midseason')
         }
+      ]
+    },
+    {
+      path: '/wxBind',
+      name: 'bind',
+      component: bindHome,
+      children: [
+        {
+          path: 'bind',
+          name: '微信绑定',
+          component: () =>
+            import(/* webpackChunkName: "bind" */ 'pages/bind/index')
+        },
       ]
     },
     {

@@ -5,6 +5,7 @@ const prodEnv = require('./prod.env')
 module.exports = merge(prodEnv, {
   NODE_ENV: JSON.stringify('development'),
   M_URL: JSON.stringify('http://127.0.0.1:8087'),
+  AD_API: JSON.stringify('http://papi.jingfree.top'),
   STORE_API: JSON.stringify('http://store.loveqiche.com'),
   SAAS_API: JSON.stringify('http://sapi.jingfree.top/api'),
   WX_API: JSON.stringify('http://sapi.jingfree.top/api'),
