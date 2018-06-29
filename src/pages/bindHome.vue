@@ -5,17 +5,7 @@
 </template>
 <script>
 export default {
-  name: 'bindHome',
-  data() {
-    return {
-    }
-  },
-  created () {
-  },
-  methods: {
-  },
-  components: {
-  }
+  name: 'bindHome'
 }
 </script>
 
