@@ -5,13 +5,7 @@
 </template>
 <script>
 export default {
-  name: 'marketingHome',
-  data() {
-    return {}
-  },
-  created() {},
-  methods: {},
-  components: {}
+  name: 'marketingHome'
 }
 </script>
 

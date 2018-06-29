@@ -170,7 +170,6 @@ export default {
   mounted() {
     $('.feng-wrap').css('height', $(window).height())
     this.p.detailShowPosition = 0.2 * $(window).height()
-    document.title = '地图导览'
     this.init()
   },
   methods: {

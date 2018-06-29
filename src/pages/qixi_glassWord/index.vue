@@ -41,9 +41,6 @@ export default {
       }
     }
   },
-  beforeCreate() {
-    document.title = '星视度'
-  },
   mounted() {
     $('.glass-wrap').css('height', $(window).height())
     var h = $('.glass-wrap').height()

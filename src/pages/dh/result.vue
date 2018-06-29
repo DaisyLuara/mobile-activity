@@ -41,9 +41,6 @@ export default {
       }
     }
   },
-  beforeCreate() {
-    document.title = '大华集团'
-  },
   mounted() {
     $('.concert-content').css('min-height', $(window).height())
   },

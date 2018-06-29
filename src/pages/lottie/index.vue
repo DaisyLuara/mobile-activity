@@ -80,9 +80,6 @@ export default {
       return wxShareInfo
     }
   },
-  created() {
-    document.title = '激情世界杯'
-  },
   mounted() {
     this.initAnimation()
     this.fetchNumberData()

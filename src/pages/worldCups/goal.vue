@@ -89,9 +89,6 @@ export default {
       }
     }
   },
-  created() {
-    document.title = '6嗨全球GO！'
-  },
   mounted() {
     this.getInfoById()
   },

@@ -5,19 +5,6 @@
 </template>
 <script>
 export default {
-  name: 'wxMiniHome',
-  data() {
-    return {
-    }
-  },
-  created () {
-  },
-  methods: {
-  },
-  components: {
-  }
+  name: 'wxMiniHome'
 }
 </script>
-
-<style lang="less">
-</style>

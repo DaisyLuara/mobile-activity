@@ -48,9 +48,6 @@ export default {
       }
     }
   },
-  beforeCreate() {
-    document.title = ''
-  },
   mounted() {
     $('.hilton-content').css('min-height', $(window).height())
   },

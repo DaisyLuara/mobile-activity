@@ -580,9 +580,6 @@ export default {
         left: 0;
         right: 0;
         z-index: 1;
-        #progress2 {
-          //  transition: stroke-dashoffset .1s linear;
-        }
       }
       .clock-text {
         position: absolute;
