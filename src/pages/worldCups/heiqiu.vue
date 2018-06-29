@@ -194,7 +194,6 @@ export default {
           this.getUserData()
         }
       }
-      document.title = '嗨啾'
     },
     handleAuth() {
       if (localStorage.getItem('wc_heijiu') === null) {

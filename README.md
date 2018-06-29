@@ -24,9 +24,9 @@ https://github.com/nefe/You-Dont-Need-jQuery/blob/master/README.zh-CN.md
 
 ### 静态资源走 cdn
 
-### Router 模式化
-
 ## Build Setup
+
+### Router 模式化 Done
 
 ```bash
 # install dependencies

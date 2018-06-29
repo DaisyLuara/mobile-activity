@@ -30,9 +30,6 @@ export default {
       }
     }
   },
-  beforeCreate() {
-    document.title = '芒果娱乐荣誉出品'
-  },
   created() {
     this.getInfoById()
   },

@@ -3,6 +3,7 @@
     class="root"
     :style="style.root">
     <img 
+      @touchstart="handleStopBubble"
       class="root-bg"
       :src="serverUrl + 'lottie-bg.png'">
     <div
@@ -80,15 +81,15 @@ export default {
       return wxShareInfo
     }
   },
-  created() {
-    document.title = '激情世界杯'
-  },
   mounted() {
     this.initAnimation()
     this.fetchNumberData()
     this.getPhotoById()
   },
   methods: {
+    handleStopBubble(e) {
+      e.preventDefault()
+    },
     initAnimation() {
       const el = document.getElementById('animation')
       lottie.loadAnimation({
@@ -149,14 +150,18 @@ export default {
 
 <style lang="less" scoped>
 .root {
+  user-select: none;
   width: 100%;
   position: relative;
+  -webkit-touch-callout: none;
+  user-select: none;
   .root-bg {
     width: 100%;
     position: absolute;
     top: 0;
     left: 0;
     z-index: -10;
+    pointer-events: none;
   }
   .animation {
     width: 100%;
@@ -166,6 +171,7 @@ export default {
     z-index: 12;
     position: absolute;
     left: 18.2%;
+    pointer-events: auto;
   }
   .score {
     position: absolute;

@@ -121,9 +121,6 @@ export default {
       phoneError: false
     }
   },
-  created() {
-    document.title = 'EXE颜镜店'
-  },
   mounted() {
     this.handleForbiddenShare()
   },

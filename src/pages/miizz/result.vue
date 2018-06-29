@@ -23,14 +23,13 @@
 <script>
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing/'
 
-import marketService from 'services/marketing';
-import { customTrack } from 'modules/customTrack';
-import WxShare from 'modules/wxShare.vue';
-
+import marketService from 'services/marketing'
+import { customTrack } from 'modules/customTrack'
+import WxShare from 'modules/wxShare.vue'
 
 export default {
   components: {
-    WxShare,
+    WxShare
   },
   data() {
     return {
@@ -46,12 +45,9 @@ export default {
       wxShareInfoValue: {
         title: '觅作',
         desc: '让你点亮世界的穿衣首饰搭配指南',
-        imgUrl: IMAGE_SERVER + 'wx_share_icon/mizz_share_icon.png',
-      },
-    };
-  },
-  beforeCreate() {
-    document.title = '觅作';
+        imgUrl: IMAGE_SERVER + 'wx_share_icon/mizz_share_icon.png'
+      }
+    }
   },
   created() {
     // this.handleShowPage()
@@ -60,17 +56,20 @@ export default {
   methods: {
     getImageById() {
       let id = this.$route.query.id
-      marketService.getInfoById(this, id).then((result) => {
-        let type = result.url
-        this.handleShowPage(type)
-        console.log(result)
-      }).catch((err) => {
-        console.log(err);
-      });
+      marketService
+        .getInfoById(this, id)
+        .then(result => {
+          let type = result.url
+          this.handleShowPage(type)
+          console.log(result)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
-    handleShowPage (type) {
-      switch(type) {
-        case 'A': 
+    handleShowPage(type) {
+      switch (type) {
+        case 'A':
           this.ImgUrl = this.baseUrl + 'photo_A1.png'
           this.jewelryTextOne = this.baseUrl + 'jewelry_text_A1.png'
           this.jewelryTextTwo = this.baseUrl + 'jewelry_text_A2.png'
@@ -79,8 +78,8 @@ export default {
           this.jewelrySingle = this.baseUrl + 'jewelry_single_A.png'
           this.jewelryMulti = this.baseUrl + 'jewelry_multi_A.png'
           this.jewelryText = this.baseUrl + 'jewelry_A.png'
-        break;
-        case 'B': 
+          break
+        case 'B':
           this.ImgUrl = this.baseUrl + 'photo_B1.png'
           this.jewelryTextOne = this.baseUrl + 'jewelry_text_B1.png'
           this.jewelryTextTwo = this.baseUrl + 'jewelry_text_B2.png'
@@ -89,9 +88,8 @@ export default {
           this.jewelrySingle = this.baseUrl + 'jewelry_single_B.png'
           this.jewelryMulti = this.baseUrl + 'jewelry_multi_B.png'
           this.jewelryText = this.baseUrl + 'jewelry_B.png'
-          
-          
-        break;
+
+          break
         case 'C':
           this.ImgUrl = this.baseUrl + 'photo_C1.png'
           this.jewelryTextOne = this.baseUrl + 'jewelry_text_C1.png'
@@ -101,9 +99,8 @@ export default {
           this.jewelrySingle = this.baseUrl + 'jewelry_single_C.png'
           this.jewelryMulti = this.baseUrl + 'jewelry_multi_C.png'
           this.jewelryText = this.baseUrl + 'jewelry_C.png'
-          
-          
-        break;
+
+          break
         case 'D':
           this.ImgUrl = this.baseUrl + 'photo_D1.png'
           this.jewelryTextOne = this.baseUrl + 'jewelry_text_D1.png'
@@ -113,18 +110,19 @@ export default {
           this.jewelrySingle = this.baseUrl + 'jewelry_single_D.png'
           this.jewelryText = this.baseUrl + 'jewelry_D.png'
           this.jewelryMulti = this.baseUrl + 'jewelry_multi_D.png'
-        break;
+          break
       }
     }
   },
   mounted() {
-    document.getElementsByClassName('coupon-wrap')[0].style.height = window.innerHeight + 'px'
-    document.getElementsByClassName('miizz-wrap')[0].style.minHeight = window.innerHeight + 'px'
+    document.getElementsByClassName('coupon-wrap')[0].style.height =
+      window.innerHeight + 'px'
+    document.getElementsByClassName('miizz-wrap')[0].style.minHeight =
+      window.innerHeight + 'px'
     if (window.innerHeight > 675) {
       document.getElementsByClassName('photo')[0].style.width = '88%'
       document.getElementsByClassName('photo')[0].style.left = '5%'
       document.getElementsByClassName('photo')[0].style.top = '0'
-      
     } else {
       document.getElementsByClassName('photo')[0].style.width = '76%'
       document.getElementsByClassName('photo')[0].style.left = '12%'
@@ -138,25 +136,25 @@ export default {
         desc: this.wxShareInfoValue.desc,
         imgUrl: this.wxShareInfoValue.imgUrl,
         success: () => {
-          customTrack.shareWeChat();
-        },
-      };
-      return wxShareInfo;
-    },
-  },
-};
+          customTrack.shareWeChat()
+        }
+      }
+      return wxShareInfo
+    }
+  }
+}
 </script>
 <style lang="less" scoped>
-  @imageHost: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/miizz';
+@imageHost: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/miizz';
 
-.report-wrap{
+.report-wrap {
   position: relative;
-  .coupon-wrap{
+  .coupon-wrap {
     background-image: url('@{imageHost}/bg_1.png');
     background-repeat: no-repeat;
     background-size: 100% 100%;
     position: relative;
-    .photo{
+    .photo {
       // width: 91%;
       // left: 5%;
       width: 76%;
@@ -165,106 +163,113 @@ export default {
       z-index: -10;
       top: -2%;
     }
-    .photo1{
+    .photo1 {
       opacity: 0;
     }
-    .save{
+    .save {
       position: absolute;
       bottom: 11%;
       width: 30%;
       left: 35%;
       opacity: 1;
-      z-index:2;
-      animation: opacitySave .8s linear infinite alternate;
+      z-index: 2;
+      animation: opacitySave 0.8s linear infinite alternate;
     }
-    .arrow{
+    .arrow {
       position: absolute;
       bottom: 3%;
       width: 11%;
       left: 44.5%;
-      animation: arrows .8s ease-out infinite alternate;
-
+      animation: arrows 0.8s ease-out infinite alternate;
     }
   }
-  .miizz-wrap{
+  .miizz-wrap {
     position: relative;
-    .report_bg_2{
-      width:100%;
+    .report_bg_2 {
+      width: 100%;
     }
-    .jewelry_single{
+    .jewelry_single {
       position: absolute;
       width: 48%;
       top: -0.7%;
       right: 26.5%;
     }
-    .jewelry_text{
+    .jewelry_text {
       position: absolute;
       width: 35%;
       top: 14%;
       right: 33%;
     }
-    .jewelry_multi{
+    .jewelry_multi {
       position: absolute;
       width: 80%;
       top: 25.3%;
       right: 10%;
     }
-    .jewelry_text1{
+    .jewelry_text1 {
       position: absolute;
       width: 30%;
       top: 46%;
       right: 6%;
     }
-    .jewelry1{
+    .jewelry1 {
       position: absolute;
       width: 40%;
       top: 43.5%;
       left: 13.3%;
     }
-    .jewelry_text2{
+    .jewelry_text2 {
       position: absolute;
       top: 68%;
       width: 30%;
       left: 6%;
     }
-    .jewelry2{
+    .jewelry2 {
       position: absolute;
       width: 40%;
       top: 64%;
       right: 11.5%;
     }
-    .qrcode{
+    .qrcode {
       position: absolute;
       width: 16%;
       bottom: 5.5%;
       left: 41%;
     }
-    .photo-content{
+    .photo-content {
       position: absolute;
       width: 48%;
       top: 28.11%;
       left: 26%;
       border: 4px solid #f9db96;
       border-radius: 26px;
-      .photo{
+      .photo {
         border-radius: 26px;
         width: 100%;
       }
     }
-    .save{
+    .save {
       position: absolute;
       width: 60%;
       bottom: -17%;
-      left: 20%;;
+      left: 20%;
     }
   }
   @keyframes arrows {
-    0% {transform: translateY(-3px);}
-    100% {transform: translateY(0px);}
+    0% {
+      transform: translateY(-3px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
   }
   @keyframes opacitySave {
-    0% {opacity: 0.3}
-    100% {opacity: 1}
+    0% {
+      opacity: 0.3;
+    }
+    100% {
+      opacity: 1;
+    }
   }
 }
 </style>

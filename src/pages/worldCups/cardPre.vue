@@ -62,7 +62,6 @@ export default {
     }
   },
   created() {
-    document.title = '球星卡'
     this.style.mid.height = window.innerWidth * 1124 / 690 + 'px'
   },
   methods: {
