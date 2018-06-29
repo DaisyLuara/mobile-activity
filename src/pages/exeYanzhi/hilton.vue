@@ -17,7 +17,7 @@
 			<img class="imgframe" :src="imgUrl+'frame.png'">
 		</div>
 		<img class="press" :src="imgUrl+'press.png'" v-show="press"/>
-        <img :src="imgUrl + posNum + name+'.png'" class="coupon" v-show="press"/>
+        <img :src="imgUrl + posNum + name + '.png'" class="coupon" v-show="press"/>
         <img :src="imgUrl+'logo.png'" class="logo"/>
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
 	</div>
@@ -32,7 +32,7 @@ export default {
     return {
       imgUrl: IMAGE_SERVER + '/pages/yanzhi/hilton/',
       mImg: null,
-      posNum: this.$route.query.posNum,
+      posNum: this.$route.query.posNum || '',
       press: false,
       name: this.$route.query.coupon,
       //微信分享
