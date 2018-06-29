@@ -12,7 +12,8 @@ const lagacyPages = [
       title: '勇闯三关',
       desc: '勇闯三关屏幕端',
       author: ''
-    }
+    },
+    isAbandoned: true
   },
   {
     path: 'winPrize',
@@ -21,7 +22,8 @@ const lagacyPages = [
     meta: {
       title: '勇闯三关',
       desc: '勇闯三关答题页'
-    }
+    },
+    isAbandoned: true
   },
   {
     path: 'openBox',
@@ -29,7 +31,8 @@ const lagacyPages = [
     name: 'openBox',
     meta: {
       title: '开箱子'
-    }
+    },
+    isAbandoned: true
   },
   {
     path: 'openBox/result',
@@ -38,7 +41,8 @@ const lagacyPages = [
     meta: {
       title: '开箱子',
       desc: '开箱子照片页'
-    }
+    },
+    isAbandoned: true
   },
   {
     path: 'dog',
@@ -46,7 +50,8 @@ const lagacyPages = [
     name: 'dog',
     meta: {
       title: '狗年旺情缘'
-    }
+    },
+    isAbandoned: true
   },
   {
     path: 'hongyi',
@@ -54,7 +59,8 @@ const lagacyPages = [
     name: 'hongyi',
     meta: {
       title: '狗年旺情缘宏伊'
-    }
+    },
+    isAbandoned: true
   },
   {
     path: 'ps',
@@ -62,7 +68,8 @@ const lagacyPages = [
     name: 'psDog',
     meta: {
       title: '狗年旺情缘浦商'
-    }
+    },
+    isAbandoned: true
   },
   {
     path: 'angel',
