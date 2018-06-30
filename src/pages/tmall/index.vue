@@ -12,9 +12,9 @@
         <img :src="imgUrl" alt="" class="win" v-if="winFlag">
         <img :src="imgUrl" alt="" class="no-win" v-if="!winFlag">
         <canvas 
-          @touchstart.prevent="handleTouchStart"
-          @touchmove.prevent="handleTouchMove"
-          @touchend.prevent="handleTouchEnd"
+          @touchstart="handleTouchStart"
+          @touchmove="handleTouchMove"
+          @touchend="handleTouchEnd"
           id="canvasDoodle" 
           class="canvas-ele"
           width="200" 
