@@ -265,8 +265,6 @@ body {
   z-index: 10;
   .bg {
     width: 100%;
-    // pointer-events: none;
-    // user-select: none;
     z-index: -10;
   }
   .photo {
