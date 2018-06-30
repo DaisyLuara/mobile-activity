@@ -12,9 +12,9 @@
         <img :src="imgUrl" alt="" class="win" v-if="winFlag">
         <img :src="imgUrl" alt="" class="no-win" v-if="!winFlag">
         <canvas 
-          @touchstart.prevent="handleTouchStart"
-          @touchmove.prevent="handleTouchMove"
-          @touchend.prevent="handleTouchEnd"
+          @touchstart="handleTouchStart"
+          @touchmove="handleTouchMove"
+          @touchend="handleTouchEnd"
           id="canvasDoodle" 
           class="canvas-ele"
           width="200" 
@@ -222,16 +222,15 @@ body {
   overflow-x: hidden;
   width: 100%;
   height: 100%;
-  -webkit-overflow-scrolling: touch;
-  transform: translate3d(0, 0, 0);
+  // -webkit-overflow-scrolling: touch;
+  // transform: translate3d(0, 0, 0);
 }
 .tmall-content {
   width: 100%;
   height: 100%;
   overflow-x: hidden;
   position: relative;
-  overflow-y: scroll;
-  user-select: none;
+  // overflow-y: scroll;
   z-index: 10;
   .bg {
     width: 100%;
@@ -300,8 +299,6 @@ body {
       z-index: 501;
     }
     .ticket {
-      pointer-events: none;
-      user-select: none;
       width: 80%;
       margin: 0 10%;
       position: relative;
