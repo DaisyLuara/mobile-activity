@@ -112,14 +112,13 @@ export default {
       let img = new Image()
       let canvas = document.getElementById('canvasDoodle')
       let ctx = canvas.getContext('2d')
-      // img.setAttribute('crossOrigin', 'Anonymous')
+      img.setAttribute('crossOrigin', 'Anonymous')
       canvas.height = 90
       canvas.width = 200
       //获取当前画布的宽高
       let width = canvas.width
       let height = canvas.height
-      img.src =
-        'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/tmall/award.png'
+      img.src = '/static/tmall/award.png'
       img.onload = () => {
         ctx.beginPath()
         ctx.drawImage(img, 0, 0, width, height)
@@ -130,8 +129,8 @@ export default {
         this.getInfoById()
       }
     },
-    handleTouchStart(event) {
-      console.dir(event)
+    handleTouchMove(event) {
+      // console.dir(event)
       let canvas = document.getElementById('canvasDoodle')
       let ctx = canvas.getContext('2d')
       /* 根据手指移动画线，使之变透明*/
@@ -153,8 +152,8 @@ export default {
         ctx.closePath()
       }
     },
-    handleTouchMove(event) {
-      console.dir(event)
+    handleTouchStart(event) {
+      // console.dir(event)
       let canvas = document.getElementById('canvasDoodle')
       let ctx = canvas.getContext('2d')
       let x = event.touches[0].clientX - this.c.left
@@ -223,14 +222,15 @@ body {
   overflow-x: hidden;
   width: 100%;
   height: 100%;
-  // -webkit-overflow-scrolling: touch;
-  // transform: translate3d(0, 0, 0);
+  -webkit-overflow-scrolling: touch;
+  transform: translate3d(0, 0, 0);
 }
 .tmall-content {
   width: 100%;
   height: 100%;
   overflow-x: hidden;
   position: relative;
+  user-select: none;
   // overflow-y: scroll;
   z-index: 10;
   .bg {
