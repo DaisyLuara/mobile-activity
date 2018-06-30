@@ -12,6 +12,9 @@
         <img :src="imgUrl" alt="" class="win" v-if="winFlag">
         <img :src="imgUrl" alt="" class="no-win" v-if="!winFlag">
         <canvas 
+          @touchstart.prevent="handleTouchStart"
+          @touchmove.prevent="handleTouchMove"
+          @touchend.prevent="handleTouchEnd"
           id="canvasDoodle" 
           class="canvas-ele"
           width="200" 
@@ -44,6 +47,7 @@ export default {
       award: true,
       imgUrl: '',
       winUrl: '',
+      c: null,
       //微信分享信息
       wxShareInfo: {
         title: '刷脸开启时尚运动派对，赢【天猫】限量超酷礼包！',
@@ -93,7 +97,7 @@ export default {
       }
       if (localStorage.getItem('tmall') !== null) {
         let data = localStorage.getItem('tmall')
-        // this.award = false
+        this.award = false
         if (data === '恭喜中奖') {
           this.winFlag = true
           this.imgUrl = '/static/tmall/win.png'
@@ -117,99 +121,65 @@ export default {
       //获取当前画布的宽高
       let width = canvas.width
       let height = canvas.height
-
-      let device = /android|iphone|ipad|ipod|webos|iemobile|opear mini|linux/i.test(
-        navigator.userAgent.toLowerCase()
-      )
-      let startEvtName = device ? 'touchstart' : 'mousedown'
-      let moveEvtName = device ? 'touchmove' : 'mousemove'
-      let endEvtName = device ? 'touchend' : 'mouseup'
-      var c = null
-      img.onload = function() {
+      img.onload = () => {
         ctx.beginPath()
         ctx.drawImage(img, 0, 0, width, height)
         ctx.closePath()
-        c = document.querySelector('.canvas-ele').getBoundingClientRect()
+        this.c = document.querySelector('.canvas-ele').getBoundingClientRect()
       }
       img.src = '/static/tmall/award.png'
-      /* 增加触摸监听*/
-      //true  捕获 false  冒泡
-      canvas.addEventListener(
-        startEvtName,
-        function() {
-          canvas.addEventListener(
-            moveEvtName,
-            function(event) {
-              event.preventDefault()
-              /* 根据手指移动画线，使之变透明*/
-              if (c.top > window.innerHeight) {
-                let x = device ? event.touches[0].pageX - c.left : event.clientX
-                let y = device ? event.touches[0].pageY - c.top : event.clientY
-                ctx.beginPath()
-                ctx.globalCompositeOperation = 'destination-out'
-                ctx.arc(x, y, 20, 0, Math.PI * 2)
-                ctx.fill()
-                ctx.closePath()
-              } else {
-                let x = device
-                  ? event.touches[0].clientX - c.left
-                  : event.clientX
-                let y = device
-                  ? event.touches[0].clientY - c.top
-                  : event.clientY
-                ctx.beginPath()
-                ctx.globalCompositeOperation = 'destination-out'
-                ctx.arc(x, y, 20, 0, Math.PI * 2)
-                ctx.fill()
-                ctx.closePath()
-              }
-            },
-            false
-          )
-        },
-        false
-      )
-
-      canvas.addEventListener(
-        endEvtName,
-        function() {
-          canvas.removeEventListener(
-            moveEvtName,
-            function(event) {
-              event.preventDefault()
-              /* 根据手指移动画线，使之变透明*/
-              let x = device ? event.touches[0].clientX - c.left : event.clientX
-              let y = device ? event.touches[0].clientY - c.top : event.clientY
-              ctx.beginPath()
-              ctx.globalCompositeOperation = 'destination-out'
-              ctx.arc(x, y, 20, 0, Math.PI * 2)
-              ctx.fill()
-              ctx.closePath()
-            },
-            false
-          )
-        },
-        false
-      )
-      canvas.addEventListener(
-        endEvtName,
-        function() {
-          /* 获取imageData对象*/
-          var imageDate = ctx.getImageData(0, 0, canvas.width, canvas.height)
-          /* */
-          var allPX = imageDate.width * imageDate.height
-          var iNum = 0 //记录刮开的像素点个数
-          for (var i = 0; i < allPX; i++) {
-            if (imageDate.data[i * 4 + 3] == 0) {
-              iNum++
-            }
-          }
-          if (iNum >= allPX * 1 / 4) {
-            that.award = false
-          }
-        },
-        false
-      )
+    },
+    handleTouchStart(event) {
+      console.dir(event)
+      let canvas = document.getElementById('canvasDoodle')
+      let ctx = canvas.getContext('2d')
+      /* 根据手指移动画线，使之变透明*/
+      if (this.c.top > window.innerHeight) {
+        let x = event.touches[0].pageX - this.c.left
+        let y = event.touches[0].pageY - this.c.top
+        ctx.beginPath()
+        ctx.globalCompositeOperation = 'destination-out'
+        ctx.arc(x, y, 20, 0, Math.PI * 2)
+        ctx.fill()
+        ctx.closePath()
+      } else {
+        let x = event.touches[0].clientX - this.c.left
+        let y = event.touches[0].clientY - this.c.top
+        ctx.beginPath()
+        ctx.globalCompositeOperation = 'destination-out'
+        ctx.arc(x, y, 20, 0, Math.PI * 2)
+        ctx.fill()
+        ctx.closePath()
+      }
+    },
+    handleTouchMove(event) {
+      console.dir(event)
+      let canvas = document.getElementById('canvasDoodle')
+      let ctx = canvas.getContext('2d')
+      let x = event.touches[0].clientX - this.c.left
+      let y = event.touches[0].clientY - this.c.top
+      ctx.beginPath()
+      ctx.globalCompositeOperation = 'destination-out'
+      ctx.arc(x, y, 20, 0, Math.PI * 2)
+      ctx.fill()
+      ctx.closePath()
+    },
+    handleTouchEnd(event) {
+      let canvas = document.getElementById('canvasDoodle')
+      let ctx = canvas.getContext('2d')
+      /* 获取imageData对象*/
+      let imageDate = ctx.getImageData(0, 0, canvas.width, canvas.height)
+      /* */
+      let allPX = imageDate.width * imageDate.height
+      let iNum = 0 //记录刮开的像素点个数
+      for (let i = 0; i < allPX; i++) {
+        if (imageDate.data[i * 4 + 3] == 0) {
+          iNum++
+        }
+      }
+      if (iNum >= allPX * 1 / 4) {
+        this.award = false
+      }
     },
     getInfoById() {
       let id = this.$route.query.id
