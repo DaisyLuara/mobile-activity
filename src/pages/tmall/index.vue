@@ -69,7 +69,6 @@ export default {
     content.style.minHeight = height + 'px'
     this.initCanvas()
     this.handleStorage()
-    this.getInfoById()
     this.wechatShare()
   },
   methods: {
@@ -113,19 +112,21 @@ export default {
       let img = new Image()
       let canvas = document.getElementById('canvasDoodle')
       let ctx = canvas.getContext('2d')
-      img.setAttribute('crossOrigin', 'Anonymous')
+      // img.setAttribute('crossOrigin', 'Anonymous')
       canvas.height = 90
       canvas.width = 200
       //获取当前画布的宽高
       let width = canvas.width
       let height = canvas.height
+      img.src =
+        'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/tmall/award.png'
       img.onload = () => {
         ctx.beginPath()
         ctx.drawImage(img, 0, 0, width, height)
         ctx.closePath()
         this.c = document.querySelector('.canvas-ele').getBoundingClientRect()
+        this.getInfoById()
       }
-      img.src = '/static/tmall/award.png'
     },
     handleTouchStart(event) {
       console.dir(event)
