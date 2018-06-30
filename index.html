@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 
   <title>加载中...</title>
   <script>
@@ -18,6 +18,7 @@
         _paq.push(['enableLinkTracking']);
         (function () {
           var u = "//track.xingstation.com/";
+          var cdnhost = "//h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/js/"
           _paq.push(['setTrackerUrl', u + 'piwik.php']);
           _paq.push(['setSiteId', '1']);
           _paq.push(["setCookieDomain", "*.xingstation.com"]);
@@ -27,11 +28,11 @@
           g.type = 'text/javascript';
           g.async = true;
           g.defer = true;
-          g.src = u + 'piwik.js';
+          g.src = cdnhost + 'piwik.js';
           s.parentNode.insertBefore(g, s);
         })();
         // GrowingIO 统计
-        !function (e, t, n, g, i) { e[i] = e[i] || function () { (e[i].q = e[i].q || []).push(arguments) }, n = t.createElement("script"), tag = t.getElementsByTagName("script")[0], n.async = 1, n.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + g, tag.parentNode.insertBefore(n, tag) }(window, document, "script", "assets.growingio.com/2.1/gio.js", "gio");
+        !function (e, t, n, g, i) { e[i] = e[i] || function () { (e[i].q = e[i].q || []).push(arguments) }, n = t.createElement("script"), tag = t.getElementsByTagName("script")[0], n.async = 1, n.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + g, tag.parentNode.insertBefore(n, tag) }(window, document, "script", "h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/js/gio.js", "gio");
         gio('init', '8fcd22590e2dd3e3', {});
         //custom page code begin here
         //custom page code end here
@@ -48,6 +49,7 @@
           _paq.push(['enableLinkTracking']);
           (function () {
             var u = "//track.newgls.cn/";
+            var cdnhost = "//h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/js/"
             _paq.push(['setTrackerUrl', u + 'piwik.php']);
             _paq.push(['setSiteId', '4']);
             var d = document,
@@ -56,7 +58,7 @@
             g.type = 'text/javascript';
             g.async = true;
             g.defer = true;
-            g.src = u + 'piwik.js';
+            g.src = cdnhost + 'piwik.js';
             s.parentNode.insertBefore(g, s);
           })();
         })();

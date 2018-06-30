@@ -3,11 +3,21 @@
     id="root"
     class="root"
     :style="style.root"
+    v-if="status.hasFetchUserData || !status.isInWechat"
   >
-    <img 
-      @click.self="handleSuoHaOpen"
-      class="root-box"
-      :src="serverUrl + 'lottery.png'" />
+    <!-- 宝箱 -->
+    <div 
+      :style="style.box"
+      @click="handleSuoHaOpen"
+      class="root-box">
+      <img 
+        class="box-box"
+        :src="serverUrl + 'lottery.png'" />
+      
+      <img
+        class="box-text"
+        :src="serverUrl + 'suohua-text.png'" />
+    </div>
     <!-- bg -->
     <img 
       class="bg"
@@ -23,7 +33,6 @@
       class="get-photo"
       :src="imgUrl" />
 
-    <!-- 宝箱 -->
     <!-- game -->
     <div
       :style="style.game" 
@@ -100,7 +109,7 @@
         </div>
         <img
           class="copywriting" 
-          :src="serverUrl + 'copywriting_1.png'">
+          :src="serverUrl + 'copywriting_' + random4 + '.png'">
       </div>
 
       <!-- 结果卡片 -->
@@ -120,7 +129,11 @@
             class="card-avatar-top"
             >
             <img 
-              :src="userInfo.avatar"  />
+              :src="userInfo.headimgurl"  />
+          </div>
+          <div
+            class="card-nickname">
+            {{userInfo.nickname}}
           </div>
           
           <!-- 卡片信息 -->
@@ -253,7 +266,9 @@
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
 
     <!-- suoha -->
-    <suoha  :shouldShow="status.shouldSuoHaShow"/>
+    <suoha 
+      ref="suoha" 
+      :shouldShow="status.shouldSuoHaShow"/>
   </div>
 </template>
 
@@ -264,13 +279,13 @@ const wiw = window.innerWidth
 const wih = window.innerHeight
 import shareCover from './components/shareCover'
 import suoha from './components/suoha'
-import marketService from 'services/marketing'
-import { isWeixin } from 'modules/util.js'
-import { Toast, Indicator } from 'mint-ui'
-import wxService from 'services/wx'
+import { isWeixin, Cookies } from 'modules/util.js'
+import { Toast } from 'mint-ui'
 import { customTrack } from 'modules/customTrack'
-import WxShare from 'modules/wxShare'
 import { generate, randomNum } from './random/index.js'
+import marketService from 'services/marketing'
+import WxShare from 'modules/wxShare'
+import wxService from 'services/wx'
 export default {
   components: {
     'share-cover': shareCover,
@@ -291,6 +306,9 @@ export default {
         },
         recording: {
           height: wiw * 0.41 + 'px'
+        },
+        box: {
+          height: window.innerWidth * 0.36 + 'px'
         }
       },
       serverUrl: serverUrl,
@@ -305,17 +323,21 @@ export default {
         isAgainButtonTouch: false,
         isShareButtonTouch: false,
         shouldShareShow: false,
-        shouldSuoHaShow: false
+        shouldSuoHaShow: false,
+        hasFetchUserData: false,
+        isInWechat: false
       },
       control: {
         time: 0,
         intervalCount: null,
         commaInterval: null,
         commaCount: 0,
-        isInSharePage: false
+        isInSharePage: false,
+        shouldBoxShow: true
       },
       userInfo: {
-        avatar: null
+        headimgurl: null,
+        nickname: null
         // 'http://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJNrlPjqkUjXibZm64k9NRNQGZdtziap3BGyuNKefPfEgWfn5EU4ib3bjHC9icJAwuVa8pOqspoLYWopg/132'
       },
       serverDataId: null,
@@ -334,11 +356,16 @@ export default {
         }
       },
       wxShareInfoValue: {
-        title: '音撩报告',
+        title: '音撩指数',
         desc: '用最撩人的歌词，测试你声音的撩人指数，让声音成为你撩人的武器',
         imgUrl: serverUrl + 'share.png',
         link: window.location.origin + '/marketing/weiindex?sid=-1'
       },
+      currentUserData: {
+        headimgurl: '',
+        nickname: ''
+      },
+      random4: randomNum(1, 4),
       concertUrl:
         'https://m.damai.cn/damai/perform/item.html?projectId=150060&spm=a2o6e.search.0.0.6c286acelZQlgc'
     }
@@ -362,6 +389,7 @@ export default {
     this.init()
     if (isWeixin() === true) {
       this.handleWechatAuth()
+      this.status.isInWechat = true
     }
   },
   beforeDestroy() {
@@ -371,7 +399,8 @@ export default {
     saveDataToServer() {
       let rq_data = {
         userData: {
-          avatarUrl: this.userInfo.avatar,
+          headimgurl: this.userInfo.headimgurl,
+          nickname: this.userInfo.nickname,
           randomInfo: this.randomInfo
         }
       }
@@ -403,7 +432,8 @@ export default {
         .get(rq_url, this.parseServerSetting.rq_head)
         .then(response => {
           let res = response.data.results[0].userData
-          this.userInfo.avatar = res.avatarUrl
+          this.userInfo.headimgurl = res.headimgurl
+          this.userInfo.nickname = res.nickname
           this.randomInfo = res.randomInfo
           this.status.shouldResultShow = true
         })
@@ -417,10 +447,15 @@ export default {
       this.setUpRem()
       // 处理分享数据
       this.processPath()
+      // if (localStorage.getItem('hasSuoha') === 'false') {
+      //   this.control.shouldBoxShow = false
+      // }
     },
     processPath() {
+      // sid 作为判断本页是否为分享之后的页面
       if (this.$route.query.hasOwnProperty('sid')) {
         this.style.root.marginTop = '-156%'
+        // -1代表没有分享内容，否则获取已经保存的数据
         if (this.$route.query.sid !== '-1') {
           this.getDataBySid()
           this.control.isInSharePage = true
@@ -457,20 +492,12 @@ export default {
       }, 500)
       this.handleHtmlToImage()
     },
-    handleConcertButtonTouch() {
-      this.status.isConcertButtonClick = true
-    },
-    handleConcertButtonTouchEnd() {
-      this.status.isConcertButtonClick = false
-      window.location.href = this.concertUrl
-    },
     handleHtmlToImage() {
       this.handleRandomGenerate()
       setTimeout(() => {
         this.status.isAnalyzing = false
         this.status.shouldResultShow = true
         clearInterval(this.control.commaInterval)
-        let node = document.getElementById('root')
       }, 2000)
     },
     handleRandomGenerate() {
@@ -482,8 +509,20 @@ export default {
       this.randomInfo.xindongzhi = randomNum(0, 9) + randomNum(0, 9) / 10
       this.randomInfo.chenggonglv = String(randomNum(0, 100)) + '%'
       this.randomInfo.yinse = randomNum(3, 5)
+      wxService.getWxUserInfo(this).then(r => {
+        this.userInfo.headimgurl = r.data.headimgurl
+        this.userInfo.nickname = r.data.nickname
+      })
       this.saveDataToServer()
     },
+    handleConcertButtonTouch() {
+      this.status.isConcertButtonClick = true
+    },
+    handleConcertButtonTouchEnd() {
+      this.status.isConcertButtonClick = false
+      window.location.href = this.concertUrl
+    },
+
     handleCoverClose() {
       this.status.shouldShareShow = false
     },
@@ -535,9 +574,10 @@ export default {
     handleSuoHaOpen() {
       this.status.shouldSuoHaShow = true
       document.body.style.overflow = 'hidden'
+      this.$refs.suoha.checkCoupon()
     },
     handleWechatAuth() {
-      if (localStorage.getItem('weixun') === null) {
+      if (Cookies.get('user_id') === null) {
         this.handleFirstAuth()
       } else {
         this.getuserData()
@@ -545,12 +585,20 @@ export default {
     },
     getuserData() {
       wxService.getWxUserInfo(this).then(r => {
-        this.userInfo.avatar = r.data.headimgurl
+        // 如果是扫码（‘-1’代表网页入口,没有sid代表大屏）进入
+        // 则直接获取本用户信息
+        if (
+          this.$route.query.sid === '-1' ||
+          !this.$route.query.hasOwnProperty('sid')
+        ) {
+          this.userInfo.headimgurl = r.data.headimgurl
+          this.userInfo.nickname = r.data.nickname
+        }
+        this.status.hasFetchUserData = true
       })
     },
     handleFirstAuth() {
       let storeData = {}
-      localStorage.setItem('weixun', JSON.stringify(storeData))
       let now_url = encodeURIComponent(String(window.location.href))
       // console.dir(now_url)
       let redirct_url =
@@ -558,7 +606,6 @@ export default {
         '/wx/officialAccount/oauth?url=' +
         now_url +
         '&scope=snsapi_userinfo'
-      // 这狗娘养的参数必须拼在后面
       // console.dir(redirct_url)
       window.location.href = redirct_url
     },
@@ -585,9 +632,23 @@ export default {
   .root-box {
     z-index: 5000;
     position: fixed;
-    width: 20%;
+    width: 28%;
     top: 5%;
     right: 5%;
+    height: 20%;
+    .box-box {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      animation: scaleAnimation 1s infinite;
+    }
+    .box-text {
+      position: absolute;
+      bottom: 5%;
+      left: -3%;
+      width: 100%;
+    }
   }
   .bg {
     width: 100%;
@@ -777,10 +838,21 @@ export default {
             border-radius: 50%;
           }
         }
+        .card-nickname {
+          position: absolute;
+          z-index: 15;
+          top: 17%;
+          width: 100%;
+          height: 25px;
+          text-align: center;
+          color: #57168f;
+          font-size: 1.4rem;
+          line-height: 25px;
+        }
         .card-info {
           z-index: 15;
           position: absolute;
-          top: 19%;
+          top: 21%;
           left: 0;
           width: 90%;
           left: 5%;
@@ -950,6 +1022,17 @@ export default {
     img {
       width: 100%;
     }
+  }
+}
+@keyframes scaleAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
   }
 }
 </style>

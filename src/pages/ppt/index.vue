@@ -35,9 +35,7 @@ export default {
       }
     }
   },
-  beforeCreate() {
-    document.title = '星视度宣传'
-  },
+
   created() {
     this.getInfoById()
   },

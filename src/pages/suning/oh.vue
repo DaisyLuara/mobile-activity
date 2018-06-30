@@ -1,9 +1,9 @@
 <template>
   <div class="oh-content" :style="style.root" >
-    <div class="photo">
-      <img  class="photo" :src="resultImgUrl" alt=""/>
-      <!-- <img :src="imgServerUrl + '/pages/oh/1111.png'" alt=""/> -->
-    </div>  
+    <img class="title" :src="imgServerUrl + '/pages/oh/title.png'" alt="" >
+    <img  class="photo" :style="style.photoHei" :src="resultImgUrl" alt=""/>
+    <!-- <img class="photo" :style="style.photoHei" :src="imgServerUrl + '/pages/oh/1111.jpg'" alt=""/> -->
+    <img class="save" :src="imgServerUrl + '/pages/oh/save.png'" alt="" > 
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
 </template>
@@ -27,6 +27,9 @@ export default {
       style: {
         root: {
           height: wih + 'px'
+        },
+        photoHei: {
+          height: Window.innerwidth * 0.78 * 1920 / 1080 + 'px'
         }
       },
       //微信分享信息
@@ -76,36 +79,45 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imageHost: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/oh';
+@imageHost: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/oh/';
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  transform: translate3d(0, 0, 0);
+  text-align: center;
+}
 .oh-content {
   width: 100%;
-  background-repeat: no-repeat;
-  background-image: url('@{imageHost}/bg.png');
-  background-size: 100% 100%;
-  position: relative;
+  overflow-x: hidden;
   text-align: center;
-  overflow: hidden;
-  // .kuang {
-  //   width: 100%;
-  //   position: absolute;
-  //   left: 50%;
-  //   top: 50%;
-  //   transform: translate(-50%, -50%);
-  // }
-  .photo {
+  position: relative;
+  background: url('@{imageHost}bg.png') center top / 100% auto no-repeat;
+  .title {
     width: 100%;
-    height: 70%;
+    position: absolute;
+    left: 0;
+    top: 2%;
+  }
+  .photo {
+    width: 72%;
     position: absolute;
     text-align: center;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -53%);
+    transform: translate(-50%, -49%);
     overflow: hidden;
     padding: 2%;
-    img {
-      width: 90%;
-      height: 100%;
-    }
+  }
+  .save {
+    width: 70%;
+    height: 12%;
+    position: absolute;
+    left: 50%;
+    bottom: 0%;
+    transform: translate(-50%);
   }
 }
 </style>

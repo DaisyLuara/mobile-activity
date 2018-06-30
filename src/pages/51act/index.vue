@@ -42,6 +42,7 @@
 <script>
 import { Toast } from 'mint-ui'
 import { isWeixin } from '../../modules/util'
+import { basicTrack } from 'services'
 const wx = require('weixin-js-sdk')
 // import marketService from 'services/marketing'
 
@@ -120,23 +121,12 @@ export default {
       phoneError: false
     }
   },
-  created() {
-    document.title = 'EXE颜镜店'
-  },
   mounted() {
     this.handleForbiddenShare()
   },
   methods: {
     handleTrack() {
-      let url =
-        'http://exelook.com/client/goodsxsd/?id=' +
-        String(this.$route.query.id) +
-        '&mobile=' +
-        String(this.bindPhoneNumber) +
-        '&api=json'
-      this.$http.get(url).then(r => {
-        console.log('ok')
-      })
+      basicTrack(this.$route.query.id, this.bindPhoneNumber)
     },
     handleForbiddenShare() {
       if (isWeixin() === true) {

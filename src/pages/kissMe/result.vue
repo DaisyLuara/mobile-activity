@@ -37,9 +37,6 @@ export default {
       }
     }
   },
-  beforeCreate() {
-    document.title = 'Kissme'
-  },
   mounted() {
     $('.kissme-content').css('min-height', $(window).height())
   },

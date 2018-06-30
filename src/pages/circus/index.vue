@@ -36,10 +36,6 @@ export default {
       }
     }
   },
-  beforeCreate() {
-    document.title = '马戏团'
-  },
-  created() {},
   mounted() {
     let height =
       window.innerHeight ||
@@ -134,6 +130,7 @@ body {
       font-size: 0;
       padding: 0;
       margin: 0 auto;
+      pointer-events: none;
       user-select: none;
     }
 
@@ -198,6 +195,7 @@ body {
     margin-bottom: 20px;
     opacity: 0;
     animation: toShow 0.5s 5s 1 forwards;
+    pointer-events: none;
     user-select: none;
   }
 }

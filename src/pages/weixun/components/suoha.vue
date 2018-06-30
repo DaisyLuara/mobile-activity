@@ -5,7 +5,7 @@
     :style="style.root"
     class="suoha-root">
     <div
-      v-show="!hasButtonClicked"
+      v-show="!hasButtonClicked && isGetCoupon"
       class="phone-input">
       <img :src="serverUrl + 'card.png'" />
       <img class="prompt" :src="serverUrl + 'prompt.png'" />
@@ -36,8 +36,9 @@
         (需购票入场)
       </div>
     </div>
+
+
     <div 
-      
       class="result">
       <div
         v-show="isGetCoupon && hasButtonClicked">
@@ -57,7 +58,7 @@
         </div>
       </div>
       <div
-        v-show="!isGetCoupon && hasButtonClicked">
+        v-show="!isGetCoupon">
         <img 
           @click.self="handleSuoHaClose"
           class="not-bg"
@@ -92,52 +93,83 @@ export default {
           width: window.innerWidth + 'px'
         }
       },
-      control: {
-        shouldResultShow: false
-      },
       serverUrl: serverUrl,
       phoneValue: null,
       isPhoneError: false,
       isGetCoupon: false,
-      hasButtonClicked: false
+      hasButtonClicked: false,
+      savedId: null
     }
   },
   methods: {
+    checkCoupon() {
+      this.handleReset()
+      let rq = process.env.WX_API + '/v6/common/coupon'
+      let rd = {
+        tenant_id: process.env.NODE_ENV === 'production' ? '17' : '19'
+      }
+      this.$http.post(rq, rd).then(r => {
+        if (r.data.data.coupon_batch.id !== 1000) {
+          this.isGetCoupon = true
+          this.savedId = r.data.data.id
+        } else {
+          this.isGetCoupon = false
+          this.showResult()
+        }
+      })
+      this.$parent.control.shouldBoxShow = false
+    },
+    handleReset() {
+      this.isGetCoupon = false
+      this.hasButtonClicked = false
+      this.clearError()
+    },
     handleButtonClick() {
       if (!/^1[345678]\d{9}$/.test(this.phoneValue)) {
         this.isPhoneError = true
         return
       } else {
-        this.checkCoupon()
+        this.handlePhoneBind()
       }
     },
-    clearError() {
-      this.isPhoneError = false
-    },
-    checkCoupon() {
-      this.hasButtonClicked = true
+    handlePhoneBind() {
       let rq = process.env.WX_API + '/v4/common/coupon'
       let rd = {
-        coupon_batch_id: process.env.NODE_ENV === 'production' ? '39' : '46'
+        mobile: this.phoneValue,
+        coupon_id: this.savedId
       }
+<<<<<<< HEAD
       this.$http.post(rq, rd).then(r => {
         console.dir(r)
         if (r.success === true) {
           this.isGetCoupon = true
           this.sendSms(r.data.id)
+=======
+      this.$http.put(rq, rd).then(r => {
+        if (r.data.success === 'false' || r.data.success === false) {
+          this.showResult()
+>>>>>>> f6e5b78212f8ebfa0693bc86b308056eee31d0f6
         } else {
-          this.isGetCoupon = false
+          this.sendSms(this.savedId)
         }
       })
     },
+    clearError() {
+      this.isPhoneError = false
+    },
+    showResult() {
+      this.hasButtonClicked = true
+    },
     sendSms(id) {
-      let rq = process.env.WX_API + '/v4/common/coupon/sms'
+      let rq = process.env.WX_API + '/v6/common/coupon/sms'
       let rd = {
         mobile: this.phoneValue,
         coupon_id: id,
-        sms_tmp_id: '2169978'
+        sms_tmp_id: '2336866'
       }
-      this.$http.post(rq, rd).then(r => {})
+      this.$http.post(rq, rd).then(r => {
+        this.showResult()
+      })
     },
     handleSuoHaClose() {
       this.$parent.handleSuoHaClose()
@@ -264,7 +296,7 @@ export default {
       font-size: 1.6rem;
       width: 100%;
       position: absolute;
-      top: 40%;
+      top: 35%;
       text-align: center;
     }
   }

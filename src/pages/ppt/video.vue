@@ -35,6 +35,8 @@ import WxShare from 'modules/wxShare'
 import parseService from 'modules/parseServer'
 import { customTrack } from 'modules/customTrack'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
+import 'swiper/dist/css/swiper.css'
+import { swiper, swiperSlide } from 'vue-awesome-swiper'
 export default {
   data() {
     return {
@@ -98,9 +100,6 @@ export default {
         }
       }
     }
-  },
-  beforeCreate() {
-    document.title = '星视度'
   },
   created() {
     this.getDataByType()
@@ -176,7 +175,9 @@ export default {
     }
   },
   components: {
-    WxShare
+    WxShare,
+    swiper,
+    swiperSlide
   }
 }
 </script>

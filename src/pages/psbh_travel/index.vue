@@ -1,6 +1,6 @@
 <template>
   <div class="psbh-travel-wrap">
-    <!-- <img class="psbh-img" :src="imgServerUrl + '/ad_0526_1.png'" alt=""> -->
+    <img class="psbh-img" :src="imgServerUrl + '/ad_0629.jpg'" alt="">
     <div class="photo-content">
       <div class="boots-wrap">
         <div class="slide-wrap pos-common">
@@ -20,14 +20,17 @@
       </div>
       <img class="slogan" :src="imgServerUrl + '/slogan.png'">
     </div>
-    <img class="psbh-img" :src="imgServerUrl + '/img1.jpg'" alt="">
+    <!-- <img class="psbh-img" :src="imgServerUrl + '/ad_0622_3.jpg'" alt="">
+    <img class="psbh-img" :src="imgServerUrl + '/ad_0622_4.jpg'" alt=""> -->
+    
+    <!-- <img class="psbh-img" :src="imgServerUrl + '/img1.jpg'" alt="">
     <img class="psbh-img" :src="imgServerUrl + '/img2.jpg'" alt="">
     <img class="psbh-img" :src="imgServerUrl + '/img3.jpg'" alt="">
     <img class="psbh-img" :src="imgServerUrl + '/img4.jpg'" alt="">
     <img class="psbh-img" :src="imgServerUrl + '/img5.jpg'" alt="">
     <img class="psbh-img" :src="imgServerUrl + '/img6.jpg'" alt="">
     <img class="psbh-img" :src="imgServerUrl + '/img7.jpg'" alt="">
-    <img class="psbh-img" :src="imgServerUrl + '/img8.jpg'" alt="">
+    <img class="psbh-img" :src="imgServerUrl + '/img8.jpg'" alt=""> -->
     <!-- <img class="psbh-img" :src="imgServerUrl + '/ad_0526_3.jpg'" alt="">
     <img class="psbh-img" :src="imgServerUrl + '/ad_0526_4.jpg'" alt="">
     <img class="psbh-img" :src="imgServerUrl + '/ad_0526_5.jpg'" alt=""> -->

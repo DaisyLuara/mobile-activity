@@ -10,14 +10,17 @@
     "lint": "eslint --ext .js,.vue src",
     "production": "node build/build.js",
     "test": "rm -rf ./predist/* && npm run production test && rm -rf ./dist/* && cp -r ./predist/* ./dist",
-    "release": "rm -rf ./predist/* && npm run production && rm -rf ./dist/* && cp -r ./predist/* ./dist"
+    "release": "rm -rf ./predist/* && npm run production && rm -rf ./dist/* && cp -r ./predist/* ./dist",
+    "analyze": "npm run production --report"
   },
   "dependencies": {
     "animate.css": "^3.6.1",
     "axios": "^0.17.1",
     "babel-polyfill": "^6.26.0",
     "compression-webpack-plugin": "^1.1.11",
+    "happypack": "^5.0.0",
     "jquery": "^3.2.1",
+    "lottie-web": "^5.1.16",
     "mint-ui": "^2.2.13",
     "pixi-spine": "^1.5.16",
     "pixi.js": "^4.8.0",
@@ -25,6 +28,7 @@
     "vue-animate": "0.0.4",
     "vue-awesome-swiper": "^3.1.3",
     "vue-router": "^3.0.1",
+    "webpack-parallel-uglify-plugin": "^1.1.0",
     "weixin-js-sdk": "^1.2.0"
   },
   "devDependencies": {

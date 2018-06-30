@@ -49,9 +49,6 @@ export default {
       }
     }
   },
-  beforeCreate() {
-    document.title = '大融城'
-  },
   mounted() {
     // this.syntheticCanvas()
     $('.photo-content').css('min-height', $(window).height())
