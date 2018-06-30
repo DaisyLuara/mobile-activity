@@ -124,7 +124,9 @@ export default {
         ctx.beginPath()
         ctx.drawImage(img, 0, 0, width, height)
         ctx.closePath()
-        this.c = document.querySelector('.canvas-ele').getBoundingClientRect()
+        if (document.querySelector('.canvas-ele') !== null) {
+          this.c = document.querySelector('.canvas-ele').getBoundingClientRect()
+        }
         this.getInfoById()
       }
     },
