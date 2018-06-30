@@ -306,7 +306,6 @@ body {
       width: 52%;
       left: 24%;
       z-index: 1000;
-      pointer-events: auto;
     }
     .award {
       position: absolute;
@@ -329,10 +328,12 @@ body {
       left: 25%;
     }
     .ticket {
-      // pointer-events: none;
-      // user-select: none;
+      pointer-events: none;
+      user-select: none;
       width: 80%;
       margin: 0 10%;
+      position: relative;
+      z-index: 500;
     }
   }
   .share-wrap {
