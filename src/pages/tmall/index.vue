@@ -9,15 +9,17 @@
       </div>
       <div class="win-wrap" v-show="!shareFlag">
         <img :src="imgServerUrl + '/pages/tmall/ticket.png'" alt="" class="ticket">
-        <img :src="imgUrl" alt="" class="win" v-show="winFlag">
-        <img :src="imgUrl" alt="" class="no-win" v-show="!winFlag">
+        <img :src="imgUrl" alt="" class="win" v-if="winFlag">
+        <img :src="imgUrl" alt="" class="no-win" v-if="!winFlag">
         <canvas 
           id="canvasDoodle" 
           class="canvas-ele"
           width="200" 
-          height="90" v-show="award"></canvas>
+          height="90" 
+          v-if="award">
+        </canvas>
       </div>
-      <div class="share-wrap" v-show="shareFlag">
+      <div class="share-wrap" v-if="shareFlag">
         <img :src="imgServerUrl + '/pages/tmall/advert.png'" alt="" class="share">
       </div>
       
@@ -89,8 +91,8 @@ export default {
       if (this.$route.query.hasOwnProperty('share_at')) {
         this.shareFlag = true
       }
-      let data = localStorage.getItem('tmall')
-      if (data) {
+      if (localStorage.getItem('tmall') !== null) {
+        let data = localStorage.getItem('tmall')
         this.award = false
         if (data === '恭喜中奖') {
           this.winFlag = true
@@ -259,20 +261,20 @@ body {
   overflow-x: hidden;
   position: relative;
   overflow-y: scroll;
-  -webkit-touch-callout: none;
   user-select: none;
+  z-index: 10;
   .bg {
     width: 100%;
     // pointer-events: none;
     // user-select: none;
-    pointer-events: none;
+    z-index: -10;
   }
   .photo {
     width: 73.6%;
     position: absolute;
     left: 13%;
     top: 8.4%;
-    pointer-events: auto;
+    z-index: 20;
   }
   .paw {
     position: absolute;
