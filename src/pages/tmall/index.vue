@@ -9,11 +9,20 @@
       </div>
       <div class="win-wrap" v-show="!shareFlag">
         <img :src="imgServerUrl + '/pages/tmall/ticket.png'" alt="" class="ticket">
-        <img :src="imgUrl" alt="" class="win" v-show="winFlag">
-        <img :src="imgUrl" alt="" class="no-win" v-show="!winFlag">
-        <canvas id="canvasDoodle" class="canvas-ele" width="200" height="90" v-show="award"></canvas>
+        <img :src="imgUrl" alt="" class="win" v-if="winFlag">
+        <img :src="imgUrl" alt="" class="no-win" v-if="!winFlag">
+        <canvas 
+          @touchstart="handleTouchStart"
+          @touchmove="handleTouchMove"
+          @touchend="handleTouchEnd"
+          id="canvasDoodle" 
+          class="canvas-ele"
+          width="200" 
+          height="90" 
+          v-if="award">
+        </canvas>
       </div>
-      <div class="share-wrap" v-show="shareFlag">
+      <div class="share-wrap" v-if="shareFlag">
         <img :src="imgServerUrl + '/pages/tmall/advert.png'" alt="" class="share">
       </div>
       
@@ -38,6 +47,7 @@ export default {
       award: true,
       imgUrl: '',
       winUrl: '',
+      c: null,
       //微信分享信息
       wxShareInfo: {
         title: '刷脸开启时尚运动派对，赢【天猫】限量超酷礼包！',
@@ -57,10 +67,8 @@ export default {
       document.body.clientHeight
     let content = document.getElementById('tmall')
     content.style.minHeight = height + 'px'
+    this.initCanvas()
     this.handleStorage()
-  },
-  created() {
-    this.getInfoById()
     this.wechatShare()
   },
   methods: {
@@ -82,10 +90,11 @@ export default {
         })
     },
     handleStorage() {
-      let isShare = this.$route.query.utm_term
-      this.shareFlag = isShare === 'wechat_share' ? true : false
-      let data = localStorage.getItem('tmall')
-      if (data) {
+      if (this.$route.query.hasOwnProperty('share_at')) {
+        this.shareFlag = true
+      }
+      if (localStorage.getItem('tmall') !== null) {
+        let data = localStorage.getItem('tmall')
         this.award = false
         if (data === '恭喜中奖') {
           this.winFlag = true
@@ -95,7 +104,6 @@ export default {
           this.imgUrl = '/static/tmall/no_win.png'
         }
       } else {
-        this.initCanvas()
         this.getCoupon()
       }
     },
@@ -104,105 +112,73 @@ export default {
       let img = new Image()
       let canvas = document.getElementById('canvasDoodle')
       let ctx = canvas.getContext('2d')
-      img.setAttribute('crossOrigin', 'Anonymous')
+      // img.setAttribute('crossOrigin', 'Anonymous')
       canvas.height = 90
       canvas.width = 200
       //获取当前画布的宽高
       let width = canvas.width
       let height = canvas.height
-
-      let device = /android|iphone|ipad|ipod|webos|iemobile|opear mini|linux/i.test(
-        navigator.userAgent.toLowerCase()
-      )
-      let startEvtName = device ? 'touchstart' : 'mousedown'
-      let moveEvtName = device ? 'touchmove' : 'mousemove'
-      let endEvtName = device ? 'touchend' : 'mouseup'
-      var c = null
-      img.onload = function() {
+      img.src =
+        'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/tmall/award.png'
+      img.onload = () => {
         ctx.beginPath()
         ctx.drawImage(img, 0, 0, width, height)
         ctx.closePath()
-        c = document.querySelector('.canvas-ele').getBoundingClientRect()
+        this.c = document.querySelector('.canvas-ele').getBoundingClientRect()
+        this.getInfoById()
       }
-      img.src = '/static/tmall/award.png'
-      /* 增加触摸监听*/
-      //true  捕获 false  冒泡
-      canvas.addEventListener(
-        startEvtName,
-        function() {
-          canvas.addEventListener(
-            moveEvtName,
-            function(event) {
-              event.preventDefault()
-              /* 根据手指移动画线，使之变透明*/
-              if (c.top > window.innerHeight) {
-                let x = device ? event.touches[0].pageX - c.left : event.clientX
-                let y = device ? event.touches[0].pageY - c.top : event.clientY
-                ctx.beginPath()
-                ctx.globalCompositeOperation = 'destination-out'
-                ctx.arc(x, y, 20, 0, Math.PI * 2)
-                ctx.fill()
-                ctx.closePath()
-              } else {
-                let x = device
-                  ? event.touches[0].clientX - c.left
-                  : event.clientX
-                let y = device
-                  ? event.touches[0].clientY - c.top
-                  : event.clientY
-                ctx.beginPath()
-                ctx.globalCompositeOperation = 'destination-out'
-                ctx.arc(x, y, 20, 0, Math.PI * 2)
-                ctx.fill()
-                ctx.closePath()
-              }
-            },
-            false
-          )
-        },
-        false
-      )
-
-      canvas.addEventListener(
-        endEvtName,
-        function() {
-          canvas.removeEventListener(
-            moveEvtName,
-            function(event) {
-              event.preventDefault()
-              /* 根据手指移动画线，使之变透明*/
-              let x = device ? event.touches[0].clientX - c.left : event.clientX
-              let y = device ? event.touches[0].clientY - c.top : event.clientY
-              ctx.beginPath()
-              ctx.globalCompositeOperation = 'destination-out'
-              ctx.arc(x, y, 20, 0, Math.PI * 2)
-              ctx.fill()
-              ctx.closePath()
-            },
-            false
-          )
-        },
-        false
-      )
-      canvas.addEventListener(
-        endEvtName,
-        function() {
-          /* 获取imageData对象*/
-          var imageDate = ctx.getImageData(0, 0, canvas.width, canvas.height)
-          /* */
-          var allPX = imageDate.width * imageDate.height
-          var iNum = 0 //记录刮开的像素点个数
-          for (var i = 0; i < allPX; i++) {
-            if (imageDate.data[i * 4 + 3] == 0) {
-              iNum++
-            }
-          }
-          if (iNum >= allPX * 1 / 4) {
-            that.award = false
-          }
-        },
-        false
-      )
+    },
+    handleTouchStart(event) {
+      console.dir(event)
+      let canvas = document.getElementById('canvasDoodle')
+      let ctx = canvas.getContext('2d')
+      /* 根据手指移动画线，使之变透明*/
+      if (this.c.top > window.innerHeight) {
+        let x = event.touches[0].pageX - this.c.left
+        let y = event.touches[0].pageY - this.c.top
+        ctx.beginPath()
+        ctx.globalCompositeOperation = 'destination-out'
+        ctx.arc(x, y, 20, 0, Math.PI * 2)
+        ctx.fill()
+        ctx.closePath()
+      } else {
+        let x = event.touches[0].clientX - this.c.left
+        let y = event.touches[0].clientY - this.c.top
+        ctx.beginPath()
+        ctx.globalCompositeOperation = 'destination-out'
+        ctx.arc(x, y, 20, 0, Math.PI * 2)
+        ctx.fill()
+        ctx.closePath()
+      }
+    },
+    handleTouchMove(event) {
+      console.dir(event)
+      let canvas = document.getElementById('canvasDoodle')
+      let ctx = canvas.getContext('2d')
+      let x = event.touches[0].clientX - this.c.left
+      let y = event.touches[0].clientY - this.c.top
+      ctx.beginPath()
+      ctx.globalCompositeOperation = 'destination-out'
+      ctx.arc(x, y, 20, 0, Math.PI * 2)
+      ctx.fill()
+      ctx.closePath()
+    },
+    handleTouchEnd(event) {
+      let canvas = document.getElementById('canvasDoodle')
+      let ctx = canvas.getContext('2d')
+      /* 获取imageData对象*/
+      let imageDate = ctx.getImageData(0, 0, canvas.width, canvas.height)
+      /* */
+      let allPX = imageDate.width * imageDate.height
+      let iNum = 0 //记录刮开的像素点个数
+      for (let i = 0; i < allPX; i++) {
+        if (imageDate.data[i * 4 + 3] == 0) {
+          iNum++
+        }
+      }
+      if (iNum >= allPX * 1 / 4) {
+        this.award = false
+      }
     },
     getInfoById() {
       let id = this.$route.query.id
@@ -245,25 +221,26 @@ body {
   overflow-x: hidden;
   width: 100%;
   height: 100%;
-  -webkit-overflow-scrolling: touch;
-  transform: translate3d(0, 0, 0);
+  // -webkit-overflow-scrolling: touch;
+  // transform: translate3d(0, 0, 0);
 }
 .tmall-content {
   width: 100%;
   height: 100%;
   overflow-x: hidden;
   position: relative;
-  overflow-y: scroll;
+  // overflow-y: scroll;
+  z-index: 10;
   .bg {
     width: 100%;
-    // pointer-events: none;
-    // user-select: none;
+    z-index: -10;
   }
   .photo {
     width: 73.6%;
     position: absolute;
     left: 13%;
     top: 8.4%;
+    z-index: 20;
   }
   .paw {
     position: absolute;
@@ -290,6 +267,7 @@ body {
       bottom: 17%;
       width: 50%;
       left: 25%;
+      z-index: 501;
     }
     .canvas-ele {
       position: absolute;
@@ -317,15 +295,16 @@ body {
       bottom: 17%;
       width: 50%;
       left: 25%;
+      z-index: 501;
     }
     .ticket {
-      // pointer-events: none;
-      // user-select: none;
       width: 80%;
       margin: 0 10%;
+      position: relative;
+      z-index: 500;
     }
   }
-  .share-wrap{
+  .share-wrap {
     position: absolute;
     bottom: 0;
     z-index: 300;
