@@ -299,6 +299,7 @@ body {
       bottom: 17%;
       width: 50%;
       left: 25%;
+      z-index: 501;
     }
     .canvas-ele {
       position: absolute;
@@ -326,6 +327,7 @@ body {
       bottom: 17%;
       width: 50%;
       left: 25%;
+      z-index: 501;
     }
     .ticket {
       pointer-events: none;
