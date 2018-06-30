@@ -261,7 +261,6 @@ body {
   overflow-y: scroll;
   -webkit-touch-callout: none;
   user-select: none;
-  pointer-events: none;
   .bg {
     width: 100%;
     // pointer-events: none;
