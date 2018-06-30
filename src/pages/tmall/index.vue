@@ -93,7 +93,7 @@ export default {
       }
       if (localStorage.getItem('tmall') !== null) {
         let data = localStorage.getItem('tmall')
-        this.award = false
+        // this.award = false
         if (data === '恭喜中奖') {
           this.winFlag = true
           this.imgUrl = '/static/tmall/win.png'
@@ -299,6 +299,7 @@ body {
       bottom: 17%;
       width: 50%;
       left: 25%;
+      z-index: 501;
     }
     .canvas-ele {
       position: absolute;
@@ -326,6 +327,7 @@ body {
       bottom: 17%;
       width: 50%;
       left: 25%;
+      z-index: 501;
     }
     .ticket {
       pointer-events: none;
