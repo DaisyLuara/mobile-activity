@@ -11,7 +11,11 @@
         <img :src="imgServerUrl + '/pages/tmall/ticket.png'" alt="" class="ticket">
         <img :src="imgUrl" alt="" class="win" v-show="winFlag">
         <img :src="imgUrl" alt="" class="no-win" v-show="!winFlag">
-        <canvas id="canvasDoodle" class="canvas-ele" width="200" height="90" v-show="award"></canvas>
+        <canvas 
+          id="canvasDoodle" 
+          class="canvas-ele"
+          width="200" 
+          height="90" v-show="award"></canvas>
       </div>
       <div class="share-wrap" v-show="shareFlag">
         <img :src="imgServerUrl + '/pages/tmall/advert.png'" alt="" class="share">
@@ -82,8 +86,9 @@ export default {
         })
     },
     handleStorage() {
-      let isShare = this.$route.query.utm_term
-      this.shareFlag = isShare === 'wechat_share' ? true : false
+      if (this.$route.query.hasOwnProperty('share_at')) {
+        this.shareFlag = true
+      }
       let data = localStorage.getItem('tmall')
       if (data) {
         this.award = false
@@ -254,16 +259,21 @@ body {
   overflow-x: hidden;
   position: relative;
   overflow-y: scroll;
+  -webkit-touch-callout: none;
+  user-select: none;
+  pointer-events: none;
   .bg {
     width: 100%;
     // pointer-events: none;
     // user-select: none;
+    pointer-events: none;
   }
   .photo {
     width: 73.6%;
     position: absolute;
     left: 13%;
     top: 8.4%;
+    pointer-events: auto;
   }
   .paw {
     position: absolute;
@@ -297,6 +307,7 @@ body {
       width: 52%;
       left: 24%;
       z-index: 1000;
+      pointer-events: auto;
     }
     .award {
       position: absolute;
@@ -325,7 +336,7 @@ body {
       margin: 0 10%;
     }
   }
-  .share-wrap{
+  .share-wrap {
     position: absolute;
     bottom: 0;
     z-index: 300;
