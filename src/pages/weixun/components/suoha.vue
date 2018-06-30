@@ -138,17 +138,9 @@ export default {
         mobile: this.phoneValue,
         coupon_id: this.savedId
       }
-<<<<<<< HEAD
-      this.$http.post(rq, rd).then(r => {
-        console.dir(r)
-        if (r.success === true) {
-          this.isGetCoupon = true
-          this.sendSms(r.data.id)
-=======
       this.$http.put(rq, rd).then(r => {
         if (r.data.success === 'false' || r.data.success === false) {
           this.showResult()
->>>>>>> f6e5b78212f8ebfa0693bc86b308056eee31d0f6
         } else {
           this.sendSms(this.savedId)
         }
