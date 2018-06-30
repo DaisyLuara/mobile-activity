@@ -67,9 +67,8 @@ export default {
       document.body.clientHeight
     let content = document.getElementById('tmall')
     content.style.minHeight = height + 'px'
+    this.initCanvas()
     this.handleStorage()
-  },
-  created() {
     this.getInfoById()
     this.wechatShare()
   },
@@ -106,7 +105,6 @@ export default {
           this.imgUrl = '/static/tmall/no_win.png'
         }
       } else {
-        this.initCanvas()
         this.getCoupon()
       }
     },
