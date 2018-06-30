@@ -230,6 +230,7 @@ body {
   height: 100%;
   overflow-x: hidden;
   position: relative;
+  user-select: none;
   // overflow-y: scroll;
   z-index: 10;
   .bg {
