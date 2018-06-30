@@ -103,6 +103,7 @@ export default {
           this.winFlag = false
           this.imgUrl = '/static/tmall/no_win.png'
         }
+        this.getInfoById()
       } else {
         this.getCoupon()
       }
