@@ -1,5 +1,7 @@
 <template>
-  <div class="feng-wrap" id="feng-root">
+  <div
+    :style="style.root" 
+    class="feng-wrap" id="feng-root">
     <div id="mapContainer" class="container"></div>
     <div class="viewmode-group btn-group" data-toggle="buttons">
     </div>
@@ -9,15 +11,19 @@
       @touchstart="handleTouchStart"
       @touchmove="handleTouchMove"
       @touchend="handleTouchEnd">
-        <img v-if="liandongStatus === true" @click="ldWindowOpen()" class="detail-button" src="/static/feng/image/info.png"/>
+        <img 
+          v-if="liandongStatus === true" 
+          @click="ldWindowOpen()" 
+          class="detail-button" 
+          :src="imgUrl + 'info.png'"/>
         <div @click="handleArrow" class="detail-arrow">
-          <img class="arrow-inner" v-show="detailScrollToTop === false" src="/static/feng/image/arrow-up.png" />
-          <img class="arrow-inner" v-show="detailScrollToTop === true" src="/static/feng/image/arrow-down.png" />
+          <img class="arrow-inner" v-show="detailScrollToTop === false" :src="imgUrl + 'arrow-up.png'" />
+          <img class="arrow-inner" v-show="detailScrollToTop === true" :src="imgUrl + 'arrow-down.png'" />
         </div>
         <div class="detail-title">
           <span class="title-text">{{displayTitle}}</span>
-          <img v-if="this.currentAct === 0" class="title-img" src="/static/feng/image/redpack-list.png" />
-          <img v-if="this.currentAct === 1" class="title-img" src="/static/feng/image/air-list.png" />
+          <img v-if="this.currentAct === 0" class="title-img" :src="imgUrl + 'redpack-list.png'" />
+          <img v-if="this.currentAct === 1" class="title-img" :src="imgUrl + 'air-list.png'" />
         </div>
         <div class="detail-next">
           <span class="next-inner">
@@ -36,7 +42,7 @@
           <img class="inner-img" :src="this.act[this.currentAct].img"/>
         </div>
     </div>
-    <img @click="handleNaviToMini" src="/static/feng/image/list-button.png" class="list-change"/>
+    <img @click="handleNaviToMini" :src="imgUrl + 'list-button.png'" class="list-change"/>
     <div class="rp" v-if="rpShow === true" @click="handleRpClose">
       <RedPackRain />
     </div>
@@ -55,7 +61,7 @@
           发现新的宝藏了！
         </div>
       </div>
-      <img @click="ldWindowClose" class="ld-close" src="/static/feng/image/close.png" />
+      <img @click="ldWindowClose" class="ld-close" :src="imgUrl + 'close.png'" />
     </div>
   </div>
 </template>
@@ -64,12 +70,14 @@
 <script>
 import RedPackRain from './components/redPack'
 import './add.css'
+const cdnUrl = process.env.CDN_URL
 export default {
   components: {
     RedPackRain
   },
   data() {
     return {
+      imgUrl: cdnUrl + '/fe/img/wxmini/',
       fMap: null,
       fMapId: '11839',
       ctlOpt: null,
@@ -81,7 +89,7 @@ export default {
       handleLock: false,
       controlStatus: true,
       rpShow: false,
-      bindInnerImg: '/static/feng/image/pro.png',
+      bindInnerImg: cdnUrl + '/fe/img/wxmini' + '/pro.png',
       p: {
         list: {
           marginTop: -45
@@ -100,17 +108,17 @@ export default {
         {
           name: '天降红包',
           des: '找到红包屏，扫描屏内二维码，获得红包福利。',
-          img: '/static/feng/image/act_0.png'
+          img: cdnUrl + '/fe/img/wxmini/' + 'act_0.png'
         },
         {
           name: '城市寻宝',
-          img: '/static/feng/image/act_1.png',
+          img: cdnUrl + '/fe/img/wxmini/' + 'act_1.png',
           des:
             '扫描屏幕二维码，获取藏宝图，跟随地图指引，发现埋藏在商场里的神秘宝藏吧。'
         },
         {
           name: '勇闯三关',
-          img: '/static/feng/image/act_2.png',
+          img: cdnUrl + '/fe/img/wxmini/' + 'act_2.png',
           des: '摇头摆脑 冲顶智慧高峰 闯敢连连 获取福利不断'
         }
       ],
@@ -148,7 +156,12 @@ export default {
       liandongStatus: false,
       currentActAddress: '',
       ldWindow: false,
-      overHeight: 0
+      overHeight: 0,
+      style: {
+        root: {
+          height: window.innerHeight + 'px'
+        }
+      }
     }
   },
   computed: {
@@ -168,8 +181,7 @@ export default {
     }
   },
   mounted() {
-    $('.feng-wrap').css('height', $(window).height())
-    this.p.detailShowPosition = 0.2 * $(window).height()
+    this.p.detailShowPosition = 0.2 * this.innerHeight() + 'px'
     this.init()
   },
   methods: {
@@ -310,7 +322,7 @@ export default {
       btn_div.style.setProperty('left', '0')
 
       let btn_img = document.createElement('img')
-      btn_img.setAttribute('src', '/static/feng/image/fm-control.png')
+      btn_img.setAttribute('src', this.imgUrl + '/fm-control.png')
       btn_img.style.setProperty('width', '100%')
       btn_img.style.setProperty('height', '100%')
       btn_div.appendChild(btn_img)
@@ -469,7 +481,7 @@ export default {
             layer.removeMarker(layer.markers[i])
             let newMarker = new fengmap.FMImageMarker({
               name: newName,
-              url: '/static/feng/image/machine-0.png',
+              url: this.imgUrl + 'machine-0.png',
               size: 64,
               x: newX,
               y: newY,
@@ -484,7 +496,7 @@ export default {
       }
       let newMarker = new fengmap.FMImageMarker({
         name: 'new_' + e.name,
-        url: '/static/feng/image/machine-1.png',
+        url: this.imgUrl + 'machine-1.png',
         size: 64,
         x: e.x,
         y: e.y,
@@ -501,7 +513,7 @@ export default {
         let layer = group.getOrCreateLayer('imageMarker')
         let F1_1 = new fengmap.FMImageMarker({
           name: 'f1_1',
-          url: '/static/feng/image/machine-0.png',
+          url: this.imgUrl + 'machine-0.png',
           size: 64,
           x: 13528113.343703128,
           y: 3662316.2432128466,
@@ -512,7 +524,7 @@ export default {
         })
         let HB_F1_1 = new fengmap.FMImageMarker({
           name: 'HB_F1_1',
-          url: '/static/feng/image/qq.png',
+          url: this.imgUrl + 'qq.png',
           size: 35,
           x: 13528113.343703128,
           y: 3662316.2432128466,
@@ -530,7 +542,7 @@ export default {
 
         let F1_2 = new fengmap.FMImageMarker({
           name: 'f1_2',
-          url: '/static/feng/image/machine-0.png',
+          url: this.imgUrl + 'machine-0.png',
           size: 64,
           x: 13528069.603071805,
           y: 3662363.214140243,
@@ -542,7 +554,7 @@ export default {
 
         let HB_F1_2 = new fengmap.FMImageMarker({
           name: 'HB_F1_2',
-          url: '/static/feng/image/qq.png',
+          url: this.imgUrl + 'qq.png',
           size: 35,
           x: 13528069.603071805,
           y: 3662363.214140243,
@@ -560,7 +572,7 @@ export default {
 
         let F1_3 = new fengmap.FMImageMarker({
           name: 'f1_3',
-          url: '/static/feng/image/machine-0.png',
+          url: this.imgUrl + '/machine-0.png',
           size: 64,
           x: 13528115.001994299,
           y: 3662355.7043745373,
@@ -572,7 +584,7 @@ export default {
 
         let HB_F1_3 = new fengmap.FMImageMarker({
           name: 'HB_F1_3',
-          url: '/static/feng/image/redpack.png',
+          url: this.imgUrl + 'redpack.png',
           size: 35,
           x: 13528115.001994299,
           y: 3662355.7043745373,
@@ -599,7 +611,7 @@ export default {
 
         let F2_1 = new fengmap.FMImageMarker({
           name: 'f2_1',
-          url: '/static/feng/image/machine-0.png',
+          url: this.imgUrl + 'machine-0.png',
           size: 64,
           x: 13528121.494989906,
           y: 3662306.967850478,
@@ -611,7 +623,7 @@ export default {
 
         let HB_F2_1 = new fengmap.FMImageMarker({
           name: 'HB_f2_1',
-          url: '/static/feng/image/qq.png',
+          url: this.imgUrl + 'qq.png',
           size: 35,
           x: 13528121.494989906,
           y: 3662306.967850478,
@@ -629,7 +641,7 @@ export default {
 
         let F2_2 = new fengmap.FMImageMarker({
           name: 'f2_2',
-          url: '/static/feng/image/machine-0.png',
+          url: this.imgUrl + 'machine-0.png',
           size: 64,
           x: 13528057.774711452,
           y: 3662370.564898199,
@@ -641,7 +653,7 @@ export default {
 
         let HB_F2_2 = new fengmap.FMImageMarker({
           name: 'HB_F2_2',
-          url: '/static/feng/image/redpack.png',
+          url: this.imgUrl + 'redpack.png',
           size: 35,
           x: 13528057.774711452,
           y: 3662370.564898199,
@@ -666,7 +678,7 @@ export default {
 
         let F3_1 = new fengmap.FMImageMarker({
           name: 'f3_1',
-          url: '/static/feng/image/machine-0.png',
+          url: this.imgUrl + 'machine-0.png',
           size: 64,
           x: 13528141.977265798,
           y: 3662355.9839765457,

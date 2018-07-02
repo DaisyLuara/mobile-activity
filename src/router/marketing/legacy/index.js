@@ -101,7 +101,8 @@ const lagacyPages = [
     name: 'popCorn',
     meta: {
       title: '爆米花奥斯卡'
-    }
+    },
+    isAbandoned: true
   },
   {
     path: 'popcorn/result',
@@ -109,7 +110,8 @@ const lagacyPages = [
     name: 'popCornResult',
     meta: {
       title: '爆米花奥斯卡结果页'
-    }
+    },
+    isAbandoned: true
   },
   {
     path: 'mogujie',
@@ -325,7 +327,8 @@ const lagacyPages = [
     meta: {
       title: 'EXE颜镜店',
       desc: ''
-    }
+    },
+    isAbandoned: true
   },
   {
     path: '51actcp',
@@ -333,7 +336,8 @@ const lagacyPages = [
     name: '51actcp',
     meta: {
       title: 'EXE颜镜店'
-    }
+    },
+    isAbandoned: true
   },
   {
     path: 'spring',

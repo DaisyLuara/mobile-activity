@@ -101,7 +101,7 @@ export default {
     }
   },
   mounted() {
-    this.base = $(window).width() * 0.5
+    this.base = window.innerWidth * 0.5
     this.init()
   },
   methods: {

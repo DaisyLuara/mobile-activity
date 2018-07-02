@@ -11,16 +11,17 @@
   </div>
 </template>
 <script>
-import { setParameter } from 'modules/util';
-import { customTrack } from 'modules/customTrack';
-import WxShare from 'modules/wxShare';
-import wxService from 'services/wx';
-import parseService from 'modules/parseServer';
-import CouponService from 'services/freecartCoupon';
+import { setParameter } from 'modules/util'
+import { customTrack } from 'modules/customTrack'
+import WxShare from 'modules/wxShare'
+import wxService from 'services/wx'
+import parseService from 'modules/parseServer'
+import CouponService from 'services/freecartCoupon'
+import $ from 'jquery'
 
 export default {
   components: {
-    WxShare,
+    WxShare
   },
   data() {
     return {
@@ -31,79 +32,93 @@ export default {
       wxShareInfoValue: {
         title: '寻宝箱 开好礼',
         desc: '新年至 小星在各大商圈准备了海量神秘宝箱！找到小星 发现好礼！！',
-        imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/openBox_share_icon.png',
+        imgUrl:
+          'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/openBox_share_icon.png'
       },
-      userInfo: {},
-    };
+      userInfo: {}
+    }
   },
   beforeCreate() {
-    document.title = '开箱子';
+    document.title = '开箱子'
   },
   mounted() {
-    $('.phone-content').css('height', $(window).height());
+    $('.phone-content').css('height', $(window).height())
   },
   created() {
-    this.getWxUserInfo();
+    this.getWxUserInfo()
   },
   methods: {
     saveWxInfo() {
-      this.userInfo.gifType = this.$route.query.type;
-      parseService.post(this, this.reqUrl + 'open_the_box', this.userInfo).then((res) => {
-        console.log('保存成功');
-      }).catch((err) => {
-        console.log(err);
-      });
+      this.userInfo.gifType = this.$route.query.type
+      parseService
+        .post(this, this.reqUrl + 'open_the_box', this.userInfo)
+        .then(res => {
+          console.log('保存成功')
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
     redirectToPhoto() {
-      if (!(/^1[34578]\d{9}$/.test(this.mobileNum))) {
-        this.phoneError = true;
-        this.errorText = '手机号码格式不正确';
+      if (!/^1[34578]\d{9}$/.test(this.mobileNum)) {
+        this.phoneError = true
+        this.errorText = '手机号码格式不正确'
       } else {
-        this.getCoupon();
+        this.getCoupon()
       }
     },
     getCoupon() {
-      let adId = this.$route.query.adId;
+      let adId = this.$route.query.adId
       if (!adId) {
-        adId = 20012;
+        adId = 20012
       }
       let params = {
         mobile: this.mobileNum,
         sms_template: 'SEND_MARKETING_COUPONS',
-        adId: parseInt(adId),
-      };
-      CouponService.createCoupon(this, params).then((data) => {
-        let res = data.data;
-        if (JSON.stringify(res) === '{}') {
-          this.saveWxInfo();
-          customTrack.sendMobile(this.mobileNum);
-          this.linkToPhoto();
-        } else {
-          alert(res.error.msg);
-          this.linkToPhoto();
-        }
-      }).catch((err) => {
-        console.log(err);
-      });
+        adId: parseInt(adId)
+      }
+      CouponService.createCoupon(this, params)
+        .then(data => {
+          let res = data.data
+          if (JSON.stringify(res) === '{}') {
+            this.saveWxInfo()
+            customTrack.sendMobile(this.mobileNum)
+            this.linkToPhoto()
+          } else {
+            alert(res.error.msg)
+            this.linkToPhoto()
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
     getWxUserInfo() {
-      wxService.getWxUserInfo(this).then((result) => {
-        let data = result.data;
-        this.userInfo.name = data.nickname;
-        this.userInfo.headImgUrl = data.headimgurl;
-      }).catch((err) => {
-        let pageUrl = encodeURIComponent(window.location.href);
-        let wxAuthUrl = process.env.WX_API + '/wx/officialAccount/oauth?url=' + pageUrl + '&scope=snsapi_userinfo';
-        window.location.href = wxAuthUrl;
-      });
+      wxService
+        .getWxUserInfo(this)
+        .then(result => {
+          let data = result.data
+          this.userInfo.name = data.nickname
+          this.userInfo.headImgUrl = data.headimgurl
+        })
+        .catch(err => {
+          let pageUrl = encodeURIComponent(window.location.href)
+          let wxAuthUrl =
+            process.env.WX_API +
+            '/wx/officialAccount/oauth?url=' +
+            pageUrl +
+            '&scope=snsapi_userinfo'
+          window.location.href = wxAuthUrl
+        })
     },
     linkToPhoto() {
-      let redirectUrl = window.location.origin + '/#' + this.$route.path + '/result';
+      let redirectUrl =
+        window.location.origin + '/#' + this.$route.path + '/result'
       for (let param in this.$route.query) {
-        redirectUrl = setParameter(param, this.$route.query[param], redirectUrl);
+        redirectUrl = setParameter(param, this.$route.query[param], redirectUrl)
       }
-      window.location.href = redirectUrl;
-    },
+      window.location.href = redirectUrl
+    }
   },
   computed: {
     wxShareInfo() {
@@ -112,35 +127,35 @@ export default {
         desc: this.wxShareInfoValue.desc,
         imgUrl: this.wxShareInfoValue.imgUrl,
         success: () => {
-          customTrack.shareWeChat();
-        },
-      };
-      return wxShareInfo;
-    },
-  },
-};
+          customTrack.shareWeChat()
+        }
+      }
+      return wxShareInfo
+    }
+  }
+}
 </script>
 <style lang="less" scoped>
-  @imageHost: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/open_box';
-.phone-content{
+@imageHost: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/open_box';
+.phone-content {
   height: 100%;
   background-repeat: no-repeat;
-  background-image: url("@{imageHost}/bg.png");
+  background-image: url('@{imageHost}/bg.png');
   background-size: cover;
   position: relative;
-  .title{
+  .title {
     width: 65%;
     position: absolute;
     top: 10%;
     left: 17.5%;
   }
-  .phone-hint{
+  .phone-hint {
     width: 40%;
     position: absolute;
     top: 35%;
     left: 30%;
   }
-  .mobile{
+  .mobile {
     border: none;
     outline: none;
     border: 4px solid #f9d689;
@@ -153,15 +168,15 @@ export default {
     top: 50%;
     left: 10%;
     color: #f9d689;
-    background-color: #14123e; 
+    background-color: #14123e;
     text-align: center;
   }
-  .boots-wrap{
+  .boots-wrap {
     position: absolute;
     top: 60%;
     height: 200px;
     width: 100%;
-    .error{
+    .error {
       position: absolute;
       top: 15%;
       // left: 35%;
@@ -170,7 +185,7 @@ export default {
       width: 100%;
       text-align: center;
     }
-    .confrim_btn{
+    .confrim_btn {
       width: 30%;
       top: 25%;
       left: 35%;
@@ -180,44 +195,47 @@ export default {
   .mobile::-webkit-input-placeholder {
     color: transparent;
     text-indent: -9999px;
-    background-image: url("@{imageHost}/input_placeholder.png");
+    background-image: url('@{imageHost}/input_placeholder.png');
     background-position: 0% 50%;
     background-size: cover;
-    background-repeat: no-repeat; 
+    background-repeat: no-repeat;
   }
   .mobile::-moz-placeholder {
     /* Firefox 19+ */
     color: transparent;
     text-indent: -9999px;
-    background-image: url("@{imageHost}/input_placeholder.png");
+    background-image: url('@{imageHost}/input_placeholder.png');
     background-position: 0 50%;
     background-size: cover;
-    background-repeat: no-repeat; 
+    background-repeat: no-repeat;
   }
   .mobile:-moz-placeholder {
     /* Firefox 18- */
     color: transparent;
     text-indent: -9999px;
-    background-image: url("@{imageHost}/input_placeholder.png");
+    background-image: url('@{imageHost}/input_placeholder.png');
     background-position: 0 50%;
     background-size: cover;
-    background-repeat: no-repeat; 
+    background-repeat: no-repeat;
   }
   .mobile:-ms-input-placeholder {
     /* IE 10- */
     color: transparent;
     text-indent: -9999px;
-    background-image: url("@{imageHost}/input_placeholder.png");
+    background-image: url('@{imageHost}/input_placeholder.png');
     background-position: 0 50%;
     background-size: cover;
-    background-repeat: no-repeat; 
+    background-repeat: no-repeat;
   }
   @keyframes arrowsBg {
-    0% {opacity: 0;}
-    100% {opacity: 1;}
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
   }
 }
-
 </style>
 
 

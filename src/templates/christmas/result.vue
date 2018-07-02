@@ -16,6 +16,8 @@
 </template>
 <script>
 import { getParamsMap, getParameter, setParameter } from 'modules/util'
+import $ from 'jquery'
+
 // import { customTrack } from 'services/customTrack'
 import marketingService from 'services/marketing'
 // import WxShare from 'components/modules/WxShare.vue'
@@ -24,17 +26,20 @@ export default {
   // components: {
   //   WxShare
   // },
-  data(){
+  data() {
     return {
       imgUrl: ''
     }
   },
   created() {
-    marketingService.getPlayResultById(this, this.$route.query.play_result_id).then(data => {
-      this.imgUrl = data.result_img_url;
-    }).catch(err => {
-      console.log(err);
-    })
+    marketingService
+      .getPlayResultById(this, this.$route.query.play_result_id)
+      .then(data => {
+        this.imgUrl = data.result_img_url
+      })
+      .catch(err => {
+        console.log(err)
+      })
     // marketingService.getImageById(this, this.$route.query.id).then(data => {
     //   this.imgUrl = data;
     // }).catch(err => {
@@ -42,10 +47,9 @@ export default {
     // })
   },
   mounted() {
-    $(".photo-wrap").css('min-height', $(window).height());
+    $('.photo-wrap').css('min-height', $(window).height())
   },
-  methods: {
-  },
+  methods: {},
   computed: {
     wxShareInfo() {
       let wxShareInfo = {
@@ -53,68 +57,72 @@ export default {
         desc: this.marketingOptions.wxShareInfo.desc,
         imgUrl: this.marketingOptions.wxShareInfo.imgUrl,
         success: () => {
-          if(_hmt){
-            _hmt.push(['_trackEvent', '分享' + this.marketingOptions.name + '提取页', 'share', '分享', '']);
+          if (_hmt) {
+            _hmt.push([
+              '_trackEvent',
+              '分享' + this.marketingOptions.name + '提取页',
+              'share',
+              '分享',
+              ''
+            ])
           }
         }
       }
-      return wxShareInfo;
+      return wxShareInfo
     }
   }
 }
 </script>
 <style lang="less" scoped>
-  .photo-wrap{
-    text-align: center;
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    img{
-      width: 100%;
-    }
-    .top-decorate{
+.photo-wrap {
+  text-align: center;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  img {
+    width: 100%;
+  }
+  .top-decorate {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+  }
+  .bottom-decorate {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+  }
+  .img-title {
+    margin-top: 10%;
+  }
+  .photo-content {
+    position: relative;
+    .frame {
       position: absolute;
       top: 0;
-      left: 0;
       right: 0;
+      left: 0;
       width: 100%;
+      margin: 0 auto;
+      &.placeholder {
+        position: relative;
+      }
     }
-    .bottom-decorate{
+    .photo {
       position: absolute;
+      top: 0%;
       left: 0;
       right: 0;
-      bottom: 0;
-      width: 100%;
+      width: 80%;
+      margin: 0 auto;
     }
-    .img-title{
-      margin-top: 10%;
+    .qr-code {
     }
-    .photo-content{
-      position: relative;
-      .frame{
-        position: absolute;
-        top: 0;
-        right: 0;
-        left: 0;
-        width: 100%;
-        margin: 0 auto;
-        &.placeholder{
-          position: relative;
-        }
-      }
-      .photo{
-        position: absolute;
-        top: 0%;
-        left: 0;
-        right: 0;
-        width: 80%;
-        margin: 0 auto;
-      }
-      .qr-code{
-
-      }
-      .image-ad{
-
-      }
+    .image-ad {
     }
   }
+}
 </style>
