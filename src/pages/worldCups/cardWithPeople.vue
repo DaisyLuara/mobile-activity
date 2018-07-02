@@ -44,19 +44,17 @@ export default {
       imgUrl: imgUrl + '/fe/marketing/img/wc/'
     }
   },
-  created() {
+  mounted() {
     if (isInWechat() === true) {
       this.handleWechatAuth()
-      // this.drawing()
     } else {
-      setTimeout(() => {
-        this.isLoading = false
-      }, 1000)
+      this.isLoading = false
       this.drawing()
     }
   },
   methods: {
     drawing() {
+      console.log('startDrawing')
       let width = this.innerWidth()
       let height = this.innerHeight()
       let backgroundColor = 'black'
@@ -91,6 +89,9 @@ export default {
           this.base64Data = b64
           this.isDrawing = false
         })
+        .catch(error => {
+          console.warn(error.message)
+        })
     },
     handleWechatAuth() {
       if (Cookies.get('user_id') === null) {
@@ -105,6 +106,7 @@ export default {
         getWxUserInfo().then(r => {
           this.headImgUrl = r.data.headimgurl
           this.isLoading = false
+          console.dir(r)
           this.drawing()
         })
       }
