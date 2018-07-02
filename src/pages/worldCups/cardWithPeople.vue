@@ -63,6 +63,7 @@ export default {
         height,
         backgroundColor
       })
+      let that = this
       mc
         .background(this.imgUrl + '/messi.png', {
           left: 0,
@@ -85,12 +86,23 @@ export default {
             y: 0
           }
         })
-        .draw(b64 => {
-          this.base64Data = b64
-          this.isDrawing = false
-        })
-        .catch(error => {
-          console.warn(error.message)
+        .draw({
+          // 导出图片格式： png/jpg/jpeg/webp;
+          // default : png;
+          type: 'jpg',
+          //  图片质量，对 png 格式无效； 0~1；
+          // default: .9;
+          quality: 1,
+          // 成功回调；
+          success(b64) {
+            console.log(b64)
+            that.base64Data = b64
+            that.isDrawing = false
+          },
+          // 错误回调；
+          error(err) {
+            console.log(err)
+          }
         })
     },
     handleWechatAuth() {
