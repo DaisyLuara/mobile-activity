@@ -46,8 +46,8 @@ export default {
   },
   created() {
     if (isInWechat() === true) {
-      // this.handleWechatAuth()
-      this.drawing()
+      this.handleWechatAuth()
+      // this.drawing()
     } else {
       setTimeout(() => {
         this.isLoading = false
