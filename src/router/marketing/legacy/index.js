@@ -325,7 +325,8 @@ const lagacyPages = [
     meta: {
       title: 'EXE颜镜店',
       desc: ''
-    }
+    },
+    isAbandoned: true
   },
   {
     path: '51actcp',
@@ -333,7 +334,8 @@ const lagacyPages = [
     name: '51actcp',
     meta: {
       title: 'EXE颜镜店'
-    }
+    },
+    isAbandoned: true
   },
   {
     path: 'spring',

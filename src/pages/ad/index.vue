@@ -33,7 +33,10 @@
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 import WxShare from 'modules/wxShare'
 import { customTrack } from 'modules/customTrack'
+import { Lazyload } from 'mint-ui'
+import Vue from 'vue'
 
+Vue.use(Lazyload)
 export default {
   components: {
     WxShare
