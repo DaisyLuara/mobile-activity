@@ -53,9 +53,9 @@ const webpackConfig = merge(baseWebpackConfig, {
           comments: false
         },
         compress: {
-          warnings: false,
-          drop_debugger: true,
-          drop_console: true
+          warnings: process.argv[2] === 'test' ? true : false,
+          drop_debugger: process.argv[2] === 'test' ? false : true,
+          drop_console: process.argv[2] === 'test' ? false : true
         }
       }
     }),
