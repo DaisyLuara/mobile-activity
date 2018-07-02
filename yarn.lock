@@ -3640,6 +3640,10 @@ math-expression-evaluator@^1.2.14:
   version "1.2.17"
   resolved "http://registry.npm.taobao.org/math-expression-evaluator/download/math-expression-evaluator-1.2.17.tgz#de819fdbcd84dccd8fae59c6aeb79615b9d266ac"
 
+mcanvas@^1.3.4:
+  version "1.3.4"
+  resolved "http://registry.npm.taobao.org/mcanvas/download/mcanvas-1.3.4.tgz#815a1024318b0071748b175e173ccce7db31723e"
+
 md5.js@^1.3.4:
   version "1.3.4"
   resolved "http://registry.npm.taobao.org/md5.js/download/md5.js-1.3.4.tgz#e9bdbde94a20a5ac18b04340fc5764d5b09d901d"
