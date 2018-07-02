@@ -17,6 +17,7 @@ import parseService from 'modules/parseServer'
 import { customTrack } from 'modules/customTrack'
 
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
+import $ from 'jquery'
 
 export default {
   components: {

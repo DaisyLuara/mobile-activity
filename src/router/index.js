@@ -49,14 +49,6 @@ const router = new Router({
         }
         return routerItem
       })
-      // children: [
-      //   {
-      //     path: 'bind',
-      //     name: '微信绑定',
-      //     component: () =>
-      //       import(/* webpackChunkName: "bind" */ 'pages/bind/index')
-      //   },
-      // ]
     },
     {
       path: '/wxMini',

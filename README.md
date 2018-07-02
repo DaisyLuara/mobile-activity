@@ -2,31 +2,11 @@
 
 > develop static web page
 
-## 注意事项
-
-不要再使用 jQuery
-https://github.com/nefe/You-Dont-Need-jQuery
-https://github.com/nefe/You-Dont-Need-jQuery/blob/master/README.zh-CN.md
-
-后续逐步移除 jQuery
-
-## 注意事项 2018-5-28
-
-去掉 assets/css/marketing.css 里面对图片 width: 100% 的定义，因为有可能你需要 height: 100%, 此时无法把 width 属性删去……
-
-## Todo 2018-6-27
-
-### 去除 Jquery
-
-### polyfills 按需加载
+## Todo
 
 ### 整理旧方法、模块
 
 ### 静态资源走 cdn
-
-## Build Setup
-
-### Router 模式化 Done
 
 ```bash
 # install dependencies

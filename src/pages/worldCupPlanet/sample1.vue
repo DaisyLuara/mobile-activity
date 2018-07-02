@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import $ from 'jquery'
+
 export default {
   data() {
     return {
@@ -162,5 +164,4 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
 </style>

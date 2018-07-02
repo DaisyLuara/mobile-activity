@@ -119,37 +119,40 @@
   </div>
 </template>
 <script>
-const IMAGE_SERVER = process.env.IMAGE_SERVER + "/xingshidu_h5/marketing";
+const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 import { customTrack } from 'modules/customTrack'
 import WxShare from 'modules/wxShare.vue'
 import wxService from 'services/wx'
 import Question from './question0129'
 import CouponService from 'services/freecartCoupon'
 import parseService from 'modules/parseServer'
+import $ from 'jquery'
+
 export default {
   components: {
     WxShare
   },
-  data(){
+  data() {
     return {
       mobile: '',
       showPage: true,
       showCover: false,
       imgServerUrl: IMAGE_SERVER,
       reqUrl: 'http://120.27.144.62:1337/parse/classes/',
-      wxShareInfo:{
+      wxShareInfo: {
         title: '我在勇闯三关答题得到了218元红包，你也来试试',
         desc: '勇闯三关，每5分钟刷新轮次。只要答对3道题，丰厚大奖等你赢取。',
-        imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/prize_share_icon.png',
-        success: function () {
+        imgUrl:
+          'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/prize_share_icon.png',
+        success: function() {
           customTrack.shareWeChat()
         }
       },
       clockOpts: {
-        text: "10",
+        text: '10',
         sumSecs: 10,
         n: -360 / 10, //每秒转的圆心角度
-        curOffset: 0,//当前弧长
+        curOffset: 0, //当前弧长
         endOldClock: false
       },
       competitionClockOpts: {
@@ -172,14 +175,15 @@ export default {
       },
       gameStatus: 0, //未参赛
       userInfo: {},
-      curCompetition:{}, //当前轮次
-      curQuestion: { //当前题目信息和状态
+      curCompetition: {}, //当前轮次
+      curQuestion: {
+        //当前题目信息和状态
         begin: false,
         qid: '',
         name: '',
         choices: [], //问题选项
-        status: 0,  //问题结果0未答题1答对2答错
-        number: 0,  //题目序号
+        status: 0, //问题结果0未答题1答对2答错
+        number: 0, //题目序号
         answer: 0, //问题答案
         end: false, //是否结束
         answer_num: [0, 0, 0] //各选项回答人数
@@ -190,142 +194,190 @@ export default {
       userCompetitionRecord: {} // 用户的当前答题记录
     }
   },
-  beforeCreate(){
-    document.title = "勇闯三关"
+  beforeCreate() {
+    document.title = '勇闯三关'
   },
-  created(){
-    wxService.getWxUserInfo(this).then(result => {
-      let data = result.data
-      this.userInfo.nick_name = data.nickname;
-      this.userInfo.head_img_url = data.headimgurl;
-      this.userInfo.wx_openid = data.openid;
-      this.initCompetition();
-    }).catch(err => {
-      let pageUrl = encodeURIComponent(window.location.href)
-      let wx_auth_url = process.env.WX_API + '/wx/officialAccount/oauth?url=' + pageUrl + '&scope=snsapi_userinfo';
-      window.location.href = wx_auth_url;
-      return;
-    })
+  created() {
+    wxService
+      .getWxUserInfo(this)
+      .then(result => {
+        let data = result.data
+        this.userInfo.nick_name = data.nickname
+        this.userInfo.head_img_url = data.headimgurl
+        this.userInfo.wx_openid = data.openid
+        this.initCompetition()
+      })
+      .catch(err => {
+        let pageUrl = encodeURIComponent(window.location.href)
+        let wx_auth_url =
+          process.env.WX_API +
+          '/wx/officialAccount/oauth?url=' +
+          pageUrl +
+          '&scope=snsapi_userinfo'
+        window.location.href = wx_auth_url
+        return
+      })
   },
-  mounted(){
-    document.getElementsByClassName('game-wrap')[0].style.height = window.innerHeight + 'px';
+  mounted() {
+    document.getElementsByClassName('game-wrap')[0].style.height =
+      window.innerHeight + 'px'
   },
   computed: {
-    answerPercent(){
-      let sum = 0;
-      let answerPercent = [];
-      for(let i = 0,length = this.curQuestion.answer_num.length; i < length; i++){
-        sum = sum + this.curQuestion.answer_num[i];
+    answerPercent() {
+      let sum = 0
+      let answerPercent = []
+      for (
+        let i = 0, length = this.curQuestion.answer_num.length;
+        i < length;
+        i++
+      ) {
+        sum = sum + this.curQuestion.answer_num[i]
       }
 
-      if(sum == 0){
+      if (sum == 0) {
         answerPercent = ['0px', '0px', '0px']
-      }else{
-        for(let i = 0,length = this.curQuestion.answer_num.length; i < length; i++){
-          answerPercent.push(((this.curQuestion.answer_num[i] / sum) * $('.choice').width() * 1.1)+ 'px');
+      } else {
+        for (
+          let i = 0, length = this.curQuestion.answer_num.length;
+          i < length;
+          i++
+        ) {
+          answerPercent.push(
+            this.curQuestion.answer_num[i] / sum * $('.choice').width() * 1.1 +
+              'px'
+          )
         }
       }
-      return answerPercent;
+      return answerPercent
     }
   },
   methods: {
-    initCompetition(){
+    initCompetition() {
       // step1: 获取当前正在进行的竞赛轮次
-      parseService.get(this, this.reqUrl + 'h5_competition_records?where=' +  JSON.stringify({'status': '1'}) + '&order=-begin_time&limit=1').then(data => {
-        if(data.results && data.results.length){
-          this.curCompetition = data.results[0];
-          // 获取优惠券信息
-          this.getPrizeInfo();
-          let timeDiffer = ((new Date()).getTime() - parseInt(this.curCompetition.begin_time)) / 1000
-          // 最新竞赛已经超时
-          if(timeDiffer > 300){
-            alert("竞赛超时，请刷新页面获取最新竞赛")
-            return;
-          }
-          // 1、题目都需要先初始化好，但不开始游戏
-          this.nextQuestion();
-          // 2、检查用户是否有相同类型优惠券，但未领取的记录
-          let prizeSearchParams = {
-            'prize_type': this.curCompetition.prize_type,
-            'prize_id': {"$all":this.curCompetition.prize_id},
-            'result': '1',
-            'wx_open_id': this.userInfo.wx_openid
-          }
-          parseService.get(this, this.reqUrl + 'h5_competition_user_records?where=' + JSON.stringify(prizeSearchParams))
-          .then(data => {
-            if(data.results && data.results.length){
-              // 3、有则走领红包流程、领完走获取用户对当前答题的记录，然后开始游戏
-              let flag = false; //用户是否已领取过此类礼包
-              for(let i = 0, length = data.results.length;i < length; i++){
-                if(data.results[i].prize_status == '1'){
-                  flag = true; //标记用户已领取过此类礼包
-                  this.gotPrizeUserRecord = data.results[i];
-                  break;
-                }
-              }
-              if(!flag){
-                this.forPrizeUserRecord = data.results[0];
-                this.startPrize();
-              }else{
-                this.checkUserCompetitionStatus();
-              }
-            }else{
-              // 4、无则开始走获取用户对当前答题的记录，然后开始游戏
-              this.checkUserCompetitionStatus()
+      parseService
+        .get(
+          this,
+          this.reqUrl +
+            'h5_competition_records?where=' +
+            JSON.stringify({ status: '1' }) +
+            '&order=-begin_time&limit=1'
+        )
+        .then(data => {
+          if (data.results && data.results.length) {
+            this.curCompetition = data.results[0]
+            // 获取优惠券信息
+            this.getPrizeInfo()
+            let timeDiffer =
+              (new Date().getTime() -
+                parseInt(this.curCompetition.begin_time)) /
+              1000
+            // 最新竞赛已经超时
+            if (timeDiffer > 300) {
+              alert('竞赛超时，请刷新页面获取最新竞赛')
+              return
             }
-          })
-          .catch(err => {
-            console.log(err)
-          })
-
-        }else{
-          // 当前无竞赛
-          // this.creatCompetition()
-          alert("无竞赛")
-        }
-      }).catch(err => {
-        console.log(err)
-      })
+            // 1、题目都需要先初始化好，但不开始游戏
+            this.nextQuestion()
+            // 2、检查用户是否有相同类型优惠券，但未领取的记录
+            let prizeSearchParams = {
+              prize_type: this.curCompetition.prize_type,
+              prize_id: { $all: this.curCompetition.prize_id },
+              result: '1',
+              wx_open_id: this.userInfo.wx_openid
+            }
+            parseService
+              .get(
+                this,
+                this.reqUrl +
+                  'h5_competition_user_records?where=' +
+                  JSON.stringify(prizeSearchParams)
+              )
+              .then(data => {
+                if (data.results && data.results.length) {
+                  // 3、有则走领红包流程、领完走获取用户对当前答题的记录，然后开始游戏
+                  let flag = false //用户是否已领取过此类礼包
+                  for (
+                    let i = 0, length = data.results.length;
+                    i < length;
+                    i++
+                  ) {
+                    if (data.results[i].prize_status == '1') {
+                      flag = true //标记用户已领取过此类礼包
+                      this.gotPrizeUserRecord = data.results[i]
+                      break
+                    }
+                  }
+                  if (!flag) {
+                    this.forPrizeUserRecord = data.results[0]
+                    this.startPrize()
+                  } else {
+                    this.checkUserCompetitionStatus()
+                  }
+                } else {
+                  // 4、无则开始走获取用户对当前答题的记录，然后开始游戏
+                  this.checkUserCompetitionStatus()
+                }
+              })
+              .catch(err => {
+                console.log(err)
+              })
+          } else {
+            // 当前无竞赛
+            // this.creatCompetition()
+            alert('无竞赛')
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
-    checkUserCompetitionStatus(){
+    checkUserCompetitionStatus() {
       // 查询用户是否参与过本轮比赛
       let searchParams = {
-        'wx_open_id': this.userInfo.wx_openid,
-        'cid': this.curCompetition.objectId
+        wx_open_id: this.userInfo.wx_openid,
+        cid: this.curCompetition.objectId
       }
-      parseService.get(this, this.reqUrl + 'h5_competition_user_records?where=' + JSON.stringify(searchParams)).then(data => {
-        if(data.results && data.results.length){
-          this.userCompetitionRecord = data.results[0];
-          this.userCompetitionRecord.answers = [];
-          this.userCompetitionRecord.result = '';
-          // todo用户参加并答题完本轮比赛，进行提示下一场次开始时间
-          if(data.results[0].status == '0'){
-            this.nextQuestion();
-            this.gameStatus = 1;
-            this.initCompetitionClock();
-            return;
+      parseService
+        .get(
+          this,
+          this.reqUrl +
+            'h5_competition_user_records?where=' +
+            JSON.stringify(searchParams)
+        )
+        .then(data => {
+          if (data.results && data.results.length) {
+            this.userCompetitionRecord = data.results[0]
+            this.userCompetitionRecord.answers = []
+            this.userCompetitionRecord.result = ''
+            // todo用户参加并答题完本轮比赛，进行提示下一场次开始时间
+            if (data.results[0].status == '0') {
+              this.nextQuestion()
+              this.gameStatus = 1
+              this.initCompetitionClock()
+              return
+            }
+            //重新答题
+            this.beginGame()
+          } else {
+            //参与答题
+            this.beginGame()
           }
-          //重新答题
-          this.beginGame();
-        }else{
-          //参与答题
-          this.beginGame();
-        }
-      }).catch(err => {
-        console.log(err)
-      })
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
-    beginGame(){
-      let that = this;
-      this.showPage = true;
+    beginGame() {
+      let that = this
+      this.showPage = true
 
       // 保存用户当前参赛信息,完成后开始游戏
-      if(!this.userCompetitionRecord.objectId){
+      if (!this.userCompetitionRecord.objectId) {
         this.userCompetitionRecord = {
           wx_open_id: this.userInfo.wx_openid,
           cid: this.curCompetition.objectId,
           qids: this.curCompetition.qids,
-          begin_time: ((new Date()).getTime()).toString(),
+          begin_time: new Date().getTime().toString(),
           status: '1',
           result: '',
           answers: [],
@@ -335,304 +387,393 @@ export default {
           head_img_url: this.userInfo.head_img_url,
           nick_name: this.userInfo.nick_name
         }
-        parseService.post(this, this.reqUrl + 'h5_competition_user_records', this.userCompetitionRecord).then(res => {
-          // $("#beginMusic")[0].play()
-          this.playMusic("beginMusic");
-          this.showCover = true;
-          this.curQuestion.begin = true;
-          this.userCompetitionRecord.objectId = res.data.objectId;
-          // todo 可以更新参与人数，也可以不更新从用户表统计，这里先不更新了，涉及到锁死问题.
-        }).catch(err => {
-          console.log(err)
-        });
-      }else{
+        parseService
+          .post(
+            this,
+            this.reqUrl + 'h5_competition_user_records',
+            this.userCompetitionRecord
+          )
+          .then(res => {
+            // $("#beginMusic")[0].play()
+            this.playMusic('beginMusic')
+            this.showCover = true
+            this.curQuestion.begin = true
+            this.userCompetitionRecord.objectId = res.data.objectId
+            // todo 可以更新参与人数，也可以不更新从用户表统计，这里先不更新了，涉及到锁死问题.
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      } else {
         // $("#beginMusic")[0].play()
-        this.playMusic("beginMusic");
-        this.showCover = true;
-        this.curQuestion.begin = true;
+        this.playMusic('beginMusic')
+        this.showCover = true
+        this.curQuestion.begin = true
       }
       // 4.5秒后开始游戏
-      setTimeout(function(){
-        that.stopMusic("beginMusic");
+      setTimeout(function() {
+        that.stopMusic('beginMusic')
         // $("#beginMusic")[0].pause();
         // $("#beginMusic")[0].currentTime = 0;
 
-        that.showCover = false;
-        that.initClock();
-      },6000)
+        that.showCover = false
+        that.initClock()
+      }, 6000)
     },
-    nextQuestion(){
-      this.curQuestion.number = this.curQuestion.number + 1;
-      let curQuestionNum = this.curQuestion.number - 1;
-      this.curQuestion.qid = this.curCompetition.qids[curQuestionNum];
+    nextQuestion() {
+      this.curQuestion.number = this.curQuestion.number + 1
+      let curQuestionNum = this.curQuestion.number - 1
+      this.curQuestion.qid = this.curCompetition.qids[curQuestionNum]
 
-      this.curQuestion.name = Question[this.curCompetition.qids[curQuestionNum]].name + '?';
-      this.curQuestion.choices = Question[this.curCompetition.qids[curQuestionNum]].choices;
-      this.curQuestion.answer = Question[this.curCompetition.qids[curQuestionNum]].answer;
-      this.curQuestion.status = 0;
-      this.curQuestion.end = false;
-      this.curQuestion.answer_num = [0,0,0];
+      this.curQuestion.name =
+        Question[this.curCompetition.qids[curQuestionNum]].name + '?'
+      this.curQuestion.choices =
+        Question[this.curCompetition.qids[curQuestionNum]].choices
+      this.curQuestion.answer =
+        Question[this.curCompetition.qids[curQuestionNum]].answer
+      this.curQuestion.status = 0
+      this.curQuestion.end = false
+      this.curQuestion.answer_num = [0, 0, 0]
     },
-    answerQuestion(index){
+    answerQuestion(index) {
       // step1 更新用户的答题记录
       // index = -1表明用户未作答
-      if(this.curQuestion.end || !this.curQuestion.begin){
-        return;
+      if (this.curQuestion.end || !this.curQuestion.begin) {
+        return
       }
-      this.userCompetitionRecord.answers[this.curQuestion.number -1] = index + 1;
-      parseService.put(this,this.reqUrl + 'h5_competition_user_records/' + this.userCompetitionRecord.objectId, JSON.stringify({'answers': this.userCompetitionRecord.answers})).then(res => {
-      }).catch(err => {})
+      this.userCompetitionRecord.answers[this.curQuestion.number - 1] =
+        index + 1
+      parseService
+        .put(
+          this,
+          this.reqUrl +
+            'h5_competition_user_records/' +
+            this.userCompetitionRecord.objectId,
+          JSON.stringify({ answers: this.userCompetitionRecord.answers })
+        )
+        .then(res => {})
+        .catch(err => {})
 
       // step2 更新当前问题的状态，区分作答与未作答
-      if(index == -1){
-        this.curQuestion.status = 0; //未作答
-      }else if((index + 1) == Question[this.curCompetition.qids[this.curQuestion.number - 1]].answer) {
-        this.curQuestion.status = 1; //答对
-      }else {
-        this.curQuestion.status = 2; //答错
+      if (index == -1) {
+        this.curQuestion.status = 0 //未作答
+      } else if (
+        index + 1 ==
+        Question[this.curCompetition.qids[this.curQuestion.number - 1]].answer
+      ) {
+        this.curQuestion.status = 1 //答对
+      } else {
+        this.curQuestion.status = 2 //答错
       }
 
       // step3 更新当前轮次的每个答案的人数，并计算每个答案的选择人数
-      parseService.get(this, this.reqUrl + 'h5_competition_records/' + this.curCompetition.objectId).then(data => {
-        this.curCompetition = data;
-        let curCompetitionAnswerNum = 1;
+      parseService
+        .get(
+          this,
+          this.reqUrl + 'h5_competition_records/' + this.curCompetition.objectId
+        )
+        .then(data => {
+          this.curCompetition = data
+          let curCompetitionAnswerNum = 1
 
-        if(index != -1){
-          this.curCompetition.answer_num[this.curQuestion.number - 1][index] = this.curCompetition.answer_num[this.curQuestion.number - 1][index] + 1;
-          parseService.put(this,
-            this.reqUrl + 'h5_competition_records/' + this.curCompetition.objectId,
-            JSON.stringify({'answer_num': this.curCompetition.answer_num})).then(res => {
-          }).catch(err => {})
-        }
-
-        // 显示当前问题最新的各选项人数，结束当前的问题
-        this.curQuestion.answer_num = this.curCompetition.answer_num[this.curQuestion.number - 1] ? this.curCompetition.answer_num[this.curQuestion.number - 1] : [0,0,0];
-        this.curQuestion.end = true;
-        this.clockOpts.endOldClock = true;
-        this.stopMusic("answerMusic");
-        // $("#answerMusic")[0].pause();
-        // $("#answerMusic")[0].currentTime = 0;
-        if(!Question[this.curCompetition.qids[this.curQuestion.number]] || this.curQuestion.status == 0 || this.curQuestion.status == 2){
-          // 答题结束
-          this.endCompetition();
-          return;
-        }
-
-        let that = this;
-        let interval = setInterval(function(){
-          if(that.nextQuestionMessage == 0){
-            that.nextQuestion();
-            that.clockOpts.endOldClock = false;
-            that.initClock();
-            that.nextQuestionMessage = 2;
-            clearInterval(interval);
-            return;
+          if (index != -1) {
+            this.curCompetition.answer_num[this.curQuestion.number - 1][index] =
+              this.curCompetition.answer_num[this.curQuestion.number - 1][
+                index
+              ] + 1
+            parseService
+              .put(
+                this,
+                this.reqUrl +
+                  'h5_competition_records/' +
+                  this.curCompetition.objectId,
+                JSON.stringify({ answer_num: this.curCompetition.answer_num })
+              )
+              .then(res => {})
+              .catch(err => {})
           }
-          that.nextQuestionMessage = that.nextQuestionMessage - 1;
-        },1000)
-      }).catch(err => {
-        console.log(err)
-      })
+
+          // 显示当前问题最新的各选项人数，结束当前的问题
+          this.curQuestion.answer_num = this.curCompetition.answer_num[
+            this.curQuestion.number - 1
+          ]
+            ? this.curCompetition.answer_num[this.curQuestion.number - 1]
+            : [0, 0, 0]
+          this.curQuestion.end = true
+          this.clockOpts.endOldClock = true
+          this.stopMusic('answerMusic')
+          // $("#answerMusic")[0].pause();
+          // $("#answerMusic")[0].currentTime = 0;
+          if (
+            !Question[this.curCompetition.qids[this.curQuestion.number]] ||
+            this.curQuestion.status == 0 ||
+            this.curQuestion.status == 2
+          ) {
+            // 答题结束
+            this.endCompetition()
+            return
+          }
+
+          let that = this
+          let interval = setInterval(function() {
+            if (that.nextQuestionMessage == 0) {
+              that.nextQuestion()
+              that.clockOpts.endOldClock = false
+              that.initClock()
+              that.nextQuestionMessage = 2
+              clearInterval(interval)
+              return
+            }
+            that.nextQuestionMessage = that.nextQuestionMessage - 1
+          }, 1000)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
-    endCompetition(){
-      let that = this;
-      this.showQuestionMessage = false;
+    endCompetition() {
+      let that = this
+      this.showQuestionMessage = false
       // 更新用户答题状态、status、result
       this.userCompetitionRecord.status = '0'
-      if(JSON.stringify(this.userCompetitionRecord.answers) == JSON.stringify(this.curCompetition.answers)){
+      if (
+        JSON.stringify(this.userCompetitionRecord.answers) ==
+        JSON.stringify(this.curCompetition.answers)
+      ) {
         this.userCompetitionRecord.result = '1' //闯关成功
-      }else{
+      } else {
         this.userCompetitionRecord.result = '0' //闯关失败
       }
       let params = {
-        'status': this.userCompetitionRecord.status,
-        'result': this.userCompetitionRecord.result
-      };
+        status: this.userCompetitionRecord.status,
+        result: this.userCompetitionRecord.result
+      }
 
-      parseService.put(this,this.reqUrl + 'h5_competition_user_records/' + this.userCompetitionRecord.objectId, JSON.stringify(params)).then(res => {
-      }).catch(err => {})
+      parseService
+        .put(
+          this,
+          this.reqUrl +
+            'h5_competition_user_records/' +
+            this.userCompetitionRecord.objectId,
+          JSON.stringify(params)
+        )
+        .then(res => {})
+        .catch(err => {})
 
-      if(this.userCompetitionRecord.result == '1'){
-        this.startPrize();
-      }else{
-        setTimeout(function(){
-          that.initCompetitionClock();
-          that.showFailedCover = true;
-        },3000)
+      if (this.userCompetitionRecord.result == '1') {
+        this.startPrize()
+      } else {
+        setTimeout(function() {
+          that.initCompetitionClock()
+          that.showFailedCover = true
+        }, 3000)
       }
     },
-    startPrize(){
-      this.showPrize = true;
+    startPrize() {
+      this.showPrize = true
     },
-    openPrize(){
+    openPrize() {
       // 判断用户是否已领取过优惠券
-      this.mobileError.show = false;
-      if(this.forPrizeUserRecord.prize_status == '1' || this.gotPrizeUserRecord.prize_status == '1'){
-        this.mobile = this.forPrizeUserRecord.mobile ||  this.gotPrizeUserRecord.mobile;
-        this.showPrizeResult = true;
+      this.mobileError.show = false
+      if (
+        this.forPrizeUserRecord.prize_status == '1' ||
+        this.gotPrizeUserRecord.prize_status == '1'
+      ) {
+        this.mobile =
+          this.forPrizeUserRecord.mobile || this.gotPrizeUserRecord.mobile
+        this.showPrizeResult = true
       }
-      $(".red-package").addClass('hide');
-      $(".prize-get-wrap").addClass('show');
+      $('.red-package').addClass('hide')
+      $('.prize-get-wrap').addClass('show')
     },
-    getPrize(){
+    getPrize() {
       // 领礼包前先查询用户是否已领过此大礼包
-      let that = this;
-      if(this.forPrizeUserRecord.prize_status == '0' || this.userCompetitionRecord.prize_status == '0'){
+      let that = this
+      if (
+        this.forPrizeUserRecord.prize_status == '0' ||
+        this.userCompetitionRecord.prize_status == '0'
+      ) {
         // 已经有待领取的红包，那么是等领取结束后，要继续本轮游戏
-        let continueGompetition = false;
+        let continueGompetition = false
         let prizeUserRecord = {} //领取红包的用户记录
-        if(this.forPrizeUserRecord.objectId){
-          continueGompetition = true;
-          prizeUserRecord = this.forPrizeUserRecord;
-        }else{
-          prizeUserRecord = this.userCompetitionRecord;
+        if (this.forPrizeUserRecord.objectId) {
+          continueGompetition = true
+          prizeUserRecord = this.forPrizeUserRecord
+        } else {
+          prizeUserRecord = this.userCompetitionRecord
         }
 
-        if(!(/^1[34578]\d{9}$/.test(this.mobile))){
-          this.mobileError.show = true;
-          this.mobileError.text = '请输入正确的手机号';
-          return;
+        if (!/^1[34578]\d{9}$/.test(this.mobile)) {
+          this.mobileError.show = true
+          this.mobileError.text = '请输入正确的手机号'
+          return
         }
         // 领礼包成功后，更新用户领礼包信息，检查用户是否需要继续比赛还是结束比赛
         let params = {
-          "mobile": this.mobile,
-          "coupon_batch_id": this.curCompetition.prize_id,
-          "sms_template": 'SEND_MARKETING_COUPONS'
+          mobile: this.mobile,
+          coupon_batch_id: this.curCompetition.prize_id,
+          sms_template: 'SEND_MARKETING_COUPONS'
         }
-        CouponService.createCoupon(this, params).then(data => {
-          let params = {
-            'prize_status': '1',
-            'mobile': this.mobile
-          }
-          parseService.put(this,this.reqUrl + 'h5_competition_user_records/' + prizeUserRecord.objectId, JSON.stringify(params)).then(res => {
-            this.userCompetitionRecord.prize_status = '1';
-            this.userCompetitionRecord.mobile = this.mobile;
-            this.forPrizeUserRecord.prize_status = '1';
-            this.forPrizeUserRecord.mobile = this.mobile;
-            this.showPrizeResult = true;
-            if(continueGompetition){
-              this.messageBox.text = '红包领取成功，请继续答题';
-              $(".message-alert").fadeIn(500);
-              setTimeout(function(){
-                $(".message-alert").fadeOut(500);
-              },1000)
-              setTimeout(function(){
-                that.showPrize = false;
-                that.resetGetPrize();
-                that.checkUserCompetitionStatus();
-              }, 2000)
+        CouponService.createCoupon(this, params)
+          .then(data => {
+            let params = {
+              prize_status: '1',
+              mobile: this.mobile
             }
-          }).catch(err => {
+            parseService
+              .put(
+                this,
+                this.reqUrl +
+                  'h5_competition_user_records/' +
+                  prizeUserRecord.objectId,
+                JSON.stringify(params)
+              )
+              .then(res => {
+                this.userCompetitionRecord.prize_status = '1'
+                this.userCompetitionRecord.mobile = this.mobile
+                this.forPrizeUserRecord.prize_status = '1'
+                this.forPrizeUserRecord.mobile = this.mobile
+                this.showPrizeResult = true
+                if (continueGompetition) {
+                  this.messageBox.text = '红包领取成功，请继续答题'
+                  $('.message-alert').fadeIn(500)
+                  setTimeout(function() {
+                    $('.message-alert').fadeOut(500)
+                  }, 1000)
+                  setTimeout(function() {
+                    that.showPrize = false
+                    that.resetGetPrize()
+                    that.checkUserCompetitionStatus()
+                  }, 2000)
+                }
+              })
+              .catch(err => {
+                console.log(err)
+              })
+          })
+          .catch(err => {
             console.log(err)
           })
-        }).catch(err => {
+      } else {
+        this.showPrizeResult = true
+      }
+    },
+    resetGetPrize() {
+      $('.red-package').removeClass('hide')
+      $('.prize-get-wrap').removeClass('show')
+      this.mobile = ''
+      this.mobileError.show = false
+      this.mobileError.text = ''
+    },
+    getPrizeInfo() {
+      CouponService.getCoupon(this, this.curCompetition.prize_id)
+        .then(res => {
+          if (res.data && res.data.length) {
+            this.prizeInfo = res.data
+          }
+        })
+        .catch(err => {
           console.log(err)
         })
-      }else{
-        this.showPrizeResult = true;
-      }
     },
-    resetGetPrize(){
-      $(".red-package").removeClass('hide');
-      $(".prize-get-wrap").removeClass('show');
-      this.mobile = '';
-      this.mobileError.show = false;
-      this.mobileError.text = '';
-    },
-    getPrizeInfo(){
-      CouponService.getCoupon(this, this.curCompetition.prize_id).then(res => {
-        if(res.data && res.data.length){
-          this.prizeInfo = res.data;
-        }
-      }).catch(err =>{
-        console.log(err)
-      })
-    },
-    initClock(){
-      let that = this;
+    initClock() {
+      let that = this
       // 设置半径
-      let c = $("svg").width() * 0.4 * Math.PI *2;
-      $("#progress1").css('stroke-dasharray',c).css('stroke-dashoffset','0px');
-      $("#progress2").css('stroke-dasharray',c).css('stroke-dashoffset','0px');
-      this.clockOpts.text = '10';
-      this.playMusic("answerMusic");
+      let c = $('svg').width() * 0.4 * Math.PI * 2
+      $('#progress1')
+        .css('stroke-dasharray', c)
+        .css('stroke-dashoffset', '0px')
+      $('#progress2')
+        .css('stroke-dasharray', c)
+        .css('stroke-dashoffset', '0px')
+      this.clockOpts.text = '10'
+      this.playMusic('answerMusic')
       // $("#answerMusic")[0].play();
-      this.clock(0);
+      this.clock(0)
     },
-    clock(sec){
-      let that = this;
+    clock(sec) {
+      let that = this
 
-      if(this.clockOpts.endOldClock){
-        this.clockOpts.endOldClock = false;
-        return;
+      if (this.clockOpts.endOldClock) {
+        this.clockOpts.endOldClock = false
+        return
       }
 
-      let c = $("svg").width() * 0.4 * Math.PI *2;
-      if(sec > this.clockOpts.sumSecs){
+      let c = $('svg').width() * 0.4 * Math.PI * 2
+      if (sec > this.clockOpts.sumSecs) {
         // 倒计时结束
-        if(!this.curQuestion.end){
-          this.answerQuestion(-1); //传入选项-1代表未选择
+        if (!this.curQuestion.end) {
+          this.answerQuestion(-1) //传入选项-1代表未选择
         }
-        return;
+        return
       }
 
       // 设置时间
-      let nowTime = 10 - sec;
-      this.clockOpts.text = nowTime;
+      let nowTime = 10 - sec
+      this.clockOpts.text = nowTime
 
       // 设置时间进度条
-      if(sec == 0){
+      if (sec == 0) {
         this.clockOpts.n = 0
-      }else{
-        this.clockOpts.n = this.clockOpts.n - 360 / 10;
+      } else {
+        this.clockOpts.n = this.clockOpts.n - 360 / 10
       }
-      let offset = this.clockOpts.curOffset + (this.clockOpts.n * Math.PI * $("svg").width() * 0.4) / 180
-      $("#progress2").css('stroke-dashoffset', offset);
+      let offset =
+        this.clockOpts.curOffset +
+        this.clockOpts.n * Math.PI * $('svg').width() * 0.4 / 180
+      $('#progress2').css('stroke-dashoffset', offset)
 
-      sec++;
-      setTimeout(function(){
-        that.clock(sec);
+      sec++
+      setTimeout(function() {
+        that.clock(sec)
       }, 1000)
     },
-    initCompetitionClock(){
-      let secDiffer = (new Date()).getTime() - parseInt(this.curCompetition.begin_time);
-      secDiffer = Math.floor(secDiffer / 1000);
-      this.competitionClock(secDiffer);
+    initCompetitionClock() {
+      let secDiffer =
+        new Date().getTime() - parseInt(this.curCompetition.begin_time)
+      secDiffer = Math.floor(secDiffer / 1000)
+      this.competitionClock(secDiffer)
     },
-    competitionClock(secDiffer){
-      if(secDiffer > this.competitionClockOpts.sumSecs){
-        this.competitionClockOpts.competitionStartText = true;
-        return ;
+    competitionClock(secDiffer) {
+      if (secDiffer > this.competitionClockOpts.sumSecs) {
+        this.competitionClockOpts.competitionStartText = true
+        return
       }
-      let that = this;
-      let timeRemain = this.competitionClockOpts.sumSecs - secDiffer;
-      let minRemain = Math.floor(timeRemain / 60);
-      let secRemain = timeRemain % 60;
+      let that = this
+      let timeRemain = this.competitionClockOpts.sumSecs - secDiffer
+      let minRemain = Math.floor(timeRemain / 60)
+      let secRemain = timeRemain % 60
 
-      if(secRemain < 10){
-        secRemain = "0" + secRemain;
+      if (secRemain < 10) {
+        secRemain = '0' + secRemain
       }
 
-      this.competitionClockOpts.text = "0" + minRemain + ":" + secRemain;
+      this.competitionClockOpts.text = '0' + minRemain + ':' + secRemain
 
-      secDiffer++;
-      setTimeout(function(){
-        that.competitionClock(secDiffer);
+      secDiffer++
+      setTimeout(function() {
+        that.competitionClock(secDiffer)
       }, 1000)
     },
-    playMusic(elemId){
-      if (typeof WeixinJSBridge == "object" && typeof WeixinJSBridge.invoke == "function"){
+    playMusic(elemId) {
+      if (
+        typeof WeixinJSBridge == 'object' &&
+        typeof WeixinJSBridge.invoke == 'function'
+      ) {
         WeixinJSBridge.invoke('getNetworkType', {}, function(e) {
-          document.getElementById(elemId).play();
-        });
+          document.getElementById(elemId).play()
+        })
       }
     },
-    stopMusic(elemId){
-      if (typeof WeixinJSBridge == "object" && typeof WeixinJSBridge.invoke == "function"){
+    stopMusic(elemId) {
+      if (
+        typeof WeixinJSBridge == 'object' &&
+        typeof WeixinJSBridge.invoke == 'function'
+      ) {
         WeixinJSBridge.invoke('getNetworkType', {}, function(e) {
-          document.getElementById(elemId).pause();
-          document.getElementById(elemId).currentTime = 0;
-        });
+          document.getElementById(elemId).pause()
+          document.getElementById(elemId).currentTime = 0
+        })
       }
     }
   }
@@ -640,27 +781,27 @@ export default {
 </script>
 <style lang="less" scoped>
 @IMAGE_SERVER: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing';
-.game-wrap{
+.game-wrap {
   position: relative;
   height: 100%;
-  background-image: url("@{IMAGE_SERVER}/pages/win_prize/h5_bg.png");
+  background-image: url('@{IMAGE_SERVER}/pages/win_prize/h5_bg.png');
   background-size: 100% 100%;
   background-repeat: no-repeat;
   text-align: center;
-  img{
+  img {
     max-width: 100%;
   }
-  .abs{
+  .abs {
     position: absolute;
     left: 0;
     right: 0;
     margin: 0 auto;
   }
-  .title{
+  .title {
     width: 32%;
     top: 20px;
   }
-  .question{
+  .question {
     top: 17%;
     width: 94%;
     z-index: 2;
@@ -668,21 +809,21 @@ export default {
     border-radius: 5%;
     padding-bottom: 113%;
     backface-visibility: hidden;
-    .clock{
+    .clock {
       top: -5%;
       width: 24%;
       z-index: 2;
       padding-bottom: 24%;
       border-radius: 50%;
       background-color: #fff;
-      svg{
+      svg {
         position: absolute;
         margin: 0 auto;
         left: 0;
         right: 0;
         z-index: 1;
       }
-      .clock-text{
+      .clock-text {
         position: absolute;
         height: 26px;
         top: 0;
@@ -698,27 +839,27 @@ export default {
         transform-origin: center;
       }
     }
-    .icon-result{
+    .icon-result {
       top: -5%;
       width: 24%;
       z-index: 2;
       padding-bottom: 24%;
       border-radius: 50%;
       background-color: #fff;
-      .icon{
+      .icon {
         width: 90%;
         top: 4px;
       }
     }
-    .next-question-message{
+    .next-question-message {
       top: 15%;
       font-size: 12px;
       color: #ccc;
-      .red{
+      .red {
         color: red;
       }
     }
-    .question-name{
+    .question-name {
       position: absolute;
       padding: 0 10%;
       top: 20%;
@@ -728,12 +869,12 @@ export default {
       right: 0;
       margin: 0 auto;
     }
-    .choices-wrap{
+    .choices-wrap {
       position: absolute;
       top: 40%;
       left: 10%;
       width: 80%;
-      .choice{
+      .choice {
         width: 100%;
         height: 48px;
         font-size: 15px;
@@ -746,12 +887,12 @@ export default {
         border-radius: 50px;
         border: 1px solid #ccc;
         background-color: #f8f8f8;
-        .choice-name{
+        .choice-name {
           top: 0;
           left: 20px;
           z-index: 2;
         }
-        .result{
+        .result {
           top: 0;
           left: -10%;
           width: 0px;
@@ -761,17 +902,17 @@ export default {
           transition: all 1s 1s;
           border-top-left-radius: 50px;
           border-bottom-left-radius: 50px;
-          &.true{
+          &.true {
             background-color: #20e77d;
           }
-          &.false{
+          &.false {
             background-color: #f85e5e;
           }
-          &.no-choice{
+          &.no-choice {
             background-color: #d5dde5;
           }
         }
-        .answer-num{
+        .answer-num {
           position: absolute;
           right: 10%;
           font-size: 15px;
@@ -781,17 +922,17 @@ export default {
       }
     }
   }
-  .bottom-slogan{
+  .bottom-slogan {
     bottom: 7%;
     font-size: 15px;
     color: #a173f4;
   }
-  .copyright{
+  .copyright {
     bottom: 3%;
     font-size: 12px;
     color: #281740;
   }
-  .cover{
+  .cover {
     position: fixed;
     left: 0;
     right: 0;
@@ -802,28 +943,28 @@ export default {
     z-index: 99;
     margin: auto;
     display: none;
-    background-color: rgba(0,0,0,.9);
-    &.show{
+    background-color: rgba(0, 0, 0, 0.9);
+    &.show {
       display: block;
-      .count-1{
-        animation: turn .25s 1.5s ease-in-out;
+      .count-1 {
+        animation: turn 0.25s 1.5s ease-in-out;
       }
-      .count-2{
-        animation: turn2 .25s 1.5s ease-in-out, turn3 .25s 3.5s ease-in-out;
+      .count-2 {
+        animation: turn2 0.25s 1.5s ease-in-out, turn3 0.25s 3.5s ease-in-out;
       }
-      .count-3{
-        animation: turn4 .25s 3.5s ease-in-out;
+      .count-3 {
+        animation: turn4 0.25s 3.5s ease-in-out;
       }
-      .prize-wrap{
-        animation: bounceIn .75s;
+      .prize-wrap {
+        animation: bounceIn 0.75s;
         animation-fill-mode: both;
       }
     }
-    .title{
+    .title {
       width: 35%;
       top: 13%;
     }
-    .count-down{
+    .count-down {
       top: 27%;
       left: 0;
       right: 0;
@@ -831,7 +972,7 @@ export default {
       height: 300px;
       margin: 0 auto;
       text-align: center;
-      .count{
+      .count {
         position: absolute;
         left: 0;
         right: 0;
@@ -839,41 +980,41 @@ export default {
         width: 150px;
         height: 216px;
       }
-      .count-1{
+      .count-1 {
         z-index: 3;
         transform: rotateY(0deg);
         animation-fill-mode: forwards;
         backface-visibility: hidden;
       }
-      .count-2{
+      .count-2 {
         z-index: 2;
         transform: rotateY(180deg);
         animation-fill-mode: forwards;
         backface-visibility: hidden;
       }
-      .count-3{
+      .count-3 {
         z-index: 1;
         transform: rotateY(180deg);
         animation-fill-mode: forwards;
         backface-visibility: hidden;
       }
     }
-    .message-box{
+    .message-box {
       top: 15%;
       width: 80%;
       padding-bottom: 80%;
       background-color: #fff;
       border-radius: 5%;
-      .message-text{
+      .message-text {
         top: 40%;
         margin: 0;
         padding: 0 10%;
         color: #c1c1c1;
-        .time{
+        .time {
           color: red;
         }
       }
-      .btn{
+      .btn {
         top: 70%;
         width: 90px;
         height: 28px;
@@ -882,7 +1023,7 @@ export default {
         border-radius: 50px;
       }
     }
-    .prize-wrap{
+    .prize-wrap {
       position: absolute;
       top: 0;
       left: 0;
@@ -891,70 +1032,70 @@ export default {
       margin: auto;
       width: 100%;
       height: 100%;
-      transform: scale(.1);
-      .red-package{
+      transform: scale(0.1);
+      .red-package {
         display: block;
         top: 0;
         bottom: 0;
         margin: auto;
         height: 100%;
-        &.hide{
+        &.hide {
           display: none;
         }
-        .bg-red-package{
+        .bg-red-package {
           width: 90%;
           top: 13%;
         }
-        .title{
+        .title {
           top: 26%;
           width: 100%;
           color: #fff;
           font-size: 42px;
           font-weight: 700;
         }
-        .subtitle{
+        .subtitle {
           top: 40%;
           font-size: 15px;
           color: #fee6cc;
-          .money{
+          .money {
             font-size: 30px;
             color: #fac824;
           }
         }
-        .btn-open{
+        .btn-open {
           width: 30%;
           top: 52%;
         }
       }
-      .prize-get-wrap{
+      .prize-get-wrap {
         display: none;
-        &.show{
-          display: block
+        &.show {
+          display: block;
         }
-        .store-intro{
+        .store-intro {
           top: 25%;
           width: 94%;
           height: 50px;
           text-align: center;
           border-radius: 5px;
           background-color: #861c13;
-          opacity: .8;
+          opacity: 0.8;
           color: #fff;
-          .title{
+          .title {
             width: 100%;
             font-size: 15px;
             margin-top: 8px;
           }
-          .subtitle{
+          .subtitle {
             font-size: 11px;
             margin-top: 3px;
           }
         }
-        .prize-get{
+        .prize-get {
           top: 35%;
           width: 94%;
           text-align: center;
-          .mobile-error-text{
+          .mobile-error-text {
             color: red;
             top: 2.5%;
             left: 7%;
@@ -962,18 +1103,18 @@ export default {
             font-size: 12px;
             text-align: left;
           }
-          .prize-result{
+          .prize-result {
             padding: 0 7%;
             top: 25%;
-            .prize-account{
+            .prize-account {
               float: left;
               font-size: 12px;
               color: #000;
-              .mobile{
+              .mobile {
                 color: red;
               }
             }
-            .link-use{
+            .link-use {
               display: block;
               float: right;
               font-size: 13px;
@@ -981,19 +1122,19 @@ export default {
               color: #a9a3a3;
             }
           }
-          .prize-list{
+          .prize-list {
             top: 52%;
             width: 86%;
             height: 0;
             padding-bottom: 36%;
-            .prize-item{
+            .prize-item {
               top: 0;
               height: 50%;
               width: 100%;
-              &:nth-child(2){
+              &:nth-child(2) {
                 top: 54%;
               }
-              .left{
+              .left {
                 top: 0;
                 bottom: 0;
                 width: 73%;
@@ -1001,21 +1142,21 @@ export default {
                 margin: auto 0;
                 text-align: left;
                 padding-left: 17%;
-                .prize-name{
+                .prize-name {
                   color: red;
                   font-size: 15px;
-                  .prize-num{
+                  .prize-num {
                     color: #000;
                     font-size: 14px;
                   }
                 }
-                .prize-description{
+                .prize-description {
                   font-size: 12px;
                   color: #c1c1c1;
                   margin-top: 5px;
                 }
               }
-              .right{
+              .right {
                 top: 0;
                 bottom: 0;
                 right: 0;
@@ -1023,21 +1164,21 @@ export default {
                 left: auto;
                 height: 80%;
                 margin: auto 0;
-                .prize-price{
+                .prize-price {
                   font-size: 26px;
                   color: red;
-                  .rmb{
+                  .rmb {
                     font-size: 20px;
                   }
                 }
-                .prize-price-supplyment{
+                .prize-price-supplyment {
                   font-size: 12px;
                   color: #c1c1c1;
                 }
               }
             }
           }
-          .input-mobile{
+          .input-mobile {
             top: 8%;
             width: 87%;
             height: 48px;
@@ -1046,51 +1187,51 @@ export default {
             line-height: 48px;
             border-radius: 5px;
             padding-left: 10px;
-            box-shadow: 0px 0px 4px #9D9D9D inset;
-            &::-webkit-input-placeholder{
+            box-shadow: 0px 0px 4px #9d9d9d inset;
+            &::-webkit-input-placeholder {
               color: #cecece;
             }
           }
-          .btn-get-prize{
+          .btn-get-prize {
             top: 25%;
             width: 87%;
           }
         }
       }
     }
-    .game-failed-wrap{
+    .game-failed-wrap {
       background-color: #fff;
       font-size: 42px;
       color: #fff;
       height: 100%;
-      .img-title{
+      .img-title {
         top: 10%;
         width: 71%;
       }
-      .message{
+      .message {
         top: 50%;
         width: 100%;
         text-align: center;
-        .title{
+        .title {
           width: 100%;
           color: #000;
           font-size: 30px;
         }
-        .subtitle{
+        .subtitle {
           font-size: 15px;
           color: #cecece;
           margin-top: 10px;
-          .time{
+          .time {
             color: red;
           }
         }
       }
-      .bottom-text{
+      .bottom-text {
         top: 90%;
-        .bottom-slogan{
-          color: #000
+        .bottom-slogan {
+          color: #000;
         }
-        .copyright{
+        .copyright {
           font-size: 15px;
           color: #cecece;
           margin-top: 10px;
@@ -1098,7 +1239,7 @@ export default {
       }
     }
   }
-  .message-alert{
+  .message-alert {
     position: fixed;
     top: 0;
     left: 0;
@@ -1111,8 +1252,8 @@ export default {
     display: none;
     border-radius: 10px;
     // transition: all 500s;
-    background: rgba(0,0,0,.8);
-    .text{
+    background: rgba(0, 0, 0, 0.8);
+    .text {
       font-size: 15px;
       color: #fff;
       padding: 0 30px;
@@ -1120,73 +1261,80 @@ export default {
       bottom: 0;
       margin: auto;
       height: 30px;
-      .sec{
+      .sec {
         font-size: 15px;
         color: red;
       }
     }
   }
-  #answerMusic,#beginMusic{
+  #answerMusic,
+  #beginMusic {
     display: none;
   }
   @keyframes turn {
-    100%{
-      transform: rotateY(180deg)
+    100% {
+      transform: rotateY(180deg);
     }
   }
   @keyframes turn2 {
-    100%{
-      transform: rotateY(0deg)
+    100% {
+      transform: rotateY(0deg);
     }
   }
   @keyframes turn3 {
-    0%{
-      transform: rotateY(0deg)
+    0% {
+      transform: rotateY(0deg);
     }
-    100%{
-      transform: rotateY(180deg)
+    100% {
+      transform: rotateY(180deg);
     }
   }
   @keyframes turn4 {
-    100%{
-      transform: rotateY(0deg)
+    100% {
+      transform: rotateY(0deg);
     }
   }
   @keyframes hide {
-    100%{
+    100% {
       opacity: 0;
     }
   }
   @keyframes bounceIn {
-    0%, 20%, 40%, 60%, 80%, 100% {
-    animation-timing-function: cubic-bezier(.215,.61,.355,1);
+    0%,
+    20%,
+    40%,
+    60%,
+    80%,
+    100% {
+      animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
     }
     0% {
-        opacity: 0;
-        transform: scale3d(.3,.3,.3);
+      opacity: 0;
+      transform: scale3d(0.3, 0.3, 0.3);
     }
     20% {
-        transform: scale3d(.6,.6,.6);
+      transform: scale3d(0.6, 0.6, 0.6);
     }
     40% {
-        transform: scale3d(1,1,1);
+      transform: scale3d(1, 1, 1);
     }
     60% {
-        opacity: 1;
-        transform: scale3d(1.04,1.04,1.04);
+      opacity: 1;
+      transform: scale3d(1.04, 1.04, 1.04);
     }
     80% {
-        transform: scale3d(.99,.99,.99);
+      transform: scale3d(0.99, 0.99, 0.99);
     }
     100% {
-        opacity: 1;
-        transform: scaleX(1);
+      opacity: 1;
+      transform: scaleX(1);
     }
   }
 }
 </style>
 <style lang="less" scoped>
-body,html{
+body,
+html {
   width: 100%;
   height: 100%;
   max-width: 750px;

@@ -5,11 +5,8 @@ import Vue from 'vue'
 import axios from 'axios'
 import App from './App'
 import router from './router'
-import animate from 'animate.css'
-import { Lazyload } from 'mint-ui'
+import 'services/utils/helper'
 
-Vue.use(Lazyload)
-Vue.use(animate)
 Vue.prototype.$http = axios
 Vue.config.productionTip = false
 // axios.defaults.withCredentials = true ;

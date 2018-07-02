@@ -33,16 +33,17 @@
   </div>
 </template>
 <script>
-import marketService from 'services/marketing';
-import couponService from 'services/coupon';
-import WxShare from 'modules/wxShare';
-import { customTrack } from 'modules/customTrack';
+import marketService from 'services/marketing'
+import couponService from 'services/coupon'
+import WxShare from 'modules/wxShare'
+import { customTrack } from 'modules/customTrack'
+import $ from 'jquery'
 
-const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing';
+const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 
 export default {
   components: {
-    WxShare,
+    WxShare
   },
   data() {
     return {
@@ -56,107 +57,123 @@ export default {
       wxShareInfoValue: {
         title: '旺狗开春 情缘满分',
         desc: '巴黎春天借旺狗报新春 送祝福 合家欢 情侣睦 诞生的汪早脱单',
-        imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/dog_share_icon.png',
-        link: '',
+        imgUrl:
+          'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/dog_share_icon.png',
+        link: ''
       },
       coupon_batch: {
         name: '',
         desc: '',
         couponId: '',
-        total: '',
-      },
-    };
+        total: ''
+      }
+    }
   },
   beforeCreate() {
-    document.title = '狗年旺情缘';
+    document.title = '狗年旺情缘'
   },
   mounted() {
-    $('.report-wrap').css('height', $(window).height());
+    $('.report-wrap').css('height', $(window).height())
   },
   created() {
     if (this.$route.query.show === 'true') {
-      this.RedPageFlag = false;
-      this.wxShareInfoValue.link = window.location.href;
+      this.RedPageFlag = false
+      this.wxShareInfoValue.link = window.location.href
     } else {
-      this.wxShareInfoValue.link = window.location.href + '&show=true';
+      this.wxShareInfoValue.link = window.location.href + '&show=true'
     }
-    this.getPeopleImage();
+    this.getPeopleImage()
   },
   methods: {
     getPeopleImage() {
-      let recordId = decodeURI(this.$route.query.recordId);
-      marketService.getPlayResultById(this, recordId).then((result) => {
-        this.resultImgUrl = result.result_img_url;
-      }).catch((err) => {
-        console.log(err);
-      });
+      let recordId = decodeURI(this.$route.query.recordId)
+      marketService
+        .getPlayResultById(this, recordId)
+        .then(result => {
+          this.resultImgUrl = result.result_img_url
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
     openBag() {
-      $('.btn-open').addClass('rotate');
+      $('.btn-open').addClass('rotate')
       let params = {
-        coupon_batch_id: '32',
-      };
+        coupon_batch_id: '32'
+      }
       // 判断优惠券数目
-      couponService.getV4CouponCount(this, '32').then((res) => {
-        if (res.data.capacity === 0) {
-          setTimeout(() => {
-            $('.red-package').hide();
-            $('.no-red-package').show();
-          }, 100);
-          setTimeout(() => {
-            $('.cover').hide();
-          }, 2000);
-        } else {
-          // 优惠券生成
-          couponService.createV4Coupon(this, params).then((res) => {
-            this.coupon_batch.name = res.coupon_batch.name;
-            this.coupon_batch.desc = res.coupon_batch.description;
-            this.coupon_batch.total = res.coupon_batch.total;
-            this.coupon_batch.couponId = res.id;
+      couponService
+        .getV4CouponCount(this, '32')
+        .then(res => {
+          if (res.data.capacity === 0) {
             setTimeout(() => {
-              $('.red-package').hide();
-              $('.open-red-package').show();
-            }, 100);
-          }).catch((err) => {
-            console.log(err);
-          });
-        }
-      }).catch((err) => {
-        console.log(err);
-      });
+              $('.red-package').hide()
+              $('.no-red-package').show()
+            }, 100)
+            setTimeout(() => {
+              $('.cover').hide()
+            }, 2000)
+          } else {
+            // 优惠券生成
+            couponService
+              .createV4Coupon(this, params)
+              .then(res => {
+                this.coupon_batch.name = res.coupon_batch.name
+                this.coupon_batch.desc = res.coupon_batch.description
+                this.coupon_batch.total = res.coupon_batch.total
+                this.coupon_batch.couponId = res.id
+                setTimeout(() => {
+                  $('.red-package').hide()
+                  $('.open-red-package').show()
+                }, 100)
+              })
+              .catch(err => {
+                console.log(err)
+              })
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
     getPhoto() {
-      if (!(/^1[34578]\d{9}$/.test(this.mobileNum))) {
-        this.phoneError = true;
-        this.errorText = '手机号码格式不正确';
+      if (!/^1[34578]\d{9}$/.test(this.mobileNum)) {
+        this.phoneError = true
+        this.errorText = '手机号码格式不正确'
       } else {
-        customTrack.sendMobile(this.mobileNum);
+        customTrack.sendMobile(this.mobileNum)
         // 优惠券绑定
         let params = {
           mobile: this.mobileNum,
-          coupon_id: this.coupon_batch.couponId,
-        };
+          coupon_id: this.coupon_batch.couponId
+        }
 
-        console.log(params);
-        couponService.bindV4Coupon(this, params).then((res) => {
-          if (res.success) {
-            // 调用发短信的接口
-            let smsParams = params;
-            smsParams.sms_tmp_id = '2169978';
-            couponService.sendV4CouponSms(this, smsParams).then((Response) => {
-              console.log(Response.message);
-            }).catch((err) => {
-              console.log(err);
-            });
-          } else {
-            alert(res.message);
-          }
-          this.RedPageFlag = false;
-        }).catch((err) => {
-          console.log(err);
-        });
+        console.log(params)
+        couponService
+          .bindV4Coupon(this, params)
+          .then(res => {
+            if (res.success) {
+              // 调用发短信的接口
+              let smsParams = params
+              smsParams.sms_tmp_id = '2169978'
+              couponService
+                .sendV4CouponSms(this, smsParams)
+                .then(Response => {
+                  console.log(Response.message)
+                })
+                .catch(err => {
+                  console.log(err)
+                })
+            } else {
+              alert(res.message)
+            }
+            this.RedPageFlag = false
+          })
+          .catch(err => {
+            console.log(err)
+          })
       }
-    },
+    }
   },
   computed: {
     wxShareInfo() {
@@ -166,32 +183,32 @@ export default {
         imgUrl: this.wxShareInfoValue.imgUrl,
         link: this.wxShareInfoValue.link,
         success: () => {
-          customTrack.shareWeChat();
-        },
-      };
-      return wxShareInfo;
-    },
-  },
-};
+          customTrack.shareWeChat()
+        }
+      }
+      return wxShareInfo
+    }
+  }
+}
 </script>
 <style lang="less" scoped>
-  @imageHost: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/dog';
-.report-wrap{
+@imageHost: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/dog';
+.report-wrap {
   height: 100%;
   background-repeat: no-repeat;
-  background-image: url("@{imageHost}/bg.png");
+  background-image: url('@{imageHost}/bg.png');
   background-size: 100% 100%;
   position: relative;
-  .photo-wrap{
+  .photo-wrap {
     position: absolute;
     top: 18%;
     width: 60%;
     left: 20%;
-    img{
+    img {
       width: 100%;
     }
   }
-  .save{
+  .save {
     color: #fff;
     font-size: 14px;
     text-align: center;
@@ -199,7 +216,7 @@ export default {
     bottom: 2.5%;
     width: 100%;
   }
-  .cover{
+  .cover {
     position: absolute;
     left: 0;
     right: 0;
@@ -209,8 +226,8 @@ export default {
     height: 100%;
     z-index: 99;
     margin: auto;
-    background-color: rgba(0,0,0,.9);
-    .prize-wrap{
+    background-color: rgba(0, 0, 0, 0.9);
+    .prize-wrap {
       position: absolute;
       top: 0;
       left: 0;
@@ -219,20 +236,20 @@ export default {
       margin: auto;
       width: 100%;
       height: 100%;
-      .red-package{
+      .red-package {
         display: block;
         top: 0;
         bottom: 0;
         margin: auto;
         height: 100%;
         position: relative;
-        .bg-red-package{
+        .bg-red-package {
           width: 90%;
           top: 15%;
           left: 5%;
           position: absolute;
         }
-        .title{
+        .title {
           top: 27%;
           width: 100%;
           font-size: 20px;
@@ -240,7 +257,7 @@ export default {
           text-align: center;
           position: absolute;
         }
-        .subtitle{
+        .subtitle {
           top: 35%;
           width: 100%;
           font-size: 42px;
@@ -248,26 +265,26 @@ export default {
           text-align: center;
           position: absolute;
         }
-        .btn-open{
+        .btn-open {
           width: 30%;
           top: 55%;
           left: 35%;
           position: absolute;
         }
       }
-      .open-red-package{
+      .open-red-package {
         display: none;
         top: 0;
         bottom: 0;
         margin: auto;
         height: 100%;
-        .bg-red-package{
+        .bg-red-package {
           width: 90%;
           top: 10%;
           left: 5%;
           position: absolute;
         }
-        .title{
+        .title {
           top: 16%;
           width: 100%;
           font-size: 18px;
@@ -275,7 +292,7 @@ export default {
           text-align: center;
           position: absolute;
         }
-        .prompt-title{
+        .prompt-title {
           top: 21%;
           width: 100%;
           font-size: 14px;
@@ -283,24 +300,24 @@ export default {
           text-align: center;
           position: absolute;
         }
-        .count{
+        .count {
           top: 28%;
           width: 100%;
           font-size: 45px;
           color: #222;
           text-align: center;
           position: absolute;
-          .yuan{
+          .yuan {
             font-size: 20px;
           }
         }
-        .address{
+        .address {
           top: 40%;
           width: 100%;
           text-align: center;
           position: absolute;
         }
-        .error{
+        .error {
           position: absolute;
           width: 100%;
           top: 45%;
@@ -308,7 +325,7 @@ export default {
           color: #d80808;
           font-size: 14px;
         }
-        .mobile{
+        .mobile {
           border: none;
           outline: none;
           border: 1px solid #ababab;
@@ -323,7 +340,7 @@ export default {
           text-indent: 10px;
           box-shadow: 0px 0px 3px #ababab inset;
         }
-        .btn{
+        .btn {
           width: 65.3%;
           height: 45px;
           top: 60%;
@@ -337,20 +354,20 @@ export default {
           border-radius: 5px;
         }
       }
-      .no-red-package{
+      .no-red-package {
         display: block;
         top: 0;
         bottom: 0;
         margin: auto;
         height: 100%;
         position: relative;
-        .bg-red-package{
+        .bg-red-package {
           width: 90%;
           top: 05%;
           left: 5%;
           position: absolute;
         }
-        .title{
+        .title {
           top: 22%;
           width: 100%;
           font-size: 18px;
@@ -358,7 +375,6 @@ export default {
           text-align: center;
           position: absolute;
         }
-        
       }
     }
     .mobile::-webkit-input-placeholder {
@@ -381,13 +397,17 @@ export default {
       text-indent: 10px;
     }
   }
-  .rotate{
-    animation: anim .3s infinite alternate;
+  .rotate {
+    animation: anim 0.3s infinite alternate;
   }
 
   @keyframes anim {
-    from { transform: rotateY(180deg); }
-    to { transform: rotateY(360deg); }
+    from {
+      transform: rotateY(180deg);
+    }
+    to {
+      transform: rotateY(360deg);
+    }
   }
 }
 </style>

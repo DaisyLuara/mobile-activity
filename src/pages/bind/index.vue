@@ -94,9 +94,18 @@ export default {
       let phoneFlag = this.handleButtonClick()
       let imageCaptchaFlag = this.handleimageCaptcha()
       if (phoneFlag && imageCaptchaFlag) {
-        let args = {
-          verification_key: this.verification_key,
-          verification_code: this.verificationCode
+        let args
+        if (Cookies.get('openid') === null) {
+          args = {
+            verification_key: this.verification_key,
+            verification_code: this.verificationCode
+          }
+        } else {
+          args = {
+            verification_key: this.verification_key,
+            verification_code: this.verificationCode,
+            openid: Cookies.get('openid')
+          }
         }
         this.$http
           .post(HOST + '/api/user/bind/weixin', args)

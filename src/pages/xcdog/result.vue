@@ -27,6 +27,8 @@ import marketService from 'services/marketing'
 import WxShare from 'modules/wxShare'
 import { customTrack } from 'modules/customTrack'
 const IMG_URL = 'http://p22vy0aug.bkt.clouddn.com/image/'
+import $ from 'jquery'
+
 export default {
   components: {
     WxShare
