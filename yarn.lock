@@ -5835,10 +5835,6 @@ vm-browserify@0.0.4:
   dependencies:
     indexof "0.0.1"
 
-vue-animate@0.0.4:
-  version "0.0.4"
-  resolved "http://registry.npm.taobao.org/vue-animate/download/vue-animate-0.0.4.tgz#bf7afcdfec4694e4d19147a75f6761ecf3735f8f"
-
 vue-awesome-swiper@^3.1.3:
   version "3.1.3"
   resolved "http://registry.npm.taobao.org/vue-awesome-swiper/download/vue-awesome-swiper-3.1.3.tgz#05500b501ffb3fec9bf7eb9985bcf4ae8360ed9e"
