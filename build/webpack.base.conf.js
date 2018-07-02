@@ -119,10 +119,10 @@ module.exports = {
       threadPool: happyThreadPool,
       verbose: true
     }),
-    new webpack.optimize.CommonsChunkPlugin('common.js'),
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery'
-    })
+    new webpack.optimize.CommonsChunkPlugin('common.js')
+    // new webpack.ProvidePlugin({
+    //   $: 'jquery',
+    //   jQuery: 'jquery'
+    // })
   ]
 }

@@ -9,6 +9,8 @@
 </template>
 
 <script>
+import $ from 'jquery'
+const cdnUrl = process.env.CDN_URL
 export default {
   data() {
     return {
@@ -17,6 +19,7 @@ export default {
     }
   },
   mounted() {
+    // let elRoot = document.getElementById()
     $('.r-root').css('height', $(window).height())
     $('.couten').css('height', $(window).height())
     this.win = parseInt($('.couten').css('width')) - 60
@@ -35,7 +38,7 @@ export default {
       $('.couten').append(
         "<li style='position:absolute' class='li" +
           this.num +
-          "'><a href='javascript:;'><img src='static/feng/image/hb.png'></a></li>"
+          "'><a href='javascript:;'><img src='http://o9xrzyznl.bkt.clouddn.com/fe/img/wxmini/hb.png'></a></li>"
       )
       $('.li' + this.num).css({
         left: Left

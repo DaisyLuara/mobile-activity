@@ -32,6 +32,8 @@
 import marketService from 'services/marketing'
 import WxShare from 'modules/wxShare'
 import { customTrack } from 'modules/customTrack'
+import $ from 'jquery'
+
 const IMG_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing/pages'
 export default {
   data() {

@@ -15,12 +15,13 @@
   </div>
 </template>
 <script>
-import { customTrack } from 'modules/customTrack';
-import WxShare from 'modules/wxShare.vue';
+import { customTrack } from 'modules/customTrack'
+import WxShare from 'modules/wxShare.vue'
+import $ from 'jquery'
 
 export default {
   components: {
-    WxShare,
+    WxShare
   },
   data() {
     return {
@@ -28,30 +29,34 @@ export default {
       wxShareInfoValue: {
         title: '寻宝箱 开好礼',
         desc: '新年至 小星在各大商圈准备了海量神秘宝箱！找到小星 发现好礼！！',
-        imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/openBox_share_icon.png',
-      },
-    };
+        imgUrl:
+          'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/openBox_share_icon.png'
+      }
+    }
   },
   beforeCreate() {
-    document.title = '开箱子';
+    document.title = '开箱子'
   },
   created() {
-    this.getPeopleImage();
+    this.getPeopleImage()
   },
   methods: {
     getPeopleImage() {
-      let recordId = decodeURI(this.$route.query.recordId);
-      this.$http.get(process.env.SAAS_API + '/open/play/playResults/' + recordId).then((result) => {
-        let data = result.data.data;
-        console.log(data);
-        this.resultImgUrl = data.result_img_url;
-      }).catch((err) => {
-        console.log(err);
-      });
-    },
+      let recordId = decodeURI(this.$route.query.recordId)
+      this.$http
+        .get(process.env.SAAS_API + '/open/play/playResults/' + recordId)
+        .then(result => {
+          let data = result.data.data
+          console.log(data)
+          this.resultImgUrl = data.result_img_url
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
   },
   mounted() {
-    $('.report-wrap').css('min-height', $(window).height());
+    $('.report-wrap').css('min-height', $(window).height())
   },
   computed: {
     wxShareInfo() {
@@ -60,58 +65,61 @@ export default {
         desc: this.wxShareInfoValue.desc,
         imgUrl: this.wxShareInfoValue.imgUrl,
         success: () => {
-          customTrack.shareWeChat();
-        },
-      };
-      return wxShareInfo;
-    },
-  },
-};
+          customTrack.shareWeChat()
+        }
+      }
+      return wxShareInfo
+    }
+  }
+}
 </script>
 <style lang="less" scoped>
-.report-wrap{
+.report-wrap {
   position: relative;
-  .coupon-wrap{
-    .report_bg_1{
-      width:100%;
+  .coupon-wrap {
+    .report_bg_1 {
+      width: 100%;
     }
     position: relative;
-    .arrow{
+    .arrow {
       position: absolute;
       bottom: 20%;
       width: 15%;
       left: 42.5%;
-      animation: arrows .8s ease-out infinite alternate;
-
+      animation: arrows 0.8s ease-out infinite alternate;
     }
   }
-  .photo-wrap{
-    .report_bg_2{
-      width:100%;
+  .photo-wrap {
+    .report_bg_2 {
+      width: 100%;
     }
     position: relative;
-    .photo-content{
+    .photo-content {
       position: absolute;
       width: 48%;
       top: 28.11%;
       left: 26%;
       border: 4px solid #f9db96;
       border-radius: 26px;
-      .photo{
+      .photo {
         border-radius: 26px;
         width: 100%;
       }
     }
-    .save{
+    .save {
       position: absolute;
       width: 60%;
       bottom: -17%;
-      left: 20%;;
+      left: 20%;
     }
   }
   @keyframes arrows {
-    0% {transform: translateY(-3px);}
-    100% {transform: translateY(0px);}
+    0% {
+      transform: translateY(-3px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
   }
 }
 </style>

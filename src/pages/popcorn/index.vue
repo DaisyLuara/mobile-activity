@@ -23,6 +23,7 @@ import { customTrack } from 'modules/customTrack'
 //import { setParameter } from 'modules/util';
 
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
+import $ from 'jquery'
 
 export default {
   components: {

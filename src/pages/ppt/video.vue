@@ -37,6 +37,8 @@ import { customTrack } from 'modules/customTrack'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
+import $ from 'jquery'
+
 export default {
   data() {
     return {

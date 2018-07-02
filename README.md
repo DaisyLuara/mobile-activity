@@ -2,9 +2,7 @@
 
 > develop static web page
 
-## Todo 2018-6-27
-
-### 去除 Jquery
+## Todo
 
 ### polyfills 按需加载
 

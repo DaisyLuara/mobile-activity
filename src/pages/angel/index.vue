@@ -70,6 +70,7 @@ import marketService from 'services/marketing'
 import WxShare from 'modules/wxShare.vue'
 import wxService from 'services/wx'
 import parseService from 'modules/parseServer'
+import $ from 'jquery'
 export default {
   data() {
     return {

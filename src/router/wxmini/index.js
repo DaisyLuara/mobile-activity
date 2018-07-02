@@ -31,7 +31,7 @@ const wxMiniRouter = [
       desc: '红包组件'
     },
     name: 'redPack',
-    isAbandoned: true
+    isAbandoned: false
   }
 ]
 export default wxMiniRouter
