@@ -9,5 +9,6 @@ module.exports = merge(prodEnv, {
   STORE_API: JSON.stringify('http://store.loveqiche.com'),
   SAAS_API: JSON.stringify('http://sapi.jingfree.top/api'),
   WX_API: JSON.stringify('http://sapi.jingfree.top/api'),
-  IMAGE_SERVER: JSON.stringify('http://h5-images.oss-cn-shanghai.aliyuncs.com')
+  IMAGE_SERVER: JSON.stringify('http://h5-images.oss-cn-shanghai.aliyuncs.com'),
+  CDN_URL: JSON.stringify('http://cdn.exe666.com')
 })

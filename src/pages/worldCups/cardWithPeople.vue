@@ -54,7 +54,6 @@ export default {
   },
   methods: {
     drawing() {
-      console.log('startDrawing')
       let width = this.innerWidth()
       let height = this.innerHeight()
       let backgroundColor = 'black'
@@ -65,7 +64,7 @@ export default {
       })
       let that = this
       mc
-        .background(this.imgUrl + '/messi.png', {
+        .background(this.imgUrl + 'messi.png', {
           left: 0,
           top: 0,
           color: '#000000',
@@ -79,7 +78,7 @@ export default {
             y: '23%'
           }
         })
-        .add(this.imgUrl + '/messi.png', {
+        .add(this.imgUrl + 'messi.png', {
           width: '100%',
           pos: {
             x: 0,
