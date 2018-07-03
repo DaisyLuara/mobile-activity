@@ -38,8 +38,8 @@ export default {
       },
       photoUrl: null,
       wxShareInfo: {
-        title: '第一屏分享',
-        desc: '',
+        title: '激情世界杯 2018',
+        desc: '巅峰对决',
         imgUrl: 'share.png',
         success: () => {
           wechatShareTrack()

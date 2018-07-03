@@ -51,8 +51,8 @@ export default {
       isDrawing: true,
       imgUrl: imgUrl + '/fe/marketing/img/wc/',
       wxShareInfo: {
-        title: '第二屏分享',
-        desc: '',
+        title: '梅西 C罗回家了，教练喊你上场！',
+        desc: '本届最佳球星就是你',
         imgUrl: 'share.png',
         success: () => {
           wechatShareTrack()
@@ -85,7 +85,11 @@ export default {
       let width = this.innerWidth()
       let height = this.innerHeight()
       let backgroundColor = 'black'
-      this.picOrder = randomIntNum(0, 3)
+      if (localStorage.getItem('cwporder') !== null) {
+        this.picOrder = JSON.parse(localStorage.getItem('cwporder')).order
+      } else {
+        this.picOrder = randomIntNum(0, 3)
+      }
       this.style.root.backgroundColor = this.bgcolor[this.picOrder]
       let mc = new MC({
         width,
@@ -134,6 +138,14 @@ export default {
             console.log(b64)
             that.base64Data = b64
             that.isDrawing = false
+            if (localStorage.getItem('cwporder') === null) {
+              localStorage.setItem(
+                'cwporder',
+                JSON.stringify({
+                  order: that.picOrder
+                })
+              )
+            }
           },
           // 错误回调；
           error(err) {
