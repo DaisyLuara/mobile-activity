@@ -8,8 +8,8 @@
           maxlength="11"
           @click="phoneError=false"
           v-model="bindPhoneNumber"
-          placeholder="请输入手机号" class="phone"/>
-        <div class="send-code" @click="phoneSuccessHandle">图片验证码</div>
+          placeholder="请输入手机号" class="phone" @keyup="phoneSuccessHandle"/>
+        <!-- <div class="send-code" @click="phoneSuccessHandle">图片验证码</div> -->
         <div
           v-show="this.phoneError"
           class="error">
@@ -23,7 +23,7 @@
           maxlength="5"
           @click="imageCaptchaError=false"
           v-model="imageCaptcha.value"
-          placeholder="请输入图片验证码" class="code" @keyup="getSmsCaptcha" auto-complete="off"/>
+          placeholder="请输入图片验证码" class="code" @keyup="getSmsCaptcha"/>
         <div class="send-code">
           <img class="image-code" :src="image_url" @click="getImageCaptcha()" alt="验证码图片">
         </div>
@@ -40,8 +40,8 @@
           maxlength="6"
           v-model="verificationCode"
           placeholder="请输入短信验证码" class="code"/>
-          <div class="send-code" v-show="!sendingSmsCaptcha" @click="sendSmsCaptcha">发送验证码</div>
-          <div class="send-code" v-show="sendingSmsCaptcha">重新获取({{sendingSmsCaptchaTimer}}s)</div>
+          <div class="send-verification-code" v-show="!sendingSmsCaptcha" @click="sendSmsCaptcha">发送验证码</div>
+          <div class="send-verification-code" v-show="sendingSmsCaptcha">重新获取({{sendingSmsCaptchaTimer}}s)</div>
       </div>
       <!-- 提交 -->
       <div class="form-block">
@@ -118,23 +118,31 @@ export default {
             let status_422 = 'Error: Request failed with status code 422'
             if (status_401 == e) {
               Toast('短信验证码错误')
+              return
             }
             if (status_422 == e) {
               Toast('图片验证码失效')
+              return
             }
+            Toast(e)
           })
       } else {
         Toast('请输入完整的信息')
       }
     },
     phoneSuccessHandle() {
+      Cookies.removeItem('phone_captcha')
       this.imageCaptchaError = false
-      if (!/^1[345678]\d{9}$/.test(this.bindPhoneNumber)) {
+      if (!/^1[3456789]\d{9}$/.test(this.bindPhoneNumber)) {
         this.phoneError = true
         this.showImageCaptcha = false
         return
       } else {
-        this.ImageCaptchaHandle()
+        Cookies.set('phone_captcha', true)
+        this.phoneError = false
+        if (Cookies.get('phone_captcha') !== null) {
+          this.ImageCaptchaHandle()
+        }
       }
     },
     ImageCaptchaHandle() {
@@ -166,7 +174,6 @@ export default {
     },
     getSmsCaptcha() {
       if (this.imageCaptcha.value.length == 5) {
-        this.showSmsCaptcha = true
         this.sendSmsCaptcha()
       }
     },
@@ -179,6 +186,7 @@ export default {
       this.$http
         .post(HOST + '/api/verificationCodes', args)
         .then(r => {
+          this.showSmsCaptcha = true
           let result = r.data
           let that = this
           // 改变发送验证码的文字，倒计时,开启语音验证码
@@ -202,15 +210,20 @@ export default {
           let status_401 = 'Error: Request failed with status code 401'
           let status_422 = 'Error: Request failed with status code 422'
           if (status_401 == e) {
+            this.getImageCaptcha()
             Toast('图片验证码错误')
+            return
           }
           if (status_422 == e) {
             Toast('图片验证码失效')
+            this.getImageCaptcha()
+            return
           }
+          Toast(e)
         })
     },
     handleButtonClick() {
-      if (!/^1[345678]\d{9}$/.test(this.bindPhoneNumber)) {
+      if (!/^1[3456789]\d{9}$/.test(this.bindPhoneNumber)) {
         this.phoneError = true
         return false
       } else {
@@ -254,7 +267,7 @@ export default {
     .phone {
       border-bottom: 1px solid #d8d3d3;
       width: 100%;
-      padding: 10px 0;
+      padding: 15px 5px;
       font-size: 16px;
     }
     .phone-code {
@@ -265,7 +278,7 @@ export default {
     .code {
       border-bottom: 1px solid #d8d3d3;
       width: 100%;
-      padding: 10px 0;
+      padding: 15px 5px;
       font-size: 16px;
     }
     .send-code {
@@ -275,7 +288,17 @@ export default {
       border-radius: 5px;
       // background: #20A0FF;
       color: #20a0ff;
-      bottom: 7%;
+      bottom: 2%;
+      right: 0;
+    }
+    .send-verification-code{
+      position: absolute;
+      // border: 1px solid #20A0FF;
+      // padding: 10px;
+      border-radius: 5px;
+      // background: #20A0FF;
+      color: #20a0ff;
+      bottom: 20%;
       right: 0;
     }
     .btn {
