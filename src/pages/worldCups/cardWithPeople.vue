@@ -23,7 +23,14 @@
 
 <script>
 import MC from 'mcanvas'
-import { isInWechat, Cookies, getWxUserInfo, randomIntNum } from 'services'
+import {
+  $_wechat,
+  isInWechat,
+  Cookies,
+  wechatShareTrack,
+  getWxUserInfo,
+  randomIntNum
+} from 'services'
 const imgUrl = process.env.CDN_URL
 export default {
   data() {
@@ -42,7 +49,15 @@ export default {
         'http://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJNrlPjqkUjXibZm64k9NRNQGZdtziap3BGyuNKefPfEgWfn5EU4ib3bjHC9icJAwuVa8pOqspoLYWopg/132',
       isLoading: true,
       isDrawing: true,
-      imgUrl: imgUrl + '/fe/marketing/img/wc/'
+      imgUrl: imgUrl + '/fe/marketing/img/wc/',
+      wxShareInfo: {
+        title: '第二屏分享',
+        desc: '',
+        imgUrl: 'share.png',
+        success: () => {
+          wechatShareTrack()
+        }
+      }
     }
   },
   mounted() {
@@ -53,6 +68,13 @@ export default {
         this.isLoading = false
         this.drawing()
       }
+      $_wechat()
+        .then(res => {
+          res.share(this.wxShareInfo)
+        })
+        .catch(_ => {
+          console.warn(_.message)
+        })
     } else {
       this.isLoading = false
       this.drawing()
