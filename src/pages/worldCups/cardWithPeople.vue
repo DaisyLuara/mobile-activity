@@ -53,7 +53,7 @@ export default {
       wxShareInfo: {
         title: '梅西 C罗回家了，教练喊你上场！',
         desc: '本届最佳球星就是你',
-        imgUrl: 'share.png',
+        imgUrl: imgUrl + '/fe/marketing/img/wc/share-icon.png',
         success: () => {
           wechatShareTrack()
         }
