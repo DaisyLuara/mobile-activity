@@ -240,11 +240,11 @@ export default {
       return new Promise((resolve, reject) => {
         this.fMap = new fengmap.FMMap({
           container: document.getElementById('mapContainer'),
-          mapThemeURL: 'http://cdn.exe666.com/fe/marketing/fengmap/data/theme',
+          mapThemeURL: '/static/feng/theme',
           defaultThemeName: 3010,
           appName: 'xingstation_mini',
           key: '528b65fa54ac6b1b207691a4abeadfb2',
-          mapServerURL: 'http://cdn.exe666.com/fe/marketing/fengmap/data/11839',
+          mapServerURL: '/static/feng/data/11839',
           defaultMapScaleLevel: 20,
           focusAlphaMode: false,
           modelSelectedEffect: false,
