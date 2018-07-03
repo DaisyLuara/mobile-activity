@@ -8,8 +8,8 @@
           maxlength="11"
           @click="phoneError=false"
           v-model="bindPhoneNumber"
-          placeholder="请输入手机号" class="phone"/>
-        <div class="send-code" @click="phoneSuccessHandle">图片验证码</div>
+          placeholder="请输入手机号" class="phone" @keyup="phoneSuccessHandle"/>
+        <!-- <div class="send-code" @click="phoneSuccessHandle">图片验证码</div> -->
         <div
           v-show="this.phoneError"
           class="error">
@@ -128,13 +128,18 @@ export default {
       }
     },
     phoneSuccessHandle() {
+      Cookies.removeItem('phone_captcha')
       this.imageCaptchaError = false
       if (!/^1[345678]\d{9}$/.test(this.bindPhoneNumber)) {
         this.phoneError = true
         this.showImageCaptcha = false
         return
       } else {
-        this.ImageCaptchaHandle()
+        Cookies.set('phone_captcha', true)
+        this.phoneError = false
+        if (Cookies.get('phone_captcha') !== null) {
+          this.ImageCaptchaHandle()
+        }
       }
     },
     ImageCaptchaHandle() {
@@ -166,7 +171,7 @@ export default {
     },
     getSmsCaptcha() {
       if (this.imageCaptcha.value.length == 5) {
-        this.showSmsCaptcha = true
+        
         this.sendSmsCaptcha()
       }
     },
@@ -179,6 +184,7 @@ export default {
       this.$http
         .post(HOST + '/api/verificationCodes', args)
         .then(r => {
+          this.showSmsCaptcha = true
           let result = r.data
           let that = this
           // 改变发送验证码的文字，倒计时,开启语音验证码
@@ -202,10 +208,12 @@ export default {
           let status_401 = 'Error: Request failed with status code 401'
           let status_422 = 'Error: Request failed with status code 422'
           if (status_401 == e) {
+            this.getImageCaptcha()
             Toast('图片验证码错误')
           }
           if (status_422 == e) {
             Toast('图片验证码失效')
+            this.getImageCaptcha()
           }
         })
     },
