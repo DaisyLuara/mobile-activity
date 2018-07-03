@@ -116,12 +116,17 @@ export default {
             console.log(e)
             let status_401 = 'Error: Request failed with status code 401'
             let status_422 = 'Error: Request failed with status code 422'
+            let status_403 = 'Error: Request failed with status code 403'
             if (status_401 == e) {
               Toast('短信验证码错误')
               return
             }
             if (status_422 == e) {
               Toast('图片验证码失效')
+              return
+            }
+            if (status_403 == e) {
+              Toast('您还未注册，请联系管理员注册')
               return
             }
             Toast(e)
@@ -136,6 +141,7 @@ export default {
       if (!/^1[3456789]\d{9}$/.test(this.bindPhoneNumber)) {
         this.phoneError = true
         this.showImageCaptcha = false
+        this.showSmsCaptcha = false
         return
       } else {
         Cookies.set('phone_captcha', true)
@@ -291,7 +297,7 @@ export default {
       bottom: 2%;
       right: 0;
     }
-    .send-verification-code{
+    .send-verification-code {
       position: absolute;
       // border: 1px solid #20A0FF;
       // padding: 10px;
