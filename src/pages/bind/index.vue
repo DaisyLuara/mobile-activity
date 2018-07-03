@@ -23,7 +23,7 @@
           maxlength="5"
           @click="imageCaptchaError=false"
           v-model="imageCaptcha.value"
-          placeholder="请输入图片验证码" class="code" @keyup="getSmsCaptcha" auto-complete="off"/>
+          placeholder="请输入图片验证码" class="code" @keyup="getSmsCaptcha"/>
         <div class="send-code">
           <img class="image-code" :src="image_url" @click="getImageCaptcha()" alt="验证码图片">
         </div>
@@ -118,10 +118,13 @@ export default {
             let status_422 = 'Error: Request failed with status code 422'
             if (status_401 == e) {
               Toast('短信验证码错误')
+              return
             }
             if (status_422 == e) {
               Toast('图片验证码失效')
+              return
             }
+            Toast(e)
           })
       } else {
         Toast('请输入完整的信息')
@@ -171,7 +174,6 @@ export default {
     },
     getSmsCaptcha() {
       if (this.imageCaptcha.value.length == 5) {
-        
         this.sendSmsCaptcha()
       }
     },
@@ -215,6 +217,7 @@ export default {
             Toast('图片验证码失效')
             this.getImageCaptcha()
           }
+          Toast(e)
         })
     },
     handleButtonClick() {
