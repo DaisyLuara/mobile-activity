@@ -7,7 +7,6 @@
       v-if="isLoading || isDrawing"
       :style="style.root" 
       class="loading">
-        loading...
     </div>
 
     <div
@@ -24,9 +23,8 @@
 
 <script>
 import MC from 'mcanvas'
-import { isInWechat, Cookies, getWxUserInfo } from 'services'
+import { isInWechat, Cookies, getWxUserInfo, randomIntNum } from 'services'
 const imgUrl = process.env.CDN_URL
-// import { }
 export default {
   data() {
     return {
@@ -35,7 +33,10 @@ export default {
           height: this.innerHeight() + 'px'
         }
       },
+      cardBg: ['messi.png', 'neymar.png', 'debruyne.png', 'cronaldo.png'],
+      bgcolor: ['#0ca2c5', '#40b324', '#ba3621', '#38aa1d'],
       base64Data: null,
+      picOrder: 0,
       // headImgUrl: null,
       headImgUrl:
         'http://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJNrlPjqkUjXibZm64k9NRNQGZdtziap3BGyuNKefPfEgWfn5EU4ib3bjHC9icJAwuVa8pOqspoLYWopg/132',
@@ -46,7 +47,12 @@ export default {
   },
   mounted() {
     if (isInWechat() === true) {
-      this.handleWechatAuth()
+      if (process.env.NODE_ENV === 'production') {
+        this.handleWechatAuth()
+      } else {
+        this.isLoading = false
+        this.drawing()
+      }
     } else {
       this.isLoading = false
       this.drawing()
@@ -57,6 +63,8 @@ export default {
       let width = this.innerWidth()
       let height = this.innerHeight()
       let backgroundColor = 'black'
+      this.picOrder = randomIntNum(0, 3)
+      this.style.root.backgroundColor = this.bgcolor[this.picOrder]
       let mc = new MC({
         width,
         height,
@@ -64,7 +72,7 @@ export default {
       })
       let that = this
       mc
-        .background(this.imgUrl + 'messi.png', {
+        .background(this.imgUrl + this.cardBg[this.picOrder], {
           left: 0,
           top: 0,
           color: '#000000',
@@ -78,11 +86,18 @@ export default {
             y: '23%'
           }
         })
-        .add(this.imgUrl + 'messi.png', {
+        .add(this.imgUrl + this.cardBg[this.picOrder], {
           width: '100%',
           pos: {
             x: 0,
             y: 0
+          }
+        })
+        .add(this.imgUrl + 'cwp-qr.png', {
+          width: '18%',
+          pos: {
+            x: '41%',
+            y: '83%'
           }
         })
         .draw({
@@ -117,7 +132,6 @@ export default {
         getWxUserInfo().then(r => {
           this.headImgUrl = r.data.headimgurl
           this.isLoading = false
-          console.dir(r)
           this.drawing()
         })
       }
@@ -128,8 +142,6 @@ export default {
 
 <style lang="less" scoped>
 .root {
-  .loading {
-  }
   .card {
     width: 100%;
     .result {
