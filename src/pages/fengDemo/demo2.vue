@@ -207,14 +207,12 @@ export default {
     handleMapJsReady() {
       return new Promise((resolve, reject) => {
         let script = document.createElement('script')
-        script.src =
-          'http://cdn.exe666.com/fe/marketing/fengmap/js/fengmap.min.js'
+        script.src = '/static/feng/fengmap.min.js'
         script.async = false
         document.head.appendChild(script)
         let layer = document.createElement('script')
         layer.async = false
-        layer.src =
-          'http://cdn.exe666.com/fe/marketing/fengmap/js/layerGroup.js'
+        layer.src = '/static/feng/layerGroup.js'
         document.head.appendChild(layer)
         script.onload = () => {
           layer.onload = () => {
@@ -242,11 +240,11 @@ export default {
       return new Promise((resolve, reject) => {
         this.fMap = new fengmap.FMMap({
           container: document.getElementById('mapContainer'),
-          mapThemeURL: 'http://cdn.exe666.com/fe/marketing/fengmap/data/theme',
+          mapThemeURL: '/static/feng/theme',
           defaultThemeName: 3010,
           appName: 'xingstation_mini',
           key: '528b65fa54ac6b1b207691a4abeadfb2',
-          mapServerURL: 'http://cdn.exe666.com/fe/marketing/fengmap/data/11839',
+          mapServerURL: '/static/feng/data/11839',
           defaultMapScaleLevel: 20,
           focusAlphaMode: false,
           modelSelectedEffect: false,
