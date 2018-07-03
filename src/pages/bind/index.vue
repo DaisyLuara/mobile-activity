@@ -23,7 +23,8 @@
           maxlength="5"
           @click="imageCaptchaError=false"
           v-model="imageCaptcha.value"
-          placeholder="请输入图片验证码" class="code" @keyup="getSmsCaptcha"/>
+          placeholder="请输入图片验证码" class="code"/>
+           <!-- @keyup="getSmsCaptcha" -->
         <div class="send-code">
           <img class="image-code" :src="image_url" @click="getImageCaptcha()" alt="验证码图片">
         </div>
@@ -87,6 +88,13 @@ export default {
   created() {
     if (Cookies.get('openid') === null) {
       this.handleFirstAuth()
+    }
+  },
+  watch: {
+    'imageCaptcha.value': function() {
+      if (this.imageCaptcha.value.length === 5) {
+        this.getSmsCaptcha()
+      }
     }
   },
   methods: {
