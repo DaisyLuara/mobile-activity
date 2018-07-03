@@ -265,7 +265,7 @@ export default {
     .phone {
       border-bottom: 1px solid #d8d3d3;
       width: 100%;
-      padding: 10px 0;
+      padding: 5px;
       font-size: 16px;
     }
     .phone-code {
@@ -276,7 +276,7 @@ export default {
     .code {
       border-bottom: 1px solid #d8d3d3;
       width: 100%;
-      padding: 10px 0;
+      padding: 5px;
       font-size: 16px;
     }
     .send-code {
@@ -286,7 +286,7 @@ export default {
       border-radius: 5px;
       // background: #20A0FF;
       color: #20a0ff;
-      bottom: 7%;
+      bottom: 2%;
       right: 0;
     }
     .btn {
