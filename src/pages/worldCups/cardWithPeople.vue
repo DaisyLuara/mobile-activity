@@ -62,7 +62,10 @@ export default {
   },
   mounted() {
     if (isInWechat() === true) {
-      if (process.env.NODE_ENV === 'production') {
+      if (
+        process.env.NODE_ENV === 'production' ||
+        process.env.NODE_ENV === 'test'
+      ) {
         this.handleWechatAuth()
       } else {
         this.isLoading = false
