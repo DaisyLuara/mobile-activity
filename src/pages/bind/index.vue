@@ -40,8 +40,8 @@
           maxlength="6"
           v-model="verificationCode"
           placeholder="请输入短信验证码" class="code"/>
-          <div class="send-code" v-show="!sendingSmsCaptcha" @click="sendSmsCaptcha">发送验证码</div>
-          <div class="send-code" v-show="sendingSmsCaptcha">重新获取({{sendingSmsCaptchaTimer}}s)</div>
+          <div class="send-verification-code" v-show="!sendingSmsCaptcha" @click="sendSmsCaptcha">发送验证码</div>
+          <div class="send-verification-code" v-show="sendingSmsCaptcha">重新获取({{sendingSmsCaptchaTimer}}s)</div>
       </div>
       <!-- 提交 -->
       <div class="form-block">
@@ -133,7 +133,7 @@ export default {
     phoneSuccessHandle() {
       Cookies.removeItem('phone_captcha')
       this.imageCaptchaError = false
-      if (!/^1[345678]\d{9}$/.test(this.bindPhoneNumber)) {
+      if (!/^1[3456789]\d{9}$/.test(this.bindPhoneNumber)) {
         this.phoneError = true
         this.showImageCaptcha = false
         return
@@ -212,16 +212,18 @@ export default {
           if (status_401 == e) {
             this.getImageCaptcha()
             Toast('图片验证码错误')
+            return
           }
           if (status_422 == e) {
             Toast('图片验证码失效')
             this.getImageCaptcha()
+            return
           }
           Toast(e)
         })
     },
     handleButtonClick() {
-      if (!/^1[345678]\d{9}$/.test(this.bindPhoneNumber)) {
+      if (!/^1[3456789]\d{9}$/.test(this.bindPhoneNumber)) {
         this.phoneError = true
         return false
       } else {
@@ -287,6 +289,16 @@ export default {
       // background: #20A0FF;
       color: #20a0ff;
       bottom: 2%;
+      right: 0;
+    }
+    .send-verification-code{
+      position: absolute;
+      // border: 1px solid #20A0FF;
+      // padding: 10px;
+      border-radius: 5px;
+      // background: #20A0FF;
+      color: #20a0ff;
+      bottom: 20%;
       right: 0;
     }
     .btn {
