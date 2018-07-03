@@ -40,7 +40,7 @@ export default {
       wxShareInfo: {
         title: '激情世界杯 2018',
         desc: '巅峰对决',
-        imgUrl: 'share.png',
+        imgUrl: imgUrl + '/fe/marketing/img/wc/share-icon.png',
         success: () => {
           wechatShareTrack()
         }
