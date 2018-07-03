@@ -207,14 +207,12 @@ export default {
     handleMapJsReady() {
       return new Promise((resolve, reject) => {
         let script = document.createElement('script')
-        script.src =
-          'http://cdn.exe666.com/fe/marketing/fengmap/js/fengmap.min.js'
+        script.src = '/static/feng/fengmap.min.js'
         script.async = false
         document.head.appendChild(script)
         let layer = document.createElement('script')
         layer.async = false
-        layer.src =
-          'http://cdn.exe666.com/fe/marketing/fengmap/js/layerGroup.js'
+        layer.src = '/static/feng/layerGroup.js'
         document.head.appendChild(layer)
         script.onload = () => {
           layer.onload = () => {
