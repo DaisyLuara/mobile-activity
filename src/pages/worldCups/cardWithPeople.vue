@@ -28,6 +28,7 @@ import {
   isInWechat,
   Cookies,
   wechatShareTrack,
+  basicTrack,
   getWxUserInfo,
   randomIntNum
 } from 'services'
@@ -61,6 +62,7 @@ export default {
     }
   },
   mounted() {
+    basicTrack(this.$route.query.id)
     if (isInWechat() === true) {
       if (
         process.env.NODE_ENV === 'production' ||
