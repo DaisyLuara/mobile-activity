@@ -5,8 +5,10 @@
    <img class="animate-cover"   :src="baseUrl + 'mask.png'" />
      
    <div class="photo-wrap" v-show="photoWrap">
-     <img  class="photo" :src="photoUrl" />
-     <!-- <img  class="photo" :src="baseUrl + 'gif.png'" /> -->
+     <div  class="photo" :style="style.photoHei" >
+      <!-- <img  class="photo" :src="photoUrl" /> -->
+      <img :src="baseUrl + 'gif.png'" />
+     </div>
      <img  class="save-tips" :src="baseUrl + 'save.png'" />
    </div>
   </div>
@@ -26,6 +28,11 @@ export default {
       style: {
         root: {
           height: wih + 'px'
+        },
+        photoHei: {
+          width: wiw * 1.3 * 569 / 1011 + 'px',
+          height: wiw * 0.7 * 1011 / 569 + 'px',
+          top: wiw * 20 / 375 + 'px'
         }
       },
       photoWrap: false,
@@ -94,7 +101,7 @@ export default {
     z-index: 3;
     width: auto;
     height: 160%;
-    animation: play 5s 0.5s;
+    animation: play 3s 1s;
     transform: rotate(100deg);
     transform-origin: 10% 0;
   }
@@ -105,20 +112,23 @@ export default {
     left: 0;
     top: 0;
     z-index: 1;
-    margin: auto;
-    text-align: center;
+    margin: 0 auto;
+    // text-align: center;
     .photo {
-      width: 70%;
+      // width: 75%;
       position: absolute;
       left: 50%;
-      top: 5%;
       transform: translate(-50%, 0);
+      img {
+        width: 100%;
+        height: 100%;
+      }
     }
     .save-tips {
       width: 70%;
       margin: 0 auto;
       position: absolute;
-      bottom: -2%;
+      bottom: -1%;
       left: 0;
       right: 0;
     }
