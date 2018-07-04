@@ -171,6 +171,7 @@ export default {
         height: 100%;
         left: 0;
         padding: 0 18%;
+        color: #fff;
       }
       .input-error {
         width: 62%;
