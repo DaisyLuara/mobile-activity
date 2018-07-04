@@ -11,7 +11,7 @@
       :style="style.photo"
       v-if="photoUrl !== null"
       class="photo"
-      :src="photoUrl"
+      :src="photoUrl + this.qiniuCompress()"
       />
   </div>
 </template>
@@ -25,6 +25,7 @@ import {
   wechatShareTrack,
   getInfoById
 } from 'services'
+const imgUrl = process.env.CDN_URL
 export default {
   data() {
     return {
