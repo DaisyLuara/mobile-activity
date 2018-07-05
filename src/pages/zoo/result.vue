@@ -6,8 +6,8 @@
      
    <div class="photo-wrap" v-show="photoWrap">
      <div  class="photo" :style="style.photoHei" >
-      <!-- <img  :src="photoUrl + this.qiniuCompress()" /> -->
-      <img :src="baseUrl + 'gif.png'" />
+      <img  :src="photoUrl + this.qiniuCompress()" />
+      <!-- <img :src="baseUrl + 'gif.png'" /> -->
      </div>
      <img  class="save-tips" :src="baseUrl + 'save.png'" />
    </div>
@@ -123,9 +123,6 @@ export default {
       left: 50%;
       transform: translate(-50%, 0);
       img {
-        -webkit-touch-callout: none;
-        user-select: none;
-        pointer-events: none;
         width: 100%;
         height: 100%;
       }
