@@ -89,11 +89,7 @@ export default {
         .catch(_ => {
           console.warn(_.message)
         })
-      if (
-        localStorage.getItem(this.mobile) != null &&
-        localStorage.getItem(this.mobile) != '' &&
-        localStorage.getItem(this.mobile) != undefined
-      ) {
+      if (localStorage.getItem(this.mobile) != null) {
         this.redirct()
       }
     },
