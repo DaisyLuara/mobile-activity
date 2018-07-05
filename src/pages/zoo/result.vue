@@ -6,8 +6,8 @@
      
    <div class="photo-wrap" v-show="photoWrap">
      <div  class="photo" :style="style.photoHei" >
-      <!-- <img  class="photo" :src="photoUrl" /> -->
-      <img :src="baseUrl + 'gif.png'" />
+      <img  :src="photoUrl + this.qiniuCompress()" />
+      <!-- <img :src="baseUrl + 'gif.png'" /> -->
      </div>
      <img  class="save-tips" :src="baseUrl + 'save.png'" />
    </div>
