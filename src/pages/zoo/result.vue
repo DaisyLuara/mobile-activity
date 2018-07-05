@@ -6,8 +6,8 @@
      
    <div class="photo-wrap" v-show="photoWrap">
      <div  class="photo" :style="style.photoHei" >
-      <img  :src="photoUrl + this.qiniuCompress()" />
-      <!-- <img :src="baseUrl + 'gif.png'" /> -->
+      <!-- <img  :src="photoUrl + this.qiniuCompress()" /> -->
+      <img :src="baseUrl + 'gif.png'" />
      </div>
      <img  class="save-tips" :src="baseUrl + 'save.png'" />
    </div>
@@ -59,7 +59,7 @@ export default {
   mounted() {
     setTimeout(() => {
       this.photoWrap = true
-    }, 1000)
+    }, 1500)
   },
   methods: {
     //处理微信分享
@@ -95,6 +95,9 @@ export default {
   overflow: hidden;
   background: #062313;
   .animate-cover {
+    -webkit-touch-callout: none;
+    user-select: none;
+    pointer-events: none;
     position: absolute;
     left: 0;
     top: -58%;
@@ -120,12 +123,18 @@ export default {
       left: 50%;
       transform: translate(-50%, 0);
       img {
+        -webkit-touch-callout: none;
+        user-select: none;
+        pointer-events: none;
         width: 100%;
         height: 100%;
       }
     }
     .save-tips {
       width: 70%;
+      -webkit-touch-callout: none;
+      user-select: none;
+      pointer-events: none;
       margin: 0 auto;
       position: absolute;
       bottom: -1%;
