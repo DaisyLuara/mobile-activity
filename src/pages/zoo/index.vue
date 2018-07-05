@@ -37,6 +37,7 @@ export default {
       isMovebg: false,
       isMove: false,
       phoneValue: null,
+      mobile: 'mobile',
       status: {
         isPhoneError: false,
         shouldInputRemindShow: true,
@@ -88,6 +89,9 @@ export default {
         .catch(_ => {
           console.warn(_.message)
         })
+      if (localStorage.getItem(this.mobile) != null) {
+        this.redirct()
+      }
     },
     //清空数据
     clearError() {
@@ -104,19 +108,26 @@ export default {
       this.status.shouldInputRemindShow = true
       setTimeout(() => {
         window.location.href =
-          window.location.origin + '/marketing/zoo_result?id=' + id
+          window.location.origin +
+          '/marketing/zoo_result?id=' +
+          id +
+          '&mobileNum=' +
+          localStorage.getItem(this.mobile)
       }, 1000)
     },
     //校验手机号
     checkPhoneValue() {
       if (!/^1[345678]\d{9}$/.test(this.phoneValue)) {
         this.status.isPhoneError = true
+        this.status.shouldInputRemindShow = false
         this.phoneValue = ''
         return
       } else {
+        localStorage.setItem(this.mobile, this.phoneValue)
         this.handleTrack()
         this.redirct()
       }
+      b
     }
   }
 }
@@ -128,12 +139,15 @@ export default {
   width: 100%;
   overflow: hidden;
   background: #062313;
+  user-select: none;
   .bg {
     width: 100%;
+    -webkit-touch-callout: none;
+    user-select: none;
+    pointer-events: none;
     position: absolute;
     left: 0;
     top: 0;
-    // animation: moveBg 7s ease-out alternate;
   }
   .enter {
     width: 100%;
@@ -144,9 +158,11 @@ export default {
     top: 50%;
     transform: translate(-50%, -70%);
     z-index: 2;
-    // animation: moveEnter 4s ease-out alternate;
     .enter-bg {
       width: 100%;
+      -webkit-touch-callout: none;
+      user-select: none;
+      pointer-events: none;
       position: absolute;
       left: 50%;
       top: 50%;
@@ -161,6 +177,9 @@ export default {
       transform: translate(-50%, -50%);
       .input-bg {
         width: 90%;
+        -webkit-touch-callout: none;
+        user-select: none;
+        pointer-events: none;
       }
       .input-value {
         background-color: transparent;
@@ -195,6 +214,9 @@ export default {
       transform: translate(-50%, 70%);
       .remind-bt {
         width: 90%;
+        -webkit-touch-callout: none;
+        user-select: none;
+        pointer-events: none;
       }
     }
   }
