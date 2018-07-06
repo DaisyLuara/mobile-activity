@@ -116,9 +116,7 @@ export default {
     top: 0;
     z-index: 1;
     margin: 0 auto;
-    // text-align: center;
     .photo {
-      // width: 75%;
       position: absolute;
       left: 50%;
       transform: translate(-50%, 0);
