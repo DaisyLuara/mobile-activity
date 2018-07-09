@@ -23,7 +23,15 @@
 
 <script>
 import MC from 'mcanvas'
-import { isInWechat, Cookies, getWxUserInfo, randomIntNum } from 'services'
+import {
+  $_wechat,
+  isInWechat,
+  Cookies,
+  wechatShareTrack,
+  basicTrack,
+  getWxUserInfo,
+  randomIntNum
+} from 'services'
 const imgUrl = process.env.CDN_URL
 export default {
   data() {
@@ -42,17 +50,36 @@ export default {
         'http://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJNrlPjqkUjXibZm64k9NRNQGZdtziap3BGyuNKefPfEgWfn5EU4ib3bjHC9icJAwuVa8pOqspoLYWopg/132',
       isLoading: true,
       isDrawing: true,
-      imgUrl: imgUrl + '/fe/marketing/img/wc/'
+      imgUrl: imgUrl + '/fe/marketing/img/wc/',
+      wxShareInfo: {
+        title: '梅西 C罗回家了，教练喊你上场！',
+        desc: '本届最佳球星就是你',
+        imgUrl: imgUrl + '/fe/marketing/img/wc/share-icon.png',
+        success: () => {
+          wechatShareTrack()
+        }
+      }
     }
   },
   mounted() {
+    basicTrack(this.$route.query.id)
     if (isInWechat() === true) {
-      if (process.env.NODE_ENV === 'production') {
+      if (
+        process.env.NODE_ENV === 'production' ||
+        process.env.NODE_ENV === 'test'
+      ) {
         this.handleWechatAuth()
       } else {
         this.isLoading = false
         this.drawing()
       }
+      $_wechat()
+        .then(res => {
+          res.share(this.wxShareInfo)
+        })
+        .catch(_ => {
+          console.warn(_.message)
+        })
     } else {
       this.isLoading = false
       this.drawing()
@@ -63,7 +90,11 @@ export default {
       let width = this.innerWidth()
       let height = this.innerHeight()
       let backgroundColor = 'black'
-      this.picOrder = randomIntNum(0, 3)
+      if (localStorage.getItem('cwporder') !== null) {
+        this.picOrder = JSON.parse(localStorage.getItem('cwporder')).order
+      } else {
+        this.picOrder = randomIntNum(0, 3)
+      }
       this.style.root.backgroundColor = this.bgcolor[this.picOrder]
       let mc = new MC({
         width,
@@ -112,6 +143,14 @@ export default {
             console.log(b64)
             that.base64Data = b64
             that.isDrawing = false
+            if (localStorage.getItem('cwporder') === null) {
+              localStorage.setItem(
+                'cwporder',
+                JSON.stringify({
+                  order: that.picOrder
+                })
+              )
+            }
           },
           // 错误回调；
           error(err) {

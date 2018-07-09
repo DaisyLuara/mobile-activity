@@ -15,4 +15,14 @@ Vue.prototype.innerWidth = () => {
   )
 }
 
+Vue.prototype.qiniuCompress = percent => {
+  if (typeof percent !== 'number') {
+    return '?imageView2/0/q/30'
+  } else {
+    return percent > 100 || percent < 0
+      ? '?imageView2/0/q/30'
+      : '?imageView2/0/q/' + String(percent)
+  }
+}
+
 //  全局帮助方法 可以直接  this. 引用

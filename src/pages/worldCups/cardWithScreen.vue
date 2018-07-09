@@ -7,24 +7,60 @@
       id="animation"
       class="animation"
     />
+    <img
+      :style="style.photo"
+      v-if="photoUrl !== null"
+      class="photo"
+      :src="photoUrl + this.qiniuCompress()"
+      />
   </div>
 </template>
 
 <script>
 import lottie from 'lottie-web'
-import { $_wechat, basicTrack, wechatShareTrack, getInfoById } from 'services'
+import {
+  $_wechat,
+  isInWechat,
+  basicTrack,
+  wechatShareTrack,
+  getInfoById
+} from 'services'
+const imgUrl = process.env.CDN_URL
 export default {
   data() {
     return {
       style: {
         root: {
           height: this.innerHeight() + 'px'
+        },
+        photo: {
+          top: this.innerWidth() * 0.315 + 'px'
+        }
+      },
+      photoUrl: null,
+      wxShareInfo: {
+        title: '激情世界杯 2018',
+        desc: '巅峰对决',
+        imgUrl: imgUrl + '/fe/marketing/img/wc/share-icon.png',
+        success: () => {
+          wechatShareTrack()
         }
       }
     }
   },
   mounted() {
     this.initAnimation()
+    this.getImage()
+    basicTrack(this.$route.query.id)
+    if (isInWechat() === true) {
+      $_wechat()
+        .then(res => {
+          res.share(this.wxShareInfo)
+        })
+        .catch(_ => {
+          console.warn(_.message)
+        })
+    }
   },
   methods: {
     initAnimation() {
@@ -48,6 +84,11 @@ export default {
         })
         console.log('bingo')
       }
+    },
+    getImage() {
+      getInfoById(this.$route.query.id).then(r => {
+        this.photoUrl = r.image
+      })
     }
   }
 }
@@ -57,5 +98,16 @@ export default {
 .root {
   width: 100%;
   position: relative;
+  z-index: 10;
+  .animation {
+    position: relative;
+    z-index: 11;
+  }
+  .photo {
+    z-index: 12;
+    position: absolute;
+    width: 64%;
+    left: 18.2%;
+  }
 }
 </style>
