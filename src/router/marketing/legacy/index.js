@@ -686,7 +686,7 @@ const lagacyPages = [
     path: 'pandp',
     location: 'pandp/index',
     meta: {
-      title: '穿越前世今生'
+      title: ' '
     }
   },
   {
