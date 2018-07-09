@@ -3,7 +3,6 @@
     :style="style.root" 
     class="root">
    <img class="animate-cover"   :src="baseUrl + 'mask.png'" />
-     
    <div class="photo-wrap" v-show="photoWrap">
      <div  class="photo" :style="style.photoHei" >
       <img  :src="photoUrl + this.qiniuCompress()" />
