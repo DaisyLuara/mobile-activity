@@ -37,7 +37,8 @@ export default {
     }
   },
   beforeCreate() {
-    document.title = '星视度前世穿越机'
+    //document.title = '星视度前世穿越机'
+    document.title = '前世穿越机'
   },
   created() {},
   mounted() {
@@ -59,6 +60,8 @@ export default {
       marketService
         .getInfoById(this, this.id)
         .then(res => {
+          document.title =
+            res.belong == 'passPalace' ? '我的家在紫禁城' : '星视度前世穿越机'
           this.drawCanvas(res.code)
         })
         .catch(err => {})
