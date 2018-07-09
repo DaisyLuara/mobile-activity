@@ -12,7 +12,6 @@
    </div>
   </div>
 </template>
-
 <script>
 const wih = window.innerHeight
 const wiw = window.innerWidth
