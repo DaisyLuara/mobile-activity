@@ -36,10 +36,6 @@ export default {
       }
     }
   },
-  beforeCreate() {
-    //document.title = '星视度前世穿越机'
-    document.title = '前世穿越机'
-  },
   created() {},
   mounted() {
     this.width =
