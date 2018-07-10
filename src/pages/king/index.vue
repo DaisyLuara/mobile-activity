@@ -24,7 +24,6 @@ export default {
         },
         photeHei: {
           height: wiw * 0.67 * wih / wiw + 'px'
-          //Window.innerwidth * 0.78 * 1920 / 1080 + 'px'
         }
       },
       photoUrl: '',
@@ -84,8 +83,8 @@ export default {
   .photo {
     width: 73.2%;
     position: absolute;
-    left: 13.3%;
-    top: 18%;
+    left: 13.48%;
+    top: 17.92%;
     img {
       width: 100%;
       height: 100%;
