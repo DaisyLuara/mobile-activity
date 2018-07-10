@@ -1,8 +1,8 @@
 <template>
   <div class="tmall-content" :style="style.root">
       <img  class="bg" :src="imgServerUrl + '/pages/drc_ty/bg.png'" alt=""/>
-      <img  class="photo" :src="resultImgUrl + this.qiniuCompress()" alt=""/>
-      <!-- <img  class="photo" src="/static/photo.png" alt=""/> -->
+      <!-- <img  class="photo" :src="resultImgUrl + this.qiniuCompress()" alt=""/> -->
+      <img  class="photo" src="http://image.exe666.com/1007/image/GuideJDBigCityGift_519_432_1492928440995.jpg" alt=""/>
       <img  class="blue" :src="imgServerUrl + '/pages/drc_ty/blue.png'" alt=""/>
       <img  class="pick-small" :src="imgServerUrl + '/pages/drc_ty/pick_small.png'" alt=""/>
       <img  class="pick-big" :src="imgServerUrl + '/pages/drc_ty/pick_big.png'" alt=""/>
@@ -98,7 +98,7 @@ body {
     width: 100%;
     position: absolute;
     left: 0;
-    top: 7.8%;
+    top: 6.8%;
   }
   .blue {
     user-select: none;
@@ -109,7 +109,7 @@ body {
     top: 1%;
     animation: blueScale 2s ease-out infinite forwards;
   }
-  .pick-small{
+  .pick-small {
     user-select: none;
     pointer-events: none;
     position: absolute;
@@ -118,13 +118,13 @@ body {
     top: 18%;
     animation: blueScale 2s ease-out infinite forwards;
   }
-  .pick-big{
+  .pick-big {
     user-select: none;
     pointer-events: none;
     position: absolute;
-    width: 28%;
-    left: -5%;
-    top: 50%;
+    width: 30%;
+    left: -7%;
+    top: 46%;
     animation: blueScale 2s ease-out infinite forwards;
   }
   .jiantou {
@@ -143,7 +143,7 @@ body {
     transform: scale(1, 1);
   }
   50% {
-    transform: scale(1.2, 1.2);
+    transform: scale(1.3, 1.3);
   }
   to {
     transform: scale(1, 1);
@@ -160,7 +160,6 @@ body {
     transform: translateY(3px);
   }
 }
-
 </style>
 
 
