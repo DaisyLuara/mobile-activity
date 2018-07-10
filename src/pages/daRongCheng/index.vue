@@ -98,7 +98,7 @@ body {
     width: 100%;
     position: absolute;
     left: 0;
-    top: 6.8%;
+    top: 0;
   }
   .blue {
     user-select: none;
@@ -106,7 +106,7 @@ body {
     position: absolute;
     width: 42%;
     left: -13%;
-    top: 1%;
+    top: -8%;
     animation: blueScale 2s ease-out infinite forwards;
   }
   .pick-small {
@@ -115,7 +115,7 @@ body {
     position: absolute;
     width: 19%;
     right: 2%;
-    top: 18%;
+    top: 13%;
     animation: blueScale 2s ease-out infinite forwards;
   }
   .pick-big {
@@ -124,14 +124,14 @@ body {
     position: absolute;
     width: 30%;
     left: -7%;
-    top: 46%;
+    top: 42%;
     animation: blueScale 2s ease-out infinite forwards;
   }
   .jiantou {
     width: 100%;
     position: absolute;
     left: 10%;
-    top: 82%;
+    top: 80%;
     img {
       width: 80%;
       user-select: none;
@@ -153,13 +153,13 @@ body {
 }
 @keyframes arrow {
   0% {
-    transform: translateY(-3px);
+    transform: translateY(-8px);
   }
   50% {
     transform: translateY(0);
   }
   100% {
-    transform: translateY(3px);
+    transform: translateY(8px);
   }
 }
 </style>
