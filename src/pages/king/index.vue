@@ -2,7 +2,9 @@
   <div
     :style="style.root" 
     class="root">
-    <img  class="bg" :style="style.root"  :src="baseUrl + 'bg.png'" />
+    <div class="photo" :style="style.photeHei">
+      <img :src="baseUrl + 'gif.png'" />
+    </div>
   </div>
 </template>
 
@@ -18,20 +20,26 @@ export default {
       style: {
         root: {
           height: wih + 'px'
+        },
+        photeHei: {
+          height: wiw * 0.67 * wih / wiw + 'px'
+          //Window.innerwidth * 0.78 * 1920 / 1080 + 'px'
         }
       },
       photoUrl: '',
       wxShareInfo: {
-        title: '动物去哪了',
-        desc: '让我们去动物园吧',
-        imgUrl: cdnUrl + '/image/king/share.png',
+        title: '全天欢唱 买一送二',
+        desc: '购买一小时赠送2小时',
+        imgUrl: cdnUrl + '/image/king/share.jpg',
         success: () => {
           wechatShareTrack()
         }
       }
     }
   },
-  created() {},
+  created() {
+    console.log(this.baseUrl)
+  },
   mounted() {},
   methods: {
     //处理微信分享
@@ -61,18 +69,33 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@imageHost: 'http://cdn.exe666.com/image/king';
 .root {
   position: relative;
   width: 100%;
   overflow: hidden;
-  .bg {
-    width: 100%;
-    -webkit-touch-callout: none;
-    user-select: none;
-    pointer-events: none;
+  background-repeat: no-repeat;
+  background-image: url('@{imageHost}/bg1.jpg');
+  background-size: 100% 100%;
+  position: relative;
+  animation: bgMove 1s ease-out infinite alternate;
+  .photo {
+    width: 73.2%;
     position: absolute;
-    left: 0;
-    top: 0;
+    left: 13.3%;
+    top: 18%;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+@keyframes bgMove {
+  0% {
+    background-image: url('@{imageHost}/bg1.jpg');
+  }
+  100% {
+    background-image: url('@{imageHost}/bg2.jpg');
   }
 }
 </style>
