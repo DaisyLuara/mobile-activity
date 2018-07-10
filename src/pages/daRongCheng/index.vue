@@ -1,8 +1,8 @@
 <template>
   <div class="tmall-content" :style="style.root">
       <img  class="bg" :src="imgServerUrl + '/pages/drc_ty/bg.png'" alt=""/>
-      <!-- <img  class="photo" :src="resultImgUrl + this.qiniuCompress()" alt=""/> -->
-      <img  class="photo" src="http://image.exe666.com/1007/image/GuideJDBigCityGift_519_432_1492928440995.jpg" alt=""/>
+      <img  class="photo" :src="resultImgUrl + this.qiniuCompress()" alt=""/>
+      <!-- <img  class="photo" src="http://image.exe666.com/1007/image/GuideJDBigCityGift_519_432_1492928440995.jpg" alt=""/> -->
       <img  class="blue" :src="imgServerUrl + '/pages/drc_ty/blue.png'" alt=""/>
       <img  class="pick-small" :src="imgServerUrl + '/pages/drc_ty/pick_small.png'" alt=""/>
       <img  class="pick-big" :src="imgServerUrl + '/pages/drc_ty/pick_big.png'" alt=""/>
