@@ -39,6 +39,16 @@ const Date201807 = [
       author: 'xj1012',
       desc: '结果页面'
     }
+  },
+  {
+    path: 'hero',
+    location: 'hero/index',
+    name: 'index',
+    meta: {
+      title: '超能力英雄',
+      author: 'Joy',
+      desc: '结果页面'
+    }
   }
 ]
 export default Date201807
