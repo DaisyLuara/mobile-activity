@@ -104,8 +104,8 @@ body {
     user-select: none;
     pointer-events: none;
     position: absolute;
-    width: 37%;
-    left: -18%;
+    width: 42%;
+    left: -13%;
     top: 1%;
     animation: blueScale 2s ease-out infinite forwards;
   }
@@ -134,19 +134,21 @@ body {
     top: 82%;
     img {
       width: 80%;
+      user-select: none;
+      pointer-events: none;
     }
-    animation: arrow 1.5s linear infinite alternate;
+    animation: arrow 1.2s linear infinite alternate;
   }
 }
 @keyframes blueScale {
   from {
-    transform: scale(1, 1);
+    transform: scale(1.1, 1.1);
   }
   50% {
     transform: scale(1.3, 1.3);
   }
   to {
-    transform: scale(1, 1);
+    transform: scale(1.1, 1.1);
   }
 }
 @keyframes arrow {
