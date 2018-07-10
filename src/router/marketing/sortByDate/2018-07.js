@@ -43,9 +43,19 @@ const Date201807 = [
   {
     path: 'hero',
     location: 'hero/index',
-    name: 'index',
+    name: 'heroIndex',
     meta: {
       title: '超能力英雄',
+      author: 'Joy',
+      desc: '结果页面'
+    }
+  },
+  {
+    path: 'ty_drc',
+    location: 'daRongCheng/index',
+    name: 'drcIndex',
+    meta: {
+      title: '大融城通用',
       author: 'Joy',
       desc: '结果页面'
     }
