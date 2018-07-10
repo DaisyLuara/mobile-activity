@@ -134,6 +134,8 @@ body {
     top: 82%;
     img {
       width: 80%;
+      user-select: none;
+      pointer-events: none;
     }
     animation: arrow 1.2s linear infinite alternate;
   }
