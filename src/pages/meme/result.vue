@@ -34,8 +34,7 @@ export default {
   data() {
     return {
       imgUrl: IMAGE_SERVER + '/pages/meme/',
-      mImg:
-        'http://image.exe666.com/1007/image/ExpressionFactory_510_935_1492923519793.gif',
+      mImg: null,
       explain: 'explain01',
       slider1: false,
       slider2: false,

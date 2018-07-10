@@ -18,7 +18,8 @@ const Date201807 = [
       title: '激情世界杯',
       author: 'Anluis',
       desc: '屏幕二维码过来的页面'
-    }
+    },
+    isAbandoned: false
   },
   {
     path: 'zoo',
@@ -28,7 +29,8 @@ const Date201807 = [
       title: '动物在哪儿',
       author: 'xj1012',
       desc: '手机号页面'
-    }
+    },
+    isAbandoned: false
   },
   {
     path: 'zoo_result',
@@ -38,17 +40,41 @@ const Date201807 = [
       title: '动物在哪儿',
       author: 'xj1012',
       desc: '结果页面'
-    }
+    },
+    isAbandoned: false
   },
   {
     path: 'hero',
     location: 'hero/index',
-    name: 'index',
+    name: 'heroIndex',
     meta: {
       title: '超能力英雄',
       author: 'Joy',
       desc: '结果页面'
-    }
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'king',
+    location: 'king/index',
+    name: 'index',
+    meta: {
+      title: 'k歌之王',
+      author: 'xj1012',
+      desc: '结果页面'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'ty_drc',
+    location: 'daRongCheng/index',
+    name: 'drcIndex',
+    meta: {
+      title: '大融城通用',
+      author: 'Joy',
+      desc: '结果页面'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201807
