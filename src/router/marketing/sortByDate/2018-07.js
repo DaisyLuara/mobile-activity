@@ -44,13 +44,24 @@ const Date201807 = [
     isAbandoned: false
   },
   {
+    path: 'hero',
+    location: 'hero/index',
+    name: 'index',
+    meta: {
+      title: '超能力英雄',
+      author: 'Joy',
+      desc: '结果页面'
+    },
+    isAbandoned: false
+  },
+  {
     path: 'king',
     location: 'king/index',
     name: 'index',
     meta: {
       title: 'k歌之王',
       author: 'xj1012',
-      desc: 'k歌之王'
+      desc: '结果页面'
     },
     isAbandoned: false
   }
