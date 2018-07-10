@@ -3,7 +3,8 @@
     :style="style.root" 
     class="root">
     <div class="photo" :style="style.photeHei">
-      <img :src="baseUrl + 'gif.png'" />
+      <img v-if="photoUrl !== null" :src="photoUrl  + this.qiniuCompress()" alt=""/>
+      <!-- <img :src="baseUrl + 'gif.png'" /> -->
     </div>
   </div>
 </template>
@@ -38,7 +39,8 @@ export default {
     }
   },
   created() {
-    console.log(this.baseUrl)
+    this.getInfo()
+    this.handleWeChatShare()
   },
   mounted() {},
   methods: {
