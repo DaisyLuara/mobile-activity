@@ -7,8 +7,8 @@
       <img  class="light" :src="baseUrl + '003.png'" />
     </div>
     <div class="photo" :style="style.photeHei">
-      <!-- <img v-if="photoUrl !== null" :src="photoUrl  + this.qiniuCompress()" alt=""/> -->
-      <img :src="baseUrl + 'gif.png'" >
+      <img v-if="photoUrl !== null" :src="photoUrl  + this.qiniuCompress()" alt=""/>
+      <!-- <img :src="baseUrl + 'gif.png'" > -->
     </div>
   </div>
 </template>
