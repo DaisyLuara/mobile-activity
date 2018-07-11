@@ -1,11 +1,11 @@
 <template>
   <div class="tmall-content" :style="style.root">
-      <img  class="bg" :src="imgServerUrl + '/pages/drc_ty/bg.png'" alt=""/>
-      <img  class="photo" :src="resultImgUrl + this.qiniuCompress()" alt=""/>
-      <!-- <img  class="photo" src="http://image.exe666.com/1007/image/GuideJDBigCityGift_519_432_1492928440995.jpg" alt=""/> -->
+      <img  class="bg" :src="imgServerUrl + '/pages/drc_ty/bg.png'" alt="" :style="style.bg"/>
+      <!-- <img  class="photo" :src="resultImgUrl + this.qiniuCompress()" alt=""/> -->
+      <img  src="http://image.exe666.com/1007/image/GuideJDBigCityGift_519_432_1492928440995.jpg" alt="" :class="{'photo': !iphoneX, 'x-photo': iphoneX}"/>
       <img  class="blue" :src="imgServerUrl + '/pages/drc_ty/blue.png'" alt=""/>
       <img  class="pick-small" :src="imgServerUrl + '/pages/drc_ty/pick_small.png'" alt=""/>
-      <img  class="pick-big" :src="imgServerUrl + '/pages/drc_ty/pick_big.png'" alt=""/>
+      <img  :src="imgServerUrl + '/pages/drc_ty/pick_big.png'" alt="" :class="{'pick-big': !iphoneX, 'x-pick-big': iphoneX}"/>
       <div class="jiantou">
         <img :src="imgServerUrl + '/pages/drc_ty/save.png'" alt="" >
       </div>
@@ -24,9 +24,13 @@ export default {
       style: {
         root: {
           width: '100%',
-          'min-height': window.innerHeight + 'px'
+          'min-height': this.innerHeight() + 'px'
+        },
+        bg: {
+          height: this.innerHeight() + 'px'
         }
       },
+      iphoneX: false,
       //微信分享信息
       wxShareInfo: {
         title: '让夏天，更清凉',
@@ -37,6 +41,15 @@ export default {
     }
   },
   mounted() {
+    let height = this.innerHeight()
+    console.log(this.innerHeight() > 672)
+    if (height > 672) {
+      this.iphoneX = true
+      console.log(33)
+    } else {
+      this.iphoneX = false
+      console.log(33)
+    }
     this.wechatShare()
     this.getInfoById()
   },
@@ -100,6 +113,13 @@ body {
     left: 0;
     top: 0;
   }
+  .x-photo{
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 75%;
+  }
   .blue {
     user-select: none;
     pointer-events: none;
@@ -125,6 +145,15 @@ body {
     width: 30%;
     left: -7%;
     top: 42%;
+    animation: blueScale 2s ease-out infinite forwards;
+  }
+  .x-pick-big{
+    user-select: none;
+    pointer-events: none;
+    position: absolute;
+    width: 30%;
+    left: -7%;
+    top: 39%;
     animation: blueScale 2s ease-out infinite forwards;
   }
   .jiantou {
