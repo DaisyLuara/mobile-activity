@@ -46,7 +46,7 @@ const Date201807 = [
   {
     path: 'hero',
     location: 'hero/index',
-    name: 'index',
+    name: 'heroIndex',
     meta: {
       title: '超能力英雄',
       author: 'Joy',
@@ -61,6 +61,17 @@ const Date201807 = [
     meta: {
       title: 'k歌之王',
       author: 'xj1012',
+      desc: '结果页面'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'ty_drc',
+    location: 'daRongCheng/index',
+    name: 'drcIndex',
+    meta: {
+      title: '大融城通用',
+      author: 'Joy',
       desc: '结果页面'
     },
     isAbandoned: false
