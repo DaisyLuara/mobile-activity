@@ -53,7 +53,7 @@ export default {
   },
   mounted() {
     this.wechatShare()
-    this.gender = this.$route.query.gender
+    this.gender = this.$route.query.gender === '1' ? '女' : '男'
     this.age = this.$route.query.age
     this.getCoupon()
   },
@@ -66,7 +66,7 @@ export default {
         if (this.couponId) {
           let rUrl = process.env.AD_API + '/api/open/coupons/' + this.couponId
           let args = {
-            "mobile": this.phoneValue
+            mobile: this.phoneValue
           }
           this.$http
             .post(rUrl, args)
@@ -109,7 +109,7 @@ export default {
     getCoupon() {
       let rq = process.env.AD_API + '/api/open/coupon/batches'
       let policy_id = this.$route.query.policy_id
-      let gender = this.$route.query.gender === '女' ? 1 : 0
+      let gender = this.$route.query.gender
       let age = this.$route.query.age
       let rd = {
         policy_id: policy_id,
