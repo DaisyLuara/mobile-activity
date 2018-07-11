@@ -2,7 +2,7 @@
   <div
     :style="style.root" 
     class="root">
-    <img class="bg" :src="baseUrl + 'bgX.jpg'"  >
+    <img class="bg" :src="baseUrl + 'bgX.jpg'" />
     <div class="lig">
       <img  class="light" :src="baseUrl + '003.png'" />
     </div>
