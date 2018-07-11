@@ -2,11 +2,13 @@
   <div
     :style="style.root" 
     class="root">
+    <img class="bg" :src="baseUrl + 'bgX.jpg'" />
     <div class="lig">
       <img  class="light" :src="baseUrl + '003.png'" />
     </div>
     <div class="photo" :style="style.photeHei">
       <img v-if="photoUrl !== null" :src="photoUrl  + this.qiniuCompress()" alt=""/>
+      <!-- <img :src="baseUrl + 'gif.png'" > -->
     </div>
   </div>
 </template>
@@ -25,7 +27,7 @@ export default {
           height: wih + 'px'
         },
         photeHei: {
-          height: wiw * 0.67 * wih / wiw + 'px'
+          top: wiw * 0.43 + 'px'
         }
       },
       photoUrl: '',
@@ -75,22 +77,28 @@ export default {
 <style lang="less" scoped>
 @imageHost: 'http://cdn.exe666.com/image/king';
 .root {
-  position: relative;
   width: 100%;
-  overflow: hidden;
-  background-repeat: no-repeat;
-  background-image: url('@{imageHost}/bg.jpg');
-  background-size: 100% 100%;
   position: relative;
+  text-align: center;
+  .bg {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    -webkit-touch-callout: none;
+    user-select: none;
+    pointer-events: none;
+  }
   .lig {
     width: 100%;
-    height: 17%;
-    overflow: hidden;
     .light {
       width: 100%;
       position: absolute;
       left: 0%;
       top: 0%;
+      -webkit-touch-callout: none;
+      user-select: none;
+      pointer-events: none;
       animation: lightMove 0.8s ease-out infinite alternate;
     }
   }
@@ -98,7 +106,6 @@ export default {
     width: 73.2%;
     position: absolute;
     left: 13.48%;
-    top: 17.92%;
     img {
       width: 100%;
       height: 100%;

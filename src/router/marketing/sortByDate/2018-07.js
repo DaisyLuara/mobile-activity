@@ -75,6 +75,17 @@ const Date201807 = [
       desc: '结果页面'
     },
     isAbandoned: false
+  },
+  {
+    path: 'test_coupon',
+    location: 'testCoupon/index',
+    name: 'testCoupon',
+    meta: {
+      title: '测试优惠券页面',
+      author: 'Joy',
+      desc: '结果页面'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201807
