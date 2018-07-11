@@ -12,6 +12,7 @@
 </template>
 <script>
 import { $_wechat, getInfoById, wechatShareTrack } from 'services'
+const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 
 export default {
   data() {
@@ -25,6 +26,7 @@ export default {
           height: this.innerHeight() + 'px'
         }
       },
+      imgServerUrl: IMAGE_SERVER,
       couponUrl: '',
       gender: '',
       age: '',
