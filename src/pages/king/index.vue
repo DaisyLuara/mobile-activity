@@ -27,7 +27,6 @@ export default {
           height: wih + 'px'
         },
         photeHei: {
-          height: wiw * 0.802 * wih / wiw + 'px',
           top: wiw * 0.43 + 'px'
         }
       },
