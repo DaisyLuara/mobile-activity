@@ -2,9 +2,9 @@
   <div
     :style="style.root" 
     class="root">
+    <div class="bg"></div>
     <div class="photo" :style="style.photeHei">
       <img v-if="photoUrl !== null" :src="photoUrl  + this.qiniuCompress()" alt=""/>
-      <!-- <img :src="baseUrl + 'gif.png'" /> -->
     </div>
   </div>
 </template>
@@ -13,11 +13,12 @@
 const wih = window.innerHeight
 const wiw = window.innerWidth
 import { $_wechat, wechatShareTrack, getInfoById, isInWechat } from 'services'
-const cdnUrl = process.env.CDN_URL
+// const cdnUrl = process.env.CDN_URL
+const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
   data() {
     return {
-      baseUrl: cdnUrl + '/image/king/',
+      baseUrl: IMAGE_SERVER + '/pages/king/',
       style: {
         root: {
           height: wih + 'px'
@@ -31,7 +32,7 @@ export default {
       wxShareInfo: {
         title: '全天欢唱 买一送二',
         desc: '购买一小时赠送2小时',
-        imgUrl: cdnUrl + '/image/king/share.jpg',
+        imgUrl: IMAGE_SERVER + '/pages/king/share.jpg',
         success: () => {
           wechatShareTrack()
         }
@@ -40,9 +41,10 @@ export default {
   },
   created() {
     this.getInfo()
+  },
+  mounted() {
     this.handleWeChatShare()
   },
-  mounted() {},
   methods: {
     //处理微信分享
     handleWeChatShare() {
@@ -71,16 +73,23 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: 'http://cdn.exe666.com/image/king';
+// @imageHost: 'http://cdn.exe666.com/image/king';
+@imageHost: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/king';
 .root {
   position: relative;
   width: 100%;
   overflow: hidden;
-  background-repeat: no-repeat;
-  background-image: url('@{imageHost}/bg1.jpg');
-  background-size: 100% 100%;
-  position: relative;
-  animation: bgMove 1s ease-out infinite alternate;
+  .bg {
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-image: url('@{imageHost}/bg1.jpg');
+    background-size: 100% 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    animation: bgMove 0.8s linear infinite alternate;
+  }
   .photo {
     width: 73.2%;
     position: absolute;
