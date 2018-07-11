@@ -2,6 +2,9 @@
   <div
     :style="style.root" 
     class="root">
+    <div class="lig">
+      <img  class="light" :src="baseUrl + '003.png'" />
+    </div>
     <div class="photo" :style="style.photeHei">
       <img v-if="photoUrl !== null" :src="photoUrl  + this.qiniuCompress()" alt=""/>
       <!-- <img :src="baseUrl + 'gif.png'" /> -->
@@ -76,10 +79,21 @@ export default {
   width: 100%;
   overflow: hidden;
   background-repeat: no-repeat;
-  background-image: url('@{imageHost}/bg1.jpg');
+  background-image: url('@{imageHost}/bg.jpg');
   background-size: 100% 100%;
   position: relative;
-  animation: bgMove 1s ease-out infinite alternate;
+  .lig {
+    width: 100%;
+    height: 17%;
+    overflow: hidden;
+    .light {
+      width: 100%;
+      position: absolute;
+      left: 0%;
+      top: 0%;
+      animation: lightMove 0.8s ease-out infinite alternate;
+    }
+  }
   .photo {
     width: 73.2%;
     position: absolute;
@@ -91,12 +105,12 @@ export default {
     }
   }
 }
-@keyframes bgMove {
+@keyframes lightMove {
   0% {
-    background-image: url('@{imageHost}/bg1.jpg');
+    opacity: 1;
   }
   100% {
-    background-image: url('@{imageHost}/bg2.jpg');
+    opacity: 0.7;
   }
 }
 </style>
