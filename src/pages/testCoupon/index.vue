@@ -1,8 +1,8 @@
 <template>
   <div class="test-coupon-content" :style="style.root">
       <img  class="bg" :src="imgServerUrl + '/pages/drc_ty/bg.png'" alt="" :style="style.bg"/>
-      <!-- <img  class="photo" :src="getCoupon" alt=""/> -->
-      <img  class="photo" src="/static/tmall/no_win.png" alt=""/>
+      <img  class="photo" :src="couponUrl" alt=""/>
+      <!-- <img  class="photo" src="/static/tmall/no_win.png" alt=""/> -->
       <!-- <div class="coupon">恭喜中奖</div> -->
   </div>
 </template>
