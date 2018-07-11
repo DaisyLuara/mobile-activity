@@ -3,7 +3,6 @@
     :style="style.root" 
     class="root">
    <img class="animate-cover"   :src="baseUrl + 'mask.png'" />
-     
    <div class="photo-wrap" v-show="photoWrap">
      <div  class="photo" :style="style.photoHei" >
       <img  :src="photoUrl + this.qiniuCompress()" />
@@ -13,7 +12,6 @@
    </div>
   </div>
 </template>
-
 <script>
 const wih = window.innerHeight
 const wiw = window.innerWidth
@@ -116,9 +114,7 @@ export default {
     top: 0;
     z-index: 1;
     margin: 0 auto;
-    // text-align: center;
     .photo {
-      // width: 75%;
       position: absolute;
       left: 50%;
       transform: translate(-50%, 0);

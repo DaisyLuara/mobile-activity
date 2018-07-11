@@ -99,7 +99,7 @@ export default {
       this.status.shouldInputRemindShow = false
       this.$refs.inputreal.focus()
     },
-    //
+    //跳转操作
     redirct() {
       let id = this.$route.query.id
       this.isMove = true
@@ -127,7 +127,6 @@ export default {
         this.handleTrack()
         this.redirct()
       }
-      b
     }
   }
 }
