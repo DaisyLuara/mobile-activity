@@ -85,6 +85,7 @@ export default {
     position: absolute;
     left: 0;
     top: 0;
+    -webkit-touch-callout: none;
     user-select: none;
     pointer-events: none;
   }
@@ -95,15 +96,16 @@ export default {
       position: absolute;
       left: 0%;
       top: 0%;
+      -webkit-touch-callout: none;
+      user-select: none;
+      pointer-events: none;
       animation: lightMove 0.8s ease-out infinite alternate;
     }
   }
   .photo {
     width: 73.2%;
-    //height: 73.8%;
     position: absolute;
     left: 13.48%;
-    //top: 26.5%;
     img {
       width: 100%;
       height: 100%;
