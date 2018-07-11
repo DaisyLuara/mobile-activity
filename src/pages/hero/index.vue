@@ -1,6 +1,7 @@
 <template>
     
   <div class="hero-content" :style="style.root" >
+      <img  class="bg" :src="imgServerUrl + '/pages/hero/bg.jpg'" alt=""/>
       <img  class="photo" v-if="resultImgUrl !== null" :src="resultImgUrl  + this.qiniuCompress()" alt=""/>
       <!-- <img  class="photo" src="http://o9xrbl1oc.bkt.clouddn.com/1007/image/1492786765568.jpg" alt=""/> -->
       <div class="jiantou">
@@ -18,7 +19,7 @@ export default {
     return {
       style: {
         root: {
-          height: this.innerHeight() + 'px'
+          minHeight: this.innerHeight() + 'px'
         }
       },
       imgServerUrl: IMAGE_SERVER,
@@ -72,12 +73,13 @@ export default {
 @imageHost: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/hero';
 .hero-content {
   width: 100%;
-  background-repeat: no-repeat;
-  background-image: url('@{imageHost}/bg.jpg');
-  background-size: 100% 100%;
   position: relative;
   text-align: center;
-  overflow: hidden;
+  .bg {
+    width: 100%;
+    user-select: none;
+    pointer-events: none;
+  }
   .photo {
     width: 73.6%;
     height: 62%;
@@ -89,7 +91,7 @@ export default {
     width: 100%;
     position: absolute;
     left: 0;
-    bottom: 15%;
+    bottom: 16%;
     img {
       width: 10%;
       height: 10%;
