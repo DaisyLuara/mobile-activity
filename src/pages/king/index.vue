@@ -2,9 +2,9 @@
   <div
     :style="style.root" 
     class="root">
+    <div class="bg"></div>
     <div class="photo" :style="style.photeHei">
       <img v-if="photoUrl !== null" :src="photoUrl  + this.qiniuCompress()" alt=""/>
-      <!-- <img :src="baseUrl + 'gif.png'" /> -->
     </div>
   </div>
 </template>
@@ -79,11 +79,17 @@ export default {
   position: relative;
   width: 100%;
   overflow: hidden;
-  background-repeat: no-repeat;
-  background-image: url('@{imageHost}/bg1.jpg');
-  background-size: 100% 100%;
-  position: relative;
-  animation: bgMove 1s ease-out infinite alternate;
+  .bg {
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-image: url('@{imageHost}/bg1.jpg');
+    background-size: 100% 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    animation: bgMove 0.8s linear infinite alternate;
+  }
   .photo {
     width: 73.2%;
     position: absolute;
