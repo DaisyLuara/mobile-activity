@@ -1,15 +1,17 @@
 <template>
   <div class="test-coupon-content" :style="style.root">
       <img  class="bg" :src="imgServerUrl + '/pages/drc_ty/bg.png'" alt="" :style="style.bg"/>
+      <div class="gender">
+        <span>{{gender}}</span>
+        <span>{{age}} 岁</span>
+      </div>
       <img  class="photo" :src="couponUrl" alt=""/>
+      <!-- <div class="age">10岁</div> -->
       <!-- <img  class="photo" src="/static/tmall/no_win.png" alt=""/> -->
-      <!-- <div class="coupon">恭喜中奖</div> -->
   </div>
 </template>
 <script>
 import { $_wechat, getInfoById, wechatShareTrack } from 'services'
-
-const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 
 export default {
   data() {
@@ -23,8 +25,9 @@ export default {
           height: this.innerHeight() + 'px'
         }
       },
-      imgServerUrl: IMAGE_SERVER,
       couponUrl: '',
+      gender: '',
+      age: '',
       //微信分享信息
       wxShareInfo: {
         title: '测试',
@@ -35,6 +38,8 @@ export default {
     }
   },
   mounted() {
+    this.gender = this.$route.query.gender
+    this.age = this.$route.query.age
     this.wechatShare()
     this.getCoupon()
   },
@@ -54,16 +59,6 @@ export default {
         })
         .catch(_ => {
           console.warn(_.message)
-        })
-    },
-    getInfoById() {
-      let id = this.$route.query.id
-      getInfoById(id)
-        .then(res => {
-          this.resultImgUrl = res.image
-        })
-        .catch(e => {
-          console.log(e)
         })
     },
     getCoupon() {
@@ -110,17 +105,27 @@ body {
     width: 73.6%;
     position: absolute;
     left: 13%;
-    top: 25.4%;
+    top: 36.4%;
     z-index: 20;
   }
-  // .coupon {
-  //   width: 100%;
-  //   position: absolute;
-  //   left: 0;
-  //   text-align: center;
-  //   top: 35%;
-  //   z-index: 20;
-  // }
+  .age {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    text-align: center;
+    top: 10%;
+    font-size: 24px;
+    color: #fdc1dd;
+  }
+  .gender {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    text-align: center;
+    top: 20%;
+    font-size: 24px;
+    color: #fdc1dd;
+  }
 }
 </style>
 
