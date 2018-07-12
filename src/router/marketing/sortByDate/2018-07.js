@@ -77,6 +77,17 @@ const Date201807 = [
     isAbandoned: false
   },
   {
+    path: 'dd_test',
+    location: 'tm/ddTest',
+    name: 'test',
+    meta: {
+      title: '7.18天猫冻冻节',
+      author: 'lipan',
+      desc: '测试题页面'
+    },
+    isAbandoned: false
+  },
+  {
     path: 'meichenzhan',
     location: 'meichen/index',
     name: 'meiChenZhan',
@@ -84,6 +95,39 @@ const Date201807 = [
       title: '美陈展',
       authoer: 'Anluis',
       desc: '美陈展的页面'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'dd_result',
+    location: 'tm/ddResult',
+    name: 'result',
+    meta: {
+      title: '7.18天猫冻冻节',
+      author: 'lipan',
+      desc: '结果页面'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'mcgee',
+    location: 'wdenglish/mcgee',
+    name: 'mcgee',
+    meta: {
+      title: '凭照片领好礼',
+      author: 'lipan',
+      desc: '麦吉少儿英语结果页'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'qiaoen',
+    location: 'wdenglish/qiaoen',
+    name: 'qiaoen',
+    meta: {
+      title: '凭照片领好礼',
+      author: 'lipan',
+      desc: '巧恩儿童美语结果页'
     },
     isAbandoned: false
   },
