@@ -141,9 +141,11 @@ export default {
       }
     }
   },
+  beforeCreate() {
+    this.handleWechatShare()
+  },
   mounted() {
     this.handleSwiperInit()
-    this.handleWechatShare()
   },
   methods: {
     handleMapJump() {
