@@ -79,7 +79,7 @@ const Date201807 = [
   {
     path: 'dd_test',
     location: 'tm/ddTest',
-    name: 'test',
+    name: 'ddtest',
     meta: {
       title: '7.18天猫冻冻节',
       author: 'lipan',
@@ -101,7 +101,7 @@ const Date201807 = [
   {
     path: 'dd_result',
     location: 'tm/ddResult',
-    name: 'result',
+    name: 'ddresult',
     meta: {
       title: '7.18天猫冻冻节',
       author: 'lipan',
