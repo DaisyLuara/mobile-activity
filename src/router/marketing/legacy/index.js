@@ -576,7 +576,7 @@ const lagacyPages = [
   },
   {
     path: 'world_cup',
-    location: '',
+    location: 'world_cup/index',
     meta: {
       title: '世界杯',
       desc: '镜世界通用模板-世界杯'

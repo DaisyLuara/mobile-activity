@@ -49,9 +49,7 @@ export default {
         score: {
           top: window.innerWidth * 2.014 + 'px'
         },
-        photo: {
-          top: this.innerWidth() * 120 / 375 + 'px'
-        }
+        photo: {}
       },
       photoUrl: null,
       wxShareInfo: {
@@ -134,12 +132,18 @@ export default {
         this.$router.push({
           name: 'WorldCupsCardWithPeople'
         })
-        console.log('bingo')
       }
     },
     getImage() {
       getInfoById(this.$route.query.id).then(r => {
         this.photoUrl = r.image
+        this.style.photo = {
+          top: this.innerWidth() * 120 / 375 + 'px',
+          width: '63.8%',
+          zIndex: 12,
+          position: 'absolute',
+          left: '18.2%'
+        }
       })
     }
   }
@@ -164,10 +168,6 @@ export default {
     z-index: 11;
   }
   .photo {
-    width: 63.8%;
-    z-index: 12;
-    position: absolute;
-    left: 18.2%;
     pointer-events: auto;
   }
   .score {
