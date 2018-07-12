@@ -86,7 +86,12 @@
           <div class="slide-page5">
             <img
               class="page5"
-              :src="serverUrl + 'page5.png' + this.qiniuCompress()" />
+              :src="serverUrl + 'page5-bg.png' + this.qiniuCompress()" />
+            <img
+              @click="handleMapJump"
+              :style="style.p5button"
+              class="page5-button"
+              :src="serverUrl + 'page5-button.png' + this.qiniuCompress()" />
             <!-- <img
               @click="handlePageToNext()"
               class="arrow"
@@ -108,6 +113,14 @@ export default {
       style: {
         root: {
           height: this.innerHeight() + 'px'
+        },
+        p5button: {
+          top:
+            this.innerHeight() > 670
+              ? this.innerWidth() * 1.3 + 'px'
+              : this.innerWidth() * 1.1 + 'px',
+          left: this.innerWidth() * 0.25 + 'px',
+          width: this.innerWidth() * 0.5 + 'px'
         }
       },
       control: {
@@ -123,10 +136,12 @@ export default {
     this.handleSwiperInit()
   },
   methods: {
+    handleMapJump() {
+      window.location.href = 'http://f.amap.com/16BNZ_0A42RPm'
+    },
     handleSwiperInit() {
       this.mySwiper = new Swiper('.swiper-container', {
-        direction: 'vertical',
-        loop: true
+        direction: 'vertical'
       })
       let that = this
       this.mySwiper.slides.on(
@@ -304,7 +319,7 @@ export default {
         }
         .page4-4 {
           position: relative;
-          width: 90%;
+          width: 100%;
           margin: 10% auto;
           img {
             width: 100%;
@@ -324,6 +339,10 @@ export default {
           left: 0;
           right: 0;
           bottom: 0;
+        }
+        .page5-button {
+          position: absolute;
+          z-index: 200;
         }
       }
     }
