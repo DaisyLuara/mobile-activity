@@ -99,7 +99,7 @@
 </template>
 
 <script>
-import Swiper from 'swiper'
+import Swiper from 'swiper/dist/js/swiper.js'
 const serverUrl = 'http://cdn.exe666.com/fe/marketing/meichen/'
 export default {
   data() {
