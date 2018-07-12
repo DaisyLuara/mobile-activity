@@ -57,7 +57,7 @@ const Date201807 = [
   {
     path: 'king',
     location: 'king/index',
-    name: 'index',
+    name: 'heroResult',
     meta: {
       title: 'k歌之王',
       author: 'xj1012',
@@ -75,6 +75,16 @@ const Date201807 = [
       desc: '结果页面'
     },
     isAbandoned: false
+  },
+  {
+    path: 'meichenzhan',
+    location: 'meichen/index',
+    name: 'meiChenZhan',
+    meta: {
+      title: '美陈展',
+      authoer: 'Anluis',
+      desc: '美陈展的页面'
+    }
   },
   {
     path: 'test_coupon',
