@@ -57,7 +57,7 @@ const Date201807 = [
   {
     path: 'king',
     location: 'king/index',
-    name: 'index',
+    name: 'heroResult',
     meta: {
       title: 'k歌之王',
       author: 'xj1012',
@@ -84,6 +84,17 @@ const Date201807 = [
       title: '7.18天猫冻冻节',
       author: 'lipan',
       desc: '测试题页面'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'meichenzhan',
+    location: 'meichen/index',
+    name: 'meiChenZhan',
+    meta: {
+      title: '美陈展',
+      authoer: 'Anluis',
+      desc: '美陈展的页面'
     },
     isAbandoned: false
   },
@@ -117,6 +128,17 @@ const Date201807 = [
       title: '凭照片领好礼',
       author: 'lipan',
       desc: '巧恩儿童美语结果页'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'test_coupon',
+    location: 'testCoupon/index',
+    name: 'testCoupon',
+    meta: {
+      title: '测试优惠券页面',
+      author: 'Joy',
+      desc: '结果页面'
     },
     isAbandoned: false
   }
