@@ -84,7 +84,8 @@ const Date201807 = [
       title: '美陈展',
       authoer: 'Anluis',
       desc: '美陈展的页面'
-    }
+    },
+    isAbandoned: false
   },
   {
     path: 'test_coupon',
