@@ -104,6 +104,7 @@
 </template>
 
 <script>
+import { $_wechat, isInWechat, basicTrack, wechatShareTrack } from 'services'
 import Swiper from 'swiper/dist/js/swiper.js'
 const serverUrl = 'http://cdn.exe666.com/fe/marketing/meichen/'
 export default {
@@ -129,11 +130,20 @@ export default {
       startScroll: null,
       touchStart: null,
       touchCurrent: null,
-      mySwiper: null
+      mySwiper: null,
+      wxShareInfo: {
+        title: `星视度2018美陈展邀你来“嗨玩”`,
+        desc: '全上海商业大咖都在这里！',
+        imgUrl: serverUrl + 'share-icon.png',
+        success: () => {
+          wechatShareTrack()
+        }
+      }
     }
   },
   mounted() {
     this.handleSwiperInit()
+    this.handleWechatShare()
   },
   methods: {
     handleMapJump() {
@@ -174,6 +184,18 @@ export default {
     },
     handlePageToNext() {
       this.mySwiper.slideNext()
+    },
+    handleWechatShare() {
+      if (isInWechat() === true) {
+        $_wechat()
+          .then(res => {
+            res.share(this.wxShareInfo)
+          })
+          .catch(_ => {
+            console.warn(_.message)
+          })
+      }
+      basicTrack()
     }
   }
 }
