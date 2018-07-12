@@ -6,7 +6,7 @@
         <img class="message" :src="IMGURL + 'mcgee.png'"/>
       </div>
       <div class="picture">
-        <img class="photo" :src="mImg"/>
+        <img class="photo" :src="mImg + this.qiniuCompress()"/>
       </div>
       <img class="note" :src="IMGURL + 'prompt.png'"/>
       <img class="date" :src="IMGURL + 'date.png'"/>
@@ -106,8 +106,9 @@ img {
       position: absolute;
       left: 2px;
       top: -10%;
-      width: 27.8%;
+      //width: 27.8%;
       z-index: 99;
+      animation: tan 0.6s ease-in-out 1 forwards;
     }
     .message {
       width: 85.5%;
@@ -138,6 +139,17 @@ img {
     width: 86%;
     margin-top: 6%;
     margin-bottom: 5%;
+  }
+}
+@keyframes tan {
+  0% {
+    width: 0%;
+  }
+  90% {
+    width: 35%;
+  }
+  100% {
+    width: 27.8%;
   }
 }
 </style>
