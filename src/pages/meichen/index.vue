@@ -141,63 +141,73 @@ export default {
       }
     }
   },
-  beforeCreate() {
-    this.handleWechatShare()
-  },
   mounted() {
-    this.handleSwiperInit()
+    this.init()
   },
   methods: {
     handleMapJump() {
       window.location.href = 'http://f.amap.com/16BNZ_0A42RPm'
     },
     handleSwiperInit() {
-      this.mySwiper = new Swiper('.swiper-container', {
-        direction: 'vertical'
+      return new Promise((resolve, reject) => {
+        this.mySwiper = new Swiper('.swiper-container', {
+          direction: 'vertical'
+        })
+        let that = this
+        this.mySwiper.slides.on(
+          'touchstart',
+          function(e) {
+            that.startScroll = this.scrollTop
+            that.touchStart = e.targetTouches[0].pageY
+          },
+          true
+        )
+        this.mySwiper.slides.on(
+          'touchmove',
+          function(e) {
+            that.touchCurrent = e.targetTouches[0].pageY
+            let touchesDiff = that.touchCurrent - that.touchStart
+            let slide = this
+            let onlyScrolling =
+              slide.scrollHeight > slide.offsetHeight &&
+              ((touchesDiff < 0 && that.startScroll === 0) ||
+                (touchesDiff > 0 &&
+                  that.startScroll ===
+                    slide.scrollHeight - slide.offsetHeight) ||
+                (that.startScroll > 0 &&
+                  that.startScroll < slide.scrollHeight - slide.offsetHeight))
+            if (onlyScrolling) {
+              e.stopPropagation()
+            }
+          },
+          true
+        )
+        resolve()
       })
-      let that = this
-      this.mySwiper.slides.on(
-        'touchstart',
-        function(e) {
-          that.startScroll = this.scrollTop
-          that.touchStart = e.targetTouches[0].pageY
-        },
-        true
-      )
-      this.mySwiper.slides.on(
-        'touchmove',
-        function(e) {
-          that.touchCurrent = e.targetTouches[0].pageY
-          let touchesDiff = that.touchCurrent - that.touchStart
-          let slide = this
-          let onlyScrolling =
-            slide.scrollHeight > slide.offsetHeight &&
-            ((touchesDiff < 0 && that.startScroll === 0) ||
-              (touchesDiff > 0 &&
-                that.startScroll === slide.scrollHeight - slide.offsetHeight) ||
-              (that.startScroll > 0 &&
-                that.startScroll < slide.scrollHeight - slide.offsetHeight))
-          if (onlyScrolling) {
-            e.stopPropagation()
-          }
-        },
-        true
-      )
     },
     handlePageToNext() {
       this.mySwiper.slideNext()
     },
+    async init() {
+      await this.handleWechatShare().catch(_ => {
+        console.warn(_.message)
+      })
+      await this.handleSwiperInit()
+    },
     handleWechatShare() {
-      if (isInWechat() === true) {
-        $_wechat()
-          .then(res => {
-            res.share(this.wxShareInfo)
-          })
-          .catch(_ => {
-            console.warn(_.message)
-          })
-      }
-      basicTrack()
+      return new Promise((resolve, reject) => {
+        if (isInWechat() === true) {
+          $_wechat()
+            .then(res => {
+              res.share(this.wxShareInfo)
+              resolve()
+            })
+            .catch(_ => {
+              reject(_)
+              // console.warn(_.message)
+            })
+        }
+      })
     }
   }
 }
