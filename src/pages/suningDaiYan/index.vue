@@ -1,0 +1,473 @@
+<template>
+  <div
+    class="root"
+    :style="style.root">
+    <img 
+      class="bg"
+      :src="imgUrl+'bg.png'+ this.qiniuCompress()">
+    <img 
+      class="frame"
+      :src="imgUrl+'frame.png'+ this.qiniuCompress()">
+    <!-- <img  :src="resultImgUrl + this.qiniuCompress()" alt="" class="photo"/> -->
+    <img  class="photo" src="http://o9xrbl1oc.bkt.clouddn.com/1007/image/1492786765568.jpg" alt="" v-if="!compound"/>
+    <div class="btn1" @click="showDialog = true" v-if="!compound" :style="style.btn2"></div>
+    <a class="btn3" v-if="compound" :style="style.btn2" href="https://res.m.suning.com/project/zhaoji/activiteDetails_1.html?activityCode=1885230077&storeType=2&storeCode=10003701"></a>
+    <img 
+      class="img1"
+      :src="imgUrl+'img1.png'+ this.qiniuCompress()">
+    <img 
+      class="img2"
+      :src="imgUrl+'img2.png'+ this.qiniuCompress()">
+    <img 
+      class="img3"
+      :src="imgUrl+'img3.png'+ this.qiniuCompress()">
+    <img 
+      class="img4"
+      :src="imgUrl+'img4.png'+ this.qiniuCompress()">
+    <img 
+      class="text"
+      :src="imgUrl+'text.png?v=1'+ this.qiniuCompress()" v-if="!compound">
+    <div :class="{'name': !iphoneX, 'x-name': iphoneX}" v-if="!compound">{{nickname}}</div>
+    <!-- 合成照片 -->
+    <img  class="photo" :src="compoundUrl" alt="" v-if="compound" id="test"/>
+    <canvas id="canvas" class="photo" style="display: none"></canvas>
+    <!-- 弹出层 -->
+    <div class="popups-wrapper" v-if="showDialog">
+    <div class="popups-content">
+      <div class="popups-close" @click="closeDialog">
+        <img :src="imgUrl+'close.png'+ this.qiniuCompress()" alt="" />
+      </div>
+      <div class="main-content" :style="style.popups">
+        <img 
+          class="popus-img5"
+          :src="imgUrl+'img5.png'+ this.qiniuCompress()">
+        <img :src="imgUrl + 'input.png'+ this.qiniuCompress()" 
+          :class="{'input-bg': !iphoneX, 'x-input-bg': iphoneX}" />
+        <input maxlength="5" v-model="text" :style="style.input" placeholder="在此输入姓名" :class="{'input-value': !iphoneX, 'x-input-value': iphoneX}"/>
+        <div @click="compoundHandle" :style="style.btn2" :class="{'btn2': !iphoneX, 'x-btn2': iphoneX}"></div>
+      </div>
+    </div>
+  </div>
+  </div>
+</template>
+
+<script>
+import MC from 'mcanvas'
+import {
+  $_wechat,
+  isInWechat,
+  Cookies,
+  wechatShareTrack,
+  basicTrack,
+  getWxUserInfo,
+  randomIntNum
+} from 'services'
+const imgUrl = process.env.CDN_URL
+export default {
+  data() {
+    return {
+      style: {
+        root: {
+          height: this.innerHeight() + 'px'
+        },
+        input: {
+          height: Math.floor(this.innerWidth() * 0.6 / 447 * 109) + 'px'
+        },
+        btn2: {
+          height: Math.floor(this.innerWidth() * 0.6 / 447 * 109) + 'px'
+        },
+        popups: {
+          height: this.innerHeight() + 'px'
+        }
+      },
+      compound: false,
+      text: '',
+      cardBg: ['messi.png', 'neymar.png', 'debruyne.png', 'cronaldo.png'],
+      bgcolor: ['#0ca2c5', '#40b324', '#ba3621', '#38aa1d'],
+      base64Data: null,
+      compoundUrl: null,
+      showDialog: false,
+      iphoneX: false,
+      picOrder: 0,
+      inputHeight: 0,
+      nickname: '',
+      isLoading: true,
+      isDrawing: true,
+      resultImgUrl: '',
+      imgUrl: imgUrl + '/fe/marketing/img/sndy/',
+      wxShareInfo: {
+        title: '震惊！杨洋被拍到和神秘素人在一起了！',
+        desc: '卓伟看了也会流泪',
+        imgUrl: imgUrl + '/fe/marketing/img/sndy/share_icon.png',
+        success: () => {
+          wechatShareTrack()
+        }
+      }
+    }
+  },
+  mounted() {
+    document.body.addEventListener('touchstart', function() {})
+    this.iphoneX = this.innerHeight() > 672 ? true : false
+    this.inputHeight = Math.floor(this.innerWidth() * 0.6 / 447 * 109)
+    if (isInWechat() === true) {
+      if (
+        process.env.NODE_ENV === 'production' ||
+        process.env.NODE_ENV === 'test'
+      ) {
+        this.handleWechatAuth()
+      }
+      // this.handleWechatAuth()
+      $_wechat()
+        .then(res => {
+          res.share(this.wxShareInfo)
+        })
+        .catch(_ => {
+          console.warn(_.message)
+        })
+    }
+  },
+  methods: {
+    compoundHandle() {
+      console.log(33)
+      this.showDialog = false
+      this.compound = true
+      this.drawing()
+    },
+    closeDialog() {
+      this.showDialog = false
+      this.text = ''
+    },
+    drawing() {
+      let width = this.innerWidth()
+      let height = this.innerHeight()
+      let mc = new MC({
+        width,
+        height
+      })
+      let url = 'http://o9xrbl1oc.bkt.clouddn.com/1007/image/1492786765568.jpg'
+      let that = this
+      mc
+        .background(url, {
+          left: 0,
+          top: 0,
+          type: 'origin',
+          width: this.innerWidth()
+        })
+        .add(this.imgUrl + 'text.png?v=1', {
+          width: '100%',
+          pos: {
+            x: '3%',
+            y: '72%'
+          }
+        })
+        .draw({
+          // 导出图片格式： png/jpg/jpeg/webp;
+          // default : png;
+          type: 'jpg',
+          //  图片质量，对 png 格式无效； 0~1；
+          // default: .9;
+          quality: 1,
+          // 成功回调；
+          success(b64) {
+            that.base64Data = b64
+            that.drawingText()
+          },
+          // 错误回调；
+          error(err) {
+            console.log(err)
+          }
+        })
+    },
+    drawingText() {
+      let canvas = document.getElementById('canvas')
+      let ctx = canvas.getContext('2d')
+      let image = new Image()
+      let height = this.innerHeight()
+      let width = this.innerWidth()
+      let text = this.text
+      image.src = this.base64Data
+      let x = this.innerWidth() * 0.688 * 0.8
+      let y = this.innerHeight() * 0.85
+      image.onload = function() {
+        canvas.width = width
+        canvas.height = height
+        ctx.drawImage(image, 0, 0, width, height)
+        ctx.font = '400 34px sans-serif'
+        ctx.textAlign = 'center'
+        // let w = ctx.measureText(text)
+        ctx.fillStyle = '#fff'
+        ctx.fillText(text, x, y)
+        ctx.translate(x, y)
+        ctx.rotate(30 * Math.PI / 180)
+        let url = canvas.toDataURL('image/png')
+        console.log(url)
+        let img = document.getElementById('test')
+        img.src = url
+      }
+    },
+    handleWechatAuth() {
+      if (Cookies.get('user_id') === null) {
+        let base_url = encodeURIComponent(String(window.location.href))
+        let redirct_url =
+          process.env.WX_API +
+          '/wx/officialAccount/oauth?url=' +
+          base_url +
+          '&scope=snsapi_userinfo'
+        window.location.href = redirct_url
+      } else {
+        getWxUserInfo().then(r => {
+          console.log(r.data)
+          this.nickname = r.data.nickname
+          this.isLoading = false
+          // this.drawing()
+        })
+      }
+    }
+  }
+}
+</script>
+
+<style lang="less" scoped>
+@imgServerUrl: 'http://cdn.exe666.com//fe/marketing/img/sndy';
+.root {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  position: relative;
+  user-select: none;
+
+  .bg {
+    width: 100%;
+    height: 100%;
+    z-index: -10;
+    user-select: none;
+    pointer-events: none;
+  }
+  .frame {
+    position: absolute;
+    top: 3%;
+    width: 81%;
+    z-index: 5;
+    left: 9.5%;
+    user-select: none;
+    pointer-events: none;
+    height: 83%;
+  }
+  .photo {
+    width: 68.8%;
+    position: absolute;
+    left: 16.2%;
+    top: 5%;
+    height: 78%;
+    z-index: 10;
+  }
+  .img1 {
+    position: absolute;
+    top: 15%;
+    width: 18%;
+    z-index: 15;
+    left: 1%;
+    user-select: none;
+    pointer-events: none;
+    animation: upDown 1.2s linear infinite alternate;
+  }
+  .img2 {
+    position: absolute;
+    top: 2%;
+    width: 13%;
+    z-index: 15;
+    right: 3%;
+    user-select: none;
+    pointer-events: none;
+    animation: upDown 1.2s linear infinite alternate;
+  }
+  .img3 {
+    position: absolute;
+    top: 50%;
+    width: 10%;
+    z-index: 15;
+    right: 5%;
+    user-select: none;
+    pointer-events: none;
+    animation: upDown 1.2s linear infinite alternate;
+  }
+  .img4 {
+    position: absolute;
+    bottom: 11%;
+    width: 20%;
+    z-index: 15;
+    right: 0;
+    user-select: none;
+    pointer-events: none;
+    animation: upDown 1.2s linear infinite alternate;
+  }
+  .text {
+    position: absolute;
+    bottom: 18%;
+    width: 66%;
+    z-index: 15;
+    left: 19%;
+  }
+  .name {
+    position: absolute;
+    bottom: 29%;
+    z-index: 17;
+    color: #fff;
+    font-size: 18px;
+    letter-spacing: 3px;
+    font-weight: 400;
+    left: 38%;
+    width: 33.43%;
+    text-align: center;
+    transform: rotateZ(-14deg);
+  }
+  .x-name {
+    position: absolute;
+    bottom: 27.5%;
+    z-index: 17;
+    color: #fff;
+    font-size: 18px;
+    letter-spacing: 3px;
+    font-weight: 400;
+    left: 38%;
+    width: 33.43%;
+    text-align: center;
+    transform: rotateZ(-14deg);
+  }
+  .btn1 {
+    position: absolute;
+    bottom: 3%;
+    width: 72%;
+    left: 14%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-image: url('@{imgServerUrl}//buttom1_1.png?v=1?imageView2/0/q/30');
+    &:active {
+      height: 50px;
+      background-image: url('@{imgServerUrl}/buttom1_2.png?v=1?imageView2/0/q/30');
+    }
+  }
+  .btn3 {
+    position: absolute;
+    bottom: 3%;
+    width: 50%;
+    left: 25%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-image: url('@{imgServerUrl}//buttom3_1.png?imageView2/0/q/30');
+    &:active {
+      height: 50px;
+      background-image: url('@{imgServerUrl}/buttom3_2.png?imageView2/0/q/30');
+    }
+  }
+  .popups-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    z-index: 20;
+    opacity: 0.94;
+    .popups-content {
+      width: 100%;
+      height: 100%;
+    }
+    .main-content {
+      position: relative;
+      .popus-img5 {
+        width: 95%;
+        top: 20%;
+        left: 2.5%;
+        position: absolute;
+        user-select: none;
+        pointer-events: none;
+      }
+      .input-bg {
+        position: absolute;
+        top: 40%;
+        width: 60%;
+        left: 20%;
+        user-select: none;
+        pointer-events: none;
+      }
+      .x-input-bg {
+        position: absolute;
+        top: 36%;
+        width: 60%;
+        left: 20%;
+        user-select: none;
+        pointer-events: none;
+      }
+      .x-input-value {
+        background-color: transparent;
+        z-index: 14;
+        width: 60%;
+        font-size: 14px;
+        position: absolute;
+        top: 36%;
+        left: 20%;
+        padding: 0 14%;
+        letter-spacing: 4px;
+        color: #000;
+      }
+      .input-value {
+        background-color: transparent;
+        z-index: 14;
+        width: 60%;
+        font-size: 14px;
+        position: absolute;
+        top: 40%;
+        left: 20%;
+        padding: 0 14%;
+        letter-spacing: 4px;
+        color: #000;
+      }
+      .btn2 {
+        position: absolute;
+        top: 57%;
+        width: 60%;
+        left: 20%;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-image: url('@{imgServerUrl}//buttom2_1.png?imageView2/0/q/30');
+        &:active {
+          background-image: url('@{imgServerUrl}/buttom2_2.png?imageView2/0/q/30');
+        }
+      }
+      .x-btn2 {
+        position: absolute;
+        top: 50%;
+        width: 60%;
+        left: 20%;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-image: url('@{imgServerUrl}//buttom2_1.png?imageView2/0/q/30');
+        &:active {
+          background-image: url('@{imgServerUrl}/buttom2_2.png?imageView2/0/q/30');
+        }
+      }
+    }
+    .popups-close {
+      position: absolute;
+      right: 0;
+      top: 3%;
+      z-index: 40;
+      img {
+        width: 60%;
+      }
+    }
+  }
+}
+@keyframes upDown {
+  0% {
+    transform: translateY(-8px);
+  }
+  50% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(8px);
+  }
+}
+</style>
