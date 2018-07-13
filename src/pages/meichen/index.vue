@@ -323,12 +323,7 @@ export default {
         z-index: 99;
         .page5 {
           width: 100%;
-          position: absolute;
-          margin: auto;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
+          position: relative;
           z-index: 100;
         }
         .p5button {
