@@ -78,7 +78,6 @@
         </div>
         <div class="swiper-slide">
           <div class="slide-page5">
-            
             <img
               class="top"
               :src="serverUrl + 'page5-bg-top.jpg' + this.qiniuCompress()" />
@@ -93,6 +92,12 @@
             <img
               class="bottom"
               :src="serverUrl + 'page5-bg-bottom.png'" />
+          </div>
+        </div><div class="swiper-slide">
+          <div class="slide-page5">
+            <img
+              class="qr-code-top" 
+              src="http://cdn.exe666.com/fe/marketing/meichen/page5-qr.jpg" />
           </div>
         </div>
       </div>
@@ -344,6 +349,10 @@ export default {
         }
         .bottom {
           width: 100%;
+        }
+        .qr-code-top {
+          z-index: 300;
+          width: 40%;
         }
       }
     }
