@@ -85,12 +85,12 @@
               @click="handleMapJump"
               class="p5button"
               :src="serverUrl + 'page5-button.png'" />
-            <img
+            <!-- <img
               class="qr-code" 
-              src="http://cdn.exe666.com/fe/marketing/meichen/page5-qr.jpg" />
+              src="http://cdn.exe666.com/fe/marketing/meichen/page5-qr.png" /> -->
             <img
               class="bottom"
-              :src="serverUrl + 'page5-bg-bottom.png'" />
+              :src="serverUrl + 'bottom-qr.png'" />
           </div>
         </div>
       </div>
