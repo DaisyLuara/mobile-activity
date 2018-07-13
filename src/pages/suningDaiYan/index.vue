@@ -108,15 +108,15 @@ export default {
     document.body.addEventListener('touchstart', function() {})
     this.iphoneX = this.innerHeight() > 672 ? true : false
     this.inputHeight = Math.floor(this.innerWidth() * 0.6 / 447 * 109)
-    
+    this.handleWechatAuth()
+    this.getInfoById()
     if (isInWechat() === true) {
-      if (
-        process.env.NODE_ENV === 'production' ||
-        process.env.NODE_ENV === 'test'
-      ) {
-        this.handleWechatAuth()
-      }
-      this.getInfoById()
+      // if (
+      //   process.env.NODE_ENV === 'production' ||
+      //   process.env.NODE_ENV === 'test'
+      // ) {
+      //   this.handleWechatAuth()
+      // }
       // this.handleWechatAuth()
       $_wechat()
         .then(res => {
@@ -226,6 +226,7 @@ export default {
         window.location.href = redirct_url
       } else {
         getWxUserInfo().then(r => {
+          alert(r.data.nickname)
           this.nickname = r.data.nickname
         })
       }
