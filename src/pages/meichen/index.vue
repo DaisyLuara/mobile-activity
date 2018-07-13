@@ -379,6 +379,7 @@ export default {
         .page5-button {
           position: absolute;
           z-index: 200;
+          animation: flash 2s infinite;
         }
       }
     }
@@ -430,6 +431,20 @@ export default {
   to {
     opacity: 0;
     -webkit-transform: translateY(10px);
+  }
+}
+@keyframes flash {
+  0% {
+    filter: opacity(1);
+  }
+  40% {
+    filter: opacity(0.7);
+  }
+  60% {
+    filter: opacity(1);
+  }
+  100% {
+    filter: opacity(1);
   }
 }
 </style>
