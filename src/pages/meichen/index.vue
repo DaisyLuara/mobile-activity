@@ -82,19 +82,16 @@
           </div>
         </div>
         <div class="swiper-slide">
+         
           <div class="slide-page5">
+             <img
+              @click="handleMapJump"
+              class="p5button"
+              :style="style.p5button"
+              :src="serverUrl + 'page5-button.png'" />
             <img
               class="page5"
-              v-lazy="serverUrl + 'page5-bg.png'" />
-            <img
-              @click="handleMapJump"
-              :style="style.p5button"
-              class="page5-button"
-              :src="serverUrl + 'page5-button.png' + this.qiniuCompress()" />
-            <!-- <img
-              @click="handlePageToNext()"
-              class="arrow"
-              :src="serverUrl + 'arrow-black.png' + this.qiniuCompress()" /> -->
+              :src="serverUrl + 'page5-bg.png'" />
           </div>
         </div>
       </div>
@@ -122,8 +119,8 @@ export default {
             this.innerHeight() > 670
               ? this.innerWidth() * 1.3 + 'px'
               : this.innerWidth() * 1.1 + 'px',
-          left: this.innerWidth() * 0.25 + 'px',
-          width: this.innerWidth() * 0.5 + 'px'
+          width: this.innerWidth() * 0.5 + 'px',
+          left: this.innerWidth() * 0.25 + 'px'
         }
       },
       control: {
@@ -369,6 +366,7 @@ export default {
         height: 100%;
         position: relative;
         background-color: #1d1e27;
+        z-index: 99;
         .page5 {
           width: 100%;
           position: absolute;
@@ -377,11 +375,12 @@ export default {
           left: 0;
           right: 0;
           bottom: 0;
+          z-index: 100;
         }
-        .page5-button {
+        .p5button {
           position: absolute;
           z-index: 200;
-          animation: flash 2s infinite;
+          animation: button 2s infinite;
         }
       }
     }
@@ -435,12 +434,12 @@ export default {
     -webkit-transform: translateY(10px);
   }
 }
-@keyframes flash {
+@keyframes button {
   0% {
     filter: opacity(1);
   }
   40% {
-    filter: opacity(0.5);
+    filter: opacity(0.2);
   }
   60% {
     filter: opacity(1);
