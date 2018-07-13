@@ -141,6 +141,17 @@ const Date201807 = [
       desc: '结果页面'
     },
     isAbandoned: false
+  },
+  {
+    path: 'suning_dy',
+    location: 'suningDaiYan/index',
+    name: 'suningDaiYan',
+    meta: {
+      title: '我和杨洋一起为苏宁代言',
+      author: 'Joy',
+      desc: '苏宁代言结果页'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201807
