@@ -87,9 +87,8 @@
               class="p5button"
               :style="style.p5button"
               :src="serverUrl + 'page5-button.png'" />
-            <div class="qr-code">
-              <img
-              :src="serverUrl + 'page5-qr.jpg'" />
+            <div
+              class="qr-code">
             </div>
             <img
               class="bottom"
@@ -324,7 +323,7 @@ export default {
       }
       .slide-page5 {
         width: 100%;
-        height: 100vh;
+        height: 100%;
         position: relative;
         background-color: #1d1e27;
         display: flex;
@@ -336,12 +335,12 @@ export default {
         }
         .qr-code {
           z-index: 300;
-          width: 36%;
+          width: 36vw;
+          height: 36vw;
           margin-bottom: -16%;
           border: 5px solid #1d1e27;
-          img {
-            width: 100%;
-          }
+          background-image: url('http://cdn.exe666.com/fe/marketing/meichen/page5-qr.jpg');
+          background-size: contain;
         }
         .p5button {
           animation: button 2s infinite;
