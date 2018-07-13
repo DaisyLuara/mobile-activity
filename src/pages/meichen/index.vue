@@ -208,6 +208,8 @@ export default {
               reject(_)
               // console.warn(_.message)
             })
+        } else {
+          resolve()
         }
       })
     }
