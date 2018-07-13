@@ -84,7 +84,6 @@
             <img
               @click="handleMapJump"
               class="p5button"
-              :style="style.p5button"
               :src="serverUrl + 'page5-button.png'" />
             <img
               class="qr-code" 
@@ -92,11 +91,8 @@
             <img
               class="bottom"
               :src="serverUrl + 'page5-bg-bottom.png'" />
-          </div>
-        </div><div class="swiper-slide">
-          <div class="slide-page5">
             <img
-              class="qr-code-top" 
+              class="qr-code-real" 
               src="http://cdn.exe666.com/fe/marketing/meichen/page5-qr.jpg" />
           </div>
         </div>
@@ -340,19 +336,24 @@ export default {
         }
         .qr-code {
           z-index: 300;
-          width: 40%;
+          width: 36%;
           margin-bottom: -16%;
         }
         .p5button {
           animation: button 2s infinite;
           z-index: 200;
+          width: 42%;
+          margin-bottom: 5%;
         }
         .bottom {
           width: 100%;
         }
-        .qr-code-top {
-          z-index: 300;
+        .qr-code-real {
+          z-index: 20000;
           width: 40%;
+          position: absolute;
+          bottom: 10%;
+          opacity: 0;
         }
       }
     }
