@@ -8,8 +8,8 @@
     <img 
       class="frame"
       :src="imgUrl+'frame.png'+ this.qiniuCompress()">
-    <!-- <img  :src="resultImgUrl + this.qiniuCompress()" alt="" class="photo"/> -->
-    <img  class="photo" src="http://o9xrbl1oc.bkt.clouddn.com/1007/image/1492786765568.jpg" alt="" v-if="!compound"/>
+    <img :src="resultImgUrl + this.qiniuCompress()" alt="" class="photo" v-if="!compound"/>
+    <!-- <img  class="photo" src="http://o9xrbl1oc.bkt.clouddn.com/1007/image/1492786765568.jpg" alt="" v-if="!compound"/> -->
     <div class="btn1" @click="showDialog = true" v-if="!compound" :style="style.btn2"></div>
     <a class="btn3" v-if="compound" :style="style.btn2" href="https://res.m.suning.com/project/zhaoji/activiteDetails_1.html?activityCode=1885230077&storeType=2&storeCode=10003701"></a>
     <img 
@@ -57,10 +57,9 @@ import {
   $_wechat,
   isInWechat,
   Cookies,
+  getInfoById,
   wechatShareTrack,
-  basicTrack,
-  getWxUserInfo,
-  randomIntNum
+  getWxUserInfo
 } from 'services'
 const imgUrl = process.env.CDN_URL
 export default {
@@ -109,6 +108,7 @@ export default {
     document.body.addEventListener('touchstart', function() {})
     this.iphoneX = this.innerHeight() > 672 ? true : false
     this.inputHeight = Math.floor(this.innerWidth() * 0.6 / 447 * 109)
+    
     if (isInWechat() === true) {
       if (
         process.env.NODE_ENV === 'production' ||
@@ -116,6 +116,7 @@ export default {
       ) {
         this.handleWechatAuth()
       }
+      this.getInfoById()
       // this.handleWechatAuth()
       $_wechat()
         .then(res => {
@@ -178,6 +179,16 @@ export default {
           }
         })
     },
+    getInfoById() {
+      let id = this.$route.query.id
+      getInfoById(id)
+        .then(res => {
+          this.resultImgUrl = res.image
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    },
     drawingText() {
       let canvas = document.getElementById('canvas')
       let ctx = canvas.getContext('2d')
@@ -216,10 +227,7 @@ export default {
         window.location.href = redirct_url
       } else {
         getWxUserInfo().then(r => {
-          console.log(r.data)
           this.nickname = r.data.nickname
-          this.isLoading = false
-          // this.drawing()
         })
       }
     }
