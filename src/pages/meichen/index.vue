@@ -91,9 +91,6 @@
             <img
               class="bottom"
               :src="serverUrl + 'page5-bg-bottom.png'" />
-            <img
-              class="qr-code-real" 
-              src="http://cdn.exe666.com/fe/marketing/meichen/page5-qr.jpg" />
           </div>
         </div>
       </div>
@@ -155,33 +152,33 @@ export default {
         // effect: 'fade'
       })
       let that = this
-      this.mySwiper.slides.on(
-        'touchstart',
-        function(e) {
-          that.startScroll = this.scrollTop
-          that.touchStart = e.targetTouches[0].pageY
-        },
-        true
-      )
-      this.mySwiper.slides.on(
-        'touchmove',
-        function(e) {
-          that.touchCurrent = e.targetTouches[0].pageY
-          let touchesDiff = that.touchCurrent - that.touchStart
-          let slide = this
-          let onlyScrolling =
-            slide.scrollHeight > slide.offsetHeight &&
-            ((touchesDiff < 0 && that.startScroll === 0) ||
-              (touchesDiff > 0 &&
-                that.startScroll === slide.scrollHeight - slide.offsetHeight) ||
-              (that.startScroll > 0 &&
-                that.startScroll < slide.scrollHeight - slide.offsetHeight))
-          if (onlyScrolling) {
-            e.stopPropagation()
-          }
-        },
-        true
-      )
+      // this.mySwiper.slides.on(
+      //   'touchstart',
+      //   function(e) {
+      //     that.startScroll = this.scrollTop
+      //     that.touchStart = e.targetTouches[0].pageY
+      //   },
+      //   true
+      // )
+      // this.mySwiper.slides.on(
+      //   'touchmove',
+      //   function(e) {
+      //     that.touchCurrent = e.targetTouches[0].pageY
+      //     let touchesDiff = that.touchCurrent - that.touchStart
+      //     let slide = this
+      //     let onlyScrolling =
+      //       slide.scrollHeight > slide.offsetHeight &&
+      //       ((touchesDiff < 0 && that.startScroll === 0) ||
+      //         (touchesDiff > 0 &&
+      //           that.startScroll === slide.scrollHeight - slide.offsetHeight) ||
+      //         (that.startScroll > 0 &&
+      //           that.startScroll < slide.scrollHeight - slide.offsetHeight))
+      //     if (onlyScrolling) {
+      //       e.stopPropagation()
+      //     }
+      //   },
+      //   true
+      // )
     },
     handlePageToNext() {
       this.mySwiper.slideNext()
@@ -209,6 +206,7 @@ export default {
 <style lang="less" scoped>
 .root {
   position: relative;
+  user-select: none;
   .swiper-container {
     width: 100%;
     height: 100%;
