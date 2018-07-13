@@ -78,14 +78,22 @@
         </div>
         <div class="swiper-slide">
           <div class="slide-page5">
+            
+            <img
+              class="top"
+              :src="serverUrl + 'page5-bg-top.jpg' + this.qiniuCompress()" />
             <img
               @click="handleMapJump"
               class="p5button"
               :style="style.p5button"
               :src="serverUrl + 'page5-button.png'" />
+            <div class="qr-code">
+              <img
+              :src="serverUrl + 'page5-qr.jpg'" />
+            </div>
             <img
-              class="page5"
-              :src="serverUrl + 'page5-bg.png'" />
+              class="bottom"
+              :src="serverUrl + 'page5-bg-bottom.png'" />
           </div>
         </div>
       </div>
@@ -316,20 +324,31 @@ export default {
       }
       .slide-page5 {
         width: 100%;
-        height: 100%;
+        height: 100vh;
         position: relative;
         background-color: #1d1e27;
         display: flex;
         flex-direction: column;
-        .page5 {
-          height: 100%;
-          position: relative;
-          z-index: 100;
+        align-items: center;
+        justify-content: space-between;
+        .top {
+          width: 100%;
+        }
+        .qr-code {
+          z-index: 300;
+          width: 36%;
+          margin-bottom: -16%;
+          border: 5px solid #1d1e27;
+          img {
+            width: 100%;
+          }
         }
         .p5button {
-          position: absolute;
           animation: button 2s infinite;
           z-index: 200;
+        }
+        .bottom {
+          width: 100%;
         }
       }
     }
