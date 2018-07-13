@@ -4,7 +4,7 @@
     :style="style.root">
     <img 
       class="bg"
-      :src="imgUrl+'bg.png'+ this.qiniuCompress()">
+      :src="imgUrl+'bg.png'+ this.qiniuCompress()" :style="style.root">
     <img 
       class="frame"
       :src="imgUrl+'frame.png'+ this.qiniuCompress()">
@@ -240,7 +240,7 @@ export default {
 .root {
   width: 100%;
   height: 100%;
-  overflow-x: hidden;
+  overflow: hidden;
   position: relative;
   user-select: none;
 
@@ -318,7 +318,7 @@ export default {
   }
   .name {
     position: absolute;
-    bottom: 29%;
+    bottom: 29.5%;
     z-index: 17;
     color: #fff;
     font-size: 18px;
