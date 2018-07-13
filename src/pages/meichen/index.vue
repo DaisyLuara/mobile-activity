@@ -47,37 +47,29 @@
         </div>
         <div class="swiper-slide">
           <div class="slide-page4">
-            <img 
-              class="page4-title" 
-              v-lazy="serverUrl + 'page4-title.png' + this.qiniuCompress()"/>
-            <div class="page4-1">
-              <img 
-                class="icon"
-                v-lazy="serverUrl + 'page4-icon-1.png' + this.qiniuCompress()" />
-              <img
-                v-lazy="serverUrl + 'page4-1.gif' + this.qiniuCompress()" />
-            </div>
-            <div class="page4-2">
-              <img 
-                class="icon"
-                v-lazy="serverUrl + 'page4-icon-2.png' + this.qiniuCompress()" />
-              <img
-                 v-lazy="serverUrl + 'page4-2.gif' + this.qiniuCompress()" />
-            </div>
-            <div class="page4-3">
-               <img 
-                class="icon"
-                v-lazy="serverUrl + 'page4-icon-3.png' + this.qiniuCompress()" />
-              <img
-                 v-lazy="serverUrl + 'page4-3.gif' + this.qiniuCompress()" />
-            </div>
-            <div class="page4-4">
-              <img
-                v-lazy="serverUrl + 'page4-4.png' + this.qiniuCompress()" />
-            </div>
+            <img
+              class="page4"
+              v-lazy="serverUrl + 'page4-1.png' + this.qiniuCompress()">
+            <img
+              class="page4"
+              v-lazy="serverUrl + 'page4-2.png' + this.qiniuCompress()">
             <img
               @click="handlePageToNext()"
-              class="arrow-long"
+              class="arrow"
+              v-lazy="serverUrl + 'arrow-red.png' + this.qiniuCompress()" />
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="slide-page4">
+            <img
+              class="page4-2"
+              v-lazy="serverUrl + 'page4-3.png' + this.qiniuCompress()">
+            <img
+              class="page4-1"
+              v-lazy="serverUrl + 'page4-4.png' + this.qiniuCompress()">
+            <img
+              @click="handlePageToNext()"
+              class="arrow"
               v-lazy="serverUrl + 'arrow-red.png' + this.qiniuCompress()" />
           </div>
         </div>
@@ -294,71 +286,23 @@ export default {
       }
       .slide-page4 {
         width: 100%;
+        height: 100%;
         position: relative;
         background-color: #ffffff;
-        .page4-title {
-          position: relative;
-          width: 80%;
-          margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        .page4 {
+          width: 90%;
+          margin: 10% 0;
         }
         .page4-1 {
-          position: relative;
-          width: 90%;
-          margin: 10% auto;
-          img {
-            width: 100%;
-          }
-          .icon {
-            position: absolute;
-            margin: 0 auto;
-            top: -14%;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            width: 14%;
-          }
+          width: 100%;
         }
         .page4-2 {
-          position: relative;
           width: 90%;
-          margin: 10% auto;
-          img {
-            width: 100%;
-          }
-          .icon {
-            position: absolute;
-            margin: 0 auto;
-            top: -14%;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            width: 14%;
-          }
-        }
-        .page4-3 {
-          position: relative;
-          width: 90%;
-          margin: 10% auto;
-          img {
-            width: 100%;
-          }
-          .icon {
-            position: absolute;
-            margin: 0 auto;
-            top: -14%;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            width: 14%;
-          }
-        }
-        .page4-4 {
-          position: relative;
-          width: 100%;
-          margin: 10% auto;
-          img {
-            width: 100%;
-          }
+          margin: 2% 0;
         }
       }
       .slide-page5 {
@@ -391,7 +335,7 @@ export default {
   margin: auto;
   left: 0;
   right: 0;
-  bottom: 7%;
+  bottom: 6%;
   width: 7%;
   z-index: 1000;
   animation: start 1.5s infinite ease-in-out;
