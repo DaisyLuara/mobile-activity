@@ -5,11 +5,11 @@
         <img class="wow" :src="IMGURL + 'wow.png'"/>
         <img class="message" :src="IMGURL + 'qiaoen.png'"/>
       </div>
-      <div class="picture">
-        <img class="photo" :src="mImg + this.qiniuCompress()"/>
+      <div class="picture" v-show="later">
+        <img class="photo" :src="mImg"/>
       </div>
-      <img class="note" :src="IMGURL + 'prompt.png'"/>
-      <img class="date" :src="IMGURL + 'date.png'"/>
+      <img class="note" :src="IMGURL + 'prompt.png'" v-show="later" />
+      <img class="date" :src="IMGURL + 'date.png'" v-show="later" />
     </div>
 </template>
 <script>
@@ -29,9 +29,10 @@ export default {
       },
       //微信分享
       wxShareInfo: {
-        title: '屏照片到店即刻领好礼',
+        title: '凭照片到店即刻领好礼',
         desc: '还不赶快行动',
-        imgUrl: this.IMGURL + 'qiaoen_share.png'
+        imgUrl:
+          'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/wdenglish/qiaoen_share.png'
       }
     }
   },
@@ -62,6 +63,7 @@ export default {
       getInfoById(id)
         .then(res => {
           this.mImg = res.image
+          this.later = true
         })
         .catch(e => {
           console.log(e)
