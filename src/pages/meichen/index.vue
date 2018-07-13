@@ -77,16 +77,15 @@
           </div>
         </div>
         <div class="swiper-slide">
-         
           <div class="slide-page5">
-             <img
+            <img
               @click="handleMapJump"
               class="p5button"
               :style="style.p5button"
               :src="serverUrl + 'page5-button.png'" />
             <img
               class="page5"
-              v-lazy="serverUrl + 'page5-bg.png'" />
+              :src="serverUrl + 'page5-bg.png'" />
           </div>
         </div>
       </div>
@@ -145,6 +144,7 @@ export default {
     handleSwiperInit() {
       this.mySwiper = new Swiper('.swiper-container', {
         direction: 'vertical'
+        // effect: 'fade'
       })
       let that = this
       this.mySwiper.slides.on(
@@ -177,6 +177,7 @@ export default {
     },
     handlePageToNext() {
       this.mySwiper.slideNext()
+      console.log('slide to next')
     },
     init() {
       this.handleWechatShare()
@@ -210,6 +211,16 @@ export default {
     width: 100%;
     position: relative;
     .swiper-slide {
+      .arrow {
+        position: absolute;
+        margin: auto;
+        left: 0;
+        right: 0;
+        bottom: 6%;
+        width: 7%;
+        z-index: 1000;
+        animation: start 1.5s infinite ease-in-out;
+      }
       height: 100%;
       width: 100%;
       text-align: center;
@@ -308,40 +319,21 @@ export default {
         height: 100%;
         position: relative;
         background-color: #1d1e27;
-        z-index: 99;
+        display: flex;
+        flex-direction: column;
         .page5 {
-          width: 100%;
+          height: 100%;
           position: relative;
           z-index: 100;
         }
         .p5button {
           position: absolute;
-          z-index: 200;
           animation: button 2s infinite;
+          z-index: 200;
         }
       }
     }
   }
-}
-.arrow {
-  position: absolute;
-  margin: auto;
-  left: 0;
-  right: 0;
-  bottom: 6%;
-  width: 7%;
-  z-index: 1000;
-  animation: start 1.5s infinite ease-in-out;
-}
-.arrow-long {
-  position: absolute;
-  margin: auto;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 7%;
-  z-index: 1000;
-  animation: start 1.5s infinite ease-in-out;
 }
 @keyframes sc {
   0% {
