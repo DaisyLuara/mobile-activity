@@ -3,7 +3,7 @@
     <div class="swiper-container" id="Jswiper">
       <div class="swiper-wrapper">
         <div class="swiper-slide">
-          <div class="slide-page1" :style="style.root">
+          <div class="slide-page1">
             <img
               class="page1-header" 
               v-lazy="serverUrl + 'page1-1.png' + this.qiniuCompress()" />
@@ -49,11 +49,11 @@
               class="page4-1" :src="serverUrl + 'page4-title.png' + this.qiniuCompress()" />
             <div class="page4">
               <img class="number-icon" :src="serverUrl + 'page4-icon-1.png' + this.qiniuCompress()" />
-              <img :src="serverUrl + 'page4-1.png' + this.qiniuCompress()" />
+              <img v-lazy="serverUrl + 'page4-1.png' + this.qiniuCompress()" />
             </div>
             <div class="page4">
               <img class="number-icon" :src="serverUrl + 'page4-icon-2.png' + this.qiniuCompress()" />
-              <img :src="serverUrl + 'page4-2.png' + this.qiniuCompress()">
+              <img v-lazy="serverUrl + 'page4-2.png' + this.qiniuCompress()">
             </div>
             <img
               @click="handlePageToNext()"
@@ -65,11 +65,11 @@
           <div class="slide-page4">
             <div class="page4">
               <img class="number-icon" v-lazy="serverUrl + 'page4-icon-3.png' + this.qiniuCompress()" />
-              <img :src="serverUrl + 'page4-3.png' + this.qiniuCompress()">
+              <img v-lazy="serverUrl + 'page4-3.png' + this.qiniuCompress()">
             </div>
             <img
               class="page4-1"
-              :src="serverUrl + 'page4-4.png' + this.qiniuCompress()">
+              v-lazy="serverUrl + 'page4-4.png' + this.qiniuCompress()">
             <img
               @click="handlePageToNext()"
               class="arrow"
@@ -86,7 +86,7 @@
               :src="serverUrl + 'page5-button.png'" />
             <img
               class="page5"
-              :src="serverUrl + 'page5-bg.png'" />
+              v-lazy="serverUrl + 'page5-bg.png'" />
           </div>
         </div>
       </div>
@@ -112,7 +112,7 @@ export default {
         p5button: {
           top:
             this.innerHeight() > 670
-              ? this.innerWidth() * 1.3 + 'px'
+              ? this.innerWidth() * 1.1 + 'px'
               : this.innerWidth() * 1.1 + 'px',
           width: this.innerWidth() * 0.5 + 'px',
           left: this.innerWidth() * 0.25 + 'px'
@@ -143,67 +143,55 @@ export default {
       window.location.href = 'http://f.amap.com/16BNZ_0A42RPm'
     },
     handleSwiperInit() {
-      return new Promise((resolve, reject) => {
-        this.mySwiper = new Swiper('.swiper-container', {
-          direction: 'vertical'
-        })
-        let that = this
-        this.mySwiper.slides.on(
-          'touchstart',
-          function(e) {
-            that.startScroll = this.scrollTop
-            that.touchStart = e.targetTouches[0].pageY
-          },
-          true
-        )
-        this.mySwiper.slides.on(
-          'touchmove',
-          function(e) {
-            that.touchCurrent = e.targetTouches[0].pageY
-            let touchesDiff = that.touchCurrent - that.touchStart
-            let slide = this
-            let onlyScrolling =
-              slide.scrollHeight > slide.offsetHeight &&
-              ((touchesDiff < 0 && that.startScroll === 0) ||
-                (touchesDiff > 0 &&
-                  that.startScroll ===
-                    slide.scrollHeight - slide.offsetHeight) ||
-                (that.startScroll > 0 &&
-                  that.startScroll < slide.scrollHeight - slide.offsetHeight))
-            if (onlyScrolling) {
-              e.stopPropagation()
-            }
-          },
-          true
-        )
-        resolve()
+      this.mySwiper = new Swiper('.swiper-container', {
+        direction: 'vertical'
       })
+      let that = this
+      this.mySwiper.slides.on(
+        'touchstart',
+        function(e) {
+          that.startScroll = this.scrollTop
+          that.touchStart = e.targetTouches[0].pageY
+        },
+        true
+      )
+      this.mySwiper.slides.on(
+        'touchmove',
+        function(e) {
+          that.touchCurrent = e.targetTouches[0].pageY
+          let touchesDiff = that.touchCurrent - that.touchStart
+          let slide = this
+          let onlyScrolling =
+            slide.scrollHeight > slide.offsetHeight &&
+            ((touchesDiff < 0 && that.startScroll === 0) ||
+              (touchesDiff > 0 &&
+                that.startScroll === slide.scrollHeight - slide.offsetHeight) ||
+              (that.startScroll > 0 &&
+                that.startScroll < slide.scrollHeight - slide.offsetHeight))
+          if (onlyScrolling) {
+            e.stopPropagation()
+          }
+        },
+        true
+      )
     },
     handlePageToNext() {
       this.mySwiper.slideNext()
     },
-    async init() {
-      await this.handleWechatShare().catch(_ => {
-        console.warn(_.message)
-      })
-      await this.handleSwiperInit()
+    init() {
+      this.handleWechatShare()
+      this.handleSwiperInit()
     },
     handleWechatShare() {
-      return new Promise((resolve, reject) => {
-        if (isInWechat() === true) {
-          $_wechat()
-            .then(res => {
-              res.share(this.wxShareInfo)
-              resolve()
-            })
-            .catch(_ => {
-              reject(_)
-              // console.warn(_.message)
-            })
-        } else {
-          resolve()
-        }
-      })
+      if (isInWechat() === true) {
+        $_wechat()
+          .then(res => {
+            res.share(this.wxShareInfo)
+          })
+          .catch(_ => {
+            console.warn(_.message)
+          })
+      }
     }
   }
 }
@@ -223,11 +211,13 @@ export default {
     position: relative;
     .swiper-slide {
       height: 100%;
+      width: 100%;
       text-align: center;
       overflow: auto;
       -webkit-overflow-scrolling: touch;
       .slide-page1 {
         width: 100%;
+        height: 100%;
         position: relative;
         display: flex;
         flex-direction: column;
@@ -288,9 +278,6 @@ export default {
         }
       }
       .slide-page4 {
-        &.exp {
-          padding-bottom: 20%;
-        }
         width: 100%;
         height: 100%;
         position: relative;
@@ -309,6 +296,7 @@ export default {
         }
         .page4-1 {
           width: 100%;
+          margin-top: -10%;
         }
         .page4-2 {
           width: 90%;
