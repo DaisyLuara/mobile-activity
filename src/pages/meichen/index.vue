@@ -3,13 +3,11 @@
     <div class="swiper-container" id="Jswiper">
       <div class="swiper-wrapper">
         <div class="swiper-slide">
-          <div class="slide-page1" :style="style.root">
+          <div class="slide-page1">
             <img
               class="page1-header" 
               v-lazy="serverUrl + 'page1-1.png' + this.qiniuCompress()" />
             <div class="page1-title">
-              <img
-              v-lazy="serverUrl+ 'page1-2.png' + this.qiniuCompress()" />
             </div>
             <img
               class="page1-footer"
@@ -46,55 +44,53 @@
           </div>
         </div>
         <div class="swiper-slide">
-          <div class="slide-page4">
-            <img 
-              class="page4-title" 
-              v-lazy="serverUrl + 'page4-title.png' + this.qiniuCompress()"/>
-            <div class="page4-1">
-              <img 
-                class="icon"
-                v-lazy="serverUrl + 'page4-icon-1.png' + this.qiniuCompress()" />
-              <img
-                v-lazy="serverUrl + 'page4-1.gif' + this.qiniuCompress()" />
+          <div class="slide-page4 exp">
+             <img
+              class="page4-1" :src="serverUrl + 'page4-title.png' + this.qiniuCompress()" />
+            <div class="page4">
+              <img class="number-icon" :src="serverUrl + 'page4-icon-1.png' + this.qiniuCompress()" />
+              <img v-lazy="serverUrl + 'page4-1.png' + this.qiniuCompress()" />
             </div>
-            <div class="page4-2">
-              <img 
-                class="icon"
-                v-lazy="serverUrl + 'page4-icon-2.png' + this.qiniuCompress()" />
-              <img
-                 v-lazy="serverUrl + 'page4-2.gif' + this.qiniuCompress()" />
-            </div>
-            <div class="page4-3">
-               <img 
-                class="icon"
-                v-lazy="serverUrl + 'page4-icon-3.png' + this.qiniuCompress()" />
-              <img
-                 v-lazy="serverUrl + 'page4-3.gif' + this.qiniuCompress()" />
-            </div>
-            <div class="page4-4">
-              <img
-                v-lazy="serverUrl + 'page4-4.png' + this.qiniuCompress()" />
+            <div class="page4">
+              <img class="number-icon" :src="serverUrl + 'page4-icon-2.png' + this.qiniuCompress()" />
+              <img v-lazy="serverUrl + 'page4-2.png' + this.qiniuCompress()">
             </div>
             <img
               @click="handlePageToNext()"
-              class="arrow-long"
-              v-lazy="serverUrl + 'arrow-red.png' + this.qiniuCompress()" />
+              class="arrow"
+              :src="serverUrl + 'arrow-red.png' + this.qiniuCompress()" />
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="slide-page4">
+            <div class="page4">
+              <img class="number-icon" v-lazy="serverUrl + 'page4-icon-3.png' + this.qiniuCompress()" />
+              <img v-lazy="serverUrl + 'page4-3.png' + this.qiniuCompress()">
+            </div>
+            <img
+              class="page4-1"
+              v-lazy="serverUrl + 'page4-4.png' + this.qiniuCompress()">
+            <img
+              @click="handlePageToNext()"
+              class="arrow"
+              :src="serverUrl + 'arrow-red.png' + this.qiniuCompress()" />
           </div>
         </div>
         <div class="swiper-slide">
           <div class="slide-page5">
             <img
-              class="page5"
-              v-lazy="serverUrl + 'page5-bg.png' + this.qiniuCompress()" />
+              class="top"
+              :src="serverUrl + 'page5-bg-top.jpg' + this.qiniuCompress()" />
             <img
               @click="handleMapJump"
-              :style="style.p5button"
-              class="page5-button"
-              v-lazy="serverUrl + 'page5-button.png' + this.qiniuCompress()" />
+              class="p5button"
+              :src="serverUrl + 'page5-button.png'" />
             <!-- <img
-              @click="handlePageToNext()"
-              class="arrow"
-              :src="serverUrl + 'arrow-black.png' + this.qiniuCompress()" /> -->
+              class="qr-code" 
+              src="http://cdn.exe666.com/fe/marketing/meichen/page5-qr.png" /> -->
+            <img
+              class="bottom"
+              :src="serverUrl + 'bottom-qr.png'" />
           </div>
         </div>
       </div>
@@ -120,10 +116,10 @@ export default {
         p5button: {
           top:
             this.innerHeight() > 670
-              ? this.innerWidth() * 1.3 + 'px'
+              ? this.innerWidth() * 1.1 + 'px'
               : this.innerWidth() * 1.1 + 'px',
-          left: this.innerWidth() * 0.25 + 'px',
-          width: this.innerWidth() * 0.5 + 'px'
+          width: this.innerWidth() * 0.5 + 'px',
+          left: this.innerWidth() * 0.25 + 'px'
         }
       },
       control: {
@@ -151,65 +147,57 @@ export default {
       window.location.href = 'http://f.amap.com/16BNZ_0A42RPm'
     },
     handleSwiperInit() {
-      return new Promise((resolve, reject) => {
-        this.mySwiper = new Swiper('.swiper-container', {
-          direction: 'vertical'
-        })
-        let that = this
-        this.mySwiper.slides.on(
-          'touchstart',
-          function(e) {
-            that.startScroll = this.scrollTop
-            that.touchStart = e.targetTouches[0].pageY
-          },
-          true
-        )
-        this.mySwiper.slides.on(
-          'touchmove',
-          function(e) {
-            that.touchCurrent = e.targetTouches[0].pageY
-            let touchesDiff = that.touchCurrent - that.touchStart
-            let slide = this
-            let onlyScrolling =
-              slide.scrollHeight > slide.offsetHeight &&
-              ((touchesDiff < 0 && that.startScroll === 0) ||
-                (touchesDiff > 0 &&
-                  that.startScroll ===
-                    slide.scrollHeight - slide.offsetHeight) ||
-                (that.startScroll > 0 &&
-                  that.startScroll < slide.scrollHeight - slide.offsetHeight))
-            if (onlyScrolling) {
-              e.stopPropagation()
-            }
-          },
-          true
-        )
-        resolve()
+      this.mySwiper = new Swiper('.swiper-container', {
+        direction: 'vertical'
+        // effect: 'fade'
       })
+      let that = this
+      // this.mySwiper.slides.on(
+      //   'touchstart',
+      //   function(e) {
+      //     that.startScroll = this.scrollTop
+      //     that.touchStart = e.targetTouches[0].pageY
+      //   },
+      //   true
+      // )
+      // this.mySwiper.slides.on(
+      //   'touchmove',
+      //   function(e) {
+      //     that.touchCurrent = e.targetTouches[0].pageY
+      //     let touchesDiff = that.touchCurrent - that.touchStart
+      //     let slide = this
+      //     let onlyScrolling =
+      //       slide.scrollHeight > slide.offsetHeight &&
+      //       ((touchesDiff < 0 && that.startScroll === 0) ||
+      //         (touchesDiff > 0 &&
+      //           that.startScroll === slide.scrollHeight - slide.offsetHeight) ||
+      //         (that.startScroll > 0 &&
+      //           that.startScroll < slide.scrollHeight - slide.offsetHeight))
+      //     if (onlyScrolling) {
+      //       e.stopPropagation()
+      //     }
+      //   },
+      //   true
+      // )
     },
     handlePageToNext() {
       this.mySwiper.slideNext()
+      console.log('slide to next')
     },
-    async init() {
-      await this.handleWechatShare().catch(_ => {
-        console.warn(_.message)
-      })
-      await this.handleSwiperInit()
+    init() {
+      this.handleWechatShare()
+      this.handleSwiperInit()
     },
     handleWechatShare() {
-      return new Promise((resolve, reject) => {
-        if (isInWechat() === true) {
-          $_wechat()
-            .then(res => {
-              res.share(this.wxShareInfo)
-              resolve()
-            })
-            .catch(_ => {
-              reject(_)
-              // console.warn(_.message)
-            })
-        }
-      })
+      if (isInWechat() === true) {
+        $_wechat()
+          .then(res => {
+            res.share(this.wxShareInfo)
+          })
+          .catch(_ => {
+            console.warn(_.message)
+          })
+      }
     }
   }
 }
@@ -218,6 +206,7 @@ export default {
 <style lang="less" scoped>
 .root {
   position: relative;
+  user-select: none;
   .swiper-container {
     width: 100%;
     height: 100%;
@@ -228,12 +217,24 @@ export default {
     width: 100%;
     position: relative;
     .swiper-slide {
+      .arrow {
+        position: absolute;
+        margin: auto;
+        left: 0;
+        right: 0;
+        bottom: 6%;
+        width: 7%;
+        z-index: 1000;
+        animation: start 1.5s infinite ease-in-out;
+      }
       height: 100%;
+      width: 100%;
       text-align: center;
       overflow: auto;
       -webkit-overflow-scrolling: touch;
       .slide-page1 {
         width: 100%;
+        height: 100%;
         position: relative;
         display: flex;
         flex-direction: column;
@@ -244,10 +245,10 @@ export default {
         }
         .page1-title {
           width: 100%;
+          height: 100%;
           overflow: hidden;
-          img {
-            height: 100%;
-          }
+          background-size: cover;
+          background-image: url('http://cdn.exe666.com/fe/marketing/meichen/page1-2.png?imageView2/0/q/30');
         }
         .page1-footer {
           width: 100%;
@@ -295,71 +296,28 @@ export default {
       }
       .slide-page4 {
         width: 100%;
+        height: 100%;
         position: relative;
         background-color: #ffffff;
-        .page4-title {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        .page4 {
+          width: 90%;
+          margin: 4% 0;
           position: relative;
-          width: 80%;
-          margin: 0 auto;
+          img {
+            width: 100%;
+          }
         }
         .page4-1 {
-          position: relative;
-          width: 90%;
-          margin: 10% auto;
-          img {
-            width: 100%;
-          }
-          .icon {
-            position: absolute;
-            margin: 0 auto;
-            top: -14%;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            width: 14%;
-          }
+          width: 100%;
+          margin-top: -10%;
         }
         .page4-2 {
-          position: relative;
           width: 90%;
-          margin: 10% auto;
-          img {
-            width: 100%;
-          }
-          .icon {
-            position: absolute;
-            margin: 0 auto;
-            top: -14%;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            width: 14%;
-          }
-        }
-        .page4-3 {
-          position: relative;
-          width: 90%;
-          margin: 10% auto;
-          img {
-            width: 100%;
-          }
-          .icon {
-            position: absolute;
-            margin: 0 auto;
-            top: -14%;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            width: 14%;
-          }
-        }
-        .page4-4 {
-          position: relative;
-          width: 100%;
-          margin: 10% auto;
-          img {
-            width: 100%;
-          }
+          margin: 2% 0;
         }
       }
       .slide-page5 {
@@ -367,42 +325,37 @@ export default {
         height: 100%;
         position: relative;
         background-color: #1d1e27;
-        .page5 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        .top {
           width: 100%;
-          position: absolute;
-          margin: auto;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
         }
-        .page5-button {
-          position: absolute;
+        .qr-code {
+          z-index: 300;
+          width: 36%;
+          margin-bottom: -16%;
+        }
+        .p5button {
+          animation: button 2s infinite;
           z-index: 200;
+          width: 42%;
+          margin-bottom: 5%;
+        }
+        .bottom {
+          width: 100%;
+        }
+        .qr-code-real {
+          z-index: 20000;
+          width: 40%;
+          position: absolute;
+          bottom: 10%;
+          opacity: 0;
         }
       }
     }
   }
-}
-.arrow {
-  position: absolute;
-  margin: auto;
-  left: 0;
-  right: 0;
-  bottom: 7%;
-  width: 7%;
-  z-index: 1000;
-  animation: start 1.5s infinite ease-in-out;
-}
-.arrow-long {
-  position: absolute;
-  margin: auto;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 7%;
-  z-index: 1000;
-  animation: start 1.5s infinite ease-in-out;
 }
 @keyframes sc {
   0% {
@@ -431,5 +384,25 @@ export default {
     opacity: 0;
     -webkit-transform: translateY(10px);
   }
+}
+@keyframes button {
+  0% {
+    filter: opacity(1);
+  }
+  40% {
+    filter: opacity(0.2);
+  }
+  60% {
+    filter: opacity(1);
+  }
+  100% {
+    filter: opacity(1);
+  }
+}
+.number-icon {
+  position: absolute;
+  top: -10%;
+  left: 45%;
+  width: 10% !important;
 }
 </style>
