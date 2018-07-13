@@ -116,6 +116,8 @@ export default {
       ) {
         this.handleWechatAuth()
       }
+        // this.handleWechatAuth()
+      
       $_wechat()
         .then(res => {
           res.share(this.wxShareInfo)
@@ -316,7 +318,7 @@ export default {
   .name {
     position: absolute;
     bottom: 29.5%;
-    z-index: 30;
+    z-index: 300;
     color: #fff;
     font-size: 18px;
     letter-spacing: 3px;
@@ -329,7 +331,7 @@ export default {
   .x-name {
     position: absolute;
     bottom: 27.5%;
-    z-index: 30;
+    z-index: 300;
     color: #fff;
     font-size: 18px;
     letter-spacing: 3px;
@@ -372,7 +374,7 @@ export default {
     width: 100%;
     height: 100%;
     background-color: #000;
-    z-index: 20;
+    z-index: 400;
     opacity: 0.94;
     .popups-content {
       width: 100%;
