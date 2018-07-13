@@ -87,8 +87,9 @@
               class="p5button"
               :style="style.p5button"
               :src="serverUrl + 'page5-button.png'" />
-            <div
-              class="qr-code">
+            <div class="qr-code">
+              <img
+              :src="serverUrl + 'page5-qr.jpg'" />
             </div>
             <img
               class="bottom"
@@ -335,12 +336,12 @@ export default {
         }
         .qr-code {
           z-index: 300;
-          width: 36vw;
-          height: 36vw;
+          width: 40%;
           margin-bottom: -16%;
           border: 5px solid #1d1e27;
-          background-image: url('http://cdn.exe666.com/fe/marketing/meichen/page5-qr.jpg');
-          background-size: contain;
+          img {
+            width: 100%;
+          }
         }
         .p5button {
           animation: button 2s infinite;
