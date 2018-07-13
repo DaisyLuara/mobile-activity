@@ -85,7 +85,7 @@
           <div class="slide-page5">
             <img
               class="page5"
-              v-lazy="serverUrl + 'page5-bg.png' + this.qiniuCompress()" />
+              v-lazy="serverUrl + 'page5-bg.png'" />
             <img
               @click="handleMapJump"
               :style="style.p5button"
@@ -440,7 +440,7 @@ export default {
     filter: opacity(1);
   }
   40% {
-    filter: opacity(0.7);
+    filter: opacity(0.5);
   }
   60% {
     filter: opacity(1);
