@@ -90,7 +90,7 @@
               @click="handleMapJump"
               :style="style.p5button"
               class="page5-button"
-              v-lazy="serverUrl + 'page5-button.png' + this.qiniuCompress()" />
+              :src="serverUrl + 'page5-button.png' + this.qiniuCompress()" />
             <!-- <img
               @click="handlePageToNext()"
               class="arrow"
