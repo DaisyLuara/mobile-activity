@@ -129,7 +129,6 @@ export default {
   },
   methods: {
     compoundHandle() {
-      console.log(33)
       this.showDialog = false
       this.compound = true
       this.drawing()
@@ -145,7 +144,7 @@ export default {
         width,
         height
       })
-      let url = 'http://o9xrbl1oc.bkt.clouddn.com/1007/image/1492786765568.jpg'
+      let url = this.resultImgUrl + this.qiniuCompress()
       let that = this
       mc
         .background(url, {
