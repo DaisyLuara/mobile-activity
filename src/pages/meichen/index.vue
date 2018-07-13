@@ -8,8 +8,8 @@
               class="page1-header" 
               v-lazy="serverUrl + 'page1-1.png' + this.qiniuCompress()" />
             <div class="page1-title">
-              <img
-              v-lazy="serverUrl+ 'page1-2.png' + this.qiniuCompress()" />
+              <!-- <img
+              v-lazy="serverUrl+ 'page1-2.png' + this.qiniuCompress()" /> -->
             </div>
             <img
               class="page1-footer"
@@ -244,10 +244,10 @@ export default {
         }
         .page1-title {
           width: 100%;
+          height: 100%;
           overflow: hidden;
-          img {
-            height: 100%;
-          }
+          background-size: cover;
+          background-image: url('http://cdn.exe666.com/fe/marketing/meichen/page1-2.png?imageView2/0/q/30');
         }
         .page1-footer {
           width: 100%;
@@ -379,6 +379,7 @@ export default {
         .page5-button {
           position: absolute;
           z-index: 200;
+          animation: flash 2s infinite;
         }
       }
     }
@@ -430,6 +431,20 @@ export default {
   to {
     opacity: 0;
     -webkit-transform: translateY(10px);
+  }
+}
+@keyframes flash {
+  0% {
+    filter: opacity(1);
+  }
+  40% {
+    filter: opacity(0.7);
+  }
+  60% {
+    filter: opacity(1);
+  }
+  100% {
+    filter: opacity(1);
   }
 }
 </style>
