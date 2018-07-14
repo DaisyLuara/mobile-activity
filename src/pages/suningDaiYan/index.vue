@@ -33,21 +33,21 @@
     <canvas id="canvas" class="photo" style="display: none"></canvas>
     <!-- 弹出层 -->
     <div class="popups-wrapper" v-if="showDialog">
-    <div class="popups-content">
-      <div class="popups-close" @click="closeDialog">
-        <img :src="imgUrl+'close.png'+ this.qiniuCompress()" alt="" />
-      </div>
-      <div class="main-content" :style="style.popups">
-        <img 
-          class="popus-img5"
-          :src="imgUrl+'img5.png'+ this.qiniuCompress()">
-        <img :src="imgUrl + 'input.png'+ this.qiniuCompress()" 
-          :class="{'input-bg': !iphoneX, 'x-input-bg': iphoneX}" />
-        <input maxlength="5" v-model="text" :style="style.input" placeholder="在此输入姓名" :class="{'input-value': !iphoneX, 'x-input-value': iphoneX}"/>
-        <div @click="compoundHandle" :style="style.btn2" :class="{'btn2': !iphoneX, 'x-btn2': iphoneX}"></div>
+      <div class="popups-content">
+        <div class="popups-close" @click="closeDialog">
+          <img :src="imgUrl+'close.png'+ this.qiniuCompress()" alt="" />
+        </div>
+        <div class="main-content" :style="style.popups">
+          <img 
+            class="popus-img5"
+            :src="imgUrl+'img5.png'+ this.qiniuCompress()">
+          <img :src="imgUrl + 'input.png'+ this.qiniuCompress()" 
+            :class="{'input-bg': !iphoneX, 'x-input-bg': iphoneX}" />
+          <input maxlength="5" v-model="text" :style="style.input" placeholder="在此输入姓名" :class="{'input-value': !iphoneX, 'x-input-value': iphoneX}"/>
+          <div @click="compoundHandle" :style="style.btn2" :class="{'btn2': !iphoneX, 'x-btn2': iphoneX}"></div>
+        </div>
       </div>
     </div>
-  </div>
   </div>
 </template>
 
@@ -89,7 +89,7 @@ export default {
       iphoneX: false,
       picOrder: 0,
       inputHeight: 0,
-      nickname: '',
+      nickname: '测试名',
       isLoading: true,
       isDrawing: true,
       resultImgUrl: '',
@@ -109,6 +109,7 @@ export default {
     this.iphoneX = this.innerHeight() > 672 ? true : false
     this.inputHeight = Math.floor(this.innerWidth() * 0.6 / 447 * 109)
     this.getInfoById()
+
     if (isInWechat() === true) {
       if (
         process.env.NODE_ENV === 'production' ||
@@ -116,8 +117,8 @@ export default {
       ) {
         this.handleWechatAuth()
       }
-        // this.handleWechatAuth()
-      
+      // this.handleWechatAuth()
+
       $_wechat()
         .then(res => {
           res.share(this.wxShareInfo)
@@ -180,6 +181,9 @@ export default {
     },
     getInfoById() {
       let id = this.$route.query.id
+      // let name = this.$route.query.name
+      // this.nickname = name
+      // this.resultImgUrl ='http://o9xrbl1oc.bkt.clouddn.com/1007/image/1492786765568.jpg'
       getInfoById(id)
         .then(res => {
           this.resultImgUrl = res.image
@@ -216,6 +220,11 @@ export default {
       }
     },
     handleWechatAuth() {
+      // alert('r')
+      // getWxUserInfo().then(r => {
+      //   alert(r)
+      //     this.nickname = r.data.nickname
+      //   })
       if (Cookies.get('user_id') === null) {
         let base_url = encodeURIComponent(String(window.location.href))
         let redirct_url =
@@ -348,7 +357,7 @@ export default {
     left: 14%;
     background-size: 100% 100%;
     background-repeat: no-repeat;
-    background-image: url('@{imgServerUrl}//buttom1_1.png?v=1?imageView2/0/q/30');
+    background-image: url('@{imgServerUrl}/buttom1_1.png?v=1?imageView2/0/q/30');
     &:active {
       height: 50px;
       background-image: url('@{imgServerUrl}/buttom1_2.png?v=1?imageView2/0/q/30');
@@ -361,7 +370,7 @@ export default {
     left: 25%;
     background-size: 100% 100%;
     background-repeat: no-repeat;
-    background-image: url('@{imgServerUrl}//buttom3_1.png?imageView2/0/q/30');
+    background-image: url('@{imgServerUrl}/buttom3_1.png?imageView2/0/q/30');
     &:active {
       height: 50px;
       background-image: url('@{imgServerUrl}/buttom3_2.png?imageView2/0/q/30');
