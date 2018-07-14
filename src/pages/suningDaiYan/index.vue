@@ -87,7 +87,7 @@ export default {
       showDialog: false,
       iphoneX: false,
       inputHeight: 0,
-      nickname: '杨洋',
+      nickname: '  ',
       resultImgUrl:'',
       imgUrl: imgUrl + '/fe/marketing/img/sndy/',
       wxShareInfo: {
