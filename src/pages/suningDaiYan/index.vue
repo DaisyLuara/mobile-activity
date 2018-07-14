@@ -40,9 +40,10 @@
           <img 
             class="popus-img5"
             :src="imgUrl+'img5.png'+ this.qiniuCompress()">
+          <div v-if="errorText" :class="{'error': !iphoneX, 'x-error': iphoneX}">请输入姓名</div>
           <img :src="imgUrl + 'input.png'+ this.qiniuCompress()" 
             :class="{'input-bg': !iphoneX, 'x-input-bg': iphoneX}" />
-          <input maxlength="5" v-model="text" :style="style.input" placeholder="在此输入姓名" :class="{'input-value': !iphoneX, 'x-input-value': iphoneX}"/>
+          <input maxlength="5" v-model="text" :style="style.input" placeholder="在此输入姓名" :class="{'input-value': !iphoneX, 'x-input-value': iphoneX}" @click="errorText=false"/>
           <div @click="compoundHandle" :style="style.btn2" :class="{'btn2': !iphoneX, 'x-btn2': iphoneX}"></div>
         </div>
       </div>
@@ -78,6 +79,7 @@ export default {
           height: this.innerHeight() + 'px'
         }
       },
+      errorText: false,
       compound: false,
       text: '',
       base64Data: null,
@@ -122,12 +124,17 @@ export default {
   },
   methods: {
     compoundHandle() {
-      this.showDialog = false
-      this.compound = true
-      this.drawing()
+      if (this.text) {
+        this.showDialog = false
+        this.compound = true
+        this.drawing()
+      } else {
+        this.errorText = true
+      }
     },
     closeDialog() {
       this.showDialog = false
+      this.errorText = false
       this.text = ''
     },
     drawing() {
@@ -402,6 +409,28 @@ export default {
         left: 20%;
         user-select: none;
         pointer-events: none;
+      }
+      .error {
+        position: absolute;
+        top: 51%;
+        width: 60%;
+        left: 20%;
+        user-select: none;
+        pointer-events: none;
+        color: #e60909;
+        font-size: 14px;
+        text-align: center;
+      }
+      .x-error {
+        position: absolute;
+        top: 46%;
+        width: 60%;
+        left: 20%;
+        user-select: none;
+        pointer-events: none;
+        color: #e60909;
+        font-size: 14px;
+        text-align: center;
       }
       .x-input-value {
         background-color: transparent;
