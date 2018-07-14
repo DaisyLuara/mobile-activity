@@ -112,7 +112,6 @@ export default {
       ) {
         this.handleWechatAuth()
       }
-      // this.handleWechatAuth()
       $_wechat()
         .then(res => {
           res.share(this.wxShareInfo)
@@ -330,7 +329,7 @@ export default {
     left: 38%;
     width: 33.43%;
     text-align: center;
-    transform: rotateZ(-14deg);
+    transform: rotateZ(-16deg);
   }
   .x-name {
     position: absolute;
@@ -343,7 +342,7 @@ export default {
     left: 38%;
     width: 33.43%;
     text-align: center;
-    transform: rotateZ(-14deg);
+    transform: rotateZ(-16deg);
   }
   .btn1 {
     position: absolute;
