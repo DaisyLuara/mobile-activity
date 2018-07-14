@@ -10,7 +10,7 @@
       :src="imgUrl+'frame.png'+ this.qiniuCompress()">
     <img :src="resultImgUrl + this.qiniuCompress()" alt="" class="photo" v-if="!compound"/>
     <div class="btn1" @click="showDialog = true" v-if="!compound" :style="style.btn2"></div>
-    <a class="btn3" v-if="compound" :style="style.btn2" href="https://res.m.suning.com/project/zhaoji/activiteDetails_1.html?activityCode=1885230077&storeType=2&storeCode=10003701"></a>
+    <a class="btn3" v-if="compound" :style="style.btn2" href="http://papi.xingstation.com/api/s/RyrY"></a>
     <img 
       class="img1"
       :src="imgUrl+'img1.png'+ this.qiniuCompress()">
