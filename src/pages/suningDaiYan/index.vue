@@ -4,7 +4,7 @@
     :style="style.root">
     <img 
       class="bg"
-      :src="imgUrl+'bg.png'+ this.qiniuCompress()" :style="style.root">
+      :src="imgUrl+'bg_1.png'+ this.qiniuCompress()" :style="style.root">
     <img 
       class="frame"
       :src="imgUrl+'frame.png'+ this.qiniuCompress()">
@@ -88,7 +88,7 @@ export default {
       iphoneX: false,
       inputHeight: 0,
       nickname: '杨洋',
-      resultImgUrl: '',
+      resultImgUrl:'',
       imgUrl: imgUrl + '/fe/marketing/img/sndy/',
       wxShareInfo: {
         title: '震惊！杨洋被拍到和神秘素人在一起了！',
@@ -112,7 +112,6 @@ export default {
       ) {
         this.handleWechatAuth()
       }
-      // this.handleWechatAuth()
       $_wechat()
         .then(res => {
           res.share(this.wxShareInfo)
@@ -196,13 +195,14 @@ export default {
       let width = this.innerWidth()
       let text = this.text
       image.src = this.base64Data
-      let x = this.innerWidth() * 0.688 * 0.8
-      let y = this.innerHeight() * 0.83
+
       image.onload = function() {
-        canvas.width = width
-        canvas.height = height
-        ctx.drawImage(image, 0, 0, width, height)
-        ctx.font = '400 28px sans-serif'
+        canvas.width = image.width
+        canvas.height = image.height
+        ctx.drawImage(image, 0, 0, image.width, image.height)
+        let x = image.width * 0.688 * 0.8
+        let y = image.height * 0.83
+        ctx.font = '400 100px sans-serif'
         ctx.textAlign = 'center'
         ctx.fillStyle = '#fff'
         ctx.fillText('', x, y)
@@ -252,7 +252,7 @@ export default {
     pointer-events: none;
   }
   canvas {
-    letter-spacing: 3px;
+    letter-spacing: 5px;
   }
   .frame {
     position: absolute;
@@ -330,7 +330,7 @@ export default {
     left: 38%;
     width: 33.43%;
     text-align: center;
-    transform: rotateZ(-14deg);
+    transform: rotateZ(-16deg);
   }
   .x-name {
     position: absolute;
@@ -343,7 +343,7 @@ export default {
     left: 38%;
     width: 33.43%;
     text-align: center;
-    transform: rotateZ(-14deg);
+    transform: rotateZ(-16deg);
   }
   .btn1 {
     position: absolute;
