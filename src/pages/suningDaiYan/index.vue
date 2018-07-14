@@ -88,8 +88,7 @@ export default {
       iphoneX: false,
       inputHeight: 0,
       nickname: '杨洋',
-      resultImgUrl:
-        'http://o9xrbl1oc.bkt.clouddn.com/1007/image/1492786765568.jpg',
+      resultImgUrl:'',
       imgUrl: imgUrl + '/fe/marketing/img/sndy/',
       wxShareInfo: {
         title: '震惊！杨洋被拍到和神秘素人在一起了！',
