@@ -9,7 +9,6 @@
       class="frame"
       :src="imgUrl+'frame.png'+ this.qiniuCompress()">
     <img :src="resultImgUrl + this.qiniuCompress()" alt="" class="photo" v-if="!compound"/>
-    <!-- <img  class="photo" src="http://o9xrbl1oc.bkt.clouddn.com/1007/image/1492786765568.jpg" alt="" v-if="!compound"/> -->
     <div class="btn1" @click="showDialog = true" v-if="!compound" :style="style.btn2"></div>
     <a class="btn3" v-if="compound" :style="style.btn2" href="https://res.m.suning.com/project/zhaoji/activiteDetails_1.html?activityCode=1885230077&storeType=2&storeCode=10003701"></a>
     <img 
@@ -81,17 +80,12 @@ export default {
       },
       compound: false,
       text: '',
-      cardBg: ['messi.png', 'neymar.png', 'debruyne.png', 'cronaldo.png'],
-      bgcolor: ['#0ca2c5', '#40b324', '#ba3621', '#38aa1d'],
       base64Data: null,
       compoundUrl: null,
       showDialog: false,
       iphoneX: false,
-      picOrder: 0,
       inputHeight: 0,
-      nickname: '测试名',
-      isLoading: true,
-      isDrawing: true,
+      nickname: '杨洋',
       resultImgUrl: '',
       imgUrl: imgUrl + '/fe/marketing/img/sndy/',
       wxShareInfo: {
@@ -109,7 +103,6 @@ export default {
     this.iphoneX = this.innerHeight() > 672 ? true : false
     this.inputHeight = Math.floor(this.innerWidth() * 0.6 / 447 * 109)
     this.getInfoById()
-
     if (isInWechat() === true) {
       if (
         process.env.NODE_ENV === 'production' ||
@@ -118,7 +111,6 @@ export default {
         this.handleWechatAuth()
       }
       // this.handleWechatAuth()
-
       $_wechat()
         .then(res => {
           res.share(this.wxShareInfo)
@@ -181,9 +173,6 @@ export default {
     },
     getInfoById() {
       let id = this.$route.query.id
-      // let name = this.$route.query.name
-      // this.nickname = name
-      // this.resultImgUrl ='http://o9xrbl1oc.bkt.clouddn.com/1007/image/1492786765568.jpg'
       getInfoById(id)
         .then(res => {
           this.resultImgUrl = res.image
@@ -201,30 +190,26 @@ export default {
       let text = this.text
       image.src = this.base64Data
       let x = this.innerWidth() * 0.688 * 0.8
-      let y = this.innerHeight() * 0.85
+      let y = this.innerHeight() * 0.83
       image.onload = function() {
         canvas.width = width
         canvas.height = height
         ctx.drawImage(image, 0, 0, width, height)
-        ctx.font = '400 34px sans-serif'
+        ctx.font = '400 28px sans-serif'
         ctx.textAlign = 'center'
-        // let w = ctx.measureText(text)
         ctx.fillStyle = '#fff'
-        ctx.fillText(text, x, y)
+        ctx.fillText('', x, y)
+        ctx.save()
         ctx.translate(x, y)
-        ctx.rotate(30 * Math.PI / 180)
+        ctx.rotate(345 * Math.PI / 180)
+        ctx.fillText(text, 0, 0)
+        ctx.restore()
         let url = canvas.toDataURL('image/png')
-        console.log(url)
         let img = document.getElementById('test')
         img.src = url
       }
     },
     handleWechatAuth() {
-      // alert('r')
-      // getWxUserInfo().then(r => {
-      //   alert(r)
-      //     this.nickname = r.data.nickname
-      //   })
       if (Cookies.get('user_id') === null) {
         let base_url = encodeURIComponent(String(window.location.href))
         let redirct_url =
@@ -258,6 +243,9 @@ export default {
     z-index: -10;
     user-select: none;
     pointer-events: none;
+  }
+  canvas {
+    letter-spacing: 3px;
   }
   .frame {
     position: absolute;
