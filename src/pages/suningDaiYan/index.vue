@@ -59,6 +59,7 @@ import {
   Cookies,
   getInfoById,
   wechatShareTrack,
+  setParameter,
   getWxUserInfo
 } from 'services'
 const imgUrl = process.env.CDN_URL
@@ -88,7 +89,7 @@ export default {
       iphoneX: false,
       inputHeight: 0,
       nickname: '杨洋',
-      resultImgUrl:'',
+      resultImgUrl: '',
       imgUrl: imgUrl + '/fe/marketing/img/sndy/',
       wxShareInfo: {
         title: '震惊！杨洋被拍到和神秘素人在一起了！',
@@ -110,7 +111,11 @@ export default {
         process.env.NODE_ENV === 'production' ||
         process.env.NODE_ENV === 'test'
       ) {
-        this.handleWechatAuth()
+        if(!this.$route.query.hasOwnProperty('nickname')) {
+          this.handleWechatAuth()
+        } else {
+          this.nickname = this.$route.query.nickname
+        }
       }
       $_wechat()
         .then(res => {
@@ -228,6 +233,8 @@ export default {
       } else {
         getWxUserInfo().then(r => {
           this.nickname = r.data.nickname
+          let link = setParameter('nickname', encodeURIComponent(this.nickname))
+          this.wxShareInfo.link = link
         })
       }
     }
@@ -443,6 +450,7 @@ export default {
         padding: 0 14%;
         letter-spacing: 4px;
         color: #000;
+        text-align: center;
       }
       .input-value {
         background-color: transparent;
@@ -454,6 +462,7 @@ export default {
         left: 20%;
         padding: 0 14%;
         letter-spacing: 4px;
+        text-align: center;
         color: #000;
       }
       .btn2 {
