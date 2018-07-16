@@ -55,7 +55,7 @@ export default {
             imgUrl: this.wxShareInfo.imgUrl,
             link: this.wxShareInfo.link,
             success: function() {
-              weChatShareTrack()
+              wechatShareTrack()
             }
           })
         })
@@ -68,7 +68,6 @@ export default {
       getInfoById(id)
         .then(res => {
           this.mImg = res.image
-          console.log(this.mImg)
         })
         .catch(e => {
           console.log(e)
@@ -78,9 +77,12 @@ export default {
       let input = this.$refs.input
       let value = input.value
       this.name = value
+      if (!value) {
+        alert('请输入姓名！')
+        return
+      }
       this.drawCanvas(this.name)
       this.pshow = !this.pshow
-      console.log('start')
     },
     drawCanvas(name) {
       let canvas = document.getElementById('canvas')
@@ -98,8 +100,6 @@ export default {
         ctx.rotate(0.04 * Math.PI)
         ctx.fillText(name, bg.width * 0.5, bg.height * 0.255)
         er.onload = function() {
-          console.log(er.width)
-          console.log(er.height)
           ctx.drawImage(
             er,
             0,
@@ -247,6 +247,8 @@ a {
     .result {
       position: relative;
       width: 100%;
+      pointer-events: auto;
+      user-select: auto;
     }
   }
 }
