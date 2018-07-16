@@ -183,7 +183,8 @@ export default {
         'http://p22vy0aug.bkt.clouddn.com/image/tmdd/result/' +
         this.preUrl +
         score +
-        '.jpg'
+        '.jpg' +
+        this.qiniuCompress()
     }
   }
 }
