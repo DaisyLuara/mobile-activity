@@ -1,6 +1,6 @@
 <template>
   <div class="psbh-travel-wrap">
-    <div class="photo-content">
+    <div class="photo-content" :style="style.root">
       <div class="boots-wrap">
         <div class="slide-wrap pos-common">
           <img class="boot-line pos-common" :src="imgServerUrl + '/line.png'">
@@ -31,6 +31,7 @@ import { customTrack } from 'modules/customTrack'
 import $ from 'jquery'
 
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
+const imgUrl = process.env.CDN_URL
 
 export default {
   components: {
@@ -38,6 +39,12 @@ export default {
   },
   data() {
     return {
+      style: {
+        root: {
+          'min-height': this.innerHeight() + 'px'
+        }
+      },
+      imgUrl: imgUrl + '/fe/marketing/img/drc/',
       img_url: '',
       imgServerUrl: IMAGE_SERVER + '/pages/drc',
       wxShareInfo: {
@@ -51,8 +58,9 @@ export default {
     }
   },
   mounted() {
-    // this.syntheticCanvas()
-    $('.photo-content').css('min-height', $(window).height())
+    // this.syntheticCanvas(
+    //   'http://o9xrbl1oc.bkt.clouddn.com/1007/image/theBigCity_532_980_1492922362981.jpg'
+    // )
     this.getPeopleImage()
     this.animateHandle()
   },
@@ -60,15 +68,15 @@ export default {
   methods: {
     syntheticCanvas(imagUrl) {
       let canvas = document.getElementById('myCanvas')
-      let height = Math.round(parseFloat($(window).width() / 727 * 822))
-      let width = Math.round(parseFloat($(window).width()))
-      $('#myCanvas').css({ height: height, width: width })
       let image = new Image()
-      image.src = '/static/drc/photo.png'
+      image.setAttribute('crossOrigin', 'Anonymous')
+      image.src = this.imgUrl + 'photo.png'
       let ctx = canvas.getContext('2d')
       let photoImage = new Image()
-      photoImage.setAttribute('crossOrigin', 'Anonymous')
       let needleImage = new Image()
+      photoImage.setAttribute('crossOrigin', 'Anonymous')
+      needleImage.setAttribute('crossOrigin', 'Anonymous')
+      let that = this
       image.onload = function() {
         canvas.width = image.width
         canvas.height = image.height
@@ -85,6 +93,7 @@ export default {
             photoImage.width * 0.51,
             photoImage.height * 0.513
           )
+
           needleImage.onload = function() {
             ctx.drawImage(
               needleImage,
@@ -101,9 +110,8 @@ export default {
             let img = document.getElementById('test')
             img.src = url
           }
-          needleImage.src = '/static/drc/needle.png'
+          needleImage.src = that.imgUrl + 'needle.png'
         }
-        // photoImage.src = 'http://o9xrbl1oc.bkt.clouddn.com/1007/image/theBigCity_532_980_1492922362981.jpg';
         photoImage.src = imagUrl
       }
     },
