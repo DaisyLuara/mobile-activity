@@ -33,8 +33,8 @@ export default {
       pshow: true,
       //微信分享
       wxShareInfo: {
-        title: '',
-        desc: '',
+        title: '您有一张新的【病假单】还未领取，请点击查收！',
+        desc: '冻住亚健康冻住美，让忙碌的身体“放个假”',
         imgUrl:
           'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/tmdd/share.jpg',
         link: 'http://papi.xingstation.com/api/s/VDyO'
