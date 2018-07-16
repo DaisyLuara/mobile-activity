@@ -133,7 +133,6 @@ export default {
     getStart() {
       let input = this.$refs.input
       let error = document.querySelector('.error')
-      console.log(input.value)
       if (!input.value) {
         error.innerHTML = '请填写姓名，中文不超过5个字'
         return
@@ -155,11 +154,8 @@ export default {
       this.answer[name]++
       this.qShow['qShow' + index] = false
       this.qShow['qShow' + (index + 1)] = true
-      console.log(name + ':' + this.answer[name])
-      console.log(this.qShow)
       if (this.qShow.qShow3) {
         this.drawCanvas(this.answer['A'])
-        console.log('drawCanvas')
         return
       }
     },
@@ -182,7 +178,12 @@ export default {
         let url = canvas.toDataURL('image/png')
         result.src = url
       }
-      bg.src = '/static/tmdd/' + this.preUrl + score + '.jpg'
+      // bg.src = '/static/tmdd/' + this.preUrl + score + '.jpg'
+      bg.src =
+        'http://p22vy0aug.bkt.clouddn.com/image/tmdd/result/' +
+        this.preUrl +
+        score +
+        '.jpg'
     }
   }
 }
@@ -431,6 +432,8 @@ a {
     width: 100%;
     position: relative;
     z-index: 99;
+    pointer-events: auto;
+    user-select: auto;
   }
 }
 </style>
