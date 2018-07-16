@@ -3,12 +3,20 @@ import axios from 'axios'
 
 const share = shareObject => {
   // utm_term 为分享统计标记
-  let link =
-    window.location.href.indexOf('?') > -1
-      ? window.location.href + `&share_at=${Date.now()}&utm_term=wechat_share`
-      : window.location.href + `?share_at=${Date.now()}&utm_term=wechat_share`
-  shareObject.link = link
+  let link = ''
 
+  if (shareObject.link) {
+    link =
+      shareObject.link.indexOf('?') > -1
+        ? shareObject.link + `&share_at=${Date.now()}&utm_term=wechat_share`
+        : shareObject.link + `?share_at=${Date.now()}&utm_term=wechat_share`
+  } else {
+    link =
+      window.location.href.indexOf('?') > -1
+        ? window.location.href + `&share_at=${Date.now()}&utm_term=wechat_share`
+        : window.location.href + `?share_at=${Date.now()}&utm_term=wechat_share`
+  }
+  shareObject.link = link
   // 显示所有功能接口
   // wx.showAllNonBaseMenuItem()
 
