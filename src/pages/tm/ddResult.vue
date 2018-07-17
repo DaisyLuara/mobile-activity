@@ -37,7 +37,8 @@ export default {
         desc: '冻住亚健康冻住美，让忙碌的身体“放个假”',
         imgUrl:
           'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/tmdd/share.jpg',
-        link: 'http://papi.xingstation.com/api/s/VDyO',
+        link: 'http://h5.xingstation.com/marketing/dd_test',
+        // link: 'http://papi.xingstation.com/api/s/VDyO',
         success: function() {
           wechatShareTrack()
         }
