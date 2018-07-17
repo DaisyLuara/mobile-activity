@@ -91,6 +91,7 @@ export default {
       iphoneX: false,
       inputHeight: 0,
       nickname: '杨洋',
+      // resultImgUrl: 'http://o9xrbl1oc.bkt.clouddn.com/1007/image/1492786765568.jpg',
       resultImgUrl: '',
       imgUrl: imgUrl + '/fe/marketing/img/sndy/',
       wxShareInfo: {
@@ -343,7 +344,7 @@ export default {
     bottom: 28.9%;
     z-index: 300;
     color: #fff;
-    font-size: 20px;
+    font-size: 18px;
     letter-spacing: 3px;
     font-weight: 400;
     left: 38%;
@@ -356,7 +357,7 @@ export default {
     bottom: 28.9%;
     z-index: 300;
     color: #fff;
-    font-size: 20px;
+    font-size: 18px;
     letter-spacing: 3px;
     font-weight: 400;
     left: 38%;
