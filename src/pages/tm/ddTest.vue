@@ -158,6 +158,7 @@ export default {
       let canvas = document.getElementById('canvas')
       let ctx = canvas.getContext('2d')
       let bg = new Image()
+      let er = new Image()
       let result = document.querySelector('.result')
       score = score > 1 ? score : 1
       bg.setAttribute('crossOrigin', 'Anonymous')
@@ -169,9 +170,22 @@ export default {
         ctx.fontStyle = '#000'
         ctx.rotate(0.04 * Math.PI)
         ctx.fillText(that.userName, bg.width * 0.5, bg.height * 0.255)
-        // ctx.fillText('张三', bg.width * 0.5, bg.height * 0.255)
-        let url = canvas.toDataURL('image/png')
-        result.src = url
+        er.onload = function() {
+          ctx.drawImage(
+            er,
+            0,
+            0,
+            er.width,
+            er.height,
+            bg.width * 0.35,
+            bg.height * 0.55,
+            bg.width * 0.2,
+            bg.width * 0.2
+          )
+          let url = canvas.toDataURL('image/png')
+          result.src = url
+        }
+        er.src = '/static/tmdd/er.png'
       }
       // bg.src = '/static/tmdd/' + this.preUrl + score + '.jpg'
       bg.src =

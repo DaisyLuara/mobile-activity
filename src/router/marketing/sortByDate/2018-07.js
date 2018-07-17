@@ -81,7 +81,7 @@ const Date201807 = [
     location: 'tm/ddTest',
     name: 'ddtest',
     meta: {
-      title: '7.18天猫冻冻节',
+      title: '冰冻诊疗室',
       author: 'lipan',
       desc: '测试题页面'
     },
@@ -103,7 +103,7 @@ const Date201807 = [
     location: 'tm/ddResult',
     name: 'ddresult',
     meta: {
-      title: '7.18天猫冻冻节',
+      title: '冰冻诊疗室',
       author: 'lipan',
       desc: '结果页面'
     },
