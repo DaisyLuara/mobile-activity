@@ -35,10 +35,10 @@ export default {
       wxShareInfo: {
         title: '您有一张新的【病假单】还未领取，请点击查收！',
         desc: '冻住亚健康冻住美，让忙碌的身体“放个假”',
+        link:'http://papi.xingstation.com/api/s/VDyO',
         imgUrl:
           'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/tmdd/share.jpg',
         success: function() {
-          alert(333)
           wechatShareTrack()
         }
       }
@@ -52,8 +52,6 @@ export default {
     wechatShare() {
       $_wechat()
         .then(res => {
-          let link = setParameter('', encodeURIComponent(''),'http://papi.xingstation.com/api/s/VDyO')
-          this.wxShareInfo.link = link
           res.share(this.wxShareInfo)
         })
         .catch(_ => {
