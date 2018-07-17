@@ -17,7 +17,7 @@ const share = shareObject => {
         : window.location.href + `?share_at=${Date.now()}&utm_term=wechat_share`
   }
   shareObject.link = link
-  // alert(shareObject.link)
+  alert(shareObject.link)
   // 显示所有功能接口
   // wx.showAllNonBaseMenuItem()
 
@@ -67,6 +67,7 @@ const $_wechat = () => {
           ]
         })
         wx.ready(() => {
+          alert(shareObject)
           // 配置 wx.config 成功
           resolve({
             wx,

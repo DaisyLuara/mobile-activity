@@ -37,10 +37,8 @@ export default {
         desc: '冻住亚健康冻住美，让忙碌的身体“放个假”',
         imgUrl:
           'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/tmdd/share.jpg',
-        // link: 'http://h5.xingstation.com/marketing/dd_test',
-        link: 'http://baidu.com',
-        // link: 'http://papi.xingstation.com/api/s/VDyO',
         success: function() {
+          alert(33)
           wechatShareTrack()
         }
       }
@@ -54,10 +52,10 @@ export default {
     wechatShare() {
       $_wechat()
         .then(res => {
+          this.wxShareInfo.link = 'http://papi.xingstation.com/api/s/VDyO'
           res.share(this.wxShareInfo)
         })
         .catch(_ => {
-          alert('result')
           console.warn(_.message)
         })
     },
