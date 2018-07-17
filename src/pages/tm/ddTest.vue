@@ -166,6 +166,7 @@ export default {
       let bg = new Image()
       let result = document.querySelector('.result')
       score = score > 1 ? score : 1
+      bg.setAttribute('crossOrigin', 'Anonymous')
       bg.onload = function() {
         canvas.width = bg.width
         canvas.height = bg.height
