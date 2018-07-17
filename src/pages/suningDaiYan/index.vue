@@ -91,9 +91,9 @@ export default {
       iphoneX: false,
       inputHeight: 0,
       nickname: '杨洋',
-      // resultImgUrl:
-        // 'http://o9xrbl1oc.bkt.clouddn.com/1007/image/1492786765568.jpg',
-      resultImgUrl: '',
+      resultImgUrl:
+        'http://o9xrbl1oc.bkt.clouddn.com/1007/image/1492786765568.jpg',
+      // resultImgUrl: '',
       imgUrl: imgUrl + '/fe/marketing/img/sndy/',
       wxShareInfo: {
         title: '全村希望C位出道为苏宁代言！',
@@ -117,10 +117,6 @@ export default {
       ) {
         if (!this.$route.query.hasOwnProperty('nickname')) {
           this.handleWechatAuth()
-        } else {
-          this.compound = true
-          this.text = this.$route.query.nickname
-          this.drawing()
         }
       }
       $_wechat()
@@ -196,6 +192,11 @@ export default {
       getInfoById(id)
         .then(res => {
           this.resultImgUrl = res.image
+          if (this.$route.query.hasOwnProperty('nickname')) {
+            this.compound = true
+            this.text = this.$route.query.nickname
+            this.drawing()
+          }
         })
         .catch(e => {
           console.log(e)
