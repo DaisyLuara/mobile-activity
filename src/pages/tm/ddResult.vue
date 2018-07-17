@@ -17,7 +17,7 @@
     </div>
 </template>
 <script>
-import { $_wechat, getInfoById, wechatShareTrack } from 'services'
+import { $_wechat, getInfoById, wechatShareTrack, setParameter } from 'services'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
   data() {
@@ -38,7 +38,7 @@ export default {
         imgUrl:
           'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/tmdd/share.jpg',
         success: function() {
-          alert(33)
+          alert(333)
           wechatShareTrack()
         }
       }
@@ -52,7 +52,8 @@ export default {
     wechatShare() {
       $_wechat()
         .then(res => {
-          this.wxShareInfo.link = 'http://papi.xingstation.com/api/s/VDyO'
+          let link = setParameter('', encodeURIComponent(''),'http://papi.xingstation.com/api/s/VDyO')
+          this.wxShareInfo.link = link
           res.share(this.wxShareInfo)
         })
         .catch(_ => {
