@@ -94,9 +94,12 @@ export default {
         // desc: '冻住亚健康冻住美，让忙碌的身体“放个假”',
         title: '冻冻节',
         desc: '我们来了',
-        link: 'http://papi.xingstation.com/api/s/VDyO',
+        // link: 'http://papi.xingstation.com/api/s/VDyO',
         imgUrl:
-          'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/tmdd/share.jpg'
+          'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/tmdd/share.jpg',
+        success: function() {
+          wechatShareTrack()
+        }
       }
     }
   },
@@ -107,16 +110,15 @@ export default {
     wechatShare() {
       $_wechat()
         .then(res => {
-          res.share({
-            //配置分享
-            title: this.wxShareInfo.title,
-            desc: this.wxShareInfo.desc,
-            imgUrl: this.wxShareInfo.imgUrl,
-            link: this.wxShareInfo.link,
-            success: function() {
-              wechatShareTrack()
-            }
-          })
+          res.share(this.wxShareInfo)
+          // res.share({
+          //   //配置分享
+          //   this.wxShareInfo
+          //   // title: this.wxShareInfo.title,
+          //   // desc: this.wxShareInfo.desc,
+          //   // imgUrl: this.wxShareInfo.imgUrl,
+          //   // // link: this.wxShareInfo.link,
+          // })
         })
         .catch(_ => {
           console.warn(_.message)
