@@ -90,11 +90,9 @@ export default {
       },
       //微信分享
       wxShareInfo: {
-        // title: '您有一张新的【病假单】还未领取，请点击查收！',
-        // desc: '冻住亚健康冻住美，让忙碌的身体“放个假”',
-        title: '冻冻节',
-        desc: '我们来了',
-        // link: 'http://papi.xingstation.com/api/s/VDyO',
+        title: '您有一张新的【病假单】还未领取，请点击查收！',
+        desc: '冻住亚健康冻住美，让忙碌的身体“放个假”',
+        link: 'http://papi.xingstation.com/api/s/VDyO',
         imgUrl:
           'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/tmdd/share.jpg',
         success: function() {
@@ -111,14 +109,6 @@ export default {
       $_wechat()
         .then(res => {
           res.share(this.wxShareInfo)
-          // res.share({
-          //   //配置分享
-          //   this.wxShareInfo
-          //   // title: this.wxShareInfo.title,
-          //   // desc: this.wxShareInfo.desc,
-          //   // imgUrl: this.wxShareInfo.imgUrl,
-          //   // // link: this.wxShareInfo.link,
-          // })
         })
         .catch(_ => {
           console.warn(_.message)
@@ -168,6 +158,7 @@ export default {
       let canvas = document.getElementById('canvas')
       let ctx = canvas.getContext('2d')
       let bg = new Image()
+      let er = new Image()
       let result = document.querySelector('.result')
       score = score > 1 ? score : 1
       bg.setAttribute('crossOrigin', 'Anonymous')
@@ -179,9 +170,22 @@ export default {
         ctx.fontStyle = '#000'
         ctx.rotate(0.04 * Math.PI)
         ctx.fillText(that.userName, bg.width * 0.5, bg.height * 0.255)
-        // ctx.fillText('张三', bg.width * 0.5, bg.height * 0.255)
-        let url = canvas.toDataURL('image/png')
-        result.src = url
+        er.onload = function() {
+          ctx.drawImage(
+            er,
+            0,
+            0,
+            er.width,
+            er.height,
+            bg.width * 0.35,
+            bg.height * 0.55,
+            bg.width * 0.2,
+            bg.width * 0.2
+          )
+          let url = canvas.toDataURL('image/png')
+          result.src = url
+        }
+        er.src = '/static/tmdd/er.png'
       }
       // bg.src = '/static/tmdd/' + this.preUrl + score + '.jpg'
       bg.src =
