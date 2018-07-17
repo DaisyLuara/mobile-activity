@@ -17,7 +17,7 @@
     </div>
 </template>
 <script>
-import { $_wechat, getInfoById, wechatShareTrack } from 'services'
+import { $_wechat, getInfoById, wechatShareTrack, setParameter } from 'services'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
   data() {
@@ -35,9 +35,12 @@ export default {
       wxShareInfo: {
         title: '您有一张新的【病假单】还未领取，请点击查收！',
         desc: '冻住亚健康冻住美，让忙碌的身体“放个假”',
+        link: window.location.origin + '/marketing/dd_test',
         imgUrl:
           'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/tmdd/share.jpg',
-        link: 'http://papi.xingstation.com/api/s/VDyO'
+        success: function() {
+          wechatShareTrack()
+        }
       }
     }
   },
@@ -49,15 +52,7 @@ export default {
     wechatShare() {
       $_wechat()
         .then(res => {
-          res.share({
-            title: this.wxShareInfo.title,
-            desc: this.wxShareInfo.desc,
-            imgUrl: this.wxShareInfo.imgUrl,
-            link: this.wxShareInfo.link,
-            success: function() {
-              weChatShareTrack()
-            }
-          })
+          res.share(this.wxShareInfo)
         })
         .catch(_ => {
           console.warn(_.message)
@@ -68,7 +63,6 @@ export default {
       getInfoById(id)
         .then(res => {
           this.mImg = res.image
-          console.log(this.mImg)
         })
         .catch(e => {
           console.log(e)
@@ -78,9 +72,12 @@ export default {
       let input = this.$refs.input
       let value = input.value
       this.name = value
+      if (!value) {
+        alert('请输入姓名！')
+        return
+      }
       this.drawCanvas(this.name)
       this.pshow = !this.pshow
-      console.log('start')
     },
     drawCanvas(name) {
       let canvas = document.getElementById('canvas')
@@ -98,8 +95,6 @@ export default {
         ctx.rotate(0.04 * Math.PI)
         ctx.fillText(name, bg.width * 0.5, bg.height * 0.255)
         er.onload = function() {
-          console.log(er.width)
-          console.log(er.height)
           ctx.drawImage(
             er,
             0,
@@ -247,6 +242,8 @@ a {
     .result {
       position: relative;
       width: 100%;
+      pointer-events: auto;
+      user-select: auto;
     }
   }
 }

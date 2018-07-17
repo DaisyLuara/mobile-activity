@@ -92,9 +92,12 @@ export default {
       wxShareInfo: {
         title: '您有一张新的【病假单】还未领取，请点击查收！',
         desc: '冻住亚健康冻住美，让忙碌的身体“放个假”',
-        link: 'http://papi.xingstation.com/api/s/VDyO',
+        link: window.location.origin + '/marketing/dd_test',
         imgUrl:
-          'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/tmdd/share.jpg'
+          'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/tmdd/share.jpg',
+        success: function() {
+          wechatShareTrack()
+        }
       }
     }
   },
@@ -105,16 +108,7 @@ export default {
     wechatShare() {
       $_wechat()
         .then(res => {
-          res.share({
-            //配置分享
-            title: this.wxShareInfo.title,
-            desc: this.wxShareInfo.desc,
-            imgUrl: this.wxShareInfo.imgUrl,
-            link: this.wxShareInfo.link,
-            success: function() {
-              wechatShareTrack()
-            }
-          })
+          res.share(this.wxShareInfo)
         })
         .catch(_ => {
           console.warn(_.message)
@@ -133,7 +127,6 @@ export default {
     getStart() {
       let input = this.$refs.input
       let error = document.querySelector('.error')
-      console.log(input.value)
       if (!input.value) {
         error.innerHTML = '请填写姓名，中文不超过5个字'
         return
@@ -155,11 +148,8 @@ export default {
       this.answer[name]++
       this.qShow['qShow' + index] = false
       this.qShow['qShow' + (index + 1)] = true
-      console.log(name + ':' + this.answer[name])
-      console.log(this.qShow)
       if (this.qShow.qShow3) {
         this.drawCanvas(this.answer['A'])
-        console.log('drawCanvas')
         return
       }
     },
@@ -168,8 +158,10 @@ export default {
       let canvas = document.getElementById('canvas')
       let ctx = canvas.getContext('2d')
       let bg = new Image()
+      let er = new Image()
       let result = document.querySelector('.result')
       score = score > 1 ? score : 1
+      bg.setAttribute('crossOrigin', 'Anonymous')
       bg.onload = function() {
         canvas.width = bg.width
         canvas.height = bg.height
@@ -178,11 +170,30 @@ export default {
         ctx.fontStyle = '#000'
         ctx.rotate(0.04 * Math.PI)
         ctx.fillText(that.userName, bg.width * 0.5, bg.height * 0.255)
-        // ctx.fillText('张三', bg.width * 0.5, bg.height * 0.255)
-        let url = canvas.toDataURL('image/png')
-        result.src = url
+        er.onload = function() {
+          ctx.drawImage(
+            er,
+            0,
+            0,
+            er.width,
+            er.height,
+            bg.width * 0.35,
+            bg.height * 0.55,
+            bg.width * 0.2,
+            bg.width * 0.2
+          )
+          let url = canvas.toDataURL('image/png')
+          result.src = url
+        }
+        er.src = '/static/tmdd/er.png'
       }
-      bg.src = '/static/tmdd/' + this.preUrl + score + '.jpg'
+      // bg.src = '/static/tmdd/' + this.preUrl + score + '.jpg'
+      bg.src =
+        'http://p22vy0aug.bkt.clouddn.com/image/tmdd/result/' +
+        this.preUrl +
+        score +
+        '.jpg' +
+        this.qiniuCompress()
     }
   }
 }
@@ -431,6 +442,8 @@ a {
     width: 100%;
     position: relative;
     z-index: 99;
+    pointer-events: auto;
+    user-select: auto;
   }
 }
 </style>
