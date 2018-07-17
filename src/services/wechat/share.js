@@ -67,7 +67,6 @@ const $_wechat = () => {
           ]
         })
         wx.ready(() => {
-          alert(shareObject)
           // 配置 wx.config 成功
           resolve({
             wx,
