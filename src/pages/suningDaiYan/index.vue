@@ -11,7 +11,7 @@
     <img :src="resultImgUrl + this.qiniuCompress()" alt="" class="photo" v-if="!compound" :style="style.compound"/>
     <img :src="imgUrl+'photo_frame.png' + this.qiniuCompress()" alt=""  class="photo-frame" v-if="!compound" :style="style.compound"/>
     <div class="btn1" @click="showDialog = true" v-if="!compound" :style="style.btn2"></div>
-    <a class="btn3" v-if="compound" :style="style.btn2" href="http://papi.xingstation.com/api/s/RyrY"></a>
+    <a class="btn3" v-if="compound" :style="style.btn2" href="http://papi.xingstation.com/api/s/WEzn"></a>
     <img 
       class="img1"
       :src="imgUrl+'img1.png'+ this.qiniuCompress()">
