@@ -8,7 +8,8 @@
     <img 
       class="frame"
       :src="imgUrl+'frame.png'+ this.qiniuCompress()">
-    <img :src="resultImgUrl + this.qiniuCompress()" alt="" class="photo" v-if="!compound"/>
+    <img :src="resultImgUrl + this.qiniuCompress()" alt="" class="photo" v-if="!compound" :style="style.compound"/>
+    <img :src="imgUrl+'photo_frame.png' + this.qiniuCompress()" alt=""  class="photo-frame" v-if="!compound" :style="style.compound"/>
     <div class="btn1" @click="showDialog = true" v-if="!compound" :style="style.btn2"></div>
     <a class="btn3" v-if="compound" :style="style.btn2" href="http://papi.xingstation.com/api/s/RyrY"></a>
     <img 
@@ -23,9 +24,6 @@
     <img 
       class="img4"
       :src="imgUrl+'img4.png'+ this.qiniuCompress()">
-    <img 
-      class="text"
-      :src="imgUrl+'text.png?v=1'+ this.qiniuCompress()" v-if="!compound">
     <div :class="{'name': !iphoneX, 'x-name': iphoneX}" v-if="!compound">{{nickname}}</div>
     <!-- 合成照片 -->
     <img  class="photo" :src="compoundUrl" alt="" v-if="compound" id="test"/>
@@ -76,6 +74,10 @@ export default {
         btn2: {
           height: Math.floor(this.innerWidth() * 0.6 / 447 * 109) + 'px'
         },
+        compound: {
+          'user-select': 'none',
+          'pointer-events': 'none'
+        },
         popups: {
           height: this.innerHeight() + 'px'
         }
@@ -89,7 +91,8 @@ export default {
       iphoneX: false,
       inputHeight: 0,
       nickname: '杨洋',
-      resultImgUrl: '',
+      resultImgUrl:
+        'http://o9xrbl1oc.bkt.clouddn.com/1007/image/1492786765568.jpg',
       imgUrl: imgUrl + '/fe/marketing/img/sndy/',
       wxShareInfo: {
         title: '震惊！杨洋被拍到和神秘素人在一起了！',
@@ -111,12 +114,13 @@ export default {
         process.env.NODE_ENV === 'production' ||
         process.env.NODE_ENV === 'test'
       ) {
-        if(!this.$route.query.hasOwnProperty('nickname')) {
+        if (!this.$route.query.hasOwnProperty('nickname')) {
           this.handleWechatAuth()
         } else {
           this.nickname = this.$route.query.nickname
         }
       }
+      this.handleWechatAuth()
       $_wechat()
         .then(res => {
           res.share(this.wxShareInfo)
@@ -157,11 +161,11 @@ export default {
           type: 'origin',
           width: this.innerWidth()
         })
-        .add(this.imgUrl + 'text.png?v=1', {
+        .add(this.imgUrl + 'photo_frame.png', {
           width: '100%',
           pos: {
-            x: '3%',
-            y: '72%'
+            x: '0',
+            y: '0'
           }
         })
         .draw({
@@ -200,14 +204,13 @@ export default {
       let width = this.innerWidth()
       let text = this.text
       image.src = this.base64Data
-
       image.onload = function() {
         canvas.width = image.width
         canvas.height = image.height
         ctx.drawImage(image, 0, 0, image.width, image.height)
-        let x = image.width * 0.688 * 0.8
-        let y = image.height * 0.83
-        ctx.font = '400 100px sans-serif'
+        let x = image.width * 0.688 * 0.81
+        let y = image.height * 0.84
+        ctx.font = '400 96px sans-serif'
         ctx.textAlign = 'center'
         ctx.fillStyle = '#fff'
         ctx.fillText('', x, y)
@@ -271,6 +274,14 @@ export default {
     pointer-events: none;
     height: 83%;
   }
+  .photo-frame {
+    width: 68.8%;
+    position: absolute;
+    left: 16.2%;
+    top: 5%;
+    height: 78%;
+    z-index: 15;
+  }
   .photo {
     width: 68.8%;
     position: absolute;
@@ -328,10 +339,10 @@ export default {
   }
   .name {
     position: absolute;
-    bottom: 29.5%;
+    bottom: 28.9%;
     z-index: 300;
     color: #fff;
-    font-size: 18px;
+    font-size: 20px;
     letter-spacing: 3px;
     font-weight: 400;
     left: 38%;
@@ -341,10 +352,10 @@ export default {
   }
   .x-name {
     position: absolute;
-    bottom: 27.5%;
+    bottom: 28.9%;
     z-index: 300;
     color: #fff;
-    font-size: 18px;
+    font-size: 20px;
     letter-spacing: 3px;
     font-weight: 400;
     left: 38%;
