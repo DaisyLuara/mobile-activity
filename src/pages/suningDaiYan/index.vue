@@ -11,7 +11,7 @@
     <img :src="resultImgUrl + this.qiniuCompress()" alt="" class="photo" v-if="!compound" :style="style.compound"/>
     <img :src="imgUrl+'photo_frame.png' + this.qiniuCompress()" alt=""  class="photo-frame" v-if="!compound" :style="style.compound"/>
     <div class="btn1" @click="showDialog = true" v-if="!compound" :style="style.btn2"></div>
-    <a class="btn3" v-if="compound" :style="style.btn2" href="http://papi.xingstation.com/api/s/RyrY"></a>
+    <a class="btn3" v-if="compound" :style="style.btn2" href="http://papi.xingstation.com/api/s/XGAo"></a>
     <img 
       class="img1"
       :src="imgUrl+'img1.png'+ this.qiniuCompress()">
@@ -91,12 +91,13 @@ export default {
       iphoneX: false,
       inputHeight: 0,
       nickname: '杨洋',
-      resultImgUrl:
-        'http://o9xrbl1oc.bkt.clouddn.com/1007/image/1492786765568.jpg',
+      // resultImgUrl:
+      //   'http://o9xrbl1oc.bkt.clouddn.com/1007/image/1492786765568.jpg',
+      resultImgUrl: '',
       imgUrl: imgUrl + '/fe/marketing/img/sndy/',
       wxShareInfo: {
-        title: '震惊！杨洋被拍到和神秘素人在一起了！',
-        desc: '卓伟看了也会流泪',
+        title: '全村希望C位出道为苏宁代言！',
+        desc: '一起来围观苏宁最新神秘代言人吧～',
         imgUrl: imgUrl + '/fe/marketing/img/sndy/share_icon.png',
         success: () => {
           wechatShareTrack()
@@ -116,11 +117,8 @@ export default {
       ) {
         if (!this.$route.query.hasOwnProperty('nickname')) {
           this.handleWechatAuth()
-        } else {
-          this.nickname = this.$route.query.nickname
         }
       }
-      this.handleWechatAuth()
       $_wechat()
         .then(res => {
           res.share(this.wxShareInfo)
@@ -132,13 +130,16 @@ export default {
   },
   methods: {
     compoundHandle() {
+      let link = ''
       if (this.text) {
         this.showDialog = false
         this.compound = true
+        link = setParameter('nickname', encodeURIComponent(this.text))
         this.drawing()
       } else {
         this.errorText = true
       }
+      this.wxShareInfo.link = link
     },
     closeDialog() {
       this.showDialog = false
@@ -191,6 +192,11 @@ export default {
       getInfoById(id)
         .then(res => {
           this.resultImgUrl = res.image
+          if (this.$route.query.hasOwnProperty('nickname')) {
+            this.compound = true
+            this.text = this.$route.query.nickname
+            this.drawing()
+          }
         })
         .catch(e => {
           console.log(e)
@@ -342,7 +348,7 @@ export default {
     bottom: 28.9%;
     z-index: 300;
     color: #fff;
-    font-size: 20px;
+    font-size: 18px;
     letter-spacing: 3px;
     font-weight: 400;
     left: 38%;
@@ -355,7 +361,7 @@ export default {
     bottom: 28.9%;
     z-index: 300;
     color: #fff;
-    font-size: 20px;
+    font-size: 18px;
     letter-spacing: 3px;
     font-weight: 400;
     left: 38%;
