@@ -248,12 +248,12 @@ a {
   text-align: center;
   h1 {
     width: 100%;
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     color: #0050b3;
     font-weight: 800;
     font-family: '微软雅黑';
     letter-spacing: 3px;
-    line-height: 2rem;
+    line-height: 2.2rem;
     margin: 0 auto;
     margin-top: 57%;
     margin-bottom: 6%;
