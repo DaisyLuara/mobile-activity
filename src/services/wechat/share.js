@@ -17,7 +17,6 @@ const share = shareObject => {
         : window.location.href + `?share_at=${Date.now()}&utm_term=wechat_share`
   }
   shareObject.link = link
-  alert(shareObject.link)
   // 显示所有功能接口
   // wx.showAllNonBaseMenuItem()
 
