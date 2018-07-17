@@ -147,7 +147,7 @@ const Date201807 = [
     location: 'suningDaiYan/index',
     name: 'suningDaiYan',
     meta: {
-      title: '我和杨洋一起为苏宁代言',
+      title: '我是苏宁代言人',
       author: 'Joy',
       desc: '苏宁代言结果页'
     },
