@@ -11,7 +11,7 @@
     <img :src="resultImgUrl + this.qiniuCompress()" alt="" class="photo" v-if="!compound" :style="style.compound"/>
     <img :src="imgUrl+'photo_frame.png' + this.qiniuCompress()" alt=""  class="photo-frame" v-if="!compound" :style="style.compound"/>
     <div class="btn1" @click="showDialog = true" v-if="!compound" :style="style.btn2"></div>
-    <a class="btn3" v-if="compound" :style="style.btn2" href="http://papi.xingstation.com/api/s/WEzn"></a>
+    <a class="btn3" v-if="compound" :style="style.btn2" href="http://papi.xingstation.com/api/s/XGAo"></a>
     <img 
       class="img1"
       :src="imgUrl+'img1.png'+ this.qiniuCompress()">
@@ -91,8 +91,9 @@ export default {
       iphoneX: false,
       inputHeight: 0,
       nickname: '杨洋',
-      // resultImgUrl: 'http://o9xrbl1oc.bkt.clouddn.com/1007/image/1492786765568.jpg',
-      resultImgUrl: '',
+      resultImgUrl:
+        'http://o9xrbl1oc.bkt.clouddn.com/1007/image/1492786765568.jpg',
+      // resultImgUrl: '',
       imgUrl: imgUrl + '/fe/marketing/img/sndy/',
       wxShareInfo: {
         title: '全村希望C位出道为苏宁代言！',
@@ -117,7 +118,9 @@ export default {
         if (!this.$route.query.hasOwnProperty('nickname')) {
           this.handleWechatAuth()
         } else {
-          this.nickname = this.$route.query.nickname
+          this.compound = true
+          this.text = this.$route.query.nickname
+          this.drawing()
         }
       }
       $_wechat()
