@@ -152,6 +152,28 @@ const Date201807 = [
       desc: '苏宁代言结果页'
     },
     isAbandoned: false
+  },
+  {
+    path: 'sea_index',
+    location: 'sea/index',
+    name: 'waterWorld',
+    meta: {
+      title: '海底世界',
+      author: 'lipan',
+      desc: '海底世界手机号页面'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'sea_result',
+    location: 'sea/result',
+    name: 'seaWorld',
+    meta: {
+      title: '海底世界',
+      author: 'lipan',
+      desc: '海底世界结果页'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201807

@@ -169,13 +169,13 @@ a {
       left: 0;
       font-family: '微软雅黑';
       h1 {
-        font-size: 1.5rem;
+        font-size: 1.7rem;
         color: #0050b3;
         font-weight: 800;
         font-family: '微软雅黑';
         letter-spacing: 3px;
-        line-height: 2rem;
-        width: 56%;
+        line-height: 2.2rem;
+        width: 60%;
         margin: 0 auto;
       }
       input {
