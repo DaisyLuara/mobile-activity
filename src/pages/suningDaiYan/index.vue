@@ -92,7 +92,7 @@ export default {
       inputHeight: 0,
       nickname: '杨洋',
       resultImgUrl:
-        'http://o9xrbl1oc.bkt.clouddn.com/1007/image/1492786765568.jpg',
+        '',
       imgUrl: imgUrl + '/fe/marketing/img/sndy/',
       wxShareInfo: {
         title: '全村希望C位出道为苏宁代言！',
