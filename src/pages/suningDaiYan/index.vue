@@ -95,8 +95,8 @@ export default {
         'http://o9xrbl1oc.bkt.clouddn.com/1007/image/1492786765568.jpg',
       imgUrl: imgUrl + '/fe/marketing/img/sndy/',
       wxShareInfo: {
-        title: '震惊！杨洋被拍到和神秘素人在一起了！',
-        desc: '卓伟看了也会流泪',
+        title: '全村希望C位出道为苏宁代言！',
+        desc: '一起来围观苏宁最新神秘代言人吧～',
         imgUrl: imgUrl + '/fe/marketing/img/sndy/share_icon.png',
         success: () => {
           wechatShareTrack()
@@ -120,7 +120,6 @@ export default {
           this.nickname = this.$route.query.nickname
         }
       }
-      this.handleWechatAuth()
       $_wechat()
         .then(res => {
           res.share(this.wxShareInfo)
