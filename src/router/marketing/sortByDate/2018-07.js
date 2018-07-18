@@ -196,6 +196,28 @@ const Date201807 = [
       desc: '希尔顿优惠券结果',
       isAbandoned: false
     }
+  },
+  {
+    path: 'wanted',
+    location: 'wanted/index',
+    name: 'wantedIndex',
+    meta: {
+      title: '悬赏令',
+      author: 'Anluis',
+      desc: '悬赏令',
+      isAbandoned: false
+    }
+  },
+  {
+    path: 'wantedresult',
+    location: 'wanted/result',
+    name: 'wantedResult',
+    meta: {
+      title: '悬赏令结果',
+      author: 'Anluis',
+      desc: '悬赏令结果',
+      isAbandoned: false
+    }
   }
 ]
 export default Date201807
