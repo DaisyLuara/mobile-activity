@@ -1,13 +1,12 @@
 <template>
     <div class="content">
       <div class="main" v-show="!qShow.qShow3">
-        <img class="bg" :src="IMGURL + 'bg.jpg'" v-show="!page1"/>
-        <img class="bg" :src="IMGURL + 'page1_bg.jpg'" v-show="page1"/>
-        <img class="icebg" :src="IMGURL + 'ices.png'"/>
+        <!-- <img class="bg" :src="IMGURL + 'bg.jpg'" v-show="!page1"/>
+        <img class="bg" :src="IMGURL + 'page1_bg.jpg'" v-show="page1"/> -->
+        
         <!-- 输入名字年龄性别 -->
         <div class="page1" :style="style.root" v-show="page1" @click.stop.prevent="()=>{pull_sex=false;pull_year=false;}">
-          <h1>输入您的年龄、性别<br/>参加本次诊疗</h1>
-          <!-- <img class="title" :src="IMGURL + 'title.png'"/> -->
+          <img class="title" :src="IMGURL + 'title.png'"/>
           <div class="message">
             <div class="select-area">
               <input class="name select1" placeholder="输入名字" type="text" maxlength="5" ref="input"/>
@@ -21,11 +20,11 @@
             <div class="select-area">
               <div class="select1" @click.stop="()=>{pull_sex=!pull_sex;pull_year=false;}" data-sex>{{sexText}}</div>
               <ul class="select2" v-show="pull_sex">
-                  <a  @click="getSex('nan','男')"><li class="list-li">男</li></a>
-                  <a  @click="getSex('nv','女')"><li class="list-li">女</li></a>
+                  <a  @click="getSex('nv','男')"><li class="list-li">男</li></a>
+                  <a  @click="getSex('nan','女')"><li class="list-li">女</li></a>
               </ul>
             </div>
-            <p class="error"></p>
+            <!-- <p class="error"></p> -->
             <a @click.prevent="getStart" class="start">
               开始诊断
               <!-- <img  :src="IMGURL + 'start.png'"> -->
@@ -44,6 +43,7 @@
             </ul>
           </div>
         </div>
+        <img class="icebg" :src="IMGURL + 'ices.png'"/>
       </div>
       <!-- canvas 图片合成 -->
       <div class="page3" v-show="qShow.qShow3">
@@ -65,12 +65,13 @@ export default {
         }
       },
       yearText: '年龄',
-      sexText: '性别',
+      sexText: '性别', //由于男女结果的图片弄反了，所以nan代表女，nv代表男
       userName: null,
       page1: true, //true
       pull_year: false,
       pull_sex: false,
       //图片命名：性别+年龄   sex+yaer
+      //由于男女结果的图片弄反了，所以nan代表女，nv代表男
       sex: null,
       //0-25:0;26-30:1;31-40:2;41以上：3;
       year: null,
@@ -103,6 +104,10 @@ export default {
   },
   mounted() {
     this.wechatShare()
+    let ice = document.querySelector('.ices')
+    if (this.innerHeight() > 700) {
+      ice.style.marginTop = 0
+    }
   },
   methods: {
     wechatShare() {
@@ -126,17 +131,17 @@ export default {
     },
     getStart() {
       let input = this.$refs.input
-      let error = document.querySelector('.error')
+      // let error = document.querySelector('.error')
       if (!input.value) {
-        error.innerHTML = '请填写姓名，中文不超过5个字'
+        alert('请填写姓名，不超过5个字')
         return
       }
       if (this.year === null) {
-        error.innerHTML = '请选择年龄'
+        alert('请选择年龄')
         return
       }
       if (!this.sex) {
-        error.innerHTML = '请选择性别'
+        alert('请选择性别')
         return
       }
       this.userName = input.value
@@ -233,19 +238,21 @@ a {
     }
     .icebg {
       position: relative;
-      margin-top: -30%;
+      margin-top: -28%;
       width: 100%;
       z-index: 999;
     }
   }
 }
 .page1 {
-  position: absolute;
-  top: 0;
-  left: 0;
+  // position: absolute;
+  // top: 0;
+  // left: 0;
+  position: relative;
   z-index: 9;
   width: 100%;
   text-align: center;
+  background: url('@{imgUrl}page1_bg.jpg') center top / 100% auto no-repeat;
   h1 {
     width: 100%;
     font-size: 1.7rem;
@@ -261,8 +268,8 @@ a {
   .title {
     width: 63.5%;
     margin: 0 auto;
-    margin-top: 58%;
-    margin-bottom: 7%;
+    margin-top: 55%;
+    margin-bottom: 5%;
   }
   .paget {
     width: 100%;
@@ -272,7 +279,7 @@ a {
     position: relative;
     display: block;
     margin: 0 auto;
-    margin-bottom: 8%;
+    margin-bottom: 5%;
   }
   .select1 {
     font-family: '微软雅黑';
@@ -378,22 +385,25 @@ a {
   }
 }
 .page2 {
-  position: absolute;
-  top: 0;
-  left: 0;
+  // position: absolute;
+  // top: 0;
+  // left: 0;
+  position: relative;
   width: 100%;
   z-index: 9;
   overflow-x: hidden;
+  background: url('@{imgUrl}bg.jpg') center top / 100% auto no-repeat;
   .anwsers {
     width: 100%;
-    margin-top: 70%;
+    margin-top: 50%;
     position: relative;
     .question {
       width: 100%;
     }
     .t_img {
-      width: 120%;
-      margin-left: -10%;
+      // width: 120%;
+      // margin-left: -10%;
+      width: 100%;
     }
   }
   .click_ul {
@@ -444,6 +454,7 @@ a {
     z-index: 99;
     pointer-events: auto;
     user-select: auto;
+    margin-top: -16%;
   }
 }
 </style>
