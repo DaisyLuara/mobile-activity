@@ -1,9 +1,10 @@
 <template>
     <div class="content" :style="style.root">
-      <div class="main" v-show="pshow">
-        <img class="bg" :src="IMGURL + 'page1_bg.jpg'"/>
+      <div class="main" v-show="pshow" :style="style.root">
+        <!-- <img class="bg" :src="IMGURL + 'page1_bg.jpg'"/> -->
         <div class="forms">
-          <h1>输入您的姓名,参加本次诊疗</h1>
+          <!-- <h1>输入您的姓名,参加本次诊疗</h1> -->
+          <img class="title" :src="IMGURL + 'result_tit.png'"/>
           <input class="name" ref="input" type="text" placeholder="输入姓名" maxlength="5" required/>
           <a class="start" @click="getStart">获得诊断</a>
            <img class="paget" :src="IMGURL + 'page1_t.png'"/>
@@ -47,6 +48,10 @@ export default {
   mounted() {
     this.getInfoById()
     this.wechatShare()
+    let ice = document.querySelector('.ices')
+    if (this.innerHeight() > 700) {
+      ice.style.marginTop = 0
+    }
   },
   methods: {
     wechatShare() {
@@ -118,6 +123,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+@imgUrl: 'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/tmdd/';
 html,
 body {
   width: 100%;
@@ -143,12 +149,14 @@ a {
   width: 100%;
   overflow-x: hidden;
   position: relative;
+
   .main {
     position: relative;
     z-index: 0;
     width: 100%;
     min-height: 100%;
     overflow-x: hidden;
+    background: url('@{imgUrl}page1_bg.jpg') center top / 100% auto no-repeat;
     .bg {
       position: relative;
       width: 100%;
@@ -157,16 +165,17 @@ a {
 
     .ices {
       position: relative;
-      margin-top: -30%;
+      margin-top: -28%;
       width: 100%;
       z-index: 999;
     }
     .forms {
       width: 100%;
-      position: absolute;
       z-index: 99;
-      top: 28%;
-      left: 0;
+      margin-top: 57%;
+      // position: absolute;
+      // top: 28%;
+      // left: 0;
       font-family: '微软雅黑';
       h1 {
         font-size: 1.7rem;
@@ -175,6 +184,10 @@ a {
         font-family: '微软雅黑';
         letter-spacing: 3px;
         line-height: 2.2rem;
+        width: 60%;
+        margin: 0 auto;
+      }
+      .title {
         width: 60%;
         margin: 0 auto;
       }
@@ -192,8 +205,8 @@ a {
         box-shadow: 0px 6px 0px 0 rgba(0, 100, 211, 0.9);
         display: block;
         margin: 0 auto;
-        margin-top: 10%;
-        margin-bottom: 10%;
+        margin-top: 6%;
+        margin-bottom: 6%;
         background-color: #fff;
         text-align: center;
         color: #1961cd;
@@ -222,7 +235,7 @@ a {
       }
       .paget {
         width: 100%;
-        margin-top: 34%;
+        margin-top: 10%;
       }
     }
   }
@@ -244,6 +257,7 @@ a {
       width: 100%;
       pointer-events: auto;
       user-select: auto;
+      margin-top: -16%;
     }
   }
 }

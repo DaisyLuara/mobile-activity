@@ -158,7 +158,7 @@ const Date201807 = [
     location: 'sea/index',
     name: 'waterWorld',
     meta: {
-      title: '海底世界',
+      title: '海洋生物在哪里',
       author: 'lipan',
       desc: '海底世界手机号页面'
     },
@@ -169,11 +169,33 @@ const Date201807 = [
     location: 'sea/result',
     name: 'seaWorld',
     meta: {
-      title: '海底世界',
+      title: '海洋生物在哪里',
       author: 'lipan',
       desc: '海底世界结果页'
     },
     isAbandoned: false
+  },
+  {
+    path: 'hiltoncphone',
+    location: 'hiltonc/phone',
+    name: 'hiltonCouponPhone',
+    meta: {
+      title: '希尔顿优惠券',
+      author: 'Anluis',
+      desc: '希尔顿优惠券手机号',
+      isAbandoned: false
+    }
+  },
+  {
+    path: 'hiltoncresult',
+    location: 'hiltonc/result',
+    name: 'hiltonCouponResult',
+    meta: {
+      title: '希尔顿结果',
+      author: 'Anluis',
+      desc: '希尔顿优惠券结果',
+      isAbandoned: false
+    }
   }
 ]
 export default Date201807
