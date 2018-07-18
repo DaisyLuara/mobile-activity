@@ -1,9 +1,6 @@
 <template>
     <div class="content">
       <div class="main" v-show="!qShow.qShow3">
-        <!-- <img class="bg" :src="IMGURL + 'bg.jpg'" v-show="!page1"/>
-        <img class="bg" :src="IMGURL + 'page1_bg.jpg'" v-show="page1"/> -->
-        
         <!-- 输入名字年龄性别 -->
         <div class="page1" :style="style.root" v-show="page1" @click.stop.prevent="()=>{pull_sex=false;pull_year=false;}">
           <img class="title" :src="IMGURL + 'title.png'"/>
@@ -20,14 +17,13 @@
             <div class="select-area">
               <div class="select1" @click.stop="()=>{pull_sex=!pull_sex;pull_year=false;}" data-sex>{{sexText}}</div>
               <ul class="select2" v-show="pull_sex">
-                  <a  @click="getSex('nv','男')"><li class="list-li">男</li></a>
-                  <a  @click="getSex('nan','女')"><li class="list-li">女</li></a>
+                  <a  @click="getSex('nan','男')"><li class="list-li">男</li></a>
+                  <a  @click="getSex('nv','女')"><li class="list-li">女</li></a>
               </ul>
             </div>
             <!-- <p class="error"></p> -->
             <a @click.prevent="getStart" class="start">
               开始诊断
-              <!-- <img  :src="IMGURL + 'start.png'"> -->
             </a>
           </div>
           <img class="paget" :src="IMGURL + 'page1_t.png'"/>
@@ -65,13 +61,12 @@ export default {
         }
       },
       yearText: '年龄',
-      sexText: '性别', //由于男女结果的图片弄反了，所以nan代表女，nv代表男
+      sexText: '性别',
       userName: null,
       page1: true, //true
       pull_year: false,
       pull_sex: false,
       //图片命名：性别+年龄   sex+yaer
-      //由于男女结果的图片弄反了，所以nan代表女，nv代表男
       sex: null,
       //0-25:0;26-30:1;31-40:2;41以上：3;
       year: null,
@@ -194,7 +189,7 @@ export default {
       }
       // bg.src = '/static/tmdd/' + this.preUrl + score + '.jpg'
       bg.src =
-        'http://p22vy0aug.bkt.clouddn.com/image/tmdd/result/' +
+        'http://p22vy0aug.bkt.clouddn.com/image/tmdd/result2/' +
         this.preUrl +
         score +
         '.jpg' +
