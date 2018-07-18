@@ -158,7 +158,7 @@ const Date201807 = [
     location: 'sea/index',
     name: 'waterWorld',
     meta: {
-      title: '海底世界',
+      title: '海洋生物在哪里',
       author: 'lipan',
       desc: '海底世界手机号页面'
     },
@@ -169,7 +169,7 @@ const Date201807 = [
     location: 'sea/result',
     name: 'seaWorld',
     meta: {
-      title: '海底世界',
+      title: '海洋生物在哪里',
       author: 'lipan',
       desc: '海底世界结果页'
     },

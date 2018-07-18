@@ -1,8 +1,8 @@
 <template>
     <div class="content" :style="style.root">
         <div class="forms">
-            <input class="tel" type="text" ref="input" placeholder=""/>
-            <input class="btn" type="button" value="" @click.prevent="start"/>
+            <input class="tel" type="text" ref="input" placeholder="请输入手机号"/>
+            <a class="btn" @click="toPhoto"><img :src="baseUrl + 'submit.png'"></a>
         </div>
     </div>
 </template>
@@ -15,14 +15,14 @@ export default {
       baseUrl: IMGURL + 'sea/page1/',
       style: {
         root: {
-          'min-height': this.minHeight() + 'px'
+          'min-height': this.innerHeight() + 'px'
         }
       },
       //微信分享
       wxShareInfo: {
-        title: '海底世界',
-        desc: '海底世界',
-        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/sea/share.png',
+        title: '来自海洋的问候',
+        desc: '更多海洋知识小课堂',
+        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/sea/share.jpg',
         success: function() {
           wechatShareTrack()
         }
@@ -34,6 +34,7 @@ export default {
     if (mlocal) {
       this.linkToResult(mlocal)
     }
+    this.wechatShare()
   },
   methods: {
     wechatShare() {
@@ -47,7 +48,7 @@ export default {
     },
     linkToResult(mobile) {
       this.$router.push({
-        path: 'sea_result?id=' + this.$router.query.id + '&mobile=' + mobile
+        path: 'sea_result?id=' + this.$route.query.id + '&mobile=' + mobile
       })
     },
     toPhoto() {
@@ -66,6 +67,7 @@ export default {
         window.localStorage.setItem('seaworld', input.value)
       }
       this.linkToResult(input.value)
+      console.log('satrt')
     }
   }
 }
@@ -84,20 +86,54 @@ body {
   padding: 0;
   margin: 0;
   font-size: 0;
+  text-align: center;
+}
+img {
+  pointer-events: none;
+  user-select: none;
 }
 .content {
   width: 100%;
   overflow-x: hidden;
   position: relative;
-  background-image: url('@{imgUrl}page1/bg.png');
+  background-image: url('@{imgUrl}page1/bg.jpg');
   background-position: top center;
   background-repeat: no-repeat;
   background-size: 100% auto;
   .forms {
     width: 100%;
-    input[type='text'] {
+    margin-top: 56.5%;
+    input {
+      display: block;
+      border: none;
+      background-color: transparent;
+      &::-webkit-input-placeholder {
+        color: #cafafc;
+      }
+      &::placeholder {
+        color: #cafafc;
+      }
     }
-    input[type='button'] {
+    .tel {
+      width: 70%;
+      background-image: url('@{imgUrl}page1/phone.png');
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: 100% auto;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #cafafc;
+      height: 100px;
+      line-height: 10px;
+      margin: 0 auto;
+    }
+    .btn {
+      width: 27%;
+      display: block;
+      margin: 0 auto;
+      img {
+        max-width: 100%;
+      }
     }
   }
 }
