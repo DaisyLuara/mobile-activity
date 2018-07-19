@@ -50,7 +50,7 @@ export default {
     this.wechatShare()
     let ice = document.querySelector('.ices')
     if (this.innerHeight() > 700) {
-      ice.style.marginTop = 0
+      ice.style.bottom = '16.5%'
     }
   },
   methods: {
@@ -156,7 +156,7 @@ a {
     width: 100%;
     min-height: 100%;
     overflow-x: hidden;
-    background: url('@{imgUrl}page1_bg.jpg') center top / 100% auto no-repeat;
+    background: url('@{imgUrl}page1.jpg') center top / 100% auto no-repeat;
     .bg {
       position: relative;
       width: 100%;
@@ -172,7 +172,7 @@ a {
     .forms {
       width: 100%;
       z-index: 99;
-      margin-top: 57%;
+      margin-top: 60%;
       font-family: '微软雅黑';
       h1 {
         font-size: 1.7rem;
@@ -203,7 +203,7 @@ a {
         display: block;
         margin: 0 auto;
         margin-top: 6%;
-        margin-bottom: 4%;
+        margin-bottom: 6%;
         background-color: #fff;
         text-align: center;
         color: #1961cd;
@@ -232,7 +232,7 @@ a {
       }
       .paget {
         width: 100%;
-        margin-top: 10%;
+        margin-top: 6%;
       }
     }
   }
