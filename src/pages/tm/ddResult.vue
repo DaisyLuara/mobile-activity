@@ -9,7 +9,7 @@
           <a class="start" @click="getStart">获得诊断</a>
            <img class="paget" :src="IMGURL + 'page1_t.png?677677'"/>
         </div>
-        <img class="ices" :src="IMGURL + 'ices.png?354546'"/>
+        <img class="ices" :src="IMGURL + 'icebg.png?33'"/>
       </div>
       <div class="photo" v-show="!pshow">
         <canvas id="canvas"></canvas>
@@ -130,7 +130,7 @@ export default {
             let url = canvas.toDataURL('image/png')
             result.src = url
           }
-          word.src = 'http://p22vy0aug.bkt.clouddn.com/image/tmdd/word.png'
+          word.src = 'http://p22vy0aug.bkt.clouddn.com/image/tmdd/text.png?333'
         }
         er.src = 'http://p22vy0aug.bkt.clouddn.com/image/tmdd/er.png?78999'
       }
