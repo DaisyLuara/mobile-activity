@@ -13,7 +13,7 @@
     <img
       :style="style.photo"
       class="photo"
-      :src="serverUrl + 'sample-photo.png' + this.qiniuCompress()" />
+      :src="serverUrl + 'photo-cover.png' + this.qiniuCompress()" />
     <img
       :style="style.remind"
       class="remind" 
@@ -23,6 +23,7 @@
 
 <script>
 const serverUrl = process.env.CDN_URL
+import { getInfoById, $_wechat } from 'services'
 export default {
   data() {
     return {
