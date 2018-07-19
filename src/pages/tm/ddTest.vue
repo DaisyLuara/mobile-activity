@@ -193,8 +193,8 @@ export default {
               word.height,
               0,
               bg.height * 0.637,
-              word.width,
-              word.height
+              word.width * 0.8,
+              word.height * 0.8
             )
             let url = canvas.toDataURL('image/png')
             result.src = url
