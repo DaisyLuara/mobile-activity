@@ -39,7 +39,7 @@
             </ul>
           </div>
         </div>
-        <img class="icebg" :src="IMGURL + 'ices.png'"/>
+        <img class="icebg" :src="IMGURL + 'ices.png?234232'"/>
       </div>
       <!-- canvas 图片合成 -->
       <div class="page3" v-show="qShow.qShow3" :style="style.root">
@@ -184,14 +184,15 @@ export default {
             bg.width * 0.2
           )
           word.onload = function() {
+            ctx.rotate(-Math.PI * 0.045)
             ctx.drawImage(
               word,
               0,
               0,
               word.width,
               word.height,
-              bg.width * 0.22,
-              bg.height * 0.625,
+              0,
+              bg.height * 0.637,
               word.width,
               word.height
             )
@@ -200,7 +201,7 @@ export default {
           }
           word.src = 'http://p22vy0aug.bkt.clouddn.com/image/tmdd/word.png'
         }
-        er.src = 'http://p22vy0aug.bkt.clouddn.com/image/tmdd/er.png'
+        er.src = 'http://p22vy0aug.bkt.clouddn.com/image/tmdd/er.png?56656'
       }
       bg.src =
         'http://p22vy0aug.bkt.clouddn.com/image/tmdd/result3/' +

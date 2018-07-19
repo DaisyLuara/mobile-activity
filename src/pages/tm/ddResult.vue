@@ -7,9 +7,9 @@
           <img class="title" :src="IMGURL + 'result_tit.png'"/>
           <input class="name" ref="input" type="text" placeholder="输入姓名" maxlength="5" required/>
           <a class="start" @click="getStart">获得诊断</a>
-           <img class="paget" :src="IMGURL + 'page1_t.png'"/>
+           <img class="paget" :src="IMGURL + 'page1_t.png?677677'"/>
         </div>
-        <img class="ices" :src="IMGURL + 'ices.png'"/>
+        <img class="ices" :src="IMGURL + 'ices.png?354546'"/>
       </div>
       <div class="photo" v-show="!pshow">
         <canvas id="canvas"></canvas>
@@ -114,16 +114,16 @@ export default {
             bg.width * 0.2,
             bg.width * 0.2
           )
-
           word.onload = function() {
+            ctx.rotate(-Math.PI * 0.045)
             ctx.drawImage(
               word,
               0,
               0,
               word.width,
               word.height,
-              bg.width * 0.22,
-              bg.height * 0.625,
+              0, //   bg.width * 0.22,
+              bg.height * 0.637, //   bg.height * 0.625,
               word.width,
               word.height
             )
@@ -132,7 +132,7 @@ export default {
           }
           word.src = 'http://p22vy0aug.bkt.clouddn.com/image/tmdd/word.png'
         }
-        er.src = 'http://p22vy0aug.bkt.clouddn.com/image/tmdd/er.png'
+        er.src = 'http://p22vy0aug.bkt.clouddn.com/image/tmdd/er.png?78999'
       }
       bg.src = this.mImg
       // bg.src = '/static/tmdd/nan01.jpg'
