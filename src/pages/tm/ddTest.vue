@@ -98,9 +98,9 @@ export default {
   },
   mounted() {
     this.wechatShare()
-    let ice = document.querySelector('.ices')
+    let ice = document.querySelector('.icebg')
     if (this.innerHeight() > 700) {
-      ice.style.marginTop = 0
+      ice.style.bottom = '16.5%'
     }
   },
   methods: {
@@ -230,9 +230,6 @@ a {
       z-index: 0;
     }
     .icebg {
-      // position: relative;
-      // margin-top: -37%;
-
       position: absolute;
       bottom: 0;
       left: 0;
@@ -260,21 +257,21 @@ a {
     margin-bottom: 6%;
   }
   .title {
-    width: 55%;
+    width: 50%;
     margin: 0 auto;
     margin-top: 50%;
-    margin-bottom: 2%;
+    margin-bottom: 3%;
   }
   .paget {
     width: 100%;
-    margin-top: -3%;
+    margin-top: -6%;
   }
   .select-area {
     width: 40%;
     position: relative;
     display: block;
     margin: 0 auto;
-    margin-bottom: 3%;
+    margin-bottom: 4%;
   }
   .select1 {
     font-family: '微软雅黑';
