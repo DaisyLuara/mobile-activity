@@ -157,9 +157,12 @@ export default {
       let ctx = canvas.getContext('2d')
       let bg = new Image()
       let er = new Image()
+      let word = new Image()
       let result = document.querySelector('.result')
       score = score > 1 ? score : 1
       bg.setAttribute('crossOrigin', 'Anonymous')
+      er.setAttribute('crossOrigin', 'Anonymous')
+      word.setAttribute('crossOrigin', 'Anonymous')
       bg.onload = function() {
         canvas.width = bg.width
         canvas.height = bg.height
@@ -180,10 +183,24 @@ export default {
             bg.width * 0.2,
             bg.width * 0.2
           )
-          let url = canvas.toDataURL('image/png')
-          result.src = url
+          word.onload = function() {
+            ctx.drawImage(
+              word,
+              0,
+              0,
+              word.width,
+              word.height,
+              bg.width * 0.22,
+              bg.height * 0.625,
+              word.width,
+              word.height
+            )
+            let url = canvas.toDataURL('image/png')
+            result.src = url
+          }
+          word.src = 'http://p22vy0aug.bkt.clouddn.com/image/tmdd/word.png'
         }
-        er.src = '/static/tmdd/er.png'
+        er.src = 'http://p22vy0aug.bkt.clouddn.com/image/tmdd/er.png'
       }
       bg.src =
         'http://p22vy0aug.bkt.clouddn.com/image/tmdd/result3/' +
