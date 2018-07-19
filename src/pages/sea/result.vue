@@ -88,6 +88,7 @@ body {
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   transform: translate3d(0, 0, 0);
+  background-color: #00051b;
 }
 * {
   padding: 0;

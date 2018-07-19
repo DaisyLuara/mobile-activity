@@ -1,5 +1,5 @@
 <template>
-    <div class="content">
+    <div class="content" :style="style.root">
       <div class="main" v-show="!qShow.qShow3">
         <!-- 输入名字年龄性别 -->
         <div class="page1" :style="style.root" v-show="page1" @click.stop.prevent="()=>{pull_sex=false;pull_year=false;}">
@@ -29,7 +29,7 @@
           <img class="paget" :src="IMGURL + 'page1_t.png'"/>
         </div>
         <!-- 答题 -->
-        <div class="page2" v-show="!page1">
+        <div class="page2" v-show="!page1" :style="style.root">
           <div class="anwsers" v-for="(item,index) in 3"  :key="item.id" v-show="qShow['qShow'+index]">
             <img class="question" :src="IMGURL + preUrl + item +'.png'"/>
             <img class="t_img" :src="IMGURL + 't'+ item + '.png'"/>
@@ -42,11 +42,10 @@
         <img class="icebg" :src="IMGURL + 'ices.png'"/>
       </div>
       <!-- canvas 图片合成 -->
-      <div class="page3" v-show="qShow.qShow3">
+      <div class="page3" v-show="qShow.qShow3" :style="style.root">
         <canvas id="canvas"></canvas>
         <img class="result" src="" alt="病假单"/>
       </div>
-      
     </div>
 </template>
 <script>
@@ -57,7 +56,7 @@ export default {
     return {
       style: {
         root: {
-          'min-height': this.innerHeight() + 'px'
+          height: this.innerHeight() + 'px'
         }
       },
       yearText: '年龄',
@@ -126,7 +125,6 @@ export default {
     },
     getStart() {
       let input = this.$refs.input
-      // let error = document.querySelector('.error')
       if (!input.value) {
         alert('请填写姓名，不超过5个字')
         return
@@ -169,7 +167,7 @@ export default {
         ctx.font = 'bolder 28px NSimSun '
         ctx.fontStyle = '#000'
         ctx.rotate(0.04 * Math.PI)
-        ctx.fillText(that.userName, bg.width * 0.5, bg.height * 0.255)
+        ctx.fillText(that.userName, bg.width * 0.48, bg.height * 0.175)
         er.onload = function() {
           ctx.drawImage(
             er,
@@ -178,7 +176,7 @@ export default {
             er.width,
             er.height,
             bg.width * 0.35,
-            bg.height * 0.55,
+            bg.height * 0.475,
             bg.width * 0.2,
             bg.width * 0.2
           )
@@ -187,9 +185,8 @@ export default {
         }
         er.src = '/static/tmdd/er.png'
       }
-      // bg.src = '/static/tmdd/' + this.preUrl + score + '.jpg'
       bg.src =
-        'http://p22vy0aug.bkt.clouddn.com/image/tmdd/result2/' +
+        'http://p22vy0aug.bkt.clouddn.com/image/tmdd/result3/' +
         this.preUrl +
         score +
         '.jpg' +
@@ -222,6 +219,7 @@ a {
   display: inline-block;
 }
 .content {
+  overflow: hidden;
   .main {
     position: relative;
     width: 100%;
@@ -232,22 +230,23 @@ a {
       z-index: 0;
     }
     .icebg {
-      position: relative;
-      margin-top: -28%;
+      // position: relative;
+      // margin-top: -37%;
+
+      position: absolute;
+      bottom: 0;
+      left: 0;
       width: 100%;
       z-index: 999;
     }
   }
 }
 .page1 {
-  // position: absolute;
-  // top: 0;
-  // left: 0;
   position: relative;
   z-index: 9;
   width: 100%;
   text-align: center;
-  background: url('@{imgUrl}page1_bg.jpg') center top / 100% auto no-repeat;
+  background: url('@{imgUrl}page1.jpg') center top / 100% auto no-repeat;
   h1 {
     width: 100%;
     font-size: 1.7rem;
@@ -261,20 +260,21 @@ a {
     margin-bottom: 6%;
   }
   .title {
-    width: 63.5%;
+    width: 55%;
     margin: 0 auto;
-    margin-top: 55%;
-    margin-bottom: 5%;
+    margin-top: 50%;
+    margin-bottom: 2%;
   }
   .paget {
     width: 100%;
+    margin-top: -3%;
   }
   .select-area {
-    width: 52%;
+    width: 40%;
     position: relative;
     display: block;
     margin: 0 auto;
-    margin-bottom: 5%;
+    margin-bottom: 3%;
   }
   .select1 {
     font-family: '微软雅黑';
@@ -283,11 +283,11 @@ a {
     color: #1961cd;
     letter-spacing: 2px;
     width: 100%;
-    height: 50px;
-    line-height: 45px;
-    border: solid 3px #0063d3;
-    border-radius: 25px;
-    box-shadow: 0px 6px 0px 0 rgba(0, 100, 211, 0.9);
+    height: 35px;
+    line-height: 30px;
+    border: solid 2px #0063d3;
+    border-radius: 20px;
+    box-shadow: 0px 4px 0px 0 rgba(0, 100, 211, 0.9);
     display: block;
     margin: 0 auto;
     background-color: #fff;
@@ -311,7 +311,7 @@ a {
     display: block;
     // z-index: 99;
     margin-top: -2px;
-    padding: 10px 0px;
+    padding: 6px 0px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     background-color: rgba(0, 100, 211, 1);
@@ -320,16 +320,13 @@ a {
       .list-li {
         width: 100%;
         font-family: '微软雅黑';
-        font-size: 1rem;
+        font-size: 0.9rem;
         font-weight: 600;
         color: #fff;
-        padding: 5px 0px;
+        padding: 3px 0px;
       }
       &:hover {
         background-color: rgba(255, 255, 255, 0.3);
-        // .list-li {
-        //   background-color: rgba(255, 255, 255, 0.3);
-        // }
       }
       &:active {
         background-color: rgba(255, 255, 255, 0.3);
@@ -360,17 +357,17 @@ a {
     margin-bottom: 10px;
   }
   .start {
-    width: 52%;
-    border: solid 3px #9e0000;
+    width: 40%;
+    border: solid 2px #9e0000;
     font-family: '微软雅黑';
     font-size: 1.1rem;
     font-weight: 600;
     color: #fff;
     letter-spacing: 2px;
-    height: 50px;
-    line-height: 45px;
-    border-radius: 25px;
-    box-shadow: 0px 6px 0px 0 rgba(223, 56, 82, 0.9);
+    height: 40px;
+    line-height: 35px;
+    border-radius: 20px;
+    box-shadow: 0px 4px 0px 0 rgba(223, 56, 82, 0.9);
     margin: 0 auto;
     background-color: #df3852;
     text-align: center;
@@ -380,24 +377,20 @@ a {
   }
 }
 .page2 {
-  // position: absolute;
-  // top: 0;
-  // left: 0;
   position: relative;
   width: 100%;
   z-index: 9;
-  overflow-x: hidden;
+  overflow: hidden;
   background: url('@{imgUrl}bg.jpg') center top / 100% auto no-repeat;
   .anwsers {
-    width: 100%;
-    margin-top: 50%;
+    width: 80%;
     position: relative;
+    margin: 0 auto;
+    margin-top: 45%;
     .question {
       width: 100%;
     }
     .t_img {
-      // width: 120%;
-      // margin-left: -10%;
       width: 100%;
     }
   }
@@ -432,7 +425,7 @@ a {
   top: 0;
   left: 0;
   width: 100%;
-  min-height: 100%;
+  overflow: hidden;
   z-index: 99;
   #canvas {
     position: absolute;
@@ -449,7 +442,6 @@ a {
     z-index: 99;
     pointer-events: auto;
     user-select: auto;
-    margin-top: -16%;
   }
 }
 </style>
