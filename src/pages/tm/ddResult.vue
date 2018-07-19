@@ -25,7 +25,7 @@ export default {
     return {
       style: {
         root: {
-          'min-height': this.innerHeight() + 'px'
+          height: this.innerHeight() + 'px'
         }
       },
       IMGURL: IMAGE_SERVER + '/pages/tmdd/',
@@ -98,7 +98,7 @@ export default {
         ctx.font = '600 28px NSimSun '
         ctx.fontStyle = '#000'
         ctx.rotate(0.04 * Math.PI)
-        ctx.fillText(name, bg.width * 0.5, bg.height * 0.255)
+        ctx.fillText(name, bg.width * 0.48, bg.height * 0.175)
         er.onload = function() {
           ctx.drawImage(
             er,
@@ -107,7 +107,7 @@ export default {
             er.width,
             er.height,
             bg.width * 0.35,
-            bg.height * 0.55,
+            bg.height * 0.475,
             bg.width * 0.2,
             bg.width * 0.2
           )
@@ -147,7 +147,7 @@ a {
 }
 .content {
   width: 100%;
-  overflow-x: hidden;
+  overflow: hidden;
   position: relative;
 
   .main {
@@ -162,10 +162,10 @@ a {
       width: 100%;
       z-index: 0;
     }
-
     .ices {
-      position: relative;
-      margin-top: -28%;
+      position: absolute;
+      bottom: 0;
+      left: 0;
       width: 100%;
       z-index: 999;
     }
@@ -173,9 +173,6 @@ a {
       width: 100%;
       z-index: 99;
       margin-top: 57%;
-      // position: absolute;
-      // top: 28%;
-      // left: 0;
       font-family: '微软雅黑';
       h1 {
         font-size: 1.7rem;
@@ -188,7 +185,7 @@ a {
         margin: 0 auto;
       }
       .title {
-        width: 60%;
+        width: 50%;
         margin: 0 auto;
       }
       input {
@@ -197,16 +194,16 @@ a {
         font-weight: 600;
         color: #1961cd;
         letter-spacing: 2px;
-        width: 52%;
-        height: 50px;
-        line-height: 45px;
-        border: solid 3px #0063d3;
-        border-radius: 25px;
-        box-shadow: 0px 6px 0px 0 rgba(0, 100, 211, 0.9);
+        width: 40%;
+        height: 40px;
+        line-height: 35px;
+        border: solid 2px #0063d3;
+        border-radius: 20px;
+        box-shadow: 0px 4px 0px 0 rgba(0, 100, 211, 0.9);
         display: block;
         margin: 0 auto;
         margin-top: 6%;
-        margin-bottom: 6%;
+        margin-bottom: 4%;
         background-color: #fff;
         text-align: center;
         color: #1961cd;
@@ -218,17 +215,17 @@ a {
         }
       }
       a {
-        width: 52%;
-        border: solid 3px #9e0000;
+        width: 40%;
+        border: solid 2px #9e0000;
         font-family: '微软雅黑';
         font-size: 1.1rem;
         font-weight: 600;
         color: #fff;
         letter-spacing: 2px;
-        height: 50px;
-        line-height: 45px;
-        border-radius: 25px;
-        box-shadow: 0px 6px 0px 0 rgba(223, 56, 82, 0.9);
+        height: 40px;
+        line-height: 35px;
+        border-radius: 20px;
+        box-shadow: 0px 4px 0px 0 rgba(223, 56, 82, 0.9);
         margin: 0 auto;
         background-color: #df3852;
         text-align: center;
@@ -257,7 +254,6 @@ a {
       width: 100%;
       pointer-events: auto;
       user-select: auto;
-      margin-top: -16%;
     }
   }
 }
