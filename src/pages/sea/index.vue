@@ -56,11 +56,11 @@ export default {
       let id = this.$route.query.id
       let reg = /^1[3|4|5|6|7|8][0-9]{9}$/
       if (!id) {
-        alter('没有照片信息，请重新扫描二维码！')
+        alert('没有照片信息，请重新扫描二维码！')
         return
       }
       if (!reg.test(input.value)) {
-        alter('请输入11位有效的手机号码')
+        alert('请输入11位有效的手机号码')
         return
       }
       if (window.localStorage) {
