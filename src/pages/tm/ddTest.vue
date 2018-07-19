@@ -39,7 +39,7 @@
             </ul>
           </div>
         </div>
-        <img class="icebg" :src="IMGURL + 'ices.png?234232'"/>
+        <img class="icebg" :src="IMGURL + 'icebg.png?111'"/>
       </div>
       <!-- canvas 图片合成 -->
       <div class="page3" v-show="qShow.qShow3" :style="style.root">
@@ -193,13 +193,13 @@ export default {
               word.height,
               0,
               bg.height * 0.637,
-              word.width,
-              word.height
+              word.width * 0.8,
+              word.height * 0.8
             )
             let url = canvas.toDataURL('image/png')
             result.src = url
           }
-          word.src = 'http://p22vy0aug.bkt.clouddn.com/image/tmdd/word.png'
+          word.src = 'http://p22vy0aug.bkt.clouddn.com/image/tmdd/text.png?111'
         }
         er.src = 'http://p22vy0aug.bkt.clouddn.com/image/tmdd/er.png?56656'
       }
