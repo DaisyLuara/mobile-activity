@@ -405,7 +405,7 @@ export default {
 .number-icon {
   position: absolute;
   top: -10%;
-  left: 45%;
-  width: 10% !important;
+  left: 47.5%;
+  width: 5% !important;
 }
 </style>
