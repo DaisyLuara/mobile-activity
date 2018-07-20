@@ -16,7 +16,7 @@
         <img class="result" src=""/>
          <!-- 显示剪切后的图像 -->
         <canvas id="canvas2" style="display:none"></canvas>
-        <img id="mImg" src="base64Data" alt="病假单"/>
+        <img id="Img" src="base64Data" alt="病假单"/>
       </div>
     </div>
 </template>
@@ -109,7 +109,7 @@ export default {
           mImg.height * 0.7
         )
         let url = canvas.toDataURL('image/png')
-        let img = document.querySelector('#mImg')
+        let img = document.querySelector('#Img')
         img.src = url
       }
     },
@@ -290,6 +290,7 @@ a {
     top: 0;
     left: 0;
     width: 100%;
+    z-index: 999;
     #canvas {
       width: 100%;
       height: 100%;
