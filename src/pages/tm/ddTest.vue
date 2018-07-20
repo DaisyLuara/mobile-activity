@@ -184,22 +184,22 @@ export default {
             bg.width * 0.2
           )
           word.onload = function() {
-            ctx.rotate(-Math.PI * 0.045)
+            ctx.rotate(-Math.PI * 0.035)
             ctx.drawImage(
               word,
               0,
               0,
               word.width,
               word.height,
-              0,
-              bg.height * 0.637,
-              word.width * 0.8,
-              word.height * 0.8
+              bg.width * 0.06,
+              bg.height * 0.675,
+              word.width * 0.99,
+              word.height * 0.99
             )
             let url = canvas.toDataURL('image/png')
             result.src = url
           }
-          word.src = 'http://p22vy0aug.bkt.clouddn.com/image/tmdd/text.png?111'
+          word.src = 'http://p22vy0aug.bkt.clouddn.com/image/tmdd/text.png?555'
         }
         er.src = 'http://p22vy0aug.bkt.clouddn.com/image/tmdd/er.png?56656'
       }
