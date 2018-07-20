@@ -164,7 +164,7 @@ export default {
       mImg.src = image
       mImg.onload = function() {
         canvas.width = mImg.width
-        canvas.height = mImg.height
+        canvas.height = mImg.height * 0.7
         // img, sx, sy, swidth, sheight, x, y, width, height
         ctx2.drawImage(
           mImg,
@@ -181,7 +181,6 @@ export default {
         let img = document.querySelector('#mImg')
         img.src = url
       }
-      
     },
     drawCanvas(score) {
       let that = this
