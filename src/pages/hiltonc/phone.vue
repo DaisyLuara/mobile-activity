@@ -72,7 +72,7 @@ export default {
   },
   mounted() {
     if (this.$route.query.hasOwnProperty('id')) {
-      this.couponId = this.$route.query.cid
+      this.couponId = this.$route.query.id
       this.getCouponFromId(this.couponId)
     }
   },
@@ -115,7 +115,7 @@ export default {
       }
       this.$http.put(putUrl, putParam).then(r => {
         if (r.data.success === true) {
-          this.sendSMS()
+          this.sendSMS(id)
         }
       })
     },
