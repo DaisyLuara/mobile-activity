@@ -40,7 +40,7 @@
             <img
               @click="handlePageToNext()"
               class="arrow"
-              v-lazy="serverUrl + 'arrow-red.png' + this.qiniuCompress()" />
+              v-lazy="serverUrl + 'arrow-black.png' + this.qiniuCompress()" />
           </div>
         </div>
         <div class="swiper-slide">
@@ -58,7 +58,7 @@
             <img
               @click="handlePageToNext()"
               class="arrow"
-              :src="serverUrl + 'arrow-red.png' + this.qiniuCompress()" />
+              :src="serverUrl + 'arrow-black.png' + this.qiniuCompress()" />
           </div>
         </div>
         <div class="swiper-slide">
@@ -73,7 +73,7 @@
             <img
               @click="handlePageToNext()"
               class="arrow"
-              :src="serverUrl + 'arrow-red.png' + this.qiniuCompress()" />
+              :src="serverUrl + 'arrow-black.png' + this.qiniuCompress()" />
           </div>
         </div>
         <div class="swiper-slide">
@@ -140,7 +140,7 @@ export default {
     }
   },
   created() {
-    window.location.replace(window.location.hash || '#')
+    window.location.replace(window.location.origin + '/marketing/meichenzhan#')
   },
   mounted() {
     this.init()
