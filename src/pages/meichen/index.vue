@@ -139,6 +139,9 @@ export default {
       }
     }
   },
+  created() {
+    window.location.replace(window.location.hash || '#')
+  },
   mounted() {
     this.init()
   },
