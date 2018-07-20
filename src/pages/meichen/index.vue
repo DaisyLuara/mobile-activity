@@ -131,7 +131,7 @@ export default {
       mySwiper: null,
       wxShareInfo: {
         title: `星视度2018美陈展邀你来“嗨玩”`,
-        desc: '全上海商业大咖都在这里！',
+        desc: '全中国的商业大咖都在这里！',
         imgUrl: serverUrl + 'share-icon.png',
         success: () => {
           wechatShareTrack()
