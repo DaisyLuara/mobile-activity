@@ -36,7 +36,7 @@
           <div class="slide-page3">
             <img
               class="page3"
-              v-lazy="serverUrl + 'page3.png' + this.qiniuCompress()" />
+              v-lazy="serverUrl + 'page3-1.png' + this.qiniuCompress()" />
             <img
               @click="handlePageToNext()"
               class="arrow"
@@ -46,13 +46,13 @@
         <div class="swiper-slide">
           <div class="slide-page4 exp">
              <img
-              class="page4-1" :src="serverUrl + 'page4-title.png' + this.qiniuCompress()" />
+              class="page4-1" :src="serverUrl + 'page4-title-1.png' + this.qiniuCompress()" />
             <div class="page4">
-              <img class="number-icon" :src="serverUrl + 'tip.png' + this.qiniuCompress()" />
+              <!-- <img class="number-icon" :src="serverUrl + 'tip-white.png' + this.qiniuCompress()" /> -->
               <img v-lazy="serverUrl + 'new-1.png' + this.qiniuCompress()" />
             </div>
             <div class="page4">
-              <img class="number-icon" :src="serverUrl + 'tip.png' + this.qiniuCompress()" />
+              <img class="number-icon" :src="serverUrl + 'tip-white.png' + this.qiniuCompress()" />
               <img v-lazy="serverUrl + 'new-2.png' + this.qiniuCompress()">
             </div>
             <img
@@ -64,12 +64,12 @@
         <div class="swiper-slide">
           <div class="slide-page4">
             <div class="page4">
-              <img class="number-icon" v-lazy="serverUrl + 'tip.png' + this.qiniuCompress()" />
+              <img class="number-icon" v-lazy="serverUrl + 'tip-white.png' + this.qiniuCompress()" />
               <img v-lazy="serverUrl + 'new-3.png' + this.qiniuCompress()">
             </div>
             <img
               class="page4-4"
-              v-lazy="serverUrl + 'new-4.png' + this.qiniuCompress()">
+              v-lazy="serverUrl + 'new-4-1.png' + this.qiniuCompress()">
             <img
               @click="handlePageToNext()"
               class="arrow"
@@ -80,7 +80,7 @@
           <div class="slide-page5">
             <img
               class="top"
-              :src="serverUrl + 'page5-bg-top.jpg' + this.qiniuCompress()" />
+              :src="serverUrl + 'page5-bg-tio-1.png' + this.qiniuCompress()" />
             <img
               @click="handleMapJump"
               class="p5button"
@@ -283,7 +283,7 @@ export default {
         width: 100%;
         height: 100%;
         position: relative;
-        background-color: #ffffff;
+        background-color: #1d1e27;
         .page3 {
           width: 100%;
           position: absolute;
@@ -298,7 +298,7 @@ export default {
         width: 100%;
         height: 100%;
         position: relative;
-        background-color: #ffffff;
+        background-color: #1d1e27;
         display: flex;
         justify-content: center;
         flex-direction: column;
