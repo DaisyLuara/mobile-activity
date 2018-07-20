@@ -72,8 +72,8 @@ export default {
     }
   },
   mounted() {
-    if (this.$route.query.hasOwnProperty('id')) {
-      this.couponId = this.$route.query.id
+    if (this.$route.query.hasOwnProperty('coupon_id')) {
+      this.couponId = this.$route.query.coupon_id
       this.getCouponFromId(this.couponId)
     }
   },
