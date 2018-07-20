@@ -139,8 +139,14 @@ export default {
       }
     }
   },
-  created() {
-    window.location.replace(window.location.origin + '/marketing/meichenzhan#')
+  beforeCreate() {
+    if (this.$route.query.hasOwnProperty('reload')) {
+      // no need reload
+    } else {
+      let link = window.location.href
+      let newLink = link.indexOf('?') > -1 ? link + '&reload=1' : '?reload=1'
+      window.location.replace(newLink)
+    }
   },
   mounted() {
     this.init()
