@@ -14,6 +14,9 @@
       <div class="photo" v-show="!pshow">
         <canvas id="canvas"></canvas>
         <img class="result" src=""/>
+         <!-- 显示剪切后的图像 -->
+        <canvas id="canvas2" style="display:none"></canvas>
+        <img id="Img" src="base64Data" alt="病假单"/>
       </div>
     </div>
 </template>
@@ -84,7 +87,34 @@ export default {
       this.drawCanvas(this.name)
       this.pshow = !this.pshow
     },
+    drawing(image) {
+      let canvas = document.getElementById('canvas2')
+      let ctx2 = canvas.getContext('2d')
+      let mImg = new Image()
+      mImg.setAttribute('crossOrigin', 'Anonymous')
+      mImg.src = image
+      mImg.onload = function() {
+        canvas.width = mImg.width
+        canvas.height = mImg.height * 0.7
+        // img, sx, sy, swidth, sheight, x, y, width, height
+        ctx2.drawImage(
+          mImg,
+          0,
+          0,
+          mImg.width,
+          mImg.height * 0.7,
+          0,
+          0,
+          mImg.width,
+          mImg.height * 0.7
+        )
+        let url = canvas.toDataURL('image/png')
+        let img = document.querySelector('#Img')
+        img.src = url
+      }
+    },
     drawCanvas(name) {
+      let that = this
       let canvas = document.getElementById('canvas')
       let ctx = canvas.getContext('2d')
       let result = document.querySelector('.result')
@@ -129,6 +159,8 @@ export default {
             )
             let url = canvas.toDataURL('image/png')
             result.src = url
+            //合成图片成功之后调用
+            that.drawing(result.src)
           }
           word.src = 'http://p22vy0aug.bkt.clouddn.com/image/tmdd/text.png?444'
         }
@@ -259,6 +291,7 @@ a {
     top: 0;
     left: 0;
     width: 100%;
+    z-index: 9999;
     #canvas {
       width: 100%;
       height: 100%;
@@ -270,6 +303,17 @@ a {
     .result {
       position: relative;
       width: 100%;
+      pointer-events: auto;
+      user-select: auto;
+    }
+    #Img {
+      width: 100%;
+      // height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 9900;
+      opacity: 0;
       pointer-events: auto;
       user-select: auto;
     }
