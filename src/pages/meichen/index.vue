@@ -48,12 +48,12 @@
              <img
               class="page4-1" :src="serverUrl + 'page4-title.png' + this.qiniuCompress()" />
             <div class="page4">
-              <img class="number-icon" :src="serverUrl + 'page4-icon-1.png' + this.qiniuCompress()" />
-              <img v-lazy="serverUrl + 'page4-1.png' + this.qiniuCompress()" />
+              <img class="number-icon" :src="serverUrl + 'tip.png' + this.qiniuCompress()" />
+              <img v-lazy="serverUrl + 'new-1.png' + this.qiniuCompress()" />
             </div>
             <div class="page4">
-              <img class="number-icon" :src="serverUrl + 'page4-icon-2.png' + this.qiniuCompress()" />
-              <img v-lazy="serverUrl + 'page4-2.png' + this.qiniuCompress()">
+              <img class="number-icon" :src="serverUrl + 'tip.png' + this.qiniuCompress()" />
+              <img v-lazy="serverUrl + 'new-2.png' + this.qiniuCompress()">
             </div>
             <img
               @click="handlePageToNext()"
@@ -64,12 +64,12 @@
         <div class="swiper-slide">
           <div class="slide-page4">
             <div class="page4">
-              <img class="number-icon" v-lazy="serverUrl + 'page4-icon-3.png' + this.qiniuCompress()" />
-              <img v-lazy="serverUrl + 'page4-3.png' + this.qiniuCompress()">
+              <img class="number-icon" v-lazy="serverUrl + 'tip.png' + this.qiniuCompress()" />
+              <img v-lazy="serverUrl + 'new-3.png' + this.qiniuCompress()">
             </div>
             <img
-              class="page4-1"
-              v-lazy="serverUrl + 'page4-4.png' + this.qiniuCompress()">
+              class="page4-4"
+              v-lazy="serverUrl + 'new-4.png' + this.qiniuCompress()">
             <img
               @click="handlePageToNext()"
               class="arrow"
@@ -318,6 +318,9 @@ export default {
         .page4-2 {
           width: 90%;
           margin: 2% 0;
+        }
+        .page4-4 {
+          width: 100%;
         }
       }
       .slide-page5 {
