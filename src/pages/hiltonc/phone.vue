@@ -67,7 +67,8 @@ export default {
       phoneError: false,
       couponType: null,
       couponId: null,
-      hasSMSsended: false
+      hasSMSsended: false,
+      errorMsg: '输入的手机号有误'
     }
   },
   mounted() {
@@ -80,6 +81,7 @@ export default {
     handleInputClick() {
       this.control.shouldRemindShow = false
       this.phoneError = false
+      this.errorMsg = '输入的手机号有误'
     },
     handleRemindShow() {
       if (this.phoneValue === null || this.phoneValue === '') {
@@ -116,6 +118,9 @@ export default {
       this.$http.put(putUrl, putParam).then(r => {
         if (r.data.success === true) {
           this.sendSMS(id)
+        } else {
+          this.phoneError = true
+          this.errorMsg = '您的手机号已经领取过了'
         }
       })
     },
@@ -172,7 +177,7 @@ export default {
       color: red;
       text-align: center;
       position: absolute;
-      top: -20px;
+      top: -30px;
     }
     .input-remind {
       width: 100%;
