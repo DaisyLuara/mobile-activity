@@ -14,7 +14,7 @@
       <div
         v-show="phoneError"
         class="input-error">
-        输入的手机号有误
+        {{errorMsg}}
       </div>
      
       <img 
