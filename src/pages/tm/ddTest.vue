@@ -45,11 +45,15 @@
       <div class="page3" v-show="qShow.qShow3" :style="style.root">
         <canvas id="canvas"></canvas>
         <img class="result" src="" alt="病假单"/>
+        <!-- 显示剪切后的图像 -->
+        <canvas id="canvas2"></canvas>
+        <img id="mImg"  :src="base64Data" alt="病假单"/>
       </div>
     </div>
 </template>
 <script>
 import { $_wechat, wechatShareTrack } from 'services'
+import MC from 'mcanvas'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
   data() {
@@ -65,6 +69,7 @@ export default {
       page1: true, //true
       pull_year: false,
       pull_sex: false,
+      base64Data: null,
       //图片命名：性别+年龄   sex+yaer
       sex: null,
       //0-25:0;26-30:1;31-40:2;41以上：3;
@@ -151,6 +156,32 @@ export default {
         return
       }
     },
+    drawing(image) {
+      let canvas = document.getElementById('canvas2')
+      let ctx2 = canvas.getContext('2d')
+      let mImg = new Image()
+      mImg.setAttribute('crossOrigin', 'Anonymous')
+      mImg.onload = function() {
+        canvas.width = mImg.width
+        canvas.height = mImg.height
+        // img, sx, sy, swidth, sheight, x, y, width, height
+        ctx2.drawImage(
+          mImg,
+          0,
+          0,
+          mImg.width,
+          mImg.height * 0.7,
+          0,
+          0,
+          mImg.width,
+          mImg.height * 0.7
+        )
+        let url = canvas.toDataURL('image/png')
+        let img = document.querySelector('#mImg')
+        img.src = url
+      }
+      mImg.src = image
+    },
     drawCanvas(score) {
       let that = this
       let canvas = document.getElementById('canvas')
@@ -198,6 +229,8 @@ export default {
             )
             let url = canvas.toDataURL('image/png')
             result.src = url
+            //合成图片成功之后调用
+            that.drawing(result.src)
           }
           word.src = 'http://p22vy0aug.bkt.clouddn.com/image/tmdd/text.png?555'
         }
@@ -457,6 +490,15 @@ a {
     z-index: 99;
     pointer-events: auto;
     user-select: auto;
+  }
+  #mImg {
+    width: 100%;
+    // height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 10000;
+    opacity: 0;
   }
 }
 </style>
