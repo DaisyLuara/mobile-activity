@@ -114,6 +114,7 @@ export default {
       }
     },
     drawCanvas(name) {
+      let that = this
       let canvas = document.getElementById('canvas')
       let ctx = canvas.getContext('2d')
       let result = document.querySelector('.result')
