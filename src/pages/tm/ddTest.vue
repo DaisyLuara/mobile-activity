@@ -46,8 +46,8 @@
         <canvas id="canvas"></canvas>
         <img class="result" src="" alt="病假单"/>
         <!-- 显示剪切后的图像 -->
-        <canvas id="canvas2"></canvas>
-        <img id="mImg"  :src="base64Data" alt="病假单"/>
+        <canvas id="canvas2" style="display:none"></canvas>
+        <img id="mImg" src="base64Data" alt="病假单"/>
       </div>
     </div>
 </template>
@@ -161,6 +161,7 @@ export default {
       let ctx2 = canvas.getContext('2d')
       let mImg = new Image()
       mImg.setAttribute('crossOrigin', 'Anonymous')
+      mImg.src = image
       mImg.onload = function() {
         canvas.width = mImg.width
         canvas.height = mImg.height
@@ -180,7 +181,7 @@ export default {
         let img = document.querySelector('#mImg')
         img.src = url
       }
-      mImg.src = image
+      
     },
     drawCanvas(score) {
       let that = this
@@ -474,7 +475,7 @@ a {
   left: 0;
   width: 100%;
   overflow: hidden;
-  z-index: 99;
+  z-index: 9999;
   #canvas {
     position: absolute;
     top: 0;
@@ -497,8 +498,10 @@ a {
     position: absolute;
     left: 0;
     top: 0;
-    z-index: 10000;
+    z-index: 9900;
     opacity: 0;
+    pointer-events: auto;
+    user-select: auto;
   }
 }
 </style>
