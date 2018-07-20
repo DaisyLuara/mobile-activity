@@ -1,8 +1,7 @@
 <template>
   <div class="root" :style="style.root">
-    <img class="title" :src="serverUrl + 'input-title.png' + this.qiniuCompress()">
-    
-    <div class="input" :style="style.input">
+    <img v-if="!hasSMSsended" class="title" :src="serverUrl + 'input-title.png' + this.qiniuCompress()">
+    <div v-if="!hasSMSsended" class="input" :style="style.input">
        <div
         v-show="control.shouldRemindShow"
         :style="style.remind" 
@@ -32,19 +31,26 @@
         class="input-button"
         :src="serverUrl + 'input-btn.png' + this.qiniuCompress()" />
     </div>
+    
+    <Result v-if="hasSMSsended"/>
   </div>
 </template>
 
 <script>
 import { basicTrack } from 'services'
+import Result from './result'
 const serverUrl = process.env.CDN_URL
 export default {
+  components: {
+    Result
+  },
   data() {
     return {
       serverUrl: serverUrl + '/fe/marketing/hiltonc/',
       style: {
         root: {
-          height: this.innerHeight() + 'px'
+          height: this.innerHeight() + 'px',
+          padding: '15% 0'
         },
         remind: {
           lineHeight: this.innerWidth() * 0.8 * 94 / 529 + 'px'
@@ -58,7 +64,16 @@ export default {
         shouldRemindShow: true
       },
       phoneValue: null,
-      phoneError: false
+      phoneError: false,
+      couponType: null,
+      couponId: null,
+      hasSMSsended: false
+    }
+  },
+  mounted() {
+    if (this.$route.query.hasOwnProperty('id')) {
+      this.couponId = this.$route.query.cid
+      this.getCouponFromId(this.couponId)
     }
   },
   methods: {
@@ -77,7 +92,49 @@ export default {
         return
       } else {
         basicTrack(null, this.phoneValue)
+        this.handlePhoneBind(this.couponId)
       }
+    },
+    getCouponFromId(id) {
+      let getUrl = process.env.SAAS_API + '/common/coupon/' + String(id)
+      this.$http.get(getUrl).then(r => {
+        if (r.data.data.coupon_batch_id === 1005) {
+          this.couponType = 1
+        } else if (r.data.data.coupon_batch_id === 1006) {
+          this.couponType = 2
+        } else if (r.data.data.coupon_batch_id === 1007) {
+          this.couponType = 3
+        }
+      })
+    },
+    handlePhoneBind(id) {
+      let putUrl = process.env.SAAS_API + '/v4/common/coupon'
+      let putParam = {
+        mobile: this.phoneValue,
+        coupon_id: id
+      }
+      this.$http.put(putUrl, putParam).then(r => {
+        if (r.data.success === true) {
+          this.sendSMS()
+        }
+      })
+    },
+    sendSMS(id) {
+      let postUrl = process.env.SAAS_API + '/v6/common/coupon/sms'
+      let postParam = {
+        mobile: this.phoneValue,
+        coupon_id: id,
+        sms_tmp_id: '2169978'
+      }
+      this.$http.post(postUrl, postParam).then(r => {
+        if (r.data.success === true) {
+          console.log('发送成功')
+          this.style.root.padding = ''
+          this.hasSMSsended = true
+        } else {
+          console.log('发送失败')
+        }
+      })
     }
   }
 }
@@ -92,7 +149,6 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding: 15% 0;
   align-items: center;
   z-index: 10;
   .title {
