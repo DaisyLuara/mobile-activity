@@ -119,12 +119,40 @@
       class="link"
       :src="baseUrl + 'box.png'"
       />
+    <!-- 弹出层 -->
+    <div class="popups-wrapper" v-show="showPopups">
+      <div class="popups-content">
+        <div class="main-content" :style="style.popups">
+          <div class="popups-close" :style="style.top" @click="closePopups">
+            <img :src="imgUrl+'close.png'+ this.qiniuCompress()" alt="" />
+          </div>
+          <div class="img-wrap">
+            <img 
+              class="bg"
+              :src="imgUrl+'bg.png'+ this.qiniuCompress()" >
+            <img 
+              class="done1"
+              :src="imgUrl+'a.png'+ this.qiniuCompress()" v-show="projectOne">
+              <img 
+              class="done2"
+              :src="imgUrl+'b.png'+ this.qiniuCompress()" v-show="projectTwo">
+              <img 
+              class="done3"
+              :src="imgUrl+'c.png'+ this.qiniuCompress()" v-show="projectThree">
+              <img 
+              class="done4"
+              :src="imgUrl+'d.png'+ this.qiniuCompress()" v-show="projectFour">
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 const wih = window.innerHeight
 const wiw = window.innerWidth
+const imgUrl = process.env.CDN_URL
 import { isWeixin } from '../../modules/util'
 import { $_wechat, getInfoById } from 'services'
 import Remind from './remind'
@@ -136,6 +164,12 @@ export default {
   },
   data() {
     return {
+      projectOne: false,
+      projectTwo: false,
+      projectThree: false,
+      projectFour: false,
+      showPopups: true,
+      imgUrl: imgUrl + '/fe/marketing/img/fourProject/',
       baseUrl: baseUrl,
       style: {
         root: {
@@ -144,6 +178,17 @@ export default {
         coupon2: {},
         coupon1: {
           height: wiw * 0.5 * 260 / 373 * 1.5 + 'px'
+        },
+        top: {
+          top:
+            this.innerHeight() * 0.12 +
+            this.innerWidth() * 0.7 / 503 * 34 -
+            38 +
+            'px',
+          right: this.innerWidth() * 0.15 - 45 + 'px'
+        },
+        popups: {
+          height: this.innerHeight() + 'px'
         }
       },
       phoneValue: null,
@@ -161,12 +206,42 @@ export default {
   created() {
     document.title = '龙虾刑警'
     this.handleStorage()
+    this.projectStatus()
   },
   mounted() {
     this.handleForbiddenShare()
     this.getInfo()
   },
   methods: {
+    projectStatus() {
+      let p1 = this.$route.query.p1
+      let p2 = this.$route.query.p2
+      let p3 = this.$route.query.p3
+      let p4 = this.$route.query.p4
+      if (p1 === '0') {
+        this.projectOne = false
+      } else {
+        this.projectOne = true
+      }
+      if (p2 === '0') {
+        this.projectTwo = false
+      } else {
+        this.projectTwo = true
+      }
+      if (p3 === '0') {
+        this.projectThree = false
+      } else {
+        this.projectThree = true
+      }
+      if (p4 === '0') {
+        this.projectFour = false
+      } else {
+        this.projectFour = true
+      }
+    },
+    closePopups() {
+      this.showPopups = false
+    },
     handleTrack() {
       let url =
         'http://exelook.com/client/goodsxsd/?id=' +
@@ -274,6 +349,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@imgServerUrl: 'http://cdn.exe666.com//fe/marketing/img/sndy';
 .root {
   position: relative;
   width: 100%;
@@ -445,6 +521,67 @@ export default {
     top: 38%;
     right: 0;
     z-index: 10000;
+  }
+  .popups-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    z-index: 400;
+    opacity: 0.94;
+    .popups-content {
+      width: 100%;
+      height: 100%;
+    }
+    .main-content {
+      position: relative;
+      .popups-close {
+        position: absolute;
+        right: 4%;
+        top: 9.5%;
+        z-index: 40;
+        img {
+          width: 60%;
+        }
+      }
+      .img-wrap {
+        position: absolute;
+        width: 70%;
+        left: 15%;
+        top: 12%;
+        .bg {
+          width: 100%;
+          user-select: none;
+          pointer-events: none;
+        }
+        .done1 {
+          position: absolute;
+          width: 95%;
+          left: 2.5%;
+          top: 20%;
+        }
+        .done2 {
+          position: absolute;
+          width: 95%;
+          left: 2.5%;
+          bottom: 40%;
+        }
+        .done3 {
+          position: absolute;
+          width: 95%;
+          left: 2.5%;
+          bottom: 21%;
+        }
+        .done4 {
+          position: absolute;
+          width: 95%;
+          left: 2.5%;
+          bottom: 2%;
+        }
+      }
+    }
   }
 }
 </style>
