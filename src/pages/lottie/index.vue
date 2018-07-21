@@ -25,35 +25,6 @@
     </div>
     <!-- 弹出层 -->
     <GameShow :styleData="style" ref="gameShow"/>
-    <!-- <div class="popups-wrapper" v-show="showPopups" :style=style.popups>
-      <div class="popups-content">
-        <div class="main-content" :style="style.popupsContent">
-          <div class="popups-close" :style="style.top" @click="closePopups">
-            <img :src="imgUrl+'close.png'+ this.qiniuCompress()" alt="" />
-          </div>
-          <div class="img-wrap">
-            <img 
-              class="bg"
-              :src="imgUrl+'bg.png'+ this.qiniuCompress()" >
-            <img 
-              class="done1"
-              :src="imgUrl+'a.png'+ this.qiniuCompress()" v-show="projectOne">
-              <img 
-              class="done2"
-              :src="imgUrl+'b.png'+ this.qiniuCompress()" v-show="projectTwo">
-              <img 
-              class="done3"
-              :src="imgUrl+'c.png'+ this.qiniuCompress()" v-show="projectThree">
-              <img 
-              class="done4"
-              :src="imgUrl+'d.png'+ this.qiniuCompress()" v-show="projectFour">
-              <div class="text">
-                {{randomNum}}
-              </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
 </template>
@@ -67,7 +38,6 @@ import WxShare from 'modules/wxShare'
 import GameShow from 'modules/gameShow'
 import { isInWechat, Cookies, } from 'services'
 
-// const imgUrl = process.env.CDN_URL
 const serverUrl =
   'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/lottie/'
 export default {
@@ -77,15 +47,9 @@ export default {
   },
   data() {
     return {
-      // randomNum: '',
-      // projectOne: false,
-      // projectTwo: false,
-      // projectThree: false,
-      // projectFour: false,
-      // showPopups: true,
-      // imgUrl: imgUrl + '/fe/marketing/img/fourProject/',
       serverUrl: serverUrl,
       style: {
+        show: true,
         root: {
           width: '100%',
           height: window.innerHeight + 'px'
@@ -165,57 +129,8 @@ export default {
         let utm_campaign = this.$route.query.utm_campaign
         let user_id = Cookies.get('user_id')
         this.$refs.gameShow.createGame(utm_campaign, user_id)
-        // this.createGame(utm_campaign, user_id)
-        // this.randomNum = user_id
       }
     },
-    // createGame(belong, userId) {
-    //   let args = {
-    //     belong: belong
-    //   }
-    //   createGame(args, userId)
-    //     .then(res => {
-    //       if (res.success) {
-    //         this.getGame(userId)
-    //       }
-    //     })
-    //     .catch(e => {
-    //       console.log(e)
-    //     })
-    // },
-    // getGame(userId) {
-    //   let args = {
-    //     withCredentials: true
-    //   }
-    //   getGame(args, userId)
-    //     .then(res => {
-    //       console.log(res)
-    //       this.projectStatus(res)
-    //     })
-    //     .catch(e => {
-    //       console.log(e)
-    //     })
-    // },
-    // projectStatus(list) {
-    //   let data = list
-    //   data.map(r => {
-    //     if (r.belong === 'colorPrintHilton') {
-    //       this.projectOne = true
-    //     }
-    //     if (r.belong === 'LXXJTurntable') {
-    //       this.projectTwo = true
-    //     }
-    //     if (r.belong === 'WorldCup2018') {
-    //       this.projectThree = true
-    //     }
-    //     if (r.belong === 'previousLift') {
-    //       this.projectFour = true
-    //     }
-    //   })
-    // },
-    // closePopups() {
-    //   this.showPopups = false
-    // },
     handleStopBubble(e) {
       e.preventDefault()
     },

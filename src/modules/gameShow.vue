@@ -1,6 +1,6 @@
 <template>
   <!-- 弹出层 -->
-  <div class="popups-wrapper" v-show="gameData.showPopups" :style=styleData.popups>
+  <div class="popups-wrapper" v-show="styleData.show" :style=styleData.popups>
     <div class="popups-content">
       <div class="main-content" :style="styleData.popupsContent">
         <div class="popups-close" :style="styleData.top" @click="closePopups">
@@ -33,10 +33,7 @@
 
 <script>
 const imgUrl = process.env.CDN_URL
-import {
-  createGame,
-  getGame
-} from 'services'
+import { createGame, getGame } from 'services'
 export default {
   props: {
     styleData: {
@@ -51,30 +48,12 @@ export default {
         projectTwo: false,
         projectThree: false,
         projectFour: false,
-        showPopups: true,
         randomNum: ''
       },
-      imgUrl: imgUrl + '/fe/marketing/img/fourProject/',
-      // style: {
-      //   top: {
-      //     top:
-      //       this.innerHeight() * 0.12 +
-      //       this.innerWidth() * 0.7 / 503 * 34 -
-      //       38 +
-      //       'px',
-      //     right: this.innerWidth() * 0.15 - 45 + 'px'
-      //   },
-      //   popupsContent: {
-      //     height: this.innerHeight() + 'px'
-      //   },
-      //   popups: {
-      //     height: this.innerHeight() + 'px'
-      //   }
-      // }
+      imgUrl: imgUrl + '/fe/marketing/img/fourProject/'
     }
   },
-  created() {
-  },
+  created() {},
   methods: {
     createGame(belong, userId) {
       let args = {
@@ -97,13 +76,13 @@ export default {
       getGame(args, userId)
         .then(res => {
           console.log(res)
-          this.projectStatus(res)
+          this.projectStatus(res, userId)
         })
         .catch(e => {
           console.log(e)
         })
     },
-    projectStatus(list) {
+    projectStatus(list, userId) {
       let data = list
       data.map(r => {
         if (r.belong === 'colorPrintHilton') {
@@ -119,11 +98,10 @@ export default {
           this.gameData.projectFour = true
         }
       })
-      this.gameData.randomNum = user_id
+      this.gameData.randomNum = userId
     },
     closePopups() {
-      this.gameData.showPopups = false
-      // this.$parent.closePopups()
+      this.styleData.show = false
     }
   }
 }
