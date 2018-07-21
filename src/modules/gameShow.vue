@@ -174,6 +174,7 @@ export default {
         position: absolute;
         width: 95%;
         left: 5.5%;
+        text-align: left;
         bottom: 4%;
       }
     }
