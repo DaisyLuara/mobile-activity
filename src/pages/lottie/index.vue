@@ -46,6 +46,9 @@
               <img 
               class="done4"
               :src="imgUrl+'d.png'+ this.qiniuCompress()" v-show="projectFour">
+              <div class="text">
+                {{randomNum}}
+              </div>
           </div>
         </div>
       </div>
@@ -71,6 +74,7 @@ export default {
   },
   data() {
     return {
+      randomNum: '',
       projectOne: false,
       projectTwo: false,
       projectThree: false,
@@ -107,24 +111,6 @@ export default {
         desc: '巅峰对决',
         imgUrl: serverUrl + 'share.png'
       },
-      // arr: [
-      //   {
-      //     id: 1,
-      //     belong: 'colorPrintHilton'
-      //   },
-      //   // {
-      //   //   id: 2,
-      //   //   belong: 'LXXJTurntable'
-      //   // }
-      //   {
-      //     id: 3,
-      //     belong: 'WorldCup2018'
-      //   }
-      //   // {
-      //   //   id: 4,
-      //   //   belong: 'passPalace'
-      //   // }
-      // ],
       photo: null,
       score: {
         portugal: '0',
@@ -175,8 +161,7 @@ export default {
       } else {
         let utm_campaign = this.$route.query.utm_campaign
         this.createGame(utm_campaign)
-
-        // this.projectStatus()
+        this.randomNum = Cookies.get('user_id')
       }
     },
     createGame(belong) {
@@ -185,7 +170,9 @@ export default {
       }
       createGame(args)
         .then(res => {
-          this.getGame()
+          if (res.success) {
+            this.getGame()
+          }
         })
         .catch(e => {
           console.log(e)
@@ -213,7 +200,7 @@ export default {
         if (r.belong === 'WorldCup2018') {
           this.projectThree = true
         }
-        if (r.belong === 'passPalace') {
+        if (r.belong === 'previousLift') {
           this.projectFour = true
         }
       })
@@ -379,6 +366,16 @@ export default {
           width: 95%;
           left: 2.5%;
           bottom: 2%;
+        }
+        .text {
+          color: #fff;
+          font-size: 16px;
+          height: 18px;
+          line-height: 18px;
+          position: absolute;
+          width: 95%;
+          left: 5.5%;
+          bottom: 4%;
         }
       }
     }
