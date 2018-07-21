@@ -159,6 +159,7 @@ const imgUrl = process.env.CDN_URL
 import { isWeixin } from '../../modules/util'
 import {
   isInWechat,
+  getWxUserInfo,
   Cookies,
   createGame,
   getInfoById,
@@ -178,7 +179,7 @@ export default {
       projectOne: false,
       projectTwo: false,
       projectThree: false,
-      projectFour: true,
+      projectFour: false,
       showPopups: true,
       imgUrl: imgUrl + '/fe/marketing/img/fourProject/',
       baseUrl: baseUrl,
@@ -203,24 +204,6 @@ export default {
           height: this.innerHeight() + 'px'
         }
       },
-      // arr: [
-      //   {
-      //     id: 1,
-      //     belong: 'colorPrintHilton'
-      //   },
-      //   {
-      //     id: 2,
-      //     belong: 'LXXJTurntable'
-      //   },
-      //   {
-      //     id: 3,
-      //     belong: 'WorldCup2018'
-      //   }
-      //   // {
-      //   //   id: 4,
-      //   //   belong: 'passPalace'
-      //   // }
-      // ],
       phoneValue: null,
       coupon_code: 580870245930946,
       status: {
@@ -247,7 +230,6 @@ export default {
       ) {
         this.handleWechatAuth()
       }
-      this.handleWechatAuth()
     }
   },
   methods: {
@@ -262,16 +244,16 @@ export default {
         window.location.href = redirct_url
       } else {
         let utm_campaign = this.$route.query.utm_campaign
-        this.createGame(utm_campaign)
-        this.randomNum = Cookies.get('user_id')
-        // this.projectStatus()
+        let user_id = Cookies.get('user_id')
+        this.createGame(utm_campaign, user_id)
+        this.randomNum = user_id
       }
     },
-    createGame(belong) {
+    createGame(belong, userId) {
       let args = {
         belong: belong
       }
-      createGame(args)
+      createGame(args, userId)
         .then(res => {
           if (res.success) {
             this.getGame()
