@@ -6,16 +6,64 @@
         <img id="mImg" src=""/>
         <img class="note" :src="IMG_URL + 'note.png'" v-show ="note"/>
         <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+        <!-- 弹出层 -->
+        <div class="popups-wrapper" v-show="showPopups">
+          <div class="popups-content">
+            <div class="main-content" :style="style.popups">
+              <div class="popups-close" :style="style.top" @click="closePopups">
+                <img :src="imgUrl+'close.png'+ this.qiniuCompress()" alt="" />
+              </div>
+              <div class="img-wrap">
+                <img 
+                  class="bg"
+                  :src="imgUrl+'bg.png'+ this.qiniuCompress()" >
+                <img 
+                  class="done1"
+                  :src="imgUrl+'a.png'+ this.qiniuCompress()" v-show="projectOne">
+                  <img 
+                  class="done2"
+                  :src="imgUrl+'b.png'+ this.qiniuCompress()" v-show="projectTwo">
+                  <img 
+                  class="done3"
+                  :src="imgUrl+'c.png'+ this.qiniuCompress()" v-show="projectThree">
+                  <img 
+                  class="done4"
+                  :src="imgUrl+'d.png'+ this.qiniuCompress()" v-show="projectFour">
+              </div>
+            </div>
+          </div>
+        </div>
     </div>
 </template>
 <script>
 import marketService from 'services/marketing'
 import WxShare from 'modules/wxShare'
 import { customTrack } from 'modules/customTrack'
+import { isInWechat, Cookies, createGame, getGame } from 'services'
+const imgUrl = process.env.CDN_URL
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
   data() {
     return {
+      style: {
+        top: {
+          top:
+            this.innerHeight() * 0.12 +
+            this.innerWidth() * 0.7 / 503 * 34 -
+            38 +
+            'px',
+          right: this.innerWidth() * 0.15 - 45 + 'px'
+        },
+        popups: {
+          height: this.innerHeight() + 'px'
+        }
+      },
+      projectOne: false,
+      projectTwo: false,
+      projectThree: false,
+      projectFour: false,
+      showPopups: false,
+      imgUrl: imgUrl + '/fe/marketing/img/fourProject/',
       IMG_URL: IMAGE_SERVER + '/pages/pandp/',
       content: null,
       width: null,
@@ -24,6 +72,24 @@ export default {
       loadingPage: true,
       type: this.$route.query.type,
       id: this.$route.query.id,
+      // arr: [
+      //   {
+      //     id: 1,
+      //     belong: 'colorPrintHilton'
+      //   },
+      //   {
+      //     id: 2,
+      //     belong: 'LXXJTurntable'
+      //   },
+      //   // {
+      //   //   id: 3,
+      //   //   belong: 'WorldCup2018'
+      //   // },
+      //   {
+      //     id: 4,
+      //     belong: 'passPalace'
+      //   }
+      // ],
       //微信分享
       wxShareInfo: {
         title: '天哪！我穿越了！',
@@ -50,8 +116,77 @@ export default {
     this.content.style.minHeight = this.height + 'px'
     this.loadingCanvas()
     this.getInfoById()
+    // this.drawCanvas(
+    //   'http://image.exe666.com/1007/image/passPalace_161_413_1492920238362.png'
+    // )
+    if (isInWechat() === true) {
+      if (
+        process.env.NODE_ENV === 'production' ||
+        process.env.NODE_ENV === 'test'
+      ) {
+        this.handleWechatAuth()
+      }
+      // this.handleWechatAuth()
+    }
   },
   methods: {
+    handleWechatAuth() {
+      if (Cookies.get('user_id') === null) {
+        let base_url = encodeURIComponent(String(window.location.href))
+        let redirct_url =
+          process.env.WX_API +
+          '/wx/officialAccount/oauth?url=' +
+          base_url +
+          '&scope=snsapi_base'
+        window.location.href = redirct_url
+      } else {
+        let utm_campaign = this.$route.query.utm_campaign
+        this.createGame(utm_campaign)
+        // this.projectStatus()
+      }
+    },
+    createGame(belong) {
+      let args = {
+        game_id: belong
+      }
+      createGame(args)
+        .then(res => {
+          this.getGame()
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    },
+    getGame() {
+      getGame()
+        .then(res => {
+          console.log(res)
+          this.projectStatus(res)
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    },
+    projectStatus(list) {
+      let data = list
+      data.map(r => {
+        if (r.belong === 'colorPrintHilton') {
+          this.projectOne = true
+        }
+        if (r.belong === 'LXXJTurntable') {
+          this.projectTwo = true
+        }
+        if (r.belong === 'WorldCup2018') {
+          this.projectThree = true
+        }
+        if (r.belong === 'passPalace') {
+          this.projectFour = true
+        }
+      })
+    },
+    closePopups() {
+      this.showPopups = false
+    },
     getInfoById() {
       marketService
         .getInfoById(this, this.id)
@@ -347,6 +482,7 @@ export default {
       img.src = url
       this.note = true
       this.loadingPage = false
+      this.showPopups = true
     }
   },
   components: {
@@ -404,9 +540,70 @@ body {
     position: relative;
     width: 100%;
     margin-top: -10%;
-    z-index: 999;
+    z-index: 300;
     pointer-events: none;
     user-select: none;
+  }
+  .popups-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    z-index: 400;
+    opacity: 0.94;
+    .popups-content {
+      width: 100%;
+      height: 100%;
+    }
+    .main-content {
+      position: relative;
+      .popups-close {
+        position: absolute;
+        right: 4%;
+        top: 9.5%;
+        z-index: 40;
+        img {
+          width: 60%;
+        }
+      }
+      .img-wrap {
+        position: absolute;
+        width: 70%;
+        left: 15%;
+        top: 12%;
+        .bg {
+          width: 100%;
+          user-select: none;
+          pointer-events: none;
+        }
+        .done1 {
+          position: absolute;
+          width: 95%;
+          left: 2.5%;
+          top: 20%;
+        }
+        .done2 {
+          position: absolute;
+          width: 95%;
+          left: 2.5%;
+          bottom: 40%;
+        }
+        .done3 {
+          position: absolute;
+          width: 95%;
+          left: 2.5%;
+          bottom: 21%;
+        }
+        .done4 {
+          position: absolute;
+          width: 95%;
+          left: 2.5%;
+          bottom: 2%;
+        }
+      }
+    }
   }
 }
 @keyframes circle {
