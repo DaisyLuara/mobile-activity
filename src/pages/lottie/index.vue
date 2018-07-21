@@ -23,7 +23,33 @@
       <span>{{score.germany}}</span>
       <span>{{score.brazil}}</span>
     </div>
-
+    <!-- 弹出层 -->
+    <div class="popups-wrapper" v-show="showPopups" :style=style.popups>
+      <div class="popups-content">
+        <div class="main-content" :style="style.popupsContent">
+          <div class="popups-close" :style="style.top" @click="closePopups">
+            <img :src="imgUrl+'close.png'+ this.qiniuCompress()" alt="" />
+          </div>
+          <div class="img-wrap">
+            <img 
+              class="bg"
+              :src="imgUrl+'bg.png'+ this.qiniuCompress()" >
+            <img 
+              class="done1"
+              :src="imgUrl+'a.png'+ this.qiniuCompress()" v-show="projectOne">
+              <img 
+              class="done2"
+              :src="imgUrl+'b.png'+ this.qiniuCompress()" v-show="projectTwo">
+              <img 
+              class="done3"
+              :src="imgUrl+'c.png'+ this.qiniuCompress()" v-show="projectThree">
+              <img 
+              class="done4"
+              :src="imgUrl+'d.png'+ this.qiniuCompress()" v-show="projectFour">
+          </div>
+        </div>
+      </div>
+    </div>
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
 </template>
@@ -34,6 +60,9 @@ import { Toast } from 'mint-ui'
 import { customTrack } from 'modules/customTrack'
 import marketService from 'services/marketing'
 import WxShare from 'modules/wxShare'
+import { isInWechat, Cookies, createGame, getGame } from 'services'
+
+const imgUrl = process.env.CDN_URL
 const serverUrl =
   'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/lottie/'
 export default {
@@ -42,6 +71,12 @@ export default {
   },
   data() {
     return {
+      projectOne: false,
+      projectTwo: false,
+      projectThree: false,
+      projectFour: false,
+      showPopups: true,
+      imgUrl: imgUrl + '/fe/marketing/img/fourProject/',
       serverUrl: serverUrl,
       style: {
         root: {
@@ -51,6 +86,20 @@ export default {
         score: {
           top: window.innerWidth * 2.014 + 'px'
         },
+        top: {
+          top:
+            this.innerHeight() * 0.12 +
+            this.innerWidth() * 0.7 / 503 * 34 -
+            38 +
+            'px',
+          right: this.innerWidth() * 0.15 - 45 + 'px'
+        },
+        popupsContent: {
+          height: this.innerHeight() + 'px'
+        },
+        popups: {
+          height: this.innerWidth() / 1080 * 2578 + 'px'
+        },
         photo: null
       },
       wxShareInfoValue: {
@@ -58,6 +107,24 @@ export default {
         desc: '巅峰对决',
         imgUrl: serverUrl + 'share.png'
       },
+      // arr: [
+      //   {
+      //     id: 1,
+      //     belong: 'colorPrintHilton'
+      //   },
+      //   // {
+      //   //   id: 2,
+      //   //   belong: 'LXXJTurntable'
+      //   // }
+      //   {
+      //     id: 3,
+      //     belong: 'WorldCup2018'
+      //   }
+      //   // {
+      //   //   id: 4,
+      //   //   belong: 'passPalace'
+      //   // }
+      // ],
       photo: null,
       score: {
         portugal: '0',
@@ -85,8 +152,75 @@ export default {
     this.initAnimation()
     this.fetchNumberData()
     this.getPhotoById()
+    if (isInWechat() === true) {
+      if (
+        process.env.NODE_ENV === 'production' ||
+        process.env.NODE_ENV === 'test'
+      ) {
+        this.handleWechatAuth()
+      }
+      // this.handleWechatAuth()
+    }
   },
   methods: {
+    handleWechatAuth() {
+      if (Cookies.get('user_id') === null) {
+        let base_url = encodeURIComponent(String(window.location.href))
+        let redirct_url =
+          process.env.WX_API +
+          '/wx/officialAccount/oauth?url=' +
+          base_url +
+          '&scope=snsapi_base'
+        window.location.href = redirct_url
+      } else {
+        let utm_campaign = this.$route.query.utm_campaign
+        this.createGame(utm_campaign)
+
+        // this.projectStatus()
+      }
+    },
+    createGame(belong) {
+      let args = {
+        game_id: belong
+      }
+      createGame(args)
+        .then(res => {
+          this.getGame()
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    },
+    getGame() {
+      getGame()
+        .then(res => {
+          console.log(res)
+          this.projectStatus(res)
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    },
+    projectStatus(list) {
+      let data = list
+      data.map(r => {
+        if (r.belong === 'colorPrintHilton') {
+          this.projectOne = true
+        }
+        if (r.belong === 'LXXJTurntable') {
+          this.projectTwo = true
+        }
+        if (r.belong === 'WorldCup2018') {
+          this.projectThree = true
+        }
+        if (r.belong === 'passPalace') {
+          this.projectFour = true
+        }
+      })
+    },
+    closePopups() {
+      this.showPopups = false
+    },
     handleStopBubble(e) {
       e.preventDefault()
     },
@@ -186,6 +320,67 @@ export default {
     span {
       width: 20%;
       text-align: center;
+    }
+  }
+  .popups-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    z-index: 400;
+    opacity: 0.94;
+    .popups-content {
+      width: 100%;
+      height: 100%;
+    }
+    .main-content {
+      position: relative;
+      .popups-close {
+        position: absolute;
+        right: 4%;
+        top: 9.5%;
+        z-index: 40;
+        img {
+          width: 60%;
+        }
+      }
+      .img-wrap {
+        position: absolute;
+        width: 70%;
+        left: 15%;
+        top: 12%;
+        .bg {
+          width: 100%;
+          user-select: none;
+          pointer-events: none;
+        }
+        .done1 {
+          position: absolute;
+          width: 95%;
+          left: 2.5%;
+          top: 20%;
+        }
+        .done2 {
+          position: absolute;
+          width: 95%;
+          left: 2.5%;
+          bottom: 40%;
+        }
+        .done3 {
+          position: absolute;
+          width: 95%;
+          left: 2.5%;
+          bottom: 21%;
+        }
+        .done4 {
+          position: absolute;
+          width: 95%;
+          left: 2.5%;
+          bottom: 2%;
+        }
+      }
     }
   }
 }

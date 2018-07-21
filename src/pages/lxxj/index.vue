@@ -154,7 +154,15 @@ const wih = window.innerHeight
 const wiw = window.innerWidth
 const imgUrl = process.env.CDN_URL
 import { isWeixin } from '../../modules/util'
-import { $_wechat, getInfoById } from 'services'
+import {
+  isInWechat,
+  Cookies,
+  createGame,
+  getInfoById,
+  $_wechat,
+  getGame
+} from 'services'
+
 import Remind from './remind'
 const baseUrl =
   'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/lxxj/'
@@ -191,6 +199,24 @@ export default {
           height: this.innerHeight() + 'px'
         }
       },
+      // arr: [
+      //   {
+      //     id: 1,
+      //     belong: 'colorPrintHilton'
+      //   },
+      //   {
+      //     id: 2,
+      //     belong: 'LXXJTurntable'
+      //   },
+      //   {
+      //     id: 3,
+      //     belong: 'WorldCup2018'
+      //   }
+      //   // {
+      //   //   id: 4,
+      //   //   belong: 'passPalace'
+      //   // }
+      // ],
       phoneValue: null,
       coupon_code: 580870245930946,
       status: {
@@ -211,33 +237,71 @@ export default {
   mounted() {
     this.handleForbiddenShare()
     this.getInfo()
+    if (isInWechat() === true) {
+      if (
+        process.env.NODE_ENV === 'production' ||
+        process.env.NODE_ENV === 'test'
+      ) {
+        this.handleWechatAuth()
+      }
+      // this.handleWechatAuth()
+    }
   },
   methods: {
-    projectStatus() {
-      let p1 = this.$route.query.p1
-      let p2 = this.$route.query.p2
-      let p3 = this.$route.query.p3
-      let p4 = this.$route.query.p4
-      if (p1 === '0') {
-        this.projectOne = false
+    handleWechatAuth() {
+      if (Cookies.get('user_id') === null) {
+        let base_url = encodeURIComponent(String(window.location.href))
+        let redirct_url =
+          process.env.WX_API +
+          '/wx/officialAccount/oauth?url=' +
+          base_url +
+          '&scope=snsapi_base'
+        window.location.href = redirct_url
       } else {
-        this.projectOne = true
+        let utm_campaign = this.$route.query.utm_campaign
+        this.createGame(utm_campaign)
+
+        // this.projectStatus()
       }
-      if (p2 === '0') {
-        this.projectTwo = false
-      } else {
-        this.projectTwo = true
+    },
+    createGame(belong) {
+      let args = {
+        game_id: belong
       }
-      if (p3 === '0') {
-        this.projectThree = false
-      } else {
-        this.projectThree = true
-      }
-      if (p4 === '0') {
-        this.projectFour = false
-      } else {
-        this.projectFour = true
-      }
+      createGame(args)
+        .then(res => {
+          this.getGame()
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    },
+    getGame() {
+      getGame()
+        .then(res => {
+          console.log(res)
+          this.projectStatus(res)
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    },
+    projectStatus(list) {
+      let data = list
+      data.map(r => {
+        if (r.belong === 'colorPrintHilton') {
+          this.projectOne = true
+        }
+        if (r.belong === 'LXXJTurntable') {
+          this.projectTwo = true
+        }
+        if (r.belong === 'WorldCup2018') {
+          this.projectThree = true
+        }
+        if (r.belong === 'passPalace') {
+          this.projectFour = true
+        }
+      })
     },
     closePopups() {
       this.showPopups = false

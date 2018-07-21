@@ -5,3 +5,6 @@ export * from './getInfo'
 
 // 优惠券
 export * from './coupon'
+
+// 游戏信息
+export * from './game'
