@@ -124,15 +124,16 @@ export default {
         window.location.href = redirct_url
       } else {
         let utm_campaign = this.$route.query.utm_campaign
-        this.createGame(utm_campaign)
-        this.randomNum = Cookies.get('user_id')
+        let user_id = Cookies.get('user_id')
+        this.createGame(utm_campaign, user_id)
+        this.randomNum = user_id
       }
     },
-    createGame(belong) {
+    createGame(belong, userId) {
       let args = {
-        game_id: belong
+        belong: belong
       }
-      createGame(args)
+      createGame(args, userId)
         .then(res => {
           if (res.success) {
             this.getGame()
@@ -145,7 +146,6 @@ export default {
     getGame() {
       getGame()
         .then(res => {
-          console.log(res)
           this.projectStatus(res)
         })
         .catch(e => {
