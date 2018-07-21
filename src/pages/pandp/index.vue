@@ -131,10 +131,7 @@ export default {
     },
     createGame(belong, userId) {
       let args = {
-        params: {
-          belong: belong
-        },
-        withCredentials: true
+        belong: belong
       }
       createGame(args, userId)
         .then(res => {
