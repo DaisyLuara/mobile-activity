@@ -142,6 +142,9 @@
               <img 
               class="done4"
               :src="imgUrl+'d.png'+ this.qiniuCompress()" v-show="projectFour">
+              <div class="text">
+                {{randomNum}}
+              </div>
           </div>
         </div>
       </div>
@@ -175,10 +178,11 @@ export default {
       projectOne: false,
       projectTwo: false,
       projectThree: false,
-      projectFour: false,
+      projectFour: true,
       showPopups: true,
       imgUrl: imgUrl + '/fe/marketing/img/fourProject/',
       baseUrl: baseUrl,
+      randomNum: '',
       style: {
         root: {
           height: wih + 'px'
@@ -232,7 +236,6 @@ export default {
   created() {
     document.title = '龙虾刑警'
     this.handleStorage()
-    this.projectStatus()
   },
   mounted() {
     this.handleForbiddenShare()
@@ -244,7 +247,7 @@ export default {
       ) {
         this.handleWechatAuth()
       }
-      // this.handleWechatAuth()
+      this.handleWechatAuth()
     }
   },
   methods: {
@@ -260,17 +263,19 @@ export default {
       } else {
         let utm_campaign = this.$route.query.utm_campaign
         this.createGame(utm_campaign)
-
+        this.randomNum = Cookies.get('user_id')
         // this.projectStatus()
       }
     },
     createGame(belong) {
       let args = {
-        game_id: belong
+        belong: belong
       }
       createGame(args)
         .then(res => {
-          this.getGame()
+          if (res.success) {
+            this.getGame()
+          }
         })
         .catch(e => {
           console.log(e)
@@ -298,7 +303,7 @@ export default {
         if (r.belong === 'WorldCup2018') {
           this.projectThree = true
         }
-        if (r.belong === 'passPalace') {
+        if (r.belong === 'previousLift') {
           this.projectFour = true
         }
       })
@@ -643,6 +648,16 @@ export default {
           width: 95%;
           left: 2.5%;
           bottom: 2%;
+        }
+        .text {
+          color: #fff;
+          font-size: 16px;
+          height: 18px;
+          line-height: 18px;
+          position: absolute;
+          width: 95%;
+          left: 5.5%;
+          bottom: 4%;
         }
       }
     }

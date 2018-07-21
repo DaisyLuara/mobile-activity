@@ -29,6 +29,9 @@
                   <img 
                   class="done4"
                   :src="imgUrl+'d.png'+ this.qiniuCompress()" v-show="projectFour">
+                  <div class="text">
+                    {{randomNum}}
+                  </div>
               </div>
             </div>
           </div>
@@ -72,24 +75,7 @@ export default {
       loadingPage: true,
       type: this.$route.query.type,
       id: this.$route.query.id,
-      // arr: [
-      //   {
-      //     id: 1,
-      //     belong: 'colorPrintHilton'
-      //   },
-      //   {
-      //     id: 2,
-      //     belong: 'LXXJTurntable'
-      //   },
-      //   // {
-      //   //   id: 3,
-      //   //   belong: 'WorldCup2018'
-      //   // },
-      //   {
-      //     id: 4,
-      //     belong: 'passPalace'
-      //   }
-      // ],
+      randomNum: '',
       //微信分享
       wxShareInfo: {
         title: '天哪！我穿越了！',
@@ -116,9 +102,6 @@ export default {
     this.content.style.minHeight = this.height + 'px'
     this.loadingCanvas()
     this.getInfoById()
-    // this.drawCanvas(
-    //   'http://image.exe666.com/1007/image/passPalace_161_413_1492920238362.png'
-    // )
     if (isInWechat() === true) {
       if (
         process.env.NODE_ENV === 'production' ||
@@ -142,7 +125,7 @@ export default {
       } else {
         let utm_campaign = this.$route.query.utm_campaign
         this.createGame(utm_campaign)
-        // this.projectStatus()
+        this.randomNum = Cookies.get('user_id')
       }
     },
     createGame(belong) {
@@ -151,7 +134,9 @@ export default {
       }
       createGame(args)
         .then(res => {
-          this.getGame()
+          if (res.success) {
+            this.getGame()
+          }
         })
         .catch(e => {
           console.log(e)
@@ -179,7 +164,7 @@ export default {
         if (r.belong === 'WorldCup2018') {
           this.projectThree = true
         }
-        if (r.belong === 'passPalace') {
+        if (r.belong === 'previousLift') {
           this.projectFour = true
         }
       })
@@ -601,6 +586,16 @@ body {
           width: 95%;
           left: 2.5%;
           bottom: 2%;
+        }
+        .text {
+          color: #fff;
+          font-size: 16px;
+          height: 18px;
+          line-height: 18px;
+          position: absolute;
+          width: 95%;
+          left: 5.5%;
+          bottom: 4%;
         }
       }
     }

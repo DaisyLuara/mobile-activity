@@ -21,7 +21,7 @@ const getGame = () => {
     axios
       .get(GAME_LIST_URL)
       .then(response => {
-        resolve(response.data)
+        resolve(response.data.data)
       })
       .catch(err => {
         reject(err)
