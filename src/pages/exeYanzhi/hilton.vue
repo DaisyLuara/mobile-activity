@@ -22,36 +22,6 @@
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
     <!-- 弹出层 -->
     <GameShow :styleData="style" ref="gameShow"/>
-    
-    <!-- <div class="popups-wrapper" v-show="showPopups">
-      <div class="popups-content">
-        <div class="main-content" :style="style.popups">
-          <div class="popups-close" :style="style.top" @click="closePopups">
-            <img :src="baseUrl+'close.png'+ this.qiniuCompress()" alt="" />
-          </div>
-          <div class="img-wrap">
-            <img 
-              class="bg"
-              :src="baseUrl+'bg.png'+ this.qiniuCompress()" >
-            <img 
-              class="done1"
-              :src="baseUrl+'a.png'+ this.qiniuCompress()" v-show="projectOne">
-              <img 
-              class="done2"
-              :src="baseUrl+'b.png'+ this.qiniuCompress()" v-show="projectTwo">
-              <img 
-              class="done3"
-              :src="baseUrl+'c.png'+ this.qiniuCompress()" v-show="projectThree">
-              <img 
-              class="done4"
-              :src="baseUrl+'d.png'+ this.qiniuCompress()" v-show="projectFour">
-              <div class="text">
-                {{randomNum}}
-              </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
 	</div>
 </template>
 <script>
@@ -60,18 +30,12 @@ import WxShare from 'modules/wxShare'
 import GameShow from 'modules/gameShow'
 import { customTrack } from 'modules/customTrack'
 import { isInWechat, Cookies } from 'services'
-// const imgUrl = process.env.CDN_URL
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
   data() {
     return {
-      // projectOne: false,
-      // projectTwo: false,
-      // projectThree: false,
-      // projectFour: false,
-      // showPopups: true,
-      // randomNum: '',
       style: {
+        show: true,
         top: {
           top:
             this.innerHeight() * 0.12 +
@@ -87,7 +51,6 @@ export default {
           minHeight: this.innerHeight() + 'px'
         }
       },
-      // baseUrl: imgUrl + '/fe/marketing/img/fourProject/',
       imgUrl: IMAGE_SERVER + '/pages/yanzhi/hilton/',
       mImg: null,
       posNum: this.$route.query.posNum || '',
@@ -107,9 +70,7 @@ export default {
   beforeCreate() {
     document.title = ''
   },
-  created() {
-    
-  },
+  created() {},
   mounted() {
     let height =
       window.innerHeight ||
@@ -141,59 +102,9 @@ export default {
       } else {
         let utm_campaign = this.$route.query.utm_campaign
         let user_id = Cookies.get('user_id')
-        // this.createGame(utm_campaign, user_id)
         this.$refs.gameShow.createGame(utm_campaign, user_id)
-
-        // this.randomNum = user_id
       }
     },
-    // createGame(belong, userId) {
-    //   let args = {
-    //     belong: belong
-    //   }
-    //   createGame(args, userId)
-    //     .then(res => {
-    //       if (res.success) {
-    //         this.getGame(userId)
-    //       }
-    //     })
-    //     .catch(e => {
-    //       console.log(e)
-    //     })
-    // },
-    // getGame(userId) {
-    //   let args = {
-    //     withCredentials: true
-    //   }
-    //   getGame(args, userId)
-    //     .then(res => {
-    //       console.log(res)
-    //       this.projectStatus(res)
-    //     })
-    //     .catch(e => {
-    //       console.log(e)
-    //     })
-    // },
-    // projectStatus(list) {
-    //   let data = list
-    //   data.map(r => {
-    //     if (r.belong === 'colorPrintHilton') {
-    //       this.projectOne = true
-    //     }
-    //     if (r.belong === 'LXXJTurntable') {
-    //       this.projectTwo = true
-    //     }
-    //     if (r.belong === 'WorldCup2018') {
-    //       this.projectThree = true
-    //     }
-    //     if (r.belong === 'previousLift') {
-    //       this.projectFour = true
-    //     }
-    //   })
-    // },
-    // closePopups() {
-    //   this.showPopups = false
-    // },
     getInfoById() {
       let id = this.$route.query.id
       marketService
@@ -347,78 +258,6 @@ body {
     margin: 0 auto;
     margin-bottom: 8%;
   }
-  // .popups-wrapper {
-  //   position: absolute;
-  //   top: 0;
-  //   left: 0;
-  //   width: 100%;
-  //   height: 100%;
-  //   background-color: #000;
-  //   z-index: 400;
-  //   opacity: 0.94;
-  //   .popups-content {
-  //     width: 100%;
-  //     height: 100%;
-  //   }
-  //   .main-content {
-  //     position: relative;
-  //     .popups-close {
-  //       position: absolute;
-  //       right: 4%;
-  //       top: 9.5%;
-  //       z-index: 40;
-  //       img {
-  //         width: 60%;
-  //       }
-  //     }
-  //     .img-wrap {
-  //       position: absolute;
-  //       width: 70%;
-  //       left: 15%;
-  //       top: 12%;
-  //       .bg {
-  //         width: 100%;
-  //         user-select: none;
-  //         pointer-events: none;
-  //       }
-  //       .done1 {
-  //         position: absolute;
-  //         width: 95%;
-  //         left: 2.5%;
-  //         top: 20%;
-  //       }
-  //       .done2 {
-  //         position: absolute;
-  //         width: 95%;
-  //         left: 2.5%;
-  //         bottom: 40%;
-  //       }
-  //       .done3 {
-  //         position: absolute;
-  //         width: 95%;
-  //         left: 2.5%;
-  //         bottom: 21%;
-  //       }
-  //       .done4 {
-  //         position: absolute;
-  //         width: 95%;
-  //         left: 2.5%;
-  //         bottom: 2%;
-  //       }
-  //       .text {
-  //         color: #fff;
-  //         font-size: 16px;
-  //         height: 18px;
-  //         line-height: 18px;
-  //         position: absolute;
-  //         width: 95%;
-  //         left: 5.5%;
-  //         bottom: 4%;
-  //         text-align: left;
-  //       }
-  //     }
-  //   }
-  // }
 }
 @keyframes mycircle {
   0% {
