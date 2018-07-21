@@ -1,9 +1,9 @@
 <template>
   <!-- 弹出层 -->
-  <div class="popups-wrapper" v-show="gameData.showPopups" :style=style.popups>
+  <div class="popups-wrapper" v-show="gameData.showPopups" :style=styleData.popups>
     <div class="popups-content">
-      <div class="main-content" :style="style.popupsContent">
-        <div class="popups-close" :style="style.top" @click="closePopups">
+      <div class="main-content" :style="styleData.popupsContent">
+        <div class="popups-close" :style="styleData.top" @click="closePopups">
           <img :src="imgUrl+'close.png'+ this.qiniuCompress()" alt="" />
         </div>
         <div class="img-wrap">
@@ -33,39 +33,97 @@
 
 <script>
 const imgUrl = process.env.CDN_URL
-
+import {
+  createGame,
+  getGame
+} from 'services'
 export default {
   props: {
-    gameData: {
+    styleData: {
       type: Object,
       required: true
     }
   },
   data() {
     return {
+      gameData: {
+        projectOne: false,
+        projectTwo: false,
+        projectThree: false,
+        projectFour: false,
+        showPopups: true,
+        randomNum: ''
+      },
       imgUrl: imgUrl + '/fe/marketing/img/fourProject/',
-      style: {
-        top: {
-          top:
-            this.innerHeight() * 0.12 +
-            this.innerWidth() * 0.7 / 503 * 34 -
-            38 +
-            'px',
-          right: this.innerWidth() * 0.15 - 45 + 'px'
-        },
-        popupsContent: {
-          height: this.innerHeight() + 'px'
-        },
-        popups: {
-          height: this.innerHeight() + 'px'
-        }
-      }
+      // style: {
+      //   top: {
+      //     top:
+      //       this.innerHeight() * 0.12 +
+      //       this.innerWidth() * 0.7 / 503 * 34 -
+      //       38 +
+      //       'px',
+      //     right: this.innerWidth() * 0.15 - 45 + 'px'
+      //   },
+      //   popupsContent: {
+      //     height: this.innerHeight() + 'px'
+      //   },
+      //   popups: {
+      //     height: this.innerHeight() + 'px'
+      //   }
+      // }
     }
   },
-  created() {},
+  created() {
+  },
   methods: {
+    createGame(belong, userId) {
+      let args = {
+        belong: belong
+      }
+      createGame(args, userId)
+        .then(res => {
+          if (res.success) {
+            this.getGame(userId)
+          }
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    },
+    getGame(userId) {
+      let args = {
+        withCredentials: true
+      }
+      getGame(args, userId)
+        .then(res => {
+          console.log(res)
+          this.projectStatus(res)
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    },
+    projectStatus(list) {
+      let data = list
+      data.map(r => {
+        if (r.belong === 'colorPrintHilton') {
+          this.gameData.projectOne = true
+        }
+        if (r.belong === 'LXXJTurntable') {
+          this.gameData.projectTwo = true
+        }
+        if (r.belong === 'WorldCup2018') {
+          this.gameData.projectThree = true
+        }
+        if (r.belong === 'previousLift') {
+          this.gameData.projectFour = true
+        }
+      })
+      this.gameData.randomNum = user_id
+    },
     closePopups() {
-      this.$parent.closePopups()
+      this.gameData.showPopups = false
+      // this.$parent.closePopups()
     }
   }
 }
