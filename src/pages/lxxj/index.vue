@@ -120,7 +120,9 @@
       :src="baseUrl + 'box.png'"
       />
     <!-- 弹出层 -->
-    <div class="popups-wrapper" v-show="showPopups">
+    <GameShow :gameData="gameData"/>
+    
+    <!-- <div class="popups-wrapper" v-show="showPopups">
       <div class="popups-content">
         <div class="main-content" :style="style.popups">
           <div class="popups-close" :style="style.top" @click="closePopups">
@@ -148,7 +150,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -157,6 +159,7 @@ const wih = window.innerHeight
 const wiw = window.innerWidth
 const imgUrl = process.env.CDN_URL
 import { isWeixin } from '../../modules/util'
+import GameShow from '../../modules/gameShow'
 import {
   isInWechat,
   getWxUserInfo,
@@ -168,22 +171,17 @@ import {
 } from 'services'
 
 import Remind from './remind'
+
 const baseUrl =
   'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/lxxj/'
 export default {
   components: {
-    Remind
+    Remind,
+    GameShow
   },
   data() {
     return {
-      projectOne: false,
-      projectTwo: false,
-      projectThree: false,
-      projectFour: false,
-      showPopups: true,
-      imgUrl: imgUrl + '/fe/marketing/img/fourProject/',
       baseUrl: baseUrl,
-      randomNum: '',
       style: {
         root: {
           height: wih + 'px'
@@ -191,18 +189,15 @@ export default {
         coupon2: {},
         coupon1: {
           height: wiw * 0.5 * 260 / 373 * 1.5 + 'px'
-        },
-        top: {
-          top:
-            this.innerHeight() * 0.12 +
-            this.innerWidth() * 0.7 / 503 * 34 -
-            38 +
-            'px',
-          right: this.innerWidth() * 0.15 - 45 + 'px'
-        },
-        popups: {
-          height: this.innerHeight() + 'px'
         }
+      },
+      gameData: {
+        projectOne: false,
+        projectTwo: false,
+        projectThree: false,
+        projectFour: false,
+        showPopups: true,
+        randomNum: ''
       },
       phoneValue: null,
       coupon_code: 580870245930946,
@@ -230,6 +225,7 @@ export default {
       ) {
         this.handleWechatAuth()
       }
+      // this.handleWechatAuth()
     }
   },
   methods: {
@@ -246,7 +242,14 @@ export default {
         let utm_campaign = this.$route.query.utm_campaign
         let user_id = Cookies.get('user_id')
         this.createGame(utm_campaign, user_id)
-        this.randomNum = user_id
+        // let list = [
+        //   { user_id: 7815, belong: 'colorPrintHilton' },
+        //   { user_id: 7815, belong: 'LXXJTurntable' },
+        //   { user_id: 7815, belong: 'previousLift' },
+        //   { user_id: 7815, belong: 'WorldCup2018' }
+        // ]
+        // this.projectStatus(list)
+        this.gameData.randomNum = user_id
       }
     },
     createGame(belong, userId) {
@@ -280,21 +283,21 @@ export default {
       let data = list
       data.map(r => {
         if (r.belong === 'colorPrintHilton') {
-          this.projectOne = true
+          this.gameData.projectOne = true
         }
         if (r.belong === 'LXXJTurntable') {
-          this.projectTwo = true
+          this.gameData.projectTwo = true
         }
         if (r.belong === 'WorldCup2018') {
-          this.projectThree = true
+          this.gameData.projectThree = true
         }
         if (r.belong === 'previousLift') {
-          this.projectFour = true
+          this.gameData.projectFour = true
         }
       })
     },
     closePopups() {
-      this.showPopups = false
+      this.gameData.showPopups = false
     },
     handleTrack() {
       let url =
