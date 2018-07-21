@@ -131,20 +131,26 @@ export default {
     },
     createGame(belong, userId) {
       let args = {
-        belong: belong
+        params: {
+          belong: belong
+        },
+        withCredentials: true
       }
       createGame(args, userId)
         .then(res => {
           if (res.success) {
-            this.getGame()
+            this.getGame(userId)
           }
         })
         .catch(e => {
           console.log(e)
         })
     },
-    getGame() {
-      getGame()
+    getGame(userId) {
+      let args = {
+        withCredentials: true
+      }
+      getGame(args, userId)
         .then(res => {
           this.projectStatus(res)
         })

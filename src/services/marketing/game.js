@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const GAME_URL = process.env.SAAS_API + '/user/'
-const GAME_LIST_URL = process.env.SAAS_API + '/user/games'
+const GAME_LIST_URL = process.env.SAAS_API + '/user/'
 
 const createGame = (params, userId) => {
   return new Promise((resolve, reject) => {
@@ -16,10 +16,10 @@ const createGame = (params, userId) => {
   })
 }
 
-const getGame = params => {
+const getGame = (params, userId) => {
   return new Promise((resolve, reject) => {
     axios
-      .get(GAME_LIST_URL, params)
+      .get(GAME_LIST_URL + userId + '/games', params)
       .then(response => {
         resolve(response.data.data)
       })

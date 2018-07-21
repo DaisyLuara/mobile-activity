@@ -259,18 +259,18 @@ export default {
       createGame(args, userId)
         .then(res => {
           if (res.success) {
-            this.getGame()
+            this.getGame(userId)
           }
         })
         .catch(e => {
           console.log(e)
         })
     },
-    getGame() {
+    getGame(userId) {
       let args = {
         withCredentials: true
       }
-      getGame(args)
+      getGame(args, userId)
         .then(res => {
           console.log(res)
           this.projectStatus(res)
