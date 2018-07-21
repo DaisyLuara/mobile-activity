@@ -21,7 +21,9 @@
         <img :src="imgUrl+'logo.png'" class="logo"/>
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
     <!-- 弹出层 -->
-    <div class="popups-wrapper" v-show="showPopups">
+    <GameShow :styleData="style" ref="gameShow"/>
+    
+    <!-- <div class="popups-wrapper" v-show="showPopups">
       <div class="popups-content">
         <div class="main-content" :style="style.popups">
           <div class="popups-close" :style="style.top" @click="closePopups">
@@ -49,25 +51,26 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 	</div>
 </template>
 <script>
 import marketService from 'services/marketing'
 import WxShare from 'modules/wxShare'
+import GameShow from 'modules/gameShow'
 import { customTrack } from 'modules/customTrack'
-import { isInWechat, Cookies, createGame, getGame } from 'services'
-const imgUrl = process.env.CDN_URL
+import { isInWechat, Cookies } from 'services'
+// const imgUrl = process.env.CDN_URL
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
   data() {
     return {
-      projectOne: false,
-      projectTwo: false,
-      projectThree: false,
-      projectFour: false,
-      showPopups: true,
-      randomNum: '',
+      // projectOne: false,
+      // projectTwo: false,
+      // projectThree: false,
+      // projectFour: false,
+      // showPopups: true,
+      // randomNum: '',
       style: {
         top: {
           top:
@@ -77,11 +80,14 @@ export default {
             'px',
           right: this.innerWidth() * 0.15 - 45 + 'px'
         },
+        popupsContent: {
+          minHeight: this.innerHeight() + 'px'
+        },
         popups: {
-          height: this.innerHeight() + 'px'
+          minHeight: this.innerHeight() + 'px'
         }
       },
-      baseUrl: imgUrl + '/fe/marketing/img/fourProject/',
+      // baseUrl: imgUrl + '/fe/marketing/img/fourProject/',
       imgUrl: IMAGE_SERVER + '/pages/yanzhi/hilton/',
       mImg: null,
       posNum: this.$route.query.posNum || '',
@@ -101,7 +107,9 @@ export default {
   beforeCreate() {
     document.title = ''
   },
-  created() {},
+  created() {
+    
+  },
   mounted() {
     let height =
       window.innerHeight ||
@@ -133,57 +141,59 @@ export default {
       } else {
         let utm_campaign = this.$route.query.utm_campaign
         let user_id = Cookies.get('user_id')
-        this.createGame(utm_campaign, user_id)
-        this.randomNum = user_id
+        // this.createGame(utm_campaign, user_id)
+        this.$refs.gameShow.createGame(utm_campaign, user_id)
+
+        // this.randomNum = user_id
       }
     },
-    createGame(belong, userId) {
-      let args = {
-        belong: belong
-      }
-      createGame(args, userId)
-        .then(res => {
-          if (res.success) {
-            this.getGame(userId)
-          }
-        })
-        .catch(e => {
-          console.log(e)
-        })
-    },
-    getGame(userId) {
-      let args = {
-        withCredentials: true
-      }
-      getGame(args, userId)
-        .then(res => {
-          console.log(res)
-          this.projectStatus(res)
-        })
-        .catch(e => {
-          console.log(e)
-        })
-    },
-    projectStatus(list) {
-      let data = list
-      data.map(r => {
-        if (r.belong === 'colorPrintHilton') {
-          this.projectOne = true
-        }
-        if (r.belong === 'LXXJTurntable') {
-          this.projectTwo = true
-        }
-        if (r.belong === 'WorldCup2018') {
-          this.projectThree = true
-        }
-        if (r.belong === 'previousLift') {
-          this.projectFour = true
-        }
-      })
-    },
-    closePopups() {
-      this.showPopups = false
-    },
+    // createGame(belong, userId) {
+    //   let args = {
+    //     belong: belong
+    //   }
+    //   createGame(args, userId)
+    //     .then(res => {
+    //       if (res.success) {
+    //         this.getGame(userId)
+    //       }
+    //     })
+    //     .catch(e => {
+    //       console.log(e)
+    //     })
+    // },
+    // getGame(userId) {
+    //   let args = {
+    //     withCredentials: true
+    //   }
+    //   getGame(args, userId)
+    //     .then(res => {
+    //       console.log(res)
+    //       this.projectStatus(res)
+    //     })
+    //     .catch(e => {
+    //       console.log(e)
+    //     })
+    // },
+    // projectStatus(list) {
+    //   let data = list
+    //   data.map(r => {
+    //     if (r.belong === 'colorPrintHilton') {
+    //       this.projectOne = true
+    //     }
+    //     if (r.belong === 'LXXJTurntable') {
+    //       this.projectTwo = true
+    //     }
+    //     if (r.belong === 'WorldCup2018') {
+    //       this.projectThree = true
+    //     }
+    //     if (r.belong === 'previousLift') {
+    //       this.projectFour = true
+    //     }
+    //   })
+    // },
+    // closePopups() {
+    //   this.showPopups = false
+    // },
     getInfoById() {
       let id = this.$route.query.id
       marketService
@@ -198,7 +208,8 @@ export default {
     }
   },
   components: {
-    WxShare
+    WxShare,
+    GameShow
   }
 }
 </script>
@@ -336,78 +347,78 @@ body {
     margin: 0 auto;
     margin-bottom: 8%;
   }
-  .popups-wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #000;
-    z-index: 400;
-    opacity: 0.94;
-    .popups-content {
-      width: 100%;
-      height: 100%;
-    }
-    .main-content {
-      position: relative;
-      .popups-close {
-        position: absolute;
-        right: 4%;
-        top: 9.5%;
-        z-index: 40;
-        img {
-          width: 60%;
-        }
-      }
-      .img-wrap {
-        position: absolute;
-        width: 70%;
-        left: 15%;
-        top: 12%;
-        .bg {
-          width: 100%;
-          user-select: none;
-          pointer-events: none;
-        }
-        .done1 {
-          position: absolute;
-          width: 95%;
-          left: 2.5%;
-          top: 20%;
-        }
-        .done2 {
-          position: absolute;
-          width: 95%;
-          left: 2.5%;
-          bottom: 40%;
-        }
-        .done3 {
-          position: absolute;
-          width: 95%;
-          left: 2.5%;
-          bottom: 21%;
-        }
-        .done4 {
-          position: absolute;
-          width: 95%;
-          left: 2.5%;
-          bottom: 2%;
-        }
-        .text {
-          color: #fff;
-          font-size: 16px;
-          height: 18px;
-          line-height: 18px;
-          position: absolute;
-          width: 95%;
-          left: 5.5%;
-          bottom: 4%;
-          text-align: left;
-        }
-      }
-    }
-  }
+  // .popups-wrapper {
+  //   position: absolute;
+  //   top: 0;
+  //   left: 0;
+  //   width: 100%;
+  //   height: 100%;
+  //   background-color: #000;
+  //   z-index: 400;
+  //   opacity: 0.94;
+  //   .popups-content {
+  //     width: 100%;
+  //     height: 100%;
+  //   }
+  //   .main-content {
+  //     position: relative;
+  //     .popups-close {
+  //       position: absolute;
+  //       right: 4%;
+  //       top: 9.5%;
+  //       z-index: 40;
+  //       img {
+  //         width: 60%;
+  //       }
+  //     }
+  //     .img-wrap {
+  //       position: absolute;
+  //       width: 70%;
+  //       left: 15%;
+  //       top: 12%;
+  //       .bg {
+  //         width: 100%;
+  //         user-select: none;
+  //         pointer-events: none;
+  //       }
+  //       .done1 {
+  //         position: absolute;
+  //         width: 95%;
+  //         left: 2.5%;
+  //         top: 20%;
+  //       }
+  //       .done2 {
+  //         position: absolute;
+  //         width: 95%;
+  //         left: 2.5%;
+  //         bottom: 40%;
+  //       }
+  //       .done3 {
+  //         position: absolute;
+  //         width: 95%;
+  //         left: 2.5%;
+  //         bottom: 21%;
+  //       }
+  //       .done4 {
+  //         position: absolute;
+  //         width: 95%;
+  //         left: 2.5%;
+  //         bottom: 2%;
+  //       }
+  //       .text {
+  //         color: #fff;
+  //         font-size: 16px;
+  //         height: 18px;
+  //         line-height: 18px;
+  //         position: absolute;
+  //         width: 95%;
+  //         left: 5.5%;
+  //         bottom: 4%;
+  //         text-align: left;
+  //       }
+  //     }
+  //   }
+  // }
 }
 @keyframes mycircle {
   0% {
