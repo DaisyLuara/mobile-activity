@@ -40,7 +40,7 @@
             <img
               @click="handlePageToNext()"
               class="arrow"
-              v-lazy="serverUrl + 'arrow-red.png' + this.qiniuCompress()" />
+              v-lazy="serverUrl + 'arrow-black.png' + this.qiniuCompress()" />
           </div>
         </div>
         <div class="swiper-slide">
@@ -58,7 +58,7 @@
             <img
               @click="handlePageToNext()"
               class="arrow"
-              :src="serverUrl + 'arrow-red.png' + this.qiniuCompress()" />
+              :src="serverUrl + 'arrow-black.png' + this.qiniuCompress()" />
           </div>
         </div>
         <div class="swiper-slide">
@@ -73,7 +73,7 @@
             <img
               @click="handlePageToNext()"
               class="arrow"
-              :src="serverUrl + 'arrow-red.png' + this.qiniuCompress()" />
+              :src="serverUrl + 'arrow-black.png' + this.qiniuCompress()" />
           </div>
         </div>
         <div class="swiper-slide">
@@ -102,7 +102,13 @@
 import Vue from 'vue'
 import { Lazyload } from 'mint-ui'
 Vue.use(Lazyload)
-import { $_wechat, isInWechat, basicTrack, wechatShareTrack } from 'services'
+import {
+  $_wechat,
+  isInWechat,
+  basicTrack,
+  wechatShareTrack,
+  GetParamsFromUrl
+} from 'services'
 import Swiper from 'swiper/dist/js/swiper.js'
 const serverUrl = 'http://cdn.exe666.com/fe/marketing/meichen/'
 export default {
@@ -136,6 +142,15 @@ export default {
         success: () => {
           wechatShareTrack()
         }
+      }
+    }
+  },
+  beforeCreate() {
+    if (this.$route.query.hasOwnProperty('share_at')) {
+      if (Number(GetParamsFromUrl().share_at) < Date.now()) {
+        window.location.replace(
+          window.location.origin + '/marketing/meichenzhan'
+        )
       }
     }
   },
