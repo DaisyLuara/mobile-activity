@@ -16,10 +16,10 @@ const createGame = (params, userId) => {
   })
 }
 
-const getGame = () => {
+const getGame = params => {
   return new Promise((resolve, reject) => {
     axios
-      .get(GAME_LIST_URL)
+      .get(GAME_LIST_URL, params)
       .then(response => {
         resolve(response.data.data)
       })
