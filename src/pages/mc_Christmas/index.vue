@@ -1,11 +1,17 @@
 <template>
   <div
     :style="style.root" 
-    class="root">
+    class="root" v-show="show">
+    <!-- 遮罩 -->
+    <div class="loading" v-show="loading">
+      <img class="xueren" :src="baseUrl + 'xueren.png'+ this.qiniuCompress()">
+      <img class="z" :src="baseUrl + 'z.png'+ this.qiniuCompress()">
+    </div>
+    <div class="content" v-show="!loading">
     <div class="top"></div>
     <div class="center">
-      <img class="photo"  v-if="photoUrl !== null" :src="photoUrl  + this.qiniuCompress()" alt=""/>
-      <!-- <img  class="photo" :src="baseUrl + '111.png'"/> -->
+      <!-- <img class="photo"  v-if="photoUrl !== null" :src="photoUrl+ this.qiniuCompress()" alt=""/> -->
+      <img  class="photo" :src="baseUrl + '111.png'"/>
     </div>
     <img class="save" :src="baseUrl + 'save.png'+ this.qiniuCompress()">
     <img class="button"  @click="goH5" :src="baseUrl + 'btn.png'+ this.qiniuCompress()">
@@ -16,6 +22,7 @@
       id="animation"
       class="animation"
       />
+    </div>
     </div>
   </div>
 </template>
@@ -29,12 +36,15 @@ const cdnUrl = process.env.CDN_URL
 export default {
   data() {
     return {
+      count: 0,
+      show: false,
       baseUrl: cdnUrl + '/fe/marketing/img/mc_Christmas/',
       style: {
         root: {
           height: wih + 'px'
         }
       },
+      loading: true,
       photoUrl: '',
       wxShareInfo: {
         title: '点我，开启无限乐趣',
@@ -50,8 +60,23 @@ export default {
     this.getInfo()
   },
   mounted() {
+    this.loadImage()
     this.initAnimation()
     this.handleWeChatShare()
+  },
+  watch: {
+    count(val, oldval) {
+      //alert(val)
+      if (val == 5) {
+        this.show = true
+        var _this = this
+        setTimeout(() => {
+          _this.loading = false
+        }, 3000)
+
+        //然后可以对后台发送一些ajax操作
+      }
+    }
   },
   methods: {
     //处理微信分享
@@ -90,6 +115,18 @@ export default {
         assetsPath: 'http://cdn.exe666.com/fe/marketing/christmas/img/',
         path: 'http://cdn.exe666.com/fe/marketing/christmas/json/h5xuehua.json' // the path to the animation json
       })
+    },
+    loadImage() {
+      var _this = this
+      let imgs = document.querySelectorAll('img')
+      console.log(imgs)
+      Array.from(imgs).forEach(item => {
+        let img = new Image()
+        img.onload = () => {
+          this.count++
+        }
+        img.src = item.getAttribute('src')
+      })
     }
   }
 }
@@ -105,66 +142,95 @@ export default {
   position: relative;
   overflow: hidden;
   text-align: center;
-  .top {
+  .loading {
     width: 100%;
-    height: 34%;
+    height: 100%;
     position: absolute;
     left: 0;
     top: 0;
-    background-repeat: no-repeat;
-    background-image: url('@{imageHost}/H6_00000.png');
-    background-size: 100% 100%;
-    animation: run 2s steps(1, start) infinite;
-    -webkit-touch-callout: none;
-    user-select: none;
-    pointer-events: none;
-  }
-  .center {
-    width: 96%;
     background: #000;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -44%);
-    padding: 2%;
-    .photo {
-      width: 100%;
+    opacity: 0.8;
+    z-index: 5;
+    .xueren {
+      width: 30%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 6;
+    }
+    .z {
+      width: 16%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(115%, -150%);
+      z-index: 6;
+      animation: opacitySave 0.8s linear infinite alternate;
     }
   }
-  .save {
-    width: 40%;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, 170%);
-    -webkit-touch-callout: none;
-    user-select: none;
-    pointer-events: none;
-  }
-  .button {
-    width: 50%;
-    position: absolute;
-    left: 50%;
-    bottom: 0%;
-    transform: translate(-50%, -55%);
-    z-index: 2;
-  }
-  .bottom {
-    width: 100%;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    .animation {
+  .content {
+    .top {
       width: 100%;
+      height: 34%;
       position: absolute;
       left: 0;
-      bottom: 0;
+      top: 0;
+      background-repeat: no-repeat;
+      background-image: url('@{imageHost}/H6_00000.png');
+      background-size: 100% 100%;
+      animation: run 2s steps(1, start) infinite;
       -webkit-touch-callout: none;
       user-select: none;
       pointer-events: none;
     }
-    .xuehua-bg {
+    .center {
+      width: 96%;
+      background: #000;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -44%);
+      padding: 2%;
+      .photo {
+        width: 100%;
+      }
+    }
+    .save {
+      width: 40%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, 170%);
+      -webkit-touch-callout: none;
+      user-select: none;
+      pointer-events: none;
+    }
+    .button {
+      width: 50%;
+      position: absolute;
+      left: 50%;
+      bottom: 0%;
+      transform: translate(-50%, -55%);
+      z-index: 2;
+    }
+    .bottom {
       width: 100%;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      .animation {
+        width: 100%;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        -webkit-touch-callout: none;
+        user-select: none;
+        pointer-events: none;
+      }
+      .xuehua-bg {
+        width: 100%;
+      }
     }
   }
 }
@@ -224,6 +290,14 @@ export default {
   91%,
   100% {
     background-image: url('@{imageHost}/H6_00000.png?v=222');
+  }
+}
+@keyframes opacitySave {
+  0% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 1;
   }
 }
 </style>
