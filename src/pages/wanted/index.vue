@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import { validatePhone } from 'services'
 const serverUrl = process.env.CDN_URL
 export default {
   data() {
@@ -68,6 +69,17 @@ export default {
     showRemind() {
       if (this.phoneValue === '') {
         this.shouldRemindShow = true
+      }
+    },
+    handlebuttonClick() {
+      if (validatePhone(this.phoneValue)) {
+        let naviUrl =
+          window.location.origin +
+          '/marketing/wantedresult?id=' +
+          String(this.$route.query.id)
+        window.location.href = naviUrl
+      } else {
+        alert('输入的号码有误')
       }
     }
   }

@@ -14,6 +14,16 @@
       :style="style.photo"
       class="photo"
       :src="serverUrl + 'photo-cover.png' + this.qiniuCompress()" />
+    <!-- show Photo -->
+    <img
+      :style="style.coverphoto"
+      class="cover-photo"
+      :src="bindImgUrl + this.qiniuCompress()" />
+    <!-- real photo -->
+    <img
+      :style="style.realphoto"
+      class="real-photo"
+      :src="bindImgUrl + this.qiniuCompress()" />
     <img
       :style="style.remind"
       class="remind" 
@@ -40,9 +50,26 @@ export default {
         },
         remind: {
           top: this.innerWidth() * 1.45 + 'px'
+        },
+        realphoto: {
+          top: this.innerWidth() * 0.2 + 'px'
+        },
+        coverphoto: {
+          top: this.innerWidth() * 0.22 + 'px'
         }
       },
-      serverUrl: serverUrl + '/fe/marketing/wanted/'
+      serverUrl: serverUrl + '/fe/marketing/wanted/',
+      bindImgUrl: ''
+    }
+  },
+  mounted() {
+    this.getImage()
+  },
+  methods: {
+    getImage() {
+      getInfoById(this.$route.query.id).then(r => {
+        this.bindImgUrl = r.image
+      })
     }
   }
 }
@@ -81,6 +108,18 @@ export default {
     z-index: 14;
     width: 50%;
     left: 10%;
+  }
+  .cover-photo {
+    z-index: 12;
+    width: 74%;
+    left: 13%;
+    position: absolute;
+  }
+  .real-photo {
+    z-index: 15;
+    width: 100%;
+    position: absolute;
+    opacity: 0;
   }
 }
 </style>
