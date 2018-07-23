@@ -4,15 +4,18 @@
     class="root">
     <div class="top"></div>
     <div class="center">
+      <!-- <img class="photo"  v-if="photoUrl !== null" :src="photoUrl  + this.qiniuCompress()" alt=""/> -->
       <img  class="photo" :src="baseUrl + '111.png'"/>
     </div>
     <img class="save" :src="baseUrl + 'save.png'+ this.qiniuCompress()">
     <img class="button"  @click="goH5" :src="baseUrl + 'btn.png'+ this.qiniuCompress()">
     <div class="bottom">
-      <!-- <img :src="baseUrl + 'xuehua.png'+ this.qiniuCompress()" /> -->
       <img :src="baseUrl + 'xuehua2.png?v=111'+ this.qiniuCompress()" />
-      <img  class="xuehua1" :src="baseUrl + 'xuehua3.png?v=111'+ this.qiniuCompress()" />
-      <img  class="xuehua2" :src="baseUrl + 'xuehua3.png?v=111'+ this.qiniuCompress()" />
+      <!-- 雪花动画部分 -->
+       <div
+      id="animation"
+      class="animation"
+      />
     </div>
   </div>
 </template>
@@ -20,6 +23,7 @@
 <script>
 const wih = window.innerHeight
 const wiw = window.innerWidth
+import lottie from 'lottie-web'
 import { $_wechat, wechatShareTrack, getInfoById, isInWechat } from 'services'
 const cdnUrl = process.env.CDN_URL
 export default {
@@ -46,6 +50,7 @@ export default {
     this.getInfo()
   },
   mounted() {
+    this.initAnimation()
     this.handleWeChatShare()
   },
   methods: {
@@ -74,6 +79,17 @@ export default {
     //跳转
     goH5() {
       window.location.href = 'http://h5.xingstation.com/marketing/meichenzhan'
+    },
+    initAnimation() {
+      const el = document.getElementById('animation')
+      lottie.loadAnimation({
+        container: el, // the dom element that will contain the animation
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        assetsPath: 'http://cdn.exe666.com/fe/marketing/christmas/img/',
+        path: 'http://cdn.exe666.com/fe/marketing/christmas/json/h5xuehua.json' // the path to the animation json
+      })
     }
   }
 }
@@ -99,7 +115,9 @@ export default {
     background-image: url('@{imageHost}/H5_00000.png');
     background-size: 100% 100%;
     animation: run 2s steps(1, start) infinite;
-    //animation: run 2s infinite;
+    -webkit-touch-callout: none;
+    user-select: none;
+    pointer-events: none;
   }
   .center {
     width: 96%;
@@ -119,6 +137,9 @@ export default {
     left: 50%;
     top: 50%;
     transform: translate(-50%, 170%);
+    -webkit-touch-callout: none;
+    user-select: none;
+    pointer-events: none;
   }
   .button {
     width: 50%;
@@ -133,28 +154,14 @@ export default {
     position: absolute;
     left: 0;
     bottom: 0;
-    .xuehua1 {
-      width: 27%;
+    .animation {
+      width: 100%;
       position: absolute;
-      left: -12%;
-      bottom: -15%;
-      // animation: rotate 4s infinite ease-out;
-      -webkit-transform: rotate(0deg);
-      animation: rotate 8s linear infinite;
-      -moz-animation: rotate 8s linear infinite;
-      -webkit-animation: rotate 8s linear infinite;
-      -o-animation: rotate 8s linear infinite;
-    }
-    .xuehua2 {
-      width: 27%;
-      position: absolute;
-      right: -9%;
-      top: -11.5%;
-      -webkit-transform: rotate(0deg);
-      animation: rotate 8s linear infinite;
-      -moz-animation: rotate 8s linear infinite;
-      -webkit-animation: rotate 8s linear infinite;
-      -o-animation: rotate 8s linear infinite;
+      left: 0;
+      bottom: 0;
+      -webkit-touch-callout: none;
+      user-select: none;
+      pointer-events: none;
     }
     img {
       width: 100%;
@@ -261,14 +268,6 @@ export default {
   96%,
   100% {
     background-image: url('@{imageHost}/H5_00000.png');
-  }
-}
-@keyframes rotate {
-  from {
-    -webkit-transform: rotate(0deg);
-  }
-  to {
-    -webkit-transform: rotate(360deg);
   }
 }
 </style>
