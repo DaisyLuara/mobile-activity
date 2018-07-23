@@ -76,9 +76,6 @@ export default {
       this.couponId = this.$route.query.coupon_id
       this.getCouponFromId(this.couponId)
     }
-    $_wechat().then(res => {
-      res.forbidden()
-    })
   },
   methods: {
     handleInputClick() {

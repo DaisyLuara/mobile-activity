@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { validatePhone } from 'services'
+import { validatePhone, $_wechat } from 'services'
 const serverUrl = process.env.CDN_URL
 export default {
   data() {
@@ -61,6 +61,11 @@ export default {
       shouldRemindShow: true,
       phoneValue: ''
     }
+  },
+  mounted() {
+    $_wechat().then(res => {
+      res.forbidden()
+    })
   },
   methods: {
     hideRemind() {
