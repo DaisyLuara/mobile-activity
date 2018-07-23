@@ -67,7 +67,8 @@ export default {
           top: this.innerWidth() * 0.22 + 'px'
         },
         priceArea: {
-          bottom: this.innerWidth() * 0.26 + 'px'
+          bottom: this.innerWidth() * 0.26 + 'px',
+          height: this.innerWidth() * 0.0746 + 'px'
         }
       },
       serverUrl: serverUrl + '/fe/marketing/wanted/',
@@ -125,7 +126,6 @@ export default {
     margin: 0 auto;
     left: 0;
     right: 0;
-    height: 20px;
     display: flex;
     flex-direction: row;
     justify-content: center;
