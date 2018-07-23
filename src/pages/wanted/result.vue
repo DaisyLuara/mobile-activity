@@ -67,17 +67,24 @@ export default {
           top: this.innerWidth() * 0.22 + 'px'
         },
         priceArea: {
-          bottom: this.innerWidth() * 0.26 + 'px'
+          bottom: this.innerWidth() * 0.26 + 'px',
+          height: this.innerWidth() * 0.0746 + 'px'
         }
       },
       serverUrl: serverUrl + '/fe/marketing/wanted/',
       bindImgUrl: '',
-      bindNumber: ''
+      bindNumber: '',
+      wxShareInfoValue: {
+        title: '悬赏令',
+        desc: 'wow，我可是身价百万的大海盗！',
+        imgUrl: serverUrl + '/fe/marketing/wanted/icon.jpg'
+      }
     }
   },
   mounted() {
     this.getPrice()
     this.getImage()
+    this.handleShare()
   },
   methods: {
     getPrice() {
@@ -87,6 +94,20 @@ export default {
       getInfoById(this.$route.query.id).then(r => {
         this.bindImgUrl = r.image
       })
+    },
+    handleShare() {
+      if (this.$route.query.hasOwnProperty('price')) {
+        this.wxShareInfoValue.desc =
+          'wow，我可是身价' + String(this.$route.query.price) + '的大海盗！'
+      }
+      $_wechat()
+        .then(res => {
+          res.share(this.wxShareInfoValue)
+        })
+        .catch(_ => {
+          console.warn(_.message)
+          console.dir(_)
+        })
     }
   }
 }
@@ -125,7 +146,6 @@ export default {
     margin: 0 auto;
     left: 0;
     right: 0;
-    height: 20px;
     display: flex;
     flex-direction: row;
     justify-content: center;

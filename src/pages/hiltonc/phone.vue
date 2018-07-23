@@ -129,7 +129,7 @@ export default {
       let postParam = {
         mobile: this.phoneValue,
         coupon_id: id,
-        sms_tmp_id: '2169978'
+        sms_tmp_id: '2405582'
       }
       this.$http.post(postUrl, postParam).then(r => {
         if (r.data.success === true) {
