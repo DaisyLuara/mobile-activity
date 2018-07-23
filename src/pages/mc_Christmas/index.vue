@@ -4,15 +4,18 @@
     class="root">
     <div class="top"></div>
     <div class="center">
-      <img  class="photo" :src="baseUrl + '111.png'"/>
+      <img class="photo"  v-if="photoUrl !== null" :src="photoUrl  + this.qiniuCompress()" alt=""/>
+      <!-- <img  class="photo" :src="baseUrl + '111.png'"/> -->
     </div>
     <img class="save" :src="baseUrl + 'save.png'+ this.qiniuCompress()">
     <img class="button"  @click="goH5" :src="baseUrl + 'btn.png'+ this.qiniuCompress()">
     <div class="bottom">
-      <!-- <img :src="baseUrl + 'xuehua.png'+ this.qiniuCompress()" /> -->
-      <img :src="baseUrl + 'xuehua2.png?v=111'+ this.qiniuCompress()" />
-      <img  class="xuehua1" :src="baseUrl + 'xuehua3.png?v=111'+ this.qiniuCompress()" />
-      <img  class="xuehua2" :src="baseUrl + 'xuehua3.png?v=111'+ this.qiniuCompress()" />
+      <img  class="xuehua-bg" :src="baseUrl + 'xuehua2.png?v=111'+ this.qiniuCompress()" />
+      <!-- 雪花动画部分 -->
+      <div
+      id="animation"
+      class="animation"
+      />
     </div>
   </div>
 </template>
@@ -20,6 +23,7 @@
 <script>
 const wih = window.innerHeight
 const wiw = window.innerWidth
+import lottie from 'lottie-web'
 import { $_wechat, wechatShareTrack, getInfoById, isInWechat } from 'services'
 const cdnUrl = process.env.CDN_URL
 export default {
@@ -33,9 +37,9 @@ export default {
       },
       photoUrl: '',
       wxShareInfo: {
-        title: '全天欢唱 买一送二',
-        desc: '购买一小时赠送2小时',
-        imgUrl: cdnUrl + '/image/king/share.jpg',
+        title: '点我，开启无限乐趣',
+        desc: '唤醒雪人，开始圣诞之旅',
+        imgUrl: cdnUrl + '/fe/marketing/img/mc_Christmas/share.png',
         success: () => {
           wechatShareTrack()
         }
@@ -46,6 +50,7 @@ export default {
     this.getInfo()
   },
   mounted() {
+    this.initAnimation()
     this.handleWeChatShare()
   },
   methods: {
@@ -74,6 +79,17 @@ export default {
     //跳转
     goH5() {
       window.location.href = 'http://h5.xingstation.com/marketing/meichenzhan'
+    },
+    initAnimation() {
+      const el = document.getElementById('animation')
+      lottie.loadAnimation({
+        container: el, // the dom element that will contain the animation
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        assetsPath: 'http://cdn.exe666.com/fe/marketing/christmas/img/',
+        path: 'http://cdn.exe666.com/fe/marketing/christmas/json/h5xuehua.json' // the path to the animation json
+      })
     }
   }
 }
@@ -96,10 +112,12 @@ export default {
     left: 0;
     top: 0;
     background-repeat: no-repeat;
-    background-image: url('@{imageHost}/H5_00000.png');
+    background-image: url('@{imageHost}/H6_00000.png');
     background-size: 100% 100%;
     animation: run 2s steps(1, start) infinite;
-    //animation: run 2s infinite;
+    -webkit-touch-callout: none;
+    user-select: none;
+    pointer-events: none;
   }
   .center {
     width: 96%;
@@ -119,6 +137,9 @@ export default {
     left: 50%;
     top: 50%;
     transform: translate(-50%, 170%);
+    -webkit-touch-callout: none;
+    user-select: none;
+    pointer-events: none;
   }
   .button {
     width: 50%;
@@ -133,142 +154,76 @@ export default {
     position: absolute;
     left: 0;
     bottom: 0;
-    .xuehua1 {
-      width: 27%;
+    .animation {
+      width: 100%;
       position: absolute;
-      left: -12%;
-      bottom: -15%;
-      // animation: rotate 4s infinite ease-out;
-      -webkit-transform: rotate(0deg);
-      animation: rotate 8s linear infinite;
-      -moz-animation: rotate 8s linear infinite;
-      -webkit-animation: rotate 8s linear infinite;
-      -o-animation: rotate 8s linear infinite;
+      left: 0;
+      bottom: 0;
+      -webkit-touch-callout: none;
+      user-select: none;
+      pointer-events: none;
     }
-    .xuehua2 {
-      width: 27%;
-      position: absolute;
-      right: -9%;
-      top: -11.5%;
-      -webkit-transform: rotate(0deg);
-      animation: rotate 8s linear infinite;
-      -moz-animation: rotate 8s linear infinite;
-      -webkit-animation: rotate 8s linear infinite;
-      -o-animation: rotate 8s linear infinite;
-    }
-    img {
+    .xuehua-bg {
       width: 100%;
     }
   }
 }
 @keyframes run {
   0%,
-  4% {
-    background-image: url('@{imageHost}/H5_00000.png');
+  7% {
+    background-image: url('@{imageHost}/H6_00000.png?v=222');
   }
-  4%,
-  8% {
-    background-image: url('@{imageHost}/H5_00001.png');
+  7%,
+  14% {
+    background-image: url('@{imageHost}/H6_00001.png?v=222');
   }
-  8%,
-  12% {
-    background-image: url('@{imageHost}/H5_00002.png');
+  14%,
+  21% {
+    background-image: url('@{imageHost}/H6_00002.png?v=222');
   }
-  12%,
-  16% {
-    background-image: url('@{imageHost}/H5_00003.png');
-  }
-  16%,
-  20% {
-    background-image: url('@{imageHost}/H5_00004.png');
-  }
-  20%,
-  24% {
-    background-image: url('@{imageHost}/H5_00005.png');
-  }
-  24%,
+  21%,
   28% {
-    background-image: url('@{imageHost}/H5_00006.png');
+    background-image: url('@{imageHost}/H6_00003.png?v=222');
   }
   28%,
-  32% {
-    background-image: url('@{imageHost}/H5_00007.png');
+  35% {
+    background-image: url('@{imageHost}/H6_00004.png?v=222');
   }
-  32%,
-  36% {
-    background-image: url('@{imageHost}/H5_00008.png');
+  35%,
+  42% {
+    background-image: url('@{imageHost}/H6_00005.png?v=222');
   }
-  36%,
-  40% {
-    background-image: url('@{imageHost}/H5_00009.png');
+  42%,
+  49% {
+    background-image: url('@{imageHost}/H6_00006.png?v=222');
   }
-  40%,
-  44% {
-    background-image: url('@{imageHost}/H5_00010.png');
-  }
-  44%,
-  48% {
-    background-image: url('@{imageHost}/H5_00011.png');
-  }
-  48%,
-  52% {
-    background-image: url('@{imageHost}/H5_00012.png');
-  }
-  52%,
+  49%,
   56% {
-    background-image: url('@{imageHost}/H5_00013.png');
+    background-image: url('@{imageHost}/H6_00007.png?v=222');
   }
   56%,
-  60% {
-    background-image: url('@{imageHost}/H5_00014.png');
+  63% {
+    background-image: url('@{imageHost}/H6_00008.png?v=222');
   }
-  60%,
-  64% {
-    background-image: url('@{imageHost}/H5_00015.png');
+  63%,
+  70% {
+    background-image: url('@{imageHost}/H6_00009.png?v=222');
   }
-  64%,
-  68% {
-    background-image: url('@{imageHost}/H5_00016.png');
+  70%,
+  77% {
+    background-image: url('@{imageHost}/H6_00010.png?v=222');
   }
-  68%,
-  72% {
-    background-image: url('@{imageHost}/H5_00017.png');
-  }
-  72%,
-  76% {
-    background-image: url('@{imageHost}/H5_00018.png');
-  }
-  76%,
-  80% {
-    background-image: url('@{imageHost}/H5_00019.png');
-  }
-  80%,
+  77%,
   84% {
-    background-image: url('@{imageHost}/H5_00020.png');
+    background-image: url('@{imageHost}/H6_00011.png?v=222');
   }
   84%,
-  88% {
-    background-image: url('@{imageHost}/H5_00021.png');
+  91% {
+    background-image: url('@{imageHost}/H6_00012.png?v=222');
   }
-  88%,
-  92% {
-    background-image: url('@{imageHost}/H5_00022.png');
-  }
-  92%,
-  96% {
-    background-image: url('@{imageHost}/H5_00023.png');
-  }
-  96%,
+  91%,
   100% {
-    background-image: url('@{imageHost}/H5_00000.png');
-  }
-}
-@keyframes rotate {
-  from {
-    -webkit-transform: rotate(0deg);
-  }
-  to {
-    -webkit-transform: rotate(360deg);
+    background-image: url('@{imageHost}/H6_00000.png?v=222');
   }
 }
 </style>
