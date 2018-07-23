@@ -24,10 +24,18 @@
       </div>
     </div>
     <!-- show Photo -->
-    <img
+    <!-- <img
       :style="style.coverphoto"
       class="cover-photo"
-      :src="bindImgUrl + this.qiniuCompress()" />
+      :src="bindImgUrl + this.qiniuCompress()" /> -->
+    
+    <div 
+      :style="style.coverphoto"
+      class="cover-photo">
+      <img
+        class="inner-photo"
+        :src="bindImgUrl + this.qiniuCompress()" />
+    </div>
     <!-- real photo -->
     <img
       :style="style.realphoto"
@@ -64,7 +72,9 @@ export default {
           top: this.innerWidth() * 0.2 + 'px'
         },
         coverphoto: {
-          top: this.innerWidth() * 0.48 + 'px'
+          top: this.innerWidth() * 0.22 + 'px',
+          width: this.innerWidth() * 0.74 + 'px',
+          height: this.innerWidth() * 0.8 * 460 / 300 + 'px'
         },
         priceArea: {
           bottom: this.innerWidth() * 0.26 + 'px',
@@ -98,7 +108,7 @@ export default {
     handleShare() {
       if (this.$route.query.hasOwnProperty('price')) {
         this.wxShareInfoValue.desc =
-          'wow，我可是身价' + String(this.$route.query.price) + '的大海盗！'
+          'wow，我可是身价$' + String(this.$route.query.price) + '的大海盗！'
       }
       $_wechat()
         .then(res => {
@@ -166,6 +176,12 @@ export default {
     width: 74%;
     left: 13%;
     position: absolute;
+    overflow: hidden;
+    .inner-photo {
+      width: 120%;
+      margin-left: -10%;
+      margin-top: -10%;
+    }
   }
   .real-photo {
     z-index: 15;
