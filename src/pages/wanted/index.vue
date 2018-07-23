@@ -76,7 +76,9 @@ export default {
         let naviUrl =
           window.location.origin +
           '/marketing/wantedresult?id=' +
-          String(this.$route.query.id)
+          String(this.$route.query.id) +
+          '&price=' +
+          String(this.$route.query.price)
         window.location.href = naviUrl
       } else {
         alert('输入的号码有误')

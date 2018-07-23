@@ -10,10 +10,19 @@
       class="dagger"
       :style="style.dagger"
       :src="serverUrl + 'dagger.png' + this.qiniuCompress()" />
-    <img
+    <div
       :style="style.photo"
-      class="photo"
-      :src="serverUrl + 'photo-cover.png' + this.qiniuCompress()" />
+      class="photo">
+      <img
+        style="width: 100%;"
+        :src="serverUrl + 'photo-cover.png' + this.qiniuCompress()" />
+      <div 
+        :style="style.priceArea"
+        class="price-area">
+          <img :src="serverUrl + 's.png'" />
+          <img v-for="(item, index) in bindNumber" :key="index" :src="serverUrl + String(item) + '.png'" />
+      </div>
+    </div>
     <!-- show Photo -->
     <img
       :style="style.coverphoto"
@@ -56,16 +65,24 @@ export default {
         },
         coverphoto: {
           top: this.innerWidth() * 0.22 + 'px'
+        },
+        priceArea: {
+          bottom: this.innerWidth() * 0.26 + 'px'
         }
       },
       serverUrl: serverUrl + '/fe/marketing/wanted/',
-      bindImgUrl: ''
+      bindImgUrl: '',
+      bindNumber: ''
     }
   },
   mounted() {
+    this.getPrice()
     this.getImage()
   },
   methods: {
+    getPrice() {
+      this.bindNumber = this.$route.query.price
+    },
     getImage() {
       getInfoById(this.$route.query.id).then(r => {
         this.bindImgUrl = r.image
@@ -102,6 +119,20 @@ export default {
     width: 80%;
     left: 10%;
     position: absolute;
+  }
+  .price-area {
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    height: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    img {
+      height: 100%;
+    }
   }
   .remind {
     position: absolute;
