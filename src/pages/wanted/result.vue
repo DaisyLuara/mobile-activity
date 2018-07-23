@@ -10,10 +10,37 @@
       class="dagger"
       :style="style.dagger"
       :src="serverUrl + 'dagger.png' + this.qiniuCompress()" />
-    <img
+    <div
       :style="style.photo"
-      class="photo"
-      :src="serverUrl + 'photo-cover.png' + this.qiniuCompress()" />
+      class="photo">
+      <img
+        style="width: 100%;"
+        :src="serverUrl + 'photo-cover.png' + this.qiniuCompress()" />
+      <div 
+        :style="style.priceArea"
+        class="price-area">
+          <img :src="serverUrl + 's.png'" />
+          <img v-for="(item, index) in bindNumber" :key="index" :src="serverUrl + String(item) + '.png'" />
+      </div>
+    </div>
+    <!-- show Photo -->
+    <!-- <img
+      :style="style.coverphoto"
+      class="cover-photo"
+      :src="bindImgUrl + this.qiniuCompress()" /> -->
+    
+    <div 
+      :style="style.coverphoto"
+      class="cover-photo">
+      <img
+        class="inner-photo"
+        :src="bindImgUrl + this.qiniuCompress()" />
+    </div>
+    <!-- real photo -->
+    <img
+      :style="style.realphoto"
+      class="real-photo"
+      :src="bindImgUrl + this.qiniuCompress()" />
     <img
       :style="style.remind"
       class="remind" 
@@ -40,9 +67,57 @@ export default {
         },
         remind: {
           top: this.innerWidth() * 1.45 + 'px'
+        },
+        realphoto: {
+          top: this.innerWidth() * 0.2 + 'px'
+        },
+        coverphoto: {
+          top: this.innerWidth() * 0.22 + 'px',
+          width: this.innerWidth() * 0.74 + 'px',
+          height: this.innerWidth() * 0.8 * 460 / 300 + 'px'
+        },
+        priceArea: {
+          bottom: this.innerWidth() * 0.26 + 'px',
+          height: this.innerWidth() * 0.0746 + 'px'
         }
       },
-      serverUrl: serverUrl + '/fe/marketing/wanted/'
+      serverUrl: serverUrl + '/fe/marketing/wanted/',
+      bindImgUrl: '',
+      bindNumber: '',
+      wxShareInfoValue: {
+        title: '悬赏令',
+        desc: 'wow，我可是身价百万的大海盗！',
+        imgUrl: serverUrl + '/fe/marketing/wanted/icon.jpg'
+      }
+    }
+  },
+  mounted() {
+    this.getPrice()
+    this.getImage()
+    this.handleShare()
+  },
+  methods: {
+    getPrice() {
+      this.bindNumber = this.$route.query.price
+    },
+    getImage() {
+      getInfoById(this.$route.query.id).then(r => {
+        this.bindImgUrl = r.image
+      })
+    },
+    handleShare() {
+      if (this.$route.query.hasOwnProperty('price')) {
+        this.wxShareInfoValue.desc =
+          'wow，我可是身价$' + String(this.$route.query.price) + '的大海盗！'
+      }
+      $_wechat()
+        .then(res => {
+          res.share(this.wxShareInfoValue)
+        })
+        .catch(_ => {
+          console.warn(_.message)
+          console.dir(_)
+        })
     }
   }
 }
@@ -53,6 +128,7 @@ export default {
   position: relative;
   background-color: black;
   z-index: 10;
+  overflow: hidden;
   .bg {
     position: relative;
     width: 100%;
@@ -76,11 +152,42 @@ export default {
     left: 10%;
     position: absolute;
   }
+  .price-area {
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    img {
+      height: 100%;
+    }
+  }
   .remind {
     position: absolute;
     z-index: 14;
     width: 50%;
     left: 10%;
+  }
+  .cover-photo {
+    z-index: 12;
+    width: 74%;
+    left: 13%;
+    position: absolute;
+    overflow: hidden;
+    .inner-photo {
+      width: 120%;
+      margin-left: -10%;
+      margin-top: -10%;
+    }
+  }
+  .real-photo {
+    z-index: 15;
+    width: 100%;
+    position: absolute;
+    opacity: 0;
   }
 }
 </style>

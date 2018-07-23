@@ -20,16 +20,37 @@
         <img :src="imgUrl + posNum + name + '.png'" class="coupon" v-show="press"/>
         <img :src="imgUrl+'logo.png'" class="logo"/>
     <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+    <!-- 弹出层 -->
+    <GameShow :styleData="style" ref="gameShow"/>
 	</div>
 </template>
 <script>
 import marketService from 'services/marketing'
 import WxShare from 'modules/wxShare'
+import GameShow from 'modules/gameShow'
 import { customTrack } from 'modules/customTrack'
+import { isInWechat, Cookies } from 'services'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
   data() {
     return {
+      style: {
+        show: true,
+        top: {
+          top:
+            this.innerHeight() * 0.12 +
+            this.innerWidth() * 0.7 / 503 * 34 -
+            38 +
+            'px',
+          right: this.innerWidth() * 0.15 - 45 + 'px'
+        },
+        popupsContent: {
+          minHeight: this.innerHeight() + 'px'
+        },
+        popups: {
+          minHeight: this.innerHeight() + 'px'
+        }
+      },
       imgUrl: IMAGE_SERVER + '/pages/yanzhi/hilton/',
       mImg: null,
       posNum: this.$route.query.posNum || '',
@@ -49,9 +70,7 @@ export default {
   beforeCreate() {
     document.title = ''
   },
-  created() {
-    this.getInfoById()
-  },
+  created() {},
   mounted() {
     let height =
       window.innerHeight ||
@@ -59,8 +78,33 @@ export default {
       document.body.clientHeight
     let warp = document.getElementById('warp')
     warp.style.minHeight = height + 'px'
+    this.getInfoById()
+    if (isInWechat() === true) {
+      if (
+        process.env.NODE_ENV === 'production' ||
+        process.env.NODE_ENV === 'test'
+      ) {
+        this.handleWechatAuth()
+      }
+      // this.handleWechatAuth()
+    }
   },
   methods: {
+    handleWechatAuth() {
+      if (Cookies.get('user_id') === null) {
+        let base_url = encodeURIComponent(String(window.location.href))
+        let redirct_url =
+          process.env.WX_API +
+          '/wx/officialAccount/oauth?url=' +
+          base_url +
+          '&scope=snsapi_base'
+        window.location.href = redirct_url
+      } else {
+        let utm_campaign = this.$route.query.utm_campaign
+        let user_id = Cookies.get('user_id')
+        this.$refs.gameShow.createGame(utm_campaign, user_id)
+      }
+    },
     getInfoById() {
       let id = this.$route.query.id
       marketService
@@ -75,7 +119,8 @@ export default {
     }
   },
   components: {
-    WxShare
+    WxShare,
+    GameShow
   }
 }
 </script>
@@ -179,7 +224,7 @@ body {
     animation: mycircle 10s infinite linear alternate;
   }
   .money {
-    z-index: 99999;
+    z-index: 300;
     width: 91%;
     margin: 0 auto;
     position: absolute;
@@ -192,7 +237,7 @@ body {
     margin: 20% auto;
     width: 98%;
     position: relative;
-    z-index: 9999;
+    z-index: 300;
   }
   .press {
     width: 80%;

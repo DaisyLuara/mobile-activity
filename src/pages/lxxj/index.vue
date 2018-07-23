@@ -119,20 +119,33 @@
       class="link"
       :src="baseUrl + 'box.png'"
       />
+    <!-- 弹出层 -->
+    <GameShow :styleData="style" ref="gameShow"/>
   </div>
 </template>
 
 <script>
 const wih = window.innerHeight
 const wiw = window.innerWidth
+const imgUrl = process.env.CDN_URL
 import { isWeixin } from '../../modules/util'
-import { $_wechat, getInfoById } from 'services'
+import GameShow from 'modules/gameShow'
+import {
+  isInWechat,
+  getWxUserInfo,
+  Cookies,
+  getInfoById,
+  $_wechat
+} from 'services'
+
 import Remind from './remind'
+
 const baseUrl =
   'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/lxxj/'
 export default {
   components: {
-    Remind
+    Remind,
+    GameShow
   },
   data() {
     return {
@@ -141,9 +154,24 @@ export default {
         root: {
           height: wih + 'px'
         },
+        show: true,
         coupon2: {},
         coupon1: {
           height: wiw * 0.5 * 260 / 373 * 1.5 + 'px'
+        },
+        top: {
+          top:
+            this.innerHeight() * 0.12 +
+            this.innerWidth() * 0.7 / 503 * 34 -
+            38 +
+            'px',
+          right: this.innerWidth() * 0.15 - 45 + 'px'
+        },
+        popupsContent: {
+          height: this.innerHeight() + 'px'
+        },
+        popups: {
+          height: this.innerHeight() + 'px'
         }
       },
       phoneValue: null,
@@ -165,8 +193,32 @@ export default {
   mounted() {
     this.handleForbiddenShare()
     this.getInfo()
+    if (isInWechat() === true) {
+      if (
+        process.env.NODE_ENV === 'production' ||
+        process.env.NODE_ENV === 'test'
+      ) {
+        this.handleWechatAuth()
+      }
+      // this.handleWechatAuth()
+    }
   },
   methods: {
+    handleWechatAuth() {
+      if (Cookies.get('user_id') === null) {
+        let base_url = encodeURIComponent(String(window.location.href))
+        let redirct_url =
+          process.env.WX_API +
+          '/wx/officialAccount/oauth?url=' +
+          base_url +
+          '&scope=snsapi_base'
+        window.location.href = redirct_url
+      } else {
+        let utm_campaign = this.$route.query.utm_campaign
+        let user_id = Cookies.get('user_id')
+        this.$refs.gameShow.createGame(utm_campaign, user_id)
+      }
+    },
     handleTrack() {
       let url =
         'http://exelook.com/client/goodsxsd/?id=' +
@@ -274,6 +326,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@imgServerUrl: 'http://cdn.exe666.com//fe/marketing/img/sndy';
 .root {
   position: relative;
   width: 100%;
