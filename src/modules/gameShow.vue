@@ -9,7 +9,7 @@
         <div class="img-wrap">
           <img 
             class="bg"
-            :src="imgUrl+'bg.png'+ this.qiniuCompress()" >
+            :src="imgUrl+'bg.png?v=1'+ this.qiniuCompress()" >
           <img 
             class="done1"
             :src="imgUrl+'a.png'+ this.qiniuCompress()" v-show="gameData.projectOne">
