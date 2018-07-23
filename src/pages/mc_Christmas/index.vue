@@ -10,8 +10,8 @@
     <div class="content" v-show="!loading">
     <div class="top"></div>
     <div class="center">
-      <!-- <img class="photo"  v-if="photoUrl !== null" :src="photoUrl+ this.qiniuCompress()" alt=""/> -->
-      <img  class="photo" :src="baseUrl + '111.png'"/>
+      <img class="photo"  v-if="photoUrl !== null" :src="photoUrl+ this.qiniuCompress()" alt=""/>
+      <!-- <img  class="photo" :src="baseUrl + '111.png'"/> -->
     </div>
     <img class="save" :src="baseUrl + 'save.png'+ this.qiniuCompress()">
     <img class="button"  @click="goH5" :src="baseUrl + 'btn.png'+ this.qiniuCompress()">
