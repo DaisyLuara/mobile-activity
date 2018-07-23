@@ -64,7 +64,7 @@ export default {
           top: this.innerWidth() * 0.2 + 'px'
         },
         coverphoto: {
-          top: this.innerWidth() * 0.22 + 'px'
+          top: this.innerWidth() * 0.48 + 'px'
         },
         priceArea: {
           bottom: this.innerWidth() * 0.26 + 'px',
@@ -118,6 +118,7 @@ export default {
   position: relative;
   background-color: black;
   z-index: 10;
+  overflow: hidden;
   .bg {
     position: relative;
     width: 100%;
