@@ -73,12 +73,18 @@ export default {
       },
       serverUrl: serverUrl + '/fe/marketing/wanted/',
       bindImgUrl: '',
-      bindNumber: ''
+      bindNumber: '',
+      wxShareInfoValue: {
+        title: '悬赏令',
+        desc: 'wow，我可是身价百万的大海盗！',
+        imgUrl: serverUrl + '/fe/marketing/wanted/icon.jpg'
+      }
     }
   },
   mounted() {
     this.getPrice()
     this.getImage()
+    this.handleShare()
   },
   methods: {
     getPrice() {
@@ -88,6 +94,20 @@ export default {
       getInfoById(this.$route.query.id).then(r => {
         this.bindImgUrl = r.image
       })
+    },
+    handleShare() {
+      if (this.$route.query.hasOwnProperty('price')) {
+        this.wxShareInfoValue.desc =
+          'wow，我可是身价' + String(this.$route.query.price) + '的大海盗！'
+      }
+      $_wechat()
+        .then(res => {
+          res.share(this.wxShareInfoValue)
+        })
+        .catch(_ => {
+          console.warn(_.message)
+          console.dir(_)
+        })
     }
   }
 }

@@ -76,6 +76,9 @@ export default {
       this.couponId = this.$route.query.coupon_id
       this.getCouponFromId(this.couponId)
     }
+    $_wechat().then(res => {
+      res.forbidden()
+    })
   },
   methods: {
     handleInputClick() {
@@ -129,7 +132,7 @@ export default {
       let postParam = {
         mobile: this.phoneValue,
         coupon_id: id,
-        sms_tmp_id: '2169978'
+        sms_tmp_id: '2405582'
       }
       this.$http.post(postUrl, postParam).then(r => {
         if (r.data.success === true) {
