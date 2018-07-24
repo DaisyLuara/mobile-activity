@@ -128,9 +128,9 @@ export default {
     },
     sendSMS(id) {
       let postUrl = process.env.SAAS_API + '/v6/common/coupon/sms'
-      let sms_template_id = '2405582'
+      let sms_template_id = '2407766'
       if (this.couponType === 1) {
-        sms_template_id = '2405582'
+        sms_template_id = '2407766'
       } else if (this.couponType === 2) {
         sms_template_id = '2407760'
       } else if (this.couponType === 3) {
