@@ -246,19 +246,19 @@ export default {
       pointer-events: none;
     }
     .button {
-      width: 58%;
+      width: 56%;
       position: absolute;
       left: 50%;
       bottom: 0%;
-      transform: translate(-50%, -80%);
+      transform: translate(-50%, -78%);
       z-index: 2;
     }
     .andior-btn {
-      width: 45%;
+      width: 43%;
       position: absolute;
       left: 50%;
       bottom: 0%;
-      transform: translate(-50%, -124%);
+      transform: translate(-50%, -98%);
       z-index: 2;
     }
     .iphoneX-btn {
@@ -270,11 +270,11 @@ export default {
       z-index: 2;
     }
     .logo {
-      width: 30%;
+      width: 28%;
       position: absolute;
       left: 50%;
       bottom: 0%;
-      transform: translate(-50%, -62%);
+      transform: translate(-50%, -48%);
     }
     .bottom {
       width: 100%;
