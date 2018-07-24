@@ -35,7 +35,7 @@ export default {
   data() {
     return {
       style: {
-        show: true,
+        show: false,
         top: {
           top:
             this.innerHeight() * 0.12 +
@@ -79,15 +79,15 @@ export default {
     let warp = document.getElementById('warp')
     warp.style.minHeight = height + 'px'
     this.getInfoById()
-    if (isInWechat() === true) {
-      if (
-        process.env.NODE_ENV === 'production' ||
-        process.env.NODE_ENV === 'test'
-      ) {
-        this.handleWechatAuth()
-      }
-      // this.handleWechatAuth()
-    }
+    // if (isInWechat() === true) {
+    //   if (
+    //     process.env.NODE_ENV === 'production' ||
+    //     process.env.NODE_ENV === 'test'
+    //   ) {
+    //     this.handleWechatAuth()
+    //   }
+    //   // this.handleWechatAuth()
+    // }
   },
   methods: {
     handleWechatAuth() {
