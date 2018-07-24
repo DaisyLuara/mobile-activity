@@ -168,7 +168,7 @@ export default {
     left: 0;
     top: 0;
     background: #000;
-    opacity: 0.8;
+    opacity: 1;
     z-index: 5;
     .xueren {
       width: 30%;
@@ -177,6 +177,9 @@ export default {
       top: 50%;
       transform: translate(-50%, -50%);
       z-index: 6;
+      -webkit-touch-callout: none;
+      user-select: none;
+      pointer-events: none;
     }
     .z {
       width: 16%;
@@ -185,6 +188,9 @@ export default {
       top: 50%;
       transform: translate(115%, -150%);
       z-index: 6;
+      -webkit-touch-callout: none;
+      user-select: none;
+      pointer-events: none;
       animation: opacitySave 0.8s linear infinite alternate;
     }
   }
@@ -238,17 +244,20 @@ export default {
       position: absolute;
       left: 0;
       bottom: 0;
+      -webkit-touch-callout: none;
+      user-select: none;
+      pointer-events: none;
       .animation {
         width: 100%;
         position: absolute;
         left: 0;
         bottom: 0;
-        -webkit-touch-callout: none;
-        user-select: none;
-        pointer-events: none;
       }
       .xuehua-bg {
         width: 100%;
+        -webkit-touch-callout: none;
+        user-select: none;
+        pointer-events: none;
       }
     }
   }
