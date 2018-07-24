@@ -53,7 +53,27 @@ export default {
         success: () => {
           wechatShareTrack()
         }
-      }
+      },
+      imgArr: [
+        'H6_00000.png',
+        'H6_00001.png',
+        'H6_00002.png',
+        'H6_00003.png',
+        'H6_00004.png',
+        'H6_00005.png',
+        'H6_00006.png',
+        'H6_00007.png',
+        'H6_00008.png',
+        'H6_00009.png',
+        'H6_00010.png',
+        'H6_00011.png',
+        'H6_00012.png',
+        'bg.png',
+        'btn.png',
+        'save.png',
+        'xueren.png',
+        'z.png'
+      ]
     }
   },
   created() {
@@ -116,16 +136,26 @@ export default {
         path: 'http://cdn.exe666.com/fe/marketing/christmas/json/h5xuehua.json' // the path to the animation json
       })
     },
+    // loadImage() {
+    //   var _this = this
+    //   let imgs = document.querySelectorAll('img')
+    //   console.log(imgs)
+    //   Array.from(imgs).forEach(item => {
+    //     let img = new Image()
+    //     img.onload = () => {
+    //       this.count++
+    //     }
+    //     img.src = item.getAttribute('src')
+    //   })
+    // }
     loadImage() {
       var _this = this
-      let imgs = document.querySelectorAll('img')
-      console.log(imgs)
-      Array.from(imgs).forEach(item => {
+      Array.from(_this.imgArr).forEach(item => {
         let img = new Image()
         img.onload = () => {
           this.count++
         }
-        img.src = item.getAttribute('src')
+        img.src = _this.baseUrl + item
       })
     }
   }
