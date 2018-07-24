@@ -14,7 +14,7 @@
       <!-- <img  class="photo" :src="baseUrl + '111.png'"/> -->
     </div>
     <img class="save" :src="baseUrl + 'save.png'+ this.qiniuCompress()">
-    <img class="button"  @click="goH5" :src="baseUrl + 'btn.png'+ this.qiniuCompress()">
+    <img :class="{'button': !btnAndior, 'andior-btn': btnAndior}"  @click="goH5" :src="baseUrl + 'btn.png'+ this.qiniuCompress()">
     <div class="bottom">
       <img  class="xuehua-bg" :src="baseUrl + 'xuehua2.png?v=111'+ this.qiniuCompress()" />
       <!-- 雪花动画部分 -->
@@ -44,6 +44,7 @@ export default {
           height: wih + 'px'
         }
       },
+      btnAndior: false,
       loading: true,
       photoUrl: '',
       wxShareInfo: {
@@ -80,20 +81,24 @@ export default {
     this.getInfo()
   },
   mounted() {
+    let height = this.innerHeight()
+    if (height <= 570) {
+      this.btnAndior = true
+    } else {
+      this.btnAndior = false
+    }
     this.loadImage()
     this.initAnimation()
     this.handleWeChatShare()
   },
   watch: {
     count(val, oldval) {
-      //alert(val)
       if (val == 5) {
         this.show = true
         var _this = this
         setTimeout(() => {
           _this.loading = false
         }, 3000)
-
         //然后可以对后台发送一些ajax操作
       }
     }
@@ -233,6 +238,14 @@ export default {
     }
     .button {
       width: 50%;
+      position: absolute;
+      left: 50%;
+      bottom: 0%;
+      transform: translate(-50%, -55%);
+      z-index: 2;
+    }
+    .andior-btn {
+      width: 40%;
       position: absolute;
       left: 50%;
       bottom: 0%;
