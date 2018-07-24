@@ -32,7 +32,9 @@
         :src="serverUrl + 'input-btn.png' + this.$qiniuCompress()" />
     </div>
     
-    <Result v-if="hasSMSsended"/>
+    <Result 
+      :type="couponType"
+      v-if="hasSMSsended"/>
   </div>
 </template>
 

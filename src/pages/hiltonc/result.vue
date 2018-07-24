@@ -2,10 +2,10 @@
   <div class="root">
     <img
       class="root-title" 
-      :src="serverUrl + String(currentCoupon) + '-1.png' + this.$qiniuCompress()" />
+      :src="serverUrl + String(type) + '-1.png' + this.$qiniuCompress()" />
     <img 
       class="root-content"
-      :src="serverUrl + String(currentCoupon) + '-2.png' + this.$qiniuCompress()" />
+      :src="serverUrl + String(type) + '-2.png' + this.$qiniuCompress()" />
   </div>
 </template>
 
@@ -13,6 +13,9 @@
 import { basicTrack } from 'services'
 const serverUrl = process.env.CDN_URL
 export default {
+  props: {
+    type: Number
+  },
   data() {
     return {
       currentCoupon: 3,
