@@ -13,8 +13,9 @@
       <img class="photo"  v-if="photoUrl !== null" :src="photoUrl+ this.$qiniuCompress()" alt=""/>
       <!-- <img  class="photo" :src="baseUrl + '111.png'"/> -->
     </div>
-    <img class="save" :src="baseUrl + 'save.png'+ this.$qiniuCompress()">
-    <img :class="{'button': !btnAndior, 'andior-btn': btnAndior}"  @click="goH5" :src="baseUrl + 'btn.png'+ this.$qiniuCompress()">
+    <img class="save" :src="baseUrl + 'save2.png'+ this.$qiniuCompress()">
+    <img :class="{'button': !btnAndior, 'andior-btn': btnAndior,'iphoneX-btn':iphoneX}"  @click="goH5" :src="baseUrl + 'btn.png?v=112'+ this.$qiniuCompress()">
+    <img class="logo" :src="baseUrl + 'logo.png'+ this.$qiniuCompress()">
     <div class="bottom">
       <img  class="xuehua-bg" :src="baseUrl + 'xuehua2.png?v=111'+ this.$qiniuCompress()" />
       <!-- 雪花动画部分 -->
@@ -44,6 +45,7 @@ export default {
           height: wih + 'px'
         }
       },
+      iphoneX: false,
       btnAndior: false,
       loading: true,
       photoUrl: '',
@@ -70,10 +72,12 @@ export default {
         'H6_00011.png?v=222',
         'H6_00012.png?v=222',
         'bg.png',
-        'btn.png',
-        'save.png',
+        'btn.png?v=112',
+        'save2.png',
         'xueren.png',
-        'z.png'
+        'z.png',
+        'logo.png',
+        'xuehua2.png?v=111'
       ]
     }
   },
@@ -86,6 +90,11 @@ export default {
       this.btnAndior = true
     } else {
       this.btnAndior = false
+    }
+    if (height > 672) {
+      this.iphoneX = true
+    } else {
+      this.iphoneX = false
     }
     this.loadImage()
     this.initAnimation()
@@ -231,26 +240,41 @@ export default {
       position: absolute;
       left: 50%;
       top: 50%;
-      transform: translate(-50%, 170%);
+      transform: translate(-50%, 198%);
       -webkit-touch-callout: none;
       user-select: none;
       pointer-events: none;
     }
     .button {
-      width: 50%;
+      width: 56%;
       position: absolute;
       left: 50%;
       bottom: 0%;
-      transform: translate(-50%, -55%);
+      transform: translate(-50%, -78%);
       z-index: 2;
     }
     .andior-btn {
-      width: 40%;
+      width: 43%;
       position: absolute;
       left: 50%;
       bottom: 0%;
-      transform: translate(-50%, -55%);
+      transform: translate(-50%, -98%);
       z-index: 2;
+    }
+    .iphoneX-btn {
+      width: 60%;
+      position: absolute;
+      left: 50%;
+      bottom: 0%;
+      transform: translate(-50%, -106%);
+      z-index: 2;
+    }
+    .logo {
+      width: 28%;
+      position: absolute;
+      left: 50%;
+      bottom: 0%;
+      transform: translate(-50%, -48%);
     }
     .bottom {
       width: 100%;
