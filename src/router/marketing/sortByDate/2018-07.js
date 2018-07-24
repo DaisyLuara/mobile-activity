@@ -218,6 +218,17 @@ const Date201807 = [
       desc: '悬赏令结果',
       isAbandoned: false
     }
+  },
+  {
+    path: 'mc_christmas',
+    location: 'mc_Christmas/index',
+    name: 'mc_Christmas',
+    meta: {
+      title: '美陈展',
+      author: 'xj1012',
+      desc: '美陈展圣诞结果页',
+      isAbandoned: false
+    }
   }
 ]
 export default Date201807

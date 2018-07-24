@@ -71,15 +71,15 @@ export default {
     this.content.style.minHeight = this.height + 'px'
     this.loadingCanvas()
     this.getInfoById()
-    if (isInWechat() === true) {
-      if (
-        process.env.NODE_ENV === 'production' ||
-        process.env.NODE_ENV === 'test'
-      ) {
-        this.handleWechatAuth()
-      }
-      // this.handleWechatAuth()
-    }
+    // if (isInWechat() === true) {
+    //   if (
+    //     process.env.NODE_ENV === 'production' ||
+    //     process.env.NODE_ENV === 'test'
+    //   ) {
+    //     this.handleWechatAuth()
+    //   }
+    //   // this.handleWechatAuth()
+    // }
   },
   methods: {
     handleWechatAuth() {
@@ -392,7 +392,7 @@ export default {
       img.src = url
       this.note = true
       this.loadingPage = false
-      this.style.show = true
+      // this.style.show = true
     }
   },
   components: {
