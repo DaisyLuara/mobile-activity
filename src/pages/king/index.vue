@@ -92,7 +92,7 @@ export default {
   .top {
     width: 100%;
     .light {
-      margin-top: 1%;
+      margin-top: 5%;
       width: 100%;
       position: absolute;
       left: 0%;
