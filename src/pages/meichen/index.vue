@@ -6,81 +6,81 @@
           <div class="slide-page1">
             <img
               class="page1-header" 
-              v-lazy="serverUrl + 'page1-1.png' + this.qiniuCompress()" />
+              v-lazy="serverUrl + 'page1-1.png' + this.$qiniuCompress()" />
             <div class="page1-title">
             </div>
             <img
               class="page1-footer"
-              v-lazy="serverUrl + 'page1-3.png' + this.qiniuCompress()" />
+              v-lazy="serverUrl + 'page1-3.png' + this.$qiniuCompress()" />
             <img
               class="page1-invatation"
-              v-lazy="serverUrl + 'invitation.png' + this.qiniuCompress()" />
+              v-lazy="serverUrl + 'invitation.png' + this.$qiniuCompress()" />
             <img
               @click="handlePageToNext()"
               class="arrow"
-              v-lazy="serverUrl + 'arrow-black.png' + this.qiniuCompress()" />
+              v-lazy="serverUrl + 'arrow-black.png' + this.$qiniuCompress()" />
           </div>
         </div>
         <div class="swiper-slide">
           <div class="slide-page2">
             <img
               class="page2"
-              v-lazy="serverUrl + 'page2.png' + this.qiniuCompress()" />
+              v-lazy="serverUrl + 'page2.png' + this.$qiniuCompress()" />
             <img
               @click="handlePageToNext()"
               class="arrow"
-              v-lazy="serverUrl + 'arrow-black.png' + this.qiniuCompress()" />
+              v-lazy="serverUrl + 'arrow-black.png' + this.$qiniuCompress()" />
           </div>
         </div>
         <div class="swiper-slide">
           <div class="slide-page3">
             <img
               class="page3"
-              v-lazy="serverUrl + 'page3-1.png' + this.qiniuCompress()" />
+              v-lazy="serverUrl + 'page3-1.png' + this.$qiniuCompress()" />
             <img
               @click="handlePageToNext()"
               class="arrow"
-              v-lazy="serverUrl + 'arrow-black.png' + this.qiniuCompress()" />
+              v-lazy="serverUrl + 'arrow-black.png' + this.$qiniuCompress()" />
           </div>
         </div>
         <div class="swiper-slide">
           <div class="slide-page4 exp">
              <img
-              class="page4-1" :src="serverUrl + 'page4-title-1.png' + this.qiniuCompress()" />
+              class="page4-1" :src="serverUrl + 'page4-title-1.png' + this.$qiniuCompress()" />
             <div class="page4">
-              <!-- <img class="number-icon" :src="serverUrl + 'tip-white.png' + this.qiniuCompress()" /> -->
-              <img v-lazy="serverUrl + 'new-1.png' + this.qiniuCompress()" />
+              <!-- <img class="number-icon" :src="serverUrl + 'tip-white.png' + this.$qiniuCompress()" /> -->
+              <img v-lazy="serverUrl + 'new-1.png' + this.$qiniuCompress()" />
             </div>
             <div class="page4">
-              <img class="number-icon" :src="serverUrl + 'tip-white.png' + this.qiniuCompress()" />
-              <img v-lazy="serverUrl + 'new-2.png' + this.qiniuCompress()">
+              <img class="number-icon" :src="serverUrl + 'tip-white.png' + this.$qiniuCompress()" />
+              <img v-lazy="serverUrl + 'new-2.png' + this.$qiniuCompress()">
             </div>
             <img
               @click="handlePageToNext()"
               class="arrow"
-              :src="serverUrl + 'arrow-black.png' + this.qiniuCompress()" />
+              :src="serverUrl + 'arrow-black.png' + this.$qiniuCompress()" />
           </div>
         </div>
         <div class="swiper-slide">
           <div class="slide-page4">
             <div class="page4">
-              <img class="number-icon" v-lazy="serverUrl + 'tip-white.png' + this.qiniuCompress()" />
-              <img v-lazy="serverUrl + 'new-3.png' + this.qiniuCompress()">
+              <img class="number-icon" v-lazy="serverUrl + 'tip-white.png' + this.$qiniuCompress()" />
+              <img v-lazy="serverUrl + 'new-3.png' + this.$qiniuCompress()">
             </div>
             <img
               class="page4-4"
-              v-lazy="serverUrl + 'new-4-1.png' + this.qiniuCompress()">
+              v-lazy="serverUrl + 'new-4-1.png' + this.$qiniuCompress()">
             <img
               @click="handlePageToNext()"
               class="arrow"
-              :src="serverUrl + 'arrow-black.png' + this.qiniuCompress()" />
+              :src="serverUrl + 'arrow-black.png' + this.$qiniuCompress()" />
           </div>
         </div>
         <div class="swiper-slide">
           <div class="slide-page5">
             <img
               class="top"
-              :src="serverUrl + 'page5-bg-tio-1.png' + this.qiniuCompress()" />
+              :src="serverUrl + 'page5-bg-tio-1.png' + this.$qiniuCompress()" />
             <img
               @click="handleMapJump"
               class="p5button"
@@ -117,15 +117,15 @@ export default {
       serverUrl: serverUrl,
       style: {
         root: {
-          height: this.innerHeight() + 'px'
+          height: this.$innerHeight() + 'px'
         },
         p5button: {
           top:
-            this.innerHeight() > 670
-              ? this.innerWidth() * 1.1 + 'px'
-              : this.innerWidth() * 1.1 + 'px',
-          width: this.innerWidth() * 0.5 + 'px',
-          left: this.innerWidth() * 0.25 + 'px'
+            this.$innerHeight() > 670
+              ? this.$innerWidth() * 1.1 + 'px'
+              : this.$innerWidth() * 1.1 + 'px',
+          width: this.$innerWidth() * 0.5 + 'px',
+          left: this.$innerWidth() * 0.25 + 'px'
         }
       },
       control: {

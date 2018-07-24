@@ -7,7 +7,7 @@
       <img  class="light" :src="baseUrl + 'top.png'" />
     </div>
     <div class="photo" :style="style.photeHei">
-      <img v-if="photoUrl !== null" :src="photoUrl  + this.qiniuCompress()" alt=""/>
+      <img v-if="photoUrl !== null" :src="photoUrl  + this.$qiniuCompress()" alt=""/>
       <!-- <img :src="baseUrl + 'gif.png'" > -->
     </div>
   </div>

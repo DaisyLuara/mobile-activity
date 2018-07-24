@@ -28,7 +28,7 @@ export default {
     return {
       style: {
         root: {
-          height: this.innerHeight() + 'px'
+          height: this.$innerHeight() + 'px'
         }
       },
       IMGURL: IMAGE_SERVER + '/pages/tmdd/',
@@ -52,7 +52,7 @@ export default {
     this.getInfoById()
     this.wechatShare()
     let ice = document.querySelector('.ices')
-    if (this.innerHeight() > 700) {
+    if (this.$innerHeight() > 700) {
       ice.style.bottom = '16.5%'
     }
   },

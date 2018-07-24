@@ -24,17 +24,17 @@ export default {
         show: false,
         top: {
           top:
-            this.innerHeight() * 0.12 +
-            this.innerWidth() * 0.7 / 503 * 34 -
+            this.$innerHeight() * 0.12 +
+            this.$innerWidth() * 0.7 / 503 * 34 -
             38 +
             'px',
-          right: this.innerWidth() * 0.15 - 45 + 'px'
+          right: this.$innerWidth() * 0.15 - 45 + 'px'
         },
         popupsContent: {
-          height: this.innerHeight() + 'px'
+          height: this.$innerHeight() + 'px'
         },
         popups: {
-          minHeight: this.innerHeight() + 'px'
+          minHeight: this.$innerHeight() + 'px'
         }
       },
       IMG_URL: IMAGE_SERVER + '/pages/pandp/',

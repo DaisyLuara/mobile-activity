@@ -1,6 +1,6 @@
 <template>
   <div class="root" :style="style.root">
-    <img v-if="!hasSMSsended" class="title" :src="serverUrl + 'input-title.png' + this.qiniuCompress()">
+    <img v-if="!hasSMSsended" class="title" :src="serverUrl + 'input-title.png' + this.$qiniuCompress()">
     <div v-if="!hasSMSsended" class="input" :style="style.input">
        <div
         v-show="control.shouldRemindShow"
@@ -10,7 +10,7 @@
       </div>
       <img
         class="input-bg" 
-        :src="serverUrl + 'input.png' + this.qiniuCompress()" />
+        :src="serverUrl + 'input.png' + this.$qiniuCompress()" />
       <div
         v-show="phoneError"
         class="input-error">
@@ -19,7 +19,7 @@
      
       <img 
         class="sms-remind"
-        :src="serverUrl + 'sms-remind.png' + this.qiniuCompress()" />
+        :src="serverUrl + 'sms-remind.png' + this.$qiniuCompress()" />
       <input 
         v-model="phoneValue"
         @blur="handleRemindShow()"
@@ -29,7 +29,7 @@
       <img 
         @click="handleSubmit()"
         class="input-button"
-        :src="serverUrl + 'input-btn.png' + this.qiniuCompress()" />
+        :src="serverUrl + 'input-btn.png' + this.$qiniuCompress()" />
     </div>
     
     <Result v-if="hasSMSsended"/>
@@ -49,15 +49,15 @@ export default {
       serverUrl: serverUrl + '/fe/marketing/hiltonc/',
       style: {
         root: {
-          height: this.innerHeight() + 'px',
+          height: this.$innerHeight() + 'px',
           padding: '15% 0'
         },
         remind: {
-          lineHeight: this.innerWidth() * 0.8 * 94 / 529 + 'px'
+          lineHeight: this.$innerWidth() * 0.8 * 94 / 529 + 'px'
         },
         input: {
-          width: this.innerWidth() * 0.8 + 'px',
-          height: this.innerWidth() * 0.8 * 94 / 529 + 'px'
+          width: this.$innerWidth() * 0.8 + 'px',
+          height: this.$innerWidth() * 0.8 * 94 / 529 + 'px'
         }
       },
       control: {

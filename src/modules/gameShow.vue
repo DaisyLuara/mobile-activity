@@ -4,24 +4,24 @@
     <div class="popups-content">
       <div class="main-content" :style="styleData.popupsContent">
         <div class="popups-close" :style="styleData.top" @click="closePopups">
-          <img :src="imgUrl+'close.png'+ this.qiniuCompress()" alt="" />
+          <img :src="imgUrl+'close.png'+ this.$qiniuCompress()" alt="" />
         </div>
         <div class="img-wrap">
           <img 
             class="bg"
-            :src="imgUrl+'bg.png?v=1'+ this.qiniuCompress()" >
+            :src="imgUrl+'bg.png?v=1'+ this.$qiniuCompress()" >
           <img 
             class="done1"
-            :src="imgUrl+'a.png'+ this.qiniuCompress()" v-show="gameData.projectOne">
+            :src="imgUrl+'a.png'+ this.$qiniuCompress()" v-show="gameData.projectOne">
             <img 
             class="done2"
-            :src="imgUrl+'b.png'+ this.qiniuCompress()" v-show="gameData.projectTwo">
+            :src="imgUrl+'b.png'+ this.$qiniuCompress()" v-show="gameData.projectTwo">
             <img 
             class="done3"
-            :src="imgUrl+'c.png'+ this.qiniuCompress()" v-show="gameData.projectThree">
+            :src="imgUrl+'c.png'+ this.$qiniuCompress()" v-show="gameData.projectThree">
             <img 
             class="done4"
-            :src="imgUrl+'d.png'+ this.qiniuCompress()" v-show="gameData.projectFour">
+            :src="imgUrl+'d.png'+ this.$qiniuCompress()" v-show="gameData.projectFour">
             <div class="text">
               {{gameData.randomNum}}
             </div>

@@ -4,19 +4,19 @@
     class="root" v-show="show">
     <!-- 遮罩 -->
     <div class="loading" v-show="loading">
-      <img class="xueren" :src="baseUrl + 'xueren.png'+ this.qiniuCompress()">
-      <img class="z" :src="baseUrl + 'z.png'+ this.qiniuCompress()">
+      <img class="xueren" :src="baseUrl + 'xueren.png'+ this.$qiniuCompress()">
+      <img class="z" :src="baseUrl + 'z.png'+ this.$qiniuCompress()">
     </div>
     <div class="content" v-show="!loading">
     <div class="top"></div>
     <div class="center">
-      <img class="photo"  v-if="photoUrl !== null" :src="photoUrl+ this.qiniuCompress()" alt=""/>
+      <img class="photo"  v-if="photoUrl !== null" :src="photoUrl+ this.$qiniuCompress()" alt=""/>
       <!-- <img  class="photo" :src="baseUrl + '111.png'"/> -->
     </div>
     <img class="save" :src="baseUrl + 'save.png'+ this.qiniuCompress()">
     <img :class="{'button': !btnAndior, 'andior-btn': btnAndior}"  @click="goH5" :src="baseUrl + 'btn.png'+ this.qiniuCompress()">
     <div class="bottom">
-      <img  class="xuehua-bg" :src="baseUrl + 'xuehua2.png?v=111'+ this.qiniuCompress()" />
+      <img  class="xuehua-bg" :src="baseUrl + 'xuehua2.png?v=111'+ this.$qiniuCompress()" />
       <!-- 雪花动画部分 -->
       <div
       id="animation"

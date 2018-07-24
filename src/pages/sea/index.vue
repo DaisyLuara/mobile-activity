@@ -15,7 +15,7 @@ export default {
       baseUrl: IMGURL + 'sea/page1/',
       style: {
         root: {
-          'min-height': this.innerHeight() + 'px'
+          'min-height': this.$innerHeight() + 'px'
         }
       },
       //微信分享

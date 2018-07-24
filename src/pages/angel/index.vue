@@ -68,9 +68,9 @@ const REQ_URL = 'http://120.27.144.62:1337/parse/classes/'
 import { customTrack } from 'modules/customTrack'
 import marketService from 'services/marketing'
 import WxShare from 'modules/wxShare.vue'
-import wxService from 'services/wx'
 import parseService from 'modules/parseServer'
 import $ from 'jquery'
+import { getWxUserInfo } from 'services'
 export default {
   data() {
     return {
@@ -131,8 +131,7 @@ export default {
     if (!this.num) {
       alert('咦，没有找到您的钻石颗数哦，请重新和大屏进行互动拍照~')
     }
-    wxService
-      .getWxUserInfo(this)
+    getWxUserInfo()
       .then(result => {
         let data = result.data
         this.user_info.nick_name = data.nickname

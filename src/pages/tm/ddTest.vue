@@ -60,7 +60,7 @@ export default {
     return {
       style: {
         root: {
-          height: this.innerHeight() + 'px'
+          height: this.$innerHeight() + 'px'
         }
       },
       yearText: '年龄',
@@ -104,7 +104,7 @@ export default {
   mounted() {
     this.wechatShare()
     let ice = document.querySelector('.icebg')
-    if (this.innerHeight() > 700) {
+    if (this.$innerHeight() > 700) {
       ice.style.bottom = '16.5%'
     }
   },
@@ -241,7 +241,7 @@ export default {
         this.preUrl +
         score +
         '.jpg' +
-        this.qiniuCompress()
+        this.$qiniuCompress()
     }
   }
 }
