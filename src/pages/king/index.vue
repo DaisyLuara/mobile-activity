@@ -2,12 +2,12 @@
   <div
     :style="style.root" 
     class="root">
-    <img class="bg" :src="baseUrl + 'bgX.jpg'" />
-    <div class="lig">
-      <img  class="light" :src="baseUrl + '003.png'" />
+    <img class="bg" :src="baseUrl + 'ktv_bg.jpg?v=111'" />
+    <div class="top">
+      <img  class="light" :src="baseUrl + 'top.png'" />
     </div>
     <div class="photo" :style="style.photeHei">
-      <img v-if="photoUrl !== null" :src="photoUrl  + this.qiniuCompress()" alt=""/>
+      <img v-if="photoUrl !== null" :src="photoUrl  + this.$qiniuCompress()" alt=""/>
       <!-- <img :src="baseUrl + 'gif.png'" > -->
     </div>
   </div>
@@ -89,9 +89,10 @@ export default {
     user-select: none;
     pointer-events: none;
   }
-  .lig {
+  .top {
     width: 100%;
     .light {
+      margin-top: 5%;
       width: 100%;
       position: absolute;
       left: 0%;
@@ -99,9 +100,9 @@ export default {
       -webkit-touch-callout: none;
       user-select: none;
       pointer-events: none;
-      animation: lightMove 0.8s ease-out infinite alternate;
     }
   }
+
   .photo {
     width: 73.2%;
     position: absolute;
@@ -110,14 +111,6 @@ export default {
       width: 100%;
       height: 100%;
     }
-  }
-}
-@keyframes lightMove {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0.7;
   }
 }
 </style>

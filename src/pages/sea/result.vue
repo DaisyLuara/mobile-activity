@@ -24,7 +24,7 @@ export default {
       baseUrl: IMGURL + 'sea/page2/',
       style: {
         root: {
-          'min-height': this.innerHeight() + 'px'
+          'min-height': this.$innerHeight() + 'px'
         }
       },
       mImg: null,

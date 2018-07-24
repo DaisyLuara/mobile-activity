@@ -35,20 +35,20 @@ export default {
   data() {
     return {
       style: {
-        show: false,
+        show: true,
         top: {
           top:
-            this.$innerHeight() * 0.12 +
-            this.$innerWidth() * 0.7 / 503 * 34 -
+            this.innerHeight() * 0.12 +
+            this.innerWidth() * 0.7 / 503 * 34 -
             38 +
             'px',
-          right: this.$innerWidth() * 0.15 - 45 + 'px'
+          right: this.innerWidth() * 0.15 - 45 + 'px'
         },
         popupsContent: {
-          minHeight: this.$innerHeight() + 'px'
+          minHeight: this.innerHeight() + 'px'
         },
         popups: {
-          minHeight: this.$innerHeight() + 'px'
+          minHeight: this.innerHeight() + 'px'
         }
       },
       imgUrl: IMAGE_SERVER + '/pages/yanzhi/hilton/',
@@ -79,15 +79,15 @@ export default {
     let warp = document.getElementById('warp')
     warp.style.minHeight = height + 'px'
     this.getInfoById()
-    // if (isInWechat() === true) {
-    //   if (
-    //     process.env.NODE_ENV === 'production' ||
-    //     process.env.NODE_ENV === 'test'
-    //   ) {
-    //     this.handleWechatAuth()
-    //   }
-    //   // this.handleWechatAuth()
-    // }
+    if (isInWechat() === true) {
+      if (
+        process.env.NODE_ENV === 'production' ||
+        process.env.NODE_ENV === 'test'
+      ) {
+        this.handleWechatAuth()
+      }
+      this.handleWechatAuth()
+    }
   },
   methods: {
     handleWechatAuth() {

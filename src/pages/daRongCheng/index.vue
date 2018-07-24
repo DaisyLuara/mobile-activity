@@ -1,7 +1,7 @@
 <template>
   <div class="tmall-content" :style="style.root">
       <img  class="bg" :src="imgServerUrl + '/pages/drc_ty/bg.png'" alt="" :style="style.bg"/>
-      <img  :src="resultImgUrl + this.qiniuCompress()" alt="" :class="{'photo': !iphoneX, 'x-photo': iphoneX}"/>
+      <img  :src="resultImgUrl + this.$qiniuCompress()" alt="" :class="{'photo': !iphoneX, 'x-photo': iphoneX}"/>
       <!-- <img  src="http://image.exe666.com/1007/image/GuideJDBigCityGift_519_432_1492928440995.jpg" alt="" :class="{'photo': !iphoneX, 'x-photo': iphoneX}" /> -->
       <img  class="blue" :src="imgServerUrl + '/pages/drc_ty/blue.png'" alt=""/>
       <img  class="pick-small" :src="imgServerUrl + '/pages/drc_ty/pick_small.png'" alt=""/>
@@ -24,10 +24,10 @@ export default {
       style: {
         root: {
           width: '100%',
-          'min-height': this.innerHeight() + 'px'
+          'min-height': this.$innerHeight() + 'px'
         },
         bg: {
-          height: this.innerHeight() + 'px'
+          height: this.$innerHeight() + 'px'
         }
       },
       iphoneX: false,
@@ -41,8 +41,8 @@ export default {
     }
   },
   mounted() {
-    let height = this.innerHeight()
-    console.log(this.innerHeight() > 672)
+    let height = this.$innerHeight()
+    console.log(this.$innerHeight() > 672)
     if (height > 672) {
       this.iphoneX = true
       console.log(33)
@@ -113,7 +113,7 @@ body {
     left: 0;
     top: 0;
   }
-  .x-photo{
+  .x-photo {
     width: 100%;
     position: absolute;
     left: 0;
@@ -147,7 +147,7 @@ body {
     top: 42%;
     animation: blueScale 2s ease-out infinite forwards;
   }
-  .x-pick-big{
+  .x-pick-big {
     user-select: none;
     pointer-events: none;
     position: absolute;

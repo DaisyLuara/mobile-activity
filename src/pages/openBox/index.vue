@@ -14,10 +14,10 @@
 import { setParameter } from 'modules/util'
 import { customTrack } from 'modules/customTrack'
 import WxShare from 'modules/wxShare'
-import wxService from 'services/wx'
 import parseService from 'modules/parseServer'
 import CouponService from 'services/freecartCoupon'
 import $ from 'jquery'
+import { getWxUserInfo } from 'services'
 
 export default {
   components: {
@@ -45,7 +45,7 @@ export default {
     $('.phone-content').css('height', $(window).height())
   },
   created() {
-    this.getWxUserInfo()
+    getWxUserInfo()
   },
   methods: {
     saveWxInfo() {
@@ -94,8 +94,7 @@ export default {
         })
     },
     getWxUserInfo() {
-      wxService
-        .getWxUserInfo(this)
+      getWxUserInfo()
         .then(result => {
           let data = result.data
           this.userInfo.name = data.nickname

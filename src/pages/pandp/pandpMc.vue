@@ -24,17 +24,17 @@ export default {
         show: false,
         top: {
           top:
-            this.$innerHeight() * 0.12 +
-            this.$innerWidth() * 0.7 / 503 * 34 -
+            this.innerHeight() * 0.12 +
+            this.innerWidth() * 0.7 / 503 * 34 -
             38 +
             'px',
-          right: this.$innerWidth() * 0.15 - 45 + 'px'
+          right: this.innerWidth() * 0.15 - 45 + 'px'
         },
         popupsContent: {
-          height: this.$innerHeight() + 'px'
+          height: this.innerHeight() + 'px'
         },
         popups: {
-          minHeight: this.$innerHeight() + 'px'
+          minHeight: this.innerHeight() + 'px'
         }
       },
       IMG_URL: IMAGE_SERVER + '/pages/pandp/',
@@ -71,15 +71,15 @@ export default {
     this.content.style.minHeight = this.height + 'px'
     this.loadingCanvas()
     this.getInfoById()
-    // if (isInWechat() === true) {
-    //   if (
-    //     process.env.NODE_ENV === 'production' ||
-    //     process.env.NODE_ENV === 'test'
-    //   ) {
-    //     this.handleWechatAuth()
-    //   }
-    //   // this.handleWechatAuth()
-    // }
+    if (isInWechat() === true) {
+      if (
+        process.env.NODE_ENV === 'production' ||
+        process.env.NODE_ENV === 'test'
+      ) {
+        this.handleWechatAuth()
+      }
+      // this.handleWechatAuth()
+    }
   },
   methods: {
     handleWechatAuth() {
@@ -392,7 +392,7 @@ export default {
       img.src = url
       this.note = true
       this.loadingPage = false
-      // this.style.show = true
+      this.style.show = true
     }
   },
   components: {

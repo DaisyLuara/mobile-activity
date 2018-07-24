@@ -2,20 +2,20 @@
   <div class="root" :style="style.root">
     <img
       class="bg" 
-      :src="serverUrl + 'bg-inner.jpg' + this.qiniuCompress()" />
+      :src="serverUrl + 'bg-inner.jpg' + this.$qiniuCompress()" />
     <img
       class="title"
-      :src="serverUrl + 'title.png' + this.qiniuCompress()" />
+      :src="serverUrl + 'title.png' + this.$qiniuCompress()" />
     <img 
       class="dagger"
       :style="style.dagger"
-      :src="serverUrl + 'dagger.png' + this.qiniuCompress()" />
+      :src="serverUrl + 'dagger.png' + this.$qiniuCompress()" />
     <div
       :style="style.photo"
       class="photo">
       <img
         style="width: 100%;"
-        :src="serverUrl + 'photo-cover.png' + this.qiniuCompress()" />
+        :src="serverUrl + 'photo-cover.png' + this.$qiniuCompress()" />
       <div 
         :style="style.priceArea"
         class="price-area">
@@ -27,24 +27,24 @@
     <!-- <img
       :style="style.coverphoto"
       class="cover-photo"
-      :src="bindImgUrl + this.qiniuCompress()" /> -->
+      :src="bindImgUrl + this.$qiniuCompress()" /> -->
     
     <div 
       :style="style.coverphoto"
       class="cover-photo">
       <img
         class="inner-photo"
-        :src="bindImgUrl + this.qiniuCompress()" />
+        :src="bindImgUrl + this.$qiniuCompress()" />
     </div>
     <!-- real photo -->
     <img
       :style="style.realphoto"
       class="real-photo"
-      :src="bindImgUrl + this.qiniuCompress()" />
+      :src="bindImgUrl + this.$qiniuCompress()" />
     <img
       :style="style.remind"
       class="remind" 
-      :src="serverUrl + 'save-remind.png' + this.qiniuCompress()"/>
+      :src="serverUrl + 'save-remind.png' + this.$qiniuCompress()"/>
   </div>
 </template>
 
@@ -56,29 +56,29 @@ export default {
     return {
       style: {
         root: {
-          height: this.innerHeight() + 'px'
+          height: this.$innerHeight() + 'px'
         },
         dagger: {
-          top: this.innerWidth() * 0.1 + 'px',
-          width: this.innerWidth() * 0.2 + 'px'
+          top: this.$innerWidth() * 0.1 + 'px',
+          width: this.$innerWidth() * 0.2 + 'px'
         },
         photo: {
-          top: this.innerWidth() * 0.2 + 'px'
+          top: this.$innerWidth() * 0.2 + 'px'
         },
         remind: {
-          top: this.innerWidth() * 1.45 + 'px'
+          top: this.$innerWidth() * 1.45 + 'px'
         },
         realphoto: {
-          top: this.innerWidth() * 0.2 + 'px'
+          top: this.$innerWidth() * 0.2 + 'px'
         },
         coverphoto: {
-          top: this.innerWidth() * 0.22 + 'px',
-          width: this.innerWidth() * 0.74 + 'px',
-          height: this.innerWidth() * 0.8 * 460 / 300 + 'px'
+          top: this.$innerWidth() * 0.22 + 'px',
+          width: this.$innerWidth() * 0.74 + 'px',
+          height: this.$innerWidth() * 0.8 * 460 / 300 + 'px'
         },
         priceArea: {
-          bottom: this.innerWidth() * 0.26 + 'px',
-          height: this.innerWidth() * 0.0746 + 'px'
+          bottom: this.$innerWidth() * 0.26 + 'px',
+          height: this.$innerWidth() * 0.0746 + 'px'
         }
       },
       serverUrl: serverUrl + '/fe/marketing/wanted/',

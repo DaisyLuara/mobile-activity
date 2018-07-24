@@ -23,7 +23,7 @@
         :style="style.button"
         class="button"
         @click="handlebuttonClick()"
-        :src="serverUrl + 'button.png' + this.qiniuCompress()"
+        :src="serverUrl + 'button.png' + this.$qiniuCompress()"
         />
   </div>
 </template>
@@ -37,25 +37,25 @@ export default {
       serverUrl: serverUrl + '/fe/marketing/wanted/',
       style: {
         root: {
-          height: this.innerHeight() + 'px'
+          height: this.$innerHeight() + 'px'
         },
         remind: {
-          width: this.innerWidth() * 150 / 375 + 'px',
-          height: this.innerWidth() * 150 / 375 * 30 / 150 + 'px',
+          width: this.$innerWidth() * 150 / 375 + 'px',
+          height: this.$innerWidth() * 150 / 375 * 30 / 150 + 'px',
           position: 'absolute',
-          top: this.innerWidth() * 232 / 375 + 'px',
+          top: this.$innerWidth() * 232 / 375 + 'px',
           left: '21%'
         },
         input: {
-          width: this.innerWidth() * 150 / 375 + 'px',
-          height: this.innerWidth() * 150 / 375 * 30 / 150 + 'px',
+          width: this.$innerWidth() * 150 / 375 + 'px',
+          height: this.$innerWidth() * 150 / 375 * 30 / 150 + 'px',
           position: 'absolute',
-          top: this.innerWidth() * 232 / 375 + 'px',
+          top: this.$innerWidth() * 232 / 375 + 'px',
           left: '21%'
         },
         button: {
           left: '35%',
-          top: this.innerWidth() * 0.78 + 'px'
+          top: this.$innerWidth() * 0.78 + 'px'
         }
       },
       shouldRemindShow: true,

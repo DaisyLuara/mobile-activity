@@ -17,11 +17,8 @@
 <script>
 import marketService from 'services/marketing'
 import WxShare from 'modules/wxShare'
-import wxService from 'services/wx'
 import parseService from 'modules/parseServer'
 import { customTrack } from 'modules/customTrack'
-//import { setParameter } from 'modules/util';
-
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 import $ from 'jquery'
 

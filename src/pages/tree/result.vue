@@ -23,8 +23,8 @@
 import { getParamsMap, getParameter, setParameter } from 'modules/util'
 import marketService from 'services/marketing'
 import WxShare from 'modules/wxShare'
-import wxService from 'services/wx'
 import { customTrack } from 'modules/customTrack'
+import { getWxUserInfo } from 'services'
 
 export default {
   components: {
@@ -119,8 +119,7 @@ export default {
   },
   methods: {
     getUserInfo() {
-      wxService
-        .getWxUserInfo(this)
+      getWxUserInfo()
         .then(result => {
           let data = result.data
           this.nick_name = data.nickname

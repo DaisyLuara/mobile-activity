@@ -4,19 +4,19 @@
     class="root" v-show="show">
     <!-- 遮罩 -->
     <div class="loading" v-show="loading">
-      <img class="xueren" :src="baseUrl + 'xueren.png'+ this.qiniuCompress()">
-      <img class="z" :src="baseUrl + 'z.png'+ this.qiniuCompress()">
+      <img class="xueren" :src="baseUrl + 'xueren.png'+ this.$qiniuCompress()">
+      <img class="z" :src="baseUrl + 'z.png'+ this.$qiniuCompress()">
     </div>
     <div class="content" v-show="!loading">
     <div class="top"></div>
     <div class="center">
-      <img class="photo"  v-if="photoUrl !== null" :src="photoUrl+ this.qiniuCompress()" alt=""/>
+      <img class="photo"  v-if="photoUrl !== null" :src="photoUrl+ this.$qiniuCompress()" alt=""/>
       <!-- <img  class="photo" :src="baseUrl + '111.png'"/> -->
     </div>
-    <img class="save" :src="baseUrl + 'save.png'+ this.qiniuCompress()">
-    <img class="button"  @click="goH5" :src="baseUrl + 'btn.png'+ this.qiniuCompress()">
+    <img class="save" :src="baseUrl + 'save.png'+ this.$qiniuCompress()">
+    <img :class="{'button': !btnAndior, 'andior-btn': btnAndior}"  @click="goH5" :src="baseUrl + 'btn.png'+ this.$qiniuCompress()">
     <div class="bottom">
-      <img  class="xuehua-bg" :src="baseUrl + 'xuehua2.png?v=111'+ this.qiniuCompress()" />
+      <img  class="xuehua-bg" :src="baseUrl + 'xuehua2.png?v=111'+ this.$qiniuCompress()" />
       <!-- 雪花动画部分 -->
       <div
       id="animation"
@@ -44,6 +44,7 @@ export default {
           height: wih + 'px'
         }
       },
+      btnAndior: false,
       loading: true,
       photoUrl: '',
       wxShareInfo: {
@@ -80,20 +81,24 @@ export default {
     this.getInfo()
   },
   mounted() {
+    let height = wih
+    if (height <= 570) {
+      this.btnAndior = true
+    } else {
+      this.btnAndior = false
+    }
     this.loadImage()
     this.initAnimation()
     this.handleWeChatShare()
   },
   watch: {
     count(val, oldval) {
-      //alert(val)
       if (val == 5) {
         this.show = true
         var _this = this
         setTimeout(() => {
           _this.loading = false
         }, 3000)
-
         //然后可以对后台发送一些ajax操作
       }
     }
@@ -168,7 +173,7 @@ export default {
     left: 0;
     top: 0;
     background: #000;
-    opacity: 0.8;
+    opacity: 1;
     z-index: 5;
     .xueren {
       width: 30%;
@@ -177,6 +182,9 @@ export default {
       top: 50%;
       transform: translate(-50%, -50%);
       z-index: 6;
+      -webkit-touch-callout: none;
+      user-select: none;
+      pointer-events: none;
     }
     .z {
       width: 16%;
@@ -185,6 +193,9 @@ export default {
       top: 50%;
       transform: translate(115%, -150%);
       z-index: 6;
+      -webkit-touch-callout: none;
+      user-select: none;
+      pointer-events: none;
       animation: opacitySave 0.8s linear infinite alternate;
     }
   }
@@ -233,22 +244,33 @@ export default {
       transform: translate(-50%, -55%);
       z-index: 2;
     }
+    .andior-btn {
+      width: 40%;
+      position: absolute;
+      left: 50%;
+      bottom: 0%;
+      transform: translate(-50%, -55%);
+      z-index: 2;
+    }
     .bottom {
       width: 100%;
       position: absolute;
       left: 0;
       bottom: 0;
+      -webkit-touch-callout: none;
+      user-select: none;
+      pointer-events: none;
       .animation {
         width: 100%;
         position: absolute;
         left: 0;
         bottom: 0;
-        -webkit-touch-callout: none;
-        user-select: none;
-        pointer-events: none;
       }
       .xuehua-bg {
         width: 100%;
+        -webkit-touch-callout: none;
+        user-select: none;
+        pointer-events: none;
       }
     }
   }

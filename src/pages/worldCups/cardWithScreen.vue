@@ -15,7 +15,7 @@
       :style="style.photo"
       v-if="photoUrl !== null"
       class="photo"
-      :src="photoUrl + this.qiniuCompress()"
+      :src="photoUrl + this.$qiniuCompress()"
       />
     
     <div
@@ -44,7 +44,7 @@ export default {
     return {
       style: {
         root: {
-          height: this.innerHeight() + 'px'
+          height: this.$innerHeight() + 'px'
         },
         score: {
           top: window.innerWidth * 2.014 + 'px'
@@ -138,7 +138,7 @@ export default {
       getInfoById(this.$route.query.id).then(r => {
         this.photoUrl = r.image
         this.style.photo = {
-          top: this.innerWidth() * 120 / 375 + 'px',
+          top: this.$innerWidth() * 120 / 375 + 'px',
           width: '63.8%',
           zIndex: 12,
           position: 'absolute',

@@ -229,6 +229,28 @@ const Date201807 = [
       desc: '美陈展圣诞结果页',
       isAbandoned: false
     }
+  },
+  {
+    path: 'hiltonMC',
+    location: 'exeYanzhi/hiltonMC',
+    name: 'hiltonMC',
+    meta: {
+      title: '',
+      author: 'lipan',
+      desc: '美陈展希尔顿',
+      isAbandoned: false
+    }
+  },
+  {
+    path: 'pandpMc',
+    location: 'pandp/pandpMc',
+    name: 'pandpMc',
+    meta: {
+      title: '',
+      author: 'lipan',
+      desc: '美陈展穿越',
+      isAbandoned: false
+    }
   }
 ]
 export default Date201807

@@ -24,7 +24,7 @@ export default {
       style: {
         root: {
           width: '100%',
-          'min-height': this.innerHeight() + 'px'
+          'min-height': this.$innerHeight() + 'px'
         }
       },
       //微信分享
