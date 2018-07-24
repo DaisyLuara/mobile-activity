@@ -136,18 +136,7 @@ export default {
         path: 'http://cdn.exe666.com/fe/marketing/christmas/json/h5xuehua.json' // the path to the animation json
       })
     },
-    // loadImage() {
-    //   var _this = this
-    //   let imgs = document.querySelectorAll('img')
-    //   console.log(imgs)
-    //   Array.from(imgs).forEach(item => {
-    //     let img = new Image()
-    //     img.onload = () => {
-    //       this.count++
-    //     }
-    //     img.src = item.getAttribute('src')
-    //   })
-    // }
+    //图片预加载处理
     loadImage() {
       var _this = this
       Array.from(_this.imgArr).forEach(item => {
