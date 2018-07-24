@@ -285,7 +285,8 @@ import { customTrack } from 'modules/customTrack'
 import { generate, randomNum } from './random/index.js'
 import marketService from 'services/marketing'
 import WxShare from 'modules/wxShare'
-import wxService from 'services/wx'
+import { getWxUserInfo } from 'services'
+
 export default {
   components: {
     'share-cover': shareCover,
@@ -509,7 +510,7 @@ export default {
       this.randomInfo.xindongzhi = randomNum(0, 9) + randomNum(0, 9) / 10
       this.randomInfo.chenggonglv = String(randomNum(0, 100)) + '%'
       this.randomInfo.yinse = randomNum(3, 5)
-      wxService.getWxUserInfo(this).then(r => {
+      getWxUserInfo().then(r => {
         this.userInfo.headimgurl = r.data.headimgurl
         this.userInfo.nickname = r.data.nickname
       })
@@ -584,7 +585,7 @@ export default {
       }
     },
     getuserData() {
-      wxService.getWxUserInfo(this).then(r => {
+      getWxUserInfo().then(r => {
         // 如果是扫码（‘-1’代表网页入口,没有sid代表大屏）进入
         // 则直接获取本用户信息
         if (

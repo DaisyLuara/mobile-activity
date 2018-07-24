@@ -38,7 +38,7 @@ export default {
     return {
       style: {
         root: {
-          height: this.innerHeight() + 'px'
+          height: this.$innerHeight() + 'px'
         }
       },
       cardBg: ['messi.png', 'neymar.png', 'debruyne.png', 'cronaldo.png'],
@@ -87,8 +87,8 @@ export default {
   },
   methods: {
     drawing() {
-      let width = this.innerWidth()
-      let height = this.innerHeight()
+      let width = this.$innerWidth()
+      let height = this.$innerHeight()
       let backgroundColor = 'black'
       if (localStorage.getItem('cwporder') !== null) {
         this.picOrder = JSON.parse(localStorage.getItem('cwporder')).order
@@ -108,7 +108,7 @@ export default {
           top: 0,
           color: '#000000',
           type: 'origin',
-          width: this.innerWidth()
+          width: this.$innerWidth()
         })
         .add(this.headImgUrl, {
           width: '20%',

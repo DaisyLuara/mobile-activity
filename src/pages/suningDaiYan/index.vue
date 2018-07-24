@@ -4,26 +4,26 @@
     :style="style.root">
     <img 
       class="bg"
-      :src="imgUrl+'bg_1.png'+ this.qiniuCompress()" :style="style.root">
+      :src="imgUrl+'bg_1.png'+ this.$qiniuCompress()" :style="style.root">
     <img 
       class="frame"
-      :src="imgUrl+'frame.png'+ this.qiniuCompress()">
-    <img :src="resultImgUrl + this.qiniuCompress()" alt="" class="photo" v-if="!compound" :style="style.compound"/>
-    <img :src="imgUrl+'photo_frame.png' + this.qiniuCompress()" alt=""  class="photo-frame" v-if="!compound" :style="style.compound"/>
+      :src="imgUrl+'frame.png'+ this.$qiniuCompress()">
+    <img :src="resultImgUrl + this.$qiniuCompress()" alt="" class="photo" v-if="!compound" :style="style.compound"/>
+    <img :src="imgUrl+'photo_frame.png' + this.$qiniuCompress()" alt=""  class="photo-frame" v-if="!compound" :style="style.compound"/>
     <div class="btn1" @click="showDialog = true" v-if="!compound" :style="style.btn2"></div>
     <a class="btn3" v-if="compound" :style="style.btn2" href="http://papi.xingstation.com/api/s/jR"></a>
     <img 
       class="img1"
-      :src="imgUrl+'img1.png'+ this.qiniuCompress()">
+      :src="imgUrl+'img1.png'+ this.$qiniuCompress()">
     <img 
       class="img2"
-      :src="imgUrl+'img2.png'+ this.qiniuCompress()">
+      :src="imgUrl+'img2.png'+ this.$qiniuCompress()">
     <img 
       class="img3"
-      :src="imgUrl+'img3.png'+ this.qiniuCompress()">
+      :src="imgUrl+'img3.png'+ this.$qiniuCompress()">
     <img 
       class="img4"
-      :src="imgUrl+'img4.png'+ this.qiniuCompress()">
+      :src="imgUrl+'img4.png'+ this.$qiniuCompress()">
     <div :class="{'name': !iphoneX, 'x-name': iphoneX}" v-if="!compound">{{nickname}}</div>
     <!-- 合成照片 -->
     <img  class="photo" :src="compoundUrl" alt="" v-if="compound" id="test"/>
@@ -32,14 +32,14 @@
     <div class="popups-wrapper" v-if="showDialog">
       <div class="popups-content">
         <div class="popups-close" @click="closeDialog">
-          <img :src="imgUrl+'close.png'+ this.qiniuCompress()" alt="" />
+          <img :src="imgUrl+'close.png'+ this.$qiniuCompress()" alt="" />
         </div>
         <div class="main-content" :style="style.popups">
           <img 
             class="popus-img5"
-            :src="imgUrl+'img5.png'+ this.qiniuCompress()">
+            :src="imgUrl+'img5.png'+ this.$qiniuCompress()">
           <div v-if="errorText" :class="{'error': !iphoneX, 'x-error': iphoneX}">请输入姓名</div>
-          <img :src="imgUrl + 'input.png'+ this.qiniuCompress()" 
+          <img :src="imgUrl + 'input.png'+ this.$qiniuCompress()" 
             :class="{'input-bg': !iphoneX, 'x-input-bg': iphoneX}" />
           <input maxlength="5" v-model="text" :style="style.input" placeholder="在此输入姓名" :class="{'input-value': !iphoneX, 'x-input-value': iphoneX}" @click="errorText=false"/>
           <div @click="compoundHandle" :style="style.btn2" :class="{'btn2': !iphoneX, 'x-btn2': iphoneX}"></div>
@@ -66,20 +66,20 @@ export default {
     return {
       style: {
         root: {
-          height: this.innerHeight() + 'px'
+          height: this.$innerHeight() + 'px'
         },
         input: {
-          height: Math.floor(this.innerWidth() * 0.6 / 447 * 109) + 'px'
+          height: Math.floor(this.$innerWidth() * 0.6 / 447 * 109) + 'px'
         },
         btn2: {
-          height: Math.floor(this.innerWidth() * 0.6 / 447 * 109) + 'px'
+          height: Math.floor(this.$innerWidth() * 0.6 / 447 * 109) + 'px'
         },
         compound: {
           'user-select': 'none',
           'pointer-events': 'none'
         },
         popups: {
-          height: this.innerHeight() + 'px'
+          height: this.$innerHeight() + 'px'
         }
       },
       errorText: false,
@@ -107,8 +107,8 @@ export default {
   },
   mounted() {
     document.body.addEventListener('touchstart', function() {})
-    this.iphoneX = this.innerHeight() > 672 ? true : false
-    this.inputHeight = Math.floor(this.innerWidth() * 0.6 / 447 * 109)
+    this.iphoneX = this.$innerHeight() > 672 ? true : false
+    this.inputHeight = Math.floor(this.$innerWidth() * 0.6 / 447 * 109)
     this.getInfoById()
     if (isInWechat() === true) {
       if (
@@ -147,20 +147,20 @@ export default {
       this.text = ''
     },
     drawing() {
-      let width = this.innerWidth()
-      let height = this.innerHeight()
+      let width = this.$innerWidth()
+      let height = this.$innerHeight()
       let mc = new MC({
         width,
         height
       })
-      let url = this.resultImgUrl + this.qiniuCompress()
+      let url = this.resultImgUrl + this.$qiniuCompress()
       let that = this
       mc
         .background(url, {
           left: 0,
           top: 0,
           type: 'origin',
-          width: this.innerWidth()
+          width: this.$innerWidth()
         })
         .add(this.imgUrl + 'photo_frame.png', {
           width: '100%',
@@ -206,8 +206,8 @@ export default {
       let canvas = document.getElementById('canvas')
       let ctx = canvas.getContext('2d')
       let image = new Image()
-      let height = this.innerHeight()
-      let width = this.innerWidth()
+      let height = this.$innerHeight()
+      let width = this.$innerWidth()
       let text = this.text
       image.src = this.base64Data
       image.onload = function() {

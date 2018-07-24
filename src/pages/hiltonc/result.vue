@@ -2,10 +2,10 @@
   <div class="root">
     <img
       class="root-title" 
-      :src="serverUrl + String(currentCoupon) + '-1.png' + this.qiniuCompress()" />
+      :src="serverUrl + String(currentCoupon) + '-1.png' + this.$qiniuCompress()" />
     <img 
       class="root-content"
-      :src="serverUrl + String(currentCoupon) + '-2.png' + this.qiniuCompress()" />
+      :src="serverUrl + String(currentCoupon) + '-2.png' + this.$qiniuCompress()" />
   </div>
 </template>
 

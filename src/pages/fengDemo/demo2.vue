@@ -181,7 +181,7 @@ export default {
     }
   },
   mounted() {
-    this.p.detailShowPosition = 0.2 * this.innerHeight() + 'px'
+    this.p.detailShowPosition = 0.2 * this.$innerHeight() + 'px'
     this.init()
   },
   methods: {

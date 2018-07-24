@@ -41,7 +41,7 @@ export default {
     return {
       style: {
         root: {
-          'min-height': this.innerHeight() + 'px'
+          'min-height': this.$innerHeight() + 'px'
         }
       },
       imgUrl: imgUrl + '/fe/marketing/img/drc/',
