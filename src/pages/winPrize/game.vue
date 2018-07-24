@@ -122,11 +122,11 @@
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 import { customTrack } from 'modules/customTrack'
 import WxShare from 'modules/wxShare.vue'
-import wxService from 'services/wx'
 import Question from './question0129'
 import CouponService from 'services/freecartCoupon'
 import parseService from 'modules/parseServer'
 import $ from 'jquery'
+import { getWxUserInfo } from 'services'
 
 export default {
   components: {
@@ -194,12 +194,8 @@ export default {
       userCompetitionRecord: {} // 用户的当前答题记录
     }
   },
-  beforeCreate() {
-    document.title = '勇闯三关'
-  },
   created() {
-    wxService
-      .getWxUserInfo(this)
+    getWxUserInfo()
       .then(result => {
         let data = result.data
         this.userInfo.nick_name = data.nickname

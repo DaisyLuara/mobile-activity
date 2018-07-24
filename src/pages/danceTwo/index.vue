@@ -6,7 +6,6 @@ import $ from 'jquery'
 
 import marketService from 'services/marketing'
 import WxShare from 'modules/wxShare'
-import wxService from 'services/wx'
 import parseService from 'modules/parseServer'
 import { customTrack } from 'modules/customTrack'
 

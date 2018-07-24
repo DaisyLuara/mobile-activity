@@ -118,7 +118,6 @@ import GameMenu from './components/gameMenu'
 import Spider from './components/spider'
 import marketService from 'services/marketing'
 import { Toast, Indicator } from 'mint-ui'
-import wxService from 'services/wx'
 export default {
   components: {
     GameMenu,
