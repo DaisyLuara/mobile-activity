@@ -392,7 +392,7 @@ export default {
       img.src = url
       this.note = true
       this.loadingPage = false
-      // this.style.show = true
+      this.style.show = true
     }
   },
   components: {
