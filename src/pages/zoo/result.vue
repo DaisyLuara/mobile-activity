@@ -5,7 +5,7 @@
    <img class="animate-cover"   :src="baseUrl + 'mask.png'" />
    <div class="photo-wrap" v-show="photoWrap">
      <div  class="photo" :style="style.photoHei" >
-      <img  :src="photoUrl + this.qiniuCompress()" />
+      <img  :src="photoUrl + this.$qiniuCompress()" />
       <!-- <img :src="baseUrl + 'gif.png'" /> -->
      </div>
      <img  class="save-tips" :src="baseUrl + 'save.png'" />

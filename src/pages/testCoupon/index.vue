@@ -28,10 +28,10 @@ export default {
       style: {
         root: {
           width: '100%',
-          'min-height': this.innerHeight() + 'px'
+          'min-height': this.$innerHeight() + 'px'
         },
         bg: {
-          height: this.innerHeight() + 'px'
+          height: this.$innerHeight() + 'px'
         }
       },
       couponId: null,
