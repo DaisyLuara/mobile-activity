@@ -13,8 +13,8 @@
       <img class="photo"  v-if="photoUrl !== null" :src="photoUrl+ this.$qiniuCompress()" alt=""/>
       <!-- <img  class="photo" :src="baseUrl + '111.png'"/> -->
     </div>
-    <img class="save" :src="baseUrl + 'save.png'+ this.qiniuCompress()">
-    <img :class="{'button': !btnAndior, 'andior-btn': btnAndior}"  @click="goH5" :src="baseUrl + 'btn.png'+ this.qiniuCompress()">
+    <img class="save" :src="baseUrl + 'save.png'+ this.$qiniuCompress()">
+    <img :class="{'button': !btnAndior, 'andior-btn': btnAndior}"  @click="goH5" :src="baseUrl + 'btn.png'+ this.$qiniuCompress()">
     <div class="bottom">
       <img  class="xuehua-bg" :src="baseUrl + 'xuehua2.png?v=111'+ this.$qiniuCompress()" />
       <!-- 雪花动画部分 -->
@@ -81,7 +81,7 @@ export default {
     this.getInfo()
   },
   mounted() {
-    let height = this.innerHeight()
+    let height = wih
     if (height <= 570) {
       this.btnAndior = true
     } else {
