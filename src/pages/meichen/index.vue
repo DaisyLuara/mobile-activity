@@ -167,33 +167,33 @@ export default {
         // effect: 'fade'
       })
       let that = this
-      // this.mySwiper.slides.on(
-      //   'touchstart',
-      //   function(e) {
-      //     that.startScroll = this.scrollTop
-      //     that.touchStart = e.targetTouches[0].pageY
-      //   },
-      //   true
-      // )
-      // this.mySwiper.slides.on(
-      //   'touchmove',
-      //   function(e) {
-      //     that.touchCurrent = e.targetTouches[0].pageY
-      //     let touchesDiff = that.touchCurrent - that.touchStart
-      //     let slide = this
-      //     let onlyScrolling =
-      //       slide.scrollHeight > slide.offsetHeight &&
-      //       ((touchesDiff < 0 && that.startScroll === 0) ||
-      //         (touchesDiff > 0 &&
-      //           that.startScroll === slide.scrollHeight - slide.offsetHeight) ||
-      //         (that.startScroll > 0 &&
-      //           that.startScroll < slide.scrollHeight - slide.offsetHeight))
-      //     if (onlyScrolling) {
-      //       e.stopPropagation()
-      //     }
-      //   },
-      //   true
-      // )
+      this.mySwiper.slides.on(
+        'touchstart',
+        function(e) {
+          that.startScroll = this.scrollTop
+          that.touchStart = e.targetTouches[0].pageY
+        },
+        true
+      )
+      this.mySwiper.slides.on(
+        'touchmove',
+        function(e) {
+          that.touchCurrent = e.targetTouches[0].pageY
+          let touchesDiff = that.touchCurrent - that.touchStart
+          let slide = this
+          let onlyScrolling =
+            slide.scrollHeight > slide.offsetHeight &&
+            ((touchesDiff < 0 && that.startScroll === 0) ||
+              (touchesDiff > 0 &&
+                that.startScroll === slide.scrollHeight - slide.offsetHeight) ||
+              (that.startScroll > 0 &&
+                that.startScroll < slide.scrollHeight - slide.offsetHeight))
+          if (onlyScrolling) {
+            e.stopPropagation()
+          }
+        },
+        true
+      )
     },
     handlePageToNext() {
       this.mySwiper.slideNext()
