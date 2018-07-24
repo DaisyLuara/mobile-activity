@@ -126,10 +126,18 @@ export default {
     },
     sendSMS(id) {
       let postUrl = process.env.SAAS_API + '/v6/common/coupon/sms'
+      let sms_template_id = '2405582'
+      if (this.couponType === 1) {
+        sms_template_id = '2405582'
+      } else if (this.couponType === 2) {
+        sms_template_id = '2407760'
+      } else if (this.couponType === 3) {
+        sms_template_id = '2405582'
+      }
       let postParam = {
         mobile: this.phoneValue,
         coupon_id: id,
-        sms_tmp_id: '2405582'
+        sms_tmp_id: sms_template_id
       }
       this.$http.post(postUrl, postParam).then(r => {
         if (r.data.success === true) {
