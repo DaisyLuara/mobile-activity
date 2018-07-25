@@ -208,6 +208,10 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "http://registry.npm.taobao.org/amdefine/download/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
 
+animate.css@^3.6.1:
+  version "3.6.1"
+  resolved "http://registry.npm.taobao.org/animate.css/download/animate.css-3.6.1.tgz#4ea8a48556378bc8d7535224296c4c0dac9229de"
+
 ansi-escapes@^3.0.0:
   version "3.1.0"
   resolved "http://registry.npm.taobao.org/ansi-escapes/download/ansi-escapes-3.1.0.tgz#f73207bb81207d75fd6c83f125af26eea378ca30"
@@ -7223,7 +7227,7 @@ svgo@^0.7.0:
     sax "~1.2.1"
     whet.extend "~0.9.9"
 
-swiper@^4.0.7:
+swiper@^4.0.7, swiper@^4.3.3:
   version "4.3.3"
   resolved "http://registry.npm.taobao.org/swiper/download/swiper-4.3.3.tgz#92e39c806ead23a18e5c3251dfba1ae9ce76270e"
   dependencies:
