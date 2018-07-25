@@ -251,6 +251,17 @@ const Date201807 = [
       desc: '美陈展穿越',
       isAbandoned: false
     }
+  },
+  {
+    path: 'zoo_mcz',
+    location: 'zoo/zoo_mcz',
+    name: 'zoo_mcz',
+    meta: {
+      title: '动物在哪儿',
+      author: 'xj1012',
+      desc: '美陈展动物在哪',
+      isAbandoned: false
+    }
   }
 ]
 export default Date201807
