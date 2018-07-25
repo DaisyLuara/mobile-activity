@@ -137,7 +137,7 @@ export default {
     },
     //跳转
     goH5() {
-      window.location.href = 'http://h5.xingstation.com/marketing/meichenzhan'
+      window.location.href = 'http://h5.xingstation.com/marketing/ad?id=1'
     },
     initAnimation() {
       const el = document.getElementById('animation')
