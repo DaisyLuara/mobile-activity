@@ -262,6 +262,17 @@ const Date201807 = [
       desc: '美陈展动物在哪',
       isAbandoned: false
     }
+  },
+  {
+    path: 'sea_mc',
+    location: 'sea/sea_mc',
+    name: 'sea_mc',
+    meta: {
+      title: '海洋生物在哪里',
+      author: 'lipan',
+      desc: '美陈展海底世界结果页'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201807
