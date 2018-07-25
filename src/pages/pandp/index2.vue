@@ -45,6 +45,7 @@ export default {
       loadingPage: true,
       type: this.$route.query.type,
       id: this.$route.query.id,
+      //版本号
       belong: null,
       //微信分享
       wxShareInfo: {
@@ -200,32 +201,17 @@ export default {
         canvas.width = bg.width
         canvas.height = bg.height
         img.onload = function() {
-          if (that.belong == 'passThrough') {
-            ctx.drawImage(
-              img,
-              0,
-              0,
-              img.width,
-              img.height * 0.9,
-              bg.width * 0.1,
-              bg.height * 0.24,
-              bg.width * 0.8,
-              bg.height * 0.7
-            )
-          } else {
-            ctx.drawImage(
-              img,
-              0,
-              0,
-              img.width,
-              img.height * 0.94,
-              -bg.width * 0.09,
-              bg.height * 0.24,
-              bg.width * 1.18,
-              img.height * bg.width * 1.18 * 0.94 / img.width
-            )
-          }
-
+          ctx.drawImage(
+            img,
+            0,
+            0,
+            img.width,
+            img.height * 0.9,
+            bg.width * 0.1,
+            bg.height * 0.24,
+            bg.width * 0.8,
+            bg.height * 0.7
+          )
           ctx.drawImage(bg, 0, 0)
           cover.onload = function() {
             ctx.drawImage(
@@ -251,7 +237,10 @@ export default {
                 word.width,
                 word.height
               )
-
+              // bg.width * 0.15,
+              // bg.height * 0.052,
+              // bg.width * 0.7,
+              // bg.height * 0.19
               text.onload = function() {
                 ctx.drawImage(
                   text,
