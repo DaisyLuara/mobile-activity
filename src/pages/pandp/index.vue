@@ -366,8 +366,7 @@ export default {
     }
   },
   components: {
-    WxShare,
-    GameShow
+    WxShare
   }
 }
 </script>
