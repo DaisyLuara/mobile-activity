@@ -1,5 +1,5 @@
 <template>
-    <div class="content" :style="style.root">
+    <div :class="{content:true,addbg:addbg}" :style="style.root">
         <div class="one">
             <img class="mImg" :src="mImg"/>
             <img class="save" :src="baseUrl + 'save.png'" v-show="second"/>
@@ -29,6 +29,7 @@ export default {
       },
       mImg: null,
       second: false,
+      addbg: false,
       tabs: {
         a: true,
         b: false,
@@ -69,6 +70,7 @@ export default {
           let that = this
           img.src = this.mImg
           img.onload = function() {
+            that.addbg = true
             that.second = true
           }
         })
@@ -106,11 +108,7 @@ img {
   pointer-events: none;
   user-select: none;
 }
-.content {
-  width: 100%;
-  position: relative;
-  overflow-x: hidden;
-  background-color: #00051b;
+.addbg {
   background-image: url('@{imgUrl}one_left.png'), url('@{imgUrl}one_right.png'),
     url('@{imgUrl}two_left.png'), url('@{imgUrl}two_right.png'),
     url('@{imgUrl}bg_head.png'), url('@{imgUrl}bg_bottom.png');
@@ -119,6 +117,13 @@ img {
   background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat,
     no-repeat;
   background-size: 13% auto, 13% auto, 15% auto, 15% auto, 100% auto, 100% auto;
+}
+.content {
+  width: 100%;
+  position: relative;
+  overflow-x: hidden;
+  background-color: #00051b;
+
   .one {
     position: relative;
     width: 100%;
