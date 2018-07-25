@@ -2,9 +2,9 @@
     <div class="content" :style="style.root">
         <div class="one">
             <img class="mImg" :src="mImg"/>
-            <img class="save" :src="baseUrl + 'save.png'"/>
+            <img class="save" :src="baseUrl + 'save.png'" v-show="second"/>
         </div>
-        <div class="two">
+        <div class="two" v-show="second">
             <img class="title" :src="baseUrl + 'titte.png'"/>
             <div class="tabs">
               <div class="tab">
@@ -28,7 +28,7 @@ export default {
         }
       },
       mImg: null,
-      // mImg: '/static/meme/sea.png',
+      second: false,
       tabs: {
         a: true,
         b: false,
@@ -65,6 +65,12 @@ export default {
       getInfoById(id)
         .then(res => {
           this.mImg = res.image
+          let img = new Image()
+          let that = this
+          img.src = this.mImg
+          img.onload = function() {
+            that.second = true
+          }
         })
         .catch(err => {
           console.log(err)
