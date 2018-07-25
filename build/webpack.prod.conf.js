@@ -16,7 +16,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 //     ? require('../config/test.env')
 //     : require('../config/prod.env')
 let env
-switch (process.env.NODE_ENV) {
+switch (process.argv[2]) {
   case 'testing':
     env = require('../config/test.env')
     break
@@ -27,6 +27,7 @@ switch (process.env.NODE_ENV) {
     env = require('../config/prod.env')
 }
 
+console.dir(env)
 const webpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({
