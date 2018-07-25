@@ -1,5 +1,5 @@
 'use strict'
-// Template version: 1.2.4
+// Template version: 1.3.1
 // see http://vuejs-templates.github.io/webpack for documentation.
 
 const path = require('path')
@@ -22,7 +22,7 @@ module.exports = {
     // Use Eslint Loader?
     // If true, your code will be linted during bundling and
     // linting errors and warnings will be shown in the console.
-    useEslint: false,
+    useEslint: true,
     // If true, eslint errors and warnings will also be shown in the error overlay
     // in the browser.
     showEslintErrorsInOverlay: false,
@@ -32,27 +32,22 @@ module.exports = {
      */
 
     // https://webpack.js.org/configuration/devtool/#development
-    devtool: 'eval-source-map',
+    devtool: 'cheap-module-eval-source-map',
 
     // If you have problems debugging vue-files in devtools,
     // set this to false - it *may* help
     // https://vue-loader.vuejs.org/en/options.html#cachebusting
     cacheBusting: true,
 
-    // CSS Sourcemaps off by default because relative paths are "buggy"
-    // with this option, according to the CSS-Loader README
-    // (https://github.com/webpack/css-loader#sourcemaps)
-    // In our experience, they generally work as expected,
-    // just be aware of this issue when enabling this option.
-    cssSourceMap: false
+    cssSourceMap: true
   },
 
   build: {
     // Template for index.html
-    index: path.resolve(__dirname, '../predist/index.html'),
+    index: path.resolve(__dirname, '../dist/index.html'),
 
     // Paths
-    assetsRoot: path.resolve(__dirname, '../predist'),
+    assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
 
@@ -60,7 +55,7 @@ module.exports = {
      * Source Maps
      */
 
-    productionSourceMap: false,
+    productionSourceMap: true,
     // https://webpack.js.org/configuration/devtool/#production
     devtool: '#source-map',
 
@@ -68,7 +63,7 @@ module.exports = {
     // Surge or Netlify already gzip all static assets for you.
     // Before setting to `true`, make sure to:
     // npm install --save-dev compression-webpack-plugin
-    productionGzip: true,
+    productionGzip: false,
     productionGzipExtensions: ['js', 'css'],
 
     // Run the build command with an extra argument to

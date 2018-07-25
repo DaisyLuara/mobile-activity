@@ -16,7 +16,6 @@
         class="input-error">
         {{errorMsg}}
       </div>
-     
       <img 
         class="sms-remind"
         :src="serverUrl + 'sms-remind.png' + this.$qiniuCompress()" />
@@ -27,6 +26,7 @@
         class="input-input"
         maxlength="11">
       <img 
+        ref="button"
         @click="handleSubmit()"
         class="input-button"
         :src="serverUrl + 'input-btn.png' + this.$qiniuCompress()" />

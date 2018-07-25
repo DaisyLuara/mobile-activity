@@ -2,7 +2,6 @@
 const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
-const webpack = require('webpack')
 const vueLoaderConfig = require('./vue-loader.conf')
 const os = require('os')
 const HappyPack = require('happypack')
@@ -11,6 +10,17 @@ const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length })
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
+
+const createLintingRule = () => ({
+  test: /\.(js|vue)$/,
+  loader: 'eslint-loader',
+  enforce: 'pre',
+  include: [resolve('src'), resolve('test')],
+  options: {
+    formatter: require('eslint-friendly-formatter'),
+    emitWarning: !config.dev.showEslintErrorsInOverlay
+  }
+})
 
 module.exports = {
   context: path.resolve(__dirname, '../'),
@@ -27,7 +37,6 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
-    modules: [resolve('node_modules')],
     alias: {
       vue$: 'vue/dist/vue.esm.js',
       '@': resolve('src'),
@@ -39,28 +48,14 @@ module.exports = {
       services: resolve('src/services')
     }
   },
-  resolveLoader: {
-    modules: [resolve('node_modules')],
-    extensions: ['.js', '.json'],
-    mainFields: ['loader', 'main']
-  },
   module: {
     rules: [
-      // ...(config.dev.useEslint
-      //   ? [
-      //       {
-      //         test: /\.(js|vue)$/,
-      //         loader: 'eslint-loader',
-      //         enforce: 'pre',
-      //         include: [resolve('src'), resolve('test')],
-      //         options: {
-      //           formatter: require('eslint-friendly-formatter'),
-      //           emitWarning: !config.dev.showEslintErrorsInOverlay
-      //         },
-      //         exclude: /node_modules/
-      //       }
-      //     ]
-      //   : []),
+      // ...(config.dev.useEslint ? [createLintingRule()] : []),
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+        options: vueLoaderConfig
+      },
       {
         test: /\.js[x]?$/,
         include: [resolve('src')],
@@ -68,17 +63,13 @@ module.exports = {
         loader: 'happypack/loader?id=happybabel'
       },
       {
-        test: /\.vue$/,
-        loader: 'vue-loader',
-        options: vueLoaderConfig,
-        include: [resolve('src')],
-        exclude: /node_modules\/(?!(autotrack|dom-utils))|vendor\.dll\.js/
-      },
-      {
         test: /\.js$/,
         loader: 'babel-loader?cacheDirectory=true',
-        include: [resolve('src'), resolve('test')],
-        exclude: /node_modules/
+        include: [
+          resolve('src'),
+          resolve('test'),
+          resolve('node_modules/webpack-dev-server/client')
+        ]
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -103,12 +94,6 @@ module.exports = {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
-      },
-      {
-        test: /\.less$/,
-        loader: 'style-loader!css-loader!less-loader',
-        include: [resolve('src')],
-        exclude: /node_modules/
       }
     ]
   },
@@ -124,5 +109,17 @@ module.exports = {
     //   $: 'jquery',
     //   jQuery: 'jquery'
     // })
-  ]
+  ],
+  node: {
+    // prevent webpack from injecting useless setImmediate polyfill because Vue
+    // source contains it (although only uses it if it's native).
+    setImmediate: false,
+    // prevent webpack from injecting mocks to Node native modules
+    // that does not make sense for the client
+    dgram: 'empty',
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty',
+    child_process: 'empty'
+  }
 }
