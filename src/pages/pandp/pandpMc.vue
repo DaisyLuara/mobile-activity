@@ -24,17 +24,17 @@ export default {
         show: false,
         top: {
           top:
-            this.innerHeight() * 0.12 +
-            this.innerWidth() * 0.7 / 503 * 34 -
+            this.$innerHeight() * 0.12 +
+            this.$innerWidth() * 0.7 / 503 * 34 -
             38 +
             'px',
-          right: this.innerWidth() * 0.15 - 45 + 'px'
+          right: this.$innerWidth() * 0.15 - 45 + 'px'
         },
         popupsContent: {
-          height: this.innerHeight() + 'px'
+          height: this.$innerHeight() + 'px'
         },
         popups: {
-          minHeight: this.innerHeight() + 'px'
+          minHeight: this.$innerHeight() + 'px'
         }
       },
       IMG_URL: IMAGE_SERVER + '/pages/pandp/',
@@ -104,6 +104,7 @@ export default {
           document.title =
             res.belong == 'passPalace' ? '我的家在紫禁城' : '星视度前世穿越机'
           this.drawCanvas(res.code)
+          console.log(res)
         })
         .catch(err => {})
     },
@@ -114,7 +115,7 @@ export default {
           type = 'canvas'
         }
         PIXI.utils.sayHello(type)
-        let app = new PIXI.Application(window.innerWidth, innerHeight, {
+        let app = new PIXI.Application(window.innerWidth, window.innerHeight, {
           antialias: true,
           transparent: true
         })

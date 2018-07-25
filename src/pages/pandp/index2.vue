@@ -6,17 +6,37 @@
         <img id="mImg" src=""/>
         <img class="note" :src="IMG_URL + 'note.png'" v-show ="note"/>
         <wx-share :WxShareInfo="wxShareInfo"></wx-share>
-        
+        <!-- 弹出层 -->
+        <GameShow :styleData="style" ref="gameShow"/>
     </div>
 </template>
 <script>
 import marketService from 'services/marketing'
 import WxShare from 'modules/wxShare'
+import GameShow from 'modules/gameShow'
 import { customTrack } from 'modules/customTrack'
+import { isInWechat, Cookies, createGame, getGame } from 'services'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
   data() {
     return {
+      style: {
+        show: false,
+        top: {
+          top:
+            this.$innerHeight() * 0.12 +
+            this.$innerWidth() * 0.7 / 503 * 34 -
+            38 +
+            'px',
+          right: this.$innerWidth() * 0.15 - 45 + 'px'
+        },
+        popupsContent: {
+          height: this.$innerHeight() + 'px'
+        },
+        popups: {
+          minHeight: this.$innerHeight() + 'px'
+        }
+      },
       IMG_URL: IMAGE_SERVER + '/pages/pandp/',
       content: null,
       width: null,
@@ -25,6 +45,7 @@ export default {
       loadingPage: true,
       type: this.$route.query.type,
       id: this.$route.query.id,
+      //版本号
       belong: null,
       //微信分享
       wxShareInfo: {
@@ -52,8 +73,32 @@ export default {
     this.content.style.minHeight = this.height + 'px'
     this.loadingCanvas()
     this.getInfoById()
+    // if (isInWechat() === true) {
+    //   if (
+    //     process.env.NODE_ENV === 'production' ||
+    //     process.env.NODE_ENV === 'test'
+    //   ) {
+    //     this.handleWechatAuth()
+    //   }
+    //   // this.handleWechatAuth()
+    // }
   },
   methods: {
+    handleWechatAuth() {
+      if (Cookies.get('user_id') === null) {
+        let base_url = encodeURIComponent(String(window.location.href))
+        let redirct_url =
+          process.env.WX_API +
+          '/wx/officialAccount/oauth?url=' +
+          base_url +
+          '&scope=snsapi_base'
+        window.location.href = redirct_url
+      } else {
+        let utm_campaign = this.$route.query.utm_campaign
+        let user_id = Cookies.get('user_id')
+        this.$refs.gameShow.createGame(utm_campaign, user_id)
+      }
+    },
     getInfoById() {
       marketService
         .getInfoById(this, this.id)
@@ -156,32 +201,17 @@ export default {
         canvas.width = bg.width
         canvas.height = bg.height
         img.onload = function() {
-          if (that.belong == 'passThrough') {
-            ctx.drawImage(
-              img,
-              0,
-              0,
-              img.width,
-              img.height * 0.9,
-              bg.width * 0.1,
-              bg.height * 0.24,
-              bg.width * 0.8,
-              bg.height * 0.7
-            )
-          } else {
-            ctx.drawImage(
-              img,
-              0,
-              0,
-              img.width,
-              img.height * 0.94,
-              -bg.width * 0.09,
-              bg.height * 0.24,
-              bg.width * 1.18,
-              img.height * bg.width * 1.18 * 0.94 / img.width
-            )
-          }
-
+          ctx.drawImage(
+            img,
+            0,
+            0,
+            img.width,
+            img.height * 0.9,
+            bg.width * 0.1,
+            bg.height * 0.24,
+            bg.width * 0.8,
+            bg.height * 0.7
+          )
           ctx.drawImage(bg, 0, 0)
           cover.onload = function() {
             ctx.drawImage(
@@ -207,7 +237,10 @@ export default {
                 word.width,
                 word.height
               )
-
+              // bg.width * 0.15,
+              // bg.height * 0.052,
+              // bg.width * 0.7,
+              // bg.height * 0.19
               text.onload = function() {
                 ctx.drawImage(
                   text,

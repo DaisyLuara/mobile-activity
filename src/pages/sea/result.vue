@@ -1,10 +1,10 @@
 <template>
-    <div class="content" :style="style.root">
+    <div :class="{content:true,addbg:addbg}" :style="style.root">
         <div class="one">
             <img class="mImg" :src="mImg"/>
-            <img class="save" :src="baseUrl + 'save.png'"/>
+            <img class="save" :src="baseUrl + 'save.png'" v-show="second"/>
         </div>
-        <div class="two">
+        <div class="two" v-show="second">
             <img class="title" :src="baseUrl + 'titte.png'"/>
             <div class="tabs">
               <div class="tab">
@@ -27,8 +27,9 @@ export default {
           'min-height': this.$innerHeight() + 'px'
         }
       },
+      addbg: false,
       mImg: null,
-      // mImg: '/static/meme/sea.png',
+      second: false,
       tabs: {
         a: true,
         b: false,
@@ -65,6 +66,13 @@ export default {
       getInfoById(id)
         .then(res => {
           this.mImg = res.image
+          let img = new Image()
+          let that = this
+          img.src = this.mImg
+          img.onload = function() {
+            that.second = true
+            that.addbg = true
+          }
         })
         .catch(err => {
           console.log(err)
@@ -100,11 +108,7 @@ img {
   pointer-events: none;
   user-select: none;
 }
-.content {
-  width: 100%;
-  position: relative;
-  overflow-x: hidden;
-  background-color: #00051b;
+.addbg {
   background-image: url('@{imgUrl}one_left.png'), url('@{imgUrl}one_right.png'),
     url('@{imgUrl}two_left.png'), url('@{imgUrl}two_right.png'),
     url('@{imgUrl}bg_head.png'), url('@{imgUrl}bg_bottom.png');
@@ -113,6 +117,12 @@ img {
   background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat,
     no-repeat;
   background-size: 13% auto, 13% auto, 15% auto, 15% auto, 100% auto, 100% auto;
+}
+.content {
+  width: 100%;
+  position: relative;
+  overflow-x: hidden;
+  background-color: #00051b;
   .one {
     position: relative;
     width: 100%;

@@ -273,6 +273,17 @@ const Date201807 = [
       desc: '美陈展海底世界结果页'
     },
     isAbandoned: false
+  },
+  {
+    path: 'pandpp',
+    location: 'pandp/index2',
+    name: 'pandpp',
+    meta: {
+      title: '',
+      author: 'lipan',
+      desc: '前世穿越机2.0版'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201807
