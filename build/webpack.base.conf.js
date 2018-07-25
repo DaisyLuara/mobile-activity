@@ -54,11 +54,13 @@ module.exports = {
       {
         test: /\.vue$/,
         loader: 'vue-loader',
-        options: vueLoaderConfig
+        options: vueLoaderConfig,
+        include: [resolve('src')],
+        exclude: /node_modules\/(?!(autotrack|dom-utils))|vendor\.dll\.js/
       },
       {
         test: /\.js[x]?$/,
-        include: [resolve('src')],
+        include: [resolve('src'), resolve('test')],
         exclude: /node_modules/,
         loader: 'happypack/loader?id=happybabel'
       },
@@ -103,8 +105,8 @@ module.exports = {
       loaders: ['babel-loader'],
       threadPool: happyThreadPool,
       verbose: true
-    }),
-    new webpack.optimize.CommonsChunkPlugin('common.js')
+    })
+    // new webpack.optimize.CommonsChunkPlugin('common.js')
     // new webpack.ProvidePlugin({
     //   $: 'jquery',
     //   jQuery: 'jquery'
