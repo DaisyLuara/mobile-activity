@@ -1,31 +1,62 @@
 <template>
-  <div class="tmall-content" id="tmall">
-      <img  class="bg" :src="imgServerUrl + '/pages/tmall/bg.jpg'" alt=""/>
-      <img  class="photo" :src="resultImgUrl" alt=""/>
-      <!-- <img  class="photo" src="http://o9xrbl1oc.bkt.clouddn.com/1007/image/1492786765568.jpg" alt=""/> -->
-      <img  class="paw" :src="imgServerUrl + '/pages/tmall/cat.png'" alt=""/>
-      <div class="jiantou">
-        <img :src="imgServerUrl + '/pages/tmall/arrow.gif'" alt="" >
-      </div>
-      <div class="win-wrap" v-show="!shareFlag">
-        <img :src="imgServerUrl + '/pages/tmall/ticket.png'" alt="" class="ticket">
-        <img :src="imgUrl" alt="" class="win" v-if="winFlag">
-        <img :src="imgUrl" alt="" class="no-win" v-if="!winFlag">
-        <canvas 
-          @touchstart="handleTouchStart"
-          @touchmove="handleTouchMove"
-          @touchend="handleTouchEnd"
-          id="canvasDoodle" 
-          class="canvas-ele"
-          width="200" 
-          height="90" 
-          v-if="award">
-        </canvas>
-      </div>
-      <div class="share-wrap" v-if="shareFlag">
-        <img :src="imgServerUrl + '/pages/tmall/advert.png'" alt="" class="share">
-      </div>
-      
+  <div 
+    id="tmall"
+    class="tmall-content" >
+    <img 
+      :src="imgServerUrl + '/pages/tmall/bg.jpg'" 
+      alt="" 
+      class="bg" >
+    <img  
+      :src="resultImgUrl" 
+      alt="" 
+      class="photo">
+    <img  
+      :src="imgServerUrl + '/pages/tmall/cat.png'"
+      alt=""
+      class="paw">
+    <div 
+      class="jiantou">
+      <img 
+        :src="imgServerUrl + '/pages/tmall/arrow.gif'"
+        alt="" >
+    </div>
+    <div 
+      v-show="!shareFlag"
+      class="win-wrap" >
+      <img 
+        :src="imgServerUrl + '/pages/tmall/ticket.png'"
+        alt=""
+        class="ticket">
+      <img 
+        v-if="winFlag"
+        :src="imgUrl"
+        alt=""
+        class="win" 
+      >
+      <img 
+        v-if="!winFlag"
+        :src="imgUrl"
+        alt=""
+        class="no-win" >
+      <canvas 
+        v-if="award"
+        id="canvasDoodle" 
+        class="canvas-ele"
+        width="200" 
+        height="90" 
+        @touchstart="handleTouchStart"
+        @touchmove="handleTouchMove"
+        @touchend="handleTouchEnd"
+      />
+    </div>
+    <div 
+      v-if="shareFlag"
+      class="share-wrap">
+      <img 
+        :src="imgServerUrl + '/pages/tmall/advert.png'"
+        alt=""
+        class="share">
+    </div>
   </div>
 </template>
 <script>

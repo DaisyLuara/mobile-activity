@@ -1,48 +1,106 @@
 <template>
   <div
-    class="root"
-    :style="style.root">
+    :style="style.root"
+    class="root">
     <img 
+      :src="imgUrl+'bg_1.png'+ this.$qiniuCompress()" 
+      :style="style.root"
       class="bg"
-      :src="imgUrl+'bg_1.png'+ this.$qiniuCompress()" :style="style.root">
+    >
     <img 
+      :src="imgUrl+'frame.png'+ this.$qiniuCompress()"
       class="frame"
-      :src="imgUrl+'frame.png'+ this.$qiniuCompress()">
-    <img :src="resultImgUrl + this.$qiniuCompress()" alt="" class="photo" v-if="!compound" :style="style.compound"/>
-    <img :src="imgUrl+'photo_frame.png' + this.$qiniuCompress()" alt=""  class="photo-frame" v-if="!compound" :style="style.compound"/>
-    <div class="btn1" @click="showDialog = true" v-if="!compound" :style="style.btn2"></div>
-    <a class="btn3" v-if="compound" :style="style.btn2" href="http://papi.xingstation.com/api/s/jR"></a>
+    >
     <img 
+      v-if="!compound"
+      :style="style.compound"
+      :src="resultImgUrl + this.$qiniuCompress()" 
+      alt=""
+      class="photo">
+    <img 
+      v-if="!compound"
+      :style="style.compound"
+      :src="imgUrl+'photo_frame.png' + this.$qiniuCompress()"
+      alt=""
+      class="photo-frame">
+    <div
+      v-if="!compound"
+      :style="style.btn2"
+      class="btn1"
+      @click="showDialog = true"/>
+    <a 
+      v-if="compound" 
+      :style="style.btn2" 
+      href="http://papi.xingstation.com/api/s/jR" 
+      class="btn3" />
+    <img 
+      :src="imgUrl+'img1.png'+ this.$qiniuCompress()"
       class="img1"
-      :src="imgUrl+'img1.png'+ this.$qiniuCompress()">
+    >
     <img 
+      :src="imgUrl+'img2.png'+ this.$qiniuCompress()"
       class="img2"
-      :src="imgUrl+'img2.png'+ this.$qiniuCompress()">
+    >
     <img 
+      :src="imgUrl+'img3.png'+ this.$qiniuCompress()"
       class="img3"
-      :src="imgUrl+'img3.png'+ this.$qiniuCompress()">
+    >
     <img 
+      :src="imgUrl+'img4.png'+ this.$qiniuCompress()"
       class="img4"
-      :src="imgUrl+'img4.png'+ this.$qiniuCompress()">
-    <div :class="{'name': !iphoneX, 'x-name': iphoneX}" v-if="!compound">{{nickname}}</div>
+    >
+    <div 
+      v-if="!compound"
+      :class="{'name': !iphoneX, 'x-name': iphoneX}" >{{ nickname }}</div>
     <!-- 合成照片 -->
-    <img  class="photo" :src="compoundUrl" alt="" v-if="compound" id="test"/>
-    <canvas id="canvas" class="photo" style="display: none"></canvas>
+    <img
+      v-if="compound" 
+      id="test" 
+      :src="compoundUrl"
+      alt="" 
+      class="photo" >
+    <canvas 
+      id="canvas" 
+      class="photo"
+      style="display: none" />
     <!-- 弹出层 -->
-    <div class="popups-wrapper" v-if="showDialog">
-      <div class="popups-content">
-        <div class="popups-close" @click="closeDialog">
-          <img :src="imgUrl+'close.png'+ this.$qiniuCompress()" alt="" />
-        </div>
-        <div class="main-content" :style="style.popups">
+    <div 
+      v-if="showDialog"
+      class="popups-wrapper" >
+      <div 
+        class="popups-content">
+        <div 
+          class="popups-close"
+          @click="closeDialog">
           <img 
+            :src="imgUrl+'close.png'+ this.$qiniuCompress()"
+            alt="" >
+        </div>
+        <div 
+          :style="style.popups"
+          class="main-content" >
+          <img 
+            :src="imgUrl+'img5.png'+ this.$qiniuCompress()"
             class="popus-img5"
-            :src="imgUrl+'img5.png'+ this.$qiniuCompress()">
-          <div v-if="errorText" :class="{'error': !iphoneX, 'x-error': iphoneX}">请输入姓名</div>
-          <img :src="imgUrl + 'input.png'+ this.$qiniuCompress()" 
-            :class="{'input-bg': !iphoneX, 'x-input-bg': iphoneX}" />
-          <input maxlength="5" v-model="text" :style="style.input" placeholder="在此输入姓名" :class="{'input-value': !iphoneX, 'x-input-value': iphoneX}" @click="errorText=false"/>
-          <div @click="compoundHandle" :style="style.btn2" :class="{'btn2': !iphoneX, 'x-btn2': iphoneX}"></div>
+          >
+          <div
+            v-if="errorText" 
+            :class="{'error': !iphoneX, 'x-error': iphoneX}">请输入姓名</div>
+          <img 
+            :src="imgUrl + 'input.png'+ this.$qiniuCompress()" 
+            :class="{'input-bg': !iphoneX, 'x-input-bg': iphoneX}" >
+          <input 
+            v-model="text" 
+            :style="style.input"
+            :class="{'input-value': !iphoneX, 'x-input-value': iphoneX}" 
+            maxlength="5" 
+            placeholder="在此输入姓名"
+            @click="errorText=false">
+          <div 
+            :style="style.btn2" 
+            :class="{'btn2': !iphoneX, 'x-btn2': iphoneX}"
+            @click="compoundHandle" 
+          />
         </div>
       </div>
     </div>

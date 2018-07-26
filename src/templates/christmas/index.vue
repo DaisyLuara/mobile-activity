@@ -1,14 +1,40 @@
 <template>
-  <div class="phone-wrap" v-bind:style="marketingOptions.bg">
-    <img class="top-logo" v-if="marketingOptions.topLogo" :src="marketingOptions.topLogo.imgUrl" :style="marketingOptions.topLogo.style">
-    <div class="mobile-wrap" v-bind:style="marketingOptions.mobile ? marketingOptions.mobile.style : ''">
-      <div class="error-tips" v-show="phoneError" :style="marketingOptions.mobile.errorTips?marketingOptions.mobile.errorTips.style:''">
-        {{errorText}}
+  <div
+    :style="marketingOptions.bg"
+    class="phone-wrap">
+    <img
+      v-if="marketingOptions.topLogo"
+      :style="marketingOptions.topLogo.style"
+      :src="marketingOptions.topLogo.imgUrl"
+      class="top-logo">
+    <div
+      :style="marketingOptions.mobile ? marketingOptions.mobile.style : ''"
+      class="mobile-wrap">
+      <div
+        v-show="phoneError"
+        :style="marketingOptions.mobile.errorTips?marketingOptions.mobile.errorTips.style:''"
+        class="error-tips">
+        {{ errorText }}
       </div>
-      <input class="mobile-input" placeholder="请输入手机号提取照片" type="tel" maxlength="11" v-model="mobileNum" @click="phoneError = false">
-      <div class="btn-input"  @click="redirectToPhoto">提取照片</div>
+      <input
+        v-model="mobileNum" 
+        class="mobile-input"
+        placeholder="请输入手机号提取照片"
+        type="tel"
+        maxlength="11"
+        @click="phoneError = false"
+      >
+      <div
+        class="btn-input"
+        @click="redirectToPhoto"
+      >提取照片</div>
     </div>
-    <img class="bottom-logo" v-if="marketingOptions.bottomLogo" :src="marketingOptions.bottomLogo.imgUrl" :style="marketingOptions.bottomLogo.style" alt="">
+    <img
+      v-if="marketingOptions.bottomLogo"
+      :style="marketingOptions.bottomLogo.style"
+      :src="marketingOptions.bottomLogo.imgUrl"
+      class="bottom-logo"
+      alt="">
   </div>
 </template>
 <script>
@@ -17,7 +43,19 @@ const marketingImageServer =
 import $ from 'jquery'
 
 export default {
-  props: ['marketingOptions'],
+  props: {
+    marketingOptions: {
+      type: Object,
+      required: true
+    }
+  },
+  data() {
+    return {
+      errorText: '',
+      mobileNum: '',
+      phoneError: false
+    }
+  },
   computed: {
     wxShareInfo() {
       let wxShareInfo = {
@@ -27,13 +65,6 @@ export default {
         success: () => {}
       }
       return wxShareInfo
-    }
-  },
-  data() {
-    return {
-      errorText: '',
-      mobileNum: '',
-      phoneError: false
     }
   },
   mounted() {
