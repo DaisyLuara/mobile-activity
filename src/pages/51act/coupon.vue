@@ -148,9 +148,6 @@
     <img
       class="root-singlep" 
       v-lazy="baseUrl + 'p2_06.jpg'" />
-
-
-    
     <!-- popup -->
     <div 
       class="root-popup"
@@ -183,20 +180,17 @@
 
       </div>
     </div>
-
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
 </template>
 
 <script>
-import WxShare from 'modules/wxShare'
-import marketService from 'services/marketing'
+import Vue from 'vue'
+import { getInfoById, $_wechat } from 'services'
 import { customTrack } from 'modules/customTrack'
 import { Toast } from 'mint-ui'
 import { isWeixin } from '../../modules/util'
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
-import Vue from 'vue'
 import { Lazyload } from 'mint-ui'
 Vue.use(Lazyload)
 const wx = require('weixin-js-sdk')
@@ -428,6 +422,7 @@ export default {
       this.initInterval()
     }
     this.handleTrack()
+    this.handleShare()
   },
   beforeDestroy() {
     this.clearSetInterval()
@@ -495,13 +490,18 @@ export default {
       this.$refs.mySwiper.swiper.slideTo(this.handleStoreChooseById())
     }
   },
-  created() {
-    // console.dir(this.wxShareInfo)
-  },
   methods: {
+    handleShare() {
+      $_wechat()
+        .then(res => {
+          res.share(this.wxShareInfoValue)
+        })
+        .catch(_ => {
+          console.warn(_.message)
+        })
+    },
     handleTrack() {
-      marketService
-        .getInfoById(this, this.$route.query.id)
+      getInfoById(this.$route.query.id)
         .then(res => {})
         .catch(err => {})
     },
@@ -510,7 +510,6 @@ export default {
       let para = {
         mobile: JSON.parse(localStorage.getItem('xingstation51act')).mobile
       }
-      // console.dir(para)
       this.$http
         .post(request_url, para)
         .then(r => {
