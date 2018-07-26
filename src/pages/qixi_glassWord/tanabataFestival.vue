@@ -5,8 +5,12 @@
     <!-- 动画部分 -->
     <div id="animation"
       class="animation"
+      style="width:100%,height:100%"
     />
-    <div class="photo">
+     <div class="photo">
+      <img  :src="baseUrl + '666.jpeg'"/> 
+    </div>  
+    <div class="real-photo">
       <img  :src="baseUrl + '666.jpeg'"/> 
     </div>  
   </div>
@@ -42,7 +46,7 @@ export default {
     // this.getInfo()
   },
   mounted() {
-    // this.initAnimation()
+    this.initAnimation()
     // this.handleWeChatShare()
   },
 
@@ -73,12 +77,11 @@ export default {
       const el = document.getElementById('animation')
       lottie.loadAnimation({
         container: el, // the dom element that will contain the animation
-        renderer: 'svg',
+        renderer: 'html',
         loop: true,
         autoplay: true,
-        assetsPath: 'http://cdn.exe666.com/fe/marketing/tanabataFestival/img/',
-        path:
-          'http://cdn.exe666.com/fe/marketing/tanabataFestival/json/h5xuehua.json' // the path to the animation json
+        assetsPath: 'http://cdn.exe666.com/fe/marketing/qixi/img/',
+        path: 'http://cdn.exe666.com/fe/marketing/qixi/json/h5.json' // the path to the animation json
       })
     }
   }
@@ -89,19 +92,41 @@ export default {
 @imageHost: 'http://cdn.exe666.com/fe/marketing/img/tanabataFestival';
 .root {
   width: 100%;
-  background: #ec7ca9;
+  // background: #ec7ca9;
   position: relative;
   overflow: hidden;
-  text-align: center;
+  // text-align: center;
   .animation {
     width: 100%;
+    height: 100%;
+    display: block;
+    overflow: hidden;
+    transform: translate3d(0, 0, 0);
+    // text-align: center;
+    opacity: 1;
+    position: absolute;
+    z-index: 2;
   }
   .photo {
-    width: 70%;
+    width: 70.5%;
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -58%);
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .real-photo {
+    width: 70.5%;
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -58%);
+    z-index: 999;
+    opacity: 0;
     img {
       width: 100%;
       height: 100%;
