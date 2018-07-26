@@ -9,5 +9,4 @@ module.exports = {
   AD_API: JSON.stringify('http://papi.xingstation.com'),
   IMAGE_SERVER: JSON.stringify('http://h5-images.oss-cn-shanghai.aliyuncs.com'),
   CDN_URL: JSON.stringify('http://cdn.exe666.com')
-  // Reference https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String
 }
