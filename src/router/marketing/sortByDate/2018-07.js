@@ -221,8 +221,8 @@ const Date201807 = [
   },
   {
     path: 'mc_christmas',
-    location: 'mc_Christmas/index',
-    name: 'mc_Christmas',
+    location: 'mc_christmas/index',
+    name: 'mc_christmas',
     meta: {
       title: '美陈展',
       author: 'xj1012',
@@ -259,7 +259,7 @@ const Date201807 = [
     meta: {
       title: '动物在哪儿',
       author: 'xj1012',
-      desc: '美陈展动物在哪',
+      desc: '美陈展动物在哪儿页面',
       isAbandoned: false
     }
   },
