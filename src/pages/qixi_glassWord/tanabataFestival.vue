@@ -7,17 +7,17 @@
       class="animation"
       style="width:100%,height:100%"
     />
-     <div class="photo">
+     <!-- <div class="photo">
       <img  :src="baseUrl + '666.jpeg'"/> 
     </div>  
     <div class="real-photo">
       <img  :src="baseUrl + '666.jpeg'"/> 
-    </div>  
+    </div>   -->
   </div>
 </template>
 
 <script>
-const wih = window.innerHeight
+const wih = window.innerWidth * 667 / 375
 const wiw = window.innerWidth
 import lottie from 'lottie-web'
 import { $_wechat, wechatShareTrack, getInfoById, isInWechat } from 'services'
@@ -81,7 +81,7 @@ export default {
         loop: true,
         autoplay: true,
         assetsPath: 'http://cdn.exe666.com/fe/marketing/qixi/img/',
-        path: 'http://cdn.exe666.com/fe/marketing/qixi/json/h5.json' // the path to the animation json
+        path: 'http://cdn.exe666.com/fe/marketing/qixi/json/data.json' // the path to the animation json
       })
     }
   }
@@ -95,14 +95,12 @@ export default {
   // background: #ec7ca9;
   position: relative;
   overflow: hidden;
-  // text-align: center;
   .animation {
     width: 100%;
     height: 100%;
     display: block;
     overflow: hidden;
     transform: translate3d(0, 0, 0);
-    // text-align: center;
     opacity: 1;
     position: absolute;
     z-index: 2;
