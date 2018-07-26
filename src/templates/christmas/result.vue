@@ -1,55 +1,74 @@
 <template>
-  <div class="photo-wrap" :style="marketingOptions.bg">
-    <img class="top-decorate" v-if="marketingOptions.topDecorate" :src="marketingOptions.topDecorate.imgUrl" :style="marketingOptions.topDecorate.style">
-    <img class="img-title" v-if="marketingOptions.title" :src="marketingOptions.title.imgUrl" :style="marketingOptions.title.style">
-    <div class="photo-content" v-if="marketingOptions.photo" :style="marketingOptions.photo.wrapStyle">
-      <img class="frame" v-if="marketingOptions.photo.frameImgUrl" :src="marketingOptions.photo.frameImgUrl">
-      <img class="frame placeholder" v-if="marketingOptions.photo.frameImgUrl" :src="marketingOptions.photo.frameImgUrl">
-      <img class="photo" v-if="imgUrl" :src="imgUrl" :style="marketingOptions.photo.style">
+  <div
+    :style="marketingOptions.bg"
+    class="photo-wrap" >
+    <img
+      v-if="marketingOptions.topDecorate"
+      :src="marketingOptions.topDecorate.imgUrl"
+      :style="marketingOptions.topDecorate.style"
+      class="top-decorate" > 
+    <img 
+      v-if="marketingOptions.title"
+      :src="marketingOptions.title.imgUrl" 
+      :style="marketingOptions.title.style" 
+      class="img-title">
+    <div
+      v-if="marketingOptions.photo"
+      :style="marketingOptions.photo.wrapStyle"
+      class="photo-content">
+      <img
+        v-if="marketingOptions.photo.frameImgUrl"
+        :src="marketingOptions.photo.frameImgUrl" 
+        class="frame" >
+      <img 
+        v-if="marketingOptions.photo.frameImgUrl" 
+        :src="marketingOptions.photo.frameImgUrl" 
+        class="frame placeholder" >
+      <img
+        v-if="imgUrl"
+        :src="imgUrl"
+        :style="marketingOptions.photo.style"
+        class="photo" >
     </div>
-    <img class="save-tip" v-if="marketingOptions.saveTip" :src="marketingOptions.saveTip.imgUrl" :style="marketingOptions.saveTip.style">
-    <img class="qr-code" v-if="marketingOptions.qrCode" :src="marketingOptions.qrCode.imgUrl" :style="marketingOptions.qrCode.style">
-    <img class="bottom-decorate" v-if="marketingOptions.bottomDecorate" :src="marketingOptions.bottomDecorate.imgUrl" :style="marketingOptions.bottomDecorate.style">
-    <img class="image-ad" v-if="marketingOptions.ad" :src="marketingOptions.ad.imgUrl" :style="marketingOptions.ad.style">
-    <!-- <wx-share :WxShareInfo="wxShareInfo"></wx-share> -->
+    <img 
+      v-if="marketingOptions.saveTip" 
+      :src="marketingOptions.saveTip.imgUrl" 
+      :style="marketingOptions.saveTip.style" 
+      class="save-tip" >
+    <img 
+      v-if="marketingOptions.qrCode" 
+      :src="marketingOptions.qrCode.imgUrl" 
+      :style="marketingOptions.qrCode.style" 
+      class="qr-code" >
+    <img 
+      v-if="marketingOptions.bottomDecorate" 
+      :src="marketingOptions.bottomDecorate.imgUrl" 
+      :style="marketingOptions.bottomDecorate.style" 
+      class="bottom-decorate" >
+    <img
+      v-if="marketingOptions.ad"
+      :src="marketingOptions.ad.imgUrl"
+      :style="marketingOptions.ad.style" 
+      class="image-ad">
   </div>
 </template>
 <script>
 import { getParamsMap, getParameter, setParameter } from 'modules/util'
 import $ from 'jquery'
 
-// import { customTrack } from 'services/customTrack'
 import marketingService from 'services/marketing'
-// import WxShare from 'components/modules/WxShare.vue'
 export default {
-  props: ['marketingOptions'],
-  // components: {
-  //   WxShare
-  // },
+  props: {
+    marketingOptions: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
     return {
       imgUrl: ''
     }
   },
-  created() {
-    marketingService
-      .getPlayResultById(this, this.$route.query.play_result_id)
-      .then(data => {
-        this.imgUrl = data.result_img_url
-      })
-      .catch(err => {
-        console.log(err)
-      })
-    // marketingService.getImageById(this, this.$route.query.id).then(data => {
-    //   this.imgUrl = data;
-    // }).catch(err => {
-    //   console.log(err)
-    // })
-  },
-  mounted() {
-    $('.photo-wrap').css('min-height', $(window).height())
-  },
-  methods: {},
   computed: {
     wxShareInfo() {
       let wxShareInfo = {
@@ -70,7 +89,22 @@ export default {
       }
       return wxShareInfo
     }
-  }
+  },
+  created() {
+    marketingService
+      .getPlayResultById(this, this.$route.query.play_result_id)
+      .then(data => {
+        this.imgUrl = data.result_img_url
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  },
+  mounted() {
+    $('.photo-wrap').css('min-height', $(window).height())
+  },
+  methods: {},
+  
 }
 </script>
 <style lang="less" scoped>

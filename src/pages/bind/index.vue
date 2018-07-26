@@ -1,52 +1,82 @@
 <template>
-  <div class="bind-wrap" id="bind">
-    <div class="phone-wrap">
+  <div
+    id="bind"
+    class="bind-wrap" >
+    <div
+      class="phone-wrap">
       <!-- 手机号 -->
-      <div class="form-block">
-        <div class="phone-lable">手机号</div>
+      <div 
+        class="form-block">
+        <div 
+          class="phone-lable">手机号</div>
         <input
-          maxlength="11"
-          @click="phoneError=false"
           v-model="bindPhoneNumber"
-          placeholder="请输入手机号" class="phone" @keyup="phoneSuccessHandle"/>
-        <!-- <div class="send-code" @click="phoneSuccessHandle">图片验证码</div> -->
+          maxlength="11"
+          placeholder="请输入手机号" 
+          class="phone"
+          @click="phoneError=false"
+          @keyup="phoneSuccessHandle">
         <div
-          v-show="this.phoneError"
+          v-show="phoneError"
           class="error">
           手机号有误，请重新输入
         </div>
       </div>
       <!-- 图形验证码 -->
-      <div class="form-block" v-if="showImageCaptcha">
-        <div class="phone-code">图片验证码</div>
+      <div 
+        v-if="showImageCaptcha"
+        class="form-block">
+        <div
+          class="phone-code">图片验证码</div>
         <input
-          maxlength="5"
-          @click="imageCaptchaError=false"
           v-model="imageCaptcha.value"
-          placeholder="请输入图片验证码" class="code"/>
-           <!-- @keyup="getSmsCaptcha" -->
-        <div class="send-code">
-          <img class="image-code" :src="image_url" @click="getImageCaptcha()" alt="验证码图片">
+          maxlength="5"
+          placeholder="请输入图片验证码"
+          class="code"
+          @click="imageCaptchaError=false"
+        >
+        <div
+          class="send-code">
+          <img 
+            :src="image_url"
+            class="image-code"
+            alt="验证码图片"
+            @click="getImageCaptcha()"
+          >
         </div>
         <div
-          v-show="this.imageCaptchaError"
+          v-show="imageCaptchaError"
           class="error">
           图片验证码长度不对
         </div>
       </div>
       <!-- 短信验证码 -->
-      <div class="form-block" v-if="showSmsCaptcha">
-        <div class="phone-code">短信验证码</div>
+      <div
+        v-if="showSmsCaptcha"
+        class="form-block"
+      >
+        <div
+          class="phone-code">短信验证码</div>
         <input
-          maxlength="6"
           v-model="verificationCode"
-          placeholder="请输入短信验证码" class="code"/>
-          <div class="send-verification-code" v-show="!sendingSmsCaptcha" @click="sendSmsCaptcha">发送验证码</div>
-          <div class="send-verification-code" v-show="sendingSmsCaptcha">重新获取({{sendingSmsCaptchaTimer}}s)</div>
+          maxlength="6"
+          placeholder="请输入短信验证码"
+          class="code">
+        <div
+          v-show="!sendingSmsCaptcha"
+          class="send-verification-code"
+          @click="sendSmsCaptcha">发送验证码</div>
+        <div
+          v-show="sendingSmsCaptcha"
+          class="send-verification-code"
+        >重新获取({{ sendingSmsCaptchaTimer }}s)</div>
       </div>
       <!-- 提交 -->
-      <div class="form-block">
-        <div class="btn" @click="submit">绑定</div>
+      <div
+        class="form-block">
+        <div
+          class="btn"
+          @click="submit">绑定</div>
       </div>      
     </div>
   </div>
@@ -76,6 +106,13 @@ export default {
       image_url: ''
     }
   },
+  watch: {
+    'imageCaptcha.value': function() {
+      if (this.imageCaptcha.value.length === 5) {
+        this.getSmsCaptcha()
+      }
+    }
+  },
   mounted() {
     document.title = '微信绑定'
     let height =
@@ -88,13 +125,6 @@ export default {
   created() {
     if (Cookies.get('openid') === null) {
       this.handleFirstAuth()
-    }
-  },
-  watch: {
-    'imageCaptcha.value': function() {
-      if (this.imageCaptcha.value.length === 5) {
-        this.getSmsCaptcha()
-      }
     }
   },
   methods: {

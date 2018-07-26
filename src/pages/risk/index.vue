@@ -1,23 +1,30 @@
 <template>
-  <div class="risk-content" id="risk">
-      <img  class="photo" :src="resultImgUrl" alt=""/>
-      <!-- <img  class="photo" src="http://o9xrbl1oc.bkt.clouddn.com/1007/image/1492786765568.jpg" alt=""/> -->
-      <img  class="paw" :src="imgServerUrl + '/pages/risk/paw.png'" alt=""/>
-      <div class="jiantou">
-          <img :src="imgServerUrl + '/pages/risk/arrow.gif'" alt="" >
-      </div>
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+  <div 
+    id="risk" 
+    class="risk-content">
+    <img 
+      :src="resultImgUrl"
+      alt=""
+      class="photo" >
+    <img 
+      :src="imgServerUrl + '/pages/risk/paw.png'" 
+      alt=""
+      class="paw" >
+    <div 
+      class="jiantou">
+      <img 
+        :src="imgServerUrl + '/pages/risk/arrow.gif'" 
+        alt="" >
+    </div>
   </div>
 </template>
 <script>
 import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
+import { $_wechat, wechatShareTrack } from 'services'
+
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
       imgServerUrl: IMAGE_SERVER,
@@ -27,7 +34,10 @@ export default {
         title: '刷脸穿越侏罗纪，开启惊险刺激的丛林大冒险。',
         desc: '变身大冒险家，你也可以！',
         imgUrl:
-          'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/risk-share-icon.jpg'
+          'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/risk-share-icon.jpg',
+        success: function() {
+          wechatShareTrack()
+        }
       }
     }
   },
@@ -41,6 +51,13 @@ export default {
       document.body.clientHeight
     let content = document.getElementById('risk')
     content.style.minHeight = height + 'px'
+    $_wechat()
+      .then(res => {
+        res.share(this.wxShareInfoValue)
+      })
+      .catch(_ => {
+        console.warn(_.message)
+      })
   },
   created() {
     this.getImageById()
@@ -57,20 +74,6 @@ export default {
         .catch(err => {
           console.log(err)
         })
-    }
-  },
-  computed: {
-    //微信分享
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
-        success: () => {
-          customTrack.shareWeChat()
-        }
-      }
-      return wxShareInfo
     }
   }
 }

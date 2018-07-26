@@ -1,39 +1,79 @@
 <template>
-  <div class="report-wrap">
-    <div class="coupon-wrap">
-      <img alt="" :src="ImgUrl" class="photo"/>
-      <img alt="" :src="ImgUrl" class="photo1"/>
-      <img alt="" :src="baseUrl + 'save.png'" class="save"/>
-      <img alt="" :src="baseUrl + 'up.png'" class="arrow"/>
+  <div 
+    class="report-wrap">
+    <div 
+      class="coupon-wrap">
+      <img 
+        :src="ImgUrl"
+        alt="" 
+        class="photo">
+      <img  
+        :src="ImgUrl" 
+        alt=""
+        class="photo1"
+      >
+      <img  
+        :src="baseUrl + 'save.png'" 
+        alt=""
+        class="save"
+      >
+      <img  
+        :src="baseUrl + 'up.png'"
+        alt=""
+        class="arrow"
+      >
     </div>
-    <div class="miizz-wrap">
-      <img alt="" v-lazy="baseUrl + 'bg_2.png?v=1'" class="report_bg_2"/>
-        <img alt="" :src="jewelrySingle" class="jewelry_single"/>
-        <img alt="" :src="jewelryText" class="jewelry_text"/>
-        <img alt="" :src="jewelryMulti" class="jewelry_multi"/>
-        <img alt="" :src="jewelryTextOne" class="jewelry_text1"/>
-        <img alt="" :src="jewelryImgOne" class="jewelry1"/>
-        <img alt="" :src="jewelryTextTwo" class="jewelry_text2"/>
-        <img alt="" :src="jewelryImgTwo" class="jewelry2"/> 
-        <img alt="" :src="baseUrl + 'logo.png'" class="qrcode"/> 
+    <div
+      class="miizz-wrap">
+      <img 
+        v-lazy="baseUrl + 'bg_2.png?v=1'" 
+        alt="" 
+        class="report_bg_2">
+      <img 
+        :src="jewelrySingle" 
+        alt="" 
+        class="jewelry_single">
+      <img 
+        :src="jewelryText" 
+        alt="" 
+        class="jewelry_text">
+      <img 
+        :src="jewelryMulti" 
+        alt="" 
+        class="jewelry_multi">
+      <img 
+        :src="jewelryTextOne" 
+        alt="" 
+        class="jewelry_text1">
+      <img 
+        :src="jewelryImgOne" 
+        alt="" 
+        class="jewelry1">
+      <img 
+        :src="jewelryTextTwo" 
+        alt="" 
+        class="jewelry_text2">
+      <img 
+        :src="jewelryImgTwo" 
+        alt="" 
+        class="jewelry2"> 
+      <img 
+        :src="baseUrl + 'logo.png'" 
+        alt="" 
+        class="qrcode"> 
     </div>
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
 </template>
 <script>
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing/'
 
 import marketService from 'services/marketing'
-import { customTrack } from 'modules/customTrack'
-import WxShare from 'modules/wxShare.vue'
+import { $_wechat, wechatShareTrack } from 'services'
 import Vue from 'vue'
 import { Lazyload } from 'mint-ui'
 Vue.use(Lazyload)
 
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
       baseUrl: IMAGE_SERVER + 'pages/miizz/',
@@ -48,12 +88,36 @@ export default {
       wxShareInfoValue: {
         title: '觅作',
         desc: '让你点亮世界的穿衣首饰搭配指南',
-        imgUrl: IMAGE_SERVER + 'wx_share_icon/mizz_share_icon.png'
+        imgUrl: IMAGE_SERVER + 'wx_share_icon/mizz_share_icon.png',
+        success: function() {
+          wechatShareTrack()
+        }
       }
     }
   },
+  mounted() {
+    document.getElementsByClassName('coupon-wrap')[0].style.height =
+      window.innerHeight + 'px'
+    document.getElementsByClassName('miizz-wrap')[0].style.minHeight =
+      window.innerHeight + 'px'
+    if (window.innerHeight > 675) {
+      document.getElementsByClassName('photo')[0].style.width = '88%'
+      document.getElementsByClassName('photo')[0].style.left = '5%'
+      document.getElementsByClassName('photo')[0].style.top = '0'
+    } else {
+      document.getElementsByClassName('photo')[0].style.width = '76%'
+      document.getElementsByClassName('photo')[0].style.left = '12%'
+      document.getElementsByClassName('photo')[0].style.top = '-2%'
+    }
+    $_wechat()
+      .then(res => {
+        res.share(this.wxShareInfo)
+      })
+      .catch(_ => {
+        console.warn(_.message)
+      })
+  },
   created() {
-    // this.handleShowPage()
     this.getImageById()
   },
   methods: {
@@ -115,34 +179,6 @@ export default {
           this.jewelryMulti = this.baseUrl + 'jewelry_multi_D.png'
           break
       }
-    }
-  },
-  mounted() {
-    document.getElementsByClassName('coupon-wrap')[0].style.height =
-      window.innerHeight + 'px'
-    document.getElementsByClassName('miizz-wrap')[0].style.minHeight =
-      window.innerHeight + 'px'
-    if (window.innerHeight > 675) {
-      document.getElementsByClassName('photo')[0].style.width = '88%'
-      document.getElementsByClassName('photo')[0].style.left = '5%'
-      document.getElementsByClassName('photo')[0].style.top = '0'
-    } else {
-      document.getElementsByClassName('photo')[0].style.width = '76%'
-      document.getElementsByClassName('photo')[0].style.left = '12%'
-      document.getElementsByClassName('photo')[0].style.top = '-2%'
-    }
-  },
-  computed: {
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
-        success: () => {
-          customTrack.shareWeChat()
-        }
-      }
-      return wxShareInfo
     }
   }
 }

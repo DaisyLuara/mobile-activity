@@ -1,42 +1,66 @@
 <template>
-  <div class="psbh-travel-wrap">
-    <div class="photo-content" :style="style.root">
-      <div class="boots-wrap">
-        <div class="slide-wrap pos-common">
-          <img class="boot-line pos-common" :src="imgServerUrl + '/line.png'">
-          <img class="boot-text pos-common" :src="imgServerUrl + '/text.png'">
-          <img class="gesture-img pos-common" :src="imgServerUrl + '/hand.png'">
-          <div class="boot-img"></div>
+  <div
+    class="psbh-travel-wrap">
+    <div
+      :style="style.root"
+      class="photo-content"
+    >
+      <div
+        class="boots-wrap">
+        <div
+          class="slide-wrap pos-common">
+          <img 
+            :src="imgServerUrl + '/line.png'" 
+            class="boot-line pos-common" >
+          <img
+            :src="imgServerUrl + '/text.png'"
+            class="boot-text pos-common">
+          <img 
+            :src="imgServerUrl + '/hand.png'"
+            class="gesture-img pos-common" >
+          <div 
+            class="boot-img" />
         </div>
       </div>
-      <div class="photo-wrap">
-        <canvas id="myCanvas" class="canvas-content" style="display: none"></canvas>
-        <img class="envelope-bg" id="test" src="">
-        <div class="photo-cover">
-          <img class="cover-img" :src="imgServerUrl + '/photo-cover2.png'">
+      <div 
+        class="photo-wrap">
+        <canvas 
+          id="myCanvas" 
+          class="canvas-content" 
+          style="display: none" />
+        <img 
+          id="test"
+          class="envelope-bg"
+          src="">
+        <div
+          class="photo-cover">
+          <img 
+            :src="imgServerUrl + '/photo-cover2.png'"
+            class="cover-img"
+          >
         </div>
       </div>
-      <div class="save-arrow-wrap">
-        <img class="arrow" :src="imgServerUrl + '/arrow.png'">
-        <img class="save-img" :src="imgServerUrl + '/share.png'">
+      <div
+        class="save-arrow-wrap">
+        <img
+          :src="imgServerUrl + '/arrow.png'"
+          class="arrow">
+        <img 
+          :src="imgServerUrl + '/share.png'"
+          class="save-img">
       </div>
     </div>
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
 </template>
 <script>
 import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
-import { customTrack } from 'modules/customTrack'
+import { $_wechat, wechatShareTrack } from 'services'
 import $ from 'jquery'
 
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 const imgUrl = process.env.CDN_URL
 
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
       style: {
@@ -52,15 +76,19 @@ export default {
         desc: '大融城邀您一起观看精彩世界杯',
         imgUrl: IMAGE_SERVER + '/wx_share_icon/drc-share-icon.png',
         success: () => {
-          customTrack.shareWeChat()
+          wechatShareTrack()
         }
       }
     }
   },
   mounted() {
-    // this.syntheticCanvas(
-    //   'http://o9xrbl1oc.bkt.clouddn.com/1007/image/theBigCity_532_980_1492922362981.jpg'
-    // )
+    $_wechat()
+      .then(res => {
+        res.share(this.wxShareInfo)
+      })
+      .catch(_ => {
+        console.warn(_.message)
+      })
     this.getPeopleImage()
     this.animateHandle()
   },

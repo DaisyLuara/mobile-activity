@@ -1,12 +1,22 @@
 <template>
-    
-  <div class="hero-content" :style="style.root" >
-      <img  class="bg" :src="imgServerUrl + '/pages/hero/bg.jpg'" alt=""/>
-      <img  class="photo" v-if="resultImgUrl !== null" :src="resultImgUrl  + this.$qiniuCompress()" alt=""/>
-      <!-- <img  class="photo" src="http://o9xrbl1oc.bkt.clouddn.com/1007/image/1492786765568.jpg" alt=""/> -->
-      <div class="jiantou">
-        <img :src="imgServerUrl + '/pages/hero/arrow.gif'" alt="" >
-      </div>
+  <div 
+    :style="style.root"
+    class="hero-content" >
+    <img
+      :src="imgServerUrl + '/pages/hero/bg.jpg'"
+      class="bg"
+      alt="">
+    <img  
+      v-if="resultImgUrl !== null"
+      :src="resultImgUrl + this.$qiniuCompress()" 
+      class="photo"
+      alt="">
+    <div 
+      class="jiantou">
+      <img 
+        :src="imgServerUrl + '/pages/hero/arrow.gif'"
+        alt="" >
+    </div>
   </div>
 </template>
 <script>

@@ -1,34 +1,52 @@
 <template>
-  <div class="concert-content">
-    <div class="main">
-      <img :src="imgServerUrl + '/pages/dh/bg.png'" class="bg"/>
-      <img class="photo" :src="resultImgUrl" alt=""/>
-      <!-- <img  class="photo" :src="imgServerUrl + '/pages/dh/photo.png'" alt=""/> -->
-      <img :src="imgServerUrl + '/pages/dh/cloud1.png'" alt="" class="cloud1">
-      <img :src="imgServerUrl + '/pages/dh/cloud2.png'" alt="" class="cloud2">
-      <img :src="imgServerUrl + '/pages/dh/cloud3.png'" alt="" class="cloud3">
-      <div class="jiantou">
-        <img :src="imgServerUrl + '/pages/dh/arrow.png?v=1'" alt="" >
-       </div>
-       <div class="text">
-        <img :src="imgServerUrl + '/pages/dh/text.png'" alt="" >
-       </div>
+  <div
+    class="concert-content">
+    <div 
+      class="main">
+      <img 
+        :src="imgServerUrl + '/pages/dh/bg.png'" 
+        class="bg"
+      >
+      <img 
+        :src="resultImgUrl"
+        alt=""
+        class="photo"
+      >
+      <img
+        :src="imgServerUrl + '/pages/dh/cloud1.png'"
+        alt=""
+        class="cloud1">
+      <img 
+        :src="imgServerUrl + '/pages/dh/cloud2.png'" 
+        alt=""
+        class="cloud2">
+      <img 
+        :src="imgServerUrl + '/pages/dh/cloud3.png'"
+        alt=""
+        class="cloud3">
+      <div
+        class="jiantou">
+        <img 
+          :src="imgServerUrl + '/pages/dh/arrow.png?v=1'"
+          alt="" >
+      </div>
+      <div
+        class="text">
+        <img 
+          :src="imgServerUrl + '/pages/dh/text.png'"
+          alt="" >
+      </div>
     </div>
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
 </template>
 <script>
 import $ from 'jquery'
 import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
-import { customTrack } from 'modules/customTrack'
+import { $_wechat, wechatShareTrack } from 'services'
 
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
       imgServerUrl: IMAGE_SERVER,
@@ -44,6 +62,13 @@ export default {
   },
   mounted() {
     $('.concert-content').css('min-height', $(window).height())
+    $_wechat()
+      .then(res => {
+        res.share(this.wxShareInfoValue)
+      })
+      .catch(_ => {
+        console.warn(_.message)
+      })
   },
   created() {
     this.getImageById()
@@ -60,20 +85,6 @@ export default {
         .catch(err => {
           console.log(err)
         })
-    }
-  },
-  computed: {
-    //微信分享
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
-        success: () => {
-          customTrack.shareWeChat()
-        }
-      }
-      return wxShareInfo
     }
   }
 }
