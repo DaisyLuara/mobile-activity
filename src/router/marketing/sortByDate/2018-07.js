@@ -284,6 +284,17 @@ const Date201807 = [
       desc: '前世穿越机2.0版'
     },
     isAbandoned: false
+  },
+  {
+    path: 'tanabata_festival',
+    location: 'qixi_glassWord/tanabataFestival',
+    name: 'qixi_glassWord',
+    meta: {
+      title: '七夕节',
+      author: 'xj1012',
+      desc: '七夕节页面'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201807
