@@ -9,7 +9,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin')
 
 // const env =
 //   process.env.NODE_ENV === 'testing'
@@ -47,14 +47,18 @@ const webpackConfig = merge(baseWebpackConfig, {
     new webpack.DefinePlugin({
       'process.env': env
     }),
-    new UglifyJsPlugin({
-      uglifyOptions: {
+    new ParallelUglifyPlugin({
+      cacheDir: '.cache/',
+      uglifyJS: {
+        output: {
+          comments: false
+        },
         compress: {
-          warnings: false
+          warnings: process.argv[2] === 'preprod' ? true : false,
+          drop_debugger: process.argv[2] === 'preprod' ? false : true,
+          drop_console: process.argv[2] === 'preprod' ? false : true
         }
-      },
-      sourceMap: config.build.productionSourceMap,
-      parallel: true
+      }
     }),
     // extract css into its own file
     new ExtractTextPlugin({
