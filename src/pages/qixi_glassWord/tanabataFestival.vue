@@ -2,17 +2,23 @@
   <div
     :style="style.root" 
     class="root">
+    <div class="bg"></div>
     <!-- 动画部分 -->
-    <div id="animation"
+    <!-- <div id="animation"
       class="animation"
-      style="width:100%,height:100%"
-    />
-     <!-- <div class="photo">
+    /> -->
+     <div class="photo">
       <img  :src="baseUrl + '666.jpeg'"/> 
     </div>  
     <div class="real-photo">
       <img  :src="baseUrl + '666.jpeg'"/> 
-    </div>   -->
+    </div>  
+    <div class="arrow">
+      <img  :src="baseUrl + 'img_0.png'"/> 
+    </div>
+    <div class="bottom">
+       <img class="title" :src="baseUrl + 'img_1.png'"/> 
+    </div>
   </div>
 </template>
 
@@ -46,7 +52,7 @@ export default {
     // this.getInfo()
   },
   mounted() {
-    this.initAnimation()
+    //this.initAnimation()
     // this.handleWeChatShare()
   },
 
@@ -92,19 +98,29 @@ export default {
 @imageHost: 'http://cdn.exe666.com/fe/marketing/img/tanabataFestival';
 .root {
   width: 100%;
-  // background: #ec7ca9;
+  background: #ec7ca9;
   position: relative;
   overflow: hidden;
-  .animation {
+  .bg {
     width: 100%;
     height: 100%;
-    display: block;
-    overflow: hidden;
-    transform: translate3d(0, 0, 0);
-    opacity: 1;
+    background-repeat: no-repeat;
+    background-image: url('@{imageHost}/H5_00000.png');
+    background-size: 100% 100%;
+    animation: run 3s steps(1, start) infinite;
     position: absolute;
     z-index: 2;
   }
+  // .animation {
+  //   width: 100%;
+  //   height: 100%;
+  //   display: block;
+  //   overflow: hidden;
+  //   transform: translate3d(0, 0, 0);
+  //   opacity: 1;
+  //   position: absolute;
+  //   // z-index: 2;
+  // }
   .photo {
     width: 70.5%;
     position: absolute;
@@ -129,6 +145,69 @@ export default {
       width: 100%;
       height: 100%;
     }
+  }
+  .arrow {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 13%;
+    text-align: center;
+    z-index: 3;
+    animation: arrows 0.8s ease-out infinite alternate;
+    img {
+      width: 24%;
+    }
+  }
+  .bottom {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 8.5%;
+    text-align: center;
+    z-index: 3;
+    animation: arrows 0.8s ease-out infinite alternate;
+
+    .title {
+      width: 77%;
+    }
+  }
+}
+@keyframes run {
+  // 0%,
+  // 14% {
+  //   background-image: url('@{imageHost}/H5_00000.png?v=222');
+  // }
+  // 14%,
+  // 28% {
+  //   background-image: url('@{imageHost}/H5_00001.png?v=222');
+  // }
+  // 28%,
+  // 42% {
+  //   background-image: url('@{imageHost}/H5_00002.png?v=222');
+  // }
+  // 42%,
+  // 56% {
+  //   background-image: url('@{imageHost}/H5_00003.png?v=222');
+  // }
+  // 56%,
+  // 70% {
+  //   background-image: url('@{imageHost}/H5_00004.png?v=222');
+  // }
+  // 70%,
+  // 84% {
+  //   background-image: url('@{imageHost}/H5_00005.png?v=222');
+  // }
+  // 84%,
+  // 100% {
+  //   background-image: url('@{imageHost}/H5_00006.png?v=222');
+  // }
+}
+@keyframes arrows {
+  0% {
+    transform: translateY(-8px);
+  }
+  100% {
+    transform: translateY(0px);
   }
 }
 </style>
