@@ -11,11 +11,23 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin')
 
-const env =
-  process.argv[2] === 'test'
-    ? require('../config/test.env')
-    : require('../config/prod.env')
+// const env =
+//   process.env.NODE_ENV === 'testing'
+//     ? require('../config/test.env')
+//     : require('../config/prod.env')
+let env
+switch (process.argv[2]) {
+  case 'testing':
+    env = require('../config/test.env')
+    break
+  case 'preprod':
+    env = require('../config/preprod.env')
+    break
+  default:
+    env = require('../config/prod.env')
+}
 
+console.dir(env)
 const webpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({
@@ -35,17 +47,6 @@ const webpackConfig = merge(baseWebpackConfig, {
     new webpack.DefinePlugin({
       'process.env': env
     }),
-    // UglifyJs do not support ES6+, you can also use babel-minify for better treeshaking: https://github.com/babel/minify
-    // new webpack.optimize.UglifyJsPlugin({
-    //   compress: {
-    //     warnings: false
-    //   },
-    //   // sourceMap: config.build.productionSourceMap,
-    //   parallel: true,
-    //   drop_debugger: true,
-    //   drop_console: true
-    // }),
-
     new ParallelUglifyPlugin({
       cacheDir: '.cache/',
       uglifyJS: {
@@ -53,20 +54,20 @@ const webpackConfig = merge(baseWebpackConfig, {
           comments: false
         },
         compress: {
-          warnings: process.argv[2] === 'test' ? true : false,
-          drop_debugger: process.argv[2] === 'test' ? false : true,
-          drop_console: process.argv[2] === 'test' ? false : true
+          warnings: process.argv[2] === 'preprod' ? true : false,
+          drop_debugger: process.argv[2] === 'preprod' ? false : true,
+          drop_console: process.argv[2] === 'preprod' ? false : true
         }
       }
     }),
-
     // extract css into its own file
     new ExtractTextPlugin({
       filename: utils.assetsPath('css/[name].[contenthash].css'),
-      // set the following option to `true` if you want to extract CSS from
-      // codesplit chunks into this main css file as well.
-      // This will result in *all* of your app's CSS being loaded upfront.
-      allChunks: false
+      // Setting the following option to `false` will not extract CSS from codesplit chunks.
+      // Their CSS will instead be inserted dynamically with style-loader when the codesplit chunk has been loaded by webpack.
+      // It's currently set to `true` because we are seeing that sourcemaps are included in the codesplit bundle as well when it's `false`,
+      // increasing file size: https://github.com/vuejs-templates/webpack/issues/1110
+      allChunks: true
     }),
     // Compress extracted CSS. We are using this plugin so that possible
     // duplicated CSS from different components can be deduped.
@@ -79,7 +80,8 @@ const webpackConfig = merge(baseWebpackConfig, {
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
-      filename: config.build.index,
+      filename:
+        process.env.NODE_ENV === 'testing' ? 'index.html' : config.build.index,
       template: 'index.html',
       inject: true,
       minify: {
@@ -89,18 +91,19 @@ const webpackConfig = merge(baseWebpackConfig, {
         // more options:
         // https://github.com/kangax/html-minifier#options-quick-reference
       },
-      env: env,
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
+      // pass to html
+      env: env,
       chunksSortMode: 'dependency'
     }),
-    // keep module.id stable when vender modules does not change
+    // keep module.id stable when vendor modules does not change
     new webpack.HashedModuleIdsPlugin(),
     // enable scope hoisting
     new webpack.optimize.ModuleConcatenationPlugin(),
     // split vendor js into its own file
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
-      minChunks: function(module) {
+      minChunks(module) {
         // any required modules inside node_modules are extracted to vendor
         return (
           module.resource &&

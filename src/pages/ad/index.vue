@@ -31,8 +31,7 @@
 </template>
 <script>
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
-import WxShare from 'modules/wxShare'
-import { customTrack } from 'modules/customTrack'
+import { $_wechat, wechatShareTrack } from 'services'
 import { Lazyload } from 'mint-ui'
 import Vue from 'vue'
 
@@ -50,13 +49,22 @@ export default {
         desc: '场景化解决方案',
         imgUrl: IMAGE_SERVER + '/wx_share_icon/ad_share_icon.png',
         success: function() {
-          customTrack.shareWeChat()
+          wechatShareTrack()
         }
       }
     }
   },
   beforeCreate() {
     document.title = '星视度'
+  },
+  mounted() {
+    $_wechat()
+      .then(res => {
+        res.share(this.wxShareInfo)
+      })
+      .catch(_ => {
+        console.warn(_.message)
+      })
   },
   methods: {
     vPlay() {

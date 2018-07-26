@@ -31,11 +31,11 @@ const req = GetRequest()
 customTrack.adId = req.adId | undefined ? req.adId : 100
 customTrack.laId = req.laId | undefined ? req.laId : 100
 customTrack.play_result_id = req.recordId ? req.recordId : 0
-console.log(customTrack)
+// console.log(customTrack)
 
 // mobile保存的方法
 function mobileRecords(mobileValue) {
-  console.log(mobileValue)
+  // console.log(mobileValue)
   $.ajax({
     url: customTrack.mobileRecords,
     data: {

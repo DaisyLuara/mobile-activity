@@ -135,6 +135,10 @@ body {
   -webkit-overflow-scrolling: touch;
   transform: translate3d(0, 0, 0);
 }
+img {
+  pointer-events: none;
+  user-select: none;
+}
 .yanzhi-result {
   width: 100%;
   text-align: center;
@@ -224,14 +228,17 @@ body {
     animation: mycircle 10s infinite linear alternate;
   }
   .money {
-    z-index: 300;
-    width: 91%;
+    z-index: 400;
+    width: 86%;
     margin: 0 auto;
     position: absolute;
-    left: 0;
+    left: -1%;
     right: 0;
-    top: 25.6%;
+    top: 26.5%;
+    height: 45%;
     font-size: 20px;
+    pointer-events: auto;
+    user-select: auto;
   }
   .imgframe {
     margin: 20% auto;
@@ -250,6 +257,8 @@ body {
     margin: 0 auto;
     margin-top: 5%;
     margin-bottom: 1%;
+    pointer-events: auto;
+    user-select: auto;
   }
   .logo {
     width: 24%;
