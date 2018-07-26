@@ -15,7 +15,7 @@ describe('Phone.vue', () => {
     expect(wrapper.contains('div')).to.equal(true)
   })
 
-  it('mock click button and get phone error', () => {
+  it('mock default click button and get phone error', () => {
     const wrapper = mount(Phone, {
       localVue,
       router
