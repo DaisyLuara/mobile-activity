@@ -56,7 +56,6 @@
       <img v-if="show_btn" class="btn-join" @click="join" :src="IMAGE_SERVER + 'btn.png'" alt="">
       <img v-if="!show_btn" class="result-join" :src="join_img_url" alt="">
       <img class="img-za" :src="IMAGE_SERVER + 'za.png'" alt="">
-      <wx-share :WxShareInfo="wxShareInfo"></wx-share>
     </div>
     <img class="wuliao" :src="IMAGE_SERVER + 'wuliao2.jpg'" alt="">
     <img class="wuliao" :src="IMAGE_SERVER + 'wuliao3.png'" alt="">
@@ -66,11 +65,15 @@
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 const REQ_URL = 'http://120.27.144.62:1337/parse/classes/'
 import { customTrack } from 'modules/customTrack'
-import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare.vue'
 import parseService from 'modules/parseServer'
 import $ from 'jquery'
-import { getWxUserInfo } from 'services'
+import {
+  getInfoById,
+  $_wechat,
+  getWxUserInfo,
+  basicTrack,
+  wechatShareTrack
+} from 'services'
 export default {
   data() {
     return {
@@ -108,7 +111,7 @@ export default {
         imgUrl:
           'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/angel_share_icon.png',
         success: function() {
-          customTrack.shareWeChat()
+          wechatShareTrack()
         }
       }
     }
@@ -118,6 +121,7 @@ export default {
   },
   mounted() {
     $('.angel-wrap').css('min-height', $(window).height())
+    this.handleShare()
   },
   created() {
     if (!this.img_id) {
@@ -154,6 +158,15 @@ export default {
     // this.checkCurStatus();
   },
   methods: {
+    handleShare() {
+      $_wechat()
+        .then(res => {
+          res.share(this.wxShareInfo)
+        })
+        .catch(_ => {
+          console.warn(_.message)
+        })
+    },
     loadImg() {
       let that = this
       let targetTop = $('.slogan').offset().top
@@ -168,8 +181,7 @@ export default {
       }
     },
     getImgUrl() {
-      marketService
-        .getInfoById(this, this.img_id)
+      getInfoById(this.img_id)
         .then(result => {
           this.img_url = result.image
         })

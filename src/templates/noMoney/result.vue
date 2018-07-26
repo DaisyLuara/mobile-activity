@@ -1,36 +1,61 @@
 <template>
- <div class="report-content"  v-bind:style="marketingOptions.bg">
-  <div class="text-wrap">
-  </div>
-  <div class="wealth-report">
-    <img class="title" :src="title">
-    <div class="report-wrap">
-      <div class="photo-bg" v-bind:style="bg">
-        <img class="frame-img" :src="imgUrl">
+  <div 
+    :style="marketingOptions.bg"
+    class="report-content" 
+  >
+    <div class="text-wrap" />
+    <div class="wealth-report">
+      <img 
+        :src="title" 
+        class="title"
+      >
+      <div 
+        class="report-wrap">
+        <div 
+          :style="bg"
+          class="photo-bg"
+        >
+          <img 
+            :src="imgUrl"
+            class="frame-img"
+          >
+        </div>
+      </div>
+      <div class="save-tip">
+        <img 
+          :src="arrow"
+          class="arrow-icon"
+        >
+        <span class="text">长按图片可保存并分享我的诊断报告</span>
       </div>
     </div>
-    <div class="save-tip">
-      <img class="arrow-icon" :src="arrow">
-      <span class="text">长按图片可保存并分享我的诊断报告</span>
+    <div 
+      v-if="marketingOptions.bottom"
+      class="bottom-wrap" 
+    >
+      <img 
+        :src="marketingOptions.bottom.imgUrl"
+        class="title-img" 
+      >
     </div>
   </div>
-  <div class="bottom-wrap" v-if="marketingOptions.bottom">
-    <img class="title-img" :src="marketingOptions.bottom.imgUrl">
-  </div>
-  <wx-share :WxShareInfo="wxShareInfo"></wx-share>
-</div>
 </template>
 <script>
 import { customTrack } from 'modules/customTrack'
-import WxShare from 'modules/wxShare'
+import { getInfoById, $_wechat } from 'services'
 import $ from 'jquery'
 
 const marketingImageServer =
   process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
-  props: ['marketingOptions'],
   components: {
     WxShare
+  },
+  props: {
+    marketingOptions: {
+      type: Object,
+      default: null
+    }
   },
   data() {
     return {
@@ -41,11 +66,18 @@ export default {
       arrow: marketingImageServer + '/templates/noMoney/arrow-icon.png'
     }
   },
-  created() {
-    this.forbidWXShare()
-    let imageUrl = decodeURI(this.$route.query.imageUrl)
-    this.imgUrl = imageUrl
-    this.bg = { backgroundImage: 'url(' + imageUrl + ')' }
+  computed: {
+    wxShareInfo() {
+      let wxShareInfo = {
+        title: this.marketingOptions.wxShareInfo.title,
+        desc: this.marketingOptions.wxShareInfo.desc,
+        imgUrl: this.marketingOptions.wxShareInfo.imgUrl,
+        success: () => {
+          customTrack.shareWeChat()
+        }
+      }
+      return wxShareInfo
+    }
   },
   mounted() {
     $('.report-content').css('height', $(window).height())
@@ -53,7 +85,21 @@ export default {
     let wid = $(window).width() > 640 ? 640 : $(window).width()
     let imgHei = (wid - 28 - wid * 0.125 * 2) * 4 / 3
     $('.photo-bg').height(imgHei)
+    $_wechat()
+      .then(res => {
+        res.share(this.wxShareInfo)
+      })
+      .catch(_ => {
+        console.warn(_.message)
+      })
   },
+  created() {
+    this.forbidWXShare()
+    let imageUrl = decodeURI(this.$route.query.imageUrl)
+    this.imgUrl = imageUrl
+    this.bg = { backgroundImage: 'url(' + imageUrl + ')' }
+  },
+
   methods: {
     onBridgeReady() {
       WeixinJSBridge.call('showOptionMenu')
@@ -73,19 +119,6 @@ export default {
       } else {
         this.onBridgeReady()
       }
-    }
-  },
-  computed: {
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.marketingOptions.wxShareInfo.title,
-        desc: this.marketingOptions.wxShareInfo.desc,
-        imgUrl: this.marketingOptions.wxShareInfo.imgUrl,
-        success: () => {
-          customTrack.shareWeChat()
-        }
-      }
-      return wxShareInfo
     }
   }
 }

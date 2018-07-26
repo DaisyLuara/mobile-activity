@@ -1,19 +1,19 @@
 <template>
-<div class="phone-content" v-bind:style="marketingOptions.bg">
-  <img class="logo-img" v-if="marketingOptions.topLogo" :src="marketingOptions.topLogo.imgUrl">
-  <div class="phone-wrap">
-    <div class="photo-wrap">
-      <img class="img" :src="userIcon" alt="">
-      {{userIcon}}
-    </div>
-    <div class="phone-num" id="phone">
-      <div class="error" v-show="phoneError"> {{errorText}}</div>
-      <img class="phone-icon" :src="marketingOptions.phoneIcon.imgUrl" v-if="marketingOptions.phoneIcon">
-      <input class="num" placeholder="请输入手机号码" id="mobile" maxlength="11" v-model="mobileNum" @click="phoneError = false">
-    </div>
-    <div class="report-wrap" @click="redirectToPhoto">
-      <img class="outer-img" :src="outerImg">
-      <a class="go-report">获取报告</a>
+  <div class="phone-content" v-bind:style="marketingOptions.bg">
+    <img class="logo-img" v-if="marketingOptions.topLogo" :src="marketingOptions.topLogo.imgUrl">
+      <div class="phone-wrap">
+        <div class="photo-wrap">
+          <img class="img" :src="userIcon" alt="">
+          {{userIcon}}
+        </div>
+      <div class="phone-num" id="phone">
+        <div class="error" v-show="phoneError"> {{errorText}}</div>
+        <img class="phone-icon" :src="marketingOptions.phoneIcon.imgUrl" v-if="marketingOptions.phoneIcon">
+        <input class="num" placeholder="请输入手机号码" id="mobile" maxlength="11" v-model="mobileNum" @click="phoneError = false">
+      </div>
+      <div class="report-wrap" @click="redirectToPhoto">
+        <img class="outer-img" :src="outerImg">
+        <a class="go-report">获取报告</a>
     </div>
   </div>
 </div>
