@@ -221,8 +221,8 @@ const Date201807 = [
   },
   {
     path: 'mc_christmas',
-    location: 'mc_christmas/index',
-    name: 'mc_christmas',
+    location: 'mcChristmas/index',
+    name: 'mcChristmas',
     meta: {
       title: '美陈展',
       author: 'xj1012',
