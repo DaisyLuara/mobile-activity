@@ -1485,8 +1485,8 @@ caniuse-api@^1.5.2:
     lodash.uniq "^4.5.0"
 
 caniuse-db@^1.0.30000529, caniuse-db@^1.0.30000634, caniuse-db@^1.0.30000639:
-  version "1.0.30000870"
-  resolved "http://registry.npm.taobao.org/caniuse-db/download/caniuse-db-1.0.30000870.tgz#f397cd64922c24f85d0ce7803c9bd5c5a1571b16"
+  version "1.0.30000871"
+  resolved "http://registry.npm.taobao.org/caniuse-db/download/caniuse-db-1.0.30000871.tgz#f1995c1fe31892649a7605957a80c92518423d4d"
 
 caniuse-lite@^1.0.30000792, caniuse-lite@^1.0.30000805, caniuse-lite@^1.0.30000844:
   version "1.0.30000865"
@@ -3958,9 +3958,9 @@ ip@^1.1.0, ip@^1.1.4, ip@^1.1.5:
   version "1.1.5"
   resolved "http://registry.npm.taobao.org/ip/download/ip-1.1.5.tgz#bdded70114290828c0a039e72ef25f5aaec4354a"
 
-ipaddr.js@1.6.0:
-  version "1.6.0"
-  resolved "http://registry.npm.taobao.org/ipaddr.js/download/ipaddr.js-1.6.0.tgz#e3fa357b773da619f26e95f049d055c72796f86b"
+ipaddr.js@1.8.0:
+  version "1.8.0"
+  resolved "http://registry.npm.taobao.org/ipaddr.js/download/ipaddr.js-1.8.0.tgz#eaa33d6ddd7ace8f7f6fe0c9ca0440e706738b1e"
 
 is-absolute-url@^2.0.0:
   version "2.1.0"
@@ -4770,8 +4770,8 @@ loose-envify@^1.0.0:
     js-tokens "^3.0.0 || ^4.0.0"
 
 lottie-web@^5.1.20:
-  version "5.1.20"
-  resolved "http://registry.npm.taobao.org/lottie-web/download/lottie-web-5.1.20.tgz#417d57cefff5ae3e1a322f71411e51e344d19a0f"
+  version "5.2.0"
+  resolved "http://registry.npm.taobao.org/lottie-web/download/lottie-web-5.2.0.tgz#06967b0d46cc0b2efb1295308390e68907d39c9d"
 
 loud-rejection@^1.0.0:
   version "1.6.0"
@@ -6141,11 +6141,11 @@ promise@^7.1.1:
     asap "~2.0.3"
 
 proxy-addr@~2.0.3:
-  version "2.0.3"
-  resolved "http://registry.npm.taobao.org/proxy-addr/download/proxy-addr-2.0.3.tgz#355f262505a621646b3130a728eb647e22055341"
+  version "2.0.4"
+  resolved "http://registry.npm.taobao.org/proxy-addr/download/proxy-addr-2.0.4.tgz#ecfc733bf22ff8c6f407fa275327b9ab67e48b93"
   dependencies:
     forwarded "~0.1.2"
-    ipaddr.js "1.6.0"
+    ipaddr.js "1.8.0"
 
 proxy-agent@2.0.0:
   version "2.0.0"
