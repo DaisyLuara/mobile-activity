@@ -1,16 +1,21 @@
 <template>
-    <div class="content" id="content">
-        <canvas id="canvas"></canvas>
-        <div :class="{photo:true,toslider:toslider}">
-          <img id="mImg" src=""/>
-        </div>
-        <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+  <div 
+    id="content"
+    class="content" >
+    <canvas 
+      id="canvas"
+    />
+    <div
+      :class="{ photo:true, toslider: toslider}">
+      <img
+        id="mImg"
+        src="" 
+      >
     </div>
+  </div>
 </template>
 <script>
-import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
-import { customTrack } from 'modules/customTrack'
+import { $_wechat, getInfoById, wechatShareTrack } from 'services'
 const IMG_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing/pages'
 export default {
   data() {
@@ -25,12 +30,13 @@ export default {
         desc: '2018世界杯等你 GOOOOOAL!!!!',
         imgUrl: IMG_SERVER + '/world_bei/share.png',
         success: function() {
-          customTrack.shareWeChat()
+          wechatShareTrack()
         }
       }
     }
   },
   mounted() {
+    this.handleShare()
     this.width =
       window.innerWidth ||
       document.documentElement.clientWidth ||
@@ -45,10 +51,18 @@ export default {
     this.playAnim()
   },
   methods: {
+    handleShare() {
+      $_wechat()
+        .then(res => {
+          res.share(this.wxShareInfoValue)
+        })
+        .catch(_ => {
+          console.warn(_.message)
+        })
+    },
     getInfoById() {
       let id = this.$route.query.id
-      marketService
-        .getInfoById(this, id)
+      getInfoById(id)
         .then(res => {
           this.drawCanvas(res.image)
           // this.toslider = true
@@ -171,9 +185,6 @@ export default {
         //'http://o9xrbl1oc.bkt.clouddn.com/1007/image/1492786765568.jpg'
       }
     }
-  },
-  components: {
-    WxShare
   }
 }
 </script>

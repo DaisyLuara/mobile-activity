@@ -1,38 +1,51 @@
 <template>
-<div class="photo-content">
+  <div class="photo-content">
     <div class="boots-wrap">
       <div class="slide-wrap pos-common">
-        <img class="boot-line" :src="imgPath+'line.png'"> 
-        <img class="boot-text pos-common" :src="imgPath+'text1.png'">
-        <img class="gesture-img" :src="imgPath+'gesture-img.png'"> 
-        <div class="boot-img"></div>
+        <img 
+          :src="imgPath+'line.png'"
+          class="boot-line" 
+        > 
+        <img 
+          :src="imgPath+'text1.png'"
+          class="boot-text pos-common"
+        >
+        <img
+          :src="imgPath+'gesture-img.png'" 
+          class="gesture-img"
+        > 
+        <div class="boot-img"/>
       </div>
-	</div>
-
-	<div class="photo-wrap">
-	  <img class="envelope-bg" :src="imgPath+'frame.png'">
-	  <img class="photo-img" :src="photo">
-	</div>
-	<div class="save-img">
-		<img class="hint" :src="imgPath+'text.png'">
-	</div>
-	  <div class="photo-cover">
-		  <img class="cover-img" :src="imgPath+'shade.png'">
-	  </div>
-      <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+    </div>
+    <div class="photo-wrap">
+      <img
+        :src="imgPath+'frame.png'" 
+        class="envelope-bg" 
+      >
+      <img
+        :src="photo" 
+        class="photo-img"
+      >
+    </div>
+    <div class="save-img">
+      <img
+        :src="imgPath+'text.png'" 
+        class="hint"
+      >
+    </div>
+    <div class="photo-cover">
+      <img
+        :src="imgPath+'shade.png'" 
+        class="cover-img"
+      >
+    </div>
   </div>
 </template>
 <script>
-import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
-import { customTrack } from 'modules/customTrack'
 const IMG_URL = 'http://p22vy0aug.bkt.clouddn.com/image/'
 import $ from 'jquery'
-
+import { $_wechat, wechatShareTrack } from 'services'
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
       imgPath: IMG_URL + 'xcdog/',
@@ -42,7 +55,7 @@ export default {
         desc: '4月5日-7日，苏州站邀你体验',
         imgUrl: IMG_URL + 'xcdog/icon.jpg',
         success: () => {
-          customTrack.shareWeChat()
+          wechatShareTrack()
         }
       }
     }
@@ -56,12 +69,18 @@ export default {
   mounted() {
     $('.photo-content').css('min-height', $(window).height())
     this.init()
+    $_wechat()
+      .then(res => {
+        res.share(this.wxShareInfoValue)
+      })
+      .catch(_ => {
+        console.warn(_.message)
+      })
   },
   methods: {
     getPeopleImage() {
       let id = decodeURI(this.$route.query.id)
-      marketService
-        .getInfoById(this, id)
+      getInfoById(id)
         .then(result => {
           this.photo = result.image
           console.log(result)
