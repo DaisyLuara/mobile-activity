@@ -1,31 +1,48 @@
 <template>
-  <div class="kissme-content">
-    <img  class="photo" :src="resultImgUrl" alt=""/>
+  <div 
+    class="kissme-content"
+    :style="style.root">
+    <img   
+      :src="resultImgUrl" 
+      alt=""
+      class="photo">
     <!--<img  class="photo" :src="imgServerUrl + '/pages/popcorn/Bronze.jpg'" alt=""/>-->
-    <img  class="kissme-one" :src="imgServerUrl + '/pages/popcorn/Kissme/1.png'" alt=""/>
-    <img  class="kissme-two" :src="imgServerUrl + '/pages/popcorn/Kissme/2.png'" alt=""/>
-    <img  class="kissme-three" :src="imgServerUrl + '/pages/popcorn/Kissme/3.png'" alt=""/>
-    <div class="jiantou">
-      <img :src="imgServerUrl + '/pages/popcorn/Kissme/A.gif'" alt="" >
+    <img  
+      :src="imgServerUrl + '/pages/popcorn/Kissme/1.png'" 
+      alt=""
+      class="kissme-one">
+    <img  
+      :src="imgServerUrl + '/pages/popcorn/Kissme/2.png'" 
+      alt=""
+      class="kissme-two">
+    <img  
+      :src="imgServerUrl + '/pages/popcorn/Kissme/3.png'" 
+      alt=""
+      class="kissme-three">
+    <div 
+      class="jiantou">
+      <img 
+        :src="imgServerUrl + '/pages/popcorn/Kissme/A.gif'" 
+        alt="" >
     </div>
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
 </template>
 <script>
 import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
 import parseService from 'modules/parseServer'
 import { customTrack } from 'modules/customTrack'
-
-const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
+import { $_wechat, wechatShareTrack } from 'services'
 import $ from 'jquery'
-
+const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
+const wih = window.innerHeight
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
+      style: {
+        root: {
+          height: wih + 'px'
+        }
+      },
       imgServerUrl: IMAGE_SERVER,
       resultImgUrl: '',
       //微信分享信息
@@ -37,8 +54,22 @@ export default {
       }
     }
   },
+  computed: {
+    //微信分享
+    wxShareInfo() {
+      let wxShareInfo = {
+        title: this.wxShareInfoValue.title,
+        desc: this.wxShareInfoValue.desc,
+        imgUrl: this.wxShareInfoValue.imgUrl,
+        success: () => {
+          customTrack.shareWeChat()
+        }
+      }
+      return wxShareInfo
+    }
+  },
   mounted() {
-    $('.kissme-content').css('min-height', $(window).height())
+    this.handleShare()
   },
   created() {
     this.getImageById()
@@ -55,20 +86,15 @@ export default {
         .catch(err => {
           console.log(err)
         })
-    }
-  },
-  computed: {
-    //微信分享
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
-        success: () => {
-          customTrack.shareWeChat()
-        }
-      }
-      return wxShareInfo
+    },
+    handleShare() {
+      $_wechat()
+        .then(res => {
+          res.share(this.wxShareInfoValue)
+        })
+        .catch(_ => {
+          console.warn(_.message)
+        })
     }
   }
 }

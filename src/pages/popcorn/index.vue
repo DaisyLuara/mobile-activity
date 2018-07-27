@@ -1,31 +1,47 @@
 <template>
-  <div class="popcorn-content">
-    <div class="photo-content">
-      <img  class="photo-bg" :src="imgServerUrl + '/pages/popcorn/screencut_area.png'" alt=""/>
-      <img  class="photo" :src="resultImgUrl" alt=""/>
-      <!--<img  class="photo" :src="imgServerUrl + '/pages/popcorn/Bronze.jpg'" alt=""/>-->
+  <div 
+    class="popcorn-content">
+    <div 
+      class="photo-content">
+      <img  
+        :src="imgServerUrl + '/pages/popcorn/screencut_area.png'" 
+        alt=""
+        class="photo-bg">
+      <img  
+        :src="resultImgUrl" 
+        alt=""
+        class="photo">
+      <!--
+        <img  
+          :src="imgServerUrl + '/pages/popcorn/Bronze.jpg'" 
+          alt=""
+          class="photo" >
+      -->
     </div>
-    <div class="save">
-      <img :src="imgServerUrl + '/pages/popcorn/save_buttom.png'" alt=""/>
+    <div 
+      class="save">
+      <img 
+        :src="imgServerUrl + '/pages/popcorn/save_buttom.png'"
+        alt="">
     </div>
-    <div class="button" >
-      <img :src="imgServerUrl + '/pages/popcorn/coupon.png'" alt="" @click="goResult()"/>
+    <div 
+      class="button" >
+      <img 
+        :src="imgServerUrl + '/pages/popcorn/coupon.png'" 
+        alt="" 
+        @click="goResult()">
     </div>        
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
 </template>
 <script>
 import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
 import parseService from 'modules/parseServer'
+import { $_wechat, wechatShareTrack } from 'services'
 import { customTrack } from 'modules/customTrack'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 import $ from 'jquery'
 
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
       imgServerUrl: IMAGE_SERVER,
@@ -42,38 +58,6 @@ export default {
       }
     }
   },
-  beforeCreate() {
-    document.title = '爆米花奥斯卡'
-  },
-  mounted() {
-    $('.popcorn-content').css('min-height', $(window).height())
-  },
-  created() {
-    //拿取图片id
-    this.getImageById()
-  },
-  methods: {
-    //拿取图片id
-    getImageById() {
-      let id = this.$route.query.id
-      marketService
-        .getInfoById(this, id)
-        .then(result => {
-          // console.log(result);
-          // console.log(this.resultImgUrl)
-          this.resultImgUrl = result.image
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    },
-    goResult() {
-      console.log('11111')
-      this.$router.push({
-        path: '/marketing/popcorn/result'
-      })
-    }
-  },
   computed: {
     //微信分享
     wxShareInfo() {
@@ -86,6 +70,45 @@ export default {
         }
       }
       return wxShareInfo
+    }
+  },
+  beforeCreate() {
+    document.title = '爆米花奥斯卡'
+  },
+  mounted() {
+    $('.popcorn-content').css('min-height', $(window).height())
+    this.handleShare()
+  },
+  created() {
+    //拿取图片id
+    this.getImageById()
+  },
+  methods: {
+    handleShare() {
+      $_wechat()
+        .then(res => {
+          res.share(this.wxShareInfoValue)
+        })
+        .catch(_ => {
+          console.warn(_.message)
+        })
+    },
+    //拿取图片id
+    getImageById() {
+      let id = this.$route.query.id
+      marketService
+        .getInfoById(this, id)
+        .then(result => {
+          this.resultImgUrl = result.image
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    goResult() {
+      this.$router.push({
+        path: '/marketing/popcorn/result'
+      })
     }
   }
 }

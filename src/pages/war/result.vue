@@ -1,29 +1,47 @@
 <template>
-  <div class="war-content">
-    <img  class="photo" :src="resultImgUrl" alt=""/>
-    <!--<img  class="photo" :src="imgServerUrl + '/pages/popcorn/Bronze.jpg'" alt=""/>-->
-    <img class="bot" :src="imgServerUrl + '/pages/war/Bot.png'" alt="" >
-    <div class="jiantou">
-        <img :src="imgServerUrl + '/pages/war/A.gif'" alt="" >
+  <div 
+    :style="style.root"
+    class="war-content">
+    <img  
+      :src="resultImgUrl" 
+      class="photo" 
+      alt="">
+    <!--
+      <img  
+        :src="imgServerUrl + '/pages/popcorn/Bronze.jpg'" 
+        class="photo" 
+        alt="">
+    -->
+    <img 
+      :src="imgServerUrl + '/pages/war/Bot.png'" 
+      class="bot" 
+      alt="" >
+    <div 
+      class="jiantou">
+      <img 
+        :src="imgServerUrl + '/pages/war/A.gif'" 
+        alt="" >
     </div>
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
 </template>
 <script>
+const wih = window.innerHeight
 import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
 import parseService from 'modules/parseServer'
 import { customTrack } from 'modules/customTrack'
+import { $_wechat, wechatShareTrack } from 'services'
 import $ from 'jquery'
 
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
+      style: {
+        root: {
+          height: wih + 'px'
+        }
+      },
       imgServerUrl: IMAGE_SERVER,
       resultImgUrl: '',
       //微信分享信息
@@ -35,8 +53,22 @@ export default {
       }
     }
   },
+  computed: {
+    //微信分享
+    wxShareInfo() {
+      let wxShareInfo = {
+        title: this.wxShareInfoValue.title,
+        desc: this.wxShareInfoValue.desc,
+        imgUrl: this.wxShareInfoValue.imgUrl,
+        success: () => {
+          customTrack.shareWeChat()
+        }
+      }
+      return wxShareInfo
+    }
+  },
   mounted() {
-    $('.war-content').css('min-height', $(window).height())
+    this.handleShare()
   },
   created() {
     this.getImageById()
@@ -53,20 +85,15 @@ export default {
         .catch(err => {
           console.log(err)
         })
-    }
-  },
-  computed: {
-    //微信分享
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
-        success: () => {
-          customTrack.shareWeChat()
-        }
-      }
-      return wxShareInfo
+    },
+    handleShare() {
+      $_wechat()
+        .then(res => {
+          res.share(this.wxShareInfoValue)
+        })
+        .catch(_ => {
+          console.warn(_.message)
+        })
     }
   }
 }
