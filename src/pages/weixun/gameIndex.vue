@@ -1,45 +1,55 @@
 <template>
+  <!-- eslint-disable -->
   <div
-    id="root"
-    class="root"
-    :style="style.root"
     v-if="status.hasFetchUserData || !status.isInWechat"
+    id="root"
+    :style="style.root"
+    class="root"
   >
     <!-- 宝箱 -->
     <div 
       :style="style.box"
+      class="root-box"
       @click="handleSuoHaOpen"
-      class="root-box">
+    >
       <img 
+        :src="serverUrl + 'lottery.png'"
         class="box-box"
-        :src="serverUrl + 'lottery.png'" />
+        alt=""
+      >
       
       <img
+        :src="serverUrl + 'suohua-text.png'" 
         class="box-text"
-        :src="serverUrl + 'suohua-text.png'" />
+        alt=""
+      >
     </div>
     <!-- bg -->
     <img 
+      :src="serverUrl + 'background_1.png'" 
       class="bg"
-      :src="serverUrl + 'background_1.png'" />
+    >
 
     <!-- 提取照片相框 -->
     <img 
+      :src="serverUrl + 'bottom_1.png'" 
       class="kuang"
-      :src="serverUrl + 'bottom_1.png'" />
+    >
 
     <!-- 相框上照片 -->
     <img
+      :src="imgUrl" 
       class="get-photo"
-      :src="imgUrl" />
+    >
 
     <!-- game -->
     <div
       :style="style.game" 
       class="game-div">
       <img
+        :src="serverUrl + 'bottom_2.png'" 
         class="game-bg"
-        :src="serverUrl + 'bottom_2.png'" />
+      >
 
       <!-- 录音 -->
       <div 
@@ -49,67 +59,79 @@
           <img :src="serverUrl + 'logo.png'">
         </div>
         <img 
+          :src="serverUrl + 'prompt_1.png'"
           class="prompt-1"
-          :src="serverUrl + 'prompt_1.png'" />
+        >
         <!-- 计时器 -->
         <div class="timer">
           <div class="text">
             <span>Time</span>
-            <span>{{this.control.time}}s</span>
+            <span>{{ control.time }}s</span>
           </div>
           <div class="line">
             <img
+              :src="serverUrl + 'schedule_1.png'" 
               class="line-1" 
-              :src="serverUrl + 'schedule_1.png'" />
+            >
             <img
               :style="style.line"
+              :src="serverUrl + 'schedule_2.png'" 
               class="line-2" 
-              :src="serverUrl + 'schedule_2.png'" />
+            >
           </div>
         </div>
 
         <!-- 录音提提示 -->
         <img
           v-show="status.isTimeButtonClick"
+          :src="serverUrl + 'recording.png'" 
           class="recording"
-          :src="serverUrl + 'recording.png'" />
+        >
         <div
           v-show="status.isAnalyzing"
           :style="style.recording"
-          class="recording">
-           <img
+          class="recording"
+        >
+          <img
+            :src="serverUrl + 'analysis_bg.png'" 
             class="innerBg"
-            :src="serverUrl + 'analysis_bg.png'" />
+          >
           <div class="innerText">
             <div class="textline1">撩人的声音</div>
             <div class="textline2">
-              <span v-show="this.control.commaCount % 3 === 0">正在分析中.</span>
-              <span v-show="this.control.commaCount % 3 === 1">正在分析中..</span>
-              <span v-show="this.control.commaCount % 3 === 2">正在分析中...</span>
+              <span v-show="control.commaCount % 3 === 0">正在分析中.</span>
+              <span v-show="control.commaCount % 3 === 1">正在分析中..</span>
+              <span v-show="control.commaCount % 3 === 2">正在分析中...</span>
             </div>
           </div>
         </div>
        
         <img 
+          :src="serverUrl + 'recorder.png'" 
           class="recorder"
-          :src="serverUrl + 'recorder.png'" />
+        >
         <img 
+          :src="serverUrl + 'prompt_2.png'" 
           class="prompt-2"
-          :src="serverUrl + 'prompt_2.png'" />
+        >
         <div
+          class="recoder-button"
           @touchstart="handleButtonTouch" 
           @touchend="handleButtonTouchEnd"
-          class="recoder-button">
+        >
           <img
             v-show="!status.isTimeButtonClick"
-            :src="serverUrl + 'button.png'" />
+            :src="serverUrl + 'button.png'"
+          >
           <img
             v-show="status.isTimeButtonClick"
-            :src="serverUrl + 'button_press.png'" />
+            :src="serverUrl + 'button_press.png'"
+          >
         </div>
         <img
           class="copywriting" 
-          :src="serverUrl + 'copywriting_' + random4 + '.png'">
+          :src="serverUrl + 'copywriting_' + random4 + '.png'"
+        >
       </div>
 
       <!-- 结果卡片 -->
@@ -117,82 +139,85 @@
         id="resultcard"
         class="result-contianer"
         v-show="status.shouldResultShow">
-        <div
-          class="card">
+        <div class="card">
           <img
+            :src="serverUrl + 'card_background.png'" 
             class="card-bg" 
-            :src="serverUrl + 'card_background.png'" />
+          >
           <img 
+            :src="serverUrl + 'avatar.png'" 
             class="card-avatar"
-            :src="serverUrl + 'avatar.png'" />
+          >
           <div 
             class="card-avatar-top"
             >
             <img 
-              :src="userInfo.headimgurl"  />
+              :src="userInfo.headimgurl"  
+            >
           </div>
-          <div
-            class="card-nickname">
-            {{userInfo.nickname}}
+          <div class="card-nickname">
+            {{ userInfo.nickname }}
           </div>
-          
           <!-- 卡片信息 -->
           <div class="card-info"> 
-              <div class="info-line">
-                <div class="line-label">音撩称号：</div>
-                <div class="line-value-1">{{randomInfo.chenghao}}</div>
+            <div class="info-line">
+              <div class="line-label">音撩称号：</div>
+              <div class="line-value-1">{{ randomInfo.chenghao }}</div>
+            </div>
+            <div class="info-line">
+              <div class="line-label">音撩特技：</div>
+              <div class="line-value-1">{{ randomInfo.teji[0] }}</div>
+              <div class="line-value-2">{{ randomInfo.teji[3] }}%</div>
+            </div>
+            <div class="info-line">
+              <div class="line-label"/>
+              <div class="line-value-1">{{ randomInfo.teji[1] }}</div>
+              <div class="line-value-2">{{ randomInfo.teji[4] }}%</div>
+            </div>
+            <div class="info-line">
+              <div class="line-label"></div>
+              <div class="line-value-1">{{ randomInfo.teji[2] }}</div>
+              <div class="line-value-2">{{ randomInfo.teji[5] }}%</div>
+            </div>
+            <div class="info-line">
+              <div class="line-label-l">
+                <span class="label">撩人指数:</span>
+                <span class="value">{{ randomInfo.zhishu }}</span>
               </div>
-              <div class="info-line">
-                <div class="line-label">音撩特技：</div>
-                <div class="line-value-1">{{randomInfo.teji[0]}}</div>
-                <div class="line-value-2">{{randomInfo.teji[3]}}%</div>
+              <div class="line-label-r">
+                <span class="label">心动值</span>
+                <span class="value">{{ randomInfo.xindongzhi }}</span>
               </div>
-              <div class="info-line">
-                <div class="line-label"></div>
-                <div class="line-value-1">{{randomInfo.teji[1]}}</div>
-                <div class="line-value-2">{{randomInfo.teji[4]}}%</div>
+            </div>
+            <div class="info-line-2">
+              <span class="line-label">扑倒成功率:</span>
+              <span class="line-value">{{ randomInfo.chenggonglv }}</span>
+            </div>
+            <div class="info-line-2">
+              <div class="line-label" style="width: 28% ">音色评价:</div>
+              <div class="line-value" style="width: 70% ">
+                <img 
+                  v-for="(item,index) in randomInfo.yinse" 
+                  :key="index" :src="serverUrl + 'love.png'" 
+                >
               </div>
-              <div class="info-line">
-                <div class="line-label"></div>
-                <div class="line-value-1">{{randomInfo.teji[2]}}</div>
-                <div class="line-value-2">{{randomInfo.teji[5]}}%</div>
-              </div>
-              <div class="info-line">
-                <div class="line-label-l">
-                  <span class="label">撩人指数:</span>
-                  <span class="value">{{randomInfo.zhishu}}</span>
-                </div>
-                <div class="line-label-r">
-                  <span class="label">心动值</span>
-                  <span class="value">{{randomInfo.xindongzhi}}</span>
-                </div>
-              </div>
-              <div class="info-line-2">
-                <span class="line-label">扑倒成功率:</span>
-                <span class="line-value">{{randomInfo.chenggonglv}}</span>
-              </div>
-              <div class="info-line-2">
-                <div class="line-label" style="width: 28% ">音色评价:</div>
-                <div class="line-value" style="width: 70% ">
-                  <img v-for="(item,index) in randomInfo.yinse" :key="index" :src="serverUrl + 'love.png'" />
-                </div>
-              </div>
-
+            </div>
           </div>
 
           <!-- 其他信息 -->
           <div class="card-more">
             <div class="logo-area">
               <img
+                :src="serverUrl + 'logo.png'" 
                 class="logo-img" 
-                :src="serverUrl + 'logo.png'" />
+              >
               <div
                 class="remind-word"> 
                 扫一扫，生成你的音撩报告
               </div>
             </div>
             <div class="qrcode">
-              <img :src="serverUrl + 'indexQrCode.png'" />
+              <img :src="serverUrl + 'indexQrCode.png'">
             </div>
           </div>
         </div>
@@ -204,11 +229,13 @@
             @touchend="handleAgainButtonTouchEnd" 
             class="button-contianer">
             <img
+              :src="serverUrl + 'button_1.png'" 
               v-show="!status.isAgainButtonTouch" 
-              :src="serverUrl + 'button_1.png'" />
+            >
             <img 
+              :src="serverUrl + 'button_1_press.png'" 
               v-show="status.isAgainButtonTouch" 
-              :src="serverUrl + 'button_1_press.png'" />
+            >
           </div>
           <div
             v-if="control.isInSharePage === false"
@@ -216,28 +243,30 @@
             @touchend.prevent="handleShareButtonTouchEnd"  
             class="button-contianer">
             <img
+              :src="serverUrl + 'button_2.png'" 
               v-show="!status.isShareButtonTouch" 
-              :src="serverUrl + 'button_2.png'" />
+            >
             <img
+              :src="serverUrl + 'button_2_press.png'" 
               v-show="status.isShareButtonTouch" 
-              :src="serverUrl + 'button_2_press.png'" />
+            >
           </div>
           <div 
             v-if="control.isInSharePage === true"
             @touchstart="handleIamGoPlayButtonTouch" 
             @touchend="handleIamGoPlayButtonTouchEnd" 
             class="button-contianer-middle">
-             <img
-              v-show="!status.isIamGoingToPlayClick" 
-              :src="serverUrl + 'button_3.png'" />
             <img
+              :src="serverUrl + 'button_3.png'" 
+              v-show="!status.isIamGoingToPlayClick" 
+            >
+            <img
+              :src="serverUrl + 'button_3_press.png'" 
               v-show="status.isIamGoingToPlayClick" 
-              :src="serverUrl + 'button_3_press.png'" />
+            >
           </div>
-        
         </div>      
       </div>
-
     </div>
     
     <!-- concert -->
@@ -250,12 +279,14 @@
       @touchend="handleConcertButtonTouchEnd"
       class="concert-button">
       <img
+        :src="serverUrl + 'concert_button.png'" 
         v-show="!status.isConcertButtonClick" 
-        :src="serverUrl + 'concert_button.png'" />
+      >
 
       <img
+        :src="serverUrl + 'concert_button_press.png'" 
         v-show="status.isConcertButtonClick" 
-        :src="serverUrl + 'concert_button_press.png'" />
+      >
 
     </div>
 

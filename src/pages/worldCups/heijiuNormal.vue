@@ -2,46 +2,38 @@
   <div
     :style="style.root"
     class="hj-root">
-      <wx-share :WxShareInfo="wxShareInfo"/>
-      <div
-        :style="style.photoOuter" 
-        class="root-photo">
-
-        <img 
-          :style="style.logo"
-          :src="this.baseUrl + 'logo.png'" />
-
+    <div
+      :style="style.photoOuter" 
+      class="root-photo">
+      <img 
+        :style="style.logo"
+        :src="baseUrl + 'logo.png'"
+      >
+      <img
+        :style="style.remind"
+        :src="baseUrl + 'remind.png'" 
+      >
+      <div class="inner-photo">
         <img
-          :style="style.remind"
-          :src="this.baseUrl + 'remind.png'" />
-
-        <div class="inner-photo">
-            <img
-            :style="style.innerPhoto"
-            :src="this.bindImage" />
-          </div>
-
+          :style="style.innerPhoto"
+          :src="bindImage" 
+        >
       </div>
-
       <img 
         :src="bindImage"
-        class="top-img"/>
+        class="top-img"
+      >
+    </div>
   </div>
 </template>
 
 <script>
-import WxShare from 'modules/wxShare'
-import marketService from 'services/marketing'
-import { customTrack } from 'modules/customTrack'
 import { Toast, Indicator } from 'mint-ui'
-
+import { $_wechat, getInfoById, wechatShareTrack } from 'services'
 const wiw = window.innerWidth
 const wih = window.innerHeight
 
 export default {
-  components: {
-    WxShare
-  },
   data() {
     const baseUrl =
       'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup/goal/'
@@ -87,12 +79,6 @@ export default {
       }
     }
   },
-  created() {
-    document.title = 'Hi啾拍照嗨翻天'
-  },
-  mounted() {
-    this.getInfoById()
-  },
   computed: {
     wxShareInfo() {
       let wxShareInfo = {
@@ -100,19 +86,34 @@ export default {
         desc: this.wxShareInfoValue.desc,
         imgUrl: this.wxShareInfoValue.imgUrl,
         success: function() {
-          customTrack.shareWeChat()
+          wechatShareTrack()
         }
       }
       return wxShareInfo
     }
   },
+  created() {
+    document.title = 'Hi啾拍照嗨翻天'
+  },
+  mounted() {
+    this.getInfoById()
+    this.handleShare()
+  },
   methods: {
+    handleShare() {
+      $_wechat()
+        .then(res => {
+          res.share(this.wxShareInfo)
+        })
+        .catch(_ => {
+          console.warn(_.message)
+        })
+    },
     getInfoById() {
       if (this.$route.query.hasOwnProperty('id')) {
         let id = this.$route.query.id
         let that = this
-        marketService
-          .getInfoById(this, id)
+        getInfoById(id)
           .then(res => {
             that.bindImage = res.image
           })

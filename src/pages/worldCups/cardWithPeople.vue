@@ -1,23 +1,21 @@
 <template>
   <div
+    :style="style.root"
     class="root"
-    :style="style.root">
-
+  >
     <div
       v-if="isLoading || isDrawing"
       :style="style.root" 
-      class="loading">
-    </div>
-
+      class="loading"/>
     <div
       v-if="!isDrawing"
       :style="style.root" 
       class="card">
       <img
+        :src="base64Data" 
         class="result" 
-        :src="base64Data" />
+      >
     </div>
-
   </div>
 </template>
 
