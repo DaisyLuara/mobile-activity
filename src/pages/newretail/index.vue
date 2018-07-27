@@ -20,6 +20,15 @@ export default {
         }
       }
     }
+  },
+  mounted() {
+    $_wechat()
+      .then(res => {
+        res.share(this.wxShareInfoValue)
+      })
+      .catch(_ => {
+        console.warn(_.message)
+      })
   }
 }
 </script>
