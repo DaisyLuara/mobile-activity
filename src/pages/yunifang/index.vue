@@ -1,28 +1,57 @@
 <template>
-  <div id="content" :style="style.root">
-    <div class="main">
-      <img class="bg" :src="imgServerUrl + '/pages/ynf/bg2.png'">
+  <div 
+    id="content" 
+    :style="style.root">
+    <div 
+      class="main">
+      <img 
+        class="bg" 
+        :src="imgServerUrl + '/pages/ynf/bg2.png'"
+        />
     </div>
-    <div class="photo-area">
-    <img  class="photo" :src="resultImgUrl" alt=""/>
+    <div 
+      class="photo-area">
+      <img   
+        class="photo" 
+        :src="resultImgUrl" 
+        alt=""
+        />
     <!-- <img class="photo"  :src="imgServerUrl + '/pages/ynf/3.png'" alt=""/> -->
     </div>
-    <img class="mouse1" :src="imgServerUrl + '/pages/ynf/mouse1.png'" alt=""/>
-    <img class="mouse2" :src="imgServerUrl + '/pages/ynf/mouse2.png'" alt=""/>
-    <div class="jiantou">
-      <img  :src="imgServerUrl + '/pages/ynf/nav.png'" alt="">
+    <img 
+      class="mouse1" 
+      :src="imgServerUrl + '/pages/ynf/mouse1.png'" 
+      alt=""
+      />
+    <img 
+      class="mouse2" 
+      :src="imgServerUrl + '/pages/ynf/mouse2.png'" 
+      alt=""
+      />
+    <div 
+      class="jiantou">
+      <img  
+        :src="imgServerUrl + '/pages/ynf/nav.png'" 
+        alt=""
+        />
     </div>
-    <div class="text">
-      <img  :src="imgServerUrl + '/pages/ynf/title.png'" alt="">
+    <div 
+      class="text">
+      <img  
+        :src="imgServerUrl + '/pages/ynf/title.png'" 
+        alt=""
+        />
     </div> 
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+    <!-- <wx-share :WxShareInfo="wxShareInfo"></wx-share> -->
   </div>
 
 </template>
 <script>
 const wih = window.innerHeight
-import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
+// import marketService from 'services/marketing'
+// import WxShare from 'modules/wxShare'
+import Vue from 'vue'
+import { getInfoById, $_wechat } from 'services'
 import { customTrack } from 'modules/customTrack'
 
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
@@ -54,19 +83,28 @@ export default {
   },
   mounted() {},
   created() {
-    this.getImageById()
+    this.getInfo()
+    this.handleShare()
   },
   methods: {
     //拿取图片id
-    getImageById() {
+    getInfo() {
       let id = this.$route.query.id
-      marketService
-        .getInfoById(this, id)
-        .then(result => {
-          this.resultImgUrl = result.image
+      getInfoById(id)
+        .then(res => {
+          this.resultImgUrl = res.image
         })
-        .catch(err => {
-          console.log(err)
+        .catch(_ => {
+          console.warn(_.message)
+        })
+    },
+    handleShare() {
+      $_wechat()
+        .then(res => {
+          res.share(this.wxShareInfoValue)
+        })
+        .catch(_ => {
+          console.warn(_.message)
         })
     }
   },
