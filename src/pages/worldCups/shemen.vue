@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-disable -->
   <div 
     v-if="loadingDone === true"
     :style="style.root"
@@ -195,6 +196,98 @@ const wiw = window.innerWidth
 export default {
   components: {
     GameMenu
+  },
+  data() {
+    return {
+      loadingDone: false,
+      bindImage: null,
+      baseUrl:
+        'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup/',
+      style: {
+        root: {
+          minHeight: window.innerHeight + 'px',
+          maxHeight: window.innerHeight + 'px'
+        },
+        mid: {},
+        mj: {
+          width: window.innerWidth * 200 / 750 + 'px'
+        },
+        tl: {
+          width: window.innerWidth * 200 / 750 + 'px'
+        },
+        card: {
+          width: window.innerWidth * 0.6 + 'px'
+        },
+        cardText: {
+          width: window.innerWidth * 0.6 + 'px',
+          zIndex: '40'
+        },
+        leftArrow: {
+          position: 'absolute',
+          top: window.innerWidth * 15 / 750 + 'px',
+          left: window.innerWidth * 20 / 750 + 'px',
+          width: window.innerWidth * 100 / 750 + 'px'
+        },
+        rightArrow: {
+          position: 'absolute',
+          top: window.innerWidth * 15 / 750 + 'px',
+          right: window.innerWidth * 20 / 750 + 'px',
+          width: window.innerWidth * 100 / 750 + 'px'
+        },
+        headScore: {
+          position: 'absolute',
+          top: wiw * 8 / 750 + 'px',
+          right: wiw * 260 / 750 + 'px',
+          width: wiw * 0.08 + 'px',
+          height: wiw * 0.034 + 'px',
+          display: 'flex',
+          zIndex: '30'
+        },
+        headPlayer: {
+          position: 'absolute',
+          top: wiw * 45 / 750 + 'px',
+          right: wiw * 340 / 750 + 'px',
+          height: wiw * 0.03 + 'px',
+          width: wiw * 0.08 + 'px',
+          display: 'flex',
+          zIndex: '30'
+        },
+        mj1: {
+          position: 'absolute',
+          top: window.innerWidth * 75 / 750 + 'px',
+          left: window.innerWidth * 85 / 750 + 'px',
+          width: window.innerWidth * 30 / 750 + 'px',
+          zIndex: '30',
+          display: 'flex'
+        },
+        mj2: {
+          position: 'absolute',
+          top: window.innerWidth * 80 / 750 + 'px',
+          left: window.innerWidth * 100 / 750 + 'px',
+          width: window.innerWidth * 20 / 750 + 'px',
+          zIndex: '30'
+        },
+        tl1: {
+          position: 'absolute',
+          top: window.innerWidth * 75 / 750 + 'px',
+          left: window.innerWidth * 90 / 750 + 'px',
+          width: window.innerWidth * 30 / 750 + 'px',
+          zIndex: '30',
+          display: 'flex'
+        }
+      },
+      score: 1000,
+      player: 100,
+      mj: 30,
+      tl: 30,
+      mjadd: 34,
+      tladd: 45,
+      control: {
+        currentMenu: 1
+      },
+      title: -1,
+      gamerst: null
+    }
   },
   created() {
     this.InitBasic()
@@ -468,98 +561,6 @@ export default {
       } else {
         Toast('你还没有玩过这个游戏')
       }
-    }
-  },
-  data() {
-    return {
-      loadingDone: false,
-      bindImage: null,
-      baseUrl:
-        'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup/',
-      style: {
-        root: {
-          minHeight: window.innerHeight + 'px',
-          maxHeight: window.innerHeight + 'px'
-        },
-        mid: {},
-        mj: {
-          width: window.innerWidth * 200 / 750 + 'px'
-        },
-        tl: {
-          width: window.innerWidth * 200 / 750 + 'px'
-        },
-        card: {
-          width: window.innerWidth * 0.6 + 'px'
-        },
-        cardText: {
-          width: window.innerWidth * 0.6 + 'px',
-          zIndex: '40'
-        },
-        leftArrow: {
-          position: 'absolute',
-          top: window.innerWidth * 15 / 750 + 'px',
-          left: window.innerWidth * 20 / 750 + 'px',
-          width: window.innerWidth * 100 / 750 + 'px'
-        },
-        rightArrow: {
-          position: 'absolute',
-          top: window.innerWidth * 15 / 750 + 'px',
-          right: window.innerWidth * 20 / 750 + 'px',
-          width: window.innerWidth * 100 / 750 + 'px'
-        },
-        headScore: {
-          position: 'absolute',
-          top: wiw * 8 / 750 + 'px',
-          right: wiw * 260 / 750 + 'px',
-          width: wiw * 0.08 + 'px',
-          height: wiw * 0.034 + 'px',
-          display: 'flex',
-          zIndex: '30'
-        },
-        headPlayer: {
-          position: 'absolute',
-          top: wiw * 45 / 750 + 'px',
-          right: wiw * 340 / 750 + 'px',
-          height: wiw * 0.03 + 'px',
-          width: wiw * 0.08 + 'px',
-          display: 'flex',
-          zIndex: '30'
-        },
-        mj1: {
-          position: 'absolute',
-          top: window.innerWidth * 75 / 750 + 'px',
-          left: window.innerWidth * 85 / 750 + 'px',
-          width: window.innerWidth * 30 / 750 + 'px',
-          zIndex: '30',
-          display: 'flex'
-        },
-        mj2: {
-          position: 'absolute',
-          top: window.innerWidth * 80 / 750 + 'px',
-          left: window.innerWidth * 100 / 750 + 'px',
-          width: window.innerWidth * 20 / 750 + 'px',
-          zIndex: '30'
-        },
-        tl1: {
-          position: 'absolute',
-          top: window.innerWidth * 75 / 750 + 'px',
-          left: window.innerWidth * 90 / 750 + 'px',
-          width: window.innerWidth * 30 / 750 + 'px',
-          zIndex: '30',
-          display: 'flex'
-        }
-      },
-      score: 1000,
-      player: 100,
-      mj: 30,
-      tl: 30,
-      mjadd: 34,
-      tladd: 45,
-      control: {
-        currentMenu: 1
-      },
-      title: -1,
-      gamerst: null
     }
   }
 }

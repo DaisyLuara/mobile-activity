@@ -1,33 +1,89 @@
 <template>
-  <div class="ad-wrap">
-    <img v-lazy="imgServerUrl + '/xing1.png'" alt="" class="img"/>
-    <div class="ad_02">
-      <img v-lazy="imgServerUrl + '/xing2.png'" alt="" class="ad_02_img"/>
-      <img v-lazy="imgServerUrl + '/num1.png'" alt="" class="num1"/>
-      <img v-lazy="imgServerUrl + '/one.gif'" alt="" class="gif_1"/>
-      <img v-lazy="imgServerUrl + '/num2.png'" alt="" class="num2"/>
-      <img v-lazy="imgServerUrl + '/two.gif'" alt="" class="gif_2"/>
-      <img v-lazy="imgServerUrl + '/num3.png'" alt="" class="num3"/>
-      <img v-lazy="imgServerUrl + '/three.gif'" alt="" class="gif_3"/>
+  <div
+    class="ad-wrap">
+    <img
+      v-lazy="imgServerUrl + '/xing1.png'"
+      class="img"
+      alt="">
+    <div
+      class="ad_02">
+      <img
+        v-lazy="imgServerUrl + '/xing2.png'"
+        alt=""
+        class="ad_02_img">
+      <img 
+        v-lazy="imgServerUrl + '/num1.png'"
+        alt=""
+        class="num1">
+      <img 
+        v-lazy="imgServerUrl + '/one.gif'"
+        alt=""
+        class="gif_1">
+      <img 
+        v-lazy="imgServerUrl + '/num2.png'"
+        alt=""
+        class="num2">
+      <img 
+        v-lazy="imgServerUrl + '/two.gif'"
+        alt=""
+        class="gif_2">
+      <img 
+        v-lazy="imgServerUrl + '/num3.png'"
+        alt=""
+        class="num3">
+      <img 
+        v-lazy="imgServerUrl + '/three.gif'"
+        alt=""
+        class="gif_3">
     </div>
-    <img v-lazy="imgServerUrl + '/xing3.png'" alt="" class="img"/>
-    <div class="ad_04">
-      <img v-lazy="imgServerUrl + '/xing4.png'" alt="" class="img"/>
-      <video id="vedio"  webkit-playsinline="true" playsinline="true" x-webkit-airplay="true"  controls width="100%" class="vedio" v-show="!bgshow">
-        <source :src="imgServerUrl+'/vedio.mp4'" type="video/mp4">
-          您的浏览器不支持video标签.
+    <img
+      v-lazy="imgServerUrl + '/xing3.png'"
+      alt=""
+      class="img">
+    <div
+      class="ad_04">
+      <img
+        v-lazy="imgServerUrl + '/xing4.png'"
+        alt=""
+        class="img">
+      <video
+        v-show="!bgshow"
+        id="vedio"
+        webkit-playsinline="true"
+        playsinline="true"
+        x-webkit-airplay="true" 
+        controls
+        width="100%"
+        class="vedio">
+        <source
+          :src="imgServerUrl+'/vedio.mp4'" 
+          type="video/mp4">
+        您的浏览器不支持video标签.
       </video>
-      <img v-lazy="imgServerUrl+'/vedio_bg.png'" class="bg" v-show="bgshow">
-      <a @click="vPlay" class="vplay" v-show="bgshow"><img :src="imgServerUrl + '/btn.png'"></a>
+      <img  
+        v-lazy="imgServerUrl+'/vedio_bg.png'"
+        v-show="bgshow"
+        class="bg">
+      <a
+        v-show="bgshow"
+        class="vplay"
+        @click="vPlay" >
+        <img :src="imgServerUrl + '/btn.png'">
+      </a>
     </div>
     <div class="ad_05">
       <img 
         v-lazy="imgServerUrl + '/xing5.png'" alt="" class="img"/>
       <img v-lazy="imgServerUrl + '/four.gif'" alt="" class="gif_4"/>
     </div>
-    <img v-lazy="imgServerUrl + '/xing6.png'" alt="" class="img"/>
-    <img v-lazy="imgServerUrl + '/xing7.png'" alt="" class="img"/>
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+    <img
+      v-lazy="imgServerUrl + '/xing6.png'"
+      alt=""
+      class="img">
+    <img
+      v-lazy="imgServerUrl + '/xing7.png'"
+      alt=""
+      class="img">
   </div>
 </template>
 <script>

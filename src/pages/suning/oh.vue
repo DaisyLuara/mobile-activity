@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-diable -->
   <div class="oh-content" :style="style.root" >
     <img class="title" :src="imgServerUrl + '/pages/oh/title.png'" alt="" >
     <img  class="photo" :style="style.photoHei" :src="resultImgUrl" alt=""/>

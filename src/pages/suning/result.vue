@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-diable -->
   <div class="suning-content">
     <img  class="photo" :src="resultImgUrl" alt=""/> 
     <!--<img  class="photo" :src="imgServerUrl + '/pages/popcorn/Bronze.jpg'" alt=""/>-->

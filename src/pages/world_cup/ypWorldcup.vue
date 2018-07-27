@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-disable -->
     <div 
       class="content" 
       :style="style.root">
@@ -35,6 +36,7 @@
     </div>
 </template>
 <script>
+/* eslint-disable */
 const wih = window.innerHeight
 import marketService from 'services/marketing'
 import WxShare from 'modules/wxShare'

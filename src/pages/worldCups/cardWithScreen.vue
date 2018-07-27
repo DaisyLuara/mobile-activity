@@ -1,30 +1,32 @@
 <template>
   <div
-    @click="handleEvent"
     :style="style.root"
-    class="root">
+    class="root"
+    @click="handleEvent"
+  >
     <img 
-      @touchstart="handleStopBubble"
       class="root-bg"
-      src="https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/lottie/lottie-bg.png">
+      src="https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/lottie/lottie-bg.png"
+      @touchstart="handleStopBubble"
+    >
     <div
       id="animation"
       class="animation"
     />
     <img
-      :style="style.photo"
       v-if="photoUrl !== null"
-      class="photo"
+      :style="style.photo"
       :src="photoUrl + this.$qiniuCompress()"
-      />
-    
+      class="photo"
+    >
     <div
-      :style="style.score" 
-      class="score">
-      <span>{{score.portugal}}</span>
-      <span>{{score.argentina}}</span>
-      <span>{{score.germany}}</span>
-      <span>{{score.brazil}}</span>
+      :style="style.score"
+      class="score"
+    >
+      <span>{{ score.portugal }}</span>
+      <span>{{ score.argentina }}</span>
+      <span>{{ score.germany }}</span>
+      <span>{{ score.brazil }}</span>
     </div>
   </div>
 </template>

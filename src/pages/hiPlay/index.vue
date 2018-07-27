@@ -1,24 +1,26 @@
 <template>
-  <div class="war-content">
-      <img  class="photo" :src="resultImgUrl" alt=""/>
-      <!-- <img  class="photo" src="http://o9xrbl1oc.bkt.clouddn.com/1007/image/1492786765568.jpg" alt=""/> -->
-      <div class="jiantou">
-          <img :src="imgServerUrl + '/pages/hiplay/arrow.gif'" alt="" >
-      </div>
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+  <div
+    class="war-content">
+    <img  
+      :src="resultImgUrl" 
+      class="photo"
+      alt="">
+    <div 
+      class="jiantou">
+      <img 
+        :src="imgServerUrl + '/pages/hiplay/arrow.gif'"
+        alt="" >
+    </div>
   </div>
 </template>
 <script>
 import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
+import { $_wechat, wechatShareTrack } from 'services'
 import $ from 'jquery'
 
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
       imgServerUrl: IMAGE_SERVER,
@@ -28,7 +30,10 @@ export default {
         title: '心里有舞台，哪里都能嗨！点击领取你的“DJ”靓照',
         desc: '2018下一位嗨玩百大DJ就是你！',
         imgUrl:
-          'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/hiplay-share-icon.jpg'
+          'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/hiplay-share-icon.jpg',
+        success: function() {
+          wechatShareTrack()
+        }
       }
     }
   },
@@ -37,6 +42,13 @@ export default {
   },
   mounted() {
     $('.war-content').css('height', $(window).height())
+    $_wechat()
+      .then(res => {
+        res.share(this.wxShareInfoValue)
+      })
+      .catch(_ => {
+        console.warn(_.message)
+      })
   },
   created() {
     this.getImageById()
@@ -53,20 +65,6 @@ export default {
         .catch(err => {
           console.log(err)
         })
-    }
-  },
-  computed: {
-    //微信分享
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
-        success: () => {
-          customTrack.shareWeChat()
-        }
-      }
-      return wxShareInfo
     }
   }
 }

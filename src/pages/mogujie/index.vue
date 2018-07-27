@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-disable -->
   <div class="mogu-coupon-wrap">
     <img class="title" :src="imgServerUrl + '/pages/mogujie/title.png'" alt=""/>
     <div class="img-wrap">
