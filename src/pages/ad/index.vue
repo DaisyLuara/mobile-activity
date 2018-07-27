@@ -21,7 +21,8 @@
       <a @click="vPlay" class="vplay" v-show="bgshow"><img :src="imgServerUrl + '/btn.png'"></a>
     </div>
     <div class="ad_05">
-      <img v-lazy="imgServerUrl + '/xing5.png'" alt="" class="img"/>
+      <img 
+        v-lazy="imgServerUrl + '/xing5.png'" alt="" class="img"/>
       <img v-lazy="imgServerUrl + '/four.gif'" alt="" class="gif_4"/>
     </div>
     <img v-lazy="imgServerUrl + '/xing6.png'" alt="" class="img"/>
@@ -37,9 +38,6 @@ import Vue from 'vue'
 
 Vue.use(Lazyload)
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
       imgServerUrl: IMAGE_SERVER + '/pages/ad',
