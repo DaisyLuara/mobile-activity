@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-disable -->
   <div class="popcorn-content">
     <img  class="title" :src="imgServerUrl + '/pages/popcorn/top_title.png'" alt=""/>
     <img  class="coupon" :src="imgServerUrl + '/pages/popcorn/coupon.png'" alt=""/>

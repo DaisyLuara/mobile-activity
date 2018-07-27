@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-disable -->
   <div class="popcorn-content">
     <div class="photo-content">
       <img  class="photo-bg" :src="imgServerUrl + '/pages/popcorn/screencut_area.png'" alt=""/>

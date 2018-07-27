@@ -1,50 +1,58 @@
 <template>
-  <div class="root" :style="style.root">
+  <div 
+    :style="style.root"
+    class="root" 
+  >
     <img
+      :src="serverUrl + 'bg-inner.jpg' + this.$qiniuCompress()" 
       class="bg" 
-      :src="serverUrl + 'bg-inner.jpg' + this.$qiniuCompress()" />
+    >
     <img
+      :src="serverUrl + 'title.png' + this.$qiniuCompress()" 
       class="title"
-      :src="serverUrl + 'title.png' + this.$qiniuCompress()" />
+    >
     <img 
-      class="dagger"
+      :src="serverUrl + 'dagger.png' + this.$qiniuCompress()"
       :style="style.dagger"
-      :src="serverUrl + 'dagger.png' + this.$qiniuCompress()" />
+      class="dagger"
+    >
     <div
       :style="style.photo"
       class="photo">
       <img
+        :src="serverUrl + 'photo-cover.png' + this.$qiniuCompress()"
         style="width: 100%;"
-        :src="serverUrl + 'photo-cover.png' + this.$qiniuCompress()" />
+      >
       <div 
         :style="style.priceArea"
-        class="price-area">
-          <img :src="serverUrl + 's.png'" />
-          <img v-for="(item, index) in bindNumber" :key="index" :src="serverUrl + String(item) + '.png'" />
+        class="price-area"
+      >
+          <img :src="serverUrl + 's.png'">
+          <img 
+            v-for="(item, index) in bindNumber" 
+            :key="index" :src="serverUrl + String(item) + '.png'" 
+          >
       </div>
     </div>
-    <!-- show Photo -->
-    <!-- <img
-      :style="style.coverphoto"
-      class="cover-photo"
-      :src="bindImgUrl + this.$qiniuCompress()" /> -->
-    
     <div 
       :style="style.coverphoto"
       class="cover-photo">
       <img
         class="inner-photo"
-        :src="bindImgUrl + this.$qiniuCompress()" />
+        :src="bindImgUrl + this.$qiniuCompress()" 
+      >
     </div>
     <!-- real photo -->
     <img
+      :src="bindImgUrl + this.$qiniuCompress()" 
       :style="style.realphoto"
       class="real-photo"
-      :src="bindImgUrl + this.$qiniuCompress()" />
+    >
     <img
+      :src="serverUrl + 'save-remind.png' + this.$qiniuCompress()"
       :style="style.remind"
       class="remind" 
-      :src="serverUrl + 'save-remind.png' + this.$qiniuCompress()"/>
+    >
   </div>
 </template>
 
