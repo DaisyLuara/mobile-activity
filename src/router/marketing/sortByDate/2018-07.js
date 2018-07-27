@@ -295,6 +295,16 @@ const Date201807 = [
       desc: '七夕节页面'
     },
     isAbandoned: false
+  },
+  {
+    path: 'newretail',
+    location: 'newretail/index',
+    name: 'newRetail',
+    meta: {
+      title: '场景新媒体 赋能新零售',
+      author: 'Anluis',
+      desc: '不知道什么鬼的页面'
+    }
   }
 ]
 export default Date201807
