@@ -3,36 +3,50 @@
     <div class="photo-content">
       <div class="boots-wrap">
         <div class="slide-wrap pos-common">
-          <img class="boot-line pos-common" :src="imgServerUrl + '/boot-line.png'">
-          <img class="boot-text pos-common" :src="imgServerUrl + '/boot-text.png'">
-          <img class="gesture-img pos-common" :src="imgServerUrl + '/gesture-img.png'">
-          <div class="boot-img"></div>
+          <img
+            :src="imgServerUrl + '/boot-line.png'" 
+            class="boot-line pos-common"
+          >
+          <img
+            :src="imgServerUrl + '/boot-text.png'" 
+            class="boot-text pos-common"
+          >
+          <img
+            :src="imgServerUrl + '/gesture-img.png'" 
+            class="gesture-img pos-common"
+          >
+          <div class="boot-img" />
         </div>
       </div>
       <div class="photo-wrap">
-        <img class="envelope-bg" :src="imgServerUrl + '/photo_frame.png'">
-        <img class="photo-img" :src="img_url">
+        <img
+          :src="imgServerUrl + '/photo_frame.png'" 
+          class="envelope-bg"
+        >
+        <img
+          :src="img_url" 
+          class="photo-img"
+        >
         <div class="photo-cover">
-          <img class="cover-img" :src="imgServerUrl + '/photo-cover2.png'">
+          <img
+            :src="imgServerUrl + '/photo-cover2.png'" 
+            class="cover-img"
+          >
         </div>
-        <img class="save-img" :src="imgServerUrl + '/save-img3.png'">
+        <img
+          :src="imgServerUrl + '/save-img3.png'" 
+          class="save-img" 
+        >
       </div>
     </div>
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
 </template>
 <script>
-import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
-import { customTrack } from 'modules/customTrack'
 import $ from 'jquery'
-
+import { $_wechat, getInfoById, wechatShareTrack } from 'services'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
       img_url: '',
@@ -43,7 +57,7 @@ export default {
         imgUrl:
           'http://p22vy0aug.bkt.clouddn.com/image/xiecheng/travelicon.png',
         success: () => {
-          customTrack.shareWeChat()
+          wechatShareTrack()
         }
       }
     }
@@ -54,6 +68,13 @@ export default {
   mounted() {
     $('.photo-content').css('min-height', $(window).height())
     this.init()
+    $_wechat()
+      .then(res => {
+        res.share(this.wxShareInfoValue)
+      })
+      .catch(_ => {
+        console.warn(_.message)
+      })
   },
   created() {
     this.getPeopleImage()
@@ -61,8 +82,7 @@ export default {
   methods: {
     getPeopleImage() {
       let id = decodeURI(this.$route.query.id)
-      marketService
-        .getInfoById(this, id)
+      getInfoById(id)
         .then(result => {
           this.img_url = result.image
         })
