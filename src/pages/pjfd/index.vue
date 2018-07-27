@@ -32,8 +32,7 @@
 
 <script>
 const wih = window.innerHeight
-import { customTrack } from 'modules/customTrack'
-import { $_wechat, getInfoById } from 'services'
+import { $_wechat, getInfoById, wechatShareTrack } from 'services'
 import { Toast } from 'mint-ui'
 
 const IMAGE_SERVER =
@@ -51,7 +50,10 @@ export default {
       wxShareInfoValue: {
         title: '浦江饭店',
         desc: '与浦江合影留念',
-        imgUrl: IMAGE_SERVER + 'share.png'
+        imgUrl: IMAGE_SERVER + 'share.png',
+        success: function() {
+          wechatShareTrack()
+        }
       },
       isHorn: false,
       photo: null
@@ -69,7 +71,6 @@ export default {
       })
       .catch(_ => {
         console.warn(_.message)
-        console.dir(_)
       })
   },
   methods: {

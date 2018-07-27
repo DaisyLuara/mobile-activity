@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-disable -->
   <div
     v-if="loadingDone === true"
     :style="style.root" 

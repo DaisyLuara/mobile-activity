@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-disable -->
   <div 
     :style="style.menu"
     class="menu-root">

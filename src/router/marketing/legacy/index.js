@@ -168,7 +168,8 @@ const lagacyPages = [
     meta: {
       title: '球星卡'
     },
-    name: 'WorldCupCard'
+    name: 'WorldCupCard',
+    isAbandoned: true
   },
   {
     path: 'wc_shemen',
@@ -176,7 +177,8 @@ const lagacyPages = [
     name: 'WorldCupShemen',
     meta: {
       title: '吹气射门'
-    }
+    },
+    isAbandoned: true
   },
   {
     path: 'animal',
@@ -400,7 +402,8 @@ const lagacyPages = [
     meta: {
       title: '球星卡'
     },
-    name: 'WorldCupCardPhone'
+    name: 'WorldCupCardPhone',
+    isAbandoned: true
   },
   {
     path: 'war',

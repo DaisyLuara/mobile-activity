@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-disable -->
   <div class="wcp-wrap" ref="wcpRoot">
     
   </div>

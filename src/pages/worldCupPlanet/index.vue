@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-disable -->
   <div class="wcp-wrap" >
     <div class="header">
       <img class="header-img" src="/static/wcp/header.png" />
