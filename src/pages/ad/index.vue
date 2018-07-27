@@ -71,16 +71,10 @@
         <img :src="imgServerUrl + '/btn.png'">
       </a>
     </div>
-    <div
-      class="ad_05">
-      <img
-        v-lazy="imgServerUrl + '/xing5.png'"
-        alt=""
-        class="img">
+    <div class="ad_05">
       <img 
-        v-lazy="imgServerUrl + '/four.gif'"
-        alt=""
-        class="gif_4">
+        v-lazy="imgServerUrl + '/xing5.png'" alt="" class="img"/>
+      <img v-lazy="imgServerUrl + '/four.gif'" alt="" class="gif_4"/>
     </div>
     <img
       v-lazy="imgServerUrl + '/xing6.png'"

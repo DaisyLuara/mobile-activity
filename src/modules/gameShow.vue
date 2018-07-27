@@ -88,7 +88,7 @@ export default {
         if (r.belong === 'colorPrintHilton') {
           this.gameData.projectOne = true
         }
-        if (r.belong === 'LXXJTurntable') {
+        if (r.belong === 'MCXJTurntable') {
           this.gameData.projectTwo = true
         }
         if (r.belong === 'WorldCup2018') {
