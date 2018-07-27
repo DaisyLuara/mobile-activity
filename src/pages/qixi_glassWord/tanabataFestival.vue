@@ -2,11 +2,9 @@
   <div
     :style="style.root" 
     class="root">
-    <div class="bg"></div>
-    <!-- 动画部分 -->
-    <!-- <div id="animation"
-      class="animation"
-    /> -->
+    <div class="bg">
+      <img :src="baseUrl + 'bg.png?v=111'"/>
+    </div>
      <div class="photo">
       <img  v-if="photoUrl !== null" :src="photoUrl+ this.$qiniuCompress()" alt=""/>
       <!-- <img  :src="baseUrl + '666.jpeg'"/>  -->
@@ -15,6 +13,11 @@
       <img  v-if="photoUrl !== null" :src="photoUrl+ this.$qiniuCompress()" alt=""/>
       <!-- <img  :src="baseUrl + '666.jpeg'"/>  -->
     </div>  
+    <img class="fu-17" :src="baseUrl + 'fu_17.png'+this.$qiniuCompress()"/>
+    <img class="fu-2" :src="baseUrl + 'fu_2.png'+this.$qiniuCompress()"/>
+    <img class="fu-3" :src="baseUrl + 'fu_3.png'+this.$qiniuCompress()"/>
+    <img class="fu-7" :src="baseUrl + 'fu_7.png'+this.$qiniuCompress()"/>
+    <img class="fu-16" :src="baseUrl + 'fu_16.png'+this.$qiniuCompress()"/>
     <div class="arrow">
       <img  :src="baseUrl + 'img_0.png'+this.$qiniuCompress()"/> 
     </div>
@@ -54,7 +57,6 @@ export default {
     this.getInfo()
   },
   mounted() {
-    //this.initAnimation()
     this.handleWeChatShare()
   },
 
@@ -81,17 +83,6 @@ export default {
           console.warn(_.message)
         })
     }
-    // initAnimation() {
-    //   const el = document.getElementById('animation')
-    //   lottie.loadAnimation({
-    //     container: el, // the dom element that will contain the animation
-    //     renderer: 'html',
-    //     loop: true,
-    //     autoplay: true,
-    //     assetsPath: 'http://cdn.exe666.com/fe/marketing/qixi/img/',
-    //     path: 'http://cdn.exe666.com/fe/marketing/qixi/json/data.json' // the path to the animation json
-    //   })
-    // }
   }
 }
 </script>
@@ -106,22 +97,13 @@ export default {
   .bg {
     width: 100%;
     height: 100%;
-    background-repeat: no-repeat;
-    background-image: url('@{imageHost}/H5_00000.png');
-    background-size: 100% 100%;
     position: absolute;
     z-index: 2;
+    img {
+      width: 100%;
+      height: 100%;
+    }
   }
-  // .animation {
-  //   width: 100%;
-  //   height: 100%;
-  //   display: block;
-  //   overflow: hidden;
-  //   transform: translate3d(0, 0, 0);
-  //   opacity: 1;
-  //   position: absolute;
-  //   // z-index: 2;
-  // }
   .photo {
     width: 70.5%;
     position: absolute;
@@ -147,6 +129,51 @@ export default {
       height: 100%;
     }
   }
+  .fu-17 {
+    position: absolute;
+    right: 0;
+    top: 13%;
+    z-index: 0;
+    width: 35%;
+    z-index: 3;
+    animation: arrow 1.2s linear infinite alternate;
+  }
+  .fu-2 {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    z-index: 0;
+    width: 16%;
+    z-index: 3;
+    animation: arrow 1.2s linear infinite alternate;
+  }
+  .fu-3 {
+    position: absolute;
+    left: 0;
+    top: 13%;
+    z-index: 0;
+    width: 30%;
+    z-index: 3;
+    animation: loveScale 2s ease-out infinite forwards;
+  }
+  .fu-7 {
+    position: absolute;
+    left: -3%;
+    bottom: 1%;
+    z-index: 0;
+    width: 37%;
+    z-index: 3;
+    animation: loveScale 2s ease-out infinite forwards;
+  }
+  .fu-16 {
+    position: absolute;
+    right: -3%;
+    bottom: 1%;
+    z-index: 0;
+    width: 37%;
+    z-index: 3;
+    animation: loveScale 2s ease-out infinite forwards;
+  }
   .arrow {
     width: 100%;
     position: absolute;
@@ -154,7 +181,7 @@ export default {
     bottom: 13%;
     text-align: center;
     z-index: 3;
-    animation: arrows 0.8s ease-out infinite alternate;
+    animation: arrow 1.2s linear infinite alternate;
     img {
       width: 24%;
     }
@@ -166,20 +193,33 @@ export default {
     bottom: 8.5%;
     text-align: center;
     z-index: 3;
-    animation: arrows 0.8s ease-out infinite alternate;
+    animation: arrow 1.2s linear infinite alternate;
 
     .title {
       width: 77%;
     }
   }
 }
-
-@keyframes arrows {
+@keyframes arrow {
   0% {
     transform: translateY(-8px);
   }
+  50% {
+    transform: translateY(0);
+  }
   100% {
-    transform: translateY(0px);
+    transform: translateY(8px);
+  }
+}
+@keyframes loveScale {
+  from {
+    transform: scale(1.1, 1.1);
+  }
+  50% {
+    transform: scale(1.3, 1.3);
+  }
+  to {
+    transform: scale(1.1, 1.1);
   }
 }
 </style>
