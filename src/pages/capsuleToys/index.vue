@@ -168,9 +168,6 @@ export default {
         })
         .catch(err => {})
     }
-  },
-  components: {
-    WxShare
   }
 }
 </script>

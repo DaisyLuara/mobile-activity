@@ -1,7 +1,6 @@
 <template>
   <div 
-    class="hilton-content"
-    :style="style.root">
+    class="hilton-content">
     <img 
       :src="imgServerUrl + '/pages/hiltonMla/bg.jpg'"
       alt="" 
@@ -52,17 +51,11 @@ import { $_wechat, wechatShareTrack } from 'services'
 import parseService from 'modules/parseServer'
 import { customTrack } from 'modules/customTrack'
 import $ from 'jquery'
-const wih = window.innerHeight
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 
 export default {
   data() {
     return {
-      style: {
-        root: {
-          height: wih + 'px'
-        }
-      },
       imgServerUrl: IMAGE_SERVER,
       resultImgUrl: '',
       type: this.$route.query.type,
@@ -94,6 +87,7 @@ export default {
     }
   },
   mounted() {
+    $('.hilton-content').css('min-height', $(window).height())
     this.handleShare()
   },
   created() {
