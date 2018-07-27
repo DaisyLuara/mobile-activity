@@ -44,8 +44,8 @@ export default {
       },
       photoUrl: '',
       wxShareInfo: {
-        title: '点我，开启无限乐趣',
-        desc: '唤醒雪人，开始圣诞之旅',
+        title: '七夕，我们谈个恋爱吧！',
+        desc: '用一生说我爱你',
         imgUrl: cdnUrl + '/fe/marketing/img/tanabataFestival/share.png',
         success: () => {
           wechatShareTrack()
