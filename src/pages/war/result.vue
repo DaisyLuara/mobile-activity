@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-disable -->
   <div class="war-content">
     <img  class="photo" :src="resultImgUrl" alt=""/>
     <!--<img  class="photo" :src="imgServerUrl + '/pages/popcorn/Bronze.jpg'" alt=""/>-->
@@ -10,6 +11,7 @@
   </div>
 </template>
 <script>
+/* eslint-disable */
 import marketService from 'services/marketing'
 import WxShare from 'modules/wxShare'
 import parseService from 'modules/parseServer'

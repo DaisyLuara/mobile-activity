@@ -1,30 +1,31 @@
 <template>
-  <div class="root" :style="style.root">
+  <div 
+    :style="style.root"
+    class="root" 
+  >
     <img
+      :src="serverUrl + 'bg-phone.jpg'" 
       class="bg" 
-      :src="serverUrl + 'bg-phone.jpg'" />
-
+    >
     <div
       v-show="shouldRemindShow"
       :style="style.remind" 
       class="input-remind">
       请输入手机号码
     </div>
-
     <input 
-      maxlength="11"
-      :style="style.input" 
-      v-model="phoneValue" 
       class="input" 
+      :style="style.input" 
+      maxlength="11"
       @click="hideRemind()" 
-      @blur="showRemind()"/>
-
-      <img
-        :style="style.button"
-        class="button"
-        @click="handlebuttonClick()"
-        :src="serverUrl + 'button.png' + this.$qiniuCompress()"
-        />
+      @blur="showRemind()"
+    >
+    <img
+      :src="serverUrl + 'button.png' + this.$qiniuCompress()"
+      :style="style.button"
+      class="button"
+      @click="handlebuttonClick()"
+    >
   </div>
 </template>
 

@@ -118,7 +118,8 @@ const lagacyPages = [
     loction: 'mogujie/index',
     meta: {
       title: '蘑菇街女装'
-    }
+    },
+    isAbandoned: true
   },
   {
     path: 'tree/result',
@@ -411,7 +412,8 @@ const lagacyPages = [
     meta: {
       title: '芒果娱乐荣誉出品',
       desc: '芒果-三宝大战诸葛亮'
-    }
+    },
+    isAbandoned: true
   },
   {
     path: 'concert',
@@ -419,7 +421,8 @@ const lagacyPages = [
     meta: {
       title: '芒果娱乐荣誉出品',
       desc: '芒果-黄子韬演唱会'
-    }
+    },
+    isAbandoned: true
   },
   {
     path: 'miizz',
@@ -433,7 +436,8 @@ const lagacyPages = [
     location: 'suning/result',
     meta: {
       title: '苏宁嗨购'
-    }
+    },
+    isAbandoned: true
   },
   {
     path: 'mangguo',
@@ -600,7 +604,8 @@ const lagacyPages = [
     meta: {
       title: '天降福利',
       desc: '苏宁天降红包'
-    }
+    },
+    isAbandoned: true
   },
   {
     path: 'hi_play',
@@ -653,7 +658,8 @@ const lagacyPages = [
     location: 'suning/oh',
     meta: {
       title: 'oh 秀发'
-    }
+    },
+    isAbandoned: true
   },
   {
     path: 'yp_worldCup',
@@ -661,14 +667,16 @@ const lagacyPages = [
     meta: {
       title: '世界杯',
       desc: '雅培世界杯'
-    }
+    },
+    isAbandoned: true
   },
   {
     path: 'yp_share',
     location: 'world_cup/ypShare',
     meta: {
       title: '世界杯',
-      desc: '雅培世界杯分享页'
+      desc: '雅培世界杯分享页',
+      isAbandoned: true
     }
   },
   {

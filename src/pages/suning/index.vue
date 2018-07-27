@@ -1,4 +1,6 @@
 <template>
+  <!-- eslint-diable -->
+
 <div id="wrap">
   <div class="snRedPacket-wrap">
     <div class="photo-wrap">
