@@ -8,16 +8,18 @@
       class="animation"
     /> -->
      <div class="photo">
-      <img  :src="baseUrl + '666.jpeg'"/> 
+      <img  v-if="photoUrl !== null" :src="photoUrl+ this.$qiniuCompress()" alt=""/>
+      <!-- <img  :src="baseUrl + '666.jpeg'"/>  -->
     </div>  
     <div class="real-photo">
-      <img  :src="baseUrl + '666.jpeg'"/> 
+      <img  v-if="photoUrl !== null" :src="photoUrl+ this.$qiniuCompress()" alt=""/>
+      <!-- <img  :src="baseUrl + '666.jpeg'"/>  -->
     </div>  
     <div class="arrow">
-      <img  :src="baseUrl + 'img_0.png'"/> 
+      <img  :src="baseUrl + 'img_0.png'+this.$qiniuCompress()"/> 
     </div>
     <div class="bottom">
-       <img class="title" :src="baseUrl + 'img_1.png'"/> 
+       <img class="title" :src="baseUrl + 'img_1.png'+this.$qiniuCompress()"/> 
     </div>
   </div>
 </template>
@@ -49,11 +51,11 @@ export default {
     }
   },
   created() {
-    // this.getInfo()
+    this.getInfo()
   },
   mounted() {
     //this.initAnimation()
-    // this.handleWeChatShare()
+    this.handleWeChatShare()
   },
 
   methods: {
@@ -78,18 +80,18 @@ export default {
         .catch(_ => {
           console.warn(_.message)
         })
-    },
-    initAnimation() {
-      const el = document.getElementById('animation')
-      lottie.loadAnimation({
-        container: el, // the dom element that will contain the animation
-        renderer: 'html',
-        loop: true,
-        autoplay: true,
-        assetsPath: 'http://cdn.exe666.com/fe/marketing/qixi/img/',
-        path: 'http://cdn.exe666.com/fe/marketing/qixi/json/data.json' // the path to the animation json
-      })
     }
+    // initAnimation() {
+    //   const el = document.getElementById('animation')
+    //   lottie.loadAnimation({
+    //     container: el, // the dom element that will contain the animation
+    //     renderer: 'html',
+    //     loop: true,
+    //     autoplay: true,
+    //     assetsPath: 'http://cdn.exe666.com/fe/marketing/qixi/img/',
+    //     path: 'http://cdn.exe666.com/fe/marketing/qixi/json/data.json' // the path to the animation json
+    //   })
+    // }
   }
 }
 </script>
@@ -107,7 +109,6 @@ export default {
     background-repeat: no-repeat;
     background-image: url('@{imageHost}/H5_00000.png');
     background-size: 100% 100%;
-    animation: run 3s steps(1, start) infinite;
     position: absolute;
     z-index: 2;
   }
@@ -172,36 +173,7 @@ export default {
     }
   }
 }
-@keyframes run {
-  // 0%,
-  // 14% {
-  //   background-image: url('@{imageHost}/H5_00000.png?v=222');
-  // }
-  // 14%,
-  // 28% {
-  //   background-image: url('@{imageHost}/H5_00001.png?v=222');
-  // }
-  // 28%,
-  // 42% {
-  //   background-image: url('@{imageHost}/H5_00002.png?v=222');
-  // }
-  // 42%,
-  // 56% {
-  //   background-image: url('@{imageHost}/H5_00003.png?v=222');
-  // }
-  // 56%,
-  // 70% {
-  //   background-image: url('@{imageHost}/H5_00004.png?v=222');
-  // }
-  // 70%,
-  // 84% {
-  //   background-image: url('@{imageHost}/H5_00005.png?v=222');
-  // }
-  // 84%,
-  // 100% {
-  //   background-image: url('@{imageHost}/H5_00006.png?v=222');
-  // }
-}
+
 @keyframes arrows {
   0% {
     transform: translateY(-8px);
