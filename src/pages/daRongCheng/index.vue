@@ -169,6 +169,7 @@ body {
     animation: arrow 1.2s linear infinite alternate;
   }
 }
+
 @keyframes blueScale {
   from {
     transform: scale(1.1, 1.1);
