@@ -1,31 +1,54 @@
 <template>
-  <div class="haoke-content">
-    <img  class="photo-id" :src="resultImgUrl" alt=""/>
-    <!--<img  class="photo-id" :src="imgServerUrl + '/pages/popcorn/Bronze.jpg'" alt=""/>-->
-    <div class="coupons" @click="goUrl()">
-      <img  v-show="showCoupon.showFree" class="free" :src="imgServerUrl + '/pages/haoke/free.png'" alt="" />
-      <img  v-show="showCoupon.couponFive"  class="five" :src="imgServerUrl + '/pages/haoke/5.png'" alt=""/>
-      <img  v-show="showCoupon.couponEightyFive" class="eighty-five" :src="imgServerUrl + '/pages/haoke/85.png'" alt=""/>
+  <div 
+    class="haoke-content"
+    :style="style.root">
+    <img  
+      :src="resultImgUrl" 
+      alt=""
+      class="photo-id">
+    <!--
+      <img  
+        class="photo-id" 
+        :src="imgServerUrl + '/pages/popcorn/Bronze.jpg'" 
+        alt="">
+    -->
+    <div  
+      class="coupons"
+      @click="goUrl()">
+      <img  
+        v-show="showCoupon.showFree" 
+        :src="imgServerUrl + '/pages/haoke/free.png'" 
+        alt=""
+        class="free">
+      <img 
+        :src="imgServerUrl + '/pages/haoke/5.png'" 
+        alt=""
+        v-show="showCoupon.couponFive"  
+        class="five" >
+      <img  
+        :src="imgServerUrl + '/pages/haoke/85.png'" 
+        alt=""
+        v-show="showCoupon.couponEightyFive" 
+        class="eighty-five" >
     </div>
-    <!--<wx-share :WxShareInfo="wxShareInfo"></wx-share>-->
   </div>
 </template>
 <script>
 import $ from 'jquery'
-
 import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
 import parseService from 'modules/parseServer'
 import { customTrack } from 'modules/customTrack'
 
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
-
+const wih = window.innerHeight
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
+      style: {
+        root: {
+          height: wih + 'px'
+        }
+      },
       imgServerUrl: IMAGE_SERVER,
       resultImgUrl: '',
       couponType: this.$route.query.couponType,
@@ -51,7 +74,6 @@ export default {
     this.getImageById()
   },
   mounted() {
-    $('.haoke-content').css('min-height', $(window).height())
     this.show()
     var bool = false
     setTimeout(() => {
@@ -95,8 +117,6 @@ export default {
       marketService
         .getInfoById(this, id)
         .then(result => {
-          // console.log(result);
-          // console.log(this.resultImgUrl)
           this.resultImgUrl = result.image
         })
         .catch(err => {

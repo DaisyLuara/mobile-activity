@@ -2,22 +2,31 @@
   <div
     :style="style.root" 
     class="root">
-   <img class="animate-cover"   :src="baseUrl + 'mask.png'" />
-   <div class="photo-wrap" v-show="photoWrap">
-     <div  class="photo" :style="style.photoHei" >
-      <img  :src="photoUrl + this.$qiniuCompress()" />
-      <!-- <img :src="baseUrl + 'gif.png'" /> -->
-     </div>
-     <img  class="save-tips" :src="baseUrl + 'save.png'" />
-   </div>
+    <img  
+      :src="baseUrl + 'mask.png'"
+      class="animate-cover">
+    <div  
+      v-show="photoWrap"
+      class="photo-wrap">
+      <div  
+        :style="style.photoHei" 
+        class="photo">
+        <img  
+          :src="photoUrl + this.$qiniuCompress()">
+      </div>
+      <img  
+        :src="baseUrl + 'save.png'"
+        class="save-tips">
+    </div>
   </div>
 </template>
 <script>
 const wih = window.innerHeight
 const wiw = window.innerWidth
-import { $_wechat, wechatShareTrack, getInfoById, isInWechat } from 'services'
 const baseUrl =
   'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/zoo/'
+import { $_wechat, wechatShareTrack, getInfoById, isInWechat } from 'services'
+
 export default {
   data() {
     return {

@@ -2,31 +2,53 @@
   <div
     :style="style.root" 
     class="root">
-    <div class="bg">
-      <img :src="baseUrl + 'bg.png?v=111'"/>
+    <div  
+      class="bg">
+      <img 
+        :src="baseUrl + 'bg.png?v=111'">
     </div>
-     <div class="photo">
-      <img  v-if="photoUrl !== null" :src="photoUrl+ this.$qiniuCompress()" alt=""/>
-      <!-- <img  :src="baseUrl + '666.jpeg'"/>  -->
+    <div 
+      class="photo">
+      <img  
+        v-if="photoUrl !== null" 
+        :src="photoUrl+ this.$qiniuCompress()" 
+        alt="">
     </div>  
-    <div class="real-photo">
-      <img  v-if="photoUrl !== null" :src="photoUrl+ this.$qiniuCompress()" alt=""/>
-      <!-- <img  :src="baseUrl + '666.jpeg'"/>  -->
+    <div 
+      class="real-photo">
+      <img 
+        v-if="photoUrl !== null" 
+        :src="photoUrl+ this.$qiniuCompress()" 
+        alt="">
     </div>  
-    <img class="fu-17" :src="baseUrl + 'fu_17.png'+this.$qiniuCompress()"/>
-    <img class="fu-2" :src="baseUrl + 'fu_2.png'+this.$qiniuCompress()"/>
-    <img class="fu-3" :src="baseUrl + 'fu_3.png'+this.$qiniuCompress()"/>
-    <img class="fu-7" :src="baseUrl + 'fu_7.png'+this.$qiniuCompress()"/>
-    <img class="fu-16" :src="baseUrl + 'fu_16.png'+this.$qiniuCompress()"/>
-    <div class="arrow">
-      <img  :src="baseUrl + 'img_0.png'+this.$qiniuCompress()"/> 
+    <img 
+      :src="baseUrl + 'fu_17.png'+this.$qiniuCompress()"
+      class="fu-17">
+    <img 
+      :src="baseUrl + 'fu_2.png'+this.$qiniuCompress()"
+      class="fu-2">
+    <img 
+      :src="baseUrl + 'fu_3.png'+this.$qiniuCompress()"
+      class="fu-3">
+    <img 
+      :src="baseUrl + 'fu_7.png'+this.$qiniuCompress()"
+      class="fu-7">
+    <img 
+      :src="baseUrl + 'fu_16.png'+this.$qiniuCompress()"
+      class="fu-16">
+    <div 
+      class="arrow">
+      <img  
+        :src="baseUrl + 'img_0.png'+this.$qiniuCompress()"> 
     </div>
-    <div class="bottom">
-       <img class="title" :src="baseUrl + 'img_1.png'+this.$qiniuCompress()"/> 
+    <div 
+      class="bottom">
+      <img 
+        :src="baseUrl + 'img_1.png'+this.$qiniuCompress()"
+        class="title" > 
     </div>
   </div>
 </template>
-
 <script>
 const wih = window.innerWidth * 667 / 375
 const wiw = window.innerWidth

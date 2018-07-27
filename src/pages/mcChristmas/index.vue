@@ -1,23 +1,53 @@
 <template>
   <div
     :style="style.root" 
-    class="root" v-show="show">
+    class="root" 
+    v-show="show">
     <!-- 遮罩 -->
-    <div class="loading" v-show="loading">
-      <img class="xueren" :src="baseUrl + 'xueren.png'+ this.$qiniuCompress()">
-      <img class="z" :src="baseUrl + 'z.png'+ this.$qiniuCompress()">
+    <div 
+      class="loading" 
+      v-show="loading">
+      <img 
+        :src="baseUrl + 'xueren.png'+ this.$qiniuCompress()"
+        class="xueren">
+      <img 
+        :src="baseUrl + 'z.png'+ this.$qiniuCompress()"
+        class="z">
     </div>
-    <div class="content" v-show="!loading">
-    <div class="top"></div>
-    <div class="center">
-      <img class="photo"  v-if="photoUrl !== null" :src="photoUrl+ this.$qiniuCompress()" alt=""/>
-      <!-- <img  class="photo" :src="baseUrl + '111.png'"/> -->
+    <div 
+      class="content" 
+      v-show="!loading">
+    <div 
+      class="top">
     </div>
-    <img class="save" :src="baseUrl + 'save2.png'+ this.$qiniuCompress()">
-    <img :class="{'button': !btnAndior, 'andior-btn': btnAndior,'iphoneX-btn':iphoneX}"  @click="goH5" :src="baseUrl + 'btn.png?v=112'+ this.$qiniuCompress()">
-    <img class="logo" :src="baseUrl + 'logo.png'+ this.$qiniuCompress()">
-    <div class="bottom">
-      <img  class="xuehua-bg" :src="baseUrl + 'xuehua2.png?v=111'+ this.$qiniuCompress()" />
+    <div 
+      class="center">
+      <img 
+        v-if="photoUrl !== null" 
+        :src="photoUrl+ this.$qiniuCompress()" 
+        alt=""
+        class="photo">
+      <!-- 
+      <img  
+        :src="baseUrl + '111.png'"
+        class="photo"> 
+      -->
+    </div>
+    <img 
+      :src="baseUrl + 'save2.png'+ this.$qiniuCompress()"
+      class="save">
+    <img 
+      @click="goH5" 
+      :src="baseUrl + 'btn.png?v=112'+ this.$qiniuCompress()"
+      :class="{'button': !btnAndior, 'andior-btn': btnAndior,'iphoneX-btn':iphoneX}">
+    <img 
+      :src="baseUrl + 'logo.png'+ this.$qiniuCompress()"
+      class="logo" >
+    <div 
+      class="bottom">
+      <img  
+        :src="baseUrl + 'xuehua2.png?v=111'+ this.$qiniuCompress()"
+        class="xuehua-bg">
       <!-- 雪花动画部分 -->
       <div
       id="animation"
