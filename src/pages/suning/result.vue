@@ -1,30 +1,46 @@
 <template>
-  <!-- eslint-diable -->
-  <div class="suning-content">
-    <img  class="photo" :src="resultImgUrl" alt=""/> 
-    <!--<img  class="photo" :src="imgServerUrl + '/pages/popcorn/Bronze.jpg'" alt=""/>-->
-    <div class="jiantou">
-      <img :src="imgServerUrl + '/pages/concert/A.gif'" alt="" >
+  <div 
+    :style="style.root"
+    class="suning-content">
+    <img    
+      :src="resultImgUrl" 
+      alt=""
+      class="photo"> 
+    <!--
+    <img  
+      :src="imgServerUrl + '/pages/popcorn/Bronze.jpg'" 
+      alt=""
+      class="photo" >
+    -->
+    <div 
+      class="jiantou">
+      <img 
+        :src="imgServerUrl + '/pages/concert/A.gif'" 
+        alt="">
     </div>
-    <img  class="save" :src="imgServerUrl + '/pages/suning/Push.png'" alt=""/>
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+    <img  
+      :src="imgServerUrl + '/pages/suning/Push.png'" 
+      alt=""
+      class="save">
   </div>
 </template>
 <script>
 import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
+import { $_wechat, wechatShareTrack } from 'services'
 import parseService from 'modules/parseServer'
 import { customTrack } from 'modules/customTrack'
-
+const wih = window.innerHeight
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 import $ from 'jquery'
 
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
+      style: {
+        root: {
+          height: wih + 'px'
+        }
+      },
       imgServerUrl: IMAGE_SERVER,
       resultImgUrl: '',
       //微信分享信息
@@ -36,8 +52,22 @@ export default {
       }
     }
   },
+  computed: {
+    //微信分享
+    wxShareInfo() {
+      let wxShareInfo = {
+        title: this.wxShareInfoValue.title,
+        desc: this.wxShareInfoValue.desc,
+        imgUrl: this.wxShareInfoValue.imgUrl,
+        success: () => {
+          customTrack.shareWeChat()
+        }
+      }
+      return wxShareInfo
+    }
+  },
   mounted() {
-    $('.suning-content').css('min-height', $(window).height())
+    this.handleShare()
   },
   created() {
     this.getImageById()
@@ -54,20 +84,15 @@ export default {
         .catch(err => {
           console.log(err)
         })
-    }
-  },
-  computed: {
-    //微信分享
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
-        success: () => {
-          customTrack.shareWeChat()
-        }
-      }
-      return wxShareInfo
+    },
+    handleShare() {
+      $_wechat()
+        .then(res => {
+          res.share(this.wxShareInfoValue)
+        })
+        .catch(_ => {
+          console.warn(_.message)
+        })
     }
   }
 }

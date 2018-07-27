@@ -2,13 +2,26 @@
   <div
     :style="style.root" 
     class="root">
-    <img class="bg" :src="baseUrl + 'ktv_bg.jpg?v=111'" />
-    <div class="top">
-      <img  class="light" :src="baseUrl + 'top.png'" />
+    <img 
+      :src="baseUrl + 'ktv_bg.jpg?v=111'"
+      class="bg" >
+    <div 
+      class="top">
+      <img  
+        :src="baseUrl + 'top.png'"
+        class="light" >
     </div>
-    <div class="photo" :style="style.photeHei">
-      <img v-if="photoUrl !== null" :src="photoUrl  + this.$qiniuCompress()" alt=""/>
-      <!-- <img :src="baseUrl + 'gif.png'" > -->
+    <div 
+      :style="style.photeHei"
+      class="photo">
+      <img 
+        v-if="photoUrl !== null" 
+        :src="photoUrl  + this.$qiniuCompress()" 
+        alt="">
+      <!-- 
+        <img 
+          :src="baseUrl + 'gif.png'" > 
+      -->
     </div>
   </div>
 </template>

@@ -2,28 +2,53 @@
   <div
     :style="style.root" 
     class="root">
-    <img  class="bg" :style="style.root" :class="{isMoveBg:isMovebg}" :src="baseUrl + 'bg.png'" />
-    <div class="enter" :class="{isMoveEnter:isMove}">
-       <img  class="enter-bg" :src="baseUrl + 'enter.png'" />
-       <div class="input-area"  @click="clearError">
-         <img class="input-bg"  :src="baseUrl + 'b.png'" />
-         <img class="input-error"   v-show="status.isPhoneError" :src="baseUrl + 'error.png'" />
-         <input ref="inputreal" maxlength="11" class="input-value" v-model="phoneValue"/>
-         <img v-if="status.shouldInputRemindShow" class="input-rel"  :src="baseUrl + 'phone.png'" />
-       </div>
-       <div class="button" @click="checkPhoneValue">
-         <img class="remind-bt"  :src="baseUrl + 'a.png'" />
-       </div>
+    <img  
+      :src="baseUrl + 'bg.png'"
+      :style="style.root" 
+      :class="{isMoveBg:isMovebg}"
+      class="bg">
+    <div 
+      :class="{isMoveEnter:isMove}"
+      class="enter">
+      <img  
+        :src="baseUrl + 'enter.png'"
+        class="enter-bg">
+      <div 
+        class="input-area"  
+        @click="clearError">
+        <img 
+          :src="baseUrl + 'b.png'"
+          class="input-bg">
+        <img 
+          v-show="status.isPhoneError"
+          :src="baseUrl + 'error.png'"
+          class="input-error">
+        <input 
+          ref="inputreal" 
+          v-model="phoneValue"
+          maxlength="11" 
+          class="input-value">
+        <img 
+          v-if="status.shouldInputRemindShow" 
+          :src="baseUrl + 'phone.png'"
+          class="input-rel">
+      </div>
+      <div 
+        class="button" 
+        @click="checkPhoneValue">
+        <img 
+          :src="baseUrl + 'a.png'"
+          class="remind-bt">
+      </div>
     </div>
   </div>
 </template>
-
 <script>
 const wih = window.innerHeight
 const wiw = window.innerWidth
-import { $_wechat, wechatShareTrack, getInfoById, isInWechat } from 'services'
 const baseUrl =
   'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/zoo/'
+import { $_wechat, wechatShareTrack, getInfoById, isInWechat } from 'services'
 export default {
   data() {
     return {

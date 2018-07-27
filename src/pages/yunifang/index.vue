@@ -5,51 +5,43 @@
     <div 
       class="main">
       <img 
-        class="bg" 
         :src="imgServerUrl + '/pages/ynf/bg2.png'"
-        />
+        class="bg">
     </div>
     <div 
       class="photo-area">
       <img   
-        class="photo" 
+        
         :src="resultImgUrl" 
         alt=""
-        />
+        class="photo">
     <!-- <img class="photo"  :src="imgServerUrl + '/pages/ynf/3.png'" alt=""/> -->
     </div>
     <img 
-      class="mouse1" 
       :src="imgServerUrl + '/pages/ynf/mouse1.png'" 
       alt=""
-      />
+      class="mouse1">
     <img 
-      class="mouse2" 
       :src="imgServerUrl + '/pages/ynf/mouse2.png'" 
       alt=""
-      />
+      class="mouse2">
     <div 
       class="jiantou">
       <img  
         :src="imgServerUrl + '/pages/ynf/nav.png'" 
-        alt=""
-        />
+        alt="">
     </div>
     <div 
       class="text">
       <img  
         :src="imgServerUrl + '/pages/ynf/title.png'" 
-        alt=""
-        />
+        alt="">
     </div> 
-    <!-- <wx-share :WxShareInfo="wxShareInfo"></wx-share> -->
   </div>
-
 </template>
 <script>
 const wih = window.innerHeight
-// import marketService from 'services/marketing'
-// import WxShare from 'modules/wxShare'
+import marketService from 'services/marketing'
 import Vue from 'vue'
 import { getInfoById, $_wechat } from 'services'
 import { customTrack } from 'modules/customTrack'
@@ -57,9 +49,6 @@ import { customTrack } from 'modules/customTrack'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
       imgServerUrl: IMAGE_SERVER,
@@ -76,6 +65,20 @@ export default {
         imgUrl:
           'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/ynf_share_icon.png'
       }
+    }
+  },
+  computed: {
+    //微信分享
+    wxShareInfo() {
+      let wxShareInfo = {
+        title: this.wxShareInfoValue.title,
+        desc: this.wxShareInfoValue.desc,
+        imgUrl: this.wxShareInfoValue.imgUrl,
+        success: () => {
+          customTrack.shareWeChat()
+        }
+      }
+      return wxShareInfo
     }
   },
   beforeCreate() {
@@ -106,20 +109,6 @@ export default {
         .catch(_ => {
           console.warn(_.message)
         })
-    }
-  },
-  computed: {
-    //微信分享
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
-        success: () => {
-          customTrack.shareWeChat()
-        }
-      }
-      return wxShareInfo
     }
   }
 }

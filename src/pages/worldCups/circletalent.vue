@@ -1,32 +1,30 @@
 <template>
   <div
     :style="style.root" 
-    class="root">
+    class="root"
+  >
     <img 
+      :src="IMAGE_URL + 'bg.png'" 
       class="bg"
-      :src="IMAGE_URL + 'bg.png'" />
-    
+    >
     <img
+      :src="IMAGE_URL + 'header.png'" 
       class="header"
-      :src="IMAGE_URL + 'header.png'" />
-
-    <div
-      class="coupon"
-      >
+    >
+    <div class="coupon">
       <img 
+        :src="IMAGE_URL + '1.png'"
         class="coupon-inner"
-        :src="IMAGE_URL + '1.png'" />
+      >
       <img  
+        :src="IMAGE_URL + 'remind.png'" 
         class="tip"
-        :src="IMAGE_URL + 'remind.png'" />
+      >
     </div>
-    
-
-    
-
     <img 
+      :src="IMAGE_URL + '1.png'" 
       class="real"
-      :src="IMAGE_URL + '1.png'" />
+    >
   </div> 
 </template>
 

@@ -65,15 +65,18 @@ export default {
     this.handleHorn()
   },
   mounted() {
-    $_wechat()
-      .then(res => {
-        res.share(this.wxShareInfoValue)
-      })
-      .catch(_ => {
-        console.warn(_.message)
-      })
+    this.handleShare()
   },
   methods: {
+    handleShare() {
+      $_wechat()
+        .then(res => {
+          res.share(this.wxShareInfoValue)
+        })
+        .catch(_ => {
+          console.warn(_.message)
+        })
+    },
     getInfo() {
       let id = this.$route.query.id
       getInfoById(id)

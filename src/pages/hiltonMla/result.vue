@@ -1,35 +1,59 @@
 <template>
-  <div class="hilton-content">
-    <img class="bg" :src="imgServerUrl + '/pages/hiltonMla/bg.jpg'" alt="" >
-    <img class="pingzi" :src="imgServerUrl + '/pages/hiltonMla/pingzi.png'" alt="" >
-    <img class="light" :src="imgServerUrl + '/pages/hiltonMla/light.png'" alt="">
-    <div class="coupon">
-      <img  v-show="showCoupon.cp1" class="cp-1" :src="imgServerUrl + '/pages/hiltonMla/langouste.png'" alt="" />
-      <img  v-show="showCoupon.cp2" class="cp-2" :src="imgServerUrl + '/pages/hiltonMla/world_cup.png'" alt="" />
+  <div 
+    class="hilton-content">
+    <img 
+      :src="imgServerUrl + '/pages/hiltonMla/bg.jpg'"
+      alt="" 
+      class="bg">
+    <img 
+      :src="imgServerUrl + '/pages/hiltonMla/pingzi.png'" 
+      alt="" 
+      class="pingzi">
+    <img 
+      :src="imgServerUrl + '/pages/hiltonMla/light.png'" 
+      alt=""
+      class="light">
+    <div 
+      class="coupon">
+      <img 
+        :src="imgServerUrl + '/pages/hiltonMla/langouste.png'" 
+        alt=""
+        v-show="showCoupon.cp1" 
+        class="cp-1">
+      <img  
+        :src="imgServerUrl + '/pages/hiltonMla/world_cup.png'" 
+        alt=""
+        v-show="showCoupon.cp2" 
+        class="cp-2">
     </div>
-    <div class="save">
-      <img class="jiantou" :src="imgServerUrl + '/pages/hiltonMla/jiantou.png'" alt="" >
-      <img class="title" :src="imgServerUrl + '/pages/hiltonMla/title.png'" alt="" >
+    <div 
+      class="save">
+      <img 
+        :src="imgServerUrl + '/pages/hiltonMla/jiantou.png'" 
+        alt=""
+        class="jiantou" >
+      <img 
+        :src="imgServerUrl + '/pages/hiltonMla/title.png'" 
+        alt=""
+        class="title" >
     </div>
-    <div class="bg2">
-      <img :src="imgServerUrl + '/pages/hiltonMla/bg2.png'" alt="" >
+    <div 
+      class="bg2">
+      <img 
+        :src="imgServerUrl + '/pages/hiltonMla/bg2.png'" 
+        alt="">
     </div>
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
 </template>
 <script>
 import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
+import { $_wechat, wechatShareTrack } from 'services'
 import parseService from 'modules/parseServer'
 import { customTrack } from 'modules/customTrack'
-
-const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 import $ from 'jquery'
+const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
       imgServerUrl: IMAGE_SERVER,
@@ -48,8 +72,23 @@ export default {
       }
     }
   },
+  computed: {
+    //微信分享
+    wxShareInfo() {
+      let wxShareInfo = {
+        title: this.wxShareInfoValue.title,
+        desc: this.wxShareInfoValue.desc,
+        imgUrl: this.wxShareInfoValue.imgUrl,
+        success: () => {
+          customTrack.shareWeChat()
+        }
+      }
+      return wxShareInfo
+    }
+  },
   mounted() {
     $('.hilton-content').css('min-height', $(window).height())
+    this.handleShare()
   },
   created() {
     this.getImageById()
@@ -64,6 +103,15 @@ export default {
         this.showCoupon.cp2 = true
       }
     },
+    handleShare() {
+      $_wechat()
+        .then(res => {
+          res.share(this.wxShareInfoValue)
+        })
+        .catch(_ => {
+          console.warn(_.message)
+        })
+    },
     //拿取图片id
     getImageById() {
       let id = this.$route.query.id
@@ -75,20 +123,6 @@ export default {
         .catch(err => {
           console.log(err)
         })
-    }
-  },
-  computed: {
-    //微信分享
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
-        success: () => {
-          customTrack.shareWeChat()
-        }
-      }
-      return wxShareInfo
     }
   }
 }
