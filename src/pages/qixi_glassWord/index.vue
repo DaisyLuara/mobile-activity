@@ -1,31 +1,41 @@
 <template>
-  <div class="glass-wrap" >
-    <div class="shade-wrap"  @click="getPhoto()" >
-      <img class="heart" v-if="showShade"  :src="imgServerUrl + '/pages/glassword/heart.png'" alt="" >
+  <div 
+    class="glass-wrap" >
+    <div 
+      class="shade-wrap" 
+      @click="getPhoto()">
+      <img 
+        v-if="showShade" 
+        :src="imgServerUrl + '/pages/glassword/heart.png'"  
+        alt=""
+        class="heart">
     </div>
-    <div class="get-photo" v-if="showImg" >
-      <div class="photo" >
-      <img  class="photo-2" :src="resultImgUrl" alt=""/> 
-      <!-- <img  class="photo-2" :src="imgServerUrl + '/pages/glassword/111.jpg'" alt=""/> -->
+    <div 
+      v-if="showImg"
+      class="get-photo">
+      <div 
+        class="photo">
+        <img  
+          :src="resultImgUrl" 
+          alt=""
+          class="photo-2"> 
       </div>
-      <img class="save"  :src="imgServerUrl + '/pages/glassword/button.png'" alt="" > 
+      <img 
+        :src="imgServerUrl + '/pages/glassword/button.png'" 
+        alt=""
+        class="save"> 
     </div>
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
 </template>
 <script>
 import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
 import parseService from 'modules/parseServer'
 import { customTrack } from 'modules/customTrack'
 import $ from 'jquery'
-
+import { $_wechat, wechatShareTrack } from 'services'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
       showShade: true,
@@ -41,9 +51,24 @@ export default {
       }
     }
   },
+  computed: {
+    //微信分享
+    wxShareInfo() {
+      let wxShareInfo = {
+        title: this.wxShareInfoValue.title,
+        desc: this.wxShareInfoValue.desc,
+        imgUrl: this.wxShareInfoValue.imgUrl,
+        success: () => {
+          customTrack.shareWeChat()
+        }
+      }
+      return wxShareInfo
+    }
+  },
   mounted() {
     $('.glass-wrap').css('height', $(window).height())
     var h = $('.glass-wrap').height()
+    this.handleShare()
     console.log(h)
     if (h == 812) {
       $('.heart').css('width', '70%')
@@ -67,6 +92,15 @@ export default {
           console.log(err)
         })
     },
+    handleShare() {
+      $_wechat()
+        .then(res => {
+          res.share(this.wxShareInfoValue)
+        })
+        .catch(_ => {
+          console.warn(_.message)
+        })
+    },
     getPhoto() {
       this.showShade = false
       $('.glass-wrap').css(
@@ -74,20 +108,6 @@ export default {
         'url(http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/glassword/bg.jpg)'
       )
       this.showImg = true
-    }
-  },
-  computed: {
-    //微信分享
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
-        success: () => {
-          customTrack.shareWeChat()
-        }
-      }
-      return wxShareInfo
     }
   }
 }
