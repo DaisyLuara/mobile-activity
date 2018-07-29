@@ -40,7 +40,7 @@ export default {
         title: '生日快乐',
         desc: '总有惊喜在发生',
         link: 'http://papi.xingstation.com/api/s/lY5',
-        imgUrl: imgUrl + '/fe/marketing/img/pacific/pacific _icon.png',
+        imgUrl: imgUrl + '/fe/marketing/img/pacific/pacific_icon.png',
         success: function() {
           wechatShareTrack()
         }
