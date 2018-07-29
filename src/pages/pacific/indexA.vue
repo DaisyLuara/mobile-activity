@@ -4,20 +4,20 @@
     :style="style.root">
     <img 
       :style="style.bg"
-      :src="imgUrl + 'bg.png'"
+      :src="imgUrl + 'bg.png' + this.$qiniuCompress()"
       class="root-bg">
     <div
       id="animation"
       :style="style.bg"
       class="animation"/>
     <img 
-      :src="photo"
+      :src="photo + this.$qiniuCompress()"
       class="photo">
       <img 
-      :src="photo"
+      :src="photo + this.$qiniuCompress()"
       class="opacity-photo">
     <img 
-      :src="imgUrl + 'logo.png'"
+      :src="imgUrl + 'logo.png' + this.$qiniuCompress()"
       class="logo">
   </div>
 </template>
@@ -114,7 +114,7 @@ export default {
     width: 60%;
     left: 20%;
   }
-  .opacity-photo{
+  .opacity-photo {
     z-index: 100;
     opacity: 0;
     position: absolute;
@@ -123,13 +123,13 @@ export default {
     width: 60%;
     left: 20%;
   }
-  .logo{
+  .logo {
     width: 12%;
     z-index: 10;
     position: absolute;
     left: 44%;
     bottom: 0.9375%;
-    pointer-events: auto;
+    pointer-events: none;
   }
 }
 </style>
