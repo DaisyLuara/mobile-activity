@@ -1,16 +1,35 @@
 <template>
-<div class="video-content" id="content" >
-    <div class="navDiv" @click="returnMenu"></div>
+  <div 
+    id="content" 
+    class="video-content" >
+    <div 
+      class="navDiv" 
+      @click="returnMenu"/>
     <div class="vDiv" >
-        <video  id="video"  webkit-playsinline="true" playsinline="true" x-webkit-airplay="true"  controls width="100%" height="100%">
-        <source :src="IMGURL + 'video/' + vNum +'.mp4'" type="video/mp4">
-            您的浏览器不支持video标签.
-        </video>
+      <video 
+        id="video" 
+        webkit-playsinline="true" 
+        playsinline="true" 
+        x-webkit-airplay="true" 
+        controls 
+        width="100%" 
+        height="100%">
+        <source 
+          :src="IMGURL + 'video/' + vNum +'.mp4'" 
+          type="video/mp4">
+        您的浏览器不支持video标签.
+      </video>
     </div>
-    <img :src="IMGURL + 'video/bg' + vNum +'.jpg'" class="vbg" v-show="bgshow">
-    <a @click="vPlay" class="vplay" v-show="bgshow"><img :src="IMGURL + 'video/play'+vNum+'.png'"/></a>
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
-</div>
+    <img 
+      v-show="bgshow" 
+      :src="IMGURL + 'video/bg' + vNum +'.jpg'" 
+      class="vbg">
+    <a 
+      v-show="bgshow" 
+      class="vplay" 
+      @click="vPlay"><img :src="IMGURL + 'video/play'+vNum+'.png'"></a>
+    <wx-share :wx-share-info="wxShareInfo"/>
+  </div>
 </template>
 
 <script>
@@ -19,6 +38,9 @@ import WxShare from 'modules/wxShare'
 import { customTrack } from 'modules/customTrack'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
+  components: {
+    WxShare
+  },
   data() {
     return {
       IMGURL: IMAGE_SERVER + '/pages/promotion/',
@@ -67,9 +89,6 @@ export default {
       }
     }
   },
-  components: {
-    WxShare
-  }
 }
 </script>
 

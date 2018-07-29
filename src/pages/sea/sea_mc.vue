@@ -1,19 +1,38 @@
 <template>
-    <div :class="{content:true,addbg:addbg}" :style="style.root">
-        <div class="one">
-            <img class="mImg" :src="mImg"/>
-            <img class="save" :src="baseUrl + 'save.png'" v-show="second"/>
-        </div>
-        <div class="two" v-show="second">
-            <img class="title" :src="baseUrl + 'titte.png'"/>
-            <div class="tabs">
-              <div class="tab">
-                <a class="atab" v-for="(item,index) in Object.keys(tabs)" :key="item.id" @click.prevent="tabClick(item)"><img :src="baseUrl + (index+1) +'.png'"></a>
-              </div>
-              <div class="tab_content" v-for="(item,index) in tabs" :key="item.id" v-show="tabs[index]"><img :src="baseUrl + index + '.png'"></div>
-            </div>
-        </div>
+  <div 
+    :class="{content:true,addbg:addbg}" 
+    :style="style.root">
+    <div class="one">
+      <img 
+        :src="mImg" 
+        class="mImg">
+      <img 
+        v-show="second" 
+        :src="baseUrl + 'save.png'" 
+        class="save">
     </div>
+    <div 
+      v-show="second" 
+      class="two">
+      <img 
+        :src="baseUrl + 'titte.png'" 
+        class="title">
+      <div class="tabs">
+        <div class="tab">
+          <a 
+            v-for="(item,index) in Object.keys(tabs)" 
+            :key="item.id" 
+            class="atab" 
+            @click.prevent="tabClick(item)"><img :src="baseUrl + (index+1) +'.png'"></a>
+        </div>
+        <div 
+          v-for="(item,index) in tabs" 
+          v-show="tabs[index]" 
+          :key="item.id" 
+          class="tab_content"><img :src="baseUrl + index + '.png'"></div>
+      </div>
+    </div>
+  </div>
 </template>
 <script>
 import { $_wechat, getInfoById, wechatShareTrack } from 'services'

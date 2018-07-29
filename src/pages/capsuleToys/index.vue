@@ -1,44 +1,44 @@
 <template>
+  <div 
+    id="content" 
+    class="content">
+    <img  
+      :src="imgServerUrl + '/pages/capsule_toys/1.png'" 
+      alt=""
+      class="egg-top">
+    <img  
+      :src="imgServerUrl + '/pages/capsule_toys/2.png'" 
+      alt=""
+      class="egg-bot">
+    <img  
+      :src="imgServerUrl + '/pages/capsule_toys/light.png'" 
+      alt=""
+      class="light">
     <div 
-      class="content" 
-      id="content">
-        <img  
-          :src="imgServerUrl + '/pages/capsule_toys/1.png'" 
-          alt=""
-          class="egg-top">
-        <img  
-          :src="imgServerUrl + '/pages/capsule_toys/2.png'" 
-          alt=""
-          class="egg-bot">
-        <img  
-          :src="imgServerUrl + '/pages/capsule_toys/light.png'" 
-          alt=""
-          class="light">
-        <div 
-          class="copon" 
-          :style="style">
-          <img  
-            :src="imgServerUrl + '/pages/capsule_toys/zhy.png'" 
-            alt="" 
-            class="cp-1" 
-            v-show="showCoupon.cp1" >
-          <img  
-            :src="imgServerUrl + '/pages/capsule_toys/hz.png'" 
-            alt="" 
-            class="cp-2"  
-            v-show="showCoupon.cp2" >
-          <img  
-            :src="imgServerUrl + '/pages/capsule_toys/sc.png'" 
-            alt=""
-            class="cp-3"  
-            v-show="showCoupon.cp3" >
-          <img  
-            :src="imgServerUrl + '/pages/capsule_toys/yjk.png'" 
-            alt=""
-            class="cp-4"  
-            v-show="showCoupon.cp4" >
-        </div>
+      :style="style" 
+      class="copon">
+      <img  
+        v-show="showCoupon.cp1" 
+        :src="imgServerUrl + '/pages/capsule_toys/zhy.png'" 
+        alt="" 
+        class="cp-1" >
+      <img  
+        v-show="showCoupon.cp2" 
+        :src="imgServerUrl + '/pages/capsule_toys/hz.png'" 
+        alt=""  
+        class="cp-2" >
+      <img  
+        v-show="showCoupon.cp3" 
+        :src="imgServerUrl + '/pages/capsule_toys/sc.png'"
+        alt=""  
+        class="cp-3" >
+      <img  
+        v-show="showCoupon.cp4" 
+        :src="imgServerUrl + '/pages/capsule_toys/yjk.png'"
+        alt=""  
+        class="cp-4" >
     </div>
+  </div>
 </template>
 <script>
 import marketService from 'services/marketing'

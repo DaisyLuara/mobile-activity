@@ -1,40 +1,48 @@
 <template>
-  <div class="root" :style="style.root">
-    <img v-if="!hasSMSsended" class="title" :src="serverUrl + 'input-title.png' + this.$qiniuCompress()">
-    <div v-if="!hasSMSsended" class="input" :style="style.input">
-       <div
+  <div 
+    :style="style.root" 
+    class="root">
+    <img 
+      v-if="!hasSMSsended" 
+      :src="serverUrl + 'input-title.png' + this.$qiniuCompress()" 
+      class="title">
+    <div 
+      v-if="!hasSMSsended" 
+      :style="style.input" 
+      class="input">
+      <div
         v-show="control.shouldRemindShow"
         :style="style.remind" 
         class="input-remind">
         请输入手机号
       </div>
       <img
-        class="input-bg" 
-        :src="serverUrl + 'input.png' + this.$qiniuCompress()" />
+        :src="serverUrl + 'input.png' + this.$qiniuCompress()" 
+        class="input-bg" >
       <div
         v-show="phoneError"
         class="input-error">
-        {{errorMsg}}
+        {{ errorMsg }}
       </div>
       <img 
-        class="sms-remind"
-        :src="serverUrl + 'sms-remind.png' + this.$qiniuCompress()" />
+        :src="serverUrl + 'sms-remind.png' + this.$qiniuCompress()"
+        class="sms-remind" >
       <input 
         v-model="phoneValue"
-        @blur="handleRemindShow()"
-        @click="handleInputClick()"
         class="input-input"
-        maxlength="11">
+        maxlength="11"
+        @blur="handleRemindShow()"
+        @click="handleInputClick()">
       <img 
         ref="button"
-        @click="handleSubmit()"
+        :src="serverUrl + 'input-btn.png' + this.$qiniuCompress()"
         class="input-button"
-        :src="serverUrl + 'input-btn.png' + this.$qiniuCompress()" />
+        @click="handleSubmit()" >
     </div>
     
     <Result 
-      :type="couponType"
-      v-if="hasSMSsended"/>
+      v-if="hasSMSsended"
+      :type="couponType"/>
   </div>
 </template>
 

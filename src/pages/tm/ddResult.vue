@@ -1,24 +1,52 @@
 <template>
-    <div class="content" :style="style.root">
-      <div class="main" v-show="pshow" :style="style.root">
-        <!-- <img class="bg" :src="IMGURL + 'page1_bg.jpg'"/> -->
-        <div class="forms">
-          <!-- <h1>输入您的姓名,参加本次诊疗</h1> -->
-          <img class="title" :src="IMGURL + 'result_tit.png'"/>
-          <input class="name" ref="input" type="text" placeholder="输入姓名" maxlength="5" required/>
-          <a class="start" @click="getStart">获得诊断</a>
-           <img class="paget" :src="IMGURL + 'page1_t.png?677677'"/>
-        </div>
-        <img class="ices" :src="IMGURL + 'icebg.png?33'"/>
+  <div 
+    :style="style.root" 
+    class="content">
+    <div 
+      v-show="pshow" 
+      :style="style.root" 
+      class="main">
+      <!-- <img class="bg" :src="IMGURL + 'page1_bg.jpg'"/> -->
+      <div class="forms">
+        <!-- <h1>输入您的姓名,参加本次诊疗</h1> -->
+        <img 
+          :src="IMGURL + 'result_tit.png'" 
+          class="title">
+        <input 
+          ref="input" 
+          class="name" 
+          type="text" 
+          placeholder="输入姓名" 
+          maxlength="5" 
+          required>
+        <a 
+          class="start" 
+          @click="getStart">获得诊断</a>
+        <img 
+          :src="IMGURL + 'page1_t.png?677677'" 
+          class="paget">
       </div>
-      <div class="photo" v-show="!pshow">
-        <canvas id="canvas"></canvas>
-        <img class="result" src=""/>
-         <!-- 显示剪切后的图像 -->
-        <canvas id="canvas2" style="display:none"></canvas>
-        <img id="Img" src="base64Data" alt="病假单"/>
-      </div>
+      <img 
+        :src="IMGURL + 'icebg.png?33'" 
+        class="ices">
     </div>
+    <div 
+      v-show="!pshow" 
+      class="photo">
+      <canvas id="canvas"/>
+      <img 
+        class="result" 
+        src="">
+      <!-- 显示剪切后的图像 -->
+      <canvas 
+        id="canvas2" 
+        style="display:none"/>
+      <img 
+        id="Img" 
+        src="base64Data" 
+        alt="病假单">
+    </div>
+  </div>
 </template>
 <script>
 import { $_wechat, getInfoById, wechatShareTrack, setParameter } from 'services'

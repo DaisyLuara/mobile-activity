@@ -1,27 +1,63 @@
 <template>
-  <div id="warp" class="spring-content">
-		<audio id="voice" autobuffer autoloop loop autoplay hidden> 			
-            <source :src="audioUrl + '/xiha.mp3'">
- 		</audio>
- 		<img id="mbtn" class="mplay" :src="imgUrl + 'kaide/yinyue.png'" @click="playOrNot"/>
- 		<img class="top" :src="imgUrl + 'springnew/top.png'"/>
-		<div class="slider">
-			<div class="one">
-				<img id="photo" class="photo" :src="mImg">
-				<img id="word" class="word" :src="imgUrl + 'springnew/' + word + '.png'">
-			</div>
-			<img class="two" :src="imgUrl + 'springnew/pull.png'"/>
-			<img class="cloud1" :src="imgUrl + 'springnew/cloud.png'">
-			<img class="cloud2" :src="imgUrl + 'springnew/cloud2.png'">
-			<img class="cloud3" :src="imgUrl + 'springnew/cloud3.png'">
-      <!-- 掉落的钱币 -->
-      <div v-for="item in money_group" :class="'group'+item" class="group">
-        <img v-for="item in money_num" class='money' :src="imgUrl+'springnew/qian.gif'"/>
+  <div 
+    id="warp" 
+    class="spring-content">
+    <audio 
+      id="voice" 
+      autobuffer 
+      autoloop 
+      loop 
+      autoplay 
+      hidden> 			
+      <source :src="audioUrl + '/xiha.mp3'">
+    </audio>
+    <img 
+      id="mbtn" 
+      :src="imgUrl + 'kaide/yinyue.png'" 
+      class="mplay" 
+      @click="playOrNot">
+    <img 
+      :src="imgUrl + 'springnew/top.png'" 
+      class="top">
+    <div class="slider">
+      <div class="one">
+        <img 
+          id="photo" 
+          :src="mImg" 
+          class="photo">
+        <img 
+          id="word" 
+          :src="imgUrl + 'springnew/' + word + '.png'" 
+          class="word">
       </div>
-		</div>
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
- 	</div>
- </template>
+      <img 
+        :src="imgUrl + 'springnew/pull.png'" 
+        class="two">
+      <img 
+        :src="imgUrl + 'springnew/cloud.png'" 
+        class="cloud1">
+      <img 
+        :src="imgUrl + 'springnew/cloud2.png'" 
+        class="cloud2">
+      <img 
+        :src="imgUrl + 'springnew/cloud3.png'" 
+        class="cloud3">
+      <!-- 掉落的钱币 -->
+      <div 
+        v-for="(item, index) in money_group" 
+        :key="index"
+        :class="'group'+item" 
+        class="group">
+        <img 
+          v-for="(item, index) in money_num" 
+          :key="index"
+          :src="imgUrl+'springnew/qian.gif'" 
+          class="money">
+      </div>
+    </div>
+    <wx-share :wx-share-info="wxShareInfo"/>
+  </div>
+</template>
  <script>
 import marketService from 'services/marketing'
 import WxShare from 'modules/wxShare'
@@ -30,6 +66,9 @@ const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/'
 import $ from 'jquery'
 
 export default {
+  components: {
+    WxShare
+  },
   data() {
     return {
       imgUrl: BASE_URL + 'image/',
@@ -263,9 +302,6 @@ export default {
         voice.pause()
       }
     }
-  },
-  components: {
-    WxShare
   }
 }
 </script>

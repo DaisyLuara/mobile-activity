@@ -5,16 +5,16 @@
     </div>
     <div class="list-container">
       <div
-        :key="index"
-        v-for="(item, index) in bindData" 
+        v-for="(item, index) in bindData"
+        :key="index" 
         class="coupon-item">
         <div class="coupon-price">
-          {{item.CouponName}}
+          {{ item.CouponName }}
         </div>
         <div class="coupon-detail">
           <div class="detail-title">编号:</div>
-          <div class="detail-number">{{item.CouponRuleNo}}</div>
-          <div class="detial-desc">{{item.CouponDesc}}</div>
+          <div class="detail-number">{{ item.CouponRuleNo }}</div>
+          <div class="detial-desc">{{ item.CouponDesc }}</div>
           <div class="detail-date">{{ fixedDate(item.FixedDateBegin) }} - {{ fixedDate(item.FixedDateEnd) }}</div>
         </div>
       </div>

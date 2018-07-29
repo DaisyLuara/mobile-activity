@@ -1,67 +1,97 @@
 <template>
   <div
+    id="feng-root" 
     :style="style.root" 
-    class="feng-wrap" id="feng-root">
-    <div id="mapContainer" class="container"></div>
-    <div class="viewmode-group btn-group" data-toggle="buttons">
-    </div>
+    class="feng-wrap">
+    <div 
+      id="mapContainer" 
+      class="container"/>
+    <div 
+      class="viewmode-group btn-group" 
+      data-toggle="buttons"/>
     <div 
       ref="detail"
       class="detail-wrap" 
       @touchstart="handleTouchStart"
       @touchmove="handleTouchMove"
       @touchend="handleTouchEnd">
+      <img 
+        v-if="liandongStatus === true" 
+        :src="imgUrl + 'info.png'" 
+        class="detail-button" 
+        @click="ldWindowOpen()">
+      <div 
+        class="detail-arrow" 
+        @click="handleArrow">
         <img 
-          v-if="liandongStatus === true" 
-          @click="ldWindowOpen()" 
-          class="detail-button" 
-          :src="imgUrl + 'info.png'"/>
-        <div @click="handleArrow" class="detail-arrow">
-          <img class="arrow-inner" v-show="detailScrollToTop === false" :src="imgUrl + 'arrow-up.png'" />
-          <img class="arrow-inner" v-show="detailScrollToTop === true" :src="imgUrl + 'arrow-down.png'" />
-        </div>
-        <div class="detail-title">
-          <span class="title-text">{{displayTitle}}</span>
-          <img v-if="this.currentAct === 0" class="title-img" :src="imgUrl + 'redpack-list.png'" />
-          <img v-if="this.currentAct === 1" class="title-img" :src="imgUrl + 'air-list.png'" />
-        </div>
-        <div class="detail-next">
-          <span class="next-inner">
-            下一个游戏: 你为什么没有
-          </span>
-        </div>
-        <div class="detail-address">
-          地址：{{currentActAddress}}
-        </div>
-        <div class="detail-into">
-          {{displayContext}}
-        </div>
-        <div class="detail-div">
-        </div>
-        <div class="detail-img"> 
-          <img class="inner-img" :src="this.act[this.currentAct].img"/>
-        </div>
+          v-show="detailScrollToTop === false" 
+          :src="imgUrl + 'arrow-up.png'" 
+          class="arrow-inner" >
+        <img 
+          v-show="detailScrollToTop === true" 
+          :src="imgUrl + 'arrow-down.png'" 
+          class="arrow-inner" >
+      </div>
+      <div class="detail-title">
+        <span class="title-text">{{ displayTitle }}</span>
+        <img 
+          v-if="currentAct === 0" 
+          :src="imgUrl + 'redpack-list.png'" 
+          class="title-img" >
+        <img 
+          v-if="currentAct === 1" 
+          :src="imgUrl + 'air-list.png'" 
+          class="title-img" >
+      </div>
+      <div class="detail-next">
+        <span class="next-inner">
+          下一个游戏: 你为什么没有
+        </span>
+      </div>
+      <div class="detail-address">
+        地址：{{ currentActAddress }}
+      </div>
+      <div class="detail-into">
+        {{ displayContext }}
+      </div>
+      <div class="detail-div"/>
+      <div class="detail-img"> 
+        <img 
+          :src="act[currentAct].img" 
+          class="inner-img">
+      </div>
     </div>
-    <img @click="handleNaviToMini" :src="imgUrl + 'list-button.png'" class="list-change"/>
-    <div class="rp" v-if="rpShow === true" @click="handleRpClose">
+    <img 
+      :src="imgUrl + 'list-button.png'" 
+      class="list-change" 
+      @click="handleNaviToMini">
+    <div 
+      v-if="rpShow === true" 
+      class="rp" 
+      @click="handleRpClose">
       <RedPackRain />
     </div>
-    <div class="liandong-wrap" v-if="ldWindow === true">
+    <div 
+      v-if="ldWindow === true" 
+      class="liandong-wrap">
       <div class="ld-context">
         <div class="ld-title">联动说明</div>
         <div class="ld-content">
           恭喜找到
           <span class="floor-name">
-          {{currentFloorName}}
+            {{ currentFloorName }}
           </span>
           的宝物吧！然后就可以去
           <span class="floor-name">
-          {{nextFloorName}}
+            {{ nextFloorName }}
           </span>
           发现新的宝藏了！
         </div>
       </div>
-      <img @click="ldWindowClose" class="ld-close" :src="imgUrl + 'close.png'" />
+      <img 
+        :src="imgUrl + 'close.png'" 
+        class="ld-close" 
+        @click="ldWindowClose" >
     </div>
   </div>
 </template>

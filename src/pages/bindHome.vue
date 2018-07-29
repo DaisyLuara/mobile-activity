@@ -5,7 +5,7 @@
 </template>
 <script>
 export default {
-  name: 'bindHome'
+  name: 'BindHome'
 }
 </script>
 

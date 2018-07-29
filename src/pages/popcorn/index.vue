@@ -11,12 +11,12 @@
         :src="resultImgUrl" 
         alt=""
         class="photo">
-      <!--
-        <img  
-          :src="imgServerUrl + '/pages/popcorn/Bronze.jpg'" 
-          alt=""
-          class="photo" >
-      -->
+    <!--
+      <img  
+        :src="imgServerUrl + '/pages/popcorn/Bronze.jpg'" 
+        alt=""
+        class="photo" >
+    -->
     </div>
     <div 
       class="save">

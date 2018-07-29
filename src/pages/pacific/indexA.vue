@@ -1,7 +1,7 @@
 <template>
   <div
-    class="root"
-    :style="style.root">
+    :style="style.root"
+    class="root">
     <img 
       :style="style.bg"
       :src="imgUrl + 'bg.png' + this.$qiniuCompress()"
@@ -13,7 +13,7 @@
     <img 
       :src="photo + this.$qiniuCompress()"
       class="photo">
-      <img 
+    <img 
       :src="photo + this.$qiniuCompress()"
       class="opacity-photo">
     <img 
@@ -40,7 +40,7 @@ export default {
         title: '生日快乐',
         desc: '总有惊喜在发生',
         link: 'http://papi.xingstation.com/api/s/mZO',
-        imgUrl: imgUrl + '/fe/marketing/img/pacific/pacific _icon.png',
+        imgUrl: imgUrl + '/fe/marketing/img/pacific/pacific_icon.png',
         success: function() {
           wechatShareTrack()
         }
