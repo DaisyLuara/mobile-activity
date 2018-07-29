@@ -5,27 +5,29 @@
 
     <!-- 背景 -->
     <img
+      :src="IMAGE_URL + 'bg.png'" 
       class="bg"
-      :src="IMAGE_URL + 'bg.png'" />
+    >
     
     <!-- 背景区域 -->
     <div class="photo-area">
       <img
-      :class="{'photo-inner-horn': isHorn, 'photo-inner-nothorn': !isHorn}"
-      :src="photo"
-      />
+        :src="photo"
+        :class="{'photo-inner-horn': isHorn, 'photo-inner-nothorn': !isHorn}"
+      >
     </div>
 
     <!-- 实际背景 -->
     <img
-      class="photo-real"
       :src="photo"
-      />
+      class="photo-real"
+    >
     
     <!-- tips -->
     <img
+      :src="IMAGE_URL + 'remind.png'" 
       class="remind"
-      :src="IMAGE_URL + 'remind.png'" />
+    >
       
   </div>  
 </template>

@@ -1,23 +1,53 @@
 <template>
-  <div id="warp" class="warp">
-		<audio id="voice" autobuffer autoloop loop autoplay hidden>
-			<source :src="audioUrl+'xiha.mp3'">
-		</audio>
-		<img id="mbtn" class="mplay" :src="imgUrl+'kaide/yinyue.png'" @click="playOrNot"/>
-		<div class="top">
-			<img class="title1" :src="imgUrl+'hiphop/title.png'"/>
-			<img class="title2" :src="imgUrl+'hiphop/title2.png'"/>
-		</div>
-		<div class="main">
-			<img class="cloud" :src="imgUrl+'hiphop/cloud.png'"/>
-			<img class="jian" :src="imgUrl+'hiphop/jian.png'"/>
-			<img class="guang" :src="imgUrl+'hiphop/guang.png'"/>
-			<img class="jpgbg" :src="imgUrl+'hiphop/jpgbg.png'"/>
-			<img id="mImg" class="photo" :src="mImg"/>
-		</div>
-		<img class="press" :src="imgUrl+'hiphop/save.png'" v-show="isShow">
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
-	</div>
+  <div 
+    id="warp" 
+    class="warp">
+    <audio 
+      id="voice" 
+      autobuffer 
+      autoloop 
+      loop 
+      autoplay 
+      hidden>
+      <source :src="audioUrl+'xiha.mp3'">
+    </audio>
+    <img 
+      id="mbtn" 
+      :src="imgUrl+'kaide/yinyue.png'" 
+      class="mplay" 
+      @click="playOrNot">
+    <div class="top">
+      <img 
+        :src="imgUrl+'hiphop/title.png'" 
+        class="title1">
+      <img 
+        :src="imgUrl+'hiphop/title2.png'" 
+        class="title2">
+    </div>
+    <div class="main">
+      <img 
+        :src="imgUrl+'hiphop/cloud.png'" 
+        class="cloud">
+      <img 
+        :src="imgUrl+'hiphop/jian.png'" 
+        class="jian">
+      <img 
+        :src="imgUrl+'hiphop/guang.png'" 
+        class="guang">
+      <img 
+        :src="imgUrl+'hiphop/jpgbg.png'" 
+        class="jpgbg">
+      <img 
+        id="mImg" 
+        :src="mImg" 
+        class="photo">
+    </div>
+    <img 
+      v-show="isShow" 
+      :src="imgUrl+'hiphop/save.png'" 
+      class="press">
+    <wx-share :wx-share-info="wxShareInfo"/>
+  </div>
 </template>
 <script>
 import marketService from 'services/marketing'
@@ -25,6 +55,9 @@ import WxShare from 'modules/wxShare'
 import { customTrack } from 'modules/customTrack'
 const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/'
 export default {
+  components: {
+    WxShare
+  },
   data() {
     return {
       imgUrl: BASE_URL + 'image/',
@@ -135,9 +168,6 @@ export default {
       }
     }
   },
-  components: {
-    WxShare
-  }
 }
 </script>
 <style lang="less" scoped>

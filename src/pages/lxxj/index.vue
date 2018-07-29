@@ -4,60 +4,64 @@
     class="root">
     <!-- 背景 -->
     <img 
-      :style="style.bg"
       :src="baseUrl + 'bg.png'"
-      class="root-bg" />
-    
+      :style="style.bg"
+      class="root-bg" 
+    >
     <div
       v-show="status.step === 'input'"
       class="input-wrapper"
-      >
-
+    >
       <img 
         :src="baseUrl + 'logo.png'"
-        class="logo" />
-      
+        class="logo" 
+      >
       <div
+        class="input-area"
         @click="clearError"
-        class="input-area">
+      >
         <div 
           v-show="status.isPhoneError"
-          class="input-error">
+          class="input-error"
+        >
           您输入的手机号有误
         </div>
-
         <img 
-          class="input-bg"
           :src="baseUrl + 'input.png'"
-          />
-        
+          class="input-bg"
+        >
         <input 
           ref="inputreal"
+          v-model="phoneValue"
           maxlength="11"
-          class="input-value"
-          v-model="phoneValue" />
+          class="input-value" >
         
         <img
-          v-if="status.shouldInputRemindShow"
+          v-if="status.shouldInputRemindShow" 
+          :src="baseUrl + 'remind.png'"
           class="input-remind"
-          :src="baseUrl + 'remind.png'" />
+        >
 
       </div>
 
       <img
+        :src="baseUrl + 'smsremind.png'" 
         class="smsremind"
-        :src="baseUrl + 'smsremind.png'" />
+      >
 
       <div
+        class="input-button"
         @click="checkPhoneValue"
-        class="input-button">
+      >
         <img 
-          :src="baseUrl + 'btn-submit.png'" />
+          :src="baseUrl + 'btn-submit.png'" 
+        >
       </div>
 
       <img
+        :src="baseUrl + 'time.png'" 
         class="wrapper-time"
-        :src="baseUrl + 'time.png'" />
+      >
     </div>
 
     <div
@@ -66,61 +70,72 @@
 
       <!-- 背景 -->
       <img
+        :src="baseUrl + 'coupon-bg.png'" 
         class="coupon-bg"
-        :src="baseUrl + 'coupon-bg.png'" />
+      >
       
       <div
         v-show="status.isGetCoupon === true"
         :style="style.coupon1"
-        class="coupon-inner-1">
+        class="coupon-inner-1"
+      >
         <img
+          :src="baseUrl + 'coupon-1.png'" 
           class="inner-cover"
-          :src="baseUrl + 'coupon-1.png'" />
+        >
 
         <div 
-          class="coupon-number">
+          class="coupon-number"
+        >
           <div
-            class="number-inner"
+            v-for="(item, index) of String(coupon_code)"
             :key="index" 
-            v-for="(item, index) of String(coupon_code)">
+            class="number-inner">
             <img 
-              :src="baseUrl + item + '.png'" />
+              :src="baseUrl + item + '.png'" 
+            >
           </div>
         </div>
 
         <div
           class="inner-button"
-          @click="handleRemindShow">
+          @click="handleRemindShow"
+        >
           <img
+            :src="baseUrl + 'btn-submit.png'" 
             style="pointer-events: none; "
-            :src="baseUrl + 'btn-submit.png'" />
+          >
         </div>
         
       </div>
 
       <img
-        v-show="status.isGetCoupon === false"
+        v-show="status.isGetCoupon === false" 
+        :src="baseUrl + 'coupon-2.png'"
         :style="style.coupon2"
         class="coupon-inner-2"
-        :src="baseUrl + 'coupon-2.png'" />
+      >
 
       <img
+        :src="baseUrl + 'time.png'" 
         class="wrapper-time"
-        :src="baseUrl + 'time.png'" />
+      >
         
     </div>
     
     <Remind v-show="status.shouldRemindShow"/>
 
-     <!-- 宝箱 -->
+    <!-- 宝箱 -->
     <img 
       v-show="status.step === 'coupon'"
-      @click="jumpToLink"
-      class="link"
       :src="baseUrl + 'box.png'"
-      />
+      class="link"
+      @click="jumpToLink"
+    >
     <!-- 弹出层 -->
-    <GameShow :styleData="style" ref="gameShow"/>
+    <GameShow 
+      ref="gameShow" 
+      :style-data="style"/>
   </div>
 </template>
 

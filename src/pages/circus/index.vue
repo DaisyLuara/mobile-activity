@@ -1,19 +1,36 @@
 <template>
-    <div class="content" id="content">
-      <canvas id="canvas"></canvas>
-        <div class="line"></div>
-        <div class="printer">
-          <span class="dolt"></span>
-          <img class="cover" :src="IMG_URL + '/cover.png'"/>
-          <img class="card" :src="IMG_URL + '/card.png'"/>
-          <img class="shadow" :src="IMG_URL + '/shadow.png'"/>
-          <img class="topRect" :src="IMG_URL + '/slider.png'"/>
-          <img class="bottom" :src="IMG_URL + '/bottom.png'"/>
-        </div>
-        <div class="photo"><img id="mImg"  src=""/></div>
-        <img class="press" :src="IMG_URL +'/press.png'" v-show="press"/>
-        <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+  <div 
+    id="content" 
+    class="content">
+    <canvas id="canvas"/>
+    <div class="line"/>
+    <div class="printer">
+      <span class="dolt"/>
+      <img 
+        :src="IMG_URL + '/cover.png'" 
+        class="cover">
+      <img 
+        :src="IMG_URL + '/card.png'" 
+        class="card">
+      <img 
+        :src="IMG_URL + '/shadow.png'" 
+        class="shadow">
+      <img 
+        :src="IMG_URL + '/slider.png'" 
+        class="topRect">
+      <img 
+        :src="IMG_URL + '/bottom.png'" 
+        class="bottom">
     </div>
+    <div class="photo"><img 
+      id="mImg" 
+      src=""></div>
+    <img 
+      v-show="press" 
+      :src="IMG_URL +'/press.png'" 
+      class="press">
+    <wx-share :wx-share-info="wxShareInfo"/>
+  </div>
 </template>
 <script>
 import marketService from 'services/marketing'
@@ -21,6 +38,9 @@ import WxShare from 'modules/wxShare'
 import { customTrack } from 'modules/customTrack'
 const IMG_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing/pages'
 export default {
+  components: {
+    WxShare
+  },
   data() {
     return {
       IMG_URL: IMG_SERVER + '/circus',
@@ -78,9 +98,6 @@ export default {
       }
     }
   },
-  components: {
-    WxShare
-  }
 }
 </script>
 <style lang="less" scoped>

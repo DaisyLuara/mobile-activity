@@ -16,9 +16,9 @@
       class="photo">
       <img 
         v-if="photoUrl !== null" 
-        :src="photoUrl  + this.$qiniuCompress()" 
+        :src="photoUrl + this.$qiniuCompress()" 
         alt="">
-      <!-- 
+        <!-- 
         <img 
           :src="baseUrl + 'gif.png'" > 
       -->

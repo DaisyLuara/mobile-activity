@@ -1,30 +1,44 @@
 <template>
   <!-- 弹出层 -->
-  <div class="popups-wrapper" v-show="styleData.show" :style=styleData.popups>
+  <div 
+    v-show="styleData.show" 
+    :style="styleData.popups" 
+    class="popups-wrapper">
     <div class="popups-content">
-      <div class="main-content" :style="styleData.popupsContent">
-        <div class="popups-close" :style="styleData.top" @click="closePopups">
-          <img :src="imgUrl+'close.png'+ this.$qiniuCompress()" alt="" />
+      <div 
+        :style="styleData.popupsContent" 
+        class="main-content">
+        <div 
+          :style="styleData.top" 
+          class="popups-close" 
+          @click="closePopups">
+          <img 
+            :src="imgUrl+'close.png'+ this.$qiniuCompress()" 
+            alt="" >
         </div>
         <div class="img-wrap">
           <img 
-            class="bg"
-            :src="imgUrl+'bg.png?v=1'+ this.$qiniuCompress()" >
+            :src="imgUrl+'bg.png?v=1'+ this.$qiniuCompress()"
+            class="bg" >
           <img 
-            class="done1"
-            :src="imgUrl+'a.png'+ this.$qiniuCompress()" v-show="gameData.projectOne">
-            <img 
-            class="done2"
-            :src="imgUrl+'b.png'+ this.$qiniuCompress()" v-show="gameData.projectTwo">
-            <img 
-            class="done3"
-            :src="imgUrl+'c.png'+ this.$qiniuCompress()" v-show="gameData.projectThree">
-            <img 
-            class="done4"
-            :src="imgUrl+'d.png'+ this.$qiniuCompress()" v-show="gameData.projectFour">
-            <div class="text">
-              {{gameData.randomNum}}
-            </div>
+            v-show="gameData.projectOne"
+            :src="imgUrl+'a.png'+ this.$qiniuCompress()" 
+            class="done1">
+          <img 
+            v-show="gameData.projectTwo"
+            :src="imgUrl+'b.png'+ this.$qiniuCompress()" 
+            class="done2">
+          <img 
+            v-show="gameData.projectThree"
+            :src="imgUrl+'c.png'+ this.$qiniuCompress()" 
+            class="done3">
+          <img 
+            v-show="gameData.projectFour"
+            :src="imgUrl+'d.png'+ this.$qiniuCompress()" 
+            class="done4">
+          <div class="text">
+            {{ gameData.randomNum }}
+          </div>
         </div>
       </div>
     </div>

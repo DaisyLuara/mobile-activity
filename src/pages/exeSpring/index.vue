@@ -1,16 +1,35 @@
 <template>
-<div class="tel-content" id="content">
-    <audio id="voice" autobuffer autoloop loop autoplay hidden>
-			<source :src="audioUrl+'/spring.mp3'">
-		</audio>
-		<img id="mbtn" class="mplay" :src="imgUrl+'kaide/yinyue.png'" @click="playOrNot"/>
+  <div 
+    id="content" 
+    class="tel-content">
+    <audio 
+      id="voice" 
+      autobuffer 
+      autoloop 
+      loop 
+      autoplay 
+      hidden>
+      <source :src="audioUrl+'/spring.mp3'">
+    </audio>
+    <img 
+      id="mbtn" 
+      :src="imgUrl+'kaide/yinyue.png'" 
+      class="mplay" 
+      @click="playOrNot">
     <div class="telform">
-			<p class="msg">{{errMsg}}</p>
-			<input type="tel" id="tel" maxlength="11" placeholder="请输入手机号" />
-			<input type="button" id="button" @click="redirectToPhoto"/>
-		</div>
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
-</div>
+      <p class="msg">{{ errMsg }}</p>
+      <input 
+        id="tel" 
+        type="tel" 
+        maxlength="11" 
+        placeholder="请输入手机号" >
+      <input 
+        id="button" 
+        type="button" 
+        @click="redirectToPhoto">
+    </div>
+    <wx-share :wx-share-info="wxShareInfo"/>
+  </div>
 </template>
 <script>
 import marketService from 'services/marketing'
@@ -18,6 +37,9 @@ import WxShare from 'modules/wxShare'
 import { customTrack } from 'modules/customTrack'
 const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/'
 export default {
+  components: {
+    WxShare
+  },
   data() {
     return {
       imgUrl: BASE_URL + 'image/',
@@ -140,9 +162,6 @@ export default {
       }
     }
   },
-  components: {
-    WxShare
-  }
 }
 </script>
 <style lang="less" scoped>

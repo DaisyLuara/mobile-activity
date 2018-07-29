@@ -1,28 +1,47 @@
 <template>
   <div class="phone-content">
-    <img src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/open_box/title.png" alt="" class="title"/>
-    <img src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/open_box/phone_hint.png" alt="" class="phone-hint"/>
-    <input type="text" class="mobile" maxlength="11" placeholder="请输入你的手机号" v-model="mobileNum" @click="phoneError = false"/>
+    <img 
+      src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/open_box/title.png" 
+      alt="" 
+      class="title"
+    >
+    <img 
+      src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/open_box/phone_hint.png" 
+      alt="" 
+      class="phone-hint"
+    >
+    <input 
+      v-model="mobileNum" 
+      type="text" 
+      class="mobile" 
+      maxlength="11" 
+      placeholder="请输入你的手机号" 
+      @click="phoneError = false"
+    >
     <div class="boots-wrap">
-    <div class="error" v-show="phoneError">{{errorText}}</div>
-      <img class="confrim_btn" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/open_box/confirm_btn.png" @click="redirectToPhoto">
+      <div 
+        v-show="phoneError"
+        class="error" 
+      >
+        {{ errorText }}
+      </div>
+      <img
+        src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/open_box/confirm_btn.png" 
+        class="confrim_btn"  
+        @click="redirectToPhoto"
+      >
     </div>
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
   </div>
 </template>
 <script>
 import { setParameter } from 'modules/util'
-import { customTrack } from 'modules/customTrack'
-import WxShare from 'modules/wxShare'
 import parseService from 'modules/parseServer'
 import CouponService from 'services/freecartCoupon'
 import $ from 'jquery'
 import { getWxUserInfo } from 'services'
+import { $_wechat, getInfoById, wechatShareTrack } from 'services'
 
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
       mobileNum: '',
@@ -33,7 +52,10 @@ export default {
         title: '寻宝箱 开好礼',
         desc: '新年至 小星在各大商圈准备了海量神秘宝箱！找到小星 发现好礼！！',
         imgUrl:
-          'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/openBox_share_icon.png'
+          'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/openBox_share_icon.png',
+        success: () => {
+          wechatShareTrack()
+        }
       },
       userInfo: {}
     }
@@ -43,11 +65,21 @@ export default {
   },
   mounted() {
     $('.phone-content').css('height', $(window).height())
+    this.handleShare()
   },
   created() {
     getWxUserInfo()
   },
   methods: {
+    handleShare() {
+      $_wechat()
+        .then(res => {
+          res.share(this.wxShareInfoValue)
+        })
+        .catch(_ => {
+          console.warn(_.message)
+        })
+    },
     saveWxInfo() {
       this.userInfo.gifType = this.$route.query.type
       parseService
@@ -117,19 +149,6 @@ export default {
         redirectUrl = setParameter(param, this.$route.query[param], redirectUrl)
       }
       window.location.href = redirectUrl
-    }
-  },
-  computed: {
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
-        success: () => {
-          customTrack.shareWeChat()
-        }
-      }
-      return wxShareInfo
     }
   }
 }

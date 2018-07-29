@@ -1,21 +1,24 @@
 <template>
   <div
     :style="style.root"
-    class="remind-root">
+    class="remind-root"
+  >
     <div 
       class="title">
       <img
+        :src="baseUrl + 'remind-title.png'" 
         class="title-word" 
-        :src="baseUrl + 'remind-title.png'" />
+      >
       <img
-        @click="handleRemindShow"
+        :src="baseUrl + 'tc-close.png'" 
         class="title-close"
-        :src="baseUrl + 'tc-close.png'" />
+        @click="handleRemindShow"
+      >
     </div>
     <img
-      class="content"
       src="https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/lxxj/shuoming.png"
-      />
+      class="content"
+    >
   </div>
 </template>
 

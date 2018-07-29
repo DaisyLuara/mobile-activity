@@ -1,7 +1,7 @@
 <template>
   <div 
-    class="kissme-content"
-    :style="style.root">
+    :style="style.root"
+    class="kissme-content">
     <img   
       :src="resultImgUrl" 
       alt=""

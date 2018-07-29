@@ -1,28 +1,34 @@
 <template>
-<div class="content" id="warp">
+  <div 
+    id="warp" 
+    class="content">
     <div class="div_img">
-        <img class="photo" :src="mImg">
+      <img 
+        :src="mImg" 
+        class="photo">
     </div>
-    <img class="save" :src="IMAGE_URL + 'save.png'"/>
+    <img 
+      :src="IMAGE_URL + 'save.png'" 
+      class="save">
     <div class="div_text">
-        <ul>
-            <li class="name">规则：</li>
-            <li 
-              :key="index"
-              v-for="(item, index) in textMsg[num]">{{item}}
-            </li>
-            <li class="name">优惠券规则：</li>
-            <li>凭此照片兑换，仅限本人使用，每人只可用一次，全场先秒先得！</li>
-        </ul>
+      <ul>
+        <li class="name">规则：</li>
+        <li 
+          v-for="(item, index) in textMsg[num]"
+          :key="index">{{ item }}
+        </li>
+        <li class="name">优惠券规则：</li>
+        <li>凭此照片兑换，仅限本人使用，每人只可用一次，全场先秒先得！</li>
+      </ul>
     </div>
     <div class="map">
       <img
-        :key="index" 
         v-for="(item, index) in imgMsg" 
-        :src="item"/>
+        :key="index" 
+        :src="item">
     </div>
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
-</div>
+    <wx-share :wx-share-info="wxShareInfo"/>
+  </div>
 </template>
 <script>
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
@@ -32,6 +38,9 @@ import WxShare from 'modules/wxShare'
 import { customTrack } from 'modules/customTrack'
 import Mydata from './data.js'
 export default {
+  components: {
+    WxShare
+  },
   data() {
     return {
       IMAGE_URL: IMAGE_SERVER + '/pages/goodboy/',
@@ -106,9 +115,6 @@ export default {
         })
     }
   },
-  components: {
-    WxShare
-  }
 }
 </script>
 <style lang="less" scoped>

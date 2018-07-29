@@ -1,24 +1,55 @@
 <template>
-    <div class="yanzhi-result" id="warp">
-		<img class="title" :src="imgUrl+'title.png'" data-v-content/>
-		<div class="content">
-			<div class="circles"> 
-				<img class="gear1" :src="imgUrl+'gear1.png'">
-				<img class="gear2" :src="imgUrl+'gear2.png'">
-				<img class="gear3" :src="imgUrl+'gear3.png'">
-				<img class="gear4" :src="imgUrl+'gear4.png'">
-				<img class="gear5" :src="imgUrl+'gear5.png'">
-				<img class="gear6" :src="imgUrl+'gear6.png'">
-				<img class="gear7" :src="imgUrl+'gear7.png'">
-				<img class="gear8" :src="imgUrl+'gear8.png'">
-				<img class="gear9" :src="imgUrl+'gear9.png'">
-			</div>
-			<img class="money" id="mImg" :src="mImg"/>
-			<img class="imgframe" :src="imgUrl+'frame.png'">
-		</div>
-		<img class="press" :src="imgUrl+'press.png'" v-show="press"/>
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
-	</div>
+  <div 
+    id="warp" 
+    class="yanzhi-result">
+    <img 
+      :src="imgUrl+'title.png'" 
+      class="title" 
+      data-v-content>
+    <div class="content">
+      <div class="circles"> 
+        <img 
+          :src="imgUrl+'gear1.png'" 
+          class="gear1">
+        <img 
+          :src="imgUrl+'gear2.png'" 
+          class="gear2">
+        <img 
+          :src="imgUrl+'gear3.png'" 
+          class="gear3">
+        <img 
+          :src="imgUrl+'gear4.png'" 
+          class="gear4">
+        <img 
+          :src="imgUrl+'gear5.png'" 
+          class="gear5">
+        <img 
+          :src="imgUrl+'gear6.png'" 
+          class="gear6">
+        <img 
+          :src="imgUrl+'gear7.png'" 
+          class="gear7">
+        <img 
+          :src="imgUrl+'gear8.png'" 
+          class="gear8">
+        <img 
+          :src="imgUrl+'gear9.png'" 
+          class="gear9">
+      </div>
+      <img 
+        id="mImg" 
+        :src="mImg" 
+        class="money">
+      <img 
+        :src="imgUrl+'frame.png'" 
+        class="imgframe">
+    </div>
+    <img 
+      v-show="press" 
+      :src="imgUrl+'press.png'" 
+      class="press">
+    <wx-share :wx-share-info="wxShareInfo"/>
+  </div>
 </template>
 <script>
 import marketService from 'services/marketing'
@@ -26,6 +57,9 @@ import WxShare from 'modules/wxShare'
 import { customTrack } from 'modules/customTrack'
 const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/'
 export default {
+  components: {
+    WxShare
+  },
   data() {
     return {
       imgUrl: BASE_URL + 'image/yanzhi/content/',
@@ -69,9 +103,6 @@ export default {
         })
     }
   },
-  components: {
-    WxShare
-  }
 }
 </script>
 <style lang="less" scoped>

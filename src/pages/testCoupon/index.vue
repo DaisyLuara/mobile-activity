@@ -1,19 +1,34 @@
 <template>
-  <div class="test-coupon-content" :style="style.root">
-      <!-- <img  class="bg" :src="imgServerUrl + '/pages/drc_ty/bg.png'" alt="" :style="style.bg"/> -->
-      <div class="gender">
-        <span>{{gender}}</span>
-        <span>{{age}} 岁</span>
-      </div>
-      <!-- <img  class="photo" :src="couponUrl" alt=""/> -->
-      <!-- <img  class="photo" src="/static/tmall/no_win.png" alt=""/> -->
-      <div class="photo">
-        {{couponContent}}
-      </div>
-      <img class="input-bg"  :src="imgServerUrl + '/pages/zoo/b.png'" />
-      <img class="input-error" v-show="isPhoneError" :src="imgServerUrl + '/pages/zoo/error.png'" />
-      <input ref="inputreal" maxlength="11" class="input-value" v-model="phoneValue" @click="isPhoneError=false"/>
-      <img class="remind-bt"  :src="imgServerUrl + '/pages/zoo/a.png'" @click="submit"/>
+  <div 
+    :style="style.root" 
+    class="test-coupon-content">
+    <!-- <img  class="bg" :src="imgServerUrl + '/pages/drc_ty/bg.png'" alt="" :style="style.bg"/> -->
+    <div class="gender">
+      <span>{{ gender }}</span>
+      <span>{{ age }} 岁</span>
+    </div>
+    <!-- <img  class="photo" :src="couponUrl" alt=""/> -->
+    <!-- <img  class="photo" src="/static/tmall/no_win.png" alt=""/> -->
+    <div class="photo">
+      {{ couponContent }}
+    </div>
+    <img 
+      :src="imgServerUrl + '/pages/zoo/b.png'" 
+      class="input-bg" >
+    <img 
+      v-show="isPhoneError" 
+      :src="imgServerUrl + '/pages/zoo/error.png'" 
+      class="input-error" >
+    <input 
+      ref="inputreal" 
+      v-model="phoneValue" 
+      maxlength="11" 
+      class="input-value" 
+      @click="isPhoneError=false">
+    <img 
+      :src="imgServerUrl + '/pages/zoo/a.png'" 
+      class="remind-bt" 
+      @click="submit">
   </div>
 </template>
 <script>

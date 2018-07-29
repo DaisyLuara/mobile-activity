@@ -1,7 +1,7 @@
 <template>
   <div
-    class="root"
-    :style="style.root">
+    :style="style.root"
+    class="root">
     <img 
       :style="style.bg"
       :src="imgUrl + 'bg.png' + this.$qiniuCompress()"
@@ -13,7 +13,7 @@
     <img 
       :src="photo + this.$qiniuCompress()"
       class="photo">
-      <img 
+    <img 
       :src="photo + this.$qiniuCompress()"
       class="opacity-photo">
     <img 

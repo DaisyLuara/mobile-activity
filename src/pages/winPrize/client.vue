@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-disable -->
   <div class="client-wrap" v-show="showPage">
     <img class="abs slogan" :src="imgServerUrl + '/pages/win_prize/client_slogan.png'" alt="">
     <div class="abs info">
@@ -49,6 +50,7 @@
   </div>
 </template>
 <script>
+/* eslint-disable */
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 import { Cookies } from 'modules/util'
 import Question from './question0129'

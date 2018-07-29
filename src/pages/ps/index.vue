@@ -1,28 +1,33 @@
 <template>
-<div class="report-content">
-  <img :src="imgServerUrl + '/pages/ps/ad_1.png'" alt="" class="ad"/>
-  <div class="report-wrap">
-    <div class="photo-wrap">
-      <img :src="resultImgUrl" alt=""/>
+  <div class="report-content">
+    <img 
+      :src="imgServerUrl + '/pages/ps/ad_1.png'" 
+      class="ad"
+      alt="" 
+    >
+    <div class="report-wrap">
+      <div class="photo-wrap">
+        <img 
+          :src="resultImgUrl" 
+          alt="">
+      </div>
+      <div class="save">
+        长按保存照片到手机相册
+      </div>
     </div>
-    <div class="save">长按保存照片到手机相册</div>
+    <img 
+      :src="imgServerUrl + '/pages/ps/ad_2.png'" 
+      class="ad"
+      alt="" 
+    >
   </div>
-  <img :src="imgServerUrl + '/pages/ps/ad_2.png'" alt="" class="ad"/>
-  <wx-share :WxShareInfo="wxShareInfo"></wx-share>
-</div>
 </template>
-<script>
-import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
-import { customTrack } from 'modules/customTrack'
 
+<script>
+import { $_wechat, getInfoById, wechatShareTrack } from 'services'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 import $ from 'jquery'
-
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
       resultImgUrl: '',
@@ -34,7 +39,10 @@ export default {
         title: '旺狗开春 情缘满分',
         desc: '浦商百货借旺狗报新春 送祝福 合家欢 情侣睦 诞生的汪早脱单',
         imgUrl:
-          'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/dog_share_icon.png'
+          'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/dog_share_icon.png',
+        success: () => {
+          wechatShareTrack()
+        }
       }
     }
   },
@@ -48,29 +56,24 @@ export default {
     this.getPeopleImage()
   },
   methods: {
+    handleShare() {
+      $_wechat()
+        .then(res => {
+          res.share(this.wxShareInfoValue)
+        })
+        .catch(_ => {
+          console.warn(_.message)
+        })
+    },
     getPeopleImage() {
       let recordId = decodeURI(this.$route.query.recordId)
-      marketService
-        .getPlayResultById(this, recordId)
+      getInfoById(recordId)
         .then(result => {
           this.resultImgUrl = result.result_img_url
         })
         .catch(err => {
           console.log(err)
         })
-    }
-  },
-  computed: {
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
-        success: () => {
-          customTrack.shareWeChat()
-        }
-      }
-      return wxShareInfo
     }
   }
 }

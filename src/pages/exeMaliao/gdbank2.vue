@@ -1,16 +1,26 @@
 <template>
-  <div class="p-content" id="pcontent">
-    <a :href="giftUrl"><img class="redbg" :src="giftImg"></a>
-		<div class="glink">
-			<a class="againlink" :href="dingdang"><img :src="imgUrl+'link3.png'"/></a> 
-		</div>
-		<div class="glink">
-			<a class="againlink" :href="bankLink"><img :src="imgUrl+'link2.png'"/></a>
-		</div>
-		<div class="glink">
-			<a class="againlink" :href="jietiap360"><img :src="imgUrl+'link1.png'"/></a>
-		</div>
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+  <div 
+    id="pcontent" 
+    class="p-content">
+    <a :href="giftUrl"><img 
+      :src="giftImg" 
+      class="redbg"></a>
+    <div class="glink">
+      <a 
+        :href="dingdang" 
+        class="againlink"><img :src="imgUrl+'link3.png'"></a> 
+    </div>
+    <div class="glink">
+      <a 
+        :href="bankLink" 
+        class="againlink"><img :src="imgUrl+'link2.png'"></a>
+    </div>
+    <div class="glink">
+      <a 
+        :href="jietiap360" 
+        class="againlink"><img :src="imgUrl+'link1.png'"></a>
+    </div>
+    <wx-share :wx-share-info="wxShareInfo"/>
   </div>
 </template>
 <script>
@@ -19,6 +29,9 @@ import WxShare from 'modules/wxShare'
 import { customTrack } from 'modules/customTrack'
 const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/'
 export default {
+  components: {
+    WxShare
+  },
   data() {
     return {
       imgUrl: BASE_URL + 'image/maliao/',
@@ -55,9 +68,6 @@ export default {
     // pcontent.style.minHeight = h
   },
   methods: {},
-  components: {
-    WxShare
-  }
 }
 </script>
 <style lang="less" scoped>

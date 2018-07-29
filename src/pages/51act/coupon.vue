@@ -1,12 +1,13 @@
 <template>
+  <!-- eslint-disable -->
   <div 
     :class="{'pop': this.control.pop}"
     class="coupon-root">
     
     <!-- bg -->
     <img
-      class="root-bg" 
-      :src="this.baseUrl + 'bg.jpg'" />
+      :src="this.baseUrl + 'bg.jpg'" 
+      class="root-bg" >
 
     <!-- numbers -->
     <div
@@ -19,16 +20,16 @@
         :key="'hour' + index"
         :style="style.num">
         <img
-        :src="baseUrl + item + '.png'"
-        :style="style.num" 
-        class="num" />
+          :src="baseUrl + item + '.png'"
+          :style="style.num" 
+          class="num" >
       </div>
 
       <div :style="style.num">
-          <img
-            :src="baseUrl + 'semi.png'"
-            :style="style.num" 
-            class="num" />
+        <img
+          :src="baseUrl + 'semi.png'"
+          :style="style.num" 
+          class="num" >
       </div>
 
       <div 
@@ -36,16 +37,16 @@
         :key="'min' + index"
         :style="style.num">
         <img
-        :src="baseUrl + item + '.png'"
-        :style="style.num" 
-        class="num" />
+          :src="baseUrl + item + '.png'"
+          :style="style.num" 
+          class="num" >
       </div>
 
       <div :style="style.num">
-          <img
-            :src="baseUrl + 'semi.png'"
-            :style="style.num" 
-            class="num" />
+        <img
+          :src="baseUrl + 'semi.png'"
+          :style="style.num" 
+          class="num" >
       </div>
 
       <div 
@@ -53,26 +54,26 @@
         :key="'second' + index"
         :style="style.num">
         <img
-        :src="baseUrl + item + '.png'"
-        class="num" />
+          :src="baseUrl + item + '.png'"
+          class="num" >
       </div>
 
     </div>
 
     <!-- button -->
     <img
-      @click="handlePop"
       :style="style.button"
+      :src="this.baseUrl + 'button.png'"
       class="root-button" 
-      :src="this.baseUrl + 'button.png'" />
+      @click="handlePop" >
 
     <!-- coupon -->
     <div
-      class="root-coupon"
-      :style="style.coupon">
-       <img 
-        style="width: 100%"
-        :src="coupon.img" />
+      :style="style.coupon"
+      class="root-coupon">
+      <img 
+        :src="coupon.img"
+        style="width: 100%" >
     </div>
    
 
@@ -86,16 +87,14 @@
         :style="style.sname" 
         class="slide-name">
         <div
-          @click="handleStoreClick(index)"
           v-for="(item, index) in store"
           :key="index"
-          :style="style.nitem" 
-          :class="{'selected': index === control.store, 'normal': index !== control.store}"
-          class="name-item">
-          {{item.name}}
-          <div class="item-sep">
-
-          </div>
+          :style="style.nitem"
+          :class="{'selected': index === control.store, 'normal': index !== control.store}" 
+          class="name-item"
+          @click="handleStoreClick(index)">
+          {{ item.name }}
+          <div class="item-sep"/>
         </div>
       </div>
 
@@ -103,78 +102,84 @@
         :style="style.com"
         class="slide-com">
         <swiper
+          ref="mySwiper" 
+          :options="swiperOption" 
           class="slide-itself" 
-          :options="swiperOption" ref="mySwiper" @someSwiperEvent="swiperEvent">
+          @someSwiperEvent="swiperEvent">
           <!-- slides -->
           <swiper-slide 
             v-for="(item, index) in store"
             :key="index">
             <img 
-              style="height: 100%"
-              :src="item.img" />
+              :src="item.img"
+              style="height: 100%" >
           </swiper-slide>
           
           <!-- Optional controls -->
-          <div class="swiper-button-prev" slot="button-prev"></div>
-          <div class="swiper-button-next" slot="button-next"></div>
+          <div 
+            slot="button-prev" 
+            class="swiper-button-prev"/>
+          <div 
+            slot="button-next" 
+            class="swiper-button-next"/>
         </swiper>
       </div>
 
       <div
         :style="style.address" 
         class="slide-address">
-        {{currentAddress}}
+        {{ currentAddress }}
       </div>
 
     </div>
 
     <!-- pics -->
     <img
-      class="root-singlep" 
-      v-lazy="baseUrl + 'p2_02.png'" />
+      v-lazy="baseUrl + 'p2_02.png'" 
+      class="root-singlep" >
 
     <img
-      class="root-singlep" 
-      v-lazy="baseUrl + 'p2_03.png'" />
+      v-lazy="baseUrl + 'p2_03.png'" 
+      class="root-singlep" >
 
     <img
-      class="root-singlep" 
-      v-lazy="baseUrl + 'p2_04.png'" />
+      v-lazy="baseUrl + 'p2_04.png'" 
+      class="root-singlep" >
 
     <img
-      class="root-singlep" 
-      v-lazy="baseUrl + 'p2_05.png'" />
+      v-lazy="baseUrl + 'p2_05.png'" 
+      class="root-singlep" >
 
     <img
-      class="root-singlep" 
-      v-lazy="baseUrl + 'p2_06.jpg'" />
+      v-lazy="baseUrl + 'p2_06.jpg'" 
+      class="root-singlep" >
     <!-- popup -->
     <div 
-      class="root-popup"
-      v-if="this.control.pop">
+      v-if="this.control.pop"
+      class="root-popup">
       <div class="pop-div">
         <img
-          @click="handlePop"
+          :src="this.baseUrl + 'close.png'"
           class="pop-close" 
-          :src="this.baseUrl + 'close.png'" />
+          @click="handlePop" >
         <div class="pop-titile">
           使用规则说明
          
         </div>
         <div class="pop-para"> 
           <div>有效期：</div>
-          <div>{{coupon.date_end}}</div>
+          <div>{{ coupon.date_end }}</div>
         </div>
         <div class="pop-para">
           <div>使用条件：</div>
-          <div>{{coupon.condition}}</div>
+          <div>{{ coupon.condition }}</div>
         </div>
         <div class="pop-rule">
           <div>规则：</div>
           <div 
-            :key="index"
-            v-for="(item, index) in coupon.rules">
-            {{item}}
+            v-for="(item, index) in coupon.rules"
+            :key="index">
+            {{ item }}
           </div>
         </div>
 
@@ -184,6 +189,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import Vue from 'vue'
 import { getInfoById, $_wechat } from 'services'
 import { customTrack } from 'modules/customTrack'
@@ -372,61 +378,6 @@ export default {
       tc: null
     }
   },
-  created() {
-    this.handleStoreChooseById()
-    document.title = 'EXE颜镜店'
-  },
-  mounted() {
-    if (localStorage.getItem('xingstation51act') !== null) {
-      this.coupon = JSON.parse(
-        localStorage.getItem('xingstation51act')
-      ).coupon_data
-
-      let date3 =
-        new Date(this.coupon.date_added.replace(/\-/g, '/')).getTime() +
-        24 * 60 * 60 * 1000 * 2 -
-        Date.now()
-
-      if (date3 > 0) {
-        let days = Math.floor(date3 / (24 * 3600 * 1000))
-        let leave1 = date3 % (24 * 3600 * 1000) //计算天数后剩余的毫秒数
-        let hours = Math.floor(leave1 / (3600 * 1000)) + days * 24
-        console.log(hours)
-        //计算相差分钟数
-        let leave2 = leave1 % (3600 * 1000) //计算小时数后剩余的毫秒数
-        let minutes = Math.floor(leave2 / (60 * 1000))
-        console.log(minutes)
-
-        //计算相差秒数
-        let leave3 = leave2 % (60 * 1000) //计算分钟数后剩余的毫秒数
-        let seconds = Math.round(leave3 / 1000)
-        console.log(leave3)
-
-        this.control.hour = hours
-        this.control.min = minutes
-        this.control.seconds = seconds
-        // console.log(
-        //   ' 相差 ' +
-        //     days +
-        //     '天' +
-        //     hours +
-        //     '小时 ' +
-        //     minutes +
-        //     ' 分钟' +
-        //     seconds +
-        //     ' 秒'
-        // )
-      }
-
-      this.getMobileAndSetShareData()
-      this.initInterval()
-    }
-    this.handleTrack()
-    this.handleShare()
-  },
-  beforeDestroy() {
-    this.clearSetInterval()
-  },
   computed: {
     wxShareInfo() {
       let wxShareInfo = {
@@ -489,6 +440,61 @@ export default {
     hasInit: function() {
       this.$refs.mySwiper.swiper.slideTo(this.handleStoreChooseById())
     }
+  },
+  created() {
+    this.handleStoreChooseById()
+    document.title = 'EXE颜镜店'
+  },
+  mounted() {
+    if (localStorage.getItem('xingstation51act') !== null) {
+      this.coupon = JSON.parse(
+        localStorage.getItem('xingstation51act')
+      ).coupon_data
+
+      let date3 =
+        new Date(this.coupon.date_added.replace(/\-/g, '/')).getTime() +
+        24 * 60 * 60 * 1000 * 2 -
+        Date.now()
+
+      if (date3 > 0) {
+        let days = Math.floor(date3 / (24 * 3600 * 1000))
+        let leave1 = date3 % (24 * 3600 * 1000) //计算天数后剩余的毫秒数
+        let hours = Math.floor(leave1 / (3600 * 1000)) + days * 24
+        console.log(hours)
+        //计算相差分钟数
+        let leave2 = leave1 % (3600 * 1000) //计算小时数后剩余的毫秒数
+        let minutes = Math.floor(leave2 / (60 * 1000))
+        console.log(minutes)
+
+        //计算相差秒数
+        let leave3 = leave2 % (60 * 1000) //计算分钟数后剩余的毫秒数
+        let seconds = Math.round(leave3 / 1000)
+        console.log(leave3)
+
+        this.control.hour = hours
+        this.control.min = minutes
+        this.control.seconds = seconds
+        // console.log(
+        //   ' 相差 ' +
+        //     days +
+        //     '天' +
+        //     hours +
+        //     '小时 ' +
+        //     minutes +
+        //     ' 分钟' +
+        //     seconds +
+        //     ' 秒'
+        // )
+      }
+
+      this.getMobileAndSetShareData()
+      this.initInterval()
+    }
+    this.handleTrack()
+    this.handleShare()
+  },
+  beforeDestroy() {
+    this.clearSetInterval()
   },
   methods: {
     handleShare() {

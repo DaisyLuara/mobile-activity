@@ -1,16 +1,35 @@
 <template>
-  <div class="tea-main" id="tea">
+  <div 
+    id="tea" 
+    class="tea-main">
     <div class="tea-content" >
-        <img :src="imgPath + 'bg.png'" class="bg"/>
-        <img :src="imgPath + 'cover.png'" class="cover">
-        <img :src="imgPath + 'shadow.png'" class="shadow">
-        <div class="picture">
-            <img :src="photo" :class="{pImg:true,slider:slider}"/>
-            <img :src="imgPath + 'border.png'" class="border" v-show="border"/>
-        </div>
-        <img :src="imgPath + 'look.png'" class="look" v-show="border">
-        <img :src="imgPath + 'note.png'" class="note" v-show="border">
-        <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+      <img 
+        :src="imgPath + 'bg.png'" 
+        class="bg">
+      <img 
+        :src="imgPath + 'cover.png'" 
+        class="cover">
+      <img 
+        :src="imgPath + 'shadow.png'" 
+        class="shadow">
+      <div class="picture">
+        <img 
+          :src="photo" 
+          :class="{pImg:true,slider:slider}">
+        <img 
+          v-show="border" 
+          :src="imgPath + 'border.png'" 
+          class="border">
+      </div>
+      <img 
+        v-show="border" 
+        :src="imgPath + 'look.png'" 
+        class="look">
+      <img 
+        v-show="border" 
+        :src="imgPath + 'note.png'" 
+        class="note">
+      <wx-share :wx-share-info="wxShareInfo"/>
     </div>
   </div>
 </template>
@@ -19,6 +38,9 @@ import marketService from 'services/marketing'
 import WxShare from 'modules/wxShare'
 import { customTrack } from 'modules/customTrack'
 export default {
+  components: {
+    WxShare
+  },
   data() {
     return {
       imgPath: 'http://p22vy0aug.bkt.clouddn.com/image/heyjuice/',
@@ -70,9 +92,6 @@ export default {
         })
     }
   },
-  components: {
-    WxShare
-  }
 }
 </script>
 <style lang="less" scoped>

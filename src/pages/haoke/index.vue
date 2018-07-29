@@ -1,7 +1,7 @@
 <template>
   <div 
-    class="haoke-content"
-    :style="style.root">
+    :style="style.root"
+    class="haoke-content">
     <img  
       :src="resultImgUrl" 
       alt=""
@@ -21,14 +21,14 @@
         alt=""
         class="free">
       <img 
-        :src="imgServerUrl + '/pages/haoke/5.png'" 
-        alt=""
-        v-show="showCoupon.couponFive"  
+        v-show="showCoupon.couponFive" 
+        :src="imgServerUrl + '/pages/haoke/5.png'"
+        alt=""  
         class="five" >
       <img  
-        :src="imgServerUrl + '/pages/haoke/85.png'" 
-        alt=""
         v-show="showCoupon.couponEightyFive" 
+        :src="imgServerUrl + '/pages/haoke/85.png'"
+        alt="" 
         class="eighty-five" >
     </div>
   </div>

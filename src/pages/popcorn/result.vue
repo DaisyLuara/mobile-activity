@@ -10,21 +10,21 @@
       alt=""
       class="coupon" >
     <!--手机号-->
-    <img  g
+    <img 
       :src="imgServerUrl + '/pages/popcorn/cell_icon.png'" 
       alt=""
       class="cell-icon" >
     <input 
-      type="text" 
-      placeholder="请输入你的手机号"
-      maxlength="11"   
       v-model="mobileNum" 
-      @click="phoneError = false"
-      class="num">
+      type="text"
+      placeholder="请输入你的手机号"   
+      maxlength="11" 
+      class="num"
+      @click="phoneError = false">
     <div 
       v-show="phoneError"
       class="error" >
-      {{errorText}}
+      {{ errorText }}
     </div>
     <img 
       :src="imgServerUrl + '/pages/popcorn/buttom.png'" 
@@ -37,7 +37,7 @@
         :src="imgServerUrl + '/pages/popcorn/hint.png'" 
         alt="">
     </div>
-   </div>
+  </div>
 </template>
 <script>
 import marketService from 'services/marketing'
