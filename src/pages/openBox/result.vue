@@ -1,17 +1,32 @@
 <template>
   <div class="report-wrap">
     <div class="coupon-wrap">
-      <img alt="" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/open_box/report_bg_1.png" class="report_bg_1"/>
-      <img alt="" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/open_box/arrow_icon.png" class="arrow"/>
+      <img 
+        alt="" 
+        src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/open_box/report_bg_1.png" 
+        class="report_bg_1">
+      <img 
+        alt="" 
+        src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/open_box/arrow_icon.png" 
+        class="arrow">
     </div>
     <div class="photo-wrap">
-      <img alt="" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/open_box/report_bg_2.png" class="report_bg_2"/>
+      <img 
+        alt="" 
+        src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/open_box/report_bg_2.png" 
+        class="report_bg_2">
       <div class="photo-content">
-        <img alt="" :src="resultImgUrl" class="photo"/>
-       <img alt="" src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/open_box/save.png" class="save"/>
+        <img 
+          :src="resultImgUrl" 
+          alt="" 
+          class="photo">
+        <img 
+          alt="" 
+          src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/open_box/save.png" 
+          class="save">
       </div>
     </div>
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+    <wx-share :wx-share-info="wxShareInfo"/>
   </div>
 </template>
 <script>
@@ -34,11 +49,27 @@ export default {
       }
     }
   },
+  computed: {
+    wxShareInfo() {
+      let wxShareInfo = {
+        title: this.wxShareInfoValue.title,
+        desc: this.wxShareInfoValue.desc,
+        imgUrl: this.wxShareInfoValue.imgUrl,
+        success: () => {
+          customTrack.shareWeChat()
+        }
+      }
+      return wxShareInfo
+    }
+  },
   beforeCreate() {
     document.title = '开箱子'
   },
   created() {
     this.getPeopleImage()
+  },
+  mounted() {
+    $('.report-wrap').css('min-height', $(window).height())
   },
   methods: {
     getPeopleImage() {
@@ -55,22 +86,6 @@ export default {
         })
     }
   },
-  mounted() {
-    $('.report-wrap').css('min-height', $(window).height())
-  },
-  computed: {
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
-        success: () => {
-          customTrack.shareWeChat()
-        }
-      }
-      return wxShareInfo
-    }
-  }
 }
 </script>
 <style lang="less" scoped>

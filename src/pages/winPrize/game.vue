@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-disable -->
   <div class="game-wrap">
     <img class="abs title" :src="imgServerUrl + '/pages/win_prize/h5_title.png'">
     <div class="abs question">
@@ -119,6 +120,7 @@
   </div>
 </template>
 <script>
+/* eslint-disable */
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 import { customTrack } from 'modules/customTrack'
 import WxShare from 'modules/wxShare.vue'

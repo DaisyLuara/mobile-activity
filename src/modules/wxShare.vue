@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <div/>
 </template>
 <script>
 import { isWeixin } from './util'
@@ -7,7 +7,32 @@ import { isWeixin } from './util'
 const wx = require('weixin-js-sdk')
 
 export default {
-  props: ['WxShareInfo'],
+  props: {
+    WxShareInfo: {
+      type: Object,
+      default: Object.create(null)
+    }
+  },
+  watch: {
+    'WxShareInfo.title': function() {
+      this.wxShare()
+    },
+    'WxShareInfo.desc': function() {
+      this.wxShare()
+    },
+    'WxShareInfo.imgUrl': function() {
+      this.wxShare()
+    },
+    'WxShareInfo.link': function() {
+      this.wxShare()
+    },
+    'WxShareInfo.success': function() {
+      this.wxShare()
+    },
+    'WxShareInfo.cancel': function() {
+      this.wxShare()
+    }
+  },
   created() {
     if (Object.keys(this.WxShareInfo).length > 1) {
       this.init()
@@ -57,26 +82,6 @@ export default {
       wx.onMenuShareQQ(this.WxShareInfo)
       wx.onMenuShareWeibo(this.WxShareInfo)
       wx.onMenuShareQZone(this.WxShareInfo)
-    }
-  },
-  watch: {
-    'WxShareInfo.title': function() {
-      this.wxShare()
-    },
-    'WxShareInfo.desc': function() {
-      this.wxShare()
-    },
-    'WxShareInfo.imgUrl': function() {
-      this.wxShare()
-    },
-    'WxShareInfo.link': function() {
-      this.wxShare()
-    },
-    'WxShareInfo.success': function() {
-      this.wxShare()
-    },
-    'WxShareInfo.cancel': function() {
-      this.wxShare()
     }
   }
 }

@@ -1,31 +1,33 @@
 <template>
   <div
-    class="root"
-    :style="style.root">
+    :style="style.root"
+    class="root">
     <img 
-      @touchstart="handleStopBubble"
+      :src="serverUrl + 'lottie-bg.png'"
       class="root-bg"
-      :src="serverUrl + 'lottie-bg.png'">
+      @touchstart="handleStopBubble">
     <div
       id="animation"
       class="animation"
-      />
+    />
     <img 
       :style="style.photo"
       :src="photo"
       class="top-photo"
-      />
+    >
     <div
       :style="style.score" 
       class="score">
-      <span>{{score.portugal}}</span>
-      <span>{{score.argentina}}</span>
-      <span>{{score.germany}}</span>
-      <span>{{score.brazil}}</span>
+      <span>{{ score.portugal }}</span>
+      <span>{{ score.argentina }}</span>
+      <span>{{ score.germany }}</span>
+      <span>{{ score.brazil }}</span>
     </div>
     <!-- 弹出层 -->
-    <GameShow :styleData="style" ref="gameShow"/>
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+    <GameShow 
+      ref="gameShow" 
+      :style-data="style"/>
+    <wx-share :wx-share-info="wxShareInfo"/>
   </div>
 </template>
 

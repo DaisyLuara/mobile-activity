@@ -1,14 +1,29 @@
 
 <template>
-  <div class="lehui-content" id="lehui">
-      <img class="title" :src="imgUrl+'lianyang/lhwords.png'"/>
-      <div class="frame">
-          <img class="border" :src="imgUrl+'lianyang/frame.png'"/>
-          <img :class="shake?'noshake':'hasshake'" id="mImg" :src="mImg"/>
-          <img class="note" :src="imgUrl+'lianyang/note.png'" v-show="noteShow">
-      </div>
-      <img class="press" :src="imgUrl+'lianyang/press.png'" v-show="isshow"/>
-      <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+  <div 
+    id="lehui" 
+    class="lehui-content">
+    <img 
+      :src="imgUrl+'lianyang/lhwords.png'" 
+      class="title">
+    <div class="frame">
+      <img 
+        :src="imgUrl+'lianyang/frame.png'" 
+        class="border">
+      <img 
+        id="mImg" 
+        :class="shake?'noshake':'hasshake'" 
+        :src="mImg">
+      <img 
+        v-show="noteShow" 
+        :src="imgUrl+'lianyang/note.png'" 
+        class="note">
+    </div>
+    <img 
+      v-show="isshow" 
+      :src="imgUrl+'lianyang/press.png'" 
+      class="press">
+    <wx-share :wx-share-info="wxShareInfo"/>
   </div>
 </template>
 <script>
@@ -17,6 +32,9 @@ import WxShare from 'modules/wxShare'
 import { customTrack } from 'modules/customTrack'
 const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/'
 export default {
+  components: {
+    WxShare
+  },
   data() {
     return {
       imgUrl: BASE_URL + 'image/',
@@ -30,6 +48,19 @@ export default {
         desc: '唯乐荟 更懂你',
         imgUrl: BASE_URL + 'image/lianyang/lhlogo.png'
       }
+    }
+  },
+  computed: {
+    wxShareInfo() {
+      let wxShareInfo = {
+        title: this.wxShareInfoValue.title,
+        desc: this.wxShareInfoValue.desc,
+        imgUrl: this.wxShareInfoValue.imgUrl,
+        success: function() {
+          customTrack.shareWeChat()
+        }
+      }
+      return wxShareInfo
     }
   },
   beforeCreate() {
@@ -48,19 +79,6 @@ export default {
 
     this.getInfoById()
     this.initShack()
-  },
-  computed: {
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
-        success: function() {
-          customTrack.shareWeChat()
-        }
-      }
-      return wxShareInfo
-    }
   },
   methods: {
     initShack() {
@@ -119,9 +137,6 @@ export default {
         })
     }
   },
-  components: {
-    WxShare
-  }
 }
 </script>
 <style lang="less" scoped>

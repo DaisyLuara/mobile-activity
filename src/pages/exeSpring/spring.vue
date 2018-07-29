@@ -1,19 +1,50 @@
 <template>
-  <div id="warp" class="spring-content">
-		<audio id="voice" autobuffer autoloop loop autoplay hidden>
-			<source :src="audioUrl + '/xiha.mp3'">
-		</audio>
-		<img id="mbtn" class="mplay" :src="imgUrl + 'kaide/yinyue.png'" @click="playOrNot"/>
-		<div class="frame">
-			<img class="border" :src="imgUrl + 'spring/frame.png'"/>
-			<img id="mImg" class="photo" :src="mImg"/>
-			<img class="text" v-show = "isShow" :src="imgUrl + 'spring/text.png'"/>
-			<img class="words" :src="imgUrl + 'spring/' + word + '.png'" v-show = "isShow"/>
-			<img v-for="item in qian" :class="item" v-show="isShow"  :src="imgUrl + 'spring/qian.gif'"/>
-			<img class="cloud" :src="imgUrl + 'spring/cloud.png'" v-show = "isShow"/>
-		</div>
-        <wx-share :WxShareInfo="wxShareInfo"></wx-share>
-	</div>
+  <div 
+    id="warp" 
+    class="spring-content">
+    <audio 
+      id="voice" 
+      autobuffer 
+      autoloop 
+      loop 
+      autoplay 
+      hidden>
+      <source :src="audioUrl + '/xiha.mp3'">
+    </audio>
+    <img 
+      id="mbtn" 
+      :src="imgUrl + 'kaide/yinyue.png'" 
+      class="mplay" 
+      @click="playOrNot">
+    <div class="frame">
+      <img 
+        :src="imgUrl + 'spring/frame.png'" 
+        class="border">
+      <img 
+        id="mImg" 
+        :src="mImg" 
+        class="photo">
+      <img 
+        v-show = "isShow" 
+        :src="imgUrl + 'spring/text.png'" 
+        class="text">
+      <img 
+        v-show = "isShow" 
+        :src="imgUrl + 'spring/' + word + '.png'" 
+        class="words">
+      <img 
+        v-for="(item, index) in qian" 
+        v-show="isShow" 
+        :key="index"
+        :class="item" 
+        :src="imgUrl + 'spring/qian.gif'">
+      <img 
+        v-show = "isShow" 
+        :src="imgUrl + 'spring/cloud.png'" 
+        class="cloud">
+    </div>
+    <wx-share :wx-share-info="wxShareInfo"/>
+  </div>
 </template>
 <script>
 import marketService from 'services/marketing'
@@ -21,6 +52,9 @@ import WxShare from 'modules/wxShare'
 import { customTrack } from 'modules/customTrack'
 const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/'
 export default {
+  components: {
+    WxShare
+  },
   data() {
     return {
       imgUrl: BASE_URL + 'image/',
@@ -134,9 +168,6 @@ export default {
         voice.pause()
       }
     }
-  },
-  components: {
-    WxShare
   }
 }
 </script>

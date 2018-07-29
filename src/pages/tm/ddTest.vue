@@ -1,55 +1,153 @@
 <template>
-    <div class="content" :style="style.root">
-      <div class="main" v-show="!qShow.qShow3">
-        <!-- 输入名字年龄性别 -->
-        <div class="page1" :style="style.root" v-show="page1" @click.stop.prevent="()=>{pull_sex=false;pull_year=false;}">
-          <img class="title" :src="IMGURL + 'title.png'"/>
-          <div class="message">
-            <div class="select-area">
-              <input class="name select1" placeholder="输入名字" type="text" maxlength="5" ref="input"/>
-            </div>
-            <div class="select-area">
-              <div class="select1"  @click.stop="()=>{pull_year=!pull_year;pull_sex=false;}" data-year>{{yearText}}</div>
-              <ul class="select2" v-show="pull_year">
-                <a v-for="(item,index) in years_range" :key="item.id" @click="getYear(index,item)"><li class="list-li">{{item}}</li></a>
-              </ul>
-            </div>
-            <div class="select-area">
-              <div class="select1" @click.stop="()=>{pull_sex=!pull_sex;pull_year=false;}" data-sex>{{sexText}}</div>
-              <ul class="select2" v-show="pull_sex">
-                  <a  @click="getSex('nan','男')"><li class="list-li">男</li></a>
-                  <a  @click="getSex('nv','女')"><li class="list-li">女</li></a>
-              </ul>
-            </div>
-            <!-- <p class="error"></p> -->
-            <a @click.prevent="getStart" class="start">
-              开始诊断
-            </a>
+  <div 
+    :style="style.root"
+    class="content" 
+  >
+    <div 
+      v-show="!qShow.qShow3"
+      class="main"
+    >
+      <!-- 输入名字年龄性别 -->
+      <div 
+        v-show="page1"  
+        :style="style.root" 
+        class="page1" 
+        @click.stop.prevent="()=>{ pull_sex=false;pull_year=false;}">
+        <img 
+          :src="IMGURL + 'title.png'"
+          class="title" 
+        >
+        <div class="message">
+          <div class="select-area">
+            <input 
+              ref="input" 
+              class="name select1" 
+              placeholder="输入名字"
+              type="text" 
+              maxlength="5"
+            >
           </div>
-          <img class="paget" :src="IMGURL + 'page1_t.png'"/>
-        </div>
-        <!-- 答题 -->
-        <div class="page2" v-show="!page1" :style="style.root">
-          <div class="anwsers" v-for="(item,index) in 3"  :key="item.id" v-show="qShow['qShow'+index]">
-            <img class="question" :src="IMGURL + preUrl + item +'.png'"/>
-            <img class="t_img" :src="IMGURL + 't'+ item + '.png'"/>
-            <ul class="click_ul">
-              <li class="left"><a @click.once="getScore('A',index)"></a></li>
-              <li class="right"><a @click.once="getScore('B',index)"></a></li>
+          <div class="select-area">
+            <div 
+              class="select1"  
+              data-year 
+              @click.stop="()=>{pull_year=!pull_year;pull_sex=false;}"
+            >
+              {{ yearText }}
+            </div>
+            <ul 
+              v-show="pull_year"
+              class="select2"
+            >
+              <a 
+                v-for="(item,index) in years_range" 
+                :key="item.id" 
+                @click="getYear(index,item)">
+                <li class="list-li">
+                  {{ item }}
+                </li>
+              </a>
             </ul>
           </div>
+          <div class="select-area">
+            <div 
+              class="select1" 
+              data-sex 
+              @click.stop="()=>{pull_sex=!pull_sex;pull_year=false;}"
+            >
+              {{ sexText }}
+            </div>
+            <ul 
+              v-show="pull_sex"
+              class="select2"
+            >
+              <a  
+                @click="getSex('nan','男')"
+              >
+                <li class="list-li">
+                  男
+                </li>
+              </a>
+              <a  
+                @click="getSex('nv','女')"
+              >
+                <li class="list-li">
+                  女
+                </li>
+              </a>
+            </ul>
+          </div>
+          <!-- <p class="error"></p> -->
+          <a 
+            class="start"
+            @click.prevent="getStart" 
+          >
+            开始诊断
+          </a>
         </div>
-        <img class="icebg" :src="IMGURL + 'icebg.png?111'"/>
+        <img 
+          :src="IMGURL + 'page1_t.png'"
+          class="paget" 
+        >
       </div>
-      <!-- canvas 图片合成 -->
-      <div class="page3" v-show="qShow.qShow3" :style="style.root">
-        <canvas id="canvas"></canvas>
-        <img class="result" src="" alt="病假单"/>
-        <!-- 显示剪切后的图像 -->
-        <canvas id="canvas2" style="display:none"></canvas>
-        <img id="mImg" src="base64Data" alt="病假单"/>
+      <!-- 答题 -->
+      <div 
+        v-show="!page1" 
+        :style="style.root"
+        class="page2" 
+      >
+        <div 
+          v-for="(item,index) in 3" 
+          v-show="qShow['qShow'+index]"  
+          :key="item.id" 
+          class="anwsers"
+        >
+          <img 
+            :src="IMGURL + preUrl + item +'.png'"
+            class="question" 
+          >
+          <img 
+            :src="IMGURL + 't'+ item + '.png'"
+            class="t_img" 
+          >
+          <ul class="click_ul">
+            <li class="left">
+              <a @click.once="getScore('A',index)"/>
+            </li>
+            <li class="right">
+              <a @click.once="getScore('B',index)"/>
+            </li>
+          </ul>
+        </div>
       </div>
+      <img 
+        :src="IMGURL + 'icebg.png?111'"
+        class="icebg" 
+      >
     </div>
+    <!-- canvas 图片合成 -->
+    <div 
+      v-show="qShow.qShow3" 
+      :style="style.root"
+      class="page3" 
+    >
+      <canvas id="canvas"/>
+      <img 
+        src=""
+        class="result"  
+        alt="病假单"
+      >
+      <!-- 显示剪切后的图像 -->
+      <canvas 
+        id="canvas2" 
+        style="display:none"/>
+      <img 
+        id="mImg" 
+        src="base64Data" 
+        alt="病假单"
+      >
+    </div>
+  </div>
 </template>
 <script>
 import { $_wechat, wechatShareTrack } from 'services'

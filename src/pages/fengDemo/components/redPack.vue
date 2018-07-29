@@ -1,10 +1,10 @@
 <template>
   <div class="r-root">
     <ul class="couten">
-			<!--<li>
+      <!--<li>
 				<a href="#"><img src="static/feng/image/redpack-list.png"></a>
 			</li>-->
-		</ul>
+    </ul>
   </div>
 </template>
 

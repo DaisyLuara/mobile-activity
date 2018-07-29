@@ -1,6 +1,8 @@
 <template>
   <div class="gaode-wrap">
-    <div id="mapContainer" class="container"></div>
+    <div 
+      id="mapContainer" 
+      class="container"/>
   </div>
 </template>
 <script>

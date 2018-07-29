@@ -1,13 +1,21 @@
 <template>
-  <div class="mgPage" id="mgPage">
+  <div 
+    id="mgPage" 
+    class="mgPage">
     <div class="main">
-      <img :src="IMAGE_URL + 'bg2.jpg'" class="bg"/>
-      <img :src="photo" class="photo"/>
-      <img :src="IMAGE_URL + 'point.gif'" class="point"/>
+      <img 
+        :src="IMAGE_URL + 'bg2.jpg'" 
+        class="bg">
+      <img 
+        :src="photo" 
+        class="photo">
+      <img 
+        :src="IMAGE_URL + 'point.gif'" 
+        class="point">
       <a :href="alink"><img :src="IMAGE_URL + 'alink.png'"></a>
     </div>
     
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+    <wx-share :wx-share-info="wxShareInfo"/>
   </div>
 </template>
 <script>
@@ -16,6 +24,9 @@ import WxShare from 'modules/wxShare'
 import { customTrack } from 'modules/customTrack'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
+  components: {
+    WxShare
+  },
   data() {
     return {
       IMAGE_URL: IMAGE_SERVER + '/pages/mangguo/',
@@ -28,6 +39,20 @@ export default {
         desc: '芒果娱乐全新青春网剧，给你不一样的90后情怀',
         imgUrl: IMAGE_SERVER + '/pages/mangguo/share.jpg'
       }
+    }
+  },
+  computed: {
+    //微信分享
+    wxShareInfo() {
+      let wxShareInfo = {
+        title: this.wxShareInfoValue.title,
+        desc: this.wxShareInfoValue.desc,
+        imgUrl: this.wxShareInfoValue.imgUrl,
+        success: () => {
+          customTrack.shareWeChat()
+        }
+      }
+      return wxShareInfo
     }
   },
   created() {
@@ -55,23 +80,6 @@ export default {
         })
     }
   },
-  components: {
-    WxShare
-  },
-  computed: {
-    //微信分享
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
-        success: () => {
-          customTrack.shareWeChat()
-        }
-      }
-      return wxShareInfo
-    }
-  }
 }
 </script>
 <style lang="less" scoped>

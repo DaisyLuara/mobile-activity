@@ -14,8 +14,8 @@
       请输入手机号码
     </div>
     <input 
-      class="input" 
       :style="style.input" 
+      class="input" 
       maxlength="11"
       @click="hideRemind()" 
       @blur="showRemind()"
