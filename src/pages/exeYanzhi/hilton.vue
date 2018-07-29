@@ -1,28 +1,66 @@
 <template>
-    <div class="yanzhi-result" id="warp">
-		<img class="title" :src="imgUrl+'title.png'" data-v-content/>
-		<div class="content">
-			<div class="circles"> 
-				<img class="gear1" :src="imgUrl+'gear1.png'">
-				<img class="gear2" :src="imgUrl+'gear2.png'">
-				<img class="gear3" :src="imgUrl+'gear3.png'">
-				<img class="gear4" :src="imgUrl+'gear4.png'">
-				<img class="gear5" :src="imgUrl+'gear5.png'">
-				<img class="gear6" :src="imgUrl+'gear6.png'">
-				<img class="gear7" :src="imgUrl+'gear7.png'">
-				<img class="gear8" :src="imgUrl+'gear8.png'">
-				<img class="gear9" :src="imgUrl+'gear9.png'">
-			</div>
-			<img class="money" id="mImg" :src="mImg"/>
-			<img class="imgframe" :src="imgUrl+'frame.png'">
-		</div>
-		<img class="press" :src="imgUrl+'press.png'" v-show="press"/>
-        <img :src="imgUrl + posNum + name + '.png'" class="coupon" v-show="press"/>
-        <img :src="imgUrl+'logo.png'" class="logo"/>
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+  <div 
+    id="warp" 
+    class="yanzhi-result">
+    <img 
+      :src="imgUrl+'title.png'" 
+      class="title" 
+      data-v-content>
+    <div class="content">
+      <div class="circles"> 
+        <img 
+          :src="imgUrl+'gear1.png'" 
+          class="gear1">
+        <img 
+          :src="imgUrl+'gear2.png'" 
+          class="gear2">
+        <img 
+          :src="imgUrl+'gear3.png'" 
+          class="gear3">
+        <img 
+          :src="imgUrl+'gear4.png'" 
+          class="gear4">
+        <img 
+          :src="imgUrl+'gear5.png'" 
+          class="gear5">
+        <img 
+          :src="imgUrl+'gear6.png'" 
+          class="gear6">
+        <img 
+          :src="imgUrl+'gear7.png'" 
+          class="gear7">
+        <img 
+          :src="imgUrl+'gear8.png'" 
+          class="gear8">
+        <img 
+          :src="imgUrl+'gear9.png'" 
+          class="gear9">
+      </div>
+      <img 
+        id="mImg" 
+        :src="mImg" 
+        class="money">
+      <img 
+        :src="imgUrl+'frame.png'" 
+        class="imgframe">
+    </div>
+    <img 
+      v-show="press" 
+      :src="imgUrl+'press.png'" 
+      class="press">
+    <img 
+      v-show="press" 
+      :src="imgUrl + posNum + name + '.png'" 
+      class="coupon">
+    <img 
+      :src="imgUrl+'logo.png'" 
+      class="logo">
+    <wx-share :wx-share-info="wxShareInfo"/>
     <!-- 弹出层 -->
-    <GameShow :styleData="style" ref="gameShow"/>
-	</div>
+    <GameShow 
+      ref="gameShow" 
+      :style-data="style"/>
+  </div>
 </template>
 <script>
 import marketService from 'services/marketing'
@@ -32,6 +70,10 @@ import { customTrack } from 'modules/customTrack'
 import { isInWechat, Cookies } from 'services'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
+  components: {
+    WxShare,
+    GameShow
+  },
   data() {
     return {
       style: {
@@ -118,10 +160,6 @@ export default {
         })
     }
   },
-  components: {
-    WxShare,
-    GameShow
-  }
 }
 </script>
 <style lang="less" scoped>

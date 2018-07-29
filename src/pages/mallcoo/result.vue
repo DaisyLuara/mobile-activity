@@ -1,27 +1,49 @@
 <template>
-	<div class="mallcoo-content" id="mallcoo">
+  <div 
+    id="mallcoo"
+    class="mallcoo-content"
+  >
     <div class="coupList">
       <ul class="ul_list">
-        <li class="q_name">{{quanMsg.MallName}}</li>
-        <li class="q_price"><label>{{quanMsg.price}}<span>￥</span></label>
-                            <p>代金券</p></li>
-        <li class="q_number" v-show="noZero"><span>{{quanMsg.Vcode}}</span></li>
-        <li class="q_time" v-show="noZero">有效期至：{{quanMsg.EndTime}}</li>
-        <li class="num_err" v-show="isZero">该券已经发完了</li>
+        <li class="q_name">
+          {{ quanMsg.MallName }}
+        </li>
+        <li class="q_price">
+          <label>
+            {{ quanMsg.price }}
+            <span>￥</span>
+          </label>
+          <p>代金券</p>
+        </li>
+        <li 
+          v-show="noZero" 
+          class="q_number">
+          <span>{{ quanMsg.Vcode }}</span>
+        </li>
+        <li 
+          v-show="noZero" 
+          class="q_time">
+          有效期至：{{ quanMsg.EndTime }}
+        </li>
+        <li 
+          v-show="isZero" 
+          class="num_err">
+          该券已经发完了
+        </li>
       </ul>
     </div>
-		<wx-share :WxShareInfo="wxShareInfo"></wx-share>
-	</div>
+  </div>
 </template>
 <script>
 const REQ_URL = 'http://120.27.144.62:1337/parse/classes/'
+import { $_wechat, getInfoById, wechatShareTrack } from 'services'
 import { getParamsMap, getParameter, setParameter } from 'modules/util'
-import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
 import parseService from 'modules/parseServer'
-import { customTrack } from 'modules/customTrack'
 const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/image'
 export default {
+  components: {
+    WxShare
+  },
   data() {
     return {
       quanMsg: {
@@ -46,24 +68,11 @@ export default {
         title: '旋转跳跃我领着券',
         desc: '草莓杂货铺欢迎你',
         imgUrl: BASE_URL + '/maliao/test/share.png',
-        link: ''
-      }
-    }
-  },
-  computed: {
-    //微信分享
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
-        link: this.wxShareInfoValue.link,
-        success: () => {
-          console.log(202)
-          customTrack.shareWeChat()
+        link: '',
+        success: function() {
+          wechatShareTrack()
         }
       }
-      return wxShareInfo
     }
   },
   beforeCreate() {
@@ -92,8 +101,18 @@ export default {
     }
     let rem = a / 7.5
     w.style.fontSize = rem + 'px'
+    this.handleShare()
   },
   methods: {
+    handleShare() {
+      $_wechat()
+        .then(res => {
+          res.share(this.wxShareInfoValue)
+        })
+        .catch(_ => {
+          console.warn(_.message)
+        })
+    },
     //授权跳转
     getAuthorize() {
       let pageUrl = encodeURIComponent(window.location.href)
@@ -202,9 +221,6 @@ export default {
       }
     }
   },
-  components: {
-    WxShare
-  }
 }
 </script>
 <style  lang="less" scoped>

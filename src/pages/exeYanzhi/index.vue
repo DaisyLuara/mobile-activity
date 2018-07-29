@@ -1,13 +1,29 @@
 <template>
-    <div class="yanzhi-photo-content" id="content">
-		<img class="title" :src="imgUrl+'index/title.png'" data-v-index/>
-		<h4 class="h4" data-v-index>输入手机号<br/>领取我的颜民币</h4>
-		<div class="form">
-			<input type="tel" id="tel" name="" maxlength="11" placeholder="请输入手机号" />
-			<input type="button" id="button" value="确认" @click="redirectToPhoto"/>
-		</div>
-        <wx-share :WxShareInfo="wxShareInfo"></wx-share>
-	</div>
+  <div 
+    id="content" 
+    class="yanzhi-photo-content">
+    <img 
+      :src="imgUrl+'index/title.png'" 
+      class="title" 
+      data-v-index>
+    <h4 
+      class="h4" 
+      data-v-index>输入手机号<br>领取我的颜民币</h4>
+    <div class="form">
+      <input 
+        id="tel" 
+        type="tel" 
+        name="" 
+        maxlength="11" 
+        placeholder="请输入手机号" >
+      <input 
+        id="button" 
+        type="button" 
+        value="确认" 
+        @click="redirectToPhoto">
+    </div>
+    <wx-share :wx-share-info="wxShareInfo"/>
+  </div>
 </template>
 <script>
 import marketService from 'services/marketing'
@@ -15,6 +31,9 @@ import WxShare from 'modules/wxShare'
 import { customTrack } from 'modules/customTrack'
 const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/'
 export default {
+  components: {
+    WxShare
+  },
   data() {
     return {
       imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/yanzhi/',
@@ -69,9 +88,6 @@ export default {
       })
     }
   },
-  components: {
-    WxShare
-  }
 }
 </script>
 <style lang="less" scoped>

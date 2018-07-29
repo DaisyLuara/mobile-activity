@@ -1,14 +1,34 @@
 <template>
-  <div class="tmall-content" :style="style.root">
-      <img  class="bg" :src="imgServerUrl + '/pages/drc_ty/bg.png'" alt="" :style="style.bg"/>
-      <img  :src="resultImgUrl + this.$qiniuCompress()" alt="" :class="{'photo': !iphoneX, 'x-photo': iphoneX}"/>
-      <!-- <img  src="http://image.exe666.com/1007/image/GuideJDBigCityGift_519_432_1492928440995.jpg" alt="" :class="{'photo': !iphoneX, 'x-photo': iphoneX}" /> -->
-      <img  class="blue" :src="imgServerUrl + '/pages/drc_ty/blue.png'" alt=""/>
-      <img  class="pick-small" :src="imgServerUrl + '/pages/drc_ty/pick_small.png'" alt=""/>
-      <img  :src="imgServerUrl + '/pages/drc_ty/pick_big.png'" alt="" :class="{'pick-big': !iphoneX, 'x-pick-big': iphoneX}"/>
-      <div class="jiantou">
-        <img :src="imgServerUrl + '/pages/drc_ty/save.png'" alt="" >
-      </div>
+  <div 
+    :style="style.root" 
+    class="tmall-content">
+    <img 
+      :src="imgServerUrl + '/pages/drc_ty/bg.png'" 
+      :style="style.bg" 
+      class="bg" 
+      alt="">
+    <img 
+      :src="resultImgUrl + this.$qiniuCompress()" 
+      :class="{'photo': !iphoneX, 'x-photo': iphoneX}" 
+      alt="">
+    <!-- <img  src="http://image.exe666.com/1007/image/GuideJDBigCityGift_519_432_1492928440995.jpg" alt="" :class="{'photo': !iphoneX, 'x-photo': iphoneX}" /> -->
+    <img 
+      :src="imgServerUrl + '/pages/drc_ty/blue.png'" 
+      class="blue" 
+      alt="">
+    <img 
+      :src="imgServerUrl + '/pages/drc_ty/pick_small.png'" 
+      class="pick-small" 
+      alt="">
+    <img 
+      :src="imgServerUrl + '/pages/drc_ty/pick_big.png'" 
+      :class="{'pick-big': !iphoneX, 'x-pick-big': iphoneX}" 
+      alt="">
+    <div class="jiantou">
+      <img 
+        :src="imgServerUrl + '/pages/drc_ty/save.png'" 
+        alt="" >
+    </div>
   </div>
 </template>
 <script>

@@ -1,31 +1,64 @@
 <template>
-  <div class="phone-content" id="phoneContent">
-    <canvas class="canvas" id="canvas"></canvas>
-      <img class="photo" src="" id="photo"/>
-      <div class="mask" v-show="mask">
-          <div class="ice_all" id="ice">
-            <div class="ice-drop">
-                <div class="run1" v-for="(item,index) in 30" :key="item.id" 
-                :style="'left:'+ (index%5*27-20) +'%;top:'+ (Math.floor(index/5)*20-300) +'%'">
-                  <img :src="IMGURL + '/ice' + item%3 + '.png'" :style="'transform:rotate(' +  Math.ceil(Math.random()*360)  + 'deg)'"/>
-                </div>
-                <div class="run2" v-for="(item,index) in 30" :key="item.id" 
-                :style="'left:'+ (index%5*27) +'%;top:'+ (Math.floor(index/5)*20-350) +'%'">
-                  <img :src="IMGURL + '/ice' + item%3 + '.png'" :style="'transform:rotate(-' +  Math.ceil(Math.random()*360)  + 'deg)'"/>
-                </div>
-            </div>
-            <div class="over-ice"></div>
-            <a class="slide" v-show="text"><img :src="IMGURL + '/note.png'"/></a>
+  <div 
+    id="phoneContent" 
+    class="phone-content">
+    <canvas 
+      id="canvas" 
+      class="canvas"/>
+    <img 
+      id="photo" 
+      class="photo" 
+      src="">
+    <div 
+      v-show="mask" 
+      class="mask">
+      <div 
+        id="ice" 
+        class="ice_all">
+        <div class="ice-drop">
+          <div 
+            v-for="(item,index) in 30" 
+            :key="item.id" 
+            :style="'left:'+ (index%5*27-20) +'%;top:'+ (Math.floor(index/5)*20-300) +'%'" 
+            class="run1">
+            <img 
+              :src="IMGURL + '/ice' + item%3 + '.png'" 
+              :style="'transform:rotate(' + Math.ceil(Math.random()*360) + 'deg)'">
           </div>
-          <div class="water">
-            <img class="ice1" :src="IMGURL + '/water_ice1.png'"/>
-            <img class="ice2" :src="IMGURL + '/water_ice2.png'"/>
-            <img class="juice" :src="IMGURL + '/ice_juice.png'"/>
-            <img class="fruit" :src="IMGURL + '/fruit_bottom.png'"/>
-            <img class="cover" :src="IMGURL + '/water_cover.png'"/>
+          <div 
+            v-for="(item,index) in 30" 
+            :key="item.id" 
+            :style="'left:'+ (index%5*27) +'%;top:'+ (Math.floor(index/5)*20-350) +'%'" 
+            class="run2">
+            <img 
+              :src="IMGURL + '/ice' + item%3 + '.png'" 
+              :style="'transform:rotate(-' + Math.ceil(Math.random()*360) + 'deg)'">
           </div>
+        </div>
+        <div class="over-ice"/>
+        <a 
+          v-show="text" 
+          class="slide"><img :src="IMGURL + '/note.png'"></a>
       </div>
-      <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+      <div class="water">
+        <img 
+          :src="IMGURL + '/water_ice1.png'" 
+          class="ice1">
+        <img 
+          :src="IMGURL + '/water_ice2.png'" 
+          class="ice2">
+        <img 
+          :src="IMGURL + '/ice_juice.png'" 
+          class="juice">
+        <img 
+          :src="IMGURL + '/fruit_bottom.png'" 
+          class="fruit">
+        <img 
+          :src="IMGURL + '/water_cover.png'" 
+          class="cover">
+      </div>
+    </div>
+    <wx-share :wx-share-info="wxShareInfo"/>
   </div>
 </template>
 <script>
@@ -36,6 +69,9 @@ import $ from 'jquery'
 
 const IMG_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing/pages'
 export default {
+  components: {
+    WxShare
+  },
   data() {
     return {
       IMGURL: IMG_SERVER + '/summer',
@@ -161,9 +197,6 @@ export default {
       })
     }
   },
-  components: {
-    WxShare
-  }
 }
 </script>
 <style lang="less" scoped>

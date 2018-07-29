@@ -1,13 +1,35 @@
 <template>
-  <div class="retro-content" id="warp">
-    <audio id="voice" autobuffer autoloop loop autoplay hidden>
-			<source :src="audioUrl+'oldbgm.mp3'">
-		</audio>
-		<img id="mbtn" class="mplay" :src="imgUrl+'kaide/yinyue.png'"  @click="playOrNot"/>
-		<img id="mImg" class="photo" :class="shake?noshake:hasshake" :src="mImg"/>
-		<img class="note" :src="imgUrl+'retro/note.png'" v-show="noteShow"/>
-		<img class="press" :src="imgUrl+'retro/save.png'" v-show="isshow"/>
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+  <div 
+    id="warp" 
+    class="retro-content">
+    <audio 
+      id="voice" 
+      autobuffer 
+      autoloop 
+      loop 
+      autoplay 
+      hidden>
+      <source :src="audioUrl+'oldbgm.mp3'">
+    </audio>
+    <img 
+      id="mbtn" 
+      :src="imgUrl+'kaide/yinyue.png'" 
+      class="mplay" 
+      @click="playOrNot">
+    <img 
+      id="mImg" 
+      :class="shake?noshake:hasshake" 
+      :src="mImg" 
+      class="photo">
+    <img 
+      v-show="noteShow" 
+      :src="imgUrl+'retro/note.png'" 
+      class="note">
+    <img 
+      v-show="isshow" 
+      :src="imgUrl+'retro/save.png'" 
+      class="press">
+    <wx-share :wx-share-info="wxShareInfo"/>
   </div>
 </template>
 <script>
@@ -16,6 +38,9 @@ import WxShare from 'modules/wxShare'
 import { customTrack } from 'modules/customTrack'
 const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/'
 export default {
+  components: {
+    WxShare
+  },
   data() {
     return {
       imgUrl: BASE_URL + 'image/',
@@ -176,9 +201,6 @@ export default {
       }
     }
   },
-  components: {
-    WxShare
-  }
 }
 </script>
 <style lang="less" scoped>

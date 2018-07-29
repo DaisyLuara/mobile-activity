@@ -22,15 +22,15 @@
           手机号有误
         </div>
         <input 
+          v-model="phoneValue"
           class="input-value"
-          @click="clearError"
           maxlength="11"
           placeholder="请输入手机号码"
-          v-model="phoneValue"
+          @click="clearError"
         >
         <div
           class="input-button"
-          @click='handleButtonClick'
+          @click="handleButtonClick"
         >
           确定
         </div>
@@ -52,18 +52,18 @@
         v-show="isGetCoupon && hasButtonClicked">
         <img 
           :src="serverUrl + 'prompt_bg.png'" 
-          @click.self="handleSuoHaClose"
           class="bg"
+          @click.self="handleSuoHaClose"
         >
         <img 
           :src="serverUrl + 'prompt_bg_right.png'"
-          @click.self="handleSuoHaClose"
           class="right"
+          @click.self="handleSuoHaClose"
         >
         <div
-          @click.self="handleSuoHaClose"
           class="text"
-          >
+          @click.self="handleSuoHaClose"
+        >
           您的手机号已成功提交
         </div>
       </div>
@@ -71,13 +71,13 @@
         v-show="!isGetCoupon">
         <img 
           :src="serverUrl + 'card_2.png'" 
-          @click.self="handleSuoHaClose"
           class="not-bg"
+          @click.self="handleSuoHaClose"
         >
         <img
           :src="serverUrl + 'box.png'" 
-          @click.self="handleSuoHaClose"
           class="not-box" 
+          @click.self="handleSuoHaClose"
         >
         <div
           class="not-text"

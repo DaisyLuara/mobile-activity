@@ -1,11 +1,13 @@
 <template>
-  <div id="marketing" class="marketing-wrap">
+  <div 
+    id="marketing" 
+    class="marketing-wrap">
     <router-view/>
   </div>
 </template>
 <script>
 export default {
-  name: 'marketingHome'
+  name: 'MarketingHome'
 }
 </script>
 

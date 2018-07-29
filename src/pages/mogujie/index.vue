@@ -1,7 +1,8 @@
 <template>
   <div 
+    :style="style.root"
     class="mogu-coupon-wrap"
-    :style="style.root">
+  >
     <img 
       :src="imgServerUrl + '/pages/mogujie/title.png'" 
       alt=""

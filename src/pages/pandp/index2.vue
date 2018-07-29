@@ -1,14 +1,28 @@
 <template>
-    <div class="content" id="content">
-      <div class="loading" id="loading" v-show="loadingPage"></div>
-        <canvas id="canvas"></canvas>
-        <img id="border" src="/static/pandp/border.png"/>
-        <img id="mImg" src=""/>
-        <img class="note" :src="IMG_URL + 'note.png'" v-show ="note"/>
-        <wx-share :WxShareInfo="wxShareInfo"></wx-share>
-        <!-- 弹出层 -->
-        <GameShow :styleData="style" ref="gameShow"/>
-    </div>
+  <div 
+    id="content" 
+    class="content">
+    <div 
+      v-show="loadingPage" 
+      id="loading" 
+      class="loading"/>
+    <canvas id="canvas"/>
+    <img 
+      id="border" 
+      src="/static/pandp/border.png">
+    <img 
+      id="mImg" 
+      src="">
+    <img 
+      v-show ="note" 
+      :src="IMG_URL + 'note.png'" 
+      class="note">
+    <wx-share :wx-share-info="wxShareInfo"/>
+    <!-- 弹出层 -->
+    <GameShow 
+      ref="gameShow" 
+      :style-data="style"/>
+  </div>
 </template>
 <script>
 import marketService from 'services/marketing'
@@ -18,6 +32,10 @@ import { customTrack } from 'modules/customTrack'
 import { isInWechat, Cookies, createGame, getGame } from 'services'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
+  components: {
+    WxShare,
+    GameShow
+  },
   data() {
     return {
       style: {
@@ -398,10 +416,6 @@ export default {
       // this.style.show = true
     }
   },
-  components: {
-    WxShare,
-    GameShow
-  }
 }
 </script>
 <style lang="less" scoped>

@@ -1,16 +1,42 @@
 <template>
-    <div id="content" :style="style.root">
-      <img class="title" :src="IMGURL + 'title.png'"/>
-      <div class="msg">
-        <img class="wow" :src="IMGURL + 'wow.png'"/>
-        <img class="message" :src="IMGURL + 'mcgee.png'"/>
-      </div>
-      <div class="picture" v-show="later">
-        <img class="photo" :src="mImg"/>
-      </div>
-      <img class="note" :src="IMGURL + 'prompt.png'" v-show="later"/>
-      <img class="date" :src="IMGURL + 'date.png'" v-show="later"/>
+  <div 
+    id="content" 
+    :style="style.root"
+  >
+    <img 
+      :src="IMGURL + 'title.png'"
+      class="title"
+    >
+    <div class="msg">
+      <img 
+        :src="IMGURL + 'wow.png'"
+        class="wow" 
+      >
+      <img 
+        :src="IMGURL + 'mcgee.png'"
+        class="message" 
+      >
     </div>
+    <div 
+      v-show="later"
+      class="picture"
+    >
+      <img 
+        :src="mImg" 
+        class="photo"
+      >
+    </div>
+    <img 
+      v-show="later"
+      :src="IMGURL + 'prompt.png'" 
+      class="note" 
+    >
+    <img 
+      v-show="later"
+      :src="IMGURL + 'date.png'" 
+      class="date" 
+    >
+  </div>
 </template>
 <script>
 import { $_wechat, getInfoById, wechatShareTrack } from 'services'

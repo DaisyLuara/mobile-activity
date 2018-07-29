@@ -1,31 +1,55 @@
 <template>
-<div class="travel-content">
-  <div class="photo-content">
-    <audio id="voice" autobuffer autoloop loop autoplay hidden>
-			<source :src="audioUrl+'travelBGM.mp3'">
-		</audio>
-		<img id="mbtn" class="mplay" :src="imgPath+'kaide/yinyue.png'" @click="playOrNot"/>
-    <div class="boots-wrap">
-      <div class="slide-wrap pos-common">
-        <img class="boot-line" :src="imgPath+'travel/line.png'"> 
-        <img class="boot-text pos-common" :src="imgServerUrl+'/boot-text.png'">
-        <img class="gesture-img" :src="imgServerUrl+'/gesture-img.png'"> 
-        <div class="boot-img"></div>
+  <div class="travel-content">
+    <div class="photo-content">
+      <audio 
+        id="voice" 
+        autobuffer 
+        autoloop 
+        loop 
+        autoplay 
+        hidden>
+        <source :src="audioUrl+'travelBGM.mp3'">
+      </audio>
+      <img 
+        id="mbtn" 
+        :src="imgPath+'kaide/yinyue.png'" 
+        class="mplay" 
+        @click="playOrNot">
+      <div class="boots-wrap">
+        <div class="slide-wrap pos-common">
+          <img 
+            :src="imgPath+'travel/line.png'" 
+            class="boot-line"> 
+          <img 
+            :src="imgServerUrl+'/boot-text.png'" 
+            class="boot-text pos-common">
+          <img 
+            :src="imgServerUrl+'/gesture-img.png'" 
+            class="gesture-img"> 
+          <div class="boot-img"/>
+        </div>
       </div>
-	  </div>
-    <div class="photo-wrap">
-      <img class="envelope-bg" :src="imgServerUrl+'/photo_frame.png'">
-      <img class="photo-img" :src="photo">
+      <div class="photo-wrap">
+        <img 
+          :src="imgServerUrl+'/photo_frame.png'" 
+          class="envelope-bg">
+        <img 
+          :src="photo" 
+          class="photo-img">
+      </div>
+      <div class="photo-cover">
+        <img 
+          :src="imgServerUrl+'/photo-cover2.png'" 
+          class="cover-img">
+      </div>
     </div>
-	  <div class="photo-cover">
-		  <img class="cover-img" :src="imgServerUrl+'/photo-cover2.png'">
-	  </div>
+    <div class="save-img">
+      <img 
+        :src="imgServerUrl+'/save-img3.png'" 
+        class="hint">
+    </div>
+    <wx-share :wx-share-info="wxShareInfo"/>
   </div>
-  <div class="save-img">
-		<img class="hint" :src="imgServerUrl+'/save-img3.png'"/>
-	</div>
-  <wx-share :WxShareInfo="wxShareInfo"></wx-share>
-</div>
 </template>
 <script>
 import $ from 'jquery'

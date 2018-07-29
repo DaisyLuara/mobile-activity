@@ -1,7 +1,7 @@
 <template>
   <div 
-    class="concert-content"
-    :style="style.root">
+    :style="style.root"
+    class="concert-content">
     <img  
       :src="resultImgUrl" 
       alt=""

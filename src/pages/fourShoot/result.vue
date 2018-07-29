@@ -1,7 +1,7 @@
 <template>
   <div 
-    class="fourShoot-content"
-    :style="style.root">
+    :style="style.root"
+    class="fourShoot-content">
     <img  
       :src="resultImgUrl" 
       alt=""

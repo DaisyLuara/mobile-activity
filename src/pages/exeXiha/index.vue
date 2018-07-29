@@ -1,24 +1,37 @@
 <template>
- <div class="content-wrapper">
-  <div class="photo-content">
-    <img class="phone-bg" :src="imgUrl+'phone-bg.png?v=1'">
+  <div class="content-wrapper">
+    <div class="photo-content">
+      <img 
+        :src="imgUrl+'phone-bg.png?v=1'" 
+        class="phone-bg">
 
-    <div class="img-outer">
-      <img class="img" :src="imgUrl+'outer-circle.png?v=1'">
-    </div>
-    <div class="img-inner">
-      <img class="img" :src="imgUrl+'inner-circle.png?v=1'">
-    </div>
+      <div class="img-outer">
+        <img 
+          :src="imgUrl+'outer-circle.png?v=1'" 
+          class="img">
+      </div>
+      <div class="img-inner">
+        <img 
+          :src="imgUrl+'inner-circle.png?v=1'" 
+          class="img">
+      </div>
 
-    <div class="phone-wrap">
-      <div class="error">请输入正确的手机号</div>
-      <div class="phone-num">
-        <input id="mobile" class="num" placeholder="请输入手机号码" maxlength="11">
-        <a class="go-btn" href="javascript:void(0);"  @click="redirectToPhoto">提取照片</a>
+      <div class="phone-wrap">
+        <div class="error">请输入正确的手机号</div>
+        <div class="phone-num">
+          <input 
+            id="mobile" 
+            class="num" 
+            placeholder="请输入手机号码" 
+            maxlength="11">
+          <a 
+            class="go-btn" 
+            href="javascript:void(0);" 
+            @click="redirectToPhoto">提取照片</a>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </template>
 <script>
 import marketService from 'services/marketing'
@@ -26,6 +39,9 @@ import WxShare from 'modules/wxShare'
 import { customTrack } from 'modules/customTrack'
 const BASE_URL = 'http://m.jingfree.com/'
 export default {
+  components: {
+    WxShare
+  },
   data() {
     return {
       imgUrl: BASE_URL + '/public/marketing/m/marval/images/',
@@ -69,9 +85,6 @@ export default {
       })
     }
   },
-  components: {
-    WxShare
-  }
 }
 </script>
 <style lang="less" scoped>

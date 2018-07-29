@@ -1,31 +1,71 @@
 <template>
-<div class="video-content" id="content" >
+  <div 
+    id="content" 
+    class="video-content" >
     <div class="container">
-      <div class="swiper-pagination swiper-pagination-white" slot="pagination"></div>
+      <div 
+        slot="pagination" 
+        class="swiper-pagination swiper-pagination-white"/>
       <!-- 标签组 -->
-      <swiper :options="labelOption" ref="Swiper2" class="labels">
-        <swiper-slide v-for="(item,index) of videoData" :key="index" class="slider2">
-          <img :src="IMGURL + 'label.png'" class="label-bg"/>
-          <img :src="IMGURL + 'left.png'" class="toleft"/>
-          <p class="label-text">{{item.labelText}}</p>
-          <img :src="IMGURL + 'right.png'" class="toright"/>
+      <swiper 
+        ref="Swiper2" 
+        :options="labelOption" 
+        class="labels">
+        <swiper-slide 
+          v-for="(item,index) of videoData" 
+          :key="index" 
+          class="slider2">
+          <img 
+            :src="IMGURL + 'label.png'" 
+            class="label-bg">
+          <img 
+            :src="IMGURL + 'left.png'" 
+            class="toleft">
+          <p class="label-text">{{ item.labelText }}</p>
+          <img 
+            :src="IMGURL + 'right.png'" 
+            class="toright">
         </swiper-slide>
       </swiper>
       <!-- 背景图组 -->
-      <swiper :options="swiperOption" ref="Swiper1" class="vSwiper">
-        <swiper-slide v-for="(item,index) in videoData" :key="index" class="slider1">
-          <video  :id="'video'+index"  webkit-playsinline="true" playsinline="true" x-webkit-airplay="true"  controls width="100%" height="100%" v-show="!bgshow">
-            <source :src="item.vUrl" type="video/mp4">
-              您的浏览器不支持video标签.
+      <swiper 
+        ref="Swiper1" 
+        :options="swiperOption" 
+        class="vSwiper">
+        <swiper-slide 
+          v-for="(item,index) in videoData" 
+          :key="index" 
+          class="slider1">
+          <video 
+            v-show="!bgshow" 
+            :id="'video'+index" 
+            webkit-playsinline="true" 
+            playsinline="true" 
+            x-webkit-airplay="true" 
+            controls 
+            width="100%" 
+            height="100%">
+            <source 
+              :src="item.vUrl" 
+              type="video/mp4">
+            您的浏览器不支持video标签.
           </video>
-          <img :src="item.bgUrl" class="vbg" v-show="bgshow">
-          <a @click="vPlay(index)" class="vplay" v-show="bgshow"><img :src="IMGURL + 'video/play.png'"/></a>
+          <img 
+            v-show="bgshow" 
+            :src="item.bgUrl" 
+            class="vbg">
+          <a 
+            v-show="bgshow" 
+            class="vplay" 
+            @click="vPlay(index)"><img :src="IMGURL + 'video/play.png'"></a>
         </swiper-slide>
       </swiper>
     </div>
-    <a @click="returnMenu" class="home"><img :src="IMGURL + 'home.png'"/></a>
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
-</div>
+    <a 
+      class="home" 
+      @click="returnMenu"><img :src="IMGURL + 'home.png'"></a>
+    <wx-share :wx-share-info="wxShareInfo"/>
+  </div>
 </template>
 
 <script>
@@ -40,6 +80,11 @@ import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import $ from 'jquery'
 
 export default {
+  components: {
+    WxShare,
+    swiper,
+    swiperSlide
+  },
   data() {
     return {
       IMGURL: IMAGE_SERVER + '/pages/promotion/',
@@ -176,11 +221,6 @@ export default {
       active = null
     }
   },
-  components: {
-    WxShare,
-    swiper,
-    swiperSlide
-  }
 }
 </script>
 

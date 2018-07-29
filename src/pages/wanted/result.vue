@@ -27,19 +27,20 @@
         :style="style.priceArea"
         class="price-area"
       >
-          <img :src="serverUrl + 's.png'">
-          <img 
-            v-for="(item, index) in bindNumber" 
-            :key="index" :src="serverUrl + String(item) + '.png'" 
-          >
+        <img :src="serverUrl + 's.png'">
+        <img 
+          v-for="(item, index) in bindNumber" 
+          :key="index" 
+          :src="serverUrl + String(item) + '.png'" 
+        >
       </div>
     </div>
     <div 
       :style="style.coverphoto"
       class="cover-photo">
       <img
-        class="inner-photo"
         :src="bindImgUrl + this.$qiniuCompress()" 
+        class="inner-photo"
       >
     </div>
     <!-- real photo -->

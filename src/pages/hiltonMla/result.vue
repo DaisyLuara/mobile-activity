@@ -16,14 +16,14 @@
     <div 
       class="coupon">
       <img 
-        :src="imgServerUrl + '/pages/hiltonMla/langouste.png'" 
-        alt=""
         v-show="showCoupon.cp1" 
+        :src="imgServerUrl + '/pages/hiltonMla/langouste.png'"
+        alt="" 
         class="cp-1">
       <img  
-        :src="imgServerUrl + '/pages/hiltonMla/world_cup.png'" 
-        alt=""
         v-show="showCoupon.cp2" 
+        :src="imgServerUrl + '/pages/hiltonMla/world_cup.png'"
+        alt="" 
         class="cp-2">
     </div>
     <div 
