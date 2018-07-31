@@ -20,7 +20,7 @@ export const normalPages = {
       let id = this.$route.query.id
       getInfoById(id)
         .then(res => {
-          this.photo = res.code
+          this.photo = res.image
         })
         .catch(err => {
           console.warn(err.message)

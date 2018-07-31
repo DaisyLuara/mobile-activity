@@ -71,6 +71,16 @@ export default {
       if (this.$route.query.isHorn == true || this.$route.query.isHorn == 1) {
         this.isHorn = true
       }
+    },
+    getPhotoByRouteQueryId() {
+      let id = this.$route.query.id
+      getInfoById(id)
+        .then(res => {
+          this.photo = res.code
+        })
+        .catch(err => {
+          console.warn(err.message)
+        })
     }
   }
 }
