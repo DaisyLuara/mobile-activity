@@ -18,23 +18,18 @@
       :src="IMG_URL + 'note.png'" 
       class="note">
     <wx-share :wx-share-info="wxShareInfo"/>
-    <!-- 弹出层 -->
-    <GameShow 
-      ref="gameShow" 
-      :style-data="style"/>
+    
   </div>
 </template>
 <script>
 import marketService from 'services/marketing'
 import WxShare from 'modules/wxShare'
-import GameShow from 'modules/gameShow'
 import { customTrack } from 'modules/customTrack'
 import { isInWechat, Cookies, createGame, getGame } from 'services'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
   components: {
-    WxShare,
-    GameShow
+    WxShare
   },
   data() {
     return {
@@ -403,7 +398,7 @@ export default {
       this.loadingPage = false
       // this.style.show = true
     }
-  },
+  }
 }
 </script>
 <style lang="less" scoped>

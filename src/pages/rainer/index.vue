@@ -18,7 +18,10 @@
       :src="base_url + 'frame.png'"
       class="frame" 
       />
-      <canvas id="canvas"></canvas>
+      <canvas 
+      id="canvas"
+      >
+      </canvas>
     </div>
       <img 
       v-show="note"
@@ -53,10 +56,20 @@ export default {
     }
   },
   mounted() {
+    this.wechatShare()
     this.getInfoById()
     this.doCanvas()
   },
   methods: {
+    wechatShare() {
+      $_wechat()
+        .then(res => {
+          res.share(this.wxShareInfo)
+        })
+        .catch(_ => {
+          console.warn(_.message)
+        })
+    },
     getInfoById() {
       let id = this.$route.query.id
       getInfoById(id)
@@ -73,7 +86,7 @@ export default {
       let canvas = document.getElementById('canvas')
       let ctx = canvas.getContext('2d')
       let frame = new Image()
-      let i = 0.5
+      let i = 1
       let flag = true
       frame.setAttribute('crossOrigin', 'Anonymous')
       frame.onload = function() {
@@ -99,7 +112,7 @@ export default {
         ctx.putImageData(imgData, x, y)
       }
       function doAnim() {
-        if (i > 4 || i < 0.5) {
+        if (i > 3 || i < 1) {
           flag = !flag
         }
         i = flag ? i + 0.02 : i - 0.02
@@ -180,11 +193,12 @@ img {
     width: 56%;
     margin: 0 auto;
     margin-bottom: 3%;
+    margin-top: 1%;
   }
   #canvas {
     width: 91%;
     position: absolute;
-    top: 2%;
+    top: 1.5%;
     left: 50%;
     z-index: 99;
     transform: translateX(-50%);
