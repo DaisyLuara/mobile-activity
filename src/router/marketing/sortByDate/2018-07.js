@@ -286,13 +286,13 @@ const Date201807 = [
     isAbandoned: false
   },
   {
-    path: 'tanabata_festival',
-    location: 'qixi_glassWord/tanabataFestival',
+    path: 'tanabata_festivalA',
+    location: 'qixi_glassWord/tanabataFestivalA',
     name: 'qixi_glassWord',
     meta: {
       title: '七夕节',
       author: 'xj1012',
-      desc: '七夕节页面'
+      desc: '七夕节通用A页面'
     },
     isAbandoned: false
   },
@@ -345,6 +345,28 @@ const Date201807 = [
       author: 'Joy',
       desc: '太平洋森活D页面'
     }
+  },
+  {
+    path: 'tanabata_festivalB',
+    location: 'qixi_glassWord/tanabataFestivalB',
+    name: 'qixi_glassWord',
+    meta: {
+      title: '七夕节',
+      author: 'xj1012',
+      desc: '七夕节通用B页面'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'tanabata_festivalC',
+    location: 'qixi_glassWord/tanabataFestivalC',
+    name: 'qixi_glassWord',
+    meta: {
+      title: '七夕节',
+      author: 'xj1012',
+      desc: '七夕节通用C页面'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201807
