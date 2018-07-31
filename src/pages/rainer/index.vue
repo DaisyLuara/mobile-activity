@@ -112,10 +112,10 @@ export default {
         ctx.putImageData(imgData, x, y)
       }
       function doAnim() {
-        if (i > 3 || i < 1) {
+        if (i > 2.5 || i < 1) {
           flag = !flag
         }
-        i = flag ? i + 0.02 : i - 0.02
+        i = flag ? i + 0.01 : i - 0.01
         lightImage(frame, 0, 0, i)
         var timer = window.requestAnimationFrame(doAnim)
       }
@@ -210,6 +210,13 @@ img {
   }
   to {
     margin-left: 520px;
+  }
+}
+@media screen {
+  @media (min-height: 700px) {
+    .content {
+      padding-top: 7%;
+    }
   }
 }
 </style>
