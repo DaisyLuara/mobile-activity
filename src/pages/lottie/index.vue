@@ -179,8 +179,7 @@ export default {
     },
     getPhotoById() {
       let id = this.$route.query.id
-      marketService
-        .getInfoById(this, id)
+      getInfoById(this, id)
         .then(res => {
           this.photo = res.image
           this.style.photo = {

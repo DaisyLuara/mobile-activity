@@ -66,8 +66,6 @@
 </template>
 <script>
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing/'
-
-import marketService from 'services/marketing'
 import { $wechat, wechatShareTrack } from 'services'
 import Vue from 'vue'
 import { Lazyload } from 'mint-ui'
@@ -123,8 +121,7 @@ export default {
   methods: {
     getImageById() {
       let id = this.$route.query.id
-      marketService
-        .getInfoById(this, id)
+      getInfoById(id)
         .then(result => {
           let type = result.url
           this.handleShowPage(type)

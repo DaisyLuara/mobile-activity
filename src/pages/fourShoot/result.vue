@@ -31,7 +31,6 @@
   </div>
 </template>
 <script>
-import { parseService } from 'services'
 import { $wechat, getInfoById, wechatShareTrack, isInWechat } from 'services'
 import $ from 'jquery'
 const wih = window.innerHeight
@@ -72,8 +71,8 @@ export default {
     //拿取图片id
     getImageById() {
       let id = this.$route.query.id
-      marketService
-        .getInfoById(this, id)
+
+      getInfoById(id)
         .then(result => {
           this.resultImgUrl = result.image
         })

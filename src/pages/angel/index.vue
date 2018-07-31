@@ -211,14 +211,14 @@
 <script>
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 const REQ_URL = 'http://120.27.144.62:1337/parse/classes/'
-import { parseService } from 'services'
 import $ from 'jquery'
 import {
   getInfoById,
   $wechat,
   getWxUserInfo,
   basicTrack,
-  wechatShareTrack
+  wechatShareTrack,
+  parseService
 } from 'services'
 export default {
   components: {
@@ -412,8 +412,7 @@ export default {
     },
     addCurTypeImg() {
       // 获取图片url存入数据库
-      marketService
-        .getInfoById(this, this.img_id)
+      getInfoById(this, this.img_id)
         .then(result => {
           this.img_url = result.image
           let params = {
@@ -440,8 +439,7 @@ export default {
         })
     },
     updateCurTypeImg(data) {
-      marketService
-        .getInfoById(this, this.img_id)
+      getInfoById(this, this.img_id)
         .then(result => {
           this.img_url = result.image
           // 更新类型图片

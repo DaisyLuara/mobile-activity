@@ -1,4 +1,5 @@
 <template>
+  <!-- isAbandoned -->
   <div class="report-wrap">
     <div class="photo-wrap">
       <img 
@@ -54,7 +55,6 @@
         </div>
       </div>
     </div>
-    <wx-share :wx-share-info="wxShareInfo"/>
   </div>
 </template>
 <script>
@@ -62,9 +62,6 @@ import $ from 'jquery'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
       resultImgUrl: '',
@@ -121,8 +118,8 @@ export default {
   methods: {
     getPeopleImage() {
       let recordId = decodeURI(this.$route.query.recordId)
-      marketService
-        .getPlayResultById(this, recordId)
+
+      getPlayResultById(recordId)
         .then(result => {
           this.resultImgUrl = result.result_img_url
         })

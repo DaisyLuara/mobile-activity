@@ -45,7 +45,6 @@
 import { Toast } from 'mint-ui'
 import { basicTrack, isInWechat } from 'services'
 const wx = require('weixin-js-sdk')
-// import marketService from 'services/marketing'
 
 export default {
   data() {

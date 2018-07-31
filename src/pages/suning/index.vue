@@ -80,9 +80,7 @@
 </template>
 <script>
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
-import marketService from 'services/marketing'
-import { parseService } from 'services'
-import { $wechat, wechatShareTrack } from 'services'
+import { $wechat, wechatShareTrack, getInfoById } from 'services'
 import $ from 'jquery'
 
 export default {
@@ -96,23 +94,12 @@ export default {
       wxShareInfoValue: {
         title: '提取照片 领取福利',
         desc: '608来苏宁 年中大促',
+        success: () => {
+          wechatShareTrack()
+        },
         imgUrl:
           'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/redPacket_share_icon2.png'
       }
-    }
-  },
-  computed: {
-    //微信分享
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
-        success: () => {
-          customTrack.shareWeChat()
-        }
-      }
-      return wxShareInfo
     }
   },
   beforeCreate() {
@@ -130,8 +117,7 @@ export default {
     //拿取图片id
     getImageById() {
       let id = this.$route.query.id
-      marketService
-        .getInfoById(this, id)
+      getInfoById(id)
         .then(result => {
           this.resultImgUrl = result.image
         })

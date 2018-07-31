@@ -1,5 +1,6 @@
 <template>
   <!-- eslint-disable -->
+  <!-- isAbandoned -->
   <div
     v-if="loadingDone === true"
     :style="style.root" 
@@ -117,7 +118,6 @@
 <script>
 import GameMenu from './components/gameMenu'
 import Spider from './components/spider'
-import marketService from 'services/marketing'
 import { Toast, Indicator } from 'mint-ui'
 export default {
   components: {
@@ -287,8 +287,7 @@ export default {
     },
     getPhoto() {
       if (this.$route.query.hasOwnProperty('id')) {
-        marketService
-          .getInfoById(this, this.$route.query.id)
+        getInfoById(this.$route.query.id)
           .then(res => {
             if (res.code !== null) {
               this.imgUrl = res.code
@@ -302,8 +301,7 @@ export default {
       } else if (
         JSON.parse(localStorage.getItem('wc_card')).hasOwnProperty('id')
       ) {
-        marketService
-          .getInfoById(this, JSON.parse(localStorage.getItem('wc_card')).id)
+        getInfoById(JSON.parse(localStorage.getItem('wc_card')).id)
           .then(res => {
             if (res.code !== null) {
               this.imgUrl = res.code
