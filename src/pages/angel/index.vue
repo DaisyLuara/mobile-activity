@@ -211,7 +211,6 @@
 <script>
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 const REQ_URL = 'http://120.27.144.62:1337/parse/classes/'
-import { customTrack } from 'modules/customTrack'
 import parseService from 'modules/parseServer'
 import $ from 'jquery'
 import {
@@ -471,7 +470,7 @@ export default {
     creatJoinImgUrl() {
       if (!this.user_result[0].img_id || !this.user_result[1].img_id) {
         this.wxShareInfo.success = () => {
-          customTrack.shareWeChat('share_page_wechat_angel_with_one_photo')
+          wechatShareTrack('share_page_wechat_angel_with_one_photo')
         }
         return
       }
@@ -534,7 +533,7 @@ export default {
       }
       this.show_btn = false
     }
-  },
+  }
 }
 </script>
 <style lang="less" scoped>

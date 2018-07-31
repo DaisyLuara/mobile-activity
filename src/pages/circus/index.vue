@@ -29,29 +29,25 @@
       v-show="press" 
       :src="IMG_URL +'/press.png'" 
       class="press">
-    <wx-share :wx-share-info="wxShareInfo"/>
   </div>
 </template>
 <script>
-import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
-import { customTrack } from 'modules/customTrack'
+import { wechatShareTrack, getInfoById } from 'services'
+import { onlyWechatShare } from '../../mixins/normalPages'
 const IMG_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing/pages'
 export default {
-  components: {
-    WxShare
-  },
+  mixins: [onlyWechatShare],
   data() {
     return {
       IMG_URL: IMG_SERVER + '/circus',
       press: false,
       //微信分享
-      wxShareInfo: {
+      wxShareInfoValue: {
         title: '欢迎来到近铁马戏城！',
         desc: '旋转、跳跃、我闭着眼！',
         imgUrl: IMG_SERVER + '/circus/share.png',
         success: function() {
-          customTrack.shareWeChat()
+          wechatShareTrack()
         }
       }
     }
@@ -68,8 +64,7 @@ export default {
   methods: {
     getInfoById() {
       let id = this.$route.query.id
-      marketService
-        .getInfoById(this, id)
+      getInfoById(id)
         .then(res => {
           this.drawCanvas(res.image)
           this.press = true
@@ -97,7 +92,7 @@ export default {
         mImg.src = image
       }
     }
-  },
+  }
 }
 </script>
 <style lang="less" scoped>
