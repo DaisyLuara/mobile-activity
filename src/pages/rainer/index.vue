@@ -9,11 +9,11 @@
         :src="base_url + 'bottom.png'" 
         class="bottom">
       <img 
-        :src="mImg" 
-        class="mImg">
+        :src="photo" 
+        class="photo">
       <img 
-        :src="mImg" 
-        class="mImg top">
+        :src="photo" 
+        class="photo top">
       <img 
         :src="base_url + 'frame.png'"
         class="frame" 
@@ -23,7 +23,7 @@
       />
     </div>
     <img 
-      v-show="note"
+      v-show="Boolean(photo)"
       :src="base_url + 'save.png'" 
       class="save">
   </div>
@@ -31,8 +31,10 @@
 </template>
 <script>
 import { $_wechat, getInfoById, wechatShareTrack } from 'services'
+import { normalPages } from '../../mixins/normalPages'
 const IMG_SERVER = 'http://p22vy0aug.bkt.clouddn.com/'
 export default {
+  mixins: [normalPages],
   data() {
     return {
       base_url: IMG_SERVER + 'image/rainer/',
@@ -41,10 +43,10 @@ export default {
           'min-height': this.$innerHeight() + 'px'
         }
       },
-      note: false,
-      mImg: null,
+      note: Boolean(this.photo),
+      photo: null,
       //分享
-      wxShareInfo: {
+      wxShareInfoValue: {
         title: '秘密花园 尽显美颜',
         desc: '快来寻找秘密花园，施展你的小小控雨魔法',
         imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/rainer/share.jpg',
@@ -55,31 +57,9 @@ export default {
     }
   },
   mounted() {
-    this.wechatShare()
-    this.getInfoById()
     this.doCanvas()
   },
   methods: {
-    wechatShare() {
-      $_wechat()
-        .then(res => {
-          res.share(this.wxShareInfo)
-        })
-        .catch(_ => {
-          console.warn(_.message)
-        })
-    },
-    getInfoById() {
-      let id = this.$route.query.id
-      getInfoById(id)
-        .then(res => {
-          this.mImg = res.image
-          this.note = true
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    },
     doCanvas() {
       let that = this
       let canvas = document.getElementById('canvas')
@@ -156,7 +136,7 @@ img {
   .main {
     width: 100%;
     position: relative;
-    .mImg {
+    .photo {
       position: absolute;
       width: 67.5%;
       top: 13.8%;
@@ -191,8 +171,8 @@ img {
   .save {
     width: 56%;
     margin: 0 auto;
-    margin-bottom: 3%;
-    margin-top: 1%;
+    margin-bottom: 4%;
+    margin-top: 0.5%;
   }
   #canvas {
     width: 91%;
