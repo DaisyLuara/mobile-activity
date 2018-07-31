@@ -4,12 +4,7 @@
 </template>
 <script>
 import $ from 'jquery'
-
-import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
-import parseService from 'modules/parseServer'
-import { customTrack } from 'modules/customTrack'
-
+import { getInfoById } from 'services'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 
 export default {
@@ -32,8 +27,7 @@ export default {
     getImageById() {
       let id = this.$route.query.id
       console.log(id)
-      marketService
-        .getInfoById(this, id)
+      getInfoById(id)
         .then(result => {
           console.log(result)
           var URL =

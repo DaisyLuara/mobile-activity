@@ -29,18 +29,12 @@
       v-show="isshow" 
       :src="imgUrl+'retro/save.png'" 
       class="press">
-    <wx-share :wx-share-info="wxShareInfo"/>
   </div>
 </template>
 <script>
-import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
-import { customTrack } from 'modules/customTrack'
+import { $_wechat, getInfoById, wechatShareTrack, isInWechat } from 'services'
 const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/'
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
       imgUrl: BASE_URL + 'image/',
@@ -57,7 +51,7 @@ export default {
         desc: '穿越回70年代，复古装扮走一波',
         imgUrl: BASE_URL + 'image/retro/icon.png',
         success: function() {
-          customTrack.shareWeChat()
+          wechatShareTrack()
         }
       }
     }
@@ -69,6 +63,7 @@ export default {
     this.getInfoById()
   },
   mounted() {
+    this.handleWechatShare()
     this.playAudio()
     this.initShack()
     var h =
@@ -79,6 +74,19 @@ export default {
     warp.style.minHeight = h + 'px'
   },
   methods: {
+    handleWechatShare() {
+      if (isInWechat() === true) {
+        $_wechat()
+          .then(res => {
+            res.share(this.wxShareInfoValue)
+          })
+          .catch(err => {
+            console.warn(err.message)
+          })
+      } else {
+        console.warn('you r not in wechat environment')
+      }
+    },
     initShack() {
       var last_update = '',
         x,
@@ -124,8 +132,7 @@ export default {
     getInfoById() {
       let id = this.$route.query.id
       let that = this
-      marketService
-        .getInfoById(this, id)
+      getInfoById(id)
         .then(res => {
           that.mImg = res.image
           that.isshow = true
@@ -200,7 +207,7 @@ export default {
         voice.pause()
       }
     }
-  },
+  }
 }
 </script>
 <style lang="less" scoped>

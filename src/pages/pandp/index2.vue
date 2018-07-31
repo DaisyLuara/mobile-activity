@@ -17,19 +17,27 @@
       v-show ="note" 
       :src="IMG_URL + 'note.png'" 
       class="note">
-    <wx-share :wx-share-info="wxShareInfo"/>
-    
+    <!-- 弹出层 -->
+    <GameShow 
+      ref="gameShow" 
+      :style-data="style"/>
   </div>
 </template>
 <script>
-import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
-import { customTrack } from 'modules/customTrack'
-import { isInWechat, Cookies, createGame, getGame } from 'services'
+import GameShow from 'modules/gameShow'
+import {
+  isInWechat,
+  Cookies,
+  createGame,
+  getGame,
+  $_wechat,
+  getInfoById,
+  wechatShareTrack
+} from 'services'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
   components: {
-    WxShare
+    GameShow
   },
   data() {
     return {
@@ -67,13 +75,13 @@ export default {
         imgUrl:
           'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/pandp/share.jpg',
         success: () => {
-          customTrack.shareWeChat()
+          wechatShareTrack()
         }
       }
     }
   },
-  created() {},
   mounted() {
+    this.handleWechatShare()
     this.width =
       window.innerWidth ||
       document.body.clientWidth ||
@@ -88,6 +96,19 @@ export default {
     this.getInfoById()
   },
   methods: {
+    handleWechatShare() {
+      if (isInWechat() === true) {
+        $_wechat()
+          .then(res => {
+            res.share(this.wxShareInfoValue)
+          })
+          .catch(err => {
+            console.warn(err.message)
+          })
+      } else {
+        console.warn('you r not in wechat environment')
+      }
+    },
     handleWechatAuth() {
       if (Cookies.get('user_id') === null) {
         let base_url = encodeURIComponent(String(window.location.href))
@@ -104,8 +125,7 @@ export default {
       }
     },
     getInfoById() {
-      marketService
-        .getInfoById(this, this.id)
+      getInfoById(this.id)
         .then(res => {
           this.belong = res.belong
           document.title =

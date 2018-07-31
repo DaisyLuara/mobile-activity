@@ -33,14 +33,8 @@
   </div>
 </template>
 <script>
-import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
-import { customTrack } from 'modules/customTrack'
 const BASE_URL = 'http://m.jingfree.com/'
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
       imgUrl: BASE_URL + '/public/marketing/m/marval/images/',
@@ -50,7 +44,6 @@ export default {
   beforeCreate() {
     document.title = '复古通用版'
   },
-  created() {},
   mounted() {
     let height =
       window.innerHeight ||
@@ -83,7 +76,7 @@ export default {
         path: 'retro/result?id=' + this.$route.query.id + '&mobile=' + mobile
       })
     }
-  },
+  }
 }
 </script>
 <style lang="less" scoped>

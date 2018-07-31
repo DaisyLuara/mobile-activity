@@ -55,20 +55,13 @@
           class="money">
       </div>
     </div>
-    <wx-share :wx-share-info="wxShareInfo"/>
   </div>
 </template>
  <script>
-import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
-import { customTrack } from 'modules/customTrack'
+import { $_wechat, getInfoById, wechatShareTrack, isInWechat } from 'services'
 const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/'
 import $ from 'jquery'
-
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
       imgUrl: BASE_URL + 'image/',
@@ -86,7 +79,7 @@ export default {
         desc: '祝您新年旺旺旺',
         imgUrl: BASE_URL + 'spring/iicon.jpg',
         success: function() {
-          customTrack.shareWeChat()
+          wechatShareTrack()
         }
       }
     }
@@ -94,8 +87,8 @@ export default {
   beforeCreate() {
     docuemnt.title = '狗年大吉'
   },
-  created() {},
   mounted() {
+    this.handleWechatShare()
     this.playAudio()
     var h =
       window.innerHeight ||
@@ -107,10 +100,22 @@ export default {
     this.initPage()
   },
   methods: {
+    handleWechatShare() {
+      if (isInWechat() === true) {
+        $_wechat()
+          .then(res => {
+            res.share(this.wxShareInfoValue)
+          })
+          .catch(err => {
+            console.warn(err.message)
+          })
+      } else {
+        console.warn('you r not in wechat environment')
+      }
+    },
     getInfoById() {
       let id = this.$route.query.id
-      marketService
-        .getInfoById(this, id)
+      getInfoById(id)
         .then(res => {
           this.mImg = res.image
           this.word = res.parms.split('=')[1]

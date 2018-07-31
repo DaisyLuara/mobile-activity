@@ -23,18 +23,12 @@
       v-show="isshow" 
       :src="imgUrl+'lianyang/press.png'" 
       class="press">
-    <wx-share :wx-share-info="wxShareInfo"/>
   </div>
 </template>
 <script>
-import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
-import { customTrack } from 'modules/customTrack'
+import { $_wechat, getInfoById, wechatShareTrack, isInWechat } from 'services'
 const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/'
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
       imgUrl: BASE_URL + 'image/',
@@ -46,21 +40,11 @@ export default {
       wxShareInfoValue: {
         title: '乐荟陪你“美”一天',
         desc: '唯乐荟 更懂你',
-        imgUrl: BASE_URL + 'image/lianyang/lhlogo.png'
-      }
-    }
-  },
-  computed: {
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
+        imgUrl: BASE_URL + 'image/lianyang/lhlogo.png',
         success: function() {
-          customTrack.shareWeChat()
+          wechatShareTrack()
         }
       }
-      return wxShareInfo
     }
   },
   beforeCreate() {
@@ -81,6 +65,19 @@ export default {
     this.initShack()
   },
   methods: {
+    handleWechatShare() {
+      if (isInWechat() === true) {
+        $_wechat()
+          .then(res => {
+            res.share(this.wxShareInfoValue)
+          })
+          .catch(err => {
+            console.warn(err.message)
+          })
+      } else {
+        console.warn('you r not in wechat environment')
+      }
+    },
     initShack() {
       var last_update = '',
         x,
@@ -126,8 +123,7 @@ export default {
     getInfoById() {
       let id = this.$route.query.id
       let that = this
-      marketService
-        .getInfoById(this, id)
+      getInfoById(id)
         .then(res => {
           that.mImg = res.image
           that.isshow = true
@@ -136,7 +132,7 @@ export default {
           console.log(err)
         })
     }
-  },
+  }
 }
 </script>
 <style lang="less" scoped>
@@ -154,7 +150,8 @@ body {
   text-align: center;
   font-size: 0;
   position: relative;
-  background: url('@{imgUrl}/lianyang/lybg.png') center top /100% 100% no-repeat;
+  background: url('@{imgUrl}/lianyang/lybg.png') center top / 100% 100%
+    no-repeat;
   .title {
     width: 60%;
     padding-top: 10%;

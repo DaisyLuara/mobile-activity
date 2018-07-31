@@ -24,7 +24,7 @@
           :src="imgServerUrl + '/photo_frame.png'" 
           class="envelope-bg">
         <img 
-          :src="img_url" 
+          :src="photo" 
           class="photo-img">
         <div class="photo-cover">
           <img 
@@ -54,31 +54,25 @@
     <img class="psbh-img" :src="imgServerUrl + '/ad_0526_4.jpg'" alt="">
     <img class="psbh-img" :src="imgServerUrl + '/ad_0526_5.jpg'" alt=""> -->
 
-    <wx-share :wx-share-info="wxShareInfo"/>
   </div>
 </template>
 <script>
-import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
-import { customTrack } from 'modules/customTrack'
-
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 import $ from 'jquery'
-
+import { wechatShareTrack } from 'services'
+import { normalPages } from '../../mixins/normalPages'
 export default {
-  components: {
-    WxShare
-  },
+  mixins: [normalPages],
   data() {
     return {
-      img_url: '',
+      photo: '',
       imgServerUrl: IMAGE_SERVER + '/pages/psbh_travel',
       wxShareInfo: {
         title: '浦商百货折上折',
         desc: '体验异域风情 尽享优惠折扣',
         imgUrl: IMAGE_SERVER + '/wx_share_icon/psbh_travel_share_icon.jpeg',
         success: () => {
-          customTrack.shareWeChat()
+          wechatShareTrack()
         }
       }
     }
@@ -90,21 +84,7 @@ export default {
     $('.photo-content').css('min-height', $(window).height())
     this.init()
   },
-  created() {
-    this.getPeopleImage()
-  },
   methods: {
-    getPeopleImage() {
-      let id = decodeURI(this.$route.query.id)
-      marketService
-        .getInfoById(this, id)
-        .then(result => {
-          this.img_url = result.image
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    },
     init() {
       let wid = 0,
         slogen_hei = 0,

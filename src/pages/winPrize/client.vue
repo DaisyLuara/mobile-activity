@@ -52,9 +52,7 @@
 <script>
 /* eslint-disable */
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
-import { Cookies } from 'modules/util'
 import Question from './question0129'
-import parseService from 'modules/parseServer'
 import $ from 'jquery'
 
 export default {
