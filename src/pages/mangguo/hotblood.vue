@@ -1,40 +1,39 @@
 <template>
   <div class="root">
     <img
+      :src="IMAGE_URL + 'qiu.png'" 
       class="header"
-      :src="IMAGE_URL + 'qiu.png'" />
+    >
     <img  
+      :src="photo"
       class="real-photo"
-      :src="photo"/>
+    >
     <img
+      :src="photo" 
       class="photo"
-      :src="photo" />
-
+    >
     <img  
+      :src="IMAGE_URL + 'nav.png'" 
       class="nav"
-      :src="IMAGE_URL + 'nav.png'" />
+    >
     <img
+      :src="IMAGE_URL + 'bg-new.png'" 
       class="bg"
-      :src="IMAGE_URL + 'bg-new.png'" />
+    >
 
     <img
+      :src="IMAGE_URL + 'qr-aiqiyi.png'"
       class="qr-code"
-      :src="IMAGE_URL + 'qr-aiqiyi.png'"/>
-    
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+    >
   </div>
 </template>
 
 <script>
-import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
-import { customTrack } from 'modules/customTrack'
+import { $_wechat, getInfoById, wechatShareTrack } from 'services'
+
 const IMAGE_SERVER =
   'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/mangguo/basketball/'
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
       IMAGE_URL:
@@ -44,15 +43,24 @@ export default {
       wxShareInfoValue: {
         title: '梦想必燃，热血开战！《热血狂篮》圆你灌篮高手梦。',
         desc: '2018最燃青春剧《热血狂篮》5月16日爱奇艺首播。',
-        imgUrl: IMAGE_SERVER + 'share.png'
+        imgUrl: IMAGE_SERVER + 'share.png',
+        success: () => {
+          wechatShareTrack()
+        }
       }
     }
+  },
+  beforeCreate() {
+    document.title = '芒果娱乐青春出品'
+  },
+  mounted() {
+    this.getInfoById()
+    this.handleShare()
   },
   methods: {
     getInfoById() {
       let id = this.$route.query.id
-      marketService
-        .getInfoById(this, id)
+      getInfoById(id)
         .then(res => {
           this.photo = res.image
           console.log(res)
@@ -60,26 +68,15 @@ export default {
         .catch(err => {
           console.log(err)
         })
-    }
-  },
-  beforeCreate() {
-    document.title = '芒果娱乐青春出品'
-  },
-  created() {
-    this.getInfoById()
-  },
-  computed: {
-    //微信分享
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
-        success: () => {
-          customTrack.shareWeChat()
-        }
-      }
-      return wxShareInfo
+    },
+    handleShare() {
+      $_wechat()
+        .then(res => {
+          res.share(this.wxShareInfoValue)
+        })
+        .catch(_ => {
+          console.warn(_.message)
+        })
     }
   }
 }

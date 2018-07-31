@@ -1,25 +1,48 @@
 <template>
-  <div class="content" id="content">
+  <div 
+    id="content" 
+    class="content">
     <div class="main">
-      <img class="ceng5 relative title" :src="imgUrl + 'title.png'" /> 
+      <img 
+        :src="imgUrl + 'title.png'" 
+        class="ceng5 relative title" > 
       <div class="ceng2 relative center">
-          <img class="ceng1 relative printer" :src="imgUrl + 'printer.png'"/>
-          <img class="ceng3 relative support" :src="imgUrl + 'support.png'"/>
-          <img class="ceng4 absolute frame" :src="imgUrl + 'frame.png'"/>
-          <div 
-            :class="{ceng2: true, border: true}">
-          </div>
-          <img 
-            :style="mImgStyle"
-            :class="{mImg: true}" 
-            :src="mImg"/>
+        <img 
+          :src="imgUrl + 'printer.png'" 
+          class="ceng1 relative printer">
+        <img 
+          :src="imgUrl + 'support.png'" 
+          class="ceng3 relative support">
+        <img 
+          :src="imgUrl + 'frame.png'" 
+          class="ceng4 absolute frame">
+        <div 
+          :class="{ceng2: true, border: true}"/>
+        <img 
+          :style="mImgStyle"
+          :class="{mImg: true}" 
+          :src="mImg">
       </div>
-      <img class="ceng1 relative lines" :src="imgUrl + 'lines.png'"/>
-      <img class="ceng1 relative explain" :src="imgUrl + explain + '.png'"/>
-      <img class="ceng5 absolute logo" :src="imgUrl + 'logo.png'"/>
-      <img class="ceng5 absolute arrow" :src="imgUrl + 'arrow.png'" v-show="stopShake"/>
-      <img class="ceng5 absolute lightL" :src="imgUrl + 'lightL.png'" v-show="stopShake"/>
-      <img class="ceng5 absolute lightR" :src="imgUrl + 'lightR.png'"/>
+      <img 
+        :src="imgUrl + 'lines.png'" 
+        class="ceng1 relative lines">
+      <img 
+        :src="imgUrl + explain + '.png'" 
+        class="ceng1 relative explain">
+      <img 
+        :src="imgUrl + 'logo.png'" 
+        class="ceng5 absolute logo">
+      <img 
+        v-show="stopShake" 
+        :src="imgUrl + 'arrow.png'" 
+        class="ceng5 absolute arrow">
+      <img 
+        v-show="stopShake" 
+        :src="imgUrl + 'lightL.png'" 
+        class="ceng5 absolute lightL">
+      <img 
+        :src="imgUrl + 'lightR.png'" 
+        class="ceng5 absolute lightR">
     </div>
   </div>
 </template>

@@ -1,45 +1,90 @@
 <template>
-    <div 
-      class="content" 
-      :style="style.root">
-       <audio id="voice" autobuffer autoloop loop autoplay hidden>
-				<source :src="audioUrl">
-			</audio>
-      <div class="main">
-         <div class="shade" v-if="shade" @click="shadeDisappear()"> 
-          <img class="hand-title" :src="imgServerUrl + '/pages/yp/share_hand.png'">
-          <img class="hand" :src="imgServerUrl + '/pages/yp/hand.png'">
+  <div 
+    :style="style.root"
+    class="content">
+    <audio 
+      id="voice" 
+      autobuffer 
+      autoloop 
+      loop 
+      autoplay 
+      hidden>
+      <source :src="audioUrl">
+    </audio>
+    <div   
+      class="main">
+      <div 
+        v-if="shade" 
+        class="shade" 
+        @click="shadeDisappear()"> 
+        <img 
+          :src="imgServerUrl + '/pages/yp/share_hand.png'"
+          class="hand-title">
+        <img  
+          :src="imgServerUrl + '/pages/yp/hand.png'"
+          class="hand">
       </div>
-        <img class="bg" :src="imgServerUrl + '/pages/yp/bg.png'">
-        <div class="title">
-          <img class="tit1" :src="imgServerUrl + '/pages/yp/tit1.png'">
-          <img class="tit2" :src="imgServerUrl + '/pages/yp/tit2.png'">
-          <img class="tit3" :src="imgServerUrl + '/pages/yp/tit4.png'">
-        </div>
-        <img  id="mbtn" class="mplay" :src="imgServerUrl + '/pages/yp/music.png'"  @click="playOrNot()">
-        <img class="ball1" :src="imgServerUrl + '/pages/yp/ball.png'">
-        <img class="ball2" :src="imgServerUrl + '/pages/yp/ball.png'">
-        <div class="photo-area">
-          <img class="kuang" :src="imgServerUrl + '/pages/yp/kuang3.png'">
-          <img class="save" :src="imgServerUrl + '/pages/yp/save.png'">
-          <img  class="photo" :src="resultImgUrl" alt=""/>
-          <!-- <img class="photo" :src="imgServerUrl + '/pages/yp/111.png'"> -->
-        </div>
-          <img class="get" :src="imgServerUrl + '/pages/yp/get_game.png'">
-          <img class="share" :src="imgServerUrl + '/pages/yp/share.png'" @click="share()">
-        <div class="ad">
-          <img :src="imgServerUrl + '/pages/yp/ad.png'">
-        </div>
+      <img 
+        :src="imgServerUrl + '/pages/yp/bg.png'"
+        class="bg" >
+      <div 
+        class="title">
+        <img 
+          :src="imgServerUrl + '/pages/yp/tit1.png'"
+          class="tit1" >
+        <img 
+          :src="imgServerUrl + '/pages/yp/tit2.png'"
+          class="tit2" >
+        <img 
+          :src="imgServerUrl + '/pages/yp/tit4.png'"
+          class="tit3" >
       </div>
-        <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+      <img  
+        id="mbtn" 
+        :src="imgServerUrl + '/pages/yp/music.png'" 
+        class="mplay"  
+        @click="playOrNot()">
+      <img 
+        :src="imgServerUrl + '/pages/yp/ball.png'"
+        class="ball1">
+      <img 
+        :src="imgServerUrl + '/pages/yp/ball.png'"
+        class="ball2">
+      <div 
+        class="photo-area">
+        <img 
+          :src="imgServerUrl + '/pages/yp/kuang3.png'"
+          class="kuang">
+        <img 
+          :src="imgServerUrl + '/pages/yp/save.png'"
+          class="save" >
+        <img 
+          :src="resultImgUrl" 
+          alt=""
+          class="photo">
+      </div>
+      <img  
+        :src="imgServerUrl + '/pages/yp/get_game.png'"
+        class="get">
+      <img 
+        :src="imgServerUrl + '/pages/yp/share.png'"
+        class="share"  
+        @click="share()">
+      <div 
+        class="ad">
+        <img 
+          :src="imgServerUrl + '/pages/yp/ad.png'">
+      </div>
     </div>
+  </div>
 </template>
 <script>
+/* eslint-disable */
 const wih = window.innerHeight
-import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
-import { customTrack } from 'modules/customTrack'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
+import marketService from 'services/marketing'
+import { customTrack } from 'modules/customTrack'
+import { $_wechat, wechatShareTrack } from 'services'
 export default {
   data() {
     return {
@@ -68,6 +113,21 @@ export default {
       }
     }
   },
+  computed: {
+    //微信分享
+    wxShareInfo() {
+      let wxShareInfo = {
+        title: this.wxShareInfoValue.title,
+        desc: this.wxShareInfoValue.desc,
+        imgUrl: this.wxShareInfoValue.imgUrl,
+        link: this.wxShareInfoValue.link,
+        success: () => {
+          customTrack.shareWeChat()
+        }
+      }
+      return wxShareInfo
+    }
+  },
   beforeCreate() {
     document.title = ''
   },
@@ -76,6 +136,7 @@ export default {
   },
   mounted() {
     this.playAudio()
+    this.handleShare()
   },
   methods: {
     //拿取图片id
@@ -88,6 +149,15 @@ export default {
         })
         .catch(err => {
           console.log(err)
+        })
+    },
+    handleShare() {
+      $_wechat()
+        .then(res => {
+          res.share(this.wxShareInfoValue)
+        })
+        .catch(_ => {
+          console.warn(_.message)
         })
     },
     share() {
@@ -160,24 +230,6 @@ export default {
       } else {
         voice.pause()
       }
-    }
-  },
-  components: {
-    WxShare
-  },
-  computed: {
-    //微信分享
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
-        link: this.wxShareInfoValue.link,
-        success: () => {
-          customTrack.shareWeChat()
-        }
-      }
-      return wxShareInfo
     }
   }
 }

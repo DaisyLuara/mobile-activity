@@ -1,33 +1,52 @@
 <template>
-  <div class="fourShoot-content">
-    <img  class="photo" :src="resultImgUrl" alt=""/>
-    <!-- <img  class="photo" :src="imgServerUrl + '/pages/fourShoot/1111.png'" alt=""/>-->
-    <div class="button">
+  <div 
+    :style="style.root"
+    class="fourShoot-content">
+    <img  
+      :src="resultImgUrl" 
+      alt=""
+      class="photo" >
+    <!-- 
+      <img  
+        :src="imgServerUrl + '/pages/fourShoot/1111.png'" 
+        alt=""
+        class="photo">
+    -->
+    <div 
+      class="button">
       <div> 
-        <img  class="jiantou" :src="imgServerUrl + '/pages/fourShoot/nav.png'" alt=""/> 
+        <img  
+          :src="imgServerUrl + '/pages/fourShoot/nav.png'"
+          alt=""
+          class="jiantou" > 
       </div>
       <div> 
-        <img class="title" :src="imgServerUrl + '/pages/fourShoot/title.png'" alt=""/> 
+        <img 
+          :src="imgServerUrl + '/pages/fourShoot/title.png'" 
+          alt=""
+          class="title" > 
       </div>
     </div> 
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+    <!-- <wx-share :WxShareInfo="wxShareInfo"></wx-share> -->
   </div>
 </template>
 <script>
 import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
+import { $_wechat, wechatShareTrack } from 'services'
 import parseService from 'modules/parseServer'
 import { customTrack } from 'modules/customTrack'
 import $ from 'jquery'
-
+const wih = window.innerHeight
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
+      style: {
+        root: {
+          height: wih + 'px'
+        }
+      },
       imgServerUrl: IMAGE_SERVER,
       resultImgUrl: '',
       //微信分享信息
@@ -39,11 +58,25 @@ export default {
       }
     }
   },
+  computed: {
+    //微信分享
+    wxShareInfo() {
+      let wxShareInfo = {
+        title: this.wxShareInfoValue.title,
+        desc: this.wxShareInfoValue.desc,
+        imgUrl: this.wxShareInfoValue.imgUrl,
+        success: () => {
+          customTrack.shareWeChat()
+        }
+      }
+      return wxShareInfo
+    }
+  },
   beforeCreate() {
     document.title = '星视度'
   },
   mounted() {
-    $('.fourShoot-content').css('min-height', $(window).height())
+    this.handleShare()
   },
   created() {
     this.getImageById()
@@ -60,20 +93,15 @@ export default {
         .catch(err => {
           console.log(err)
         })
-    }
-  },
-  computed: {
-    //微信分享
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
-        success: () => {
-          customTrack.shareWeChat()
-        }
-      }
-      return wxShareInfo
+    },
+    handleShare() {
+      $_wechat()
+        .then(res => {
+          res.share(this.wxShareInfoValue)
+        })
+        .catch(_ => {
+          console.warn(_.message)
+        })
     }
   }
 }

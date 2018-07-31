@@ -1,13 +1,25 @@
 <template>
-    <div class="content" id="content">
-      <div class="loading" id="loading" v-show="loadingPage"></div>
-        <canvas id="canvas"></canvas>
-        <img id="border" src="/static/pandp/border.png"/>
-        <img id="mImg" src=""/>
-        <img class="note" :src="IMG_URL + 'note.png'" v-show ="note"/>
-        <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+  <div 
+    id="content" 
+    class="content">
+    <div 
+      v-show="loadingPage" 
+      id="loading" 
+      class="loading"/>
+    <canvas id="canvas"/>
+    <img 
+      id="border" 
+      src="/static/pandp/border.png">
+    <img 
+      id="mImg" 
+      src="">
+    <img 
+      v-show ="note" 
+      :src="IMG_URL + 'note.png'" 
+      class="note">
+    <wx-share :wx-share-info="wxShareInfo"/>
         
-    </div>
+  </div>
 </template>
 <script>
 import marketService from 'services/marketing'
@@ -15,6 +27,9 @@ import WxShare from 'modules/wxShare'
 import { customTrack } from 'modules/customTrack'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
+  components: {
+    WxShare
+  },
   data() {
     return {
       IMG_URL: IMAGE_SERVER + '/pages/pandp/',
@@ -365,9 +380,6 @@ export default {
       // this.style.show = true
     }
   },
-  components: {
-    WxShare
-  }
 }
 </script>
 <style lang="less" scoped>

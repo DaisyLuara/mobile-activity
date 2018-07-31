@@ -1,55 +1,92 @@
 <template>
-<div id="wrap">
-  <div class="snRedPacket-wrap">
-    <div class="photo-wrap">
-      <img  class="photo" :src="resultImgUrl" alt=""/>
-      <!-- <img  class="photo" :src="imgServerUrl + '/pages/glassword/111.jpg'" alt=""/> -->
-      <img  class="circle_1" :src="imgServerUrl + '/pages/sn_redPacke/cicle.png'">
-      <img  class="circle_2" :src="imgServerUrl + '/pages/sn_redPacke/cicle.png'">
-      <img  class="circle_3" :src="imgServerUrl + '/pages/sn_redPacke/cicle.png'">
-      <img  class="circle_4" :src="imgServerUrl + '/pages/sn_redPacke/cicle.png'">
-      <div  class="button" >
-         <img class="bt" @click="go()" :src="imgServerUrl + '/pages/sn_redPacke/button.png'" alt=""/>
+  <div 
+    id="wrap">
+    <div 
+      class="snRedPacket-wrap">
+      <div 
+        class="photo-wrap">
+        <img  
+          :src="resultImgUrl" 
+          class="photo" 
+          alt="">
+        <!-- <img  class="photo" :src="imgServerUrl + '/pages/glassword/111.jpg'" alt=""/> -->
+        <img  
+          :src="imgServerUrl + '/pages/sn_redPacke/cicle.png'"
+          class="circle_1" >
+        <img  
+          :src="imgServerUrl + '/pages/sn_redPacke/cicle.png'"
+          class="circle_2" >
+        <img  
+          :src="imgServerUrl + '/pages/sn_redPacke/cicle.png'"
+          class="circle_3" >
+        <img  
+          :src="imgServerUrl + '/pages/sn_redPacke/cicle.png'"
+          class="circle_4" >
+        <div  
+          class="button" >
+          <img 
+            :src="imgServerUrl + '/pages/sn_redPacke/button.png'" 
+            alt=""
+            class="bt" 
+            @click="go()">
+        </div>
+        <img  
+          v-if="show" 
+          :src="imgServerUrl + '/pages/sn_redPacke/jiantou.png'" 
+          alt="" 
+          class="jiantou">
+      </div> 
+    </div>
+    <div 
+      class="receiveAward-wrap">
+      <div 
+        class="content">
+        <img  
+          :src="imgServerUrl + '/pages/sn_redPacke/1.png'"
+          class="picture-1">
       </div>
-       <img  class="jiantou" v-if="show" :src="imgServerUrl + '/pages/sn_redPacke/jiantou.png'" alt=""/>
-    </div> 
+      <div 
+        class="content">
+        <img  
+          :src="imgServerUrl + '/pages/sn_redPacke/2.png'"
+          class="picture-2" >
+      </div>
+      <div 
+        class="content">
+        <img  
+          :src="imgServerUrl + '/pages/sn_redPacke/3.png'"
+          class="picture-3" >
+      </div>
+      <div 
+        class="content">
+        <img  
+          :src="imgServerUrl + '/pages/sn_redPacke/4.png'"
+          class="picture-4" >
+      </div>
+      <div 
+        class="content">
+        <img  
+          :src="imgServerUrl + '/pages/sn_redPacke/5.png'"
+          class="picture-5" >
+      </div>
+      <div 
+        class="content">
+        <img  
+          :src="imgServerUrl + '/pages/sn_redPacke/6.png'"
+          class="picture-6" >
+      </div>  
+    </div>
   </div>
-  <div class="receiveAward-wrap">
-    <div class="content">
-        <img  class="picture-1" :src="imgServerUrl + '/pages/sn_redPacke/1.png'">
-    </div>
-    <div class="content">
-        <img  class="picture-2" :src="imgServerUrl + '/pages/sn_redPacke/2.png'">
-    </div>
-    <div class="content">
-        <img  class="picture-3" :src="imgServerUrl + '/pages/sn_redPacke/3.png'">
-    </div>
-    <div class="content">
-        <img  class="picture-4" :src="imgServerUrl + '/pages/sn_redPacke/4.png'">
-    </div>
-    <div class="content">
-        <img  class="picture-5" :src="imgServerUrl + '/pages/sn_redPacke/5.png'">
-    </div>
-    <div class="content">
-        <img  class="picture-6" :src="imgServerUrl + '/pages/sn_redPacke/6.png'">
-    </div>  
-  </div>
-   <wx-share :WxShareInfo="wxShareInfo"></wx-share>
-</div>
 </template>
 <script>
+const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
 import parseService from 'modules/parseServer'
 import { customTrack } from 'modules/customTrack'
+import { $_wechat, wechatShareTrack } from 'services'
 import $ from 'jquery'
 
-const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
-
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
       scroll: '',
@@ -65,6 +102,20 @@ export default {
       }
     }
   },
+  computed: {
+    //微信分享
+    wxShareInfo() {
+      let wxShareInfo = {
+        title: this.wxShareInfoValue.title,
+        desc: this.wxShareInfoValue.desc,
+        imgUrl: this.wxShareInfoValue.imgUrl,
+        success: () => {
+          customTrack.shareWeChat()
+        }
+      }
+      return wxShareInfo
+    }
+  },
   beforeCreate() {
     document.title = '天降福利'
   },
@@ -74,6 +125,7 @@ export default {
   created() {
     this.getImageById()
     this.handleScroll()
+    this.handleShare()
   },
   methods: {
     //拿取图片id
@@ -86,6 +138,15 @@ export default {
         })
         .catch(err => {
           console.log(err)
+        })
+    },
+    handleShare() {
+      $_wechat()
+        .then(res => {
+          res.share(this.wxShareInfoValue)
+        })
+        .catch(_ => {
+          console.warn(_.message)
         })
     },
     //处理滚动条滚动
@@ -105,20 +166,6 @@ export default {
     go() {
       window.location.href =
         'https://res.m.suning.com/project/zhaoji/activiteDetails_1.html?activityCode=8508921236&storeType=2&storeCode=10003701'
-    }
-  },
-  computed: {
-    //微信分享
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
-        success: () => {
-          customTrack.shareWeChat()
-        }
-      }
-      return wxShareInfo
     }
   }
 }

@@ -1,10 +1,20 @@
 <template>
   <div class="feng-wrap">
-    <div id="mapContainer" class="container"></div>
-    <div class="viewmode-group btn-group-vertical" data-toggle="buttons">
-	  	<div @click="change2d()" class="btn btn-2d" v-bind:class="{'selected': viewMode == '2d'}">2D</div>
-		  <div @click="change3d()" class="btn btn-3d" v-bind:class="{'selected': viewMode == '3d'}">3D</div>
-	  </div>
+    <div 
+      id="mapContainer" 
+      class="container"/>
+    <div 
+      class="viewmode-group btn-group-vertical" 
+      data-toggle="buttons">
+      <div 
+        :class="{'selected': viewMode == '2d'}" 
+        class="btn btn-2d" 
+        @click="change2d()">2D</div>
+      <div 
+        :class="{'selected': viewMode == '3d'}" 
+        class="btn btn-3d" 
+        @click="change3d()">3D</div>
+    </div>
     <!-- <div class="floor-img">
       <img src="static/feng/image/1-1.gif" alt="">
     </div> -->

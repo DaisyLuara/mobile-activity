@@ -1,20 +1,48 @@
 <template>
-    <div class="content" id="content">
-        <img  class="egg-top" :src="imgServerUrl + '/pages/capsule_toys/1.png'" alt="" >
-        <img  class="egg-bot" :src="imgServerUrl + '/pages/capsule_toys/2.png'" alt="" >
-        <img  class="light" :src="imgServerUrl + '/pages/capsule_toys/light.png'" alt="" >
-        <div class="copon" :style="style">
-          <img  class="cp-1"  v-show="showCoupon.cp1" :src="imgServerUrl + '/pages/capsule_toys/zhy.png'" alt="" >
-          <img  class="cp-2"  v-show="showCoupon.cp2" :src="imgServerUrl + '/pages/capsule_toys/hz.png'" alt="" >
-          <img  class="cp-3"  v-show="showCoupon.cp3" :src="imgServerUrl + '/pages/capsule_toys/sc.png'" alt="" >
-          <img  class="cp-4"  v-show="showCoupon.cp4" :src="imgServerUrl + '/pages/capsule_toys/yjk.png'" alt="" >
-        </div>
-        <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+  <div 
+    id="content" 
+    class="content">
+    <img  
+      :src="imgServerUrl + '/pages/capsule_toys/1.png'" 
+      alt=""
+      class="egg-top">
+    <img  
+      :src="imgServerUrl + '/pages/capsule_toys/2.png'" 
+      alt=""
+      class="egg-bot">
+    <img  
+      :src="imgServerUrl + '/pages/capsule_toys/light.png'" 
+      alt=""
+      class="light">
+    <div 
+      :style="style" 
+      class="copon">
+      <img  
+        v-show="showCoupon.cp1" 
+        :src="imgServerUrl + '/pages/capsule_toys/zhy.png'" 
+        alt="" 
+        class="cp-1" >
+      <img  
+        v-show="showCoupon.cp2" 
+        :src="imgServerUrl + '/pages/capsule_toys/hz.png'" 
+        alt=""  
+        class="cp-2" >
+      <img  
+        v-show="showCoupon.cp3" 
+        :src="imgServerUrl + '/pages/capsule_toys/sc.png'"
+        alt=""  
+        class="cp-3" >
+      <img  
+        v-show="showCoupon.cp4" 
+        :src="imgServerUrl + '/pages/capsule_toys/yjk.png'"
+        alt=""  
+        class="cp-4" >
     </div>
+  </div>
 </template>
 <script>
 import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
+import { $_wechat, wechatShareTrack } from 'services'
 import { customTrack } from 'modules/customTrack'
 import parseService from 'modules/parseServer'
 const REQ_URL = 'http://120.27.144.62:1337/parse/classes/'
@@ -39,7 +67,7 @@ export default {
         cp4: false
       },
       //微信分享
-      wxShareInfo: {
+      wxShareInfoValue: {
         title: '我中奖啦',
         desc: '星视度扭蛋机中大奖',
         imgUrl:
@@ -65,6 +93,7 @@ export default {
     let content = document.getElementById('content')
     content.style.minHeight = height + 'px'
     this.getInfoById()
+    this.handleShare()
   },
   methods: {
     show() {
@@ -85,6 +114,15 @@ export default {
         this.params.typeName = this.type
         this.params.typeID = 68
       }
+    },
+    handleShare() {
+      $_wechat()
+        .then(res => {
+          res.share(this.wxShareInfoValue)
+        })
+        .catch(_ => {
+          console.warn(_.message)
+        })
     },
     query() {
       let query = {
@@ -130,9 +168,6 @@ export default {
         })
         .catch(err => {})
     }
-  },
-  components: {
-    WxShare
   }
 }
 </script>

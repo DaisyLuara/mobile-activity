@@ -1,10 +1,18 @@
 <template>
-    <div class="content" :style="style.root">
-        <div class="forms">
-            <input class="tel" type="text" ref="input" placeholder="请输入手机号"/>
-            <a class="btn" @click="toPhoto"><img :src="baseUrl + 'submit.png'"></a>
-        </div>
+  <div 
+    :style="style.root" 
+    class="content">
+    <div class="forms">
+      <input 
+        ref="input" 
+        class="tel" 
+        type="text" 
+        placeholder="请输入手机号">
+      <a 
+        class="btn" 
+        @click="toPhoto"><img :src="baseUrl + 'submit.png'"></a>
     </div>
+  </div>
 </template>
 <script>
 import { $_wechat, wechatShareTrack } from 'services'

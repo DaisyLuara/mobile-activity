@@ -2,34 +2,60 @@
   <div class="greenlife-content">
     <!-- 用户信息显示 -->
     <div class="user">
-      <img :src="imgServerUrl + '/people.png'" class="cover"/>
-      <img :src="head_img_url" id="userImg"/>
-      <p class="userName">{{nick_name}}</p>
+      <img 
+        :src="imgServerUrl + '/people.png'" 
+        class="cover"
+      >
+      <img 
+        id="userImg"
+        :src="head_img_url" 
+      >
+      <p class="userName">
+        {{ nick_name }}
+      </p>
     </div>
-    <img class="title" :src="imgServerUrl + '/title.png'"/>
+    <img
+      :src="imgServerUrl + '/title.png'" 
+      class="title" 
+    >
     <!-- 礼物区 -->
     <div class="gift">
-      <img class="gtit" :src="imgServerUrl + '/notetit.png'">
-      <a :href="giftUrl" @click="sendcount"><img class="giftImg" :src="imgServerUrl + '/gift.png'"></a>
-      <img class="tag" :src="imgServerUrl + '/noteclick.png'">
+      <img 
+        :src="imgServerUrl + '/notetit.png'"
+        class="gtit" 
+      >
+      <a 
+        :href="giftUrl" 
+        @click="sendcount"
+      >
+        <img
+          :src="imgServerUrl + '/gift.png'" 
+          class="giftImg" 
+        >
+      </a>
+      <img
+        :src="imgServerUrl + '/noteclick.png'" 
+        class="tag" 
+      >
     </div>
     <!-- 树动画显示 -->
     <!-- <div class="showtree"> </div> -->
-    <div class="trees" id="treeDiv" ref="element"></div>
-    <wx-share :WxShareInfo="wxShareInfoValue"></wx-share>
+    <div 
+      id="treeDiv" 
+      ref="element"
+      class="trees"  
+    />
   </div>
 </template>
 <script>
 import { getParamsMap, getParameter, setParameter } from 'modules/util'
-import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
-import { customTrack } from 'modules/customTrack'
-import { getWxUserInfo } from 'services'
-
+import {
+  $_wechat,
+  getInfoById,
+  wechatShareTrack,
+  getWxUserInfo
+} from 'services'
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
       imgServerUrl: 'http://p22vy0aug.bkt.clouddn.com/image/kaidegreenlife',
@@ -82,8 +108,7 @@ export default {
           'http://p22vy0aug.bkt.clouddn.com/image/kaidegreenlife/icon.jpg',
         link: '',
         success: () => {
-          customTrack.shareWeChat()
-          console.log('微信分享成功')
+          wechatShareTrack()
         }
       },
       renderer: null,
@@ -163,8 +188,7 @@ export default {
     },
     getInfoById() {
       let id = this.$route.query.id
-      marketService
-        .getInfoById(this, id)
+      getInfoById(id)
         .then(res => {
           this.pos = this.getValueByName('pos', res.parms)
           this.init(this.pos)
@@ -222,29 +246,6 @@ export default {
         url: pageUrl
       }
       window.history.pushState(state, 'title', pageUrl)
-    }
-  },
-  computed: {
-    //微信分享
-    wxShareInfo(nickname, headimgurl) {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
-        link: this.$route.query.nick_name
-          ? window.location.href
-          : window.location.href +
-            '&nick_name=' +
-            this.nick_name +
-            '&head_img_url=' +
-            this.head_img_url,
-        success: () => {
-          customTrack.shareWeChat()
-          console.log(wxShareInfo.link)
-          console.log('cccc')
-        }
-      }
-      return wxShareInfo
     }
   }
 }

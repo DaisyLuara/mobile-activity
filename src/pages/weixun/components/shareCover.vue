@@ -1,22 +1,28 @@
 <template>
   <div 
-    @click="handleShowClose"
     v-if="shouldShow"
     :style="style.root"
-    class="share-root">
-      <img 
-        class="remind"
-        :src="this.$parent.serverUrl + 'share-remind.png'" />
-      <img 
-        class="text"
-        :src="this.$parent.serverUrl + 'share-text.png'" />
+    class="share-root"
+    @click="handleShowClose"
+  >
+    <img 
+      :src="this.$parent.serverUrl + 'share-remind.png'" 
+      class="remind"
+    >
+    <img 
+      :src="this.$parent.serverUrl + 'share-text.png'" 
+      class="text"
+    >
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    shouldShow: Boolean
+    shouldShow: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {

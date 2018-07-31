@@ -1,18 +1,19 @@
 <template>
+  <!-- eslint-disable -->
   <div 
-    class="act-root"
-    :style="style.root">
+    :style="style.root"
+    class="act-root">
     <img
       :style="style.logo"
-      :src="this.baseUrl + 'logo.png'" />
+      :src="this.baseUrl + 'logo.png'" >
 
     <img
       :style="style.people"
-      :src="this.baseUrl + 'people.png'" />
+      :src="this.baseUrl + 'people.png'" >
 
     <img
       :style="style.bg"
-      :src="this.baseUrl + 'bg.png'" />
+      :src="this.baseUrl + 'bg.png'" >
 
     <div
       v-show="this.phoneError"
@@ -20,26 +21,27 @@
       手机号有误，请重新输入
     </div>
     <input 
-      maxlength="11"
       :class="{ 'phoneError': this.phoneError}"
-      @click="handlePhoneError"
       v-model="bindPhoneNumber"
-      placeholder="请输入手机号"
       :style="style.input"
-      />
+      maxlength="11"
+      placeholder="请输入手机号"
+      @click="handlePhoneError"
+    >
 
     <img
-      @click="handleButtonClick"
       :style="style.button"
-      :src="this.baseUrl + 'button.png'" />
+      :src="this.baseUrl + 'button.png'"
+      @click="handleButtonClick" >
 
     <img
       :style="style.bgadd" 
-      :src="this.baseUrl + 'bg-add.png'" />
+      :src="this.baseUrl + 'bg-add.png'" >
   </div>
 </template>
 
 <script>
+/* eslint-disable */
 import { Toast } from 'mint-ui'
 import { isWeixin } from '../../modules/util'
 import { basicTrack } from 'services'

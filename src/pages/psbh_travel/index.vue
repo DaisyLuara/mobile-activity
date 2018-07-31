@@ -1,24 +1,43 @@
 <template>
   <div class="psbh-travel-wrap">
-    <img class="psbh-img" :src="imgServerUrl + '/ad_0709.png'" alt="">
+    <img 
+      :src="imgServerUrl + '/ad_0731.jpeg'" 
+      class="psbh-img" 
+      alt="">
     <div class="photo-content">
       <div class="boots-wrap">
         <div class="slide-wrap pos-common">
-          <img class="boot-line pos-common" :src="imgServerUrl + '/boot-line.png'">
-          <img class="boot-text pos-common" :src="imgServerUrl + '/boot-text.png'">
-          <img class="gesture-img pos-common" :src="imgServerUrl + '/gesture-img.png'">
-          <div class="boot-img"></div>
+          <img 
+            :src="imgServerUrl + '/boot-line.png'" 
+            class="boot-line pos-common">
+          <img 
+            :src="imgServerUrl + '/boot-text.png'" 
+            class="boot-text pos-common">
+          <img 
+            :src="imgServerUrl + '/gesture-img.png'" 
+            class="gesture-img pos-common">
+          <div class="boot-img"/>
         </div>
       </div>
       <div class="photo-wrap">
-        <img class="envelope-bg" :src="imgServerUrl + '/photo_frame.png'">
-        <img class="photo-img" :src="img_url">
+        <img 
+          :src="imgServerUrl + '/photo_frame.png'" 
+          class="envelope-bg">
+        <img 
+          :src="img_url" 
+          class="photo-img">
         <div class="photo-cover">
-          <img class="cover-img" :src="imgServerUrl + '/photo-cover2.png'">
+          <img 
+            :src="imgServerUrl + '/photo-cover2.png'" 
+            class="cover-img">
         </div>
-        <img class="save-img" :src="imgServerUrl + '/save-img3.png'">
+        <img 
+          :src="imgServerUrl + '/save-img3.png'" 
+          class="save-img">
       </div>
-      <img class="slogan" :src="imgServerUrl + '/slogan.png'">
+      <img 
+        :src="imgServerUrl + '/slogan.png'" 
+        class="slogan">
     </div>
     <!-- <img class="psbh-img" :src="imgServerUrl + '/ad_0622_3.jpg'" alt="">
     <img class="psbh-img" :src="imgServerUrl + '/ad_0622_4.jpg'" alt=""> -->
@@ -35,7 +54,7 @@
     <img class="psbh-img" :src="imgServerUrl + '/ad_0526_4.jpg'" alt="">
     <img class="psbh-img" :src="imgServerUrl + '/ad_0526_5.jpg'" alt=""> -->
 
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+    <wx-share :wx-share-info="wxShareInfo"/>
   </div>
 </template>
 <script>

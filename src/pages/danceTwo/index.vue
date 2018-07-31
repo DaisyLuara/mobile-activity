@@ -1,5 +1,6 @@
 <template>
-  <div class="wrap"></div>
+  <div 
+    class="wrap"/>
 </template>
 <script>
 import $ from 'jquery'

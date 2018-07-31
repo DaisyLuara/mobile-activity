@@ -1,17 +1,25 @@
 <template>
-	<div class="mallcoo-content" id="mallcoo">
+  <div 
+    id="mallcoo" 
+    class="mallcoo-content">
     <div class="coupList">
       <ul class="ul_list">
-        <li class="q_name">{{quanMsg.MallName}}</li>
-        <li class="q_price"><label>{{quanMsg.price}}<span>￥</span></label>
-                            <p>代金券</p></li>
-        <li class="q_number" v-show="noZero"><span>{{quanMsg.Vcode}}</span></li>
-        <li class="q_time" v-show="noZero">有效期至：{{quanMsg.EndTime}}</li>
-        <li class="num_err" v-show="isZero">该券已经发完了</li>
+        <li class="q_name">{{ quanMsg.MallName }}</li>
+        <li class="q_price"><label>{{ quanMsg.price }}<span>￥</span></label>
+        <p>代金券</p></li>
+        <li 
+          v-show="noZero" 
+          class="q_number"><span>{{ quanMsg.Vcode }}</span></li>
+        <li 
+          v-show="noZero" 
+          class="q_time">有效期至：{{ quanMsg.EndTime }}</li>
+        <li 
+          v-show="isZero" 
+          class="num_err">该券已经发完了</li>
       </ul>
     </div>
-		<wx-share :WxShareInfo="wxShareInfo"></wx-share>
-	</div>
+    <wx-share :wx-share-info="wxShareInfo"/>
+  </div>
 </template>
 <script>
 const REQ_URL = 'http://120.27.144.62:1337/parse/classes/'
@@ -21,6 +29,9 @@ import parseService from 'modules/parseServer'
 import { customTrack } from 'modules/customTrack'
 const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/image'
 export default {
+  components: {
+    WxShare
+  },
   data() {
     return {
       quanMsg: {
@@ -187,9 +198,6 @@ export default {
       }
     }
   },
-  components: {
-    WxShare
-  }
 }
 </script>
 <style  lang="less" scoped>

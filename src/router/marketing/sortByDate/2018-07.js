@@ -295,6 +295,89 @@ const Date201807 = [
       desc: '控雨镜-秘密花园'
     },
     isAbandoned: false
+  },
+  {
+    path: 'tanabata_festivalA',
+    location: 'qixi_glassWord/tanabataFestivalA',
+    name: 'qixi_glassWordA',
+    meta: {
+      title: '七夕节',
+      author: 'xj1012',
+      desc: '七夕节通用A页面'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'newretail',
+    location: 'newretail/index',
+    name: 'newRetail',
+    meta: {
+      title: '场景新媒体 赋能新零售',
+      author: 'Anluis',
+      desc: '不知道什么鬼的页面'
+    }
+  },
+  {
+    path: 'pacific_a',
+    location: 'pacific/indexA',
+    name: 'pacificA',
+    meta: {
+      title: '太平洋森活',
+      author: 'Joy',
+      desc: '太平洋森活A页面'
+    }
+  },
+  {
+    path: 'pacific_b',
+    location: 'pacific/indexB',
+    name: 'pacificB',
+    meta: {
+      title: '太平洋森活',
+      author: 'Joy',
+      desc: '太平洋森活B页面'
+    }
+  },
+  {
+    path: 'pacific_c',
+    location: 'pacific/indexC',
+    name: 'pacificC',
+    meta: {
+      title: '太平洋森活',
+      author: 'Joy',
+      desc: '太平洋森活C页面'
+    }
+  },
+  {
+    path: 'pacific_d',
+    location: 'pacific/indexD',
+    name: 'pacificD',
+    meta: {
+      title: '太平洋森活',
+      author: 'Joy',
+      desc: '太平洋森活D页面'
+    }
+  },
+  {
+    path: 'tanabata_festivalB',
+    location: 'qixi_glassWord/tanabataFestivalB',
+    name: 'qixi_glassWordB',
+    meta: {
+      title: '七夕节',
+      author: 'xj1012',
+      desc: '七夕节通用B页面'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'tanabata_festivalC',
+    location: 'qixi_glassWord/tanabataFestivalC',
+    name: 'qixi_glassWordC',
+    meta: {
+      title: '七夕节',
+      author: 'xj1012',
+      desc: '七夕节通用C页面'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201807

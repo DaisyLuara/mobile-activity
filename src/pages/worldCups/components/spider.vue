@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-disable -->
   <div class="spider-wrap" ref="wcpRoot">
     <canvas 
       class="spider-ca"

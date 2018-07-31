@@ -5,40 +5,42 @@
 
     <!-- 背景 -->
     <img
+      :src="IMAGE_URL + 'bg.png'" 
       class="bg"
-      :src="IMAGE_URL + 'bg.png'" />
+    >
     
     <!-- 背景区域 -->
     <div class="photo-area">
       <img
-      :class="{'photo-inner-horn': isHorn, 'photo-inner-nothorn': !isHorn}"
-      :src="photo"
-      />
+        :src="photo"
+        :class="{'photo-inner-horn': isHorn, 'photo-inner-nothorn': !isHorn}"
+      >
     </div>
 
     <!-- 实际背景 -->
     <img
-      class="photo-real"
       :src="photo"
-      />
+      class="photo-real"
+    >
     
     <!-- tips -->
     <img
+      :src="IMAGE_URL + 'remind.png'" 
       class="remind"
-      :src="IMAGE_URL + 'remind.png'" />
+    >
       
   </div>  
 </template>
 
 <script>
 const wih = window.innerHeight
-import { customTrack } from 'modules/customTrack'
-import { $_wechat, getInfoById } from 'services'
+import { $_wechat, getInfoById, wechatShareTrack } from 'services'
 import { Toast } from 'mint-ui'
-
+import { normalPages } from '../../mixins/normalPages'
 const IMAGE_SERVER =
   'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/pjfd/'
 export default {
+  mixins: [normalPages],
   data() {
     return {
       IMAGE_URL:
@@ -51,7 +53,10 @@ export default {
       wxShareInfoValue: {
         title: '浦江饭店',
         desc: '与浦江合影留念',
-        imgUrl: IMAGE_SERVER + 'share.png'
+        imgUrl: IMAGE_SERVER + 'share.png',
+        success: function() {
+          wechatShareTrack()
+        }
       },
       isHorn: false,
       photo: null
@@ -59,34 +64,20 @@ export default {
   },
   created() {
     document.title = '浦江饭店'
-    this.getInfo()
     this.handleHorn()
   },
-  mounted() {
-    $_wechat()
-      .then(res => {
-        res.share(this.wxShareInfoValue)
-      })
-      .catch(_ => {
-        console.warn(_.message)
-        console.dir(_)
-      })
-  },
   methods: {
-    getInfo() {
-      let id = this.$route.query.id
-      getInfoById(id)
-        .then(res => {
-          this.photo = res.code
-        })
-        .catch(err => {
-          Toast(err)
-        })
-    },
     handleHorn() {
       if (this.$route.query.isHorn == true || this.$route.query.isHorn == 1) {
         this.isHorn = true
       }
+    },
+    async getPhotoByRouteQueryId() {
+      let id = this.$route.query.id
+      let { code } = await getInfoById(id).catch(err => {
+        console.warn(err.message)
+      })
+      this.photo = code
     }
   }
 }

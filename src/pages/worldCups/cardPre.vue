@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-disable -->
   <div 
     :style="style.root" 
     class="cp-root">

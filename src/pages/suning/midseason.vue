@@ -1,20 +1,23 @@
 <template>
   <div class="root">
-      <!-- bg -->
-      <img
-        class="bg"
-        :src="serverUrl + 'ms-bg.png'" />
-      <!-- button -->
-      <img
-        @click="handleUrlJump"
-        :style="style.button"
-        class="button"
-        :src="serverUrl + 'btn.png?v=1'"  />
-      <!-- photo -->
-      <img
-        :style="style.photo"
-        class="photo"
-        :src="photoUrl" />
+    <!-- bg -->
+    <img
+      :src="serverUrl + 'ms-bg.png'" 
+      class="bg"
+    >
+    <!-- button -->
+    <img
+      :src="serverUrl + 'btn.png?v=1'"  
+      :style="style.button"
+      class="button"
+      @click="handleUrlJump"
+    >
+    <!-- photo -->
+    <img
+      :style="style.photo"
+      :src="photoUrl" 
+      class="photo"
+    >
   </div>
 </template>
 

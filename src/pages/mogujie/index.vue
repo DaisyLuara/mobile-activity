@@ -1,29 +1,52 @@
 <template>
-  <div class="mogu-coupon-wrap">
-    <img class="title" :src="imgServerUrl + '/pages/mogujie/title.png'" alt=""/>
-    <div class="img-wrap">
-      <img class="img-photo" :src="resultImgUrl" alt="" />
-      <img class="frame2" :src="imgServerUrl + '/pages/mogujie/frame2.png'" alt=""/>
-      <img class="frame" :src="imgServerUrl + '/pages/mogujie/frame.png'" alt=""/>
+  <div 
+    :style="style.root"
+    class="mogu-coupon-wrap"
+  >
+    <img 
+      :src="imgServerUrl + '/pages/mogujie/title.png'" 
+      alt=""
+      class="title">
+    <div 
+      class="img-wrap">
+      <img 
+        :src="resultImgUrl" 
+        alt=""
+        class="img-photo">
+      <img 
+        :src="imgServerUrl + '/pages/mogujie/frame2.png'" 
+        alt=""
+        class="frame2">
+      <img 
+        :src="imgServerUrl + '/pages/mogujie/frame.png'" 
+        alt=""
+        class="frame">
     </div>
-    <img class="save-tip" :src="imgServerUrl + '/pages/mogujie/save_tip.png'" alt=""/>
-    <img class="logo"  :src="imgServerUrl + '/pages/mogujie/logo.png'" alt=""/>
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+    <img 
+      :src="imgServerUrl + '/pages/mogujie/save_tip.png'" 
+      alt=""
+      class="save-tip">
+    <img 
+      :src="imgServerUrl + '/pages/mogujie/logo.png'"
+      alt=""
+      class="logo">
   </div>
 </template>
 <script>
 import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
 import { customTrack } from 'modules/customTrack'
-const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
+import { $_wechat, wechatShareTrack } from 'services'
 import $ from 'jquery'
-
+const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
+const wih = window.innerHeight
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
+      style: {
+        root: {
+          height: wih + 'px'
+        }
+      },
       imgServerUrl: IMAGE_SERVER,
       resultImgUrl: '',
       //微信分享信息
@@ -35,11 +58,25 @@ export default {
       }
     }
   },
+  computed: {
+    //微信分享
+    wxShareInfo() {
+      let wxShareInfo = {
+        title: this.wxShareInfoValue.title,
+        desc: this.wxShareInfoValue.desc,
+        imgUrl: this.wxShareInfoValue.imgUrl,
+        success: () => {
+          customTrack.shareWeChat()
+        }
+      }
+      return wxShareInfo
+    }
+  },
   beforeCreate() {
     document.title = '蘑菇街女装'
   },
   mounted() {
-    $('.mogu-coupon-wrap').css('min-height', $(window).height())
+    this.handleShare()
   },
   created() {
     //拿取图片id
@@ -57,20 +94,15 @@ export default {
         .catch(err => {
           console.log(err)
         })
-    }
-  },
-  computed: {
-    //微信分享
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
-        success: () => {
-          customTrack.shareWeChat()
-        }
-      }
-      return wxShareInfo
+    },
+    handleShare() {
+      $_wechat()
+        .then(res => {
+          res.share(this.wxShareInfoValue)
+        })
+        .catch(_ => {
+          console.warn(_.message)
+        })
     }
   }
 }

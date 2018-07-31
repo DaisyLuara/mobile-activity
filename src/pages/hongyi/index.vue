@@ -1,10 +1,12 @@
 <template>
   <div class="report-wrap">
     <div class="photo-wrap">
-      <img :src="resultImgUrl" alt=""/>
+      <img 
+        :src="resultImgUrl" 
+        alt="">
     </div>
     <div class="save">长按保存照片到手机相册</div>
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
+    <wx-share :wx-share-info="wxShareInfo"/>
   </div>
 </template>
 <script>
@@ -34,6 +36,19 @@ export default {
       }
     }
   },
+  computed: {
+    wxShareInfo() {
+      let wxShareInfo = {
+        title: this.wxShareInfoValue.title,
+        desc: this.wxShareInfoValue.desc,
+        imgUrl: this.wxShareInfoValue.imgUrl,
+        success: () => {
+          customTrack.shareWeChat()
+        }
+      }
+      return wxShareInfo
+    }
+  },
   beforeCreate() {
     document.title = '狗年旺情缘'
   },
@@ -56,19 +71,6 @@ export default {
         })
     }
   },
-  computed: {
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
-        success: () => {
-          customTrack.shareWeChat()
-        }
-      }
-      return wxShareInfo
-    }
-  }
 }
 </script>
 <style lang="less" scoped>

@@ -1,22 +1,47 @@
 <template>
-  <div class="popcorn-content">
-    <img  class="title" :src="imgServerUrl + '/pages/popcorn/top_title.png'" alt=""/>
-    <img  class="coupon" :src="imgServerUrl + '/pages/popcorn/coupon.png'" alt=""/>
+  <div 
+    class="popcorn-content">
+    <img  
+      :src="imgServerUrl + '/pages/popcorn/top_title.png'" 
+      alt=""
+      class="title" >
+    <img  
+      :src="imgServerUrl + '/pages/popcorn/coupon.png'" 
+      alt=""
+      class="coupon" >
     <!--手机号-->
-    <img  class="cell-icon" :src="imgServerUrl + '/pages/popcorn/cell_icon.png'" alt=""/>
-    <input class="num" type="text" placeholder="请输入你的手机号" maxlength="11"   v-model="mobileNum" @click="phoneError = false" >
-    <!--错误信息 autocomplete="off"-->
-    <div class="error" v-show="phoneError">{{errorText}}</div>
-    <img class="phone-button" :src="imgServerUrl + '/pages/popcorn/buttom.png'" alt="" @click="redirectToPhoto()"/>
-    <div class="success">
-      <img :src="imgServerUrl + '/pages/popcorn/hint.png'" alt=""/>
+    <img 
+      :src="imgServerUrl + '/pages/popcorn/cell_icon.png'" 
+      alt=""
+      class="cell-icon" >
+    <input 
+      v-model="mobileNum" 
+      type="text"
+      placeholder="请输入你的手机号"   
+      maxlength="11" 
+      class="num"
+      @click="phoneError = false">
+    <div 
+      v-show="phoneError"
+      class="error" >
+      {{ errorText }}
     </div>
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
-   </div>
+    <img 
+      :src="imgServerUrl + '/pages/popcorn/buttom.png'" 
+      alt="" 
+      class="phone-button" 
+      @click="redirectToPhoto()">
+    <div 
+      class="success">
+      <img 
+        :src="imgServerUrl + '/pages/popcorn/hint.png'" 
+        alt="">
+    </div>
+  </div>
 </template>
 <script>
 import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
+import { $_wechat, wechatShareTrack } from 'services'
 import parseService from 'modules/parseServer'
 import { customTrack } from 'modules/customTrack'
 import $ from 'jquery'
@@ -24,9 +49,6 @@ import $ from 'jquery'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
       imgServerUrl: IMAGE_SERVER,
@@ -42,11 +64,26 @@ export default {
       }
     }
   },
+  computed: {
+    //微信分享
+    wxShareInfo() {
+      let wxShareInfo = {
+        title: this.wxShareInfoValue.title,
+        desc: this.wxShareInfoValue.desc,
+        imgUrl: this.wxShareInfoValue.imgUrl,
+        success: () => {
+          customTrack.shareWeChat()
+        }
+      }
+      return wxShareInfo
+    }
+  },
   beforeCreate() {
     document.title = '爆米花奥斯卡'
   },
   mounted() {
     $('.popcorn-content').css('min-height', $(window).height())
+    this.handleShare()
   },
   methods: {
     //输入手机号跳转 确认跳转
@@ -68,20 +105,15 @@ export default {
         $('.success').css('display', 'none')
         this.mobileNum = ''
       }, 3000)
-    }
-  },
-  computed: {
-    //微信分享
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
-        success: () => {
-          customTrack.shareWeChat()
-        }
-      }
-      return wxShareInfo
+    },
+    handleShare() {
+      $_wechat()
+        .then(res => {
+          res.share(this.wxShareInfoValue)
+        })
+        .catch(_ => {
+          console.warn(_.message)
+        })
     }
   }
 }

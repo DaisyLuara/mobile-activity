@@ -1,29 +1,58 @@
 <template>
   <div
+    v-show="show" 
     :style="style.root" 
-    class="root" v-show="show">
+    class="root">
     <!-- 遮罩 -->
-    <div class="loading" v-show="loading">
-      <img class="xueren" :src="baseUrl + 'xueren.png'+ this.$qiniuCompress()">
-      <img class="z" :src="baseUrl + 'z.png'+ this.$qiniuCompress()">
+    <div 
+      v-show="loading" 
+      class="loading">
+      <img 
+        :src="baseUrl + 'xueren.png'+ this.$qiniuCompress()"
+        class="xueren">
+      <img 
+        :src="baseUrl + 'z.png'+ this.$qiniuCompress()"
+        class="z">
     </div>
-    <div class="content" v-show="!loading">
-    <div class="top"></div>
-    <div class="center">
-      <img class="photo"  v-if="photoUrl !== null" :src="photoUrl+ this.$qiniuCompress()" alt=""/>
-      <!-- <img  class="photo" :src="baseUrl + '111.png'"/> -->
-    </div>
-    <img class="save" :src="baseUrl + 'save2.png'+ this.$qiniuCompress()">
-    <img :class="{'button': !btnAndior, 'andior-btn': btnAndior,'iphoneX-btn':iphoneX}"  @click="goH5" :src="baseUrl + 'btn.png?v=112'+ this.$qiniuCompress()">
-    <img class="logo" :src="baseUrl + 'logo.png'+ this.$qiniuCompress()">
-    <div class="bottom">
-      <img  class="xuehua-bg" :src="baseUrl + 'xuehua2.png?v=111'+ this.$qiniuCompress()" />
-      <!-- 雪花动画部分 -->
-      <div
-      id="animation"
-      class="animation"
-      />
-    </div>
+    <div 
+      v-show="!loading" 
+      class="content">
+      <div 
+        class="top"/>
+      <div 
+        class="center">
+        <img 
+          v-if="photoUrl !== null" 
+          :src="photoUrl+ this.$qiniuCompress()" 
+          alt=""
+          class="photo">
+      <!-- 
+      <img  
+        :src="baseUrl + '111.png'"
+        class="photo"> 
+      -->
+      </div>
+      <img 
+        :src="baseUrl + 'save2.png'+ this.$qiniuCompress()"
+        class="save">
+      <img 
+        :src="baseUrl + 'btn.png?v=112'+ this.$qiniuCompress()" 
+        :class="{'button': !btnAndior, 'andior-btn': btnAndior,'iphoneX-btn':iphoneX}"
+        @click="goH5">
+      <img 
+        :src="baseUrl + 'logo.png'+ this.$qiniuCompress()"
+        class="logo" >
+      <div 
+        class="bottom">
+        <img  
+          :src="baseUrl + 'xuehua2.png?v=111'+ this.$qiniuCompress()"
+          class="xuehua-bg">
+        <!-- 雪花动画部分 -->
+        <div
+          id="animation"
+          class="animation"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -81,6 +110,18 @@ export default {
       ]
     }
   },
+  watch: {
+    count(val, oldval) {
+      if (val == 5) {
+        this.show = true
+        var _this = this
+        setTimeout(() => {
+          _this.loading = false
+        }, 3000)
+        //然后可以对后台发送一些ajax操作
+      }
+    }
+  },
   created() {
     this.getInfo()
   },
@@ -99,18 +140,6 @@ export default {
     this.loadImage()
     this.initAnimation()
     this.handleWeChatShare()
-  },
-  watch: {
-    count(val, oldval) {
-      if (val == 5) {
-        this.show = true
-        var _this = this
-        setTimeout(() => {
-          _this.loading = false
-        }, 3000)
-        //然后可以对后台发送一些ajax操作
-      }
-    }
   },
   methods: {
     //处理微信分享

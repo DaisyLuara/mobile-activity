@@ -1,14 +1,20 @@
 <template>
   <div
-    @click.self="handleSuoHaClose"
     v-if="shouldShow"
     :style="style.root"
-    class="suoha-root">
+    class="suoha-root"
+    @click.self="handleSuoHaClose"
+  >
     <div
       v-show="!hasButtonClicked && isGetCoupon"
       class="phone-input">
-      <img :src="serverUrl + 'card.png'" />
-      <img class="prompt" :src="serverUrl + 'prompt.png'" />
+      <img 
+        :src="serverUrl + 'card.png'"
+      >
+      <img
+        :src="serverUrl + 'prompt.png'" 
+        class="prompt" 
+      >
       <div class="input-area">
         <div 
           v-show="isPhoneError"
@@ -16,14 +22,16 @@
           手机号有误
         </div>
         <input 
-          @click="clearError"
+          v-model="phoneValue"
+          class="input-value"
           maxlength="11"
           placeholder="请输入手机号码"
-          class="input-value"
-          v-model="phoneValue" />
+          @click="clearError"
+        >
         <div
-          @click='handleButtonClick'
-          class="input-button">
+          class="input-button"
+          @click="handleButtonClick"
+        >
           确定
         </div>
       </div>
@@ -43,37 +51,41 @@
       <div
         v-show="isGetCoupon && hasButtonClicked">
         <img 
-          @click.self="handleSuoHaClose"
+          :src="serverUrl + 'prompt_bg.png'" 
           class="bg"
-          :src="serverUrl + 'prompt_bg.png'" />
+          @click.self="handleSuoHaClose"
+        >
         <img 
-          @click.self="handleSuoHaClose"
+          :src="serverUrl + 'prompt_bg_right.png'"
           class="right"
-          :src="serverUrl + 'prompt_bg_right.png'" />
-        <div
           @click.self="handleSuoHaClose"
+        >
+        <div
           class="text"
-          >
+          @click.self="handleSuoHaClose"
+        >
           您的手机号已成功提交
         </div>
       </div>
       <div
         v-show="!isGetCoupon">
         <img 
-          @click.self="handleSuoHaClose"
+          :src="serverUrl + 'card_2.png'" 
           class="not-bg"
-          :src="serverUrl + 'card_2.png'" />
+          @click.self="handleSuoHaClose"
+        >
         <img
-          @click.self="handleSuoHaClose"
+          :src="serverUrl + 'box.png'" 
           class="not-box" 
-          :src="serverUrl + 'box.png'" />
-        <div
           @click.self="handleSuoHaClose"
-          class="not-text">
+        >
+        <div
+          class="not-text"
+          @click.self="handleSuoHaClose"
+        >
           很遗憾，您没有中奖
         </div>
       </div>
-      
     </div>
   </div>
 </template>
@@ -83,7 +95,10 @@ const serverUrl =
   'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/weixun/suoha/'
 export default {
   props: {
-    shouldShow: Boolean
+    shouldShow: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
