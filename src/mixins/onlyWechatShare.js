@@ -1,8 +1,7 @@
-import { $_wechat, getInfoById, isInWechat } from 'services'
-export const normalPages = {
+import { $_wechat, isInWechat } from 'services'
+export const onlyWechatShare = {
   mounted() {
     this.handleWechatShare()
-    this.getPhotoByRouteQueryId()
   },
   methods: {
     handleWechatShare() {
@@ -17,13 +16,6 @@ export const normalPages = {
       } else {
         console.warn('you r not in wechat environment')
       }
-    },
-    async getPhotoByRouteQueryId() {
-      let id = this.$route.query.id
-      let { image } = await getInfoById(id).catch(err => {
-        console.warn(err.message)
-      })
-      this.photo = image
     }
   }
 }
