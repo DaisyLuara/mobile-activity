@@ -27,7 +27,7 @@
 </template>
 <script>
 import marketService from 'services/marketing'
-import parseService from 'modules/parseServer'
+import { parseService } from 'services'
 import { $wechat, wechatShareTrack } from 'services'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 const wih = window.innerHeight

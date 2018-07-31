@@ -27,7 +27,7 @@
 <script>
 const wih = window.innerHeight
 import marketService from 'services/marketing'
-import parseService from 'modules/parseServer'
+import { parseService } from 'services'
 import { $wechat, wechatShareTrack } from 'services'
 import $ from 'jquery'
 

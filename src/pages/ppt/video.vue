@@ -70,7 +70,7 @@
 <script>
 const REQ_URL = 'http://120.27.144.62:1337/parse/classes/'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
-import parseService from 'modules/parseServer'
+import { parseService } from 'services'
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import $ from 'jquery'

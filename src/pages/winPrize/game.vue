@@ -124,7 +124,7 @@
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 import Question from './question0129'
 import CouponService from 'services/freecartCoupon'
-import parseService from 'modules/parseServer'
+import { parseService } from 'services'
 import $ from 'jquery'
 import { getWxUserInfo } from 'services'
 

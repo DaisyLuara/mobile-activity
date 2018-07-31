@@ -22,7 +22,7 @@
 </template>
 <script>
 import { $wechat, wechatShareTrack, isInWechat } from 'services'
-import parseService from 'modules/parseServer'
+import { parseService } from 'services'
 const REQ_URL = 'http://120.27.144.62:1337/parse/classes/'
 const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/image'
 export default {

@@ -31,7 +31,7 @@
   </div>
 </template>
 <script>
-import parseService from 'modules/parseServer'
+import { parseService } from 'services'
 import { $wechat, getInfoById, wechatShareTrack, isInWechat } from 'services'
 import $ from 'jquery'
 const wih = window.innerHeight

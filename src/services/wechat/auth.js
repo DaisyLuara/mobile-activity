@@ -1,5 +1,5 @@
 const WX_API = process.env.WX_API
-import { Cookies } from 'modules/util.js'
+import { Cookies } from 'services'
 import axios from 'axios'
 
 const getWxUserInfo = () => {
