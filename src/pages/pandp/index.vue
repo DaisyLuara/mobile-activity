@@ -72,7 +72,7 @@ export default {
           type = 'canvas'
         }
         PIXI.utils.sayHello(type)
-        let app = new PIXI.Application(window.innerWidth, innerHeight, {
+        let app = new PIXI.Application(window.innerWidth, window.innerHeight, {
           antialias: true,
           transparent: true
         })

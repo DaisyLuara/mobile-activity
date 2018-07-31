@@ -284,6 +284,17 @@ const Date201807 = [
       desc: '前世穿越机2.0版'
     },
     isAbandoned: false
+  },
+  {
+    path: 'rainer',
+    location: 'rainer/index',
+    name: 'rainer',
+    meta: {
+      title: '秘密花园 尽显美颜',
+      author: 'lipan',
+      desc: '控雨镜-秘密花园'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201807
