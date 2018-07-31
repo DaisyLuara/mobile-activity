@@ -30,7 +30,7 @@
 
 </template>
 <script>
-import { $_wechat, getInfoById, wechatShareTrack } from 'services'
+import { $wechat, getInfoById, wechatShareTrack } from 'services'
 import { normalPages } from '../../mixins/normalPages'
 const IMG_SERVER = 'http://p22vy0aug.bkt.clouddn.com/'
 export default {

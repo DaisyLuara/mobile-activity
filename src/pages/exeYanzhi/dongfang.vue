@@ -57,7 +57,7 @@
   </div>
 </template>
 <script>
-import { $_wechat, getInfoById, wechatShareTrack, isInWechat } from 'services'
+import { $wechat, getInfoById, wechatShareTrack, isInWechat } from 'services'
 const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/'
 export default {
   data() {
@@ -93,7 +93,7 @@ export default {
   methods: {
     handleWechatShare() {
       if (isInWechat() === true) {
-        $_wechat()
+        $wechat()
           .then(res => {
             res.share(this.wxShareInfoValue)
           })

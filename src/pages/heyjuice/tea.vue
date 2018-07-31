@@ -31,7 +31,7 @@
 </template>
 <script>
 const IMG_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing/pages'
-import { $_wechat, getInfoById, wechatShareTrack, isInWechat } from 'services'
+import { $wechat, getInfoById, wechatShareTrack, isInWechat } from 'services'
 export default {
   data() {
     return {
@@ -72,7 +72,7 @@ export default {
   methods: {
     handleWechatShare() {
       if (isInWechat() === true) {
-        $_wechat()
+        $wechat()
           .then(res => {
             res.share(this.wxShareInfoValue)
           })

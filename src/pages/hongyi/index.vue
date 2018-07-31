@@ -12,7 +12,7 @@
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 import $ from 'jquery'
 import {
-  $_wechat,
+  $wechat,
   getPlayResultById,
   wechatShareTrack,
   isInWechat
@@ -49,7 +49,7 @@ export default {
   methods: {
     handleWechatShare() {
       if (isInWechat() === true) {
-        $_wechat()
+        $wechat()
           .then(res => {
             res.share(this.wxShareInfoValue)
           })

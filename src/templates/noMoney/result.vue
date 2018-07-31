@@ -42,7 +42,7 @@
 </template>
 <script>
 import { customTrack } from 'modules/customTrack'
-import { getInfoById, $_wechat } from 'services'
+import { getInfoById, $wechat } from 'services'
 import $ from 'jquery'
 
 const marketingImageServer =
@@ -85,7 +85,7 @@ export default {
     let wid = $(window).width() > 640 ? 640 : $(window).width()
     let imgHei = (wid - 28 - wid * 0.125 * 2) * 4 / 3
     $('.photo-bg').height(imgHei)
-    $_wechat()
+    $wechat()
       .then(res => {
         res.share(this.wxShareInfo)
       })

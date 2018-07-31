@@ -215,7 +215,7 @@ import parseService from 'modules/parseServer'
 import $ from 'jquery'
 import {
   getInfoById,
-  $_wechat,
+  $wechat,
   getWxUserInfo,
   basicTrack,
   wechatShareTrack
@@ -308,7 +308,7 @@ export default {
   },
   methods: {
     handleShare() {
-      $_wechat()
+      $wechat()
         .then(res => {
           res.share(this.wxShareInfo)
         })
@@ -470,7 +470,7 @@ export default {
     creatJoinImgUrl() {
       if (!this.user_result[0].img_id || !this.user_result[1].img_id) {
         this.wxShareInfo.success = () => {
-          wechatShareTrack('share_page_wechat_angel_with_one_photo')
+          wechatShareTrack('share_pagewechat_angel_with_one_photo')
         }
         return
       }

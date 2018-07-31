@@ -150,7 +150,7 @@
   </div>
 </template>
 <script>
-import { $_wechat, wechatShareTrack } from 'services'
+import { $wechat, wechatShareTrack } from 'services'
 import MC from 'mcanvas'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
@@ -208,7 +208,7 @@ export default {
   },
   methods: {
     wechatShare() {
-      $_wechat()
+      $wechat()
         .then(res => {
           res.share(this.wxShareInfo)
         })

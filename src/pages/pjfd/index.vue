@@ -34,7 +34,7 @@
 
 <script>
 const wih = window.innerHeight
-import { $_wechat, getInfoById, wechatShareTrack } from 'services'
+import { $wechat, getInfoById, wechatShareTrack } from 'services'
 import { Toast } from 'mint-ui'
 import { normalPages } from '../../mixins/normalPages'
 const IMAGE_SERVER =

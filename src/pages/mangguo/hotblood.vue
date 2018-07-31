@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { $_wechat, getInfoById, wechatShareTrack } from 'services'
+import { $wechat, getInfoById, wechatShareTrack } from 'services'
 
 const IMAGE_SERVER =
   'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/mangguo/basketball/'
@@ -70,7 +70,7 @@ export default {
         })
     },
     handleShare() {
-      $_wechat()
+      $wechat()
         .then(res => {
           res.share(this.wxShareInfoValue)
         })

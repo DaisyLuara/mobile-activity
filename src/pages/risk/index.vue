@@ -20,7 +20,7 @@
 </template>
 <script>
 import marketService from 'services/marketing'
-import { $_wechat, wechatShareTrack } from 'services'
+import { $wechat, wechatShareTrack } from 'services'
 
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 
@@ -51,7 +51,7 @@ export default {
       document.body.clientHeight
     let content = document.getElementById('risk')
     content.style.minHeight = height + 'px'
-    $_wechat()
+    $wechat()
       .then(res => {
         res.share(this.wxShareInfoValue)
       })

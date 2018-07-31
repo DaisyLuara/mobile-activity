@@ -23,7 +23,7 @@
 </template>
 <script>
 import marketService from 'services/marketing'
-import { $_wechat, wechatShareTrack } from 'services'
+import { $wechat, wechatShareTrack } from 'services'
 import parseService from 'modules/parseServer'
 import $ from 'jquery'
 const wih = window.innerHeight
@@ -72,7 +72,7 @@ export default {
         })
     },
     handleShare() {
-      $_wechat()
+      $wechat()
         .then(res => {
           res.share(this.wxShareInfoValue)
         })

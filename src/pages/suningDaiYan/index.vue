@@ -110,7 +110,7 @@
 <script>
 import MC from 'mcanvas'
 import {
-  $_wechat,
+  $wechat,
   isInWechat,
   Cookies,
   getInfoById,
@@ -177,7 +177,7 @@ export default {
           this.handleWechatAuth()
         }
       }
-      $_wechat()
+      $wechat()
         .then(res => {
           res.share(this.wxShareInfo)
         })

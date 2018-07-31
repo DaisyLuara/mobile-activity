@@ -37,7 +37,7 @@ import { Toast } from 'mint-ui'
 import {
   isInWechat,
   Cookies,
-  $_wechat,
+  $wechat,
   getInfoById,
   wechatShareTrack
 } from 'services'
@@ -111,7 +111,7 @@ export default {
   methods: {
     handleWechatShare() {
       if (isInWechat() === true) {
-        $_wechat()
+        $wechat()
           .then(res => {
             res.share(this.wxShareInfoValue)
           })

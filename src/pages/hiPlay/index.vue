@@ -15,7 +15,7 @@
 </template>
 <script>
 import marketService from 'services/marketing'
-import { $_wechat, wechatShareTrack } from 'services'
+import { $wechat, wechatShareTrack } from 'services'
 import $ from 'jquery'
 
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
@@ -42,7 +42,7 @@ export default {
   },
   mounted() {
     $('.war-content').css('height', $(window).height())
-    $_wechat()
+    $wechat()
       .then(res => {
         res.share(this.wxShareInfoValue)
       })

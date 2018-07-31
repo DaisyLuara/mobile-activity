@@ -192,7 +192,7 @@
 /* eslint-disable */
 import Vue from 'vue'
 import 'swiper/dist/css/swiper.css'
-import { getInfoById, $_wechat, basicTrack, isInWechat } from 'services'
+import { getInfoById, $wechat, basicTrack, isInWechat } from 'services'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import { Lazyload, Toast } from 'mint-ui'
 Vue.use(Lazyload)
@@ -494,7 +494,7 @@ export default {
   },
   methods: {
     handleShare() {
-      $_wechat()
+      $wechat()
         .then(res => {
           res.share(this.wxShareInfoValue)
         })

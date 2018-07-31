@@ -68,7 +68,7 @@
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing/'
 
 import marketService from 'services/marketing'
-import { $_wechat, wechatShareTrack } from 'services'
+import { $wechat, wechatShareTrack } from 'services'
 import Vue from 'vue'
 import { Lazyload } from 'mint-ui'
 Vue.use(Lazyload)
@@ -109,7 +109,7 @@ export default {
       document.getElementsByClassName('photo')[0].style.left = '12%'
       document.getElementsByClassName('photo')[0].style.top = '-2%'
     }
-    $_wechat()
+    $wechat()
       .then(res => {
         res.share(this.wxShareInfo)
       })

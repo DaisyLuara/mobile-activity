@@ -59,7 +59,7 @@
 
 <script>
 const serverUrl = process.env.CDN_URL
-import { getInfoById, $_wechat } from 'services'
+import { getInfoById, $wechat } from 'services'
 export default {
   data() {
     return {
@@ -122,7 +122,7 @@ export default {
         this.wxShareInfoValue.desc =
           'wow，我可是身价$' + String(this.$route.query.price) + '的大海盗！'
       }
-      $_wechat()
+      $wechat()
         .then(res => {
           res.share(this.wxShareInfoValue)
         })

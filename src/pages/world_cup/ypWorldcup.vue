@@ -150,7 +150,7 @@ export default {
         })
     },
     handleShare() {
-      $_wechat()
+      $wechat()
         .then(res => {
           res.share(this.wxShareInfoValue)
         })
