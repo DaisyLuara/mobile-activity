@@ -25,7 +25,7 @@ const wih = window.innerHeight
 const wiw = window.innerWidth
 const baseUrl =
   'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/zoo/'
-import { $_wechat, wechatShareTrack, getInfoById, isInWechat } from 'services'
+import { $wechat, wechatShareTrack, getInfoById, isInWechat } from 'services'
 
 export default {
   data() {
@@ -72,7 +72,7 @@ export default {
     //处理微信分享
     handleWeChatShare() {
       if (isInWechat() === true) {
-        $_wechat()
+        $wechat()
           .then(res => {
             res.share(this.wxShareInfo)
           })

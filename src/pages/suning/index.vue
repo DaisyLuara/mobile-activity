@@ -82,7 +82,7 @@
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 import marketService from 'services/marketing'
 import parseService from 'modules/parseServer'
-import { $_wechat, wechatShareTrack } from 'services'
+import { $wechat, wechatShareTrack } from 'services'
 import $ from 'jquery'
 
 export default {
@@ -140,7 +140,7 @@ export default {
         })
     },
     handleShare() {
-      $_wechat()
+      $wechat()
         .then(res => {
           res.share(this.wxShareInfoValue)
         })

@@ -30,7 +30,7 @@ import {
   Cookies,
   createGame,
   getGame,
-  $_wechat,
+  $wechat,
   getInfoById,
   wechatShareTrack
 } from 'services'
@@ -98,7 +98,7 @@ export default {
   methods: {
     handleWechatShare() {
       if (isInWechat() === true) {
-        $_wechat()
+        $wechat()
           .then(res => {
             res.share(this.wxShareInfoValue)
           })

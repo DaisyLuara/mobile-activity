@@ -150,7 +150,7 @@ import {
   getWxUserInfo,
   Cookies,
   getInfoById,
-  $_wechat
+  $wechat
 } from 'services'
 
 import Remind from './remind'
@@ -248,7 +248,7 @@ export default {
       getInfoById(id).then(res => {})
     },
     handleForbiddenShare() {
-      $_wechat()
+      $wechat()
         .then(res => {
           res.forbidden()
         })

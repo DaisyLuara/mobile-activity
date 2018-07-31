@@ -44,7 +44,7 @@
 <script>
 const IMG_URL = 'http://p22vy0aug.bkt.clouddn.com/image/'
 import $ from 'jquery'
-import { $_wechat, wechatShareTrack } from 'services'
+import { $wechat, wechatShareTrack } from 'services'
 export default {
   data() {
     return {
@@ -69,7 +69,7 @@ export default {
   mounted() {
     $('.photo-content').css('min-height', $(window).height())
     this.init()
-    $_wechat()
+    $wechat()
       .then(res => {
         res.share(this.wxShareInfoValue)
       })

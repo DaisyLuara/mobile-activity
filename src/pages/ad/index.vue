@@ -93,7 +93,7 @@
 </template>
 <script>
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
-import { $_wechat, wechatShareTrack } from 'services'
+import { $wechat, wechatShareTrack } from 'services'
 import { Lazyload } from 'mint-ui'
 import Vue from 'vue'
 
@@ -117,7 +117,7 @@ export default {
     document.title = '星视度'
   },
   mounted() {
-    $_wechat()
+    $wechat()
       .then(res => {
         res.share(this.wxShareInfo)
       })

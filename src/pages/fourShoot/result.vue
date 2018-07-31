@@ -32,7 +32,7 @@
 </template>
 <script>
 import parseService from 'modules/parseServer'
-import { $_wechat, getInfoById, wechatShareTrack, isInWechat } from 'services'
+import { $wechat, getInfoById, wechatShareTrack, isInWechat } from 'services'
 import $ from 'jquery'
 const wih = window.innerHeight
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
@@ -82,7 +82,7 @@ export default {
         })
     },
     handleShare() {
-      $_wechat()
+      $wechat()
         .then(res => {
           res.share(this.wxShareInfoValue)
         })

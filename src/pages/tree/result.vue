@@ -50,7 +50,7 @@
 <script>
 import { getParamsMap, getParameter, setParameter } from 'modules/util'
 import {
-  $_wechat,
+  $wechat,
   getInfoById,
   wechatShareTrack,
   getWxUserInfo

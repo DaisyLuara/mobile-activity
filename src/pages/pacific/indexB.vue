@@ -24,7 +24,7 @@
 
 <script>
 import lottie from 'lottie-web'
-import { $_wechat, getInfoById, wechatShareTrack } from 'services'
+import { $wechat, getInfoById, wechatShareTrack } from 'services'
 const imgUrl = process.env.CDN_URL
 export default {
   data() {
@@ -51,7 +51,7 @@ export default {
   mounted() {
     this.initAnimation()
     this.getInfoById()
-    $_wechat()
+    $wechat()
       .then(res => {
         res.share(this.wxShareInfo)
       })

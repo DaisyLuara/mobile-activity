@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { $_wechat, wechatShareTrack } from 'services'
+import { $wechat, wechatShareTrack } from 'services'
 export default {
   data() {
     return {
@@ -22,7 +22,7 @@ export default {
     }
   },
   mounted() {
-    $_wechat()
+    $wechat()
       .then(res => {
         res.share(this.wxShareInfoValue)
       })

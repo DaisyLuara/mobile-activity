@@ -21,7 +21,7 @@
   </div>
 </template>
 <script>
-import { $_wechat, wechatShareTrack, isInWechat } from 'services'
+import { $wechat, wechatShareTrack, isInWechat } from 'services'
 import parseService from 'modules/parseServer'
 const REQ_URL = 'http://120.27.144.62:1337/parse/classes/'
 const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/image'
@@ -87,7 +87,7 @@ export default {
   methods: {
     handleWechatShare() {
       if (isInWechat() === true) {
-        $_wechat()
+        $wechat()
           .then(res => {
             res.share(this.wxShareInfoValue)
           })

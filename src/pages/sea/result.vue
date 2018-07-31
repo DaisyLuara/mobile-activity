@@ -35,7 +35,7 @@
   </div>
 </template>
 <script>
-import { $_wechat, getInfoById, wechatShareTrack } from 'services'
+import { $wechat, getInfoById, wechatShareTrack } from 'services'
 const IMGURL = 'http://p22vy0aug.bkt.clouddn.com/image/'
 export default {
   data() {
@@ -72,7 +72,7 @@ export default {
   },
   methods: {
     wechatShare() {
-      $_wechat()
+      $wechat()
         .then(res => {
           res.share(this.wxShareInfo)
         })

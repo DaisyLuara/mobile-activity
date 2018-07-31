@@ -310,12 +310,15 @@ const wiw = window.innerWidth
 const wih = window.innerHeight
 import shareCover from './components/shareCover'
 import suoha from './components/suoha'
-import { isWeixin, Cookies } from 'modules/util.js'
 import { Toast } from 'mint-ui'
 import { generate, randomNum } from './random/index.js'
-import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
-import { getWxUserInfo } from 'services'
+import {
+  getWxUserInfo,
+  $wechat,
+  isInWechat,
+  Cookies,
+  getInfoById
+} from 'services'
 
 export default {
   components: {

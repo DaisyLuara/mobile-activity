@@ -22,7 +22,7 @@
 <script>
 import MC from 'mcanvas'
 import {
-  $_wechat,
+  $wechat,
   isInWechat,
   Cookies,
   wechatShareTrack,
@@ -71,7 +71,7 @@ export default {
         this.isLoading = false
         this.drawing()
       }
-      $_wechat()
+      $wechat()
         .then(res => {
           res.share(this.wxShareInfo)
         })

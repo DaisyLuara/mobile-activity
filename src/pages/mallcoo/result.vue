@@ -36,7 +36,7 @@
 </template>
 <script>
 const REQ_URL = 'http://120.27.144.62:1337/parse/classes/'
-import { $_wechat, getInfoById, wechatShareTrack } from 'services'
+import { $wechat, getInfoById, wechatShareTrack } from 'services'
 import { getParamsMap, getParameter, setParameter } from 'modules/util'
 import parseService from 'modules/parseServer'
 const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/image'
@@ -105,7 +105,7 @@ export default {
   },
   methods: {
     handleShare() {
-      $_wechat()
+      $wechat()
         .then(res => {
           res.share(this.wxShareInfoValue)
         })

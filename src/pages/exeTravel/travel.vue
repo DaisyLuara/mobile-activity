@@ -52,7 +52,7 @@
 </template>
 <script>
 import $ from 'jquery'
-import { $_wechat, getInfoById, wechatShareTrack, isInWechat } from 'services'
+import { $wechat, getInfoById, wechatShareTrack, isInWechat } from 'services'
 const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
@@ -87,7 +87,7 @@ export default {
   methods: {
     handleWechatShare() {
       if (isInWechat() === true) {
-        $_wechat()
+        $wechat()
           .then(res => {
             res.share(this.wxShareInfoValue)
           })
