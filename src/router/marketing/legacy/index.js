@@ -217,7 +217,8 @@ const lagacyPages = [
     meta: {
       title: '复古通用版',
       desc: '复古通用版手机号页面'
-    }
+    },
+    isAbandoned: true
   },
   {
     path: 'retro/result',
@@ -225,7 +226,8 @@ const lagacyPages = [
     meta: {
       title: '复古通用版',
       desc: '复古通用版结果页'
-    }
+    },
+    isAbandoned: true
   },
   {
     path: 'retroxc',

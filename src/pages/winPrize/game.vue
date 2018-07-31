@@ -122,8 +122,6 @@
 <script>
 /* eslint-disable */
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
-import { customTrack } from 'modules/customTrack'
-import WxShare from 'modules/wxShare.vue'
 import Question from './question0129'
 import CouponService from 'services/freecartCoupon'
 import parseService from 'modules/parseServer'

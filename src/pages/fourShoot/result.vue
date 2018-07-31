@@ -31,10 +31,8 @@
   </div>
 </template>
 <script>
-import marketService from 'services/marketing'
-import { $_wechat, wechatShareTrack } from 'services'
 import parseService from 'modules/parseServer'
-import { customTrack } from 'modules/customTrack'
+import { $_wechat, getInfoById, wechatShareTrack, isInWechat } from 'services'
 import $ from 'jquery'
 const wih = window.innerHeight
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
@@ -53,23 +51,12 @@ export default {
       wxShareInfoValue: {
         title: '我的夏日缤纷心情',
         desc: '灼灼烈日，心情不百变，还怎么过夏天！',
+        success: () => {
+          wechatShareTrack()
+        },
         imgUrl:
           'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/fourShoot_share_icon.jpeg'
       }
-    }
-  },
-  computed: {
-    //微信分享
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
-        success: () => {
-          customTrack.shareWeChat()
-        }
-      }
-      return wxShareInfo
     }
   },
   beforeCreate() {

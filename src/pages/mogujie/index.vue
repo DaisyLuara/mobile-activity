@@ -1,4 +1,6 @@
 <template>
+  <!-- eslint-disable -->
+  <!-- isAbandoned -->
   <div 
     :style="style.root"
     class="mogu-coupon-wrap"
@@ -33,10 +35,6 @@
   </div>
 </template>
 <script>
-import marketService from 'services/marketing'
-import { customTrack } from 'modules/customTrack'
-import { $_wechat, wechatShareTrack } from 'services'
-import $ from 'jquery'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 const wih = window.innerHeight
 export default {

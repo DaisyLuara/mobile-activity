@@ -1,4 +1,5 @@
 <template>
+  <!-- isAbandoned -->
   <div 
     :style="style.root"
     class="suning-content">
@@ -28,7 +29,6 @@
 import marketService from 'services/marketing'
 import { $_wechat, wechatShareTrack } from 'services'
 import parseService from 'modules/parseServer'
-import { customTrack } from 'modules/customTrack'
 const wih = window.innerHeight
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 import $ from 'jquery'

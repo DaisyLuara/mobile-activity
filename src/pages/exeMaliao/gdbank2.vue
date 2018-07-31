@@ -20,18 +20,12 @@
         :href="jietiap360" 
         class="againlink"><img :src="imgUrl+'link1.png'"></a>
     </div>
-    <wx-share :wx-share-info="wxShareInfo"/>
   </div>
 </template>
 <script>
-import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
-import { customTrack } from 'modules/customTrack'
+import { $_wechat, wechatShareTrack, isInWechat } from 'services'
 const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/'
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
       imgUrl: BASE_URL + 'image/maliao/',
@@ -50,7 +44,7 @@ export default {
         desc: '百万份好礼免费领！',
         imgUrl: BASE_URL + 'maliao/icon.png',
         success: function() {
-          customTrack.shareWeChat()
+          wechatShareTrack()
         }
       }
     }
@@ -58,8 +52,8 @@ export default {
   beforeCreate() {
     document.title = '星视度送福利'
   },
-  created() {},
   mounted() {
+    this.handleWechatShare()
     var h =
       window.innerHeight ||
       document.documentElement.clientHeight ||
@@ -67,7 +61,21 @@ export default {
     var pcontent = document.getElementById('pcontent')
     // pcontent.style.minHeight = h
   },
-  methods: {},
+  methods: {
+    handleWechatShare() {
+      if (isInWechat() === true) {
+        $_wechat()
+          .then(res => {
+            res.share(this.wxShareInfoValue)
+          })
+          .catch(err => {
+            console.warn(err.message)
+          })
+      } else {
+        console.warn('you r not in wechat environment')
+      }
+    }
+  }
 }
 </script>
 <style lang="less" scoped>

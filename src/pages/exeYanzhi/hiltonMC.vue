@@ -55,7 +55,6 @@
     <img 
       :src="imgUrl+'logo.png'" 
       class="logo">
-    <wx-share :wx-share-info="wxShareInfo"/>
     <!-- 弹出层 -->
     <GameShow 
       ref="gameShow" 
@@ -63,15 +62,17 @@
   </div>
 </template>
 <script>
-import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
 import GameShow from 'modules/gameShow'
-import { customTrack } from 'modules/customTrack'
-import { isInWechat, Cookies } from 'services'
+import {
+  $_wechat,
+  getInfoById,
+  wechatShareTrack,
+  isInWechat,
+  Cookies
+} from 'services'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
   components: {
-    WxShare,
     GameShow
   },
   data() {
@@ -99,12 +100,12 @@ export default {
       press: false,
       name: this.$route.query.coupon,
       //微信分享
-      wxShareInfo: {
+      wxShareInfoValue: {
         title: '靠颜值就能中大奖？',
         desc: '快来看看我的颜“值”多少吧',
         imgUrl: IMAGE_SERVER + '/pages/yanzhi/hilton/share.jpg',
         success: function() {
-          customTrack.shareWeChat()
+          wechatShareTrack()
         }
       }
     }
@@ -112,8 +113,8 @@ export default {
   beforeCreate() {
     document.title = ''
   },
-  created() {},
   mounted() {
+    this.handleWechatShare()
     let height =
       window.innerHeight ||
       document.documentElement.clientHeight ||
@@ -132,6 +133,19 @@ export default {
     }
   },
   methods: {
+    handleWechatShare() {
+      if (isInWechat() === true) {
+        $_wechat()
+          .then(res => {
+            res.share(this.wxShareInfoValue)
+          })
+          .catch(err => {
+            console.warn(err.message)
+          })
+      } else {
+        console.warn('you r not in wechat environment')
+      }
+    },
     handleWechatAuth() {
       if (Cookies.get('user_id') === null) {
         let base_url = encodeURIComponent(String(window.location.href))
@@ -149,8 +163,7 @@ export default {
     },
     getInfoById() {
       let id = this.$route.query.id
-      marketService
-        .getInfoById(this, id)
+      getInfoById(id)
         .then(res => {
           this.mImg = res.image
           this.press = true
@@ -159,7 +172,7 @@ export default {
           console.log(err)
         })
     }
-  },
+  }
 }
 </script>
 <style lang="less" scoped>

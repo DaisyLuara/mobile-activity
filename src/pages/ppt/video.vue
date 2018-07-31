@@ -64,24 +64,19 @@
     <a 
       class="home" 
       @click="returnMenu"><img :src="IMGURL + 'home.png'"></a>
-    <wx-share :wx-share-info="wxShareInfo"/>
   </div>
 </template>
 
 <script>
 const REQ_URL = 'http://120.27.144.62:1337/parse/classes/'
-import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
-import parseService from 'modules/parseServer'
-import { customTrack } from 'modules/customTrack'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
+import parseService from 'modules/parseServer'
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import $ from 'jquery'
 
 export default {
   components: {
-    WxShare,
     swiper,
     swiperSlide
   },
@@ -143,7 +138,7 @@ export default {
         desc: '星视度 创想新视界',
         imgUrl: IMAGE_SERVER + '/pages/promotion/icon.jpg',
         success: function() {
-          customTrack.shareWeChat()
+          wechatShareTrack()
         }
       }
     }
@@ -152,6 +147,7 @@ export default {
     this.getDataByType()
   },
   mounted() {
+    this.handleWechatShare()
     let height =
       window.innerHeight ||
       document.documentElement.clientHeight ||
@@ -170,6 +166,19 @@ export default {
     this.getDataByType()
   },
   methods: {
+    handleWechatShare() {
+      if (isInWechat() === true) {
+        $_wechat()
+          .then(res => {
+            res.share(this.wxShareInfoValue)
+          })
+          .catch(err => {
+            console.warn(err.message)
+          })
+      } else {
+        console.warn('you r not in wechat environment')
+      }
+    },
     returnMenu() {
       // window.location.href =
       //   window.location.origin + '/marketing/ppt_index?utm_source=20'
@@ -220,7 +229,7 @@ export default {
         : all.removeClass('slider2-left')
       active = null
     }
-  },
+  }
 }
 </script>
 

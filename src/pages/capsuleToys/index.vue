@@ -41,9 +41,7 @@
   </div>
 </template>
 <script>
-import marketService from 'services/marketing'
-import { $_wechat, wechatShareTrack } from 'services'
-import { customTrack } from 'modules/customTrack'
+import { $_wechat, wechatShareTrack, getInfoById } from 'services'
 import parseService from 'modules/parseServer'
 const REQ_URL = 'http://120.27.144.62:1337/parse/classes/'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
@@ -73,7 +71,7 @@ export default {
         imgUrl:
           'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/capsuleToys_share_icon.png',
         success: function() {
-          customTrack.shareWeChat()
+          wechatShareTrack()
         }
       }
     }
@@ -160,8 +158,7 @@ export default {
     },
     getInfoById() {
       let id = this.$route.query.id
-      marketService
-        .getInfoById(this, id)
+      getInfoById(id)
         .then(res => {
           this.drawCanvas(res.image)
           this.press = true

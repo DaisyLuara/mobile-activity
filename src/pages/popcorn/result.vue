@@ -1,4 +1,6 @@
 <template>
+  <!-- eslint-diable -->
+  <!-- isAbandoned -->
   <div 
     class="popcorn-content">
     <img  
@@ -40,14 +42,8 @@
   </div>
 </template>
 <script>
-import marketService from 'services/marketing'
-import { $_wechat, wechatShareTrack } from 'services'
-import parseService from 'modules/parseServer'
-import { customTrack } from 'modules/customTrack'
-import $ from 'jquery'
-
+/* eslint-disable */
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
-
 export default {
   data() {
     return {

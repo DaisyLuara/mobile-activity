@@ -28,7 +28,6 @@
 const wih = window.innerHeight
 import marketService from 'services/marketing'
 import parseService from 'modules/parseServer'
-import { customTrack } from 'modules/customTrack'
 import { $_wechat, wechatShareTrack } from 'services'
 import $ from 'jquery'
 

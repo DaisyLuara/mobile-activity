@@ -25,7 +25,6 @@
 import marketService from 'services/marketing'
 import { $_wechat, wechatShareTrack } from 'services'
 import parseService from 'modules/parseServer'
-import { customTrack } from 'modules/customTrack'
 import $ from 'jquery'
 const wih = window.innerHeight
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
@@ -45,22 +44,11 @@ export default {
         title: '为偶像打Call，2018黄子韬演唱会邀你一起燥！',
         desc: '4月30号 上海站 晚 7：30',
         imgUrl:
-          'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/concert_share_icon.jpg'
-      }
-    }
-  },
-  computed: {
-    //微信分享
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
+          'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/concert_share_icon.jpg',
         success: () => {
-          customTrack.shareWeChat()
+          wechatShareTrack()
         }
       }
-      return wxShareInfo
     }
   },
   mounted() {

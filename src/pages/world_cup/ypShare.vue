@@ -1,4 +1,5 @@
 <template>
+  <!-- isAbandoned -->
   <div 
     :style="style.root"
     class="content">
@@ -64,10 +65,6 @@
 /* eslint-disable */
 const wih = window.innerHeight
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
-import marketService from 'services/marketing'
-import { customTrack } from 'modules/customTrack'
-import { $_wechat, wechatShareTrack } from 'services'
-
 export default {
   data() {
     return {
