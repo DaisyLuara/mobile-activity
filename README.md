@@ -76,9 +76,9 @@ legacy 为以前的旧页面，新页面按照 sortByDate 文件夹排列
 
 extends 扩展了 vue 语法推荐的规则
 
-yarn start webpack 跑起来之后如果有语法问题会提示
+yarn start webpack 跑起来之后如果有语法问题会提示(这个暂时去掉)
 
-yarn lint --fix 可以自动帮助修复一般的语法问题
+需要手动跑 yarn lint --fix 可以自动帮助修复一般的语法问题
 
 ## Babel
 
