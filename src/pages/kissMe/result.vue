@@ -28,10 +28,8 @@
   </div>
 </template>
 <script>
-import marketService from 'services/marketing'
+import { $_wechat, getInfoById, wechatShareTrack, isInWechat } from 'services'
 import parseService from 'modules/parseServer'
-import { customTrack } from 'modules/customTrack'
-import { $_wechat, wechatShareTrack } from 'services'
 import $ from 'jquery'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 const wih = window.innerHeight
@@ -50,22 +48,11 @@ export default {
         title: '爱意满满！点击领取你的高颜值“KISS”靓照！',
         desc: '只要爱对了人，每天都是520情人节 ',
         imgUrl:
-          'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/kissme_share_icon.jpg'
-      }
-    }
-  },
-  computed: {
-    //微信分享
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
+          'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/kissme_share_icon.jpg',
         success: () => {
-          customTrack.shareWeChat()
+          wechatShareTrack()
         }
       }
-      return wxShareInfo
     }
   },
   mounted() {
@@ -78,8 +65,7 @@ export default {
     //拿取图片id
     getImageById() {
       let id = this.$route.query.id
-      marketService
-        .getInfoById(this, id)
+      getInfoById(id)
         .then(result => {
           this.resultImgUrl = result.image
         })

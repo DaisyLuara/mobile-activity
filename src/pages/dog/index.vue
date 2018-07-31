@@ -58,12 +58,7 @@
   </div>
 </template>
 <script>
-import marketService from 'services/marketing'
-import couponService from 'services/coupon'
-import WxShare from 'modules/wxShare'
-import { customTrack } from 'modules/customTrack'
 import $ from 'jquery'
-
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 
 export default {
@@ -213,7 +208,7 @@ export default {
           })
       }
     }
-  },
+  }
 }
 </script>
 <style lang="less" scoped>

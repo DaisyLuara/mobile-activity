@@ -28,19 +28,13 @@
       v-show="bgshow" 
       class="vplay" 
       @click="vPlay"><img :src="IMGURL + 'video/play'+vNum+'.png'"></a>
-    <wx-share :wx-share-info="wxShareInfo"/>
   </div>
 </template>
 
 <script>
-import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
-import { customTrack } from 'modules/customTrack'
+import { $_wechat, wechatShareTrack, isInWechat } from 'services'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
       IMGURL: IMAGE_SERVER + '/pages/promotion/',
@@ -55,17 +49,17 @@ export default {
         desc: '星视度 创想新视界',
         imgUrl: IMAGE_SERVER + '/pages/promotion/icon.jpg',
         success: function() {
-          customTrack.shareWeChat()
+          handleWechatShare()
         }
       }
     }
   },
-  beforeCreate() {},
   created() {
     let num = this.vNum
     document.title = this.title[num]
   },
   mounted() {
+    this.handleWechatShare()
     let height =
       window.innerHeight ||
       document.documentElement.clientHeight ||
@@ -76,6 +70,19 @@ export default {
     this.playNow.load()
   },
   methods: {
+    handleWechatShare() {
+      if (isInWechat() === true) {
+        $_wechat()
+          .then(res => {
+            res.share(this.wxShareInfoValue)
+          })
+          .catch(err => {
+            console.warn(err.message)
+          })
+      } else {
+        console.warn('you r not in wechat environment')
+      }
+    },
     returnMenu() {
       window.location.href =
         window.location.origin + '/marketing/ppt?utm_source=0'
@@ -88,7 +95,7 @@ export default {
         this.bgshow = true
       }
     }
-  },
+  }
 }
 </script>
 

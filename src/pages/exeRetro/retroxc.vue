@@ -29,19 +29,13 @@
       v-show="isshow" 
       :src="imgUrl+'retro/save.png'" 
       class="press">
-    <wx-share :wx-share-info="wxShareInfo"/>
   </div>
 </template>
 <script>
-import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
-import { customTrack } from 'modules/customTrack'
+import { $_wechat, getInfoById, wechatShareTrack, isInWechat } from 'services'
 const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/'
 // 'http://o9xrbl1oc.bkt.clouddn.com/1007/image/gamexchfg_774_269_1492930592731.jpg'
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
       imgUrl: BASE_URL + 'image/',
@@ -58,7 +52,7 @@ export default {
         desc: '4月5日-7日，苏州站邀你体验',
         imgUrl: BASE_URL + 'image/xiecheng/retroicon.jpg',
         success: function() {
-          customTrack.shareWeChat()
+          wechatShareTrack()
         }
       }
     }
@@ -70,6 +64,7 @@ export default {
     this.getInfoById()
   },
   mounted() {
+    this.handleWechatShare()
     this.playAudio()
     this.initShack()
     var h =
@@ -80,6 +75,19 @@ export default {
     warp.style.minHeight = h + 'px'
   },
   methods: {
+    handleWechatShare() {
+      if (isInWechat() === true) {
+        $_wechat()
+          .then(res => {
+            res.share(this.wxShareInfoValue)
+          })
+          .catch(err => {
+            console.warn(err.message)
+          })
+      } else {
+        console.warn('you r not in wechat environment')
+      }
+    },
     initShack() {
       var last_update = '',
         x,
@@ -125,8 +133,7 @@ export default {
     getInfoById() {
       let id = this.$route.query.id
       let that = this
-      marketService
-        .getInfoById(this, id)
+      getInfoById(id)
         .then(res => {
           that.mImg = res.image
           that.isshow = true
@@ -202,7 +209,7 @@ export default {
         voice.pause()
       }
     }
-  },
+  }
 }
 </script>
 <style lang="less" scoped>

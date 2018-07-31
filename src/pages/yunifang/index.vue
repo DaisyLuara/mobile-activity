@@ -12,7 +12,7 @@
       class="photo-area">
       <img   
         
-        :src="resultImgUrl" 
+        :src="photo" 
         alt=""
         class="photo">
     <!-- <img class="photo"  :src="imgServerUrl + '/pages/ynf/3.png'" alt=""/> -->
@@ -41,18 +41,15 @@
 </template>
 <script>
 const wih = window.innerHeight
-import marketService from 'services/marketing'
-import Vue from 'vue'
-import { getInfoById, $_wechat } from 'services'
-import { customTrack } from 'modules/customTrack'
-
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
-
+import { normalPages } from '../../mixins/normalPages'
+import { wechatShareTrack } from 'services'
 export default {
+  mixins: [normalPages],
   data() {
     return {
       imgServerUrl: IMAGE_SERVER,
-      resultImgUrl: '',
+      photo: '',
       style: {
         root: {
           height: wih + 'px'
@@ -62,54 +59,16 @@ export default {
       wxShareInfoValue: {
         title: '美爆头条',
         desc: '扫码领取',
+        success: () => {
+          wechatShareTrack()
+        },
         imgUrl:
           'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/ynf_share_icon.png'
       }
     }
   },
-  computed: {
-    //微信分享
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
-        success: () => {
-          customTrack.shareWeChat()
-        }
-      }
-      return wxShareInfo
-    }
-  },
   beforeCreate() {
     document.title = '美爆头条'
-  },
-  mounted() {},
-  created() {
-    this.getInfo()
-    this.handleShare()
-  },
-  methods: {
-    //拿取图片id
-    getInfo() {
-      let id = this.$route.query.id
-      getInfoById(id)
-        .then(res => {
-          this.resultImgUrl = res.image
-        })
-        .catch(_ => {
-          console.warn(_.message)
-        })
-    },
-    handleShare() {
-      $_wechat()
-        .then(res => {
-          res.share(this.wxShareInfoValue)
-        })
-        .catch(_ => {
-          console.warn(_.message)
-        })
-    }
   }
 }
 </script>

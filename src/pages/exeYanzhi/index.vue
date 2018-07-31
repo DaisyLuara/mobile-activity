@@ -22,28 +22,22 @@
         value="确认" 
         @click="redirectToPhoto">
     </div>
-    <wx-share :wx-share-info="wxShareInfo"/>
   </div>
 </template>
 <script>
-import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
-import { customTrack } from 'modules/customTrack'
+import { $_wechat, getInfoById, wechatShareTrack, isInWechat } from 'services'
 const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/'
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
       imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/yanzhi/',
       //微信分享
-      wxShareInfo: {
+      wxShareInfoValue: {
         title: '我的颜值太高了！居然被印上了钞票！',
         desc: '你也来和我PK颜值吧~',
         imgUrl: BASE_URL + 'image/yanzhi/index/share.jpg',
         success: function() {
-          customTrack.shareWeChat()
+          wechatShareTrack()
         }
       }
     }
@@ -51,8 +45,8 @@ export default {
   beforeCreate() {
     document.title = '颜值印钞机通用版手机号页'
   },
-  created() {},
   mounted() {
+    this.handleWechatShare()
     let height =
       window.innerHeight ||
       document.documentElement.clientHeight ||
@@ -64,6 +58,19 @@ export default {
     }
   },
   methods: {
+    handleWechatShare() {
+      if (isInWechat() === true) {
+        $_wechat()
+          .then(res => {
+            res.share(this.wxShareInfoValue)
+          })
+          .catch(err => {
+            console.warn(err.message)
+          })
+      } else {
+        console.warn('you r not in wechat environment')
+      }
+    },
     redirectToPhoto() {
       let input = document.getElementById('tel')
       let id = this.$route.query.id
@@ -87,7 +94,7 @@ export default {
         // query: this.$route.query
       })
     }
-  },
+  }
 }
 </script>
 <style lang="less" scoped>

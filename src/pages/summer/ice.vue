@@ -58,20 +58,13 @@
           class="cover">
       </div>
     </div>
-    <wx-share :wx-share-info="wxShareInfo"/>
   </div>
 </template>
 <script>
-import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
-import { customTrack } from 'modules/customTrack'
 import $ from 'jquery'
-
+import { $_wechat, getInfoById, wechatShareTrack, isInWechat } from 'services'
 const IMG_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing/pages'
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
       IMGURL: IMG_SERVER + '/summer',
@@ -86,7 +79,7 @@ export default {
         desc: '来星视度获取您的夏日照片',
         imgUrl: IMG_SERVER + '/summer/icon.png',
         success: function() {
-          customTrack.shareWeChat()
+          wechatShareTrack()
         }
       }
     }
@@ -94,8 +87,8 @@ export default {
   beforeCreate() {
     document.title = '夏天'
   },
-  created() {},
   mounted() {
+    this.handleWechatShare()
     let height =
       window.innerHeight ||
       document.documentElement.clientHeight ||
@@ -108,10 +101,22 @@ export default {
     // this.init()
   },
   methods: {
+    handleWechatShare() {
+      if (isInWechat() === true) {
+        $_wechat()
+          .then(res => {
+            res.share(this.wxShareInfoValue)
+          })
+          .catch(err => {
+            console.warn(err.message)
+          })
+      } else {
+        console.warn('you r not in wechat environment')
+      }
+    },
     getInfoById() {
       let id = this.$route.query.id
-      marketService
-        .getInfoById(this, id)
+      getInfoById(id)
         .then(res => {
           console.log(res)
           //this.photo = res.image
@@ -196,7 +201,7 @@ export default {
           )
       })
     }
-  },
+  }
 }
 </script>
 <style lang="less" scoped>

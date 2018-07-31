@@ -82,7 +82,6 @@
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 import marketService from 'services/marketing'
 import parseService from 'modules/parseServer'
-import { customTrack } from 'modules/customTrack'
 import { $_wechat, wechatShareTrack } from 'services'
 import $ from 'jquery'
 

@@ -33,7 +33,7 @@
 </template>
 <script>
 import { wechatShareTrack, getInfoById } from 'services'
-import { onlyWechatShare } from '../../mixins/normalPages'
+import { onlyWechatShare } from '../../mixins/onlyWechatShare'
 const IMG_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing/pages'
 export default {
   mixins: [onlyWechatShare],
