@@ -6,27 +6,26 @@
     <div
       class="main">
       <img 
-      :src="base_url + 'bottom.png'" 
-      class="bottom"/>
+        :src="base_url + 'bottom.png'" 
+        class="bottom">
       <img 
-      :src="mImg" 
-      class="mImg"/>
+        :src="mImg" 
+        class="mImg">
       <img 
-      :src="mImg" 
-      class="mImg top"/>
+        :src="mImg" 
+        class="mImg top">
       <img 
-      :src="base_url + 'frame.png'"
-      class="frame" 
-      />
-      <canvas 
-      id="canvas"
+        :src="base_url + 'frame.png'"
+        class="frame" 
       >
-      </canvas>
+      <canvas 
+        id="canvas"
+      />
     </div>
-      <img 
+    <img 
       v-show="note"
       :src="base_url + 'save.png'" 
-      class="save"/>
+      class="save">
   </div>
 
 </template>
