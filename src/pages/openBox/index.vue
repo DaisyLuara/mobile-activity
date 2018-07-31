@@ -79,7 +79,7 @@ export default {
     saveWxInfo() {
       this.userInfo.gifType = this.$route.query.type
       parseService
-        .post(this, this.reqUrl + 'open_the_box', this.userInfo)
+        .post(this.reqUrl + 'open_the_box', this.userInfo)
         .then(res => {
           console.log('保存成功')
         })

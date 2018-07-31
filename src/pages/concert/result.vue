@@ -22,7 +22,7 @@
   </div>
 </template>
 <script>
-import { $wechat, wechatShareTrack, parseService, getInfoById } from 'services'
+import { $wechat, wechatShareTrack, getInfoById } from 'services'
 import $ from 'jquery'
 const wih = window.innerHeight
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'

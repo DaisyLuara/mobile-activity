@@ -343,7 +343,7 @@ export default {
         open_id: this.user_info.wx_openid
       }
       parseService
-        .get(this, REQ_URL + 'angel?where=' + JSON.stringify(query))
+        .get(REQ_URL + 'angel?where=' + JSON.stringify(query))
         .then(data => {
           this.user_result = data.results || [{}, {}]
           if (this.user_result.length == 1) {
@@ -363,7 +363,7 @@ export default {
         img_id: this.img_id
       }
       parseService
-        .get(this, REQ_URL + 'angel?where=' + JSON.stringify(query))
+        .get(REQ_URL + 'angel?where=' + JSON.stringify(query))
         .then(data => {
           if (data.results && data.results.length) {
             // 找到相同img_id判断是否为当前用户的图片
@@ -386,10 +386,7 @@ export default {
         open_id: this.user_info.wx_openid
       }
       parseService
-        .get(
-          this,
-          REQ_URL + 'angel?where=' + JSON.stringify(query) + '&limit=1'
-        )
+        .get(REQ_URL + 'angel?where=' + JSON.stringify(query) + '&limit=1')
         .then(data => {
           if (!data.results) {
             return
@@ -425,7 +422,7 @@ export default {
           }
 
           parseService
-            .post(this, REQ_URL + 'angel', params)
+            .post(REQ_URL + 'angel', params)
             .then(res => {
               // 获取最新数据进行展示
               this.getWxUserResult()
@@ -450,11 +447,7 @@ export default {
             img_id: this.img_id
           }
           parseService
-            .put(
-              this,
-              REQ_URL + 'angel/' + data.objectId,
-              JSON.stringify(params)
-            )
+            .put(REQ_URL + 'angel/' + data.objectId, JSON.stringify(params))
             .then(res => {
               // 获取最新数据进行展示
               this.getWxUserResult()

@@ -127,7 +127,7 @@ export default {
         typeID: this.params.typeID
       }
       parseService
-        .get(this, REQ_URL + 'capsule_toys?where=' + JSON.stringify(query))
+        .get(REQ_URL + 'capsule_toys?where=' + JSON.stringify(query))
         .then(data => {
           if (data.results.length > 0) {
             this.update(data.results[0])
@@ -143,7 +143,6 @@ export default {
     update(data) {
       parseService
         .put(
-          this,
           REQ_URL + 'capsule_toys/' + data.objectId,
           JSON.stringify({ count: data.count + 1 })
         )
@@ -152,7 +151,7 @@ export default {
     },
     save() {
       parseService
-        .post(this, REQ_URL + 'capsule_toys', this.params)
+        .post(REQ_URL + 'capsule_toys', this.params)
         .then(res => {})
         .catch(err => {})
     },

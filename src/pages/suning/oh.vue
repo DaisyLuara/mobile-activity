@@ -26,7 +26,7 @@
   </div>
 </template>
 <script>
-import { $wechat, wechatShareTrack, getInfoById, parseService } from 'services'
+import { $wechat, wechatShareTrack, getInfoById } from 'services'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 const wih = window.innerHeight
 export default {

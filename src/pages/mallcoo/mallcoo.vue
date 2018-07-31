@@ -163,7 +163,7 @@ export default {
         open_user_id: open_id
       }
       parseService
-        .get(this, REQ_URL + 'maliao_mall?where=' + JSON.stringify(query))
+        .get(REQ_URL + 'maliao_mall?where=' + JSON.stringify(query))
         .then(data => {
           let results = data.results
           if (results.length) {
@@ -181,7 +181,7 @@ export default {
         open_user_id: open_id
       }
       parseService
-        .post(this, REQ_URL + 'maliao_mall', parms)
+        .post(REQ_URL + 'maliao_mall', parms)
         .then(data => {
           //将open_user_id保存到parseServer的class，maliao_mall中
           console.log('已经将open_user_id保存到parseServer的maliao_mall中')

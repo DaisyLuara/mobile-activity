@@ -8,7 +8,3 @@ export * from './coupon'
 
 // 游戏信息
 export * from './game'
-
-// parseServer
-
-export * from './parseServer'

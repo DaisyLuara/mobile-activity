@@ -206,7 +206,7 @@ export default {
         vType: this.vType
       }
       parseService
-        .get(this, REQ_URL + 'promotion?where=' + JSON.stringify(query))
+        .get(REQ_URL + 'promotion?where=' + JSON.stringify(query))
         .then(data => {
           this.videoData = data.results
           console.log(data.results)
