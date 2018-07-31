@@ -36,10 +36,11 @@
 const wih = window.innerHeight
 import { $_wechat, getInfoById, wechatShareTrack } from 'services'
 import { Toast } from 'mint-ui'
-
+import { normalPages } from '../../mixins/normalPages'
 const IMAGE_SERVER =
   'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/pjfd/'
 export default {
+  mixins: [normalPages],
   data() {
     return {
       IMAGE_URL:
@@ -63,36 +64,20 @@ export default {
   },
   created() {
     document.title = '浦江饭店'
-    this.getInfo()
     this.handleHorn()
   },
-  mounted() {
-    this.handleShare()
-  },
   methods: {
-    handleShare() {
-      $_wechat()
-        .then(res => {
-          res.share(this.wxShareInfoValue)
-        })
-        .catch(_ => {
-          console.warn(_.message)
-        })
-    },
-    getInfo() {
-      let id = this.$route.query.id
-      getInfoById(id)
-        .then(res => {
-          this.photo = res.code
-        })
-        .catch(err => {
-          Toast(err)
-        })
-    },
     handleHorn() {
       if (this.$route.query.isHorn == true || this.$route.query.isHorn == 1) {
         this.isHorn = true
       }
+    },
+    async getPhotoByRouteQueryId() {
+      let id = this.$route.query.id
+      let { code } = await getInfoById(id).catch(err => {
+        console.warn(err.message)
+      })
+      this.photo = code
     }
   }
 }
