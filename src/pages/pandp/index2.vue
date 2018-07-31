@@ -18,23 +18,18 @@
       :src="IMG_URL + 'note.png'" 
       class="note">
     <wx-share :wx-share-info="wxShareInfo"/>
-    <!-- 弹出层 -->
-    <GameShow 
-      ref="gameShow" 
-      :style-data="style"/>
+    
   </div>
 </template>
 <script>
 import marketService from 'services/marketing'
 import WxShare from 'modules/wxShare'
-import GameShow from 'modules/gameShow'
 import { customTrack } from 'modules/customTrack'
 import { isInWechat, Cookies, createGame, getGame } from 'services'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
   components: {
-    WxShare,
-    GameShow
+    WxShare
   },
   data() {
     return {
@@ -91,15 +86,6 @@ export default {
     this.content.style.minHeight = this.height + 'px'
     this.loadingCanvas()
     this.getInfoById()
-    // if (isInWechat() === true) {
-    //   if (
-    //     process.env.NODE_ENV === 'production' ||
-    //     process.env.NODE_ENV === 'test'
-    //   ) {
-    //     this.handleWechatAuth()
-    //   }
-    //   // this.handleWechatAuth()
-    // }
   },
   methods: {
     handleWechatAuth() {
@@ -224,7 +210,7 @@ export default {
             0,
             0,
             img.width,
-            img.height * 0.9,
+            bg.height * 0.7, //img.height * 0.9,
             bg.width * 0.1,
             bg.height * 0.24,
             bg.width * 0.8,
@@ -255,10 +241,7 @@ export default {
                 word.width,
                 word.height
               )
-              // bg.width * 0.15,
-              // bg.height * 0.052,
-              // bg.width * 0.7,
-              // bg.height * 0.19
+
               text.onload = function() {
                 ctx.drawImage(
                   text,
@@ -415,7 +398,7 @@ export default {
       this.loadingPage = false
       // this.style.show = true
     }
-  },
+  }
 }
 </script>
 <style lang="less" scoped>

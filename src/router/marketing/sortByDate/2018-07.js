@@ -279,9 +279,20 @@ const Date201807 = [
     location: 'pandp/index2',
     name: 'pandpp',
     meta: {
-      title: '',
+      title: '星视度前世穿越机',
       author: 'lipan',
       desc: '前世穿越机2.0版'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'rainer',
+    location: 'rainer/index',
+    name: 'rainer',
+    meta: {
+      title: '秘密花园 尽显美颜',
+      author: 'lipan',
+      desc: '控雨镜-秘密花园'
     },
     isAbandoned: false
   },
