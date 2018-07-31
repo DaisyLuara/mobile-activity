@@ -14,6 +14,7 @@
       请输入手机号码
     </div>
     <input 
+      v-model="phoneValue"
       :style="style.input" 
       class="input" 
       maxlength="11"

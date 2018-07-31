@@ -288,7 +288,7 @@ const Date201807 = [
   {
     path: 'tanabata_festivalA',
     location: 'qixi_glassWord/tanabataFestivalA',
-    name: 'qixi_glassWord',
+    name: 'qixi_glassWordA',
     meta: {
       title: '七夕节',
       author: 'xj1012',
@@ -349,7 +349,7 @@ const Date201807 = [
   {
     path: 'tanabata_festivalB',
     location: 'qixi_glassWord/tanabataFestivalB',
-    name: 'qixi_glassWord',
+    name: 'qixi_glassWordB',
     meta: {
       title: '七夕节',
       author: 'xj1012',
@@ -360,7 +360,7 @@ const Date201807 = [
   {
     path: 'tanabata_festivalC',
     location: 'qixi_glassWord/tanabataFestivalC',
-    name: 'qixi_glassWord',
+    name: 'qixi_glassWordC',
     meta: {
       title: '七夕节',
       author: 'xj1012',
