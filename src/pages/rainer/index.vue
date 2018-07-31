@@ -49,7 +49,7 @@ export default {
       wxShareInfoValue: {
         title: '秘密花园 尽显美颜',
         desc: '快来寻找秘密花园，施展你的小小控雨魔法',
-        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/rainer/share.jpg',
+        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/rainer/icon.jpg',
         success: function() {
           wechatShareTrack()
         }
@@ -65,7 +65,7 @@ export default {
       let canvas = document.getElementById('canvas')
       let ctx = canvas.getContext('2d')
       let frame = new Image()
-      let i = 1
+      let i = 0.7
       let flag = true
       frame.setAttribute('crossOrigin', 'Anonymous')
       frame.onload = function() {
@@ -91,10 +91,10 @@ export default {
         ctx.putImageData(imgData, x, y)
       }
       function doAnim() {
-        if (i > 2.5 || i < 1) {
+        if (i > 3 || i < 0.7) {
           flag = !flag
         }
-        i = flag ? i + 0.01 : i - 0.01
+        i = flag ? i + 0.02 : i - 0.02
         lightImage(frame, 0, 0, i)
         var timer = window.requestAnimationFrame(doAnim)
       }
