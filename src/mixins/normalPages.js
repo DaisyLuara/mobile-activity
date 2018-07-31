@@ -16,15 +16,12 @@ export const normalPages = {
           })
       }
     },
-    getPhotoByRouteQueryId() {
+    async getPhotoByRouteQueryId() {
       let id = this.$route.query.id
-      getInfoById(id)
-        .then(res => {
-          this.photo = res.image
-        })
-        .catch(err => {
-          console.warn(err.message)
-        })
+      let { image } = await getInfoById(id).catch(err => {
+        console.warn(err.message)
+      })
+      this.photo = image
     }
   }
 }
