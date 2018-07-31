@@ -72,15 +72,12 @@ export default {
         this.isHorn = true
       }
     },
-    getPhotoByRouteQueryId() {
+    async getPhotoByRouteQueryId() {
       let id = this.$route.query.id
-      getInfoById(id)
-        .then(res => {
-          this.photo = res.code
-        })
-        .catch(err => {
-          console.warn(err.message)
-        })
+      let { code } = await getInfoById(id).catch(err => {
+        console.warn(err.message)
+      })
+      this.photo = code
     }
   }
 }
