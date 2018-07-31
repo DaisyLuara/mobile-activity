@@ -14,7 +14,7 @@ import { basicTrack } from 'services'
 const serverUrl = process.env.CDN_URL
 export default {
   props: {
-    couponType: {
+    type: {
       type: Number,
       default: 3
     }
