@@ -30,9 +30,14 @@
   </div>
 </template>
 <script>
-import { $wechat, getInfoById, wechatShareTrack, isInWechat } from 'services'
+import {
+  $wechat,
+  getInfoById,
+  wechatShareTrack,
+  isInWechat,
+  createV5Coupon
+} from 'services'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
-import couponService from 'services/coupon'
 import Mydata from './data.js'
 export default {
   data() {
@@ -112,8 +117,7 @@ export default {
         face_id: this.$route.query.id,
         coupon_batch_id: this.coupon_id[this.num]
       }
-      couponService
-        .createV5Coupon(this, parms)
+      createV5Coupon(parms)
         .then(res => {
           console.log(res)
         })

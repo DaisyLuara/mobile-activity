@@ -123,11 +123,8 @@
 /* eslint-disable */
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 import Question from './question0129'
-import CouponService from 'services/freecartCoupon'
-import { parseService } from 'services'
 import $ from 'jquery'
-import { getWxUserInfo } from 'services'
-
+import { getWxUserInfo, parseService, createCoupon, getCoupon } from 'services'
 export default {
   components: {
     WxShare
@@ -610,7 +607,7 @@ export default {
           coupon_batch_id: this.curCompetition.prize_id,
           sms_template: 'SEND_MARKETING_COUPONS'
         }
-        CouponService.createCoupon(this, params)
+        createCoupon(params)
           .then(data => {
             let params = {
               prize_status: '1',
@@ -662,7 +659,7 @@ export default {
       this.mobileError.text = ''
     },
     getPrizeInfo() {
-      CouponService.getCoupon(this, this.curCompetition.prize_id)
+      getCoupon(this.curCompetition.prize_id)
         .then(res => {
           if (res.data && res.data.length) {
             this.prizeInfo = res.data
