@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { isWeixin } from 'modules/util'
+import { isInWechat } from 'services'
 const wih = window.innerHeight
 const wx = require('weixin-js-sdk')
 
@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     handleWxReady() {
-      if (isWeixin() === true) {
+      if (isInWechat() === true) {
         let requestUrl = process.env.WX_API + '/wx/officialAccount/sign'
         this.$http.get(requestUrl).then(response => {
           let resData = response.data.data

@@ -48,12 +48,14 @@
   </div>
 </template>
 <script>
-import { getParamsMap, getParameter, setParameter } from 'modules/util'
 import {
   $wechat,
   getInfoById,
   wechatShareTrack,
-  getWxUserInfo
+  getWxUserInfo,
+  getParamsMap,
+  getParameter,
+  setParameter
 } from 'services'
 export default {
   data() {

@@ -47,7 +47,6 @@
 </template>
 <script>
 import { $wechat, wechatShareTrack, getInfoById } from 'services'
-import parseService from 'modules/parseServer'
 import $ from 'jquery'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 

@@ -53,7 +53,7 @@
   </div>
 </template>
 <script>
-import { getParamsMap, getParameter, setParameter } from 'modules/util'
+import { getParamsMap, getParameter, setParameter } from 'services'
 import $ from 'jquery'
 
 import marketingService from 'services/marketing'
@@ -103,8 +103,7 @@ export default {
   mounted() {
     $('.photo-wrap').css('min-height', $(window).height())
   },
-  methods: {},
-  
+  methods: {}
 }
 </script>
 <style lang="less" scoped>

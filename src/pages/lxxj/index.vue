@@ -143,7 +143,6 @@
 const wih = window.innerHeight
 const wiw = window.innerWidth
 const imgUrl = process.env.CDN_URL
-import { isWeixin } from '../../modules/util'
 import GameShow from 'modules/gameShow'
 import {
   isInWechat,

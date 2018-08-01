@@ -116,7 +116,6 @@ export default {
 
       parseService
         .get(
-          this,
           this.reqUrl +
             '?where=' +
             JSON.stringify(searchArea) +
@@ -154,7 +153,6 @@ export default {
       // 获取前5轮的题目数据
       parseService
         .get(
-          this,
           this.reqUrl +
             '?where=' +
             JSON.stringify(searchArea) +
@@ -188,7 +186,7 @@ export default {
           this.createAnswerNums(newCompetition)
           newCompetition.begin_time = new Date().getTime() + ''
           parseService
-            .post(this, this.reqUrl, newCompetition)
+            .post(this.reqUrl, newCompetition)
             .then(res => {
               this.curCompetition.objectId = res.data.objectId
             })
@@ -292,7 +290,7 @@ export default {
     },
     endCurCompetition(cid) {
       parseService
-        .put(this, this.reqUrl + '/' + cid, JSON.stringify({ status: '0' }))
+        .put(this.reqUrl + '/' + cid, JSON.stringify({ status: '0' }))
         .then(res => {})
         .catch(err => {
           console.log(err)

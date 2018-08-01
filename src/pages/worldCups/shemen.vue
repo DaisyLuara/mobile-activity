@@ -1,5 +1,6 @@
 <template>
   <!-- eslint-disable -->
+  <!-- isAbandoned -->
   <div 
     v-if="loadingDone === true"
     :style="style.root"
@@ -189,7 +190,6 @@
 </template>
 
 <script>
-import marketService from 'services/marketing'
 import { Toast, Indicator } from 'mint-ui'
 import GameMenu from './components/gameMenu'
 const wiw = window.innerWidth
@@ -514,8 +514,7 @@ export default {
       if (this.$route.query.hasOwnProperty('id')) {
         let id = this.$route.query.id
         let that = this
-        marketService
-          .getInfoById(this, id)
+        getInfoById(id)
           .then(res => {
             that.bindImage = res.image
           })

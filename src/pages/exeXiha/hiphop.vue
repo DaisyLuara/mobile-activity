@@ -98,8 +98,7 @@ export default {
     getInfoById() {
       let id = this.$route.query.id
       let that = this
-      marketService
-        .getInfoById(this, id)
+      getInfoById(id)
         .then(res => {
           that.mImg = res.image
           that.isShow = true

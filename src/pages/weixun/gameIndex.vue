@@ -1,5 +1,4 @@
 <template>
-  <!-- eslint-disable -->
   <div
     v-if="status.hasFetchUserData || !status.isInWechat"
     id="root"
@@ -573,8 +572,7 @@ export default {
     },
     getPhotoById() {
       if (this.$route.query.hasOwnProperty('id')) {
-        marketService
-          .getInfoById(this, this.$route.query.id)
+        getInfoById(this.$route.query.id)
           .then(res => {
             if (res.code !== null) {
               this.imgUrl = res.code

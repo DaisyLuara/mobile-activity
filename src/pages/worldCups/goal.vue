@@ -113,8 +113,8 @@ export default {
       if (this.$route.query.hasOwnProperty('id')) {
         let id = this.$route.query.id
         let that = this
-        marketService
-          .getInfoById(this, id)
+
+        getInfoById(id)
           .then(res => {
             that.bindImage = res.image
           })
