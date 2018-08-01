@@ -6,21 +6,18 @@
         alt="">
     </div>
     <div class="save">长按保存照片到手机相册</div>
-    <wx-share :wx-share-info="wxShareInfo"/>
   </div>
 </template>
 <script>
-import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
-import { customTrack } from 'modules/customTrack'
-
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 import $ from 'jquery'
-
+import {
+  $wechat,
+  getPlayResultById,
+  wechatShareTrack,
+  isInWechat
+} from 'services'
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
       resultImgUrl: '',
@@ -31,22 +28,12 @@ export default {
       wxShareInfoValue: {
         title: '旺狗开春 情缘满分',
         desc: '宏伊国际广场借旺狗报新春 送祝福 合家欢 情侣睦 诞生的汪早脱单',
+        success: () => {
+          wechatShareTrack()
+        },
         imgUrl:
           'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/dog_share_icon.png'
       }
-    }
-  },
-  computed: {
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
-        success: () => {
-          customTrack.shareWeChat()
-        }
-      }
-      return wxShareInfo
     }
   },
   beforeCreate() {
@@ -54,15 +41,28 @@ export default {
   },
   mounted() {
     $('.report-wrap').css('height', $(window).height())
+    this.handleWechatShare()
   },
   created() {
     this.getPeopleImage()
   },
   methods: {
+    handleWechatShare() {
+      if (isInWechat() === true) {
+        $wechat()
+          .then(res => {
+            res.share(this.wxShareInfoValue)
+          })
+          .catch(err => {
+            console.warn(err.message)
+          })
+      } else {
+        console.warn('you r not in wechat environment')
+      }
+    },
     getPeopleImage() {
       let recordId = decodeURI(this.$route.query.recordId)
-      marketService
-        .getPlayResultById(this, recordId)
+      getPlayResultById(recordId)
         .then(result => {
           this.resultImgUrl = result.result_img_url
         })
@@ -70,7 +70,7 @@ export default {
           console.log(err)
         })
     }
-  },
+  }
 }
 </script>
 <style lang="less" scoped>

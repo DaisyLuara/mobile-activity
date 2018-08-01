@@ -18,18 +18,12 @@
         :src="IMGURL + 'click.png'" 
         class="text">
     </div>
-    <wx-share :wx-share-info = "wxShareInfo"/>
   </div>
 </template>
 <script>
-import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
-import { customTrack } from 'modules/customTrack'
+import { $wechat, getInfoById, wechatShareTrack, isInWechat } from 'services'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
       IMGURL: IMAGE_SERVER + '/pages/promotion/',
@@ -42,22 +36,11 @@ export default {
       wxShareInfoValue: {
         title: '星视度',
         desc: '星视度 创想新视界',
-        imgUrl: IMAGE_SERVER + '/pages/promotion/icon.jpg'
-      }
-    }
-  },
-  computed: {
-    //微信分享
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
+        imgUrl: IMAGE_SERVER + '/pages/promotion/icon.jpg',
         success: () => {
-          customTrack.shareWeChat()
+          wechatShareTrack()
         }
       }
-      return wxShareInfo
     }
   },
   beforeCreate() {
@@ -72,6 +55,7 @@ export default {
       '&utm_source='
   },
   mounted() {
+    this.handleWechatShare()
     let height =
       window.innerHeight ||
       document.documentElement.clientHeight ||
@@ -80,10 +64,22 @@ export default {
     content.style.minHeight = height + 'px'
   },
   methods: {
+    handleWechatShare() {
+      if (isInWechat() === true) {
+        $wechat()
+          .then(res => {
+            res.share(this.wxShareInfoValue)
+          })
+          .catch(err => {
+            console.warn(err.message)
+          })
+      } else {
+        console.warn('you r not in wechat environment')
+      }
+    },
     getInfoById() {
       let id = this.$route.query.id
-      marketService
-        .getInfoById(this, id)
+      getInfoById(id)
         .then(res => {
           console.log(res)
         })
@@ -97,7 +93,7 @@ export default {
         path: 'ppt/video?utm_source=' + item
       })
     }
-  },
+  }
 }
 </script>
 <style lang="less" scoped>

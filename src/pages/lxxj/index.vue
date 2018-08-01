@@ -143,14 +143,13 @@
 const wih = window.innerHeight
 const wiw = window.innerWidth
 const imgUrl = process.env.CDN_URL
-import { isWeixin } from '../../modules/util'
 import GameShow from 'modules/gameShow'
 import {
   isInWechat,
   getWxUserInfo,
   Cookies,
   getInfoById,
-  $_wechat
+  $wechat
 } from 'services'
 
 import Remind from './remind'
@@ -248,7 +247,7 @@ export default {
       getInfoById(id).then(res => {})
     },
     handleForbiddenShare() {
-      $_wechat()
+      $wechat()
         .then(res => {
           res.forbidden()
         })

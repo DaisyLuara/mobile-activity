@@ -127,7 +127,7 @@ import Vue from 'vue'
 import { Lazyload } from 'mint-ui'
 Vue.use(Lazyload)
 import {
-  $_wechat,
+  $wechat,
   isInWechat,
   basicTrack,
   wechatShareTrack,
@@ -229,7 +229,7 @@ export default {
     },
     handleWechatShare() {
       if (isInWechat() === true) {
-        $_wechat()
+        $wechat()
           .then(res => {
             res.share(this.wxShareInfo)
           })

@@ -191,13 +191,10 @@
 <script>
 /* eslint-disable */
 import Vue from 'vue'
-import { getInfoById, $_wechat } from 'services'
-import { customTrack } from 'modules/customTrack'
-import { Toast } from 'mint-ui'
-import { isWeixin } from '../../modules/util'
 import 'swiper/dist/css/swiper.css'
+import { getInfoById, $wechat, basicTrack, isInWechat } from 'services'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
-import { Lazyload } from 'mint-ui'
+import { Lazyload, Toast } from 'mint-ui'
 Vue.use(Lazyload)
 const wx = require('weixin-js-sdk')
 const burl =
@@ -205,7 +202,6 @@ const burl =
 const wi = window.innerWidth
 export default {
   components: {
-    WxShare,
     swiper,
     swiperSlide
   },
@@ -498,7 +494,7 @@ export default {
   },
   methods: {
     handleShare() {
-      $_wechat()
+      $wechat()
         .then(res => {
           res.share(this.wxShareInfoValue)
         })

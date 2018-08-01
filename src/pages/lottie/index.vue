@@ -27,24 +27,25 @@
     <GameShow 
       ref="gameShow" 
       :style-data="style"/>
-    <wx-share :wx-share-info="wxShareInfo"/>
   </div>
 </template>
 
 <script>
 import lottie from 'lottie-web'
-import { Toast } from 'mint-ui'
-import { customTrack } from 'modules/customTrack'
-import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
 import GameShow from 'modules/gameShow'
-import { isInWechat, Cookies, } from 'services'
+import { Toast } from 'mint-ui'
+import {
+  isInWechat,
+  Cookies,
+  $wechat,
+  getInfoById,
+  wechatShareTrack
+} from 'services'
 
 const serverUrl =
   'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/lottie/'
 export default {
   components: {
-    WxShare,
     GameShow
   },
   data() {
@@ -78,7 +79,10 @@ export default {
       wxShareInfoValue: {
         title: '激情世界杯 2018',
         desc: '巅峰对决',
-        imgUrl: serverUrl + 'share.png'
+        imgUrl: serverUrl + 'share.png',
+        success: () => {
+          wechatShareTrack()
+        }
       },
       photo: null,
       score: {
@@ -89,21 +93,8 @@ export default {
       }
     }
   },
-  computed: {
-    //微信分享
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
-        success: () => {
-          customTrack.shareWeChat()
-        }
-      }
-      return wxShareInfo
-    }
-  },
   mounted() {
+    this.handleWechatShare()
     this.initAnimation()
     this.fetchNumberData()
     this.getPhotoById()
@@ -118,6 +109,19 @@ export default {
     }
   },
   methods: {
+    handleWechatShare() {
+      if (isInWechat() === true) {
+        $wechat()
+          .then(res => {
+            res.share(this.wxShareInfoValue)
+          })
+          .catch(err => {
+            console.warn(err.message)
+          })
+      } else {
+        console.warn('you r not in wechat environment')
+      }
+    },
     handleWechatAuth() {
       if (Cookies.get('user_id') === null) {
         let base_url = encodeURIComponent(String(window.location.href))
@@ -175,8 +179,7 @@ export default {
     },
     getPhotoById() {
       let id = this.$route.query.id
-      marketService
-        .getInfoById(this, id)
+      getInfoById(id)
         .then(res => {
           this.photo = res.image
           this.style.photo = {

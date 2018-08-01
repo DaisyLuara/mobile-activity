@@ -18,20 +18,14 @@
           class="num_err">该券已经发完了</li>
       </ul>
     </div>
-    <wx-share :wx-share-info="wxShareInfo"/>
   </div>
 </template>
 <script>
+import { $wechat, wechatShareTrack, isInWechat } from 'services'
+import { parseService } from 'services'
 const REQ_URL = 'http://120.27.144.62:1337/parse/classes/'
-import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
-import parseService from 'modules/parseServer'
-import { customTrack } from 'modules/customTrack'
 const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/image'
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
       quanMsg: {
@@ -58,7 +52,7 @@ export default {
         imgUrl: BASE_URL + '/maliao/test/share.png',
         link: window.location.origin + this.$route.path,
         success: function() {
-          customTrack.shareWeChat()
+          wechatShareTrack()
         }
       }
     }
@@ -75,6 +69,7 @@ export default {
     }
   },
   mounted() {
+    this.handleWechatShare()
     let height =
       window.innerHeight ||
       document.documentElement.clientHeight ||
@@ -90,6 +85,19 @@ export default {
     w.style.fontSize = rem + 'px'
   },
   methods: {
+    handleWechatShare() {
+      if (isInWechat() === true) {
+        $wechat()
+          .then(res => {
+            res.share(this.wxShareInfoValue)
+          })
+          .catch(err => {
+            console.warn(err.message)
+          })
+      } else {
+        console.warn('you r not in wechat environment')
+      }
+    },
     //授权跳转
     getAuthorize() {
       let pageUrl = encodeURIComponent(window.location.href)
@@ -155,7 +163,7 @@ export default {
         open_user_id: open_id
       }
       parseService
-        .get(this, REQ_URL + 'maliao_mall?where=' + JSON.stringify(query))
+        .get(REQ_URL + 'maliao_mall?where=' + JSON.stringify(query))
         .then(data => {
           let results = data.results
           if (results.length) {
@@ -173,7 +181,7 @@ export default {
         open_user_id: open_id
       }
       parseService
-        .post(this, REQ_URL + 'maliao_mall', parms)
+        .post(REQ_URL + 'maliao_mall', parms)
         .then(data => {
           //将open_user_id保存到parseServer的class，maliao_mall中
           console.log('已经将open_user_id保存到parseServer的maliao_mall中')
@@ -197,7 +205,7 @@ export default {
         }
       }
     }
-  },
+  }
 }
 </script>
 <style  lang="less" scoped>

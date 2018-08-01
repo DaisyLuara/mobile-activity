@@ -46,10 +46,7 @@
   </div>
 </template>
 <script>
-import marketService from 'services/marketing'
-import { $_wechat, wechatShareTrack } from 'services'
-import parseService from 'modules/parseServer'
-import { customTrack } from 'modules/customTrack'
+import { $wechat, wechatShareTrack, getInfoById } from 'services'
 import $ from 'jquery'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 
@@ -67,23 +64,12 @@ export default {
       wxShareInfoValue: {
         title: '玩儿游戏居然能中大奖？',
         desc: '快来围观头号玩家吧',
+        success: () => {
+          wechatShareTrack()
+        },
         imgUrl:
           'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/hiltonMla_share_icon.jpeg'
       }
-    }
-  },
-  computed: {
-    //微信分享
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
-        success: () => {
-          customTrack.shareWeChat()
-        }
-      }
-      return wxShareInfo
     }
   },
   mounted() {
@@ -104,7 +90,7 @@ export default {
       }
     },
     handleShare() {
-      $_wechat()
+      $wechat()
         .then(res => {
           res.share(this.wxShareInfoValue)
         })
@@ -115,8 +101,7 @@ export default {
     //拿取图片id
     getImageById() {
       let id = this.$route.query.id
-      marketService
-        .getInfoById(this, id)
+      getInfoById(id)
         .then(result => {
           this.resultImgUrl = result.image
         })

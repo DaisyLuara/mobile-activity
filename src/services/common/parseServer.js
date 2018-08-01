@@ -9,7 +9,7 @@ const REQ_HEADER = {
   }
 }
 
-const parseServer = {
+const parseService = {
   get(query) {
     let promise = new Promise((resolve, reject) => {
       axios
@@ -56,4 +56,4 @@ const parseServer = {
     return promise
   }
 }
-export { parseServer }
+export { parseService }

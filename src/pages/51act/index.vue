@@ -43,10 +43,8 @@
 <script>
 /* eslint-disable */
 import { Toast } from 'mint-ui'
-import { isWeixin } from '../../modules/util'
-import { basicTrack } from 'services'
+import { basicTrack, isInWechat } from 'services'
 const wx = require('weixin-js-sdk')
-// import marketService from 'services/marketing'
 
 export default {
   data() {
@@ -131,7 +129,7 @@ export default {
       basicTrack(this.$route.query.id, this.bindPhoneNumber)
     },
     handleForbiddenShare() {
-      if (isWeixin() === true) {
+      if (isInWechat() === true) {
         let requestUrl = process.env.WX_API + '/wx/officialAccount/sign'
         this.$http.get(requestUrl).then(response => {
           let resData = response.data.data

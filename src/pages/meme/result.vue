@@ -47,7 +47,7 @@
   </div>
 </template>
 <script>
-import { $_wechat, wechatShareTrack, getInfoById } from 'services'
+import { $wechat, wechatShareTrack, getInfoById } from 'services'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 const wiw =
   window.innerWidth ||
@@ -107,7 +107,7 @@ export default {
       )
     })()
     this.getInfoById()
-    $_wechat()
+    $wechat()
       .then(res => {
         res.share(this.wxShareInfo)
       })

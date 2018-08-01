@@ -48,33 +48,26 @@
         :src="imgServerUrl+'/save-img3.png'" 
         class="hint">
     </div>
-    <wx-share :wx-share-info="wxShareInfo"/>
   </div>
 </template>
 <script>
 import $ from 'jquery'
-
-import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
-import { customTrack } from 'modules/customTrack'
+import { $wechat, getInfoById, wechatShareTrack, isInWechat } from 'services'
 const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
       imgPath: BASE_URL + 'image/',
       imgServerUrl: IMAGE_SERVER + '/pages/psbh_travel',
       audioUrl: BASE_URL + 'audio/mp3/',
       photo: null,
-      wxShareInfo: {
+      wxShareInfoValue: {
         title: '好物相伴，萌游世界',
         desc: '有人@你',
         imgUrl: BASE_URL + 'image/travel/icon.jpg',
         success: () => {
-          customTrack.shareWeChat()
+          wechatShareTrack()
         }
       }
     }
@@ -86,15 +79,28 @@ export default {
     this.getPeopleImage()
   },
   mounted() {
+    this.handleWechatShare()
     $('.photo-content').css('min-height', $(window).height())
     this.init()
     this.playAudio()
   },
   methods: {
+    handleWechatShare() {
+      if (isInWechat() === true) {
+        $wechat()
+          .then(res => {
+            res.share(this.wxShareInfoValue)
+          })
+          .catch(err => {
+            console.warn(err.message)
+          })
+      } else {
+        console.warn('you r not in wechat environment')
+      }
+    },
     getPeopleImage() {
       let id = decodeURI(this.$route.query.id)
-      marketService
-        .getInfoById(this, id)
+      getInfoById(id)
         .then(result => {
           this.photo = result.image
           console.log(result)

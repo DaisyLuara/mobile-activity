@@ -34,7 +34,7 @@
 <script>
 import lottie from 'lottie-web'
 import {
-  $_wechat,
+  $wechat,
   isInWechat,
   basicTrack,
   wechatShareTrack,
@@ -76,7 +76,7 @@ export default {
     this.getImage()
     basicTrack(this.$route.query.id)
     if (isInWechat() === true) {
-      $_wechat()
+      $wechat()
         .then(res => {
           res.share(this.wxShareInfo)
         })

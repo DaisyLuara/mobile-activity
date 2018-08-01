@@ -53,7 +53,7 @@
 const wih = window.innerWidth * 667 / 375
 const wiw = window.innerWidth
 import lottie from 'lottie-web'
-import { $_wechat, wechatShareTrack, getInfoById, isInWechat } from 'services'
+import { $wechat, wechatShareTrack, getInfoById, isInWechat } from 'services'
 const cdnUrl = process.env.CDN_URL
 export default {
   data() {
@@ -86,7 +86,7 @@ export default {
     //处理微信分享
     handleWeChatShare() {
       if (isInWechat() === true) {
-        $_wechat()
+        $wechat()
           .then(res => {
             res.share(this.wxShareInfo)
           })

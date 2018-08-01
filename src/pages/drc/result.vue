@@ -53,8 +53,7 @@
   </div>
 </template>
 <script>
-import marketService from 'services/marketing'
-import { $_wechat, wechatShareTrack } from 'services'
+import { $wechat, wechatShareTrack, getInfoById } from 'services'
 import $ from 'jquery'
 
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
@@ -82,7 +81,7 @@ export default {
     }
   },
   mounted() {
-    $_wechat()
+    $wechat()
       .then(res => {
         res.share(this.wxShareInfo)
       })
@@ -146,8 +145,7 @@ export default {
 
     getPeopleImage() {
       let id = decodeURI(this.$route.query.id)
-      marketService
-        .getInfoById(this, id)
+      getInfoById(id)
         .then(result => {
           this.img_url = result.image
           this.syntheticCanvas(result.image)

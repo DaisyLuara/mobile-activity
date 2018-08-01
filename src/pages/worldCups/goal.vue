@@ -33,7 +33,7 @@
 
 <script>
 import { Toast, Indicator } from 'mint-ui'
-import { $_wechat, getInfoById, wechatShareTrack } from 'services'
+import { $wechat, getInfoById, wechatShareTrack } from 'services'
 const wiw = window.innerWidth
 const wih = window.innerHeight
 
@@ -101,7 +101,7 @@ export default {
   },
   methods: {
     handleShare() {
-      $_wechat()
+      $wechat()
         .then(res => {
           res.share(this.wxShareInfoValue)
         })
@@ -113,8 +113,8 @@ export default {
       if (this.$route.query.hasOwnProperty('id')) {
         let id = this.$route.query.id
         let that = this
-        marketService
-          .getInfoById(this, id)
+
+        getInfoById(id)
           .then(res => {
             that.bindImage = res.image
           })

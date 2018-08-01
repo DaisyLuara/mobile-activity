@@ -75,13 +75,11 @@
           class="xinglink">
       </a>
     </div>
-    <wx-share :wx-share-info="wxShareInfo"/>
   </div>
 </template>
 <script>
-import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
-import { customTrack } from 'modules/customTrack'
+import { $wechat, getInfoById, wechatShareTrack, isInWechat } from 'services'
+
 const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/'
 export default {
   components: {
@@ -98,21 +96,11 @@ export default {
       wxShareInfoValue: {
         title: '星视度有嘻哈',
         desc: '你就是嘻哈王者',
-        imgUrl: BASE_URL + 'image/kaide_animal/icon.png'
-      }
-    }
-  },
-  computed: {
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
+        imgUrl: BASE_URL + 'image/kaide_animal/icon.png',
         success: function() {
-          customTrack.shareWeChat()
+          wechatShareTrack()
         }
       }
-      return wxShareInfo
     }
   },
   beforeCreate() {
@@ -123,13 +111,26 @@ export default {
   },
   mounted() {
     this.playAudio()
+    this.handleShare()
   },
   methods: {
+    handleShare() {
+      if (isInWechat() === true) {
+        $wechat()
+          .then(res => {
+            res.share(this.wxShareInfoValue)
+          })
+          .catch(err => {
+            console.warn(err.message)
+          })
+      } else {
+        console.warn('you r not in wechat environment')
+      }
+    },
     getInfoById() {
       let id = this.$route.query.id
       let that = this
-      marketService
-        .getInfoById(this, id)
+      getInfoById(id)
         .then(res => {
           this.mImg = res.image
           that.press = true
@@ -204,7 +205,7 @@ export default {
         voice.pause()
       }
     }
-  },
+  }
 }
 </script>
 <style lang="less" scoped>

@@ -41,7 +41,7 @@ const forbidden = () => {
   })
 }
 
-const $_wechat = () => {
+const $wechat = () => {
   return new Promise((resolve, reject) => {
     let requestUrl = process.env.WX_API + '/wx/officialAccount/sign'
     axios
@@ -83,7 +83,7 @@ const $_wechat = () => {
 // 书写示例
 
 // 分享
-// $_wechat()
+// $wechat()
 //   .then(res => {
 //     res.share({
 //       // 配置分享
@@ -102,7 +102,7 @@ const $_wechat = () => {
 //   })
 
 // 禁止分享
-// $_wechat()
+// $wechat()
 //   .then(res => {
 //     res.forbidden()
 //   })
@@ -110,4 +110,4 @@ const $_wechat = () => {
 //     console.warn(_.message)
 //   })
 
-export { $_wechat }
+export { $wechat }

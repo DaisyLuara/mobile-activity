@@ -21,6 +21,23 @@ const createCoupon = params => {
   })
 }
 
+const getCoupon = couponIds => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(
+        process.env.STORE_API +
+          '/rest/coupon/batch?coupon_batch_ids=' +
+          couponIds.join(',')
+      )
+      .then(response => {
+        resolve(response)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+
 const createV4Coupon = params => {
   return new Promise((resolve, reject) => {
     axios
@@ -95,6 +112,7 @@ const createV5Coupon = params => {
 
 export {
   createCoupon,
+  getCoupon,
   createV4Coupon,
   bindV4Coupon,
   sendV4CouponSms,

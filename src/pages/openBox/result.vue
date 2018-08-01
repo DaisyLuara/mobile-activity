@@ -1,4 +1,6 @@
 <template>
+  <!-- eslint-disable -->
+  <!-- isAbandoned -->
   <div class="report-wrap">
     <div class="coupon-wrap">
       <img 
@@ -30,14 +32,8 @@
   </div>
 </template>
 <script>
-import { customTrack } from 'modules/customTrack'
-import WxShare from 'modules/wxShare.vue'
-import $ from 'jquery'
-
+/* eslint-disable */
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
       resultImgUrl: '',
@@ -85,7 +81,7 @@ export default {
           console.log(err)
         })
     }
-  },
+  }
 }
 </script>
 <style lang="less" scoped>

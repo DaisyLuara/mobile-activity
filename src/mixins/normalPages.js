@@ -1,4 +1,4 @@
-import { $_wechat, getInfoById, isInWechat } from 'services'
+import { $wechat, getInfoById, isInWechat } from 'services'
 export const normalPages = {
   mounted() {
     this.handleWechatShare()
@@ -7,7 +7,7 @@ export const normalPages = {
   methods: {
     handleWechatShare() {
       if (isInWechat() === true) {
-        $_wechat()
+        $wechat()
           .then(res => {
             res.share(this.wxShareInfoValue)
           })

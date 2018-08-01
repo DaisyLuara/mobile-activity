@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { $_wechat, wechatShareTrack, getInfoById, isInWechat } from 'services'
+import { $wechat, wechatShareTrack, getInfoById, isInWechat } from 'services'
 const serverUrl =
   'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/suning/'
 const wiw = window.innerWidth
@@ -60,7 +60,7 @@ export default {
     },
     handleWeChatShare() {
       if (isInWechat() === true) {
-        $_wechat()
+        $wechat()
           .then(res => {
             res.share(this.wxShareInfo)
           })

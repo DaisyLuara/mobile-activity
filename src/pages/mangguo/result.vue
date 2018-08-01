@@ -14,19 +14,14 @@
         class="point">
       <a :href="alink"><img :src="IMAGE_URL + 'alink.png'"></a>
     </div>
-    
-    <wx-share :wx-share-info="wxShareInfo"/>
   </div>
 </template>
 <script>
-import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
-import { customTrack } from 'modules/customTrack'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
+import { wechatShareTrack } from 'services'
+import { normalPages } from '../../mixins/normalPages'
 export default {
-  components: {
-    WxShare
-  },
+  mixins: [normalPages],
   data() {
     return {
       IMAGE_URL: IMAGE_SERVER + '/pages/mangguo/',
@@ -37,49 +32,21 @@ export default {
       wxShareInfoValue: {
         title: '重温青葱岁月！《出走人生电台》圆你电台主播梦',
         desc: '芒果娱乐全新青春网剧，给你不一样的90后情怀',
-        imgUrl: IMAGE_SERVER + '/pages/mangguo/share.jpg'
-      }
-    }
-  },
-  computed: {
-    //微信分享
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
+        imgUrl: IMAGE_SERVER + '/pages/mangguo/share.jpg',
         success: () => {
-          customTrack.shareWeChat()
+          wechatShareTrack()
         }
       }
-      return wxShareInfo
     }
   },
-  created() {
-    this.getInfoById()
-  },
   mounted() {
-    var height =
+    let height =
       window.innerHeight ||
       document.documentElement.clientHeight ||
       document.body.clientHeight
-    var mgPage = document.getElementById('mgPage')
+    let mgPage = document.getElementById('mgPage')
     mgPage.style.minHeight = height + 'px'
-  },
-  methods: {
-    getInfoById() {
-      let id = this.$route.query.id
-      marketService
-        .getInfoById(this, id)
-        .then(res => {
-          this.photo = res.image
-          console.log(res)
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    }
-  },
+  }
 }
 </script>
 <style lang="less" scoped>

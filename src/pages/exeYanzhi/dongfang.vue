@@ -54,18 +54,12 @@
     <img 
       :src="dfImg+'logo.png'" 
       class="logo">
-    <wx-share :wx-share-info="wxShareInfo"/>
   </div>
 </template>
 <script>
-import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
-import { customTrack } from 'modules/customTrack'
+import { $wechat, getInfoById, wechatShareTrack, isInWechat } from 'services'
 const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/'
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
       imgUrl: BASE_URL + 'image/yanzhi/content/',
@@ -73,12 +67,12 @@ export default {
       mImg: null,
       press: false,
       //微信分享
-      wxShareInfo: {
+      wxShareInfoValue: {
         title: '我在东方商厦颜值爆表啦',
         desc: '东方商厦，礼好，你更好',
         imgUrl: BASE_URL + 'image/dongfang/icon.jpg',
         success: function() {
-          customTrack.shareWeChat()
+          wechatShareTrack()
         }
       }
     }
@@ -86,8 +80,8 @@ export default {
   beforeCreate() {
     document.title = '东方商厦'
   },
-  created() {},
   mounted() {
+    this.handleWechatShare()
     let height =
       window.innerHeight ||
       document.documentElement.clientHeight ||
@@ -97,10 +91,22 @@ export default {
     this.getInfoById()
   },
   methods: {
+    handleWechatShare() {
+      if (isInWechat() === true) {
+        $wechat()
+          .then(res => {
+            res.share(this.wxShareInfoValue)
+          })
+          .catch(err => {
+            console.warn(err.message)
+          })
+      } else {
+        console.warn('you r not in wechat environment')
+      }
+    },
     getInfoById() {
       let id = this.$route.query.id
-      marketService
-        .getInfoById(this, id)
+      getInfoById(id)
         .then(res => {
           this.mImg = res.image
           this.press = true
@@ -109,7 +115,7 @@ export default {
           console.log(err)
         })
     }
-  },
+  }
 }
 </script>
 <style lang="less" scoped>

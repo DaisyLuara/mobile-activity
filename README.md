@@ -68,6 +68,16 @@ isAbandoned 代表废弃改页面，将不会打包
 
 legacy 为以前的旧页面，新页面按照 sortByDate 文件夹排列
 
+## 全局注入方法
+
+### 预存变量
+
+位于 services/utils/helper.js 挂载到 Vue 的原型上
+
+可在任意单页内使用 this. 引用
+
+例如 this.$innerWidth()
+
 ## Eslint
 
 ### 配置

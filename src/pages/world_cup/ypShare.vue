@@ -1,4 +1,5 @@
 <template>
+  <!-- isAbandoned -->
   <div 
     :style="style.root"
     class="content">
@@ -64,10 +65,6 @@
 /* eslint-disable */
 const wih = window.innerHeight
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
-import marketService from 'services/marketing'
-import { customTrack } from 'modules/customTrack'
-import { $_wechat, wechatShareTrack } from 'services'
-
 export default {
   data() {
     return {
@@ -125,8 +122,7 @@ export default {
     //拿取图片id
     getImageById() {
       let id = this.$route.query.id
-      marketService
-        .getInfoById(this, id)
+      getInfoById(id)
         .then(result => {
           this.resultImgUrl = result.image
         })
@@ -135,7 +131,7 @@ export default {
         })
     },
     handleShare() {
-      $_wechat()
+      $wechat()
         .then(res => {
           res.share(this.wxShareInfoValue)
         })

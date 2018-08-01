@@ -16,7 +16,7 @@
       <div 
         class="photo">
         <img  
-          :src="resultImgUrl" 
+          :src="photo" 
           alt=""
           class="photo-2"> 
       </div>
@@ -28,47 +28,33 @@
   </div>
 </template>
 <script>
-import marketService from 'services/marketing'
-import parseService from 'modules/parseServer'
-import { customTrack } from 'modules/customTrack'
+import { wechatShareTrack, parseService } from 'services'
 import $ from 'jquery'
-import { $_wechat, wechatShareTrack } from 'services'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
-
+import { normalPages } from '../../mixins/normalPages'
 export default {
+  mixins: [normalPages],
   data() {
     return {
       showShade: true,
       showImg: false,
       imgServerUrl: IMAGE_SERVER,
-      resultImgUrl: '',
+      photo: '',
       //微信分享信息
       wxShareInfoValue: {
         title: '我又来撒狗粮啦',
         desc: '秀恩爱请认准星视度 ',
+        success: () => {
+          wechatShareTrack()
+        },
         imgUrl:
           'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/qixi_share_icon.png'
       }
     }
   },
-  computed: {
-    //微信分享
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
-        success: () => {
-          customTrack.shareWeChat()
-        }
-      }
-      return wxShareInfo
-    }
-  },
   mounted() {
     $('.glass-wrap').css('height', $(window).height())
     var h = $('.glass-wrap').height()
-    this.handleShare()
     console.log(h)
     if (h == 812) {
       $('.heart').css('width', '70%')
@@ -76,31 +62,7 @@ export default {
       $('.heart').css('top', '32%')
     }
   },
-  created() {
-    this.getImageById()
-  },
   methods: {
-    //拿取图片id
-    getImageById() {
-      let id = this.$route.query.id
-      marketService
-        .getInfoById(this, id)
-        .then(result => {
-          this.resultImgUrl = result.image
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    },
-    handleShare() {
-      $_wechat()
-        .then(res => {
-          res.share(this.wxShareInfoValue)
-        })
-        .catch(_ => {
-          console.warn(_.message)
-        })
-    },
     getPhoto() {
       this.showShade = false
       $('.glass-wrap').css(

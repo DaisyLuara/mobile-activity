@@ -26,19 +26,13 @@
       <a 
         :href="menu" 
         class="abtn"/>
-      <wx-share :wx-share-info="wxShareInfo"/>
     </div>
   </div>
 </template>
 <script>
-import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
-import { customTrack } from 'modules/customTrack'
 const IMG_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing/pages'
+import { $wechat, getInfoById, wechatShareTrack, isInWechat } from 'services'
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
       imgPath: IMG_SERVER + '/heyjiuce/tea/',
@@ -50,12 +44,12 @@ export default {
       slider: false,
       source: this.$route.query.utm_source,
       //微信分享
-      wxShareInfo: {
+      wxShareInfoValue: {
         title: 'HEYJUICE等待着与你相遇',
         desc: '健康时尚  美味畅享，好在天然，妙在鲜榨',
         imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/heyjuice/icon.png',
         success: function() {
-          customTrack.shareWeChat()
+          wechatShareTrack()
         }
       }
     }
@@ -65,6 +59,7 @@ export default {
   },
   created() {},
   mounted() {
+    this.handleWechatShare()
     let h =
       window.innerHeight ||
       document.documentElement.clientHeight ||
@@ -75,11 +70,23 @@ export default {
     this.toMenu(this.source)
   },
   methods: {
+    handleWechatShare() {
+      if (isInWechat() === true) {
+        $wechat()
+          .then(res => {
+            res.share(this.wxShareInfoValue)
+          })
+          .catch(err => {
+            console.warn(err.message)
+          })
+      } else {
+        console.warn('you r not in wechat environment')
+      }
+    },
     getInfoById() {
       let id = this.$route.query.id
       let that = this
-      marketService
-        .getInfoById(this, id)
+      getInfoById(id)
         .then(res => {
           this.photo = res.image
           this.isShow = true
@@ -100,7 +107,7 @@ export default {
           console.log(err)
         })
     }
-  },
+  }
 }
 </script>
 <style lang="less" scoped>

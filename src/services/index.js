@@ -6,7 +6,7 @@ export * from './wechat/index'
 // 用法
 
 // 直接 import  { 方法名 } from 'services'
-// 比如 import { $_wechat, getInfoById } from 'services'
+// 比如 import { $wechat, getInfoById } from 'services'
 // 所有的方法分类在/services文件下
 // 比如/services/common
 // '/services/common/index.js'是这一类方法的聚合入口

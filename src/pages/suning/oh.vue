@@ -1,4 +1,5 @@
 <template>
+  <!-- isAbandoned -->
   <div 
     :style="style.root"
     class="oh-content">
@@ -25,10 +26,7 @@
   </div>
 </template>
 <script>
-import marketService from 'services/marketing'
-import parseService from 'modules/parseServer'
-import { customTrack } from 'modules/customTrack'
-import { $_wechat, wechatShareTrack } from 'services'
+import { $wechat, wechatShareTrack, getInfoById } from 'services'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 const wih = window.innerHeight
 export default {
@@ -80,8 +78,7 @@ export default {
     //拿取图片id
     getImageById() {
       let id = this.$route.query.id
-      marketService
-        .getInfoById(this, id)
+      getInfoById(id)
         .then(result => {
           this.resultImgUrl = result.image
         })
@@ -90,7 +87,7 @@ export default {
         })
     },
     handleShare() {
-      $_wechat()
+      $wechat()
         .then(res => {
           res.share(this.wxShareInfoValue)
         })

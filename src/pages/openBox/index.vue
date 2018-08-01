@@ -1,4 +1,6 @@
 <template>
+  <!-- eslint-disable -->
+  <!-- isAbandoned -->
   <div class="phone-content">
     <img 
       src="http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/open_box/title.png" 
@@ -34,13 +36,7 @@
   </div>
 </template>
 <script>
-import { setParameter } from 'modules/util'
-import parseService from 'modules/parseServer'
-import CouponService from 'services/freecartCoupon'
-import $ from 'jquery'
-import { getWxUserInfo } from 'services'
-import { $_wechat, getInfoById, wechatShareTrack } from 'services'
-
+/* eslint-disable */
 export default {
   data() {
     return {
@@ -72,7 +68,7 @@ export default {
   },
   methods: {
     handleShare() {
-      $_wechat()
+      $wechat()
         .then(res => {
           res.share(this.wxShareInfoValue)
         })
@@ -83,7 +79,7 @@ export default {
     saveWxInfo() {
       this.userInfo.gifType = this.$route.query.type
       parseService
-        .post(this, this.reqUrl + 'open_the_box', this.userInfo)
+        .post(this.reqUrl + 'open_the_box', this.userInfo)
         .then(res => {
           console.log('保存成功')
         })

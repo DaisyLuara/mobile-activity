@@ -29,18 +29,12 @@
     <img 
       :src="imgUrl+'lehui/wd_name.png'" 
       class="wd_name">
-    <wx-share :wx-share-info="wxShareInfo"/>
   </div>
 </template>
 <script>
-import marketService from 'services/marketing'
-import WxShare from 'modules/wxShare'
-import { customTrack } from 'modules/customTrack'
+import { $wechat, getInfoById, wechatShareTrack, isInWechat } from 'services'
 const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/'
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
       imgUrl: BASE_URL + 'image/',
@@ -52,29 +46,18 @@ export default {
       wxShareInfoValue: {
         title: '万达陪你“美”一天',
         desc: '唯万达 更懂你',
-        imgUrl: BASE_URL + 'image/lehui/wanda.png'
-      }
-    }
-  },
-  computed: {
-    //微信分享
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
+        imgUrl: BASE_URL + 'image/lehui/wanda.png',
         success: function() {
-          customTrack.shareWeChat()
+          wechatShareTrack()
         }
       }
-      return wxShareInfo
     }
   },
   beforeCreate() {
     document.title = '万达'
   },
-  created() {},
   mounted() {
+    this.handleWechatShare()
     let height =
       window.innerHeight ||
       document.documentElement.clientHeight ||
@@ -86,6 +69,19 @@ export default {
     this.initShack()
   },
   methods: {
+    handleWechatShare() {
+      if (isInWechat() === true) {
+        $wechat()
+          .then(res => {
+            res.share(this.wxShareInfoValue)
+          })
+          .catch(err => {
+            console.warn(err.message)
+          })
+      } else {
+        console.warn('you r not in wechat environment')
+      }
+    },
     initShack() {
       var last_update = '',
         x,
@@ -131,8 +127,7 @@ export default {
     getInfoById() {
       let id = this.$route.query.id
       let that = this
-      marketService
-        .getInfoById(this, id)
+      getInfoById(id)
         .then(res => {
           that.mImg = res.image
           that.isshow = true
@@ -141,7 +136,7 @@ export default {
           console.log(err)
         })
     }
-  },
+  }
 }
 </script>
 <style lang="less" scoped>
@@ -159,7 +154,8 @@ body {
   text-align: center;
   font-size: 0;
   position: relative;
-  background: url('@{imgUrl}/lehui/lhbg.png?111') center top /100% 100% no-repeat;
+  background: url('@{imgUrl}/lehui/lhbg.png?111') center top / 100% 100%
+    no-repeat;
   .title {
     width: 60%;
     padding-top: 10%;

@@ -14,10 +14,8 @@
   </div>
 </template>
 <script>
-import marketService from 'services/marketing'
-import { $_wechat, wechatShareTrack } from 'services'
+import { $wechat, wechatShareTrack, getInfoById } from 'services'
 import $ from 'jquery'
-
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 
 export default {
@@ -42,7 +40,7 @@ export default {
   },
   mounted() {
     $('.war-content').css('height', $(window).height())
-    $_wechat()
+    $wechat()
       .then(res => {
         res.share(this.wxShareInfoValue)
       })
@@ -57,8 +55,7 @@ export default {
     //拿取图片id
     getImageById() {
       let id = this.$route.query.id
-      marketService
-        .getInfoById(this, id)
+      getInfoById(id)
         .then(result => {
           this.resultImgUrl = result.image
         })

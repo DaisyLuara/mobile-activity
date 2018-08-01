@@ -1,4 +1,6 @@
 <template>
+  <!-- eslint-diable -->
+  <!-- isAbandoned -->
   <div 
     class="popcorn-content">
     <div 
@@ -34,13 +36,8 @@
   </div>
 </template>
 <script>
-import marketService from 'services/marketing'
-import parseService from 'modules/parseServer'
-import { $_wechat, wechatShareTrack } from 'services'
-import { customTrack } from 'modules/customTrack'
+/* eslint-disable */
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
-import $ from 'jquery'
-
 export default {
   data() {
     return {
@@ -85,7 +82,7 @@ export default {
   },
   methods: {
     handleShare() {
-      $_wechat()
+      $wechat()
         .then(res => {
           res.share(this.wxShareInfoValue)
         })
@@ -96,8 +93,7 @@ export default {
     //拿取图片id
     getImageById() {
       let id = this.$route.query.id
-      marketService
-        .getInfoById(this, id)
+      getInfoById(id)
         .then(result => {
           this.resultImgUrl = result.image
         })

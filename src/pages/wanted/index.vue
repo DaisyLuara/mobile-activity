@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { validatePhone, $_wechat } from 'services'
+import { validatePhone, $wechat } from 'services'
 const serverUrl = process.env.CDN_URL
 export default {
   data() {
@@ -65,7 +65,7 @@ export default {
     }
   },
   mounted() {
-    $_wechat().then(res => {
+    $wechat().then(res => {
       res.forbidden()
     })
   },

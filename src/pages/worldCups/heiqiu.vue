@@ -91,7 +91,6 @@
 
 <script>
 const wiw = window.innerWidth
-import marketService from 'services/marketing'
 import { Toast, Indicator } from 'mint-ui'
 import GameMenu from './components/gameMenu'
 export default {
@@ -281,8 +280,7 @@ export default {
       if (this.$route.query.hasOwnProperty('id')) {
         let id = this.$route.query.id
         let that = this
-        marketService
-          .getInfoById(this, id)
+        getInfoById(id)
           .then(res => {
             that.bindImage = res.image
           })

@@ -41,10 +41,8 @@
   </div>
 </template>
 <script>
-import marketService from 'services/marketing'
-import { $_wechat, wechatShareTrack } from 'services'
-import { customTrack } from 'modules/customTrack'
-import parseService from 'modules/parseServer'
+import { $wechat, wechatShareTrack, getInfoById } from 'services'
+import { parseService } from 'services'
 const REQ_URL = 'http://120.27.144.62:1337/parse/classes/'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
@@ -73,7 +71,7 @@ export default {
         imgUrl:
           'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/capsuleToys_share_icon.png',
         success: function() {
-          customTrack.shareWeChat()
+          wechatShareTrack()
         }
       }
     }
@@ -116,7 +114,7 @@ export default {
       }
     },
     handleShare() {
-      $_wechat()
+      $wechat()
         .then(res => {
           res.share(this.wxShareInfoValue)
         })
@@ -129,7 +127,7 @@ export default {
         typeID: this.params.typeID
       }
       parseService
-        .get(this, REQ_URL + 'capsule_toys?where=' + JSON.stringify(query))
+        .get(REQ_URL + 'capsule_toys?where=' + JSON.stringify(query))
         .then(data => {
           if (data.results.length > 0) {
             this.update(data.results[0])
@@ -145,7 +143,6 @@ export default {
     update(data) {
       parseService
         .put(
-          this,
           REQ_URL + 'capsule_toys/' + data.objectId,
           JSON.stringify({ count: data.count + 1 })
         )
@@ -154,14 +151,13 @@ export default {
     },
     save() {
       parseService
-        .post(this, REQ_URL + 'capsule_toys', this.params)
+        .post(REQ_URL + 'capsule_toys', this.params)
         .then(res => {})
         .catch(err => {})
     },
     getInfoById() {
       let id = this.$route.query.id
-      marketService
-        .getInfoById(this, id)
+      getInfoById(id)
         .then(res => {
           this.drawCanvas(res.image)
           this.press = true

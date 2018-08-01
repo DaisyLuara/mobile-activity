@@ -27,20 +27,19 @@
         :key="index" 
         :src="item">
     </div>
-    <wx-share :wx-share-info="wxShareInfo"/>
   </div>
 </template>
 <script>
+import {
+  $wechat,
+  getInfoById,
+  wechatShareTrack,
+  isInWechat,
+  createV5Coupon
+} from 'services'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
-import marketService from 'services/marketing'
-import couponService from 'services/coupon'
-import WxShare from 'modules/wxShare'
-import { customTrack } from 'modules/customTrack'
 import Mydata from './data.js'
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
       IMAGE_URL: IMAGE_SERVER + '/pages/goodboy/',
@@ -60,7 +59,7 @@ export default {
         desc: ' 全民疯抢！Happy Dino—好孩子 2018大型特卖会正在进行中',
         imgUrl: IMAGE_SERVER + '/pages/goodboy/share.png',
         success: function() {
-          customTrack.shareWeChat()
+          wechatShareTrack()
         }
       }
     }
@@ -72,6 +71,7 @@ export default {
     this.couponCount()
   },
   mounted() {
+    this.handleWechatShare()
     var height =
       window.innerHeight ||
       document.documentElement.clientHeight ||
@@ -88,10 +88,22 @@ export default {
     console.log(w.style.fontSize)
   },
   methods: {
+    handleWechatShare() {
+      if (isInWechat() === true) {
+        $wechat()
+          .then(res => {
+            res.share(this.wxShareInfoValue)
+          })
+          .catch(err => {
+            console.warn(err.message)
+          })
+      } else {
+        console.warn('you r not in wechat environment')
+      }
+    },
     getInfoById() {
       let id = this.$route.query.id
-      marketService
-        .getInfoById(this, id)
+      getInfoById(id)
         .then(res => {
           this.mImg = res.image
           console.log(res)
@@ -105,8 +117,7 @@ export default {
         face_id: this.$route.query.id,
         coupon_batch_id: this.coupon_id[this.num]
       }
-      couponService
-        .createV5Coupon(this, parms)
+      createV5Coupon(parms)
         .then(res => {
           console.log(res)
         })
@@ -114,7 +125,7 @@ export default {
           console.log(err)
         })
     }
-  },
+  }
 }
 </script>
 <style lang="less" scoped>
