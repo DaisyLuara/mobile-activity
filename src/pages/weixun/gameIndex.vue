@@ -292,9 +292,6 @@
     <!-- cover -->
     <share-cover :shouldShow="status.shouldShareShow"/>
 
-    <!-- wechat share -->
-    <wx-share :WxShareInfo="wxShareInfo"></wx-share>
-
     <!-- suoha -->
     <suoha 
       ref="suoha" 
@@ -322,8 +319,7 @@ import {
 export default {
   components: {
     'share-cover': shareCover,
-    suoha: suoha,
-    WxShare
+    suoha: suoha
   },
   data() {
     return {
@@ -420,7 +416,7 @@ export default {
   },
   created() {
     this.init()
-    if (isWeixin() === true) {
+    if (isInWechat() === true) {
       this.handleWechatAuth()
       this.status.isInWechat = true
     }
