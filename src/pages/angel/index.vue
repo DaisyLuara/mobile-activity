@@ -409,7 +409,7 @@ export default {
     },
     addCurTypeImg() {
       // 获取图片url存入数据库
-      getInfoById(this, this.img_id)
+      getInfoById(this.img_id)
         .then(result => {
           this.img_url = result.image
           let params = {

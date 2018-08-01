@@ -179,7 +179,7 @@ export default {
     },
     getPhotoById() {
       let id = this.$route.query.id
-      getInfoById(this, id)
+      getInfoById(id)
         .then(res => {
           this.photo = res.image
           this.style.photo = {

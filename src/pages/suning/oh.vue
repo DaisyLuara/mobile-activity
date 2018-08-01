@@ -78,7 +78,7 @@ export default {
     //拿取图片id
     getImageById() {
       let id = this.$route.query.id
-      getInfoById(this, id)
+      getInfoById(id)
         .then(result => {
           this.resultImgUrl = result.image
         })
