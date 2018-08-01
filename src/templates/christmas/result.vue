@@ -53,10 +53,13 @@
   </div>
 </template>
 <script>
-import { getParamsMap, getParameter, setParameter } from 'services'
+import {
+  getParamsMap,
+  getParameter,
+  setParameter,
+  getPlayResultById
+} from 'services'
 import $ from 'jquery'
-
-import marketingService from 'services/marketing'
 export default {
   props: {
     marketingOptions: {
@@ -91,8 +94,7 @@ export default {
     }
   },
   created() {
-    marketingService
-      .getPlayResultById(this, this.$route.query.play_result_id)
+    getPlayResultById(this.$route.query.play_result_id)
       .then(data => {
         this.imgUrl = data.result_img_url
       })
