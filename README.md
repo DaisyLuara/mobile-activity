@@ -76,7 +76,7 @@ legacy 为以前的旧页面，新页面按照 sortByDate 文件夹排列
 
 可在任意单页内使用 this. 引用
 
-例如 this.$innerWidth
+例如 this.$innerWidth()
 
 ## Eslint
 
