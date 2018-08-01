@@ -55,7 +55,6 @@ export default {
   mounted() {
     $('.glass-wrap').css('height', $(window).height())
     var h = $('.glass-wrap').height()
-    this.handleShare()
     console.log(h)
     if (h == 812) {
       $('.heart').css('width', '70%')
