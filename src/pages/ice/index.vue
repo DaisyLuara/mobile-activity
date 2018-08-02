@@ -115,6 +115,8 @@ export default {
           } else if (this.touchNumber == 2) {
             this.iceShow.iceTwo = true
             this.iceShow.iceOne = false
+            this.hint1 = false
+            this.hint3 = true
           } else if (this.touchNumber == 3) {
             this.iceShow.iceThree = true
             this.iceShow.iceTwo = false
@@ -153,8 +155,8 @@ export default {
       left: 50%;
       top: 50%;
       -webkit-touch-callout: none;
-      -webkit-user-select: none;
       user-select: none;
+      pointer-events: none;
       transform: translate(-50%, -45%);
     }
     .X-photoHide {
@@ -163,8 +165,8 @@ export default {
       left: 50%;
       top: 50%;
       -webkit-touch-callout: none;
-      -webkit-user-select: none;
       user-select: none;
+      pointer-events: none;
       transform: translate(-50%, -45%);
     }
     .hint {
@@ -174,15 +176,25 @@ export default {
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
+      -webkit-touch-callout: none;
+      user-select: none;
+      pointer-events: none;
       z-index: 5;
       .hint2 {
         width: 30%;
         display: block;
         margin: 0 auto;
         animation: fingerScale 2s ease-out infinite forwards;
+        -webkit-touch-callout: none;
+        user-select: none;
+        pointer-events: none;
       }
-      img {
+      .hint1,
+      .hint3 {
         width: 50%;
+        -webkit-touch-callout: none;
+        user-select: none;
+        pointer-events: none;
       }
     }
     .ice-01 {
@@ -192,8 +204,8 @@ export default {
       top: 50%;
       transform: translate(-50%, -55%);
       -webkit-touch-callout: none;
-      -webkit-user-select: none;
       user-select: none;
+      pointer-events: none;
     }
     .ice-02 {
       width: 100%;
@@ -202,8 +214,8 @@ export default {
       top: 50%;
       transform: translate(-50%, -55%);
       -webkit-touch-callout: none;
-      -webkit-user-select: none;
       user-select: none;
+      pointer-events: none;
     }
     .ice-03 {
       width: 100%;
@@ -212,8 +224,8 @@ export default {
       top: 50%;
       transform: translate(-50%, -55%);
       -webkit-touch-callout: none;
-      -webkit-user-select: none;
       user-select: none;
+      pointer-events: none;
     }
   }
   .real-content {
@@ -229,6 +241,9 @@ export default {
       top: 14%;
       transform: translate(-50%, 0%);
       z-index: 5;
+      -webkit-touch-callout: none;
+      user-select: none;
+      pointer-events: none;
     }
     .photo {
       width: 56%;
