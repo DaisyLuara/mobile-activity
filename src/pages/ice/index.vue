@@ -10,14 +10,18 @@
         :class="{'X-photoHide':iphoneX}"
         class="photo-hide" >
       <div 
-        v-if="hint"
         class="hint">
         <img 
           :src="baseUrl + 'hint2.png'+ this.$qiniuCompress()"
           class="hint2" > 
         <img 
+          v-if="hint1"
           :src="baseUrl + 'hint1.png'+ this.$qiniuCompress()"
           class="hint1" > 
+        <img 
+          v-if="hint3"
+          :src="baseUrl + 'hint3.png'+ this.$qiniuCompress()"
+          class="hint3" > 
       </div>
       <img 
         v-if="iceShow.iceOne"
@@ -65,7 +69,8 @@ export default {
       photo: '',
       shade: true,
       realContent: false,
-      hint: true,
+      hint3: false,
+      hint1: true,
       iceShow: {
         iceOne: false,
         iceTwo: false,
@@ -73,7 +78,7 @@ export default {
       },
       touchNumber: 0,
       iphoneX: false,
-      wxShareInfo: {
+      wxShareInfoValue: {
         title: '冰力十足 酷爽一夏',
         desc: '看！卖萌的企鹅',
         link: 'http://papi.xingstation.com/api/s/o2j' + window.location.search,
@@ -107,13 +112,14 @@ export default {
           this.touchNumber++
           if (this.touchNumber == 1) {
             this.iceShow.iceOne = true
-            this.hint = false
           } else if (this.touchNumber == 2) {
             this.iceShow.iceTwo = true
             this.iceShow.iceOne = false
           } else if (this.touchNumber == 3) {
             this.iceShow.iceThree = true
             this.iceShow.iceTwo = false
+            this.hint1 = false
+            this.hint3 = true
           } else {
             this.iceShow.iceThree = false
             this.realContent = true
@@ -168,6 +174,7 @@ export default {
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
+      z-index: 5;
       .hint2 {
         width: 30%;
         display: block;
