@@ -399,22 +399,8 @@ export default {
         'https://m.damai.cn/damai/perform/item.html?projectId=150060&spm=a2o6e.search.0.0.6c286acelZQlgc'
     }
   },
-  computed: {
-    //微信分享
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
-        link: this.wxShareInfoValue.link,
-        success: () => {
-          customTrack.shareWeChat()
-        }
-      }
-      return wxShareInfo
-    }
-  },
   created() {
+    this.handleWechatShare()
     this.init()
     if (isInWechat() === true) {
       this.handleWechatAuth()
@@ -425,6 +411,19 @@ export default {
     document.body.style.overflow = ''
   },
   methods: {
+    handleWechatShare() {
+      if (isInWechat() === true) {
+        $wechat()
+          .then(res => {
+            res.share(this.wxShareInfoValue)
+          })
+          .catch(err => {
+            console.warn(err.message)
+          })
+      } else {
+        console.warn('you r not in wechat environment')
+      }
+    },
     saveDataToServer() {
       let rq_data = {
         userData: {
@@ -445,6 +444,7 @@ export default {
             window.location.origin +
             '/marketing/weiindex?sid=' +
             this.serverDataId
+          this.handleWechatShare()
         })
         .catch(err => {
           Toast(err)
