@@ -525,6 +525,9 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+img {
+  width: 100%;
+}
 @IMAGE_SERVER: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/angel';
 @keyframes fall1 {
   0% {
