@@ -115,6 +115,8 @@ export default {
           } else if (this.touchNumber == 2) {
             this.iceShow.iceTwo = true
             this.iceShow.iceOne = false
+            this.hint1 = false
+            this.hint3 = true
           } else if (this.touchNumber == 3) {
             this.iceShow.iceThree = true
             this.iceShow.iceTwo = false
