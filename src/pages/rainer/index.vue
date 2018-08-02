@@ -4,32 +4,26 @@
     class="content"
   >
     <div
+      :style="style.root"
       class="main">
-      <img 
+      <!-- <img 
         :src="base_url + 'bottom.png'" 
         class="bottom"
       >
       <img 
         :src="photo" 
         class="photo"
-      >
+      > -->
       <img 
         :src="photo" 
         class="photo top"
       >
-      <img 
-        :src="base_url + 'frame.png'"
-        class="frame" 
-      >
-      <canvas 
-        id="canvas"
-      />
     </div>
-    <img 
+    <!-- <img 
       v-show="Boolean(photo)"
       :src="base_url + 'save.png'" 
       class="save"
-    >
+    > -->
   </div>
 
 </template>
@@ -68,42 +62,68 @@ export default {
   methods: {
     doFrame() {
       import('pixi.js').then(PIXI => {
+        let type = 'WebGL'
+        if (!PIXI.utils.isWebGLSupported()) {
+          type = 'canvas'
+        }
+        PIXI.utils.sayHello(type)
         let app = new PIXI.Application({
           width: window.innerWidth,
-          height: window.innerHeight,
+          height: window.innerHeight + 20,
           transparent: true
         })
-        document.body.appendChild(app.view)
-        app.view.style.position = 'absolute'
+        document.querySelector('.main').appendChild(app.view)
+        app.view.style.position = 'relative'
         app.view.style.zIndex = '9999'
-        app.view.style.top = '0px'
-        app.view.style.left = '0px'
-        app.stop()
+        app.renderer.autoResize = true
+        app.renderer.resize(window.innerWidth, window.innerHeight + 20)
+        //app.stop()
+        let base = 'http://p22vy0aug.bkt.clouddn.com/image/rainer/'
+        let width = app.screen.width
+        let height = app.screen.height
+        let bottom = PIXI.Sprite.fromImage(base + 'bottom.png')
+        bottom.anchor.set(0.5, 0)
+        bottom.width = width * 0.81
+        bottom.height = width * 0.81 / 630 * 1016
+        bottom.position.set(width / 2, height * 0.05)
+        app.stage.addChild(bottom)
+        let mImg = this.photo + this.$qiniuCompress()
+        let photo = PIXI.Sprite.fromImage(mImg)
+        photo.anchor.set(0.5, 0)
+        photo.width = width * 0.675
+        photo.height = width * 0.675 / 1080 * 1920
+        photo.position.set(width / 2, height * 0.132)
+        app.stage.addChild(photo)
+
         let textureArray = []
         for (let i = 0; i < 12; i++) {
           i = i < 10 ? '0' + i : i
           let texture = PIXI.Texture.fromImage(
-            'http://p22vy0aug.bkt.clouddn.com/image/rainer/frame/frame_000' +
-              i +
-              '.png'
+            base + 'frame/frame_000' + i + '.png'
           )
           textureArray.push(texture)
         }
 
-        let end = PIXI.Texture.fromImage(
-          'http://p22vy0aug.bkt.clouddn.com/image/rainer/frame/frame_00011.png'
-        )
+        let end = PIXI.Texture.fromImage(base + '/frame/frame_00011.png')
         for (let i = 0; i < 4; i++) {
           textureArray.push(end)
         }
         let animatedSprite = new PIXI.extras.AnimatedSprite(textureArray)
         animatedSprite.anchor.set(0.5, 0)
-        animatedSprite.position.set(app.screen.width / 2, 10)
-        animatedSprite.scale.set(0.5)
+        animatedSprite.position.set(width / 2, 10)
+        animatedSprite.width = width * 0.91
+        animatedSprite.height = width * 0.91 / 685 * 1096
         animatedSprite.animationSpeed = 0.1
         animatedSprite.gotoAndPlay(0)
         app.stage.addChild(animatedSprite)
         app.start()
+
+        let save = PIXI.Sprite.fromImage(base + 'save.png')
+        save.anchor.set(0.5, 0)
+        save.width = width * 0.56
+        save.height = width * 0.56 / 412 * 82
+        save.position.set(width / 2, height * 0.9 + 7)
+        app.stage.addChild(save)
       })
     }
   }
@@ -160,34 +180,19 @@ img {
       z-index: 0;
     }
     .top {
-      z-index: 999;
+      z-index: 999999;
       pointer-events: auto;
       user-select: auto;
       opacity: 0;
-    }
-    .frame {
-      width: 91%;
-      opacity: 0;
-      position: relative;
-      margin: 0 auto;
-      margin-top: 1.5%;
-      margin-bottom: 2%;
-      z-index: 99;
     }
   }
   .save {
     width: 56%;
     margin: 0 auto;
     margin-bottom: 4%;
-    margin-top: 0.5%;
-  }
-  #canvas {
-    width: 91%;
-    position: absolute;
-    top: 1.5%;
-    left: 50%;
-    z-index: 99;
-    transform: translateX(-50%);
+    margin-top: -10%;
+    position: relative;
+    z-index: 999;
   }
 }
 
