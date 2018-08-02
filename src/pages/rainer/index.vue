@@ -7,20 +7,20 @@
       class="main">
       <img 
         :src="base_url + 'bottom.png'" 
-        class="bottom">
+        class="bottom"
+      />
       <img 
         :src="photo" 
-        class="photo">
+        class="photo"
+      />
       <img 
         :src="photo" 
-        class="photo top">
-      <div 
-        :class="{border:true,playAnim:playAnim}">
-        <img 
-          :src="base_url + 'frame.png'"
-          class="frame" 
-        >
-      </div>
+        class="photo top"
+      />
+      <img 
+        :src="base_url + 'frame.png'"
+        class="frame" 
+      />
       <canvas 
         id="canvas"
       />
@@ -28,7 +28,8 @@
     <img 
       v-show="Boolean(photo)"
       :src="base_url + 'save.png'" 
-      class="save">
+      class="save"
+    />
   </div>
 
 </template>
@@ -163,19 +164,6 @@ img {
       pointer-events: auto;
       user-select: auto;
       opacity: 0;
-    }
-    .border {
-      display: block;
-      width: 100%;
-      // background-image: url('@{baseUrl}/frame/frame_00000.png');
-      background-repeat: no-repeat;
-      background-position: center 5px;
-      background-size: 92% auto;
-      position: relative;
-      z-index: 99;
-    }
-    .playAnim {
-      animation: frame 1s linear infinite alternate;
     }
     .frame {
       width: 91%;
