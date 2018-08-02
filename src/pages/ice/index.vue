@@ -6,8 +6,7 @@
       v-show="shade"
       class="shade">
       <img 
-        v-if="photo !== null" 
-        :src="photo + this.$qiniuCompress()"
+        :src="baseUrl + 'fake.png'+ this.$qiniuCompress()"
         :class="{'X-photoHide':iphoneX}"
         class="photo-hide" >
       <div 
