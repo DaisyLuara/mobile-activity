@@ -36,10 +36,10 @@
     <div 
       v-show="realContent"
       class="real-content">
-        <img 
+      <img 
         :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
         class="save" >
-        <img 
+      <img 
         v-if="photo !== null" 
         :src="photo + this.$qiniuCompress()"
         :class="{'X-photo':iphoneX}"
@@ -49,9 +49,7 @@
 </template>
 
 <script>
-const wih = window.innerHeight
-const wiw = window.innerWidth
-import { $wechat, wechatShareTrack, getInfoById, isInWechat } from 'services'
+import { wechatShareTrack } from 'services'
 import { normalPages } from '../../mixins/normalPages'
 const cdnUrl = process.env.CDN_URL
 
@@ -62,7 +60,7 @@ export default {
       baseUrl: cdnUrl + '/fe/marketing/img/ice/',
       style: {
         root: {
-          height: wih + 'px'
+          height: this.$innerHeight() + 'px'
         }
       },
       photo: '',
