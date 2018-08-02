@@ -75,8 +75,9 @@ export default {
       touchNumber: 0,
       iphoneX: false,
       wxShareInfo: {
-        title: '全天欢唱 买一送二',
-        desc: '购买一小时赠送2小时',
+        title: '冰力十足 酷爽一夏',
+        desc: '看！卖萌的企鹅',
+        link: 'http://papi.xingstation.com/api/s/o2j' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/ice/icon.jpg',
         success: () => {
           wechatShareTrack()
@@ -90,7 +91,7 @@ export default {
     document.addEventListener('touchend', this.touch, false)
   },
   mounted() {
-    let height = wih
+    let height = this.$innerHeight()
     if (height > 672) {
       this.iphoneX = true
     } else {
