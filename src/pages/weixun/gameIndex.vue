@@ -306,7 +306,6 @@ const wiw = window.innerWidth
 const wih = window.innerHeight
 import shareCover from './components/shareCover'
 import suoha from './components/suoha'
-import { Toast } from 'mint-ui'
 import { generate, randomNum } from './random/index.js'
 import {
   getWxUserInfo,
@@ -447,7 +446,7 @@ export default {
           this.handleWechatShare()
         })
         .catch(err => {
-          Toast(err)
+          console.warn(err.message)
         })
     },
     getDataBySid() {
@@ -467,7 +466,7 @@ export default {
           this.status.shouldResultShow = true
         })
         .catch(err => {
-          Toast(err)
+          console.warn(err.message)
         })
     },
     init() {
@@ -577,7 +576,7 @@ export default {
             }
           })
           .catch(err => {
-            Toast(err)
+            console.warn(err.message)
           })
       }
     },
