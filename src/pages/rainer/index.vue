@@ -14,10 +14,13 @@
       <img 
         :src="photo" 
         class="photo top">
-      <img 
-        :src="base_url + 'frame.png'"
-        class="frame" 
-      >
+      <div 
+        :class="{border:true,playAnim:playAnim}">
+        <img 
+          :src="base_url + 'frame.png'"
+          class="frame" 
+        >
+      </div>
       <canvas 
         id="canvas"
       />
@@ -45,10 +48,12 @@ export default {
       },
       note: Boolean(this.photo),
       photo: null,
+      playAnim: true,
       //分享
       wxShareInfoValue: {
         title: '秘密花园 尽显美颜',
         desc: '快来寻找秘密花园，施展你的小小控雨魔法',
+        link: 'http://papi.xingstation.com/api/s/n5R' + window.location.search,
         imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/rainer/icon.jpg',
         success: function() {
           wechatShareTrack()
@@ -57,47 +62,48 @@ export default {
     }
   },
   mounted() {
-    this.doCanvas()
+    this.doFrame()
   },
   methods: {
-    doCanvas() {
-      let that = this
-      let canvas = document.getElementById('canvas')
-      let ctx = canvas.getContext('2d')
-      let frame = new Image()
-      let i = 0.7
-      let flag = true
-      frame.setAttribute('crossOrigin', 'Anonymous')
-      frame.onload = function() {
-        canvas.width = frame.width
-        canvas.height = frame.height
-        ctx.drawImage(frame, 0, 0)
-        doAnim()
-      }
-      frame.src = 'http://p22vy0aug.bkt.clouddn.com/image/rainer/frame.png'
-      let lightImage = function(image, x, y, light) {
-        // 绘制图片
-        ctx.drawImage(image, x, y)
-        // 获取从x、y开始，宽为image.width、高为image.height的图片数据
-        // 也就是获取绘制的图片数据
-        let imgData = ctx.getImageData(x, y, image.width, image.height)
-        for (let i = 0, len = imgData.data.length; i < len; i += 4) {
-          // 改变每个像素的R、G、B值
-          imgData.data[i + 0] = imgData.data[i + 0] * light
-          imgData.data[i + 1] = imgData.data[i + 1] * light
-          imgData.data[i + 2] = imgData.data[i + 2] * light
+    doFrame() {
+      import('pixi.js').then(PIXI => {
+        let app = new PIXI.Application({
+          width: window.innerWidth,
+          height: window.innerHeight,
+          transparent: true
+        })
+        document.body.appendChild(app.view)
+        app.view.style.position = 'absolute'
+        app.view.style.zIndex = '9999'
+        app.view.style.top = '0px'
+        app.view.style.left = '0px'
+        app.stop()
+        let textureArray = []
+        for (let i = 0; i < 12; i++) {
+          i = i < 10 ? '0' + i : i
+          let texture = PIXI.Texture.fromImage(
+            'http://p22vy0aug.bkt.clouddn.com/image/rainer/frame/frame_000' +
+              i +
+              '.png'
+          )
+          textureArray.push(texture)
         }
-        // 将获取的图片数据放回去。
-        ctx.putImageData(imgData, x, y)
-      }
-      function doAnim() {
-        if (i > 3 || i < 0.7) {
-          flag = !flag
+
+        let end = PIXI.Texture.fromImage(
+          'http://p22vy0aug.bkt.clouddn.com/image/rainer/frame/frame_00011.png'
+        )
+        for (let i = 0; i < 4; i++) {
+          textureArray.push(end)
         }
-        i = flag ? i + 0.02 : i - 0.02
-        lightImage(frame, 0, 0, i)
-        var timer = window.requestAnimationFrame(doAnim)
-      }
+        let animatedSprite = new PIXI.extras.AnimatedSprite(textureArray)
+        animatedSprite.anchor.set(0.5, 0)
+        animatedSprite.position.set(app.screen.width / 2, 10)
+        animatedSprite.scale.set(0.5)
+        animatedSprite.animationSpeed = 0.1
+        animatedSprite.gotoAndPlay(0)
+        app.stage.addChild(animatedSprite)
+        app.start()
+      })
     }
   }
 }
@@ -158,6 +164,19 @@ img {
       user-select: auto;
       opacity: 0;
     }
+    .border {
+      display: block;
+      width: 100%;
+      // background-image: url('@{baseUrl}/frame/frame_00000.png');
+      background-repeat: no-repeat;
+      background-position: center 5px;
+      background-size: 92% auto;
+      position: relative;
+      z-index: 99;
+    }
+    .playAnim {
+      animation: frame 1s linear infinite alternate;
+    }
     .frame {
       width: 91%;
       opacity: 0;
@@ -183,14 +202,7 @@ img {
     transform: translateX(-50%);
   }
 }
-@keyframes aniBlink120 {
-  from {
-    margin-left: -60px;
-  }
-  to {
-    margin-left: 520px;
-  }
-}
+
 @media screen {
   @media (min-height: 700px) {
     .content {
