@@ -6,24 +6,11 @@
     <div
       :style="style.root"
       class="main">
-      <!-- <img 
-        :src="base_url + 'bottom.png'" 
-        class="bottom"
-      >
-      <img 
-        :src="photo" 
-        class="photo"
-      > -->
       <img 
         :src="photo" 
         class="photo top"
       >
     </div>
-    <!-- <img 
-      v-show="Boolean(photo)"
-      :src="base_url + 'save.png'" 
-      class="save"
-    > -->
   </div>
 
 </template>
@@ -69,15 +56,12 @@ export default {
         PIXI.utils.sayHello(type)
         let app = new PIXI.Application({
           width: window.innerWidth,
-          height: window.innerHeight + 20,
           transparent: true
         })
         document.querySelector('.main').appendChild(app.view)
         app.view.style.position = 'relative'
         app.view.style.zIndex = '9999'
-        app.renderer.autoResize = true
-        app.renderer.resize(window.innerWidth, window.innerHeight + 20)
-        //app.stop()
+        app.stop()
         let base = 'http://p22vy0aug.bkt.clouddn.com/image/rainer/'
         let width = app.screen.width
         let height = app.screen.height
@@ -87,7 +71,7 @@ export default {
         bottom.height = width * 0.81 / 630 * 1016
         bottom.position.set(width / 2, height * 0.05)
         app.stage.addChild(bottom)
-        let mImg = this.photo + this.$qiniuCompress()
+        let mImg = this.photo //this.$qiniuCompress()
         let photo = PIXI.Sprite.fromImage(mImg)
         photo.anchor.set(0.5, 0)
         photo.width = width * 0.675
@@ -122,8 +106,15 @@ export default {
         save.anchor.set(0.5, 0)
         save.width = width * 0.56
         save.height = width * 0.56 / 412 * 82
-        save.position.set(width / 2, height * 0.9 + 7)
+        save.position.set(
+          width / 2,
+          animatedSprite.height + animatedSprite.y + 5
+        )
         app.stage.addChild(save)
+        app.screen.height = save.height + save.y + 10
+        app.renderer.autoResize = true
+        app.renderer.resize(window.innerWidth, save.height + save.y)
+        app.view.style.marginBottom = '20px'
       })
     }
   }
@@ -196,13 +187,17 @@ img {
   }
 }
 
-@media screen {
-  @media (min-height: 700px) {
-    .content {
-      padding-top: 7%;
-    }
-  }
-}
+// @media screen {
+//   @media (min-height: 700px) {
+//     .content {
+//       padding-top: 7%;
+//       overflow: hidden;
+//     }
+//     .main {
+//       overflow: hidden;
+//     }
+//   }
+// }
 </style>
 
 
