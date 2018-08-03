@@ -16,10 +16,10 @@
 </template>
 <script>
 import { $wechat, getInfoById, wechatShareTrack } from 'services'
-import { normalPages } from '../../mixins/normalPages'
+import { onlyWechatShare } from '../../mixins/onlyWechatShare'
 const IMG_SERVER = 'http://p22vy0aug.bkt.clouddn.com/'
 export default {
-  mixins: [normalPages],
+  mixins: [onlyWechatShare],
   data() {
     return {
       base_url: IMG_SERVER + 'image/rainer/',
@@ -49,8 +49,8 @@ export default {
       let id = this.$route.query.id
       getInfoById(id)
         .then(res => {
-          let image = res.image
-          this.doFrame(image)
+          this.photo = res.image
+          this.doFrame(this.photo)
         })
         .catch(err => {
           console.log(err)
@@ -129,7 +129,6 @@ export default {
           animatedSprite.height + animatedSprite.y + 5
         )
         app.stage.addChild(save)
-        console.log(this.photo)
       })
     }
   }
