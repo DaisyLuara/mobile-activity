@@ -28,9 +28,7 @@ export default {
           'min-height': this.$innerHeight() + 'px'
         }
       },
-      note: Boolean(this.photo),
       photo: null,
-      playAnim: true,
       //分享
       wxShareInfoValue: {
         title: '秘密花园 尽显美颜',
@@ -44,24 +42,43 @@ export default {
     }
   },
   mounted() {
-    this.doFrame()
+    this.getInfoById()
   },
   methods: {
-    doFrame() {
+    getInfoById() {
+      let id = this.$route.query.id
+      getInfoById(id)
+        .then(res => {
+          let image = res.image
+          this.doFrame(image)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    doFrame(image) {
       import('pixi.js').then(PIXI => {
         let type = 'WebGL'
         if (!PIXI.utils.isWebGLSupported()) {
           type = 'canvas'
         }
         PIXI.utils.sayHello(type)
+        let that = this
+        let app_height =
+          window.innerHeight > 667
+            ? window.innerHeight
+            : window.innerHeight + 30
         let app = new PIXI.Application({
           width: window.innerWidth,
+          height: app_height,
           transparent: true
         })
         document.querySelector('.main').appendChild(app.view)
+        app.renderer.autoResize = true
+        app.renderer.resize(window.innerWidth, app_height)
         app.view.style.position = 'relative'
         app.view.style.zIndex = '9999'
-        app.stop()
+
         let base = 'http://p22vy0aug.bkt.clouddn.com/image/rainer/'
         let width = app.screen.width
         let height = app.screen.height
@@ -71,12 +88,11 @@ export default {
         bottom.height = width * 0.81 / 630 * 1016
         bottom.position.set(width / 2, height * 0.05)
         app.stage.addChild(bottom)
-        let mImg = this.photo //this.$qiniuCompress()
-        let photo = PIXI.Sprite.fromImage(mImg)
+
+        let photo = PIXI.Sprite.fromImage(image, true)
         photo.anchor.set(0.5, 0)
         photo.width = width * 0.675
         photo.height = width * 0.675 / 1080 * 1920
-        photo.position.set(width / 2, height * 0.132)
         app.stage.addChild(photo)
 
         let textureArray = []
@@ -87,7 +103,6 @@ export default {
           )
           textureArray.push(texture)
         }
-
         let end = PIXI.Texture.fromImage(base + '/frame/frame_00011.png')
         for (let i = 0; i < 4; i++) {
           textureArray.push(end)
@@ -101,7 +116,10 @@ export default {
         animatedSprite.gotoAndPlay(0)
         app.stage.addChild(animatedSprite)
         app.start()
-
+        photo.position.set(
+          width / 2,
+          animatedSprite.y + animatedSprite.height * 0.13
+        )
         let save = PIXI.Sprite.fromImage(base + 'save.png')
         save.anchor.set(0.5, 0)
         save.width = width * 0.56
@@ -111,10 +129,7 @@ export default {
           animatedSprite.height + animatedSprite.y + 5
         )
         app.stage.addChild(save)
-        app.screen.height = save.height + save.y + 10
-        app.renderer.autoResize = true
-        app.renderer.resize(window.innerWidth, save.height + save.y)
-        app.view.style.marginBottom = '20px'
+        console.log(this.photo)
       })
     }
   }
@@ -186,18 +201,6 @@ img {
     z-index: 999;
   }
 }
-
-// @media screen {
-//   @media (min-height: 700px) {
-//     .content {
-//       padding-top: 7%;
-//       overflow: hidden;
-//     }
-//     .main {
-//       overflow: hidden;
-//     }
-//   }
-// }
 </style>
 
 
