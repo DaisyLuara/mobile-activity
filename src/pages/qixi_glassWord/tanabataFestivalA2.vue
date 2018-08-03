@@ -136,7 +136,7 @@ export default {
   .close {
     position: absolute;
     right: 0%;
-    top: 23%;
+    top: 20%;
     z-index: 10001;
   }
   .bg {
