@@ -6,24 +6,11 @@
     <div
       :style="style.root"
       class="main">
-      <!-- <img 
-        :src="base_url + 'bottom.png'" 
-        class="bottom"
-      >
-      <img 
-        :src="photo" 
-        class="photo"
-      > -->
       <img 
         :src="photo" 
         class="photo top"
       >
     </div>
-    <!-- <img 
-      v-show="Boolean(photo)"
-      :src="base_url + 'save.png'" 
-      class="save"
-    > -->
   </div>
 
 </template>
