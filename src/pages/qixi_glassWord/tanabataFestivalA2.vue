@@ -26,15 +26,15 @@
     <div 
       class="photo">
       <img  
-        v-if="photo!== null" 
-        :src="photo+ this.$qiniuCompress()" 
+        v-if="photoUrl !== null" 
+        :src="photoUrl+ this.$qiniuCompress()" 
         alt="">
     </div>  
     <div 
       class="real-photo">
       <img 
-        v-if="photo!== null" 
-        :src="photo+ this.$qiniuCompress()" 
+        v-if="photoUrl !== null" 
+        :src="photoUrl+ this.$qiniuCompress()" 
         alt="">
     </div>  
     <img 
@@ -66,24 +66,24 @@
   </div>
 </template>
 <script>
+const wih = window.innerWidth * 667 / 375
+const wiw = window.innerWidth
 import lottie from 'lottie-web'
-import { wechatShareTrack } from 'services'
-import { normalPages } from '../../mixins/normalPages'
+import { $wechat, wechatShareTrack, getInfoById, isInWechat } from 'services'
 const cdnUrl = process.env.CDN_URL
 export default {
-  mixins: [normalPages],
   data() {
     return {
       baseUrl: cdnUrl + '/fe/marketing/img/tanabataFestival/',
       style: {
         root: {
-          height: this.$innerHeight() + 'px'
+          height: wih + 'px'
         }
       },
       shade: true,
       close: true,
-      photo: '',
-      wxShareInfoValue: {
+      photoUrl: '',
+      wxShareInfo: {
         title: '七夕，我们谈个恋爱吧！',
         desc: '用一生说我爱你',
         link: 'http://papi.xingstation.com/api/s/rkE' + window.location.search,
@@ -94,9 +94,36 @@ export default {
       }
     }
   },
-  created() {},
-  mounted() {},
+  created() {
+    this.getInfo()
+  },
+  mounted() {
+    this.handleWeChatShare()
+  },
+
   methods: {
+    //处理微信分享
+    handleWeChatShare() {
+      if (isInWechat() === true) {
+        $wechat()
+          .then(res => {
+            res.share(this.wxShareInfo)
+          })
+          .catch(_ => {
+            console.warn(_.message)
+          })
+      }
+    },
+    getInfo() {
+      let id = this.$route.query.id
+      getInfoById(id)
+        .then(res => {
+          this.photoUrl = res.image
+        })
+        .catch(_ => {
+          console.warn(_.message)
+        })
+    },
     goLink() {
       window.location.href =
         'https://m.51jiabo.com/sh/vipCoupon/29.html?from=singlemessage&isappinstalled=0'
@@ -137,7 +164,7 @@ export default {
   .close {
     position: absolute;
     right: 0%;
-    top: 20%;
+    top: 23%;
     z-index: 10001;
   }
   .bg {
