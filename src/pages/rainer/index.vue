@@ -38,13 +38,49 @@ export default {
         success: function() {
           wechatShareTrack()
         }
-      }
+      },
+      imgList: []
     }
   },
   mounted() {
-    this.getInfoById()
+    let base = 'http://p22vy0aug.bkt.clouddn.com/image/rainer/'
+    for (let i = 0; i < 12; i++) {
+      i = i < 10 ? '0' + i : i
+      let texture = base + 'frame/frame_000' + i + '.png'
+      this.imgList.push(texture)
+    }
+    this.entry(this.imgList, r => {
+      console.dir(r)
+      this.getInfoById()
+      // do next
+    })
   },
   methods: {
+    loadImgs(imgList) {
+      let preList = []
+      for (let i = 0; i < this.imgList.length; i++) {
+        let pre = new Promise((resolve, reject) => {
+          let img = new Image()
+          img.onload = function() {
+            resolve(img)
+          }
+          img.src = this.imgList[i]
+        })
+        preList.push(pre)
+      }
+      return Promise.all(preList).then(r => {
+        return Promise.resolve(r)
+      })
+    },
+    async entry(imgList, cb) {
+      try {
+        let rs = await this.loadImgs(imgList)
+        cb(rs)
+      } catch (err) {
+        console.log(err)
+        cb([])
+      }
+    },
     getInfoById() {
       let id = this.$route.query.id
       getInfoById(id)
