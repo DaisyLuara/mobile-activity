@@ -43,15 +43,21 @@ export default {
     }
   },
   mounted() {
+    let base = 'http://p22vy0aug.bkt.clouddn.com/image/rainer/'
+    for (let i = 0; i < 12; i++) {
+      i = i < 10 ? '0' + i : i
+      let texture = base + 'frame/frame_000' + i + '.png'
+      this.imgList.push(texture)
+    }
     this.entry(this.imgList, r => {
       console.dir(r)
+      this.getInfoById()
       // do next
     })
-    this.getInfoById()
   },
   methods: {
     loadImgs(imgList) {
-      let preList
+      let preList = []
       for (let i = 0; i < this.imgList.length; i++) {
         let pre = new Promise((resolve, reject) => {
           let img = new Image()
