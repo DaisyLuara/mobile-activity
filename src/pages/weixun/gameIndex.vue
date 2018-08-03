@@ -128,16 +128,16 @@
           >
         </div>
         <img
-          class="copywriting" 
-          :src="serverUrl + 'copywriting_' + random4 + '.png'"
+          :src="serverUrl + 'copywriting_' + random4 + '.png'" 
+          class="copywriting"
         >
       </div>
 
       <!-- 结果卡片 -->
       <div
+        v-show="status.shouldResultShow"
         id="resultcard"
-        class="result-contianer"
-        v-show="status.shouldResultShow">
+        class="result-contianer">
         <div class="card">
           <img
             :src="serverUrl + 'card_background.png'" 
@@ -149,7 +149,7 @@
           >
           <div 
             class="card-avatar-top"
-            >
+          >
             <img 
               :src="userInfo.headimgurl"  
             >
@@ -174,7 +174,7 @@
               <div class="line-value-2">{{ randomInfo.teji[4] }}%</div>
             </div>
             <div class="info-line">
-              <div class="line-label"></div>
+              <div class="line-label"/>
               <div class="line-value-1">{{ randomInfo.teji[2] }}</div>
               <div class="line-value-2">{{ randomInfo.teji[5] }}%</div>
             </div>
@@ -193,11 +193,16 @@
               <span class="line-value">{{ randomInfo.chenggonglv }}</span>
             </div>
             <div class="info-line-2">
-              <div class="line-label" style="width: 28% ">音色评价:</div>
-              <div class="line-value" style="width: 70% ">
+              <div 
+                class="line-label" 
+                style="width: 28% ">音色评价:</div>
+              <div 
+                class="line-value" 
+                style="width: 70% ">
                 <img 
                   v-for="(item,index) in randomInfo.yinse" 
-                  :key="index" :src="serverUrl + 'love.png'" 
+                  :key="index" 
+                  :src="serverUrl + 'love.png'" 
                 >
               </div>
             </div>
@@ -224,44 +229,44 @@
         <div class="func">
           <div
             v-if="control.isInSharePage === false"
+            class="button-contianer" 
             @touchstart="handleAgainButtonTouch" 
-            @touchend="handleAgainButtonTouchEnd" 
-            class="button-contianer">
+            @touchend="handleAgainButtonTouchEnd">
             <img
-              :src="serverUrl + 'button_1.png'" 
               v-show="!status.isAgainButtonTouch" 
+              :src="serverUrl + 'button_1.png'" 
             >
             <img 
-              :src="serverUrl + 'button_1_press.png'" 
               v-show="status.isAgainButtonTouch" 
+              :src="serverUrl + 'button_1_press.png'" 
             >
           </div>
           <div
             v-if="control.isInSharePage === false"
-            @touchstart="handleShareButtonTouch" 
-            @touchend.prevent="handleShareButtonTouchEnd"  
-            class="button-contianer">
+            class="button-contianer" 
+            @touchstart="handleShareButtonTouch"  
+            @touchend.prevent="handleShareButtonTouchEnd">
             <img
-              :src="serverUrl + 'button_2.png'" 
               v-show="!status.isShareButtonTouch" 
+              :src="serverUrl + 'button_2.png'" 
             >
             <img
-              :src="serverUrl + 'button_2_press.png'" 
               v-show="status.isShareButtonTouch" 
+              :src="serverUrl + 'button_2_press.png'" 
             >
           </div>
           <div 
             v-if="control.isInSharePage === true"
+            class="button-contianer-middle" 
             @touchstart="handleIamGoPlayButtonTouch" 
-            @touchend="handleIamGoPlayButtonTouchEnd" 
-            class="button-contianer-middle">
+            @touchend="handleIamGoPlayButtonTouchEnd">
             <img
-              :src="serverUrl + 'button_3.png'" 
               v-show="!status.isIamGoingToPlayClick" 
+              :src="serverUrl + 'button_3.png'" 
             >
             <img
-              :src="serverUrl + 'button_3_press.png'" 
               v-show="status.isIamGoingToPlayClick" 
+              :src="serverUrl + 'button_3_press.png'" 
             >
           </div>
         </div>      
@@ -270,32 +275,32 @@
     
     <!-- concert -->
     <img
-      class="concert"
-      :src="serverUrl + 'concert.png'" />
+      :src="serverUrl + 'concert.png'"
+      class="concert" >
     
     <div
+      class="concert-button"
       @touchstart="handleConcertButtonTouch"
-      @touchend="handleConcertButtonTouchEnd"
-      class="concert-button">
+      @touchend="handleConcertButtonTouchEnd">
       <img
-        :src="serverUrl + 'concert_button.png'" 
         v-show="!status.isConcertButtonClick" 
+        :src="serverUrl + 'concert_button.png'" 
       >
 
       <img
-        :src="serverUrl + 'concert_button_press.png'" 
         v-show="status.isConcertButtonClick" 
+        :src="serverUrl + 'concert_button_press.png'" 
       >
 
     </div>
 
     <!-- cover -->
-    <share-cover :shouldShow="status.shouldShareShow"/>
+    <share-cover :should-show="status.shouldShareShow"/>
 
     <!-- suoha -->
     <suoha 
       ref="suoha" 
-      :shouldShow="status.shouldSuoHaShow"/>
+      :should-show="status.shouldSuoHaShow"/>
   </div>
 </template>
 

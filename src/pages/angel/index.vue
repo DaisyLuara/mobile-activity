@@ -221,9 +221,6 @@ import {
   parseService
 } from 'services'
 export default {
-  components: {
-    WxShare
-  },
   data() {
     return {
       IMAGE_SERVER: IMAGE_SERVER + '/pages/angel/',
@@ -436,7 +433,7 @@ export default {
         })
     },
     updateCurTypeImg(data) {
-      getInfoById(this, this.img_id)
+      getInfoById(this.img_id)
         .then(result => {
           this.img_url = result.image
           // 更新类型图片
@@ -528,6 +525,9 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+img {
+  width: 100%;
+}
 @IMAGE_SERVER: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/angel';
 @keyframes fall1 {
   0% {

@@ -1,5 +1,6 @@
 <template>
   <!-- eslint-disable -->
+  <!-- Abandoned -->
   <div 
     :style="style.root" 
     class="cp-root">
@@ -38,6 +39,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 const wiw = window.innerWidth
 const wih = window.innerHeight
 import { Toast } from 'mint-ui'

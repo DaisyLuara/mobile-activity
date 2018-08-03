@@ -4,37 +4,22 @@
     class="content"
   >
     <div
+      :style="style.root"
       class="main">
       <img 
-        :src="base_url + 'bottom.png'" 
-        class="bottom">
-      <img 
         :src="photo" 
-        class="photo">
-      <img 
-        :src="photo" 
-        class="photo top">
-      <img 
-        :src="base_url + 'frame.png'"
-        class="frame" 
+        class="photo top"
       >
-      <canvas 
-        id="canvas"
-      />
     </div>
-    <img 
-      v-show="Boolean(photo)"
-      :src="base_url + 'save.png'" 
-      class="save">
   </div>
 
 </template>
 <script>
 import { $wechat, getInfoById, wechatShareTrack } from 'services'
-import { normalPages } from '../../mixins/normalPages'
+import { onlyWechatShare } from '../../mixins/onlyWechatShare'
 const IMG_SERVER = 'http://p22vy0aug.bkt.clouddn.com/'
 export default {
-  mixins: [normalPages],
+  mixins: [onlyWechatShare],
   data() {
     return {
       base_url: IMG_SERVER + 'image/rainer/',
@@ -43,12 +28,12 @@ export default {
           'min-height': this.$innerHeight() + 'px'
         }
       },
-      note: Boolean(this.photo),
       photo: null,
       //分享
       wxShareInfoValue: {
         title: '秘密花园 尽显美颜',
         desc: '快来寻找秘密花园，施展你的小小控雨魔法',
+        link: 'http://papi.xingstation.com/api/s/n5R' + window.location.search,
         imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/rainer/icon.jpg',
         success: function() {
           wechatShareTrack()
@@ -57,47 +42,94 @@ export default {
     }
   },
   mounted() {
-    this.doCanvas()
+    this.getInfoById()
   },
   methods: {
-    doCanvas() {
-      let that = this
-      let canvas = document.getElementById('canvas')
-      let ctx = canvas.getContext('2d')
-      let frame = new Image()
-      let i = 0.7
-      let flag = true
-      frame.setAttribute('crossOrigin', 'Anonymous')
-      frame.onload = function() {
-        canvas.width = frame.width
-        canvas.height = frame.height
-        ctx.drawImage(frame, 0, 0)
-        doAnim()
-      }
-      frame.src = 'http://p22vy0aug.bkt.clouddn.com/image/rainer/frame.png'
-      let lightImage = function(image, x, y, light) {
-        // 绘制图片
-        ctx.drawImage(image, x, y)
-        // 获取从x、y开始，宽为image.width、高为image.height的图片数据
-        // 也就是获取绘制的图片数据
-        let imgData = ctx.getImageData(x, y, image.width, image.height)
-        for (let i = 0, len = imgData.data.length; i < len; i += 4) {
-          // 改变每个像素的R、G、B值
-          imgData.data[i + 0] = imgData.data[i + 0] * light
-          imgData.data[i + 1] = imgData.data[i + 1] * light
-          imgData.data[i + 2] = imgData.data[i + 2] * light
+    getInfoById() {
+      let id = this.$route.query.id
+      getInfoById(id)
+        .then(res => {
+          this.photo = res.image
+          this.doFrame(this.photo)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    doFrame(image) {
+      import('pixi.js').then(PIXI => {
+        let type = 'WebGL'
+        if (!PIXI.utils.isWebGLSupported()) {
+          type = 'canvas'
         }
-        // 将获取的图片数据放回去。
-        ctx.putImageData(imgData, x, y)
-      }
-      function doAnim() {
-        if (i > 3 || i < 0.7) {
-          flag = !flag
+        PIXI.utils.sayHello(type)
+        let that = this
+        let app_height =
+          window.innerHeight > 667
+            ? window.innerHeight
+            : window.innerHeight + 30
+        let app = new PIXI.Application({
+          width: window.innerWidth,
+          height: app_height,
+          transparent: true
+        })
+        document.querySelector('.main').appendChild(app.view)
+        app.renderer.autoResize = true
+        app.renderer.resize(window.innerWidth, app_height)
+        app.view.style.position = 'relative'
+        app.view.style.zIndex = '9999'
+
+        let base = 'http://p22vy0aug.bkt.clouddn.com/image/rainer/'
+        let width = app.screen.width
+        let height = app.screen.height
+        let bottom = PIXI.Sprite.fromImage(base + 'bottom.png')
+        bottom.anchor.set(0.5, 0)
+        bottom.width = width * 0.81
+        bottom.height = width * 0.81 / 630 * 1016
+        bottom.position.set(width / 2, height * 0.05)
+        app.stage.addChild(bottom)
+
+        let photo = PIXI.Sprite.fromImage(image, true)
+        photo.anchor.set(0.5, 0)
+        photo.width = width * 0.675
+        photo.height = width * 0.675 / 1080 * 1920
+        app.stage.addChild(photo)
+
+        let textureArray = []
+        for (let i = 0; i < 12; i++) {
+          i = i < 10 ? '0' + i : i
+          let texture = PIXI.Texture.fromImage(
+            base + 'frame/frame_000' + i + '.png'
+          )
+          textureArray.push(texture)
         }
-        i = flag ? i + 0.02 : i - 0.02
-        lightImage(frame, 0, 0, i)
-        var timer = window.requestAnimationFrame(doAnim)
-      }
+        let end = PIXI.Texture.fromImage(base + '/frame/frame_00011.png')
+        for (let i = 0; i < 4; i++) {
+          textureArray.push(end)
+        }
+        let animatedSprite = new PIXI.extras.AnimatedSprite(textureArray)
+        animatedSprite.anchor.set(0.5, 0)
+        animatedSprite.position.set(width / 2, 10)
+        animatedSprite.width = width * 0.91
+        animatedSprite.height = width * 0.91 / 685 * 1096
+        animatedSprite.animationSpeed = 0.1
+        animatedSprite.gotoAndPlay(0)
+        app.stage.addChild(animatedSprite)
+        app.start()
+        photo.position.set(
+          width / 2,
+          animatedSprite.y + animatedSprite.height * 0.13
+        )
+        let save = PIXI.Sprite.fromImage(base + 'save.png')
+        save.anchor.set(0.5, 0)
+        save.width = width * 0.56
+        save.height = width * 0.56 / 412 * 82
+        save.position.set(
+          width / 2,
+          animatedSprite.height + animatedSprite.y + 5
+        )
+        app.stage.addChild(save)
+      })
     }
   }
 }
@@ -153,49 +185,19 @@ img {
       z-index: 0;
     }
     .top {
-      z-index: 999;
+      z-index: 999999;
       pointer-events: auto;
       user-select: auto;
       opacity: 0;
-    }
-    .frame {
-      width: 91%;
-      opacity: 0;
-      position: relative;
-      margin: 0 auto;
-      margin-top: 1.5%;
-      margin-bottom: 2%;
-      z-index: 99;
     }
   }
   .save {
     width: 56%;
     margin: 0 auto;
     margin-bottom: 4%;
-    margin-top: 0.5%;
-  }
-  #canvas {
-    width: 91%;
-    position: absolute;
-    top: 1.5%;
-    left: 50%;
-    z-index: 99;
-    transform: translateX(-50%);
-  }
-}
-@keyframes aniBlink120 {
-  from {
-    margin-left: -60px;
-  }
-  to {
-    margin-left: 520px;
-  }
-}
-@media screen {
-  @media (min-height: 700px) {
-    .content {
-      padding-top: 7%;
-    }
+    margin-top: -10%;
+    position: relative;
+    z-index: 999;
   }
 }
 </style>
