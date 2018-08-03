@@ -17,28 +17,12 @@
       v-show ="note" 
       :src="IMG_URL + 'note.png'" 
       class="note">
-    <!-- 弹出层 -->
-    <GameShow 
-      ref="gameShow" 
-      :style-data="style"/>
   </div>
 </template>
 <script>
-import GameShow from 'modules/gameShow'
-import {
-  isInWechat,
-  Cookies,
-  createGame,
-  getGame,
-  $wechat,
-  getInfoById,
-  wechatShareTrack
-} from 'services'
+import { isInWechat, $wechat, getInfoById, wechatShareTrack } from 'services'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
-  components: {
-    GameShow
-  },
   data() {
     return {
       style: {
@@ -72,6 +56,7 @@ export default {
       wxShareInfo: {
         title: '天哪！我穿越了！',
         desc: '快来看看我穿越成了谁？',
+        link: 'http://papi.xingstation.com/api/s/qx2' + window.location.search,
         imgUrl:
           'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/pandp/share.jpg',
         success: () => {
@@ -97,33 +82,15 @@ export default {
   },
   methods: {
     handleWechatShare() {
-      if (isInWechat() === true) {
-        $wechat()
-          .then(res => {
-            res.share(this.wxShareInfoValue)
-          })
-          .catch(err => {
-            console.warn(err.message)
-          })
-      } else {
-        console.warn('you r not in wechat environment')
-      }
+      $wechat()
+        .then(res => {
+          res.share(this.wxShareInfoValue)
+        })
+        .catch(err => {
+          console.warn(err.message)
+        })
     },
-    handleWechatAuth() {
-      if (Cookies.get('user_id') === null) {
-        let base_url = encodeURIComponent(String(window.location.href))
-        let redirct_url =
-          process.env.WX_API +
-          '/wx/officialAccount/oauth?url=' +
-          base_url +
-          '&scope=snsapi_base'
-        window.location.href = redirct_url
-      } else {
-        let utm_campaign = this.$route.query.utm_campaign
-        let user_id = Cookies.get('user_id')
-        this.$refs.gameShow.createGame(utm_campaign, user_id)
-      }
-    },
+
     getInfoById() {
       getInfoById(this.id)
         .then(res => {
@@ -230,12 +197,13 @@ export default {
             0,
             0,
             img.width,
-            bg.height * 0.7, //img.height * 0.9,
+            img.height * 0.8,
             bg.width * 0.1,
             bg.height * 0.24,
             bg.width * 0.8,
-            bg.height * 0.7
+            bg.width * 0.8 / img.width * (img.height * 0.8)
           )
+
           ctx.drawImage(bg, 0, 0)
           cover.onload = function() {
             ctx.drawImage(
@@ -416,7 +384,6 @@ export default {
       img.src = url
       this.note = true
       this.loadingPage = false
-      // this.style.show = true
     }
   }
 }
