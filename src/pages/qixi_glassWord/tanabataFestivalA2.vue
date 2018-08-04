@@ -126,7 +126,7 @@ export default {
     },
     goLink() {
       window.location.href =
-        'https://m.51jiabo.com/sh/vipCoupon/29.html?from=singlemessage&isappinstalled=0'
+        'https://detail.youzan.com/show/goods?alias=3nwnxa1rdncgo&sls=o2IFQl'
     },
     closeAd() {
       this.shade = false
