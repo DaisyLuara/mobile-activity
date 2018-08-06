@@ -18,7 +18,7 @@ const IMG_SERVER = 'http://p22vy0aug.bkt.clouddn.com/'
 export default {
   data() {
     return {
-      base_url: IMG_SERVER + 'image/qixi',
+      base_url: IMG_SERVER + 'image/loveqixi',
       style: {
         root: {
           'min-height': this.$innerHeight() + 'px'
@@ -26,12 +26,18 @@ export default {
       },
       photo: null,
       toshow: false,
+      img_list: [
+        'http://p22vy0aug.bkt.clouddn.com/image/loveqixi/word.png',
+        'http://p22vy0aug.bkt.clouddn.com/image/loveqixi/light.png',
+        'http://p22vy0aug.bkt.clouddn.com/image/loveqixi/circle.png',
+        'http://p22vy0aug.bkt.clouddn.com/image/loveqixi/save.png'
+      ],
       //分享
       wxShareInfoValue: {
-        title: '',
-        desc: '',
-        link: '' + window.location.search,
-        imgUrl: '',
+        title: '才子佳人 爱在七夕',
+        desc: '牛郎织女测出你的CP属性',
+        link: 'http://papi.xingstation.com/api/s/yP7' + window.location.search,
+        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/loveqixi/share.png',
         success: function() {
           wechatShareTrack()
         }
@@ -47,11 +53,26 @@ export default {
       getInfoById(id)
         .then(res => {
           this.photo = res.image
-          this.showCanvas(res.image)
+          this.loadImage(this.img_list)
         })
         .catch(err => {
           console.log(err)
         })
+    },
+    loadImage(arr) {
+      let that = this,
+        count = 0
+      arr.push(that.photo)
+      for (let i = 0; i < arr.length; i++) {
+        let img = new Image()
+        img.src = arr[i]
+        img.onload = function() {
+          count++
+          if (count == arr.length) {
+            that.showCanvas(that.photo)
+          }
+        }
+      }
     },
     showCanvas(image) {
       import('pixi.js').then(PIXI => {
@@ -138,14 +159,15 @@ export default {
         }
         function onClick() {
           is_play = true
+          word.visible = false
         }
         function toTop() {
+          speed += Math.random() * Math.random()
           if (container.y > -img.y + light.height * 0.08) {
-            container.y -= 1.5
-            margin = margin > 25 ? 25 : margin + 0.5
-            app.view.style.marginBottom = margin + 'px'
+            container.y -= speed //2 + Math.random()
           } else {
             that.toshow = true
+            app.view.style.marginBottom = '25px'
           }
         }
       })

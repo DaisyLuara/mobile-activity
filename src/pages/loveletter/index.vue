@@ -9,6 +9,11 @@ import { $wechat } from 'services'
 export default {
   data() {
     return {
+      style: {
+        root: {
+          'min-height': this.$innerHeight() + 'px'
+        }
+      },
       //分享
       wxShareInfoValue: {
         title: '',

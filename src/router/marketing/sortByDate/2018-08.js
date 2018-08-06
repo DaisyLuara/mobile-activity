@@ -33,6 +33,17 @@ const Date201808 = [
     isAbandoned: false
   },
   {
+    path: 'love_qixi_result',
+    location: 'loveqixi/result',
+    name: 'love_qixi_result',
+    meta: {
+      title: '爱在七夕',
+      author: 'lipan',
+      desc: '爱在七夕结果页'
+    },
+    isAbandoned: false
+  },
+  {
     path: 'love_letter',
     location: 'loveletter/index',
     name: 'love_letter',
