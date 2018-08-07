@@ -29,10 +29,10 @@
 <script>
 import lottie from 'lottie-web'
 import { $wechat, getInfoById, wechatShareTrack } from 'services'
-import { onlyWechatShare } from '../../mixins/onlyWechatShare'
+import { normalPages } from '../../mixins/normalPages'
 const IMG_SERVER = 'http://p22vy0aug.bkt.clouddn.com/'
 export default {
-  mixins: [onlyWechatShare],
+  mixins: [normalPages],
   data() {
     return {
       style: {
@@ -72,20 +72,9 @@ export default {
       document.querySelector('.save').style.top = '78%'
     }
 
-    this.getInfoById()
     this.doAnim()
   },
   methods: {
-    getInfoById() {
-      let id = this.$route.query.id
-      getInfoById(id)
-        .then(res => {
-          this.photo = res.image
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    },
     doAnim() {
       const el = document.getElementById('anim')
       let anim = lottie.loadAnimation({

@@ -20,22 +20,24 @@
   </div>
 </template>
 <script>
-import { $wechat, getInfoById, wechatShareTrack, isInWechat } from 'services'
+import { onlyWechatShare } from '../../mixins/onlyWechatShare'
+import { getInfoById, wechatShareTrack } from 'services'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
+  mixins: [onlyWechatShare],
   data() {
     return {
       IMG_URL: IMAGE_SERVER + '/pages/pandp/',
       content: null,
-      width: null,
-      height: null,
+      width: this.$innerWidth() + 'px',
+      height: this.$innerHeight() + 'px',
       note: false,
       loadingPage: true,
       type: this.$route.query.type,
       id: this.$route.query.id,
       belong: null,
       //微信分享
-      wxShareInfo: {
+      wxShareInfoValue: {
         title: '天哪！我穿越了！',
         desc: '快来看看我穿越成了谁？',
         imgUrl:
@@ -47,34 +49,12 @@ export default {
     }
   },
   mounted() {
-    this.handleWechatShare()
-    this.width =
-      window.innerWidth ||
-      document.body.clientWidth ||
-      document.documentElement.clientWidth
-    this.height =
-      window.innerHeight ||
-      document.body.clientHeight ||
-      document.documentElement.clientHeight
     this.content = document.getElementById('content')
-    this.content.style.minHeight = this.height + 'px'
+    this.content.style.minHeight = this.$innerHeight() + 'px'
     this.loadingCanvas()
     this.getInfoById()
   },
   methods: {
-    handleWechatShare() {
-      if (isInWechat() === true) {
-        $wechat()
-          .then(res => {
-            res.share(this.wxShareInfoValue)
-          })
-          .catch(err => {
-            console.warn(err.message)
-          })
-      } else {
-        console.warn('you r not in wechat environment')
-      }
-    },
     getInfoById() {
       getInfoById(this.id)
         .then(res => {

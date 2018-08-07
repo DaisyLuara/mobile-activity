@@ -59,7 +59,7 @@ const Date201808 = [
     location: 'exeYanzhi/baoli',
     name: 'yanzhi_baoli',
     meta: {
-      title: '星视度',
+      title: '  ',
       author: 'lipan',
       desc: '颜值印钞机保利订阅版'
     },
