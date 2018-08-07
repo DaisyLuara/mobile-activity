@@ -72,7 +72,7 @@ export default {
       wxShareInfoValue: {
         title: '快来看看我的颜“值”多少吧',
         desc: '快来看看我的颜“值”多少吧',
-        link: '' + window.location.search,
+        link: 'http://papi.xingstation.com/api/s/BBX' + window.location.search,
         imgUrl: IMAGE_SERVER + '/pages/yanzhi/baoli/share.png',
         success: function() {
           wechatShareTrack()
