@@ -124,18 +124,23 @@ export default {
     lastAnim() {
       let last = document.querySelector('.last')
       let photo = document.querySelector('.photo')
+      let save = document.querySelector('.save')
       let that = this
       this.last_page = true
       let raf = null
       let top = 105,
         w = 10
       let slider = function() {
-        top = top <= 7 ? 7 : top - 0.5
-        w = w >= 73 ? 73 : w + 0.5
+        top = top <= 7 ? 7 : top - 1.5
+        w = w >= 73 ? 73 : w + 1
         if (top <= 7) {
           window.cancelAnimationFrame(raf)
+          save.style.top = photo.offsetTop + photo.clientHeight + 10 + 'px'
+          console.log(save.style.top)
           that.save = true
+
           last.style.backgroundColor = 'rgba(0,0,0,0.5)'
+
           return
         }
         photo.style.top = top + '%'
@@ -154,8 +159,6 @@ body {
   width: 100%;
   height: 100%;
   overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
-  transform: translate3d(0, 0, 0);
 }
 * {
   padding: 0;
@@ -177,11 +180,10 @@ img {
   background-position: center top, center 60%, center bottom;
   background-size: 100% auto, 88% auto, 100% auto;
   background-repeat: no-repeat, no-repeat, no-repeat;
-  overflow: hidden;
+  // overflow: hidden;
   .anim {
     width: 100%;
     margin-top: -15%;
-    // margin-top: -38%;
   }
   .tips {
     display: block;
@@ -207,12 +209,9 @@ img {
     z-index: 9999;
     text-align: center;
     .photo {
-      // width: 73%;
       width: 10%;
       margin: 0 auto;
-      //margin-top: 13%;
       position: absolute;
-      //top: 8%;
       top: -105%;
       left: 50%;
       transform: translateX(-50%);
