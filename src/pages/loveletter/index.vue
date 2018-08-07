@@ -1,11 +1,20 @@
 <template>
   <div 
     :style="style.root"
-    class="content"/>
+    class="content">
+    <div 
+      id="anim"
+      class="anim"
+    />
+  </div>
 </template>
 <script>
-import { $wechat } from 'services'
+import lottie from 'lottie-web'
+import { $wechat, getInfoById, wechatShareTrack } from 'services'
+import { onlyWechatShare } from '../../mixins/onlyWechatShare'
+const IMG_SERVER = 'http://p22vy0aug.bkt.clouddn.com/'
 export default {
+  mixins: [onlyWechatShare],
   data() {
     return {
       style: {
@@ -23,8 +32,24 @@ export default {
       }
     }
   },
-  mounted() {},
-  methods: {}
+  mounted() {
+    this.doAnim()
+  },
+  methods: {
+    doAnim() {
+      const el = document.getElementById('anim')
+      let anim = lottie.loadAnimation({
+        container: el,
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        assetsPath:
+          'http://p22vy0aug.bkt.clouddn.com/image/loveletter/json/images/',
+        path: 'http://p22vy0aug.bkt.clouddn.com/image/loveletter/json/qixi.json'
+      })
+      anim.goToAndStop(10, true)
+    }
+  }
 }
 </script>
 <style lang="less" scoped>

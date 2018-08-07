@@ -30,6 +30,7 @@ export default {
       img_list: [
         'http://p22vy0aug.bkt.clouddn.com/image/loveqixi/word.png',
         'http://p22vy0aug.bkt.clouddn.com/image/loveqixi/light.png',
+        'http://p22vy0aug.bkt.clouddn.com/image/loveqixi/dark.png',
         'http://p22vy0aug.bkt.clouddn.com/image/loveqixi/circle.png',
         'http://p22vy0aug.bkt.clouddn.com/image/loveqixi/save.png'
       ],
@@ -113,6 +114,11 @@ export default {
         light.position.set(width / 2, height * 0.41)
         light.width = width * 0.85
         light.height = light.width / 659 * 650
+        let dark = PIXI.Sprite.fromImage(base + '/dark.png')
+        dark.anchor.set(0.5, 0)
+        dark.position.set(width / 2, height * 0.41)
+        dark.width = width * 0.85
+        dark.height = dark.width / 659 * 650
         //圆圈
         let circle = PIXI.Sprite.fromImage(base + '/circle.png')
         circle.anchor.set(0.5, 0.5)
