@@ -31,7 +31,7 @@
       :class="{'x-bottom':iphoneX}"
       class="bottom">
       <img 
-        :src="baseUrl + 'A.gif'+ this.$qiniuCompress()"
+        :src="baseUrl + 'A.gif'"
         class="jiantou" >
       <img 
         :src="baseUrl + 'Save.png'+ this.$qiniuCompress()"
@@ -154,20 +154,18 @@ export default {
     position: absolute;
     left: 40%;
     top: 105%;
+    -webkit-touch-callout: none;
+    user-select: none;
+    pointer-events: none;
     .jiantou {
-      width: 20%;
+      width: 13%;
       display: block;
-      -webkit-touch-callout: none;
-      user-select: none;
-      pointer-events: none;
+      margin-left: 3%;
     }
     .save {
       width: 45%;
       display: block;
       margin-left: -13%;
-      -webkit-touch-callout: none;
-      user-select: none;
-      pointer-events: none;
     }
   }
   .x-bottom {
