@@ -31,7 +31,7 @@
       :class="{'x-bottom':iphoneX}"
       class="bottom">
       <img 
-        :src="baseUrl + 'A.gif'+ this.$qiniuCompress()"
+        :src="baseUrl + 'A.gif'"
         class="jiantou" >
       <img 
         :src="baseUrl + 'Save.png'+ this.$qiniuCompress()"
