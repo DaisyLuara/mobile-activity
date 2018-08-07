@@ -134,6 +134,10 @@ export default {
         img.position.set(width / 2, light.y + light.height * 0.92)
         img.width = width * 0.887
         img.height = img.width / 1080 * 1920
+        //边框
+        let border = new PIXI.Graphics()
+        border.lineStyle(4, 0xffffff, 1)
+        border.drawRect(img.x - img.width / 2, img.y, img.width, img.height)
 
         //保存图片
         let save = PIXI.Sprite.fromImage(base + '/save.png')
@@ -141,20 +145,28 @@ export default {
         save.position.set(width / 2, img.y + img.height * 0.9)
         save.width = width * 0.43
         save.height = save.width / 320 * 59
-
         app.stage.addChild(word)
         container.addChild(light)
+        container.addChild(dark)
         container.addChild(circle)
         container.addChild(img)
+        container.addChild(border)
         container.addChild(save)
         app.stage.addChild(container)
-        let scale_num = 0
-        let is_play = false
-        let speed = 0
-        let margin = 0
+        container.alpha = 0
+        dark.alpha = 0
+        let scale_num = 0,
+          is_play = false,
+          speed = 0,
+          margin = 0,
+          count = 0
         container.on('pointerdown', onClick)
+
         app.ticker.add(function() {
           // scale_num = scale_num >= 0.5 ? 0 : scale_num + 0.01
+          container.alpha = container.alpha > 1 ? 1 : container.alpha + 0.005
+          count++
+          dark.alpha = count % 20 > 16 ? 1 : dark.alpha - 0.05
           toCircle()
           if (is_play) {
             toTop()

@@ -48,9 +48,31 @@ const Date201808 = [
     location: 'loveletter/index',
     name: 'love_letter',
     meta: {
-      title: 'Love Letter',
+      title: '一纸情书',
       author: 'lipan',
       desc: 'Love Letter H5'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'yanzhi_baoli',
+    location: 'exeYanzhi/baoli',
+    name: 'yanzhi_baoli',
+    meta: {
+      title: '星视度',
+      author: 'lipan',
+      desc: '颜值印钞机保利订阅版'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'pandp_baoli',
+    location: 'pandp/baoli',
+    name: 'pandp_baoli',
+    meta: {
+      title: '星视度',
+      author: 'lipan',
+      desc: '前世今生保利订阅版'
     },
     isAbandoned: false
   }
