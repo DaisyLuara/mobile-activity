@@ -79,6 +79,7 @@ export default {
     showCanvas(image) {
       import('pixi.js').then(PIXI => {
         let that = this
+        let content = document.querySelector('.content')
         let main = document.querySelector('.main')
         let base = 'http://p22vy0aug.bkt.clouddn.com/image/loveqixi'
         let type = 'WebGL'
@@ -159,14 +160,18 @@ export default {
           is_play = false,
           speed = 0,
           margin = 0,
-          count = 0
+          count = 0,
+          l_flag = true
         container.on('pointerdown', onClick)
 
         app.ticker.add(function() {
           // scale_num = scale_num >= 0.5 ? 0 : scale_num + 0.01
-          container.alpha = container.alpha > 1 ? 1 : container.alpha + 0.005
-          count++
-          dark.alpha = count % 20 > 16 ? 1 : dark.alpha - 0.05
+          container.alpha = container.alpha > 1 ? 1 : container.alpha + 0.01
+          if (container.alpha == 1) {
+            count++
+            dark.alpha = count % 40 > 20 ? 1 : dark.alpha - 0.03
+          }
+
           toCircle()
           if (is_play) {
             toTop()
@@ -186,7 +191,11 @@ export default {
             container.y -= speed //2 + Math.random()
           } else {
             that.toshow = true
-            app.view.style.marginBottom = '25px'
+            // app.view.style.marginBottom = '25px'
+            content.style.height =
+              content.clientHeight > window.innerHeight
+                ? content.clientHeight
+                : content.clientHeight + 30 + 'px'
           }
         }
       })
