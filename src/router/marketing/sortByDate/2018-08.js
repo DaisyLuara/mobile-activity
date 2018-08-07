@@ -53,6 +53,17 @@ const Date201808 = [
       desc: 'Love Letter H5'
     },
     isAbandoned: false
+  },
+  {
+    path: 'love_card',
+    location: 'qixi_glassWord/loveCard',
+    name: 'loveCard',
+    meta: {
+      title: '星视度科技',
+      author: 'xj1012',
+      desc: '七夕办证中心'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201808
