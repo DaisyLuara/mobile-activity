@@ -5,9 +5,9 @@
     <div 
       class="main">
       <img 
-        :src="photo"
         v-show="toshow"
-        class="photo"/>
+        :src="photo"
+        class="photo">
     </div>
   </div>
 </template>
@@ -16,6 +16,7 @@ import { $wechat, getInfoById, wechatShareTrack } from 'services'
 import { onlyWechatShare } from '../../mixins/onlyWechatShare'
 const IMG_SERVER = 'http://p22vy0aug.bkt.clouddn.com/'
 export default {
+  mixins: [onlyWechatShare],
   data() {
     return {
       base_url: IMG_SERVER + 'image/loveqixi',

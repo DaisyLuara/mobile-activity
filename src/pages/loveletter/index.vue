@@ -1,8 +1,7 @@
 <template>
   <div 
     :style="style.root"
-    class="content">
-  </div>
+    class="content"/>
 </template>
 <script>
 import { $wechat } from 'services'
@@ -29,6 +28,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+@imgUrl: '';
 html,
 body {
   width: 100%;
@@ -47,6 +47,8 @@ body {
 .content {
   width: 100%;
   overflow-x: hidden;
+  background-color: #a90d0e;
+  background-image: url(), url();
 }
 </style>
 

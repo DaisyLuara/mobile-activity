@@ -4,20 +4,20 @@
     class="content"
     @click="toClick">
     <img 
-      :src="base_url+'/word.png'"
       v-show = "wShow"
-      class="word"/>
+      :src="base_url+'/word.png'"
+      class="word">
     <div 
       class="main">
       <img 
-      :src="base_url+'/light.png'"
-      class="light"/>
+        :src="base_url+'/light.png'"
+        class="light">
       <img 
-      :src="base_url+'/circle.png'"
-      class="circle"/>
+        :src="base_url+'/circle.png'"
+        class="circle">
       <img 
         :src="photo"
-        :class="{photo:true,selected:selected}"/>
+        :class="{photo:true,selected:selected}">
     </div>
   </div>
 </template>
@@ -26,6 +26,7 @@ import { $wechat, getInfoById, wechatShareTrack } from 'services'
 import { onlyWechatShare } from '../../mixins/onlyWechatShare'
 const IMG_SERVER = 'http://p22vy0aug.bkt.clouddn.com/'
 export default {
+  mixins: [onlyWechatShare],
   data() {
     return {
       base_url: IMG_SERVER + 'image/loveqixi',
@@ -41,6 +42,7 @@ export default {
       hasloaded: false,
       main: document.querySelector('.main'),
       img_list: [
+        'http://p22vy0aug.bkt.clouddn.com/image/loveqixi/bg.png',
         'http://p22vy0aug.bkt.clouddn.com/image/loveqixi/word.png',
         'http://p22vy0aug.bkt.clouddn.com/image/loveqixi/light.png',
         'http://p22vy0aug.bkt.clouddn.com/image/loveqixi/circle.png',
