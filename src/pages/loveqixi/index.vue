@@ -30,6 +30,7 @@ export default {
       img_list: [
         'http://p22vy0aug.bkt.clouddn.com/image/loveqixi/word.png',
         'http://p22vy0aug.bkt.clouddn.com/image/loveqixi/light.png',
+        'http://p22vy0aug.bkt.clouddn.com/image/loveqixi/dark.png',
         'http://p22vy0aug.bkt.clouddn.com/image/loveqixi/circle.png',
         'http://p22vy0aug.bkt.clouddn.com/image/loveqixi/save.png'
       ],
@@ -78,6 +79,7 @@ export default {
     showCanvas(image) {
       import('pixi.js').then(PIXI => {
         let that = this
+        let content = document.querySelector('.content')
         let main = document.querySelector('.main')
         let base = 'http://p22vy0aug.bkt.clouddn.com/image/loveqixi'
         let type = 'WebGL'
@@ -113,6 +115,11 @@ export default {
         light.position.set(width / 2, height * 0.41)
         light.width = width * 0.85
         light.height = light.width / 659 * 650
+        let dark = PIXI.Sprite.fromImage(base + '/dark.png')
+        dark.anchor.set(0.5, 0)
+        dark.position.set(width / 2, height * 0.41)
+        dark.width = width * 0.85
+        dark.height = dark.width / 659 * 650
         //圆圈
         let circle = PIXI.Sprite.fromImage(base + '/circle.png')
         circle.anchor.set(0.5, 0.5)
@@ -128,6 +135,10 @@ export default {
         img.position.set(width / 2, light.y + light.height * 0.92)
         img.width = width * 0.887
         img.height = img.width / 1080 * 1920
+        //边框
+        let border = new PIXI.Graphics()
+        border.lineStyle(4, 0xffffff, 1)
+        border.drawRect(img.x - img.width / 2, img.y, img.width, img.height)
 
         //保存图片
         let save = PIXI.Sprite.fromImage(base + '/save.png')
@@ -135,20 +146,32 @@ export default {
         save.position.set(width / 2, img.y + img.height * 0.9)
         save.width = width * 0.43
         save.height = save.width / 320 * 59
-
         app.stage.addChild(word)
         container.addChild(light)
+        container.addChild(dark)
         container.addChild(circle)
         container.addChild(img)
+        container.addChild(border)
         container.addChild(save)
         app.stage.addChild(container)
-        let scale_num = 0
-        let is_play = false
-        let speed = 0
-        let margin = 0
+        container.alpha = 0
+        dark.alpha = 0
+        let scale_num = 0,
+          is_play = false,
+          speed = 0,
+          margin = 0,
+          count = 0,
+          l_flag = true
         container.on('pointerdown', onClick)
+
         app.ticker.add(function() {
           // scale_num = scale_num >= 0.5 ? 0 : scale_num + 0.01
+          container.alpha = container.alpha > 1 ? 1 : container.alpha + 0.01
+          if (container.alpha == 1) {
+            count++
+            dark.alpha = count % 40 > 20 ? 1 : dark.alpha - 0.03
+          }
+
           toCircle()
           if (is_play) {
             toTop()
@@ -168,7 +191,11 @@ export default {
             container.y -= speed //2 + Math.random()
           } else {
             that.toshow = true
-            app.view.style.marginBottom = '25px'
+            // app.view.style.marginBottom = '25px'
+            content.style.height =
+              content.clientHeight > window.innerHeight
+                ? content.clientHeight
+                : content.clientHeight + 30 + 'px'
           }
         }
       })
