@@ -80,14 +80,8 @@ export default {
   },
   mounted() {
     this.handleWechatShare()
-    this.width =
-      window.innerWidth ||
-      document.body.clientWidth ||
-      document.documentElement.clientWidth
-    this.height =
-      window.innerHeight ||
-      document.body.clientHeight ||
-      document.documentElement.clientHeight
+    this.width = this.$innerWidth()
+    this.height = this.$innerHeight()
     this.content = document.getElementById('content')
     this.content.style.minHeight = this.height + 'px'
     this.loadingCanvas()

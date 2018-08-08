@@ -1,6 +1,7 @@
 <template>
   <div 
-    id="warp" 
+    id="warp"
+    :style="style.root" 
     class="yanzhi-result">
     <img 
       :src="imgUrl+'title.png'" 
@@ -38,70 +39,42 @@
       </div>
       <img 
         id="mImg" 
-        :src="mImg" 
+        :src="photo" 
         class="money">
       <img 
         :src="imgUrl+'frame.png'" 
         class="imgframe">
     </div>
     <img 
-      v-show="press" 
       :src="imgUrl+'press.png'" 
       class="press">
     <img 
-      v-show="press" 
       :src="imgUrl + posNum + name + '.png'" 
       class="coupon">
     <img 
       :src="imgUrl+'logo.png'" 
       class="logo">
-    <!-- 弹出层 -->
-    <GameShow 
-      ref="gameShow" 
-      :style-data="style"/>
   </div>
 </template>
 <script>
-import GameShow from 'modules/gameShow'
-import {
-  $wechat,
-  getInfoById,
-  wechatShareTrack,
-  isInWechat,
-  Cookies
-} from 'services'
-
+import { $wechat, getInfoById, wechatShareTrack } from 'services'
+import { normalPages } from '../../mixins/normalPages'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
-  components: {
-    GameShow
-  },
+  mixins: [normalPages],
   data() {
     return {
+      imgUrl: IMAGE_SERVER + '/pages/yanzhi/hilton/',
+      photo: null,
+      posNum: this.$route.query.posNum || '',
       style: {
-        show: false,
-        top: {
-          top:
-            this.$innerHeight() * 0.12 +
-            this.$innerWidth() * 0.7 / 503 * 34 -
-            38 +
-            'px',
-          right: this.$innerWidth() * 0.15 - 45 + 'px'
-        },
-        popupsContent: {
-          minHeight: this.$innerHeight() + 'px'
-        },
-        popups: {
-          minHeight: this.$innerHeight() + 'px'
+        root: {
+          'min-height': this.$innerHeight() + 'px'
         }
       },
-      imgUrl: IMAGE_SERVER + '/pages/yanzhi/hilton/',
-      mImg: null,
-      posNum: this.$route.query.posNum || '',
-      press: false,
       name: this.$route.query.coupon,
       //微信分享
-      wxShareInfo: {
+      wxShareInfoValue: {
         title: '靠颜值就能中大奖？',
         desc: '快来看看我的颜“值”多少吧',
         imgUrl: IMAGE_SERVER + '/pages/yanzhi/hilton/share.jpg',
@@ -114,66 +87,8 @@ export default {
   beforeCreate() {
     document.title = ''
   },
-  mounted() {
-    this.handleWechatShare()
-    let height =
-      window.innerHeight ||
-      document.documentElement.clientHeight ||
-      document.body.clientHeight
-    let warp = document.getElementById('warp')
-    warp.style.minHeight = height + 'px'
-    this.getInfoById()
-    // if (isInWechat() === true) {
-    //   if (
-    //     process.env.NODE_ENV === 'production' ||
-    //     process.env.NODE_ENV === 'test'
-    //   ) {
-    //     this.handleWechatAuth()
-    //   }
-    //   // this.handleWechatAuth()
-    // }
-  },
-  methods: {
-    handleWechatShare() {
-      if (isInWechat() === true) {
-        $wechat()
-          .then(res => {
-            res.share(this.wxShareInfoValue)
-          })
-          .catch(err => {
-            console.warn(err.message)
-          })
-      } else {
-        console.warn('you r not in wechat environment')
-      }
-    },
-    handleWechatAuth() {
-      if (Cookies.get('user_id') === null) {
-        let base_url = encodeURIComponent(String(window.location.href))
-        let redirct_url =
-          process.env.WX_API +
-          '/wx/officialAccount/oauth?url=' +
-          base_url +
-          '&scope=snsapi_base'
-        window.location.href = redirct_url
-      } else {
-        let utm_campaign = this.$route.query.utm_campaign
-        let user_id = Cookies.get('user_id')
-        this.$refs.gameShow.createGame(utm_campaign, user_id)
-      }
-    },
-    getInfoById() {
-      let id = this.$route.query.id
-      getInfoById(id)
-        .then(res => {
-          this.mImg = res.image
-          this.press = true
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    }
-  }
+  mounted() {},
+  methods: {}
 }
 </script>
 <style lang="less" scoped>
