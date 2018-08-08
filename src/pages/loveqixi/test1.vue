@@ -152,8 +152,7 @@ export default {
         container.addChild(save)
         app.stage.addChild(container)
         container.alpha = 0
-        dark.alpha = 0
-        light.alpha = 1
+        // dark.alpha = 0
         let scale_num = 0,
           is_play = false,
           speed = 0,
@@ -162,31 +161,21 @@ export default {
           l_flag = true
         container.on('pointerdown', onClick)
         let total_height = img.height + light.height / 6
-
+        console.log(app.view.height)
+        console.log(total_height)
         app.ticker.add(function() {
-          if (container.alpha < 1) {
-            container.alpha += 0.01
-            return
+          // scale_num = scale_num >= 0.5 ? 0 : scale_num + 0.01
+          container.alpha = container.alpha > 1 ? 1 : container.alpha + 0.01
+          if (container.alpha == 1) {
+            count++
+            //dark.alpha = count % 40 > 20 ? 1 : dark.alpha - 0.03
+            dark.visible = count % 40 > 20 ? true : false
+            light.visible = !dark.visible
           }
+
           toCircle()
           if (is_play) {
             toTop()
-          }
-          count++
-          if (count % 200 < 25) {
-            return
-          }
-          if (count % 200 >= 25 && count % 200 < 100) {
-            dark.alpha += 0.014
-            return
-          }
-          if (count % 200 >= 125 && count % 200 < 175) {
-            dark.alpha -= 0.013
-            return
-          }
-          if (count % 200 >= 175) {
-            dark.alpha = 0
-            return
           }
         })
         function toCircle() {
