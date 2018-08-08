@@ -21,27 +21,12 @@
 </template>
 <script>
 import { isInWechat, $wechat, getInfoById, wechatShareTrack } from 'services'
+import { onlyWechatShare } from '../../mixins/onlyWechatShare'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
+  mixins: [onlyWechatShare],
   data() {
     return {
-      style: {
-        show: false,
-        top: {
-          top:
-            this.$innerHeight() * 0.12 +
-            this.$innerWidth() * 0.7 / 503 * 34 -
-            38 +
-            'px',
-          right: this.$innerWidth() * 0.15 - 45 + 'px'
-        },
-        popupsContent: {
-          height: this.$innerHeight() + 'px'
-        },
-        popups: {
-          minHeight: this.$innerHeight() + 'px'
-        }
-      },
       IMG_URL: IMAGE_SERVER + '/pages/pandp/',
       content: null,
       width: null,
@@ -50,10 +35,8 @@ export default {
       loadingPage: true,
       type: this.$route.query.type,
       id: this.$route.query.id,
-      //版本号
-      belong: null,
       //微信分享
-      wxShareInfo: {
+      wxShareInfoValue: {
         title: '天哪！我穿越了！',
         desc: '快来看看我穿越成了谁？',
         link: 'http://papi.xingstation.com/api/s/qx2' + window.location.search,
@@ -66,37 +49,17 @@ export default {
     }
   },
   mounted() {
-    this.handleWechatShare()
-    this.width =
-      window.innerWidth ||
-      document.body.clientWidth ||
-      document.documentElement.clientWidth
-    this.height =
-      window.innerHeight ||
-      document.body.clientHeight ||
-      document.documentElement.clientHeight
+    this.width = this.$innerWidth()
+    this.height = this.$innerHeight()
     this.content = document.getElementById('content')
     this.content.style.minHeight = this.height + 'px'
     this.loadingCanvas()
     this.getInfoById()
   },
   methods: {
-    handleWechatShare() {
-      $wechat()
-        .then(res => {
-          res.share(this.wxShareInfoValue)
-        })
-        .catch(err => {
-          console.warn(err.message)
-        })
-    },
-
     getInfoById() {
       getInfoById(this.id)
         .then(res => {
-          this.belong = res.belong
-          document.title =
-            res.belong == 'passPalace' ? '我的家在紫禁城' : '星视度前世穿越机'
           this.drawCanvas(res.code)
         })
         .catch(err => {})
@@ -148,8 +111,6 @@ export default {
             let text = new PIXI.Sprite(resources['text'].texture)
             text.anchor.set(0.5, 0.5)
             text.position.set(width / 2, height * 0.55)
-            // text.width = width * 0.26
-            // text.height = height * 0.025
             text.scale.set(0.5)
             app.stage.addChild(text)
             //鱼
