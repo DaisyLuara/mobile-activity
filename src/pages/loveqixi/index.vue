@@ -82,11 +82,6 @@ export default {
         let content = document.querySelector('.content')
         let main = document.querySelector('.main')
         let base = 'http://p22vy0aug.bkt.clouddn.com/image/loveqixi'
-        let type = 'WebGL'
-        if (PIXI.utils.isWebGLSupported()) {
-          type = 'canvas'
-        }
-        PIXI.utils.sayHello(type)
         let app = new PIXI.Application({
           width: window.innerWidth,
           height: window.innerHeight,
@@ -95,6 +90,8 @@ export default {
         main.appendChild(app.view)
         let width = app.screen.width
         let height = app.screen.height
+        app.renderer.autoResize = true
+        app.renderer.resize(window.innerWidth, window.innerHeight)
 
         //container
         let container = new PIXI.Container()
@@ -156,6 +153,7 @@ export default {
         app.stage.addChild(container)
         container.alpha = 0
         dark.alpha = 0
+        light.alpha = 1
         let scale_num = 0,
           is_play = false,
           speed = 0,
@@ -163,18 +161,32 @@ export default {
           count = 0,
           l_flag = true
         container.on('pointerdown', onClick)
+        let total_height = img.height + light.height / 6
 
         app.ticker.add(function() {
-          // scale_num = scale_num >= 0.5 ? 0 : scale_num + 0.01
-          container.alpha = container.alpha > 1 ? 1 : container.alpha + 0.01
-          if (container.alpha == 1) {
-            count++
-            dark.alpha = count % 40 > 20 ? 1 : dark.alpha - 0.03
+          if (container.alpha < 1) {
+            container.alpha += 0.01
+            return
           }
-
           toCircle()
           if (is_play) {
             toTop()
+          }
+          count++
+          if (count % 200 < 25) {
+            return
+          }
+          if (count % 200 >= 25 && count % 200 < 100) {
+            dark.alpha += 0.014
+            return
+          }
+          if (count % 200 >= 125 && count % 200 < 175) {
+            dark.alpha -= 0.013
+            return
+          }
+          if (count % 200 >= 175) {
+            dark.alpha = 0
+            return
           }
         })
         function toCircle() {
@@ -187,15 +199,13 @@ export default {
         }
         function toTop() {
           speed += Math.random() * Math.random()
+          if (app.view.height < total_height) {
+            app.renderer.resize(width, total_height)
+          }
           if (container.y > -img.y + light.height * 0.08) {
-            container.y -= speed //2 + Math.random()
+            container.y -= speed
           } else {
             that.toshow = true
-            // app.view.style.marginBottom = '25px'
-            content.style.height =
-              content.clientHeight > window.innerHeight
-                ? content.clientHeight
-                : content.clientHeight + 30 + 'px'
           }
         }
       })
