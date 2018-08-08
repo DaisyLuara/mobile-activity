@@ -66,17 +66,6 @@ const Date201808 = [
     isAbandoned: false
   },
   {
-    path: 'pandp_baoli',
-    location: 'pandp/baoli',
-    name: 'pandp_baoli',
-    meta: {
-      title: '星视度',
-      author: 'lipan',
-      desc: '前世今生保利订阅版'
-    },
-    isAbandoned: false
-  },
-  {
     path: 'love_card',
     location: 'qixi_glassWord/loveCard',
     name: 'loveCard',
