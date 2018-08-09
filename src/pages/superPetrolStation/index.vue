@@ -2,24 +2,17 @@
   <div
     :style="style.root" 
     class="root">
-    <div 
+    <div
       :class="{'x-center':iphoneX}"
       class="center">
       <img 
-        :src="baseUrl + 'kuang.png'+ this.$qiniuCompress()"
-        class="kuang" >
-      <img 
         v-if="photo !== null" 
-        :src="photo + this.$qiniuCompress()"
-        :class="{'iphone5-photo':iphone5}"
+        :src="photo + this.$qiniuCompress()" 
         class="photo" > 
     </div>
-    <img 
-      v-if="photo !== null" 
-      :src="photo + this.$qiniuCompress()"
-      :class="{'x-photoReal':photoReal}"
-      class="photo-real" > 
-    <div class="bottom">
+    <div 
+      :class="{'x-bottom':iphoneX}"
+      class="bottom">
       <img 
         :src="baseUrl + 'A.gif'"
         class="jiantou" >
@@ -47,8 +40,6 @@ export default {
       },
       photo: '',
       iphoneX: false,
-      iphone5: false,
-      photoReal: false,
       wxShareInfoValue: {
         title: '刷脸为自己加油打call，让健康生活不只是口号！',
         desc: '星视度超级加油站',
@@ -65,15 +56,8 @@ export default {
     let height = this.$innerHeight()
     if (height > 672) {
       this.iphoneX = true
-      this.photoReal = true
     } else {
       this.iphoneX = false
-      this.photoReal = false
-    }
-    if (height <= 504) {
-      this.iphone5 = true
-    } else {
-      this.iphone5 = false
     }
   },
   methods: {}
@@ -96,59 +80,33 @@ export default {
   }
   .center {
     width: 78%;
-    height: 83%;
+    height: 80%;
     position: absolute;
     left: 50%;
     top: 4%;
     transform: translate(-50%, 0);
     pointer-events: none;
     user-select: none;
-    .kuang {
-      width: 100%;
-      height: 100%;
-    }
+    background-repeat: no-repeat;
+    background-image: url('@{imageHost}/kuang.png');
+    background-size: 100% 100%;
     .photo {
       position: absolute;
-      left: 5%;
-      top: 0.5%;
-      width: 92.08%;
-      z-index: -1;
-    }
-    .iphone5-photo {
-      position: absolute;
-      left: 5%;
-      top: 0.5%;
-      width: 90.05%;
-      z-index: -1;
+      left: 6%;
+      top: 1.7%;
+      width: 88.3%;
+      height: 93.6%;
+      pointer-events: auto;
+      user-select: auto;
     }
   }
   .x-center {
-    width: 90%;
-    height: 80%;
+    width: 78%;
+    height: 74%;
     position: absolute;
     left: 50%;
-    top: 5%;
+    top: 7%;
     transform: translate(-50%, 0);
-  }
-  .photo-real {
-    position: absolute;
-    left: 14.2%;
-    top: 5%;
-    width: 71.5%;
-    pointer-events: auto;
-    user-select: auto;
-    z-index: 999;
-    opacity: 0;
-  }
-  .x-photoReal {
-    position: absolute;
-    left: 9.2%;
-    top: 6%;
-    width: 82%;
-    pointer-events: auto;
-    user-select: auto;
-    z-index: 999;
-    opacity: 0;
   }
   .bottom {
     .jiantou {
@@ -164,6 +122,23 @@ export default {
       position: absolute;
       left: 50%;
       bottom: 1%;
+      transform: translate(-50%, 0);
+    }
+  }
+  .x-bottom {
+    .jiantou {
+      width: 13%;
+      margin-bottom: 2%;
+      position: absolute;
+      left: 50%;
+      bottom: 12%;
+      transform: translate(-50%, 0);
+    }
+    .save {
+      width: 74%;
+      position: absolute;
+      left: 50%;
+      bottom: 6%;
       transform: translate(-50%, 0);
     }
   }
