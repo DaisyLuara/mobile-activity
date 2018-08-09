@@ -10,7 +10,9 @@
         :src="photo + this.$qiniuCompress()" 
         class="photo" > 
     </div>
-    <div class="bottom">
+    <div 
+      :class="{'x-bottom':iphoneX}"
+      class="bottom">
       <img 
         :src="baseUrl + 'A.gif'"
         class="jiantou" >
@@ -120,6 +122,23 @@ export default {
       position: absolute;
       left: 50%;
       bottom: 1%;
+      transform: translate(-50%, 0);
+    }
+  }
+  .x-bottom {
+    .jiantou {
+      width: 13%;
+      margin-bottom: 2%;
+      position: absolute;
+      left: 50%;
+      bottom: 12%;
+      transform: translate(-50%, 0);
+    }
+    .save {
+      width: 74%;
+      position: absolute;
+      left: 50%;
+      bottom: 6%;
       transform: translate(-50%, 0);
     }
   }
