@@ -16,7 +16,7 @@
     </div>
     <img 
       v-if="photo !== null" 
-      :src="'http://cdn.exe666.com/fe/marketing/img/loveCard/666.jpeg'"
+      :src="photo + this.$qiniuCompress()"
       :class="{'x-photoReal':photoReal}"
       class="photo-real" > 
     <div class="bottom">
