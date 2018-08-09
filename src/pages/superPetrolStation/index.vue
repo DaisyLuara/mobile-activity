@@ -2,6 +2,31 @@
   <div
     :style="style.root" 
     class="root">
+    <div 
+      :class="{'x-center':iphoneX}"
+      class="center">
+      <img 
+        :src="baseUrl + 'kuang.png'+ this.$qiniuCompress()"
+        class="kuang" >
+      <img 
+        v-if="photo !== null" 
+        :src="photo + this.$qiniuCompress()"
+        :class="{'iphone5-photo':iphone5}"
+        class="photo" > 
+    </div>
+    <img 
+      v-if="photo !== null" 
+      :src="'http://cdn.exe666.com/fe/marketing/img/loveCard/666.jpeg'"
+      :class="{'x-photoReal':photoReal}"
+      class="photo-real" > 
+    <div class="bottom">
+      <img 
+        :src="baseUrl + 'A.gif'"
+        class="jiantou" >
+      <img 
+        :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
+        class="save" >
+    </div>
   </div>
 </template>
 
@@ -22,10 +47,12 @@ export default {
       },
       photo: '',
       iphoneX: false,
+      iphone5: false,
+      photoReal: false,
       wxShareInfoValue: {
-        title: '这个七夕，我们一起领“证”吧！',
-        desc: '星视度-七夕办证中心限时开放中',
-        link: 'http://papi.xingstation.com/api/s/ADO' + window.location.search,
+        title: '刷脸为自己加油打call，让健康生活不只是口号！',
+        desc: '星视度超级加油站',
+        link: 'http://papi.xingstation.com/api/s/Dkx' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/superPetrolStation/icon.jpg',
         success: () => {
           wechatShareTrack()
@@ -34,7 +61,21 @@ export default {
     }
   },
   created() {},
-  mounted() {},
+  mounted() {
+    let height = this.$innerHeight()
+    if (height > 672) {
+      this.iphoneX = true
+      this.photoReal = true
+    } else {
+      this.iphoneX = false
+      this.photoReal = false
+    }
+    if (height <= 504) {
+      this.iphone5 = true
+    } else {
+      this.iphone5 = false
+    }
+  },
   methods: {}
 }
 </script>
@@ -49,5 +90,82 @@ export default {
   position: relative;
   overflow: hidden;
   text-align: center;
+  img {
+    pointer-events: none;
+    user-select: none;
+  }
+  .center {
+    width: 78%;
+    height: 83%;
+    position: absolute;
+    left: 50%;
+    top: 4%;
+    transform: translate(-50%, 0);
+    pointer-events: none;
+    user-select: none;
+    .kuang {
+      width: 100%;
+      height: 100%;
+    }
+    .photo {
+      position: absolute;
+      left: 5%;
+      top: 0.5%;
+      width: 92.08%;
+      z-index: -1;
+    }
+    .iphone5-photo {
+      position: absolute;
+      left: 5%;
+      top: 0.5%;
+      width: 90.05%;
+      z-index: -1;
+    }
+  }
+  .x-center {
+    width: 90%;
+    height: 80%;
+    position: absolute;
+    left: 50%;
+    top: 5%;
+    transform: translate(-50%, 0);
+  }
+  .photo-real {
+    position: absolute;
+    left: 14.2%;
+    top: 5%;
+    width: 71.5%;
+    pointer-events: auto;
+    user-select: auto;
+    z-index: 999;
+    opacity: 0;
+  }
+  .x-photoReal {
+    position: absolute;
+    left: 9.2%;
+    top: 6%;
+    width: 82%;
+    pointer-events: auto;
+    user-select: auto;
+    z-index: 999;
+    opacity: 0;
+  }
+  .bottom {
+    .jiantou {
+      width: 14%;
+      margin-bottom: 2%;
+      position: absolute;
+      left: 50%;
+      bottom: 6%;
+      transform: translate(-50%, 0);
+    }
+    .save {
+      width: 74%;
+      position: absolute;
+      left: 50%;
+      bottom: 1%;
+      transform: translate(-50%, 0);
+    }
+  }
 }
 </style>
