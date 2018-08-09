@@ -9,9 +9,11 @@
         <img
           :src="base + 'pic.png'"
           class="pic">
-        <img 
-          :src="photo"
-          class="photo">
+        <div class="clip" id="clip">
+          <img 
+            :src="photo + this.$qiniuCompress()">
+        </div>
+        
       </div>
       <div
         class="two">
@@ -81,6 +83,9 @@ export default {
     if (this.$innerHeight() > 672) {
       document.querySelector('.main').style.marginTop = '20%'
     }
+    let clip = document.getElementById('clip')
+    clip.style.width = this.$innerWidth() * 0.25 + 'px'
+    clip.style.height = this.$innerWidth() * 0.25 + 'px'
     this.code = this.$route.query.fraction
     this.word =
       this.code < 91 || this.code > 100
@@ -171,14 +176,18 @@ img {
         z-index: 999;
         margin: 0 auto;
       }
-      .photo {
-        width: 28%;
+      .clip {
+        width: 25%;
         position: absolute;
-        top: 25%;
-        left: 50%;
+        top: 29%;
+        left: 51%;
         z-index: 9;
         transform: translateX(-50%);
         border-radius: 50%;
+        overflow: hidden;
+        img {
+          max-width: 100%;
+        }
       }
     }
     .two {
