@@ -75,6 +75,28 @@ const Date201808 = [
       desc: '七夕办证中心'
     },
     isAbandoned: false
+  },
+  {
+    path: 'panda',
+    location: 'sea/panda',
+    name: 'panda',
+    meta: {
+      title: '剪刀手大熊猫',
+      author: 'lipan',
+      desc: '剪刀手大熊猫'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'pk',
+    location: 'exeYanzhi/pk',
+    name: 'pk',
+    meta: {
+      title: '颜值榜',
+      author: 'lipan',
+      desc: '颜值PK擂台'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201808
