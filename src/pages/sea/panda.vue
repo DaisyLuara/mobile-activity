@@ -13,7 +13,7 @@
       <img
         :src="base+'frame.png'"
         class="frame">
-        <img 
+      <img 
         :src="photo"
         class="photo">
       <img 

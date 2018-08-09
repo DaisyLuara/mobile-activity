@@ -13,7 +13,7 @@
           :src="photo"
           class="photo">
       </div>
-      <div 
+      <div
         class="two">
         <img
           :src="base + 'kuang.png'"
@@ -38,7 +38,7 @@
           <img
             :src="btn">
         </a>
-        <span class="code">{{code}}</span>
+        <span class="code">{{ code }}</span>
       </div>
       <img 
         :src="base+'tips.png'"
