@@ -152,7 +152,7 @@ export default {
   }
   .bottom {
     .jiantou {
-      width: 14%;
+      width: 13%;
       margin-bottom: 2%;
       position: absolute;
       left: 50%;
