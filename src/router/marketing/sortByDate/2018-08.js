@@ -97,6 +97,17 @@ const Date201808 = [
       desc: '颜值PK擂台'
     },
     isAbandoned: false
+  },
+  {
+    path: 'super_petrolStation',
+    location: 'superPetrolStation/index',
+    name: 'superPetrolStation',
+    meta: {
+      title: '超级加油站',
+      author: 'xj1012',
+      desc: '超级加油站'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201808
