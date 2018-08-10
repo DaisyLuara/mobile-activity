@@ -279,7 +279,7 @@ const Date201807 = [
     location: 'pandp/index2',
     name: 'pandpp',
     meta: {
-      title: '星视度前世穿越机',
+      title: '前世穿越机',
       author: 'lipan',
       desc: '前世穿越机2.0版'
     },
