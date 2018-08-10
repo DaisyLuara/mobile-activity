@@ -47,7 +47,7 @@
           <img
             :src="btn">
         </a>
-        <span class="code">{{ code }}</span>
+        <span class="code">{{ score }}</span>
       </div>
       <img 
         :src="base+'tips.png'"
@@ -77,12 +77,12 @@ export default {
         }
       },
       photo: null,
-      code: null,
       btn: IMGSERVER + 'image/yanzhi/pk/btn.png',
       word: null,
       note: IMGSERVER + 'image/yanzhi/pk/up.png',
       utmCampaign: null,
       userId: null,
+      score: null,
       rank: 0,
       rank_url: process.env.SAAS_API + '/user/',
       //分享
@@ -113,11 +113,11 @@ export default {
     let clip = document.getElementById('clip')
     clip.style.width = this.$innerWidth() * 0.25 + 'px'
     clip.style.height = this.$innerWidth() * 0.25 + 'px'
-    this.code = this.$route.query.fraction
+    this.score = this.$route.query.fraction
     this.word =
-      this.code < 91 || this.code > 100
+      this.score < 91 || this.score > 100
         ? this.base + 'code.png'
-        : this.base + this.code + '.png'
+        : this.base + this.score + '.png'
     let bg = new Image()
     bg.src = 'http://p22vy0aug.bkt.clouddn.com/image/yanzhi/pk/bg.png'
     bg.onload = function() {
@@ -148,8 +148,7 @@ export default {
       }
     },
     getRank(userId) {
-      let score = this.$route.query.fraction
-      let query = '?belong=' + this.utmCampaign + '&score=' + score
+      let query = '?belong=' + this.utmCampaign + '&score=' + this.score
       this.$http
         .get(this.rank_url + userId + '/rank' + query)
         .then(res => {
@@ -162,13 +161,12 @@ export default {
     toPK() {
       this.btn = this.base + 'clicked.png'
       this.note = this.base + 'uping.png'
-      let gameId = this.$route.query.game_id
       let args = {
         belong: this.utmCampaign,
         image_url: this.photo,
-        game_id: gameId
+        score: this.score
       }
-      createGame(args, this.userId)
+      userGame(args, this.userId)
         .then(res => {
           if (res.success) {
             this.note = this.base + 'success.png'
@@ -216,8 +214,7 @@ img {
     position: relative;
     border: solid 2px #fff;
     text-align: center;
-    margin: 0 auto;
-    margin-top: 3%;
+    margin: 3% auto;
     background-image: url('@{imgUrl}border1.png'), url('@{imgUrl}border2.png'),
       url('@{imgUrl}border3.png'), url('@{imgUrl}border4.png');
     background-size: 10% auto, 10% auto, 10% auto, 10% auto;
@@ -302,9 +299,9 @@ img {
       }
       .code {
         position: absolute;
-        bottom: 10%;
+        bottom: 10.5%;
         left: 52%;
-        font-size: 30px;
+        font-size: 2rem;
         color: #fff;
         font-size: 900;
         font-family: 'Times New Roman';
