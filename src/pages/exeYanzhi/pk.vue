@@ -165,7 +165,8 @@ export default {
       let args = {
         belong: this.utmCampaign,
         image_url: this.photo,
-        score: this.score
+        score: this.score,
+        qiniu_id: this.$route.query.id
       }
       userGame(args, this.userId)
         .then(res => {
