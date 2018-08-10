@@ -108,6 +108,17 @@ const Date201808 = [
       desc: '超级加油站'
     },
     isAbandoned: false
+  },
+  {
+    path: 'midAutumn',
+    location: 'midAutumn/index',
+    name: 'midAutumn',
+    meta: {
+      title: '欢乐中秋',
+      author: 'xj1012',
+      desc: '欢乐中秋H5页面'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201808
