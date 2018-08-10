@@ -9,11 +9,17 @@
         <img
           :src="base + 'pic.png'"
           class="pic">
-        <div class="clip" id="clip">
+        <div 
+          id="clip" 
+          class="clip">
           <img 
             :src="photo + this.$qiniuCompress()">
         </div>
-        
+      </div>
+      <!-- 排名 -->
+      <div 
+        class="rank">
+        你击败了{{ rank }}玩家
       </div>
       <div
         class="two">
@@ -35,6 +41,7 @@
           </li>
         </ul>
         <a 
+          v-show="Boolean(photo)"
           class="btn"
           @click="toPK">
           <img
@@ -49,7 +56,14 @@
   </div>
 </template>
 <script>
-import { $wechat, wechatShareTrack } from 'services'
+import {
+  isInWechat,
+  Cookies,
+  createGame,
+  $wechat,
+  wechatShareTrack
+} from 'services'
+
 import { normalPages } from '../../mixins/normalPages'
 const IMGSERVER = 'http://p22vy0aug.bkt.clouddn.com/'
 export default {
@@ -67,6 +81,10 @@ export default {
       btn: IMGSERVER + 'image/yanzhi/pk/btn.png',
       word: null,
       note: IMGSERVER + 'image/yanzhi/pk/up.png',
+      utmCampaign: null,
+      userId: null,
+      rank: '0%',
+      rank_url: process.env.SAAS_API + '/user/',
       //分享
       wxShareInfoValue: {
         title: '魔镜，谁是油城最美女神？',
@@ -81,7 +99,16 @@ export default {
   },
   mounted() {
     if (this.$innerHeight() > 672) {
-      document.querySelector('.main').style.marginTop = '20%'
+      document.querySelector('.main').style.marginTop = '10%'
+    }
+    //微信授权
+    if (isInWechat() === true) {
+      if (
+        process.env.NODE_ENV === 'production' ||
+        process.env.NODE_ENV === 'testing'
+      ) {
+        this.handleWechatAuth()
+      }
     }
     let clip = document.getElementById('clip')
     clip.style.width = this.$innerWidth() * 0.25 + 'px'
@@ -104,20 +131,53 @@ export default {
     }
   },
   methods: {
+    handleWechatAuth() {
+      if (Cookies.get('user_id') === null) {
+        let base_url = encodeURIComponent(String(window.location.href))
+        let redirct_url =
+          process.env.WX_API +
+          '/wx/officialAccount/oauth?url=' +
+          base_url +
+          '&scope=snsapi_base'
+        window.location.href = redirct_url
+      } else {
+        this.utmCampaign = this.$route.query.utm_campaign
+        this.userId = Cookies.get('user_id')
+        this.getRank(this.userId)
+      }
+    },
+    getRank(userId) {
+      let score = this.$route.query.fraction
+      let query = '?belong=' + this.utmCampaign + '&score=' + score
+      this.$http
+        .get(this.rank_url + userId + '/rank' + query)
+        .then(res => {
+          console.log(res)
+          // let rank = res.data.rank
+          this.rank = res.data.rank * 100 + '%'
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
     toPK() {
       this.btn = this.base + 'clicked.png'
       this.note = this.base + 'uping.png'
-      let id = this.$route.query.id
-      this.$http
-        .post('http://exelook.com/client/pushtest/?api=json&id=' + id)
-        .then(
-          res => {
+      let gameId = this.$route.query.game_id
+      let args = {
+        belong: this.utmCampaign,
+        image_url: this.photo,
+        game_id: gameId
+      }
+      createGame(args, this.userId)
+        .then(res => {
+          if (res.success) {
             this.note = this.base + 'success.png'
-          },
-          res => {
-            console.log(err)
           }
-        )
+        })
+        .catch(e => {
+          console.log(e)
+        })
     }
   }
 }
@@ -190,11 +250,22 @@ img {
         }
       }
     }
+    .rank {
+      width: 100%;
+      position: relative;
+      text-align: center;
+      font-size: 16px;
+      color: #fff;
+      height: 25%;
+      background: url('@{imgUrl}rankbg.png') center center / 85% auto no-repeat;
+      margin-top: -3%;
+      opacity: 0.7;
+    }
     .two {
       width: 100%;
       text-align: center;
       margin: 0 auto;
-      margin-top: -12%;
+      margin-top: -3%;
       position: relative;
       .kuang {
         width: 90%;
