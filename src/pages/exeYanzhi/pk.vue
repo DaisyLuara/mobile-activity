@@ -84,7 +84,7 @@ export default {
       utmCampaign: null,
       userId: null,
       rank: 0,
-      rank_url: process.env.SAAS_API + '/user/12/rank',
+      rank_url: process.env.SAAS_API + '/user/',
       //分享
       wxShareInfoValue: {
         title: '魔镜，谁是油城最美女神？',
@@ -110,7 +110,6 @@ export default {
         this.handleWechatAuth()
       }
     }
-
     let clip = document.getElementById('clip')
     clip.style.width = this.$innerWidth() * 0.25 + 'px'
     clip.style.height = this.$innerWidth() * 0.25 + 'px'
@@ -130,7 +129,6 @@ export default {
         kuang.onload = function() {}
       }
     }
-    this.getRank()
   },
   methods: {
     handleWechatAuth() {
@@ -145,13 +143,14 @@ export default {
       } else {
         this.utmCampaign = this.$route.query.utm_campaign
         this.userId = Cookies.get('user_id')
+        this.getRank(this.userId)
       }
     },
-    getRank() {
+    getRank(userId) {
       let score = this.$route.query.fraction
       let query = '?belong=' + this.utmCampaign + '&score=' + score
       this.$http
-        .get(this.rank_url + query)
+        .get(this.rank_url + userId + '/rank' + query)
         .then(res => {
           console.log(res)
           // let rank = res.data.rank
