@@ -125,10 +125,10 @@ export default {
         height,
         backgroundColor
       })
-      let url = this.resultImgUrl + this.$qiniuCompress()
+      //let url = this.resultImgUrl + this.$qiniuCompress()
       let that = this
       mc
-        .background(url, {
+        .background(this.baseUrl + 'white.png', {
           left: 0,
           top: 0,
           type: 'origin',
