@@ -216,8 +216,7 @@ img {
     position: relative;
     border: solid 2px #fff;
     text-align: center;
-    margin: 0 auto;
-    margin-top: 3%;
+    margin: 3% auto;
     background-image: url('@{imgUrl}border1.png'), url('@{imgUrl}border2.png'),
       url('@{imgUrl}border3.png'), url('@{imgUrl}border4.png');
     background-size: 10% auto, 10% auto, 10% auto, 10% auto;
@@ -301,10 +300,13 @@ img {
         transform: translateX(-50%);
       }
       .code {
+        display: inline-block;
+        height: 9%;
         position: absolute;
-        bottom: 10%;
+        bottom: 10.5%;
         left: 52%;
         font-size: 30px;
+        vertical-align: middle;
         color: #fff;
         font-size: 900;
         font-family: 'Times New Roman';
