@@ -153,7 +153,7 @@ export default {
       this.$http
         .get(this.rank_url + userId + '/rank' + query)
         .then(res => {
-          this.rank = parseFloat(res.data.data.rank) * 100
+          this.rank = (parseFloat(res.data.data.rank) * 100).toFixed(2)
         })
         .catch(err => {
           console.log(err)
