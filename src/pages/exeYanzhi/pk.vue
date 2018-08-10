@@ -154,8 +154,8 @@ export default {
         .then(res => {
           console.log(res)
           // let rank = res.data.rank
-          alert(res.data.rank)
-          this.rank = parseFloat(res.data.rank) * 100
+          alert(res.data.data.rank)
+          this.rank = parseFloat(res.data.data.rank) * 100
         })
         .catch(err => {
           console.log(err)
