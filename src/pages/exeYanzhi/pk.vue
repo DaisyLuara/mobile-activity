@@ -15,11 +15,11 @@
           <img 
             :src="photo + this.$qiniuCompress()">
         </div>
-        <!-- 排名 -->
-        <div 
-          class="rank">
-          <span/>
-        </div>
+      </div>
+      <!-- 排名 -->
+      <div 
+        class="rank">
+        你击败了{{ rank }}玩家
       </div>
       <div
         class="two">
@@ -83,6 +83,7 @@ export default {
       note: IMGSERVER + 'image/yanzhi/pk/up.png',
       utmCampaign: null,
       userId: null,
+      rank: '0%',
       rank_url: process.env.SAAS_API + '/user/12/rank',
       //分享
       wxShareInfoValue: {
@@ -98,13 +99,13 @@ export default {
   },
   mounted() {
     if (this.$innerHeight() > 672) {
-      document.querySelector('.main').style.marginTop = '20%'
+      document.querySelector('.main').style.marginTop = '10%'
     }
     //微信授权
     if (isInWechat() === true) {
       if (
         process.env.NODE_ENV === 'production' ||
-        process.env.NODE_ENV === 'test'
+        process.env.NODE_ENV === 'testing'
       ) {
         this.handleWechatAuth()
       }
@@ -129,6 +130,7 @@ export default {
         kuang.onload = function() {}
       }
     }
+    this.getRank()
   },
   methods: {
     handleWechatAuth() {
@@ -147,14 +149,13 @@ export default {
     },
     getRank() {
       let score = this.$route.query.fraction
-      let query = {
-        belong: this.utmCampaign,
-        score: score
-      }
+      let query = '?belong=' + this.utmCampaign + '&score=' + score
       this.$http
-        .get(query)
+        .get(this.rank_url + query)
         .then(res => {
           console.log(res)
+          // let rank = res.data.rank
+          this.rank = res.data.rank * 100 + '%'
         })
         .catch(err => {
           console.log(err)
@@ -250,11 +251,22 @@ img {
         }
       }
     }
+    .rank {
+      width: 100%;
+      position: relative;
+      text-align: center;
+      font-size: 16px;
+      color: #fff;
+      height: 25%;
+      background: url('@{imgUrl}rankbg.png') center center / 85% auto no-repeat;
+      margin-top: -3%;
+      opacity: 0.7;
+    }
     .two {
       width: 100%;
       text-align: center;
       margin: 0 auto;
-      margin-top: -12%;
+      margin-top: -3%;
       position: relative;
       .kuang {
         width: 90%;
