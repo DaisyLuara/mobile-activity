@@ -9,11 +9,12 @@
         <img
           :src="base + 'pic.png'"
           class="pic">
-        <div class="clip" id="clip">
+        <div 
+          id="clip" 
+          class="clip">
           <img 
             :src="photo + this.$qiniuCompress()">
         </div>
-        
       </div>
       <div
         class="two">
