@@ -47,4 +47,4 @@ const getGame = (params, userId) => {
   })
 }
 
-export { createGame, getGame }
+export { createGame, getGame, userGame }
