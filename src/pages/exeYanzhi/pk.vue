@@ -59,7 +59,7 @@
 import {
   isInWechat,
   Cookies,
-  createGame,
+  userGame,
   $wechat,
   wechatShareTrack
 } from 'services'
