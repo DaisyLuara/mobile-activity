@@ -15,6 +15,11 @@
           <img 
             :src="photo + this.$qiniuCompress()">
         </div>
+        <!-- 排名 -->
+        <div 
+          class="rank">
+          <span/>
+        </div>
       </div>
       <div
         class="two">
@@ -78,6 +83,7 @@ export default {
       note: IMGSERVER + 'image/yanzhi/pk/up.png',
       utmCampaign: null,
       userId: null,
+      rank_url: process.env.SAAS_API + '/user/12/rank',
       //分享
       wxShareInfoValue: {
         title: '魔镜，谁是油城最美女神？',
@@ -98,7 +104,7 @@ export default {
     if (isInWechat() === true) {
       if (
         process.env.NODE_ENV === 'production' ||
-        process.env.NODE_ENV === 'test'
+        process.env.NODE_ENV === 'testing'
       ) {
         this.handleWechatAuth()
       }
@@ -139,12 +145,29 @@ export default {
         this.userId = Cookies.get('user_id')
       }
     },
+    getRank() {
+      let score = this.$route.query.fraction
+      let query = {
+        belong: this.utmCampaign,
+        score: score
+      }
+      this.$http
+        .get(query)
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
     toPK() {
       this.btn = this.base + 'clicked.png'
       this.note = this.base + 'uping.png'
+      let gameId = this.$route.query.game_id
       let args = {
         belong: this.utmCampaign,
-        image_url: this.photo
+        image_url: this.photo,
+        game_id: gameId
       }
       createGame(args, this.userId)
         .then(res => {
