@@ -14,24 +14,24 @@
         :src="base+'frame.png'"
         class="frame">
       <img 
-        :src="photo"
+        :src="photo + this.$qiniuCompress()"
         class="photo">
       <img 
-        :src="photo"
+        :src="photo + this.$qiniuCompress()"
         class="photo top">
       <!-- 熊猫 -->
       <img
-        :src="base+'panda1.png'"
-        :class="{panda1:true,todo1:todo1}">
+        v-lazy="base+'panda1.png'"
+        class="panda1">
       <img
-        :src="base+'panda2.png'"
-        :class="{panda2:true,todo2:todo2}">
+        v-lazy="base+'panda2.png'"
+        class="panda2">
       <img
-        :src="base+'panda3.png'"
-        :class="{panda3:true,todo3:todo3}">
+        v-lazy="base+'panda3.png'"
+        class="panda3">
       <img
-        :src="base+'panda4.png'"
-        :class="{panda4:true,todo4:todo4}">
+        v-lazy="base+'panda4.png'"
+        class="panda4">
     </div>
     <img 
       v-show="Boolean(photo)"
@@ -44,6 +44,9 @@
   </div>
 </template>
 <script>
+import Vue from 'vue'
+import { Lazyload } from 'mint-ui'
+Vue.use(Lazyload)
 import { $wechat, wechatShareTrack } from 'services'
 import { normalPages } from '../../mixins/normalPages'
 const IMG_SERVER = 'http://p22vy0aug.bkt.clouddn.com'
@@ -70,8 +73,36 @@ export default {
       }
     }
   },
-  mounted() {},
-  methods: {}
+  mounted() {
+    let first_arr = [
+      'http://p22vy0aug.bkt.clouddn.com/image/panda/back.png',
+      'http://p22vy0aug.bkt.clouddn.com/image/panda/title.png',
+      'http://p22vy0aug.bkt.clouddn.com/image/panda/frame.png',
+      this.photo
+    ]
+    let second_arr = [
+      'http://p22vy0aug.bkt.clouddn.com/image/panda/panda1.png',
+      'http://p22vy0aug.bkt.clouddn.com/image/panda/panda2.png',
+      'http://p22vy0aug.bkt.clouddn.com/image/panda/panda3.png',
+      'http://p22vy0aug.bkt.clouddn.com/image/panda/panda4.png'
+    ]
+    this.ImageLoaded(first_arr)
+  },
+  methods: {
+    ImageLoaded(arr) {
+      let img_arr = []
+      for (let i = 0; i < arr.length; i++) {
+        let img = new Image()
+        img.src = arr[i]
+        img.onload = function() {
+          img_arr.push(img)
+          if (img_arr.length == arr.length) {
+            return 'success'
+          }
+        }
+      }
+    }
+  }
 }
 </script>
 <style lang="less" scoped>
@@ -118,6 +149,8 @@ img {
     .top {
       z-index: 99999;
       opacity: 0;
+      pointer-events: auto;
+      user-select: auto;
     }
     .light {
       width: 100%;
@@ -147,7 +180,7 @@ img {
       top: 68%;
       left: 4%;
       z-index: 0;
-      animation: torotate 0.6s linear 1 forwards;
+      animation: torotate 0.5s linear 1 forwards;
     }
     .panda2 {
       width: 20%;
@@ -155,7 +188,7 @@ img {
       top: 58%;
       // left: 4.5%;
       z-index: 0;
-      animation: toleft 0.3s linear 1 forwards;
+      animation: toleft 0.3s 0.5s linear 1 forwards;
     }
     .panda3 {
       width: 20%;
@@ -163,7 +196,7 @@ img {
       top: 74%;
       // left: 77%;
       z-index: 0;
-      animation: toright 0.6s linear 1 forwards;
+      animation: toright 0.6s 0.8s linear 1 forwards;
     }
     .panda4 {
       width: 18%;
@@ -171,7 +204,7 @@ img {
       // top: 20%;
       left: 78%;
       z-index: 9999;
-      animation: tobottom 0.6s linear 1 forwards;
+      animation: tobottom 0.6s 0.2s linear 1 forwards;
     }
   }
   .press {
@@ -185,6 +218,7 @@ img {
     position: relative;
     z-index: 9;
     margin-top: -6%;
+    margin-bottom: 2%;
   }
 }
 @keyframes tobottom {
