@@ -36,6 +36,7 @@
           </li>
         </ul>
         <a 
+          v-show="Boolean(photo)"
           class="btn"
           @click="toPK">
           <img
@@ -50,7 +51,14 @@
   </div>
 </template>
 <script>
-import { $wechat, wechatShareTrack } from 'services'
+import {
+  isInWechat,
+  Cookies,
+  createGame,
+  $wechat,
+  wechatShareTrack
+} from 'services'
+
 import { normalPages } from '../../mixins/normalPages'
 const IMGSERVER = 'http://p22vy0aug.bkt.clouddn.com/'
 export default {
@@ -68,6 +76,8 @@ export default {
       btn: IMGSERVER + 'image/yanzhi/pk/btn.png',
       word: null,
       note: IMGSERVER + 'image/yanzhi/pk/up.png',
+      utmCampaign: null,
+      userId: null,
       //分享
       wxShareInfoValue: {
         title: '魔镜，谁是油城最美女神？',
@@ -84,6 +94,16 @@ export default {
     if (this.$innerHeight() > 672) {
       document.querySelector('.main').style.marginTop = '20%'
     }
+    //微信授权
+    if (isInWechat() === true) {
+      if (
+        process.env.NODE_ENV === 'production' ||
+        process.env.NODE_ENV === 'test'
+      ) {
+        this.handleWechatAuth()
+      }
+    }
+
     let clip = document.getElementById('clip')
     clip.style.width = this.$innerWidth() * 0.25 + 'px'
     clip.style.height = this.$innerWidth() * 0.25 + 'px'
@@ -105,20 +125,36 @@ export default {
     }
   },
   methods: {
+    handleWechatAuth() {
+      if (Cookies.get('user_id') === null) {
+        let base_url = encodeURIComponent(String(window.location.href))
+        let redirct_url =
+          process.env.WX_API +
+          '/wx/officialAccount/oauth?url=' +
+          base_url +
+          '&scope=snsapi_base'
+        window.location.href = redirct_url
+      } else {
+        this.utmCampaign = this.$route.query.utm_campaign
+        this.userId = Cookies.get('user_id')
+      }
+    },
     toPK() {
       this.btn = this.base + 'clicked.png'
       this.note = this.base + 'uping.png'
-      let id = this.$route.query.id
-      this.$http
-        .post('http://exelook.com/client/pushtest/?api=json&id=' + id)
-        .then(
-          res => {
+      let args = {
+        belong: this.utmCampaign,
+        image_url: this.photo
+      }
+      createGame(args, this.userId)
+        .then(res => {
+          if (res.success) {
             this.note = this.base + 'success.png'
-          },
-          res => {
-            console.log(err)
           }
-        )
+        })
+        .catch(e => {
+          console.log(e)
+        })
     }
   }
 }
