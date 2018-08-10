@@ -19,7 +19,7 @@
       <!-- 排名 -->
       <div 
         class="rank">
-        你击败了{{ rank }}玩家
+        你击败了{{ rank }}%玩家
       </div>
       <div
         class="two">
@@ -83,7 +83,7 @@ export default {
       note: IMGSERVER + 'image/yanzhi/pk/up.png',
       utmCampaign: null,
       userId: null,
-      rank: '0%',
+      rank: 0,
       rank_url: process.env.SAAS_API + '/user/',
       //分享
       wxShareInfoValue: {
@@ -154,7 +154,8 @@ export default {
         .then(res => {
           console.log(res)
           // let rank = res.data.rank
-          this.rank = res.data.rank * 100 + '%'
+          alert(res.data.rank)
+          this.rank = parseFloat(res.data.rank) * 100
         })
         .catch(err => {
           console.log(err)
