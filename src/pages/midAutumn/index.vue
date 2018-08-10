@@ -105,7 +105,7 @@ export default {
         api: 'json'
       }
       this.$http
-        .get(URL, args)
+        .post(URL, args)
         .then(res => {
           console.log(res)
           this.text = this.text2
