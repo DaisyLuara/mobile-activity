@@ -300,13 +300,10 @@ img {
         transform: translateX(-50%);
       }
       .code {
-        display: inline-block;
-        height: 9%;
         position: absolute;
         bottom: 10.5%;
         left: 52%;
-        font-size: 30px;
-        vertical-align: middle;
+        font-size: 2rem;
         color: #fff;
         font-size: 900;
         font-family: 'Times New Roman';
