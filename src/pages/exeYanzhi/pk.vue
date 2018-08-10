@@ -142,6 +142,7 @@ export default {
           '&scope=snsapi_base'
         window.location.href = redirct_url
       } else {
+        this.score = this.$route.query.fraction
         this.utmCampaign = this.$route.query.utm_campaign
         this.userId = Cookies.get('user_id')
         this.getRank(this.userId)
