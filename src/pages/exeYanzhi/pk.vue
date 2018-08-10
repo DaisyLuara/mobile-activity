@@ -7,7 +7,7 @@
       <div 
         class="one">
         <img
-          :src="base + 'pic.png'"
+          :src="base + 'pic22.png'"
           class="pic">
         <div 
           id="clip" 
@@ -24,7 +24,7 @@
       <div
         class="two">
         <img
-          :src="base + 'kuang.png'"
+          :src="base + 'kuang22.png'"
           class="kuang">
         <ul
           class="text">
@@ -122,10 +122,11 @@ export default {
     bg.src = 'http://p22vy0aug.bkt.clouddn.com/image/yanzhi/pk/bg.png'
     bg.onload = function() {
       let pic = new Image()
-      pic.src = 'http://p22vy0aug.bkt.clouddn.com/image/yanzhi/pk/pic.png'
+      pic.src = 'http://p22vy0aug.bkt.clouddn.com/image/yanzhi/pk/pic22.png'
       pic.onload = function() {
         let kuang = new Image()
-        kuang.src = 'http://p22vy0aug.bkt.clouddn.com/image/yanzhi/pk/kuang.png'
+        kuang.src =
+          'http://p22vy0aug.bkt.clouddn.com/image/yanzhi/pk/kuang22.png'
         kuang.onload = function() {}
       }
     }
@@ -152,10 +153,7 @@ export default {
       this.$http
         .get(this.rank_url + userId + '/rank' + query)
         .then(res => {
-          console.log(res)
-          // let rank = res.data.rank
-          alert(res.data.rank)
-          this.rank = parseFloat(res.data.rank) * 100
+          this.rank = parseFloat(res.data.data.rank) * 100
         })
         .catch(err => {
           console.log(err)
