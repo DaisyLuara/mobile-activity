@@ -95,7 +95,7 @@ export default {
       //分享
       wxShareInfoValue: {
         title: '魔镜，谁是油城最美女神？',
-        desc: '是你，抚媚热烈烈是你，盛世美颜还是你',
+        desc: '是你，抚媚热烈是你，盛世美颜还是你',
         link: 'http://papi.xingstation.com/api/s/G67' + window.location.search,
         imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/yanzhi/pk/share.png',
         success: function() {
@@ -175,7 +175,8 @@ export default {
         belong: this.utmCampaign,
         image_url: this.photo,
         score: this.score,
-        qiniu_id: this.$route.query.id
+        qiniu_id: this.$route.query.id,
+        gender: this.$route.query.sex
       }
       userGame(args, this.userId)
         .then(res => {
