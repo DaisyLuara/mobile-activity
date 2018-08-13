@@ -7,8 +7,6 @@
         :src="IMGURL + 'bg1.jpg'" 
         class="bg">
       <ul class="btn-group">
-        <!-- <img :src="IMGURL + item + '.png'" /> -->
-        <!-- <a v-for = "item in 4" :key="item.id"  :href="ahref + item"><li></li></a> -->
         <a 
           v-for = "(item,index) in 4" 
           :key="item.id" 
