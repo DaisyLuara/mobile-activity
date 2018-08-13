@@ -97,7 +97,7 @@ export default {
     //处理接口问题
     handle() {
       let URL =
-        'http://exelook.com/client/pushdiv/?oid=476&belong=kiki&url=&name=' +
+        'http://exelook.com:8010/pushdiv/?oid=476&belong=kiki&url=&name=' +
         this.text2 +
         '&image=&api=json'
       // let args = {
