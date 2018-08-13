@@ -63,8 +63,8 @@ export default {
       wxShareInfoValue: {
         title: '月满中秋 心愿祈福',
         desc: '家人有爱口难开？让星视度帮你把祝福送给你爱的人吧',
-        link: 'http://papi.xingstation.com/api/s/o2j' + window.location.search,
-        imgUrl: cdnUrl + '/fe/marketing/img/midAutumn/icon.jpg',
+        link: 'http://papi.xingstation.com/api/s/J62' + window.location.search,
+        imgUrl: cdnUrl + '/fe/marketing/img/midAutumn/icon.png',
         success: () => {
           wechatShareTrack()
         }
