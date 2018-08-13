@@ -116,7 +116,7 @@ export default {
         })
     },
     send() {
-      this.test2 = this.test2 === '' ? '祝家人健健康康' : this.test2
+      this.text2 = this.text2 === '' ? '祝家人健健康康' : this.text2
       this.handle()
     },
     //处理接口问题
