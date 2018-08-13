@@ -54,10 +54,6 @@ export default {
       photo: '',
       text: '祝家人健健康康',
       text2: '',
-      // resultImgUrl:
-      //   'http://cdn.exe666.com/fe/marketing/img/midAutumn/white.png',
-      touchNumber: 0,
-      iphoneX: false,
       base64Data: null,
       compoundUrl: null,
       wxShareInfoValue: {
@@ -69,7 +65,6 @@ export default {
           wechatShareTrack()
         }
       },
-      count: 0,
       imgList: ['1.png', '2.png', 'bg.png', 'button.png', 'white.png']
     }
   },
@@ -122,7 +117,7 @@ export default {
     },
     send() {
       if (this.text2 === '') {
-        console.log('祝福语不能为空')
+        this.text2 = this.text
       } else {
         //发送给大屏
         this.handle()
@@ -134,16 +129,8 @@ export default {
         'http://exelook.com:8010/pushdiv/?oid=476&belong=kiki&url=&name=' +
         this.text2 +
         '&image=&api=json'
-      // let args = {
-      //   oid: 476,
-      //   belong: 'kiki',
-      //   url: '',
-      //   name: this.text2,
-      //   image: '',
-      //   api: 'json'
-      // }
       this.$http
-        .post(URL)
+        .get(URL)
         .then(res => {
           console.log(res)
           this.text = this.text2
@@ -177,7 +164,7 @@ export default {
           }
         })
         //this.baseUrl + '666.png'
-        .add(this.baseUrl + '666.png', {
+        .add(url, {
           width: '96%',
           color: '#000000',
           pos: {
