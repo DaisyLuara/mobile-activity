@@ -68,12 +68,24 @@ export default {
         success: () => {
           wechatShareTrack()
         }
+      },
+      count: 0,
+      imgList: ['1.png', '2.png', 'bg.png', 'button.png']
+    }
+  },
+  watch: {
+    count(val, oldval) {
+      if (val == 4) {
+        // this.getInfoById()
+        //然后可以对后台发送一些ajax操作
       }
     }
   },
-  created() {},
-  mounted() {
+  created() {
     this.getInfoById()
+  },
+  mounted() {
+    this.loadImage()
     this.drawing()
   },
   methods: {
@@ -88,11 +100,24 @@ export default {
           console.log(err)
         })
     },
-
+    //图片预加载处理
+    loadImage() {
+      var _this = this
+      Array.from(_this.imgList).forEach(item => {
+        let img = new Image()
+        img.onload = () => {
+          this.count++
+        }
+        img.src = _this.baseUrl + item
+      })
+    },
     send() {
-      alert('11111')
-      //发送给大屏
-      this.handle()
+      if (this.text2 === '') {
+        console.log('祝福语不能为空')
+      } else {
+        //发送给大屏
+        this.handle()
+      }
     },
     //处理接口问题
     handle() {
