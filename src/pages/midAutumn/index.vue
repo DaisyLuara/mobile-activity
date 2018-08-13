@@ -70,25 +70,45 @@ export default {
         }
       },
       count: 0,
-      imgList: ['1.png', '2.png', 'bg.png', 'button.png']
+      imgList: ['1.png', '2.png', 'bg.png', 'button.png', 'white.png']
     }
   },
-  watch: {
-    count(val, oldval) {
-      if (val == 4) {
-        // this.getInfoById()
-        //然后可以对后台发送一些ajax操作
-      }
-    }
-  },
-  created() {
-    this.getInfoById()
-  },
+  created() {},
   mounted() {
-    this.loadImage()
+    this.entry(this.imgList, r => {
+      console.dir(r)
+      getInfoById()
+      // do next
+    })
     this.drawing()
   },
   methods: {
+    loadImgs(imgList) {
+      let preList = []
+      let thisRef = this
+      for (let i = 0; i < this.imgList.length; i++) {
+        let pre = new Promise((resolve, reject) => {
+          let img = new Image()
+          img.onload = function() {
+            resolve(img)
+          }
+          img.src = thisRef.baseUrl + this.imgList[i]
+        })
+        preList.push(pre)
+      }
+      return Promise.all(preList).then(r => {
+        return Promise.resolve(r)
+      })
+    },
+    async entry(imgList, cb) {
+      try {
+        let rs = await this.loadImgs(imgList)
+        cb(rs)
+      } catch (err) {
+        console.log(err)
+        cb([])
+      }
+    },
     getInfoById() {
       let id = this.$route.query.id
       getInfoById(id)
@@ -99,17 +119,6 @@ export default {
         .catch(err => {
           console.log(err)
         })
-    },
-    //图片预加载处理
-    loadImage() {
-      var _this = this
-      Array.from(_this.imgList).forEach(item => {
-        let img = new Image()
-        img.onload = () => {
-          this.count++
-        }
-        img.src = _this.baseUrl + item
-      })
     },
     send() {
       if (this.text2 === '') {
@@ -134,7 +143,7 @@ export default {
       //   api: 'json'
       // }
       this.$http
-        .get(URL)
+        .post(URL)
         .then(res => {
           console.log(res)
           this.text = this.text2
@@ -168,7 +177,7 @@ export default {
           }
         })
         //this.baseUrl + '666.png'
-        .add(url, {
+        .add(this.baseUrl + '666.png', {
           width: '96%',
           color: '#000000',
           pos: {
