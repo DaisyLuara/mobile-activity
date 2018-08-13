@@ -72,7 +72,7 @@ export default {
   mounted() {
     this.entry(this.imgList, r => {
       console.dir(r)
-      getInfoById()
+      this.getInfoById()
       // do next
     })
     this.drawing()
