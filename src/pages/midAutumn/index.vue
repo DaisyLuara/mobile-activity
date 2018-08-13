@@ -3,7 +3,7 @@
     :style="style.root" 
     class="root">
     <!-- 合成图片 -->
-     <img
+    <img
       id="test" 
       :src="compoundUrl"
       alt="" 
@@ -17,17 +17,17 @@
       <img 
         :src="baseUrl + '1.png'+ this.$qiniuCompress()"
         class="bt" >
-       <img 
+      <img 
         :src="baseUrl + '2.png'+ this.$qiniuCompress()"
         class="letter" >
-        <!-- 输入框 -->
-         <input 
-            v-model="text2" 
-            maxlength="10" 
-            placeholder="写下你的心愿"
-            class="text">
-           <!-- 保存 -->
-        <img 
+      <!-- 输入框 -->
+      <input 
+        v-model="text2" 
+        maxlength="10" 
+        placeholder="写下你的心愿"
+        class="text">
+      <!-- 保存 -->
+      <img 
         :src="baseUrl + 'button.png'+ this.$qiniuCompress()"
         class="save" 
         @click="send()">   
@@ -54,8 +54,8 @@ export default {
       photo: '',
       text: '祝家人健健康康',
       text2: '',
-      resultImgUrl:
-        'http://cdn.exe666.com/fe/marketing/img/midAutumn/white.png',
+      // resultImgUrl:
+      //   'http://cdn.exe666.com/fe/marketing/img/midAutumn/white.png',
       touchNumber: 0,
       iphoneX: false,
       base64Data: null,
@@ -82,7 +82,7 @@ export default {
       getInfoById(id)
         .then(res => {
           this.photo = res.image
-          //this.drawing()
+          this.drawing()
         })
         .catch(err => {
           console.log(err)
@@ -90,22 +90,26 @@ export default {
     },
 
     send() {
+      alert('11111')
       //发送给大屏
       this.handle()
     },
     //处理接口问题
     handle() {
-      let URL = 'http://exelook.com/client/pushdiv/'
-      let args = {
-        oid: 476,
-        belong: 'kiki',
-        url: '',
-        name: this.text2,
-        image: '',
-        api: 'json'
-      }
+      let URL =
+        'http://exelook.com/client/pushdiv/?oid=476&belong=kiki&url=&name=' +
+        this.text2 +
+        '&image=&api=json'
+      // let args = {
+      //   oid: 476,
+      //   belong: 'kiki',
+      //   url: '',
+      //   name: this.text2,
+      //   image: '',
+      //   api: 'json'
+      // }
       this.$http
-        .post(URL, args)
+        .post(URL, {})
         .then(res => {
           console.log(res)
           this.text = this.text2
@@ -125,7 +129,7 @@ export default {
         height,
         backgroundColor
       })
-      //let url = this.resultImgUrl + this.$qiniuCompress()
+      let url = this.photo + this.$qiniuCompress()
       let that = this
       mc
         .background(this.baseUrl + 'white.png', {
@@ -138,7 +142,8 @@ export default {
             y: '15%'
           }
         })
-        .add(this.baseUrl + '666.png', {
+        //this.baseUrl + '666.png'
+        .add(url, {
           width: '96%',
           color: '#000000',
           pos: {
@@ -221,10 +226,13 @@ export default {
     height: 85%;
     position: absolute;
     left: 50%;
-    top: 50%;
+    // top: 50%;
+    top: 96%;
     transform: translate(-50%, -50%);
     background: #fff;
     z-index: 9;
+    animation: upAppear 3s ease-in-out alternate;
+    animation-fill-mode: forwards;
     .photo-real {
       width: 96%;
       height: 100%;
@@ -240,7 +248,7 @@ export default {
   }
   .bottom {
     width: 100%;
-    height: 48%;
+    height: 42%;
     position: absolute;
     bottom: 0;
     .bt {
@@ -280,15 +288,12 @@ export default {
     }
   }
 }
-@keyframes fingerScale {
-  from {
-    transform: scale(1.05, 1.05);
+@keyframes upAppear {
+  0% {
+    top: 96%;
   }
-  50% {
-    transform: scale(1.2, 1.2);
-  }
-  to {
-    transform: scale(1.05, 1.05);
+  100% {
+    top: 50%;
   }
 }
 </style>
