@@ -117,7 +117,7 @@ export default {
     },
     send() {
       if (this.text2 === '') {
-        this.text2 = this.text
+        this.text2 = '祝家人健健康康'
       } else {
         //发送给大屏
         this.handle()
