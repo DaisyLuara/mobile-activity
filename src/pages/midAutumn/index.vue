@@ -116,12 +116,8 @@ export default {
         })
     },
     send() {
-      if (this.text2 === '') {
-        this.text2 = '祝家人健健康康'
-      } else {
-        //发送给大屏
-        this.handle()
-      }
+      this.test2 = this.test2 === '' ? '祝家人健健康康' : this.test2
+      this.handle()
     },
     //处理接口问题
     handle() {
