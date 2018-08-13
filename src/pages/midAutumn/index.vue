@@ -109,7 +109,7 @@ export default {
       //   api: 'json'
       // }
       this.$http
-        .post(URL, {})
+        .get(URL)
         .then(res => {
           console.log(res)
           this.text = this.text2
