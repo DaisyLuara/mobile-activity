@@ -27,13 +27,14 @@
           :src="base + 'kuang22.png'"
           class="kuang">
         <ul
-          class="text">
+          :class="{text:true,nan:nan}">
           <li>
             <img 
               :src="word"
               class="word">
           </li>
-          <li>
+          <li 
+            v-show="Boolean(sex)">
             <img 
               v-show="Boolean(word)"
               :src="note"
@@ -41,12 +42,16 @@
           </li>
         </ul>
         <a 
-          v-show="Boolean(photo)"
+          v-show="Boolean(sex)"
           class="btn"
           @click="toPK">
           <img
             :src="btn">
         </a>
+        <img
+          v-show="!Boolean(sex)"
+          :src="base+'boy.png'"
+          class="boy">
         <span class="code">{{ score }}</span>
       </div>
       <img 
@@ -84,6 +89,8 @@ export default {
       userId: null,
       score: null,
       rank: 0,
+      nan: false,
+      sex: parseInt(this.$route.query.sex),
       rank_url: process.env.SAAS_API + '/user/',
       //分享
       wxShareInfoValue: {
@@ -118,6 +125,7 @@ export default {
       this.score < 91 || this.score > 100
         ? this.base + 'code.png'
         : this.base + this.score + '.png'
+
     let bg = new Image()
     bg.src = 'http://p22vy0aug.bkt.clouddn.com/image/yanzhi/pk/bg.png'
     bg.onload = function() {
@@ -130,6 +138,7 @@ export default {
         kuang.onload = function() {}
       }
     }
+    this.nan = this.$route.query.sex == 0 ? true : false
   },
   methods: {
     handleWechatAuth() {
@@ -291,11 +300,21 @@ img {
           margin: 2.5% auto;
         }
       }
+      .nan {
+        top: 17%;
+      }
       .btn {
         display: inline-block;
         width: 52%;
         position: absolute;
         top: 32%;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .boy {
+        width: 50%;
+        position: absolute;
+        top: 42%;
         left: 50%;
         transform: translateX(-50%);
       }
