@@ -61,8 +61,8 @@ export default {
       base64Data: null,
       compoundUrl: null,
       wxShareInfoValue: {
-        title: '冰力十足 酷爽一夏',
-        desc: '看！卖萌的企鹅',
+        title: '月满中秋 心愿祈福',
+        desc: '家人有爱口难开？让星视度帮你把祝福送给你爱的人吧',
         link: 'http://papi.xingstation.com/api/s/o2j' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/midAutumn/icon.jpg',
         success: () => {
