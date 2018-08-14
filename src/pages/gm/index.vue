@@ -70,10 +70,10 @@ export default {
       iphoneX: false,
       compoundUrl: null,
       wxShareInfoValue: {
-        title: '冰力十足 酷爽一夏',
-        desc: '看！卖萌的企鹅',
+        title: 'Super toy cars',
+        desc: '最强漂移就在国贸赛道',
         link: 'http://papi.xingstation.com/api/s/KrR' + window.location.search,
-        imgUrl: cdnUrl + '/fe/marketing/img/internationalTrade/icon.jpg',
+        imgUrl: cdnUrl + '/fe/marketing/img/internationalTrade/share.png',
         success: () => {
           wechatShareTrack()
         }
