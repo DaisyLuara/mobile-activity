@@ -95,7 +95,6 @@ export default {
       ) {
         this.handleWechatAuth()
       }
-      this.handleWechatAuth()
     }
   },
   methods: {
