@@ -108,6 +108,17 @@ const Date201808 = [
       desc: '欢乐中秋H5页面'
     },
     isAbandoned: false
+  },
+  {
+    path: 'international_trade',
+    location: 'gm/index',
+    name: 'international_trad',
+    meta: {
+      title: '国贸汽车',
+      author: 'xj1012',
+      desc: '国贸H5页面'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201808
