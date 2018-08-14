@@ -114,7 +114,7 @@ const Date201808 = [
     location: 'gm/index',
     name: 'international_trad',
     meta: {
-      title: '国贸汽车',
+      title: '多美卡',
       author: 'xj1012',
       desc: '国贸H5页面'
     },
