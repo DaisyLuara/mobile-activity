@@ -7,11 +7,12 @@
         :src="baseUrl + 'up.png'+ this.$qiniuCompress()"
       >
       <!-- 大屏photo -->
-      <!-- <div class="photo">
+      <div class="photo">
            <img 
-            :src="baseUrl + '666.png'+ this.$qiniuCompress()"
-        >
-        </div> -->
+            v-if="photo !== null" 
+            :src="photo + this.$qiniuCompress()"
+            class="photo-img">
+        </div>
     </div>
     <div 
       :class="{'x-center':iphoneX}"
@@ -45,13 +46,13 @@
 <script>
 import { $wechat, wechatShareTrack, isInWechat, Cookies } from 'services'
 import { createGame, getGame } from 'services'
-import { onlyGetPhoto } from '../../mixins/onlyGetPhoto'
+import { normalPages } from '../../mixins/normalPages'
 import MC from 'mcanvas'
 
 const cdnUrl = process.env.CDN_URL
 
 export default {
-  mixins: [onlyGetPhoto],
+  mixins: [normalPages],
   data() {
     return {
       baseUrl: cdnUrl + '/fe/marketing/img/internationalTrade/',
@@ -69,10 +70,10 @@ export default {
       iphoneX: false,
       compoundUrl: null,
       wxShareInfoValue: {
-        title: '冰力十足 酷爽一夏',
-        desc: '看！卖萌的企鹅',
-        link: 'http://papi.xingstation.com/api/s/o2j' + window.location.search,
-        imgUrl: cdnUrl + '/fe/marketing/img/internationalTrade/icon.jpg',
+        title: 'Super toy cars',
+        desc: '最强漂移就在国贸赛道',
+        link: 'http://papi.xingstation.com/api/s/KrR' + window.location.search,
+        imgUrl: cdnUrl + '/fe/marketing/img/internationalTrade/share.png',
         success: () => {
           wechatShareTrack()
         }
@@ -87,7 +88,7 @@ export default {
     } else {
       this.iphoneX = false
     }
-    this.handleWechatShare()
+    //微信授权
     if (isInWechat() === true) {
       if (
         process.env.NODE_ENV === 'production' ||
@@ -98,19 +99,6 @@ export default {
     }
   },
   methods: {
-    handleWechatShare() {
-      if (isInWechat() === true) {
-        $wechat()
-          .then(res => {
-            res.share(this.wxShareInfoValue)
-          })
-          .catch(err => {
-            console.warn(err.message)
-          })
-      } else {
-        console.warn('you r not in wechat environment')
-      }
-    },
     handleWechatAuth() {
       if (Cookies.get('user_id') === null) {
         let base_url = encodeURIComponent(String(window.location.href))
@@ -173,6 +161,11 @@ export default {
 
 <style lang="less" scoped>
 @imageHost: 'http://cdn.exe666.com/fe/marketing/img/internationalTrade/';
+img {
+  pointer-events: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
 .root {
   width: 100%;
   position: relative;
@@ -184,15 +177,25 @@ export default {
     position: absolute;
     left: 0;
     top: 0;
+    pointer-events: none;
+    user-select: none;
+    -webkit-touch-callout: none;
     img {
       width: 100%;
+      pointer-events: none;
+      user-select: none;
     }
     .photo {
       position: absolute;
-      left: 0;
-      top: 0;
-      width: 50%;
-      border-radius: 50%;
+      left: 50%;
+      top: 50%;
+      width: 47%;
+      transform: translate(-51%, -34%);
+      .photo-img {
+        border-radius: 50%;
+        pointer-events: auto;
+        user-select: auto;
+      }
     }
   }
   .center {
@@ -200,8 +203,10 @@ export default {
     height: 100%;
     position: absolute;
     left: 0;
-    //top: 78%; X
     top: 84%;
+    pointer-events: none;
+    user-select: none;
+    -webkit-touch-callout: none;
     .pass {
       width: 100%;
     }
@@ -229,7 +234,10 @@ export default {
     height: 100%;
     position: absolute;
     left: 0;
-    top: 73%;
+    top: 71%;
+    pointer-events: none;
+    user-select: none;
+    -webkit-touch-callout: none;
     .pass {
       width: 100%;
     }
@@ -256,8 +264,10 @@ export default {
     width: 100%;
     position: absolute;
     left: 0;
-    //top: 134%; X
     top: 146%;
+    pointer-events: none;
+    user-select: none;
+    -webkit-touch-callout: none;
     img {
       width: 100%;
     }
@@ -266,18 +276,13 @@ export default {
     width: 100%;
     position: absolute;
     left: 0;
-    top: 125%;
+    top: 123%;
+    pointer-events: none;
+    user-select: none;
+    -webkit-touch-callout: none;
     img {
       width: 100%;
     }
-  }
-}
-@keyframes upAppear {
-  0% {
-    top: 96%;
-  }
-  100% {
-    top: 50%;
   }
 }
 </style>
