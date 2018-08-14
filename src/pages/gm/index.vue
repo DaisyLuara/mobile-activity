@@ -203,7 +203,7 @@ img {
     height: 100%;
     position: absolute;
     left: 0;
-    top: 84%;
+    top: 87%;
     pointer-events: none;
     user-select: none;
     -webkit-touch-callout: none;
@@ -234,7 +234,7 @@ img {
     height: 100%;
     position: absolute;
     left: 0;
-    top: 71%;
+    top: 72%;
     pointer-events: none;
     user-select: none;
     -webkit-touch-callout: none;
@@ -264,7 +264,7 @@ img {
     width: 100%;
     position: absolute;
     left: 0;
-    top: 146%;
+    top: 149%;
     pointer-events: none;
     user-select: none;
     -webkit-touch-callout: none;
@@ -276,7 +276,7 @@ img {
     width: 100%;
     position: absolute;
     left: 0;
-    top: 123%;
+    top: 124%;
     pointer-events: none;
     user-select: none;
     -webkit-touch-callout: none;
