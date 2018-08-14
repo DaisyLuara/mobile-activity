@@ -68,7 +68,6 @@ export default {
           height: window.innerWidth * 1220 / 750 + 'px'
         }
       },
-      screenWidth: document.body.clientWidth,
       photo: '',
       pass: {
         firstPass: true,
