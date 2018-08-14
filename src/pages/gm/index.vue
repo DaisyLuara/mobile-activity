@@ -15,6 +15,7 @@
         </div>
     </div>
     <div 
+      :style="style.screenHei" 
       :class="{'x-center':iphoneX}"
       class="center" >
       <img 
@@ -62,8 +63,12 @@ export default {
       style: {
         root: {
           height: this.$innerHeight() + 'px'
+        },
+        screenHei: {
+          height: window.innerWidth * 1220 / 750 + 'px'
         }
       },
+      screenWidth: document.body.clientWidth,
       photo: '',
       pass: {
         firstPass: true,
@@ -206,7 +211,6 @@ img {
   }
   .center {
     width: 100%;
-    height: 100%;
     position: relative;
     left: 0;
     top: 0;
