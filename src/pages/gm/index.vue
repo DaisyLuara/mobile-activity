@@ -113,7 +113,7 @@ export default {
     const that = this
     window.onresize = () => {
       return (() => {
-        window.screenWidth = document.body.clientWidth
+        window.screenWidth = window.innerWidth
         that.screenWidth = window.screenWidth
       })()
     }
