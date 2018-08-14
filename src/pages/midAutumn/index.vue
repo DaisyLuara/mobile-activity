@@ -52,6 +52,8 @@ export default {
         }
       },
       photo: '',
+      oid: this.$route.query.oid,
+      belong: this.$route.query.belong,
       text: '祝家人健健康康',
       text2: '',
       base64Data: null,
@@ -122,7 +124,11 @@ export default {
     //处理接口问题
     handle() {
       let URL =
-        'http://exelook.com:8010/pushdiv/?oid=476&belong=kiki&url=&name=' +
+        'http://exelook.com:8010/pushdiv/?oid=' +
+        this.oid +
+        '&belong=' +
+        this.belong +
+        '&url=&name=' +
         this.text2 +
         '&image=&api=json'
       this.$http
