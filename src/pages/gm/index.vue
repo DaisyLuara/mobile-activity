@@ -6,7 +6,7 @@
       <img 
         :src="baseUrl + 'up.png'+ this.$qiniuCompress()"
       >
-      <!-- 大屏photo -->
+      <!-- 大屏photo  :src="photo + this.$qiniuCompress()" -->
       <div class="photo">
            <img 
             v-if="photo !== null" 
@@ -32,12 +32,15 @@
         v-show="pass.thirdPass"
         :src="baseUrl + '3.png'+ this.$qiniuCompress()"
         class=" thirdPass">
+      <img 
+        :src="baseUrl + 'xia2.png?v=1111'+ this.$qiniuCompress()"
+        class="clound"
+      >
     </div>
     <div 
-      :class="{'x-bottom':iphoneX}" 
       class="bottom">
       <img 
-        :src="baseUrl + 'xia.png'+ this.$qiniuCompress()"
+        :src="baseUrl + 'bt.png?v=1111'+ this.$qiniuCompress()"
       >
     </div>
   </div>
@@ -174,12 +177,14 @@ img {
   overflow-x: hidden;
   .top {
     width: 100%;
-    position: absolute;
+    position: relative;
     left: 0;
     top: 0;
     pointer-events: none;
     user-select: none;
     -webkit-touch-callout: none;
+    z-index: 5;
+    margin-top: 3%;
     img {
       width: 100%;
       pointer-events: none;
@@ -189,7 +194,8 @@ img {
       position: absolute;
       left: 50%;
       top: 50%;
-      width: 47%;
+      width: 50%;
+      z-index: -1;
       transform: translate(-51%, -34%);
       .photo-img {
         border-radius: 50%;
@@ -201,82 +207,100 @@ img {
   .center {
     width: 100%;
     height: 100%;
-    position: absolute;
+    position: relative;
     left: 0;
-    top: 87%;
+    top: 0;
     pointer-events: none;
     user-select: none;
     -webkit-touch-callout: none;
     .pass {
       width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 3;
     }
     .firstPass {
       width: 100%;
+      height: 100%;
       position: absolute;
       left: 0;
       top: 0;
+      z-index: 3;
     }
     .secondPass {
       width: 100%;
+      height: 100%;
       position: absolute;
       left: 0;
       top: 0;
+      z-index: 3;
     }
     .thirdPass {
       width: 100%;
+      height: 100%;
       position: absolute;
       left: 0;
       top: 0;
+      z-index: 3;
+    }
+    .clound {
+      width: 100%;
+      position: absolute;
+      left: 0;
+      bottom: -25%;
     }
   }
   .x-center {
     width: 100%;
-    height: 100%;
-    position: absolute;
+    position: relative;
     left: 0;
-    top: 72%;
+    top: 0;
     pointer-events: none;
     user-select: none;
     -webkit-touch-callout: none;
     .pass {
       width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 3%;
+      z-index: 3;
     }
     .firstPass {
       width: 100%;
+      height: 100%;
       position: absolute;
       left: 0;
-      top: 0;
+      top: 3%;
     }
     .secondPass {
       width: 100%;
+      height: 100%;
       position: absolute;
       left: 0;
-      top: 0;
+      top: 3%;
     }
     .thirdPass {
       width: 100%;
+      height: 100%;
       position: absolute;
       left: 0;
-      top: 0;
+      top: 3%;
+    }
+    .clound {
+      width: 100%;
+      position: absolute;
+      left: 0;
+      bottom: -14%;
     }
   }
   .bottom {
     width: 100%;
-    position: absolute;
+    position: relative;
     left: 0;
-    top: 149%;
-    pointer-events: none;
-    user-select: none;
-    -webkit-touch-callout: none;
-    img {
-      width: 100%;
-    }
-  }
-  .x-bottom {
-    width: 100%;
-    position: absolute;
-    left: 0;
-    top: 124%;
+    top: 0;
     pointer-events: none;
     user-select: none;
     -webkit-touch-callout: none;
