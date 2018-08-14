@@ -285,12 +285,4 @@ img {
     }
   }
 }
-@keyframes upAppear {
-  0% {
-    top: 96%;
-  }
-  100% {
-    top: 50%;
-  }
-}
 </style>
