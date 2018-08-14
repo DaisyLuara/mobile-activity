@@ -134,7 +134,6 @@ export default {
       createGame(args, userId)
         .then(res => {
           if (res.success) {
-            alert(userId)
             this.getGame(userId)
           }
         })
