@@ -45,13 +45,13 @@
 <script>
 import { $wechat, wechatShareTrack, isInWechat, Cookies } from 'services'
 import { createGame, getGame } from 'services'
-import { onlyGetPhoto } from '../../mixins/onlyGetPhoto'
+import { onlyGetPhoto } from '../../mixins/normalPages'
 import MC from 'mcanvas'
 
 const cdnUrl = process.env.CDN_URL
 
 export default {
-  mixins: [onlyGetPhoto],
+  mixins: [normalPages],
   data() {
     return {
       baseUrl: cdnUrl + '/fe/marketing/img/internationalTrade/',
@@ -87,7 +87,7 @@ export default {
     } else {
       this.iphoneX = false
     }
-    this.handleWechatShare()
+    //微信授权
     if (isInWechat() === true) {
       if (
         process.env.NODE_ENV === 'production' ||
@@ -98,19 +98,6 @@ export default {
     }
   },
   methods: {
-    handleWechatShare() {
-      if (isInWechat() === true) {
-        $wechat()
-          .then(res => {
-            res.share(this.wxShareInfoValue)
-          })
-          .catch(err => {
-            console.warn(err.message)
-          })
-      } else {
-        console.warn('you r not in wechat environment')
-      }
-    },
     handleWechatAuth() {
       if (Cookies.get('user_id') === null) {
         let base_url = encodeURIComponent(String(window.location.href))
