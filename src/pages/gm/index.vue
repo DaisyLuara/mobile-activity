@@ -15,6 +15,7 @@
         </div>
     </div>
     <div 
+      :style="style.screenHei" 
       :class="{'x-center':iphoneX}"
       class="center" >
       <img 
@@ -62,8 +63,12 @@ export default {
       style: {
         root: {
           height: this.$innerHeight() + 'px'
+        },
+        screenHei: {
+          height: window.innerWidth * 1220 / 750 + 'px'
         }
       },
+      screenWidth: window.innerWidth,
       photo: '',
       pass: {
         firstPass: true,
@@ -83,6 +88,11 @@ export default {
       }
     }
   },
+  watch: {
+    screenWidth(val) {
+      this.resize()
+    }
+  },
   created() {},
   mounted() {
     let height = this.$innerHeight()
@@ -100,8 +110,20 @@ export default {
         this.handleWechatAuth()
       }
     }
+    const that = this
+    window.onresize = () => {
+      return (() => {
+        window.screenWidth = window.innerWidth
+        that.screenWidth = window.screenWidth
+      })()
+    }
   },
   methods: {
+    resize() {
+      let view = document.querySelector('.center')
+      let height = window.innerWidth * 1220 / 750 + 'px'
+      view.style.height = height
+    },
     handleWechatAuth() {
       if (Cookies.get('user_id') === null) {
         let base_url = encodeURIComponent(String(window.location.href))
@@ -206,7 +228,7 @@ img {
   }
   .center {
     width: 100%;
-    height: 100%;
+    // height: 100%;
     position: relative;
     left: 0;
     top: 0;
