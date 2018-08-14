@@ -27,7 +27,7 @@
             class="toright">
         </swiper-slide>
       </swiper>
-      <!-- 背景图组 -->
+      <!-- 图组 -->
       <swiper 
         ref="Swiper1" 
         :options="swiperOption" 
@@ -36,28 +36,10 @@
           v-for="(item,index) in videoData" 
           :key="index" 
           class="slider1">
-          <video 
-            v-show="!bgshow" 
-            :id="'video'+index" 
-            webkit-playsinline="true" 
-            playsinline="true" 
-            x-webkit-airplay="true" 
-            controls 
-            width="100%" 
-            height="100%">
-            <source 
-              :src="item.vUrl" 
-              type="video/mp4">
-            您的浏览器不支持video标签.
-          </video>
-          <img 
-            v-show="bgshow" 
-            :src="item.bgUrl" 
-            class="vbg">
-          <a 
-            v-show="bgshow" 
-            class="vplay" 
-            @click="vPlay(index)"><img :src="IMGURL + 'video/play.png'"></a>
+          <img
+            :data-url="item.mUrl"
+            src="http://p22vy0aug.bkt.clouddn.com/image/ppt_video/loading.gif"
+            class="mImg loading">
         </swiper-slide>
       </swiper>
     </div>
@@ -68,14 +50,13 @@
 </template>
 
 <script>
-const REQ_URL = 'http://120.27.144.62:1337/parse/classes/'
-const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 import { $wechat, wechatShareTrack, isInWechat } from 'services'
 import { parseService } from 'services'
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import $ from 'jquery'
-
+const REQ_URL = 'http://120.27.144.62:1337/parse/classes/'
+const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
   components: {
     swiper,
@@ -86,8 +67,6 @@ export default {
       IMGURL: IMAGE_SERVER + '/pages/promotion/',
       videoData: null,
       vType: this.$route.query.vtype,
-      playNow: null,
-      bgshow: true,
       left: false,
       right: false,
       swiperOption: {
@@ -112,11 +91,6 @@ export default {
         on: {
           init: () => {},
           slideChange: () => {
-            this.playNow = document.getElementById(
-              'video' + this.$refs.Swiper1.swiper.previousIndex
-            )
-            this.playNow.pause()
-            this.playNow.currentTime = 0
             scrollTo(0, 0)
           }
         }
@@ -149,10 +123,7 @@ export default {
   },
   mounted() {
     this.handleWechatShare()
-    let height =
-      window.innerHeight ||
-      document.documentElement.clientHeight ||
-      document.body.clientHeight
+    let height = this.$innerHeight()
     let content = document.getElementById('content')
     content.style.minHeight = height + 'px'
     this.$refs.Swiper1.swiper.controller.control = this.$refs.Swiper2.swiper
@@ -181,26 +152,9 @@ export default {
       }
     },
     returnMenu() {
-      // window.location.href =
-      //   window.location.origin + '/marketing/ppt_index?utm_source=20'
       this.$router.push({
         path: 'ppt_index?utm_source=20'
       })
-    },
-    vPlay(index) {
-      let that = this
-      this.playNow = document.getElementById('video' + index)
-      this.playNow.play()
-      this.bgshow = false
-      this.playNow.onplay = function() {
-        that.playNow.currentTime = 0
-      }
-      this.playNow.onended = function() {
-        that.bgshow = true
-      }
-      this.playNow.onpause = function() {
-        that.bgshow = true
-      }
     },
     getDataByType() {
       let query = {
@@ -210,8 +164,17 @@ export default {
         .get(REQ_URL + 'promotion?where=' + JSON.stringify(query))
         .then(data => {
           this.videoData = data.results
-          console.log(data.results)
           this.toPointer()
+          let imgs = document.querySelectorAll('.mImg')
+          Array.from(imgs).forEach(item => {
+            let img = new Image()
+            let url = item.getAttribute('data-url')
+            img.onload = function() {
+              item.setAttribute('src', url)
+              item.setAttribute('class', 'mImg')
+            }
+            img.src = url
+          })
         })
         .catch(err => {
           console.log(err)
@@ -257,29 +220,17 @@ body {
       margin: 0 auto;
       text-align: center;
       position: relative;
-      video {
-        width: 100%;
+
+      img {
+        // width: 90%;
+        width: 67%;
         position: relative;
         z-index: 0;
+        margin-bottom: 3%;
       }
-      .vbg {
-        width: 80%;
-        // filter: url(blur.svg#blur); /* FireFox, Chrome, Opera */
-        filter: blur(10px);
-        filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=10, MakeShadow=false); /* IE6~IE9 */
-        overflow: hidden;
-      }
-      .vplay {
-        width: 30%;
-        display: inline-block;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 999;
-        img {
-          max-width: 100%;
-        }
+      .loading {
+        width: 30px;
+        margin-top: 50%;
       }
     }
   }
