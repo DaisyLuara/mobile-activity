@@ -7,11 +7,12 @@
         :src="baseUrl + 'up.png'+ this.$qiniuCompress()"
       >
       <!-- 大屏photo -->
-      <!-- <div class="photo">
+      <div class="photo">
            <img 
-            :src="baseUrl + '666.png'+ this.$qiniuCompress()"
-        >
-        </div> -->
+            v-if="photo !== null" 
+            :src="photo + this.$qiniuCompress()"
+            class="photo-img">
+        </div>
     </div>
     <div 
       :class="{'x-center':iphoneX}"
@@ -45,7 +46,7 @@
 <script>
 import { $wechat, wechatShareTrack, isInWechat, Cookies } from 'services'
 import { createGame, getGame } from 'services'
-import { onlyGetPhoto } from '../../mixins/normalPages'
+import { normalPages } from '../../mixins/normalPages'
 import MC from 'mcanvas'
 
 const cdnUrl = process.env.CDN_URL
@@ -71,7 +72,7 @@ export default {
       wxShareInfoValue: {
         title: '冰力十足 酷爽一夏',
         desc: '看！卖萌的企鹅',
-        link: 'http://papi.xingstation.com/api/s/o2j' + window.location.search,
+        link: 'http://papi.xingstation.com/api/s/KrR' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/internationalTrade/icon.jpg',
         success: () => {
           wechatShareTrack()
@@ -160,6 +161,11 @@ export default {
 
 <style lang="less" scoped>
 @imageHost: 'http://cdn.exe666.com/fe/marketing/img/internationalTrade/';
+img {
+  pointer-events: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
 .root {
   width: 100%;
   position: relative;
@@ -171,15 +177,25 @@ export default {
     position: absolute;
     left: 0;
     top: 0;
+    pointer-events: none;
+    user-select: none;
+    -webkit-touch-callout: none;
     img {
       width: 100%;
+      pointer-events: none;
+      user-select: none;
     }
     .photo {
       position: absolute;
-      left: 0;
-      top: 0;
-      width: 50%;
-      border-radius: 50%;
+      left: 50%;
+      top: 50%;
+      width: 47%;
+      transform: translate(-51%, -34%);
+      .photo-img {
+        border-radius: 50%;
+        pointer-events: auto;
+        user-select: auto;
+      }
     }
   }
   .center {
@@ -187,8 +203,10 @@ export default {
     height: 100%;
     position: absolute;
     left: 0;
-    //top: 78%; X
     top: 84%;
+    pointer-events: none;
+    user-select: none;
+    -webkit-touch-callout: none;
     .pass {
       width: 100%;
     }
@@ -216,7 +234,10 @@ export default {
     height: 100%;
     position: absolute;
     left: 0;
-    top: 73%;
+    top: 71%;
+    pointer-events: none;
+    user-select: none;
+    -webkit-touch-callout: none;
     .pass {
       width: 100%;
     }
@@ -243,8 +264,10 @@ export default {
     width: 100%;
     position: absolute;
     left: 0;
-    //top: 134%; X
     top: 146%;
+    pointer-events: none;
+    user-select: none;
+    -webkit-touch-callout: none;
     img {
       width: 100%;
     }
@@ -253,7 +276,10 @@ export default {
     width: 100%;
     position: absolute;
     left: 0;
-    top: 125%;
+    top: 123%;
+    pointer-events: none;
+    user-select: none;
+    -webkit-touch-callout: none;
     img {
       width: 100%;
     }
