@@ -128,7 +128,7 @@ export default {
         this.oid +
         '&belong=' +
         this.belong +
-        '&url=&name=' +
+        '&url=&img=' +
         this.text2 +
         '&image=&api=json'
       this.$http
