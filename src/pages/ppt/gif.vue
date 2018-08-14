@@ -37,8 +37,8 @@
           :key="index" 
           class="slider1">
           <img
-            src="http://p22vy0aug.bkt.clouddn.com/image/ppt_video/loading.gif"
             :data-url="item.mUrl"
+            src="http://p22vy0aug.bkt.clouddn.com/image/ppt_video/loading.gif"
             class="mImg loading">
         </swiper-slide>
       </swiper>
