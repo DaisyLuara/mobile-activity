@@ -89,12 +89,12 @@ export default {
     }
     this.handleWechatShare()
     if (isInWechat() === true) {
-      // if (
-      //   process.env.NODE_ENV === 'production' ||
-      //   process.env.NODE_ENV === 'test'
-      // ) {
-      //this.handleWechatAuth()
-      // }
+      if (
+        process.env.NODE_ENV === 'production' ||
+        process.env.NODE_ENV === 'test'
+      ) {
+        this.handleWechatAuth()
+      }
       this.handleWechatAuth()
     }
   },
