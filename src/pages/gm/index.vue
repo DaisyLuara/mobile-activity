@@ -5,47 +5,53 @@
     <div class="top" >
       <img 
         :src="baseUrl + 'up.png'+ this.$qiniuCompress()"
-        >
-        <!-- 大屏photo -->
-        <div class="photo">
+      >
+      <!-- 大屏photo -->
+      <!-- <div class="photo">
            <img 
             :src="baseUrl + '666.png'+ this.$qiniuCompress()"
         >
-        </div>
+        </div> -->
     </div>
-    <div class="center" >
+    <div 
+      :class="{'x-center':iphoneX}"
+      class="center" >
       <img 
         :src="baseUrl + '0.png'+ this.$qiniuCompress()"
         class=" pass">
-         <img 
-        v-show="pass.passTwo"
+      <img 
+        v-show="pass.firstPass"
         :src="baseUrl + '1.png'+ this.$qiniuCompress()"
-        class=" passOne">
-        <img 
-         v-show="pass.passOne"
+        class="firstPass">
+      <img 
+        v-show="pass.secondPass"
         :src="baseUrl + '2.png'+ this.$qiniuCompress()"
-         class=" passTwo">
-        <img 
-         v-show="pass.passTree"
+        class=" secondPass">
+      <img 
+        v-show="pass.thirdPass"
         :src="baseUrl + '3.png'+ this.$qiniuCompress()"
-         class=" passTree">
+        class=" thirdPass">
     </div>
-     <div class="bottom" >
+    <div 
+      :class="{'x-bottom':iphoneX}" 
+      class="bottom">
       <img 
         :src="baseUrl + 'xia.png'+ this.$qiniuCompress()"
-        >
+      >
     </div>
   </div>
 </template>
 
 <script>
-import { $wechat, getInfoById, wechatShareTrack } from 'services'
-import { onlyWechatShare } from '../../mixins/onlyWechatShare'
+import { $wechat, wechatShareTrack, isInWechat, Cookies } from 'services'
+import { createGame, getGame } from 'services'
+import { onlyGetPhoto } from '../../mixins/onlyGetPhoto'
 import MC from 'mcanvas'
+
 const cdnUrl = process.env.CDN_URL
 
 export default {
-  mixins: [onlyWechatShare],
+  mixins: [onlyGetPhoto],
   data() {
     return {
       baseUrl: cdnUrl + '/fe/marketing/img/internationalTrade/',
@@ -56,10 +62,11 @@ export default {
       },
       photo: '',
       pass: {
-        passOne: true,
-        passTwo: true,
-        passTree: true
+        firstPass: true,
+        secondPass: true,
+        thirdPass: true
       },
+      iphoneX: false,
       compoundUrl: null,
       wxShareInfoValue: {
         title: '冰力十足 酷爽一夏',
@@ -74,18 +81,93 @@ export default {
   },
   created() {},
   mounted() {
-    this.getInfoById()
+    let height = this.$innerHeight()
+    if (height > 672) {
+      this.iphoneX = true
+    } else {
+      this.iphoneX = false
+    }
+    this.handleWechatShare()
+    if (isInWechat() === true) {
+      // if (
+      //   process.env.NODE_ENV === 'production' ||
+      //   process.env.NODE_ENV === 'test'
+      // ) {
+      //this.handleWechatAuth()
+      // }
+      this.handleWechatAuth()
+    }
   },
   methods: {
-    getInfoById() {
-      let id = this.$route.query.id
-      getInfoById(id)
+    handleWechatShare() {
+      if (isInWechat() === true) {
+        $wechat()
+          .then(res => {
+            res.share(this.wxShareInfoValue)
+          })
+          .catch(err => {
+            console.warn(err.message)
+          })
+      } else {
+        console.warn('you r not in wechat environment')
+      }
+    },
+    handleWechatAuth() {
+      if (Cookies.get('user_id') === null) {
+        let base_url = encodeURIComponent(String(window.location.href))
+        let redirct_url =
+          process.env.WX_API +
+          '/wx/officialAccount/oauth?url=' +
+          base_url +
+          '&scope=snsapi_base'
+        window.location.href = redirct_url
+      } else {
+        let utm_campaign = this.$route.query.utm_campaign
+        let user_id = Cookies.get('user_id')
+        this.createGame(utm_campaign, user_id)
+      }
+    },
+    createGame(belong, userId) {
+      let args = {
+        belong: belong
+      }
+      createGame(args, userId)
         .then(res => {
-          this.photo = res.image
+          if (res.success) {
+            alert(userId)
+            this.getGame(userId)
+          }
         })
-        .catch(err => {
-          console.log(err)
+        .catch(e => {
+          console.log(e)
         })
+    },
+    getGame(userId) {
+      let args = {
+        withCredentials: true
+      }
+      getGame(args, userId)
+        .then(res => {
+          console.log(res)
+          this.projectStatus(res, userId)
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    },
+    projectStatus(list, userId) {
+      let data = list
+      data.map(r => {
+        if (r.belong === 'ToyCarsRT') {
+          this.pass.firstPass = false
+        }
+        if (r.belong === 'ToyCarsSJ') {
+          this.pass.secondPass = false
+        }
+        if (r.belong === 'ToyCarsYAL') {
+          this.pass.thirdPass = false
+        }
+      })
     }
   }
 }
@@ -107,29 +189,65 @@ export default {
     img {
       width: 100%;
     }
+    .photo {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 50%;
+      border-radius: 50%;
+    }
   }
   .center {
     width: 100%;
     height: 100%;
     position: absolute;
     left: 0;
-    top: 78%;
+    //top: 78%; X
+    top: 84%;
     .pass {
       width: 100%;
     }
-    .passOne {
+    .firstPass {
       width: 100%;
       position: absolute;
       left: 0;
       top: 0;
     }
-    .passTwo {
+    .secondPass {
       width: 100%;
       position: absolute;
       left: 0;
       top: 0;
     }
-    .passTree {
+    .thirdPass {
+      width: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  }
+  .x-center {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 73%;
+    .pass {
+      width: 100%;
+    }
+    .firstPass {
+      width: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    .secondPass {
+      width: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    .thirdPass {
       width: 100%;
       position: absolute;
       left: 0;
@@ -140,7 +258,17 @@ export default {
     width: 100%;
     position: absolute;
     left: 0;
-    top: 134%;
+    //top: 134%; X
+    top: 146%;
+    img {
+      width: 100%;
+    }
+  }
+  .x-bottom {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 125%;
     img {
       width: 100%;
     }
