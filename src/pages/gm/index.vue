@@ -91,7 +91,7 @@ export default {
     if (isInWechat() === true) {
       if (
         process.env.NODE_ENV === 'production' ||
-        process.env.NODE_ENV === 'test'
+        process.env.NODE_ENV === 'testing'
       ) {
         this.handleWechatAuth()
       }
