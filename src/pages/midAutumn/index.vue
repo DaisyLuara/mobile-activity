@@ -52,31 +52,60 @@ export default {
         }
       },
       photo: '',
+      oid: this.$route.query.oid,
+      belong: this.$route.query.belong,
       text: '祝家人健健康康',
       text2: '',
-      // resultImgUrl:
-      //   'http://cdn.exe666.com/fe/marketing/img/midAutumn/white.png',
-      touchNumber: 0,
-      iphoneX: false,
       base64Data: null,
       compoundUrl: null,
       wxShareInfoValue: {
-        title: '冰力十足 酷爽一夏',
-        desc: '看！卖萌的企鹅',
-        link: 'http://papi.xingstation.com/api/s/o2j' + window.location.search,
-        imgUrl: cdnUrl + '/fe/marketing/img/midAutumn/icon.jpg',
+        title: '月满中秋 心愿祈福',
+        desc: '家人有爱口难开？让星视度帮你把祝福送给你爱的人吧',
+        link: 'http://papi.xingstation.com/api/s/J62' + window.location.search,
+        imgUrl: cdnUrl + '/fe/marketing/img/midAutumn/icon.png',
         success: () => {
           wechatShareTrack()
         }
-      }
+      },
+      imgList: ['1.png', '2.png', 'bg.png', 'button.png', 'white.png']
     }
   },
   created() {},
   mounted() {
-    this.getInfoById()
+    this.entry(this.imgList, r => {
+      console.dir(r)
+      this.getInfoById()
+      // do next
+    })
     this.drawing()
   },
   methods: {
+    loadImgs(imgList) {
+      let preList = []
+      let thisRef = this
+      for (let i = 0; i < this.imgList.length; i++) {
+        let pre = new Promise((resolve, reject) => {
+          let img = new Image()
+          img.onload = function() {
+            resolve(img)
+          }
+          img.src = thisRef.baseUrl + this.imgList[i]
+        })
+        preList.push(pre)
+      }
+      return Promise.all(preList).then(r => {
+        return Promise.resolve(r)
+      })
+    },
+    async entry(imgList, cb) {
+      try {
+        let rs = await this.loadImgs(imgList)
+        cb(rs)
+      } catch (err) {
+        console.log(err)
+        cb([])
+      }
+    },
     getInfoById() {
       let id = this.$route.query.id
       getInfoById(id)
@@ -88,26 +117,20 @@ export default {
           console.log(err)
         })
     },
-
     send() {
-      alert('11111')
-      //发送给大屏
+      this.text2 = this.text2 === '' ? '祝家人健健康康' : this.text2
       this.handle()
     },
     //处理接口问题
     handle() {
       let URL =
-        'http://exelook.com:8010/pushdiv/?oid=476&belong=kiki&url=&name=' +
+        'http://exelook.com:8010/pushdiv/?oid=' +
+        this.oid +
+        '&belong=' +
+        this.belong +
+        '&url=&name=' +
         this.text2 +
         '&image=&api=json'
-      // let args = {
-      //   oid: 476,
-      //   belong: 'kiki',
-      //   url: '',
-      //   name: this.text2,
-      //   image: '',
-      //   api: 'json'
-      // }
       this.$http
         .get(URL)
         .then(res => {

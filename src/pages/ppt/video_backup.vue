@@ -36,8 +36,28 @@
           v-for="(item,index) in videoData" 
           :key="index" 
           class="slider1">
-          <img
-            :src="item.mUrl">
+          <video 
+            v-show="!bgshow" 
+            :id="'video'+index" 
+            webkit-playsinline="true" 
+            playsinline="true" 
+            x-webkit-airplay="true" 
+            controls 
+            width="100%" 
+            height="100%">
+            <source 
+              :src="item.vUrl" 
+              type="video/mp4">
+            您的浏览器不支持video标签.
+          </video>
+          <img 
+            v-show="bgshow" 
+            :src="item.bgUrl" 
+            class="vbg">
+          <a 
+            v-show="bgshow" 
+            class="vplay" 
+            @click="vPlay(index)"><img :src="IMGURL + 'video/play.png'"></a>
         </swiper-slide>
       </swiper>
     </div>
@@ -92,6 +112,11 @@ export default {
         on: {
           init: () => {},
           slideChange: () => {
+            this.playNow = document.getElementById(
+              'video' + this.$refs.Swiper1.swiper.previousIndex
+            )
+            this.playNow.pause()
+            this.playNow.currentTime = 0
             scrollTo(0, 0)
           }
         }
@@ -124,7 +149,10 @@ export default {
   },
   mounted() {
     this.handleWechatShare()
-    let height = this.$innerHeight()
+    let height =
+      window.innerHeight ||
+      document.documentElement.clientHeight ||
+      document.body.clientHeight
     let content = document.getElementById('content')
     content.style.minHeight = height + 'px'
     this.$refs.Swiper1.swiper.controller.control = this.$refs.Swiper2.swiper
@@ -153,9 +181,26 @@ export default {
       }
     },
     returnMenu() {
+      // window.location.href =
+      //   window.location.origin + '/marketing/ppt_index?utm_source=20'
       this.$router.push({
         path: 'ppt_index?utm_source=20'
       })
+    },
+    vPlay(index) {
+      let that = this
+      this.playNow = document.getElementById('video' + index)
+      this.playNow.play()
+      this.bgshow = false
+      this.playNow.onplay = function() {
+        that.playNow.currentTime = 0
+      }
+      this.playNow.onended = function() {
+        that.bgshow = true
+      }
+      this.playNow.onpause = function() {
+        that.bgshow = true
+      }
     },
     getDataByType() {
       let query = {
@@ -212,11 +257,29 @@ body {
       margin: 0 auto;
       text-align: center;
       position: relative;
-      img {
-        width: 90%;
+      video {
+        width: 100%;
         position: relative;
         z-index: 0;
-        margin-bottom: 3%;
+      }
+      .vbg {
+        width: 80%;
+        // filter: url(blur.svg#blur); /* FireFox, Chrome, Opera */
+        filter: blur(10px);
+        filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=10, MakeShadow=false); /* IE6~IE9 */
+        overflow: hidden;
+      }
+      .vplay {
+        width: 30%;
+        display: inline-block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 999;
+        img {
+          max-width: 100%;
+        }
       }
     }
   }

@@ -27,7 +27,7 @@ export default {
     return {
       IMGURL: IMAGE_SERVER + '/pages/promotion/',
       video: ['', 'video1', 'video2', 'video3', 'video4'],
-      vType: ['guide', 'activity', 'member', 'mall'],
+      vType: ['guide', 'theme', 'game', 'coupon'],
       menuShow: true,
       ahref: null,
       playNow: null,

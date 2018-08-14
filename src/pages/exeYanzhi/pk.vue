@@ -196,10 +196,11 @@ export default {
 html,
 body {
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   transform: translate3d(0, 0, 0);
+  max-width: 750px;
 }
 * {
   padding: 0;
@@ -323,7 +324,7 @@ img {
         position: absolute;
         bottom: 10.5%;
         left: 52%;
-        font-size: 2rem;
+        font-size: 8vw;
         color: #fff;
         font-size: 900;
         font-family: 'Times New Roman';
