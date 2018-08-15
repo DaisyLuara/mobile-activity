@@ -24,8 +24,9 @@
       <input 
         v-model="text2" 
         maxlength="10" 
-        placeholder="写下你的心愿"
-        class="text">
+        placeholder="写下你的心愿(请在10分钟内发送祝福)"
+        class="text"
+        style="font-size:12px;">
       <!-- 保存 -->
       <img 
         :src="baseUrl + 'button.png'+ this.$qiniuCompress()"
