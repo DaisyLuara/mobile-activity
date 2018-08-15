@@ -23,16 +23,10 @@
       <span>{{ score.germany }}</span>
       <span>{{ score.brazil }}</span>
     </div>
-    <!-- 弹出层 -->
-    <GameShow 
-      ref="gameShow" 
-      :style-data="style"/>
   </div>
 </template>
-
 <script>
 import lottie from 'lottie-web'
-import GameShow from 'modules/gameShow'
 import { Toast } from 'mint-ui'
 import {
   isInWechat,
@@ -45,9 +39,6 @@ import {
 const serverUrl =
   'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/lottie/'
 export default {
-  components: {
-    GameShow
-  },
   data() {
     return {
       serverUrl: serverUrl,
@@ -134,7 +125,6 @@ export default {
       } else {
         let utm_campaign = this.$route.query.utm_campaign
         let user_id = Cookies.get('user_id')
-        this.$refs.gameShow.createGame(utm_campaign, user_id)
       }
     },
     handleStopBubble(e) {

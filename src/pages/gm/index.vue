@@ -8,11 +8,11 @@
       >
       <!-- 大屏photo  :src="photo + this.$qiniuCompress()" -->
       <div class="photo">
-           <img 
-            v-if="photo !== null" 
-            :src="photo + this.$qiniuCompress()"
-            class="photo-img">
-        </div>
+        <img 
+          v-if="photo !== null" 
+          :src="photo + this.$qiniuCompress()"
+          class="photo-img">
+      </div>
     </div>
     <div 
       :style="style.screenHei" 
