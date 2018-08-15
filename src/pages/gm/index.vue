@@ -68,7 +68,7 @@ export default {
           height: window.innerWidth * 1220 / 750 + 'px'
         }
       },
-      screenWidth: window.innerWidth,
+      screenWidth: document.body.clientWidth,
       photo: '',
       pass: {
         firstPass: true,
@@ -90,7 +90,16 @@ export default {
   },
   watch: {
     screenWidth(val) {
-      this.resize()
+      if (!this.timer) {
+        this.screenWidth = val
+        this.timer = true
+        let that = this
+        setTimeout(function() {
+          console.log(that.screenWidth)
+          that.resize()
+          that.timer = false
+        }, 400)
+      }
     }
   },
   created() {},
@@ -113,7 +122,7 @@ export default {
     const that = this
     window.onresize = () => {
       return (() => {
-        window.screenWidth = window.innerWidth
+        window.screenWidth = document.body.clientWidth
         that.screenWidth = window.screenWidth
       })()
     }
