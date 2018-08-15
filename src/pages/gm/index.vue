@@ -98,7 +98,7 @@ export default {
           console.log(that.screenWidth)
           that.resize()
           that.timer = false
-        }, 400)
+        }, 100)
       }
     }
   },
