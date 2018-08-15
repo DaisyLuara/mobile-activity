@@ -187,6 +187,17 @@ export default {
         .catch(e => {
           console.log(e)
         })
+      let oid = this.$route.query.utm_source
+      this.$http
+        .post(
+          'http://exelook.com:8010/pushdiv/?oid=' +
+            oid +
+            '&belong=' +
+            this.utmCampaign +
+            '&url=&name=&image=&api=json'
+        )
+        .then(res => {})
+        .catch(err => {})
     }
   }
 }
