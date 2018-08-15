@@ -24,8 +24,9 @@
       <input 
         v-model="text2" 
         maxlength="10" 
-        placeholder="写下你的心愿"
-        class="text">
+        placeholder="写下你的心愿(请在10分钟内发送祝福)"
+        class="text"
+        style="font-size:12px;">
       <!-- 保存 -->
       <img 
         :src="baseUrl + 'button.png'+ this.$qiniuCompress()"
@@ -52,8 +53,8 @@ export default {
         }
       },
       photo: '',
-      oid: this.$route.query.oid,
-      belong: this.$route.query.belong,
+      oid: this.$route.query.utm_source,
+      belong: this.$route.query.utm_campaign,
       text: '祝家人健健康康',
       text2: '',
       base64Data: null,
