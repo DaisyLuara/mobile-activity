@@ -53,8 +53,8 @@ export default {
         }
       },
       photo: '',
-      oid: this.$route.query.oid,
-      belong: this.$route.query.belong,
+      oid: this.$route.query.utm_source,
+      belong: this.$route.query.utm_campaign,
       text: '祝家人健健康康',
       text2: '',
       base64Data: null,
