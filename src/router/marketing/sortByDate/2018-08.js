@@ -119,6 +119,17 @@ const Date201808 = [
       desc: '国贸H5页面'
     },
     isAbandoned: false
+  },
+  {
+    path: 'pk2',
+    location: 'exeYanzhi/pk_test',
+    name: 'pk2',
+    meta: {
+      title: '颜值榜2',
+      author: 'lipan',
+      desc: '颜值PK擂台测试版本2'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201808
