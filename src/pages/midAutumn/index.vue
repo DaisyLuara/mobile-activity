@@ -21,7 +21,8 @@
         :src="baseUrl + '2.png'+ this.$qiniuCompress()"
         class="letter" >
       <!-- 输入框 -->
-      <input 
+      <input
+        v-if="wechat" 
         v-model="text2" 
         maxlength="10" 
         placeholder="写下你的心愿(请在10分钟内发送祝福)"
@@ -29,6 +30,7 @@
         style="font-size:12px;">
       <!-- 保存 -->
       <img 
+        v-if="wechat" 
         :src="baseUrl + 'button.png'+ this.$qiniuCompress()"
         class="save" 
         @click="send()">   
@@ -52,6 +54,7 @@ export default {
           height: this.$innerHeight() + 'px'
         }
       },
+      wechat: true,
       photo: '',
       oid: this.$route.query.utm_source,
       belong: this.$route.query.utm_campaign,
@@ -62,7 +65,10 @@ export default {
       wxShareInfoValue: {
         title: '月满中秋 心愿祈福',
         desc: '家人有爱口难开？让星视度帮你把祝福送给你爱的人吧',
-        link: 'http://papi.xingstation.com/api/s/J62' + window.location.search,
+        link:
+          'http://papi.xingstation.com/api/s/J62' +
+          window.location.search +
+          '&type=WeChat',
         imgUrl: cdnUrl + '/fe/marketing/img/midAutumn/icon.png',
         success: () => {
           wechatShareTrack()
@@ -73,6 +79,9 @@ export default {
   },
   created() {},
   mounted() {
+    if (this.$route.query.type != null && this.$route.query.type != undefined) {
+      this.wechat = false
+    }
     this.entry(this.imgList, r => {
       console.dir(r)
       this.getInfoById()
