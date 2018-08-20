@@ -7,7 +7,7 @@
       id="test" 
       :src="compoundUrl"
       alt="" 
-      class="photo" >
+      class="photo photo-real" >
     <canvas 
       id="canvas" 
       class="photo"
@@ -247,20 +247,17 @@ export default {
   overflow: hidden;
   .photo {
     width: 85%;
-    height: 85%;
+    //height: 85%;
     position: absolute;
     left: 50%;
-    // top: 50%;
     top: 96%;
     transform: translate(-50%, -50%);
     background: #fff;
     z-index: 9;
-    animation: upAppear 3s ease-in-out alternate;
+    animation: upAppear 2s ease-in-out alternate;
     animation-fill-mode: forwards;
     .photo-real {
-      width: 96%;
-      height: 100%;
-      margin-top: 2%;
+      width: 100%;
     }
     .greeting {
       width: 72%;
