@@ -43,11 +43,11 @@
 </template>
 <script>
 import { $wechat, wechatShareTrack } from 'services'
-import { normalPages } from '../../mixins/normalPages'
+import { onlyWechatShare } from '../../mixins/onlyWechatShare'
 import 'animate.css'
 const IMGURL = 'http://p22vy0aug.bkt.clouddn.com/image/'
 export default {
-  mixins: [normalPages],
+  mixins: [onlyWechatShare],
   data() {
     return {
       baseUrl: IMGURL + 'rabbit/',
@@ -189,7 +189,7 @@ img {
   }
   .mask {
     background-color: rgba(0, 0, 0, 0.5);
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
@@ -204,6 +204,8 @@ img {
         width: 98%;
         margin: 0 auto;
         z-index: 0;
+        pointer-events: auto;
+        user-select: auto;
       }
       .tu {
         width: 40%;
