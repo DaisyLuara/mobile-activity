@@ -9,11 +9,11 @@
         :src="baseUrl + 'bg.jpg'"
         class="bg">
       <span
-        class="span">{{num}}</span>
+        class="span">{{ num }}</span>
       <a 
         v-show="bunny"
-        class="box infinite tada delay-2s"
         :class="{animated:!mask}"
+        class="box infinite tada delay-2s"
         @click="()=>{mask = true;}">
         <img 
           :src="baseUrl + 'bunny.png'">
