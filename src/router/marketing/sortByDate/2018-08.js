@@ -121,13 +121,13 @@ const Date201808 = [
     isAbandoned: false
   },
   {
-    path: 'pk2',
-    location: 'exeYanzhi/pk_test',
-    name: 'pk2',
+    path: 'rabbit',
+    location: 'sea/rabbit',
+    name: 'rabbit',
     meta: {
-      title: '颜值榜2',
+      title: '兔兔这么可爱当然要吃萝卜',
       author: 'lipan',
-      desc: '颜值PK擂台测试版本2'
+      desc: '农场物语-小兔萝卜'
     },
     isAbandoned: false
   }
