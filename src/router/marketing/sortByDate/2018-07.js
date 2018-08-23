@@ -205,7 +205,7 @@ const Date201807 = [
       title: '悬赏令',
       author: 'Anluis',
       desc: '悬赏令',
-      isAbandoned: false
+      isAbandoned: true
     }
   },
   {
