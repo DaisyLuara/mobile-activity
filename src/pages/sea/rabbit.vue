@@ -172,7 +172,7 @@ img {
       font-style: italic;
       position: absolute;
       top: 14%;
-      right: 24%;
+      left: 69.5%;
       z-index: 9;
     }
     .box {
