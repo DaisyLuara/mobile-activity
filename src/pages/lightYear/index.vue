@@ -9,6 +9,7 @@
        <div class="top">
          <div class="head-portrait">
            <img 
+           
               :src="baseUrl + 'center.png'+ this.$qiniuCompress()"
               class="wx-head" >
          </div>
