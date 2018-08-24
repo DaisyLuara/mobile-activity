@@ -173,7 +173,7 @@ export default {
         .get(this.rank_url + query)
         .then(res => {
           console.log(res)
-          this.data = res.data.data
+          this.data = res.data.data.slice(0, 10)
           if (this.data.length > 0) {
             this.data.forEach(element => {
               element.score = this.handleScore(element.score, 3)
