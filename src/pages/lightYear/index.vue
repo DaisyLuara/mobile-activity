@@ -5,7 +5,9 @@
     <img 
       :src="baseUrl + 'center.png'+ this.$qiniuCompress()"
       class="center" >
-    <div class="rank">
+    <div 
+      :style="style.rank" 
+      class="rank">
        <div class="top">
          <div class="head-portrait">
            <!-- :src="headImgUrl" -->
@@ -17,47 +19,29 @@
          <p class="light-year">光年</p>
        </div>
        <div class="bottom">
-         <ul class="score-rank">
-           <li>
-            <img 
-              :src="baseUrl + 'one.png'+ this.$qiniuCompress()"
+         <ul class="score-rank1">
+           <li v-for="(item,index) in data"
+              :key="index"
+              v-if="index<3">
+             <div class="header">
+              <img 
+              :src="baseUrl + 'one.png'"
               class="wx-head" >
-            <img src="http://cdn.exe666.com/fe/marketing/img/internationalTrade/666.png"
+             <img :src="item.img"
               class="wx"> 
-            <span class="score-num">1,131,223</span>
+             </div>
+            <span class="score-num">{{item.score}}</span>
             <span class="score-tit">光年</span>
            </li>
-           <li>
-            <img 
-              :src="baseUrl + 'two.png'+ this.$qiniuCompress()"
-              class="wx-head" >
-            <img src="http://cdn.exe666.com/fe/marketing/img/internationalTrade/666.png"
-              class="wx"> 
-            <span class="score-num">1,131,223</span>
-            <span class="score-tit">光年</span>
-           </li>
-           <li style="border-bottom:3px solid #fcdb65;">
-            <img 
-              :src="baseUrl + 'three.png'+ this.$qiniuCompress()"
-              class="wx-head" >
-            <img src="http://cdn.exe666.com/fe/marketing/img/internationalTrade/666.png"
-              class="wx"> 
-            <span class="score-num">1,131,223</span>
-            <span class="score-tit">光年</span>
-           </li>
-           <li style="padding:5px 2px">
-            <span class="ranking">4</span>
-            <span class="score-num" >1,131,223</span>
-            <span class="score-tit" >光年</span>
-           </li>
-           <li style="padding:5px 2px">
-            <span class="ranking">4</span>
-            <span class="score-num" >1,131,223</span>
-            <span class="score-tit" >光年</span>
-           </li>
-           <li style="padding:5px 2px">
-            <span class="ranking">4</span>
-            <span class="score-num" >1,131,223</span>
+         </ul>
+         <ul class="score-rank2">
+           <li v-for="(item,index) in data"
+              :key="index"
+              v-if="index>=3">
+             <div class="header">
+              <span class="ranking">{{index+1}}</span>
+             </div>
+            <span class="score-num" >{{item.score}}</span>
             <span class="score-tit" >光年</span>
            </li>
          </ul>
@@ -91,6 +75,9 @@ export default {
       style: {
         root: {
           height: this.$innerHeight() + 'px'
+        },
+        rank: {
+          height: window.innerWidth * 1050 / 750 + 'px'
         }
       },
       photo: '',
@@ -110,7 +97,59 @@ export default {
         success: () => {
           wechatShareTrack()
         }
-      }
+      },
+      data: [
+        {
+          img:
+            'http://cdn.exe666.com/fe/marketing/img/internationalTrade/666.png',
+          score: '132,412,4'
+        },
+        {
+          img:
+            'http://cdn.exe666.com/fe/marketing/img/internationalTrade/666.png',
+          score: '132,413,4'
+        },
+        {
+          img:
+            'http://cdn.exe666.com/fe/marketing/img/internationalTrade/666.png',
+          score: '132,414,4'
+        },
+        {
+          img:
+            'http://cdn.exe666.com/fe/marketing/img/internationalTrade/666.png',
+          score: '132,415,4'
+        },
+        {
+          img:
+            'http://cdn.exe666.com/fe/marketing/img/internationalTrade/666.png',
+          score: '132,416,4'
+        },
+        {
+          img:
+            'http://cdn.exe666.com/fe/marketing/img/internationalTrade/666.png',
+          score: '132,417,4'
+        },
+        {
+          img:
+            'http://cdn.exe666.com/fe/marketing/img/internationalTrade/666.png',
+          score: '132,418,4'
+        },
+        {
+          img:
+            'http://cdn.exe666.com/fe/marketing/img/internationalTrade/666.png',
+          score: '132,44'
+        },
+        {
+          img:
+            'http://cdn.exe666.com/fe/marketing/img/internationalTrade/666.png',
+          score: '132,410'
+        },
+        {
+          img:
+            'http://cdn.exe666.com/fe/marketing/img/internationalTrade/666.png',
+          score: '132,411,5'
+        }
+      ]
     }
   },
   created() {},
@@ -143,6 +182,7 @@ export default {
         this.score = this.$route.query.score
         this.hammerhigh = this.$route.query.hammerhigh
         this.userId = Cookies.get('user_id')
+        this.uploadScore()
         this.getGradeList(this.userId)
       }
     },
@@ -158,6 +198,22 @@ export default {
         .catch(err => {
           console.log(err)
         })
+    },
+    //上传分数
+    uploadScore() {
+      let args = {
+        belong: this.hammerhigh,
+        image_url: this.headImgUrl,
+        score: this.score
+      }
+      userGame(args, this.userId)
+        .then(res => {
+          console.log(res)
+          console.log('上传成功')
+        })
+        .catch(e => {
+          console.log(e)
+        })
     }
   }
 }
@@ -167,13 +223,7 @@ export default {
 @imageHost: 'http://cdn.exe666.com/fe/marketing/img/lightYear/';
 @font-face {
   font-family: 'MyNewFont'; /*字体名称*/
-  src: url('@{imageHost}ht.ttf'); /*字体源文件*/
-}
-@font-face {
-  font-family: 'MyNewFont';
-  src: url('../font/pinghei.eot');
-  font-weight: normal;
-  font-style: normal;
+  src: url('@{imageHost}ht2.ttf'); /*字体源文件*/
 }
 .root {
   width: 100%;
@@ -191,10 +241,10 @@ export default {
     transform: translate(-50%, -50%);
   }
   .per {
-    width: 60%;
+    width: 58%;
     position: absolute;
     left: -30%;
-    top: 3%;
+    top: -2%;
   }
   .rocket {
     width: 24%;
@@ -204,7 +254,6 @@ export default {
   }
   .rank {
     width: 80%;
-    height: 82%;
     background-image: url('@{imageHost}kuang.png');
     background-size: 100% 100%;
     background-repeat: no-repeat;
@@ -247,7 +296,7 @@ export default {
         text-align: center;
         position: absolute;
         left: 50%;
-        top: 3%;
+        top: 36%;
         transform: translate(-50%, 0%);
         color: #2ad7e7;
         font-size: 6.5vw;
@@ -259,36 +308,78 @@ export default {
       position: relative;
       font-family: 'MyNewFont';
       font-size: 5vw;
-      .score-rank {
+      .score-rank1 {
         width: 100%;
-        position: absolute;
+        position: relative;
         left: 10%;
-        top: -30%;
+        top: -28%;
+        text-align: left;
+        li:last-child {
+          border-bottom: 2px solid #fcdb65;
+        }
         li {
           width: 80%;
           color: #fff;
-          margin: 5px 0 2px 0;
-          position: relative;
-          .wx-head {
-            width: 20%;
-            margin: 0 5px;
-          }
-          .wx {
-            width: 18%;
-            position: absolute;
-            left: 10%;
-            top: 0;
-            border-radius: 50%;
-            z-index: -1;
+          .header {
+            display: inline-block;
+            position: relative;
+            text-align: center;
+            width: 30%;
+            .wx-head {
+              width: 55%;
+            }
+            .wx {
+              width: 45%;
+              position: absolute;
+              left: 27%;
+              top: 0;
+              border-radius: 50%;
+              z-index: -1;
+            }
           }
           .score-num {
-            margin: 0 5px;
+            display: inline-block;
+            width: 34%;
           }
           .score-tit {
-            margin: 0 5px;
+            position: relative;
+            right: -5%;
+            top: 0;
           }
           .ranking {
-            padding: 2px 10%;
+            padding: 2px 13%;
+          }
+        }
+      }
+      .score-rank2 {
+        width: 100%;
+        position: relative;
+        left: -3%;
+        top: -25%;
+        li {
+          width: 80%;
+          color: #fff;
+          text-align: left;
+          margin-bottom: 1.5%;
+          .header {
+            display: inline-block;
+            position: relative;
+            text-align: right;
+            width: 32.9%;
+          }
+          .score-num {
+            padding: 0 13%;
+            display: inline-block;
+            width: 44%;
+          }
+          .score-tit {
+            position: relative;
+            right: -8%;
+            top: 0;
+          }
+          .ranking {
+            display: inline-block;
+            color: #fcdb65;
           }
         }
       }
