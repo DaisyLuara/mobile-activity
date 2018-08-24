@@ -55,8 +55,14 @@ export default {
         })
     },
     linkToResult(mobile) {
+      let id = this.$route.query.id
+      basicTrack(id, mobile)
+        .then(res => {})
+        .catch(_ => {
+          console.warn(_.message)
+        })
       this.$router.push({
-        path: 'sea_result?id=' + this.$route.query.id + '&mobile=' + mobile
+        path: 'sea_result?id=' + id + '&mobile=' + mobile
       })
     },
     toPhoto() {
@@ -75,7 +81,6 @@ export default {
         window.localStorage.setItem('seaworld', input.value)
       }
       this.linkToResult(input.value)
-      console.log('satrt')
     }
   }
 }
