@@ -62,6 +62,7 @@ import {
   Cookies,
   userGame,
   $wechat,
+  getWxUserInfo,
   wechatShareTrack
 } from 'services'
 import { normalPages } from '../../mixins/normalPages'
@@ -85,7 +86,7 @@ export default {
       userId: null,
       score: null,
       headImgUrl: null,
-      rank_url: process.env.SAAS_API + '/user/',
+      rank_url: 'http://sapi.newgls.cn/api' + '/game/rank',
       wxShareInfoValue: {
         title: '月满中秋 心愿祈福',
         desc: '家人有爱口难开？让星视度帮你把祝福送给你爱的人吧',
@@ -154,6 +155,7 @@ export default {
   },
   created() {},
   mounted() {
+    this.getGradeList()
     //微信授权
     if (isInWechat() === true) {
       if (
@@ -182,17 +184,18 @@ export default {
         this.score = this.$route.query.score
         this.hammerhigh = this.$route.query.hammerhigh
         this.userId = Cookies.get('user_id')
-        this.uploadScore()
-        this.getGradeList(this.userId)
+        // this.uploadScore()
+        // this.getGradeList(this.userId)
       }
     },
 
     //获取排行榜
-    getGradeList(userId) {
-      let query = '?belong=' + this.hammerhigh + '&score=' + this.score
+    getGradeList() {
+      let query = '?belong=' + 'hammerhigh'
       this.$http
-        .get(this.rank_url + userId + '/rank' + query)
+        .get(this.rank_url + query)
         .then(res => {
+          console.log('=====')
           console.log(res)
         })
         .catch(err => {
