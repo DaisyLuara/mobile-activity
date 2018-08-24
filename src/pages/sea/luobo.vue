@@ -9,6 +9,7 @@
 <script>
 import { $wechat, wechatShareTrack } from 'services'
 import { onlyWechatShare } from '../../mixins/onlyWechatShare'
+import 'animate.css'
 const IMGSERVER = 'http://p22vy0aug.bkt.clouddn.com/image/'
 export default {
   mixins: [onlyWechatShare],
