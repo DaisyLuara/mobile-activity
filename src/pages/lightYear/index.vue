@@ -179,6 +179,8 @@ export default {
       } else {
         //获取微信头像
         getWxUserInfo().then(r => {
+          console.log('================')
+          console.log(r.data)
           this.headImgUrl = r.data.headimgurl
         })
         this.score = this.$route.query.score
