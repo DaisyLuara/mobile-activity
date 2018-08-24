@@ -59,7 +59,7 @@ export default {
       let id = this.$route.query.id
       basicTrack(id, mobile)
       this.$router.push({
-        path: 'sea_result?id=' + id + '&mobile=' + mobile
+        path: 'sea_result' + window.location.search + '&mobile=' + mobile
       })
     },
     toPhoto() {

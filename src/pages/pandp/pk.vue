@@ -3,15 +3,17 @@
     id="content"
     :style="style.root"
     class="content">
-    <div/>
+    <img 
+      id="img"
+      src="">
   </div>
 </template>
 <script>
-import { $wechat, wechatShareTrack } from 'services'
-import { onlyWechatShare } from '../../mixins/onlyWechatShare'
+import { $wechat, wechatShareTrack, isInWechat, Cookies } from 'services'
+import { normalPages } from '../../mixins/normalPages'
 const IMGSERVER = 'http://p22vy0aug.bkt.clouddn.com/image/'
 export default {
-  mixins: [onlyWechatShare],
+  mixins: [normalPages],
   data() {
     return {
       style: {
@@ -19,12 +21,14 @@ export default {
           'min-height': this.$innerHeight() + 'px'
         }
       },
+      belong: null,
+      userId: null,
       base: IMGSERVER + 'pandp/pk/',
       //微信分享
       wxShareInfoValue: {
         title: 'PK大乐斗',
         desc: 'PK大乐斗',
-        link: '' + window.location.search,
+        link: 'http://papi.xingstation.com/api/s/OYp' + window.location.search,
         imgUrl: '',
         success: function() {
           wechatShareTrack()
@@ -33,7 +37,10 @@ export default {
     }
   },
   mounted() {},
-  methods: {}
+  methods: {
+    handleWechatAuth() {},
+    drawCanvas() {}
+  }
 }
 </script>
 <style lang="less" scoped>
@@ -54,6 +61,7 @@ body {
 .content {
   width: 100%;
   overflow-x: hidden;
+  background-color: #5d16a2;
 }
 </style>
 
