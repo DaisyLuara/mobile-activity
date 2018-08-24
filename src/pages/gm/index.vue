@@ -181,10 +181,10 @@ export default {
         if (r.belong === 'ToyCarsRT') {
           this.pass.firstPass = false
         }
-        if (r.belong === 'ToyCarsSJ') {
+        if (r.belong === 'ToyCarsYAL') {
           this.pass.secondPass = false
         }
-        if (r.belong === 'ToyCarsYAL') {
+        if (r.belong === 'ToyCarsSJ') {
           this.pass.thirdPass = false
         }
       })
