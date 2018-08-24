@@ -163,6 +163,17 @@ const Date201808 = [
       desc: '小蜜蜂'
     },
     isAbandoned: false
+  },
+  {
+    path: 'light_year',
+    location: 'lightYear/index',
+    name: 'light_year',
+    meta: {
+      title: '',
+      author: 'xj1012',
+      desc: '巴斯光年'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201808
