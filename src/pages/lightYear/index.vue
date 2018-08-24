@@ -86,6 +86,7 @@ export default {
       userId: null,
       score: null,
       headImgUrl: null,
+
       rank_url: 'http://sapi.newgls.cn/api' + '/game/rank',
       wxShareInfoValue: {
         title: '月满中秋 心愿祈福',
