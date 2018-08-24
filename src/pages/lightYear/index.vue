@@ -12,10 +12,10 @@
          <div class="head-portrait">
            <!-- :src="headImgUrl" -->
            <img 
-              src="http://cdn.exe666.com/fe/marketing/img/internationalTrade/666.png"
+              :src="headImgUrl"
               class="wx-head" >
          </div>
-         <p class="num">1,131,223</p>
+         <p class="num">{{score}}</p>
          <p class="light-year">光年</p>
        </div>
        <div class="bottom">
@@ -41,8 +41,8 @@
              <div class="header">
               <span class="ranking">{{index+1}}</span>
              </div>
-            <span class="score-num" >{{item.score}}</span>
-            <span class="score-tit" >光年</span>
+            <span class="score-num" :class="{'active':item.userId===userId?true:false}">{{item.score}}</span>
+            <span class="score-tit" :class="{'active':item.userId===userId?true:false}">光年</span>
            </li>
          </ul>
        </div>
@@ -86,11 +86,10 @@ export default {
       userId: null,
       score: null,
       headImgUrl: null,
-
-      rank_url: 'http://sapi.newgls.cn/api' + '/game/rank',
+      rank_url: process.env.SAAS_API + '/game/rank',
       wxShareInfoValue: {
-        title: '月满中秋 心愿祈福',
-        desc: '家人有爱口难开？让星视度帮你把祝福送给你爱的人吧',
+        title: ' Rocket go',
+        desc: '穿越光年 探索宇宙 一锤搞定',
         link:
           'http://papi.xingstation.com/api/s/J62' +
           window.location.search +
@@ -100,63 +99,12 @@ export default {
           wechatShareTrack()
         }
       },
-      data: [
-        {
-          img:
-            'http://cdn.exe666.com/fe/marketing/img/internationalTrade/666.png',
-          score: '132,412,4'
-        },
-        {
-          img:
-            'http://cdn.exe666.com/fe/marketing/img/internationalTrade/666.png',
-          score: '132,413,4'
-        },
-        {
-          img:
-            'http://cdn.exe666.com/fe/marketing/img/internationalTrade/666.png',
-          score: '132,414,4'
-        },
-        {
-          img:
-            'http://cdn.exe666.com/fe/marketing/img/internationalTrade/666.png',
-          score: '132,415,4'
-        },
-        {
-          img:
-            'http://cdn.exe666.com/fe/marketing/img/internationalTrade/666.png',
-          score: '132,416,4'
-        },
-        {
-          img:
-            'http://cdn.exe666.com/fe/marketing/img/internationalTrade/666.png',
-          score: '132,417,4'
-        },
-        {
-          img:
-            'http://cdn.exe666.com/fe/marketing/img/internationalTrade/666.png',
-          score: '132,418,4'
-        },
-        {
-          img:
-            'http://cdn.exe666.com/fe/marketing/img/internationalTrade/666.png',
-          score: '132,44'
-        },
-        {
-          img:
-            'http://cdn.exe666.com/fe/marketing/img/internationalTrade/666.png',
-          score: '132,410'
-        },
-        {
-          img:
-            'http://cdn.exe666.com/fe/marketing/img/internationalTrade/666.png',
-          score: '132,411,5'
-        }
-      ]
+      data: []
     }
   },
   created() {},
   mounted() {
-    this.getGradeList()
+    //this.getGradeList()
     //微信授权
     if (isInWechat() === true) {
       if (
@@ -180,26 +128,39 @@ export default {
       } else {
         //获取微信头像
         getWxUserInfo().then(r => {
-          console.log('================')
           console.log(r.data)
           this.headImgUrl = r.data.headimgurl
         })
         this.score = this.$route.query.score
         this.hammerhigh = this.$route.query.hammerhigh
         this.userId = Cookies.get('user_id')
-        // this.uploadScore()
-        // this.getGradeList(this.userId)
+        this.uploadScore()
       }
     },
 
     //获取排行榜
     getGradeList() {
-      let query = '?belong=' + 'hammerhigh'
+      let query = '?belong=' + this.hammerhigh
       this.$http
         .get(this.rank_url + query)
         .then(res => {
-          console.log('=====')
           console.log(res)
+          this.data = res.data.data
+          if (this.data.length > 0) {
+            this.data.forEach(element => {
+              //区分男女
+              if (element.img === '' || element.img === null) {
+                switch (element.sex) {
+                  case 0:
+                    element.img = this.baseUrl + 'man.png'
+                    break
+                  default:
+                    element.img = this.baseUrl + 'women.png'
+                    break
+                }
+              }
+            })
+          }
         })
         .catch(err => {
           console.log(err)
@@ -209,13 +170,14 @@ export default {
     uploadScore() {
       let args = {
         belong: this.hammerhigh,
-        image_url: this.headImgUrl,
+        gender: this.$route.query.sex,
         score: this.score
       }
       userGame(args, this.userId)
         .then(res => {
           console.log(res)
           console.log('上传成功')
+          this.getGradeList()
         })
         .catch(e => {
           console.log(e)
@@ -239,6 +201,9 @@ export default {
   background-size: 100% auto;
   background-repeat: no-repeat;
   overflow: hidden;
+  .active {
+    color: #fcdb65;
+  }
   .center {
     width: 60%;
     position: absolute;

@@ -169,9 +169,9 @@ const Date201808 = [
     location: 'lightYear/index',
     name: 'light_year',
     meta: {
-      title: '',
+      title: 'Rocket go',
       author: 'xj1012',
-      desc: '巴斯光年'
+      desc: 'Rocket go'
     },
     isAbandoned: false
   }
