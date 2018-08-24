@@ -130,6 +130,39 @@ const Date201808 = [
       desc: '农场物语-小兔萝卜'
     },
     isAbandoned: false
+  },
+  {
+    path: 'luobo',
+    location: 'sea/luobo',
+    name: 'luobo',
+    meta: {
+      title: '萝卜sos',
+      author: 'lipan',
+      desc: '萝卜sos'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'ppk',
+    location: 'pandp/pk',
+    name: 'ppk',
+    meta: {
+      title: 'PK大乐斗',
+      author: 'lipan',
+      desc: 'PK大乐斗'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'bee',
+    location: 'sea/bee',
+    name: 'bee',
+    meta: {
+      title: '小蜜蜂',
+      author: 'lipan',
+      desc: '小蜜蜂'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201808
