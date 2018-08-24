@@ -130,6 +130,17 @@ const Date201808 = [
       desc: '农场物语-小兔萝卜'
     },
     isAbandoned: false
+  },
+  {
+    path: 'luobo',
+    location: 'sea/luobo',
+    name: 'luobo',
+    meta: {
+      title: '萝卜sos',
+      author: 'lipan',
+      desc: '萝卜sos'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201808

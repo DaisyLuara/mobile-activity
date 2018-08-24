@@ -55,6 +55,13 @@ export default {
         })
     },
     linkToResult(mobile) {
+      let url =
+        'http://exelook.com/client/goodsxsd/?id=' +
+        String(this.$route.query.id) +
+        '&mobile=' +
+        String(mobile) +
+        '&api=json'
+      this.$http.get(url).then(res => {})
       this.$router.push({
         path: 'sea_result?id=' + this.$route.query.id + '&mobile=' + mobile
       })
@@ -75,7 +82,6 @@ export default {
         window.localStorage.setItem('seaworld', input.value)
       }
       this.linkToResult(input.value)
-      console.log('satrt')
     }
   }
 }
