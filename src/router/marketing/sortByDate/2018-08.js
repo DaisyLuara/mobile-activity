@@ -141,6 +141,28 @@ const Date201808 = [
       desc: '萝卜sos'
     },
     isAbandoned: false
+  },
+  {
+    path: 'ppk',
+    location: 'pandp/pk',
+    name: 'ppk',
+    meta: {
+      title: 'PK大乐斗',
+      author: 'lipan',
+      desc: 'PK大乐斗'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'bee',
+    location: 'sea/bee',
+    name: 'bee',
+    meta: {
+      title: '小蜜蜂',
+      author: 'lipan',
+      desc: '小蜜蜂'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201808

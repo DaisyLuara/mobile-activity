@@ -19,12 +19,12 @@ export default {
           'min-height': this.$innerHeight() + 'px'
         }
       },
-      base: IMGSERVER + 'rabbit/luobo/',
+      base: IMGSERVER + 'pandp/pk/',
       //微信分享
       wxShareInfoValue: {
-        title: '萝卜sos',
-        desc: '不要一直吸我~',
-        link: 'http://papi.xingstation.com/api/s/Nk6' + window.location.search,
+        title: 'PK大乐斗',
+        desc: 'PK大乐斗',
+        link: '' + window.location.search,
         imgUrl: '',
         success: function() {
           wechatShareTrack()
