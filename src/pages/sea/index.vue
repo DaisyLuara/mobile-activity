@@ -55,15 +55,14 @@ export default {
         })
     },
     linkToResult(mobile) {
-      let url =
-        'http://exelook.com/client/goodsxsd/?id=' +
-        String(this.$route.query.id) +
-        '&mobile=' +
-        String(mobile) +
-        '&api=json'
-      this.$http.get(url).then(res => {})
+      let id = this.$route.query.id
+      basicTrack(id, mobile)
+        .then(res => {})
+        .catch(_ => {
+          console.warn(_.message)
+        })
       this.$router.push({
-        path: 'sea_result?id=' + this.$route.query.id + '&mobile=' + mobile
+        path: 'sea_result?id=' + id + '&mobile=' + mobile
       })
     },
     toPhoto() {
