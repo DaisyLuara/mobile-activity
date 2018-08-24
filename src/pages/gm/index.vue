@@ -19,19 +19,19 @@
       :class="{'x-center':iphoneX}"
       class="center" >
       <img 
-        :src="baseUrl + '0.png'+ this.$qiniuCompress()"
+        :src="baseUrl + 'ABC.png'+ this.$qiniuCompress()"
         class=" pass">
       <img 
         v-show="pass.firstPass"
-        :src="baseUrl + '1.png'+ this.$qiniuCompress()"
+        :src="baseUrl + 'A.png'+ this.$qiniuCompress()"
         class="firstPass">
       <img 
         v-show="pass.secondPass"
-        :src="baseUrl + '2.png'+ this.$qiniuCompress()"
+        :src="baseUrl + 'B.png'+ this.$qiniuCompress()"
         class=" secondPass">
       <img 
         v-show="pass.thirdPass"
-        :src="baseUrl + '3.png'+ this.$qiniuCompress()"
+        :src="baseUrl + 'C.png'+ this.$qiniuCompress()"
         class=" thirdPass">
       <img 
         :src="baseUrl + 'xia2.png?v=1111'+ this.$qiniuCompress()"
@@ -181,10 +181,10 @@ export default {
         if (r.belong === 'ToyCarsRT') {
           this.pass.firstPass = false
         }
-        if (r.belong === 'ToyCarsSJ') {
+        if (r.belong === 'ToyCarsYAL') {
           this.pass.secondPass = false
         }
-        if (r.belong === 'ToyCarsYAL') {
+        if (r.belong === 'ToyCarsSJ') {
           this.pass.thirdPass = false
         }
       })

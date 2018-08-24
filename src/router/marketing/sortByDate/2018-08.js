@@ -132,6 +132,39 @@ const Date201808 = [
     isAbandoned: false
   },
   {
+    path: 'luobo',
+    location: 'sea/luobo',
+    name: 'luobo',
+    meta: {
+      title: '萝卜sos',
+      author: 'lipan',
+      desc: '萝卜sos'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'ppk',
+    location: 'pandp/pk',
+    name: 'ppk',
+    meta: {
+      title: 'PK大乐斗',
+      author: 'lipan',
+      desc: 'PK大乐斗'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'bee',
+    location: 'sea/bee',
+    name: 'bee',
+    meta: {
+      title: '小蜜蜂',
+      author: 'lipan',
+      desc: '小蜜蜂'
+    },
+    isAbandoned: false
+  },
+  {
     path: 'light_year',
     location: 'lightYear/index',
     name: 'light_year',

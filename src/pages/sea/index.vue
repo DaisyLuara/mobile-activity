@@ -7,6 +7,7 @@
         ref="input" 
         class="tel" 
         type="text" 
+        maxlength="11"
         placeholder="请输入手机号">
       <a 
         class="btn" 
@@ -15,7 +16,7 @@
   </div>
 </template>
 <script>
-import { $wechat, wechatShareTrack } from 'services'
+import { $wechat, wechatShareTrack, basicTrack } from 'services'
 const IMGURL = 'http://p22vy0aug.bkt.clouddn.com/image/'
 export default {
   data() {
@@ -55,8 +56,10 @@ export default {
         })
     },
     linkToResult(mobile) {
+      let id = this.$route.query.id
+      basicTrack(id, mobile)
       this.$router.push({
-        path: 'sea_result?id=' + this.$route.query.id + '&mobile=' + mobile
+        path: 'sea_result?id=' + id + '&mobile=' + mobile
       })
     },
     toPhoto() {
@@ -75,7 +78,6 @@ export default {
         window.localStorage.setItem('seaworld', input.value)
       }
       this.linkToResult(input.value)
-      console.log('satrt')
     }
   }
 }
