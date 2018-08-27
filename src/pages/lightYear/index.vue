@@ -222,7 +222,7 @@ export default {
       let args = {
         belong: this.hammerhigh,
         gender: this.$route.query.sex,
-        image_url: this.headimgurl,
+        image_url: this.photo,
         score: this.score,
         qiniu_id: this.$route.query.id
       }
