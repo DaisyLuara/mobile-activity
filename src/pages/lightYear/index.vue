@@ -94,6 +94,7 @@ import {
   Cookies,
   userGame,
   $wechat,
+  getInfoById,
   getWxUserInfo,
   wechatShareTrack
 } from 'services'
