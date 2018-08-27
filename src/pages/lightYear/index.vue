@@ -8,44 +8,76 @@
     <div 
       :style="style.rank" 
       class="rank">
-       <div class="top">
-         <div class="head-portrait">
-           <!-- :src="headImgUrl" -->
-           <img 
-              :src="headImgUrl"
-              class="wx-head" >
-         </div>
-         <p class="num">{{handleScore(score+'',3)}}</p>
-         <p class="light-year">光年</p>
-       </div>
-       <div class="bottom">
-         <ul class="score-rank1">
-           <li v-for="(item,index) in data"
-              :key="index"
-              v-if="index<3">
-             <div class="header">
+      <div 
+        class="top">
+        <div 
+          class="head-portrait">
+          <!-- :src="headImgUrl" -->
+          <img 
+            :src="headImgUrl"
+            class="wx-head" >
+        </div>
+        <p 
+          class="num">
+          {{ handleScore(score+'',3)}}
+        </p>
+        <p 
+          class="light-year">
+          光年
+        </p>
+      </div>
+      <div 
+        class="bottom">
+        <ul 
+          class="score-rank1">
+          <li 
+            v-for="(item,index) in data"
+            v-if="index<3"
+            :key="index">
+            <div class="header">
               <img 
-              :src="baseUrl + 'one.png'"
-              class="wx-head" >
-             <img :src="item.headimgurl"
-              class="wx"> 
-             </div>
-            <span class="score-num">{{item.score}}</span>
-            <span class="score-tit">光年</span>
-           </li>
-         </ul>
-         <ul class="score-rank2">
-           <li v-for="(item,index) in data"
-              :key="index"
-              v-if="index>=3">
-             <div class="header">
-              <span class="ranking">{{index+1}}</span>
-             </div>
-            <span class="score-num" :class="{'active':item.userId===userId?true:false}">{{item.score}}</span>
-            <span class="score-tit" :class="{'active':item.userId===userId?true:false}">光年</span>
-           </li>
-         </ul>
-       </div>
+                :src="baseUrl + 'one.png'"
+                class="wx-head" >
+              <img 
+                :src="item.headimgurl"
+                class="wx"> 
+            </div>
+            <span 
+              class="score-num">
+              {{ item.score }}
+            </span>
+            <span 
+              class="score-tit">
+              光年
+            </span>
+          </li>
+        </ul>
+        <ul 
+          class="score-rank2">
+          <li 
+            v-for="(item,index) in data"
+            v-if="index>=3"
+            :key="index">
+            <div 
+              class="header">
+              <span 
+                class="ranking">
+                {{ index+1 }}
+              </span>
+            </div>
+            <span 
+              :class="{'active':item.userId===userId?true:false}" 
+              class="score-num">
+              {{ item.score }}
+            </span>
+            <span 
+              :class="{'active':item.userId===userId?true:false}" 
+              class="score-tit">
+              光年
+            </span>
+          </li>
+        </ul>
+      </div>
     </div>
     <img 
       :src="baseUrl + 'per.png'+ this.$qiniuCompress()"
