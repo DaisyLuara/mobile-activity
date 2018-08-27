@@ -115,10 +115,10 @@ export default {
         }
       },
       photo: '',
-      hammerhigh: null,
+      hammerhigh: this.$route.query.hammerhigh,
       userId: null,
       score: this.$route.query.score,
-      headImgUrl: this.$route.query.hammerhigh,
+      headImgUrl: null,
       rank_url: process.env.SAAS_API + '/game/rank',
       wxShareInfoValue: {
         title: ' Rocket go',
