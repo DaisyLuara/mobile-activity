@@ -97,11 +97,11 @@ import {
   getWxUserInfo,
   wechatShareTrack
 } from 'services'
-import { normalPages } from '../../mixins/normalPages'
+import { onlyWechatShare } from '../../mixins/onlyWechatShare'
 const cdnUrl = process.env.CDN_URL
 
 export default {
-  mixins: [normalPages],
+  mixins: [onlyWechatShare],
   data() {
     return {
       baseUrl: cdnUrl + '/fe/marketing/img/lightYear/',
@@ -116,8 +116,8 @@ export default {
       photo: '',
       hammerhigh: null,
       userId: null,
-      score: null,
-      headImgUrl: null,
+      score: this.$route.query.score,
+      headImgUrl: this.$route.query.hammerhigh,
       rank_url: process.env.SAAS_API + '/game/rank',
       wxShareInfoValue: {
         title: ' Rocket go',
@@ -133,6 +133,7 @@ export default {
   },
   created() {},
   mounted() {
+    this.getInfo()
     //微信授权
     if (isInWechat() === true) {
       if (
@@ -144,6 +145,17 @@ export default {
     }
   },
   methods: {
+    getInfo() {
+      let id = this.$route.query.id
+      getInfoById(id)
+        .then(res => {
+          this.photo = res.image
+          this.uploadScore()
+        })
+        .catch(_ => {
+          console.warn(_.message)
+        })
+    },
     handleWechatAuth() {
       if (Cookies.get('user_id') === null) {
         let base_url = encodeURIComponent(String(window.location.href))
@@ -159,10 +171,7 @@ export default {
           console.log(r.data)
           this.headImgUrl = r.data.headimgurl
         })
-        this.score = this.$route.query.score
-        this.hammerhigh = this.$route.query.hammerhigh
         this.userId = Cookies.get('user_id')
-        this.uploadScore()
       }
     },
     /**
