@@ -54,7 +54,17 @@ export default {
       }
     }
   },
-  mounted() {},
+  mounted() {
+    //微信授权
+    if (isInWechat() === true) {
+      if (
+        process.env.NODE_ENV === 'production' ||
+        process.env.NODE_ENV === 'testing'
+      ) {
+        this.handleWechatAuth()
+      }
+    }
+  },
   methods: {
     handleWechatAuth() {
       if (Cookies.get('user_id') === null) {
