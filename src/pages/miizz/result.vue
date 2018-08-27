@@ -66,7 +66,7 @@
 </template>
 <script>
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing/'
-import { $wechat, wechatShareTrack } from 'services'
+import { $wechat, wechatShareTrack, getInfoById } from 'services'
 import Vue from 'vue'
 import { Lazyload } from 'mint-ui'
 Vue.use(Lazyload)
