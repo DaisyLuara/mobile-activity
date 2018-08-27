@@ -122,11 +122,8 @@ export default {
       wxShareInfoValue: {
         title: ' Rocket go',
         desc: '穿越光年 探索宇宙 一锤搞定',
-        link:
-          'http://papi.xingstation.com/api/s/J62' +
-          window.location.search +
-          '&type=WeChat',
-        imgUrl: cdnUrl + '/fe/marketing/img/lightYear/icon.png',
+        link: 'http://papi.xingstation.com/api/s/PNw' + window.location.search,
+        imgUrl: cdnUrl + '/fe/marketing/img/lightYear/icon.jpg',
         success: () => {
           wechatShareTrack()
         }
@@ -225,7 +222,7 @@ export default {
       let args = {
         belong: this.hammerhigh,
         gender: this.$route.query.sex,
-        image_url: '',
+        image_url: this.photo,
         score: this.score,
         qiniu_id: this.$route.query.id
       }
