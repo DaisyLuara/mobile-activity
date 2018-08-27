@@ -40,14 +40,14 @@ export default {
       userId: null,
       photo: null,
       img: null,
-      star: 1, //null
+      star: null,
       base: IMGSERVER + 'pandp/pk/',
       //微信分享
       wxShareInfoValue: {
         title: '狗狗大作战',
         desc: '指挥你的狗狗PK，进击王者不是梦！',
         link: 'http://papi.xingstation.com/api/s/OYp' + window.location.search,
-        imgUrl: '',
+        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/pandp/pk/share.jpg',
         success: function() {
           wechatShareTrack()
         }
