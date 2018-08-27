@@ -66,12 +66,12 @@
               </span>
             </div>
             <span 
-              :class="{'active':item.userId===userId?true:false}" 
+              :class="{'active':item.user_id===userId?true:false}" 
               class="score-num">
               {{ item.score }}
             </span>
             <span 
-              :class="{'active':item.userId===userId?true:false}" 
+              :class="{'active':item.user_id===userId?true:false}"
               class="score-tit">
               光年
             </span>
@@ -134,7 +134,6 @@ export default {
   },
   created() {},
   mounted() {
-    this.getInfo()
     //微信授权
     if (isInWechat() === true) {
       if (
@@ -172,7 +171,8 @@ export default {
           console.log(r.data)
           this.headImgUrl = r.data.headimgurl
         })
-        this.userId = Cookies.get('user_id')
+        this.userId = Cookies.get('user_id') + ''
+        this.getInfo()
       }
     },
     /**
@@ -215,7 +215,8 @@ export default {
           this.data = res.data.data.slice(0, 10)
           if (this.data.length > 0) {
             this.data.forEach(element => {
-              element.score = this.handleScore(element.score, 3)
+              element.score = this.handleScore(element.score + '', 3)
+              element.user_id = element.user_id + ''
               //区分男女
               if (element.headimgurl === '' || element.headimgurl === null) {
                 this.handleGender(element)
