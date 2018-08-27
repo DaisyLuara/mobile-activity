@@ -21,11 +21,13 @@
   </div>
 </template>
 <script>
+import { onlyWechatShare } from '../../mixins/onlyWechatShare'
 import { $wechat, wechatShareTrack, isInWechat } from 'services'
 import { parseService } from 'services'
 const REQ_URL = 'http://120.27.144.62:1337/parse/classes/'
 const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/image'
 export default {
+  mixins: [onlyWechatShare],
   data() {
     return {
       quanMsg: {
@@ -46,7 +48,7 @@ export default {
       coupon_url: process.env.SAAS_API + '/mallcoo/coupon',
       open_user_id: null,
       //微信分享
-      wxShareInfo: {
+      wxShareInfoValue: {
         title: '吃饭睡觉领优惠券',
         desc: '草莓杂货铺欢迎你',
         imgUrl: BASE_URL + '/maliao/test/share.png',
@@ -69,11 +71,7 @@ export default {
     }
   },
   mounted() {
-    this.handleWechatShare()
-    let height =
-      window.innerHeight ||
-      document.documentElement.clientHeight ||
-      document.body.clientHeight
+    let height = this.$innerHeight()
     let mallcoo = document.getElementById('mallcoo')
     mallcoo.style.minHeight = height + 'px'
     let w = document.documentElement
@@ -85,19 +83,6 @@ export default {
     w.style.fontSize = rem + 'px'
   },
   methods: {
-    handleWechatShare() {
-      if (isInWechat() === true) {
-        $wechat()
-          .then(res => {
-            res.share(this.wxShareInfoValue)
-          })
-          .catch(err => {
-            console.warn(err.message)
-          })
-      } else {
-        console.warn('you r not in wechat environment')
-      }
-    },
     //授权跳转
     getAuthorize() {
       let pageUrl = encodeURIComponent(window.location.href)

@@ -45,11 +45,10 @@ import {
   setParameter
 } from 'services'
 import { parseService } from 'services'
+import { onlyWechatShare } from '../../mixins/onlyWechatShare'
 const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/image'
 export default {
-  components: {
-    WxShare
-  },
+  mixins: [onlyWechatShare],
   data() {
     return {
       quanMsg: {
@@ -85,7 +84,7 @@ export default {
     document.title = '马里奥2.0'
   },
   created() {
-    this.wxShareInfo.link = window.location.origin + this.$route.path
+    this.wxShareInfoValue.link = window.location.origin + this.$route.path
     if (this.$route.query.open_user_id) {
       this.open_user_id = this.$route.query.open_user_id
       this.isFirstComeIn(this.$route.query.open_user_id)
@@ -94,10 +93,7 @@ export default {
     }
   },
   mounted() {
-    let height =
-      window.innerHeight ||
-      document.documentElement.clientHeight ||
-      document.body.clientHeight
+    let height = this.$innerHeight()
     let mallcoo = document.getElementById('mallcoo')
     mallcoo.style.minHeight = height + 'px'
     let w = document.documentElement
@@ -107,18 +103,8 @@ export default {
     }
     let rem = a / 7.5
     w.style.fontSize = rem + 'px'
-    this.handleShare()
   },
   methods: {
-    handleShare() {
-      $wechat()
-        .then(res => {
-          res.share(this.wxShareInfoValue)
-        })
-        .catch(_ => {
-          console.warn(_.message)
-        })
-    },
     //授权跳转
     getAuthorize() {
       let pageUrl = encodeURIComponent(window.location.href)
