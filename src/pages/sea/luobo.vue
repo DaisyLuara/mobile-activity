@@ -53,7 +53,7 @@ export default {
         title: '萝卜sos',
         desc: '不要一直吸我~',
         link: 'http://papi.xingstation.com/api/s/Nk6' + window.location.search,
-        imgUrl: '',
+        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/rabbit/luobo/share.png',
         success: function() {
           wechatShareTrack()
         }
