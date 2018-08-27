@@ -8,44 +8,76 @@
     <div 
       :style="style.rank" 
       class="rank">
-       <div class="top">
-         <div class="head-portrait">
-           <!-- :src="headImgUrl" -->
-           <img 
-              :src="headImgUrl"
-              class="wx-head" >
-         </div>
-         <p class="num">{{score}}</p>
-         <p class="light-year">光年</p>
-       </div>
-       <div class="bottom">
-         <ul class="score-rank1">
-           <li v-for="(item,index) in data"
-              :key="index"
-              v-if="index<3">
-             <div class="header">
+      <div 
+        class="top">
+        <div 
+          class="head-portrait">
+          <!-- :src="headImgUrl" -->
+          <img 
+            :src="headImgUrl"
+            class="wx-head" >
+        </div>
+        <p 
+          class="num">
+          {{ handleScore(score+'',3)}}
+        </p>
+        <p 
+          class="light-year">
+          光年
+        </p>
+      </div>
+      <div 
+        class="bottom">
+        <ul 
+          class="score-rank1">
+          <li 
+            v-for="(item,index) in data"
+            v-if="index<3"
+            :key="index">
+            <div class="header">
               <img 
-              :src="baseUrl + 'one.png'"
-              class="wx-head" >
-             <img :src="item.img"
-              class="wx"> 
-             </div>
-            <span class="score-num">{{item.score}}</span>
-            <span class="score-tit">光年</span>
-           </li>
-         </ul>
-         <ul class="score-rank2">
-           <li v-for="(item,index) in data"
-              :key="index"
-              v-if="index>=3">
-             <div class="header">
-              <span class="ranking">{{index+1}}</span>
-             </div>
-            <span class="score-num" :class="{'active':item.userId===userId?true:false}">{{item.score}}</span>
-            <span class="score-tit" :class="{'active':item.userId===userId?true:false}">光年</span>
-           </li>
-         </ul>
-       </div>
+                :src="baseUrl + 'one.png'"
+                class="wx-head" >
+              <img 
+                :src="item.headimgurl"
+                class="wx"> 
+            </div>
+            <span 
+              class="score-num">
+              {{ item.score }}
+            </span>
+            <span 
+              class="score-tit">
+              光年
+            </span>
+          </li>
+        </ul>
+        <ul 
+          class="score-rank2">
+          <li 
+            v-for="(item,index) in data"
+            v-if="index>=3"
+            :key="index">
+            <div 
+              class="header">
+              <span 
+                class="ranking">
+                {{ index+1 }}
+              </span>
+            </div>
+            <span 
+              :class="{'active':item.userId===userId?true:false}" 
+              class="score-num">
+              {{ item.score }}
+            </span>
+            <span 
+              :class="{'active':item.userId===userId?true:false}" 
+              class="score-tit">
+              光年
+            </span>
+          </li>
+        </ul>
+      </div>
     </div>
     <img 
       :src="baseUrl + 'per.png'+ this.$qiniuCompress()"
@@ -104,7 +136,6 @@ export default {
   },
   created() {},
   mounted() {
-    //this.getGradeList()
     //微信授权
     if (isInWechat() === true) {
       if (
@@ -137,7 +168,36 @@ export default {
         this.uploadScore()
       }
     },
-
+    /**
+     * param 分数值
+     * scope 范围
+     */
+    handleScore(param, scope) {
+      var remainder = 0
+      var integer = 0
+      remainder = (param + '').length % scope
+      integer = Math.floor((param + '').length / scope)
+      var flag = ''
+      for (var i = 1; remainder > 0 ? i < integer + 1 : i < integer; i++) {
+        flag =
+          ',' + param.substring(param.length - 1 * scope, param.length) + flag
+        param = param.substring(0, param.length - 1 * scope)
+      }
+      if (param.length > 0) {
+        flag = param + flag
+      }
+      return flag
+    },
+    handleGender(element) {
+      switch (element.gender) {
+        case 0:
+          element.headimgurl = this.baseUrl + 'man.png'
+          break
+        default:
+          element.headimgurl = this.baseUrl + 'women.png'
+          break
+      }
+    },
     //获取排行榜
     getGradeList() {
       let query = '?belong=' + this.hammerhigh
@@ -145,19 +205,13 @@ export default {
         .get(this.rank_url + query)
         .then(res => {
           console.log(res)
-          this.data = res.data.data
+          this.data = res.data.data.slice(0, 10)
           if (this.data.length > 0) {
             this.data.forEach(element => {
+              element.score = this.handleScore(element.score, 3)
               //区分男女
-              if (element.img === '' || element.img === null) {
-                switch (element.sex) {
-                  case 0:
-                    element.img = this.baseUrl + 'man.png'
-                    break
-                  default:
-                    element.img = this.baseUrl + 'women.png'
-                    break
-                }
+              if (element.headimgurl === '' || element.headimgurl === null) {
+                this.handleGender(element)
               }
             })
           }
@@ -171,7 +225,9 @@ export default {
       let args = {
         belong: this.hammerhigh,
         gender: this.$route.query.sex,
-        score: this.score
+        image_url: '',
+        score: this.score,
+        qiniu_id: this.$route.query.id
       }
       userGame(args, this.userId)
         .then(res => {
