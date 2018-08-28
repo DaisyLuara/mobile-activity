@@ -42,7 +42,7 @@
             :key="index">
             <div class="header">
               <img 
-                v-if="item.backgroundImg!=null"
+                v-if="item.backgroundImg !== null"
                 :src="item.backgroundImg"
                 class="wx-head" >
               <img 
