@@ -343,7 +343,7 @@ export default {
         font-size: 26px;
         transform: translate(-50%, 15%);
         color: #fcdb65;
-        font-size: 10vw;
+        font-size: 9vw;
       }
       .light-year {
         width: 100%;
