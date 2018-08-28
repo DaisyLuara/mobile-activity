@@ -238,7 +238,6 @@ export default {
               }
             })
           }
-          console.log(this.data)
         })
         .catch(err => {
           console.log(err)
