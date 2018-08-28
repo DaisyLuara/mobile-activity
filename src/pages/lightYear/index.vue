@@ -187,12 +187,12 @@ export default {
      * scope 范围
      */
     handleScore(param, scope) {
-      var remainder = 0
-      var integer = 0
+      let remainder = 0
+      let integer = 0
       remainder = (param + '').length % scope
       integer = Math.floor((param + '').length / scope)
-      var flag = ''
-      for (var i = 1; remainder > 0 ? i < integer + 1 : i < integer; i++) {
+      let flag = ''
+      for (let i = 1; remainder > 0 ? i < integer + 1 : i < integer; i++) {
         flag =
           ',' + param.substring(param.length - 1 * scope, param.length) + flag
         param = param.substring(0, param.length - 1 * scope)
@@ -221,8 +221,9 @@ export default {
           console.log(res)
           this.data = res.data.data.slice(0, 10)
           if (this.data.length > 0) {
-            var flag=0;
+            let flag=0;
             this.data.forEach(element => {
+              element.score = (element.score+'').length > 8 ? element.score.substring(0,8) : element.score
               element.score = this.handleScore(element.score + '', 3)
               element.user_id = element.user_id + ''
               //区分男女
@@ -232,6 +233,7 @@ export default {
               element.backgroundImg=null
               if(flag<3){
                   element.backgroundImg= this.baseUrl +(flag+1)+'.png'
+                  flag++
               }
             })
           }
@@ -294,14 +296,14 @@ export default {
     position: absolute;
     left: -30%;
     top: -2%;
-    z-index:3;
+    z-index:5;
   }
   .rocket {
     width: 24%;
     position: absolute;
     right: 3%;
     bottom: 0;
-    z-index:3;
+    z-index:5;
   }
   .rank {
     width: 80%;
@@ -341,7 +343,7 @@ export default {
         font-size: 26px;
         transform: translate(-50%, 15%);
         color: #fcdb65;
-        font-size: 10vw;
+        font-size: 9vw;
       }
       .light-year {
         width: 100%;
@@ -359,7 +361,7 @@ export default {
       height: 60%;
       position: relative;
       font-family: 'MyNewFont';
-      font-size: 5vw;
+      font-size: 3.5vw;
       .score-rank1 {
         width: 100%;
         position: relative;
@@ -367,7 +369,7 @@ export default {
         top: -28%;
         text-align: left;
         li:last-child {
-          border-bottom: 2px solid #fcdb65;
+          border-bottom: 1px solid #fcdb65;
         }
         li {
           width: 80%;
@@ -378,7 +380,7 @@ export default {
             text-align: center;
             width: 30%;
             .wx-head {
-              width: 55%;
+              width: 50%;
             }
             .wx {
               width: 45%;
@@ -395,7 +397,7 @@ export default {
           }
           .score-tit {
             position: relative;
-            right: -5%;
+            right: -8%;
             top: 0;
           }
           .ranking {
