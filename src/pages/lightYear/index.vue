@@ -223,7 +223,7 @@ export default {
           if (this.data.length > 0) {
             let flag=0;
             this.data.forEach(element => {
-              element.score=(element.score+'').length>8?element.score.substring(0,8):element.score
+              element.score = (element.score+'').length > 8 ? element.score.substring(0,8) : element.score
               element.score = this.handleScore(element.score + '', 3)
               element.user_id = element.user_id + ''
               //区分男女
