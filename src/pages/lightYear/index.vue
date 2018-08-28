@@ -25,7 +25,7 @@
         </div>
         <p 
           class="num">
-          {{ handleScore(score+'',3) }}
+          {{ handleScore((score+'').length > 8 ? (score+'').substring(0,8) : (score+''),3) }}
         </p>
         <p 
           class="light-year">
@@ -127,6 +127,7 @@ export default {
       score: this.$route.query.score,
       headImgUrl: null,
       rank_url: process.env.SAAS_API + '/game/rank',
+      rank_urlTwo: 'http://sapi.newgls.cn/api' + '/game/rank',
       wxShareInfoValue: {
         title: ' Rocket go',
         desc: '穿越光年 探索宇宙 一锤搞定',
@@ -223,7 +224,7 @@ export default {
           if (this.data.length > 0) {
             let flag=0;
             this.data.forEach(element => {
-              element.score = (element.score+'').length > 8 ? element.score.substring(0,8) : element.score
+              element.score = (element.score+'').length > 8 ? (element.score+'').substring(0,8) : element.score
               element.score = this.handleScore(element.score + '', 3)
               element.user_id = element.user_id + ''
               //区分男女
