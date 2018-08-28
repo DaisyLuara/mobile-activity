@@ -42,7 +42,8 @@
             :key="index">
             <div class="header">
               <img 
-                :src="baseUrl + 'one.png'"
+                v-if="item.backgroundImg!=null"
+                :src="item.backgroundImg"
                 class="wx-head" >
               <img 
                 :src="item.headimgurl"
@@ -220,12 +221,17 @@ export default {
           console.log(res)
           this.data = res.data.data.slice(0, 10)
           if (this.data.length > 0) {
+            var flag=0;
             this.data.forEach(element => {
               element.score = this.handleScore(element.score + '', 3)
               element.user_id = element.user_id + ''
               //区分男女
               if (element.headimgurl === '' || element.headimgurl === null) {
                 this.handleGender(element)
+              }
+              element.backgroundImg=null
+              if(flag<3){
+                  element.backgroundImg= this.baseUrl +(flag+1)+'.png'
               }
             })
           }
