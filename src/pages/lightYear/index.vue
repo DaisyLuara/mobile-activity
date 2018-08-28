@@ -402,7 +402,8 @@ export default {
           }
           .score-num {
             display: inline-block;
-            width: 34%;
+            width: 40%;
+            padding: 0 4%;
           }
           .score-tit {
             position: relative;
@@ -431,9 +432,9 @@ export default {
             width: 32.9%;
           }
           .score-num {
-            padding: 0 14%;
+            padding: 0 18%;
             display: inline-block;
-            width: 44%;
+            width: 50.5%;
           }
           .score-tit {
             position: relative;
