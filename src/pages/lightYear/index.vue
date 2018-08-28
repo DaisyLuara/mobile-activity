@@ -3,9 +3,9 @@
     :style="style.root" 
     class="root">
     <div class="start">
-      <div id='stars'></div>
-      <div id='stars2'></div>
-      <div id='stars3'></div> 
+      <div id="stars"/>
+      <div id="stars2"/>
+      <div id="stars3"/> 
     </div>
     
     <img 
@@ -25,7 +25,7 @@
         </div>
         <p 
           class="num">
-          {{ handleScore(score+'',3)}}
+          {{ handleScore(score+'',3) }}
         </p>
         <p 
           class="light-year">
