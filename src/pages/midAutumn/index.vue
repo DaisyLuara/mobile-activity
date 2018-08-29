@@ -79,7 +79,7 @@ export default {
       compoundUrl: null,
       shade: false,
       font1: true,
-      filter_url: 'http://papi.newgls.cn/api' + '/word_filter',
+      filter_url: process.env.SAAS_API + '/word_filter',
       wxShareInfoValue: {
         title: '月满中秋 心愿祈福',
         desc: '家人有爱口难开？让星视度帮你把祝福送给你爱的人吧',
@@ -188,7 +188,7 @@ export default {
           console.log(res)
           let link = this.wxShareInfoValue.link
           this.wxShareInfoValue.link = link.replace(
-            link.substring(link.indexOf('name='), s.length),
+            link.substring(link.indexOf('name='), link.length),
             'name=' + this.text2
           )
           console.log(this.wxShareInfoValue)
