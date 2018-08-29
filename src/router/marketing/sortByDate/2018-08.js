@@ -174,6 +174,17 @@ const Date201808 = [
       desc: 'Rocket go'
     },
     isAbandoned: false
+  },
+  {
+    path: 'achart',
+    location: 'achart/chart',
+    name: 'achart',
+    meta: {
+      title: 'chart',
+      author: 'Anluis',
+      desc: ''
+    },
+    isAbandoned: false
   }
 ]
 export default Date201808
