@@ -62,6 +62,7 @@ export default {
       text2: '',
       base64Data: null,
       compoundUrl: null,
+      filter_url: 'http://papi.newgls.cn/api' + '/word_filter',
       wxShareInfoValue: {
         title: '月满中秋 心愿祈福',
         desc: '家人有爱口难开？让星视度帮你把祝福送给你爱的人吧',
@@ -129,7 +130,20 @@ export default {
     },
     send() {
       this.text2 = this.text2 === '' ? '祝家人健健康康' : this.text2
-      this.handle()
+      this.filterVocabulary()
+    },
+    //过滤词汇
+    filterVocabulary() {
+      let query = '?str=' + this.text2
+      this.$http
+        .get(this.filter_url + query)
+        .then(res => {
+          this.text2 = res.data
+          this.handle()
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
     //处理接口问题
     handle() {
