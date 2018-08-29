@@ -79,7 +79,7 @@ export default {
       compoundUrl: null,
       shade: false,
       font1: true,
-      filter_url: 'papi.newgls.cn/api' + '/word_filter',
+      filter_url: 'http://papi.newgls.cn/api' + '/word_filter',
       wxShareInfoValue: {
         title: '月满中秋 心愿祈福',
         desc: '家人有爱口难开？让星视度帮你把祝福送给你爱的人吧',
