@@ -75,7 +75,6 @@ export default {
       belong: this.$route.query.utm_campaign,
       text: '祝家人健健康康',
       text2: '',
-      name: '',
       base64Data: null,
       compoundUrl: null,
       shade: false,
@@ -101,7 +100,7 @@ export default {
   mounted() {
     if (this.$route.query.type != null && this.$route.query.type != undefined) {
       this.wechat = false
-      this.name = this.$route.query.name
+      this.text = this.$route.query.name
     }
     this.entry(this.imgList, r => {
       console.dir(r)
