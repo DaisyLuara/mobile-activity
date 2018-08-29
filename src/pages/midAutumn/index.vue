@@ -2,12 +2,14 @@
   <div
     :style="style.root" 
     class="root">
-    <div class="shade" v-show="shade" @click="cancle">
-      <img 
+    <div class="shade" v-show="shade" @click="cancle">  
+    </div> 
+     <div class="ct" v-show="shade"  @click="cancle">
+        <img 
         :src="baseUrl + 'shade.png'+ this.$qiniuCompress()"
         class="shade-bg">
       <p class="font" v-show="font1">发送成功</p>
-    </div> 
+      </div>
     <!-- 合成图片 -->
     <img
       id="test" 
@@ -77,9 +79,9 @@ export default {
       text2: '',
       base64Data: null,
       compoundUrl: null,
-      shade: false,
+      shade: true,
       font1: true,
-      filter_url: process.env.AD_API + '/word_filter',
+      filter_url: process.env.AD_API + '/api/word_filter',
       wxShareInfoValue: {
         title: '月满中秋 心愿祈福',
         desc: '家人有爱口难开？让星视度帮你把祝福送给你爱的人吧',
@@ -312,26 +314,25 @@ export default {
     left: 0;
     top: 0;
     z-index: 999;
-    .shade-bg {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 1000;
-    }
+  }
+  .ct {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10000;
     .font {
       position: absolute;
       color: #f00;
       left: 50%;
       font-size: 8vw;
-      top: 43%;
+      top: 20%;
       transform: translate(-50%);
       z-index: 1001;
     }
   }
   .photo {
     width: 85%;
-    //height: 85%;
     position: absolute;
     left: 50%;
     top: 96%;
