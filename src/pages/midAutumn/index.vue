@@ -79,7 +79,7 @@ export default {
       text2: '',
       base64Data: null,
       compoundUrl: null,
-      shade: true,
+      shade: false,
       font1: true,
       filter_url: process.env.AD_API + '/api/word_filter',
       wxShareInfoValue: {
