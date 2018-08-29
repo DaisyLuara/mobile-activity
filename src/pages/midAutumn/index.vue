@@ -2,6 +2,14 @@
   <div
     :style="style.root" 
     class="root">
+    <div class="shade" v-show="shade" @click="cancle">  
+    </div> 
+     <div class="ct" v-show="shade"  @click="cancle">
+        <img 
+        :src="baseUrl + 'shade.png'+ this.$qiniuCompress()"
+        class="shade-bg">
+      <p class="font" v-show="font1">发送成功</p>
+      </div>
     <!-- 合成图片 -->
     <img
       id="test" 
@@ -39,7 +47,15 @@
 </template>
 
 <script>
-import { $wechat, getInfoById, wechatShareTrack } from 'services'
+import {
+  isInWechat,
+  Cookies,
+  userGame,
+  $wechat,
+  getInfoById,
+  getWxUserInfo,
+  wechatShareTrack
+} from 'services'
 import { onlyWechatShare } from '../../mixins/onlyWechatShare'
 import MC from 'mcanvas'
 const cdnUrl = process.env.CDN_URL
@@ -54,6 +70,7 @@ export default {
           height: this.$innerHeight() + 'px'
         }
       },
+
       wechat: true,
       photo: '',
       oid: this.$route.query.utm_source,
@@ -62,14 +79,17 @@ export default {
       text2: '',
       base64Data: null,
       compoundUrl: null,
-      filter_url: 'http://papi.newgls.cn/api' + '/word_filter',
+      shade: false,
+      font1: true,
+      filter_url: process.env.AD_API + '/api/word_filter',
       wxShareInfoValue: {
         title: '月满中秋 心愿祈福',
         desc: '家人有爱口难开？让星视度帮你把祝福送给你爱的人吧',
         link:
           'http://papi.xingstation.com/api/s/J62' +
           window.location.search +
-          '&type=WeChat',
+          '&type=WeChat&name=' +
+          '祝家人健健康康',
         imgUrl: cdnUrl + '/fe/marketing/img/midAutumn/icon.png',
         success: () => {
           wechatShareTrack()
@@ -82,6 +102,7 @@ export default {
   mounted() {
     if (this.$route.query.type != null && this.$route.query.type != undefined) {
       this.wechat = false
+      this.text = this.$route.query.name
     }
     this.entry(this.imgList, r => {
       console.dir(r)
@@ -117,6 +138,9 @@ export default {
         cb([])
       }
     },
+    cancle() {
+      this.shade = false
+    },
     getInfoById() {
       let id = this.$route.query.id
       getInfoById(id)
@@ -138,8 +162,12 @@ export default {
       this.$http
         .get(this.filter_url + query)
         .then(res => {
-          this.text2 = res.data
-          this.handle()
+          console.log(res.data)
+          if (!res.data.sensitive_word) {
+            this.handle()
+          } else {
+            alert('该词不符合规范')
+          }
         })
         .catch(err => {
           console.log(err)
@@ -158,7 +186,16 @@ export default {
       this.$http
         .get(URL)
         .then(res => {
+          this.shade = true
           console.log(res)
+          let link = this.wxShareInfoValue.link
+          this.wxShareInfoValue.link = link.replace(
+            link.substring(link.indexOf('name='), link.length),
+            'name=' + this.text2
+          )
+          console.log(this.wxShareInfoValue)
+          //重新加载微信分享
+          this.handleWechatShare()
           this.text = this.text2
           this.drawing()
           this.text2 = ''
@@ -268,9 +305,34 @@ export default {
   background-size: 100% auto;
   background-repeat: no-repeat;
   overflow: hidden;
+  .shade {
+    background: #000;
+    opacity: 0.8;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 999;
+  }
+  .ct {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10000;
+    .font {
+      position: absolute;
+      color: #f00;
+      left: 50%;
+      font-size: 8vw;
+      top: 20%;
+      transform: translate(-50%);
+      z-index: 1001;
+    }
+  }
   .photo {
     width: 85%;
-    //height: 85%;
     position: absolute;
     left: 50%;
     top: 96%;
