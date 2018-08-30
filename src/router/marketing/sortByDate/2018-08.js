@@ -196,6 +196,17 @@ const Date201808 = [
       desc: '小鸡吃虫'
     },
     isAbandoned: false
+  },
+  {
+    path: 'autumn_word',
+    location: 'midAutumn/autumnWord',
+    name: 'autumn_word',
+    meta: {
+      title: '金秋寄语',
+      author: 'xj1012',
+      desc: '金秋寄语'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201808
