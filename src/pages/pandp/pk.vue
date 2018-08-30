@@ -76,6 +76,7 @@ export default {
           '&scope=snsapi_base'
         window.location.href = redirct_url
       } else {
+        alert(window.location.href)
         this.userId = Cookies.get('user_id')
         this.createGame(this.belong, this.userId)
       }
@@ -86,6 +87,7 @@ export default {
       let args = {
         belong: belong
       }
+      alert(JSON.stringify(args))
       createGame(args, userId)
         .then(res => {
           this.getGame(userId)
