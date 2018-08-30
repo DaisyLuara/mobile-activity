@@ -443,7 +443,7 @@ const lagacyPages = [
   },
   {
     path: 'mangguo',
-    loction: 'mangguo/result',
+    location: 'mangguo/result',
     meta: {
       title: '芒果娱乐荣誉出品',
       desc: '芒果TV'
