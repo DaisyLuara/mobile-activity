@@ -105,10 +105,7 @@ export default {
         // process style
         let styleObject = {
           backgroundColor: this.bindColors[i],
-          width:
-            i === 0
-              ? '100%'
-              : String(parseInt(this.cover[i] / this.cover[i - 1] * 100)) + '%',
+          width: i === 0 ? '100%' : Math.pow(0.6, i - 1) * 100 + '%',
           position: 'relative'
         }
 
@@ -122,7 +119,7 @@ export default {
           styleObject.height = this.sh / 1500 * this.height + 'px'
           styleObject.borderTop =
             this.sh / 1500 * this.height + 'px solid ' + this.bindColors[i]
-          let cutWith = (this.width - this.cover[i]) / 2
+          let cutWith = (this.width - this.cover[i]) / 2 * (i === 0 ? 1 : 0.6)
           styleObject.borderLeft = String(cutWith) + 'px solid white'
           styleObject.borderRight = String(cutWith) + 'px solid white'
         }
