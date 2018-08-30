@@ -81,17 +81,21 @@ export default {
       }
     },
     createGame(belong, userId) {
+      alert(belong)
+      alert(userId)
       let args = {
         belong: belong
       }
       createGame(args, userId)
         .then(res => {
-          if (res.success) {
-            this.getGame(userId)
-          }
+          this.getGame(userId)
+          alert('createGame')
+          alert(JSON.stringify(res))
+          alert(res.success)
         })
         .catch(err => {
           console.log(err)
+          alert(err)
         })
     },
     getGame(userId) {
@@ -101,12 +105,16 @@ export default {
       }
       getGame(args, userId)
         .then(res => {
+          alert('getGame')
+          alert(JSON.stringify(res))
           that.star = res[0].total
           that.handleTimer()
           alert(that.star)
           alert(that.photo)
         })
-        .catch()
+        .catch(err => {
+          console.log(err)
+        })
     },
     handleTimer() {
       if (this.photo) {
