@@ -185,6 +185,17 @@ const Date201808 = [
       desc: 'Smile 一周年 '
     },
     isAbandoned: false
+  },
+  {
+    path: 'chick',
+    location: 'sea/chick',
+    name: 'chick',
+    meta: {
+      title: '小鸡吃虫',
+      author: 'lipan',
+      desc: '小鸡吃虫'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201808
