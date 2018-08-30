@@ -36,7 +36,7 @@ export default {
           'min-height': this.$innerHeight() + 'px'
         }
       },
-      belong: null,
+      belong: this.$route.query.utm_campaign,
       userId: null,
       photo: null,
       img: null,
@@ -55,6 +55,7 @@ export default {
     }
   },
   mounted() {
+    alert(window.location.href)
     //微信授权
     if (isInWechat() === true) {
       if (
@@ -76,9 +77,10 @@ export default {
           '&scope=snsapi_base'
         window.location.href = redirct_url
       } else {
-        this.belong = this.$route.query.utm_campaign
         this.userId = Cookies.get('user_id')
+        alert(this.userId)
         this.createGame(this.belong, this.userId)
+        alert(window.location.href)
       }
     },
     createGame(belong, userId) {
@@ -111,6 +113,7 @@ export default {
       if (this.photo) {
         cancelAnimationFrame(timer)
         this.drawCanvas()
+        alert(this.photo)
         return
       }
       let timer = requestAnimationFrame(this.handleTimer)
