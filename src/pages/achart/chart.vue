@@ -20,9 +20,6 @@ export default {
     return {
       chartdata: [90291, 9078, 7461, 5463, 3258, 2434, 834],
       dataOptions: [true, true, true, true, true, true, true],
-      bindStyle: [],
-      topWidth: [],
-      cover: [],
       bindColors: [
         '#8FE5B8',
         '#0099FF',
@@ -32,35 +29,83 @@ export default {
         '#E83828',
         '#9E8047'
       ],
+      styleCalculated: [],
+      calStore: [],
+      bindStyle: [],
+      topWidth: [],
+      cover: [],
       height: 1500,
       width: this.$innerWidth(),
       hvw: 1500 / 880,
       sh: 160,
       dh: 320,
       sp: 10,
+      settingSin: 23 / 50,
       style: {
         root: {}
-      }
+      },
+      rsh: null,
+      rsp: null
     }
   },
   created() {
+    // set canvas map
     this.risizeCanvas()
-    this.processStyle()
+    // calculate
+    this.calculate()
+    // calculate style and rerender 
+    this.calculateStyles()
   },
   mounted() {
     this.recalculate()
-  },
-  watch: {
-    dataOptions: function() {
-      this.recalculate()
-      this.processStyle()
-    }
   },
   methods: {
     risizeCanvas() {
       this.height = this.width * this.hvw
       this.style.root = {
         height: this.height + 'px'
+      }
+      
+    },
+    calculate() {
+      // special top 1, bottom 2
+      let dataObj = {}
+      for (let i=0; i < this.chartdata.length; i++) {
+        if (i === 0) {
+          dataObj.topWidth = this.width
+          dataObj.bottomWidth = this.width
+        }
+        if (i === 1) {
+          dataObj.topWidth = this.width
+          dataObj.bottomWidth = this.width * 
+        }
+        if (i > 0 && i < this.chartdata.length - 2) {
+
+        }
+        if (i === this.chartdata.length - 2) {
+
+        }
+        if (i === this.chartdata.length - 1) {
+
+        }
+      }
+      this.calStore
+    },
+    calculateStyles() {
+      let bindStyleObje = {}
+      for (let i=0; i < this.chartdata.length; i++) {
+        if (i === 0) {
+          
+        }
+        if (i > 0 && i < this.chartdata.length - 2) {
+
+        }
+        if (i === this.chartdata.length - 2) {
+
+        }
+        if (i === this.chartdata.length - 1) {
+
+        }
       }
     },
     recalculate() {
