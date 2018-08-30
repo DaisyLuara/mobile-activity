@@ -22,7 +22,7 @@
         :src="baseUrl + 'leaf2.png'+ this.$qiniuCompress()"
         class="leaf-2">
         <!-- 录音 -->
-        <div class="button-1" v-show="button.buttonOne" @touchstart="startRecord" @touchend="stopRecord">
+        <div class="button-1" v-show="button.buttonOne" @touchstart="testStartRecord" @touchend="testStopRecord">
           <img 
             :src="baseUrl + 'prompt_1.png'+ this.$qiniuCompress()"
             class="p-1">
@@ -43,7 +43,7 @@
             class="b-1">
         </div>
         <!-- 播放录音 -->
-        <div class="button-3"  id="mbtn" v-show="button.buttonThree" @click="playRecord()">
+        <div class="button-3"  id="mbtn" v-show="button.buttonThree" @click="testPlayRecord()">
           <img 
             :src="baseUrl + 'prompt_2.png'+ this.$qiniuCompress()"
             class="p-1">
@@ -56,7 +56,7 @@
             </audio>
         </div>
     </div>
-    <div class="t-3"  @click="playRecord()">
+    <div class="t-3">
        <img 
         :src="baseUrl + 'section_2.png'+ this.$qiniuCompress()"
         class="t3-1">
@@ -177,11 +177,32 @@ export default {
           '&scope=snsapi_base'
         window.location.href = redirct_url
       } else {
+        this.testIsShare()
         this.userId = Cookies.get('user_id')
       }
     },
     //开始录音
     startRecord(event) {
+      let reference = this
+      reference.button.buttonOne = false
+      reference.button.buttonTwo = true
+      event.preventDefault()
+      reference.startTime = Math.round(new Date())
+      // 延时后录音，避免误操作
+      reference.recordTimer = setTimeout(function() {
+        wx.startRecord({
+          success: function() {
+            alert('录音成功')
+          },
+          cancel: function() {
+            reference.button.buttonOne = true
+            reference.button.buttonTwo = false
+            alert('用户拒绝授权录音')
+          }
+        })
+      }, 300)
+    },
+    testStartRecord(event) {
       let reference = this
       reference.button.buttonOne = false
       reference.button.buttonTwo = true
@@ -230,6 +251,34 @@ export default {
         })
       }
     },
+    testStopRecord(event) {
+      let reference = this
+      event.preventDefault()
+      // 间隔太短 小于一秒
+      if (Math.round(new Date()) - reference.startTime < 1000) {
+        alert('录音时间过短')
+        reference.startTime = 0
+        // 不录音
+        clearTimeout(reference.recordTimer)
+        reference.button.buttonOne = true
+        reference.button.buttonTwo = false
+      } else {
+        // 松手结束录音
+        wx.stopRecord({
+          success: function(res) {
+            reference.localId = res.localId
+            console.log('停止录音成功')
+            // 上传到服务器
+            reference.testUploadRecord()
+          },
+          fail: function(res) {
+            reference.button.buttonOne = true
+            reference.button.buttonTwo = false
+            alert(JSON.stringify(res))
+          }
+        })
+      }
+    },
     // 上传录音
     uploadRecord() {
       let reference = this
@@ -240,6 +289,28 @@ export default {
           //把录音在微信服务器上的id（res.serverId）发送到自己的服务器供下载。
           let serverId = res.serverId // 返回音频的服务器端ID
           reference.uploadRecordAssignServer(serverId)
+          alert('上传录音成功')
+        },
+        fail: function(res) {
+          reference.button.buttonOne = true
+          reference.button.buttonTwo = false
+          console.log('上传到微信服务器异常', res)
+        }
+      })
+    },
+    testUploadRecord() {
+      let reference = this
+      wx.uploadVoice({
+        localId: reference.localId, // 需要上传的音频的本地ID，由stopRecord接口获得
+        isShowProgressTips: 1, // 默认为1，显示进度提示
+        success: function(res) {
+          let serverId = res.serverId // 返回音频的服务器端ID
+          reference.params.serverId = serverId + ''
+          reference.testSave()
+          reference.wxShareInfoValue.link =
+            reference.wxShareInfoValue.link + '&serverId=' + serverId
+          //重新加载微信分享
+          reference.handleWechatShare()
           alert('上传录音成功')
         },
         fail: function(res) {
@@ -262,6 +333,20 @@ export default {
           reference.button.buttonOne = true
           reference.button.buttonTwo = false
           alert('上传到指定服务器异常')
+        })
+    },
+    testSave() {
+      parseService
+        .post(REQ_URL + 'zq', this.params)
+        .then(res => {
+          reference.button.buttonTwo = false
+          reference.button.buttonThree = true
+          alert('保存录音成功')
+        })
+        .catch(err => {
+          reference.button.buttonOne = true
+          reference.button.buttonTwo = false
+          console.log('保存录音失败')
         })
     },
     // 保存到parseService
@@ -346,6 +431,22 @@ export default {
       alert('播放音乐')
       this.playAudio()
     },
+    testPlayRecord() {
+      let reference = this
+      wx.playVoice({
+        localId: reference.localId // 需要播放的音频的本地ID，由stopRecord接口获得
+      })
+    },
+    testDownloadVoice(serverId) {
+      let reference = this
+      wx.downloadVoice({
+        serverId: serverId, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
+        isShowProgressTips: 1, // 默认为1，显示进度提示
+        success: function(res) {
+          reference.localId = res.localId // 返回音频的本地ID
+        }
+      })
+    },
     playAudio() {
       let mbtn = document.getElementById('mbtn')
       let voice = document.getElementById('voice')
@@ -392,6 +493,18 @@ export default {
         },
         false
       )
+    },
+    testIsShare() {
+      if (
+        this.$route.query.type != null &&
+        this.$route.query.type != undefined &&
+        this.$route.query.serverId != null &&
+        this.$route.query.serverId != undefined
+      ) {
+        this.testDownloadVoice(this.$route.query.serverId)
+        this.button.buttonOne = false
+        this.button.buttonThree = true
+      }
     },
     // 是否微信分享
     isShare() {
