@@ -33,6 +33,9 @@
         :src="base+'el3.png'"
         class="el3">
     </div>
+    <img
+      :src="photo+ this.$qiniuCompress()"
+      class="top">
   </div>
 </template>
 <script>
@@ -69,15 +72,6 @@ export default {
   methods: {
     animateStart() {
       let that = this
-      // let bg = new Image()
-      // bg.src = that.base + 'bg.png'
-      // bg.onload = function() {
-      //   let cover = new Image()
-      //   cover.src = that.base + 'cove.png'
-      //   cover.onload = function() {
-      //     that.animated = true
-      //   }
-      // }
       let img_list = [
         that.base + 'bg.png',
         that.base + 'cove.png',
@@ -209,6 +203,17 @@ img {
       margin-top: -45%;
       animation: updown 0.8s linear infinite alternate;
     }
+  }
+  .top {
+    width: 70%;
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 99999;
+    pointer-events: auto;
+    user-select: auto;
+    opacity: 0;
   }
 }
 @keyframes toleft {
