@@ -7,7 +7,7 @@
         :src="IMAGE_URL + 'bg2.jpg'" 
         class="bg">
       <img 
-        :src="photo" 
+        :src="photo + this.$qiniuCompress()" 
         class="photo">
       <img 
         :src="IMAGE_URL + 'point.gif'" 
@@ -18,7 +18,7 @@
 </template>
 <script>
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
-import { wechatShareTrack } from 'services'
+import { $wechat, wechatShareTrack } from 'services'
 import { normalPages } from '../../mixins/normalPages'
 export default {
   mixins: [normalPages],
@@ -40,10 +40,7 @@ export default {
     }
   },
   mounted() {
-    let height =
-      window.innerHeight ||
-      document.documentElement.clientHeight ||
-      document.body.clientHeight
+    let height = this.$innerHeight()
     let mgPage = document.getElementById('mgPage')
     mgPage.style.minHeight = height + 'px'
   }

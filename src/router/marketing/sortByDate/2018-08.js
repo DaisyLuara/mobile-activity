@@ -176,6 +176,28 @@ const Date201808 = [
     isAbandoned: false
   },
   {
+    path: 'elephant',
+    location: 'sea/elephant',
+    name: 'elephant',
+    meta: {
+      title: '微笑雨花',
+      author: 'lipan',
+      desc: 'Smile 一周年 '
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'chick',
+    location: 'sea/chick',
+    name: 'chick',
+    meta: {
+      title: '小鸡吃虫',
+      author: 'lipan',
+      desc: '小鸡吃虫'
+    },
+    isAbandoned: false
+  },
+  {
     path: 'autumn_word',
     location: 'midAutumn/autumnWord',
     name: 'autumn_word',
