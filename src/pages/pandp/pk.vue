@@ -55,7 +55,6 @@ export default {
     }
   },
   mounted() {
-    alert(window.location.href)
     //微信授权
     if (isInWechat() === true) {
       if (
@@ -78,9 +77,7 @@ export default {
         window.location.href = redirct_url
       } else {
         this.userId = Cookies.get('user_id')
-        alert(this.userId)
         this.createGame(this.belong, this.userId)
-        alert(window.location.href)
       }
     },
     createGame(belong, userId) {
@@ -98,14 +95,16 @@ export default {
         })
     },
     getGame(userId) {
+      let that = this
       let args = {
         belong: this.belong
       }
       getGame(args, userId)
         .then(res => {
-          console.log(res)
-          this.star = res[0].total || res.data[0].total
-          this.handleTimer()
+          that.star = res[0].total
+          that.handleTimer()
+          alert(that.star)
+          alert(that.photo)
         })
         .catch()
     },
@@ -113,35 +112,36 @@ export default {
       if (this.photo) {
         cancelAnimationFrame(timer)
         this.drawCanvas()
-        alert(this.photo)
+        alert('photo:' + this.photo)
         return
       }
+      alert('no photo')
       let timer = requestAnimationFrame(this.handleTimer)
     },
     drawCanvas() {
       let canvas = document.getElementById('canvas')
       let ctx = canvas.getContext('2d')
       let that = this
-      let photo = new Image()
+      let cphoto = new Image()
       let cover = new Image()
       canvas.width = window.innerWidth
       canvas.height = window.innerHeight
-      photo.setAttribute('crossOrigin', 'Anonymous')
+      cphoto.setAttribute('crossOrigin', 'Anonymous')
       cover.setAttribute('crossOrigin', 'Anonymous')
-      photo.onload = function() {
+      cphoto.onload = function() {
         cover.onload = function() {
           canvas.width = cover.width
           canvas.height = cover.height
           ctx.drawImage(
-            photo,
+            cphoto,
             0,
             0,
-            photo.width,
-            photo.height,
+            cphoto.width,
+            cphoto.height,
             cover.width * 0.4,
             cover.height * 0.02,
             cover.width * 0.2,
-            cover.width * 0.2 / photo.width * photo.height
+            cover.width * 0.2 / cphoto.width * cphoto.height
           )
           ctx.drawImage(cover, 0, 0)
           that.img = canvas.toDataURL('image/png')
@@ -151,7 +151,7 @@ export default {
           that.star +
           '.png'
       }
-      photo.src = this.photo
+      cphoto.src = this.photo
     }
   }
 }
