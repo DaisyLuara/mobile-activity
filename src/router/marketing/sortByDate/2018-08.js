@@ -174,6 +174,17 @@ const Date201808 = [
       desc: 'Rocket go'
     },
     isAbandoned: false
+  },
+  {
+    path: 'elephant',
+    location: 'sea/elephant',
+    name: 'elephant',
+    meta: {
+      title: '微笑雨花',
+      author: 'lipan',
+      desc: 'Smile 一周年 '
+    },
+    isAbandoned: false
   }
 ]
 export default Date201808
