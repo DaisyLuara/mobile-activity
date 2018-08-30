@@ -431,6 +431,9 @@ export default {
   .t-1 {
     width: 100%;
     position: relative;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    pointer-events: none;
     .t1 {
       width: 100%;
     }
@@ -438,6 +441,9 @@ export default {
   .t-2 {
     width: 100%;
     position: relative;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    pointer-events: none;
     .t2-1 {
       width: 90%;
       margin-left: -8%;
@@ -465,6 +471,8 @@ export default {
       left: 0;
       top: 0;
       padding: 5% 0;
+      -webkit-user-select: auto;
+      pointer-events: auto;
       .p-1 {
         width: 48%;
       }
@@ -484,6 +492,9 @@ export default {
     width: 100%;
     margin: 5% 0;
     position: relative;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    pointer-events: none;
     .t3-1 {
       width: 85%;
     }
