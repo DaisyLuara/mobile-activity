@@ -300,7 +300,7 @@ export default {
             reference.localId = res.localId
             console.log('停止录音成功')
             // 上传到服务器
-            this.uploadRecord()
+            reference.uploadRecord()
           },
           fail: function(res) {
             reference.button.buttonOne = true
