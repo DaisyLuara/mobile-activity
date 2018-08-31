@@ -381,6 +381,8 @@ export default {
         .get(REQ_URL + 'zq?where=' + JSON.stringify(query))
         .then(data => {
           if (data.results.length > 0) {
+            this.button.buttonOne = false
+            this.button.buttonThree = true
             //满足过期条件
             if (
               Math.round(data.results[0].createTime) - Math.round(new Date()) <
