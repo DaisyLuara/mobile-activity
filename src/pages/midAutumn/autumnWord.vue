@@ -99,12 +99,10 @@ import {
   wechatShareTrack
 } from 'services'
 import { parseService } from 'services'
-//import { onlyWechatShare } from '../../mixins/onlyWechatShare'
 const wx = require('weixin-js-sdk')
 const cdnUrl = process.env.CDN_URL
 const REQ_URL = 'http://120.27.144.62:1337/parse/classes/'
 export default {
-  // mixins: [onlyWechatShare],
   data() {
     return {
       baseUrl: cdnUrl + '/fe/marketing/img/autumnWord/',
@@ -122,6 +120,7 @@ export default {
       photo: '',
       // isRecording: false,
       // currentLocalId: null,
+      belong: this.$route.query.utm_campaign,
       startTime: 0,
       recordTimer: null,
       isPlay: false,
@@ -136,10 +135,7 @@ export default {
       wxShareInfoValue: {
         title: '月满中秋 心愿祈福',
         desc: '家人有爱口难开？让星视度帮你把祝福送给你爱的人吧',
-        link:
-          'http://papi.xingstation.com/api/s/J62' +
-          window.location.search +
-          '&type=WeChat',
+        link: 'http://papi.xingstation.com/api/s/J62' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/autumnWord/icon.png',
         success: () => {
           wechatShareTrack()
@@ -151,9 +147,6 @@ export default {
     this.getInfoById()
   },
   mounted() {
-    //this.testSave()
-    //this.testQuery()
-    //this.playAudio()
     //微信授权
     if (isInWechat() === true) {
       if (
@@ -164,9 +157,7 @@ export default {
         this.handleWechatAuth()
       }
     }
-    //this.isShare()
     //调用此方法区分当前链接是否已被使用过录音功能
-    //this.query()
   },
   methods: {
     //微信静默授权
@@ -180,7 +171,8 @@ export default {
           '&scope=snsapi_base'
         window.location.href = redirct_url
       } else {
-        // this.testIsShare()
+        this.isShare()
+        this.query()
         this.userId = Cookies.get('user_id')
       }
     },
@@ -251,32 +243,12 @@ export default {
       reference.recordTimer = setTimeout(function() {
         wx.startRecord({
           success: function() {
-            alert('录音成功')
+            console.log('录音成功')
           },
           cancel: function() {
             reference.button.buttonOne = true
             reference.button.buttonTwo = false
-            alert('用户拒绝授权录音')
-          }
-        })
-      }, 300)
-    },
-    testStartRecord(event) {
-      let reference = this
-      reference.button.buttonOne = false
-      reference.button.buttonTwo = true
-      event.preventDefault()
-      reference.startTime = Math.round(new Date())
-      // 延时后录音，避免误操作
-      reference.recordTimer = setTimeout(function() {
-        wx.startRecord({
-          success: function() {
-            alert('录音成功')
-          },
-          cancel: function() {
-            reference.button.buttonOne = true
-            reference.button.buttonTwo = false
-            alert('用户拒绝授权录音')
+            console.log('用户拒绝授权录音')
           }
         })
       }, 300)
@@ -298,6 +270,7 @@ export default {
         wx.stopRecord({
           success: function(res) {
             reference.localId = res.localId
+            console.log('localId:', reference.localId)
             console.log('停止录音成功')
             // 上传到服务器
             reference.uploadRecord()
@@ -305,36 +278,8 @@ export default {
           fail: function(res) {
             reference.button.buttonOne = true
             reference.button.buttonTwo = false
-            alert('==========')
-            alert(JSON.stringify(res))
-          }
-        })
-      }
-    },
-    testStopRecord(event) {
-      let reference = this
-      event.preventDefault()
-      // 间隔太短 小于一秒
-      if (Math.round(new Date()) - reference.startTime < 1000) {
-        alert('录音时间过短')
-        reference.startTime = 0
-        // 不录音
-        clearTimeout(reference.recordTimer)
-        reference.button.buttonOne = true
-        reference.button.buttonTwo = false
-      } else {
-        // 松手结束录音
-        wx.stopRecord({
-          success: function(res) {
-            reference.localId = res.localId
-            console.log('停止录音成功')
-            // 上传到服务器
-            reference.testUploadRecord()
-          },
-          fail: function(res) {
-            reference.button.buttonOne = true
-            reference.button.buttonTwo = false
-            alert(JSON.stringify(res))
+            console.log('==========')
+            console.log(JSON.stringify(res))
           }
         })
       }
@@ -347,74 +292,42 @@ export default {
         isShowProgressTips: 1, // 默认为1，显示进度提示
         success: function(res) {
           //把录音在微信服务器上的id（res.serverId）发送到自己的服务器供下载。
-
           let serverId = res.serverId // 返回音频的服务器端ID
-          alert(serverId)
-          // reference.uploadRecordAssignServer(serverId)
+          console.log('微信上传录音成功')
+          console.log('serverId:', serverId)
           reference.getMp3URL(serverId)
-          alert('上传录音成功')
-        },
-        fail: function(res) {
-          reference.button.buttonOne = true
-          reference.button.buttonTwo = false
-          console.log('上传到微信服务器异常', res)
-        }
-      })
-    },
-    testUploadRecord() {
-      let reference = this
-      wx.uploadVoice({
-        localId: reference.localId, // 需要上传的音频的本地ID，由stopRecord接口获得
-        isShowProgressTips: 1, // 默认为1，显示进度提示
-        success: function(res) {
-          let serverId = res.serverId // 返回音频的服务器端ID
-          reference.params.serverId = serverId + ''
-          reference.testSave()
-          reference.wxShareInfoValue.link =
-            reference.wxShareInfoValue.link + '&serverId=' + serverId
-          //重新加载微信分享
-          reference.handleWxReady()
-          alert('上传录音成功')
-        },
-        fail: function(res) {
-          reference.button.buttonOne = true
-          reference.button.buttonTwo = false
-          console.log('上传到微信服务器异常', res)
-        }
-      })
-    },
-    // 上传到指定服务器
-    uploadRecordAssignServer(serverId) {
-      let reference = this
-      this.$http
-        .post(
-          'http://exelook.com:8010/pushdiv/??belong=WorldCup2018&media_id=' +
-            serverId
-        )
-        .then(res => {
-          reference.params.serverId = serverId + ''
-          alert('上传到指定服务器成功')
           reference.save()
-        })
-        .catch(err => {
+        },
+        fail: function(res) {
           reference.button.buttonOne = true
           reference.button.buttonTwo = false
-          alert('上传到指定服务器异常')
-        })
+          console.log('上传到微信服务器异常', res)
+        }
+      })
     },
-    testSave() {
+    // 获取mp3文件路径
+    getMp3URL(serverId) {
       let reference = this
-      parseService
-        .post(REQ_URL + 'zq', this.params)
+      let query = '?belong=WorldCup2018&media_id=' + serverId
+      this.$http
+        .get(this.filter_url + this.userId + '/games' + query)
         .then(res => {
+          console.log(res)
+          if (window.location.search.indexOf('type=') < 0) {
+            reference.wxShareInfoValue.link =
+              reference.wxShareInfoValue.link +
+              '&type=WeChat&serverId=' +
+              serverId
+            //重新加载微信分享
+            reference.handleWxReady()
+          }
+          console.log('获取文件成功')
           reference.button.buttonTwo = false
           reference.button.buttonThree = true
-          alert('保存录音成功')
         })
         .catch(err => {
-          reference.button.buttonOne = true
-          reference.button.buttonTwo = false
-          console.log('保存录音失败')
+          console.log('获取文件失败')
+          console.log(err)
         })
     },
     // 保存到parseService
@@ -433,35 +346,7 @@ export default {
           console.log('保存录音失败')
         })
     },
-    // testSave() {
-    //   parseService
-    //     .post(REQ_URL + 'zq', {
-    //       ID: '1',
-    //       serverId: '1'
-    //     })
-    //     .then(res => {
-    //       console.log(res)
-    //       alert('保存录音成功')
-    //     })
-    //     .catch(err => {
-    //       console.log('保存录音失败')
-    //     })
-    // },
-    // testQuery() {
-    //   let query = {
-    //     ID: '1'
-    //   }
-    //   parseService
-    //     .get(REQ_URL + 'zq?where=' + JSON.stringify(query))
-    //     .then(data => {
-    //       console.log('======')
-    //       console.log(data)
-    //     })
-    //     .catch(err => {
-    //       console.log(err)
-    //     })
-    // },
-    // 查询录音信息
+    // 查询parseService
     query() {
       let query = {
         ID: this.params.ID + ''
@@ -479,45 +364,9 @@ export default {
           console.log(err)
         })
     },
-    // 获取mp3文件路径
-    getMp3URL(serverId) {
-      let query = '?belong=WorldCup2018&media_id=' + serverId
-      this.$http
-        .get(this.filter_url + this.userId + '/games' + query)
-        .then(res => {
-          if (res.data === null || res.data === undefined) {
-            this.button.buttonOne = true
-            this.button.buttonThree = false
-          } else {
-            console.log(res)
-            // this.mp3URL = res.data.mp3URL
-            reference.button.buttonTwo = false
-            reference.button.buttonThree = true
-          }
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    },
     playRecord() {
-      alert('播放音乐')
-      // this.playAudio()
-    },
-    testPlayRecord() {
-      let reference = this
-      wx.playVoice({
-        localId: reference.localId // 需要播放的音频的本地ID，由stopRecord接口获得
-      })
-    },
-    testDownloadVoice(serverId) {
-      let reference = this
-      wx.downloadVoice({
-        serverId: serverId, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
-        isShowProgressTips: 1, // 默认为1，显示进度提示
-        success: function(res) {
-          reference.localId = res.localId // 返回音频的本地ID
-        }
-      })
+      console.log('播放音乐')
+      this.playAudio()
     },
     playAudio() {
       let mbtn = document.getElementById('mbtn')
@@ -566,23 +415,13 @@ export default {
         false
       )
     },
-    testIsShare() {
+    // 是否微信分享
+    isShare() {
       if (
         this.$route.query.type != null &&
         this.$route.query.type != undefined &&
         this.$route.query.serverId != null &&
         this.$route.query.serverId != undefined
-      ) {
-        this.testDownloadVoice(this.$route.query.serverId)
-        this.button.buttonOne = false
-        this.button.buttonThree = true
-      }
-    },
-    // 是否微信分享
-    isShare() {
-      if (
-        this.$route.query.type != null &&
-        this.$route.query.type != undefined
       ) {
         this.button.buttonOne = false
         this.button.buttonThree = true
