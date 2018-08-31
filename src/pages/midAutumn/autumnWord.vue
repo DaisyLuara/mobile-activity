@@ -295,6 +295,7 @@ export default {
           let serverId = res.serverId // 返回音频的服务器端ID
           console.log('微信上传录音成功')
           console.log('serverId:', serverId)
+          reference.downVoice(serverId)
           reference.getMp3URL(serverId)
           reference.save()
         },
@@ -302,6 +303,19 @@ export default {
           reference.button.buttonOne = true
           reference.button.buttonTwo = false
           console.log('上传到微信服务器异常', res)
+        }
+      })
+    },
+    //下载语音
+    downVoice(serverId) {
+      let reference = this
+      wx.downloadVoice({
+        serverId: serverId, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
+        isShowProgressTips: 1, // 默认为1，显示进度提示
+        success: function(res) {
+          console.log('xiazaichenggong')
+          console.log(res)
+          console.log('============')
         }
       })
     },
@@ -324,6 +338,8 @@ export default {
           console.log('获取文件成功')
           reference.button.buttonTwo = false
           reference.button.buttonThree = true
+          console.log(reference.button)
+          console.log('============')
         })
         .catch(err => {
           console.log('获取文件失败')
