@@ -2,14 +2,21 @@
   <div
     :style="style.root" 
     class="root">
-    <div class="shade" v-show="shade" @click="cancle">  
-    </div> 
-     <div class="ct" v-show="shade"  @click="cancle">
-        <img 
+    <div 
+      v-show="shade" 
+      class="shade" 
+      @click="cancle"/> 
+    <div 
+      v-show="shade" 
+      class="ct" 
+      @click="cancle">
+      <img 
         :src="baseUrl + 'shade.png'+ this.$qiniuCompress()"
         class="shade-bg">
-      <p class="font" v-show="font1">发送成功</p>
-      </div>
+      <p 
+        v-show="font1" 
+        class="font">发送成功</p>
+    </div>
     <!-- 合成图片 -->
     <img
       id="test" 
