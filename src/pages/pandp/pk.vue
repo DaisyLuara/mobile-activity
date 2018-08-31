@@ -36,7 +36,7 @@ export default {
           'min-height': this.$innerHeight() + 'px'
         }
       },
-      belong: null,
+      belong: this.$route.query.utm_campaign,
       userId: null,
       photo: null,
       img: null,
@@ -76,7 +76,6 @@ export default {
           '&scope=snsapi_base'
         window.location.href = redirct_url
       } else {
-        this.belong = this.$route.query.utm_campaign
         this.userId = Cookies.get('user_id')
         this.createGame(this.belong, this.userId)
       }
@@ -85,27 +84,28 @@ export default {
       let args = {
         belong: belong
       }
+
       createGame(args, userId)
         .then(res => {
-          if (res.success) {
-            this.getGame(userId)
-          }
+          this.getGame(userId)
         })
         .catch(err => {
           console.log(err)
         })
     },
     getGame(userId) {
+      let that = this
       let args = {
         belong: this.belong
       }
       getGame(args, userId)
         .then(res => {
-          console.log(res)
-          this.star = res[0].total || res.data[0].total
-          this.handleTimer()
+          that.star = res[0].total
+          that.handleTimer()
         })
-        .catch()
+        .catch(err => {
+          console.log(err)
+        })
     },
     handleTimer() {
       if (this.photo) {
@@ -119,26 +119,26 @@ export default {
       let canvas = document.getElementById('canvas')
       let ctx = canvas.getContext('2d')
       let that = this
-      let photo = new Image()
+      let cphoto = new Image()
       let cover = new Image()
       canvas.width = window.innerWidth
       canvas.height = window.innerHeight
-      photo.setAttribute('crossOrigin', 'Anonymous')
+      cphoto.setAttribute('crossOrigin', 'Anonymous')
       cover.setAttribute('crossOrigin', 'Anonymous')
-      photo.onload = function() {
+      cphoto.onload = function() {
         cover.onload = function() {
           canvas.width = cover.width
           canvas.height = cover.height
           ctx.drawImage(
-            photo,
+            cphoto,
             0,
             0,
-            photo.width,
-            photo.height,
+            cphoto.width,
+            cphoto.height,
             cover.width * 0.4,
             cover.height * 0.02,
             cover.width * 0.2,
-            cover.width * 0.2 / photo.width * photo.height
+            cover.width * 0.2 / cphoto.width * cphoto.height
           )
           ctx.drawImage(cover, 0, 0)
           that.img = canvas.toDataURL('image/png')
@@ -148,7 +148,7 @@ export default {
           that.star +
           '.png'
       }
-      photo.src = this.photo
+      cphoto.src = this.photo
     }
   }
 }
