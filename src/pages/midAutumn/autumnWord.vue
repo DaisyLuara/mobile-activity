@@ -388,18 +388,24 @@ export default {
             this.button.buttonThree = true
             //满足过期条件
             if (
-              Math.round(data.results[0].createTime) - Math.round(new Date()) <
+              Math.round(new Date(data.results[0].createTime)) -
+                Math.round(new Date()) <
               0
             ) {
               reference.isExpire = true
+              if (reference.clickNumber > 0) {
+                alert('语音过期')
+              }
               return false
             }
+            reference.clickNumber++
             //获取
             reference.localId =
               reference.localId === null
                 ? data.results[0].localId
                 : reference.localId
             reference.reloadHandleWxReady(data.results[0].serverId)
+            reference.playVoice()
           }
           console.log(data)
         })
@@ -408,12 +414,7 @@ export default {
         })
     },
     playRecord() {
-      if (this.isExpire) {
-        alert('语音过期')
-        return false
-      }
-      console.log('播放音乐')
-      this.playVoice()
+      this.query()
     },
     // 是否微信分享
     isShare() {
