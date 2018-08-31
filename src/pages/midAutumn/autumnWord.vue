@@ -347,7 +347,9 @@ export default {
         isShowProgressTips: 1, // 默认为1，显示进度提示
         success: function(res) {
           //把录音在微信服务器上的id（res.serverId）发送到自己的服务器供下载。
+
           let serverId = res.serverId // 返回音频的服务器端ID
+          alert(serverId)
           // reference.uploadRecordAssignServer(serverId)
           reference.getMp3URL(serverId)
           alert('上传录音成功')
