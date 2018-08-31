@@ -5,7 +5,22 @@
   >
     <img 
       :src="baseUrl + 'bg.jpeg'+ this.$qiniuCompress()"
-      class="bg">
+      class="bg"
+      @click="cancle">
+    <img 
+      v-show="tit.titOne" 
+      :src="baseUrl + 'tit1.png'+ this.$qiniuCompress()"
+      class="tit1"
+      @click="cancle">
+    <img 
+      v-show="tit.titTwo" 
+      :src="baseUrl + 'tit2.png'+ this.$qiniuCompress()"
+      class="tit2"
+      @click="cancle">
+    <img 
+      v-show="tit.titThree" 
+      :src="baseUrl + 'tit3.png'+ this.$qiniuCompress()"
+      class="tit3">
     <div class="t-1">
       <img 
         :src="baseUrl + 'title.png'+ this.$qiniuCompress()"
@@ -62,7 +77,15 @@
           :src="baseUrl + 'prompt_2.png'+ this.$qiniuCompress()"
           class="p-1">
         <img 
-          :src="baseUrl + 'button_3.png'+ this.$qiniuCompress()"
+          v-show="wifi"
+          :src="baseUrl + 'wifi.gif'+ this.$qiniuCompress()"
+          class="wifi">
+        <img 
+          v-show="player"
+          :src="baseUrl + 'player.png'+ this.$qiniuCompress()"
+          class="player">
+        <img 
+          :src="baseUrl + 'button_4.png'+ this.$qiniuCompress()"
           class="b-1"
           >
       </div>
@@ -72,7 +95,7 @@
       <img 
         :src="baseUrl + 'section_2.png'+ this.$qiniuCompress()"
         class="t3-1">
-         <!-- :src="baseUrl + '777.png'+ this.$qiniuCompress()" -->
+        <!-- :src="baseUrl + '777.png'+ this.$qiniuCompress()" -->
       <img 
         v-if="photo !== null" 
         :src="photo + this.$qiniuCompress()" 
@@ -98,7 +121,7 @@
           class="prompt">
       </div>
     </div>
-       
+
   </div>
 </template>
 
@@ -129,6 +152,13 @@ export default {
         buttonOne: true,
         buttonTwo: false,
         buttonThree: false
+      },
+      player: true,
+      wifi: false,
+      tit: {
+        titOne: false,
+        titTwo: false,
+        titThree: false
       },
       photo: '',
       startTime: 0,
@@ -183,7 +213,7 @@ export default {
         window.location.href = redirct_url
       } else {
         this.isShare()
-        this.query()
+        this.query(false)
         this.userId = Cookies.get('user_id')
       }
     },
@@ -269,7 +299,8 @@ export default {
       event.preventDefault()
       // 间隔太短 小于一秒
       if (Math.round(new Date()) - reference.startTime < 1000) {
-        alert('录音时间过短')
+        // alert('录音时间过短')
+        this.tit.titTwo = true
         reference.startTime = 0
         // 不录音
         clearTimeout(reference.recordTimer)
@@ -353,7 +384,20 @@ export default {
           console.log('播放成功')
         },
         fail: function() {
-          alert('周期过长语音失效')
+          console.log('播放异常')
+          console.log(reference.localId)
+        }
+      })
+    },
+    //语音播放完毕
+    voicePlayEnd() {
+      let reference = this
+      wx.onVoicePlayEnd({
+        success: function(res) {
+          reference.localId = res.localId // 返回音频的本地ID
+          reference.wifi = false
+          reference.player = true
+          console.log('语音播放完毕')
         }
       })
     },
@@ -366,7 +410,8 @@ export default {
         .then(res => {
           reference.button.buttonTwo = false
           reference.button.buttonThree = true
-          alert('保存录音成功')
+          // alert('保存录音成功')
+          this.tit.titThree = true
         })
         .catch(err => {
           reference.button.buttonOne = true
@@ -375,7 +420,7 @@ export default {
         })
     },
     // 查询parseService
-    query() {
+    query(isPlay) {
       let reference = this
       let query = {
         ID: this.params.ID + ''
@@ -394,7 +439,8 @@ export default {
             ) {
               reference.isExpire = true
               if (reference.clickNumber > 0) {
-                alert('语音过期')
+                // alert('语音过期')
+                this.tit.titOne = true
               }
               return false
             }
@@ -405,7 +451,10 @@ export default {
                 ? data.results[0].localId
                 : reference.localId
             reference.reloadHandleWxReady(data.results[0].serverId)
-            reference.playVoice()
+            if (isPlay) {
+              reference.playVoice()
+              reference.voicePlayEnd()
+            }
           }
           console.log(data)
         })
@@ -414,7 +463,10 @@ export default {
         })
     },
     playRecord() {
-      this.query()
+      //控制播放部分
+      this.wifi = true
+      this.player = false
+      this.query(true)
     },
     // 是否微信分享
     isShare() {
@@ -428,6 +480,12 @@ export default {
         this.button.buttonThree = true
         this.downVoice(this.$route.query.serverId)
       }
+    },
+    //取消提示
+    cancle() {
+      this.tit.titOne = false
+      this.tit.titTwo = false
+      this.tit.titThree = false
     }
   }
 }
@@ -445,14 +503,22 @@ export default {
     -webkit-user-select: none;
     pointer-events: none;
   }
-  .mplay {
-    animation: mycir 2s linear infinite;
-  }
+
   .bg {
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
+  }
+  .tit1,
+  .tit2,
+  .tit3 {
+    width: 88%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 99;
   }
   .t-1 {
     width: 100%;
@@ -517,6 +583,15 @@ export default {
         position: absolute;
         left: 27%;
         top: 47%;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        pointer-events: none;
+      }
+      .player {
+        width: 10%;
+        position: absolute;
+        left: 24%;
+        top: 44%;
         -webkit-touch-callout: none;
         -webkit-user-select: none;
         pointer-events: none;
