@@ -51,7 +51,7 @@
             :src="baseUrl + 'button_3.png'+ this.$qiniuCompress()"
             class="b-1">
             <!-- v-if="isPlay" -->
-            <audio   id="voice" autobuffer  autoplay>
+            <audio   id="voice" autobuffer >
               <source :src="audioUrl">
             </audio>
         </div>
@@ -99,12 +99,12 @@ import {
   wechatShareTrack
 } from 'services'
 import { parseService } from 'services'
-import { normalPages } from '../../mixins/normalPages'
+//import { onlyWechatShare } from '../../mixins/onlyWechatShare'
 const wx = require('weixin-js-sdk')
 const cdnUrl = process.env.CDN_URL
 const REQ_URL = 'http://120.27.144.62:1337/parse/classes/'
 export default {
-  mixins: [normalPages],
+  // mixins: [onlyWechatShare],
   data() {
     return {
       baseUrl: cdnUrl + '/fe/marketing/img/autumnWord/',
@@ -147,17 +147,20 @@ export default {
       }
     }
   },
-  created() {},
+  created() {
+    this.getInfoById()
+  },
   mounted() {
     //this.testSave()
     //this.testQuery()
-    // this.playAudio()
+    //this.playAudio()
     //微信授权
     if (isInWechat() === true) {
       if (
         process.env.NODE_ENV === 'production' ||
         process.env.NODE_ENV === 'testing'
       ) {
+        this.handleWxReady()
         this.handleWechatAuth()
       }
     }
@@ -179,6 +182,62 @@ export default {
       } else {
         this.testIsShare()
         this.userId = Cookies.get('user_id')
+      }
+    },
+    getInfoById() {
+      let id = this.$route.query.id
+      getInfoById(id)
+        .then(res => {
+          this.photo = res.image
+          this.drawing()
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    handleWxReady() {
+      let reference = this
+      if (isInWechat() === true) {
+        if (
+          process.env.NODE_ENV === 'production' ||
+          process.env.NODE_ENV === 'testing'
+        ) {
+          let requestUrl = process.env.WX_API + '/wx/officialAccount/sign'
+          this.$http.get(requestUrl).then(response => {
+            let resData = response.data.data
+            let wxConfig = {
+              debug: false,
+              appId: resData.appId,
+              timestamp: resData.timestamp,
+              nonceStr: resData.nonceStr,
+              signature: resData.signature,
+              jsApiList: [
+                'onMenuShareAppMessage',
+                'onMenuShareTimeline',
+                'onMenuShareQQ',
+                'onMenuShareWeibo',
+                'onMenuShareQZone',
+                'startRecord',
+                'stopRecord',
+                'onVoiceRecordEnd',
+                'playVoice',
+                'pauseVoice',
+                'stopVoice',
+                'onVoicePlayEnd',
+                'uploadVoice',
+                'downloadVoice'
+              ]
+            }
+            wx.config(wxConfig)
+          })
+          wx.ready(() => {
+            wx.onMenuShareAppMessage(reference.wxShareInfoValue)
+            wx.onMenuShareTimeline(reference.wxShareInfoValue)
+            wx.onMenuShareQQ(reference.wxShareInfoValue)
+            wx.onMenuShareWeibo(reference.wxShareInfoValue)
+            wx.onMenuShareQZone(reference.wxShareInfoValue)
+          })
+        }
       }
     },
     //开始录音
@@ -246,6 +305,7 @@ export default {
           fail: function(res) {
             reference.button.buttonOne = true
             reference.button.buttonTwo = false
+            alert('==========')
             alert(JSON.stringify(res))
           }
         })
@@ -310,7 +370,7 @@ export default {
           reference.wxShareInfoValue.link =
             reference.wxShareInfoValue.link + '&serverId=' + serverId
           //重新加载微信分享
-          reference.handleWechatShare()
+          reference.handleWxReady()
           alert('上传录音成功')
         },
         fail: function(res) {
