@@ -6,7 +6,7 @@
       id="main"
       class="main">
       <img
-        :src="baseUrl + 'back.png'"
+        :src="baseUrl + 'bg.png'"
         class="bg">
       <span
         class="span">{{ num }}</span>
@@ -75,7 +75,7 @@ export default {
   mounted() {
     let that = this
     let bg = new Image()
-    bg.src = 'http://p22vy0aug.bkt.clouddn.com/image/chick/back.png'
+    bg.src = 'http://p22vy0aug.bkt.clouddn.com/image/chick/bg.png'
     bg.onload = function() {
       let chick = new Image()
       chick.src = 'http://p22vy0aug.bkt.clouddn.com/image/chick/he.png'
@@ -83,7 +83,7 @@ export default {
         that.chick = true
       }
     }
-    //this.playAnim()
+    this.playAnim()
   },
   methods: {
     playAnim() {
