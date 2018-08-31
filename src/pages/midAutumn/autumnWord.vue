@@ -24,7 +24,9 @@
       <!-- 录音 -->
       <div 
         v-show="button.buttonOne" 
-        class="button-1">
+        class="button-1"
+        @touchstart="startRecord"
+        @touchend="stopRecord">
         <img 
           v-show="button.buttonOne"
           :src="baseUrl + 'prompt_1.png'+ this.$qiniuCompress()"
@@ -32,8 +34,7 @@
         <img 
           :src="baseUrl + 'button_1.png'+ this.$qiniuCompress()" 
           class="b-1"
-          @touchstart="startRecord"
-          @touchend="stopRecord">
+         >
       </div>
       <!-- 正在录音 -->
       <div 
@@ -54,7 +55,8 @@
       <div 
         v-show="button.buttonThree" 
         id="mbtn" 
-        class="button-3">
+        class="button-3"
+        @click="playRecord()">
         <img 
           v-show="button.buttonThree"
           :src="baseUrl + 'prompt_2.png'+ this.$qiniuCompress()"
@@ -62,7 +64,7 @@
         <img 
           :src="baseUrl + 'button_3.png'+ this.$qiniuCompress()"
           class="b-1"
-          @click="playRecord()">
+          >
       </div>
     </div>
     <div 
@@ -134,6 +136,7 @@ export default {
       localId: null,
       userId: null,
       isExpire: false,
+      clickNumber: 0,
       params: {
         ID: this.$route.query.id + '',
         serverId: null,
@@ -463,18 +466,21 @@ export default {
   .t-2 {
     width: 100%;
     position: relative;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    pointer-events: none;
     .t2-1 {
       width: 90%;
       margin-left: -8%;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      pointer-events: none;
     }
     .leaf-1 {
       width: 12%;
       position: absolute;
       right: 0;
       top: 24%;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      pointer-events: none;
       animation: leaf 2s ease-out infinite forwards;
     }
     .leaf-2 {
@@ -482,6 +488,9 @@ export default {
       position: absolute;
       left: 7%;
       top: 0;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      pointer-events: none;
       animation: leaf 2s ease-out infinite forwards;
     }
     .button-1,
@@ -507,6 +516,9 @@ export default {
         position: absolute;
         left: 27%;
         top: 47%;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        pointer-events: none;
       }
     }
   }
