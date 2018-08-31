@@ -22,7 +22,7 @@
         :src="baseUrl + 'leaf2.png'+ this.$qiniuCompress()"
         class="leaf-2">
         <!-- 录音 -->
-        <div class="button-1" v-show="button.buttonOne" @touchstart="testStartRecord" @touchend="testStopRecord">
+        <div class="button-1" v-show="button.buttonOne" @touchstart="startRecord" @touchend="stopRecord">
           <img 
             :src="baseUrl + 'prompt_1.png'+ this.$qiniuCompress()"
             class="p-1">
@@ -43,7 +43,7 @@
             class="b-1">
         </div>
         <!-- 播放录音 -->
-        <div class="button-3"  id="mbtn" v-show="button.buttonThree" @click="testPlayRecord()">
+        <div class="button-3"  id="mbtn" v-show="button.buttonThree" @click="playRecord()">
           <img 
             :src="baseUrl + 'prompt_2.png'+ this.$qiniuCompress()"
             class="p-1">
@@ -132,7 +132,7 @@ export default {
         serverId: null
       },
       mp3URL: '',
-      filter_url: process.env.AD_API + '/api/word_filter',
+      filter_url: process.env.AD_API + '/api/user/',
       wxShareInfoValue: {
         title: '月满中秋 心愿祈福',
         desc: '家人有爱口难开？让星视度帮你把祝福送给你爱的人吧',
@@ -180,7 +180,7 @@ export default {
           '&scope=snsapi_base'
         window.location.href = redirct_url
       } else {
-        this.testIsShare()
+        // this.testIsShare()
         this.userId = Cookies.get('user_id')
       }
     },
@@ -348,7 +348,8 @@ export default {
         success: function(res) {
           //把录音在微信服务器上的id（res.serverId）发送到自己的服务器供下载。
           let serverId = res.serverId // 返回音频的服务器端ID
-          reference.uploadRecordAssignServer(serverId)
+          // reference.uploadRecordAssignServer(serverId)
+          reference.getMp3URL(serverId)
           alert('上传录音成功')
         },
         fail: function(res) {
@@ -382,8 +383,12 @@ export default {
     },
     // 上传到指定服务器
     uploadRecordAssignServer(serverId) {
+      let reference = this
       this.$http
-        .post('http://exelook.com:8010/pushdiv/?serverId=' + serverId)
+        .post(
+          'http://exelook.com:8010/pushdiv/??belong=WorldCup2018&media_id=' +
+            serverId
+        )
         .then(res => {
           reference.params.serverId = serverId + ''
           alert('上传到指定服务器成功')
@@ -396,6 +401,7 @@ export default {
         })
     },
     testSave() {
+      let reference = this
       parseService
         .post(REQ_URL + 'zq', this.params)
         .then(res => {
@@ -411,6 +417,7 @@ export default {
     },
     // 保存到parseService
     save() {
+      let reference = this
       parseService
         .post(REQ_URL + 'zq', this.params)
         .then(res => {
@@ -472,15 +479,18 @@ export default {
     },
     // 获取mp3文件路径
     getMp3URL(serverId) {
-      let query = '?serverId=' + serverId
+      let query = '?belong=WorldCup2018&media_id=' + serverId
       this.$http
-        .get(this.filter_url + query)
+        .get(this.filter_url + this.userId + '/games' + query)
         .then(res => {
           if (res.data === null || res.data === undefined) {
             this.button.buttonOne = true
             this.button.buttonThree = false
           } else {
-            this.mp3URL = res.data.mp3URL
+            console.log(res)
+            // this.mp3URL = res.data.mp3URL
+            reference.button.buttonTwo = false
+            reference.button.buttonThree = true
           }
         })
         .catch(err => {
@@ -489,7 +499,7 @@ export default {
     },
     playRecord() {
       alert('播放音乐')
-      this.playAudio()
+      // this.playAudio()
     },
     testPlayRecord() {
       let reference = this
