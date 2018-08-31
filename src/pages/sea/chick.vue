@@ -89,34 +89,36 @@ export default {
     playAnim() {
       import('pixi.js').then(PIXI => {
         let app = new PIXI.Application({
-          width: window.innerWidth * 0.5,
-          height: window.innerWidth * 0.5,
+          width: window.innerWidth * 0.4,
+          height: window.innerWidth * 0.8,
           transparent: true
         })
         document.getElementById('main').appendChild(app.view)
-        let base = 'http://p22vy0aug.bkt.clouddn.com/image/rabbit/'
+        let base = 'http://p22vy0aug.bkt.clouddn.com/image/chick/'
         app.view.style.position = 'absolute'
-        app.view.style.top = '22%'
-        app.view.style.left = '25%'
+        app.view.style.top = '8%'
+        app.view.style.left = '50%'
+        app.view.style.transform = 'translateX(-50%)'
         app.view.style.zIndex = '9999'
         app.renderer.autoResize = true
-        app.renderer.resize(window.innerWidth * 0.5, window.innerWidth * 0.5)
+        app.renderer.resize(window.innerWidth * 0.4, window.innerWidth * 0.8)
         app.stop()
-        PIXI.loader.add('tutu', base + 'tutu.json').load(setUp)
+        PIXI.loader.add('chick', base + 'tinified.json').load(setUp)
         function setUp() {
-          let rabbits = []
+          let chicken = []
           let texture = null
-          for (let i = 0; i <= 18; i++) {
-            texture = PIXI.Texture.fromFrame('n-tiao_' + i + '.png')
-            rabbits.push(texture)
+          for (let i = 1; i <= 15; i++) {
+            texture = PIXI.Texture.fromFrame('gongji_' + i + '.png')
+            chicken.push(texture)
           }
-          let animal = new PIXI.extras.AnimatedSprite(rabbits)
+          let animal = new PIXI.extras.AnimatedSprite(chicken)
           animal.anchor.set(0.5, 0)
           animal.x = app.screen.width / 2
           animal.y = 0
-          animal.width = app.screen.width * 0.8
-          animal.height = animal.width / 291 * 361
+          animal.width = app.screen.width
+          animal.height = animal.width / 304 * 581
           animal.gotoAndPlay(0)
+          animal.animationSpeed = 0.2
           app.stage.addChild(animal)
         }
         app.start()
