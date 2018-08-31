@@ -132,7 +132,7 @@ export default {
         serverId: null
       },
       mp3URL: '',
-      filter_url: process.env.SAAS_API + '/api/user/',
+      filter_url: process.env.SAAS_API + '/user/',
       wxShareInfoValue: {
         title: '月满中秋 心愿祈福',
         desc: '家人有爱口难开？让星视度帮你把祝福送给你爱的人吧',
