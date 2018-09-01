@@ -1,19 +1,16 @@
 <template>
   <div
     :style="style.root"
-    class="root"
-  >
+    class="root">
     <img 
       :src="baseUrl + 'bg.jpeg'+ this.$qiniuCompress()"
-      class="bg"
-    >
+      class="bg">
     <div
       v-show="tit.titOne" 
       class="tit1"
       @click.stop="cancles">
       <img 
-        :src="baseUrl + 'tit1.png'+ this.$qiniuCompress()"
-      >
+        :src="baseUrl + 'tit1.png'+ this.$qiniuCompress()">
     </div>
     <div
       v-show="tit.titTwo"
@@ -49,16 +46,14 @@
         v-show="button.buttonOne" 
         class="button-1"
         @touchstart="startRecord"
-        @touchend="stopRecord"
-      >
+        @touchend="stopRecord">
         <img 
           v-show="button.buttonOne"
           :src="baseUrl + 'prompt_1.png'+ this.$qiniuCompress()"
           class="p-1">
         <img 
           :src="baseUrl + 'button_1.png'+ this.$qiniuCompress()" 
-          class="b-1"
-        >
+          class="b-1">
       </div>
       <!-- 正在录音 -->
       <div 
@@ -95,8 +90,7 @@
           class="player">
         <img 
           :src="baseUrl + 'button_4.png'+ this.$qiniuCompress()"
-          class="b-1"
-        >
+          class="b-1">
       </div>
     </div>
     <div 
@@ -130,7 +124,6 @@
           class="prompt">
       </div>
     </div>
-
   </div>
 </template>
 
@@ -283,9 +276,6 @@ export default {
     },
     //开始录音
     startRecord(e) {
-      // if (e.target.classList[0] !== 'p-1' && e.target.classList[0] !== 'b-1') {
-      //   e.preventDefault()
-      // }
       let reference = this
       reference.button.buttonOne = false
       reference.button.buttonTwo = true
@@ -332,7 +322,6 @@ export default {
           fail: function(res) {
             reference.button.buttonOne = true
             reference.button.buttonTwo = false
-            console.log('==========')
             console.log(JSON.stringify(res))
           }
         })
@@ -381,9 +370,7 @@ export default {
         isShowProgressTips: 1, // 默认为1，显示进度提示
         success: function(res) {
           reference.localId = res.localId
-          console.log('xiazaichenggong')
           console.log(res)
-          console.log('============')
         }
       })
     },
