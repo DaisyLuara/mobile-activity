@@ -1,26 +1,31 @@
 <template>
   <div
     :style="style.root"
-    class="root"
-  >
+    class="root">
     <img 
       :src="baseUrl + 'bg.jpeg'+ this.$qiniuCompress()"
-      class="bg"
-      @click="cancle">
-    <img 
+      class="bg">
+    <div
       v-show="tit.titOne" 
-      :src="baseUrl + 'tit1.png'+ this.$qiniuCompress()"
       class="tit1"
-      @click="cancle">
-    <img 
-      v-show="tit.titTwo" 
-      :src="baseUrl + 'tit2.png'+ this.$qiniuCompress()"
+      @click.stop="cancles">
+      <img 
+        :src="baseUrl + 'tit1.png'+ this.$qiniuCompress()">
+    </div>
+    <div
+      v-show="tit.titTwo"
       class="tit2"
-      @click="cancle">
-    <img 
+      @click.stop="cancles">
+      <img  
+        :src="baseUrl + 'tit2.png'+ this.$qiniuCompress()">
+    </div>
+    <div
       v-show="tit.titThree" 
-      :src="baseUrl + 'tit3.png'+ this.$qiniuCompress()"
-      class="tit3">
+      class="tit3"
+      @click.stop="cancles">
+      <img 
+        :src="baseUrl + 'tit3.png'+ this.$qiniuCompress()">
+    </div>
     <div class="t-1">
       <img 
         :src="baseUrl + 'title.png'+ this.$qiniuCompress()"
@@ -36,7 +41,7 @@
       <img 
         :src="baseUrl + 'leaf2.png'+ this.$qiniuCompress()"
         class="leaf-2">
-      <!-- 录音 -->
+      <!-- 录音  -->
       <div 
         v-show="button.buttonOne" 
         class="button-1"
@@ -48,8 +53,7 @@
           class="p-1">
         <img 
           :src="baseUrl + 'button_1.png'+ this.$qiniuCompress()" 
-          class="b-1"
-         >
+          class="b-1">
       </div>
       <!-- 正在录音 -->
       <div 
@@ -86,8 +90,7 @@
           class="player">
         <img 
           :src="baseUrl + 'button_4.png'+ this.$qiniuCompress()"
-          class="b-1"
-          >
+          class="b-1">
       </div>
     </div>
     <div 
@@ -95,7 +98,7 @@
       <img 
         :src="baseUrl + 'section_2.png'+ this.$qiniuCompress()"
         class="t3-1">
-        <!-- :src="baseUrl + '777.png'+ this.$qiniuCompress()" -->
+      <!-- :src="baseUrl + '777.png'+ this.$qiniuCompress()" -->
       <img 
         v-if="photo !== null" 
         :src="photo + this.$qiniuCompress()" 
@@ -121,7 +124,6 @@
           class="prompt">
       </div>
     </div>
-
   </div>
 </template>
 
@@ -273,7 +275,7 @@ export default {
       }
     },
     //开始录音
-    startRecord(event) {
+    startRecord(e) {
       let reference = this
       reference.button.buttonOne = false
       reference.button.buttonTwo = true
@@ -320,7 +322,6 @@ export default {
           fail: function(res) {
             reference.button.buttonOne = true
             reference.button.buttonTwo = false
-            console.log('==========')
             console.log(JSON.stringify(res))
           }
         })
@@ -369,9 +370,7 @@ export default {
         isShowProgressTips: 1, // 默认为1，显示进度提示
         success: function(res) {
           reference.localId = res.localId
-          console.log('xiazaichenggong')
           console.log(res)
-          console.log('============')
         }
       })
     },
@@ -482,7 +481,7 @@ export default {
       }
     },
     //取消提示
-    cancle() {
+    cancles() {
       this.tit.titOne = false
       this.tit.titTwo = false
       this.tit.titThree = false
@@ -513,12 +512,15 @@ export default {
   .tit1,
   .tit2,
   .tit3 {
-    width: 88%;
+    width: 80%;
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -20%);
     z-index: 99;
+    img {
+      width: 100%;
+    }
   }
   .t-1 {
     width: 100%;
