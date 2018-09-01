@@ -6,21 +6,29 @@
     <img 
       :src="baseUrl + 'bg.jpeg'+ this.$qiniuCompress()"
       class="bg"
-      @click="cancle">
-    <img 
+    >
+    <div
       v-show="tit.titOne" 
-      :src="baseUrl + 'tit1.png'+ this.$qiniuCompress()"
       class="tit1"
-      @click="cancle">
-    <img 
-      v-show="tit.titTwo" 
-      :src="baseUrl + 'tit2.png'+ this.$qiniuCompress()"
+      @click.stop="cancles">
+      <img 
+        :src="baseUrl + 'tit1.png'+ this.$qiniuCompress()"
+      >
+    </div>
+    <div
+      v-show="tit.titTwo"
       class="tit2"
-      @click="cancle">
-    <img 
+      @click.stop="cancles">
+      <img  
+        :src="baseUrl + 'tit2.png'+ this.$qiniuCompress()">
+    </div>
+    <div
       v-show="tit.titThree" 
-      :src="baseUrl + 'tit3.png'+ this.$qiniuCompress()"
-      class="tit3">
+      class="tit3"
+      @click.stop="cancles">
+      <img 
+        :src="baseUrl + 'tit3.png'+ this.$qiniuCompress()">
+    </div>
     <div class="t-1">
       <img 
         :src="baseUrl + 'title.png'+ this.$qiniuCompress()"
@@ -36,12 +44,13 @@
       <img 
         :src="baseUrl + 'leaf2.png'+ this.$qiniuCompress()"
         class="leaf-2">
-      <!-- 录音 -->
+      <!-- 录音  -->
       <div 
         v-show="button.buttonOne" 
         class="button-1"
         @touchstart="startRecord"
-        @touchend="stopRecord">
+        @touchend="stopRecord"
+      >
         <img 
           v-show="button.buttonOne"
           :src="baseUrl + 'prompt_1.png'+ this.$qiniuCompress()"
@@ -49,7 +58,7 @@
         <img 
           :src="baseUrl + 'button_1.png'+ this.$qiniuCompress()" 
           class="b-1"
-         >
+        >
       </div>
       <!-- 正在录音 -->
       <div 
@@ -87,7 +96,7 @@
         <img 
           :src="baseUrl + 'button_4.png'+ this.$qiniuCompress()"
           class="b-1"
-          >
+        >
       </div>
     </div>
     <div 
@@ -95,7 +104,7 @@
       <img 
         :src="baseUrl + 'section_2.png'+ this.$qiniuCompress()"
         class="t3-1">
-        <!-- :src="baseUrl + '777.png'+ this.$qiniuCompress()" -->
+      <!-- :src="baseUrl + '777.png'+ this.$qiniuCompress()" -->
       <img 
         v-if="photo !== null" 
         :src="photo + this.$qiniuCompress()" 
@@ -273,7 +282,10 @@ export default {
       }
     },
     //开始录音
-    startRecord(event) {
+    startRecord(e) {
+      // if (e.target.classList[0] !== 'p-1' && e.target.classList[0] !== 'b-1') {
+      //   e.preventDefault()
+      // }
       let reference = this
       reference.button.buttonOne = false
       reference.button.buttonTwo = true
@@ -482,7 +494,7 @@ export default {
       }
     },
     //取消提示
-    cancle() {
+    cancles() {
       this.tit.titOne = false
       this.tit.titTwo = false
       this.tit.titThree = false
@@ -513,12 +525,15 @@ export default {
   .tit1,
   .tit2,
   .tit3 {
-    width: 88%;
+    width: 80%;
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -20%);
     z-index: 99;
+    img {
+      width: 100%;
+    }
   }
   .t-1 {
     width: 100%;
