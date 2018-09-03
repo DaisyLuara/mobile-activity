@@ -5,7 +5,7 @@
     <div 
       class="picture">
       <img
-        :src="base+'frame.png'"
+        :src="base + 'frame.png'+ this.$qiniuCompress()"
         class="frame">
       <img
         :src="photo + this.$qiniuCompress()"
