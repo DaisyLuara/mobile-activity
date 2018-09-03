@@ -364,13 +364,21 @@ export default {
     },
     //下载语音
     downVoice(serverId) {
+      alert('下载语音')
+      alert(serverId)
       let reference = this
       wx.downloadVoice({
         serverId: serverId, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
         isShowProgressTips: 1, // 默认为1，显示进度提示
         success: function(res) {
+          alert('下载语音成功')
+          alert(JSON.stringify(res))
           reference.localId = res.localId
           console.log(res)
+        },
+        fail: function(err) {
+          alert(JSON.stringify(err))
+          alert('下载语音失败')
         }
       })
     },
