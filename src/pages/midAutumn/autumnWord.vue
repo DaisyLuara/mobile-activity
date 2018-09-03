@@ -217,6 +217,7 @@ export default {
         process.env.NODE_ENV === 'production' ||
         process.env.NODE_ENV === 'testing'
       ) {
+        this.handleWxReady(null)
         this.handleWechatAuth()
       }
     }
@@ -539,8 +540,6 @@ export default {
             if (isPlay) {
               reference.playVoice()
             }
-          } else {
-            reference.handleWxReady(null)
           }
           console.log(data)
         })
