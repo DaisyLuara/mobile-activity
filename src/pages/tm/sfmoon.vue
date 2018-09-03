@@ -49,7 +49,7 @@ export default {
       //分享
       wxShareInfoValue: {
         title: '中秋豪礼 味你而来',
-        desc: '',
+        desc: '中秋豪礼 味你而来',
         link: 'http://papi.xingstation.com/api/s/W6J' + window.location.search,
         imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/sfmoon/share.jpg',
         success: function() {
