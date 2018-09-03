@@ -508,7 +508,7 @@ export default {
     query(isPlay) {
       let reference = this
       let query = {
-        ID: this.params.ID + ''
+        ID: this.$route.query.id + ''
       }
       parseService
         .get(REQ_URL + 'zq?where=' + JSON.stringify(query))
