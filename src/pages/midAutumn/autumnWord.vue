@@ -218,7 +218,7 @@ export default {
         process.env.NODE_ENV === 'production' ||
         process.env.NODE_ENV === 'testing'
       ) {
-        this.handleWxReady(this.$route.query.serverId)
+        this.handleWxReady(this.$route.query.service_id)
         this.handleWechatAuth()
       }
     }
@@ -297,7 +297,7 @@ export default {
             ) {
               // alert('weixingxi')
               // alert(reference.$route.query.serverId)
-              console.log(reference.$route.query.serverId)
+              console.log(reference.$route.query.service_id)
               console.log(window.location.href)
 
               reference.button.buttonOne = false
@@ -438,7 +438,7 @@ export default {
     reloadHandleWxReady(serverId) {
       if (window.location.search.indexOf('type=') < 0) {
         this.wxShareInfoValue.link =
-          this.wxShareInfoValue.link + '&type=WeChat&serverId=' + serverId
+          this.wxShareInfoValue.link + '&type=WeChat&service_id=' + serverId
         //重新加载微信分享
         this.handleWxReady(serverId)
       }
