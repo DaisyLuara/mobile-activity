@@ -1,90 +1,129 @@
 <template>
   <div
-    class="root"
     :style="style.root"
-    >
+    class="root">
     <img 
-        :src="baseUrl + 'bg.jpeg'+ this.$qiniuCompress()"
-        class="bg">
+      :src="baseUrl + 'bg.jpeg'+ this.$qiniuCompress()"
+      class="bg">
+    <div
+      v-show="tit.titOne" 
+      class="tit1"
+      @click.stop="cancles">
+      <img 
+        :src="baseUrl + 'tit1.png'+ this.$qiniuCompress()">
+    </div>
+    <div
+      v-show="tit.titTwo"
+      class="tit2"
+      @click.stop="cancles">
+      <img  
+        :src="baseUrl + 'tit2.png'+ this.$qiniuCompress()">
+    </div>
+    <div
+      v-show="tit.titThree" 
+      class="tit3"
+      @click.stop="cancles">
+      <img 
+        :src="baseUrl + 'tit3.png'+ this.$qiniuCompress()">
+    </div>
     <div class="t-1">
-       <img 
+      <img 
         :src="baseUrl + 'title.png'+ this.$qiniuCompress()"
         class="t1">
     </div>
     <div class="t-2">
-        <img 
-        :src="baseUrl + 'section_1.png'+ this.$qiniuCompress()"
+      <img 
+        :src="baseUrl + 'section_3.png'+ this.$qiniuCompress()"
         class="t2-1">
-        <img 
+      <img 
         :src="baseUrl + 'leaf.png'+ this.$qiniuCompress()"
         class="leaf-1">
-        <img 
+      <img 
         :src="baseUrl + 'leaf2.png'+ this.$qiniuCompress()"
         class="leaf-2">
-        <!-- 录音 -->
-        <div class="button-1" v-show="button.buttonOne" @touchstart="startRecord" @touchend="stopRecord">
-          <img 
-            :src="baseUrl + 'prompt_1.png'+ this.$qiniuCompress()"
-            class="p-1">
-          <img 
-            :src="baseUrl + 'button_1.png'+ this.$qiniuCompress()"
-            class="b-1">
-        </div>
-        <!-- 正在录音 -->
-        <div class="button-2" v-show="button.buttonTwo">
-          <img 
-            :src="baseUrl + 'prompt_1.png'+ this.$qiniuCompress()"
-            class="p-1">
-          <img 
-            :src="baseUrl + 'wifi.gif'+ this.$qiniuCompress()"
-            class="wifi">
-          <img 
-            :src="baseUrl + 'button_2.png'+ this.$qiniuCompress()"
-            class="b-1">
-        </div>
-        <!-- 播放录音 -->
-        <div class="button-3"  id="mbtn" v-show="button.buttonThree" @click="playRecord()">
-          <img 
-            :src="baseUrl + 'prompt_2.png'+ this.$qiniuCompress()"
-            class="p-1">
-          <img 
-            :src="baseUrl + 'button_3.png'+ this.$qiniuCompress()"
-            class="b-1">
-            <!-- v-if="isPlay" -->
-            <audio   id="voice" autobuffer >
-              <source :src="audioUrl">
-            </audio>
-        </div>
+      <!-- 录音  -->
+      <div 
+        v-show="button.buttonOne" 
+        class="button-1"
+        @touchstart="startRecord"
+        @touchend="stopRecord">
+        <img 
+          v-show="button.buttonOne"
+          :src="baseUrl + 'prompt_1.png'+ this.$qiniuCompress()"
+          class="p-1">
+        <img 
+          :src="baseUrl + 'button_1.png'+ this.$qiniuCompress()" 
+          class="b-1">
+      </div>
+      <!-- 正在录音 -->
+      <div 
+        v-show="button.buttonTwo" 
+        class="button-2">
+        <img 
+          v-show="button.buttonTwo"
+          :src="baseUrl + 'prompt_1.png'+ this.$qiniuCompress()"
+          class="p-1">
+        <img 
+          :src="baseUrl + 'wifi.gif'+ this.$qiniuCompress()"
+          class="wifi">
+        <img 
+          :src="baseUrl + 'button_2.png'+ this.$qiniuCompress()"
+          class="b-1">
+      </div>
+      <!-- 播放录音 -->
+      <div 
+        v-show="button.buttonThree" 
+        id="mbtn" 
+        class="button-3"
+        @click="playRecord()">
+        <img 
+          v-show="button.buttonThree"
+          :src="baseUrl + 'prompt_2.png'+ this.$qiniuCompress()"
+          class="p-1">
+        <img 
+          v-show="wifi"
+          :src="baseUrl + 'wifi.gif'+ this.$qiniuCompress()"
+          class="wifi">
+        <img 
+          v-show="player"
+          :src="baseUrl + 'player.png'+ this.$qiniuCompress()"
+          class="player">
+        <img 
+          :src="baseUrl + 'button_4.png'+ this.$qiniuCompress()"
+          class="b-1">
+      </div>
     </div>
-    <div class="t-3">
-       <img 
+    <div 
+      class="t-3">
+      <img 
         :src="baseUrl + 'section_2.png'+ this.$qiniuCompress()"
         class="t3-1">
-       <img 
-        :src="baseUrl + '777.png'+ this.$qiniuCompress()"
+      <!-- :src="baseUrl + '777.png'+ this.$qiniuCompress()" -->
+      <img 
+        v-if="photo !== null" 
+        :src="photo + this.$qiniuCompress()" 
         class="photo">
-        <img 
+      <img 
         :src="baseUrl + 'leaf3.png'+ this.$qiniuCompress()"
         class="leaf-3">
-        <img 
+      <img 
         :src="baseUrl + 'leaf4.png'+ this.$qiniuCompress()"
         class="leaf-4">
-        <img 
+      <img 
         :src="baseUrl + 'leaf5.png'+ this.$qiniuCompress()"
         class="leaf-5">
-        <img 
+      <img 
         :src="baseUrl + 'leaf6.png'+ this.$qiniuCompress()"
         class="leaf-6">
-        <div class="jiantou">
+      <div class="jiantou">
         <img 
-        :src="baseUrl + 'arrow.png'+ this.$qiniuCompress()"
-        class="arrow">
-         <img 
-        :src="baseUrl + 'prompt_3.png'+ this.$qiniuCompress()"
-        class="prompt">
-       </div>
+          :src="baseUrl + 'arrow.png'+ this.$qiniuCompress()"
+          class="arrow">
+        <img 
+          :src="baseUrl + 'prompt_3.png'+ this.$qiniuCompress()"
+          class="prompt">
+      </div>
     </div>
-       
   </div>
 </template>
 
@@ -111,31 +150,35 @@ export default {
           height: this.$innerHeight() + 'px'
         }
       },
-      audioUrl: 'http://122.112.236.76/mp3/motion.mp3',
       button: {
         buttonOne: true,
         buttonTwo: false,
         buttonThree: false
       },
+      player: true,
+      wifi: false,
+      tit: {
+        titOne: false,
+        titTwo: false,
+        titThree: false
+      },
       photo: '',
-      // isRecording: false,
-      // currentLocalId: null,
-      belong: this.$route.query.utm_campaign,
       startTime: 0,
       recordTimer: null,
-      isPlay: false,
       localId: null,
       userId: null,
+      isExpire: false,
+      clickNumber: 0,
       params: {
         ID: this.$route.query.id + '',
-        serverId: null
+        serverId: null,
+        createTime: null,
+        localId: null
       },
-      mp3URL: '',
-      filter_url: process.env.SAAS_API + '/user/',
       wxShareInfoValue: {
-        title: '月满中秋 心愿祈福',
-        desc: '家人有爱口难开？让星视度帮你把祝福送给你爱的人吧',
-        link: 'http://papi.xingstation.com/api/s/J62' + window.location.search,
+        title: '声音邮局 ',
+        desc: '你有封亲密信件 请查收',
+        link: 'http://papi.xingstation.com/api/s/VOM' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/autumnWord/icon.png',
         success: () => {
           wechatShareTrack()
@@ -172,7 +215,7 @@ export default {
         window.location.href = redirct_url
       } else {
         this.isShare()
-        this.query()
+        this.query(false)
         this.userId = Cookies.get('user_id')
       }
     },
@@ -181,7 +224,6 @@ export default {
       getInfoById(id)
         .then(res => {
           this.photo = res.image
-          this.drawing()
         })
         .catch(err => {
           console.log(err)
@@ -233,7 +275,7 @@ export default {
       }
     },
     //开始录音
-    startRecord(event) {
+    startRecord(e) {
       let reference = this
       reference.button.buttonOne = false
       reference.button.buttonTwo = true
@@ -259,7 +301,8 @@ export default {
       event.preventDefault()
       // 间隔太短 小于一秒
       if (Math.round(new Date()) - reference.startTime < 1000) {
-        alert('录音时间过短')
+        // alert('录音时间过短')
+        this.tit.titTwo = true
         reference.startTime = 0
         // 不录音
         clearTimeout(reference.recordTimer)
@@ -270,6 +313,7 @@ export default {
         wx.stopRecord({
           success: function(res) {
             reference.localId = res.localId
+            reference.params.localId = res.localId
             console.log('localId:', reference.localId)
             console.log('停止录音成功')
             // 上传到服务器
@@ -278,7 +322,6 @@ export default {
           fail: function(res) {
             reference.button.buttonOne = true
             reference.button.buttonTwo = false
-            console.log('==========')
             console.log(JSON.stringify(res))
           }
         })
@@ -287,16 +330,20 @@ export default {
     // 上传录音
     uploadRecord() {
       let reference = this
+      let startTime = Math.round(new Date())
+      //过期时间3天
+      let timeDifference = 3 * (24 * 60 * 60) * 1000
       wx.uploadVoice({
         localId: reference.localId, // 需要上传的音频的本地ID，由stopRecord接口获得
         isShowProgressTips: 1, // 默认为1，显示进度提示
         success: function(res) {
           //把录音在微信服务器上的id（res.serverId）发送到自己的服务器供下载。
           let serverId = res.serverId // 返回音频的服务器端ID
+          reference.reloadHandleWxReady(serverId)
+          reference.params.serverId = serverId + ''
+          reference.params.createTime = new Date(startTime + timeDifference)
           console.log('微信上传录音成功')
           console.log('serverId:', serverId)
-          reference.downVoice(serverId)
-          reference.getMp3URL(serverId)
           reference.save()
         },
         fail: function(res) {
@@ -306,6 +353,15 @@ export default {
         }
       })
     },
+    //重加载微信
+    reloadHandleWxReady(serverId) {
+      if (window.location.search.indexOf('type=') < 0) {
+        this.wxShareInfoValue.link =
+          this.wxShareInfoValue.link + '&type=WeChat&serverId=' + serverId
+        //重新加载微信分享
+        this.handleWxReady()
+      }
+    },
     //下载语音
     downVoice(serverId) {
       let reference = this
@@ -313,39 +369,38 @@ export default {
         serverId: serverId, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
         isShowProgressTips: 1, // 默认为1，显示进度提示
         success: function(res) {
-          console.log('xiazaichenggong')
+          reference.localId = res.localId
           console.log(res)
-          console.log('============')
         }
       })
     },
-    // 获取mp3文件路径
-    getMp3URL(serverId) {
+    // 播放语音
+    playVoice() {
       let reference = this
-      let query = '?belong=WorldCup2018&media_id=' + serverId
-      this.$http
-        .get(this.filter_url + this.userId + '/games' + query)
-        .then(res => {
-          console.log(res)
-          if (window.location.search.indexOf('type=') < 0) {
-            reference.wxShareInfoValue.link =
-              reference.wxShareInfoValue.link +
-              '&type=WeChat&serverId=' +
-              serverId
-            //重新加载微信分享
-            reference.handleWxReady()
-          }
-          console.log('获取文件成功')
-          reference.button.buttonTwo = false
-          reference.button.buttonThree = true
-          console.log(reference.button)
-          console.log('============')
-        })
-        .catch(err => {
-          console.log('获取文件失败')
-          console.log(err)
-        })
+      wx.playVoice({
+        localId: reference.localId,
+        success: function(res) {
+          console.log('播放成功')
+        },
+        fail: function() {
+          console.log('播放异常')
+          console.log(reference.localId)
+        }
+      })
     },
+    //语音播放完毕
+    voicePlayEnd() {
+      let reference = this
+      wx.onVoicePlayEnd({
+        success: function(res) {
+          reference.localId = res.localId // 返回音频的本地ID
+          reference.wifi = false
+          reference.player = true
+          console.log('语音播放完毕')
+        }
+      })
+    },
+
     // 保存到parseService
     save() {
       let reference = this
@@ -354,7 +409,8 @@ export default {
         .then(res => {
           reference.button.buttonTwo = false
           reference.button.buttonThree = true
-          alert('保存录音成功')
+          // alert('保存录音成功')
+          this.tit.titThree = true
         })
         .catch(err => {
           reference.button.buttonOne = true
@@ -363,7 +419,8 @@ export default {
         })
     },
     // 查询parseService
-    query() {
+    query(isPlay) {
+      let reference = this
       let query = {
         ID: this.params.ID + ''
       }
@@ -371,8 +428,32 @@ export default {
         .get(REQ_URL + 'zq?where=' + JSON.stringify(query))
         .then(data => {
           if (data.results.length > 0) {
-            //获取服务器mp3路径
-            this.getMp3URL(data.results[0].serverId)
+            this.button.buttonOne = false
+            this.button.buttonThree = true
+            //满足过期条件
+            if (
+              Math.round(new Date(data.results[0].createTime)) -
+                Math.round(new Date()) <
+              0
+            ) {
+              reference.isExpire = true
+              if (reference.clickNumber > 0) {
+                // alert('语音过期')
+                this.tit.titOne = true
+              }
+              return false
+            }
+            reference.clickNumber++
+            //获取
+            reference.localId =
+              reference.localId === null
+                ? data.results[0].localId
+                : reference.localId
+            reference.reloadHandleWxReady(data.results[0].serverId)
+            if (isPlay) {
+              reference.playVoice()
+              reference.voicePlayEnd()
+            }
           }
           console.log(data)
         })
@@ -381,55 +462,10 @@ export default {
         })
     },
     playRecord() {
-      console.log('播放音乐')
-      this.playAudio()
-    },
-    playAudio() {
-      let mbtn = document.getElementById('mbtn')
-      let voice = document.getElementById('voice')
-      if (!voice) {
-        return
-      }
-      //调用 <audio> 元素提供的方法 play()
-      voice.play()
-      //判斷 WeixinJSBridge 是否存在
-      if (
-        typeof WeixinJSBridge == 'object' &&
-        typeof WeixinJSBridge.invoke == 'function'
-      ) {
-        voice.play()
-      } else {
-        //監聽客户端抛出事件"WeixinJSBridgeReady"
-        if (document.addEventListener) {
-          document.addEventListener(
-            'WeixinJSBridgeReady',
-            function() {
-              voice.play()
-            },
-            false
-          )
-        } else if (document.attachEvent) {
-          document.attachEvent('WeixinJSBridgeReady', function() {
-            voice.play()
-          })
-          document.attachEvent('onWeixinJSBridgeReady', function() {
-            voice.play()
-          })
-        }
-      }
-      //voiceStatu用來記録狀態,使 touchstart 事件只能觸發一次有效,避免與 click 事件衝突
-      var voiceStatu = true
-      //监听 touchstart 事件进而调用 <audio> 元素提供的 play() 方法播放音频
-      document.addEventListener(
-        'touchstart',
-        function(e) {
-          if (voiceStatu) {
-            voice.play()
-            voiceStatu = false
-          }
-        },
-        false
-      )
+      //控制播放部分
+      this.wifi = true
+      this.player = false
+      this.query(true)
     },
     // 是否微信分享
     isShare() {
@@ -441,7 +477,14 @@ export default {
       ) {
         this.button.buttonOne = false
         this.button.buttonThree = true
+        this.downVoice(this.$route.query.serverId)
       }
+    },
+    //取消提示
+    cancles() {
+      this.tit.titOne = false
+      this.tit.titTwo = false
+      this.tit.titThree = false
     }
   }
 }
@@ -459,14 +502,25 @@ export default {
     -webkit-user-select: none;
     pointer-events: none;
   }
-  .mplay {
-    animation: mycir 2s linear infinite;
-  }
+
   .bg {
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
+  }
+  .tit1,
+  .tit2,
+  .tit3 {
+    width: 80%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -20%);
+    z-index: 99;
+    img {
+      width: 100%;
+    }
   }
   .t-1 {
     width: 100%;
@@ -481,18 +535,21 @@ export default {
   .t-2 {
     width: 100%;
     position: relative;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    pointer-events: none;
     .t2-1 {
       width: 90%;
       margin-left: -8%;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      pointer-events: none;
     }
     .leaf-1 {
       width: 12%;
       position: absolute;
       right: 0;
       top: 24%;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      pointer-events: none;
       animation: leaf 2s ease-out infinite forwards;
     }
     .leaf-2 {
@@ -500,6 +557,9 @@ export default {
       position: absolute;
       left: 7%;
       top: 0;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      pointer-events: none;
       animation: leaf 2s ease-out infinite forwards;
     }
     .button-1,
@@ -525,6 +585,18 @@ export default {
         position: absolute;
         left: 27%;
         top: 47%;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        pointer-events: none;
+      }
+      .player {
+        width: 10%;
+        position: absolute;
+        left: 24%;
+        top: 44%;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        pointer-events: none;
       }
     }
   }
@@ -620,10 +692,10 @@ export default {
     transform: scale(1.1, 1.1);
   }
   50% {
-    transform: scale(1.3, 1.3);
+    transform: scale(1.5, 1.5);
   }
   to {
-    transform: scale(1.1, 1.1);
+    transform: scale(1.2, 1.2);
   }
 }
 </style>
