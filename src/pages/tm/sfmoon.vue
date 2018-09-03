@@ -1,8 +1,7 @@
 <template>
   <div 
     :style="style.root"
-    class="content">
-  </div>
+    class="content"/>
 </template>
 <script>
 import { $wechat, wechatShareTrack } from 'services'
