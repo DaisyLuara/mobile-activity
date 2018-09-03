@@ -218,7 +218,7 @@ export default {
         process.env.NODE_ENV === 'production' ||
         process.env.NODE_ENV === 'testing'
       ) {
-        this.handleWxReady()
+        this.handleWxReady(this.$route.query.service_id)
         this.handleWechatAuth()
       }
     }
@@ -250,7 +250,7 @@ export default {
           console.log(err)
         })
     },
-    handleWxReady() {
+    handleWxReady(serverId) {
       let reference = this
       if (isInWechat() === true) {
         if (
@@ -291,16 +291,19 @@ export default {
             wx.onMenuShareQQ(reference.wxShareInfoValue)
             wx.onMenuShareWeibo(reference.wxShareInfoValue)
             wx.onMenuShareQZone(reference.wxShareInfoValue)
-            if (reference.$route.query.hasOwnProperty('type')) {
+            if (
+              reference.$route.query.hasOwnProperty('type') ||
+              (serverId != null && serverId != undefined)
+            ) {
               // alert('weixingxi')
               // alert(reference.$route.query.serverId)
-              console.log(reference.$route.query.serverId)
+              console.log(reference.$route.query.service_id)
               console.log(window.location.href)
 
               reference.button.buttonOne = false
               reference.button.buttonThree = true
               wx.downloadVoice({
-                serverId: reference.$route.query.serverId, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
+                serverId: serverId, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
                 isShowProgressTips: 1, // 默认为1，显示进度提示
                 success: function(res) {
                   // alert('下载语音成功')
@@ -309,6 +312,7 @@ export default {
                   console.log(res)
                 },
                 fail: function(err) {
+                  console.dir(err)
                   // alert(JSON.stringify(err))
                   // alert('下载语音失败')
                 }
@@ -434,9 +438,9 @@ export default {
     reloadHandleWxReady(serverId) {
       if (window.location.search.indexOf('type=') < 0) {
         this.wxShareInfoValue.link =
-          this.wxShareInfoValue.link + '&type=WeChat&serverId=' + serverId
+          this.wxShareInfoValue.link + '&type=WeChat&service_id=' + serverId
         //重新加载微信分享
-        this.handleWxReady()
+        this.handleWxReady(serverId)
       }
     },
     // 播放语音
@@ -447,7 +451,8 @@ export default {
         success: function(res) {
           console.log('播放成功')
         },
-        fail: function() {
+        fail: function(r) {
+          console.log(dir)
           console.log('播放异常')
           console.log(reference.localId)
         }
