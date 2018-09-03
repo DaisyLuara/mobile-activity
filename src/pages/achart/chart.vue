@@ -1,4 +1,5 @@
 <template>
+  <!-- why do i write this stupid code? -->
   <div 
     class="root"
     :style="style.root"
@@ -9,7 +10,36 @@
       v-show="dataOptions[index]"
       :style="bindStyle[index]"
     >
-      <span style="position: absolute; top: 0; right: 50%">test</span>
+      <!-- end special process -->
+      <div v-if="chartdata.length - index === 2" :style="childStyles[0]">
+      </div>
+      <div v-if="chartdata.length - index === 1" :style="childStyles[1]">
+      </div>
+      <div :style="innerTextStyles[index]" class="text-inner">
+        <span :class="{'add-top': chartdata.length - index === 1 }">
+          {{dataName[index]}}
+        </span>
+        <span :class="{'add-margin': chartdata.length - index === 2 }">
+          {{chartdata[index]}}
+        </span>
+      </div>
+
+      <!-- circles -->
+      <div :style="circleArea[index]">
+        <div :style="innerCircle[index]">
+          <div :style="lineStyle[index]">
+            <div :style="circlePoint[index]"></div>
+          </div>
+          <div :style="whiteCirlce[index]">
+            <div
+              v-if="index > 0"
+              class="percent" 
+              :style="smallCirlce[index]">
+              {{computedRate[index - 1]}} %
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -19,6 +49,15 @@ export default {
   data() {
     return {
       chartdata: [90291, 9078, 7461, 5463, 3258, 2434, 834],
+      dataName: [
+        '曝光人次',
+        '大屏围观参与人数',
+        '大瓶活跃玩家人数',
+        '大屏铁杆玩家人数',
+        'OMO有效跳转人数',
+        '扫码啦心会员注册总数',
+        '完成转发分享人数'
+      ],
       dataOptions: [true, true, true, true, true, true, true],
       bindColors: [
         '#8FE5B8',
@@ -28,6 +67,14 @@ export default {
         '#E80F9B',
         '#E83828',
         '#9E8047'
+      ],
+      circleColors: [
+        '#036EA4',
+        '#197748',
+        '#F7931E',
+        '#BE136E',
+        '#BC1313',
+        '#7F4F21'
       ],
       styleCalculated: [],
       calStore: [],
@@ -41,11 +88,22 @@ export default {
       dh: 320,
       sp: 10,
       settingSin: 23 / 50,
+      bvt1: 790 / 840,
+      bvt: 640 / 780,
       style: {
         root: {}
       },
       rsh: null,
-      rsp: null
+      rsp: null,
+      childStyles: [],
+      innerTextStyles: [],
+      circleArea: [],
+      innerCircle: [],
+      whiteCirlce: [],
+      smallCirlce: [],
+      lineStyle: [],
+      circlePoint: [],
+      computedRate: []
     }
   },
   created() {
@@ -53,11 +111,15 @@ export default {
     this.risizeCanvas()
     // calculate
     this.calculate()
-    // calculate style and rerender 
+    // calculate style and rerender
     this.calculateStyles()
   },
-  mounted() {
-    this.recalculate()
+  mounted() {},
+  watch: {
+    dataOptions: function() {
+      this.calculate()
+      this.calculateStyles()
+    }
   },
   methods: {
     risizeCanvas() {
@@ -65,112 +127,280 @@ export default {
       this.style.root = {
         height: this.height + 'px'
       }
-      
     },
     calculate() {
       // special top 1, bottom 2
-      let dataObj = {}
-      for (let i=0; i < this.chartdata.length; i++) {
+      this.calStore = []
+      this.computedRate = []
+      for (let i = 0; i < this.chartdata.length; i++) {
+        if (i > 0) {
+          this.computedRate.push(
+            parseInt(this.chartdata[i] / this.chartdata[i - 1] * 100)
+          )
+        }
+        let dataObj = {}
         if (i === 0) {
           dataObj.topWidth = this.width
           dataObj.bottomWidth = this.width
+          dataObj.height = this.height * this.sh / 1500
         }
         if (i === 1) {
           dataObj.topWidth = this.width
-          dataObj.bottomWidth = this.width * 
+          dataObj.bottomWidth = this.width * this.bvt1
+          dataObj.height = this.height * this.sh / 1500
         }
-        if (i > 0 && i < this.chartdata.length - 2) {
-
+        if (i > 1 && i < this.chartdata.length - 2) {
+          dataObj.topWidth = this.calStore[i - 1].bottomWidth
+          dataObj.bottomWidth = dataObj.topWidth * this.bvt
+          dataObj.height = this.height * this.sh / 1500
         }
-        if (i === this.chartdata.length - 2) {
-
+        if (i === this.chartdata.length - 2 && i > 2) {
+          dataObj.topWidth = this.calStore[i - 1].bottomWidth
+          dataObj.bottomWidth = dataObj.topWidth
+          dataObj.height = this.height * this.dh / 1500
         }
-        if (i === this.chartdata.length - 1) {
-
+        if (i === this.chartdata.length - 1 && i > 3) {
+          dataObj.topWidth = this.calStore[i - 1].topWidth
+          dataObj.bottomWidth = dataObj.topWidth
+          dataObj.height = this.height * this.dh / 1500
         }
+        this.calStore.push({ ...dataObj })
       }
-      this.calStore
     },
     calculateStyles() {
-      let bindStyleObje = {}
-      for (let i=0; i < this.chartdata.length; i++) {
-        if (i === 0) {
-          
-        }
-        if (i > 0 && i < this.chartdata.length - 2) {
+      this.bindStyle = []
+      this.childStyles = []
+      this.innerTextStyles = []
+      this.circleArea = []
+      this.innerCircle = []
+      this.lineStyle = []
+      for (let i = 0; i < this.chartdata.length; i++) {
+        // out style Object
+        let bindStyleObject = {}
 
+        // innerText
+        let innerTextStyle = {
+          height: String(this.calStore[i].height.toFixed(1)) + 'px',
+          width: this.calStore[i].bottomWidth + 'px',
+          position: 'absolute',
+          top: '-' + String(this.calStore[i].height.toFixed(1)) + 'px',
+          left: 0,
+          color: 'white'
         }
-        if (i === this.chartdata.length - 2) {
 
-        }
-        if (i === this.chartdata.length - 1) {
+        // lineStyle
 
-        }
-      }
-    },
-    recalculate() {
-      let openNumbers = 5 + (1 + 1) * 2
-      let openItems = 7
-      for (let i = 0; i < this.dataOptions.length; i++) {
-        if (!this.dataOptions[i]) {
-          if (i >= 5) {
-            openNumbers = openNumbers - 2
-          } else {
-            openNumbers--
+        // circleArea
+        let circleAreaObj = {}
+        if (i % 2 === 0) {
+          circleAreaObj = {
+            width: this.width / 2 + 'px',
+            height: String(this.calStore[i].height.toFixed(1)) + 'px',
+            position: 'absolute',
+            right: '-' + this.width / 2 + 'px',
+            top: '-' + String(this.calStore[i].height.toFixed(1)) + 'px'
           }
-          openItems--
-        }
-      }
-      let grid = openItems - 1
-      let allHeight = 1500 - grid * this.sp
-      this.sh = allHeight / openNumbers
-      this.dh = this.sh * 2
-    },
-    processStyle() {
-      let styleCollection = []
-
-      for (let i = 0; i < this.bindColors.length; i++) {
-        // calculate Cover widh
-        if (i === 0) {
-          this.cover[i] = this.width
-        }
-
-        if (i >= 1 && i < 5) {
-          this.cover[i] =
-            this.chartdata[i] / this.chartdata[i - 1] * this.cover[i - 1]
-        }
-
-        if (i === 5 || i === 6) {
-          this.cover[i] = this.cover[i - 1]
-        }
-
-        // calculate top width
-        // then set left & right border make it like a trapezoid
-
-        // process style
-        let styleObject = {
-          backgroundColor: this.bindColors[i],
-          width: i === 0 ? '100%' : Math.pow(0.6, i - 1) * 100 + '%',
-          position: 'relative'
-        }
-
-        if (i > 4) {
-          styleObject.height = this.dh / 1500 * this.height + 'px'
-        } else if (i === 0) {
-          styleObject.height = this.sh / 1500 * this.height + 'px'
-          styleObject.borderTop =
-            this.sh / 1500 * this.height + 'px solid ' + this.bindColors[i]
         } else {
-          styleObject.height = this.sh / 1500 * this.height + 'px'
-          styleObject.borderTop =
-            this.sh / 1500 * this.height + 'px solid ' + this.bindColors[i]
-          let cutWith = (this.width - this.cover[i]) / 2 * (i === 0 ? 1 : 0.6)
-          styleObject.borderLeft = String(cutWith) + 'px solid white'
-          styleObject.borderRight = String(cutWith) + 'px solid white'
+          circleAreaObj = {
+            width: this.width / 2 + 'px',
+            height: String(this.calStore[i].height.toFixed(1)) + 'px',
+            position: 'absolute',
+            left: '-' + this.width / 2 + 'px',
+            top: '-' + String(this.calStore[i].height.toFixed(1)) + 'px'
+          }
         }
-        styleCollection.push(styleObject)
+
+        let innerCircleObj = {}
+        let whiteCircleObj = {}
+        let smallCirlceObj = {}
+        // innerCircle
+        if (i > 0) {
+          let w = String(this.calStore[i].height.toFixed(1))
+          innerCircleObj = {
+            height: w + 'px',
+            width: w + 'px',
+            borderRadius: w / 2 + 'px',
+            backgroundColor: this.circleColors[i - 1],
+            position: 'absolute',
+            top: '0',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }
+
+          if (i % 2 === 0) {
+            innerCircleObj.right = '0'
+          } else {
+            innerCircleObj.left = '0'
+          }
+
+          let w2 = w - 4
+          whiteCircleObj = {
+            height: w2 + 'px',
+            width: w2 + 'px',
+            borderRadius: w2 / 2 + 'px',
+            backgroundColor: 'white',
+            position: 'abosulte',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }
+
+          let w3 = w2 - 4
+          smallCirlceObj = {
+            height: w3 + 'px',
+            width: w3 + 'px',
+            borderRadius: w3 / 2 + 'px',
+            backgroundColor: this.circleColors[i - 1],
+            position: 'abosulte',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }
+        }
+
+        this.innerCircle.push({ ...innerCircleObj })
+        this.whiteCirlce.push({ ...whiteCircleObj })
+        this.smallCirlce.push({ ...smallCirlceObj })
+
+        // line
+        let lineObj = {}
+        if (i > 0) {
+          let w = String(this.calStore[i].height.toFixed(1))
+          lineObj = {
+            width: w * 1 / 3 + 'px',
+            position: 'absolute',
+            top: w / 2 + 'px',
+            height: '2px',
+            backgroundColor: this.circleColors[i - 1]
+          }
+          if (i % 2 === 0) {
+            lineObj.left = '-' + w * 1 / 3 + 'px'
+          } else {
+            lineObj.right = '-' + w * 1 / 3 + 'px'
+          }
+        }
+        this.lineStyle.push({ ...lineObj })
+
+        // linePoint
+        let pointObj = {}
+
+        if (i > 0) {
+          pointObj = {
+            width: '8px',
+            height: '8px',
+            top: '-3px',
+            borderRadius: '4px',
+            backgroundColor: this.circleColors[i - 1],
+            position: 'absolute'
+          }
+          if (i % 2 === 0) {
+            pointObj.left = '0'
+          } else {
+            pointObj.right = '0'
+          }
+        }
+        this.circlePoint.push({ ...pointObj })
+
+        if (i === 0) {
+          bindStyleObject.width = this.width + 'px'
+          bindStyleObject.color = this.bindColors[i]
+          bindStyleObject.height =
+            String(this.calStore[i].height.toFixed(1)) + 'px'
+          bindStyleObject.backgroundColor = this.bindColors[0]
+
+          delete innerTextStyle.top
+          innerTextStyle.color = 'black'
+
+          circleAreaObj.top = '0'
+        }
+        if (i === 1) {
+          bindStyleObject.width = this.calStore[i].topWidth + 'px'
+          bindStyleObject.color = this.bindColors[i]
+          bindStyleObject.height =
+            String(this.calStore[i].height.toFixed(1)) + 'px'
+          bindStyleObject.borderTop =
+            bindStyleObject.height + ' solid ' + this.bindColors[i]
+          let cutWidth = (
+            (this.calStore[i].topWidth - this.calStore[i].bottomWidth) /
+            2
+          ).toFixed(1)
+          bindStyleObject.borderLeft = String(cutWidth) + 'px solid white'
+          bindStyleObject.borderRight = bindStyleObject.borderLeft
+        }
+        if (i > 1 && i < this.chartdata.length - 2) {
+          bindStyleObject.width = this.calStore[i].topWidth + 'px'
+          bindStyleObject.color = this.bindColors[i]
+          bindStyleObject.height =
+            String(this.calStore[i].height.toFixed(1)) + 'px'
+          bindStyleObject.borderTop =
+            bindStyleObject.height + ' solid ' + this.bindColors[i]
+          let cutWidth = (
+            (this.calStore[i].topWidth - this.calStore[i].bottomWidth) /
+            2
+          ).toFixed(1)
+          bindStyleObject.borderLeft = String(cutWidth) + 'px solid white'
+          bindStyleObject.borderRight = bindStyleObject.borderLeft
+        }
+        if (i === this.chartdata.length - 2 && i > 2) {
+          bindStyleObject.width = this.calStore[i].topWidth + 'px'
+          bindStyleObject.backgroundColor = this.bindColors[i]
+          bindStyleObject.height =
+            String(this.calStore[i].height.toFixed(1)) + 'px'
+
+          let childStyle = {
+            width: this.calStore[i].topWidth + 'px',
+            height: String((this.calStore[i].height / 2).toFixed(1)) + 'px',
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            borderLeft: this.calStore[i].topWidth / 2 + 'px solid white',
+            borderRight: this.calStore[i].topWidth / 2 + 'px solid white',
+            borderTop:
+              String((this.calStore[i].height / 2).toFixed(1)) +
+              'px solid ' +
+              this.bindColors[i]
+          }
+          this.childStyles.push({ ...childStyle })
+          innerTextStyle.height =
+            String(this.calStore[i].height.toFixed(1)) + 'px'
+          delete innerTextStyle.top
+
+          circleAreaObj.top = '0'
+        }
+        if (i === this.chartdata.length - 1 && i > 3) {
+          bindStyleObject.width = this.calStore[i].topWidth + 'px'
+          bindStyleObject.backgroundColor = this.bindColors[i]
+          bindStyleObject.height =
+            String(this.calStore[i].height.toFixed(1)) + 'px'
+
+          let childStyle = {
+            width: this.calStore[i].topWidth + 'px',
+            height: String((this.calStore[i].height / 2).toFixed(1)) + 'px',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            borderLeft: this.calStore[i].topWidth / 2 + 'px solid white',
+            borderRight: this.calStore[i].topWidth / 2 + 'px solid white',
+            borderBottom:
+              String((this.calStore[i].height / 2).toFixed(1)) +
+              'px solid ' +
+              this.bindColors[i]
+          }
+          this.childStyles.push({ ...childStyle })
+          innerTextStyle.height =
+            String(this.calStore[i].height.toFixed(1)) + 'px'
+          delete innerTextStyle.top
+          circleAreaObj.top = '0'
+        }
+        delete bindStyleObject.color
+        bindStyleObject.marginBottom =
+          String((this.sp / 1500 * this.width).toFixed(1)) + 'px'
+        bindStyleObject.position = 'relative'
+        this.bindStyle.push(bindStyleObject)
+        this.innerTextStyles.push({ ...innerTextStyle })
+        this.circleArea.push({ ...circleAreaObj })
       }
-      this.bindStyle = styleCollection
     }
   }
 }
@@ -181,6 +411,21 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+  .text-inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    .add-top {
+      margin-top: 30%;
+    }
+    .add-margin {
+      margin-bottom: 30%;
+    }
+  }
+  .percent {
+    color: white;
+  }
 }
 </style>

@@ -62,7 +62,6 @@ export default {
   },
   created() {},
   mounted() {
-    console.log(this.num)
     this.playAnim()
   },
   methods: {
@@ -77,6 +76,8 @@ export default {
             transparent: true
           })
           document.getElementById('content').appendChild(app.view)
+          app.renderer.autoResize = true
+          app.renderer.resize(window.innerWidth, window.innerHeight)
           app.view.style.position = 'absolute'
           app.view.style.top = '0%'
           app.view.style.left = '0%'
