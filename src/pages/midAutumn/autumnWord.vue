@@ -217,7 +217,6 @@ export default {
         process.env.NODE_ENV === 'production' ||
         process.env.NODE_ENV === 'testing'
       ) {
-        this.handleWxReady(null)
         this.handleWechatAuth()
       }
     }
@@ -508,7 +507,7 @@ export default {
     query(isPlay) {
       let reference = this
       let query = {
-        ID: this.params.ID + ''
+        ID: this.$route.query.id + ''
       }
       parseService
         .get(REQ_URL + 'zq?where=' + JSON.stringify(query))
@@ -540,6 +539,8 @@ export default {
             if (isPlay) {
               reference.playVoice()
             }
+          } else {
+            reference.handleWxReady(null)
           }
           console.log(data)
         })
