@@ -187,7 +187,6 @@ export default {
       recordTimer: null,
       localId: null,
       userId: null,
-      isExpire: false,
       clickNumber: 0,
       params: {
         ID: this.$route.query.id + '',
@@ -218,7 +217,7 @@ export default {
         process.env.NODE_ENV === 'production' ||
         process.env.NODE_ENV === 'testing'
       ) {
-        this.handleWxReady(this.$route.query.service_id)
+        this.handleWxReady(null)
         this.handleWechatAuth()
       }
     }
@@ -291,13 +290,9 @@ export default {
             wx.onMenuShareQQ(reference.wxShareInfoValue)
             wx.onMenuShareWeibo(reference.wxShareInfoValue)
             wx.onMenuShareQZone(reference.wxShareInfoValue)
-            if (
-              reference.$route.query.hasOwnProperty('type') ||
-              (serverId != null && serverId != undefined)
-            ) {
+            if (serverId != null && serverId != undefined) {
               // alert('weixingxi')
               // alert(reference.$route.query.serverId)
-              console.log(reference.$route.query.service_id)
               console.log(window.location.href)
 
               reference.button.buttonOne = false
@@ -318,6 +313,15 @@ export default {
                 }
               })
             }
+            wx.onVoicePlayEnd({
+              success: function(res) {
+                reference.localId = res.localId // 返回音频的本地ID
+                reference.player.one = true
+                reference.player.two = false
+                reference.player.three = false
+                console.log('语音播放完毕')
+              }
+            })
           })
         }
       }
@@ -436,12 +440,8 @@ export default {
     },
     //重加载微信
     reloadHandleWxReady(serverId) {
-      if (window.location.search.indexOf('type=') < 0) {
-        this.wxShareInfoValue.link =
-          this.wxShareInfoValue.link + '&type=WeChat&service_id=' + serverId
-        //重新加载微信分享
-        this.handleWxReady(serverId)
-      }
+      //重新加载微信分享
+      this.handleWxReady(serverId)
     },
     // 播放语音
     playVoice() {
@@ -522,8 +522,7 @@ export default {
                 Math.round(new Date()) <
               0
             ) {
-              reference.isExpire = true
-              if (reference.clickNumber > 0) {
+              if (reference.clickNumber > 0 && isPlay) {
                 // alert('语音过期')
                 this.tit.titOne = true
               }
@@ -535,10 +534,11 @@ export default {
               reference.localId === null
                 ? data.results[0].localId
                 : reference.localId
-            reference.reloadHandleWxReady(data.results[0].serverId)
+            if (!isPlay) {
+              reference.reloadHandleWxReady(data.results[0].serverId)
+            }
             if (isPlay) {
               reference.playVoice()
-              reference.voicePlayEnd()
             }
           }
           console.log(data)
