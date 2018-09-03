@@ -183,7 +183,7 @@ export default {
     //处理接口问题
     handle() {
       let URL =
-        'http://exelook.com:8010/pushdiv/?oid=' +
+        'http://exelook.com/pushdiv/?oid=' +
         this.oid +
         '&belong=' +
         this.belong +

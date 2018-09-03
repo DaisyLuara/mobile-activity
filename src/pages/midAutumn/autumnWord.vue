@@ -196,6 +196,9 @@ export default {
         process.env.NODE_ENV === 'production' ||
         process.env.NODE_ENV === 'testing'
       ) {
+        this.downVoice(
+          'xToumxc7pu3FT9oFv4pwf9edhBFqJ3eU0Jtd6ReqzRqGLUMl74m3jE4L-kJmlMty'
+        )
         this.handleWxReady()
         this.handleWechatAuth()
       }
@@ -272,6 +275,21 @@ export default {
             wx.onMenuShareQZone(reference.wxShareInfoValue)
           })
         }
+      }
+    },
+    //避免授权弹窗导致touchend事件无法触发
+    handleAllowEnd() {
+      if (!localStorage.allowRecord || localStorage.allowRecord !== 'true') {
+        wx.startRecord({
+          success: function() {
+            localStorage.allowRecord = 'true'
+            // 仅仅为了授权，所以立刻停掉
+            wx.stopRecord()
+          },
+          cancel: function() {
+            alert('用户拒绝授权录音')
+          }
+        })
       }
     },
     //开始录音
