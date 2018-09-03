@@ -309,6 +309,7 @@ export default {
                   console.log(res)
                 },
                 fail: function(err) {
+                  console.dir(err)
                   // alert(JSON.stringify(err))
                   // alert('下载语音失败')
                 }
