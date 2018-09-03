@@ -189,7 +189,7 @@ export default {
       userId: null,
       clickNumber: 0,
       params: {
-        ID: this.$route.query.id + '',
+        ID: null,
         serverId: null,
         createTime: null,
         localId: null,
@@ -217,7 +217,6 @@ export default {
         process.env.NODE_ENV === 'production' ||
         process.env.NODE_ENV === 'testing'
       ) {
-        this.handleWxReady(null)
         this.handleWechatAuth()
       }
     }
@@ -489,6 +488,7 @@ export default {
     // 保存到parseService
     save() {
       let reference = this
+      reference.params.ID = reference.$route.query.id + ''
       parseService
         .post(REQ_URL + 'zq', this.params)
         .then(res => {
@@ -539,6 +539,8 @@ export default {
             if (isPlay) {
               reference.playVoice()
             }
+          } else {
+            reference.handleWxReady(null)
           }
           console.log(data)
         })
