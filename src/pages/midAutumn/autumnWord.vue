@@ -214,7 +214,6 @@ export default {
           '&scope=snsapi_base'
         window.location.href = redirct_url
       } else {
-        this.isShare()
         this.query(false)
         this.userId = Cookies.get('user_id')
         this.params.user_id = this.userId
@@ -271,21 +270,29 @@ export default {
             wx.onMenuShareQQ(reference.wxShareInfoValue)
             wx.onMenuShareWeibo(reference.wxShareInfoValue)
             wx.onMenuShareQZone(reference.wxShareInfoValue)
-            wx.downloadVoice({
-              serverId:
-                'xToumxc7pu3FT9oFv4pwf9edhBFqJ3eU0Jtd6ReqzRqGLUMl74m3jE4L-kJmlMty', // 需要下载的音频的服务器端ID，由uploadVoice接口获得
-              isShowProgressTips: 1, // 默认为1，显示进度提示
-              success: function(res) {
-                alert('下载语音成功')
-                alert(JSON.stringify(res))
-                reference.localId = res.localId
-                console.log(res)
-              },
-              fail: function(err) {
-                alert(JSON.stringify(err))
-                alert('下载语音失败')
-              }
-            })
+            if (
+              reference.$route.query.type != null &&
+              reference.$route.query.type != undefined &&
+              reference.$route.query.serverId != null &&
+              reference.$route.query.serverId != undefined
+            ) {
+              reference.button.buttonOne = false
+              reference.button.buttonThree = true
+              wx.downloadVoice({
+                serverId: reference.$route.query.serverId, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
+                isShowProgressTips: 1, // 默认为1，显示进度提示
+                success: function(res) {
+                  alert('下载语音成功')
+                  alert(JSON.stringify(res))
+                  reference.localId = res.localId
+                  console.log(res)
+                },
+                fail: function(err) {
+                  alert(JSON.stringify(err))
+                  alert('下载语音失败')
+                }
+              })
+            }
           })
         }
       }
@@ -294,12 +301,14 @@ export default {
     queryIsAuthorization() {
       let reference = this
       let query = {
-        user_id: this.user_id + ''
+        user_id: this.userId + ''
       }
       parseService
         .get(REQ_URL + 'zq?where=' + JSON.stringify(query))
         .then(data => {
+          console.log(data.results)
           if (data.results.length === 0) {
+            reference.saveIsAuthorization()
             wx.stopRecord()
             reference.button.buttonOne = true
             reference.button.buttonTwo = false
@@ -309,6 +318,16 @@ export default {
         .catch(err => {
           console.log(err)
         })
+    },
+    // 保存第一次认证
+    saveIsAuthorization() {
+      let reference = this
+      parseService
+        .post(REQ_URL + 'zq', this.params)
+        .then(res => {
+          console.log('首次认证保存成功')
+        })
+        .catch(err => {})
     },
     //开始录音
     startRecord(e) {
@@ -321,7 +340,7 @@ export default {
       reference.recordTimer = setTimeout(function() {
         wx.startRecord({
           success: function() {
-            // reference.queryIsAuthorization()
+            reference.queryIsAuthorization()
             console.log('录音成功')
           },
           cancel: function() {
