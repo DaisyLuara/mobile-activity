@@ -73,24 +73,41 @@
       <!-- 播放录音 -->
       <div 
         v-show="button.buttonThree" 
-        id="mbtn" 
         class="button-3"
-        @click="playRecord()">
-        <img 
+        >
+        <!-- 播放 -->
+        <div v-show="player.one"  @click="playRecord()">
+          <img 
           v-show="button.buttonThree"
           :src="baseUrl + 'prompt_2.png'+ this.$qiniuCompress()"
           class="p-1">
-        <img 
-          v-show="wifi"
+           <img 
+          :src="baseUrl + 'button5.png'+ this.$qiniuCompress()"
+          class="b-1">
+        </div>
+        <!-- 正在播放 -->
+        <div v-show="player.two" @click="pauseVoice()">
+          <img 
+          v-show="button.buttonThree"
+          :src="baseUrl + 'prompt_2.png'+ this.$qiniuCompress()"
+          class="p-1">
+          <img 
           :src="baseUrl + 'wifi.gif'+ this.$qiniuCompress()"
           class="wifi">
-        <img 
-          v-show="player"
-          :src="baseUrl + 'player.png'+ this.$qiniuCompress()"
-          class="player">
-        <img 
+          <img 
           :src="baseUrl + 'button_4.png'+ this.$qiniuCompress()"
           class="b-1">
+        </div>
+        <!-- 暂停 -->
+        <div v-show="player.three" @click="playRecord()">
+           <img 
+          v-show="button.buttonThree"
+          :src="baseUrl + 'prompt_2.png'+ this.$qiniuCompress()"
+          class="p-1">
+           <img 
+          :src="baseUrl + 'button6.png'+ this.$qiniuCompress()"
+          class="b-1">
+        </div>
       </div>
     </div>
     <div 
@@ -155,8 +172,11 @@ export default {
         buttonTwo: false,
         buttonThree: false
       },
-      player: true,
-      wifi: false,
+      player: {
+        one: true,
+        two: false,
+        three: false
+      },
       tit: {
         titOne: false,
         titTwo: false,
@@ -270,16 +290,13 @@ export default {
             wx.onMenuShareQQ(reference.wxShareInfoValue)
             wx.onMenuShareWeibo(reference.wxShareInfoValue)
             wx.onMenuShareQZone(reference.wxShareInfoValue)
-            if (
-              reference.$route.query.type != null &&
-              reference.$route.query.type != undefined &&
-              reference.$route.query.serverId != null &&
-              reference.$route.query.serverId != undefined
-            ) {
+            if (this.$route.query.hasOwnProperty('type')) {
+              alert('weixingxiazai')
+              alert(reference.$route.query.serverId)
               reference.button.buttonOne = false
               reference.button.buttonThree = true
               wx.downloadVoice({
-                serverId: reference.$route.query.serverId, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
+                serverId: reference.$route.query.serverId.toString(), // 需要下载的音频的服务器端ID，由uploadVoice接口获得
                 isShowProgressTips: 1, // 默认为1，显示进度提示
                 success: function(res) {
                   alert('下载语音成功')
@@ -390,7 +407,7 @@ export default {
       //过期时间3天
       let timeDifference = 3 * (24 * 60 * 60) * 1000
       wx.uploadVoice({
-        localId: reference.localId, // 需要上传的音频的本地ID，由stopRecord接口获得
+        localId: reference.localId.toString(), // 需要上传的音频的本地ID，由stopRecord接口获得
         isShowProgressTips: 1, // 默认为1，显示进度提示
         success: function(res) {
           //把录音在微信服务器上的id（res.serverId）发送到自己的服务器供下载。
@@ -424,7 +441,7 @@ export default {
       alert(serverId)
       let reference = this
       wx.downloadVoice({
-        serverId: serverId, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
+        serverId: serverId.toString(), // 需要下载的音频的服务器端ID，由uploadVoice接口获得
         isShowProgressTips: 1, // 默认为1，显示进度提示
         success: function(res) {
           alert('下载语音成功')
@@ -442,7 +459,7 @@ export default {
     playVoice() {
       let reference = this
       wx.playVoice({
-        localId: reference.localId,
+        localId: reference.localId.toString(),
         success: function(res) {
           console.log('播放成功')
         },
@@ -452,19 +469,35 @@ export default {
         }
       })
     },
+    //暂停播放语音
+    pauseVoice() {
+      let reference = this
+      wx.pauseVoice({
+        localId: reference.localId.toString(), // 需要暂停的音频的本地ID，由stopRecord接口获得
+        success: function(res) {
+          reference.player.one = false
+          reference.player.two = false
+          reference.player.three = true
+          alert('暂停播放成功')
+        },
+        fail: function() {
+          alert('播放暂停异常')
+        }
+      })
+    },
     //语音播放完毕
     voicePlayEnd() {
       let reference = this
       wx.onVoicePlayEnd({
         success: function(res) {
           reference.localId = res.localId // 返回音频的本地ID
-          reference.wifi = false
-          reference.player = true
+          reference.player.one = true
+          reference.player.two = false
+          reference.player.three = false
           console.log('语音播放完毕')
         }
       })
     },
-
     // 保存到parseService
     save() {
       let reference = this
@@ -527,18 +560,14 @@ export default {
     },
     playRecord() {
       //控制播放部分
-      this.wifi = true
-      this.player = false
+      this.player.one = false
+      this.player.two = true
+      this.player.three = false
       this.query(true)
     },
     // 是否微信分享
     isShare() {
-      if (
-        this.$route.query.type != null &&
-        this.$route.query.type != undefined &&
-        this.$route.query.serverId != null &&
-        this.$route.query.serverId != undefined
-      ) {
+      if (this.$route.query.hasOwnProperty('type')) {
         this.button.buttonOne = false
         this.button.buttonThree = true
         this.downVoice(this.$route.query.serverId)
