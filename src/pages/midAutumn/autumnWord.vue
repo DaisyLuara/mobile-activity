@@ -211,7 +211,7 @@ export default {
     this.getInfoById()
   },
   mounted() {
-    alert(this.$route.query.serverId)
+    // alert(this.$route.query.serverId)
     //微信授权
     if (isInWechat() === true) {
       if (
@@ -292,25 +292,25 @@ export default {
             wx.onMenuShareWeibo(reference.wxShareInfoValue)
             wx.onMenuShareQZone(reference.wxShareInfoValue)
             if (reference.$route.query.hasOwnProperty('type')) {
-              alert('weixingxiazai')
-              alert(reference.$route.query.serverId)
+              // alert('weixingxi')
+              // alert(reference.$route.query.serverId)
               console.log(reference.$route.query.serverId)
               console.log(window.location.href)
 
               reference.button.buttonOne = false
               reference.button.buttonThree = true
               wx.downloadVoice({
-                serverId: reference.$route.query.serverId.toString(), // 需要下载的音频的服务器端ID，由uploadVoice接口获得
+                serverId: reference.$route.query.serverId, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
                 isShowProgressTips: 1, // 默认为1，显示进度提示
                 success: function(res) {
-                  alert('下载语音成功')
-                  alert(JSON.stringify(res))
+                  // alert('下载语音成功')
+                  // alert(JSON.stringify(res))
                   reference.localId = res.localId
                   console.log(res)
                 },
                 fail: function(err) {
-                  alert(JSON.stringify(err))
-                  alert('下载语音失败')
+                  // alert(JSON.stringify(err))
+                  // alert('下载语音失败')
                 }
               })
             }
@@ -411,7 +411,7 @@ export default {
       //过期时间3天
       let timeDifference = 3 * (24 * 60 * 60) * 1000
       wx.uploadVoice({
-        localId: reference.localId.toString(), // 需要上传的音频的本地ID，由stopRecord接口获得
+        localId: reference.localId, // 需要上传的音频的本地ID，由stopRecord接口获得
         isShowProgressTips: 1, // 默认为1，显示进度提示
         success: function(res) {
           //把录音在微信服务器上的id（res.serverId）发送到自己的服务器供下载。
@@ -439,31 +439,11 @@ export default {
         this.handleWxReady()
       }
     },
-    //下载语音
-    downVoice(serverId) {
-      alert('下载语音')
-      alert(serverId)
-      let reference = this
-      wx.downloadVoice({
-        serverId: serverId.toString(), // 需要下载的音频的服务器端ID，由uploadVoice接口获得
-        isShowProgressTips: 1, // 默认为1，显示进度提示
-        success: function(res) {
-          alert('下载语音成功')
-          alert(JSON.stringify(res))
-          reference.localId = res.localId
-          console.log(res)
-        },
-        fail: function(err) {
-          alert(JSON.stringify(err))
-          alert('下载语音失败')
-        }
-      })
-    },
     // 播放语音
     playVoice() {
       let reference = this
       wx.playVoice({
-        localId: reference.localId.toString(),
+        localId: reference.localId,
         success: function(res) {
           console.log('播放成功')
         },
@@ -477,15 +457,15 @@ export default {
     pauseVoice() {
       let reference = this
       wx.pauseVoice({
-        localId: reference.localId.toString(), // 需要暂停的音频的本地ID，由stopRecord接口获得
+        localId: reference.localId, // 需要暂停的音频的本地ID，由stopRecord接口获得
         success: function(res) {
           reference.player.one = false
           reference.player.two = false
           reference.player.three = true
-          alert('暂停播放成功')
+          // alert('暂停播放成功')
         },
         fail: function() {
-          alert('播放暂停异常')
+          // alert('播放暂停异常')
         }
       })
     },
@@ -568,14 +548,6 @@ export default {
       this.player.two = true
       this.player.three = false
       this.query(true)
-    },
-    // 是否微信分享
-    isShare() {
-      if (this.$route.query.hasOwnProperty('type')) {
-        this.button.buttonOne = false
-        this.button.buttonThree = true
-        this.downVoice(this.$route.query.serverId)
-      }
     },
     //取消提示
     cancles() {
