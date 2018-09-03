@@ -186,6 +186,16 @@ const Date201808 = [
     }
   },
   {
+    path: 'achartindex',
+    location: 'achart/index',
+    name: 'achartIndex',
+    meta: {
+      title: 'achartIndex',
+      author: 'Anluis',
+      desc: ''
+    }
+  },
+  {
     path: 'elephant',
     location: 'sea/elephant',
     name: 'elephant',

@@ -46,9 +46,27 @@
 
 <script>
 export default {
+  props: {
+    chartdata: {
+      type: Array,
+      default: function() {
+        return [90291, 9078, 7461, 5463, 3258, 2434, 834]
+      }
+    },
+    dataOptions: {
+      type: Array,
+      default: function() {
+        return [true, true, true, true, true, true, true]
+      }
+    },
+    width: {
+      type: Number,
+      default: 400
+    }
+  },
   data() {
     return {
-      chartdata: [90291, 9078, 7461, 5463, 3258, 2434, 834],
+      // chartdata: [90291, 9078, 7461, 5463, 3258, 2434, 834],
       dataName: [
         '曝光人次',
         '大屏围观参与人数',
@@ -58,7 +76,7 @@ export default {
         '扫码啦心会员注册总数',
         '完成转发分享人数'
       ],
-      dataOptions: [true, true, true, true, true, true, true],
+      // dataOptions: [true, true, true, true, true, true, true],
       bindColors: [
         '#8FE5B8',
         '#0099FF',
@@ -82,7 +100,7 @@ export default {
       topWidth: [],
       cover: [],
       height: 1500,
-      width: this.$innerWidth(),
+      // width: this.$innerWidth(),
       hvw: 1500 / 880,
       sh: 160,
       dh: 320,
