@@ -211,6 +211,7 @@ export default {
     this.getInfoById()
   },
   mounted() {
+    alert(this.$route.query.serverId)
     //微信授权
     if (isInWechat() === true) {
       if (
@@ -290,9 +291,12 @@ export default {
             wx.onMenuShareQQ(reference.wxShareInfoValue)
             wx.onMenuShareWeibo(reference.wxShareInfoValue)
             wx.onMenuShareQZone(reference.wxShareInfoValue)
-            if (this.$route.query.hasOwnProperty('type')) {
+            if (reference.$route.query.hasOwnProperty('type')) {
               alert('weixingxiazai')
               alert(reference.$route.query.serverId)
+              console.log(reference.$route.query.serverId)
+              console.log(window.location.href)
+
               reference.button.buttonOne = false
               reference.button.buttonThree = true
               wx.downloadVoice({
