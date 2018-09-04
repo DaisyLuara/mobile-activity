@@ -607,7 +607,9 @@ export default {
               reference.playVoice()
             }
           } else {
-            reference.loading = false
+            let Timer = setTimeout(function() {
+              reference.loading = false
+            }, 2000)
             reference.handleWxReady(null)
           }
           console.log(data)
