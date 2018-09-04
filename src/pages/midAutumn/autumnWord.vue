@@ -216,7 +216,6 @@ export default {
     this.getInfoById()
   },
   mounted() {
-    // alert(this.$route.query.serverId)
     //微信授权
     if (isInWechat() === true) {
       if (
@@ -296,24 +295,18 @@ export default {
             wx.onMenuShareWeibo(reference.wxShareInfoValue)
             wx.onMenuShareQZone(reference.wxShareInfoValue)
             if (serverId != null && serverId != undefined) {
-              // alert('weixingxi')
-              // alert(reference.$route.query.serverId)
-              console.log(window.location.href)
-
               reference.button.buttonOne = false
               reference.button.buttonThree = true
               wx.downloadVoice({
                 serverId: serverId, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
                 isShowProgressTips: 1, // 默认为1，显示进度提示
                 success: function(res) {
-                  // alert('下载语音成功')
-                  // alert(JSON.stringify(res))
+                  console.log('下载语音成功')
                   reference.localId = res.localId
                   console.log(res)
                 },
                 fail: function(err) {
-                  // alert(JSON.stringify(err))
-                  // alert('下载语音失败')
+                  console.log('下载语音失败')
                 }
               })
             }
@@ -471,10 +464,10 @@ export default {
           reference.player.one = false
           reference.player.two = false
           reference.player.three = true
-          // alert('暂停播放成功')
+          console.log('暂停播放成功')
         },
         fail: function() {
-          // alert('播放暂停异常')
+          console.log('播放暂停异常')
         }
       })
     },
