@@ -3,12 +3,14 @@
     :style="style.root"
     class="root">
     <!-- 加载中 -->
-    <div class="shade" v-if="loading"></div>
+    <div 
+      v-if="loading" 
+      class="shade"/>
     <img 
-        v-if="loading"
-        :src="baseUrl + 'leaf3.png'+ this.$qiniuCompress()"
-        class="leaf">
-     <!-- 加载中 -->
+      v-if="loading"
+      :src="baseUrl + 'leaf3.png'+ this.$qiniuCompress()"
+      class="leaf">
+    <!-- 加载中 -->
     <img 
       :src="baseUrl + 'bg.jpeg'+ this.$qiniuCompress()"
       class="bg">
