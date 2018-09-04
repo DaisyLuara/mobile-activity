@@ -642,6 +642,7 @@ export default {
   position: relative;
   text-align: center;
   overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
   img {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
