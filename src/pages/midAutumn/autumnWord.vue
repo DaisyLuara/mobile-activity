@@ -241,7 +241,7 @@ export default {
       wxShareInfoValue: {
         title: '声音邮局 ',
         desc: '你有封亲密信件 请查收',
-        // link: 'http://papi.xingstation.com/api/s/VOM' + window.location.search,
+        link: 'http://papi.xingstation.com/api/s/VOM' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/autumnWord/icon.png',
         success: () => {
           wechatShareTrack()
@@ -607,7 +607,9 @@ export default {
               reference.playVoice()
             }
           } else {
-            reference.loading = false
+            let Timer = setTimeout(function() {
+              reference.loading = false
+            }, 2000)
             reference.handleWxReady(null)
           }
           console.log(data)
@@ -640,6 +642,7 @@ export default {
   position: relative;
   text-align: center;
   overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
   img {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
