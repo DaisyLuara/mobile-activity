@@ -1,41 +1,48 @@
 <template>
   <!-- why do i write this stupid code? -->
   <div 
-    class="root"
     :style="style.root"
+    class="root"
   >
     <div
       v-for="(item, index) in chartdata"
+      v-show="dataOptions[index] && index !== chartdata.length - 1"
       :key="index"
-      v-show="dataOptions[index]"
       :style="bindStyle[index]"
     >
       <!-- end special process -->
-      <div v-if="chartdata.length - index === 2" :style="childStyles[0]">
-      </div>
-      <div v-if="chartdata.length - index === 1" :style="childStyles[1]">
-      </div>
-      <div :style="innerTextStyles[index]" class="text-inner">
+      <div 
+        v-if="chartdata.length - index === 2" 
+        :style="childStyles[0]"/>
+      <div 
+        v-if="chartdata.length - index === 1" 
+        :style="childStyles[1]"/>
+      <div 
+        :style="innerTextStyles[index]" 
+        class="text-inner">
         <span :class="{'add-top': chartdata.length - index === 1 }">
-          {{dataName[index]}}
+          {{ dataName[index] }}
         </span>
         <span :class="{'add-margin': chartdata.length - index === 2 }">
-          {{chartdata[index]}}
+          {{ chartdata[index] }}
         </span>
       </div>
 
       <!-- circles -->
-      <div :style="circleArea[index]">
+      <div
+        v-show="index > 1" 
+        :style="circleArea[index]">
         <div :style="innerCircle[index]">
           <div :style="lineStyle[index]">
-            <div :style="circlePoint[index]"></div>
+            <div :style="circlePoint[index]"/>
           </div>
-          <div :style="whiteCirlce[index]">
+          <div
+            :style="whiteCirlce[index]">
             <div
               v-if="index > 0"
-              class="percent" 
-              :style="smallCirlce[index]">
-              {{computedRate[index - 1]}} %
+              :style="smallCirlce[index]" 
+              class="percent">
+              {{ computedRate[index - 1] }} %
             </div>
           </div>
         </div>
@@ -124,6 +131,23 @@ export default {
       computedRate: []
     }
   },
+  watch: {
+    dataOptions: function() {
+      this.risizeCanvas()
+      this.calculate()
+      this.calculateStyles()
+    },
+    chartdata: function() {
+      this.risizeCanvas()
+      this.calculate()
+      this.calculateStyles()
+    },
+    width: function() {
+      this.risizeCanvas()
+      this.calculate()
+      this.calculateStyles()
+    }
+  },
   created() {
     // set canvas map
     this.risizeCanvas()
@@ -133,12 +157,6 @@ export default {
     this.calculateStyles()
   },
   mounted() {},
-  watch: {
-    dataOptions: function() {
-      this.calculate()
-      this.calculateStyles()
-    }
-  },
   methods: {
     risizeCanvas() {
       this.height = this.width * this.hvw

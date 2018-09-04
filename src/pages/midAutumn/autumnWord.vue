@@ -74,39 +74,45 @@
       <div 
         v-show="button.buttonThree" 
         class="button-3"
-        >
+      >
         <!-- 播放 -->
-        <div v-show="player.one"  @click="playRecord()">
+        <div 
+          v-show="player.one" 
+          @click="playRecord()">
           <img 
-          v-show="button.buttonThree"
-          :src="baseUrl + 'prompt_2.png'+ this.$qiniuCompress()"
-          class="p-1">
-           <img 
-          :src="baseUrl + 'button5.png'+ this.$qiniuCompress()"
-          class="b-1">
+            v-show="button.buttonThree"
+            :src="baseUrl + 'prompt_2.png'+ this.$qiniuCompress()"
+            class="p-1">
+          <img 
+            :src="baseUrl + 'button5.png'+ this.$qiniuCompress()"
+            class="b-1">
         </div>
         <!-- 正在播放 -->
-        <div v-show="player.two" @click="pauseVoice()">
+        <div 
+          v-show="player.two" 
+          @click="pauseVoice()">
           <img 
-          v-show="button.buttonThree"
-          :src="baseUrl + 'prompt_2.png'+ this.$qiniuCompress()"
-          class="p-1">
+            v-show="button.buttonThree"
+            :src="baseUrl + 'prompt_2.png'+ this.$qiniuCompress()"
+            class="p-1">
           <img 
-          :src="baseUrl + 'wifi.gif'+ this.$qiniuCompress()"
-          class="wifi">
+            :src="baseUrl + 'wifi.gif'+ this.$qiniuCompress()"
+            class="wifi">
           <img 
-          :src="baseUrl + 'button_4.png'+ this.$qiniuCompress()"
-          class="b-1">
+            :src="baseUrl + 'button_4.png'+ this.$qiniuCompress()"
+            class="b-1">
         </div>
         <!-- 暂停 -->
-        <div v-show="player.three" @click="playRecord()">
-           <img 
-          v-show="button.buttonThree"
-          :src="baseUrl + 'prompt_2.png'+ this.$qiniuCompress()"
-          class="p-1">
-           <img 
-          :src="baseUrl + 'button6.png'+ this.$qiniuCompress()"
-          class="b-1">
+        <div 
+          v-show="player.three" 
+          @click="playRecord()">
+          <img 
+            v-show="button.buttonThree"
+            :src="baseUrl + 'prompt_2.png'+ this.$qiniuCompress()"
+            class="p-1">
+          <img 
+            :src="baseUrl + 'button6.png'+ this.$qiniuCompress()"
+            class="b-1">
         </div>
       </div>
     </div>
