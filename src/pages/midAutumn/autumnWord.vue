@@ -2,6 +2,13 @@
   <div
     :style="style.root"
     class="root">
+    <!-- 加载中 -->
+    <div class="shade" v-if="loading"></div>
+    <img 
+        v-if="loading"
+        :src="baseUrl + 'leaf3.png'+ this.$qiniuCompress()"
+        class="leaf">
+     <!-- 加载中 -->
     <img 
       :src="baseUrl + 'bg.jpeg'+ this.$qiniuCompress()"
       class="bg">
@@ -189,6 +196,7 @@ export default {
         titThree: false
       },
       photo: '',
+      loading: true,
       startTime: 0,
       recordTimer: null,
       localId: null,
@@ -201,10 +209,37 @@ export default {
         localId: null,
         user_id: null
       },
+      imgList: [
+        'bg.jpeg',
+        'tit1.png',
+        'tit2.png',
+        'tit3.png',
+        'arrow.png',
+        'button_1.png',
+        'button_2.png',
+        'button_4.png',
+        'button5.png',
+        'button6.png',
+        'leaf.png',
+        'leaf2.png',
+        'leaf3.png',
+        'leaf4.png',
+        'leaf5.png',
+        'leaf6.png',
+        'prompt_1.png',
+        'prompt_2.png',
+        'prompt_3.png',
+        'section_1.png',
+        'section_2.png',
+        'section_3.png',
+        'title.png',
+        'wifi.gif',
+        'player.png'
+      ],
       wxShareInfoValue: {
         title: '声音邮局 ',
         desc: '你有封亲密信件 请查收',
-        link: 'http://papi.xingstation.com/api/s/VOM' + window.location.search,
+        // link: 'http://papi.xingstation.com/api/s/VOM' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/autumnWord/icon.png',
         success: () => {
           wechatShareTrack()
@@ -212,9 +247,7 @@ export default {
       }
     }
   },
-  created() {
-    this.getInfoById()
-  },
+  created() {},
   mounted() {
     //微信授权
     if (isInWechat() === true) {
@@ -225,8 +258,40 @@ export default {
         this.handleWechatAuth()
       }
     }
+    this.entry(this.imgList, r => {
+      console.dir(r)
+      this.getInfoById()
+      // do next
+    })
   },
   methods: {
+    //图片预加载
+    loadImgs(imgList) {
+      let preList = []
+      let thisRef = this
+      for (let i = 0; i < imgList.length; i++) {
+        let pre = new Promise((resolve, reject) => {
+          let img = new Image()
+          img.onload = function() {
+            resolve(img)
+          }
+          img.src = thisRef.baseUrl + imgList[i]
+        })
+        preList.push(pre)
+      }
+      return Promise.all(preList).then(r => {
+        return Promise.resolve(r)
+      })
+    },
+    async entry(imgList, cb) {
+      try {
+        let rs = await this.loadImgs(imgList)
+        cb(rs)
+      } catch (err) {
+        console.log(err)
+        cb([])
+      }
+    },
     //微信静默授权
     handleWechatAuth() {
       if (Cookies.get('user_id') === null) {
@@ -303,6 +368,7 @@ export default {
                 success: function(res) {
                   console.log('下载语音成功')
                   reference.localId = res.localId
+                  reference.loading = false
                   console.log(res)
                 },
                 fail: function(err) {
@@ -539,6 +605,7 @@ export default {
               reference.playVoice()
             }
           } else {
+            reference.loading = false
             reference.handleWxReady(null)
           }
           console.log(data)
@@ -576,7 +643,23 @@ export default {
     -webkit-user-select: none;
     pointer-events: none;
   }
-
+  .shade {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0.8;
+    z-index: 999;
+    position: fixed;
+  }
+  .leaf {
+    width: 20%;
+    position: absolute;
+    left: 40%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    animation: leaf 2s ease-out infinite forwards;
+  }
   .bg {
     position: absolute;
     left: 0;
