@@ -42,6 +42,28 @@ const Date201809 = [
       desc: '谁动了我的月饼'
     },
     isAbandoned: false
+  },
+  {
+    path: 'mid_autumn',
+    location: 'midAutumn/midAutumn',
+    name: 'mid_autumn',
+    meta: {
+      title: '中秋快乐',
+      author: 'xj1012',
+      desc: '中秋佳节'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'stone_age',
+    location: 'stoneAge/index',
+    name: 'stone_age',
+    meta: {
+      title: '石器时代',
+      author: 'xj1012',
+      desc: '石器时代'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201809
