@@ -60,10 +60,10 @@ export default {
       photo: '',
       iponeX: false,
       wxShareInfoValue: {
-        title: '冰力十足 酷爽一夏',
-        desc: '看！卖萌的企鹅',
-        //link: 'http://papi.xingstation.com/api/s/o2j' + window.location.search,
-        imgUrl: cdnUrl + '/fe/marketing/img/stone_age/icon.jpg',
+        title: '我的异想记',
+        desc: 'get哆啦A梦同款任意门',
+        link: 'http://papi.xingstation.com/api/s/XDW' + window.location.search,
+        imgUrl: cdnUrl + '/fe/marketing/img/stone_age/icon.jpeg',
         success: () => {
           wechatShareTrack()
         }
