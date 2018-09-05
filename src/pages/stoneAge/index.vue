@@ -26,8 +26,7 @@
         :src="baseUrl + 'star_5.png'+ this.$qiniuCompress()"
         class="star5">
       <div 
-        :class="{'x-bt':iponeX}"
-        class="bt"
+        :class="{'x-bt':iponeX,'bt':!iponeX}"
       >
         <img 
           :src="baseUrl + 'nav.png'+ this.$qiniuCompress()"
@@ -142,7 +141,7 @@ export default {
       width: 12%;
       position: absolute;
       right: 2%;
-      bottom: 15%;
+      bottom: 22%;
       animation: starScale 2s ease-out infinite forwards;
     }
     .x-bt {
@@ -163,7 +162,7 @@ export default {
         transform: translate(-50%, 0%);
       }
       .tip {
-        width: 45%;
+        width: 56%;
         display: block;
         position: absolute;
         left: 50%;
@@ -189,7 +188,7 @@ export default {
         transform: translate(-50%, 0%);
       }
       .tip {
-        width: 45%;
+        width: 50%;
         display: block;
         position: absolute;
         left: 50%;
