@@ -4,12 +4,12 @@
     class="root">
     <div 
       :style="style.photoHei"
-      class="photo" 
-    >
+      class="photo">
+      <!-- :src="baseUrl + '666.jpeg'+ this.$qiniuCompress()" -->
       <img 
-        :src="baseUrl + '666.jpeg'+ this.$qiniuCompress()"
-        class="photo-real"
-      >
+        v-if="photo !== null" 
+        :src="photo + this.$qiniuCompress()"
+        class="photo-real">
       <img 
         :src="baseUrl + 'star_1.png'+ this.$qiniuCompress()"
         class="star1">
@@ -26,8 +26,7 @@
         :src="baseUrl + 'star_5.png'+ this.$qiniuCompress()"
         class="star5">
       <div 
-        :class="{'x-bt':iponeX,'bt':!iponeX}"
-      >
+        :class="{'x-bt':iponeX,'bt':!iponeX}">
         <img 
           :src="baseUrl + 'nav.png'+ this.$qiniuCompress()"
           class="nav">
@@ -102,12 +101,17 @@ export default {
     left: 0;
     top: 0;
     z-index: 3;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    pointer-events: none;
     .photo-real {
       width: 62%;
       position: absolute;
       left: 50%;
       top: 8%;
       transform: translate(-50%, 0%);
+      -webkit-user-select: auto;
+      pointer-events: auto;
     }
     .star1 {
       width: 14%;
@@ -152,6 +156,9 @@ export default {
       bottom: 12%;
       transform: translate(-50%, 0%);
       animation: arrow 1.8s linear infinite alternate;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      pointer-events: none;
       z-index: 4;
       .nav {
         width: 16%;
@@ -179,6 +186,9 @@ export default {
       transform: translate(-50%, 0%);
       animation: arrow 1.8s linear infinite alternate;
       z-index: 4;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      pointer-events: none;
       .nav {
         width: 16%;
         display: block;
