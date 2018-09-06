@@ -63,11 +63,11 @@
 </template>
 
 <script>
-import { wechatShareTrack } from 'services'
-import { normalPages } from '../../mixins/normalPages'
+import { Cookies, getInfoById, getWxUserInfo, wechatShareTrack } from 'services'
+import { onlyWechatShare } from '../../mixins/onlyWechatShare'
 const cdnUrl = process.env.CDN_URL
 export default {
-  mixins: [normalPages],
+  mixins: [onlyWechatShare],
   data() {
     return {
       baseUrl: cdnUrl + '/fe/marketing/img/mid_autumn/',
@@ -102,14 +102,25 @@ export default {
   created() {},
   mounted() {
     this.randomImg()
-
+    this.getInfoById()
     let that = this
     setTimeout(function() {
       that.shade = false
     }, 5800)
   },
   methods: {
-    //随机
+    getInfoById() {
+      let id = this.$route.query.id
+      getInfoById(id)
+        .then(res => {
+          console.log(res)
+          this.photo = res.image
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    //文字随机出现
     randomImg() {
       let that = this
       let num = Math.floor(Math.random() * 3)
