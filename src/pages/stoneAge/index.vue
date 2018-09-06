@@ -221,13 +221,13 @@ export default {
 }
 @keyframes starScale {
   from {
-    transform: scale(1.05, 1.05);
+    transform: scale(1.1, 1.1);
   }
   50% {
-    transform: scale(1.2, 1.2);
+    transform: scale(1.5, 1.5);
   }
   to {
-    transform: scale(1.05, 1.05);
+    transform: scale(1.2, 1.2);
   }
 }
 </style>
