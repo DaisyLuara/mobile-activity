@@ -87,7 +87,7 @@ export default {
       shade: true,
       playNow: null,
       buttonshow: true,
-      photo: '',
+      photo: null,
       wxShareInfoValue: {
         title: '中秋天灯',
         desc: '嫦娥：天灯已收到，感谢',
