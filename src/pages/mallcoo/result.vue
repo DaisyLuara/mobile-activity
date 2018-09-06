@@ -122,8 +122,8 @@ export default {
           //success
           let data = res.data
           let list = data.data
-          this.quanMsg.CouponDesc = list[coupon_num].CouponDesc
-          this.quanMsg.MallName = list[coupon_num].MallName
+          this.quanMsg.CouponDesc = list[coupon_num].CouponDesc.trim()
+          this.quanMsg.MallName = list[coupon_num].MallName.trim()
           this.pic_mid = list[coupon_num].PICMID
           this.getPrice(this.quanMsg.CouponDesc)
           //StoreOverGount
@@ -207,7 +207,7 @@ export default {
       for (var i = 0; i < string.length; i++) {
         p_tsring = string.slice(i)
         if (!isNaN(parseInt(p_tsring))) {
-          this.quanMsg.price = parseInt(p_tsring)
+          this.quanMsg.price = parseInt(p_tsring.trim())
           return
         }
       }
