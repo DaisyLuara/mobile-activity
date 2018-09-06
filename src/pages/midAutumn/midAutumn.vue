@@ -114,7 +114,7 @@ export default {
       getInfoById(id)
         .then(res => {
           console.log(res)
-          this.photo = res.image
+          this.photo = res.url
         })
         .catch(err => {
           console.log(err)
