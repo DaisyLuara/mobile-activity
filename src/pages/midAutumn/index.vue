@@ -79,7 +79,7 @@ export default {
       },
 
       wechat: true,
-      photo: '',
+      photo: null,
       oid: this.$route.query.utm_source,
       belong: this.$route.query.utm_campaign,
       text: '祝家人健健康康',

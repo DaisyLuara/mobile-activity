@@ -56,7 +56,7 @@ export default {
           height: this.$innerHeight() + 'px'
         }
       },
-      photo: '',
+      photo: null,
       iphoneX: false,
       wxShareInfoValue: {
         title: '这个七夕，我们一起领“证”吧！',
