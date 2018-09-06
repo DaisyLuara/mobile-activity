@@ -57,7 +57,7 @@ export default {
           height: this.$innerHeight() * 0.85 + 'px'
         }
       },
-      photo: '',
+      photo: null,
       iponeX: false,
       wxShareInfoValue: {
         title: '我的异想记',
