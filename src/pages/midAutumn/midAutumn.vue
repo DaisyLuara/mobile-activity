@@ -94,8 +94,8 @@ export default {
       wxShareInfoValue: {
         title: '冰力十足 酷爽一夏',
         desc: '看！卖萌的企鹅',
-        //link: 'http://papi.xingstation.com/api/s/o2j' + window.location.search,
-        imgUrl: cdnUrl + '/fe/marketing/img/mid_autumn/icon.jpg',
+        link: 'http://papi.xingstation.com/api/s/31M' + window.location.search,
+        imgUrl: cdnUrl + '/fe/marketing/img/mid_autumn/icon.jpeg',
         success: () => {
           wechatShareTrack()
         }
