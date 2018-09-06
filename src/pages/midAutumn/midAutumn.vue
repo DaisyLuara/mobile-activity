@@ -31,35 +31,32 @@
       <img 
         :src="baseUrl + 'grounding.png'+ this.$qiniuCompress()"
         class="grounding">
-      <!-- <img 
-        :src="baseUrl + '1111.png'+ this.$qiniuCompress()"
-        class="photo-real"> -->
+      <!-- http://cdn.exe666.com/1007/video/MidautumnSkyLight_112_411_1492921319755.mp4 -->
       <video 
         id="video"
         class="photo-real"
         webkit-playsinline="true" 
         playsinline="true" 
         x-webkit-airplay="true" 
-        controlslist="nodownload" 
-        controls 
         preload="auto"
         width="100%" 
         height="100%">
         <source 
-          src="http://cdn.exe666.com/1007/video/MidautumnSkyLight_112_411_1492921319755.mp4" 
+          v-if="photo !== null" 
+          :src="photo + this.$qiniuCompress()" 
           type="video/mp4">
         您的浏览器不支持video标签.
       </video>
       <img 
         v-show="buttonshow"
-        :src="baseUrl + 'play.png'+ this.$qiniuCompress()"
+        :src="baseUrl + 'play2.png'+ this.$qiniuCompress()"
         class="play"
         @click="playVideo()">
 
     </div>
     <div class="bottom">
       <img 
-        :src="baseUrl + 'tip.png'+ this.$qiniuCompress()"
+        :src="baseUrl + 'tip2.png'+ this.$qiniuCompress()"
         class="tip">
     </div>
   </div>
@@ -92,8 +89,8 @@ export default {
       buttonshow: true,
       photo: '',
       wxShareInfoValue: {
-        title: '冰力十足 酷爽一夏',
-        desc: '看！卖萌的企鹅',
+        title: '中秋天灯',
+        desc: '嫦娥：天灯已收到，感谢',
         link: 'http://papi.xingstation.com/api/s/31M' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/mid_autumn/icon.jpeg',
         success: () => {
@@ -129,7 +126,6 @@ export default {
     },
     //播放视频
     playVideo() {
-      alert('11111')
       let that = this
       this.playNow = document.getElementById('video')
       this.playNow.play()
@@ -158,6 +154,9 @@ export default {
   overflow: hidden;
   .shade-contain {
     width: 100%;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    pointer-events: none;
     .shade {
       width: 100%;
       height: 100%;
@@ -221,6 +220,9 @@ export default {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -53%);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    pointer-events: none;
     .grounding {
       width: 90%;
     }
@@ -233,11 +235,13 @@ export default {
       transform: translate(-50%, 0);
     }
     .play {
-      width: 40%;
+      width: 24%;
       position: absolute;
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
+      user-select: auto;
+      pointer-events: auto;
     }
   }
   .bottom {
@@ -247,6 +251,9 @@ export default {
     left: 50%;
     bottom: 1%;
     transform: translate(-50%, 0%);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    pointer-events: none;
     .tip {
       width: 55%;
     }
