@@ -2,16 +2,18 @@
   <div
     :style="style.root" 
     class="root">
-    <div class="shade-contain">
-      <div class="shade"></div>
+    <div 
+      v-show="shade" 
+      class="shade-contain">
+      <div class="shade"/>
       <img 
         v-show="title.title1"
         :src="baseUrl + '1.png'+ this.$qiniuCompress()"
         class="title1">
       <img 
-         v-show="title.title2"
+        v-show="title.title2"
         :src="baseUrl + '2.png'+ this.$qiniuCompress()"
-        class="title2">
+        class="title2 ">
       <img 
         v-show="title.title3"
         :src="baseUrl + '3.png'+ this.$qiniuCompress()"
@@ -19,23 +21,40 @@
       <img 
         :src="baseUrl + 'light.png'+ this.$qiniuCompress()"
         class="light">
-       <img 
-         id="animation"
+      <img 
+        id="animation"
         :src="baseUrl + 'moon.png'+ this.$qiniuCompress()"
         class="moon">
-      <div class="shade-2"></div>
     </div>
     <div 
       class="photo">
-       <img 
+      <img 
         :src="baseUrl + 'grounding.png'+ this.$qiniuCompress()"
         class="grounding">
-      <img 
+      <!-- <img 
         :src="baseUrl + '1111.png'+ this.$qiniuCompress()"
-        class="photo-real">
+        class="photo-real"> -->
+      <video 
+        id="video"
+        class="photo-real"
+        webkit-playsinline="true" 
+        playsinline="true" 
+        x-webkit-airplay="true" 
+        controlslist="nodownload" 
+        controls 
+        preload="auto"
+        width="100%" 
+        height="100%">
+        <source 
+          src="http://cdn.exe666.com/1007/video/MidautumnSkyLight_112_411_1492921319755.mp4" 
+          type="video/mp4">
+        您的浏览器不支持video标签.
+      </video>
       <img 
+        v-show="buttonshow"
         :src="baseUrl + 'play.png'+ this.$qiniuCompress()"
-        class="play">
+        class="play"
+        @click="playVideo()">
 
     </div>
     <div class="bottom">
@@ -50,7 +69,6 @@
 import { wechatShareTrack } from 'services'
 import { normalPages } from '../../mixins/normalPages'
 const cdnUrl = process.env.CDN_URL
-import $ from 'jquery'
 export default {
   mixins: [normalPages],
   data() {
@@ -69,6 +87,9 @@ export default {
         title2: false,
         title3: false
       },
+      shade: true,
+      playNow: null,
+      buttonshow: true,
       photo: '',
       wxShareInfoValue: {
         title: '冰力十足 酷爽一夏',
@@ -84,6 +105,11 @@ export default {
   created() {},
   mounted() {
     this.randomImg()
+
+    let that = this
+    setTimeout(function() {
+      that.shade = false
+    }, 5800)
   },
   methods: {
     //随机
@@ -99,6 +125,23 @@ export default {
           break
         default:
           that.title.title3 = true
+      }
+    },
+    //播放视频
+    playVideo() {
+      alert('11111')
+      let that = this
+      this.playNow = document.getElementById('video')
+      this.playNow.play()
+      this.buttonshow = false
+      this.playNow.onplay = function() {
+        that.playNow.currentTime = 0
+      }
+      this.playNow.onended = function() {
+        that.buttonshow = true
+      }
+      this.playNow.onpause = function() {
+        that.buttonshow = true
       }
     }
   }
@@ -163,18 +206,13 @@ export default {
       top: 50%;
       z-index: 100;
       transform: translate(-50%, -50%);
-    }
-    .shade-2 {
-      width: 100%;
-      height: 56%;
-      background: #000;
-      border-radius: 50%;
-      position: absolute;
-      right: -150%;
-      opacity: 0.6;
-      top: 50%;
-      z-index: 100;
-      transform: translate(-50%, -50%);
+      -webkit-animation-name: opacity;
+      -webkit-animation-duration: 3s;
+      -webkit-animation-timing-function: linear;
+      -webkit-animation-delay: 3.5s;
+      -webkit-animation-iteration-count: 1;
+      -webkit-animation-fill-mode: forwards;
+      -webkit-animation-direction: normal;
     }
   }
   .photo {
@@ -207,7 +245,7 @@ export default {
     height: 10%;
     position: absolute;
     left: 50%;
-    bottom: 3%;
+    bottom: 1%;
     transform: translate(-50%, 0%);
     .tip {
       width: 55%;
@@ -233,11 +271,22 @@ export default {
     transform: translateY(-500px);
   }
 }
-@keyframes opacity {
+@keyframes fly2 {
   from {
-    opacity: 1;
+    transform: translateY(0px);
   }
   to {
+    transform: translateY(1000px);
+  }
+}
+@keyframes opacity {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
     opacity: 0;
   }
 }
