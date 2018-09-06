@@ -20,6 +20,7 @@
         :src="baseUrl + 'light.png'+ this.$qiniuCompress()"
         class="light">
        <img 
+         id="animation"
         :src="baseUrl + 'moon.png'+ this.$qiniuCompress()"
         class="moon">
       <div class="shade-2"></div>
@@ -49,7 +50,7 @@
 import { wechatShareTrack } from 'services'
 import { normalPages } from '../../mixins/normalPages'
 const cdnUrl = process.env.CDN_URL
-
+import $ from 'jquery'
 export default {
   mixins: [normalPages],
   data() {
@@ -133,6 +134,13 @@ export default {
       top: 50%;
       transform: translate(-50%, -53%);
       z-index: 101;
+      -webkit-animation-name: opacity;
+      -webkit-animation-duration: 3s;
+      -webkit-animation-timing-function: linear;
+      -webkit-animation-delay: 3.5s;
+      -webkit-animation-iteration-count: 1;
+      -webkit-animation-fill-mode: forwards;
+      -webkit-animation-direction: normal;
     }
     .light {
       width: 45%;
@@ -140,7 +148,13 @@ export default {
       right: 4%;
       top: 2%;
       z-index: 101;
-      animation: light 1.2s linear infinite alternate;
+      -webkit-animation-name: light, fly;
+      -webkit-animation-duration: 2s, 4s;
+      -webkit-animation-timing-function: linear, linear;
+      -webkit-animation-delay: 0s, 4s;
+      -webkit-animation-iteration-count: infinite, 1;
+      -webkit-animation-fill-mode: forwards, forwards;
+      -webkit-animation-direction: alternate, normal;
     }
     .moon {
       width: 100%;
@@ -212,11 +226,19 @@ export default {
   }
 }
 @keyframes fly {
-  0% {
+  from {
     transform: translateY(0px);
   }
-  50% {
-    transform: translateY(-100px);
+  to {
+    transform: translateY(-500px);
+  }
+}
+@keyframes opacity {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
   }
 }
 </style>
