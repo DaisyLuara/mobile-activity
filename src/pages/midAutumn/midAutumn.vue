@@ -43,7 +43,7 @@
         height="100%">
         <source 
           v-if="photo !== null" 
-          :src="photo + this.$qiniuCompress()" 
+          :src="photo" 
           type="video/mp4">
         您的浏览器不支持video标签.
       </video>
@@ -115,6 +115,7 @@ export default {
         .then(res => {
           console.log(res)
           this.photo = res.url
+          console.log(this.photo)
         })
         .catch(err => {
           console.log(err)
