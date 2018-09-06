@@ -197,7 +197,7 @@ export default {
         titTwo: false,
         titThree: false
       },
-      photo: '',
+      photo: null,
       loading: true,
       startTime: 0,
       recordTimer: null,
