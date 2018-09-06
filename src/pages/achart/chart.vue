@@ -6,7 +6,7 @@
   >
     <div
       v-for="(item, index) in chartdata"
-      v-show="dataOptions[index] && index !== chartdata.length - 1"
+      v-show="dataOptions[index] "
       :key="index"
       :style="bindStyle[index]"
     >
@@ -143,7 +143,7 @@ export default {
       this.calculateStyles()
     },
     width: function() {
-      // this.risizeCanvas()
+      this.risizeCanvas()
       this.calculate()
       this.calculateStyles()
     }
@@ -181,14 +181,26 @@ export default {
           dataObj.height = this.height * this.sh / 1500
         }
         if (i === 1) {
-          dataObj.topWidth = this.width
-          dataObj.bottomWidth = this.width * this.bvt1
-          dataObj.height = this.height * this.sh / 1500
+          if (!this.dataOptions[i]) {
+            dataObj.topWidth = this.width
+            dataObj.bottomWidth = this.width
+            dataObj.height = this.height * this.sh / 1500
+          } else {
+            dataObj.topWidth = this.width
+            dataObj.bottomWidth = this.width * this.bvt1
+            dataObj.height = this.height * this.sh / 1500
+          }
         }
         if (i > 1 && i < this.chartdata.length - 2) {
-          dataObj.topWidth = this.calStore[i - 1].bottomWidth
-          dataObj.bottomWidth = dataObj.topWidth * this.bvt
-          dataObj.height = this.height * this.sh / 1500
+          if (!this.dataOptions[i]) {
+            dataObj.topWidth = this.calStore[i - 1].bottomWidth
+            dataObj.bottomWidth = this.calStore[i - 1].bottomWidth
+            dataObj.height = this.height * this.sh / 1500
+          } else {
+            dataObj.topWidth = this.calStore[i - 1].bottomWidth
+            dataObj.bottomWidth = dataObj.topWidth * this.bvt
+            dataObj.height = this.height * this.sh / 1500
+          }
         }
         if (i === this.chartdata.length - 2 && i > 2) {
           dataObj.topWidth = this.calStore[i - 1].bottomWidth
@@ -437,6 +449,7 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  text-align: center;
   .text-inner {
     display: flex;
     flex-direction: column;
