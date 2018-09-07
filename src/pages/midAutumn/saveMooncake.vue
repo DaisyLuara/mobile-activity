@@ -116,9 +116,6 @@ export default {
       style: {
         root: {
           height: this.$innerHeight() + 'px'
-        },
-        photoHei: {
-          height: window.innerWidth * 1.45 + 'px'
         }
       },
       title: {
@@ -391,7 +388,7 @@ export default {
       height: 96%;
       position: absolute;
       left: 50%;
-      top: 0.5%;
+      top: 0%;
       // top: -5%;
       transform: translate(-50%, 0);
       z-index: 9;
