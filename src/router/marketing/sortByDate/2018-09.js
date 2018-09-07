@@ -86,6 +86,17 @@ const Date201809 = [
       desc: '世纪汇美食节'
     },
     isAbandoned: false
+  },
+  {
+    path: 'autumn_bxj',
+    location: 'midAutumn/autumnBxj',
+    name: 'autumn_bxj',
+    meta: {
+      title: '中秋变仙记',
+      author: 'xj1012',
+      desc: '中秋变仙记'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201809
