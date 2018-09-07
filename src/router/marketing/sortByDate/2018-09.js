@@ -44,6 +44,17 @@ const Date201809 = [
     isAbandoned: false
   },
   {
+    path: 'meishi',
+    location: 'sea/meishi',
+    name: 'meishi',
+    meta: {
+      title: '美食PK',
+      author: 'lipan',
+      desc: '农场物语-美食PK'
+    },
+    isAbandoned: false
+  },
+  {
     path: 'mid_autumn',
     location: 'midAutumn/midAutumn',
     name: 'mid_autumn',
@@ -62,6 +73,17 @@ const Date201809 = [
       title: '石器时代',
       author: 'xj1012',
       desc: '石器时代'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'shijihui',
+    location: 'tm/shijihui',
+    name: 'shijihui',
+    meta: {
+      title: '世纪汇美食节',
+      author: 'lipan',
+      desc: '世纪汇美食节'
     },
     isAbandoned: false
   },
