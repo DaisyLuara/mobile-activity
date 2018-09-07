@@ -133,7 +133,7 @@ export default {
         title8: false,
         title9: false
       },
-      active: false,
+      count: 0,
       shade: true,
       playNow: null,
       buttonshow: true,
@@ -215,6 +215,11 @@ export default {
     },
     //文字随机出现
     randomImg() {
+      //摇一次
+      this.count++
+      if (this.count > 1) {
+        return
+      }
       let that = this
       let num = Math.floor(Math.random() * 3)
       switch (num) {
