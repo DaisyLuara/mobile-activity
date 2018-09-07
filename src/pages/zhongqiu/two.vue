@@ -14,7 +14,7 @@
         :src="origin + 'people/people' + people_type + '.png'"
         class="people">
       <span
-        class="text">{{text}}</span>
+        class="text">{{ text }}</span>
       <img 
         :src="base+'btn1.png'"
         class="btn">
@@ -25,8 +25,7 @@
             v-for="item in 9" 
             :key="item.id">
             <div 
-              v-if="item==5">
-            </div>
+              v-if="item==5"/>
             <div
               v-else 
               class="sound-icon">
@@ -36,7 +35,7 @@
                 <img
                   :src="base + 'icon' + item + '.png'"
                   class="icon">
-                <label>{{music_text[item]}}</label>
+                <label>{{ music_text[item] }}</label>
               </a>
             </div>
           </li>
@@ -117,7 +116,7 @@ export default {
       wxShareInfoValue: {
         title: '中秋快乐',
         desc: '我亲手做的月饼，你敢吃么？',
-        link: '' + window.location.search,
+        link: 'http://papi.xingstation.com/api/s/Z6J' + window.location.search,
         imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/zhongqiu/1/share.png',
         success: function() {
           wechatShareTrack()

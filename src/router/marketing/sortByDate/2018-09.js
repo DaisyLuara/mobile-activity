@@ -97,6 +97,17 @@ const Date201809 = [
       desc: '中秋变仙记'
     },
     isAbandoned: false
+  },
+  {
+    path: 'play_century',
+    location: 'playCentury/index',
+    name: 'play_century',
+    meta: {
+      title: '玩转世纪',
+      author: 'xj1012',
+      desc: '玩转世纪'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201809
