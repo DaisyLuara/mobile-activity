@@ -14,7 +14,7 @@
         v-show="meishi"
         :class="{animated:!mask}"
         class="box infinite tada delay-2s"
-        @click="()=>{mask = true;}">
+        @click="()=>{mask = true;meishi=false;}">
         <img 
           :src="baseUrl + 'chick/meishi/rabbit.png'">
       </a>
@@ -26,7 +26,7 @@
         class="container">
         <a
           class="close"
-          @click="()=>{mask = false;}">
+          @click="()=>{mask = false;meishi=true;}">
           <img 
             :src="baseUrl + 'chick/x.png'">
         </a>
@@ -224,14 +224,14 @@ img {
         user-select: auto;
       }
       .tu {
-        width: 35%;
+        width: 50%;
         position: absolute;
         bottom: -3%;
-        right: 1%;
+        right: 3%;
       }
       .close {
         display: inline-block;
-        width: 12%;
+        width: 10%;
         position: absolute;
         right: 2.5%;
         top: 0.5%;
