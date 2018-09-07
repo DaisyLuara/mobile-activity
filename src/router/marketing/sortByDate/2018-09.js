@@ -42,6 +42,17 @@ const Date201809 = [
       desc: '谁动了我的月饼'
     },
     isAbandoned: false
+  },
+  {
+    path: 'meishi',
+    location: 'sea/meishi',
+    name: 'meishi',
+    meta: {
+      title: '美食PK',
+      author: 'lipan',
+      desc: '农场物语-美食PK'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201809
