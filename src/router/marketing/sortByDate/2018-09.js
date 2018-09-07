@@ -81,9 +81,9 @@ const Date201809 = [
     location: 'playCentury/index',
     name: 'play_century',
     meta: {
-      title: '玩转世界',
+      title: '玩转世纪',
       author: 'xj1012',
-      desc: '玩转世界'
+      desc: '玩转世纪'
     },
     isAbandoned: false
   }
