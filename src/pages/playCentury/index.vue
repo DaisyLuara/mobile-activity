@@ -9,7 +9,7 @@
     </div>
     <div class="photo">
       <img 
-        :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
+        :src="baseUrl + 'frame2.png'+ this.$qiniuCompress()"
         class="frame">
       <!-- :src="baseUrl + '666.png'+ this.$qiniuCompress()" -->
       <img 
@@ -17,7 +17,9 @@
         :src="photo + this.$qiniuCompress()"
         class="photoImg">
     </div>
-    <div class="bottom">
+    <div 
+      :class="{'x-bottom':iphoneX,'bottom':!iphoneX}" 
+      class="bottom">
       <div class="bt">
         <img 
           :src="baseUrl + 'nav.png'+ this.$qiniuCompress()"
@@ -104,14 +106,14 @@ export default {
     -webkit-user-select: none;
     pointer-events: none;
     .frame {
-      width: 95%;
+      width: 100%;
       position: absolute;
       left: 50%;
       top: 50%;
       transform: translate(-50%, -48%);
     }
     .photoImg {
-      width: 82%;
+      width: 76%;
       position: absolute;
       left: 50%;
       top: 50%;
@@ -125,6 +127,45 @@ export default {
     height: 20%;
     position: relative;
     z-index: 2;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    pointer-events: none;
+    .bt {
+      animation: arrow 1.2s linear infinite alternate;
+    }
+    .nav {
+      width: 16%;
+      display: block;
+      position: absolute;
+      left: 50%;
+      top: 6%;
+      transform: translate(-50%, 0);
+    }
+    .tip {
+      width: 60%;
+      display: block;
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translate(-50%, 0);
+      margin-top: 11%;
+    }
+    .tip2 {
+      width: 80%;
+      display: block;
+      position: absolute;
+      left: 50%;
+      top: 36%;
+      transform: translate(-50%, 0);
+      margin-top: 10%;
+    }
+  }
+  .x-bottom {
+    width: 100%;
+    height: 20%;
+    position: relative;
+    z-index: 2;
+    margin-top: -6%;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     pointer-events: none;
