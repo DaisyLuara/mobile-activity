@@ -106,7 +106,7 @@ export default {
     -webkit-user-select: none;
     pointer-events: none;
     .frame {
-      width: 100%;
+      width: 110%;
       position: absolute;
       left: 50%;
       top: 50%;
