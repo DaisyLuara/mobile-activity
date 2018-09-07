@@ -12,24 +12,24 @@
         <img
           :src="base + 'copybg.png'"
           class="copybg">
-          <div 
-            class="idol user">
-            <img
-              :src="bing.headImgUrl">
-          </div>
-          <div 
-            class="idol people">
-            <img
-              :src="origin + 'people/people' + bing.people + '.png'">
-          </div>
-          <p>{{bing.name}}</p>
-          <div 
-            class="bingbing">
-            <img
-              :src="base + bing.left[bing.cake_type_a]">
-            <img
-              :src="base + bing.right[bing.cake_type_b]">
-          </div>
+        <div 
+          class="idol user">
+          <img
+            :src="bing.headImgUrl">
+        </div>
+        <div 
+          class="idol people">
+          <img
+            :src="origin + 'people/people' + bing.people + '.png'">
+        </div>
+        <p>{{ bing.name }}</p>
+        <div 
+          class="bingbing">
+          <img
+            :src="base + bing.left[bing.cake_type_a]">
+          <img
+            :src="base + bing.right[bing.cake_type_b]">
+        </div>
       </div>
       <div 
         class="picture">
@@ -80,11 +80,11 @@ import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 const IMG_SERVER = 'http://p22vy0aug.bkt.clouddn.com'
 export default {
-  mixins: [normalPages],
   components: {
     swiper,
     swiperSlide
   },
+  mixins: [normalPages],
   data() {
     return {
       style: {
@@ -124,7 +124,7 @@ export default {
       },
       photo: null,
       swiperOption: {
-        // initialSlide: 1,
+        initialSlide: 1,
         slidesPerView: 3,
         slidesPerView: 'auto',
         centeredSlides: true,

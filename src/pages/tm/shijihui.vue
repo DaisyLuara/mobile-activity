@@ -11,7 +11,7 @@
         :src="base + 'qiu.png'+ this.$qiniuCompress()"
         class="qiu">
       <span
-        class="score">{{score}}</span>
+        class="score">{{ score }}</span>
       <img
         :src="photo + this.$qiniuCompress()"
         class="photo">

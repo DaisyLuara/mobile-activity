@@ -14,7 +14,7 @@
         :src="origin + 'people/people' + people_type + '.png'"
         class="people">
       <span
-        class="text">{{text}}</span>
+        class="text">{{ text }}</span>
       <img 
         :src="base+'btn1.png'"
         class="btn">
@@ -25,8 +25,7 @@
             v-for="item in 9" 
             :key="item.id">
             <div 
-              v-if="item==5">
-            </div>
+              v-if="item==5"/>
             <div
               v-else 
               class="sound-icon">
@@ -36,7 +35,7 @@
                 <img
                   :src="base + 'icon' + item + '.png'"
                   class="icon">
-                <label>{{music_text[item]}}</label>
+                <label>{{ music_text[item] }}</label>
               </a>
             </div>
           </li>
