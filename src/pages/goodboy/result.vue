@@ -1,62 +1,43 @@
 <template>
   <div 
     id="warp" 
+    :style="style.root"
     class="content">
     <div class="div_img">
       <img 
-        :src="mImg" 
+        :src="new_base + 'newbg.jpg'" 
+        class="bg">
+      <img 
+        :src="new_base + 'frame.png'" 
+        class="frame">
+      <img 
+        :src="photo + this.$qiniuCompress()" 
         class="photo">
-    </div>
-    <img 
-      :src="IMAGE_URL + 'save.png'" 
-      class="save">
-    <div class="div_text">
-      <ul>
-        <li class="name">规则：</li>
-        <li 
-          v-for="(item, index) in textMsg[num]"
-          :key="index">{{ item }}
-        </li>
-        <li class="name">优惠券规则：</li>
-        <li>凭此照片兑换，仅限本人使用，每人只可用一次，全场先秒先得！</li>
-      </ul>
-    </div>
-    <div class="map">
-      <img
-        v-for="(item, index) in imgMsg" 
-        :key="index" 
-        :src="item">
     </div>
   </div>
 </template>
 <script>
-import {
-  $wechat,
-  getInfoById,
-  wechatShareTrack,
-  isInWechat,
-  createV5Coupon
-} from 'services'
+import { $wechat, wechatShareTrack } from 'services'
+import { normalPages } from '../../mixins/normalPages'
+const NEW_SERVER = 'http://p22vy0aug.bkt.clouddn.com'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
-import Mydata from './data.js'
 export default {
+  mixins: [normalPages],
   data() {
     return {
       IMAGE_URL: IMAGE_SERVER + '/pages/goodboy/',
-      num: this.$route.query.num,
-      coupon_id: {
-        '1': 35,
-        '19': 36,
-        '99': 37,
-        '129': 38
+      new_base: NEW_SERVER + '/image/goodboy/',
+      style: {
+        root: {
+          'min-height': this.$innerHeight() + 'px'
+        }
       },
-      mImg: null,
-      textMsg: null,
-      imgMsg: null,
+      photo: null,
       //微信分享
-      wxShareInfo: {
-        title: 'Happy Dino 全民刷脸抢秒杀！颜值爆表1元抢抢抢抢抢！',
-        desc: ' 全民疯抢！Happy Dino—好孩子 2018大型特卖会正在进行中',
+      wxShareInfoValue: {
+        title: '限时活动丨转发靓照集赞赢大奖！',
+        desc: '点击领取你的高颜值靓照',
+        link: 'http://papi.xingstation.com/api/s/3M' + window.location.search,
         imgUrl: IMAGE_SERVER + '/pages/goodboy/share.png',
         success: function() {
           wechatShareTrack()
@@ -64,20 +45,7 @@ export default {
       }
     }
   },
-  created() {
-    this.getInfoById()
-    this.textMsg = Mydata[0].textMsg
-    this.imgMsg = Mydata[0].imgUrl
-    this.couponCount()
-  },
   mounted() {
-    this.handleWechatShare()
-    var height =
-      window.innerHeight ||
-      document.documentElement.clientHeight ||
-      document.body.clientHeight
-    var warp = document.getElementById('warp')
-    warp.style.minHeight = height + 'px'
     let w = document.documentElement
     let a = w.getBoundingClientRect().width
     if (a > 750) {
@@ -85,47 +53,8 @@ export default {
     }
     let rem = a / 7.5
     w.style.fontSize = rem + 'px'
-    console.log(w.style.fontSize)
   },
-  methods: {
-    handleWechatShare() {
-      if (isInWechat() === true) {
-        $wechat()
-          .then(res => {
-            res.share(this.wxShareInfoValue)
-          })
-          .catch(err => {
-            console.warn(err.message)
-          })
-      } else {
-        console.warn('you r not in wechat environment')
-      }
-    },
-    getInfoById() {
-      let id = this.$route.query.id
-      getInfoById(id)
-        .then(res => {
-          this.mImg = res.image
-          console.log(res)
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    },
-    couponCount() {
-      let parms = {
-        face_id: this.$route.query.id,
-        coupon_batch_id: this.coupon_id[this.num]
-      }
-      createV5Coupon(parms)
-        .then(res => {
-          console.log(res)
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    }
-  }
+  methods: {}
 }
 </script>
 <style lang="less" scoped>
@@ -139,55 +68,42 @@ body {
   transform: translate3d(0, 0, 0);
   text-align: center;
 }
+* {
+  padding: 0;
+  margin: 0;
+  font-size: 0;
+  text-align: center;
+}
+img {
+  pointer-events: none;
+  user-select: none;
+  max-width: 100%;
+}
 .content {
   width: 100%;
   overflow-x: hidden;
-  background: url('@{imgUrl}bg.png') top left/100% auto repeat;
-  text-align: center;
-  margin: 0 auto;
-  padding-top: 5%;
+  background: url('@{imgUrl}bg.png') center bottom/100% auto repeat;
   .div_img {
     width: 100%;
-    display: inline-block;
-    margin: 0 auto;
-    text-align: center;
     position: relative;
+    .bg {
+      position: relative;
+    }
+    .frame {
+      width: 77%;
+      position: absolute;
+      top: 9.3%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
     .photo {
-      width: 83%;
-      margin: 0 auto;
-    }
-  }
-  .div_text {
-    width: 100%;
-    margin-top: 4%;
-    margin-bottom: 5.7%;
-    text-align: center;
-    ul {
-      list-style: none;
-      display: inline-block;
-      width: 80%;
-      margin: 0 auto;
-      li {
-        display: block;
-        text-align: left;
-        font-size: 0.28rem;
-        color: #fff;
-        line-height: 0.5rem;
-        letter-spacing: 0.5px;
-      }
-    }
-  }
-  .save {
-    width: 84%;
-    margin: 0 auto;
-    margin-top: 5.2%;
-  }
-  .map {
-    width: 83%;
-    margin: 0 auto;
-    img {
-      max-width: 100%;
-      margin-bottom: 10%;
+      width: 74.3%;
+      position: absolute;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      pointer-events: auto;
+      user-select: auto;
     }
   }
 }

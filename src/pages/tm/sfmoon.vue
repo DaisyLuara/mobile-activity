@@ -16,6 +16,13 @@
       class="save">
     <div
       class="coup">
+      <img
+        v-show="Boolean(score>=8000)"
+        :src="base+'coupon0.png'"
+        class="coupon0">
+      <img
+        v-show="Boolean(score>=8000)"
+        :src="base+'rule0.png'">
       <a 
         :href="link.link1"
         class="link1">
@@ -43,6 +50,7 @@ export default {
       },
       base: IMG_SERVER + '/image/sfmoon/',
       photo: null,
+      score: Number(this.$route.query.score),
       link: {
         link1: 'http://papi.xingstation.com/api/s/5yB'
         //短链'http://sfreg.oramage.com'
@@ -120,9 +128,13 @@ img {
     img {
       max-width: 100%;
     }
+    .coupon0 {
+      margin-bottom: 5%;
+    }
     .link1 {
       width: 100%;
       display: inline-block;
+      margin-top: 2%;
     }
     .rule {
       margin-top: 5%;
