@@ -6,9 +6,7 @@
       :src="base+'frame.png'"
       class="cover">
     <div 
-      id="vdiv">
-
-    </div>
+      id="vdiv"/>
     <div 
       class="task-group">
       <img 
