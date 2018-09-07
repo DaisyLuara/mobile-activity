@@ -69,7 +69,7 @@ export default {
         }
       },
       screenWidth: document.body.clientWidth,
-      photo: '',
+      photo: null,
       pass: {
         firstPass: true,
         secondPass: true,
@@ -206,6 +206,7 @@ img {
   text-align: center;
   background: #a2efec;
   overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
   .top {
     width: 100%;
     position: relative;

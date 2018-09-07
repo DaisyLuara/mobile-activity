@@ -53,6 +53,39 @@ const Date201809 = [
       desc: '农场物语-美食PK'
     },
     isAbandoned: false
+  },
+  {
+    path: 'mid_autumn',
+    location: 'midAutumn/midAutumn',
+    name: 'mid_autumn',
+    meta: {
+      title: '中秋快乐',
+      author: 'xj1012',
+      desc: '中秋佳节'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'stone_age',
+    location: 'stoneAge/index',
+    name: 'stone_age',
+    meta: {
+      title: '石器时代',
+      author: 'xj1012',
+      desc: '石器时代'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'shijihui',
+    location: 'tm/shijihui',
+    name: 'shijihui',
+    meta: {
+      title: '世纪汇美食节',
+      author: 'lipan',
+      desc: '世纪汇美食节'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201809

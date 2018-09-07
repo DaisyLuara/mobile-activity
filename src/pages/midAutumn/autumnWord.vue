@@ -2,6 +2,15 @@
   <div
     :style="style.root"
     class="root">
+    <!-- 加载中 -->
+    <div 
+      v-if="loading" 
+      class="shade"/>
+    <img 
+      v-if="loading"
+      :src="baseUrl + 'leaf3.png'+ this.$qiniuCompress()"
+      class="leaf">
+    <!-- 加载中 -->
     <img 
       :src="baseUrl + 'bg.jpeg'+ this.$qiniuCompress()"
       class="bg">
@@ -188,7 +197,8 @@ export default {
         titTwo: false,
         titThree: false
       },
-      photo: '',
+      photo: null,
+      loading: true,
       startTime: 0,
       recordTimer: null,
       localId: null,
@@ -201,6 +211,33 @@ export default {
         localId: null,
         user_id: null
       },
+      imgList: [
+        'bg.jpeg',
+        'tit1.png',
+        'tit2.png',
+        'tit3.png',
+        'arrow.png',
+        'button_1.png',
+        'button_2.png',
+        'button_4.png',
+        'button5.png',
+        'button6.png',
+        'leaf.png',
+        'leaf2.png',
+        'leaf3.png',
+        'leaf4.png',
+        'leaf5.png',
+        'leaf6.png',
+        'prompt_1.png',
+        'prompt_2.png',
+        'prompt_3.png',
+        'section_1.png',
+        'section_2.png',
+        'section_3.png',
+        'title.png',
+        'wifi.gif',
+        'player.png'
+      ],
       wxShareInfoValue: {
         title: '声音邮局 ',
         desc: '你有封亲密信件 请查收',
@@ -212,11 +249,8 @@ export default {
       }
     }
   },
-  created() {
-    this.getInfoById()
-  },
+  created() {},
   mounted() {
-    // alert(this.$route.query.serverId)
     //微信授权
     if (isInWechat() === true) {
       if (
@@ -226,8 +260,40 @@ export default {
         this.handleWechatAuth()
       }
     }
+    this.entry(this.imgList, r => {
+      console.dir(r)
+      this.getInfoById()
+      // do next
+    })
   },
   methods: {
+    //图片预加载
+    loadImgs(imgList) {
+      let preList = []
+      let thisRef = this
+      for (let i = 0; i < imgList.length; i++) {
+        let pre = new Promise((resolve, reject) => {
+          let img = new Image()
+          img.onload = function() {
+            resolve(img)
+          }
+          img.src = thisRef.baseUrl + imgList[i]
+        })
+        preList.push(pre)
+      }
+      return Promise.all(preList).then(r => {
+        return Promise.resolve(r)
+      })
+    },
+    async entry(imgList, cb) {
+      try {
+        let rs = await this.loadImgs(imgList)
+        cb(rs)
+      } catch (err) {
+        console.log(err)
+        cb([])
+      }
+    },
     //微信静默授权
     handleWechatAuth() {
       if (Cookies.get('user_id') === null) {
@@ -296,25 +362,19 @@ export default {
             wx.onMenuShareWeibo(reference.wxShareInfoValue)
             wx.onMenuShareQZone(reference.wxShareInfoValue)
             if (serverId != null && serverId != undefined) {
-              // alert('weixingxi')
-              // alert(reference.$route.query.serverId)
-              console.log(window.location.href)
-
               reference.button.buttonOne = false
               reference.button.buttonThree = true
               wx.downloadVoice({
                 serverId: serverId, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
                 isShowProgressTips: 1, // 默认为1，显示进度提示
                 success: function(res) {
-                  // alert('下载语音成功')
-                  // alert(JSON.stringify(res))
+                  console.log('下载语音成功')
                   reference.localId = res.localId
+                  reference.loading = false
                   console.log(res)
                 },
                 fail: function(err) {
-                  console.dir(err)
-                  // alert(JSON.stringify(err))
-                  // alert('下载语音失败')
+                  console.log('下载语音失败')
                 }
               })
             }
@@ -472,10 +532,10 @@ export default {
           reference.player.one = false
           reference.player.two = false
           reference.player.three = true
-          // alert('暂停播放成功')
+          console.log('暂停播放成功')
         },
         fail: function() {
-          // alert('播放暂停异常')
+          console.log('播放暂停异常')
         }
       })
     },
@@ -547,6 +607,9 @@ export default {
               reference.playVoice()
             }
           } else {
+            let Timer = setTimeout(function() {
+              reference.loading = false
+            }, 2000)
             reference.handleWxReady(null)
           }
           console.log(data)
@@ -579,12 +642,29 @@ export default {
   position: relative;
   text-align: center;
   overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
   img {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     pointer-events: none;
   }
-
+  .shade {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0.8;
+    z-index: 999;
+    position: fixed;
+  }
+  .leaf {
+    width: 20%;
+    position: absolute;
+    left: 40%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    animation: leaf 2s ease-out infinite forwards;
+  }
   .bg {
     position: absolute;
     left: 0;
