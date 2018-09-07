@@ -111,7 +111,7 @@ export default {
       transform: translate(-50%, -48%);
     }
     .photoImg {
-      width: 84%;
+      width: 82%;
       position: absolute;
       left: 50%;
       top: 50%;
