@@ -44,7 +44,8 @@ export default {
       base: IMG_SERVER + '/image/sfmoon/',
       photo: null,
       link: {
-        link1: 'http://oramage.com/project/sfmc/register'
+        link1: 'http://papi.xingstation.com/api/s/5yB'
+        //短链'http://sfreg.oramage.com'
       },
       //分享
       wxShareInfoValue: {
