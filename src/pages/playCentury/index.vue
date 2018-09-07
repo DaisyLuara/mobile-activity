@@ -89,6 +89,9 @@ export default {
   .top {
     width: 100%;
     position: relative;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    pointer-events: none;
     .topImg {
       width: 100%;
     }
@@ -97,6 +100,9 @@ export default {
     width: 100%;
     height: 68%;
     position: relative;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    pointer-events: none;
     .frame {
       width: 95%;
       position: absolute;
@@ -110,6 +116,8 @@ export default {
       left: 50%;
       top: 50%;
       transform: translate(-50%, -46%);
+      -webkit-user-select: auto;
+      pointer-events: auto;
     }
   }
   .bottom {
@@ -117,6 +125,9 @@ export default {
     height: 20%;
     position: relative;
     z-index: 2;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    pointer-events: none;
     .bt {
       animation: arrow 1.2s linear infinite alternate;
     }
@@ -152,6 +163,9 @@ export default {
     position: absolute;
     left: 0;
     bottom: 0;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    pointer-events: none;
   }
 }
 @keyframes arrow {
