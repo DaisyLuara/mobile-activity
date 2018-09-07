@@ -2,23 +2,23 @@
   <div
     :style="style.root" 
     class="root">
-     <img 
-        :src="baseUrl + 'bg.jpg'+ this.$qiniuCompress()"
-        class="bg">
+    <img 
+      :src="baseUrl + 'bg.jpg'+ this.$qiniuCompress()"
+      class="bg">
     <div class="center">
-        <img 
+      <img 
         :src="baseUrl + 'kuang.png'+ this.$qiniuCompress()"
         class="kuang">
     </div>
     <!-- :src="baseUrl + '666.jpg'+ this.$qiniuCompress()" -->
-     <img 
-        v-if="photo !== null" 
-        :src="photo + this.$qiniuCompress()"
-        class="photo"
-        :class="{'x-photo':iphoneX,'photo':!iphoneX}">
+    <img 
+      v-if="photo !== null" 
+      :src="photo + this.$qiniuCompress()"
+      :class="{'x-photo':iphoneX,'photo':!iphoneX}"
+      class="photo">
     <div 
-      class="bottom" 
-      :class="{'x-bottom':iphoneX,'bottom':!iphoneX}">
+      :class="{'x-bottom':iphoneX,'bottom':!iphoneX}" 
+      class="bottom">
       <img 
         :src="baseUrl + 'G.gif'+ this.$qiniuCompress()"
         class="gif">
