@@ -71,7 +71,7 @@ export default {
         this.handleWechatAuth()
       }
     }
-    this.getInfoById()
+    // this.getInfoById()
   },
   methods: {
     handleWechatAuth() {
