@@ -6,7 +6,22 @@
       :src="base+'frame.png'"
       class="cover">
     <div 
-      id="vdiv"/>
+      id="vdiv">
+      <video 
+        :id="video" 
+        webkit-playsinline="true" 
+        playsinline="true" 
+        x-webkit-airplay="true" 
+        controls 
+        preload="auto"
+        width="100%" 
+        height="100%">
+        <source 
+          :src="video" 
+          type="video/mp4">
+        您的浏览器不支持video标签.
+          </video>
+    </div>
     <div 
       class="task-group">
       <img 
