@@ -414,7 +414,7 @@ export default {
   .tag08,
   .tag09,
   .tag10 {
-    width: 22%;
+    width: 20%;
     position: absolute;
     left: 50%;
     top: 50%;
@@ -434,10 +434,10 @@ export default {
     transform: translateX(0);
   }
   50% {
-    transform: translateX(150px);
+    transform: translateX(70px);
   }
   100% {
-    transform: translateX(300px);
+    transform: translateX(138px);
   }
 }
 @keyframes clound1 {
