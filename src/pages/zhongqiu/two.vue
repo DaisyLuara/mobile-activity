@@ -31,15 +31,18 @@
               class="sound-icon">
               <a 
                 class="iconbox"
-                @click="playVoice">
+                @click="playVoice(item)">
                 <img
                   :src="base + 'icon' + item + '.png'"
                   class="icon">
-                <label>{{ music_text[item] }}</label>
+                <label>{{ music.text[item] }}</label>
               </a>
             </div>
           </li>
         </ul>
+        <div 
+          :class="{voices:true,playvoice:startvoice}">
+        </div>
       </div>
     </div>
     <div 
@@ -92,21 +95,36 @@ export default {
       userId: null,
       headImgUrl: null,
       mask: false,
+      startvoice: false,
       people_type: this.$route.query.people_type,
       belong: this.$route.query.utm_campaign,
       text: '龙虾蛋黄',
-      music_text: [
-        '',
-        '萝莉',
-        '大叔',
-        '搞怪',
-        '东北',
-        '',
-        '粤语',
-        '龟速',
-        '英语',
-        '机器'
-      ],
+      music: {
+        text: [
+          '',
+          '萝莉',
+          '大叔',
+          '搞怪',
+          '东北',
+          '',
+          '粤语',
+          '龟速',
+          '英语',
+          '机器'
+        ],
+        url: [
+          '',
+          'luoli',
+          'dashu',
+          'gaoguai',
+          'dongbei',
+          '',
+          'yueyu',
+          'guisu',
+          'yingyu',
+          'jiqi'
+        ]
+      },
       task: {
         left: '11',
         right: '33'
@@ -313,12 +331,12 @@ img {
         display: inline-block;
         padding-top: 3%;
         padding-bottom: 7%;
+        z-index: 9;
         li {
           display: inline-block;
           width: 30%;
           height: 100%;
           padding: 5px 0px;
-
           .sound-icon {
             padding: 5px;
             position: relative;
@@ -349,6 +367,22 @@ img {
             padding: 5px;
           }
         }
+      }
+      .voices {
+        width: 25%;
+        height: 25%;
+        position: absolute;
+        top: 35%;
+        left: 50%;
+        transform: translateX(-50%);
+        background-image: url('@{base}voice4.png');
+        background-position: center center;
+        background-size: 100% auto;
+        background-repeat: no-repeat;
+        z-index: 99;
+      }
+      .playvoice {
+        animation: voice 1s linear alternate infinite;
       }
     }
   }
@@ -390,6 +424,23 @@ img {
         margin-right: 3%;
       }
     }
+  }
+}
+@keyframes voice {
+  0% {
+    background-image: url('@{base}voice4.png');
+  }
+  25% {
+    background-image: url('@{base}voice3.png');
+  }
+  50% {
+    background-image: url('@{base}voice2.png');
+  }
+  75% {
+    background-image: url('@{base}voice1.png');
+  }
+  100% {
+    background-image: url('@{base}voice4.png');
   }
 }
 </style>
