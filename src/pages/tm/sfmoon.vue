@@ -18,7 +18,7 @@
       class="coup">
       <img
         v-show="Boolean(score>=8000)"
-        :src="base+'coupon0.png'"
+        :src="base+'coupon00.png'"
         class="coupon0">
       <img
         v-show="Boolean(score>=8000)"
