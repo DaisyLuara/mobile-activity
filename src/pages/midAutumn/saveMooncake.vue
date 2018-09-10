@@ -127,6 +127,27 @@ export default {
       playNow: null,
       buttonshow: true,
       photo: null,
+      imgList: [
+        'back.png',
+        'cloud01.png',
+        'cloud02.png',
+        'frame.png',
+        'moon.png',
+        'qiantong.png',
+        'tag01.png',
+        'tag02.png',
+        'tag03.png',
+        'tag04.png',
+        'tag05.png',
+        'tag06.png',
+        'tag07.png',
+        'tag08.png',
+        'tag09.png',
+        'tag010.png',
+        'text.png',
+        'yuebing.png',
+        'icon.png'
+      ],
       wxShareInfoValue: {
         title: '拯救月饼',
         desc: '月满中秋.jpg',
@@ -140,14 +161,45 @@ export default {
   },
   created() {},
   mounted() {
-    this.getInfoById()
-    this.initShack()
-    let that = this
-    setTimeout(function() {
-      that.shade = false
-    }, 5800)
+    this.entry(this.imgList, r => {
+      console.dir(r)
+      this.getInfoById()
+      this.initShack()
+      let that = this
+      setTimeout(function() {
+        that.shade = false
+      }, 5800)
+      // do next
+    })
   },
   methods: {
+    //图片预加载
+    loadImgs(imgList) {
+      let preList = []
+      let thisRef = this
+      for (let i = 0; i < imgList.length; i++) {
+        let pre = new Promise((resolve, reject) => {
+          let img = new Image()
+          img.onload = function() {
+            resolve(img)
+          }
+          img.src = thisRef.baseUrl + imgList[i]
+        })
+        preList.push(pre)
+      }
+      return Promise.all(preList).then(r => {
+        return Promise.resolve(r)
+      })
+    },
+    async entry(imgList, cb) {
+      try {
+        let rs = await this.loadImgs(imgList)
+        cb(rs)
+      } catch (err) {
+        console.log(err)
+        cb([])
+      }
+    },
     getInfoById() {
       let id = this.$route.query.id
       getInfoById(id)
