@@ -188,13 +188,13 @@ export default {
       top: 50%;
       transform: translate(-50%, -53%);
       z-index: 101;
-      -webkit-animation-name: opacity;
-      -webkit-animation-duration: 3s;
-      -webkit-animation-timing-function: linear;
-      -webkit-animation-delay: 3.5s;
-      -webkit-animation-iteration-count: 1;
-      -webkit-animation-fill-mode: forwards;
-      -webkit-animation-direction: normal;
+      animation-name: opacity;
+      animation-duration: 3s;
+      animation-timing-function: linear;
+      animation-delay: 3.5s;
+      animation-iteration-count: 1;
+      animation-fill-mode: forwards;
+      animation-direction: normal;
     }
     .light {
       width: 45%;
@@ -202,13 +202,13 @@ export default {
       right: 4%;
       top: 2%;
       z-index: 101;
-      -webkit-animation-name: light, fly;
-      -webkit-animation-duration: 2s, 4s;
-      -webkit-animation-timing-function: linear, linear;
-      -webkit-animation-delay: 0s, 4s;
-      -webkit-animation-iteration-count: infinite, 1;
-      -webkit-animation-fill-mode: forwards, forwards;
-      -webkit-animation-direction: alternate, normal;
+      animation-name: light, fly;
+      animation-duration: 2s, 4s;
+      animation-timing-function: linear, linear;
+      animation-delay: 0s, 4s;
+      animation-iteration-count: infinite, 1;
+      animation-fill-mode: forwards, forwards;
+      animation-direction: alternate, normal;
     }
     .moon {
       width: 100%;
@@ -217,13 +217,13 @@ export default {
       top: 50%;
       z-index: 100;
       transform: translate(-50%, -50%);
-      -webkit-animation-name: opacity;
-      -webkit-animation-duration: 3s;
-      -webkit-animation-timing-function: linear;
-      -webkit-animation-delay: 3.5s;
-      -webkit-animation-iteration-count: 1;
-      -webkit-animation-fill-mode: forwards;
-      -webkit-animation-direction: normal;
+      animation-name: opacity;
+      animation-duration: 3s;
+      animation-timing-function: linear;
+      animation-delay: 3.5s;
+      animation-iteration-count: 1;
+      animation-fill-mode: forwards;
+      animation-direction: normal;
     }
   }
   .photo {

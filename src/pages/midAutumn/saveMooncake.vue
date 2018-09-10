@@ -297,12 +297,12 @@ export default {
       top: 50%;
       transform: translate(-50%, -50%);
       z-index: 100;
-      -webkit-animation-name: opacity1;
-      -webkit-animation-duration: 2s;
-      -webkit-animation-timing-function: linear;
-      -webkit-animation-iteration-count: 1;
-      -webkit-animation-fill-mode: forwards;
-      -webkit-animation-direction: alternate;
+      animation-name: opacity1;
+      animation-duration: 2s;
+      animation-timing-function: linear;
+      animation-iteration-count: 1;
+      animation-fill-mode: forwards;
+      animation-direction: alternate;
     }
     .clound1 {
       width: 35%;
@@ -310,13 +310,13 @@ export default {
       left: 0%;
       top: 58%;
       z-index: 100;
-      -webkit-animation-name: clound1;
-      -webkit-animation-duration: 2s;
-      -webkit-animation-timing-function: linear;
-      -webkit-animation-delay: 5s;
-      -webkit-animation-iteration-count: 1;
-      -webkit-animation-fill-mode: forwards;
-      -webkit-animation-direction: alternate;
+      animation-name: clound1;
+      animation-duration: 2s;
+      animation-timing-function: linear;
+      animation-delay: 5s;
+      animation-iteration-count: 1;
+      animation-fill-mode: forwards;
+      animation-direction: alternate;
     }
     .clound2 {
       width: 35%;
@@ -324,13 +324,13 @@ export default {
       right: 0%;
       top: 28%;
       z-index: 100;
-      -webkit-animation-name: clound2;
-      -webkit-animation-duration: 2s;
-      -webkit-animation-timing-function: linear;
-      -webkit-animation-delay: 5s;
-      -webkit-animation-iteration-count: 1;
-      -webkit-animation-fill-mode: forwards;
-      -webkit-animation-direction: alternate;
+      animation-name: clound2;
+      animation-duration: 2s;
+      animation-timing-function: linear;
+      animation-delay: 5s;
+      animation-iteration-count: 1;
+      animation-fill-mode: forwards;
+      animation-direction: alternate;
     }
     .moon {
       width: 95%;
@@ -340,13 +340,13 @@ export default {
       transform: translate(-50%, -50%);
       z-index: 100;
       opacity: 0;
-      -webkit-animation-name: opacity2;
-      -webkit-animation-duration: 4s;
-      -webkit-animation-timing-function: linear;
-      -webkit-animation-delay: 2s;
-      -webkit-animation-iteration-count: 1;
-      -webkit-animation-fill-mode: forwards;
-      -webkit-animation-direction: alternate;
+      animation-name: opacity2;
+      animation-duration: 4s;
+      animation-timing-function: linear;
+      animation-delay: 2s;
+      animation-iteration-count: 1;
+      animation-fill-mode: forwards;
+      animation-direction: alternate;
     }
   }
   .qiantong {
@@ -412,13 +412,13 @@ export default {
     top: 50%;
     margin: -49% 0 0 -11%;
     z-index: 66;
-    -webkit-animation-name: tally;
-    -webkit-animation-duration: 2.5s;
-    -webkit-animation-timing-function: linear;
-    -webkit-animation-delay: 2s;
-    -webkit-animation-iteration-count: 1;
-    -webkit-animation-fill-mode: forwards;
-    -webkit-animation-direction: alternate;
+    animation-name: tally;
+    animation-duration: 2.5s;
+    animation-timing-function: linear;
+    animation-delay: 2s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-direction: alternate;
   }
 }
 @keyframes tally {
