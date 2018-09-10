@@ -287,10 +287,20 @@ export default {
             justifyContent: 'center'
           }
 
-          if (i % 2 === 0) {
-            innerCircleObj.right = '0'
+          let cutWidth =
+            (this.calStore[i].topWidth - this.calStore[i].bottomWidth) / 2
+          if (i < this.chartdata.length - 2) {
+            if (i % 2 === 0) {
+              innerCircleObj.left = cutWidth * 2 + 'px'
+            } else {
+              innerCircleObj.right = cutWidth * 2 + 'px'
+            }
           } else {
-            innerCircleObj.left = '0'
+            if (i % 2 === 0) {
+              innerCircleObj.right = '0'
+            } else {
+              innerCircleObj.left = '0'
+            }
           }
 
           let w2 = w - 2
