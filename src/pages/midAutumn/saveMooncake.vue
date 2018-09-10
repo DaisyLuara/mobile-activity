@@ -463,13 +463,31 @@ export default {
     top: 50%;
     margin: -49% 0 0 -11%;
     z-index: 66;
-    animation-name: opacity3, tally;
-    animation-duration: 3s, 0.5s;
+    animation-name: bounceIn, tally;
+    animation-duration: 2s, 0.5s;
     animation-timing-function: linear, linear;
-    animation-delay: 0s, 3s;
+    animation-delay: 0s, 2.2s;
     animation-iteration-count: 1, 1;
     animation-fill-mode: forwards, forwards;
     animation-direction: alternate, normal;
+  }
+}
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.2) translate3d(0, 0, 0);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.1);
+  }
+  80% {
+    opacity: 1;
+    transform: scale(0.79);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translate3d(0, 0, 0);
   }
 }
 @keyframes tally {
@@ -499,6 +517,7 @@ export default {
     transform: translateX(500px);
   }
 }
+
 @keyframes opacity1 {
   0% {
     opacity: 1;
