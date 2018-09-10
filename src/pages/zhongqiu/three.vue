@@ -6,6 +6,9 @@
       :src="base+'frame.png'"
       class="cover">
     <div 
+<<<<<<< HEAD
+      id="vdiv"/>
+=======
       id="vdiv">
       <video 
         :id="video" 
@@ -22,6 +25,7 @@
         您的浏览器不支持video标签.
           </video>
     </div>
+>>>>>>> develop
     <div 
       class="task-group">
       <img 

@@ -35,7 +35,11 @@
                 <img
                   :src="base + 'icon' + item + '.png'"
                   class="icon">
+<<<<<<< HEAD
+                <label>{{ music_text[item] }}</label>
+=======
                 <label>{{ music.text[item] }}</label>
+>>>>>>> develop
               </a>
             </div>
           </li>
