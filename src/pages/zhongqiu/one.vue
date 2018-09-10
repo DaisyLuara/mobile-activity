@@ -124,7 +124,7 @@ export default {
       },
       photo: null,
       swiperOption: {
-        // initialSlide: 1,
+        initialSlide: 1,
         slidesPerView: 3,
         slidesPerView: 'auto',
         centeredSlides: true,
@@ -134,7 +134,7 @@ export default {
       wxShareInfoValue: {
         title: '中秋快乐',
         desc: '我亲手做的月饼，你敢吃么？',
-        link: '' + window.location.search,
+        link: 'http://papi.xingstation.com/api/s/YEK' + window.location.search,
         imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/zhongqiu/1/share.png',
         success: function() {
           wechatShareTrack()

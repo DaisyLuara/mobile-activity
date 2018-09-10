@@ -106,14 +106,14 @@ export default {
     -webkit-user-select: none;
     pointer-events: none;
     .frame {
-      width: 100%;
+      width: 110%;
       position: absolute;
       left: 50%;
       top: 50%;
       transform: translate(-50%, -48%);
     }
     .photoImg {
-      width: 76%;
+      width: 84%;
       position: absolute;
       left: 50%;
       top: 50%;

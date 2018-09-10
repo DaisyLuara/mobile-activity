@@ -6,7 +6,26 @@
       :src="base+'frame.png'"
       class="cover">
     <div 
+<<<<<<< HEAD
       id="vdiv"/>
+=======
+      id="vdiv">
+      <video 
+        :id="video" 
+        webkit-playsinline="true" 
+        playsinline="true" 
+        x-webkit-airplay="true" 
+        controls 
+        preload="auto"
+        width="100%" 
+        height="100%">
+        <source 
+          :src="video" 
+          type="video/mp4">
+        您的浏览器不支持video标签.
+          </video>
+    </div>
+>>>>>>> develop
     <div 
       class="task-group">
       <img 
@@ -52,9 +71,9 @@ export default {
       //微信分享
       wxShareInfoValue: {
         title: '中秋快乐',
-        desc: '我亲手做的月饼，你敢吃么？',
-        link: '' + window.location.search,
-        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/zhongqiu/1/share.png',
+        desc: '月饼被谁吃了',
+        link: 'http://papi.xingstation.com/api/s/1wR' + window.location.search,
+        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/zhongqiu/3/share.png',
         success: function() {
           wechatShareTrack()
         }
@@ -71,7 +90,7 @@ export default {
         this.handleWechatAuth()
       }
     }
-    this.getInfoById()
+    // this.getInfoById()
   },
   methods: {
     handleWechatAuth() {
