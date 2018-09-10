@@ -62,9 +62,9 @@
       :src="baseUrl + 'tag010.png'+ this.$qiniuCompress()"
       class="tag10">
     <div class="photo">
-      <!-- <img 
-        :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
-        class="frame"> -->
+      <img 
+        :src="baseUrl + 'frame2.png'+ this.$qiniuCompress()"
+        class="frame">
       <video 
         id="video"
         class="photo-real"
@@ -132,7 +132,7 @@ export default {
         'cloud01.png',
         'cloud02.png',
         'moon.png',
-        //"frame.png",
+        'frame2.png',
         'qiantong.png',
         'tag01.png',
         'tag02.png',
@@ -420,20 +420,19 @@ export default {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -53%);
-    // .frame {
-    //   width: 77%;
-    //   position: absolute;
-    //   left: 50%;
-    //   top: 50%;
-    //   transform: translate(-50%, -50%);
-    // }
+    .frame {
+      width: 77%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
     .photo-real {
       width: 90%;
       height: 96%;
       position: absolute;
       left: 50%;
       top: 0%;
-      // top: -5%;
       transform: translate(-50%, 0);
       z-index: 9;
     }
