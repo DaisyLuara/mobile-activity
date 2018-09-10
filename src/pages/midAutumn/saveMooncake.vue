@@ -131,7 +131,7 @@ export default {
         title: '拯救月饼',
         desc: '月满中秋.jpg',
         link: 'http://papi.xingstation.com/api/s/82m' + window.location.search,
-        imgUrl: cdnUrl + '/fe/marketing/img/save_moonCake/icon.jpeg',
+        imgUrl: cdnUrl + '/fe/marketing/img/save_moonCake/icon.png',
         success: () => {
           wechatShareTrack()
         }
@@ -426,10 +426,10 @@ export default {
     transform: translateX(0);
   }
   50% {
-    transform: translateX(70px);
+    transform: translateX(110%);
   }
   100% {
-    transform: translateX(138px);
+    transform: translateX(220%);
   }
 }
 @keyframes clound1 {
