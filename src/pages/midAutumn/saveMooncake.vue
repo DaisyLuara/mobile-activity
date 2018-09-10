@@ -24,53 +24,43 @@
     <img 
       v-show="title.title0"
       :src="baseUrl + 'tag01.png'+ this.$qiniuCompress()"
-      class="tag01"
-    >
+      class="tag01">
     <img 
       v-show="title.title1"
       :src="baseUrl + 'tag02.png'+ this.$qiniuCompress()"
-      class="tag02"
-    >
+      class="tag02">
     <img 
       v-show="title.title2"
       :src="baseUrl + 'tag03.png'+ this.$qiniuCompress()"
-      class="tag03"
-    >
+      class="tag03">
     <img 
       v-show="title.title3"
       :src="baseUrl + 'tag04.png'+ this.$qiniuCompress()"
-      class="tag04"
-    >
+      class="tag04">
     <img 
       v-show="title.title4"
       :src="baseUrl + 'tag05.png'+ this.$qiniuCompress()"
-      class="tag05"
-    >
+      class="tag05">
     <img 
       v-show="title.title5"
       :src="baseUrl + 'tag06.png'+ this.$qiniuCompress()"
-      class="tag06"
-    >
+      class="tag06">
     <img 
       v-show="title.title6"
       :src="baseUrl + 'tag07.png'+ this.$qiniuCompress()"
-      class="tag07"
-    >
+      class="tag07">
     <img 
       v-show="title.title7"
       :src="baseUrl + 'tag08.png'+ this.$qiniuCompress()"
-      class="tag08"
-    >
+      class="tag08">
     <img 
       v-show="title.title8"
       :src="baseUrl + 'tag09.png'+ this.$qiniuCompress()"
-      class="tag09"
-    >
+      class="tag09">
     <img 
       v-show="title.title9"
       :src="baseUrl + 'tag010.png'+ this.$qiniuCompress()"
-      class="tag10"
-    >
+      class="tag10">
     <div class="photo">
       <img 
         :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
@@ -84,8 +74,10 @@
         preload="auto"
         width="100%" 
         height="100%">
+        <!--  src="http://cdn.exe666.com/1007/video/MidautumnSkyLight_112_411_1492921319755.mp4s" -->
         <source 
-          src="http://cdn.exe666.com/1007/video/MidautumnSkyLight_112_411_1492921319755.mp4 "
+          v-if="photo !== null" 
+          :src="photo" 
           type="video/mp4">
         您的浏览器不支持video标签.
       </video>
@@ -136,9 +128,9 @@ export default {
       buttonshow: true,
       photo: null,
       wxShareInfoValue: {
-        title: '中秋天灯',
-        desc: '嫦娥：天灯已收到，感谢',
-        link: 'http://papi.xingstation.com/api/s/31M' + window.location.search,
+        title: '拯救月饼',
+        desc: '月满中秋.jpg',
+        link: 'http://papi.xingstation.com/api/s/82m' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/save_moonCake/icon.jpeg',
         success: () => {
           wechatShareTrack()
