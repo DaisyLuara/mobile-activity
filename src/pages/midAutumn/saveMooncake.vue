@@ -408,7 +408,7 @@ export default {
     bottom: 6%;
   }
   .text {
-    width: 54%;
+    width: 58%;
     position: absolute;
     left: 16%;
     bottom: 1.6%;
