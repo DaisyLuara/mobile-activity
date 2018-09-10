@@ -80,7 +80,8 @@ export default {
       sheet1.src = 'http://p22vy0aug.bkt.clouddn.com/image/chick/tinified.png'
       sheet1.onload = function() {
         let sheet2 = new Image()
-        sheet2.src = 'http://p22vy0aug.bkt.clouddn.com/image/rabbit/tutu.png'
+        sheet2.src =
+          'http://p22vy0aug.bkt.clouddn.com/image/chick/meishi/win.png'
         sheet2.onload = function() {}
       }
     }
@@ -106,7 +107,7 @@ export default {
         app.stop()
         PIXI.loader
           .add('chick', base + 'chick/tinified.json')
-          .add('rabbit', base + 'rabbit/tutu.json')
+          .add('rabbit', base + 'chick/meishi/win.json')
           .load(setUp)
         function setUp() {
           let chicken = [],
@@ -117,8 +118,8 @@ export default {
             texture = PIXI.Texture.fromFrame('gongji_' + i + '.png')
             chicken.push(texture)
           }
-          for (let i = 0; i <= 18; i++) {
-            texture2 = PIXI.Texture.fromFrame('n-tiao_' + i + '.png')
+          for (let i = 1; i <= 15; i++) {
+            texture2 = PIXI.Texture.fromFrame('tuzi_' + i + '.png')
             bunny.push(texture2)
           }
           let animal1 = new PIXI.extras.AnimatedSprite(chicken)
@@ -129,10 +130,10 @@ export default {
           animal1.height = animal1.width / 304 * 581
           animal1.gotoAndPlay(0)
           animal1.animationSpeed = 0.2
-          animal2.x = app.screen.width * 0.5
-          animal2.y = app.screen.height * 0.36
-          animal2.width = app.screen.width * 0.45
-          animal2.height = animal2.width / 291 * 361
+          animal2.x = app.screen.width * 0.51
+          animal2.y = app.screen.height * 0.29
+          animal2.width = app.screen.width * 0.38
+          animal2.height = animal2.width / 226 * 372
           animal2.gotoAndPlay(0)
           app.stage.addChild(animal1)
           app.stage.addChild(animal2)

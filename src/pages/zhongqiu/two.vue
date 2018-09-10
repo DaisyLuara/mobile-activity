@@ -2,27 +2,46 @@
   <div 
     :style="style.root"
     class="content">
+    <div
+      v-show="Boolean(share_audio)" 
+      :class="{audio:true,circle:circle}"
+      @click="playOrNot">
+      <img
+        :src="origin + '/3/' + music + '.png'">
+      <audio 
+        id="vshare" 
+        loop
+        autobuffer 
+        autoplay 
+        hidden>
+        <source :src="origin + 'mp3/' + share_audio + '.mp3'"/>
+      </audio>
+    </div>
     <div 
       class="one">
       <img 
         :src="base+'bg1.png'"
         class="bg">
       <img 
-        :src="base+'gift.png'"
+        :src="base+'ggift.png'"
         class="gift">
       <img 
         :src="origin + 'people/people' + people_type + '.png'"
         class="people">
       <span
         class="text">{{ text }}</span>
-      <img 
-        :src="base+'btn1.png'"
-        class="btn">
+      <a
+        class="btn"
+        @click="checkPop">
+        <img 
+          :src="base + tobtn + '.png'">
+      </a>
       <div 
+        v-show="popUp"
         class="pop">
         <ul>
           <li 
-            v-for="item in 9" 
+            v-for="item in 6" 
             :key="item.id">
             <div 
               v-if="item==5"/>
@@ -33,16 +52,38 @@
                 class="iconbox"
                 @click="playVoice(item)">
                 <img
-                  :src="base + 'icon' + item + '.png'"
+                  :src="base + 'icon_mask.png'"
+                  :class="{icon_mask:true,active:item==ins}">
+                <img
+                  :src="base + 'icon' + item + '.png?111'"
                   class="icon">
-                <label>{{ music.text[item] }}</label>
+                <label>{{ audio.text[item] }}</label>
               </a>
             </div>
           </li>
         </ul>
         <div 
           :class="{voices:true,playvoice:startvoice}">
+          <audio 
+            id="voice" 
+            autobuffer 
+            autoplay >
+            <source src=""/>
+          </audio>
         </div>
+        <a 
+          class="sub"
+          @click="toSub">
+          <img 
+            :src="base+'sub.png'">
+        </a>
+      </div>
+      <div
+        v-show="shareNote"
+        class="share-note"
+        @click="()=>{shareNote=false;}">
+        <img
+        :src="base+'share_note.png'">
       </div>
     </div>
     <div 
@@ -77,7 +118,10 @@ import {
   wechatShareTrack,
   getWxUserInfo,
   createGame,
-  getGame
+  getGame,
+  getParamsMap,
+  getParameter,
+  setParameter
 } from 'services'
 import { normalPages } from '../../mixins/normalPages'
 const IMG_SERVER = 'http://p22vy0aug.bkt.clouddn.com'
@@ -98,44 +142,30 @@ export default {
       startvoice: false,
       people_type: this.$route.query.people_type,
       belong: this.$route.query.utm_campaign,
-      text: '龙虾蛋黄',
-      music: {
-        text: [
-          '',
-          '萝莉',
-          '大叔',
-          '搞怪',
-          '东北',
-          '',
-          '粤语',
-          '龟速',
-          '英语',
-          '机器'
-        ],
-        url: [
-          '',
-          'luoli',
-          'dashu',
-          'gaoguai',
-          'dongbei',
-          '',
-          'yueyu',
-          'guisu',
-          'yingyu',
-          'jiqi'
-        ]
+      text: this.$route.query.cake_name,
+      ins: 0,
+      circle: true,
+      share_audio: this.$route.query.share_voice,
+      audioUrl: null,
+      shareNote: false,
+      popUp: false,
+      music: 'music_open',
+      audio: {
+        text: ['', '萝莉', '大叔', '搞怪', '龟速', '', '机器'],
+        url: ['', 'shaonv', 'dashu', 'gaoguai', 'guisu', '', 'jiqiqi']
       },
       task: {
         left: '11',
         right: '33'
       },
       photo: null,
+      tobtn: 'btn1',
       //微信分享
       wxShareInfoValue: {
         title: '中秋快乐',
-        desc: '我亲手做的月饼，你敢吃么？',
+        desc: '采购中秋月饼，送吃送祝福',
         link: 'http://papi.xingstation.com/api/s/Z6J' + window.location.search,
-        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/zhongqiu/1/share.png',
+        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/zhongqiu/2/share.png',
         success: function() {
           wechatShareTrack()
         }
@@ -151,6 +181,9 @@ export default {
       ) {
         this.handleWechatAuth()
       }
+    }
+    if (this.$route.query.share_voice) {
+      this.playAudio()
     }
   },
   methods: {
@@ -205,11 +238,18 @@ export default {
         }
       })
     },
-    handlePost() {
+    checkPop() {
+      if (this.tobtn == 'share_btn') {
+        this.shareNote = true
+        return
+      }
+      this.popUp = true
+    },
+    handlePost(aUrl) {
       let oid = this.$route.query.utm_source
       let belong = this.belong
       let id = this.$route.query.id
-      let voice = ''
+      let voice = aUrl
       let url = {
         cakeID: 0,
         voice: voice,
@@ -223,14 +263,113 @@ export default {
             '&id=' +
             id +
             '&url=' +
-            Json.stringify(url) +
+            JSON.stringify(url) +
             '&name=&image=&api=json'
         )
         .then(res => {})
         .catch(err => {})
     },
-    playVoice(e) {
-      console.log(e.target)
+    playAudio() {
+      let vshare = document.getElementById('vshare')
+      let voice = document.getElementById('voice')
+      let that = this
+      if (!vshare) {
+        return
+      }
+      //调用 <audio> 元素提供的方法 play()
+      vshare.play()
+      if (vshare.paused) {
+        that.music = 'music_close'
+        that.circle = false
+      }
+      //判斷 WeixinJSBridge 是否存在
+      if (
+        typeof WeixinJSBridge == 'object' &&
+        typeof WeixinJSBridge.invoke == 'function'
+      ) {
+        vshare.play()
+      } else {
+        //監聽客户端抛出事件"WeixinJSBridgeReady"
+        if (document.addEventListener) {
+          document.addEventListener(
+            'WeixinJSBridgeReady',
+            function() {
+              vshare.play()
+            },
+            false
+          )
+        } else if (document.attachEvent) {
+          document.attachEvent('WeixinJSBridgeReady', function() {
+            vshare.play()
+          })
+          document.attachEvent('onWeixinJSBridgeReady', function() {
+            vshare.play()
+          })
+        }
+      }
+
+      //voiceStatu用來記録狀態,使 touchstart 事件只能觸發一次有效,避免與 click 事件衝突
+      var voiceStatu = true
+      //监听 touchstart 事件进而调用 <audio> 元素提供的 play() 方法播放音频
+      document.addEventListener(
+        'touchstart',
+        function(e) {
+          if (voiceStatu) {
+            vshare.play()
+            voiceStatu = false
+          }
+        },
+        false
+      )
+      vshare.onplay = function() {
+        that.music = 'music_open'
+        that.circle = true
+        that.voice.pause()
+      }
+      vshare.onpause = function() {
+        that.music = 'music_close'
+        that.circle = false
+      }
+    },
+    playOrNot() {
+      // 依據 audio 的 paused 属性返回音频是否已暂停來判斷播放還是暫停音频。
+      let vshare = document.getElementById('vshare')
+      if (vshare.paused) {
+        vshare.play()
+      } else {
+        vshare.pause()
+      }
+    },
+    playVoice(item) {
+      this.ins = item
+      this.audioUrl = this.audio.url[item]
+      // 依據 audio 的 paused 属性返回音频是否已暂停來判斷播放還是暫停音频。
+      let vshare = document.getElementById('vshare')
+      vshare.pause()
+      let voice = document.getElementById('voice')
+      voice.src = this.origin + 'mp3/' + this.audio.url[item] + '.mp3'
+      voice.currentTime = 0
+      voice.play()
+      voice.onplay = function() {
+        this.startvoice = true
+      }
+      voice.onpause = function() {
+        this.startvoice = false
+      }
+      voice.onended = function() {
+        this.startvoice = false
+      }
+    },
+    toSub() {
+      this.popUp = false
+      this.tobtn = 'share_btn'
+      this.wxShareInfoValue.link = setParameter(
+        'share_voice',
+        encodeURIComponent(this.audioUrl)
+      )
+      let voice = document.getElementById('voice')
+
+      this.handlePost(voice.url)
     }
   }
 }
@@ -279,36 +418,49 @@ img {
     position: relative;
     z-index: 0;
   }
+  .audio {
+    position: absolute;
+    top: 1%;
+    left: 2.27%;
+    width: 8%;
+    z-index: 9999;
+  }
+  .circle {
+    animation: circle 1s linear infinite;
+  }
   .one {
     position: relative;
     width: 100%;
     overflow-x: hidden;
+    z-index: 9;
 
     .gift {
-      width: 72%;
+      width: 73%;
       position: absolute;
-      top: 26%;
+      top: 25%;
       left: 23%;
       z-index: 9;
     }
     .people {
-      width: 16%;
+      width: 15%;
       position: absolute;
-      top: 53.18%;
+      top: 51.9%;
       left: 28.2%;
       border-radius: 50%;
       z-index: 99;
       transform: rotate(10deg);
     }
     .text {
+      font-family: 'huakang';
       position: absolute;
-      top: 37%;
-      left: 67%;
-      font-size: 5vw;
+      top: 32%;
+      left: 58%;
+      font-size: 7vw;
       color: #9f5b38;
       z-index: 999;
     }
     .btn {
+      display: inline-block;
       width: 50%;
       position: absolute;
       bottom: 14.5%;
@@ -317,7 +469,7 @@ img {
     }
     .pop {
       position: absolute;
-      top: 16%;
+      top: 35.8%;
       left: 50%;
       transform: translateX(-50%);
       width: 78%;
@@ -330,7 +482,6 @@ img {
         width: 100%;
         display: inline-block;
         padding-top: 3%;
-        padding-bottom: 7%;
         z-index: 9;
         li {
           display: inline-block;
@@ -344,23 +495,38 @@ img {
               display: inline-block;
               width: 100%;
               position: relative;
-            }
-            label {
-              position: absolute;
-              left: 50%;
-              transform: translateX(-50%);
-              bottom: -20%;
-              background-image: url('@{base}icon bg.png');
-              background-position: center center;
-              background-size: 100% auto;
-              background-repeat: no-repeat;
-              font-family: 'huakang';
-              font-size: 0.5vw;
-              text-align: center;
-              color: #ffcb4f;
-              width: 60%;
-              letter-spacing: 1px;
-              padding: 5px 0;
+              .icon_mask {
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 9;
+                opacity: 0;
+              }
+              .active {
+                opacity: 1;
+              }
+              .icon {
+                position: relative;
+                z-index: 0;
+              }
+              label {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                bottom: -20%;
+                background-image: url('@{base}iconbg.png');
+                background-position: center center;
+                background-size: 100% auto;
+                background-repeat: no-repeat;
+                font-family: 'huakang';
+                font-size: 0.5vw;
+                text-align: center;
+                color: #ffcb4f;
+                width: 60%;
+                letter-spacing: 1px;
+                padding: 5px 0;
+                z-index: 999;
+              }
             }
           }
           .music-icon {
@@ -372,7 +538,7 @@ img {
         width: 25%;
         height: 25%;
         position: absolute;
-        top: 35%;
+        top: 40%;
         left: 50%;
         transform: translateX(-50%);
         background-image: url('@{base}voice4.png');
@@ -380,14 +546,45 @@ img {
         background-size: 100% auto;
         background-repeat: no-repeat;
         z-index: 99;
+        audio {
+          position: relative;
+          width: 5px;
+          height: 5px;
+          opacity: 0;
+        }
       }
       .playvoice {
         animation: voice 1s linear alternate infinite;
+      }
+      .sub {
+        position: relative;
+        z-index: 9;
+        display: inline-block;
+        width: 53.2%;
+        margin-top: 5%;
+        margin-bottom: 7%;
+      }
+    }
+    .share-note {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 999999;
+      background-color: rgba(0, 0, 0, 0.4);
+      img {
+        width: 65%;
+        margin-left: 15%;
+        margin-top: 10%;
       }
     }
   }
   .two {
     position: relative;
+    z-index: 0;
     .photo {
       width: 57%;
       position: absolute;
@@ -441,6 +638,14 @@ img {
   }
   100% {
     background-image: url('@{base}voice4.png');
+  }
+}
+@keyframes circle {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
 </style>
