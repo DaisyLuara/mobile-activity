@@ -464,13 +464,13 @@ export default {
     top: 50%;
     margin: -49% 0 0 -11%;
     z-index: 66;
-    animation-name: tally;
-    animation-duration: 2.5s;
-    animation-timing-function: linear;
-    animation-delay: 2s;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
-    animation-direction: alternate;
+    animation-name: opacity3, tally;
+    animation-duration: 4s, 1s;
+    animation-timing-function: linear, linear;
+    animation-delay: 0s, 4s;
+    animation-iteration-count: 1, 1;
+    animation-fill-mode: forwards, forwards;
+    animation-direction: alternate, normal;
   }
 }
 @keyframes tally {
@@ -526,6 +526,17 @@ export default {
   }
   100% {
     opacity: 0;
+  }
+}
+@keyframes opacity3 {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
   }
 }
 </style>
