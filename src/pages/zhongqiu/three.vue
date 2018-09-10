@@ -2,25 +2,57 @@
   <div 
     :style="style.root"
     class="content">
-    <img 
-      :src="base+'frame.png'"
-      class="cover">
     <div 
-      id="vdiv">
-      <video 
-        :id="video" 
-        webkit-playsinline="true" 
-        playsinline="true" 
-        x-webkit-airplay="true" 
-        controls 
-        preload="auto"
-        width="100%" 
-        height="100%">
-        <source 
-          :src="video" 
-          type="video/mp4">
-        您的浏览器不支持video标签.
-          </video>
+      class="main">
+      <img 
+        :src="base+'frame.png'"
+        class="cover">
+      <div 
+        :class="{audio:true,circle:circle}"
+        @click="playOrNot">
+        <img
+          :src="base + music + '.png'">
+        <audio 
+          id="voice" 
+          loop
+          autobuffer 
+          autoplay 
+          hidden>
+          <source :src="origin + 'mp3/jiqiqi.mp3'"/>
+        </audio>
+      </div>
+      <div 
+        v-show="vshow"
+        class="showing">
+        <video 
+          id="video" 
+          webkit-playsinline="true" 
+          playsinline="true" 
+          x-webkit-airplay="true" 
+          x5-video-player-type="h5"
+          preload="auto"
+          qb-video-float-mode="true"
+          style="width: 100%; height:100%; position: absolute; left: 0px; top: 0px;">
+          <source 
+            :src="video" 
+            type="video/mp4">
+          您的浏览器不支持video标签.
+        </video>
+      </div>
+      <img
+        v-show="bgshow"
+        :src="base + 'vbg.png'+this.$qiniuCompress()"
+        class="vbg">
+      <div
+        class="playing">
+        <a 
+          v-show="Boolean(video)"
+          class="vbtn"
+          @click="playVideo">
+          <img
+            :src="base + v_status+'.png'">
+        </a>
+      </div>
     </div>
     <div 
       class="task-group">
@@ -63,7 +95,13 @@ export default {
         left: '11',
         right: '22'
       },
-      video: null,
+      music: 'music_open',
+      circle: true,
+      vshow: false,
+      v_status: 'play',
+      video:
+        'http://cdn.exe666.com/1007/video/WhoTakeMoonCake_235_96_1492926959345.mp4',
+      bgshow: true,
       //微信分享
       wxShareInfoValue: {
         title: '中秋快乐',
@@ -86,7 +124,7 @@ export default {
         this.handleWechatAuth()
       }
     }
-    // this.getInfoById()
+    this.playAudio()
   },
   methods: {
     handleWechatAuth() {
@@ -108,7 +146,7 @@ export default {
       getInfoById(id)
         .then(res => {
           this.video = res.url
-          this.playVideo(res.url)
+          this.handlePost()
         })
         .catch(err => {
           console.log(err)
@@ -153,71 +191,127 @@ export default {
     },
     handlePost() {
       let oid = this.$route.query.utm_source
-      let belong = this.belong
       let id = this.$route.query.id
-      let voice = ''
       let url = {
         cakeID: 0,
-        voice: voice,
-        people_type: this.people
+        video: this.video
       }
       this.$http
         .post(
           'http://exelook.com:8010/pushdiv/?oid=' +
             oid +
-            '&belong=WhoTakeMoonCake' +
+            '&belong=' +
             '&id=' +
             id +
             '&url=' +
-            Json.stringify(url) +
+            JSON.stringify(url) +
             '&name=&image=&api=json'
         )
         .then(res => {})
         .catch(err => {})
     },
-    playVideo(url) {
-      import('pixi.js').then(PIXI => {
-        let app = new PIXI.Application(window.innerWidth, window.innerHeight, {
-          transparent: true
-        })
-        document.getElementById('vdiv').appendChild(app.view)
-        app.renderer.autoResize = true
-        app.renderer.resize(window.innerWidth, window.innerHeight)
-        app.view.style.position = 'absolute'
-        app.view.style.top = '5%'
-        app.view.style.left = '0%'
-        app.view.style.zIndex = '0'
-        let button = new PIXI.Graphics()
-          .beginFill(0x0, 0.5)
-          .drawRoundedRect(0, 0, 100, 100, 10)
-          .endFill()
-          .beginFill(0xffffff)
-          .moveTo(36, 30)
-          .lineTo(36, 70)
-          .lineTo(70, 50)
-        button.x = (app.screen.width - button.width) / 2
-        button.y = (app.screen.height - button.height) / 2
-        button.interactive = true
-        button.buttonMode = true
+    playVideo() {
+      this.vshow = true
+      let video = document.getElementById('video')
+      let that = this
+      that.bgshow = false
+      video.load()
+      video.play()
 
-        let texture = PIXI.Texture.fromVideo(url)
-        //'http://cdn.exe666.com/1007/video/WhoTakeMoonCake_235_96_1492926959345.mp4'
-        let videoSprite = new PIXI.Sprite(texture)
-        videoSprite.width = app.screen.width
-        videoSprite.height = app.screen.height
-        app.stage.addChild(videoSprite)
-        button.on('pointertap', function() {
-          app.stop()
-        })
-        app.stage.addChild(button)
-      })
+      video.onplay = function() {
+        video.currentTime = 0
+        that.vshow = true
+        that.v_status = 'pause'
+      }
+      video.onpause = function() {
+        that.bgshow = true
+        that.vshow = false
+        that.v_status = 'play'
+      }
+      video.onended = function() {
+        that.bgshow = true
+        that.vshow = false
+        that.v_status = 'play'
+      }
+      if (that.v_status == 'pause') {
+        video.pause()
+        return
+      }
+    },
+    playAudio() {
+      let voice = document.getElementById('voice')
+      let that = this
+      if (!voice) {
+        return
+      }
+      //调用 <audio> 元素提供的方法 play()
+      voice.play()
+      if (voice.paused) {
+        that.music = 'music_close'
+        that.circle = false
+      }
+      //判斷 WeixinJSBridge 是否存在
+      if (
+        typeof WeixinJSBridge == 'object' &&
+        typeof WeixinJSBridge.invoke == 'function'
+      ) {
+        voice.play()
+      } else {
+        //監聽客户端抛出事件"WeixinJSBridgeReady"
+        if (document.addEventListener) {
+          document.addEventListener(
+            'WeixinJSBridgeReady',
+            function() {
+              voice.play()
+            },
+            false
+          )
+        } else if (document.attachEvent) {
+          document.attachEvent('WeixinJSBridgeReady', function() {
+            voice.play()
+          })
+          document.attachEvent('onWeixinJSBridgeReady', function() {
+            voice.play()
+          })
+        }
+      }
+
+      //voiceStatu用來記録狀態,使 touchstart 事件只能觸發一次有效,避免與 click 事件衝突
+      var voiceStatu = true
+      //监听 touchstart 事件进而调用 <audio> 元素提供的 play() 方法播放音频
+      document.addEventListener(
+        'touchstart',
+        function(e) {
+          if (voiceStatu) {
+            voice.play()
+            voiceStatu = false
+          }
+        },
+        false
+      )
+      voice.onplay = function() {
+        that.music = 'music_open'
+        that.circle = true
+      }
+      voice.onpause = function() {
+        that.music = 'music_close'
+        that.circle = false
+      }
+    },
+    playOrNot() {
+      // 依據 audio 的 paused 属性返回音频是否已暂停來判斷播放還是暫停音频。
+      let voice = document.getElementById('voice')
+      if (voice.paused) {
+        voice.play()
+      } else {
+        voice.pause()
+      }
     }
   }
 }
 </script>
 <style lang="less" scoped>
 @base: 'http://p22vy0aug.bkt.clouddn.com/image/zhongqiu/3/';
-
 html,
 body {
   width: 100%;
@@ -243,11 +337,64 @@ img {
   background-color: #281765;
   position: relative;
   background-color: #69339b;
-  .cover {
-    width: 100%;
+  .main {
     position: relative;
-    z-index: 999;
+    .cover {
+      width: 100%;
+      position: relative;
+      z-index: 999;
+    }
+    .audio {
+      position: absolute;
+      top: 16%;
+      left: 2.27%;
+      width: 8%;
+      z-index: 9999;
+    }
+    .circle {
+      animation: circle 1s linear infinite;
+    }
+    .showing {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      video {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: 100% auto;
+      }
+    }
+    .vbg {
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 9;
+    }
+    .playing {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 99;
+      background: rgba(0, 0, 0, 0.2);
+      .vbtn {
+        width: 80px;
+        height: 80px;
+        display: inline-block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
   }
+
   .task-group {
     width: 100%;
     overflow: hidden;
@@ -264,6 +411,14 @@ img {
       float: right;
       margin-right: 3%;
     }
+  }
+}
+@keyframes circle {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
 </style>
