@@ -123,7 +123,7 @@ const Date201809 = [
   {
     path: 'hi_play_century',
     location: 'hiPlay/indexCentury',
-    name: 'save_moonCake',
+    name: 'hi_play_century',
     meta: {
       title: '嗨玩世纪汇',
       author: 'joy',
