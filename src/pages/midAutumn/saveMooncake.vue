@@ -62,9 +62,9 @@
       :src="baseUrl + 'tag010.png'+ this.$qiniuCompress()"
       class="tag10">
     <div class="photo">
-      <img 
+      <!-- <img 
         :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
-        class="frame">
+        class="frame"> -->
       <video 
         id="video"
         class="photo-real"
@@ -131,8 +131,8 @@ export default {
         'back.png',
         'cloud01.png',
         'cloud02.png',
-        'frame.png',
         'moon.png',
+        //"frame.png",
         'qiantong.png',
         'tag01.png',
         'tag02.png',
@@ -168,7 +168,7 @@ export default {
       let that = this
       setTimeout(function() {
         that.shade = false
-      }, 5800)
+      }, 3000)
       // do next
     })
   },
@@ -350,7 +350,7 @@ export default {
       transform: translate(-50%, -50%);
       z-index: 100;
       animation-name: opacity1;
-      animation-duration: 2s;
+      animation-duration: 1s;
       animation-timing-function: linear;
       animation-iteration-count: 1;
       animation-fill-mode: forwards;
@@ -363,9 +363,9 @@ export default {
       top: 58%;
       z-index: 100;
       animation-name: clound1;
-      animation-duration: 2s;
+      animation-duration: 1s;
       animation-timing-function: linear;
-      animation-delay: 5s;
+      animation-delay: 2s;
       animation-iteration-count: 1;
       animation-fill-mode: forwards;
       animation-direction: alternate;
@@ -377,9 +377,9 @@ export default {
       top: 28%;
       z-index: 100;
       animation-name: clound2;
-      animation-duration: 2s;
+      animation-duration: 1s;
       animation-timing-function: linear;
-      animation-delay: 5s;
+      animation-delay: 2s;
       animation-iteration-count: 1;
       animation-fill-mode: forwards;
       animation-direction: alternate;
@@ -393,9 +393,9 @@ export default {
       z-index: 100;
       opacity: 0;
       animation-name: opacity2;
-      animation-duration: 4s;
+      animation-duration: 2.5s;
       animation-timing-function: linear;
-      animation-delay: 2s;
+      animation-delay: 0.8s;
       animation-iteration-count: 1;
       animation-fill-mode: forwards;
       animation-direction: alternate;
@@ -420,13 +420,13 @@ export default {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -53%);
-    .frame {
-      width: 77%;
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-    }
+    // .frame {
+    //   width: 77%;
+    //   position: absolute;
+    //   left: 50%;
+    //   top: 50%;
+    //   transform: translate(-50%, -50%);
+    // }
     .photo-real {
       width: 90%;
       height: 96%;
@@ -465,9 +465,9 @@ export default {
     margin: -49% 0 0 -11%;
     z-index: 66;
     animation-name: opacity3, tally;
-    animation-duration: 4s, 1s;
+    animation-duration: 3s, 0.5s;
     animation-timing-function: linear, linear;
-    animation-delay: 0s, 4s;
+    animation-delay: 0s, 3s;
     animation-iteration-count: 1, 1;
     animation-fill-mode: forwards, forwards;
     animation-direction: alternate, normal;
