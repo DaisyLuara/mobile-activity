@@ -31,46 +31,43 @@
       <img 
         :src="baseUrl + 'grounding.png'+ this.$qiniuCompress()"
         class="grounding">
-      <!-- <img 
-        :src="baseUrl + '1111.png'+ this.$qiniuCompress()"
-        class="photo-real"> -->
+      <!-- http://cdn.exe666.com/1007/video/MidautumnSkyLight_112_411_1492921319755.mp4 -->
       <video 
         id="video"
         class="photo-real"
         webkit-playsinline="true" 
         playsinline="true" 
         x-webkit-airplay="true" 
-        controlslist="nodownload" 
-        controls 
         preload="auto"
         width="100%" 
         height="100%">
         <source 
-          src="http://cdn.exe666.com/1007/video/MidautumnSkyLight_112_411_1492921319755.mp4" 
+          v-if="photo !== null" 
+          :src="photo" 
           type="video/mp4">
         您的浏览器不支持video标签.
       </video>
       <img 
         v-show="buttonshow"
-        :src="baseUrl + 'play.png'+ this.$qiniuCompress()"
+        :src="baseUrl + 'play2.png'+ this.$qiniuCompress()"
         class="play"
         @click="playVideo()">
 
     </div>
     <div class="bottom">
       <img 
-        :src="baseUrl + 'tip.png'+ this.$qiniuCompress()"
+        :src="baseUrl + 'tip2.png'+ this.$qiniuCompress()"
         class="tip">
     </div>
   </div>
 </template>
 
 <script>
-import { wechatShareTrack } from 'services'
-import { normalPages } from '../../mixins/normalPages'
+import { Cookies, getInfoById, getWxUserInfo, wechatShareTrack } from 'services'
+import { onlyWechatShare } from '../../mixins/onlyWechatShare'
 const cdnUrl = process.env.CDN_URL
 export default {
-  mixins: [normalPages],
+  mixins: [onlyWechatShare],
   data() {
     return {
       baseUrl: cdnUrl + '/fe/marketing/img/mid_autumn/',
@@ -90,12 +87,12 @@ export default {
       shade: true,
       playNow: null,
       buttonshow: true,
-      photo: '',
+      photo: null,
       wxShareInfoValue: {
-        title: '冰力十足 酷爽一夏',
-        desc: '看！卖萌的企鹅',
-        //link: 'http://papi.xingstation.com/api/s/o2j' + window.location.search,
-        imgUrl: cdnUrl + '/fe/marketing/img/mid_autumn/icon.jpg',
+        title: '中秋天灯',
+        desc: '嫦娥：天灯已收到，感谢',
+        link: 'http://papi.xingstation.com/api/s/31M' + window.location.search,
+        imgUrl: cdnUrl + '/fe/marketing/img/mid_autumn/icon.jpeg',
         success: () => {
           wechatShareTrack()
         }
@@ -105,14 +102,26 @@ export default {
   created() {},
   mounted() {
     this.randomImg()
-
+    this.getInfoById()
     let that = this
     setTimeout(function() {
       that.shade = false
     }, 5800)
   },
   methods: {
-    //随机
+    getInfoById() {
+      let id = this.$route.query.id
+      getInfoById(id)
+        .then(res => {
+          console.log(res)
+          this.photo = res.url
+          console.log(this.photo)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    //文字随机出现
     randomImg() {
       let that = this
       let num = Math.floor(Math.random() * 3)
@@ -129,7 +138,6 @@ export default {
     },
     //播放视频
     playVideo() {
-      alert('11111')
       let that = this
       this.playNow = document.getElementById('video')
       this.playNow.play()
@@ -158,6 +166,9 @@ export default {
   overflow: hidden;
   .shade-contain {
     width: 100%;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    pointer-events: none;
     .shade {
       width: 100%;
       height: 100%;
@@ -221,6 +232,9 @@ export default {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -53%);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    pointer-events: none;
     .grounding {
       width: 90%;
     }
@@ -233,11 +247,13 @@ export default {
       transform: translate(-50%, 0);
     }
     .play {
-      width: 40%;
+      width: 24%;
       position: absolute;
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
+      user-select: auto;
+      pointer-events: auto;
     }
   }
   .bottom {
@@ -247,6 +263,9 @@ export default {
     left: 50%;
     bottom: 1%;
     transform: translate(-50%, 0%);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    pointer-events: none;
     .tip {
       width: 55%;
     }

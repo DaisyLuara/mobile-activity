@@ -121,7 +121,7 @@ export default {
           height: window.innerWidth * 1050 / 750 + 'px'
         }
       },
-      photo: '',
+      photo: null,
       hammerhigh: this.$route.query.hammerhigh,
       userId: null,
       score: this.$route.query.score,

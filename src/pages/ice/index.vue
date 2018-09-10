@@ -66,7 +66,7 @@ export default {
           height: this.$innerHeight() + 'px'
         }
       },
-      photo: '',
+      photo: null,
       shade: true,
       realContent: false,
       hint3: false,

@@ -69,7 +69,7 @@ export default {
         }
       },
       screenWidth: document.body.clientWidth,
-      photo: '',
+      photo: null,
       pass: {
         firstPass: true,
         secondPass: true,
