@@ -108,6 +108,28 @@ const Date201809 = [
       desc: '玩转世纪'
     },
     isAbandoned: false
+  },
+  {
+    path: 'save_moonCake',
+    location: 'midAutumn/saveMooncake',
+    name: 'save_moonCake',
+    meta: {
+      title: '拯救月饼',
+      author: 'xj1012',
+      desc: '拯救月饼'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'hi_play_century',
+    location: 'hiPlay/indexCentury',
+    name: 'hi_play_century',
+    meta: {
+      title: '嗨玩世纪汇',
+      author: 'joy',
+      desc: '嗨玩世纪汇'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201809
