@@ -221,7 +221,7 @@ export default {
         last_x,
         last_y,
         last_z = 0,
-        SHAKE_THRESHOLD = 3000,
+        SHAKE_THRESHOLD = 6000,
         that = this
       if (window.DeviceMotionEvent) {
         // 移动浏览器支持运动传感事件
