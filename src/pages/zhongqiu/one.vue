@@ -229,7 +229,7 @@ export default {
           '&id=' +
           id +
           '&url=' +
-          Json.stringify(url) +
+          JSON.stringify(url) +
           '&name=&image=&api=json'
       )
       .then(res => {})
