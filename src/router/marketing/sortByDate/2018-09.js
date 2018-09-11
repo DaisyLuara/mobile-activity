@@ -97,6 +97,17 @@ const Date201809 = [
       desc: '中秋变仙记'
     },
     isAbandoned: false
+  },
+  {
+    path: 'dino',
+    location: 'goodboy/dino',
+    name: 'dino',
+    meta: {
+      title: 'happy dino 荣誉出品',
+      author: 'lipan',
+      desc: '好孩子happy dino'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201809
