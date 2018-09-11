@@ -105,7 +105,7 @@ const Date201809 = [
     meta: {
       title: 'happy dino 荣誉出品',
       author: 'lipan',
-      desc: '好孩子happy dino'
+      desc: '好孩子-疯狂实验室'
     },
     isAbandoned: false
   }
