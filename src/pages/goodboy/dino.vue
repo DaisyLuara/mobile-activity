@@ -14,7 +14,7 @@
           class="photo">
       </div>
       <span
-        class="score">{{score}}</span>
+        class="score">{{ score }}</span>
     </div>
   </div>
 </template>

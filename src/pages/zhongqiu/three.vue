@@ -18,7 +18,7 @@
           autobuffer 
           autoplay 
           hidden>
-          <source :src="origin + 'mp3/jiqiqi.mp3'"/>
+          <source :src="origin + 'mp3/jiqiqi.mp3'">
         </audio>
       </div>
       <div 

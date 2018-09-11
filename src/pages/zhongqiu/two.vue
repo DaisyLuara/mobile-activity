@@ -14,7 +14,7 @@
         autobuffer 
         autoplay 
         hidden>
-        <source :src="origin + 'mp3/' + share_audio + '.mp3'"/>
+        <source :src="origin + 'mp3/' + share_audio + '.mp3'">
       </audio>
     </div>
     <div 
@@ -68,7 +68,7 @@
             id="voice" 
             autobuffer 
             autoplay >
-            <source src=""/>
+            <source src="">
           </audio>
         </div>
         <a 
@@ -83,7 +83,7 @@
         class="share-note"
         @click="()=>{shareNote=false;}">
         <img
-        :src="base+'share_note.png'">
+          :src="base+'share_note.png'">
       </div>
     </div>
     <div 
