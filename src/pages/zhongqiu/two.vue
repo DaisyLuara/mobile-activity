@@ -57,7 +57,11 @@
                 <img
                   :src="base + 'icon' + item + '.png?111'"
                   class="icon">
-                <label>{{ audio.text[item] }}</label>
+                <label>
+                  <img
+                  :src="base + 'iconbg.png?111'">
+                  <span>{{ audio.text[item] }}</span>
+                </label>
               </a>
             </div>
           </li>
@@ -100,10 +104,10 @@
       <div 
         class="task-group">
         <img 
-          :src="origin + 'proj/' + task.left + '.png'"
+          :src="origin + 'proj/' + task.left + '.png?1212'"
           class="left">
         <img 
-          :src="origin +'proj/' + task.right + '.png'"
+          :src="origin +'proj/' + task.right + '.png?1212'"
           class="right">
       </div>
     </div>
@@ -342,6 +346,7 @@ export default {
     },
     playVoice(item) {
       this.ins = item
+      let that = this
       this.audioUrl = this.audio.url[item]
       // 依據 audio 的 paused 属性返回音频是否已暂停來判斷播放還是暫停音频。
       let vshare = document.getElementById('vshare')
@@ -351,13 +356,13 @@ export default {
       voice.currentTime = 0
       voice.play()
       voice.onplay = function() {
-        this.startvoice = true
+        that.startvoice = true
       }
       voice.onpause = function() {
-        this.startvoice = false
+        that.startvoice = false
       }
       voice.onended = function() {
-        this.startvoice = false
+        that.startvoice = false
       }
     },
     toSub() {
@@ -445,7 +450,7 @@ img {
       width: 15%;
       position: absolute;
       top: 51.9%;
-      left: 28.2%;
+      left: 28.5%;
       border-radius: 50%;
       z-index: 99;
       transform: rotate(10deg);
@@ -514,18 +519,27 @@ img {
                 left: 50%;
                 transform: translateX(-50%);
                 bottom: -20%;
-                background-image: url('@{base}iconbg.png');
-                background-position: center center;
-                background-size: 100% auto;
-                background-repeat: no-repeat;
-                font-family: 'huakang';
-                font-size: 0.5vw;
+                // background-image: url('@{base}iconbg.png');
+                // background-position: center center;
+                // background-size: 100% auto;
+                // background-repeat: no-repeat;
                 text-align: center;
                 color: #ffcb4f;
-                width: 60%;
-                letter-spacing: 1px;
-                padding: 5px 0;
+                width: 70%;
                 z-index: 999;
+                img {
+                  position: relative;
+                }
+                span {
+                  width: 100%;
+                  position: absolute;
+                  top: 50%;
+                  left: 50%;
+                  transform: translate(-50%, -50%);
+                  font-family: 'huakang';
+                  font-size: 0.4vw;
+                  letter-spacing: 1px;
+                }
               }
             }
           }

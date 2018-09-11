@@ -57,10 +57,10 @@
     <div 
       class="task-group">
       <img 
-        :src="origin + 'proj/' + task.left + '.png'"
+        :src="origin + 'proj/' + task.left + '.png?1212'"
         class="left">
       <img 
-        :src="origin +'proj/' + task.right + '.png'"
+        :src="origin +'proj/' + task.right + '.png?1212'"
         class="right">
     </div>
   </div>
@@ -101,8 +101,8 @@ export default {
       circle: true,
       vshow: false,
       v_status: 'play',
-      video:
-        'http://cdn.exe666.com/1007/video/WhoTakeMoonCake_235_96_1492926959345.mp4',
+      video: null,
+      //'http://cdn.exe666.com/1007/video/WhoTakeMoonCake_235_96_1492926959345.mp4',
       bgshow: true,
       //微信分享
       wxShareInfoValue: {
@@ -127,6 +127,7 @@ export default {
       }
     }
     this.playAudio()
+    this.getInfoById()
   },
   methods: {
     handleWechatAuth() {
