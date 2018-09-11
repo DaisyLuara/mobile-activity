@@ -406,12 +406,18 @@ export default {
     position: absolute;
     right: 1%;
     bottom: 6%;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    pointer-events: none;
   }
   .text {
     width: 58%;
     position: absolute;
     left: 16%;
     bottom: 1.6%;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    pointer-events: none;
   }
   .photo {
     width: 100%;
@@ -420,12 +426,18 @@ export default {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -53%);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    pointer-events: none;
     .frame {
       width: 77%;
       position: absolute;
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      pointer-events: none;
     }
     .photo-real {
       width: 90%;
@@ -435,6 +447,9 @@ export default {
       top: 0%;
       transform: translate(-50%, 0);
       z-index: 9;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      pointer-events: none;
     }
     .play {
       width: 24%;
@@ -445,6 +460,8 @@ export default {
       user-select: auto;
       pointer-events: auto;
       z-index: 10;
+      user-select: auto;
+      pointer-events: auto;
     }
   }
   .tag01,
@@ -470,6 +487,9 @@ export default {
     animation-iteration-count: 1, 1;
     animation-fill-mode: forwards, forwards;
     animation-direction: alternate, normal;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    pointer-events: none;
   }
 }
 @keyframes bounceIn {
