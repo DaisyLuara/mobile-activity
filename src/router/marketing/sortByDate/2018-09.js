@@ -99,6 +99,17 @@ const Date201809 = [
     isAbandoned: false
   },
   {
+    path: 'dino',
+    location: 'goodboy/dino',
+    name: 'dino',
+    meta: {
+      title: 'happy dino 荣誉出品',
+      author: 'lipan',
+      desc: '好孩子-疯狂实验室'
+    },
+    isAbandoned: false
+  },
+  {
     path: 'play_century',
     location: 'playCentury/index',
     name: 'play_century',

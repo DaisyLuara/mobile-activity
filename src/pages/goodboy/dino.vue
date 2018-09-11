@@ -2,36 +2,19 @@
   <div 
     :style="style.root"
     class="content">
-    <div 
-      class="picture">
-      <img
-        :src="base + 'frame.png'+ this.$qiniuCompress()"
-        class="frame">
-      <img
-        :src="photo + this.$qiniuCompress()"
-        class="photo">
-    </div>
-    <img
-      :src="base+'save.png'"
-      class="save">
     <div
-      class="coup">
+      class="main">
       <img
-        v-show="Boolean(score>=8000)"
-        :src="base+'coupon00.png'"
-        class="coupon0">
-      <img
-        v-show="Boolean(score>=8000)"
-        :src="base+'rule0.png'">
-      <a 
-        :href="link.link1"
-        class="link1">
+        :src="base + 'frame.png'"
+        class="frame">
+      <div 
+        class="picture">
         <img
-          :src="base+'coupon1.png'">
-      </a>
-      <img
-        :src="base+'rule1.png'"
-        class="rule">
+          :src="photo + this.$qiniuCompress()"
+          class="photo">
+      </div>
+      <span
+        class="score">{{ score }}</span>
     </div>
   </div>
 </template>
@@ -44,7 +27,7 @@ import {
   userGame
 } from 'services'
 import { normalPages } from '../../mixins/normalPages'
-const IMG_SERVER = 'http://p22vy0aug.bkt.clouddn.com'
+const IMAGE_SERVER = 'http://p22vy0aug.bkt.clouddn.com/image/'
 export default {
   mixins: [normalPages],
   data() {
@@ -54,23 +37,15 @@ export default {
           'min-height': this.$innerHeight() + 'px'
         }
       },
-      base: IMG_SERVER + '/image/sfmoon/',
+      base: IMAGE_SERVER + 'goodboy/dino/',
       photo: null,
-      score: Number(this.$route.query.score),
-      userId: null,
-      link: {
-        link1: 'http://papi.xingstation.com/api/s/5yB'
-        //短链'http://sfreg.oramage.com'
-      },
-      //分享
+      score: this.$route.query.score,
+      //微信分享
       wxShareInfoValue: {
-        title: '中秋豪礼 味你而来',
-        desc: '中秋豪礼 味你而来',
-        link: 'http://papi.xingstation.com/api/s/W6J' + window.location.search,
-        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/sfmoon/share.jpg',
-        success: function() {
-          wechatShareTrack()
-        }
+        title: '限时活动丨PK游戏之王赢大奖',
+        desc: '点击领取你的游戏结果',
+        link: 'http://papi.xingstation.com/api/s/0Rv' + window.location.search,
+        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/goodboy/dino/share.png'
       }
     }
   },
@@ -121,7 +96,11 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@base: 'http://p22vy0aug.bkt.clouddn.com/image/sfmoon/';
+@font-face {
+  font-family: 'mianhuatang';
+  src: url('http://p22vy0aug.bkt.clouddn.com/font/mianhuatang.ttf');
+}
+@base: 'http://p22vy0aug.bkt.clouddn.com/image/goodboy/dino/';
 html,
 body {
   width: 100%;
@@ -132,62 +111,66 @@ body {
 }
 * {
   padding: 0;
-  margin: 0 auto;
-  text-align: center;
+  margin: 0;
   font-size: 0;
+  text-align: center;
 }
 img {
+  max-width: 100%;
   pointer-events: none;
   user-select: none;
 }
 .content {
   width: 100%;
+  position: relative;
   overflow-x: hidden;
+  background-color: #ee9616;
   background-image: url('@{base}bg.png');
-  background-position: center top;
-  background-size: 100% 100%;
+  background-position: center bottom;
+  background-size: 100% auto;
   background-repeat: no-repeat;
-  .picture {
-    width: 73%;
-    margin-top: 7%;
+  .bg {
+    width: 100%;
     position: relative;
+    z-index: 0;
+  }
+  .main {
+    width: 100%;
+    position: relative;
+    z-index: 9;
+    margin-top: 2%;
+    margin-bottom: 64%;
     .frame {
       position: relative;
-      width: 100%;
       z-index: 0;
+      width: 94%;
     }
-    .photo {
-      width: 93%;
-      pointer-events: auto;
-      user-select: auto;
+    .picture {
+      width: 34vw;
+      height: 34vw;
       position: absolute;
-      top: 1.8%;
+      top: 11.5%;
       left: 50%;
       transform: translateX(-50%);
-      z-index: 9;
+      border: solid 10px #fff;
+      border-radius: 50%;
+      overflow: hidden;
+      z-index: 99;
+      .photo {
+        vertical-align: middle;
+        object-fit: contain;
+        object-position: center;
+        margin: 0 auto;
+      }
     }
-  }
-  .save {
-    width: 65.5%;
-    margin-top: 5%;
-    margin-bottom: 2%;
-  }
-  .coup {
-    width: 76%;
-    img {
-      max-width: 100%;
-    }
-    .coupon0 {
-      margin-bottom: 5%;
-    }
-    .link1 {
-      width: 100%;
-      display: inline-block;
-      margin-top: 2%;
-    }
-    .rule {
-      margin-top: 5%;
-      margin-bottom: 8%;
+    .score {
+      position: absolute;
+      top: 58%;
+      left: 51%;
+      color: #fff;
+      font-size: 15vw;
+      font-family: 'mianhuatang';
+      z-index: 99;
     }
   }
 }
