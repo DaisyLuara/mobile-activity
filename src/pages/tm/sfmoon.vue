@@ -97,7 +97,15 @@ export default {
         window.location.href = redirct_url
       } else {
         this.userId = Cookies.get('user_id')
+        this.getPhoto()
+      }
+    },
+    getPhoto() {
+      let timer = requestAnimationFrame(this.getPhoto)
+      if (this.photo) {
+        cancelAnimationFrame(timer)
         this.userGame()
+        return
       }
     },
     userGame() {

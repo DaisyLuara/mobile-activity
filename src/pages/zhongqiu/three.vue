@@ -18,7 +18,7 @@
           autobuffer 
           autoplay 
           hidden>
-          <source :src="origin + 'mp3/jiqiqi.mp3'">
+          <source :src="origin + 'mp3/'+m_name[m_num]+'.mp3'">
         </audio>
       </div>
       <div 
@@ -95,6 +95,8 @@ export default {
         left: '11',
         right: '22'
       },
+      m_num: Math.round(Math.random() * 4),
+      m_name: ['shaonv', 'dashu', 'gaoguai', 'guisu', 'jiqiqi'],
       music: 'music_open',
       circle: true,
       vshow: false,
