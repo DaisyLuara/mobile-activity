@@ -36,7 +36,13 @@
   </div>
 </template>
 <script>
-import { $wechat, wechatShareTrack } from 'services'
+import {
+  $wechat,
+  wechatShareTrack,
+  isInWechat,
+  Cookies,
+  userGame
+} from 'services'
 import { normalPages } from '../../mixins/normalPages'
 const IMG_SERVER = 'http://p22vy0aug.bkt.clouddn.com'
 export default {

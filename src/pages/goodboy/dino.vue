@@ -19,7 +19,13 @@
   </div>
 </template>
 <script>
-import { $wechat, wechatShareTrack } from 'services'
+import {
+  $wechat,
+  wechatShareTrack,
+  isInWechat,
+  Cookies,
+  userGame
+} from 'services'
 import { normalPages } from '../../mixins/normalPages'
 const IMAGE_SERVER = 'http://p22vy0aug.bkt.clouddn.com/image/'
 export default {
@@ -43,8 +49,50 @@ export default {
       }
     }
   },
-  mounted() {},
-  methods: {}
+  mounted() {
+    //微信授权
+    if (isInWechat() === true) {
+      if (
+        process.env.NODE_ENV === 'production' ||
+        process.env.NODE_ENV === 'testing'
+      ) {
+        this.handleWechatAuth()
+      }
+    }
+  },
+  methods: {
+    handleWechatAuth() {
+      if (Cookies.get('user_id') === null) {
+        let base_url = encodeURIComponent(String(window.location.href))
+        let redirct_url =
+          process.env.WX_API +
+          '/wx/officialAccount/oauth?url=' +
+          base_url +
+          '&scope=snsapi_base'
+        window.location.href = redirct_url
+      } else {
+        this.userId = Cookies.get('user_id')
+        this.userGame()
+      }
+    },
+    userGame() {
+      let args = {
+        belong: this.$route.query.utm_campaign,
+        image_url: this.photo,
+        score: this.$route.query.score,
+        qiniu_id: this.$route.query.id
+      }
+      userGame(args, this.userId)
+        .then(res => {
+          if (res.success) {
+            console.log(res)
+          }
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    }
+  }
 }
 </script>
 <style lang="less" scoped>
