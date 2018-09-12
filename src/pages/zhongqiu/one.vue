@@ -171,9 +171,6 @@ export default {
         getWxUserInfo()
           .then(r => {
             this.bing.headImgUrl = r.data.headimgurl
-            alert('headImgUrl')
-            alert(this.bing.headImgUrl)
-            alert(r)
           })
           .catch(err => {
             console.log(err)
