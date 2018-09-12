@@ -128,6 +128,7 @@ import {
   setParameter
 } from 'services'
 import { normalPages } from '../../mixins/normalPages'
+// import 'animate.css'
 const IMG_SERVER = 'http://p22vy0aug.bkt.clouddn.com'
 export default {
   mixins: [normalPages],
@@ -260,7 +261,7 @@ export default {
         people_type: this.people
       }
       this.$http
-        .post(
+        .get(
           'http://exelook.com:8010/pushdiv/?oid=' +
             oid +
             '&belong=WhoTakeMoonCake' +
@@ -469,8 +470,8 @@ img {
       width: 50%;
       position: absolute;
       bottom: 14.5%;
-      left: 50%;
-      transform: translateX(-50%);
+      left: 25%;
+      animation: toscale 0.8s linear infinite alternate;
     }
     .pop {
       position: absolute;
@@ -660,6 +661,14 @@ img {
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+@keyframes toscale {
+  0% {
+    transform: scale(0.7);
+  }
+  100% {
+    transform: scale(1);
   }
 }
 </style>

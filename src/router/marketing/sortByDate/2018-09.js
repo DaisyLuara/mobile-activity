@@ -143,6 +143,17 @@ const Date201809 = [
     isAbandoned: false
   },
   {
+    path: 'kaixue',
+    location: 'sea/kaixue',
+    name: 'kaixue',
+    meta: {
+      title: '开学季',
+      author: 'lipan',
+      desc: '农场物语-开学季'
+    },
+    isAbandoned: false
+  },
+  {
     path: 'dry_lazy',
     location: 'dryLazy/dryLazy',
     name: 'dry_lazy',
