@@ -195,23 +195,23 @@ export default {
     handlePost() {
       let oid = this.$route.query.utm_source
       let id = this.$route.query.id
-      let url = {
-        cakeID: 0,
-        video: this.video
-      }
+      let url =
+        'http://exelook.com:8010/pushdiv/?oid=' +
+        oid +
+        '&belong&id=' +
+        id +
+        "&url={'cakeID':0,'video':" +
+        this.video +
+        '}&name&image&api=json'
+      console.log(url)
       this.$http
-        .get(
-          'http://exelook.com:8010/pushdiv/?oid=' +
-            oid +
-            '&belong=' +
-            '&id=' +
-            id +
-            '&url=' +
-            JSON.stringify(url) +
-            '&name=&image=&api=json'
-        )
-        .then(res => {})
-        .catch(err => {})
+        .get(url)
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
     playVideo() {
       this.vshow = true
