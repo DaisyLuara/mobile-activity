@@ -46,8 +46,8 @@ export default {
       photo: null,
       iphoneX: false,
       wxShareInfoValue: {
-        title: '冰力十足 酷爽一夏',
-        desc: '看！卖萌的企鹅',
+        title: '电玩！来福士！',
+        desc: '嗨玩就现在，come on',
         link: 'http://papi.xingstation.com/api/s/k55' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/videoGame/icon.jpg',
         success: () => {
