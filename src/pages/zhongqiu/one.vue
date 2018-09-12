@@ -155,7 +155,8 @@ export default {
   },
   methods: {
     handleWechatAuth() {
-      let that = this
+      alter(1)
+      // let that = this
       if (Cookies.get('user_id') === null) {
         let base_url = encodeURIComponent(String(window.location.href))
         let redirct_url =
@@ -165,13 +166,18 @@ export default {
           '&scope=snsapi_base'
         window.location.href = redirct_url
       } else {
+        alter(2)
         this.userId = Cookies.get('user_id')
-        that.createGame(this.belong, this.userId)
+        console.log(this.belong)
+        this.createBigGame(this.belong, this.userId)
         this.handlePost()
         //获取微信头像
         getWxUserInfo()
           .then(r => {
             this.bing.headImgUrl = r.data.headimgurl
+            alter('headImgUrl')
+            alter(this.bing.headImgUrl)
+            alert(r)
           })
           .catch(err => {
             console.log(err)
@@ -179,7 +185,7 @@ export default {
       }
     }
   },
-  createGame(belong, userId) {
+  createBigGame(belong, userId) {
     let args = {
       belong: belong
     }
@@ -237,7 +243,9 @@ export default {
           JSON.stringify(url) +
           '&name=&image=&api=json'
       )
-      .then(res => {})
+      .then(res => {
+        alert('handlePost')
+      })
       .catch(err => {})
   }
 }
