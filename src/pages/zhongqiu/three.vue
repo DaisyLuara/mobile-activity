@@ -188,7 +188,7 @@ export default {
           this.task.left = '1'
         }
         if (r.belong === 'GroceryShop') {
-          this.task.left = '2'
+          this.task.right = '2'
         }
       })
     },

@@ -239,7 +239,7 @@ export default {
           this.task.left = '1'
         }
         if (r.belong === 'WhoTakeMoonCake') {
-          this.task.left = '3'
+          this.task.right = '3'
         }
       })
     },

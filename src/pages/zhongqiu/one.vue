@@ -240,7 +240,7 @@ export default {
             '&name=&image=&api=json'
         )
         .then(res => {
-          alert('handlePost')
+          console(res)
         })
         .catch(err => {})
     }
