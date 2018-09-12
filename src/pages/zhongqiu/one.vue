@@ -168,13 +168,21 @@ export default {
         this.createGame(this.belong, this.userId)
         this.handlePost()
         //获取微信头像
-        getWxUserInfo()
-          .then(r => {
-            this.bing.headImgUrl = r.data.headimgurl
-          })
-          .catch(err => {
-            console.log(err)
-          })
+        if (this.$route.query.utm_term) {
+          this.bing.headImgUrl = this.$route.query.headImgUrl
+        } else {
+          getWxUserInfo()
+            .then(r => {
+              this.bing.headImgUrl = r.data.headimgurl
+              this.wxShareInfoValue.link = setParameter(
+                'headImgUrl',
+                encodeURIComponent(r.data.headimgurl)
+              )
+            })
+            .catch(err => {
+              console.log(err)
+            })
+        }
       }
     },
     createGame(belong, userId) {
@@ -217,29 +225,28 @@ export default {
     },
     handlePost() {
       let oid = this.$route.query.utm_source
-      let belong = this.belong
       let id = this.$route.query.id
-      let url = {
-        cakeID: 0,
-        cake_type_a: this.bing.cake_type_a,
-        cake_type_b: this.bing.cake_type_b,
-        people_type: this.bing.people
-      }
+      let url =
+        'http://exelook.com:8010/pushdiv/?oid=' +
+        oid +
+        '&belong=GroceryShop&id=' +
+        id +
+        "&url={'cakeID':0,'cake_type_a':" +
+        this.bing.cake_type_a +
+        ",'cake_type_b':" +
+        this.bing.cake_type_b +
+        ",'people_type':" +
+        this.bing.people +
+        '}&name&image&api=json'
+      console.log(url)
       this.$http
-        .get(
-          'http://exelook.com:8010/pushdiv/?oid=' +
-            oid +
-            '&belong=GroceryShop' +
-            '&id=' +
-            id +
-            '&url=' +
-            JSON.stringify(url) +
-            '&name=&image=&api=json'
-        )
+        .get(url)
         .then(res => {
-          console(res)
+          console.log(res)
         })
-        .catch(err => {})
+        .catch(err => {
+          console.log(err)
+        })
     }
   }
 }

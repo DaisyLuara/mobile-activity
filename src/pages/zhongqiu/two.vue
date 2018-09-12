@@ -252,27 +252,27 @@ export default {
     },
     handlePost(aUrl) {
       let oid = this.$route.query.utm_source
-      let belong = this.belong
       let id = this.$route.query.id
       let voice = aUrl
-      let url = {
-        cakeID: 0,
-        voice: voice,
-        people_type: this.people
-      }
+      let url =
+        'http://exelook.com:8010/pushdiv/?oid=' +
+        oid +
+        '&belong=WhoTakeMoonCake&id=' +
+        id +
+        "&url={'cakeID':0,'voice':" +
+        voice +
+        ",'people_type':" +
+        this.people_type +
+        '}&name&image&api=json'
+      console.log(url)
       this.$http
-        .get(
-          'http://exelook.com:8010/pushdiv/?oid=' +
-            oid +
-            '&belong=WhoTakeMoonCake' +
-            '&id=' +
-            id +
-            '&url=' +
-            JSON.stringify(url) +
-            '&name=&image=&api=json'
-        )
-        .then(res => {})
-        .catch(err => {})
+        .get(url)
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
     playAudio() {
       let vshare = document.getElementById('vshare')
