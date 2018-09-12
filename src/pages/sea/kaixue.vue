@@ -217,10 +217,10 @@ img {
       }
     }
     .tel {
+      margin: 0 auto;
       position: relative;
       margin-top: 30%;
       width: 80%;
-      margin: 0 auto;
       .telbg {
         position: relative;
       }
