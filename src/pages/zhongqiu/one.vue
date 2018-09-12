@@ -155,7 +155,7 @@ export default {
   },
   methods: {
     handleWechatAuth() {
-      alter(1)
+      alert(1)
       // let that = this
       if (Cookies.get('user_id') === null) {
         let base_url = encodeURIComponent(String(window.location.href))
@@ -166,7 +166,7 @@ export default {
           '&scope=snsapi_base'
         window.location.href = redirct_url
       } else {
-        alter(2)
+        alert(2)
         this.userId = Cookies.get('user_id')
         console.log(this.belong)
         this.createBigGame(this.belong, this.userId)
@@ -175,8 +175,8 @@ export default {
         getWxUserInfo()
           .then(r => {
             this.bing.headImgUrl = r.data.headimgurl
-            alter('headImgUrl')
-            alter(this.bing.headImgUrl)
+            alert('headImgUrl')
+            alert(this.bing.headImgUrl)
             alert(r)
           })
           .catch(err => {
