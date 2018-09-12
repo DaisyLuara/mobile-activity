@@ -1,0 +1,235 @@
+<template>
+  <div
+    :style="style.root"
+    class="content">
+    <div 
+      class="main">
+      <img
+        :src="base+'bunny.png'">
+      <div 
+        class="scores">
+        <img
+          :src="base + 'tittle.png'"
+          class="title">
+        <span>{{score}}</span>
+        <img
+          :src="base + 'frame.png'"
+          class="frame">
+        <img
+          :src="base + coupon + '.png?111'"
+          class="coupon">
+        <a
+          @click="()=>{mask=true;telform=true;}">
+          <img
+            :src="base+'button.png'"
+            class="button">
+        </a>
+      </div>
+    </div>
+    <div
+      v-show="mask"
+      class="mask"
+      @click="mask=false;">
+      <div 
+        v-show="note"
+        class="note"
+        @click="()=>{note=false;}">
+        <img
+          :src="base + 'note.png'">
+      </div>
+      <div 
+        v-show="telform"
+        class="tel">
+        <img
+          :src="base+'tel.png'"
+          class="telbg">
+          <div 
+            class="form">
+            <input 
+              type="number"
+              placeholder="输入手机号"
+              maxlength="11"
+              class="input">
+          </div>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+const IMAGE_SERVER = 'http://p22vy0aug.bkt.clouddn.com/'
+import {
+  $wechat,
+  wechatShareTrack,
+  isInWechat,
+  Cookies,
+  createGame,
+  getGame
+} from 'services'
+import { normalPages } from '../../mixins/normalPages'
+export default {
+  mixins: [normalPages],
+  data() {
+    return {
+      style: {
+        root: {
+          'min-height': this.$innerHeight() + 'px'
+        }
+      },
+      base: IMAGE_SERVER + 'image/farm/kaixue/',
+      score: this.$route.query.score,
+      coupon: 1,
+      mask: true,
+      note: false,
+      telform: true,
+      //微信分享
+      wxShareInfoValue: {
+        title: '开学送福利',
+        desc: '亲爱的，礼物准备好了',
+        link: 'http://papi.xingstation.com/api/s/j2R' + window.location.search,
+        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/farm/kaixue/icon.jpg',
+        success: function() {
+          wechatShareTrack()
+        }
+      }
+    }
+  },
+  mounted() {
+    //微信授权
+    if (isInWechat() === true) {
+      if (
+        process.env.NODE_ENV === 'production' ||
+        process.env.NODE_ENV === 'testing'
+      ) {
+        this.handleWechatAuth()
+      }
+    }
+  },
+  methods: {
+    handleWechatAuth() {
+      if (Cookies.get('user_id') === null) {
+        let base_url = encodeURIComponent(String(window.location.href))
+        let redirct_url =
+          process.env.WX_API +
+          '/wx/officialAccount/oauth?url=' +
+          base_url +
+          '&scope=snsapi_base'
+        window.location.href = redirct_url
+      } else {
+        this.userId = Cookies.get('user_id')
+        this.createGame(this.belong, this.userId)
+      }
+    }
+  }
+}
+</script>
+<style lang="less" scoped>
+@base: 'http://p22vy0aug.bkt.clouddn.com/image/farm/kaixue/';
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  transform: translate3d(0, 0, 0);
+}
+* {
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  font-size: 0;
+}
+a {
+  display: inline-block;
+}
+img {
+  pointer-events: none;
+  user-select: none;
+  max-width: 100%;
+}
+.content {
+  width: 100%;
+  overflow-x: hidden;
+  position: relative;
+  .main {
+    width: 100%;
+    position: relative;
+    z-index: 0;
+    .scores {
+      width: 100%;
+      position: relative;
+      background-image: url('@{base}green.png');
+      background-position: center top;
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      img {
+        position: relative;
+        z-index: 0;
+      }
+      .title {
+        width: 68%;
+        margin-left: -22%;
+        margin-top: -2%;
+      }
+      .frame {
+        width: 90%;
+        margin-top: 5%;
+        margin-bottom: 2%;
+        margin-left: -3%;
+      }
+      .coupon {
+        width: 50%;
+        position: absolute;
+        top: 28.5%;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 99;
+      }
+      .button {
+        width: 85%;
+        margin-bottom: 5%;
+      }
+      span {
+        position: absolute;
+        top: 2%;
+        left: 75%;
+        font-family: '黑体';
+        font-size: 13vw;
+        z-index: 9;
+        color: #fff;
+        font-weight: bold;
+      }
+    }
+  }
+  .mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99;
+    background-color: rgba(0, 0, 0, 0.9);
+    .note {
+      width: 100%;
+      height: 100%;
+      img {
+        width: 80.4%;
+        margin-top: 15%;
+      }
+    }
+    .tel {
+      position: relative;
+      margin-top: 30%;
+      width: 80%;
+      margin: 0 auto;
+      .telbg {
+        position: relative;
+      }
+      .input {
+        position: absolute;
+      }
+    }
+  }
+}
+</style>
+
+

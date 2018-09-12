@@ -141,6 +141,17 @@ const Date201809 = [
       desc: '嗨玩世纪汇'
     },
     isAbandoned: false
+  },
+  {
+    path: 'kaixue',
+    location: 'sea/kaixue',
+    name: 'kaixue',
+    meta: {
+      title: '开学季',
+      author: 'lipan',
+      desc: '农场物语-开学季'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201809

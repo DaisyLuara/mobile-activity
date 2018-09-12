@@ -200,7 +200,7 @@ export default {
         video: this.video
       }
       this.$http
-        .post(
+        .get(
           'http://exelook.com:8010/pushdiv/?oid=' +
             oid +
             '&belong=' +

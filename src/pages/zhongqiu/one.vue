@@ -227,7 +227,7 @@ export default {
       people_type: this.bing.people
     }
     this.$http
-      .post(
+      .get(
         'http://exelook.com:8010/pushdiv/?oid=' +
           oid +
           '&belong=GroceryShop' +
