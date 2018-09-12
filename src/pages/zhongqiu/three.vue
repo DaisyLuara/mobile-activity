@@ -149,7 +149,6 @@ export default {
       getInfoById(id)
         .then(res => {
           this.video = res.url
-          this.handlePost()
         })
         .catch(err => {
           console.log(err)
@@ -191,27 +190,6 @@ export default {
           this.task.right = '2'
         }
       })
-    },
-    handlePost() {
-      let oid = this.$route.query.utm_source
-      let id = this.$route.query.id
-      let url =
-        'http://exelook.com:8010/pushdiv/?oid=' +
-        oid +
-        '&belong&id=' +
-        id +
-        "&url={'cakeID':0,'video':" +
-        this.video +
-        '}&name&image&api=json'
-      console.log(url)
-      this.$http
-        .get(url)
-        .then(res => {
-          console.log(res)
-        })
-        .catch(err => {
-          console.log(err)
-        })
     },
     playVideo() {
       this.vshow = true

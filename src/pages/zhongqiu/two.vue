@@ -190,6 +190,7 @@ export default {
     if (this.$route.query.share_voice) {
       this.playAudio()
     }
+    this.handlePost()
   },
   methods: {
     handleWechatAuth() {
@@ -204,6 +205,7 @@ export default {
       } else {
         this.userId = Cookies.get('user_id')
         this.createGame(this.belong, this.userId)
+        this.handlePost()
       }
     },
     createGame(belong, userId) {
@@ -250,17 +252,20 @@ export default {
       }
       this.popUp = true
     },
-    handlePost(aUrl) {
+    handlePost() {
       let oid = this.$route.query.utm_source
       let id = this.$route.query.id
-      let voice = aUrl
+      let cake_type_a = this.$route.query.cake_type_a
+      let cake_type_b = this.$route.query.cake_type_b
       let url =
         'http://exelook.com:8010/pushdiv/?oid=' +
         oid +
         '&belong=WhoTakeMoonCake&id=' +
         id +
-        "&url={'cakeID':0,'voice':" +
-        voice +
+        "&url={'cakeID':0,'cake_type_a':" +
+        cake_type_a +
+        ",'cake_type_b':" +
+        cake_type_b +
         ",'people_type':" +
         this.people_type +
         '}&name&image&api=json'
@@ -374,8 +379,6 @@ export default {
         encodeURIComponent(this.audioUrl)
       )
       let voice = document.getElementById('voice')
-
-      this.handlePost(voice.url)
     }
   }
 }
