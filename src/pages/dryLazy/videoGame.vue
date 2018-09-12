@@ -3,7 +3,9 @@
     :style="style.root" 
     class="root">
     <!-- 遮罩 -->
-    <div class="shade" v-show="shade">
+    <div 
+      v-show="shade" 
+      class="shade">
       <div class="back"/>
       <img 
         :src="baseUrl + 'loading1.png'+ this.$qiniuCompress()"
@@ -15,7 +17,7 @@
     <img 
       :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
       class="frame">
-      <!-- :src="baseUrl + '666.png'+ this.$qiniuCompress()" -->
+    <!-- :src="baseUrl + '666.png'+ this.$qiniuCompress()" -->
     <img 
       v-if="photo !== null" 
       :src="photo + this.$qiniuCompress()" 
