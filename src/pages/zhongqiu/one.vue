@@ -155,8 +155,6 @@ export default {
   },
   methods: {
     handleWechatAuth() {
-      alert(1)
-      // let that = this
       if (Cookies.get('user_id') === null) {
         let base_url = encodeURIComponent(String(window.location.href))
         let redirct_url =
@@ -166,10 +164,8 @@ export default {
           '&scope=snsapi_base'
         window.location.href = redirct_url
       } else {
-        alert(2)
         this.userId = Cookies.get('user_id')
-        console.log(this.belong)
-        this.createBigGame(this.belong, this.userId)
+        this.createGame(this.belong, this.userId)
         this.handlePost()
         //获取微信头像
         getWxUserInfo()
@@ -183,70 +179,71 @@ export default {
             console.log(err)
           })
       }
-    }
-  },
-  createBigGame(belong, userId) {
-    let args = {
-      belong: belong
-    }
-    createGame(args, userId)
-      .then(res => {
-        this.getGame(userId)
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  },
-  getGame(userId) {
-    let that = this
-    let args = {
-      withCredentials: true
-    }
-    getGame(args, userId)
-      .then(res => {
-        console.log(res)
-        this.projectStatus(res, userId)
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  },
-  projectStatus(list, userId) {
-    let data = list
-    data.map(r => {
-      if (r.belong === 'GroceryShop') {
-        this.task.left = '2'
+    },
+    createGame(belong, userId) {
+      let args = {
+        belong: belong
       }
-      if (r.belong === 'WhoTakeMoonCake') {
-        this.task.right = '3'
+      createGame(args, userId)
+        .then(res => {
+          this.getGame(userId)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    getGame(userId) {
+      let that = this
+      let args = {
+        withCredentials: true
       }
-    })
-  },
-  handlePost() {
-    let oid = this.$route.query.utm_source
-    let belong = this.belong
-    let id = this.$route.query.id
-    let url = {
-      cakeID: 0,
-      cake_type_a: this.bing.cake_type_a,
-      cake_type_b: this.bing.cake_type_b,
-      people_type: this.bing.people
-    }
-    this.$http
-      .get(
-        'http://exelook.com:8010/pushdiv/?oid=' +
-          oid +
-          '&belong=GroceryShop' +
-          '&id=' +
-          id +
-          '&url=' +
-          JSON.stringify(url) +
-          '&name=&image=&api=json'
-      )
-      .then(res => {
-        alert('handlePost')
+      getGame(args, userId)
+        .then(res => {
+          console.log(res)
+          this.projectStatus(res, userId)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    projectStatus(list, userId) {
+      let data = list
+      console.log(list)
+      data.map(r => {
+        if (r.belong === 'GroceryShop') {
+          this.task.left = '2'
+        }
+        if (r.belong === 'WhoTakeMoonCake') {
+          this.task.right = '3'
+        }
       })
-      .catch(err => {})
+    },
+    handlePost() {
+      let oid = this.$route.query.utm_source
+      let belong = this.belong
+      let id = this.$route.query.id
+      let url = {
+        cakeID: 0,
+        cake_type_a: this.bing.cake_type_a,
+        cake_type_b: this.bing.cake_type_b,
+        people_type: this.bing.people
+      }
+      this.$http
+        .get(
+          'http://exelook.com:8010/pushdiv/?oid=' +
+            oid +
+            '&belong=GroceryShop' +
+            '&id=' +
+            id +
+            '&url=' +
+            JSON.stringify(url) +
+            '&name=&image=&api=json'
+        )
+        .then(res => {
+          alert('handlePost')
+        })
+        .catch(err => {})
+    }
   }
 }
 </script>
