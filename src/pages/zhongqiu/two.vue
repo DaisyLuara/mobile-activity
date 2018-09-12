@@ -128,7 +128,6 @@ import {
   setParameter
 } from 'services'
 import { normalPages } from '../../mixins/normalPages'
-// import 'animate.css'
 const IMG_SERVER = 'http://p22vy0aug.bkt.clouddn.com'
 export default {
   mixins: [normalPages],
@@ -190,7 +189,6 @@ export default {
     if (this.$route.query.share_voice) {
       this.playAudio()
     }
-    this.handlePost()
   },
   methods: {
     handleWechatAuth() {
