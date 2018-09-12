@@ -99,6 +99,17 @@ const Date201809 = [
     isAbandoned: false
   },
   {
+    path: 'dino',
+    location: 'goodboy/dino',
+    name: 'dino',
+    meta: {
+      title: 'happy dino 荣誉出品',
+      author: 'lipan',
+      desc: '好孩子-疯狂实验室'
+    },
+    isAbandoned: false
+  },
+  {
     path: 'play_century',
     location: 'playCentury/index',
     name: 'play_century',
@@ -128,6 +139,39 @@ const Date201809 = [
       title: '嗨玩世纪汇',
       author: 'joy',
       desc: '嗨玩世纪汇'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'kaixue',
+    location: 'sea/kaixue',
+    name: 'kaixue',
+    meta: {
+      title: '开学季',
+      author: 'lipan',
+      desc: '农场物语-开学季'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'dry_lazy',
+    location: 'dryLazy/dryLazy',
+    name: 'dry_lazy',
+    meta: {
+      title: '旱獭',
+      author: 'xj1012',
+      desc: '旱獭宅文化节'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'video_game_section',
+    location: 'dryLazy/videoGame',
+    name: 'video_game_section',
+    meta: {
+      title: '电玩节',
+      author: 'xj1012',
+      desc: '电玩节'
     },
     isAbandoned: false
   }

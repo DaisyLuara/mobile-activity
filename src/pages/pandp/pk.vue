@@ -84,7 +84,6 @@ export default {
       let args = {
         belong: belong
       }
-
       createGame(args, userId)
         .then(res => {
           this.getGame(userId)
