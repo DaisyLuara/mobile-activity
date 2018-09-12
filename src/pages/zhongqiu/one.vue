@@ -73,7 +73,8 @@ import {
   wechatShareTrack,
   getWxUserInfo,
   createGame,
-  getGame
+  getGame,
+  setParameter
 } from 'services'
 import { normalPages } from '../../mixins/normalPages'
 import 'swiper/dist/css/swiper.css'
@@ -155,7 +156,6 @@ export default {
   },
   methods: {
     handleWechatAuth() {
-      let that = this
       if (Cookies.get('user_id') === null) {
         let base_url = encodeURIComponent(String(window.location.href))
         let redirct_url =
@@ -166,79 +166,89 @@ export default {
         window.location.href = redirct_url
       } else {
         this.userId = Cookies.get('user_id')
-        that.createGame(this.belong, this.userId)
+        this.createGame(this.belong, this.userId)
         this.handlePost()
         //获取微信头像
-        getWxUserInfo()
-          .then(r => {
-            this.bing.headImgUrl = r.data.headimgurl
-          })
-          .catch(err => {
-            console.log(err)
-          })
+        if (this.$route.query.utm_term) {
+          this.bing.headImgUrl = this.$route.query.headImgUrl
+        } else {
+          getWxUserInfo()
+            .then(r => {
+              this.bing.headImgUrl = r.data.headimgurl
+              this.wxShareInfoValue.link = setParameter(
+                'headImgUrl',
+                encodeURIComponent(r.data.headimgurl)
+              )
+            })
+            .catch(err => {
+              console.log(err)
+            })
+        }
       }
-    }
-  },
-  createGame(belong, userId) {
-    let args = {
-      belong: belong
-    }
-    createGame(args, userId)
-      .then(res => {
-        this.getGame(userId)
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  },
-  getGame(userId) {
-    let that = this
-    let args = {
-      withCredentials: true
-    }
-    getGame(args, userId)
-      .then(res => {
-        console.log(res)
-        this.projectStatus(res, userId)
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  },
-  projectStatus(list, userId) {
-    let data = list
-    data.map(r => {
-      if (r.belong === 'GroceryShop') {
-        this.task.left = '2'
+    },
+    createGame(belong, userId) {
+      let args = {
+        belong: belong
       }
-      if (r.belong === 'WhoTakeMoonCake') {
-        this.task.right = '3'
+      createGame(args, userId)
+        .then(res => {
+          this.getGame(userId)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    getGame(userId) {
+      let that = this
+      let args = {
+        withCredentials: true
       }
-    })
-  },
-  handlePost() {
-    let oid = this.$route.query.utm_source
-    let belong = this.belong
-    let id = this.$route.query.id
-    let url = {
-      cakeID: 0,
-      cake_type_a: this.bing.cake_type_a,
-      cake_type_b: this.bing.cake_type_b,
-      people_type: this.bing.people
-    }
-    this.$http
-      .get(
+      getGame(args, userId)
+        .then(res => {
+          console.log(res)
+          this.projectStatus(res, userId)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    projectStatus(list, userId) {
+      let data = list
+      console.log(list)
+      data.map(r => {
+        if (r.belong === 'GroceryShop') {
+          this.task.left = '2'
+        }
+        if (r.belong === 'WhoTakeMoonCake') {
+          this.task.right = '3'
+        }
+      })
+    },
+    handlePost() {
+      let oid = this.$route.query.utm_source
+      let id = this.$route.query.id
+      let url =
         'http://exelook.com:8010/pushdiv/?oid=' +
-          oid +
-          '&belong=GroceryShop' +
-          '&id=' +
-          id +
-          '&url=' +
-          JSON.stringify(url) +
-          '&name=&image=&api=json'
-      )
-      .then(res => {})
-      .catch(err => {})
+        oid +
+        '&belong=GroceryShop&id=' +
+        id +
+        "&url={'cakeID':0,'cake_type_a':" +
+        this.bing.cake_type_a +
+        ",'cake_type_b':" +
+        this.bing.cake_type_b +
+        ",'people_type':" +
+        this.bing.people +
+        '}&name&image&api=json'
+      console.log(url)
+      this.$http
+        .get(url)
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
   }
 }
 </script>

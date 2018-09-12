@@ -149,7 +149,6 @@ export default {
       getInfoById(id)
         .then(res => {
           this.video = res.url
-          this.handlePost()
         })
         .catch(err => {
           console.log(err)
@@ -188,30 +187,9 @@ export default {
           this.task.left = '1'
         }
         if (r.belong === 'GroceryShop') {
-          this.task.left = '2'
+          this.task.right = '2'
         }
       })
-    },
-    handlePost() {
-      let oid = this.$route.query.utm_source
-      let id = this.$route.query.id
-      let url = {
-        cakeID: 0,
-        video: this.video
-      }
-      this.$http
-        .get(
-          'http://exelook.com:8010/pushdiv/?oid=' +
-            oid +
-            '&belong=' +
-            '&id=' +
-            id +
-            '&url=' +
-            JSON.stringify(url) +
-            '&name=&image=&api=json'
-        )
-        .then(res => {})
-        .catch(err => {})
     },
     playVideo() {
       this.vshow = true
