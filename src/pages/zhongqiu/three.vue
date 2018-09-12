@@ -106,7 +106,7 @@ export default {
       bgshow: true,
       //微信分享
       wxShareInfoValue: {
-        title: '中秋快乐',
+        title: '中秋快乐 ',
         desc: '月饼被谁吃了',
         link: 'http://papi.xingstation.com/api/s/1wR' + window.location.search,
         imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/zhongqiu/3/share.png',
