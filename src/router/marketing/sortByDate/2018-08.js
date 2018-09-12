@@ -176,6 +176,26 @@ const Date201808 = [
     isAbandoned: false
   },
   {
+    path: 'achart',
+    location: 'achart/chart',
+    name: 'achart',
+    meta: {
+      title: 'chart',
+      author: 'Anluis',
+      desc: ''
+    }
+  },
+  {
+    path: 'achartindex',
+    location: 'achart/index',
+    name: 'achartIndex',
+    meta: {
+      title: 'achartIndex',
+      author: 'Anluis',
+      desc: ''
+    }
+  },
+  {
     path: 'elephant',
     location: 'sea/elephant',
     name: 'elephant',
