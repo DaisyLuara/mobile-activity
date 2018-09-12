@@ -81,7 +81,7 @@ export default {
         '大瓶活跃玩家人数',
         '大屏铁杆玩家人数',
         'OMO有效跳转人数',
-        '扫码啦心会员注册总数',
+        '扫码拉新会员注册总数',
         '完成转发分享人数'
       ],
       rateName: [
@@ -179,7 +179,7 @@ export default {
       for (let i = 0; i < this.chartdata.length; i++) {
         if (i > 0) {
           this.computedRate.push(
-            parseInt(this.chartdata[i] / this.chartdata[i - 1] * 100)
+            parseInt(this.chartdata[i] / this.chartdata[0] * 100)
           )
         }
         let dataObj = {}
