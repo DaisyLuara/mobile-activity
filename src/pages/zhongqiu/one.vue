@@ -73,7 +73,8 @@ import {
   wechatShareTrack,
   getWxUserInfo,
   createGame,
-  getGame
+  getGame,
+  setParameter
 } from 'services'
 import { normalPages } from '../../mixins/normalPages'
 import 'swiper/dist/css/swiper.css'
