@@ -59,7 +59,7 @@
                   class="icon">
                 <label>
                   <img
-                  :src="base + 'iconbg.png?111'">
+                    :src="base + 'iconbg.png?111'">
                   <span>{{ audio.text[item] }}</span>
                 </label>
               </a>

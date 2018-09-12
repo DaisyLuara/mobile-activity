@@ -141,6 +141,28 @@ const Date201809 = [
       desc: '嗨玩世纪汇'
     },
     isAbandoned: false
+  },
+  {
+    path: 'dry_lazy',
+    location: 'dryLazy/dryLazy',
+    name: 'dry_lazy',
+    meta: {
+      title: '旱獭',
+      author: 'xj1012',
+      desc: '旱獭宅文化节'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'video_game_section',
+    location: 'dryLazy/videoGame',
+    name: 'video_game_section',
+    meta: {
+      title: '电玩节',
+      author: 'xj1012',
+      desc: '电玩节'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201809

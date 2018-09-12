@@ -460,8 +460,6 @@ export default {
       user-select: auto;
       pointer-events: auto;
       z-index: 10;
-      user-select: auto;
-      pointer-events: auto;
     }
   }
   .tag01,
