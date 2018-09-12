@@ -3,7 +3,7 @@
     :style="style.root" 
     class="root">
     <!-- 遮罩 -->
-    <div class="shade">
+    <div class="shade" v-show="shade">
       <div class="back"/>
       <img 
         :src="baseUrl + 'loading1.png'+ this.$qiniuCompress()"
@@ -15,11 +15,14 @@
     <img 
       :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
       class="frame">
+      <!-- :src="baseUrl + '666.png'+ this.$qiniuCompress()" -->
     <img 
-      :src="baseUrl + '666.png'+ this.$qiniuCompress()"
+      v-if="photo !== null" 
+      :src="photo + this.$qiniuCompress()" 
       class="photo">
     <img 
       :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
+      :class="{'x-save':iphoneX,'save':!iphoneX}"
       class="save">
   </div>
 </template>
@@ -39,13 +42,14 @@ export default {
           height: this.$innerHeight() + 'px'
         }
       },
+      shade: true,
       photo: null,
       iphoneX: false,
       wxShareInfoValue: {
         title: '冰力十足 酷爽一夏',
         desc: '看！卖萌的企鹅',
-        link: 'http://papi.xingstation.com/api/s/g5Y' + window.location.search,
-        imgUrl: cdnUrl + '/fe/marketing/img/videoGame/icon.png',
+        link: 'http://papi.xingstation.com/api/s/k55' + window.location.search,
+        imgUrl: cdnUrl + '/fe/marketing/img/videoGame/icon.jpg',
         success: () => {
           wechatShareTrack()
         }
@@ -55,11 +59,15 @@ export default {
   created() {},
   mounted() {
     let height = this.$innerHeight()
+    let that = this
     if (height > 672) {
-      this.iphoneX = true
+      that.iphoneX = true
     } else {
-      this.iphoneX = false
+      that.iphoneX = false
     }
+    setTimeout(function() {
+      that.shade = false
+    }, 2000)
   },
   methods: {}
 }
@@ -82,6 +90,9 @@ img {
   .shade {
     width: 100%;
     height: 100%;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    pointer-events: none;
     .back {
       width: 100%;
       height: 100%;
@@ -95,10 +106,13 @@ img {
     .loading1 {
       width: 15%;
       position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -70%);
+      left: 42%;
+      top: 43%;
       z-index: 100;
+      animation: jump 1.2s infinite linear;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      pointer-events: none;
     }
     .loading2 {
       width: 25%;
@@ -107,6 +121,9 @@ img {
       top: 55%;
       transform: translate(-50%, 0%);
       z-index: 100;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      pointer-events: none;
     }
   }
   .frame {
@@ -115,6 +132,9 @@ img {
     left: 50%;
     top: 4%;
     transform: translate(-50%, 0);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    pointer-events: none;
   }
   .photo {
     width: 75%;
@@ -122,6 +142,8 @@ img {
     left: 50%;
     top: 5%;
     transform: translate(-50%, 0);
+    user-select: auto;
+    pointer-events: auto;
   }
   .save {
     width: 38%;
@@ -129,6 +151,44 @@ img {
     left: 50%;
     bottom: 0%;
     transform: translate(-50%, 0);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    pointer-events: none;
+  }
+  .x-save {
+    width: 46%;
+    position: absolute;
+    left: 50%;
+    bottom: 14%;
+    transform: translate(-50%, 0);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    pointer-events: none;
+  }
+}
+@keyframes jump {
+  from,
+  20%,
+  53%,
+  80%,
+  to {
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    transform: translate3d(0, 0, 0);
+  }
+
+  40%,
+  43% {
+    animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+    transform: translate3d(0, -30px, 0);
+  }
+
+  70% {
+    animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+    transform: translate3d(0, -15px, 0);
+  }
+
+  90% {
+    transform: translate3d(0, -4px, 0);
   }
 }
 </style>
