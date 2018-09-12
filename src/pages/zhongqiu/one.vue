@@ -57,10 +57,10 @@
     <div 
       class="task-group">
       <img 
-        :src="origin + 'proj/' + task.left + '.png'"
+        :src="origin + 'proj/' + task.left + '.png?1212'"
         class="left">
       <img 
-        :src="origin + 'proj/' + task.right + '.png'"
+        :src="origin + 'proj/' + task.right + '.png?1212'"
         class="right">
     </div>
   </div>
@@ -155,6 +155,7 @@ export default {
   },
   methods: {
     handleWechatAuth() {
+      let that = this
       if (Cookies.get('user_id') === null) {
         let base_url = encodeURIComponent(String(window.location.href))
         let redirct_url =
@@ -164,13 +165,17 @@ export default {
           '&scope=snsapi_base'
         window.location.href = redirct_url
       } else {
-        //获取微信头像
-        getWxUserInfo().then(r => {
-          console.log(r.data)
-          this.bing.headImgUrl = r.data.headimgurl
-        })
         this.userId = Cookies.get('user_id')
-        this.createGame(this.belong, this.userId)
+        that.createGame(this.belong, this.userId)
+        this.handlePost()
+        //获取微信头像
+        getWxUserInfo()
+          .then(r => {
+            this.bing.headImgUrl = r.data.headimgurl
+          })
+          .catch(err => {
+            console.log(err)
+          })
       }
     }
   },
@@ -222,7 +227,7 @@ export default {
       people_type: this.bing.people
     }
     this.$http
-      .post(
+      .get(
         'http://exelook.com:8010/pushdiv/?oid=' +
           oid +
           '&belong=GroceryShop' +
