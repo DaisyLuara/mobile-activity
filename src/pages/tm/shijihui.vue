@@ -50,6 +50,18 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+/*声明 WebFont*/
+@font-face {
+  font-family: 'mutouren';
+  src: url('http://p22vy0aug.bkt.clouddn.com/font/mutouren.ttf');
+  src: url('http://p22vy0aug.bkt.clouddn.com/font/mutouren.eot'),
+    url('http://p22vy0aug.bkt.clouddn.com/font/mutouren.woff'),
+    url('http://p22vy0aug.bkt.clouddn.com/font/mutouren.ttf'),
+    url('http://p22vy0aug.bkt.clouddn.com/font/mutouren.svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
 @base: 'http://p22vy0aug.bkt.clouddn.com/image/tm/shijihui/';
 html,
 body {
@@ -74,6 +86,7 @@ img {
   width: 100%;
   overflow-x: hidden;
   background-color: #fffff5;
+  max-width: 750px;
   .main {
     position: relative;
     width: 100%;
@@ -91,7 +104,7 @@ img {
       animation: sheng 1.2s linear infinite alternate;
     }
     .score {
-      font-family: '黑体';
+      font-family: 'mutouren';
       font-size: 10vw;
       position: absolute;
       top: 28%;
