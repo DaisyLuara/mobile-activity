@@ -190,19 +190,19 @@ export default {
           this.total = parseInt(res.data.data[0].total_score)
           console.log(this.total)
           if (this.total <= 200) {
-            this.coupon = 1
+            this.coupon = 0
             return
           }
           if (this.total <= 400) {
-            this.coupon = 2
+            this.coupon = 1
             return
           }
           if (this.total <= 800) {
-            this.coupon = 3
+            this.coupon = 2
             return
           }
           if (this.total > 800) {
-            this.coupon = 4
+            this.coupon = 3
             return
           }
         })
