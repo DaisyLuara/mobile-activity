@@ -164,8 +164,6 @@ export default {
       }
       userGame(args, this.userId)
         .then(res => {
-          console.log(res)
-          console.log('userGame')
           this.getGame()
         })
         .catch(e => {
@@ -187,7 +185,9 @@ export default {
         .get(url)
         .then(res => {
           console.log(res)
-          this.total = parseInt(res.data.total_score)
+          console.log(res.data)
+          console.log(res.data.data[0])
+          this.total = parseInt(res.data.data[0].total_score)
           console.log(this.total)
           if (this.total <= 200) {
             this.coupon = 1
@@ -218,7 +218,6 @@ export default {
         this.handleTrack(mobile)
         this.getCoupon()
       }
-      console.log(mobile)
     },
     getCoupon() {
       let couponId = this.coupon * 1 + 2
