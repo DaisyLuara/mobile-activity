@@ -183,7 +183,7 @@ export default {
         this.userId +
         '/games?belong=' +
         this.belong
-      $http
+      this.$http
         .get(url)
         .then(res => {
           console.log(res)
