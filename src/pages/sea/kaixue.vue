@@ -181,7 +181,7 @@ export default {
       this.$http
         .get(url + 'FarmSchool')
         .then(res => {
-          score1 = parseInt(res.data.data[0].total_score)
+          score1 = parseInt(res.data.data[0].total_score) || 0
         })
         .catch(err => {
           console.log(err)
@@ -189,12 +189,12 @@ export default {
       this.$http
         .get(url + 'FarmSchoolHigh')
         .then(res => {
-          score2 = parseInt(res.data.data[0].total_score)
+          score2 = parseInt(res.data.data[0].total_score) || 0
         })
         .catch(err => {
           console.log(err)
         })
-      this.total = parseInt(score1) + parseInt(score2)
+      this.total = score1 + score2
       if (this.total <= 200) {
         this.coupon = 0
         return
