@@ -92,7 +92,7 @@ export default {
       },
       base: IMAGE_SERVER + 'image/farm/kaixue/',
       score: this.$route.query.score,
-      total: this.$route.query.score,
+      total: 0,
       coupon: 0,
       mask: true,
       note: true,
@@ -171,35 +171,32 @@ export default {
         })
     },
     getGame() {
-      let args = {
-        withCredentials: true,
-        belong: this.belong
-      }
-      let url = process.env.SAAS_API + '/user/' + this.userId + '/games?belong='
-      let score1 = null,
-        score2 = null,
+      let score1 = 0,
+        score2 = 0,
         score_total = 0
+      let url = process.env.SAAS_API + '/user/' + this.userId + '/games?belong='
       this.$http
         .get(url + 'FarmSchool')
         .then(res => {
           console.log(res)
           score1 = parseInt(res.data.data[0].total_score) || 0
-          console.log(score1)
+          this.$http
+            .get(url + 'FarmSchoolHigh')
+            .then(res => {
+              console.log(res)
+              score2 = parseInt(res.data.data[0].total_score) || 0
+              score_total = score1 + score2
+              this.docheckScore(score_total)
+            })
+            .catch(err => {
+              console.log(err)
+            })
         })
         .catch(err => {
           console.log(err)
         })
-      this.$http
-        .get(url + 'FarmSchoolHigh')
-        .then(res => {
-          console.log(res)
-          score2 = parseInt(res.data.data[0].total_score) || 0
-          console.log(score2)
-        })
-        .catch(err => {
-          console.log(err)
-        })
-      score_total = score1 + score2
+    },
+    docheckScore(score_total) {
       this.total = score_total
       console.log(score_total)
       console.log(this.total)
