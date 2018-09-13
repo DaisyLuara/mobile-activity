@@ -141,7 +141,6 @@ export default {
         this.userId = Cookies.get('user_id')
         this.belong = this.$route.query.utm_campaign
         this.userGame()
-        console.log('已授权')
       }
     },
     handleTrack(mobile) {
@@ -178,23 +177,26 @@ export default {
         withCredentials: true,
         belong: this.belong
       }
-      getGame(args, userId)
+      getGame(args, this.userId)
         .then(res => {
           console.log(res)
-          console.log(belong)
           this.total = parseInt(res.data.total_score)
           console.log(this.total)
           if (this.total <= 200) {
             this.coupon = 1
+            return
           }
           if (this.total <= 400) {
             this.coupon = 2
+            return
           }
           if (this.total <= 800) {
             this.coupon = 3
+            return
           }
           if (this.total > 800) {
             this.coupon = 4
+            return
           }
         })
         .catch(err => {
