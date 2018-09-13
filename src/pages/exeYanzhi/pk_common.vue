@@ -91,9 +91,9 @@ export default {
       rank_url: process.env.SAAS_API + '/user/',
       //分享
       wxShareInfoValue: {
-        title: '魔镜，谁是油城最美女神？',
-        desc: '是你，抚媚热烈是你，盛世美颜还是你',
-        link: '' + window.location.search,
+        title: 'Mirror魔镜PK擂台等你来战',
+        desc: 'Mirror魔镜PK擂台等你来战',
+        link: 'http://papi.xingstation.com/api/s/lO5' + window.location.search,
         imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/pk/common/share.png',
         success: function() {
           wechatShareTrack()
