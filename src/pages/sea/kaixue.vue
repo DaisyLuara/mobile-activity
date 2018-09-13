@@ -177,7 +177,8 @@ export default {
       }
       let url = process.env.SAAS_API + '/user/' + this.userId + '/games?belong='
       let score1 = null,
-        score2 = null
+        score2 = null,
+        score_total = 0
       this.$http
         .get(url + 'FarmSchool')
         .then(res => {
@@ -198,20 +199,23 @@ export default {
         .catch(err => {
           console.log(err)
         })
-      this.total = score1 + score2
-      if (this.total <= 200) {
+      score_total = score1 + score2
+      this.total = score_total
+      console.log(score_total)
+      console.log(this.total)
+      if (score_total <= 200) {
         this.coupon = 0
         return
       }
-      if (this.total <= 400) {
+      if (score_total <= 400) {
         this.coupon = 1
         return
       }
-      if (this.total <= 800) {
+      if (score_total <= 800) {
         this.coupon = 2
         return
       }
-      if (this.total > 800) {
+      if (score_total > 800) {
         this.coupon = 3
         return
       }
