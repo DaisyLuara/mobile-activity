@@ -175,40 +175,42 @@ export default {
         withCredentials: true,
         belong: this.belong
       }
-      let url =
-        process.env.SAAS_API +
-        '/user/' +
-        this.userId +
-        '/games?belong=' +
-        this.belong
+      let url = process.env.SAAS_API + '/user/' + this.userId + '/games?belong='
+      let score1 = null,
+        score2 = null
       this.$http
-        .get(url)
+        .get(url + 'FarmSchool')
         .then(res => {
-          console.log(res)
-          console.log(res.data)
-          console.log(res.data.data[0])
-          this.total = parseInt(res.data.data[0].total_score)
-          console.log(this.total)
-          if (this.total <= 200) {
-            this.coupon = 0
-            return
-          }
-          if (this.total <= 400) {
-            this.coupon = 1
-            return
-          }
-          if (this.total <= 800) {
-            this.coupon = 2
-            return
-          }
-          if (this.total > 800) {
-            this.coupon = 3
-            return
-          }
+          score1 = parseInt(res.data.data[0].total_score)
         })
         .catch(err => {
           console.log(err)
         })
+      this.$http
+        .get(url + 'FarmSchoolHigh')
+        .then(res => {
+          score2 = parseInt(res.data.data[0].total_score)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      this.total = parseInt(score1) + parseInt(score2)
+      if (this.total <= 200) {
+        this.coupon = 0
+        return
+      }
+      if (this.total <= 400) {
+        this.coupon = 1
+        return
+      }
+      if (this.total <= 800) {
+        this.coupon = 2
+        return
+      }
+      if (this.total > 800) {
+        this.coupon = 3
+        return
+      }
     },
     checkMobile(mobile) {
       if (!/^1[3456789]\d{9}$/.test(mobile)) {
