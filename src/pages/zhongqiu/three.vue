@@ -89,6 +89,8 @@ export default {
       },
       origin: IMG_SERVER + '/image/zhongqiu/',
       base: IMG_SERVER + '/image/zhongqiu/3/',
+      deUrl:
+        'http://wx.qlogo.cn/mmopen/Q3auHgzwzM4VoBYD1YEIq0E3LFM1XLKsd3sG5VXRAvCUqCVXIPTcI0TzqicRWfzB9Zv40GhTR83RhKAugpzOuaJFC11nxmcnnp6ZbOu04UFw/0',
       userId: null,
       belong: this.$route.query.utm_campaign,
       task: {
@@ -142,6 +144,7 @@ export default {
       } else {
         this.userId = Cookies.get('user_id')
         this.createGame(this.belong, this.userId)
+        this.userGame()
       }
     },
     getInfoById() {
@@ -164,6 +167,20 @@ export default {
         })
         .catch(err => {
           console.log(err)
+        })
+    },
+    userGame() {
+      let args = {
+        belong: this.belong,
+        image_url: this.deUrl,
+        qiniu_id: this.$route.query.id
+      }
+      userGame(args, this.userId)
+        .then(res => {
+          console.log(res)
+        })
+        .catch(e => {
+          console.log(e)
         })
     },
     getGame(userId) {

@@ -128,7 +128,6 @@ import {
   setParameter
 } from 'services'
 import { normalPages } from '../../mixins/normalPages'
-// import 'animate.css'
 const IMG_SERVER = 'http://p22vy0aug.bkt.clouddn.com'
 export default {
   mixins: [normalPages],
@@ -141,6 +140,8 @@ export default {
       },
       origin: IMG_SERVER + '/image/zhongqiu/',
       base: IMG_SERVER + '/image/zhongqiu/2/',
+      deUrl:
+        'http://wx.qlogo.cn/mmopen/Q3auHgzwzM4VoBYD1YEIq0E3LFM1XLKsd3sG5VXRAvCUqCVXIPTcI0TzqicRWfzB9Zv40GhTR83RhKAugpzOuaJFC11nxmcnnp6ZbOu04UFw/0',
       userId: null,
       headImgUrl: null,
       mask: false,
@@ -205,6 +206,7 @@ export default {
       } else {
         this.userId = Cookies.get('user_id')
         this.createGame(this.belong, this.userId)
+        this.userGame()
         this.handlePost()
       }
     },
@@ -218,6 +220,20 @@ export default {
         })
         .catch(err => {
           console.log(err)
+        })
+    },
+    userGame() {
+      let args = {
+        belong: this.belong,
+        image_url: this.deUrl,
+        qiniu_id: this.$route.query.id
+      }
+      userGame(args, this.userId)
+        .then(res => {
+          console.log(res)
+        })
+        .catch(e => {
+          console.log(e)
         })
     },
     getGame(userId) {
@@ -258,9 +274,7 @@ export default {
       let cake_type_a = this.$route.query.cake_type_a
       let cake_type_b = this.$route.query.cake_type_b
       let url =
-        'http://exelook.com:8010/pushdiv/?oid=' +
-        oid +
-        '&belong=WhoTakeMoonCake&id=' +
+        'http://exelook.com:8010/pushdiv/?oid=563&belong=WhoTakeMoonCake&id=' +
         id +
         "&url={'cakeID':0,'cake_type_a':" +
         cake_type_a +
@@ -269,7 +283,6 @@ export default {
         ",'people_type':" +
         this.people_type +
         '}&name&image&api=json'
-      console.log(url)
       this.$http
         .get(url)
         .then(res => {

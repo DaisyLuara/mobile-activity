@@ -73,6 +73,7 @@ import {
   wechatShareTrack,
   getWxUserInfo,
   createGame,
+  userGame,
   getGame,
   setParameter
 } from 'services'
@@ -95,6 +96,8 @@ export default {
       },
       origin: IMG_SERVER + '/image/zhongqiu/',
       base: IMG_SERVER + '/image/zhongqiu/1/',
+      deUrl:
+        'http://wx.qlogo.cn/mmopen/Q3auHgzwzM4VoBYD1YEIq0E3LFM1XLKsd3sG5VXRAvCUqCVXIPTcI0TzqicRWfzB9Zv40GhTR83RhKAugpzOuaJFC11nxmcnnp6ZbOu04UFw/0',
       userId: null,
       belong: this.$route.query.utm_campaign,
       bing: {
@@ -167,6 +170,7 @@ export default {
       } else {
         this.userId = Cookies.get('user_id')
         this.createGame(this.belong, this.userId)
+        this.userGame()
         this.handlePost()
         //获取微信头像
         if (this.$route.query.utm_term) {
@@ -198,6 +202,20 @@ export default {
           console.log(err)
         })
     },
+    userGame() {
+      let args = {
+        belong: this.belong,
+        image_url: this.deUrl,
+        qiniu_id: this.$route.query.id
+      }
+      userGame(args, this.userId)
+        .then(res => {
+          console.log(res)
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    },
     getGame(userId) {
       let that = this
       let args = {
@@ -225,12 +243,9 @@ export default {
       })
     },
     handlePost() {
-      let oid = this.$route.query.utm_source
       let id = this.$route.query.id
       let url =
-        'http://exelook.com:8010/pushdiv/?oid=' +
-        oid +
-        '&belong=GroceryShop&id=' +
+        'http://exelook.com:8010/pushdiv/?oid=562&belong=GroceryShop&id=' +
         id +
         "&url={'cakeID':0,'cake_type_a':" +
         this.bing.cake_type_a +
