@@ -38,7 +38,7 @@ export default {
       //分享
       wxShareInfoValue: {
         title: '玩转世纪',
-        desc: '狂欢美食节',
+        desc: '世纪汇广场美食节等你来狂欢',
         link: 'http://papi.xingstation.com/api/s/68n' + window.location.search,
         imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/tm/shijihui/share.png',
         success: function() {
