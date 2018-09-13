@@ -174,6 +174,17 @@ const Date201809 = [
       desc: '电玩节'
     },
     isAbandoned: false
+  },
+  {
+    path: 'pk_common',
+    location: 'exeYanzhi/pk_common',
+    name: 'pk_common',
+    meta: {
+      title: '颜值PK',
+      author: 'lipan',
+      desc: '颜值PK通用版'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201809

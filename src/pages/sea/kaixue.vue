@@ -11,7 +11,7 @@
         <img
           :src="base + 'tittle.png'"
           class="title">
-        <span>{{score}}</span>
+        <span>{{ total }}</span>
         <img
           :src="base + 'frame.png'"
           class="frame">
@@ -29,11 +29,11 @@
     <div
       v-show="mask"
       class="mask"
-      @click="mask=false;">
+      @click.self="mask = false;telform = false;note = false;success = false;">
       <div 
         v-show="note"
         class="note"
-        @click="()=>{note=false;}">
+        @click="()=>{note = false;mask=false;}">
         <img
           :src="base + 'note.png'">
       </div>
@@ -43,14 +43,28 @@
         <img
           :src="base+'tel.png'"
           class="telbg">
-          <div 
-            class="form">
-            <input 
-              type="number"
-              placeholder="输入手机号"
-              maxlength="11"
-              class="input">
-          </div>
+        <div 
+          class="form"
+          @click.stop="()=>{}">
+          <input 
+            v-model="mobile"
+            placeholder="输入手机号" 
+            maxlength="11" 
+            class="input">
+          <button
+            class="check"
+            @click.stop="checkMobile(mobile)">
+            <img
+              :src="base+'check.png'">
+          </button>
+        </div>
+      </div>
+      <div 
+        v-show="success"
+        class="success tel">
+        <img
+          :src="base+'success.png'"
+          class="telbg">
       </div>
     </div>
   </div>
@@ -62,8 +76,9 @@ import {
   wechatShareTrack,
   isInWechat,
   Cookies,
-  createGame,
-  getGame
+  userGame,
+  getGame,
+  setParameter
 } from 'services'
 import { normalPages } from '../../mixins/normalPages'
 export default {
@@ -77,10 +92,18 @@ export default {
       },
       base: IMAGE_SERVER + 'image/farm/kaixue/',
       score: this.$route.query.score,
+      total: this.$route.query.score,
       coupon: 1,
       mask: true,
-      note: false,
-      telform: true,
+      note: true,
+      telform: false,
+      mobile: null,
+      belong: null,
+      photo: null,
+      userId: null,
+      success: false,
+      deUrl:
+        'http://wx.qlogo.cn/mmopen/Q3auHgzwzM4VoBYD1YEIq0E3LFM1XLKsd3sG5VXRAvCUqCVXIPTcI0TzqicRWfzB9Zv40GhTR83RhKAugpzOuaJFC11nxmcnnp6ZbOu04UFw/0',
       //微信分享
       wxShareInfoValue: {
         title: '开学送福利',
@@ -116,8 +139,96 @@ export default {
         window.location.href = redirct_url
       } else {
         this.userId = Cookies.get('user_id')
-        this.createGame(this.belong, this.userId)
+        this.belong = this.$route.query.utm_campaign
+        this.userGame()
+        console.log('已授权')
       }
+    },
+    handleTrack(mobile) {
+      let url =
+        'http://exelook.com/client/goodsxsd/?id=' +
+        String(this.$route.query.id) +
+        '&mobile=' +
+        String(mobile) +
+        '&api=json'
+      this.$http.get(url).then(r => {
+        console.log(r)
+      })
+    },
+    userGame() {
+      let id = this.$route.query.id
+      let args = {
+        belong: this.belong,
+        image_url: this.deUrl,
+        score: this.score,
+        qiniu_id: id
+      }
+      userGame(args, this.userId)
+        .then(res => {
+          console.log(res)
+          console.log('userGame')
+          this.getGame()
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    },
+    getGame() {
+      let args = {
+        withCredentials: true,
+        belong: this.belong
+      }
+      getGame(args, userId)
+        .then(res => {
+          console.log(res)
+          console.log(belong)
+          this.total = parseInt(res.data.total_score)
+          console.log(this.total)
+          if (this.total <= 200) {
+            this.coupon = 1
+          }
+          if (this.total <= 400) {
+            this.coupon = 2
+          }
+          if (this.total <= 800) {
+            this.coupon = 3
+          }
+          if (this.total > 800) {
+            this.coupon = 4
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    checkMobile(mobile) {
+      if (!/^1[3456789]\d{9}$/.test(mobile)) {
+        alert('您输入的手机号有误')
+        return
+      } else {
+        this.handleTrack(mobile)
+        this.getCoupon()
+      }
+      console.log(mobile)
+    },
+    getCoupon() {
+      let couponId = this.coupon * 1 + 2
+      let rUrl = process.env.AD_API + '/api/open/coupons/' + couponId
+      let args = {
+        mobile: this.mobile
+      }
+      this.$http
+        .post(rUrl, args)
+        .then(r => {
+          let data = r.data
+          this.success = true
+          this.telform = false
+          console.log(data)
+        })
+        .catch(e => {
+          console.log(e)
+          alert(e)
+        })
     }
   }
 }
@@ -226,6 +337,23 @@ img {
       }
       .input {
         position: absolute;
+        width: 86%;
+        height: 27%;
+        left: 7%;
+        top: 16%;
+        background: transparent;
+        border-radius: 30px;
+        font-size: 8vw;
+        text-align: center;
+        color: #fff;
+      }
+      .check {
+        position: absolute;
+        width: 86%;
+        left: 7%;
+        top: 55%;
+        background: transparent;
+        border: none;
       }
     }
   }
