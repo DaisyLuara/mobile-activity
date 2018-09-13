@@ -181,7 +181,9 @@ export default {
       this.$http
         .get(url + 'FarmSchool')
         .then(res => {
+          console.log(res)
           score1 = parseInt(res.data.data[0].total_score) || 0
+          console.log(score1)
         })
         .catch(err => {
           console.log(err)
@@ -189,7 +191,9 @@ export default {
       this.$http
         .get(url + 'FarmSchoolHigh')
         .then(res => {
+          console.log(res)
           score2 = parseInt(res.data.data[0].total_score) || 0
+          console.log(score2)
         })
         .catch(err => {
           console.log(err)

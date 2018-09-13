@@ -54,8 +54,8 @@ export default {
       iphoneX: false,
       photo: null,
       wxShareInfoValue: {
-        title: '美食节.jpg',
-        desc: '好吃的都在这里',
+        title: '玩转世纪',
+        desc: '狂欢美食节',
         link: 'http://papi.xingstation.com/api/s/73j' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/play_century/icon.png',
         success: () => {
