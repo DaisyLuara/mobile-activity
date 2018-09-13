@@ -93,7 +93,7 @@ export default {
       base: IMAGE_SERVER + 'image/farm/kaixue/',
       score: this.$route.query.score,
       total: this.$route.query.score,
-      coupon: 1,
+      coupon: 0,
       mask: true,
       note: true,
       telform: false,
@@ -177,7 +177,14 @@ export default {
         withCredentials: true,
         belong: this.belong
       }
-      getGame(args, this.userId)
+      let url =
+        process.env.SAAS_API +
+        '/user/' +
+        this.userId +
+        '/games?belong=' +
+        this.belong
+      $http
+        .get(url)
         .then(res => {
           console.log(res)
           this.total = parseInt(res.data.total_score)
