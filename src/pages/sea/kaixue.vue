@@ -19,7 +19,8 @@
           :src="base + coupon + '.png?111'"
           class="coupon">
         <a
-          @click="()=>{mask=true;telform=true;}">
+          class="button"
+          @click="getCheck">
           <img
             :src="base+'button.png'"
             class="button">
@@ -79,7 +80,8 @@ import {
   userGame,
   getGame,
   setParameter,
-  getAdCoupon
+  getAdCoupon,
+  checkCouponNumber
 } from 'services'
 import { normalPages } from '../../mixins/normalPages'
 export default {
@@ -235,6 +237,19 @@ export default {
         this.getCoupon()
       }
     },
+    getCheck() {
+      let id = this.coupon_arr[this.coupon]
+      checkCouponNumber(id)
+        .then(res => {
+          this.mask = true
+          this.telform = true
+        })
+        .catch(err => {
+          console.log(err.response)
+          console.log(err.response.data.message)
+          alert(err.response.data.message)
+        })
+    },
     getCoupon() {
       let couponId = this.coupon_arr[this.coupon]
       console.log(this.coupon_arr[this.coupon])
@@ -250,8 +265,6 @@ export default {
           console.log(data)
         })
         .catch(err => {
-          console.log(err.response)
-          console.log(err.response.data.message)
           alert(err.response.data.message)
         })
     }

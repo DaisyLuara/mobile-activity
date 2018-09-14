@@ -4,6 +4,7 @@ const COUPOU_URL = process.env.SAAS_API + '/marketing/coupons'
 const V4_COUPOU_URL = process.env.SAAS_API + '/v4/common/coupon'
 const V5_COUPOU_URL = process.env.SAAS_API + '/v5/common/coupon'
 const COUPOUS_URL = process.env.AD_API + '/api/open/coupons/'
+const OPEN_COUPON = process.env.AD_API + '/api/open/coupon/'
 
 const createCoupon = params => {
   return new Promise((resolve, reject) => {
@@ -127,6 +128,19 @@ const getAdCoupon = (params, id) => {
       })
   })
 }
+// 确认优惠券是否已经领完
+const checkCouponNumber = couponId => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(OPEN_COUPON + 'batches/' + couponId)
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
 
 export {
   createCoupon,
@@ -136,5 +150,6 @@ export {
   sendV4CouponSms,
   getV4CouponCount,
   createV5Coupon,
-  getAdCoupon
+  getAdCoupon,
+  checkCouponNumber
 }
