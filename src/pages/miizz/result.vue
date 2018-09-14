@@ -185,12 +185,12 @@ export default {
 
 .report-wrap {
   position: relative;
+  overflow: hidden;
   .coupon-wrap {
     background-image: url('@{imageHost}/bg_1.png');
     background-repeat: no-repeat;
     background-size: 100% 100%;
     position: relative;
-    overflow: hidden;
     .photo {
       // width: 91%;
       // left: 5%;
