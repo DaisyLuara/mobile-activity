@@ -19,7 +19,8 @@
           :src="base + coupon + '.png?111'"
           class="coupon">
         <a
-          @click="()=>{mask=true;telform=true;}">
+          class="button"
+          @click="getCheck">
           <img
             :src="base+'button.png'"
             class="button">
@@ -35,7 +36,7 @@
         class="note"
         @click="()=>{note = false;mask=false;}">
         <img
-          :src="base + 'note.png'">
+          :src="base + 'note3.png'">
       </div>
       <div 
         v-show="telform"
@@ -79,7 +80,8 @@ import {
   userGame,
   getGame,
   setParameter,
-  getAdCoupon
+  getAdCoupon,
+  checkCouponNumber
 } from 'services'
 import { normalPages } from '../../mixins/normalPages'
 export default {
@@ -127,6 +129,14 @@ export default {
       ) {
         this.handleWechatAuth()
       }
+    }
+    if (this.note) {
+      let that = this
+      let once = setTimeout(function() {
+        that.note = false
+        that.mask = false
+        clearTimeout(once)
+      }, 5000)
     }
   },
   methods: {
@@ -180,12 +190,10 @@ export default {
       this.$http
         .get(url + 'FarmSchool')
         .then(res => {
-          console.log(res)
           score1 = parseInt(res.data.data[0].total_score) || 0
           this.$http
             .get(url + 'FarmSchoolHigh')
             .then(res => {
-              console.log(res)
               score2 = parseInt(res.data.data[0].total_score) || 0
               score_total = score1 + score2
               this.docheckScore(score_total)
@@ -200,7 +208,6 @@ export default {
     },
     docheckScore(score_total) {
       this.total = score_total
-      console.log(this.total)
       if (score_total <= 200) {
         this.coupon = 0
         return
@@ -227,9 +234,20 @@ export default {
         this.getCoupon()
       }
     },
+    getCheck() {
+      let id = this.coupon_arr[this.coupon]
+      checkCouponNumber(id)
+        .then(res => {
+          console.log(res)
+          this.mask = true
+          this.telform = true
+        })
+        .catch(err => {
+          alert(err.response.data.message)
+        })
+    },
     getCoupon() {
       let couponId = this.coupon_arr[this.coupon]
-      console.log(this.coupon_arr[this.coupon])
       let rUrl = process.env.AD_API + '/api/open/coupons/' + couponId
       let args = {
         mobile: this.mobile
@@ -239,11 +257,8 @@ export default {
           let data = res.data
           this.success = true
           this.telform = false
-          console.log(data)
         })
         .catch(err => {
-          console.log(err.response)
-          console.log(err.response.data.message)
           alert(err.response.data.message)
         })
     }
@@ -305,16 +320,16 @@ img {
         margin-left: -3%;
       }
       .coupon {
-        width: 50%;
+        width: 60%;
         position: absolute;
-        top: 28.5%;
-        left: 50%;
+        top: 30%;
+        left: 52%;
         transform: translateX(-50%);
         z-index: 99;
       }
       .button {
         width: 85%;
-        margin-bottom: 5%;
+        margin-bottom: 3%;
       }
       span {
         position: absolute;
@@ -335,7 +350,7 @@ img {
     right: 0;
     bottom: 0;
     z-index: 99;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(0, 0, 0, 0.8);
     .note {
       width: 100%;
       height: 100%;
