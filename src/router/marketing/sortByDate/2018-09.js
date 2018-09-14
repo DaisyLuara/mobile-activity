@@ -185,6 +185,17 @@ const Date201809 = [
       desc: '颜值PK通用版'
     },
     isAbandoned: false
+  },
+  {
+    path: 'guoqing',
+    location: 'tm/guoqing',
+    name: 'guoqing',
+    meta: {
+      title: '十一活动',
+      author: 'lipan',
+      desc: '十一国庆活动'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201809

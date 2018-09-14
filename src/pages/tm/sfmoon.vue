@@ -17,11 +17,11 @@
     <div
       class="coup">
       <img
-        v-show="Boolean(score>=8000)"
+        v-show="Boolean(score>=4000)"
         :src="base+'coupon00.png'"
         class="coupon0">
       <img
-        v-show="Boolean(score>=8000)"
+        v-show="Boolean(score>=4000)"
         :src="base+'rule0.png'">
       <a 
         :href="link.link1"
