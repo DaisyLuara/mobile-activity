@@ -134,7 +134,7 @@ export default {
     handleShowPage(type) {
       switch (type) {
         case 'A':
-          this.ImgUrl = this.baseUrl + 'photo_A1.png'
+          this.ImgUrl = this.baseUrl + 'photo_A2.png'
           this.jewelryTextOne = this.baseUrl + 'jewelry_text_A1.png'
           this.jewelryTextTwo = this.baseUrl + 'jewelry_text_A2.png'
           this.jewelryImgOne = this.baseUrl + 'jewelry_img_A1.png'
@@ -144,7 +144,7 @@ export default {
           this.jewelryText = this.baseUrl + 'jewelry_A.png'
           break
         case 'B':
-          this.ImgUrl = this.baseUrl + 'photo_B1.png'
+          this.ImgUrl = this.baseUrl + 'photo_B2.png'
           this.jewelryTextOne = this.baseUrl + 'jewelry_text_B1.png'
           this.jewelryTextTwo = this.baseUrl + 'jewelry_text_B2.png'
           this.jewelryImgOne = this.baseUrl + 'jewelry_img_B1.png'
@@ -155,7 +155,7 @@ export default {
 
           break
         case 'C':
-          this.ImgUrl = this.baseUrl + 'photo_C1.png'
+          this.ImgUrl = this.baseUrl + 'photo_C2.png'
           this.jewelryTextOne = this.baseUrl + 'jewelry_text_C1.png'
           this.jewelryTextTwo = this.baseUrl + 'jewelry_text_C2.png'
           this.jewelryImgOne = this.baseUrl + 'jewelry_img_C1.png'
@@ -166,7 +166,7 @@ export default {
 
           break
         case 'D':
-          this.ImgUrl = this.baseUrl + 'photo_D1.png'
+          this.ImgUrl = this.baseUrl + 'photo_D2.png'
           this.jewelryTextOne = this.baseUrl + 'jewelry_text_D1.png'
           this.jewelryTextTwo = this.baseUrl + 'jewelry_text_D2.png'
           this.jewelryImgOne = this.baseUrl + 'jewelry_img_D1.png'
