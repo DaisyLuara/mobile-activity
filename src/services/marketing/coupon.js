@@ -123,7 +123,7 @@ const getAdCoupon = (params, id) => {
         }
       })
       .catch(err => {
-        reject(err)
+        reject(err.response)
       })
   })
 }
