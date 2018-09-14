@@ -243,8 +243,11 @@ export default {
           console.log(data)
         })
         .catch(e => {
+          let status_500 = 'Error: Request failed with status code 500'
           console.log(e)
-          alert(e)
+          if (status_500 == e) {
+            alert('该优惠券每人最多领取1张')
+          }
         })
     }
   }
