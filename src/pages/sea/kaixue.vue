@@ -335,7 +335,7 @@ img {
       }
       .button {
         width: 85%;
-        margin-bottom: 5%;
+        margin-bottom: 3%;
       }
       span {
         position: absolute;
