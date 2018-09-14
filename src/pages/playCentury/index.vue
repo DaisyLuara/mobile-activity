@@ -54,8 +54,8 @@ export default {
       iphoneX: false,
       photo: null,
       wxShareInfoValue: {
-        title: '玩转世纪',
-        desc: '世纪汇广场美食节等你来狂欢',
+        title: '世纪汇广场美食节，等你来狂欢',
+        desc: '世纪汇广场美食节，狂欢就现在',
         link: 'http://papi.xingstation.com/api/s/73j' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/play_century/icon.png',
         success: () => {
