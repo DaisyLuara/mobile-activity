@@ -242,6 +242,7 @@ export default {
           console.log(data)
         })
         .catch(err => {
+          console.log(err.response)
           console.log(err.response.data.message)
           alert(err.response.data.message)
         })
