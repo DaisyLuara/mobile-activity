@@ -190,12 +190,10 @@ export default {
       this.$http
         .get(url + 'FarmSchool')
         .then(res => {
-          console.log(res)
           score1 = parseInt(res.data.data[0].total_score) || 0
           this.$http
             .get(url + 'FarmSchoolHigh')
             .then(res => {
-              console.log(res)
               score2 = parseInt(res.data.data[0].total_score) || 0
               score_total = score1 + score2
               this.docheckScore(score_total)
@@ -210,7 +208,6 @@ export default {
     },
     docheckScore(score_total) {
       this.total = score_total
-      console.log(this.total)
       if (score_total <= 200) {
         this.coupon = 0
         return
@@ -241,18 +238,16 @@ export default {
       let id = this.coupon_arr[this.coupon]
       checkCouponNumber(id)
         .then(res => {
+          console.log(res)
           this.mask = true
           this.telform = true
         })
         .catch(err => {
-          console.log(err.response)
-          console.log(err.response.data.message)
           alert(err.response.data.message)
         })
     },
     getCoupon() {
       let couponId = this.coupon_arr[this.coupon]
-      console.log(this.coupon_arr[this.coupon])
       let rUrl = process.env.AD_API + '/api/open/coupons/' + couponId
       let args = {
         mobile: this.mobile
@@ -262,7 +257,6 @@ export default {
           let data = res.data
           this.success = true
           this.telform = false
-          console.log(data)
         })
         .catch(err => {
           alert(err.response.data.message)
@@ -326,10 +320,10 @@ img {
         margin-left: -3%;
       }
       .coupon {
-        width: 50%;
+        width: 60%;
         position: absolute;
-        top: 28.5%;
-        left: 50%;
+        top: 30%;
+        left: 52%;
         transform: translateX(-50%);
         z-index: 99;
       }
