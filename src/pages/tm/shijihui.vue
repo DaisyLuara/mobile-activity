@@ -37,8 +37,8 @@ export default {
       score: this.$route.query.score,
       //分享
       wxShareInfoValue: {
-        title: '玩转世纪',
-        desc: '世纪汇广场美食节等你来狂欢',
+        title: '世纪汇广场美食节，等你来狂欢',
+        desc: '世纪汇广场美食节，狂欢就现在',
         link: 'http://papi.xingstation.com/api/s/68n' + window.location.search,
         imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/tm/shijihui/share.png',
         success: function() {

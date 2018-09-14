@@ -200,7 +200,6 @@ export default {
     },
     docheckScore(score_total) {
       this.total = score_total
-      console.log(score_total)
       console.log(this.total)
       if (score_total <= 200) {
         this.coupon = 0
@@ -243,23 +242,10 @@ export default {
           console.log(data)
         })
         .catch(err => {
-          console.log(err)
+          console.log(err.response)
+          console.log(err.response.data.message)
+          alert(err.response.data.message)
         })
-      // this.$http
-      //   .post(rUrl, args)
-      //   .then(r => {
-      //     let data = r.data
-      //     this.success = true
-      //     this.telform = false
-      //     console.log(data)
-      //   })
-      //   .catch(e => {
-      //     let status_500 = 'Error: Request failed with status code 500'
-      //     console.log(e)
-      //     if (status_500 == e) {
-      //       alert('该优惠券每人最多领取1张')
-      //     }
-      //   })
     }
   }
 }
