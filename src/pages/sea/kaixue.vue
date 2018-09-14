@@ -227,7 +227,7 @@ export default {
       }
     },
     getCoupon() {
-      let couponId = this.coupon * 1 + 2
+      let couponId = this.coupon * 1 + 3
       let rUrl = process.env.AD_API + '/api/open/coupons/' + couponId
       let args = {
         mobile: this.mobile

@@ -122,6 +122,7 @@ import {
   wechatShareTrack,
   getWxUserInfo,
   createGame,
+  userGame,
   getGame,
   getParamsMap,
   getParameter,
