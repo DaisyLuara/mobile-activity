@@ -102,6 +102,7 @@ export default {
       photo: null,
       userId: null,
       success: false,
+      coupon_arr: [3, 4, 5, 6],
       deUrl:
         'http://wx.qlogo.cn/mmopen/Q3auHgzwzM4VoBYD1YEIq0E3LFM1XLKsd3sG5VXRAvCUqCVXIPTcI0TzqicRWfzB9Zv40GhTR83RhKAugpzOuaJFC11nxmcnnp6ZbOu04UFw/0',
       //微信分享
@@ -227,7 +228,8 @@ export default {
       }
     },
     getCoupon() {
-      let couponId = this.coupon * 1 + 3
+      let couponId = this.coupon_arr[this.coupon]
+      console.log(this.coupon_arr[this.coupon])
       let rUrl = process.env.AD_API + '/api/open/coupons/' + couponId
       let args = {
         mobile: this.mobile
