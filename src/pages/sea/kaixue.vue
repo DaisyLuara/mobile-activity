@@ -35,7 +35,7 @@
         class="note"
         @click="()=>{note = false;mask=false;}">
         <img
-          :src="base + 'note.png'">
+          :src="base + 'note2.png'">
       </div>
       <div 
         v-show="telform"
@@ -127,6 +127,14 @@ export default {
       ) {
         this.handleWechatAuth()
       }
+    }
+    if (this.note) {
+      let that = this
+      let once = setTimeout(function() {
+        that.note = false
+        that.mask = false
+        clearTimeout(once)
+      }, 5000)
     }
   },
   methods: {
@@ -335,7 +343,7 @@ img {
     right: 0;
     bottom: 0;
     z-index: 99;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(0, 0, 0, 0.5); // 0.9
     .note {
       width: 100%;
       height: 100%;
