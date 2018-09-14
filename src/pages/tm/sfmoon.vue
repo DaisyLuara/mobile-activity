@@ -29,6 +29,12 @@
         <img
           :src="base+'coupon1.png'">
       </a>
+      <a 
+        :href="link.link2"
+        class="link1">
+        <img
+          :src="base+'coupon2.png'">
+      </a>
       <img
         :src="base+'rule1.png'"
         class="rule">
@@ -59,8 +65,9 @@ export default {
       score: Number(this.$route.query.score),
       userId: null,
       link: {
-        link1: 'http://papi.xingstation.com/api/s/5yB'
+        link1: 'http://papi.xingstation.com/api/s/5yB', //新人注册-券
         //短链'http://sfreg.oramage.com'
+        link2: 'http://papi.xingstation.com/api/s/mwO' //20减3券
       },
       //分享
       wxShareInfoValue: {
@@ -151,7 +158,7 @@ img {
 .content {
   width: 100%;
   overflow-x: hidden;
-  background-image: url('@{base}bg.png');
+  background-image: url('@{base}bgbg.png');
   background-position: center top;
   background-size: 100% 100%;
   background-repeat: no-repeat;
@@ -192,6 +199,7 @@ img {
       width: 100%;
       display: inline-block;
       margin-top: 2%;
+      margin-bottom: 3%;
     }
     .rule {
       margin-top: 5%;
