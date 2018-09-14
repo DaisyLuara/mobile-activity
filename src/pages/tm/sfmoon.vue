@@ -110,6 +110,7 @@ export default {
     getPhoto() {
       let timer = requestAnimationFrame(this.getPhoto)
       if (this.photo) {
+        console.log('2')
         cancelAnimationFrame(timer)
         this.userGame()
         return
