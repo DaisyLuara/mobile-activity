@@ -326,10 +326,10 @@ img {
         margin-left: -3%;
       }
       .coupon {
-        width: 50%;
+        width: 60%;
         position: absolute;
-        top: 28.5%;
-        left: 50%;
+        top: 30%;
+        left: 52%;
         transform: translateX(-50%);
         z-index: 99;
       }
