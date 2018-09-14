@@ -36,7 +36,7 @@
         class="note"
         @click="()=>{note = false;mask=false;}">
         <img
-          :src="base + 'note2.png'">
+          :src="base + 'note3.png'">
       </div>
       <div 
         v-show="telform"
@@ -356,7 +356,7 @@ img {
     right: 0;
     bottom: 0;
     z-index: 99;
-    background-color: rgba(0, 0, 0, 0.5); // 0.9
+    background-color: rgba(0, 0, 0, 0.8);
     .note {
       width: 100%;
       height: 100%;
