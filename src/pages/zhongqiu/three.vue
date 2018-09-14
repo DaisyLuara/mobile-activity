@@ -73,6 +73,7 @@ import {
   wechatShareTrack,
   getWxUserInfo,
   createGame,
+  userGame,
   getInfoById,
   getGame
 } from 'services'
