@@ -3,6 +3,7 @@ import axios from 'axios'
 const COUPOU_URL = process.env.SAAS_API + '/marketing/coupons'
 const V4_COUPOU_URL = process.env.SAAS_API + '/v4/common/coupon'
 const V5_COUPOU_URL = process.env.SAAS_API + '/v5/common/coupon'
+const COUPOUS_URL = process.env.AD_API + '/api/open/coupons/'
 
 const createCoupon = params => {
   return new Promise((resolve, reject) => {
@@ -110,6 +111,23 @@ const createV5Coupon = params => {
   })
 }
 
+const getAdCoupon = (params, id) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(COUPOUS_URL + id, params)
+      .then(response => {
+        if (response.data.success) {
+          resolve(response.data.data)
+        } else {
+          reject(response)
+        }
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+
 export {
   createCoupon,
   getCoupon,
@@ -117,5 +135,6 @@ export {
   bindV4Coupon,
   sendV4CouponSms,
   getV4CouponCount,
-  createV5Coupon
+  createV5Coupon,
+  getAdCoupon
 }

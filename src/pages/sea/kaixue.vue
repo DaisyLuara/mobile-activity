@@ -78,7 +78,8 @@ import {
   Cookies,
   userGame,
   getGame,
-  setParameter
+  setParameter,
+  getAdCoupon
 } from 'services'
 import { normalPages } from '../../mixins/normalPages'
 export default {
@@ -234,18 +235,31 @@ export default {
       let args = {
         mobile: this.mobile
       }
-      this.$http
-        .post(rUrl, args)
-        .then(r => {
-          let data = r.data
+      getAdCoupon(args, couponId)
+        .then(res => {
+          let data = res.data
           this.success = true
           this.telform = false
           console.log(data)
         })
-        .catch(e => {
-          console.log(e)
-          alert(e)
+        .catch(err => {
+          console.log(err)
         })
+      // this.$http
+      //   .post(rUrl, args)
+      //   .then(r => {
+      //     let data = r.data
+      //     this.success = true
+      //     this.telform = false
+      //     console.log(data)
+      //   })
+      //   .catch(e => {
+      //     let status_500 = 'Error: Request failed with status code 500'
+      //     console.log(e)
+      //     if (status_500 == e) {
+      //       alert('该优惠券每人最多领取1张')
+      //     }
+      //   })
     }
   }
 }
