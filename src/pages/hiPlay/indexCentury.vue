@@ -43,7 +43,7 @@ export default {
       iphoneX: false,
       //微信分享信息
       wxShareInfoValue: {
-        title: '点击领取互动照片',
+        title: '玩转世纪，世纪汇广场邀你嗨翻世纪。',
         desc: '可在屋顶花园免费领取棉花糖一个',
         imgUrl:
           'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/hiplay-share-icon.jpg',
