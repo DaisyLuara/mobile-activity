@@ -191,6 +191,7 @@ export default {
     background-repeat: no-repeat;
     background-size: 100% 100%;
     position: relative;
+    overflow: hidden;
     .photo {
       // width: 91%;
       // left: 5%;
