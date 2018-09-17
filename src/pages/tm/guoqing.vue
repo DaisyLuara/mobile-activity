@@ -3,20 +3,11 @@
     :style="style.root"
     class="content">
     <div 
-      class="main">
-      <img
-        :src="base + 'bg.png'+ this.$qiniuCompress()"
-        class="frame">
-      <img
-        :src="base + 'qiu.png'+ this.$qiniuCompress()"
-        class="qiu">
-      <span
-        class="score">{{ score }}</span>
-      <img
-        :src="photo + this.$qiniuCompress()"
-        class="photo">
-    </div>
-    
+      class="one"/>
+    <div 
+      class="two"/>
+    <div 
+      class="two"/>
   </div>
 </template>
 <script>
@@ -32,15 +23,13 @@ export default {
           'min-height': this.$innerHeight() + 'px'
         }
       },
-      base: IMG_SERVER + '/image/tm/shijihui/',
-      photo: null,
-      score: this.$route.query.score,
+      base: IMG_SERVER + '/image/tm/guoqing/',
       //分享
       wxShareInfoValue: {
-        title: '玩转世纪，世纪汇广场邀你嗨翻世纪',
-        desc: '世纪汇广场美食节，狂欢就现在',
-        link: 'http://papi.xingstation.com/api/s/68n' + window.location.search,
-        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/tm/shijihui/share.png',
+        title: '',
+        desc: '',
+        link: '' + window.location.search,
+        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/tm/guoqing/share.png',
         success: function() {
           wechatShareTrack()
         }
@@ -62,7 +51,7 @@ export default {
   font-style: normal;
 }
 
-@base: 'http://p22vy0aug.bkt.clouddn.com/image/tm/shijihui/';
+@base: 'http://p22vy0aug.bkt.clouddn.com/image/tm/guoqing/';
 html,
 body {
   width: 100%;
@@ -87,41 +76,6 @@ img {
   overflow-x: hidden;
   background-color: #fffff5;
   max-width: 750px;
-  .main {
-    position: relative;
-    width: 100%;
-    overflow-x: hidden;
-    .bg {
-      position: relative;
-      z-index: 0;
-    }
-    .qiu {
-      width: 18%;
-      position: absolute;
-      top: 3.5%;
-      right: 1%;
-      z-index: 99;
-      animation: sheng 1.2s linear infinite alternate;
-    }
-    .score {
-      font-family: 'mutouren';
-      font-size: 10vw;
-      position: absolute;
-      top: 28%;
-      left: 71%;
-      font-weight: bold;
-      font-style: italic;
-    }
-    .photo {
-      width: 63%;
-      pointer-events: auto;
-      user-select: auto;
-      position: absolute;
-      top: 21.5%;
-      left: 5.4%;
-      z-index: 99;
-    }
-  }
 }
 @keyframes sheng {
   0% {
