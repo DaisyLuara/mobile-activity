@@ -2,12 +2,44 @@
   <div 
     :style="style.root"
     class="content">
+    <!--  -->
     <div 
-      class="one"/>
+      class="block one">
+      <ul 
+        class="one-list">
+        <li 
+          v-for="item in list" 
+          :key="item.id"
+          class="one-list-item">
+          <a>
+            <img
+              :src="base+''">
+          </a>
+        </li>
+      </ul>
+    </div>
+    <!--  -->
     <div 
-      class="two"/>
+      class="block two">
+      <ul 
+        class="one-list">
+        <li 
+          v-for="item in list" 
+          :key="item.id"
+          class="one-list-item"></li>
+      </ul>
+    </div>
+    <!--  -->
     <div 
-      class="two"/>
+      class="block three">
+      <ul 
+        class="one-list">
+        <li 
+          v-for="item in list" 
+          :key="item.id"
+          class="one-list-item"></li>
+      </ul>
+    </div>
   </div>
 </template>
 <script>
@@ -24,6 +56,13 @@ export default {
         }
       },
       base: IMG_SERVER + '/image/tm/guoqing/',
+      all: {
+        product_list: {
+          url: ['', '', '', ''],
+          name: [],
+          price: []
+        }
+      },
       //分享
       wxShareInfoValue: {
         title: '',
@@ -66,6 +105,9 @@ body {
   text-align: center;
   font-size: 0;
 }
+a {
+  display: inline-block;
+}
 img {
   pointer-events: none;
   user-select: none;
@@ -76,13 +118,10 @@ img {
   overflow-x: hidden;
   background-color: #fffff5;
   max-width: 750px;
-}
-@keyframes sheng {
-  0% {
-    transform: translateY(5px);
-  }
-  100% {
-    transform: translateY(-15px);
+  .block {
+    width: 100%;
+    overflow-x: hidden;
+    position: relative;
   }
 }
 </style>
