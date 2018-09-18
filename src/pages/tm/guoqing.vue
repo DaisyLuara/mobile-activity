@@ -10,11 +10,34 @@
     </div> -->
     <!-- 欢乐积攒有惊喜 四级联动显示-->
     <!-- :src="base+'a.png'+this.$qiniuCompress()" -->
+    <!-- <div 
+      class="block one">
+      <img
+        src="http://cdn.exe666.com/fe/marketing/img/fourProject/bg.png"
+        class="bg">
+      <img
+        v-show="gameData.projectOne"
+        src="http://cdn.exe666.com/fe/marketing/img/fourProject/a.png"
+        class="done1">
+      <img
+        v-show="gameData.projectTwo"
+        src="http://cdn.exe666.com/fe/marketing/img/fourProject/b.png"
+        class="done2">
+      <img
+        v-show="gameData.projectThree"
+        src="http://cdn.exe666.com/fe/marketing/img/fourProject/c.png"
+        class="done3">
+      <img
+        v-show="gameData.projectFour"
+        src="http://cdn.exe666.com/fe/marketing/img/fourProject/d.png"
+        class="done4">
+    </div> -->
     <div 
       class="block one">
       <img
         src="http://cdn.exe666.com/fe/marketing/img/fourProject/bg.png"
         class="bg">
+        <>
       <img
         v-show="gameData.projectOne"
         src="http://cdn.exe666.com/fe/marketing/img/fourProject/a.png"
@@ -152,7 +175,8 @@ export default {
       let args = {
         belong: this.params.belong,
         image_url: this.params.deUrl,
-        qiniu_id: this.params.id
+        qiniu_id: this.params.id,
+        score: 100
       }
       userGame(args, this.params.userId)
         .then(res => {
