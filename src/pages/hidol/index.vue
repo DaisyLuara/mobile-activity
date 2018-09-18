@@ -9,6 +9,7 @@
         autoFill
         :top-method="loadTop" 
         @top-status-change="handleTopChange"
+        ref="loadmore"
       >
         <ul>
           <li v-for="(item, index) in list" :key="index">
@@ -29,6 +30,7 @@
 
 <script>
 import { Loadmore } from 'mint-ui'
+import { setTimeout } from 'timers'
 export default {
   data() {
     return {
@@ -43,6 +45,10 @@ export default {
     'mt-loadmore': Loadmore,
     NewPost: () => import('./components/NewPost.vue')
   },
+  created() {
+    let html = document.getElementsByTagName('html')[0]
+    html.setAttribute('style', 'font-size: 14px')
+  },
   methods: {
     handleNewPostControl() {
       this.control.newpost = !this.control.newpost
@@ -50,7 +56,13 @@ export default {
     handleTopChange(status) {
       this.topStatus = status
     },
-    loadTop() {}
+    loadTop() {
+      this.topStatus = 'loading'
+      setTimeout(() => {
+        this.$refs.loadmore.onTopLoaded()
+        this.topStatus = ''
+      }, 2000)
+    }
   }
 }
 </script>
