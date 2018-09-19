@@ -42,8 +42,8 @@ export default {
     }
   },
   components: {
-    'mt-loadmore': Loadmore,
-    NewPost: () => import('./components/NewPost.vue')
+    'mt-loadmore': Loadmore
+    // NewPost: () => import('./components/NewPost.vue')
   },
   created() {
     let html = document.getElementsByTagName('html')[0]
