@@ -1,12 +1,12 @@
 'use strict'
 module.exports = {
-  NODE_ENV: JSON.stringify('production'),
-  DOMAIN: JSON.stringify('.jingfree.com'),
-  M_URL: JSON.stringify('http://h5.xingstation.com'),
-  WX_API: JSON.stringify('http://sapi.xingstation.com/api'),
-  STORE_API: JSON.stringify('http://store.jingfree.com'),
-  SAAS_API: JSON.stringify('http://sapi.xingstation.com/api'),
-  AD_API: JSON.stringify('http://papi.xingstation.com'),
-  IMAGE_SERVER: JSON.stringify('http://h5-images.oss-cn-shanghai.aliyuncs.com'),
-  CDN_URL: JSON.stringify('http://cdn.exe666.com')
+  NODE_ENV: "'production'",
+  DOMAIN: "'.jingfree.com'",
+  M_URL: "'http://h5.xingstation.com'",
+  WX_API: "'http://sapi.xingstation.com/api'",
+  STORE_API: "'http://store.jingfree.com'",
+  SAAS_API: "'http://sapi.xingstation.com/api'",
+  AD_API: "'http://papi.xingstation.com'",
+  IMAGE_SERVER: "'http://h5-images.oss-cn-shanghai.aliyuncs.com'",
+  CDN_URL: "'http://cdn.exe666.com'"
 }
