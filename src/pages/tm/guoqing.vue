@@ -2,92 +2,40 @@
   <div 
     :style="style.root"
     class="content">
-    <!-- 顶部标题 -->
-    <!-- <div 
-      class="title">
-      <img
-        :src="base+'title.png'">
-    </div> -->
     <!-- 欢乐积攒有惊喜 四级联动显示-->
-    <!-- :src="base+'a.png'+this.$qiniuCompress()" -->
-    <!-- <div 
-      class="block one">
-      <img
-        src="http://cdn.exe666.com/fe/marketing/img/fourProject/bg.png"
-        class="bg">
-      <img
-        v-show="gameData.projectOne"
-        src="http://cdn.exe666.com/fe/marketing/img/fourProject/a.png"
-        class="done1">
-      <img
-        v-show="gameData.projectTwo"
-        src="http://cdn.exe666.com/fe/marketing/img/fourProject/b.png"
-        class="done2">
-      <img
-        v-show="gameData.projectThree"
-        src="http://cdn.exe666.com/fe/marketing/img/fourProject/c.png"
-        class="done3">
-      <img
-        v-show="gameData.projectFour"
-        src="http://cdn.exe666.com/fe/marketing/img/fourProject/d.png"
-        class="done4">
-    </div> -->
     <div 
-      class="block one">
+      class="block group">
       <img
-        src="http://cdn.exe666.com/fe/marketing/img/fourProject/bg.png"
+       :src="base + 'group.png' + this.$qiniuCompress()"
         class="bg">
-        <>
       <img
         v-show="gameData.projectOne"
-        src="http://cdn.exe666.com/fe/marketing/img/fourProject/a.png"
+       :src="base + 'a.png' + this.$qiniuCompress()"
         class="done1">
       <img
         v-show="gameData.projectTwo"
-        src="http://cdn.exe666.com/fe/marketing/img/fourProject/b.png"
+       :src="base + 'b.png' + this.$qiniuCompress()"
         class="done2">
       <img
         v-show="gameData.projectThree"
-        src="http://cdn.exe666.com/fe/marketing/img/fourProject/c.png"
+        :src="base + 'c.png' + this.$qiniuCompress()"
         class="done3">
       <img
         v-show="gameData.projectFour"
-        src="http://cdn.exe666.com/fe/marketing/img/fourProject/d.png"
+        :src="base + 'd.png' + this.$qiniuCompress()"
         class="done4">
+      <span
+        class="span">已集齐<span class="white">{{gameData.numArr[gameData.num]}}</span>赞
+      </span>
     </div>
-    <!-- 1元爆品 -->
-    <!-- <div 
-      class="block two">
-      <ul 
-        class="one-list">
-        <li 
-          v-for="item in list" 
-          :key="item.id"
-          class="one-list-item"></li>
-      </ul>
-    </div> -->
-    <!-- 节目主打 -->
-    <!-- <div 
-      class="block three">
-      <ul 
-        class="one-list">
-        <li 
-          v-for="item in list" 
-          :key="item.id"
-          class="one-list-item"></li>
-      </ul>
-    </div> -->
-    <!-- 节目必抢 -->
-    <!-- <div 
-      class="block four">
-      <ul 
-        class="one-list">
-        <li 
-          v-for="item in list" 
-          :key="item.id"
-          class="one-list-item"></li>
-      </ul>
-    </div> -->
+    <img 
+        :src="base + 'note.png'"
+        class="note">
+    <div 
+      class="block coupons">
+      <img 
+        :src="base + params.belong + '.png' + this.$qiniuCompress()">
+    </div>
   </div>
 </template>
 <script>
@@ -97,10 +45,10 @@ import {
   isInWechat,
   Cookies,
   userGame,
-  getGame,
-  setParameter
+  getGame
 } from 'services'
 import { normalPages } from '../../mixins/normalPages'
+const REQ_URL = 'http://120.27.144.62:1337/parse/classes/'
 const IMG_SERVER = 'http://p22vy0aug.bkt.clouddn.com'
 export default {
   mixins: [normalPages],
@@ -116,7 +64,7 @@ export default {
         deUrl:
           'http://wx.qlogo.cn/mmopen/Q3auHgzwzM4VoBYD1YEIq0E3LFM1XLKsd3sG5VXRAvCUqCVXIPTcI0TzqicRWfzB9Zv40GhTR83RhKAugpzOuaJFC11nxmcnnp6ZbOu04UFw/0',
         userId: null,
-        belong: null,
+        belong: this.$route.query.utm_campaign,
         id: this.$route.query.id
       },
       // 节目数据，是否已玩
@@ -125,18 +73,14 @@ export default {
         projectTwo: false,
         projectThree: false,
         projectFour: false,
-        randomNum: ''
-      },
-      product_list: {
-        url: ['', '', '', ''],
-        name: [],
-        price: []
+        num: 0,
+        numArr: ['0', '一', '二', '三', '四']
       },
       //分享
       wxShareInfoValue: {
-        title: '',
-        desc: '',
-        link: '' + window.location.search,
+        title: '中秋国庆星乐享，1000份好礼“刷脸”大派送！',
+        desc: '大融城-星视度嗨玩节，福利优惠拿不停。',
+        link: 'http://papi.xingstation.com/api/s/nZR' + window.location.search,
         imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/tm/guoqing/share.png',
         success: function() {
           wechatShareTrack()
@@ -205,25 +149,25 @@ export default {
       let data = list
       console.log(list)
       data.map(r => {
-        // 节目1，品牌
-        if (r.belong === 'BirthdayPurple') {
+        // 节目1，棒约翰
+        if (r.belong === 'PaPaJohnsPizza') {
           this.gameData.projectOne = true
-          alert('BirthdayPurple')
+          this.gameData.num++
         }
-        // 节目2，品牌
-        if (r.belong === 'BirthdayYellow') {
+        // 节目2，华为周年庆
+        if (r.belong === 'huawei') {
           this.gameData.projectTwo = true
-          alert('BirthdayYellow')
+          this.gameData.num++
         }
-        // 节目3，品牌
-        if (r.belong === 'BirthdayGreen') {
+        // 节目3,balabala,小小童星梦
+        if (r.belong === 'childDream') {
           this.gameData.projectThree = true
-          alert('BirthdayGreen')
+          this.gameData.num++
         }
-        // 节目4，品牌
-        if (r.belong === 'BirthdayBlue') {
+        // 节目4，嘉庭老上海味道
+        if (r.belong === 'jiating') {
           this.gameData.projectFour = true
-          alert('BirthdayBlue')
+          this.gameData.num++
         }
       })
     }
@@ -233,16 +177,15 @@ export default {
 <style lang="less" scoped>
 /*声明 WebFont*/
 @font-face {
-  font-family: 'mutouren';
-  src: url('http://p22vy0aug.bkt.clouddn.com/font/mutouren.ttf');
-  src: url('http://p22vy0aug.bkt.clouddn.com/font/mutouren.eot'),
-    url('http://p22vy0aug.bkt.clouddn.com/font/mutouren.woff'),
-    url('http://p22vy0aug.bkt.clouddn.com/font/mutouren.ttf'),
-    url('http://p22vy0aug.bkt.clouddn.com/font/mutouren.svg');
+  font-family: 'haibao';
+  src: url('http://p22vy0aug.bkt.clouddn.com/font/haibao.ttf');
+  src: url('http://p22vy0aug.bkt.clouddn.com/font/haibao.eot'),
+    url('http://p22vy0aug.bkt.clouddn.com/font/haibao.woff'),
+    url('http://p22vy0aug.bkt.clouddn.com/font/haibao.ttf'),
+    url('http://p22vy0aug.bkt.clouddn.com/font/haibao.svg');
   font-weight: normal;
   font-style: normal;
 }
-
 @base: 'http://p22vy0aug.bkt.clouddn.com/image/tm/guoqing/';
 html,
 body {
@@ -269,38 +212,75 @@ img {
 .content {
   width: 100%;
   overflow-x: hidden;
-  background-color: #fffff5;
+  background-color: #fef6d1;
   max-width: 750px;
+  background-image: url('@{base}title.png');
+  background-position: center top;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  padding-top: 62%;
+
   .block {
-    width: 100%;
+    width: 97.5%;
     overflow-x: hidden;
     position: relative;
+    margin: 0 auto;
   }
-  .one {
+  .note {
+    width: 54.5%;
+    margin-top: 4%;
+    margin-bottom: 6%;
+  }
+  .group {
+    background-image: url('@{base}bg.png');
+    background-position: center top;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    padding-top: 1%;
     .bg {
       position: relative;
       z-index: 0;
     }
-    .done1 {
+    .done1,
+    .done2,
+    .done3,
+    .done4 {
+      height: 36%;
       position: absolute;
-      top: 19%;
-      left: 0;
+      top: 45.5%;
+    }
+    .done1 {
+      left: 1.5%;
     }
     .done2 {
-      position: absolute;
-      top: 38%;
-      left: 0;
+      left: 26%;
     }
     .done3 {
-      position: absolute;
-      top: 58%;
-      left: 0;
+      left: 50.5%;
     }
     .done4 {
-      position: absolute;
-      top: 78%;
-      left: 0;
+      left: 75%;
     }
+    .span {
+      width: 56%;
+      text-align: center;
+      font-family: 'haibao';
+      font-size: 8vw;
+      letter-spacing: 2px;
+      text-stroke: 1px #000;
+      -webkit-text-stroke: 1px #000;
+      position: absolute;
+      left: 22%;
+      bottom: 3.8%;
+      color: #e93f42;
+      .white {
+        color: #fff;
+        font-size: 8vw;
+      }
+    }
+  }
+  .coupons {
+    margin-bottom: 8%;
   }
 }
 </style>
