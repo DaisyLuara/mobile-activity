@@ -34,9 +34,9 @@ export default {
       iphoneX: false,
       photo: null,
       wxShareInfoValue: {
-        title: '国庆快乐',
-        desc: '我为祖国打call！！！',
-        link: 'http://papi.xingstation.com/api/s/oYj' + window.location.search,
+        title: '舞王battle',
+        desc: '不舞不型 全民街舞',
+        link: 'http://papi.xingstation.com/api/s/pg2' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/xsd_ad/icon.png',
         success: () => {
           wechatShareTrack()
