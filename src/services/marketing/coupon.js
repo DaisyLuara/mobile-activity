@@ -141,6 +141,19 @@ const checkCouponNumber = couponId => {
       })
   })
 }
+// 概率获取优惠券ID（coupinId）
+const getCouponId = policyId => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(OPEN_COUPON + 'batches?policy_id=' + policyId)
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
 
 export {
   createCoupon,
@@ -151,5 +164,6 @@ export {
   getV4CouponCount,
   createV5Coupon,
   getAdCoupon,
-  checkCouponNumber
+  checkCouponNumber,
+  getCouponId
 }

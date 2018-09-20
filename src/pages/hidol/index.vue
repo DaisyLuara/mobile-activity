@@ -51,6 +51,10 @@ export default {
       list: Array(100).fill(0)
     }
   },
+  components: {
+    'mt-loadmore': Loadmore
+    // NewPost: () => import('./components/NewPost.vue')
+  },
   created() {
     let html = document.getElementsByTagName('html')[0]
     html.setAttribute('style', 'font-size: 14px')

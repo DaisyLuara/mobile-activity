@@ -276,7 +276,7 @@ export default {
       let cake_type_a = this.$route.query.cake_type_a
       let cake_type_b = this.$route.query.cake_type_b
       let url =
-        'http://exelook.com:8010/pushdiv/?oid=563&belong=WhoTakeMoonCake&id=' +
+        'http://exelook.com:8010/pushdiv/?oid=563,213,387&belong=WhoTakeMoonCake&id=' +
         id +
         "&url={'cakeID':0,'cake_type_a':" +
         cake_type_a +
