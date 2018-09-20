@@ -6,39 +6,41 @@
     <!-- 欢乐积攒有惊喜 四级联动显示-->
     <div 
       v-show="!isfinished"
-      class="block group">
-      <img
-       :src="base + 'group.png' + this.$qiniuCompress()"
-        class="bg">
-      <img
-        v-show="gameData.projectOne"
-       :src="base + 'a.png' + this.$qiniuCompress()"
-        class="done1">
-      <img
-        v-show="gameData.projectTwo"
-       :src="base + 'b.png' + this.$qiniuCompress()"
-        class="done2">
-      <img
-        v-show="gameData.projectThree"
-        :src="base + 'c.png' + this.$qiniuCompress()"
-        class="done3">
-      <img
-        v-show="gameData.projectFour"
-        :src="base + 'd.png' + this.$qiniuCompress()"
-        class="done4">
-      <span
-        class="span">已集齐<span class="white">{{gameData.numArr[gameData.num]}}</span>赞
-      </span>
+      class="group">
+      <div
+        class="block">
+        <img
+        :src="base + 'group2.png' + this.$qiniuCompress()"
+          class="bg">
+        <img
+          v-show="gameData.projectOne"
+        :src="base + 'a.png' + this.$qiniuCompress()"
+          class="done1">
+        <img
+          v-show="gameData.projectTwo"
+        :src="base + 'b.png' + this.$qiniuCompress()"
+          class="done2">
+        <img
+          v-show="gameData.projectThree"
+          :src="base + 'c.png' + this.$qiniuCompress()"
+          class="done3">
+        <img
+          v-show="gameData.projectFour"
+          :src="base + 'd.png' + this.$qiniuCompress()"
+          class="done4">
+        <span
+          class="span">已集齐<span class="white">{{gameData.numArr[gameData.num]}}</span>赞
+        </span>
+      </div>
     </div>
-    <img 
-      v-show="!isfinished"
-      :src="base + 'note.png'"
-      class="note">
     <div 
       v-show="isfinished"
-      class="block group finish">
-      <img 
-        :src="base + 'finish.png'">
+      class="group">
+      <div 
+        class="block finish">
+        <img 
+          :src="base + 'finish1.png'">
+      </div>
     </div>
     <a
       v-show="isfinished"
@@ -76,18 +78,8 @@
         />
         <div 
           class="win-text">
-          <p 
-            class="p1">
-            {{coupon.text[coupon.couponId||11][0]}}
-          </p>
-          <p 
-            class="p3">
-            {{coupon.text[coupon.couponId||11][2]}}
-          </p>
-          <p 
-            class="p2">
-            {{coupon.text[coupon.couponId||11][1]}}
-          </p>
+          <img  
+            :src="base + couponId +'.png' + this.$qiniuCompress()">
         </div>
         <div 
           class="form">
@@ -140,17 +132,7 @@ export default {
       coupon: {
         policyId: 4,
         couponId: null,
-        text: {
-          '7': ['嗨玩汤姆熊币', '领取地点：服务台L5'],
-          '8': ['炫彩杯子或背包任选', '领券地点：华为门店L119-2'],
-          '9': ['特制鲜肉月饼', '领取地点：嘉庭L503-2'],
-          '10': [
-            '精美文具礼盒',
-            '领取地点：Balabala L324-325',
-            '关注商户公众号后领取'
-          ],
-          '11': ['谢谢惠顾']
-        }
+        text: {}
       },
       mobile: null,
       award: true,
@@ -467,6 +449,7 @@ img {
     right: 0%;
   }
   .group {
+    width: 100%;
     background-image: url('@{base}bg.png');
     background-position: center top;
     background-size: 100% auto;
