@@ -382,7 +382,6 @@ export default {
     getCouponId() {
       getCouponId(this.coupon.policyId)
         .then(res => {
-          console.log('getCouponId')
           console.log(res)
           this.coupon.couponId = res.id
           this.coupon.url = res.image_url
