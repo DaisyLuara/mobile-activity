@@ -43,7 +43,7 @@
       </div>
     </div>
     <a
-      v-show="!mask"
+      v-show="gameData.num==4&&!mask"
       class="alert"
       @click="()=>{mask = true}">
       <img 
