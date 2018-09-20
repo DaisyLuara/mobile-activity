@@ -180,7 +180,6 @@ export default {
         this.handleWechatAuth()
       }
     }
-
     // if (this.gameData.num == 4) {
     //   this.isfinished = true
     //   this.mask = true
@@ -258,13 +257,13 @@ export default {
           this.gameData.projectFour = true
           this.gameData.num++
         }
-        if (this.gameData.num == 4) {
-          this.isfinished = true
-          this.mask = true
-          this.initCanvas()
-          this.getCouponId()
-        }
       })
+      if (this.gameData.num == 4) {
+        this.isfinished = true
+        this.mask = true
+        this.initCanvas()
+        this.getCouponId()
+      }
     },
     checkMobile(mobile) {
       if (!/^1[3456789]\d{9}$/.test(mobile)) {
@@ -326,8 +325,6 @@ export default {
         ctx.beginPath()
         ctx.globalCompositeOperation = 'destination-out'
         ctx.arc(x, y, 20, 0, Math.PI * 2)
-        alert(x)
-        alert(y)
         ctx.fill()
         ctx.closePath()
       }
@@ -370,7 +367,6 @@ export default {
       }
       getAdCoupon(args, this.coupon.couponId)
         .then(res => {
-          // let data = res.data
           console.log('getCoupon')
           console.log(res)
         })
@@ -378,26 +374,17 @@ export default {
           alert(err.response.data.message)
         })
     },
-    // getCheck() {
-    //   checkCouponNumber(this.coupon.couponId)
-    //     .then(res => {
-    //       console.log(res)
-    //     })
-    //     .catch(err => {
-    //       alert(err.response.data.message)
-    //     })
-    // },
     getCouponId() {
       getCouponId(this.coupon.policyId)
         .then(res => {
           console.log(res)
-          this.coupon.couponId = res.id
-          this.coupon.url = res.image_url
+          // this.coupon.couponId = res.id
+          // this.coupon.url = res.image_url
           // this.getCheck()
         })
         .catch(err => {
           console.log(err)
-          alert(err.response.data.message)
+          // alert(err.response.data.message)
         })
     }
   }
@@ -564,7 +551,7 @@ img {
     }
     .win-text {
       position: absolute;
-      top: 42.2%;
+      top: 40.2%;
       width: 75.5%;
       left: 12.25%;
       z-index: 9;
