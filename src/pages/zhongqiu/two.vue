@@ -170,7 +170,7 @@ export default {
       //微信分享
       wxShareInfoValue: {
         title: '中秋快乐',
-        desc: '采购中秋月饼，送吃送祝福',
+        desc: '采购中秋月饼,送吃送祝福',
         link: 'http://papi.xingstation.com/api/s/Z6J' + window.location.search,
         imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/zhongqiu/2/share.png',
         success: function() {
@@ -276,7 +276,7 @@ export default {
       let cake_type_a = this.$route.query.cake_type_a
       let cake_type_b = this.$route.query.cake_type_b
       let url =
-        'http://exelook.com:8010/pushdiv/?oid=563,213,387&belong=WhoTakeMoonCake&id=' +
+        'http://exelook.com:8010/pushdiv/?oid=563,213,387,229,427,220,544,475,435&belong=WhoTakeMoonCake&id=' +
         id +
         "&url={'cakeID':0,'cake_type_a':" +
         cake_type_a +

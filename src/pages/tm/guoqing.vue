@@ -6,42 +6,44 @@
     <!-- 欢乐积攒有惊喜 四级联动显示-->
     <div 
       v-show="!isfinished"
-      class="block group">
-      <img
-       :src="base + 'group.png' + this.$qiniuCompress()"
-        class="bg">
-      <img
-        v-show="gameData.projectOne"
-       :src="base + 'a.png' + this.$qiniuCompress()"
-        class="done1">
-      <img
-        v-show="gameData.projectTwo"
-       :src="base + 'b.png' + this.$qiniuCompress()"
-        class="done2">
-      <img
-        v-show="gameData.projectThree"
-        :src="base + 'c.png' + this.$qiniuCompress()"
-        class="done3">
-      <img
-        v-show="gameData.projectFour"
-        :src="base + 'd.png' + this.$qiniuCompress()"
-        class="done4">
-      <span
-        class="span">已集齐<span class="white">{{gameData.numArr[gameData.num]}}</span>赞
-      </span>
+      class="group">
+      <div
+        class="block">
+        <img
+        :src="base + 'group3.png' + this.$qiniuCompress()"
+          class="bg">
+        <img
+          v-show="gameData.projectOne"
+        :src="base + 'a.png' + this.$qiniuCompress()"
+          class="done1">
+        <img
+          v-show="gameData.projectTwo"
+        :src="base + 'b.png' + this.$qiniuCompress()"
+          class="done2">
+        <img
+          v-show="gameData.projectThree"
+          :src="base + 'c.png' + this.$qiniuCompress()"
+          class="done3">
+        <img
+          v-show="gameData.projectFour"
+          :src="base + 'd.png' + this.$qiniuCompress()"
+          class="done4">
+        <span
+          class="span">已集齐<span class="white">{{gameData.numArr[gameData.num]}}</span>赞
+        </span>
+      </div>
     </div>
-    <img 
-      v-show="!isfinished"
-      :src="base + 'note.png'"
-      class="note">
     <div 
       v-show="isfinished"
-      class="block group finish">
-      <img 
-        :src="base + 'finish.png'">
+      class="group">
+      <div 
+        class="block finish">
+        <img 
+          :src="base + 'finish3.png'">
+      </div>
     </div>
     <a
-      v-show="isfinished"
+      v-show="gameData.num==4&&!mask"
       class="alert"
       @click="()=>{mask = true}">
       <img 
@@ -52,6 +54,10 @@
       <img 
         :src="base + params.belong + '.png?333' + this.$qiniuCompress()">
     </div>
+    <!-- tips -->
+    <img 
+      :src="base + 'tips.png'"
+      class="tips">
     <div 
       v-show="mask"
       class="mask">
@@ -76,18 +82,9 @@
         />
         <div 
           class="win-text">
-          <p 
-            class="p1">
-            {{coupon.text[coupon.couponId||11][0]}}
-          </p>
-          <p 
-            class="p3">
-            {{coupon.text[coupon.couponId||11][2]}}
-          </p>
-          <p 
-            class="p2">
-            {{coupon.text[coupon.couponId||11][1]}}
-          </p>
+          <!-- 优惠券 -->
+          <img  
+            :src="coupon.url + this.$qiniuCompress()">
         </div>
         <div 
           class="form">
@@ -140,17 +137,7 @@ export default {
       coupon: {
         policyId: 4,
         couponId: null,
-        text: {
-          '7': ['嗨玩汤姆熊币', '领取地点：服务台L5'],
-          '8': ['炫彩杯子或背包任选', '领券地点：华为门店L119-2'],
-          '9': ['特制鲜肉月饼', '领取地点：嘉庭L503-2'],
-          '10': [
-            '精美文具礼盒',
-            '领取地点：Balabala L324-325',
-            '关注商户公众号后领取'
-          ],
-          '11': ['谢谢惠顾']
-        }
+        url: null
       },
       mobile: null,
       award: true,
@@ -290,7 +277,6 @@ export default {
     },
     initCanvas() {
       let that = this
-
       let img = new Image()
       let canvas = document.getElementById('canvasDoodle')
       let ctx = canvas.getContext('2d')
@@ -370,6 +356,7 @@ export default {
       getAdCoupon(args, this.coupon.couponId)
         .then(res => {
           let data = res.data
+          console.log('getCoupon')
           console.log(res)
         })
         .catch(err => {
@@ -388,9 +375,11 @@ export default {
     getCouponId() {
       getCouponId(this.coupon.policyId)
         .then(res => {
+          console.log('getCouponId')
           console.log(res)
           let data = res.data
           this.coupon.couponId = res.id
+          this.coupon.url = res.imgUrl
           this.getCheck()
         })
         .catch(err => {
@@ -467,12 +456,13 @@ img {
     right: 0%;
   }
   .group {
+    width: 100%;
     background-image: url('@{base}bg.png');
     background-position: center top;
     background-size: 100% auto;
     background-repeat: no-repeat;
-    padding-top: 1%;
     z-index: 0;
+    margin-bottom: 7%;
     .bg {
       position: relative;
       z-index: 0;
@@ -481,9 +471,9 @@ img {
     .done2,
     .done3,
     .done4 {
-      height: 36%;
+      height: 32%;
       position: absolute;
-      top: 45.5%;
+      top: 42.5%;
     }
     .done1 {
       left: 1.5%;
@@ -507,7 +497,7 @@ img {
       -webkit-text-stroke: 1px #000;
       position: absolute;
       left: 22%;
-      bottom: 3.8%;
+      bottom: 11.5%;
       color: #e93f42;
       .white {
         color: #fff;
@@ -519,8 +509,9 @@ img {
     margin-bottom: 7%;
   }
   .coupons {
-    margin-bottom: 8%;
     z-index: 0;
+  }
+  .tips {
   }
   .mask {
     width: 100%;
@@ -553,33 +544,20 @@ img {
     }
     .canvas-ele {
       position: absolute;
-      top: 42.2%;
-      width: 63%;
+      top: 42.4%;
+      width: 68%;
       height: 20%;
-      left: 19%;
+      left: 16%;
       z-index: 1000;
     }
     .win-text {
       position: absolute;
       top: 42.2%;
-      width: 63%;
-      height: 20%;
-      left: 19%;
+      width: 75.5%;
+      left: 12.25%;
       z-index: 99;
       overflow: hidden;
       color: #fff;
-      .p1 {
-        font-weight: bolder;
-        font-size: 4vw;
-        margin-bottom: 2%;
-        letter-spacing: 2px;
-      }
-      .p2 {
-        font-size: 12px;
-      }
-      .p3 {
-        font-size: 12px;
-      }
     }
     .form {
       width: 77%;
