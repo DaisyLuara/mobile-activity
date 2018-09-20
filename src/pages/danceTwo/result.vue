@@ -2,19 +2,19 @@
   <div
     :style="style.root" 
     class="root">
-      <img 
-        :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
-        :class="{'x-frame':iphoneX,'frame':!iphoneX}" 
-        class="frame">
-      <img 
-        :src="baseUrl + 'text.png'+ this.$qiniuCompress()"
-        :class="{'x-text':iphoneX,'text':!iphoneX}"
-        class="text">
-      <img 
-        v-if="photo !== null" 
-        :src="photo + this.$qiniuCompress()"
-        :class="{'x-photoImg':iphoneX,'photoImg':!iphoneX}"
-        class="photoImg">
+    <img 
+      :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
+      :class="{'x-frame':iphoneX,'frame':!iphoneX}" 
+      class="frame">
+    <img 
+      :src="baseUrl + 'text.png'+ this.$qiniuCompress()"
+      :class="{'x-text':iphoneX,'text':!iphoneX}"
+      class="text">
+    <img 
+      v-if="photo !== null" 
+      :src="photo + this.$qiniuCompress()"
+      :class="{'x-photoImg':iphoneX,'photoImg':!iphoneX}"
+      class="photoImg">
   </div>
 </template>
 <script>
