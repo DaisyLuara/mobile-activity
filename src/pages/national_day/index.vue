@@ -13,7 +13,7 @@
       <img 
         :src="baseUrl + 'photo_bg.png'+ this.$qiniuCompress()"
         class="photo-bg">
-        <!-- :src="baseUrl + '666.png'+ this.$qiniuCompress()" -->
+      <!-- :src="baseUrl + '666.png'+ this.$qiniuCompress()" -->
       <img 
         v-if="photo !== null" 
         :src="photo + this.$qiniuCompress()"

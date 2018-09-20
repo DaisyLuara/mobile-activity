@@ -37,7 +37,7 @@
       <img
         src="http://cdn.exe666.com/fe/marketing/img/fourProject/bg.png"
         class="bg">
-        <>
+      <>
       <img
         v-show="gameData.projectOne"
         src="http://cdn.exe666.com/fe/marketing/img/fourProject/a.png"
