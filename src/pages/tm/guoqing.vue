@@ -180,10 +180,11 @@ export default {
         this.handleWechatAuth()
       }
     }
-    this.initCanvas()
+
     // if (this.gameData.num == 4) {
     //   this.isfinished = true
     //   this.mask = true
+    //   this.initCanvas()
     //   this.getCouponId()
     // }
   },
@@ -260,6 +261,7 @@ export default {
         if (this.gameData.num == 4) {
           this.isfinished = true
           this.mask = true
+          this.initCanvas()
           this.getCouponId()
         }
       })
