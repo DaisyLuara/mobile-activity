@@ -367,7 +367,6 @@ export default {
       }
       getAdCoupon(args, this.coupon.couponId)
         .then(res => {
-          console.log('getCoupon')
           console.log(res)
         })
         .catch(err => {
@@ -380,7 +379,6 @@ export default {
           console.log(res)
           // this.coupon.couponId = res.id
           // this.coupon.url = res.image_url
-          // this.getCheck()
         })
         .catch(err => {
           console.log(err)
