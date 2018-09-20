@@ -49,10 +49,11 @@
       <img 
       :src="base + 'alert.gif'">
     </a>
+    <!-- 商品优惠内容 -->
     <div 
       class="block coupons">
       <img 
-        :src="base + params.belong + '.png?333' + this.$qiniuCompress()">
+        :src="base + params.belong + '.png?887' + this.$qiniuCompress()">
     </div>
     <!-- tips -->
     <img 
@@ -116,7 +117,8 @@ import {
   userGame,
   getGame,
   getCouponId,
-  getAdCoupon
+  getAdCoupon,
+  checkCouponNumber
 } from 'services'
 import { normalPages } from '../../mixins/normalPages'
 const REQ_URL = 'http://120.27.144.62:1337/parse/classes/'
@@ -377,9 +379,8 @@ export default {
         .then(res => {
           console.log('getCouponId')
           console.log(res)
-          let data = res.data
           this.coupon.couponId = res.id
-          this.coupon.url = res.imgUrl
+          this.coupon.url = res.image_url
           this.getCheck()
         })
         .catch(err => {
@@ -432,7 +433,7 @@ img {
   overflow-x: hidden;
   background-color: #fef6d1;
   max-width: 750px;
-  background-image: url('@{base}title.png');
+  background-image: url('@{base}title.jpg');
   background-position: center top;
   background-size: 100% auto;
   background-repeat: no-repeat;
@@ -511,8 +512,7 @@ img {
   .coupons {
     z-index: 0;
   }
-  .tips {
-  }
+
   .mask {
     width: 100%;
     height: 100%;
