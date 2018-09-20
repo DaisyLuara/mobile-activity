@@ -137,7 +137,7 @@ export default {
       //微信分享
       wxShareInfoValue: {
         title: '中秋快乐',
-        desc: '我亲手做的月饼，你敢吃么？',
+        desc: '我亲手做的月饼,你敢吃么？',
         link: 'http://papi.xingstation.com/api/s/YEK' + window.location.search,
         imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/zhongqiu/1/share.png',
         success: function() {
@@ -246,7 +246,7 @@ export default {
     handlePost() {
       let id = this.$route.query.id
       let url =
-        'http://exelook.com:8010/pushdiv/?oid=562&belong=GroceryShop&id=' +
+        'http://exelook.com:8010/pushdiv/?oid=562,212,386,230,426,219,534,474,434,386&belong=GroceryShop&id=' +
         id +
         "&url={'cakeID':0,'cake_type_a':" +
         this.bing.cake_type_a +

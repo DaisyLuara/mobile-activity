@@ -1,23 +1,29 @@
 <template>
   <div class="hidol-root">
     <!-- top bar location -->
-    <div></div>
+    <div/>
 
     <!-- info list -->
     <div class="info-wrapper">
       <mt-loadmore 
-        autoFill
-        :top-method="loadTop" 
-        @top-status-change="handleTopChange"
         ref="loadmore"
+        :top-method="loadTop" 
+        auto-fill
+        @top-status-change="handleTopChange"
       >
         <ul>
-          <li v-for="(item, index) in list" :key="index">
+          <li 
+            v-for="(item, index) in list" 
+            :key="index">
             {{ item }}
           </li>
         </ul>
-        <div slot="top" class="mint-loadmore-top">
-          <span v-show="topStatus !== 'loading'" :class="{ 'rotate': topStatus === 'drop' }">↓</span>
+        <div 
+          slot="top" 
+          class="mint-loadmore-top">
+          <span 
+            v-show="topStatus !== 'loading'" 
+            :class="{ 'rotate': topStatus === 'drop' }">↓</span>
           <span v-show="topStatus === 'loading'">Loading...</span>
         </div>
       </mt-loadmore>
@@ -32,6 +38,10 @@
 import { Loadmore } from 'mint-ui'
 import { setTimeout } from 'timers'
 export default {
+  components: {
+    'mt-loadmore': Loadmore
+    // NewPost: () => import('./components/NewPost.vue')
+  },
   data() {
     return {
       control: {
@@ -40,10 +50,6 @@ export default {
       topStatus: '',
       list: Array(100).fill(0)
     }
-  },
-  components: {
-    'mt-loadmore': Loadmore,
-    NewPost: () => import('./components/NewPost.vue')
   },
   created() {
     let html = document.getElementsByTagName('html')[0]
