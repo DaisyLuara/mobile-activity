@@ -3,11 +3,13 @@ import Router from 'vue-router'
 import marketingHome from 'pages/marketingHome'
 import wxMiniHome from 'pages/wxMiniHome'
 import bindHome from 'pages/bindHome'
+import hidolHome from 'pages/hidolHome'
 
 // 被分割的子路由信息
 import marketingRouter from './marketing/index'
 import wxMiniRouter from './wxmini/index'
 import wxBindRouter from './wxbind/index'
+import hidolRouter from './hidol/index'
 
 // 引用模块
 const _import = require('../services/utils/import')
@@ -55,6 +57,20 @@ const router = new Router({
       name: 'wxMiniPages',
       component: wxMiniHome,
       children: wxMiniRouterAfterFilter.map(item => {
+        const routerItem = {
+          path: item.path,
+          name: item.name,
+          meta: item.meta,
+          component: _import(item.location)
+        }
+        return routerItem
+      })
+    },
+    {
+      path: '/hidol',
+      name: 'hidolApp',
+      component: hidolHome,
+      children: hidolRouter.map(item => {
         const routerItem = {
           path: item.path,
           name: item.name,
