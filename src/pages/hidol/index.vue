@@ -39,8 +39,8 @@ import { Loadmore } from 'mint-ui'
 import { setTimeout } from 'timers'
 export default {
   components: {
-    'mt-loadmore': Loadmore,
-    NewPost: () => import('./components/NewPost.vue')
+    'mt-loadmore': Loadmore
+    // NewPost: () => import('./components/NewPost.vue')
   },
   data() {
     return {
@@ -50,10 +50,6 @@ export default {
       topStatus: '',
       list: Array(100).fill(0)
     }
-  },
-  components: {
-    'mt-loadmore': Loadmore
-    // NewPost: () => import('./components/NewPost.vue')
   },
   created() {
     let html = document.getElementsByTagName('html')[0]
