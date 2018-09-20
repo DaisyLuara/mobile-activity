@@ -376,9 +376,8 @@ export default {
       getCouponId(this.coupon.policyId)
         .then(res => {
           console.log(res)
-          let data = res.data
-          this.coupon.couponId = data.id
-          this.coupon.url = data.image_url
+          this.coupon.couponId = res.id
+          this.coupon.url = res.image_url
         })
         .catch(err => {
           console.log(err)

@@ -143,7 +143,7 @@ const getCouponId = policyId => {
     axios
       .get(OPEN_COUPON + 'batches?policy_id=' + policyId)
       .then(response => {
-        resolve(response)
+        resolve(response.data)
       })
       .catch(err => {
         reject(err)
