@@ -207,6 +207,17 @@ const Date201809 = [
       desc: '十一国庆'
     },
     isAbandoned: false
+  },
+  {
+    path: 'xsd_gw',
+    location: 'danceTwo/result',
+    name: 'xsd_gw',
+    meta: {
+      title: '星视度',
+      author: 'xj1012',
+      desc: '尬舞机新版'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201809
