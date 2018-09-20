@@ -5,10 +5,10 @@
     :class="{overflow:mask}">
     <!-- 欢乐积攒有惊喜 四级联动显示-->
     <div 
-      v-show="!isfinished"
       class="group">
       <div
-        class="block">
+        v-show="!isfinished"
+        class="block unfinish">
         <img
         :src="base + 'group3.png' + this.$qiniuCompress()"
           class="bg">
@@ -32,23 +32,20 @@
           class="span">已集齐<span class="white">{{gameData.numArr[gameData.num]}}</span>赞
         </span>
       </div>
-    </div>
-    <div 
-      v-show="isfinished"
-      class="group">
       <div 
+        v-show="isfinished"
         class="block finish">
         <img 
           :src="base + 'finish3.png'">
       </div>
+      <a
+        v-show="gameData.num==4&&!mask"
+        class="alert"
+        @click="()=>{mask = true}">
+        <img 
+        :src="base + 'alert.gif'">
+      </a>
     </div>
-    <a
-      v-show="gameData.num==4&&!mask"
-      class="alert"
-      @click="()=>{mask = true}">
-      <img 
-      :src="base + 'alert.gif'">
-    </a>
     <!-- 商品优惠内容 -->
     <div 
       class="block coupons">
@@ -294,7 +291,7 @@ export default {
       //获取当前画布的宽高
       let width = canvas.width
       let height = canvas.height
-      img.src = that.base + 'award.png'
+      img.src = that.base + 'award2.png'
       img.onload = () => {
         ctx.beginPath()
         ctx.drawImage(img, 0, 0, width, height)
@@ -433,7 +430,7 @@ img {
   background-position: center top;
   background-size: 100% auto;
   background-repeat: no-repeat;
-  padding-top: 62%;
+  padding-top: 60%;
   .block {
     width: 97.5%;
     overflow-x: hidden;
@@ -449,17 +446,18 @@ img {
     display: inline-block;
     width: 20%;
     position: absolute;
-    top: 97%;
+    bottom: -13.5%;
     right: 0%;
   }
   .group {
+    position: relative;
     width: 100%;
     background-image: url('@{base}bg.png');
     background-position: center top;
     background-size: 100% auto;
     background-repeat: no-repeat;
     z-index: 0;
-    margin-bottom: 7%;
+    margin-bottom: 10%;
     .bg {
       position: relative;
       z-index: 0;
