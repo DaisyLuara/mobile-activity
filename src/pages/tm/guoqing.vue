@@ -144,6 +144,7 @@ export default {
       mobile: null,
       award: true,
       mask: false,
+      c: null,
       isfinished: false,
       // 节目数据，是否已玩
       gameData: {
@@ -151,7 +152,7 @@ export default {
         projectTwo: false,
         projectThree: false,
         projectFour: false,
-        num: 4,
+        num: 0,
         numArr: ['0', '一', '二', '三', '四']
       },
       //分享
@@ -300,6 +301,7 @@ export default {
         ctx.closePath()
         if (document.querySelector('.canvas-ele') !== null) {
           this.c = document.querySelector('.canvas-ele').getBoundingClientRect()
+          console.log(this.c)
         }
       }
     },
@@ -322,6 +324,8 @@ export default {
         ctx.beginPath()
         ctx.globalCompositeOperation = 'destination-out'
         ctx.arc(x, y, 20, 0, Math.PI * 2)
+        alert(x)
+        alert(y)
         ctx.fill()
         ctx.closePath()
       }
@@ -333,6 +337,8 @@ export default {
       let x = event.touches[0].clientX - this.c.left
       let y = event.touches[0].clientY - this.c.top
       ctx.beginPath()
+      console.log(x)
+      console.log(y)
       ctx.globalCompositeOperation = 'destination-out'
       ctx.arc(x, y, 20, 0, Math.PI * 2)
       ctx.fill()
