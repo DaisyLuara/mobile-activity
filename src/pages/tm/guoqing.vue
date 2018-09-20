@@ -272,7 +272,6 @@ export default {
       } else {
         this.handleTrack(mobile)
         this.getCoupon()
-        console.log(mobile)
       }
     },
     handleTrack(mobile) {
@@ -377,8 +376,8 @@ export default {
       getCouponId(this.coupon.policyId)
         .then(res => {
           console.log(res)
-          // this.coupon.couponId = res.id
-          // this.coupon.url = res.image_url
+          this.coupon.couponId = res.id
+          this.coupon.url = res.image_url
         })
         .catch(err => {
           console.log(err)
