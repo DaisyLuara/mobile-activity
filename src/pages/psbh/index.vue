@@ -4,14 +4,14 @@
   </div>
 </template>
 <script>
-import phoneTemplate from 'templates/christmas/index'
+// import phoneTemplate from 'templates/christmas/index'
 
 const marketingImageServer =
   process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
-  components: {
-    phoneTemplate
-  },
+  // components: {
+  //   phoneTemplate
+  // },
   data() {
     return {
       marketingOptions: {
