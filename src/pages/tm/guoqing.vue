@@ -151,7 +151,7 @@ export default {
         projectTwo: false,
         projectThree: false,
         projectFour: false,
-        num: 0,
+        num: 4,
         numArr: ['0', '一', '二', '三', '四']
       },
       //分享
@@ -180,6 +180,11 @@ export default {
       }
     }
     this.initCanvas()
+    // if (this.gameData.num == 4) {
+    //   this.isfinished = true
+    //   this.mask = true
+    //   this.getCouponId()
+    // }
   },
   methods: {
     handleWechatAuth() {
@@ -357,7 +362,7 @@ export default {
       }
       getAdCoupon(args, this.coupon.couponId)
         .then(res => {
-          let data = res.data
+          // let data = res.data
           console.log('getCoupon')
           console.log(res)
         })
@@ -365,15 +370,15 @@ export default {
           alert(err.response.data.message)
         })
     },
-    getCheck() {
-      checkCouponNumber(this.coupon.couponId)
-        .then(res => {
-          console.log(res)
-        })
-        .catch(err => {
-          alert(err.response.data.message)
-        })
-    },
+    // getCheck() {
+    //   checkCouponNumber(this.coupon.couponId)
+    //     .then(res => {
+    //       console.log(res)
+    //     })
+    //     .catch(err => {
+    //       alert(err.response.data.message)
+    //     })
+    // },
     getCouponId() {
       getCouponId(this.coupon.policyId)
         .then(res => {
@@ -381,7 +386,7 @@ export default {
           console.log(res)
           this.coupon.couponId = res.id
           this.coupon.url = res.image_url
-          this.getCheck()
+          // this.getCheck()
         })
         .catch(err => {
           console.log(err)
@@ -544,10 +549,10 @@ img {
     }
     .canvas-ele {
       position: absolute;
-      top: 42.4%;
-      width: 68%;
-      height: 20%;
-      left: 16%;
+      top: 39.4%;
+      width: 77%;
+      height: 26%;
+      left: 12%;
       z-index: 1000;
     }
     .win-text {
@@ -555,7 +560,7 @@ img {
       top: 42.2%;
       width: 75.5%;
       left: 12.25%;
-      z-index: 99;
+      z-index: 9;
       overflow: hidden;
       color: #fff;
     }
