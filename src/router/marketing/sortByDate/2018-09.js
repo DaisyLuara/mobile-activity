@@ -218,6 +218,17 @@ const Date201809 = [
       desc: '尬舞机新版'
     },
     isAbandoned: false
-  }
+  },
+  {
+    path: 'guoqing_simple',
+    location: 'tm/guoqingSimple',
+    name: 'guoqing_simple',
+    meta: {
+      title: '十一活动',
+      author: 'Joy',
+      desc: '十一国庆活动简单版'
+    },
+    isAbandoned: false
+  },
 ]
 export default Date201809

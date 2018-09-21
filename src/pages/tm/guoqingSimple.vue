@@ -4,7 +4,7 @@
     :class="{overflow:mask}"
     class="content">
     <!-- 欢乐积攒有惊喜 四级联动显示-->
-    <div 
+    <!-- <div 
       v-show="!isfinished"
       class="group">
       <div
@@ -41,17 +41,17 @@
         <img 
           :src="base + 'finish3.png'">
       </div>
-    </div>
+    </div> -->
 
     <!-- 商品优惠内容 -->
 
-    <a
+    <!-- <a
       v-show="gameData.num==4&&!mask"
       class="alert"
       @click="()=>{mask = true}">
       <img 
         :src="base + 'alert.gif'">
-    </a>
+    </a> -->
 
     <div 
       class="block coupons">
@@ -62,7 +62,7 @@
     <img 
       :src="base + 'tips.png'"
       class="tips">
-    <div 
+    <!-- <div 
       v-show="mask"
       class="mask">
       <div 
@@ -85,11 +85,10 @@
         />
         <div 
           class="win-text">
-          <!-- 优惠券 -->
           <img  
             :src="coupon.url + this.$qiniuCompress()">
-        </div>
-        <div 
+        </div> -->
+        <!-- <div 
           class="form">
           <input 
             v-model="mobile"
@@ -103,7 +102,7 @@
           <a 
             class="cancel-btn"
             @click="()=>{mask = false}"/>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -157,7 +156,7 @@ export default {
       wxShareInfoValue: {
         title: '中秋国庆星乐享，1000份好礼“刷脸”大派送！',
         desc: '大融城-星视度嗨玩节，福利优惠拿不停。',
-        link: 'http://papi.xingstation.com/api/s/nZR' + window.location.search,
+        link: 'http://papi.xingstation.com/api/s/qj2' + window.location.search,
         imgUrl:
           'http://p22vy0aug.bkt.clouddn.com/image/tm/guoqing/share_' +
           this.$route.query.utm_campaign.trim() +
@@ -178,7 +177,7 @@ export default {
         this.handleWechatAuth()
       }
     }
-    this.initCanvas()
+    // this.initCanvas()
   },
   methods: {
     handleWechatAuth() {
@@ -193,7 +192,7 @@ export default {
       } else {
         this.params.userId = Cookies.get('user_id')
         this.params.belong = this.$route.query.utm_campaign
-        this.userGame()
+        // this.userGame()
       }
     },
     userGame() {
@@ -409,6 +408,7 @@ body {
   width: 100%;
   height: 100%;
   overflow-x: hidden;
+  overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
   transform: translate3d(0, 0, 0);
   background-color: #fef6d1;
@@ -443,6 +443,7 @@ img {
     overflow-x: hidden;
     position: relative;
     margin: 0 auto;
+    margin-top: 22%;
   }
   .note {
     width: 54.5%;

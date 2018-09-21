@@ -1,23 +1,21 @@
 {
   "presets": [
     [
-      "env",
+      "@babel/preset-env",
       {
-        "modules": false
+        "useBuiltIns": "usage"
       }
-    ],
-    "stage-0"
+    ]
   ],
   "plugins": [
-    "transform-runtime",
+    "@babel/plugin-syntax-dynamic-import",
+    "@babel/transform-runtime",
     [
       "component",
-      [
-        {
-          "libraryName": "mint-ui",
-          "style": true
-        }
-      ]
+      {
+        "libraryName": "mint-ui",
+        "style": true
+      }
     ]
   ],
   "env": {
