@@ -60,18 +60,27 @@ yarn test
 
 ### Chrome Driver 报错
 
-先跑一下 yarn add chromedriver -D --chromedriver_cdnurl=http://cdn.npm.taobao.org/dist/chromedriver
+先跑一下
+
+```
+yarn add chromedriver -D --chromedriver_cdnurl=http://cdn.npm.taobao.org/dist/chromedriver
+```
 
 或者开启本地 sock5 代理来跑 yarn 的安装
 
+```
 vi ~/.zshrc
 
-```
+#添加代理配置
+
 alias proxy='export all_proxy=socks5://127.0.0.1:2333'
+
 alias unproxy="unset all_proxy"
-```
+
+#编译设置
 
 source ~/.zshrc
+```
 
 然后跑 proxy 即可走代理
 
