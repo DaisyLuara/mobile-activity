@@ -117,11 +117,7 @@ const getAdCoupon = (params, id) => {
     axios
       .post(COUPOUS_URL + id, params)
       .then(response => {
-        if (response.data.success) {
-          resolve(response.data.data)
-        } else {
-          reject(response)
-        }
+        resolve(response.data)
       })
       .catch(err => {
         reject(err)

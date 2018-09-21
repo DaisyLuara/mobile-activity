@@ -4,14 +4,14 @@
   </div>
 </template>
 <script>
-import photoTemplate from 'templates/christmas/result'
+// import photoTemplate from 'templates/christmas/result'
 
 const marketingImageServer =
   process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
-  components: {
-    photoTemplate
-  },
+  // components: {
+  //   photoTemplate
+  // },
   data() {
     return {
       marketingOptions: {
