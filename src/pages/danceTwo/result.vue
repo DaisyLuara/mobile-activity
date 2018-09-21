@@ -115,7 +115,7 @@ export default {
           color: '#000000',
           pos: {
             x: '-25%',
-            y: '0%',
+            y: '7%',
             rotate: 90
           }
         })
@@ -217,7 +217,7 @@ export default {
     width: 76%;
     position: absolute;
     left: 50%;
-    top: 48%;
+    top: 48.8%;
     transform: translate(-50%, -52%);
     -webkit-touch-callout: none;
     -webkit-user-select: none;
