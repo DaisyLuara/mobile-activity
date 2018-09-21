@@ -10,21 +10,17 @@
       :src="baseUrl + 'text.png'+ this.$qiniuCompress()"
       :class="{'x-text':iphoneX,'text':!iphoneX}"
       class="text">
-    <!-- <img 
-      v-if="photo !== null" 
-      :src="photo + this.$qiniuCompress()"
-      :class="{'x-photoImg':iphoneX,'photoImg':!iphoneX}"
-      class="photoImg"> -->
     <img
       id="test" 
       :src="compoundUrl"
       alt="" 
-      class="photoImg photo-real" >
+      :class="{'x-photoImg':iphoneX,'photoImg':!iphoneX}"
+      class="photoImg" >
     <canvas 
       id="canvas" 
       class="photoImg"
       style="display: none" />
-    <!-- <p>1234567890</p> -->
+    <p>1234567890</p>
   </div>
 </template>
 <script>
@@ -57,7 +53,9 @@ export default {
       }
     }
   },
-  created() {},
+  created() {
+    this.getInfoById()
+  },
   mounted() {
     let height = this.$innerHeight()
     if (height > 672) {
@@ -65,8 +63,6 @@ export default {
     } else {
       this.iphoneX = false
     }
-    //this.getInfoById()
-    this.drawing()
   },
   methods: {
     getInfoById() {
@@ -90,43 +86,45 @@ export default {
         backgroundColor
       })
       let url = this.photo + this.$qiniuCompress()
+      let score = this.$route.query.score
+      let ImgUrl = null
+      if (score >= 282 && score <= 300) {
+        ImgUrl = this.baseUrl + 'photo01.png'
+      }
+      if (score >= 263 && score <= 281) {
+        ImgUrl = this.baseUrl + 'photo02.png'
+      }
+      if (score <= 264) {
+        ImgUrl = this.baseUrl + 'photo03.png'
+      }
       let that = this
-      // this.baseUrl + '666.png'
       mc
         .background(this.baseUrl + 'frame.png', {
           left: 0,
           top: 0,
           type: 'origin',
-          width: this.$innerWidth(),
+          width: this.$innerWidth() * 0.1,
           height: this.$innerHeight(),
           pos: {
             x: '0%',
             y: '0%'
           }
         })
-        .add(this.baseUrl + '666.png', {
+        .add(url, {
           width: '180%',
           color: '#000000',
           pos: {
             x: '-25%',
-            y: '10%',
+            y: '0%',
             rotate: 90
           }
         })
-        .add(this.baseUrl + 'photo01.png', {
+        .add(ImgUrl, {
           width: '100%',
           color: '#000000',
           pos: {
             x: '0%',
             y: '0%'
-          }
-        })
-        .add(this.baseUrl + 'passed.png', {
-          width: '30%',
-          color: '#000000',
-          pos: {
-            x: '65%',
-            y: '5%'
           }
         })
         .draw({
@@ -147,7 +145,7 @@ export default {
           }
         })
     },
-    //文字的合成
+    //文字的合成及章
     drawingText() {
       var thisRef = this
       let canvas = document.getElementById('canvas')
@@ -156,26 +154,41 @@ export default {
       let height = this.$innerHeight()
       let width = this.$innerWidth()
       let text = this.$route.query.score
+      let seal = new Image()
+      seal.setAttribute('crossOrigin', 'Anonymous')
       image.src = this.base64Data
       image.onload = function() {
         canvas.width = image.width
         canvas.height = image.height
         ctx.drawImage(image, 0, 0, image.width, image.height)
-        let x = image.width * 1.2 * 0.55
+        let x = image.width * 1.2 * 0.53
         let y = image.height * 0.14
-        ctx.font = '400 90px jingzhuan'
+        ctx.font = '400 100px jingzhuan'
         ctx.textAlign = 'center'
         ctx.fillStyle = '#fff'
-
         ctx.fillText('', x, y)
         ctx.save()
         ctx.translate(x, y)
         ctx.fillText(text, 0, 0)
         ctx.restore()
-        let url = canvas.toDataURL('image/png')
-        let img = document.getElementById('test')
-        img.src = url
-        thisRef.compoundUrl = url
+        seal.onload = function() {
+          ctx.drawImage(
+            seal,
+            0,
+            0,
+            seal.width,
+            seal.height,
+            image.width * 0.65,
+            image.height * 0.08,
+            image.width * 0.35,
+            image.width * 0.32
+          )
+          let url = canvas.toDataURL('image/png')
+          let img = document.getElementById('test')
+          img.src = url
+          thisRef.compoundUrl = url
+        }
+        seal.src = thisRef.baseUrl + '/passed.png'
       }
     }
   }
@@ -201,20 +214,20 @@ export default {
   background-repeat: no-repeat;
   color: #fff;
   .frame {
-    width: 80%;
+    width: 76%;
     position: absolute;
     left: 50%;
-    top: 50%;
+    top: 48%;
     transform: translate(-50%, -52%);
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     pointer-events: none;
   }
   .x-frame {
-    width: 80%;
+    width: 78%;
     position: absolute;
     left: 50%;
-    top: 50%;
+    top: 48%;
     transform: translate(-50%, -58%);
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -224,22 +237,24 @@ export default {
     width: 75.5%;
     position: absolute;
     left: 12.5%;
-    top: 9.5%;
+    top: 5.5%;
     -webkit-user-select: auto;
     pointer-events: auto;
-    -webkit-transform-origin: center top;
     transform-origin: center top;
     -webkit-transform: rotate(90deg);
     transform: rotate(0deg);
   }
   .x-photoImg {
-    width: 75%;
+    width: 82%;
     position: absolute;
-    left: 50%;
-    top: 50%;
+    left: 9%;
+    top: 6.5%;
     transform: translate(-50%, -60%);
     -webkit-user-select: auto;
     pointer-events: auto;
+    transform-origin: center top;
+    -webkit-transform: rotate(90deg);
+    transform: rotate(0deg);
   }
   .text {
     width: 65%;
@@ -266,18 +281,7 @@ export default {
   p {
     font-family: 'jingzhuan';
     font-size: 8vw;
-    // display: none;
-  }
-}
-@keyframes arrow {
-  0% {
-    transform: translateY(-5px);
-  }
-  50% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(5px);
+    opacity: 0;
   }
 }
 </style>
