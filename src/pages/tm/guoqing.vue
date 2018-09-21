@@ -42,6 +42,9 @@
           :src="base + 'finish3.png'">
       </div>
     </div>
+
+    <!-- 商品优惠内容 -->
+
     <a
       v-show="gameData.num==4&&!mask"
       class="alert"
@@ -49,6 +52,7 @@
       <img 
         :src="base + 'alert.gif'">
     </a>
+
     <div 
       class="block coupons">
       <img 
