@@ -494,7 +494,7 @@ img {
       font-family: 'haibao';
       font-size: 8vw;
       letter-spacing: 2px;
-      text-stroke: 1px #000;
+      // text-stroke: 1px #000;
       -webkit-text-stroke: 1px #000;
       position: absolute;
       left: 22%;
@@ -511,8 +511,6 @@ img {
   }
   .coupons {
     z-index: 0;
-  }
-  .tips {
   }
   .mask {
     width: 100%;
