@@ -149,7 +149,7 @@ export default {
         projectTwo: false,
         projectThree: false,
         projectFour: false,
-        num: 4,
+        num: 0,
         numArr: ['0', '一', '二', '三', '四']
       },
       //分享
@@ -177,12 +177,12 @@ export default {
         this.handleWechatAuth()
       }
     }
-    if (this.gameData.num == 4) {
-      this.isfinished = true
-      this.mask = true
-      this.initCanvas()
-      this.getCouponId()
-    }
+    // if (this.gameData.num == 4) {
+    //   this.isfinished = true
+    //   this.mask = true
+    //   this.initCanvas()
+    //   this.getCouponId()
+    // }
   },
   methods: {
     handleWechatAuth() {
