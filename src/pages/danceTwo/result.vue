@@ -89,13 +89,21 @@ export default {
     pointer-events: none;
   }
   .photoImg {
-    width: 75%;
+    // width: 75%;
+    // position: absolute;
+    // left: 50%;
+    // top: 50%;
+    // transform: translate(-50%, -54%);
+    // -webkit-user-select: auto;
+    // pointer-events: auto;
+    width: 100%;
     position: absolute;
-    left: 50%;
+    left: 37.5%;
     top: 50%;
-    transform: translate(-50%, -54%);
     -webkit-user-select: auto;
     pointer-events: auto;
+    transform-origin: center top;
+    transform: rotate(90deg);
   }
   .x-photoImg {
     width: 75%;
