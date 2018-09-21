@@ -429,7 +429,7 @@ img {
   overflow-x: hidden;
   background-color: #fef6d1;
   max-width: 750px;
-  background-image: url('@{base}title.png');
+  background-image: url('@{base}background.png');
   background-position: center top;
   background-size: 100% auto;
   background-repeat: no-repeat;
