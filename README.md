@@ -58,6 +58,25 @@ yarn test
 
 线上打包使用 yarn --production 将不会带入 devDependencies 内容
 
+### Chrome Driver 报错
+
+先跑一下 yarn add chromedriver -D --chromedriver_cdnurl=http://cdn.npm.taobao.org/dist/chromedriver
+
+或者开启本地 sock5 代理来跑 yarn 的安装
+
+vi ~/.zshrc
+
+```
+alias proxy='export all_proxy=socks5://127.0.0.1:2333'
+alias unproxy="unset all_proxy"
+```
+
+source ~/.zshrc
+
+然后跑 proxy 即可走代理
+
+sock5 代理地址需要在 ss 客户端设置一下
+
 ## 路由配置
 
 ### 路由前处理
