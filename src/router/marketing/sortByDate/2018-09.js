@@ -229,6 +229,6 @@ const Date201809 = [
       desc: '十一国庆活动简单版'
     },
     isAbandoned: false
-  },
+  }
 ]
 export default Date201809
