@@ -1,8 +1,8 @@
 <template>
   <div 
     :style="(mask?'height:':'min-height:') + this.$innerHeight() + 'px'"
-    class="content"
-    :class="{overflow:mask}">
+    :class="{overflow:mask}"
+    class="content">
     <!-- 欢乐积攒有惊喜 四级联动显示-->
     <div 
       class="group">
@@ -10,15 +10,15 @@
         v-show="!isfinished"
         class="block unfinish">
         <img
-        :src="base + 'group3.png' + this.$qiniuCompress()"
+          :src="base + 'group3.png' + this.$qiniuCompress()"
           class="bg">
         <img
           v-show="gameData.projectOne"
-        :src="base + 'a.png' + this.$qiniuCompress()"
+          :src="base + 'a.png' + this.$qiniuCompress()"
           class="done1">
         <img
           v-show="gameData.projectTwo"
-        :src="base + 'b.png' + this.$qiniuCompress()"
+          :src="base + 'b.png' + this.$qiniuCompress()"
           class="done2">
         <img
           v-show="gameData.projectThree"
@@ -29,7 +29,7 @@
           :src="base + 'd.png' + this.$qiniuCompress()"
           class="done4">
         <span
-          class="span">已集齐<span class="white">{{gameData.numArr[gameData.num]}}</span>赞
+          class="span">已集齐<span class="white">{{ gameData.numArr[gameData.num] }}</span>赞
         </span>
       </div>
       <div 
@@ -46,7 +46,17 @@
         :src="base + 'alert.gif'">
       </a>
     </div>
+<<<<<<< HEAD
     <!-- 商品优惠内容 -->
+=======
+    <a
+      v-show="gameData.num==4&&!mask"
+      class="alert"
+      @click="()=>{mask = true}">
+      <img 
+        :src="base + 'alert.gif'">
+    </a>
+>>>>>>> feature-NationalDay2
     <div 
       class="block coupons">
       <img 
@@ -66,8 +76,7 @@
           class="winbg">
         <a
           class="close"
-          @click="()=>{mask = false}">
-        </a>
+          @click="()=>{mask = false}"/>
         <canvas 
           v-if="award"
           id="canvasDoodle" 
@@ -87,19 +96,17 @@
         <div 
           class="form">
           <input 
-            type="text"
-            maxlength="11" 
-            placeholder="请输入手机号"
             v-model="mobile"
-            class="input"/>
+            type="text" 
+            maxlength="11"
+            placeholder="请输入手机号"
+            class="input">
           <a 
             class="get-btn"
-            @click="checkMobile(mobile)">
-          </a>
+            @click="checkMobile(mobile)"/>
           <a 
             class="cancel-btn"
-            @click="()=>{mask = false}">
-          </a>
+            @click="()=>{mask = false}"/>
         </div>
       </div>
     </div>
