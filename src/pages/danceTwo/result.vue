@@ -86,7 +86,7 @@ export default {
         backgroundColor
       })
       let url = this.photo + this.$qiniuCompress()
-      let score = this.$route.query.score
+      let score = parseInt(this.$route.query.score)
       let ImgUrl = null
       if (score >= 282 && score <= 300) {
         ImgUrl = this.baseUrl + 'photo01.png'
@@ -94,7 +94,7 @@ export default {
       if (score >= 263 && score <= 281) {
         ImgUrl = this.baseUrl + 'photo02.png'
       }
-      if (score <= 264) {
+      if (score <= 262) {
         ImgUrl = this.baseUrl + 'photo03.png'
       }
       let that = this
