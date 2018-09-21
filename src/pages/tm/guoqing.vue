@@ -5,10 +5,10 @@
     class="content">
     <!-- 欢乐积攒有惊喜 四级联动显示-->
     <div 
+      v-show="!isfinished"
       class="group">
       <div
-        v-show="!isfinished"
-        class="block unfinish">
+        class="block">
         <img
           :src="base + 'group3.png' + this.$qiniuCompress()"
           class="bg">
@@ -32,23 +32,19 @@
           class="span">已集齐<span class="white">{{ gameData.numArr[gameData.num] }}</span>赞
         </span>
       </div>
+    </div>
+    <div 
+      v-show="isfinished"
+      class="group">
       <div 
-        v-show="isfinished"
         class="block finish">
         <img 
           :src="base + 'finish3.png'">
       </div>
-      <a
-        v-show="gameData.num==4&&!mask"
-        class="alert"
-        @click="()=>{mask = true}">
-        <img 
-        :src="base + 'alert.gif'">
-      </a>
     </div>
-<<<<<<< HEAD
+
     <!-- 商品优惠内容 -->
-=======
+
     <a
       v-show="gameData.num==4&&!mask"
       class="alert"
@@ -56,11 +52,11 @@
       <img 
         :src="base + 'alert.gif'">
     </a>
->>>>>>> feature-NationalDay2
+
     <div 
       class="block coupons">
       <img 
-        :src="base + params.belong + '.png?887' + this.$qiniuCompress()">
+        :src="base + params.belong + '.png?333' + this.$qiniuCompress()">
     </div>
     <!-- tips -->
     <img 
@@ -121,8 +117,7 @@ import {
   userGame,
   getGame,
   getCouponId,
-  getAdCoupon,
-  checkCouponNumber
+  getAdCoupon
 } from 'services'
 import { normalPages } from '../../mixins/normalPages'
 const REQ_URL = 'http://120.27.144.62:1337/parse/classes/'
@@ -148,7 +143,6 @@ export default {
       mobile: null,
       award: true,
       mask: false,
-      c: null,
       isfinished: false,
       // 节目数据，是否已玩
       gameData: {
@@ -184,12 +178,7 @@ export default {
         this.handleWechatAuth()
       }
     }
-    // if (this.gameData.num == 4) {
-    //   this.isfinished = true
-    //   this.mask = true
-    //   this.initCanvas()
-    //   this.getCouponId()
-    // }
+    this.initCanvas()
   },
   methods: {
     handleWechatAuth() {
@@ -261,13 +250,12 @@ export default {
           this.gameData.projectFour = true
           this.gameData.num++
         }
+        if (this.gameData.num == 4) {
+          this.isfinished = true
+          this.mask = true
+          this.getCouponId()
+        }
       })
-      if (this.gameData.num == 4) {
-        this.isfinished = true
-        this.mask = true
-        this.initCanvas()
-        this.getCouponId()
-      }
     },
     checkMobile(mobile) {
       if (!/^1[3456789]\d{9}$/.test(mobile)) {
@@ -276,6 +264,7 @@ export default {
       } else {
         this.handleTrack(mobile)
         this.getCoupon()
+        console.log(mobile)
       }
     },
     handleTrack(mobile) {
@@ -298,14 +287,13 @@ export default {
       //获取当前画布的宽高
       let width = canvas.width
       let height = canvas.height
-      img.src = that.base + 'award2.png'
+      img.src = that.base + 'award.png'
       img.onload = () => {
         ctx.beginPath()
         ctx.drawImage(img, 0, 0, width, height)
         ctx.closePath()
         if (document.querySelector('.canvas-ele') !== null) {
           this.c = document.querySelector('.canvas-ele').getBoundingClientRect()
-          console.log(this.c)
         }
       }
     },
@@ -339,8 +327,6 @@ export default {
       let x = event.touches[0].clientX - this.c.left
       let y = event.touches[0].clientY - this.c.top
       ctx.beginPath()
-      console.log(x)
-      console.log(y)
       ctx.globalCompositeOperation = 'destination-out'
       ctx.arc(x, y, 20, 0, Math.PI * 2)
       ctx.fill()
@@ -370,6 +356,17 @@ export default {
       }
       getAdCoupon(args, this.coupon.couponId)
         .then(res => {
+          let data = res.data
+          console.log('getCoupon')
+          console.log(res)
+        })
+        .catch(err => {
+          alert(err.response.data.message)
+        })
+    },
+    getCheck() {
+      checkCouponNumber(this.coupon.couponId)
+        .then(res => {
           console.log(res)
         })
         .catch(err => {
@@ -379,13 +376,16 @@ export default {
     getCouponId() {
       getCouponId(this.coupon.policyId)
         .then(res => {
+          console.log('getCouponId')
           console.log(res)
+          let data = res.data
           this.coupon.couponId = res.id
-          this.coupon.url = res.image_url
+          this.coupon.url = res.imgUrl
+          this.getCheck()
         })
         .catch(err => {
           console.log(err)
-          // alert(err.response.data.message)
+          alert(err.response.data.message)
         })
     }
   }
@@ -433,11 +433,11 @@ img {
   overflow-x: hidden;
   background-color: #fef6d1;
   max-width: 750px;
-  background-image: url('@{base}title.jpg');
+  background-image: url('@{base}background.png');
   background-position: center top;
   background-size: 100% auto;
   background-repeat: no-repeat;
-  padding-top: 60%;
+  padding-top: 62%;
   .block {
     width: 97.5%;
     overflow-x: hidden;
@@ -453,18 +453,17 @@ img {
     display: inline-block;
     width: 20%;
     position: absolute;
-    bottom: -13.5%;
+    top: 97%;
     right: 0%;
   }
   .group {
-    position: relative;
     width: 100%;
     background-image: url('@{base}bg.png');
     background-position: center top;
     background-size: 100% auto;
     background-repeat: no-repeat;
     z-index: 0;
-    margin-bottom: 10%;
+    margin-bottom: 7%;
     .bg {
       position: relative;
       z-index: 0;
@@ -513,7 +512,8 @@ img {
   .coupons {
     z-index: 0;
   }
-
+  .tips {
+  }
   .mask {
     width: 100%;
     height: 100%;
@@ -545,18 +545,18 @@ img {
     }
     .canvas-ele {
       position: absolute;
-      top: 39.4%;
-      width: 77%;
-      height: 26%;
-      left: 12%;
+      top: 42.4%;
+      width: 68%;
+      height: 20%;
+      left: 16%;
       z-index: 1000;
     }
     .win-text {
       position: absolute;
-      top: 40.2%;
+      top: 42.2%;
       width: 75.5%;
       left: 12.25%;
-      z-index: 9;
+      z-index: 99;
       overflow: hidden;
       color: #fff;
     }
