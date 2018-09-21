@@ -13,8 +13,8 @@
     <img
       id="test" 
       :src="compoundUrl"
-      alt="" 
-      :class="{'x-photoImg':iphoneX,'photoImg':!iphoneX}"
+      :class="{'x-photoImg':iphoneX,'photoImg':!iphoneX}" 
+      alt=""
       class="photoImg" >
     <canvas 
       id="canvas" 

@@ -1,20 +1,24 @@
 <template>
   <div
-  :style="style.root" 
-  class="rp-root">
+    :style="style.root" 
+    class="rp-root">
     <div class="xk">
       <img
         class="frame" 
-        src="http://cdn.exe666.com/fe/image/tmall/redpack/frame.png" />
+        src="http://cdn.exe666.com/fe/image/tmall/redpack/frame.png" >
       <img 
-        class="photo"
         :src="imgUrl + this.$qiniuCompress()"
-        />
+        class="photo"
+      >
     </div>
     <div class="rp">
-      <img class="inner" :src="'http://cdn.exe666.com/fe/image/tmall/redpack/' + String(redpackType) + '.png'" />
+      <img 
+        :src="'http://cdn.exe666.com/fe/image/tmall/redpack/' + String(redpackType) + '.png'" 
+        class="inner" >
     </div>
-    <img class="bottom" src="http://cdn.exe666.com/fe/image/tmall/redpack/bottom.png"/>
+    <img 
+      class="bottom" 
+      src="http://cdn.exe666.com/fe/image/tmall/redpack/bottom.png">
 
   </div>
 </template>
