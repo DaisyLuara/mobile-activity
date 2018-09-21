@@ -229,6 +229,26 @@ const Date201809 = [
       desc: '十一国庆活动简单版'
     },
     isAbandoned: false
+  },
+  {
+    path: 'tmall_redpack',
+    location: 'tm/redpack',
+    name: 'tianMaoRedPack',
+    meta: {
+      title: '天猫微笑红包机',
+      author: 'Anluis',
+      desc: '天猫微笑红包机测试'
+    }
+  },
+  {
+    path: 'tmall_yanzhi',
+    location: 'tm/yanzhi',
+    name: 'tianMaoYanzhi',
+    meta: {
+      title: '天猫颜值印钞机',
+      author: 'Anluis',
+      desc: '天猫颜值印钞机测试'
+    }
   }
 ]
 export default Date201809
