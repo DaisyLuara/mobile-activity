@@ -2,19 +2,19 @@
   <div
     :style="style.root" 
     class="root">
-      <img 
-        :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
-        :class="{'x-frame':iphoneX,'frame':!iphoneX}" 
-        class="frame">
-      <img 
-        :src="baseUrl + 'text.png'+ this.$qiniuCompress()"
-        :class="{'x-text':iphoneX,'text':!iphoneX}"
-        class="text">
-      <img 
-        v-if="photo !== null" 
-        :src="photo + this.$qiniuCompress()"
-        :class="{'x-photoImg':iphoneX,'photoImg':!iphoneX}"
-        class="photoImg">
+    <img 
+      :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
+      :class="{'x-frame':iphoneX,'frame':!iphoneX}" 
+      class="frame">
+    <img 
+      :src="baseUrl + 'text.png'+ this.$qiniuCompress()"
+      :class="{'x-text':iphoneX,'text':!iphoneX}"
+      class="text">
+    <img 
+      v-if="photo !== null" 
+      :src="photo + this.$qiniuCompress()"
+      :class="{'x-photoImg':iphoneX,'photoImg':!iphoneX}"
+      class="photoImg">
   </div>
 </template>
 <script>
@@ -89,13 +89,21 @@ export default {
     pointer-events: none;
   }
   .photoImg {
-    width: 75%;
+    // width: 75%;
+    // position: absolute;
+    // left: 50%;
+    // top: 50%;
+    // transform: translate(-50%, -54%);
+    // -webkit-user-select: auto;
+    // pointer-events: auto;
+    width: 100%;
     position: absolute;
-    left: 50%;
+    left: 37.5%;
     top: 50%;
-    transform: translate(-50%, -54%);
     -webkit-user-select: auto;
     pointer-events: auto;
+    transform-origin: center top;
+    transform: rotate(90deg);
   }
   .x-photoImg {
     width: 75%;
