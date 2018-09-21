@@ -62,7 +62,7 @@
     <img 
       :src="base + 'tips.png'"
       class="tips">
-    <!-- <div 
+      <!-- <div 
       v-show="mask"
       class="mask">
       <div 
