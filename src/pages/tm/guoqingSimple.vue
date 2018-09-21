@@ -87,8 +87,8 @@
           class="win-text">
           <img  
             :src="coupon.url + this.$qiniuCompress()">
-        </div> -->
-        <!-- <div 
+        </div>
+        <div 
           class="form">
           <input 
             v-model="mobile"
@@ -102,9 +102,9 @@
           <a 
             class="cancel-btn"
             @click="()=>{mask = false}"/>
-        </div> -->
+        </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
