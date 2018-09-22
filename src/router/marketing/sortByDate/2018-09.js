@@ -249,6 +249,17 @@ const Date201809 = [
       author: 'Anluis',
       desc: '天猫颜值印钞机测试'
     }
+  },
+  {
+    path: 'wfj',
+    location: 'tm/wfj',
+    name: 'wfj',
+    meta: {
+      title: '王府ONE岁',
+      author: 'lipan',
+      desc: '王府ONE岁'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201809
