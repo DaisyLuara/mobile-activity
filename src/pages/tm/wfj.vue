@@ -37,7 +37,7 @@ export default {
       //分享
       wxShareInfoValue: {
         title: 'Fun肆玩尽情GO',
-        desc: '王福井ONE 岁生日快乐！',
+        desc: '王福井ONE岁生日快乐！',
         link: 'http://papi.xingstation.com/api/s/wjR' + window.location.search,
         imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/tm/wfj/icon.jpg',
         success: function() {
@@ -92,7 +92,7 @@ img {
     .photo {
       width: 74%;
       position: absolute;
-      top: 1.1%;
+      top: 1.6%;
       left: 50%;
       transform: translateX(-50%);
       z-index: 99;
