@@ -92,7 +92,7 @@ img {
     .photo {
       width: 74%;
       position: absolute;
-      top: 1.1%;
+      top: 1.6%;
       left: 50%;
       transform: translateX(-50%);
       z-index: 99;
