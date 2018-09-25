@@ -125,16 +125,27 @@ const getAdCoupon = (params, id) => {
   })
 }
 //根据积分获取券,修改
-const getIntegralCoupon = (params, userId, couponId) => {
+const getIntegralCoupon = (params, couponId, userId) => {
   return new Promise((resolve, reject) => {
-    axios
-      .post(COUPOUS_URL + userId + '/' + couponId, params)
-      .then(response => {
-        resolve(response.data)
-      })
-      .catch(err => {
-        reject(err)
-      })
+    if (userId) {
+      axios
+        .post(COUPOUS_URL + couponId + '/' + userId, params)
+        .then(response => {
+          resolve(response.data)
+        })
+        .catch(err => {
+          reject(err)
+        })
+    } else {
+      axios
+        .post(COUPOUS_URL + couponId, params)
+        .then(response => {
+          resolve(response.data)
+        })
+        .catch(err => {
+          reject(err)
+        })
+    }
   })
 }
 // 确认优惠券是否已经领完

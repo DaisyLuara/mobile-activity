@@ -253,7 +253,7 @@ export default {
       let args = {
         mobile: this.mobile
       }
-      getIntegralCoupon(args, couponId)
+      getIntegralCoupon(args, couponId, this.userId)
         .then(res => {
           let data = res.data
           this.success = true
