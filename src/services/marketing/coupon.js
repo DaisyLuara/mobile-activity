@@ -111,11 +111,24 @@ const createV5Coupon = params => {
       })
   })
 }
-
+//根据积分获取券
 const getAdCoupon = (params, id) => {
   return new Promise((resolve, reject) => {
     axios
       .post(COUPOUS_URL + id, params)
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+//根据积分获取券,修改
+const getIntegralCoupon = (params, userId, couponId) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(COUPOUS_URL + userId + '/' + couponId, params)
       .then(response => {
         resolve(response.data)
       })
@@ -161,5 +174,6 @@ export {
   createV5Coupon,
   getAdCoupon,
   checkCouponNumber,
-  getCouponId
+  getCouponId,
+  getIntegralCoupon
 }

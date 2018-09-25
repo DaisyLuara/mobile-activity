@@ -81,7 +81,8 @@ import {
   getGame,
   setParameter,
   getAdCoupon,
-  checkCouponNumber
+  checkCouponNumber,
+  getIntegralCoupon
 } from 'services'
 import { normalPages } from '../../mixins/normalPages'
 export default {
@@ -252,7 +253,7 @@ export default {
       let args = {
         mobile: this.mobile
       }
-      getAdCoupon(args, couponId)
+      getIntegralCoupon(args, couponId)
         .then(res => {
           let data = res.data
           this.success = true
