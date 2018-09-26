@@ -131,7 +131,7 @@ export default {
     position: absolute;
     left: 21%;
     bottom: 14%;
-    animation: arrow 1.2s linear infinite alternate;
+    animation: arrow 0.8s linear infinite alternate;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     pointer-events: none;
@@ -140,13 +140,13 @@ export default {
 }
 @keyframes arrow {
   0% {
-    transform: translateY(-5px);
+    transform: translateY(-7px);
   }
   50% {
     transform: translateY(0);
   }
   100% {
-    transform: translateY(5px);
+    transform: translateY(7px);
   }
 }
 </style>
