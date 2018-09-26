@@ -260,6 +260,28 @@ const Date201809 = [
       desc: '王府ONE岁'
     },
     isAbandoned: false
+  },
+  {
+    path: 'national_day_one',
+    location: 'national_day/nationalDayOne',
+    name: 'national_day_one',
+    meta: {
+      title: '欢祝国庆',
+      author: 'xj1012',
+      desc: '欢祝国庆'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'national_day_two',
+    location: 'national_day/nationalDayTwo',
+    name: 'national_day_two',
+    meta: {
+      title: '欢度国庆',
+      author: 'xj1012',
+      desc: '欢度国庆'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201809
