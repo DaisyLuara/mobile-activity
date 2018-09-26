@@ -5,15 +5,15 @@
     <img 
       :src="baseUrl + 'top.png'+ this.$qiniuCompress()"
       class="top">
-    <div class="center">
-      <img 
-        :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
-        class="frame">
-      <img 
-        v-if="photo !== null" 
-        :src="photo + this.$qiniuCompress()"
-        class="photo">
-    </div>
+    <img 
+      :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
+      :class="{'x-frame':iphoneX,'frame':!iphoneX}"
+      class="frame">
+    <img 
+      v-if="photo !== null" 
+      :src="photo + this.$qiniuCompress()"
+      :class="{'x-photo':iphoneX,'photo':!iphoneX}"
+      class="photo">
     <img 
       :src="baseUrl + 'bt.png'+ this.$qiniuCompress()"
       class="bt">
@@ -81,45 +81,61 @@ export default {
     -webkit-user-select: none;
     pointer-events: none;
   }
-  .center {
-    width: 100%;
-    position: relative;
-    margin-top: 9%;
-    .frame {
-      width: 65%;
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 3;
-      -webkit-touch-callout: none;
-      -webkit-user-select: none;
-      pointer-events: none;
-    }
-    .photo {
-      width: 62.5%;
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50.8%);
-      -webkit-user-select: auto;
-      pointer-events: auto;
-      z-index: 4;
-    }
+  .frame {
+    width: 69%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -44%);
+    z-index: 3;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    pointer-events: none;
+  }
+  .x-frame {
+    width: 69%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -55%);
+    z-index: 3;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    pointer-events: none;
+  }
+  .photo {
+    width: 66.5%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -44.6%);
+    -webkit-user-select: auto;
+    pointer-events: auto;
+    z-index: 4;
+  }
+  .x-photo {
+    width: 66.5%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -55.8%);
+    -webkit-user-select: auto;
+    pointer-events: auto;
+    z-index: 4;
   }
   .bt {
     width: 100%;
     position: relative;
-    margin-top: 22%;
+    margin-top: 37%;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     pointer-events: none;
   }
   .save {
-    width: 54%;
+    width: 49%;
     position: absolute;
-    left: 21%;
-    bottom: 1%;
+    left: 25%;
+    bottom: 0%;
     animation: arrow 0.5s linear infinite alternate;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
