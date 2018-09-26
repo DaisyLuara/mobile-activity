@@ -347,12 +347,11 @@ export default {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        padding-top: 11px;
         align-items: center;
         .option-text {
           font-size: 0.14rem;
           font-weight: 300;
-          width: 70px;
+          width: 0.7rem;
         }
         .option-result-one {
           font-size: 0.43rem;
