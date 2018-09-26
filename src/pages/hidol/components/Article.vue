@@ -16,6 +16,7 @@
     </swiper>
     <!-- functions -->
     <div class="function">
+      <!-- author -->
       <div class="author">
         <div class="info">
           <img class="avatar" src="https://dn-coding-net-production-static.qbox.me/655a4d54-31fa-45e2-bd4b-98be23865664.jpg?imageMogr2/auto-orient/format/jpeg/crop/!400x400a0a0"/>
@@ -26,6 +27,8 @@
         </div>
         <img class="more" src="http://cdn.exe666.com/fe/hidol/img/more.svg">
       </div>
+
+      <!-- question -->
       <div class="question">
         <div class="question-self">
           你们觉得吃葡萄需要吐葡萄皮吗？ 需要吗？需要吗？
@@ -33,6 +36,34 @@
         <div class="question-msg">
           <img class="msg" src="http://cdn.exe666.com/fe/hidol/img/messenger.png" />
           <div class="count">999</div>
+        </div>
+      </div>
+
+      <!-- choose -->
+      <div class="choose">
+        <div class="A" @click="handleChoose('A')"  v-if="control.choose === 'A' || control.choose === null">
+          <div class="title">A</div>
+          <div class="content">吃葡萄可以不吐葡萄皮</div>
+        </div>
+        <div class="A-more" v-if="control.choose === 'A'">
+          <div class="data">共666人支持</div>
+          <div class="percent">[66%]</div>
+        </div>
+        <div class="B-more" v-if="control.choose === 'B'">
+          <div class="data">共666人支持</div>
+          <div class="percent">[66%]</div>
+        </div>
+        <div class="B" @click="handleChoose('B')"  v-if="control.choose === 'B' || control.choose === null">
+          <div class="title">B</div>
+          <div class="content">吃葡萄一定 要吐葡萄皮</div>
+        </div>
+      </div>
+
+      <!-- comment -->
+      <div class="comment" :class="control.choose">
+        <div class="comment-inner">
+          <div class="title">我说</div>
+          <div class="input">我的观点我的观点我的观点我的观点我的观...</div>
         </div>
       </div>
     </div>
@@ -54,7 +85,15 @@ export default {
         pagination: {
           el: '.swiper-pagination'
         }
+      },
+      control: {
+        choose: null
       }
+    }
+  },
+  methods: {
+    handleChoose(payload) {
+      this.control.choose = payload
     }
   }
 }
@@ -91,7 +130,7 @@ export default {
   .function {
     z-index: 30;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 5px 10px;
-    height: 105px;
+    // height: 105px;
     border-bottom-left-radius: 18px;
     border-bottom-right-radius: 18px;
     .author {
@@ -160,6 +199,120 @@ export default {
           flex: 1;
           text-align: center;
         }
+      }
+    }
+    .choose {
+      height: 60px;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      .A {
+        flex: 1;
+        background: #f14e6e;
+        padding: 0 4%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        color: #ffffff;
+        align-items: center;
+        .title {
+          font-size: 0.43rem;
+          line-height: 60px;
+        }
+        .content {
+          font-size: 0.14rem;
+          padding: 5% 5%;
+        }
+      }
+      .A-more {
+        padding: 5% 5%;
+        flex: 1;
+        background: #f14e6e;
+        display: flex;
+        flex-direction: column;
+        color: white;
+        align-items: flex-end;
+        justify-content: space-between;
+        .data {
+          font-size: 0.12rem;
+        }
+        .percent {
+          font-size: 0.25rem;
+        }
+      }
+      .B-more {
+        padding: 5% 5%;
+        flex: 1;
+        background: #4ea5f1;
+        display: flex;
+        flex-direction: column;
+        color: white;
+        align-items: flex-start;
+        justify-content: space-between;
+        .data {
+          font-size: 0.12rem;
+        }
+        .percent {
+          font-size: 0.25rem;
+        }
+      }
+      .B {
+        flex: 1;
+        background: #4ea5f1;
+        padding: 0 4%;
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        color: #ffffff;
+        align-items: center;
+        .title {
+          font-size: 0.43rem;
+          line-height: 60px;
+        }
+        .content {
+          font-size: 0.14rem;
+          padding: 5% 5%;
+        }
+      }
+    }
+    .comment {
+      height: 40px;
+      line-height: 30px;
+      border-bottom-left-radius: 15px;
+      border-bottom-right-radius: 15px;
+      .comment-inner {
+        padding: 5px;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        .title {
+          border-top-left-radius: 15px;
+          border-bottom-left-radius: 15px;
+          background: #ececec;
+          font-size: 0.14rem;
+          text-align: center;
+          color: #666666;
+          width: 60px;
+          font-weight: 300;
+        }
+        .input {
+          @diff : 60px;
+          width: calc(~'100% - @{diff}');
+          background: #f4f4f4;
+          border-top-right-radius: 15px;
+          border-bottom-right-radius: 15px;
+          color: #666666;
+          font-size: 0.12rem;
+          padding-left: 10px;
+          overflow: hidden;
+        }
+      }
+      &.A {
+        background: #f14e6e;
+      }
+      &.B {
+        background: #4ea5f1;
       }
     }
   }
