@@ -2,13 +2,13 @@
   <div
     :style="style.root" 
     class="root">
-     <img 
+    <img 
       :src="baseUrl + 'top.png'+ this.$qiniuCompress()"
       class="top">
     <div class="center">
       <img 
-      :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
-      class="frame">
+        :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
+        class="frame">
       <img 
         v-if="photo !== null" 
         :src="photo + this.$qiniuCompress()"

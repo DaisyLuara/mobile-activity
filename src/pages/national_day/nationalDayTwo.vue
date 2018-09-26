@@ -10,10 +10,10 @@
       :class="{'x-frame':iphoneX,'frame':!iphoneX}" 
       class="frame">
     <img 
-        v-if="photo !== null" 
-        :src="photo + this.$qiniuCompress()"
-        :class="{'x-photo':iphoneX,'photo':!iphoneX}"
-        class="photo">
+      v-if="photo !== null" 
+      :src="photo + this.$qiniuCompress()"
+      :class="{'x-photo':iphoneX,'photo':!iphoneX}"
+      class="photo">
     <img 
       :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
       :class="{'x-save':iphoneX,'save':!iphoneX}"
