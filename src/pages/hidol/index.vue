@@ -5,7 +5,7 @@
     <!-- <div/> -->
 
     <!-- info list -->
-    <div class="info-wrapper">
+    <div class="info-wrapper" v-if="control.index">
       <mt-loadmore 
         ref="loadmore"
         :top-method="loadTop" 
@@ -40,7 +40,10 @@
       <NewPost v-if="control.newpost"/>
     </transition>
 
-    <MenuBar @onNewPost="handleOpenNewPost" @onRefesh="handleRefresh"/>
+    <transition name="bounceup">
+      <My v-if="control.my"/>
+    </transition>
+    <MenuBar @onNewPost="handleOpenNewPost" @onRefesh="handleRefresh" @onMy="handleMy"/>
   </div>
 </template>
 
@@ -54,13 +57,14 @@ export default {
     'mt-loadmore': Loadmore,
     Article,
     MenuBar,
-    NewPost: () => import('./components/NewPost.vue')
+    NewPost: () => import('./components/NewPost.vue'),
+    My: () => import('./components/My.vue')
   },
   data() {
     return {
       control: {
         newpost: false,
-        index: false,
+        index: true,
         my: false
       },
       topStatus: '',
@@ -107,6 +111,11 @@ export default {
     handleOpenNewPost() {
       this.control.newpost = !this.control.newpost
       console.log('233')
+    },
+    handleMy() {
+      this.control.newpost = false
+      this.control.index = false
+      this.control.my = true
     }
   }
 }

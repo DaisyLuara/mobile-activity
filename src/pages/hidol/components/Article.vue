@@ -84,7 +84,7 @@ export default {
         bottom: 10px;
         right: 10px;
         font-size: 0.1rem;
-        color: white;
+        color:#999;
       }
     }
   }

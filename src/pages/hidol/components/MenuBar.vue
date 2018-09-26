@@ -7,7 +7,7 @@
     <div class="menu-add" @click="handleNewPost">
       <img class="add-img" src="http://cdn.exe666.com/fe/hidol/img/plus.svg" />
     </div>
-    <div class="menu-item">
+    <div class="menu-item" @click="handleMy">
       <img class="item-img" src="http://cdn.exe666.com/fe/hidol/img/my.png" />
       <div class="item-text">我的</div>
     </div>
@@ -23,6 +23,9 @@ export default {
     },
     handleRefesh() {
       this.$emit('onRefesh')
+    },
+    handleMy() {
+      this.$emit('onMy')
     }
   }
 }
