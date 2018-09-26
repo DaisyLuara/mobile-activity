@@ -5,15 +5,15 @@
     <img 
       :src="baseUrl + 'top.png'+ this.$qiniuCompress()"
       class="top">
-      <img 
-        :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
-        :class="{'x-frame':iphoneX,'frame':!iphoneX}"
-        class="frame">
-      <img 
-        v-if="photo !== null" 
-        :src="photo + this.$qiniuCompress()"
-        :class="{'x-photo':iphoneX,'photo':!iphoneX}"
-        class="photo">
+    <img 
+      :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
+      :class="{'x-frame':iphoneX,'frame':!iphoneX}"
+      class="frame">
+    <img 
+      v-if="photo !== null" 
+      :src="photo + this.$qiniuCompress()"
+      :class="{'x-photo':iphoneX,'photo':!iphoneX}"
+      class="photo">
     <img 
       :src="baseUrl + 'bt.png'+ this.$qiniuCompress()"
       class="bt">
