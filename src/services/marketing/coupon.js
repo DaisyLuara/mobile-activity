@@ -111,7 +111,7 @@ const createV5Coupon = params => {
       })
   })
 }
-
+//根据积分获取券
 const getAdCoupon = (params, id) => {
   return new Promise((resolve, reject) => {
     axios
@@ -122,6 +122,30 @@ const getAdCoupon = (params, id) => {
       .catch(err => {
         reject(err)
       })
+  })
+}
+//根据积分获取券,修改
+const getIntegralCoupon = (params, couponId, userId) => {
+  return new Promise((resolve, reject) => {
+    if (userId) {
+      axios
+        .post(COUPOUS_URL + couponId + '/' + userId, params)
+        .then(response => {
+          resolve(response.data)
+        })
+        .catch(err => {
+          reject(err)
+        })
+    } else {
+      axios
+        .post(COUPOUS_URL + couponId, params)
+        .then(response => {
+          resolve(response.data)
+        })
+        .catch(err => {
+          reject(err)
+        })
+    }
   })
 }
 // 确认优惠券是否已经领完
@@ -161,5 +185,6 @@ export {
   createV5Coupon,
   getAdCoupon,
   checkCouponNumber,
-  getCouponId
+  getCouponId,
+  getIntegralCoupon
 }

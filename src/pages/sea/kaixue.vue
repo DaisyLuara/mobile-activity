@@ -252,6 +252,12 @@ export default {
       let args = {
         mobile: this.mobile
       }
+      if (this.userId) {
+        args = {
+          mobile: this.mobile,
+          userId: this.userId
+        }
+      }
       getAdCoupon(args, couponId)
         .then(res => {
           let data = res.data
