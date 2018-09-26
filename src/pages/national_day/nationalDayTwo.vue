@@ -38,8 +38,8 @@ export default {
       iphoneX: false,
       photo: null,
       wxShareInfoValue: {
-        title: '国庆快乐',
-        desc: '我为祖国打call！！！',
+        title: '欢度国庆',
+        desc: '团结一心，为祖国庆生',
         link: 'http://papi.xingstation.com/api/s/j25' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/national_day_two/icon.png',
         success: () => {
