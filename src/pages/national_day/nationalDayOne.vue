@@ -120,7 +120,7 @@ export default {
     position: absolute;
     left: 21%;
     bottom: 1%;
-    animation: arrow 0.8s linear infinite alternate;
+    animation: arrow 1s linear infinite alternate;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     pointer-events: none;
@@ -131,7 +131,7 @@ export default {
     position: absolute;
     left: 21%;
     bottom: 14%;
-    animation: arrow 0.8s linear infinite alternate;
+    animation: arrow 1s linear infinite alternate;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     pointer-events: none;
