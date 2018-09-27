@@ -776,7 +776,7 @@ const lagacyPages = [
   {
     path: 'feng2',
     location: 'fengDemo/demo2',
-    alias: '/wxMini/fengDemo/demo2',
+    alias: '/wxMini/demo2',
     meta: {
       title: '地图导览'
     },
