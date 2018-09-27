@@ -1,7 +1,9 @@
 <template>
   <div class="commentitem">
     <div class="avatar">
-      <img class="inner" src="https://dn-coding-net-production-static.qbox.me/655a4d54-31fa-45e2-bd4b-98be23865664.jpg?imageMogr2/auto-orient/format/jpeg/crop/!400x400a0a0" />
+      <img 
+        class="inner" 
+        src="https://dn-coding-net-production-static.qbox.me/655a4d54-31fa-45e2-bd4b-98be23865664.jpg?imageMogr2/auto-orient/format/jpeg/crop/!400x400a0a0" >
     </div>
     <div class="context">
       <div class="name">

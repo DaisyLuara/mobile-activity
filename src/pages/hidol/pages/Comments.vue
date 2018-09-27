@@ -1,33 +1,36 @@
 <template>
   <div class="comment">
     <div class="tab">
-      <div class="tab-item" :class="{selected: control.current === 'A'}">
+      <div 
+        :class="{selected: control.current === 'A'}" 
+        class="tab-item">
         A(999)
       </div>
-      <div class="tab-item" :class="{selected: control.current === 'all'}">
+      <div 
+        :class="{selected: control.current === 'all'}" 
+        class="tab-item">
         全部(999)
       </div>
-      <div class="tab-item" :class="{selected: control.current === 'B'}">
+      <div 
+        :class="{selected: control.current === 'B'}" 
+        class="tab-item">
         B(999)
       </div>
 
     </div>
-    <div class="list">
-
-    </div>
+    <div class="list"/>
     <CommentItem />
   </div>
 </template>
 
 <script>
+import { reCalculateRem } from '../mixins/reCalculateRem'
 import CommentItem from '../components/CommentItem'
 export default {
   components: {
     CommentItem
   },
-  mounted() {
-    this.handleInit()
-  },
+  mixins: [reCalculateRem],
   data() {
     return {
       screenWidth: document.body.clientWidth,
@@ -35,6 +38,10 @@ export default {
         current: 'all'
       }
     }
+  },
+  mounted() {
+    this.handleInit()
+    document.documentElement.scrollTop = 0
   },
   methods: {
     handleInit() {

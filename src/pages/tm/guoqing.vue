@@ -1,8 +1,8 @@
 <template>
   <div 
     :style="(mask?'height:':'min-height:') + this.$innerHeight() + 'px'"
-    class="content"
-    :class="{overflow:mask}">
+    :class="{overflow:mask}"
+    class="content">
     <!-- 欢乐积攒有惊喜 四级联动显示-->
     <div 
       class="group">
@@ -66,8 +66,7 @@
           class="winbg">
         <a
           class="close"
-          @click="()=>{mask = false}">
-        </a>
+          @click="()=>{mask = false}"/>
         <canvas 
           v-if="award"
           id="canvasDoodle" 
@@ -87,19 +86,17 @@
         <div 
           class="form">
           <input 
-            type="text"
-            maxlength="11" 
-            placeholder="请输入手机号"
             v-model="mobile"
-            class="input"/>
+            type="text" 
+            maxlength="11"
+            placeholder="请输入手机号"
+            class="input">
           <a 
             class="get-btn"
-            @click="checkMobile(mobile)">
-          </a>
+            @click="checkMobile(mobile)"/>
           <a 
             class="cancel-btn"
-            @click="()=>{mask = false}">
-          </a>
+            @click="()=>{mask = false}"/>
         </div>
       </div>
     </div>

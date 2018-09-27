@@ -1,27 +1,34 @@
 <template>
   <div class="new-post">
     <div class="main">
-      <div class="main-img"></div>
+      <div class="main-img"/>
       <div class="main-text">
         <span>说点什么吧</span>
       </div>
     </div>
-    <div class="AB"></div>
-    <div class="AB"></div>
+    <div class="AB"/>
+    <div class="AB"/>
     <div class="add">
-      <div class="checkbox"></div>
+      <div class="checkbox"/>
       <div class="text">上传A和B结果的图片</div>
     </div>
     <div class="ABimage">
-      <div class="image-inner"></div>
-      <div class="image-inner"></div>
+      <div class="image-inner"/>
+      <div class="image-inner"/>
     </div>
-    <div class="publish" @click="handlePublish">发布</div>
+    <div 
+      class="publish" 
+      @click="handlePublish">发布</div>
   </div>
 </template>
 
 <script>
+import { reCalculateRem } from '../mixins/reCalculateRem'
 export default {
+  mixins: [reCalculateRem],
+  mounted() {
+    document.documentElement.scrollTop = 0
+  },
   methods: {
     handlePublish() {}
   }

@@ -1,14 +1,26 @@
 <template>
   <div class="menu">
-    <div class="menu-item" @click="handleRefesh">
-      <img class="item-img" src="http://cdn.exe666.com/fe/hidol/img/newthings.png" />
+    <div 
+      class="menu-item" 
+      @click="handleRefesh">
+      <img 
+        class="item-img" 
+        src="http://cdn.exe666.com/fe/hidol/img/newthings.png" >
       <div class="item-text">新鲜事</div>
     </div>
-    <div class="menu-add" @click="handleNewPost">
-      <img class="add-img" src="http://cdn.exe666.com/fe/hidol/img/plus.svg" />
+    <div 
+      class="menu-add" 
+      @click="handleNewPost">
+      <img 
+        class="add-img" 
+        src="http://cdn.exe666.com/fe/hidol/img/plus.svg" >
     </div>
-    <div class="menu-item" @click="handleMy">
-      <img class="item-img" src="http://cdn.exe666.com/fe/hidol/img/my.png" />
+    <div 
+      class="menu-item" 
+      @click="handleMy">
+      <img 
+        class="item-img" 
+        src="http://cdn.exe666.com/fe/hidol/img/my.png" >
       <div class="item-text">我的</div>
     </div>
 

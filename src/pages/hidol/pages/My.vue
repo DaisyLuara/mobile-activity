@@ -39,48 +39,50 @@
           :auto-fill="false"
           @top-status-change="handleTopChange"
           @bottom-status-change="handleBottomChange">
-        <div
-          :key="index" 
-          class="info-card"
-          v-for="(item, index) in list">
-          <Article v-if="tabStatus"/>
-          <ArticleChoose v-if="!tabStatus"/>
-        </div>
-        <div 
-          slot="top" 
-          class="mint-loadmore-top">
-          <span 
-            v-show="topStatus !== 'loading'" 
-            :class="{ 'rotate': topStatus === 'drop' }">↓</span>
-          <span v-show="topStatus === 'loading'">Loading...</span>
-        </div>
-        <div slot="bottom" class="mint-loadmore-bottom">
-          <span 
-            v-show="bottomStatus !== 'loading'" 
-            :class="{ 'rotate': topStatus === 'drop' }">释放加载更多</span>
-          <span v-show="bottomStatus === 'loading'">Loading...</span>
-        </div>
-      </mt-loadmore>
-      <div class="loadmore-add"></div>
+          <div
+            v-for="(item, index) in list" 
+            :key="index"
+            class="info-card">
+            <Article />
+          </div>
+          <div 
+            slot="top" 
+            class="mint-loadmore-top">
+            <span 
+              v-show="topStatus !== 'loading'" 
+              :class="{ 'rotate': topStatus === 'drop' }">↓</span>
+            <span v-show="topStatus === 'loading'">Loading...</span>
+          </div>
+          <div 
+            slot="bottom" 
+            class="mint-loadmore-bottom">
+            <span 
+              v-show="bottomStatus !== 'loading'" 
+              :class="{ 'rotate': topStatus === 'drop' }">释放加载更多</span>
+            <span v-show="bottomStatus === 'loading'">Loading...</span>
+          </div>
+        </mt-loadmore>
+        <div class="loadmore-add"/>
       </div>
     </div>
+    <MenuBar />
   </div>
 </template>
 
 <script>
+import MenuBar from '../components/MenuBar'
+import { reCalculateRem } from '../mixins/reCalculateRem'
 import { Loadmore } from 'mint-ui'
 import Article from '../components/Article'
-import ArticleChoose from '../components/ArticleChoose'
-
 export default {
   components: {
     'mt-loadmore': Loadmore,
     Article,
-    ArticleChoose
+    MenuBar
   },
+  mixins: [reCalculateRem],
   data() {
     return {
-      screenWidth: document.body.clientWidth,
       tabStatus: true,
       fixedTap: false,
       tabIndex: 0,
@@ -89,50 +91,20 @@ export default {
       list: Array(10).fill(0)
     }
   },
-  watch: {
-    screenWidth(val) {
-      if (!this.timer) {
-        this.screenWidth = val
-        this.timer = true
-        let that = this
-        setTimeout(() => {
-          console.log(that.screenWidth)
-          that.calculateRem()
-          that.timer = false
-        }, 400)
-      }
-    }
-  },
   mounted() {
-    this.handleInit()
+    document.documentElement.scrollTop = 0
+    this.handleScrollFixed()
   },
   methods: {
-    handleInit() {
-      this.calculateRem()
-      const that = this
-      window.onresize = () => {
-        return (() => {
-          window.screenWidth = document.body.clientWidth
-          that.screenWidth = window.screenWidth
-        })()
-      }
-      this.handleScrollFixed()
-    },
-    calculateRem() {
-      let html = document.getElementsByTagName('html')[0]
-      let fontSize = this.screenWidth / 375 * 100
-      html.setAttribute('style', 'font-size: ' + fontSize + 'px')
-    },
     handleScrollFixed() {
-      let that = this
       window.addEventListener(
         'scroll',
-        function() {
+        () => {
           let scrollHeight = window.pageYOffset || window.scrollY
           if (scrollHeight >= 132) {
-            that.fixedTap = true
+            this.fixedTap = true
           } else {
-            that.fixedTap = false
+            this.fixedTap = false
           }
         },
         false
@@ -152,7 +124,7 @@ export default {
       }, 2000)
     },
     loadBottom() {
-      this.bottom = 'loading'
+      this.bottomStatus = 'loading'
       setTimeout(() => {
         this.$refs.loadmore.onBottomLoaded()
         this.bottomStatus = ''
@@ -185,7 +157,7 @@ export default {
   background: #ececec;
 
   .author-wrap {
-    padding-top: 12px;
+    padding-top: 0.12rem;
     width: 100%;
     height: 1.32rem;
     background: #ececec;
@@ -200,7 +172,7 @@ export default {
       }
     }
     .author-info {
-      margin-top: 10px;
+      margin-top: 0.1rem;
       .author-name {
         height: 0.25rem;
         line-height: 0.25rem;
@@ -221,11 +193,11 @@ export default {
   }
   .my-status-list {
     background: #fff;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+    border-top-left-radius: 0.08rem;
+    border-top-right-radius: 0.08rem;
     .my-status-tap {
       font-size: 0.12rem;
-      padding: 5px 29.87% 0;
+      padding: 0.05rem 29.87% 0;
       background: #fff;
       width: 100%;
       display: flex;
@@ -239,8 +211,8 @@ export default {
       }
       .tap-item {
         display: inline-block;
-        padding: 5px 0;
-        height: 27px;
+        padding: 0.05rem 0;
+        height: 0.27rem;
         color: #999;
         &.active {
           color: #333;
@@ -258,21 +230,14 @@ export default {
         font-size: 0.14rem;
       }
       .info-card {
-        padding: 20px;
+        padding: 0.2rem;
       }
       .loadmore-add {
-        height: 48px;
+        height: 0.48rem;
         width: 100%;
         background-color: transparent;
       }
     }
   }
-}
-.bounceup-enter-active,
-.bounceup-leave-active {
-  transition: all 0.3s ease;
-}
-.bounceup-enter, .bounceup-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  transform: translateY(100vh);
 }
 </style>

@@ -2,7 +2,8 @@
   <!-- keep alive ? -->
   <div class="hidol-root">
     <!-- info list -->
-    <div class="info-wrapper" v-if="control.index">
+    <div 
+      class="info-wrapper">
       <mt-loadmore 
         ref="loadmore"
         :top-method="loadTop" 
@@ -11,12 +12,12 @@
         @top-status-change="handleTopChange"
         @bottom-status-change="handleBottomChange"
       >
-          <div 
-            class="info-card"
-            v-for="(item, index) in list" 
-            :key="index">
-            <Article />
-          </div>
+        <div 
+          v-for="(item, index) in list"
+          :key="index" 
+          class="info-card">
+          <Article />
+        </div>
         <div 
           slot="top" 
           class="mint-loadmore-top">
@@ -25,15 +26,19 @@
             :class="{ 'rotate': topStatus === 'drop' }">↓</span>
           <span v-show="topStatus === 'loading'">Loading...</span>
         </div>
-        <div slot="bottom" class="mint-loadmore-bottom">
-          <span v-show="bottomStatus !== 'loading'" :class="{ 'rotate': topStatus === 'drop' }">释放加载更多</span>
+        <div 
+          slot="bottom" 
+          class="mint-loadmore-bottom">
+          <span 
+            v-show="bottomStatus !== 'loading'" 
+            :class="{ 'rotate': topStatus === 'drop' }">释放加载更多</span>
           <span v-show="bottomStatus === 'loading'">Loading...</span>
         </div>
       </mt-loadmore>
-      <div class="loadmore-add"></div>
+      <div class="loadmore-add"/>
     </div>
 
-    <MenuBar @onNewPost="handleOpenNewPost" @onRefesh="handleRefresh" @onMy="handleMy"/>
+    <MenuBar />
   </div>
 </template>
 
@@ -41,61 +46,33 @@
 import { Loadmore } from 'mint-ui'
 import Article from '../components/Article'
 import MenuBar from '../components/MenuBar'
+import { reCalculateRem } from '../mixins/reCalculateRem'
 export default {
+  name: 'Index',
   components: {
     'mt-loadmore': Loadmore,
     Article,
     MenuBar
   },
+  mixins: [reCalculateRem],
   data() {
     return {
-      screenWidth: document.body.clientWidth,
-      control: {
-        newpost: false,
-        index: true,
-        my: false
-      },
       topStatus: '',
       bottomStatus: '',
-      list: Array(10).fill(0)
-    }
-  },
-  watch: {
-    screenWidth(val) {
-      if (!this.timer) {
-        this.screenWidth = val
-        this.timer = true
-        let that = this
-        setTimeout(() => {
-          console.log(that.screenWidth)
-          that.calculateRem()
-          that.timer = false
-        }, 400)
-      }
+      list: Array(10).fill(0),
+      savedHeight: 0
     }
   },
   mounted() {
-    this.handleInit()
+    document.documentElement.scrollTop = 0
+  },
+  deactivated() {
+    this.savedHeight = document.documentElement.scrollTop
+  },
+  activated() {
+    document.documentElement.scrollTop = this.savedHeight
   },
   methods: {
-    handleInit() {
-      this.calculateRem()
-      const that = this
-      window.onresize = () => {
-        return (() => {
-          window.screenWidth = document.body.clientWidth
-          that.screenWidth = window.screenWidth
-        })()
-      }
-    },
-    calculateRem() {
-      let html = document.getElementsByTagName('html')[0]
-      let fontSize = this.screenWidth / 375 * 100
-      html.setAttribute('style', 'font-size: ' + fontSize + 'px')
-    },
-    handleNewPostControl() {
-      this.control.newpost = !this.control.newpost
-    },
     handleTopChange(status) {
       this.topStatus = status
     },
@@ -115,20 +92,11 @@ export default {
       }, 2000)
     },
     loadBottom() {
-      this.bottom = 'loading'
+      this.bottomStatus = 'loading'
       setTimeout(() => {
         this.$refs.loadmore.onBottomLoaded()
         this.bottomStatus = ''
       }, 2000)
-    },
-    handleOpenNewPost() {
-      this.control.newpost = !this.control.newpost
-      console.log('233')
-    },
-    handleMy() {
-      this.control.newpost = false
-      this.control.index = false
-      this.control.my = true
     }
   }
 }
@@ -147,10 +115,10 @@ export default {
       font-size: 0.14rem;
     }
     .info-card {
-      padding: 20px;
+      padding: 0.2rem;
     }
     .loadmore-add {
-      height: 48px;
+      height: 0.48rem;
       width: 100%;
       background-color: transparent;
     }
