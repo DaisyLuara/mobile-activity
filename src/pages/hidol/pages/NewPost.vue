@@ -30,9 +30,7 @@ export default {
 
 <style lang="less" scoped>
 .new-post {
-  position: fixed;
-  top: 0;
-  left: 0;
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -104,11 +102,13 @@ export default {
   .ABimage {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
+    margin: 10px;
+    width: 100%;
     .image-inner {
       border: 0.5px dashed rgba(153, 153, 153, 1);
-      height: 1.72rem;
-      width: 1.72rem;
+      height: 1.6rem;
+      width: 1.6rem;
     }
   }
   .publish {

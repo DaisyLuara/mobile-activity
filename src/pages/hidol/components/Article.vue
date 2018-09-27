@@ -33,7 +33,7 @@
         <div class="question-self">
           你们觉得吃葡萄需要吐葡萄皮吗？ 需要吗？需要吗？
         </div>
-        <div class="question-msg">
+        <div class="question-msg" @click="handleGoComment">
           <img class="msg" src="http://cdn.exe666.com/fe/hidol/img/messenger.png" />
           <div class="count">999</div>
         </div>
@@ -94,6 +94,11 @@ export default {
   methods: {
     handleChoose(payload) {
       this.control.choose = payload
+    },
+    handleGoComment() {
+      this.$router.push({
+        path: 'comment'
+      })
     }
   }
 }
@@ -123,7 +128,7 @@ export default {
         bottom: 10px;
         right: 10px;
         font-size: 0.1rem;
-        color:#999;
+        color: #999;
       }
     }
   }

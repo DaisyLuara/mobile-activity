@@ -19,13 +19,19 @@
 export default {
   methods: {
     handleNewPost() {
-      this.$emit('onNewPost')
+      this.$router.push({
+        path: 'newpost'
+      })
     },
     handleRefesh() {
-      this.$emit('onRefesh')
+      this.$router.push({
+        path: 'index'
+      })
     },
     handleMy() {
-      this.$emit('onMy')
+      this.$router.push({
+        path: 'my'
+      })
     }
   }
 }

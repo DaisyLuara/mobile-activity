@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import CommentItem from './CommentItem'
+import CommentItem from '../components/CommentItem'
 export default {
   components: {
     CommentItem

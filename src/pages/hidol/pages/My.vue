@@ -69,9 +69,8 @@
 
 <script>
 import { Loadmore } from 'mint-ui'
-import { setTimeout } from 'timers'
-import Article from './Article'
-import ArticleChoose from './ArticleChoose'
+import Article from '../components/Article'
+import ArticleChoose from '../components/ArticleChoose'
 
 export default {
   components: {

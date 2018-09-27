@@ -1,9 +1,6 @@
 <template>
   <!-- keep alive ? -->
   <div class="hidol-root">
-    <!-- top bar location -->
-    <!-- <div/> -->
-
     <!-- info list -->
     <div class="info-wrapper" v-if="control.index">
       <mt-loadmore 
@@ -36,29 +33,19 @@
       <div class="loadmore-add"></div>
     </div>
 
-    <transition name="bounceup">
-      <NewPost v-if="control.newpost"/>
-    </transition>
-
-    <transition name="bounceup">
-      <My v-if="control.my"/>
-    </transition>
     <MenuBar @onNewPost="handleOpenNewPost" @onRefesh="handleRefresh" @onMy="handleMy"/>
   </div>
 </template>
 
 <script>
 import { Loadmore } from 'mint-ui'
-import { setTimeout } from 'timers'
-import Article from './components/Article'
-import MenuBar from './components/MenuBar'
+import Article from '../components/Article'
+import MenuBar from '../components/MenuBar'
 export default {
   components: {
     'mt-loadmore': Loadmore,
     Article,
-    MenuBar,
-    NewPost: () => import('./components/NewPost.vue'),
-    My: () => import('./components/My.vue')
+    MenuBar
   },
   data() {
     return {
@@ -169,11 +156,11 @@ export default {
     }
   }
 }
-.bounceup-enter-active,
-.bounceup-leave-active {
-  transition: all 0.3s ease;
-}
-.bounceup-enter, .bounceup-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  transform: translateY(100vh);
-}
+// .bounceup-enter-active,
+// .bounceup-leave-active {
+//   transition: all 0.3s ease;
+// }
+// .bounceup-enter, .bounceup-leave-to /* .fade-leave-active below version 2.1.8 */ {
+//   transform: translateY(100vh);
+// }
 </style>
