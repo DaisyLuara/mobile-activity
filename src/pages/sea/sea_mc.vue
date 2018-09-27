@@ -59,6 +59,7 @@ export default {
       wxShareInfo: {
         title: '来自海洋的问候',
         desc: '更多海洋知识小课堂',
+        link: 'http://papi.xingstation.com/api/s/0v' + window.location.search,
         imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/sea/share.jpg',
         success: function() {
           wechatShareTrack()
