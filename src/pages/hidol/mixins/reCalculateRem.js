@@ -9,10 +9,9 @@ export const reCalculateRem = {
       if (!this.timer) {
         this.screenWidth = val
         this.timer = true
-        let that = this
         setTimeout(() => {
-          that.calculateRem()
-          that.timer = false
+          this.calculateRem()
+          this.timer = false
         }, 400)
       }
     }
@@ -23,12 +22,9 @@ export const reCalculateRem = {
   methods: {
     handleInit() {
       this.calculateRem()
-      const that = this
       window.onresize = () => {
-        return (() => {
-          window.screenWidth = document.body.clientWidth
-          that.screenWidth = window.screenWidth
-        })()
+        window.screenWidth = document.body.clientWidth
+        this.screenWidth = window.screenWidth
       }
     },
     calculateRem() {
