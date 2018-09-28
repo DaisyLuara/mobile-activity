@@ -10,7 +10,7 @@ const OPEN_COUPON = process.env.AD_API + '/api/open/coupon/'
 const REQ_HEADER = {
   headers: {
     'api-token': apiToken,
-    'Set-Cookie': 'user_id=' + Cookies.get('user_id')
+    'Set-Cookie': 'sign=' + Cookies.get('sign')
   }
 }
 const createCoupon = params => {
@@ -120,6 +120,7 @@ const createV5Coupon = params => {
 }
 //根据积分获取券
 const getAdCoupon = (params, id) => {
+  params.sign = Cookies.get('sign')
   return new Promise((resolve, reject) => {
     axios
       .post(COUPOUS_URL + id, params, REQ_HEADER)
@@ -131,7 +132,7 @@ const getAdCoupon = (params, id) => {
       })
   })
 }
-//根据积分获取券,修改
+//根据积分获取券,修改 , 作废接口
 const getIntegralCoupon = (params, couponId, userId) => {
   return new Promise((resolve, reject) => {
     if (userId) {
