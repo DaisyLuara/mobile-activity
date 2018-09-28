@@ -158,7 +158,7 @@ const getIntegralCoupon = (params, couponId, userId) => {
 const checkCouponNumber = couponId => {
   return new Promise((resolve, reject) => {
     axios
-      .get(OPEN_COUPON + 'batches/' + couponId)
+      .get(OPEN_COUPON + 'batches/' + couponId, REQ_HEADER)
       .then(response => {
         resolve(response.data)
       })
@@ -171,7 +171,7 @@ const checkCouponNumber = couponId => {
 const getCouponId = policyId => {
   return new Promise((resolve, reject) => {
     axios
-      .get(OPEN_COUPON + 'batches?policy_id=' + policyId)
+      .get(OPEN_COUPON + 'batches?policy_id=' + policyId, REQ_HEADER)
       .then(response => {
         resolve(response.data)
       })
