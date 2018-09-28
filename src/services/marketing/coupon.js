@@ -12,7 +12,6 @@ const REQ_HEADER = {
     'api-token': apiToken
   }
 }
-console.log(REQ_HEADER)
 const createCoupon = params => {
   return new Promise((resolve, reject) => {
     axios
