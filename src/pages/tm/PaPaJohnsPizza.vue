@@ -48,7 +48,7 @@
           </a>
           <a 
             class="cancel-btn"
-            @click="()=>{}">
+            @click="()=>{mobile='';}">
           </a>
         </div>
       </div>
@@ -123,8 +123,7 @@ export default {
         this.handleWechatAuth()
       }
     }
-    this.initCanvas()
-    console.log(this.base)
+    // this.initCanvas()
   },
   methods: {
     handleWechatAuth() {
