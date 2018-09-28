@@ -181,7 +181,7 @@ export default {
   },
   methods: {
     handleWechatAuth() {
-      if (Cookies.get('user_id') === null) {
+      if (Cookies.get('sign') === null) {
         let base_url = encodeURIComponent(String(window.location.href))
         let redirct_url =
           process.env.WX_API +
@@ -344,7 +344,7 @@ export default {
           iNum++
         }
       }
-      if (iNum >= allPX * 1 / 4) {
+      if (iNum >= (allPX * 1) / 4) {
         this.award = false
       }
     },
