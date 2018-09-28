@@ -1,7 +1,8 @@
 <template>
   <div 
     v-show="expend"
-    :class="choose" 
+    :class="choose"
+    @click="handleInputClick"
     class="comment">
     <div class="comment-inner">
       <div class="title">我说</div>
@@ -22,6 +23,13 @@ export default {
       default: false,
       type: Boolean,
       required: true
+    }
+  },
+  methods: {
+    handleInputClick() {
+      this.$router.push({
+        path: 'newcomment'
+      })
     }
   }
 }

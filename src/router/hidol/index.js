@@ -30,6 +30,14 @@ const hidolRouter = [
       title: '发表'
     },
     isAbandoned: false
+  },
+  {
+    path: 'newcomment',
+    location: 'hidol/pages/NewComment',
+    meta: {
+      title: '评论'
+    },
+    isAbandoned: false
   }
 ]
 export default hidolRouter

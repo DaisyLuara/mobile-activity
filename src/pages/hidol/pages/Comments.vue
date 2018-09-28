@@ -2,33 +2,42 @@
   <div class="comment">
     <div class="tab">
       <div 
+        @click="handleCommentTab('A')"
         :class="{selected: control.current === 'A'}" 
         class="tab-item">
         A(999)
       </div>
       <div 
+        @click="handleCommentTab('all')"
         :class="{selected: control.current === 'all'}" 
         class="tab-item">
         全部(999)
       </div>
       <div 
+        @click="handleCommentTab('B')"
         :class="{selected: control.current === 'B'}" 
         class="tab-item">
         B(999)
       </div>
-
     </div>
-    <div class="list"/>
-    <CommentItem />
+    <transition>
+      <div class="list">
+        <CommentItem />
+        <CommentItem />
+      </div>
+    </transition>
+    <BottomCommentInput />
   </div>
 </template>
 
 <script>
 import { reCalculateRem } from '../mixins/reCalculateRem'
 import CommentItem from '../components/CommentItem'
+import BottomCommentInput from '../components/BottomCommentInput'
 export default {
   components: {
-    CommentItem
+    CommentItem,
+    BottomCommentInput
   },
   mixins: [reCalculateRem],
   data() {
@@ -56,8 +65,11 @@ export default {
     },
     calculateRem() {
       let html = document.getElementsByTagName('html')[0]
-      let fontSize = this.screenWidth / 375 * 100
+      let fontSize = (this.screenWidth / 375) * 100
       html.setAttribute('style', 'font-size: ' + fontSize + 'px')
+    },
+    handleCommentTab(payload) {
+      this.control.current = payload
     }
   }
 }
@@ -67,6 +79,7 @@ export default {
 .comment {
   position: relative;
   background: rgba(244, 244, 244, 1);
+  min-height: 100vh;
   .tab {
     position: fixed;
     top: 0;
@@ -78,6 +91,7 @@ export default {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    background: white;
     .tab-item {
       flex: 1;
       text-align: center;

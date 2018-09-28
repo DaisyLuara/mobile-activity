@@ -1,8 +1,7 @@
 <template>
   <div 
-    class="question" 
-    @click="handleABExpend">
-    <div class="question-self">
+    class="question">
+    <div class="question-self" @click="handleABExpend">
       你们觉得吃葡萄需要吐葡萄皮吗？ 需要吗？需要吗？
     </div>
     <div 
@@ -19,7 +18,11 @@
 <script>
 export default {
   methods: {
-    handleGoComment() {},
+    handleGoComment() {
+      this.$router.push({
+        path: 'comment'
+      })
+    },
     handleABExpend() {
       this.$emit('onExpend')
     }

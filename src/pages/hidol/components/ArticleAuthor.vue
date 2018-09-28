@@ -9,14 +9,36 @@
         <div class="detail-time">30分钟前</div>
       </div>
     </div>
-    <img 
-      class="more" 
-      src="http://cdn.exe666.com/fe/hidol/img/more.svg">
+    <div class="more">
+      <img 
+        @click="handlePannelShow"
+        class="more-inner" 
+        src="http://cdn.exe666.com/fe/hidol/img/more.svg">
+      <ArticleMore 
+        v-if="shouldPannelShow"
+        class="more-pannel" 
+      />
+    </div>
   </div>
 </template>
 
 <script>
-export default {}
+import ArticleMore from './ArticleMore'
+export default {
+  components: {
+    ArticleMore
+  },
+  data() {
+    return {
+      shouldPannelShow: false
+    }
+  },
+  methods: {
+    handlePannelShow() {
+      this.shouldPannelShow = !this.shouldPannelShow
+    }
+  }
+}
 </script>
 
 <style lang="less" scoped>
@@ -56,6 +78,21 @@ export default {}
   }
   .more {
     width: 0.23rem;
+    position: relative;
+    .more-inner {
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      margin: auto;
+      right: 0;
+      bottom: 0;
+    }
+    .more-pannel {
+      position: absolute;
+      left: -1.1rem;
+      top: 0;
+    }
   }
 }
 </style>
