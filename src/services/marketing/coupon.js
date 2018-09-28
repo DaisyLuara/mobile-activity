@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { apiToken, Cookies } from 'services'
 
 const COUPOU_URL = process.env.SAAS_API + '/marketing/coupons'
 const V4_COUPOU_URL = process.env.SAAS_API + '/v4/common/coupon'
@@ -6,6 +7,12 @@ const V5_COUPOU_URL = process.env.SAAS_API + '/v5/common/coupon'
 const COUPOUS_URL = process.env.AD_API + '/api/open/coupons/'
 const OPEN_COUPON = process.env.AD_API + '/api/open/coupon/'
 
+const REQ_HEADER = {
+  headers: {
+    'api-token': apiToken,
+    'Set-Cookie': 'sign=' + Cookies.get('sign')
+  }
+}
 const createCoupon = params => {
   return new Promise((resolve, reject) => {
     axios
@@ -113,9 +120,10 @@ const createV5Coupon = params => {
 }
 //根据积分获取券
 const getAdCoupon = (params, id) => {
+  params.sign = Cookies.get('sign')
   return new Promise((resolve, reject) => {
     axios
-      .post(COUPOUS_URL + id, params)
+      .post(COUPOUS_URL + id, params, REQ_HEADER)
       .then(response => {
         resolve(response.data)
       })
@@ -124,12 +132,12 @@ const getAdCoupon = (params, id) => {
       })
   })
 }
-//根据积分获取券,修改
+//根据积分获取券,修改 , 作废接口
 const getIntegralCoupon = (params, couponId, userId) => {
   return new Promise((resolve, reject) => {
     if (userId) {
       axios
-        .post(COUPOUS_URL + couponId + '/' + userId, params)
+        .post(COUPOUS_URL + couponId + '/' + userId, params, REQ_HEADER)
         .then(response => {
           resolve(response.data)
         })
@@ -138,7 +146,7 @@ const getIntegralCoupon = (params, couponId, userId) => {
         })
     } else {
       axios
-        .post(COUPOUS_URL + couponId, params)
+        .post(COUPOUS_URL + couponId, params, REQ_HEADER)
         .then(response => {
           resolve(response.data)
         })
@@ -152,7 +160,7 @@ const getIntegralCoupon = (params, couponId, userId) => {
 const checkCouponNumber = couponId => {
   return new Promise((resolve, reject) => {
     axios
-      .get(OPEN_COUPON + 'batches/' + couponId)
+      .get(OPEN_COUPON + 'batches/' + couponId, REQ_HEADER)
       .then(response => {
         resolve(response.data)
       })
@@ -165,7 +173,7 @@ const checkCouponNumber = couponId => {
 const getCouponId = policyId => {
   return new Promise((resolve, reject) => {
     axios
-      .get(OPEN_COUPON + 'batches?policy_id=' + policyId)
+      .get(OPEN_COUPON + 'batches?policy_id=' + policyId, REQ_HEADER)
       .then(response => {
         resolve(response.data)
       })

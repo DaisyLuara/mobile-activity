@@ -1,6 +1,9 @@
 <template>
   <div>
-    <router-view/>
+    <keep-alive include="Index">
+      <router-view />
+    </keep-alive>
+
   </div>
 </template>
 
