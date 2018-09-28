@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { apiToken } from 'services'
 
 const COUPOU_URL = process.env.SAAS_API + '/marketing/coupons'
 const V4_COUPOU_URL = process.env.SAAS_API + '/v4/common/coupon'
@@ -6,6 +7,12 @@ const V5_COUPOU_URL = process.env.SAAS_API + '/v5/common/coupon'
 const COUPOUS_URL = process.env.AD_API + '/api/open/coupons/'
 const OPEN_COUPON = process.env.AD_API + '/api/open/coupon/'
 
+const REQ_HEADER = {
+  headers: {
+    'api-token': apiToken
+  }
+}
+console.log(REQ_HEADER)
 const createCoupon = params => {
   return new Promise((resolve, reject) => {
     axios
@@ -115,7 +122,7 @@ const createV5Coupon = params => {
 const getAdCoupon = (params, id) => {
   return new Promise((resolve, reject) => {
     axios
-      .post(COUPOUS_URL + id, params)
+      .post(COUPOUS_URL + id, params, REQ_HEADER)
       .then(response => {
         resolve(response.data)
       })

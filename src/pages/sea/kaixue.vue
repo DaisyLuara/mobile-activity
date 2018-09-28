@@ -231,7 +231,7 @@ export default {
         return
       } else {
         this.handleTrack(mobile)
-        this.getCoupon()
+        this.sendCoupon()
       }
     },
     getCheck() {
@@ -246,9 +246,8 @@ export default {
           alert(err.response.data.message)
         })
     },
-    getCoupon() {
+    sendCoupon() {
       let couponId = this.coupon_arr[this.coupon]
-      let rUrl = process.env.AD_API + '/api/open/coupons/' + couponId
       let args = {
         mobile: this.mobile
       }
