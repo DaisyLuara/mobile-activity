@@ -135,7 +135,7 @@ const getIntegralCoupon = (params, couponId, userId) => {
   return new Promise((resolve, reject) => {
     if (userId) {
       axios
-        .post(COUPOUS_URL + couponId + '/' + userId, params)
+        .post(COUPOUS_URL + couponId + '/' + userId, params, REQ_HEADER)
         .then(response => {
           resolve(response.data)
         })
@@ -144,7 +144,7 @@ const getIntegralCoupon = (params, couponId, userId) => {
         })
     } else {
       axios
-        .post(COUPOUS_URL + couponId, params)
+        .post(COUPOUS_URL + couponId, params, REQ_HEADER)
         .then(response => {
           resolve(response.data)
         })
