@@ -141,7 +141,7 @@ export default {
   },
   methods: {
     handleWechatAuth() {
-      if (Cookies.get('user_id') === null) {
+      if (Cookies.get('sign') === null) {
         let base_url = encodeURIComponent(String(window.location.href))
         let redirct_url =
           process.env.WX_API +
@@ -231,7 +231,7 @@ export default {
         return
       } else {
         this.handleTrack(mobile)
-        this.getCoupon()
+        this.sendCoupon()
       }
     },
     getCheck() {
@@ -246,11 +246,16 @@ export default {
           alert(err.response.data.message)
         })
     },
-    getCoupon() {
+    sendCoupon() {
       let couponId = this.coupon_arr[this.coupon]
-      let rUrl = process.env.AD_API + '/api/open/coupons/' + couponId
       let args = {
         mobile: this.mobile
+      }
+      if (this.userId) {
+        args = {
+          mobile: this.mobile,
+          userId: this.userId
+        }
       }
       getAdCoupon(args, couponId)
         .then(res => {

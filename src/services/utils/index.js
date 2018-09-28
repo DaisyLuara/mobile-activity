@@ -8,3 +8,6 @@ export * from './cookies'
 
 // 基本的方法
 export * from './basic'
+
+// 加密生成的token
+export * from './token'

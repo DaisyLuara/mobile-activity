@@ -260,6 +260,72 @@ const Date201809 = [
       desc: '王府ONE岁'
     },
     isAbandoned: false
+  },
+  {
+    path: 'national_day_one',
+    location: 'national_day/nationalDayOne',
+    name: 'national_day_one',
+    meta: {
+      title: '欢祝国庆',
+      author: 'xj1012',
+      desc: '欢祝国庆'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'national_day_two',
+    location: 'national_day/nationalDayTwo',
+    name: 'national_day_two',
+    meta: {
+      title: '欢度国庆',
+      author: 'xj1012',
+      desc: '欢度国庆'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'gq_papa',
+    location: 'tm/PaPaJohnsPizza',
+    name: 'PaPaJohnsPizza',
+    meta: {
+      title: '十一活动',
+      author: 'lipan',
+      desc: '十一国庆活动-棒约翰'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'gq_huawei',
+    location: 'tm/huawei',
+    name: 'huawei',
+    meta: {
+      title: '十一活动',
+      author: 'lipan',
+      desc: '十一国庆活动-华为周年庆'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'gq_childDream',
+    location: 'tm/childDream',
+    name: 'childDream',
+    meta: {
+      title: '十一活动',
+      author: 'lipan',
+      desc: '十一国庆活动-balabala,小小童星梦'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'gq_jiating',
+    location: 'tm/jiating',
+    name: 'jiating',
+    meta: {
+      title: '十一活动',
+      author: 'lipan',
+      desc: '十一国庆活动-嘉庭老上海味道'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201809
