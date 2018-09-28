@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { apiToken } from 'services'
+import { apiToken, Cookies } from 'services'
 
 const COUPOU_URL = process.env.SAAS_API + '/marketing/coupons'
 const V4_COUPOU_URL = process.env.SAAS_API + '/v4/common/coupon'
@@ -9,7 +9,8 @@ const OPEN_COUPON = process.env.AD_API + '/api/open/coupon/'
 
 const REQ_HEADER = {
   headers: {
-    'api-token': apiToken
+    'api-token': apiToken,
+    'Set-Cookie': 'user_id=' + Cookies.get('user_id')
   }
 }
 const createCoupon = params => {
