@@ -22,7 +22,6 @@
     <img  
       :src="imgServerUrl + '/pages/suning/Push.png'" 
       alt=""
-      @click="go()"
       class="save">
   </div>
 </template>
@@ -83,10 +82,6 @@ export default {
         .catch(err => {
           console.log(err)
         })
-    },
-    go() {
-      window.location.href =
-        'https://mp.weixin.qq.com/s?__biz=MzIzNTg1MTQxMw==&tempkey=OTc2X1d2TWEvc1c1WWRIcFpTN2YwUmstVmcwS2ZlYkdQTEFaLTU5SXh0dXpDekJVbDRPUjhWUWd5Q3dlSmc2clB5eGZtN0xWZlFyaWlQeldnQVVLSlRkRkVoMlJ0dEFNelFyVGVVb2R3aHE5N2tlb2U5ZzJaRnBWd1BKT1BxTkY2TEJGRVhlYUNQM1VBeDNxTThyNndKdGd3bEVhd2hyRXVucGR0RDdDN1F%2Bfg%3D%3D&chksm=68e194725f961d649784e77ddfc231d2ee19f84bbbdb080fa34e7e849255952c2cd462ad86d0#rd'
     },
     handleShare() {
       $wechat()

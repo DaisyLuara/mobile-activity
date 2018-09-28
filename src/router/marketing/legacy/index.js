@@ -439,7 +439,7 @@ const lagacyPages = [
     meta: {
       title: '苏宁嗨购'
     },
-    isAbandoned: false
+    isAbandoned: true
   },
   {
     path: 'mangguo',
