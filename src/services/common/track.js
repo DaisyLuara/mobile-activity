@@ -15,8 +15,6 @@ customTrack.adId = req.adId | undefined ? req.adId : 100
 customTrack.laId = req.laId | undefined ? req.laId : 100
 customTrack.play_result_id = req.recordId ? req.recordId : 0
 
-console.log(req)
-
 // 基本的id和手机号追踪
 const basicTrack = (id, phoneNumber) => {
   let url =
