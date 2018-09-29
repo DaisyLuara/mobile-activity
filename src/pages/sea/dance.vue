@@ -174,7 +174,8 @@ export default {
         belong: this.belong,
         image_url: this.deUrl,
         score: this.score,
-        qiniu_id: id
+        qiniu_id: id,
+        game_attribute_payload: this.sign
       }
       userGame(args, this.userId)
         .then(res => {
