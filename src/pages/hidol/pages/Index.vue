@@ -63,9 +63,6 @@ export default {
       savedHeight: 0
     }
   },
-  mounted() {
-    document.documentElement.scrollTop = 0
-  },
   deactivated() {
     this.savedHeight = document.documentElement.scrollTop
   },

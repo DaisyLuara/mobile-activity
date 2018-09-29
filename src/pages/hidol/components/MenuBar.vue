@@ -103,7 +103,7 @@ export default {
     height: constant(safe-area-inset-bottom);
     height: env(safe-area-inset-bottom);
     width: 100%;
-    background: white;
+    background: #1b1a20;
   }
 }
 </style>
