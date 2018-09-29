@@ -49,9 +49,9 @@ export default {
       compoundUrl: null,
       //微信分享
       wxShareInfoValue: {
-        title: '小蜜蜂',
-        desc: '小蜜蜂',
-        link: '' + window.location.search,
+        title: '挑战高分',
+        desc: '看看我的高分以及小偶',
+        link: 'http://papi.newgls.cn/api/s/mw0' + window.location.search,
         imgUrl: 'http://cdn.exe666.com/fe/image/bee/share.png',
         success: function() {
           wechatShareTrack()
