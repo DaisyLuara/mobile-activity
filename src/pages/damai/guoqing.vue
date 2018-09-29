@@ -41,7 +41,6 @@
 <script>
 const cdnUrl = process.env.CDN_URL
 import { onlyGetPhoto } from '../../mixins/onlyGetPhoto'
-import { setInterval, clearInterval } from 'timers'
 export default {
   mixins: [onlyGetPhoto],
   data() {
