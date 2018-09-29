@@ -338,6 +338,16 @@ const Date201809 = [
     }
   },
   {
+    path: 'damai_gq2',
+    location: 'damai/guoqing2',
+    name: 'damaiGuoqing',
+    meta: {
+      title: '大麦0元抽奖',
+      author: 'Anluis',
+      desc: '大麦国庆的逗比活动'
+    }
+  },
+  {
     path: 'xh_dance',
     location: 'sea/dance',
     name: 'xh_dance',
