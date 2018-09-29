@@ -51,7 +51,8 @@
             v-model="mobile"
             placeholder="输入手机号" 
             maxlength="11" 
-            class="input">
+            class="input"
+            @change="mask = true;telform = true;">
           <button
             class="check"
             @click.stop="checkMobile(mobile)">

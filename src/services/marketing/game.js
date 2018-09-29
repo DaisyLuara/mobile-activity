@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import { apiToken, Cookies } from 'services'
 const GAME_URL = process.env.SAAS_API + '/user/'
 const GAME_LIST_URL = process.env.SAAS_API + '/user/'
 const REQ_HEADER = {
