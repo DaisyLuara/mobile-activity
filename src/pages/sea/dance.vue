@@ -16,11 +16,10 @@
           :src="base + 'frame.png'"
           class="frame">
         <img
-          :src="base + coupon + '.png?111'"
+          :src="base + coupon + '.png'"
           class="coupon">
         <a
-          class="button"
-          @click="getCheck">
+          class="button">
           <img
             :src="base+'button.png'"
             class="button">
@@ -29,40 +28,17 @@
     </div>
     <div
       v-show="mask"
-      class="mask"
-      @click.self="mask = false;telform = false;note = false;success = false;">
+      class="mask">
+      <!-- 说明 -->
       <div 
         v-show="note"
         class="note"
         @click="()=>{note = false;mask=false;}">
         <img
-          :src="base + 'note3.png'">
+          :src="base + 'note.png'">
       </div>
+      <!-- 领券，停顿显示图片，跳转链接 -->
       <div 
-        v-show="telform"
-        class="tel">
-        <img
-          :src="base+'tel.png'"
-          class="telbg">
-        <div 
-          class="form"
-          @click.stop="()=>{}">
-          <input 
-            v-model="mobile"
-            placeholder="输入手机号" 
-            maxlength="11" 
-            class="input"
-            @change="mask = true;telform = true;">
-          <button
-            class="check"
-            @click.stop="checkMobile(mobile)">
-            <img
-              :src="base+'check.png'">
-          </button>
-        </div>
-      </div>
-      <div 
-        v-show="success"
         class="success tel">
         <img
           :src="base+'success.png'"
@@ -72,7 +48,7 @@
   </div>
 </template>
 <script>
-const IMAGE_SERVER = 'http://p22vy0aug.bkt.clouddn.com/'
+const cdnUrl = process.env.CDN_URL
 import {
   $wechat,
   wechatShareTrack,
@@ -94,28 +70,23 @@ export default {
           'min-height': this.$innerHeight() + 'px'
         }
       },
-      base: IMAGE_SERVER + 'image/farm/kaixue/',
-      score: this.$route.query.score,
+      base: cdnUrl + '/fe/image/xh_dance/',
       total: 0,
+      score: this.$route.query.score,
       coupon: 0,
       mask: true,
       note: true,
-      telform: false,
-      mobile: null,
       belong: null,
       photo: null,
       userId: null,
-      sign: null,
-      success: false,
-      coupon_arr: [3, 4, 5, 6],
-      deUrl:
-        'http://wx.qlogo.cn/mmopen/Q3auHgzwzM4VoBYD1YEIq0E3LFM1XLKsd3sG5VXRAvCUqCVXIPTcI0TzqicRWfzB9Zv40GhTR83RhKAugpzOuaJFC11nxmcnnp6ZbOu04UFw/0',
+      link: 'http://papi.xingstation.com/api/s/oYK',
+      //http://xuhui.xiaooo.club/app/index.php?i=40&c=my&a=point&do=exchange
       //微信分享
       wxShareInfoValue: {
-        title: '开学送福利',
-        desc: '亲爱的，礼物准备好了',
-        link: 'http://papi.xingstation.com/api/s/j2R' + window.location.search,
-        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/farm/kaixue/icon.jpg',
+        title: '一起尬舞吗？朋友',
+        desc: '金秋十月！来旭辉mall吃喝玩乐',
+        link: 'http://papi.xingstation.com/api/s/pg6' + window.location.search,
+        imgUrl: 'http://cdn.exe666.com//fe/image/xh_dance/icon.png',
         success: function() {
           wechatShareTrack()
         }
@@ -132,14 +103,6 @@ export default {
         this.handleWechatAuth()
       }
     }
-    if (this.note) {
-      let that = this
-      let once = setTimeout(function() {
-        that.note = false
-        that.mask = false
-        clearTimeout(once)
-      }, 5000)
-    }
   },
   methods: {
     handleWechatAuth() {
@@ -153,28 +116,14 @@ export default {
         window.location.href = redirct_url
       } else {
         this.userId = Cookies.get('user_id')
-        this.sign = Cookies.get('sign')
         this.belong = this.$route.query.utm_campaign
         this.userGame()
       }
-    },
-    handleTrack(mobile) {
-      let url =
-        'http://exelook.com/client/goodsxsd/?id=' +
-        String(this.$route.query.id) +
-        '&mobile=' +
-        String(mobile) +
-        '&api=json'
-      this.$http.get(url).then(r => {
-        console.log(r)
-      })
     },
     userGame() {
       let id = this.$route.query.id
       let args = {
         belong: this.belong,
-        image_url: this.deUrl,
-        score: this.score,
         qiniu_id: id
       }
       userGame(args, this.userId)
@@ -186,24 +135,13 @@ export default {
         })
     },
     getGame() {
-      let score1 = 0,
-        score2 = 0,
-        score_total = 0
+      let score = 0
       let url = process.env.SAAS_API + '/user/' + this.userId + '/games?belong='
       this.$http
-        .get(url + 'FarmSchool')
+        .get(url + this.belong)
         .then(res => {
-          score1 = parseInt(res.data.data[0].total_score) || 0
-          this.$http
-            .get(url + 'FarmSchoolHigh')
-            .then(res => {
-              score2 = parseInt(res.data.data[0].total_score) || 0
-              score_total = score1 + score2
-              this.docheckScore(score_total)
-            })
-            .catch(err => {
-              console.log(err)
-            })
+          score = parseInt(res.data.data[0].total_score) || 0
+          this.docheckScore(score)
         })
         .catch(err => {
           console.log(err)

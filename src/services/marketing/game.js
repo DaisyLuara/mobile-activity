@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import { apiToken, Cookies } from 'services'
 const GAME_URL = process.env.SAAS_API + '/user/'
 const GAME_LIST_URL = process.env.SAAS_API + '/user/'
 const REQ_HEADER = {
@@ -22,6 +22,8 @@ const createGame = (params, userId) => {
 }
 
 const userGame = (params, userId) => {
+  params.game_attribute_payload = Cookies.get('game_attribute_payload')
+  params.sign = Cookies.get('sign')
   return new Promise((resolve, reject) => {
     axios
       .post(GAME_URL + userId + '/game_attribute', params, REQ_HEADER)

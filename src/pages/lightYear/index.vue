@@ -118,7 +118,7 @@ export default {
           height: this.$innerHeight() + 'px'
         },
         rank: {
-          height: window.innerWidth * 1050 / 750 + 'px'
+          height: (window.innerWidth * 1050) / 750 + 'px'
         }
       },
       photo: null,
@@ -165,13 +165,13 @@ export default {
         })
     },
     handleWechatAuth() {
-      if (Cookies.get('user_id') === null) {
+      if (Cookies.get('sign') === null) {
         let base_url = encodeURIComponent(String(window.location.href))
         let redirct_url =
           process.env.WX_API +
           '/wx/officialAccount/oauth?url=' +
           base_url +
-          '&scope=snsapi_base'
+          '&scope=snsapi_userinfo'
         window.location.href = redirct_url
       } else {
         //获取微信头像
