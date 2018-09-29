@@ -16,11 +16,10 @@
           :src="base + 'frame.png'"
           class="frame">
         <img
-          :src="base + coupon + '.png?111'"
+          :src="base + coupon + '.png'"
           class="coupon">
         <a
-          class="button"
-          @click="getCheck">
+          class="button">
           <img
             :src="base+'button.png'"
             class="button">
@@ -40,7 +39,6 @@
       </div>
       <!-- 领券，停顿显示图片，跳转链接 -->
       <div 
-        v-show="success"
         class="success tel">
         <img
           :src="base+'success.png'"
@@ -73,6 +71,7 @@ export default {
         }
       },
       base: cdnUrl + '/fe/image/xh_dance/',
+      total: 0,
       score: this.$route.query.score,
       coupon: 0,
       mask: true,
