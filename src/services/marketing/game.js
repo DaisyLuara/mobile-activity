@@ -23,6 +23,7 @@ const createGame = (params, userId) => {
 
 const userGame = (params, userId) => {
   params.game_attribute_payload = Cookies.get('game_attribute_payload')
+  params.sign = Cookies.get('sign')
   return new Promise((resolve, reject) => {
     axios
       .post(GAME_URL + userId + '/game_attribute', params, REQ_HEADER)
