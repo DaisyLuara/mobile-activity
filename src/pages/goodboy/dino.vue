@@ -62,7 +62,7 @@ export default {
   },
   methods: {
     handleWechatAuth() {
-      if (Cookies.get('user_id') === null) {
+      if (Cookies.get('sign') === null) {
         let base_url = encodeURIComponent(String(window.location.href))
         let redirct_url =
           process.env.WX_API +

@@ -336,6 +336,17 @@ const Date201809 = [
       author: 'Anluis',
       desc: '大麦国庆的逗比活动'
     }
+  },
+  {
+    path: 'xh_dance',
+    location: 'sea/dance',
+    name: 'xh_dance',
+    meta: {
+      title: '星视度',
+      author: 'lipan',
+      desc: '旭辉跳舞h5'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201809

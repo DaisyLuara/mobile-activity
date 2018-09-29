@@ -34,7 +34,7 @@
           :src="base + 'text.png'"
           class="text">
         <div 
-          v-show="!award"
+          v-show="Boolean(!award&&coupon.couponId!=11)"
           class="form">
           <input 
             type="text"
@@ -270,6 +270,9 @@ export default {
           console.log(res)
           this.coupon.couponId = res.id
           this.coupon.url = res.image_url
+          if (res.wx_user_id) {
+            this.award = false
+          }
         })
         .catch(err => {
           console.log(err)
