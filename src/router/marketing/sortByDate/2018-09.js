@@ -332,7 +332,7 @@ const Date201809 = [
     location: 'sea/dance',
     name: 'xh_dance',
     meta: {
-      title: '星视度',
+      title: '吃喝玩乐',
       author: 'lipan',
       desc: '旭辉跳舞h5'
     },
