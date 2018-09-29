@@ -332,7 +332,7 @@ const Date201809 = [
     location: 'damai/guoqing',
     name: 'damaiGuoqing',
     meta: {
-      title: '大麦',
+      title: '大麦0元抽奖',
       author: 'Anluis',
       desc: '大麦国庆的逗比活动'
     }

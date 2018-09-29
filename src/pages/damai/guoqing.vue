@@ -174,7 +174,7 @@ export default {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     z-index: 50;
-    width: 45%;
+    width: 40%;
     margin-bottom: 3%;
   }
   .button {
@@ -201,10 +201,12 @@ export default {
       left: 0;
       bottom: 0;
       right: 0;
+      margin: auto;
       transform: scale(1.2);
     }
     .bg-02 {
       width: 100%;
+      margin: auto;
       z-index: 50;
       position: absolute;
       top: 0;
