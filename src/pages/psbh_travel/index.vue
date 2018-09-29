@@ -1,7 +1,7 @@
 <template>
   <div class="psbh-travel-wrap">
     <img 
-      :src="imgServerUrl + '/ad_0731.jpeg'" 
+      :src="imgServerUrl + '/ad_0929.jpg'" 
       class="psbh-img" 
       alt="">
     <div class="photo-content">
