@@ -609,7 +609,7 @@ export default {
       this.$refs.suoha.checkCoupon()
     },
     handleWechatAuth() {
-      if (Cookies.get('user_id') === null) {
+      if (Cookies.get('sign') === null) {
         this.handleFirstAuth()
       } else {
         this.getuserData()

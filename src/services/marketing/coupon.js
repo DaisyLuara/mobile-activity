@@ -158,9 +158,12 @@ const getIntegralCoupon = (params, couponId, userId) => {
 }
 // 确认优惠券是否已经领完
 const checkCouponNumber = couponId => {
+  let params = {
+    sign: Cookies.get('sign')
+  }
   return new Promise((resolve, reject) => {
     axios
-      .get(OPEN_COUPON + 'batches/' + couponId, REQ_HEADER)
+      .post(OPEN_COUPON + 'batches/' + couponId, params, REQ_HEADER)
       .then(response => {
         resolve(response.data)
       })
@@ -171,9 +174,12 @@ const checkCouponNumber = couponId => {
 }
 // 概率获取优惠券ID（coupinId）
 const getCouponId = policyId => {
+  let params = {
+    sign: Cookies.get('sign')
+  }
   return new Promise((resolve, reject) => {
     axios
-      .get(OPEN_COUPON + 'batches?policy_id=' + policyId, REQ_HEADER)
+      .post(OPEN_COUPON + 'batches?policy_id=' + policyId, params, REQ_HEADER)
       .then(response => {
         resolve(response.data)
       })
