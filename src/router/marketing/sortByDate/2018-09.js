@@ -326,6 +326,16 @@ const Date201809 = [
       desc: '十一国庆活动-嘉庭老上海味道'
     },
     isAbandoned: false
+  },
+  {
+    path: 'damai_gq',
+    location: 'damai/guoqing',
+    name: 'damaiGuoqing',
+    meta: {
+      title: '大麦',
+      author: 'Anluis',
+      desc: '大麦国庆的逗比活动'
+    }
   }
 ]
 export default Date201809
