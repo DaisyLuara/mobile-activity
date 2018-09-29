@@ -73,49 +73,87 @@ export default {
         bg2: true,
         bg1: true
       },
-      newInterval: null
+      count: 0
     }
   },
   mounted() {
-    let count = 0
-    this.newInterval = setInterval(() => {
-      count++
-      if (count % 6 === 0) {
+    // let count = 0
+    // this.newInterval = setInterval(() => {
+    //   count++
+    //   if (count % 6 === 0) {
+    //     this.control.bg1 = false
+    //     this.control.bg2 = false
+    //     this.control.bg3 = false
+    //   }
+    //   if (count % 6 === 1) {
+    //     this.control.bg1 = true
+    //     this.control.bg2 = false
+    //     this.control.bg3 = false
+    //   }
+    //   if (count % 6 === 2) {
+    //     this.control.bg1 = false
+    //     this.control.bg2 = true
+    //     this.control.bg3 = false
+    //   }
+    //   if (count % 6 === 3) {
+    //     this.control.bg1 = false
+    //     this.control.bg2 = false
+    //     this.control.bg3 = true
+    //   }
+    //   if (count % 6 === 4) {
+    //     this.control.bg1 = false
+    //     this.control.bg2 = true
+    //     this.control.bg3 = false
+    //   }
+    //   if (count % 6 === 5) {
+    //     this.control.bg1 = true
+    //     this.control.bg2 = false
+    //     this.control.bg3 = false
+    //   }
+    // }, 300)
+    this.newInterval()
+  },
+  beforeDestroy() {
+    cancelAnimationFrame(this.newInterval)
+    // clearInterval(this.newInterval)
+  },
+  methods: {
+    newInterval() {
+      this.count++
+      if (this.count % 6 === 0) {
         this.control.bg1 = false
         this.control.bg2 = false
         this.control.bg3 = false
       }
-      if (count % 6 === 1) {
+      if (this.count % 6 === 1) {
         this.control.bg1 = true
         this.control.bg2 = false
         this.control.bg3 = false
       }
-      if (count % 6 === 2) {
+      if (this.count % 6 === 2) {
         this.control.bg1 = false
         this.control.bg2 = true
         this.control.bg3 = false
       }
-      if (count % 6 === 3) {
+      if (this.count % 6 === 3) {
         this.control.bg1 = false
         this.control.bg2 = false
         this.control.bg3 = true
       }
-      if (count % 6 === 4) {
+      if (this.count % 6 === 4) {
         this.control.bg1 = false
         this.control.bg2 = true
         this.control.bg3 = false
       }
-      if (count % 6 === 5) {
+      if (this.count % 6 === 5) {
         this.control.bg1 = true
         this.control.bg2 = false
         this.control.bg3 = false
       }
-    }, 300)
-  },
-  beforeDestroy() {
-    clearInterval(this.newInterval)
-  },
-  methods: {
+      setTimeout(() => {
+        requestAnimationFrame(this.newInterval)
+      }, 300)
+    },
     handleNavi() {
       window.location.href = 'https://piao.damai.cn/164398.html'
     }
