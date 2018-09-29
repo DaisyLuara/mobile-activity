@@ -7,7 +7,8 @@
       :src="baseUrl + 'bg.png'" 
       :style="style.bg"
     />
-    <img 
+    <div class="photo-area" :style="style.photoArea">
+      <img 
       class="bg" 
       :src="baseUrl + 'photobg.png'" 
       :style="style.photobg"
@@ -17,6 +18,8 @@
       :src="photo + this.$qiniuCompress()" 
       :style="style.photo"
     />
+    </div>
+    
     <img 
       class="remind"
       :src="baseUrl + 'remind.png'" 
@@ -59,6 +62,9 @@ export default {
         button: {
           width: 0.5 * this.$innerWidth() + 'px',
           height: (0.5 * this.$innerWidth() * 186) / 589 + 'px'
+        },
+        photoArea: {
+          height: (this.$innerWidth() * 601) / 390 + 'px'
         }
       },
       photo: null,
@@ -128,7 +134,7 @@ export default {
   z-index: 10;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: space-around;
   align-items: center;
   .top-bg {
     position: absolute;
@@ -139,39 +145,44 @@ export default {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
   }
-  .bg {
-    position: absolute;
+  .photo-area {
     width: 100%;
-    left: 0;
-    top: 0;
-    z-index: 30;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    transform: scale(1.04);
+    position: relative;
+    .bg {
+      position: absolute;
+      width: 100%;
+      left: 0;
+      top: 0;
+      z-index: 30;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      transform: scale(1.04);
+    }
+    .photo {
+      z-index: 40;
+      width: 66.5%;
+      margin: 0 auto;
+      top: 2.9%;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      position: absolute;
+    }
   }
-  .photo {
-    z-index: 40;
-    width: 66.5%;
-    margin: 0 auto;
-    top: 2.9%;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    position: absolute;
-  }
+
   .remind {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     z-index: 50;
     width: 45%;
-    margin-bottom: 5%;
+    margin-bottom: 3%;
   }
   .button {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     z-index: 50;
     position: relative;
-    margin-bottom: 8%;
+    margin-bottom: 3%;
     .bg {
       width: 100%;
       z-index: 60;
