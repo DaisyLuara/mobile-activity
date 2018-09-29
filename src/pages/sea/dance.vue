@@ -151,7 +151,7 @@ export default {
       } else {
         this.userId = Cookies.get('user_id')
         this.belong = this.$route.query.utm_campaign
-        this.userGame()
+        this.getAnim()
       }
     },
     drawing() {
@@ -272,6 +272,7 @@ export default {
       let id = this.$route.query.id
       let args = {
         belong: this.belong,
+        image_url: this.photo,
         qiniu_id: id
       }
       userGame(args, this.userId)
@@ -291,7 +292,6 @@ export default {
             ? parseInt(res.data.data[0].total_score)
             : this.score
           this.docheckScore(this.score)
-          this.getAnim()
         })
         .catch(err => {
           console.log(err)
@@ -301,6 +301,7 @@ export default {
       let timer = requestAnimationFrame(this.getAnim)
       if (this.photo) {
         cancelAnimationFrame(timer)
+        this.userGame()
         this.drawing()
         console.log('photo')
         return
