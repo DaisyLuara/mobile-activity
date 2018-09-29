@@ -34,7 +34,7 @@
           :src="base + 'text.png'"
           class="text">
         <div 
-          v-show="!award"
+          v-show="Boolean(!award&&coupon.couponId!=11)"
           class="form">
           <input 
             type="text"
@@ -123,7 +123,7 @@ export default {
         this.handleWechatAuth()
       }
     }
-    // this.initCanvas()
+    this.initCanvas()
   },
   methods: {
     handleWechatAuth() {
@@ -138,6 +138,7 @@ export default {
       } else {
         this.params.userId = Cookies.get('user_id')
         this.params.belong = this.$route.query.utm_campaign
+        this.initCanvas()
         this.userGame()
       }
     },
@@ -151,7 +152,6 @@ export default {
       userGame(args, this.params.userId)
         .then(res => {
           console.log(res)
-          this.initCanvas()
           this.getCouponId()
         })
         .catch(e => {
@@ -271,6 +271,9 @@ export default {
           console.log(res)
           this.coupon.couponId = res.id
           this.coupon.url = res.image_url
+          if (res.wx_user_id) {
+            this.award = false
+          }
         })
         .catch(err => {
           console.log(err)

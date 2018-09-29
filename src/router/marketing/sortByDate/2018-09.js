@@ -326,6 +326,17 @@ const Date201809 = [
       desc: '十一国庆活动-嘉庭老上海味道'
     },
     isAbandoned: false
+  },
+  {
+    path: 'xh_dance',
+    location: 'sea/dance',
+    name: 'xh_dance',
+    meta: {
+      title: '星视度',
+      author: 'lipan',
+      desc: '旭辉跳舞h5'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201809
