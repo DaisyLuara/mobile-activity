@@ -9,31 +9,32 @@
     />
     <div class="photo-area" :style="style.photoArea">
       <img 
-      class="bg" 
-      :src="baseUrl + 'photobg.png'" 
-      :style="style.photobg"
-    />
-    <img 
-      class="photo" 
-      :src="photo + this.$qiniuCompress()" 
-      :style="style.photo"
-    />
+        class="bg" 
+        :src="baseUrl + 'photobg.png'" 
+        :style="style.photobg"
+      />
+      <img 
+        class="photo" 
+        :src="photo + this.$qiniuCompress()" 
+        :style="style.photo"
+      />
+      <img 
+        class="remind"
+        :src="baseUrl + 'remind.png'" 
+      />
+      <div class="button" :style="style.button" @click="handleNavi">
+        <img
+          class="flash" 
+          :src="baseUrl + 'flash_00000.png'" />
+        <img class="bg" :src="baseUrl + 'button-bg.png'" />
+        <img class="text" :src="baseUrl + 'button-text.png'" />
+          <img v-show="control.bg1" class="bg-02" :src="baseUrl + 'button_00001.png'" />
+          <img  v-show="control.bg2" class="bg-01" :src="baseUrl + 'button_00003.png'" />
+          <img  v-show="control.bg3" class="bg-01" :src="baseUrl + 'button_00005.png'" />
+      </div>
     </div>
     
-    <img 
-      class="remind"
-      :src="baseUrl + 'remind.png'" 
-    />
-    <div class="button" :style="style.button" @click="handleNavi">
-      <img
-        class="flash" 
-        :src="baseUrl + 'flash_00000.png'" />
-      <img class="bg" :src="baseUrl + 'button-bg.png'" />
-      <img class="text" :src="baseUrl + 'button-text.png'" />
-        <img v-show="control.bg1" class="bg-02" :src="baseUrl + 'button_00001.png'" />
-        <img  v-show="control.bg2" class="bg-01" :src="baseUrl + 'button_00003.png'" />
-        <img  v-show="control.bg3" class="bg-01" :src="baseUrl + 'button_00005.png'" />
-    </div>
+   
   </div>
 </template>
 
@@ -51,10 +52,10 @@ export default {
           height: this.$innerHeight() + 'px'
         },
         photobg: {
-          marginTop: '-' + 0.02 * this.$innerHeight() + 'px'
+          marginTop: '-' + 0.015 * this.$innerHeight() + 'px'
         },
         bg: {
-          marginTop: '-' + 0.02 * this.$innerHeight() + 'px'
+          marginTop: '-' + 0.015 * this.$innerHeight() + 'px'
         },
         photo: {
           top: 0.026 * this.$innerHeight() + 'px'
@@ -134,7 +135,7 @@ export default {
   z-index: 10;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: center;
   .top-bg {
     position: absolute;
@@ -168,73 +169,83 @@ export default {
       right: 0;
       position: absolute;
     }
-  }
 
-  .remind {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    z-index: 50;
-    width: 40%;
-    margin-bottom: 3%;
-  }
-  .button {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    z-index: 50;
-    position: relative;
-    margin-bottom: 3%;
-    .bg {
-      width: 100%;
-      z-index: 60;
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      margin: auto;
-    }
-    .bg-01 {
-      width: 100%;
+    .remind {
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
       z-index: 50;
+      width: 40%;
       position: absolute;
-      top: 0;
       left: 0;
-      bottom: 0;
       right: 0;
+      bottom: -78%;
+      top: 0;
       margin: auto;
-      transform: scale(1.2);
     }
-    .bg-02 {
-      width: 100%;
-      margin: auto;
+    .button {
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
       z-index: 50;
+      position: relative;
+      margin: auto;
       position: absolute;
-      top: 0;
+      bottom: -98%;
       left: 0;
-      bottom: 0;
       right: 0;
-      transform: scale(1.1);
-    }
+      top: 0;
+      .bg {
+        width: 100%;
+        z-index: 60;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        margin: auto;
+      }
+      .bg-01 {
+        width: 100%;
+        z-index: 50;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        margin: auto;
+        transform: scale(1.2);
+      }
+      .bg-02 {
+        width: 100%;
+        margin: auto;
+        z-index: 50;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        transform: scale(1.1);
+      }
 
-    .text {
-      width: 80%;
-      z-index: 70;
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      margin: auto;
+      .text {
+        width: 80%;
+        z-index: 70;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        margin: auto;
+      }
     }
-  }
-  .flash {
-    animation: scale 0.2s linear infinite alternate;
-    width: 23%;
-    position: absolute;
-    top: -43%;
-    left: 0;
-    z-index: 80;
-    margin-left: -17%;
+    .flash {
+      animation: scale 0.2s linear infinite alternate;
+      width: 23%;
+      position: absolute;
+      top: -43%;
+      left: 0;
+      z-index: 80;
+      margin-left: -17%;
+    }
   }
 }
 @keyframes scale {
