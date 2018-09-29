@@ -118,7 +118,7 @@ export default {
           height: this.$innerHeight() + 'px'
         },
         rank: {
-          height: window.innerWidth * 1050 / 750 + 'px'
+          height: (window.innerWidth * 1050) / 750 + 'px'
         }
       },
       photo: null,
@@ -171,7 +171,7 @@ export default {
           process.env.WX_API +
           '/wx/officialAccount/oauth?url=' +
           base_url +
-          '&scope=snsapi_base'
+          '&scope=snsapi_userinfo'
         window.location.href = redirct_url
       } else {
         //获取微信头像
