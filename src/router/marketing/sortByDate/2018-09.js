@@ -340,7 +340,7 @@ const Date201809 = [
   {
     path: 'damai_gq2',
     location: 'damai/guoqing2',
-    name: 'damaiGuoqing',
+    name: 'damaiGuoqing2',
     meta: {
       title: '大麦0元抽奖',
       author: 'Anluis',

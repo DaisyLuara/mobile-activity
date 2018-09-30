@@ -58,6 +58,8 @@ yarn test
 
 线上打包使用 yarn --production 将不会带入 devDependencies 内容
 
+devDependencies 的依赖用于开发、测试的并不会在实际生产环境使用
+
 ### Chrome Driver 报错
 
 先跑一下
@@ -85,6 +87,16 @@ source ~/.zshrc
 然后跑 proxy 即可走代理
 
 sock5 代理地址需要在 ss 客户端设置一下
+
+### Chrome 跨域
+
+命令行输入
+
+```
+open -a /Applications/Google\ Chrome.app --args --disable-web-security --user-data-dir
+```
+
+或者安装 Chrome 插件
 
 ## 路由配置
 
@@ -169,6 +181,8 @@ services 已配置 alias
 ### 静态资源走 cdn
 
 static 文件下面只存不得不存的内容，其他都存放在 cdn
+
+等待清理
 
 ### 单元测试
 
