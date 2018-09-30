@@ -278,7 +278,9 @@ export default {
       checkGetCoupon(args)
         .then(res => {
           console.log(res)
-          if (res.status === 204) {
+          if (res.status === 200) {
+            this.form = false
+          } else {
             this.form = true
           }
         })
