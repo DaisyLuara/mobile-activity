@@ -128,7 +128,7 @@ export default {
         this.handleWechatAuth()
       }
     }
-    this.initCanvas()
+    // this.initCanvas()
   },
   methods: {
     handleWechatAuth() {
