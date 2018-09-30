@@ -34,7 +34,7 @@
           :src="base + 'text.png'"
           class="text">
         <div 
-          v-show="Boolean(!award&&coupon.couponId!=11)"
+          v-show="form"
           class="form">
           <input 
             type="text"
@@ -70,9 +70,13 @@ import {
   userGame,
   getGame,
   getCouponId,
-  getAdCoupon
+  getAdCoupon,
+  basicTrack,
+  validatePhone,
+  checkGetCoupon
 } from 'services'
 import { normalPages } from '../../mixins/normalPages'
+import { Toast } from 'mint-ui'
 const cdnUrl = process.env.CDN_URL
 export default {
   mixins: [normalPages],
@@ -99,6 +103,7 @@ export default {
       },
       mobile: null,
       award: true,
+      form: false,
       c: null,
       //分享
       wxShareInfoValue: {
@@ -151,7 +156,6 @@ export default {
       }
       userGame(args, this.params.userId)
         .then(res => {
-          console.log(res)
           this.getCouponId()
         })
         .catch(e => {
@@ -159,22 +163,12 @@ export default {
         })
     },
     checkMobile(mobile) {
-      if (!/^1[3456789]\d{9}$/.test(mobile)) {
-        alert('您输入的手机号有误')
-        return
-      } else {
-        this.handleTrack(mobile)
+      if (validatePhone(mobile)) {
+        basicTrack(this.$route.query.id, mobile)
         this.getCoupon()
+      } else {
+        Toast('您输入的手机号有误')
       }
-    },
-    handleTrack(mobile) {
-      let url =
-        'http://exelook.com/client/goodsxsd/?id=' +
-        String(this.$route.query.id) +
-        '&mobile=' +
-        String(mobile) +
-        '&api=json'
-      this.$http.get(url).then(r => {})
     },
     initCanvas() {
       let that = this
@@ -194,12 +188,10 @@ export default {
         ctx.closePath()
         if (document.querySelector('.canvas-ele') !== null) {
           this.c = document.querySelector('.canvas-ele').getBoundingClientRect()
-          console.log(this.c)
         }
       }
     },
     handleTouchMove(event) {
-      // console.dir(event)
       let canvas = document.getElementById('canvasDoodle')
       let ctx = canvas.getContext('2d')
       /* 根据手指移动画线，使之变透明*/
@@ -222,14 +214,11 @@ export default {
       }
     },
     handleTouchStart(event) {
-      // console.dir(event)
       let canvas = document.getElementById('canvasDoodle')
       let ctx = canvas.getContext('2d')
       let x = event.touches[0].clientX - this.c.left
       let y = event.touches[0].clientY - this.c.top
       ctx.beginPath()
-      console.log(x)
-      console.log(y)
       ctx.globalCompositeOperation = 'destination-out'
       ctx.arc(x, y, 20, 0, Math.PI * 2)
       ctx.fill()
@@ -250,20 +239,21 @@ export default {
       }
       if (iNum >= (allPX * 1) / 4) {
         this.award = false
+        if (this.coupon.couponId != 11) {
+          this.form = true
+        }
       }
     },
     getCoupon() {
-      this.handleTrack()
       let args = {
         mobile: this.mobile
       }
       getAdCoupon(args, this.coupon.couponId)
         .then(res => {
-          alert('领取优惠券成功!')
-          console.log(res)
+          Toast('领取优惠券成功!')
         })
         .catch(err => {
-          alert(err.response.data.message)
+          Toast(err.response.data.message)
         })
     },
     getCouponId() {
@@ -274,6 +264,24 @@ export default {
           this.coupon.url = res.image_url
           if (res.wx_user_id) {
             this.award = false
+          }
+          this.checkGetCoupon(res.id)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    checkGetCoupon(id) {
+      let args = {
+        coupon_batch_id: id
+      }
+      checkGetCoupon(args)
+        .then(res => {
+          console.log(res)
+          if (res.status === 200) {
+            this.form = false
+          } else {
+            this.form = this.award ? false : true
           }
         })
         .catch(err => {
@@ -383,16 +391,16 @@ img {
   }
   .canvas-ele {
     position: absolute;
-    top: 46%;
+    top: 42%;
     width: 70%;
-    height: 30%;
+    height: 32%;
     left: 50%;
     transform: translateX(-50%);
     z-index: 1000;
   }
   .win-text {
     position: absolute;
-    top: 46%;
+    top: 42%;
     width: 69%;
     left: 50%;
     transform: translateX(-50%);
