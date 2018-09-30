@@ -357,6 +357,17 @@ const Date201809 = [
       desc: '旭辉跳舞h5'
     },
     isAbandoned: false
-  }
+  },
+  {
+    path: 'wx_coupon',
+    location: 'wxCoupon/index',
+    name: 'wx_coupon',
+    meta: {
+      title: '微信卡券',
+      author: 'Joy',
+      desc: '微信卡券'
+    },
+    isAbandoned: false
+  },
 ]
 export default Date201809
