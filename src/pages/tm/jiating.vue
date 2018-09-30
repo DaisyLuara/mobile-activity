@@ -34,7 +34,7 @@
           :src="base + 'text.png'"
           class="text">
         <div 
-          v-show="Boolean(!award&&coupon.couponId!=11)"
+          v-show="form"
           class="form">
           <input 
             type="text"
@@ -72,7 +72,8 @@ import {
   getCouponId,
   getAdCoupon,
   basicTrack,
-  validatePhone
+  validatePhone,
+  checkGetCoupon
 } from 'services'
 import { Toast } from 'mint-ui'
 import { normalPages } from '../../mixins/normalPages'
@@ -101,6 +102,7 @@ export default {
       },
       mobile: null,
       award: true,
+      form: false,
       c: null,
       //分享
       wxShareInfoValue: {
@@ -238,21 +240,12 @@ export default {
           iNum++
         }
       }
-      if (iNum >= allPX * 1 / 4) {
+      if (iNum >= (allPX * 1) / 4) {
         this.award = false
+        if (this.coupon.couponId != 11) {
+          this.form = true
+        }
       }
-    },
-    getCoupon() {
-      let args = {
-        mobile: this.mobile
-      }
-      getAdCoupon(args, this.coupon.couponId)
-        .then(res => {
-          Toast('领取优惠券成功!')
-        })
-        .catch(err => {
-          Toast(err.response.data.message)
-        })
     },
     getCouponId() {
       getCouponId(this.coupon.policyId)
@@ -262,6 +255,22 @@ export default {
           this.coupon.url = res.image_url
           if (res.wx_user_id) {
             this.award = false
+          }
+          this.checkGetCoupon(res.id)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    checkGetCoupon(id) {
+      let args = {
+        coupon_batch_id: id
+      }
+      checkGetCoupon(args)
+        .then(res => {
+          console.log(res)
+          if (res.status === 204) {
+            this.form = true
           }
         })
         .catch(err => {

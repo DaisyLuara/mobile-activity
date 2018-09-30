@@ -72,7 +72,8 @@ import {
   getCouponId,
   getAdCoupon,
   basicTrack,
-  validatePhone
+  validatePhone,
+  checkGetCoupon
 } from 'services'
 import { normalPages } from '../../mixins/normalPages'
 import { Toast } from 'mint-ui'
@@ -96,8 +97,9 @@ export default {
       },
       coupon: {
         policyId: 4,
-        couponId: 7,
-        url: 'http://cdn.exe666.com/fe/image/drc/guoqing/1.png'
+        couponId: null,
+        url: null
+        //'http://cdn.exe666.com/fe/image/drc/guoqing/1.png'
       },
       mobile: null,
       award: true,
@@ -257,10 +259,27 @@ export default {
     getCouponId() {
       getCouponId(this.coupon.policyId)
         .then(res => {
+          console.log(res)
           this.coupon.couponId = res.id
           this.coupon.url = res.image_url
           if (res.wx_user_id) {
             this.award = false
+          }
+          this.checkGetCoupon(res.id)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    checkGetCoupon(id) {
+      let args = {
+        coupon_batch_id: id
+      }
+      checkGetCoupon(args)
+        .then(res => {
+          console.log(res)
+          if (res.status === 204) {
+            this.form = true
           }
         })
         .catch(err => {
