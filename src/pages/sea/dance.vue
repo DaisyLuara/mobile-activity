@@ -48,7 +48,7 @@
         class="explain1"
         @click="()=>{explain1 = false;mask=false;}">
         <img
-          :src="base + 'explain1.png' + this.$qiniuCompress()">
+          :src="base + 'explain.png' + this.$qiniuCompress()">
         <a
           class="close"
           @click="()=>{explain1=false;mask=false;}">

@@ -369,5 +369,16 @@ const Date201809 = [
     },
     isAbandoned: false
   },
+  {
+    path: 'taigu',
+    location: 'rainer/taigu',
+    name: 'taigu',
+    meta: {
+      title: '秘密花园',
+      author: 'lipan',
+      desc: '兴业太古汇-控雨'
+    },
+    isAbandoned: false
+  }
 ]
 export default Date201809
