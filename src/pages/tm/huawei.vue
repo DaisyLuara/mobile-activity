@@ -70,8 +70,11 @@ import {
   userGame,
   getGame,
   getCouponId,
-  getAdCoupon
+  getAdCoupon,
+  basicTrack,
+  validatePhone
 } from 'services'
+import { Toast } from 'mint-ui'
 import { normalPages } from '../../mixins/normalPages'
 const cdnUrl = process.env.CDN_URL
 export default {
@@ -122,7 +125,6 @@ export default {
         this.handleWechatAuth()
       }
     }
-    // this.initCanvas()
   },
   methods: {
     handleWechatAuth() {
@@ -158,22 +160,12 @@ export default {
         })
     },
     checkMobile(mobile) {
-      if (!/^1[3456789]\d{9}$/.test(mobile)) {
-        alert('您输入的手机号有误')
-        return
-      } else {
-        this.handleTrack(mobile)
+      if (validatePhone(mobile)) {
+        basicTrack(this.$route.query.id, mobile)
         this.getCoupon()
+      } else {
+        Toast('您输入的手机号有误')
       }
-    },
-    handleTrack(mobile) {
-      let url =
-        'http://exelook.com/client/goodsxsd/?id=' +
-        String(this.$route.query.id) +
-        '&mobile=' +
-        String(mobile) +
-        '&api=json'
-      this.$http.get(url).then(r => {})
     },
     initCanvas() {
       let that = this
@@ -193,12 +185,10 @@ export default {
         ctx.closePath()
         if (document.querySelector('.canvas-ele') !== null) {
           this.c = document.querySelector('.canvas-ele').getBoundingClientRect()
-          console.log(this.c)
         }
       }
     },
     handleTouchMove(event) {
-      // console.dir(event)
       let canvas = document.getElementById('canvasDoodle')
       let ctx = canvas.getContext('2d')
       /* 根据手指移动画线，使之变透明*/
@@ -221,14 +211,11 @@ export default {
       }
     },
     handleTouchStart(event) {
-      // console.dir(event)
       let canvas = document.getElementById('canvasDoodle')
       let ctx = canvas.getContext('2d')
       let x = event.touches[0].clientX - this.c.left
       let y = event.touches[0].clientY - this.c.top
       ctx.beginPath()
-      console.log(x)
-      console.log(y)
       ctx.globalCompositeOperation = 'destination-out'
       ctx.arc(x, y, 20, 0, Math.PI * 2)
       ctx.fill()
@@ -247,28 +234,25 @@ export default {
           iNum++
         }
       }
-      if (iNum >= (allPX * 1) / 4) {
+      if (iNum >= allPX * 1 / 4) {
         this.award = false
       }
     },
     getCoupon() {
-      this.handleTrack()
       let args = {
         mobile: this.mobile
       }
       getAdCoupon(args, this.coupon.couponId)
         .then(res => {
-          alert('领取优惠券成功!')
-          console.log(res)
+          Toast('领取优惠券成功!')
         })
         .catch(err => {
-          alert(err.response.data.message)
+          Toast(err.response.data.message)
         })
     },
     getCouponId() {
       getCouponId(this.coupon.policyId)
         .then(res => {
-          console.log(res)
           this.coupon.couponId = res.id
           this.coupon.url = res.image_url
           if (res.wx_user_id) {
