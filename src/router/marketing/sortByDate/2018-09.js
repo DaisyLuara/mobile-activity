@@ -340,7 +340,7 @@ const Date201809 = [
   {
     path: 'damai_gq2',
     location: 'damai/guoqing2',
-    name: 'damaiGuoqing',
+    name: 'damaiGuoqing2',
     meta: {
       title: '大麦0元抽奖',
       author: 'Anluis',
@@ -369,5 +369,15 @@ const Date201809 = [
     },
     isAbandoned: false
   },
+  {
+    path: 'lihai',
+    location: 'national_day/lihai',
+    name: 'liHaileWodeGuo',
+    meta: {
+      title: '为祖国庆生',
+      author: 'Anluis',
+      desc: '厉害了我的国---维尼家的大熊'
+    }
+  }
 ]
 export default Date201809
