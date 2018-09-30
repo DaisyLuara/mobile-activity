@@ -354,7 +354,6 @@ export default {
       }
     },
     getCoupon() {
-      this.handleTrack()
       let args = {
         mobile: this.mobile
       }
