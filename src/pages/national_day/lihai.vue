@@ -1,8 +1,7 @@
 <template>
-  <div class="lihai" :style="style.root">
+  <div class="lihai">
     <img class="top" :src="url + 'top.png'" />
     <img class="bottom" :src="url + 'bottom.png'" />
-    
     <img class="title" :style="style.title" :src="url + 'top-text.png'" />
     <div class="photo-wrapper">
       <img class="wrapper-inner" :src="url + 'photo-wrapper.png'" />
@@ -23,9 +22,6 @@ export default {
     return {
       url: baseUrl + '/fe/marketing/img/nationday/lihaiguo/',
       style: {
-        root: {
-          height: this.$innerHeight() + 'px'
-        },
         title: {
           marginTop: this.$innerWidth() * 0.1 + 'px',
           width: this.$innerWidth() * 0.5 + 'px'
@@ -55,7 +51,8 @@ export default {
   align-items: center;
   background: #b8240f;
   z-index: 10;
-  overflow: hidden;
+  overflow-y: scroll;
+  min-height: 100vh;
   .top {
     position: absolute;
     top: 0;

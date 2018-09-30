@@ -155,7 +155,7 @@ export default {
       }, 300)
     },
     handleNavi() {
-      window.location.href = 'https://piao.damai.cn/164398.html'
+      window.location.href = 'http://papi.xingstation.com/api/s/y8W'
     }
   }
 }
