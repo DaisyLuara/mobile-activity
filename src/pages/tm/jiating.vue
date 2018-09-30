@@ -247,6 +247,18 @@ export default {
         }
       }
     },
+    getCoupon() {
+      let args = {
+        mobile: this.mobile
+      }
+      getAdCoupon(args, this.coupon.couponId)
+        .then(res => {
+          Toast('领取优惠券成功!')
+        })
+        .catch(err => {
+          Toast(err.response.data.message)
+        })
+    },
     getCouponId() {
       getCouponId(this.coupon.policyId)
         .then(res => {
@@ -262,6 +274,7 @@ export default {
           console.log(err)
         })
     },
+
     checkGetCoupon(id) {
       let args = {
         coupon_batch_id: id
