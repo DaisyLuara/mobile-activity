@@ -6,7 +6,7 @@ const V4_COUPOU_URL = process.env.SAAS_API + '/v4/common/coupon'
 const V5_COUPOU_URL = process.env.SAAS_API + '/v5/common/coupon'
 const COUPOUS_URL = process.env.AD_API + '/api/open/coupons/'
 const OPEN_COUPON = process.env.AD_API + '/api/open/coupon/'
-
+const OPEN_USER_COUPON = process.env.AD_API + '/open/user/coupon'
 const REQ_HEADER = {
   headers: {
     'api-token': apiToken,
@@ -188,7 +188,20 @@ const getCouponId = policyId => {
       })
   })
 }
-
+//判断是否用手机号领过券
+const checkGetCoupon = params => {
+  params.sign = Cookies.get('sign')
+  return new Promise((resolve, reject) => {
+    axios
+      .post(OPEN_USER_COUPON, params, REQ_HEADER)
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
 export {
   createCoupon,
   getCoupon,
@@ -200,5 +213,6 @@ export {
   getAdCoupon,
   checkCouponNumber,
   getCouponId,
-  getIntegralCoupon
+  getIntegralCoupon,
+  checkGetCoupon
 }
