@@ -390,16 +390,16 @@ img {
   }
   .canvas-ele {
     position: absolute;
-    top: 46%;
+    top: 42%;
     width: 70%;
-    height: 30%;
+    height: 32%;
     left: 50%;
     transform: translateX(-50%);
     z-index: 1000;
   }
   .win-text {
     position: absolute;
-    top: 46%;
+    top: 42%;
     width: 69%;
     left: 50%;
     transform: translateX(-50%);
