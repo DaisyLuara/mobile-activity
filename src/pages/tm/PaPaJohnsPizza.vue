@@ -34,7 +34,7 @@
           :src="base + 'text.png'"
           class="text">
         <div 
-          v-show="Boolean(!award&&coupon.couponId!=11)"
+          v-show="form"
           class="form">
           <input 
             type="text"
@@ -96,12 +96,12 @@ export default {
       },
       coupon: {
         policyId: 4,
-        couponId: null,
-        url: null
-        //'http://cdn.exe666.com/fe/image/drc/guoqing/1.png'
+        couponId: 7,
+        url: 'http://cdn.exe666.com/fe/image/drc/guoqing/1.png'
       },
       mobile: null,
       award: true,
+      form: false,
       c: null,
       //分享
       wxShareInfoValue: {
@@ -126,7 +126,7 @@ export default {
         this.handleWechatAuth()
       }
     }
-    // this.initCanvas()
+    this.initCanvas()
   },
   methods: {
     handleWechatAuth() {
@@ -235,8 +235,11 @@ export default {
           iNum++
         }
       }
-      if (iNum >= allPX * 1 / 4) {
+      if (iNum >= (allPX * 1) / 4) {
         this.award = false
+        if (this.coupon.couponId != 11) {
+          this.form = true
+        }
       }
     },
     getCoupon() {
