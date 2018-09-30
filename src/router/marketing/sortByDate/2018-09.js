@@ -370,6 +370,16 @@ const Date201809 = [
     isAbandoned: false
   },
   {
+    path: 'lihai',
+    location: 'national_day/lihai',
+    name: 'liHaileWodeGuo',
+    meta: {
+      title: '为祖国庆生',
+      author: 'Anluis',
+      desc: '厉害了我的国---维尼家的大熊'
+    }
+  },
+  {
     path: 'taigu',
     location: 'rainer/taigu',
     name: 'taigu',
