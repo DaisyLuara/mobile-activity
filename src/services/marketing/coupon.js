@@ -6,7 +6,7 @@ const V4_COUPOU_URL = process.env.SAAS_API + '/v4/common/coupon'
 const V5_COUPOU_URL = process.env.SAAS_API + '/v5/common/coupon'
 const COUPOUS_URL = process.env.AD_API + '/api/open/coupons/'
 const OPEN_COUPON = process.env.AD_API + '/api/open/coupon/'
-const OPEN_USER_COUPON = process.env.AD_API + '/open/user/coupon'
+const OPEN_USER_COUPON = process.env.AD_API + '/api/open/user/coupon'
 const REQ_HEADER = {
   headers: {
     'api-token': apiToken,
