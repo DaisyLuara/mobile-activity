@@ -57,7 +57,7 @@
     <div 
       class="block coupons">
       <img 
-        :src="base + 'jiating.png' + this.$qiniuCompress()">
+        :src="base + 'jiating1.png' + this.$qiniuCompress()">
     </div>
   </div>
 </template>
