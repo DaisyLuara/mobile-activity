@@ -258,6 +258,7 @@ export default {
       }
       getAdCoupon(args, this.coupon.couponId)
         .then(res => {
+          alert('领取优惠券成功!')
           console.log(res)
         })
         .catch(err => {
