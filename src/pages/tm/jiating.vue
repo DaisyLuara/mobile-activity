@@ -164,6 +164,7 @@ export default {
       if (validatePhone(mobile)) {
         basicTrack(this.$route.query.id, mobile)
         this.getCoupon()
+        this.form = false
       } else {
         Toast('您输入的手机号有误')
       }
