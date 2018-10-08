@@ -42,6 +42,17 @@ const Date201810 = [
       desc: '保利万圣节'
     },
     isAbandoned: false
+  },
+  {
+    path: 'sz_center',
+    location: 'king/sz',
+    name: 'sz_center',
+    meta: {
+      title: '苏州中心',
+      author: 'xj1012',
+      desc: '苏州中心'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201810
