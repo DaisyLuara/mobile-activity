@@ -9,7 +9,7 @@
       :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
       :class="{'x-frame':iphoneX,'frame':!iphoneX}"
       class="frame">
-      <!-- :src="baseUrl + '666.jpeg'+ this.$qiniuCompress()" -->
+    <!-- :src="baseUrl + '666.jpeg'+ this.$qiniuCompress()" -->
     <img 
       v-if="photo !== null" 
       :src="photo + this.$qiniuCompress()"
