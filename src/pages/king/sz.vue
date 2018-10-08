@@ -22,7 +22,6 @@
   </div>
 </template>
 <script>
-import { Cookies, getInfoById, getWxUserInfo, wechatShareTrack } from 'services'
 import { normalPages } from '../../mixins/normalPages'
 const cdnUrl = process.env.CDN_URL
 export default {
