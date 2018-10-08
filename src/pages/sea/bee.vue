@@ -11,7 +11,7 @@
       <img
         :src="base + character"
         class="people">
-      <span>{{score}}</span>
+      <span>{{ score }}</span>
       <img
         id="test"
         :src="compoundUrl"

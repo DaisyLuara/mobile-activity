@@ -1,13 +1,26 @@
 <template>
   <div class="lihai">
-    <img class="top" :src="url + 'top.png'" />
-    <img class="bottom" :src="url + 'bottom.png'" />
-    <img class="title" :style="style.title" :src="url + 'top-text.png'" />
+    <img 
+      :src="url + 'top.png'" 
+      class="top" >
+    <img 
+      :src="url + 'bottom.png'" 
+      class="bottom" >
+    <img 
+      :style="style.title" 
+      :src="url + 'top-text.png'" 
+      class="title" >
     <div class="photo-wrapper">
-      <img class="wrapper-inner" :src="url + 'photo-wrapper.png'" />
-      <img class="show-photo" :src="photo + this.$qiniuCompress()" />
+      <img 
+        :src="url + 'photo-wrapper.png'" 
+        class="wrapper-inner" >
+      <img 
+        :src="photo + this.$qiniuCompress()" 
+        class="show-photo" >
     </div>
-    <img class="real-photo" :src="photo + this.$qiniuCompress()" />
+    <img 
+      :src="photo + this.$qiniuCompress()" 
+      class="real-photo" >
 
   </div>
 </template>

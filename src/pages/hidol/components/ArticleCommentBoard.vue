@@ -2,8 +2,8 @@
   <div 
     v-show="expend"
     :class="choose"
-    @click="handleInputClick"
-    class="comment">
+    class="comment"
+    @click="handleInputClick">
     <div class="comment-inner">
       <div class="title">我说</div>
       <div class="input">我的观点我的观点我的观点我的观点我的观...</div>
