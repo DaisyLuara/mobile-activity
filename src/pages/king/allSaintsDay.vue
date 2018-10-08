@@ -123,9 +123,8 @@ export default {
     left: 0%;
     top: 0%;
     margin-top: 128%;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    pointer-events: none;
+    user-select: auto;
+    pointer-events: auto;
   }
   .coupon01 {
     width: 100%;
@@ -133,9 +132,8 @@ export default {
     left: 0%;
     top: 0%;
     margin-top: 128%;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    pointer-events: none;
+    user-select: auto;
+    pointer-events: auto;
   }
 }
 </style>
