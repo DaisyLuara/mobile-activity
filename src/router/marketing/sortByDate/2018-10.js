@@ -20,6 +20,17 @@ const Date201810 = [
       desc: '金秋十月'
     },
     isAbandoned: false
+  },
+  {
+    path: 'drc_snow',
+    location: 'king/drc',
+    name: 'drc_snow',
+    meta: {
+      title: 'sweet winter',
+      author: 'xj1012',
+      desc: '大融城'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201810
