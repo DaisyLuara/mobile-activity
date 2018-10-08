@@ -2,21 +2,21 @@
   <div class="comment">
     <div class="tab">
       <div 
-        @click="handleCommentTab('A')"
-        :class="{selected: control.current === 'A'}" 
-        class="tab-item">
+        :class="{selected: control.current === 'A'}"
+        class="tab-item" 
+        @click="handleCommentTab('A')">
         A(999)
       </div>
       <div 
-        @click="handleCommentTab('all')"
-        :class="{selected: control.current === 'all'}" 
-        class="tab-item">
+        :class="{selected: control.current === 'all'}"
+        class="tab-item" 
+        @click="handleCommentTab('all')">
         全部(999)
       </div>
       <div 
-        @click="handleCommentTab('B')"
-        :class="{selected: control.current === 'B'}" 
-        class="tab-item">
+        :class="{selected: control.current === 'B'}"
+        class="tab-item" 
+        @click="handleCommentTab('B')">
         B(999)
       </div>
     </div>

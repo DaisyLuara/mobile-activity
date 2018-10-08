@@ -1,36 +1,54 @@
 <template>
   <div 
-    class="damai"  
-    :style="style.root" >
+    :style="style.root"  
+    class="damai" >
     <img 
-      class="top-bg" 
       :src="baseUrl + 'bg.png'" 
-      :style="style.bg"
-    />
-    <div class="photo-area" :style="style.photoArea">
+      :style="style.bg" 
+      class="top-bg"
+    >
+    <div 
+      :style="style.photoArea" 
+      class="photo-area">
       <img 
-        class="bg" 
         :src="baseUrl + 'bg2.png'" 
-        :style="style.photobg"
-      />
+        :style="style.photobg" 
+        class="bg"
+      >
       <img 
-        class="photo" 
         :src="photo + this.$qiniuCompress()" 
-        :style="style.photo"
-      />
+        :style="style.photo" 
+        class="photo"
+      >
       <img 
-        class="remind"
-        :src="baseUrl + 'remind.png'" 
-      />
-      <div class="button" :style="style.button" @click="handleNavi">
+        :src="baseUrl + 'remind.png'"
+        class="remind" 
+      >
+      <div 
+        :style="style.button" 
+        class="button" 
+        @click="handleNavi">
         <img
-          class="flash" 
-          :src="baseUrl + 'flash_00000.png'" />
-        <img class="bg" :src="baseUrl + 'button-bg.png'" />
-        <img class="text" :src="baseUrl + 'button-text.png'" />
-          <img v-show="control.bg1" class="bg-02" :src="baseUrl + 'button_00001.png'" />
-          <img  v-show="control.bg2" class="bg-01" :src="baseUrl + 'button_00003.png'" />
-          <img  v-show="control.bg3" class="bg-01" :src="baseUrl + 'button_00005.png'" />
+          :src="baseUrl + 'flash_00000.png'" 
+          class="flash" >
+        <img 
+          :src="baseUrl + 'button-bg.png'" 
+          class="bg" >
+        <img 
+          :src="baseUrl + 'button-text.png'" 
+          class="text" >
+        <img 
+          v-show="control.bg1" 
+          :src="baseUrl + 'button_00001.png'" 
+          class="bg-02" >
+        <img 
+          v-show="control.bg2" 
+          :src="baseUrl + 'button_00003.png'" 
+          class="bg-01" >
+        <img 
+          v-show="control.bg3" 
+          :src="baseUrl + 'button_00005.png'" 
+          class="bg-01" >
       </div>
     </div>
     

@@ -25,8 +25,7 @@
         <div class="item-text">我的</div>
       </div>
     </div>
-    <div class="bottom-cover">
-    </div>
+    <div class="bottom-cover"/>
   </div>
 </template>
 

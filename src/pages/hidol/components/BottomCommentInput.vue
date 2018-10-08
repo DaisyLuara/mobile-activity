@@ -1,5 +1,7 @@
 <template>
-  <div class="bcomment" @click="handleInputClick">
+  <div 
+    class="bcomment" 
+    @click="handleInputClick">
     <div class="input">
       请发表你的观点
     </div>

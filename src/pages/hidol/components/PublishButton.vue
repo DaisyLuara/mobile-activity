@@ -1,7 +1,7 @@
 <template>
   <div
-    @click="handlePublish" 
-    class="publish">
+    class="publish" 
+    @click="handlePublish">
     发布
   </div>
 </template>

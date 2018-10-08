@@ -4,13 +4,16 @@
       <div class="main-img">
         <img
           class="img-icon" 
-          src="http://cdn.exe666.com/fe/hidol/img/picture@3x.png" alt="uploadImageHere" />
+          src="http://cdn.exe666.com/fe/hidol/img/picture@3x.png" 
+          alt="uploadImageHere" >
         <div
           class="img-text"
-          >上传图片</div>
+        >上传图片</div>
       </div>
       <div class="main-text">
-        <textarea class="text-area" rows="2" />
+        <textarea 
+          class="text-area" 
+          rows="2" />
         <span class="text-placeholder">说点什么吧</span>
       </div>
     </div>
@@ -32,12 +35,12 @@
         v-show="isAddPhoto"
         class="add-img" 
         src="http://cdn.exe666.com/fe/hidol/img/ok@3x.png" 
-      />
+      >
       <input 
-        class="box"
-        type="checkbox" 
-        id="isaddphoto" 
-        v-model="isAddPhoto"
+        id="isaddphoto"
+        v-model="isAddPhoto" 
+        class="box" 
+        type="checkbox"
       >
       <label 
         for="isaddphoto"
@@ -48,10 +51,10 @@
     </div>
     <div class="ABimage">
       <div class="image-inner">
-        <img src="http://cdn.exe666.com/fe/hidol/img/A+.svg" />
+        <img src="http://cdn.exe666.com/fe/hidol/img/A+.svg" >
       </div>
       <div class="image-inner">
-        <img src="http://cdn.exe666.com/fe/hidol/img/B+.svg" />
+        <img src="http://cdn.exe666.com/fe/hidol/img/B+.svg" >
       </div>
     </div>
     <PublishButton @onHandlePublish="handlePublish" />
@@ -65,12 +68,12 @@ export default {
   components: {
     PublishButton
   },
+  mixins: [reCalculateRem],
   data() {
     return {
       isAddPhoto: false
     }
   },
-  mixins: [reCalculateRem],
   mounted() {
     document.documentElement.scrollTop = 0
   },

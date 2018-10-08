@@ -7,7 +7,9 @@
       v-model="comment"
       rows="6"
       class="text-area" />
-    <PublishButton @onHandlePublish="handlePublish" class="publish"/>
+    <PublishButton 
+      class="publish" 
+      @onHandlePublish="handlePublish"/>
   </div>
 </template>
 
@@ -15,10 +17,10 @@
 import PublishButton from '../components/PublishButton'
 import { reCalculateRem } from '../mixins/reCalculateRem'
 export default {
-  mixins: [reCalculateRem],
   components: {
     PublishButton
   },
+  mixins: [reCalculateRem],
   data() {
     return {
       comment: ''
