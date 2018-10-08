@@ -80,12 +80,18 @@ export default {
   background-repeat: no-repeat;
   .topImg {
     width: 100%;
+    -webkit-touch-callout: none;
+    user-select: none;
+    pointer-events: none;
   }
   .btImg {
     width: 100%;
     position: absolute;
     left: 0;
     bottom: 0;
+    -webkit-touch-callout: none;
+    user-select: none;
+    pointer-events: none;
   }
   .save {
     width: 62%;
@@ -93,6 +99,9 @@ export default {
     left: 50%;
     top: 3%;
     transform: translate(-50%, 0);
+    -webkit-touch-callout: none;
+    user-select: none;
+    pointer-events: none;
   }
   .x-save {
     width: 68%;
@@ -100,6 +109,9 @@ export default {
     left: 50%;
     top: 6.5%;
     transform: translate(-50%, 0);
+    -webkit-touch-callout: none;
+    user-select: none;
+    pointer-events: none;
   }
   .frame {
     width: 70%;
@@ -108,6 +120,9 @@ export default {
     top: 50%;
     transform: translate(-50%, -49%);
     z-index: 4;
+    -webkit-touch-callout: none;
+    user-select: none;
+    pointer-events: none;
   }
   .photo {
     width: 67%;
@@ -116,6 +131,8 @@ export default {
     top: 50%;
     transform: translate(-50%, -49%);
     z-index: 5;
+    user-select: auto;
+    pointer-events: auto;
   }
   .x-photo {
     width: 77%;
@@ -124,6 +141,8 @@ export default {
     top: 50%;
     transform: translate(-50%, -46%);
     z-index: 5;
+    user-select: auto;
+    pointer-events: auto;
   }
   .x-frame {
     width: 80%;
@@ -132,12 +151,18 @@ export default {
     top: 50%;
     transform: translate(-50%, -46%);
     z-index: 4;
+    -webkit-touch-callout: none;
+    user-select: none;
+    pointer-events: none;
   }
   .logo {
     width: 20%;
     position: absolute;
     left: 37%;
     bottom: 5%;
+    -webkit-touch-callout: none;
+    user-select: none;
+    pointer-events: none;
   }
 }
 </style>
