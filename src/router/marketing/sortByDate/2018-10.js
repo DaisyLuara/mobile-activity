@@ -31,6 +31,17 @@ const Date201810 = [
       desc: '大融城'
     },
     isAbandoned: false
+  },
+  {
+    path: 'baoli_AllSaintsDay',
+    location: 'king/allSaintsDay',
+    name: 'baoli_AllSaintsDay',
+    meta: {
+      title: '慈溪保利',
+      author: 'xj1012',
+      desc: '保利万圣节'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201810
