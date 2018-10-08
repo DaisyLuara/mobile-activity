@@ -38,8 +38,8 @@ export default {
       iphoneX: false,
       photo: null,
       wxShareInfoValue: {
-        title: '愿你三冬暖 愿你春不寒',
-        desc: '融城陪你一起温暖过冬',
+        title: '翼彩纷城',
+        desc: '羽翼之美，颜值倾城,翼彩纷城尽享融合美照。',
         link: 'http://papi.xingstation.com/api/s/KOn' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/sz/icon.png',
         success: () => {

@@ -48,9 +48,9 @@ const Date201810 = [
     location: 'king/sz',
     name: 'sz_center',
     meta: {
-      title: '苏州中心',
+      title: '翼彩纷城',
       author: 'xj1012',
-      desc: '苏州中心'
+      desc: '苏州中心-翼彩纷城'
     },
     isAbandoned: false
   }
