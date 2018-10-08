@@ -1,0 +1,143 @@
+<template>
+  <div
+    :style="style.root" 
+    class="root">
+    <img 
+      :src="baseUrl + 'flower.png'+ this.$qiniuCompress()"
+      class="topImg">
+    <img 
+      :src="baseUrl + 'tree.png'+ this.$qiniuCompress()"
+      class="btImg">
+    <img 
+      :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
+      :class="{'x-save':iphoneX,'save':!iphoneX}"
+      class="save">
+    <!-- :src="baseUrl + '666.png'+ this.$qiniuCompress()" -->
+    <img 
+      v-if="photo !== null" 
+      :src="photo + this.$qiniuCompress()"
+      :class="{'x-photo':iphoneX,'photo':!iphoneX}"
+      class="photo">
+    <img 
+      :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
+      :class="{'x-frame':iphoneX,'frame':!iphoneX}"
+      class="frame">
+    <img 
+      :src="baseUrl + 'logo.png'+ this.$qiniuCompress()"
+      class="logo">
+  </div>
+</template>
+<script>
+import { Cookies, getInfoById, getWxUserInfo, wechatShareTrack } from 'services'
+import { normalPages } from '../../mixins/normalPages'
+const cdnUrl = process.env.CDN_URL
+export default {
+  mixins: [normalPages],
+  data() {
+    return {
+      baseUrl: cdnUrl + '/fe/marketing/img/drc_snow/',
+      style: {
+        root: {
+          height: this.$innerHeight() + 'px'
+        }
+      },
+      iphoneX: false,
+      photo: null,
+      wxShareInfoValue: {
+        title: '玩转世纪，世纪汇广场邀你嗨翻世纪',
+        desc: '世纪汇广场美食节，狂欢就现在',
+        link: 'http://papi.xingstation.com/api/s/GZ0' + window.location.search,
+        imgUrl: cdnUrl + '/fe/marketing/img/drc_snow/share.png',
+        success: () => {
+          wechatShareTrack()
+        }
+      }
+    }
+  },
+  created() {},
+  mounted() {
+    let height = this.$innerHeight()
+    if (height > 672) {
+      this.iphoneX = true
+    } else {
+      this.iphoneX = false
+    }
+  },
+  methods: {}
+}
+</script>
+
+<style lang="less" scoped>
+@imageHost: 'http://cdn.exe666.com/fe/marketing/img/drc_snow/';
+.root {
+  width: 100%;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background-image: url('@{imageHost}bg.png');
+  background-size: 100% 100%;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  .topImg {
+    width: 100%;
+  }
+  .btImg {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+  }
+  .save {
+    width: 62%;
+    position: absolute;
+    left: 50%;
+    top: 3%;
+    transform: translate(-50%, 0);
+  }
+  .x-save {
+    width: 68%;
+    position: absolute;
+    left: 50%;
+    top: 6.5%;
+    transform: translate(-50%, 0);
+  }
+  .frame {
+    width: 70%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -49%);
+    z-index: 4;
+  }
+  .photo {
+    width: 67%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -49%);
+    z-index: 5;
+  }
+  .x-photo {
+    width: 77%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -46%);
+    z-index: 5;
+  }
+  .x-frame {
+    width: 80%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -46%);
+    z-index: 4;
+  }
+  .logo {
+    width: 20%;
+    position: absolute;
+    left: 37%;
+    bottom: 5%;
+  }
+}
+</style>
