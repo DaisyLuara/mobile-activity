@@ -119,22 +119,33 @@ export default {
   .save {
     width: 48%;
     position: absolute;
-    left: 50%;
+    left: 25%;
     bottom: 4%;
-    transform: translate(-50%, 0%);
     -webkit-touch-callout: none;
     user-select: none;
     pointer-events: none;
+    animation: arrow 0.5s linear infinite alternate;
   }
   .x-save {
-    width: 48%;
+    width: 51%;
     position: absolute;
-    left: 50%;
+    left: 25%;
     bottom: 9%;
-    transform: translate(-50%, 0%);
     -webkit-touch-callout: none;
     user-select: none;
     pointer-events: none;
+    animation: arrow 0.5s linear infinite alternate;
+  }
+}
+@keyframes arrow {
+  0% {
+    transform: translateY(-7px);
+  }
+  50% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(7px);
   }
 }
 </style>
