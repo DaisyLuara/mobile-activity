@@ -37,19 +37,17 @@
           v-show="form"
           class="form">
           <input 
-            type="text"
-            maxlength="11" 
-            placeholder="请输入手机号"
             v-model="mobile"
-            class="input"/>
+            type="text" 
+            maxlength="11"
+            placeholder="请输入手机号"
+            class="input">
           <a 
             class="get-btn"
-            @click="checkMobile(mobile)">
-          </a>
+            @click="checkMobile(mobile)"/>
           <a 
             class="cancel-btn"
-            @click="()=>{mobile='';}">
-          </a>
+            @click="()=>{mobile='';}"/>
         </div>
       </div>
     </div>
@@ -164,6 +162,7 @@ export default {
       if (validatePhone(mobile)) {
         basicTrack(this.$route.query.id, mobile)
         this.getCoupon()
+        this.form = false
       } else {
         Toast('您输入的手机号有误')
       }

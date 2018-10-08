@@ -1,7 +1,9 @@
 <template>
   <div 
     class="question">
-    <div class="question-self" @click="handleABExpend">
+    <div 
+      class="question-self" 
+      @click="handleABExpend">
       你们觉得吃葡萄需要吐葡萄皮吗？ 需要吗？需要吗？
     </div>
     <div 

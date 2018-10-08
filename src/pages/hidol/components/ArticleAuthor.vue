@@ -11,9 +11,9 @@
     </div>
     <div class="more">
       <img 
-        @click="handlePannelShow"
-        class="more-inner" 
-        src="http://cdn.exe666.com/fe/hidol/img/more.svg">
+        class="more-inner"
+        src="http://cdn.exe666.com/fe/hidol/img/more.svg" 
+        @click="handlePannelShow">
       <ArticleMore 
         v-if="shouldPannelShow"
         class="more-pannel" 
