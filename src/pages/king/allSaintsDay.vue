@@ -5,22 +5,22 @@
     <img 
       :src="baseUrl + 'bg.png'+ this.$qiniuCompress()"
       class="bg">
-      <img 
+    <img 
       :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
       class="frame">
-      <!-- :src="baseUrl + '666.png'+ this.$qiniuCompress()" -->
-      <img 
+    <!-- :src="baseUrl + '666.png'+ this.$qiniuCompress()" -->
+    <img 
       v-if="photo !== null" 
       :src="photo + this.$qiniuCompress()"
       class="photo">
-      <img 
+    <img 
       :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
       class="save">
-      <img 
+    <img 
       v-show="coupon1"
       :src="baseUrl + 'coupon02.png'+ this.$qiniuCompress()"
       class="coupon02">
-      <img 
+    <img 
       v-show="coupon2"
       :src="baseUrl + 'coupon01.png'+ this.$qiniuCompress()"
       class="coupon01">
