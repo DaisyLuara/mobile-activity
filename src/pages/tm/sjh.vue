@@ -7,9 +7,6 @@
       <img
         :src="base + 'bg2.png'+ this.$qiniuCompress()"
         class="frame">
-      <img
-        :src="base + 'qiu.png'+ this.$qiniuCompress()"
-        class="qiu">
       <span
         class="score">{{ score }}</span>
       <img
@@ -94,14 +91,6 @@ img {
       position: relative;
       z-index: 0;
     }
-    .qiu {
-      width: 18%;
-      position: absolute;
-      top: 3.5%;
-      right: 1%;
-      z-index: 99;
-      animation: sheng 1.2s linear infinite alternate;
-    }
     .score {
       font-family: 'mutouren';
       font-size: 10vw;
@@ -120,14 +109,6 @@ img {
       left: 6.4%;
       z-index: 99;
     }
-  }
-}
-@keyframes sheng {
-  0% {
-    transform: translateY(5px);
-  }
-  100% {
-    transform: translateY(-15px);
   }
 }
 </style>
