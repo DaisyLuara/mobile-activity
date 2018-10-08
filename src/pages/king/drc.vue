@@ -44,8 +44,8 @@ export default {
       iphoneX: false,
       photo: null,
       wxShareInfoValue: {
-        title: '玩转世纪，世纪汇广场邀你嗨翻世纪',
-        desc: '世纪汇广场美食节，狂欢就现在',
+        title: '愿你三冬暖 愿你春不寒',
+        desc: '融城陪你一起温暖过冬',
         link: 'http://papi.xingstation.com/api/s/GZ0' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/drc_snow/share.png',
         success: () => {
