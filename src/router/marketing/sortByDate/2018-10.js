@@ -6,7 +6,7 @@ const Date201810 = [
     meta: {
       title: '天降美食',
       author: 'xj1012',
-      desc: '天降美食'
+      desc: '兴业太古汇-美食天降'
     },
     isAbandoned: false
   },
@@ -51,6 +51,17 @@ const Date201810 = [
       title: '翼彩纷城',
       author: 'xj1012',
       desc: '苏州中心-翼彩纷城'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'hiplay_world',
+    location: 'king/hiPlayWorld',
+    name: 'hiplay_world',
+    meta: {
+      title: 'High玩 全世界',
+      author: 'xj1012',
+      desc: '兴业太古汇-High玩全世界'
     },
     isAbandoned: false
   }
