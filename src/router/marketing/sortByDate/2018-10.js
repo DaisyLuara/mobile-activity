@@ -53,6 +53,17 @@ const Date201810 = [
       desc: '苏州中心-翼彩纷城'
     },
     isAbandoned: false
+  },
+  {
+    path: 'hiplay_world',
+    location: 'king/hiPlayWorld',
+    name: 'hiplay_world',
+    meta: {
+      title: 'High玩 全世界',
+      author: 'xj1012',
+      desc: 'High玩 全世界'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201810
