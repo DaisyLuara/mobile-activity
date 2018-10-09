@@ -5,7 +5,7 @@
     <img 
       :src="baseUrl + 'top.png'+ this.$qiniuCompress()"
       class="topImg">
-     <img 
+    <img 
       :src="baseUrl + 'logo.png'+ this.$qiniuCompress()"
       :class="{'x-logo':iphoneX,'logo':!iphoneX}"
       class="logo">
@@ -13,7 +13,7 @@
       :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
       :class="{'x-frame':iphoneX,'frame':!iphoneX}"
       class="frame">
-      <!-- :src="baseUrl + '666.jpg'+ this.$qiniuCompress()" -->
+    <!-- :src="baseUrl + '666.jpg'+ this.$qiniuCompress()" -->
     <img 
       v-if="photo !== null" 
       :src="photo + this.$qiniuCompress()"
@@ -30,19 +30,19 @@
     <img 
       :src="baseUrl + 'balloon_2.png'+ this.$qiniuCompress()"
       class="balloon2">
-     <img 
+    <img 
       :src="baseUrl + 'balloon_3.png'+ this.$qiniuCompress()"
       class="balloon3">
-      <div 
-        :class="{'x-bt':iphoneX,'bt':!iphoneX}"
-        class="bt">
-        <img 
-          :src="baseUrl + 'nav.png'+ this.$qiniuCompress()"
-          class="nav">
-        <img 
-          :src="baseUrl + 'prompt.png'+ this.$qiniuCompress()"
-          class="prompt">
-      </div>
+    <div 
+      :class="{'x-bt':iphoneX,'bt':!iphoneX}"
+      class="bt">
+      <img 
+        :src="baseUrl + 'nav.png'+ this.$qiniuCompress()"
+        class="nav">
+      <img 
+        :src="baseUrl + 'prompt.png'+ this.$qiniuCompress()"
+        class="prompt">
+    </div>
     <img 
       :src="baseUrl + 'bottom.png'+ this.$qiniuCompress()"
       class="btImg">
