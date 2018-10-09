@@ -64,6 +64,17 @@ const Date201810 = [
       desc: '兴业太古汇-High玩全世界'
     },
     isAbandoned: false
+  },
+  {
+    path: 'dgm',
+    location: 'rainer/dgm',
+    name: 'dgm',
+    meta: {
+      title: '相约大光明',
+      author: 'lipan',
+      desc: '相约大光明'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201810
