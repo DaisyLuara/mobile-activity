@@ -34,22 +34,20 @@
           :src="base + 'text.png'"
           class="text">
         <div 
-          v-show="!award"
+          v-show="form"
           class="form">
           <input 
-            type="text"
-            maxlength="11" 
-            placeholder="请输入手机号"
             v-model="mobile"
-            class="input"/>
+            type="text" 
+            maxlength="11"
+            placeholder="请输入手机号"
+            class="input">
           <a 
             class="get-btn"
-            @click="checkMobile(mobile)">
-          </a>
+            @click="checkMobile(mobile)"/>
           <a 
             class="cancel-btn"
-            @click="()=>{mobile='';}">
-          </a>
+            @click="()=>{mobile='';}"/>
         </div>
       </div>
     </div>
@@ -57,7 +55,7 @@
     <div 
       class="block coupons">
       <img 
-        :src="base + 'jiating.png' + this.$qiniuCompress()">
+        :src="base + 'jiating1.png' + this.$qiniuCompress()">
     </div>
   </div>
 </template>
@@ -70,8 +68,12 @@ import {
   userGame,
   getGame,
   getCouponId,
-  getAdCoupon
+  getAdCoupon,
+  basicTrack,
+  validatePhone,
+  checkGetCoupon
 } from 'services'
+import { Toast } from 'mint-ui'
 import { normalPages } from '../../mixins/normalPages'
 const cdnUrl = process.env.CDN_URL
 export default {
@@ -98,6 +100,7 @@ export default {
       },
       mobile: null,
       award: true,
+      form: false,
       c: null,
       //分享
       wxShareInfoValue: {
@@ -122,7 +125,6 @@ export default {
         this.handleWechatAuth()
       }
     }
-    // this.initCanvas()
   },
   methods: {
     handleWechatAuth() {
@@ -149,7 +151,6 @@ export default {
       }
       userGame(args, this.params.userId)
         .then(res => {
-          console.log(res)
           this.initCanvas()
           this.getCouponId()
         })
@@ -158,22 +159,13 @@ export default {
         })
     },
     checkMobile(mobile) {
-      if (!/^1[3456789]\d{9}$/.test(mobile)) {
-        alert('您输入的手机号有误')
-        return
-      } else {
-        this.handleTrack(mobile)
+      if (validatePhone(mobile)) {
+        basicTrack(this.$route.query.id, mobile)
         this.getCoupon()
+        this.form = false
+      } else {
+        Toast('您输入的手机号有误')
       }
-    },
-    handleTrack(mobile) {
-      let url =
-        'http://exelook.com/client/goodsxsd/?id=' +
-        String(this.$route.query.id) +
-        '&mobile=' +
-        String(mobile) +
-        '&api=json'
-      this.$http.get(url).then(r => {})
     },
     initCanvas() {
       let that = this
@@ -249,19 +241,21 @@ export default {
       }
       if (iNum >= (allPX * 1) / 4) {
         this.award = false
+        if (this.coupon.couponId != 11) {
+          this.form = true
+        }
       }
     },
     getCoupon() {
-      this.handleTrack()
       let args = {
         mobile: this.mobile
       }
       getAdCoupon(args, this.coupon.couponId)
         .then(res => {
-          console.log(res)
+          Toast('领取优惠券成功!')
         })
         .catch(err => {
-          alert(err.response.data.message)
+          Toast(err.response.data.message)
         })
     },
     getCouponId() {
@@ -270,6 +264,28 @@ export default {
           console.log(res)
           this.coupon.couponId = res.id
           this.coupon.url = res.image_url
+          if (res.wx_user_id) {
+            this.award = false
+          }
+          this.checkGetCoupon(res.id)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+
+    checkGetCoupon(id) {
+      let args = {
+        coupon_batch_id: id
+      }
+      checkGetCoupon(args)
+        .then(res => {
+          console.log(res)
+          if (res.status === 200) {
+            this.form = false
+          } else {
+            this.form = this.award ? false : true
+          }
         })
         .catch(err => {
           console.log(err)
@@ -378,16 +394,16 @@ img {
   }
   .canvas-ele {
     position: absolute;
-    top: 46%;
+    top: 42%;
     width: 70%;
-    height: 30%;
+    height: 32%;
     left: 50%;
     transform: translateX(-50%);
     z-index: 1000;
   }
   .win-text {
     position: absolute;
-    top: 46%;
+    top: 42%;
     width: 69%;
     left: 50%;
     transform: translateX(-50%);

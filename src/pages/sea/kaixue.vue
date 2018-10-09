@@ -51,7 +51,8 @@
             v-model="mobile"
             placeholder="输入手机号" 
             maxlength="11" 
-            class="input">
+            class="input"
+            @change="mask = true;telform = true;">
           <button
             class="check"
             @click.stop="checkMobile(mobile)">
@@ -104,6 +105,7 @@ export default {
       belong: null,
       photo: null,
       userId: null,
+      sign: null,
       success: false,
       coupon_arr: [3, 4, 5, 6],
       deUrl:
@@ -151,6 +153,7 @@ export default {
         window.location.href = redirct_url
       } else {
         this.userId = Cookies.get('user_id')
+        this.sign = Cookies.get('sign')
         this.belong = this.$route.query.utm_campaign
         this.userGame()
       }

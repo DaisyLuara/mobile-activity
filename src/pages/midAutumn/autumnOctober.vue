@@ -239,10 +239,10 @@ export default {
         'player.png'
       ],
       wxShareInfoValue: {
-        title: '声音邮局 ',
-        desc: '你有封亲密信件 请查收',
-        link: 'http://papi.xingstation.com/api/s/VOM' + window.location.search,
-        imgUrl: cdnUrl + '/fe/marketing/img/autumnWord/icon.png',
+        title: '金秋十月，快乐出行 ',
+        desc: '开启你的金秋之旅！',
+        link: 'http://papi.xingstation.com/api/s/Elk' + window.location.search,
+        imgUrl: cdnUrl + '/fe/marketing/img/autumnWord/share.png',
         success: () => {
           wechatShareTrack()
         }
@@ -398,7 +398,7 @@ export default {
         user_id: this.userId + ''
       }
       parseService
-        .get(REQ_URL + 'zq?where=' + JSON.stringify(query))
+        .get(REQ_URL + 'autumnOctober?where=' + JSON.stringify(query))
         .then(data => {
           console.log(data.results)
           if (data.results.length === 0) {
@@ -417,7 +417,7 @@ export default {
     saveIsAuthorization() {
       let reference = this
       parseService
-        .post(REQ_URL + 'zq', this.params)
+        .post(REQ_URL + 'autumnOctober', this.params)
         .then(res => {
           console.log('首次认证保存成功')
         })
@@ -557,7 +557,7 @@ export default {
       let reference = this
       reference.params.ID = reference.$route.query.id + ''
       parseService
-        .post(REQ_URL + 'zq', this.params)
+        .post(REQ_URL + 'autumnOctober', this.params)
         .then(res => {
           reference.button.buttonTwo = false
           reference.button.buttonThree = true
@@ -577,7 +577,7 @@ export default {
         ID: this.$route.query.id + ''
       }
       parseService
-        .get(REQ_URL + 'zq?where=' + JSON.stringify(query))
+        .get(REQ_URL + 'autumnOctober?where=' + JSON.stringify(query))
         .then(data => {
           if (data.results.length > 0) {
             this.button.buttonOne = false

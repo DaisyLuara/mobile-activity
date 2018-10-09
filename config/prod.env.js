@@ -7,6 +7,7 @@ module.exports = {
   STORE_API: "'http://store.jingfree.com'",
   SAAS_API: "'http://sapi.xingstation.com/api'",
   AD_API: "'http://papi.xingstation.com'",
+  WX_COUPON_API:"http://api.xingstation.com/api",
   IMAGE_SERVER: "'http://h5-images.oss-cn-shanghai.aliyuncs.com'",
   CDN_URL: "'http://cdn.exe666.com'"
 }

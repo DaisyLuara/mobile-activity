@@ -63,9 +63,6 @@ export default {
       savedHeight: 0
     }
   },
-  mounted() {
-    document.documentElement.scrollTop = 0
-  },
   deactivated() {
     this.savedHeight = document.documentElement.scrollTop
   },
@@ -106,6 +103,8 @@ export default {
 .hidol-root {
   display: flex;
   flex-direction: column;
+  bottom: constant(safe-area-inset-bottom); /* 兼容 iOS < 11.2 */
+  bottom: env(safe-area-inset-bottom); /* 兼容 iOS >= 11.2 */
   .info-wrapper {
     width: 100%;
     .mint-loadmore-top {
@@ -124,11 +123,4 @@ export default {
     }
   }
 }
-// .bounceup-enter-active,
-// .bounceup-leave-active {
-//   transition: all 0.3s ease;
-// }
-// .bounceup-enter, .bounceup-leave-to /* .fade-leave-active below version 2.1.8 */ {
-//   transform: translateY(100vh);
-// }
 </style>
