@@ -8,7 +8,7 @@
         :src="base + 'kuang.png'"
         class="frame">
       <img
-        :src="photo"
+        :src="photo + this.$qiniuCompress()"
         class="photo">
     </div>
     <div 
