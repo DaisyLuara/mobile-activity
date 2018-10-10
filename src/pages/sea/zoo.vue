@@ -9,35 +9,19 @@ export default {
   mixins: [normalPages],
   data() {
     return {
-      style: {
-        root: {
-          height: this.$innerHeight() + 'px'
-        }
-      },
-      base: cdnUrl + '/fe/image/',
-      scene: null,
-      link: {
-        '1': 'http://papi.xingstation.com/api/s/o2j' + window.location.search, //冰川世界
-        '2': 'http://papi.xingstation.com/api/s/0v' + window.location.search, //水族馆
-        '3': 'http://papi.xingstation.com/api/s/ERv' + window.location.search, //熊猫
-        '4': 'http://papi.xingstation.com/api/s/8m' + window.location.search //动物在哪
-      },
-      //http://xuhui.xiaooo.club/app/index.php?i=40&c=my&a=point&do=exchange
-      //微信分享
-      wxShareInfoValue: {
-        title: '',
-        desc: '',
-        link: '' + window.location.search,
-        imgUrl: '',
-        success: function() {
-          wechatShareTrack()
-        }
-      }
+      link: [
+        'http://papi.xingstation.com/api/s/o2j',
+        'http://papi.xingstation.com/api/s/0v',
+        'http://papi.xingstation.com/api/s/ERv',
+        'http://papi.xingstation.com/api/s/8m'
+      ]
+      // '1'冰川世界'2'水族馆'3'熊猫'4'动物在哪
     }
   },
   mounted() {
     let scene = this.$route.query.scene
-    window.location.href = this.link[scene]
+    let re_url = this.link[scene - 1] + window.location.search
+    window.location.href = re_url
   }
 }
 </script>
