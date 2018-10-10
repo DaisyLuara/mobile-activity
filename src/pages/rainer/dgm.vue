@@ -1,9 +1,9 @@
 <template>
   <div
     :style="style.root"
-    class="content">
+    :class="{content:true,iphoneX:iphoneX}">
     <div
-      :class="{picture:true,iphoneX:iphoneX}">
+      class="picture">
       <img 
         :src="base + 'kuang.png'"
         class="frame">
@@ -11,15 +11,12 @@
         :src="photo + this.$qiniuCompress()"
         class="photo">
     </div>
-    <div 
-      class="bottom">
-      <img
-        :src="base + 'di.png'"
-        class="light">
-      <img
-        :src="base + 'save.png'"
-        class="note">
-    </div>
+    <img
+      :src="base + 'save.png'"
+      class="note">
+    <img
+      :src="base + 'di.png'"
+      :class="{light:!absolute,absolute:absolute}">
   </div>
 </template>
 <script>
@@ -38,6 +35,7 @@ export default {
       base: cdnUrl + '/fe/image/dgm/',
       photo: null,
       iphoneX: false,
+      absolute: false,
       //微信分享
       wxShareInfoValue: {
         title: '相约大光明',
@@ -52,11 +50,19 @@ export default {
   },
   mounted() {
     let height = this.$innerHeight()
+    let width = this.$innerWidth()
+    if (height > 630) {
+      this.absolute = true
+    } else {
+      this.absolute = false
+    }
     if (height > 672) {
       this.iphoneX = true
     } else {
       this.iphoneX = false
     }
+    // let light = document.querySelector('.light')
+    // light.style.marginTop = height - (width * 1.2) / 314
   }
 }
 </script>
@@ -89,7 +95,7 @@ img {
   .picture {
     position: relative;
     z-index: 0;
-    margin-top: -2.5%;
+    margin-top: -1.5%;
     .frame {
       width: 88.5%;
       position: relative;
@@ -106,30 +112,32 @@ img {
       user-select: auto;
     }
   }
-  .bottom {
-    width: 100%;
-    overflow-x: hidden;
-    position: absolute;
-    bottom: 0%;
-    left: 0%;
+  .note {
+    width: 34%;
+    position: relative;
+    z-index: 999;
+    margin-top: 4%;
+  }
+  .light {
+    width: 120%;
+    position: relative;
+    margin: 0 auto;
     z-index: 99;
-    margin-top: 2%;
-    .light {
-      width: 120%;
-      position: relative;
-      z-index: 0;
-      margin: 0 auto;
-    }
-    .note {
-      width: 34%;
-      position: relative;
-      z-index: 9;
-      margin-top: -12%;
-    }
+    margin-top: -36%;
   }
 }
+.absolute {
+  position: absolute;
+  bottom: 0%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120%;
+  z-index: 99;
+}
 .iphoneX {
-  margin-top: 16%;
+  .picture {
+    margin-top: 12%;
+  }
 }
 </style>
 
