@@ -75,6 +75,17 @@ const Date201810 = [
       desc: '相约大光明'
     },
     isAbandoned: false
+  },
+  {
+    path: 'hiplay_world_general',
+    location: 'king/hiPlayGeneral',
+    name: 'hiplay_world_general',
+    meta: {
+      title: 'High玩 全世界',
+      author: 'xj1012',
+      desc: 'High玩 全世界-通用版'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201810
