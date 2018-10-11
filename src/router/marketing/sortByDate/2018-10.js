@@ -86,6 +86,17 @@ const Date201810 = [
       desc: 'High玩 全世界-通用版'
     },
     isAbandoned: false
+  },
+  {
+    path: 'f_zoo',
+    location: 'sea/zoo',
+    name: 'f_zoo',
+    meta: {
+      title: 'zoo',
+      author: 'lipan',
+      desc: '4个场景选择链接跳转'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201810
