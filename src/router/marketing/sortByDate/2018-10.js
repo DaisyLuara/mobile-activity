@@ -28,7 +28,7 @@ const Date201810 = [
     meta: {
       title: 'sweet winter',
       author: 'xj1012',
-      desc: '大融城'
+      desc: '大融城-winter'
     },
     isAbandoned: false
   },
@@ -95,6 +95,28 @@ const Date201810 = [
       title: 'zoo',
       author: 'lipan',
       desc: '4个场景选择链接跳转'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'baoli_AllSaintsDay_general',
+    location: 'king/allSaintsDayGeneral',
+    name: 'baoli_AllSaintsDay_general',
+    meta: {
+      title: '万圣之夜',
+      author: 'xj1012',
+      desc: '慈溪保利万圣之夜通用版'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'drc_snow_general',
+    location: 'king/drcGeneral',
+    name: 'drc_snow_general',
+    meta: {
+      title: 'sweet winter',
+      author: 'xj1012',
+      desc: '大融城-winter通用版'
     },
     isAbandoned: false
   }
