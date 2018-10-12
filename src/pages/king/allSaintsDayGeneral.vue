@@ -4,12 +4,12 @@
     class="root">
     <div class="root-t">
       <img 
-      :src="baseUrl + 'top.png'+ this.$qiniuCompress()"
-      class="topImg"> 
+        :src="baseUrl + 'top.png'+ this.$qiniuCompress()"
+        class="topImg"> 
       <img 
         :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
         class="frame"> 
-        <!--  :src="baseUrl + '666.png'+ this.$qiniuCompress()" -->
+      <!--  :src="baseUrl + '666.png'+ this.$qiniuCompress()" -->
       <img 
         v-if="photo !== null" 
         :src="photo + this.$qiniuCompress()"
