@@ -139,7 +139,6 @@ img {
     position: absolute;
     left: 19%;
     bottom: 0.5%;
-    transform: translate(-50%, 0%);
     animation: arrow 0.5s linear infinite alternate;
   }
   .x-save {
