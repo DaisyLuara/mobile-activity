@@ -103,16 +103,18 @@ img {
   .save {
     width: 62%;
     position: absolute;
-    left: 50%;
+    left: 19%;
     top: 3%;
-    transform: translate(-50%, 0);
+    animation: arrow 0.5s linear infinite alternate;
+    z-index: 10;
   }
   .x-save {
     width: 68%;
     position: absolute;
-    left: 50%;
+    left: 17%;
     top: 6.5%;
-    transform: translate(-50%, 0);
+    animation: arrow 0.5s linear infinite alternate;
+    z-index: 10;
   }
   .frame {
     width: 70%;
@@ -149,6 +151,17 @@ img {
     z-index: 5;
     user-select: auto;
     pointer-events: auto;
+  }
+}
+@keyframes arrow {
+  0% {
+    transform: translateY(5px);
+  }
+  50% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-5px);
   }
 }
 </style>

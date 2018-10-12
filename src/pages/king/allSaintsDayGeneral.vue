@@ -137,16 +137,27 @@ img {
   .save {
     width: 60%;
     position: absolute;
-    left: 50%;
+    left: 19%;
     bottom: 0.5%;
-    transform: translate(-50%, 0%);
+    animation: arrow 0.5s linear infinite alternate;
   }
   .x-save {
     width: 62%;
     position: absolute;
-    left: 50%;
+    left: 18%;
     bottom: 14.5%;
-    transform: translate(-50%, 0%);
+    animation: arrow 0.5s linear infinite alternate;
+  }
+}
+@keyframes arrow {
+  0% {
+    transform: translateY(-5px);
+  }
+  50% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(5px);
   }
 }
 </style>
