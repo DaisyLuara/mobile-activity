@@ -92,9 +92,9 @@ const Date201810 = [
     location: 'king/allSaintsDayGeneral',
     name: 'baoli_AllSaintsDay_general',
     meta: {
-      title: '慈溪保利',
+      title: '万圣之夜',
       author: 'xj1012',
-      desc: '慈溪保利万圣之夜'
+      desc: '慈溪保利万圣之夜通用版'
     },
     isAbandoned: false
   },
