@@ -8,45 +8,45 @@
     <div class="center">
       <!-- 左边南瓜 -->
       <img 
-      v-show="control.nangualeft.one" 
-      :src="baseUrl + 'nangua_left_1.png'+ this.$qiniuCompress()"
-      class="left">
+        v-show="control.nangualeft.one" 
+        :src="baseUrl + 'nangua_left_1.png'+ this.$qiniuCompress()"
+        class="left">
       <img 
-      v-show="control.nangualeft.two" 
-      :src="baseUrl + 'nangua_left_2.png'+ this.$qiniuCompress()"
-      class="left">
+        v-show="control.nangualeft.two" 
+        :src="baseUrl + 'nangua_left_2.png'+ this.$qiniuCompress()"
+        class="left">
       <!-- 右边南瓜 -->
       <img 
-      v-show="control.nanguaRight.one" 
-      :src="baseUrl + 'nangua_right_1.png'+ this.$qiniuCompress()"
-      class="right">
+        v-show="control.nanguaRight.one" 
+        :src="baseUrl + 'nangua_right_1.png'+ this.$qiniuCompress()"
+        class="right">
       <img 
-      v-show="control.nanguaRight.two" 
-      :src="baseUrl + 'nangua_right_2.png'+ this.$qiniuCompress()"
-      class="right">
+        v-show="control.nanguaRight.two" 
+        :src="baseUrl + 'nangua_right_2.png'+ this.$qiniuCompress()"
+        class="right">
       <img 
-      :src="baseUrl + 'nvwu.png'+ this.$qiniuCompress()"
-      class="people">
+        :src="baseUrl + 'nvwu.png'+ this.$qiniuCompress()"
+        class="people">
       <img 
         :src="baseUrl + 'mid.png'+ this.$qiniuCompress()"
         :class="{'x-mid':iphoneX,'mid':!iphoneX}"
         class="mid">
-        <!-- :src="baseUrl + '666.jpg'+ this.$qiniuCompress()" -->
+      <!-- :src="baseUrl + '666.jpg'+ this.$qiniuCompress()" -->
       <img 
-      v-if="photo !== null" 
-      :src="photo + this.$qiniuCompress()"
-      :class="{'x-photo':iphoneX,'photo':!iphoneX}"
-      class="photo">
+        v-if="photo !== null" 
+        :src="photo + this.$qiniuCompress()"
+        :class="{'x-photo':iphoneX,'photo':!iphoneX}"
+        class="photo">
       <img 
-      :src="baseUrl + 'arrow.png'+ this.$qiniuCompress()"
-      :class="{'x-arrow':iphoneX,'arrow':!iphoneX}"
-      class="arrow">
+        :src="baseUrl + 'arrow.png'+ this.$qiniuCompress()"
+        :class="{'x-arrow':iphoneX,'arrow':!iphoneX}"
+        class="arrow">
       <img 
-      :src="baseUrl + 'title.png'+ this.$qiniuCompress()"
-      :class="{'x-tit':iphoneX,'tit':!iphoneX}"
-      class="tit">
+        :src="baseUrl + 'title.png'+ this.$qiniuCompress()"
+        :class="{'x-tit':iphoneX,'tit':!iphoneX}"
+        class="tit">
     </div>
-   <img 
+    <img 
       :src="baseUrl + 'bottom.png'+ this.$qiniuCompress()"
       :class="{'x-btImg':iphoneX,'btImg':!iphoneX}"
       class="btImg">
