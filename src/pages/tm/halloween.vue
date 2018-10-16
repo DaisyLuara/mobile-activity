@@ -12,11 +12,12 @@
             class="card01">
           <!-- 未解锁 -->
           <img 
+            v-if="!gameData.projectOne"
             :src="baseUrl + 'card01_unlocked.png'+ this.$qiniuCompress()"
             class="card01-unlocked">
           <!-- 已解锁 -->
           <img 
-            v-if="photo !== null" 
+            v-if="gameData.projectOne" 
             :src="photo + this.$qiniuCompress()"
             class="photo">
         </li>
@@ -26,11 +27,12 @@
             class="card02">
           <!-- 未解锁 -->
           <img 
+            v-if="!gameData.projectTwo"
             :src="baseUrl + 'card02_unlocked.png'+ this.$qiniuCompress()"
             class="card02-unlocked">
           <!-- 已解锁 -->
           <img 
-            v-if="photo !== null" 
+            v-if="gameData.projectTwo"
             :src="photo + this.$qiniuCompress()"
             class="photo">
         </li>
@@ -40,43 +42,44 @@
             class="card03">
           <!-- 未解锁 -->
           <img 
+            v-if="!gameData.projectThree"
             :src="baseUrl + 'card03_unlocked.png'+ this.$qiniuCompress()"
             class="card03-unlocked">
           <!-- 已解锁 -->
           <img 
-            v-if="photo !== null" 
+            v-if="gameData.projectThree" 
             :src="photo + this.$qiniuCompress()"
             class="photo">
         </li>
       </ul>
       <div class="button">
-        <a  @click.self="tabClick(1)">
+        <a  @click.self="tabClick('PaPaJohnsPizza')">
           <img 
-            v-show="tab.one"
+            v-if="gameData.projectOne"
             :src="baseUrl + 'card01_tag01.png'+ this.$qiniuCompress()"
             class="card01-tag01">
           <img 
-            v-show="!tab.one"
+            v-if="!gameData.projectOne"
             :src="baseUrl + 'card01_tag02.png'+ this.$qiniuCompress()"
             class="card01-tag02">
         </a>
-         <a  @click.self="tabClick(2)">
+         <a  @click.self="tabClick('huawei')">
           <img 
-            v-show="tab.two"
+            v-if="gameData.projectTwo"
             :src="baseUrl + 'card02_tag01.png'+ this.$qiniuCompress()"
             class="card02-tag01">
           <img 
-            v-show="!tab.two"
+            v-if="!gameData.projectTwo"
             :src="baseUrl + 'card02_tag02.png'+ this.$qiniuCompress()"
             class="card02-tag02">
         </a>
-        <a  @click.self="tabClick(3)">
+        <a  @click.self="tabClick('childDream')">
           <img 
-            v-show="tab.three"
+            v-if="gameData.projectThree"
             :src="baseUrl + 'card03_tag01.png'+ this.$qiniuCompress()"
             class="card03-tag01">
           <img 
-            v-show="!tab.three"
+            v-if="!gameData.projectThree"
             :src="baseUrl + 'card03_tag02.png'+ this.$qiniuCompress()"
             class="card03-tag02">
         </a>
@@ -85,7 +88,7 @@
     <!-- 解锁区域 -->
     <div class="unlockArea">
       <div class="unlock">
-        <span v-if="unlock.one">
+        <span v-if="gameData.projectOne">
         <img 
             :src="baseUrl + 'game01_1.png'+ this.$qiniuCompress()"
             class="game01-1">
@@ -93,7 +96,7 @@
             :src="baseUrl + 'great.png'+ this.$qiniuCompress()"
             class="great">
         </span>
-        <span v-if="!unlock.one">
+        <span v-if="!gameData.projectOne">
         <img 
             :src="baseUrl + 'game01_2.png'+ this.$qiniuCompress()"
             class="game01-2">
@@ -103,16 +106,16 @@
         </span>
       </div>
       <div class="unlock">
-        <span v-if="unlock.two">
+        <span v-if="gameData.projectTwo">
         <img 
             :src="baseUrl + 'game02_1.png'+ this.$qiniuCompress()"
             class="game02-1">
         <img 
             :src="baseUrl + 'score.png'+ this.$qiniuCompress()"
             class="great">
-        <b class="font">3320</b>
+        <b class="font">{{score}}</b>
       </span>
-      <span v-if="!unlock.two">
+      <span v-if="!gameData.projectTwo">
         <img 
             :src="baseUrl + 'game02_2.png'+ this.$qiniuCompress()"
             class="game02-2">
@@ -122,16 +125,16 @@
         </span>
       </div>
      <div class="unlock">
-      <span v-if="unlock.three">
+      <span v-if="gameData.projectThree">
         <img 
             :src="baseUrl + 'game03_1.png'+ this.$qiniuCompress()"
             class="game03-1">
         <img 
             :src="baseUrl + 'score.png'+ this.$qiniuCompress()"
             class="great">
-        <b class="font">3320</b>
+        <b class="font">{{score}}</b>
       </span>
-      <span v-if="!unlock.three">
+      <span v-if="!gameData.projectThree">
         <img 
             :src="baseUrl + 'game03_2.png'+ this.$qiniuCompress()"
             class="game03-2">
@@ -175,22 +178,17 @@ export default {
         id: this.$route.query.id,
         score: this.$route.query.score
       },
+      score: this.$route.query.score,
       tab: {
         one: true,
         two: false,
         three: false
       },
-      unlock: {
-        one: false,
-        two: false,
-        three: true
-      },
       // 节目数据，是否已玩
       gameData: {
-        projectOne: false,
+        projectOne: true,
         projectTwo: false,
-        projectThree: false,
-        projectFour: false
+        projectThree: false
       },
       //分享
       wxShareInfoValue: {
@@ -205,97 +203,100 @@ export default {
     }
   },
   mounted() {
-    // //微信授权
-    // if (isInWechat() === true) {
-    //   if (
-    //     process.env.NODE_ENV === 'production' ||
-    //     process.env.NODE_ENV === 'testing'
-    //   ) {
-    //     this.handleWechatAuth()
-    //   }
-    // }
+    this.tabClick(this.params.belong)
+    //微信授权
+    if (isInWechat() === true) {
+      if (
+        process.env.NODE_ENV === 'production' ||
+        process.env.NODE_ENV === 'testing'
+      ) {
+        this.handleWechatAuth()
+      }
+    }
   },
   methods: {
     tabClick(type) {
-      if (type === 1) {
+      console.log(type)
+      if (type === 'PaPaJohnsPizza') {
         this.tab.one = true
         this.tab.two = false
         this.tab.three = false
       }
-      if (type === 2) {
+      if (type === 'huawei') {
         this.tab.one = false
         this.tab.two = true
         this.tab.three = false
       }
-      if (type === 3) {
+      if (type === 'childDream') {
         this.tab.one = false
         this.tab.two = false
         this.tab.three = true
       }
+    },
+    handleWechatAuth() {
+      if (Cookies.get('sign') === null) {
+        let base_url = encodeURIComponent(String(window.location.href))
+        let redirct_url =
+          process.env.WX_API +
+          '/wx/officialAccount/oauth?url=' +
+          base_url +
+          '&scope=snsapi_base'
+        window.location.href = redirct_url
+      } else {
+        this.params.userId = Cookies.get('user_id')
+        this.params.belong = this.$route.query.utm_campaign
+        this.tabClick(this.params.belong)
+        this.userGame()
+      }
+    },
+    userGame() {
+      let args = {
+        belong: this.params.belong,
+        image_url: this.params.deUrl,
+        qiniu_id: this.params.id,
+        score: this.params.score
+      }
+      userGame(args, this.params.userId)
+        .then(res => {
+          console.log(res)
+          this.getGame()
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    },
+    getGame() {
+      let args = {
+        withCredentials: true
+      }
+      let userId = this.params.userId
+      getGame(args, userId)
+        .then(res => {
+          console.log(res)
+          this.projectStatus(res, userId)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    projectStatus(list, userId) {
+      let data = list
+      console.log(list)
+      data.map(r => {
+        // 节目1，搞怪万圣节
+        if (r.belong === 'PaPaJohnsPizza') {
+          this.gameData.projectOne = true
+        }
+        // 节目2，不给糖就捣蛋
+        if (r.belong === 'huawei') {
+          this.gameData.projectTwo = true
+        }
+        // 节目3,抓鬼大冒险
+        if (r.belong === 'childDream') {
+          this.gameData.projectThree = true
+        }
+      })
     }
-    // handleWechatAuth() {
-    //   if (Cookies.get('sign') === null) {
-    //     let base_url = encodeURIComponent(String(window.location.href))
-    //     let redirct_url =
-    //       process.env.WX_API +
-    //       '/wx/officialAccount/oauth?url=' +
-    //       base_url +
-    //       '&scope=snsapi_base'
-    //     window.location.href = redirct_url
-    //   } else {
-    //     this.params.userId = Cookies.get('user_id')
-    //     this.params.belong = this.$route.query.utm_campaign
-    //     this.userGame()
-    //   }
-    // },
-    // userGame() {
-    //   let args = {
-    //     belong: this.params.belong,
-    //     image_url: this.params.deUrl,
-    //     qiniu_id: this.params.id,
-    //     score: this.params.score
-    //   }
-    //   userGame(args, this.params.userId)
-    //     .then(res => {
-    //       console.log(res)
-    //       this.getGame()
-    //     })
-    //     .catch(e => {
-    //       console.log(e)
-    //     })
-    // },
-    // getGame() {
-    //   let args = {
-    //     withCredentials: true
-    //   }
-    //   let userId = this.params.userId
-    //   getGame(args, userId)
-    //     .then(res => {
-    //       console.log(res)
-    //       this.projectStatus(res, userId)
-    //     })
-    //     .catch(err => {
-    //       console.log(err)
-    //     })
-    // },
-    // projectStatus(list, userId) {
-    //   let data = list
-    //   console.log(list)
-    //   data.map(r => {
-    //     // 节目1，搞怪万圣节
-    //     if (r.belong === 'PaPaJohnsPizza') {
-    //       this.gameData.projectOne = true
-    //     }
-    //     // 节目2，不给糖就捣蛋
-    //     if (r.belong === 'huawei') {
-    //       this.gameData.projectTwo = true
-    //     }
-    //     // 节目3,抓鬼大冒险
-    //     if (r.belong === 'childDream') {
-    //       this.gameData.projectThree = true
-    //     }
-    //   })
-    // }
   }
 }
 </script>
