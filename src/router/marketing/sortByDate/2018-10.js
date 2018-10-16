@@ -130,6 +130,17 @@ const Date201810 = [
       desc: '搞怪万圣节'
     },
     isAbandoned: false
+  },
+  {
+    path: 'halloween',
+    location: 'tm/halloween',
+    name: 'halloween',
+    meta: {
+      title: '万圣节',
+      author: 'xj1012',
+      desc: '万圣节三个节目联动'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201810
