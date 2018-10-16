@@ -1,11 +1,146 @@
 <template>
   <div 
-    :style="height"
-    class="content">
-    <!-- 欢乐积攒有惊喜 三级联动显示-->
+    :style="style.root" 
+    class="root">
+    <!-- tab切换区域显示-->
     <div 
       class="group">
-
+      <ul>
+        <li class="one" v-show="tab.one" >
+           <img 
+            :src="baseUrl + 'card01.png'+ this.$qiniuCompress()"
+            class="card01">
+          <!-- 未解锁 -->
+          <img 
+            :src="baseUrl + 'card01_unlocked.png'+ this.$qiniuCompress()"
+            class="card01-unlocked">
+          <!-- 已解锁 -->
+          <img 
+            v-if="photo !== null" 
+            :src="photo + this.$qiniuCompress()"
+            class="photo">
+        </li>
+        <li class="two" v-show="tab.two">
+           <img 
+            :src="baseUrl + 'card02.png'+ this.$qiniuCompress()"
+            class="card02">
+          <!-- 未解锁 -->
+          <img 
+            :src="baseUrl + 'card02_unlocked.png'+ this.$qiniuCompress()"
+            class="card02-unlocked">
+          <!-- 已解锁 -->
+          <img 
+            v-if="photo !== null" 
+            :src="photo + this.$qiniuCompress()"
+            class="photo">
+        </li>
+        <li class="three" v-show="tab.three" >
+           <img 
+            :src="baseUrl + 'card03.png'+ this.$qiniuCompress()"
+            class="card03">
+          <!-- 未解锁 -->
+          <img 
+            :src="baseUrl + 'card03_unlocked.png'+ this.$qiniuCompress()"
+            class="card03-unlocked">
+          <!-- 已解锁 -->
+          <img 
+            v-if="photo !== null" 
+            :src="photo + this.$qiniuCompress()"
+            class="photo">
+        </li>
+      </ul>
+      <div class="button">
+        <a  @click.self="tabClick(1)">
+          <img 
+            v-show="tab.one"
+            :src="baseUrl + 'card01_tag01.png'+ this.$qiniuCompress()"
+            class="card01-tag01">
+          <img 
+            v-show="!tab.one"
+            :src="baseUrl + 'card01_tag02.png'+ this.$qiniuCompress()"
+            class="card01-tag02">
+        </a>
+         <a  @click.self="tabClick(2)">
+          <img 
+            v-show="tab.two"
+            :src="baseUrl + 'card02_tag01.png'+ this.$qiniuCompress()"
+            class="card02-tag01">
+          <img 
+            v-show="!tab.two"
+            :src="baseUrl + 'card02_tag02.png'+ this.$qiniuCompress()"
+            class="card02-tag02">
+        </a>
+        <a  @click.self="tabClick(3)">
+          <img 
+            v-show="tab.three"
+            :src="baseUrl + 'card03_tag01.png'+ this.$qiniuCompress()"
+            class="card03-tag01">
+          <img 
+            v-show="!tab.three"
+            :src="baseUrl + 'card03_tag02.png'+ this.$qiniuCompress()"
+            class="card03-tag02">
+        </a>
+      </div>
+    </div>
+    <!-- 解锁区域 -->
+    <div class="unlockArea">
+      <div class="unlock">
+        <span v-if="unlock.one">
+        <img 
+            :src="baseUrl + 'game01_1.png'+ this.$qiniuCompress()"
+            class="game01-1">
+        <img 
+            :src="baseUrl + 'great.png'+ this.$qiniuCompress()"
+            class="great">
+        </span>
+        <span v-if="!unlock.one">
+        <img 
+            :src="baseUrl + 'game01_2.png'+ this.$qiniuCompress()"
+            class="game01-2">
+        <img 
+            :src="baseUrl + 'question_mark.png'+ this.$qiniuCompress()"
+            class="question">
+        </span>
+      </div>
+      <div class="unlock">
+        <span v-if="unlock.two">
+        <img 
+            :src="baseUrl + 'game02_1.png'+ this.$qiniuCompress()"
+            class="game02-1">
+        <img 
+            :src="baseUrl + 'score.png'+ this.$qiniuCompress()"
+            class="great">
+        <b class="font">3320</b>
+      </span>
+      <span v-if="!unlock.two">
+        <img 
+            :src="baseUrl + 'game02_2.png'+ this.$qiniuCompress()"
+            class="game02-2">
+        <img 
+            :src="baseUrl + 'question_mark.png'+ this.$qiniuCompress()"
+            class="question">
+        </span>
+      </div>
+     <div class="unlock">
+      <span v-if="unlock.three">
+        <img 
+            :src="baseUrl + 'game03_1.png'+ this.$qiniuCompress()"
+            class="game03-1">
+        <img 
+            :src="baseUrl + 'score.png'+ this.$qiniuCompress()"
+            class="great">
+        <b class="font">3320</b>
+      </span>
+      <span v-if="!unlock.three">
+        <img 
+            :src="baseUrl + 'game03_2.png'+ this.$qiniuCompress()"
+            class="game03-2">
+        <img 
+            :src="baseUrl + 'question_mark.png'+ this.$qiniuCompress()"
+            class="question">
+        </span>
+     </div>
+      
     </div>
   </div>
 </template>
@@ -25,14 +160,30 @@ export default {
   data() {
     return {
       baseUrl: cdnUrl + '/fe/marketing/img/halloween/',
-      height: this.$innerHeight(),
+      style: {
+        root: {
+          height: this.$innerHeight() + 'px'
+        }
+      },
+      photo: null,
+      isClick: true,
       params: {
         deUrl:
-          'http://wx.qlogo.cn/mmopen/Q3auHgzwzM4VoBYD1YEIq0E3LFM1XLKsd3sG5VXRAvCUqCVXIPTcI0TzqicRWfzB9Zv40GhTR83RhKAugpzOuaJFC11nxmcnnp6ZbOu04UFw/0',
+          'http://wx.qlogo.cn/mmopen/Q3auHgzwzM4VoBYD1YEIq0E3LFM1XLKsd3sG5VXRAvCUqCVXIPTcI0TzqicRWfzB9Zv40GhTR83RhKAugpzOuaJFC11nxmcnnp6ZbOu04UFw/;',
         userId: null,
         belong: this.$route.query.utm_campaign,
         id: this.$route.query.id,
         score: this.$route.query.score
+      },
+      tab: {
+        one: true,
+        two: false,
+        three: false
+      },
+      unlock: {
+        one: false,
+        two: false,
+        three: true
       },
       // 节目数据，是否已玩
       gameData: {
@@ -65,6 +216,23 @@ export default {
     // }
   },
   methods: {
+    tabClick(type) {
+      if (type === 1) {
+        this.tab.one = true
+        this.tab.two = false
+        this.tab.three = false
+      }
+      if (type === 2) {
+        this.tab.one = false
+        this.tab.two = true
+        this.tab.three = false
+      }
+      if (type === 3) {
+        this.tab.one = false
+        this.tab.two = false
+        this.tab.three = true
+      }
+    }
     // handleWechatAuth() {
     //   if (Cookies.get('sign') === null) {
     //     let base_url = encodeURIComponent(String(window.location.href))
@@ -140,32 +308,111 @@ body {
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   transform: translate3d(0, 0, 0);
-  background-color: #fef6d1;
 }
 * {
   padding: 0;
-  margin: 0 auto;
-  text-align: center;
+  margin: 0;
   font-size: 0;
-}
-a {
-  display: inline-block;
+  text-align: center;
 }
 img {
   pointer-events: none;
   user-select: none;
   max-width: 100%;
 }
-
-.content {
+.root {
   width: 100%;
-  overflow-x: hidden;
-  max-width: 750px;
-  // background-image: url('@{imageHost}background.png');
-  // background-position: center top;
-  // background-size: 100% auto;
-  // background-repeat: no-repeat;
-  padding-top: 60%;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background-image: url('@{imageHost}bg.png');
+  background-size: 100% 100%;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  .group {
+    width: 100%;
+    position: relative;
+    ul {
+      width: 80%;
+      position: absolute;
+      left: 50%;
+      top: 0%;
+      transform: translate(-50%, 0);
+      margin-top: 15%;
+      li {
+        img {
+          width: 85%;
+        }
+        .card01-unlocked,
+        .card02-unlocked,
+        .card03-unlocked {
+          width: 40%;
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+        }
+        .photo {
+          width: 81%;
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50.2%);
+        }
+      }
+    }
+    .button {
+      width: 32%;
+      position: absolute;
+      right: -15.9%;
+      margin-top: 15%;
+      a {
+        display: block;
+        img {
+          width: 30%;
+          display: block;
+        }
+      }
+    }
+  }
+  .unlockArea {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 2%;
+    display: flex;
+    justify-content: space-around;
+    padding: 0 5%;
+    .unlock {
+      position: relative;
+      .game01-1,
+      .game02-1,
+      .game03-1 {
+        width: 100%;
+      }
+      .great {
+        width: 55%;
+        position: absolute;
+        left: 44%;
+        top: 18%;
+      }
+      .question {
+        width: 32%;
+        position: absolute;
+        left: 55%;
+        top: 10%;
+      }
+      .font {
+        font-size: 4vw;
+        display: block;
+        position: absolute;
+        left: 50%;
+        top: 39%;
+        color: #fff;
+        transform: rotate(-15deg);
+      }
+    }
+  }
 }
 </style>
 
