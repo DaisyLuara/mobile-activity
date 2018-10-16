@@ -119,6 +119,17 @@ const Date201810 = [
       desc: '大融城-winter通用版'
     },
     isAbandoned: false
+  },
+  {
+    path: 'hallowmas',
+    location: 'king/hallowmas',
+    name: 'hallowmas',
+    meta: {
+      title: '万圣节',
+      author: 'xj1012',
+      desc: '搞怪万圣节'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201810
