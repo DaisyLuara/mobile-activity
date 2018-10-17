@@ -5,7 +5,9 @@
     <!-- tab切换区域显示-->
     <div 
       class="group">
-      <ul>
+      <ul
+      :class="{'x-list':iphoneX,'list':!iphoneX}" 
+      class="list">
         <li 
           v-show="tab.one" 
           class="one" >
@@ -61,6 +63,7 @@
       <!-- 右边栏的button -->
       <div 
         v-if="wechat" 
+        :class="{'x-button':iphoneX,'button':!iphoneX}"
         class="button">
         <a @click.self="tabClick('PaPaJohnsPizza')">
           <img 
@@ -97,6 +100,7 @@
     <!-- 解锁区域 -->
     <div 
       v-if="wechat" 
+      :class="{'x-unlockArea':iphoneX,'unlockArea':!iphoneX}"
       class="unlockArea">
       <div class="unlock">
         <span v-if="gameData.projectOne">
@@ -179,6 +183,7 @@ export default {
       photo: null,
       isClick: true,
       wechat: true,
+      iphoneX: false,
       params: {
         deUrl:
           'http://wx.qlogo.cn/mmopen/Q3auHgzwzM4VoBYD1YEIq0E3LFM1XLKsd3sG5VXRAvCUqCVXIPTcI0TzqicRWfzB9Zv40GhTR83RhKAugpzOuaJFC11nxmcnnp6ZbOu04UFw/;',
@@ -195,9 +200,9 @@ export default {
       },
       // 节目数据，是否已玩
       gameData: {
-        projectOne: false,
-        projectTwo: false,
-        projectThree: false
+        projectOne: true,
+        projectTwo: true,
+        projectThree: true
       },
       //分享
       wxShareInfoValue: {
@@ -215,9 +220,14 @@ export default {
     }
   },
   mounted() {
-    // this.tabClick(this.params.belong)
+    this.tabClick(this.params.belong)
     if (this.$route.query.type != null && this.$route.query.type != undefined) {
       this.wechat = false
+    }
+    if (this.$innerHeight() > 672) {
+      this.iphoneX = true
+    } else {
+      this.iphoneX = false
     }
     //微信授权
     if (isInWechat() === true) {
@@ -260,7 +270,7 @@ export default {
       } else {
         this.params.userId = Cookies.get('user_id')
         this.params.belong = this.$route.query.utm_campaign
-        this.tabClick(this.params.belong)
+        //this.tabClick(this.params.belong)
         //判断是否是微信分享链接 决定是否向后台发送数据
         if (this.wechat) {
           this.userGame()
@@ -353,13 +363,13 @@ img {
   .group {
     width: 100%;
     position: relative;
-    ul {
+    .list {
       width: 80%;
       position: absolute;
       left: 50%;
       top: 0%;
       transform: translate(-50%, 0);
-      margin-top: 15%;
+      margin-top: 18%;
       li {
         img {
           width: 85%;
@@ -382,11 +392,19 @@ img {
         }
       }
     }
+    .x-list {
+      width: 90%;
+      position: absolute;
+      left: 50%;
+      top: 0%;
+      transform: translate(-50%, 0);
+      margin-top: 25%;
+    }
     .button {
       width: 32%;
       position: absolute;
       right: -15.9%;
-      margin-top: 15%;
+      margin-top: 18%;
       a {
         display: block;
         img {
@@ -395,12 +413,18 @@ img {
         }
       }
     }
+    .x-button {
+      width: 32%;
+      position: absolute;
+      right: -19.9%;
+      margin-top: 25%;
+    }
   }
   .unlockArea {
     width: 100%;
     position: absolute;
     left: 0;
-    bottom: 2%;
+    bottom: 0.8%;
     display: flex;
     justify-content: space-around;
     padding: 0 5%;
@@ -425,6 +449,15 @@ img {
         top: 10%;
       }
     }
+  }
+  .x-unlockArea {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 3%;
+    display: flex;
+    justify-content: space-around;
+    padding: 0 5%;
   }
 }
 </style>
