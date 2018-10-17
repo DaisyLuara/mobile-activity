@@ -22,7 +22,7 @@
           <!-- 已解锁 -->
           <img 
             v-if="gameData.projectOne" 
-            :src="photo + this.$qiniuCompress()"
+            :src="photoImage.img1 + this.$qiniuCompress()"
             class="photo">
         </li>
         <li 
@@ -39,7 +39,7 @@
           <!-- 已解锁 -->
           <img 
             v-if="gameData.projectTwo"
-            :src="photo + this.$qiniuCompress()"
+            :src="photoImage.img2 + this.$qiniuCompress()"
             class="photo">
         </li>
         <li 
@@ -56,16 +56,16 @@
           <!-- 已解锁 -->
           <img 
             v-if="gameData.projectThree" 
-            :src="photo + this.$qiniuCompress()"
+            :src="photoImage.img3 + this.$qiniuCompress()"
             class="photo">
         </li>
       </ul>
       <!-- 右边栏的button -->
       <div 
-        v-if="wechat" 
+        v-if="!wechat" 
         :class="{'x-button':iphoneX,'button':!iphoneX}"
         class="button">
-        <a @click.self="tabClick('TrickHalloween')">
+        <a @click.self="tabClick('TrickHalloween',true)">
           <img 
             v-if="gameData.projectOne"
             :src="baseUrl + 'card01_tag01.png'+ this.$qiniuCompress()"
@@ -75,7 +75,7 @@
             :src="baseUrl + 'card01_tag02.png'+ this.$qiniuCompress()"
             class="card01-tag02">
         </a>
-        <a @click.self="tabClick('GhostHunter')">
+        <a @click.self="tabClick('GhostHunter',true)">
           <img 
             v-if="gameData.projectTwo"
             :src="baseUrl + 'card02_tag01.png'+ this.$qiniuCompress()"
@@ -85,7 +85,7 @@
             :src="baseUrl + 'card02_tag02.png'+ this.$qiniuCompress()"
             class="card02-tag02">
         </a>
-        <a @click.self="tabClick('HallowCandy')">
+        <a @click.self="tabClick('HallowCandy',true)">
           <img 
             v-if="gameData.projectThree"
             :src="baseUrl + 'card03_tag01.png'+ this.$qiniuCompress()"
@@ -99,7 +99,7 @@
     </div>
     <!-- 解锁区域 -->
     <div 
-      v-if="wechat" 
+      v-if="!wechat" 
       :class="{'x-unlockArea':iphoneX,'unlockArea':!iphoneX}"
       class="unlockArea">
       <div class="unlock">
@@ -109,7 +109,7 @@
             class="game01-1">
           <img 
             :src="baseUrl + 'great.png'+ this.$qiniuCompress()"
-            :class="{'bounce':isMotion}"
+            :class="{'bounce':isMotion.one}"
             class="great">
         </span>
         <span v-if="!gameData.projectOne">
@@ -118,7 +118,7 @@
             class="game01-2">
           <img 
             :src="baseUrl + 'question_mark.png'+ this.$qiniuCompress()"
-            :class="{'tada':isMotion}"
+            :class="{'tada':isMotion.one}"
             class="question "
             >
         </span>
@@ -130,7 +130,7 @@
             class="game02-1">
           <img 
             :src="baseUrl + 'great.png'+ this.$qiniuCompress()"
-            :class="{'bounce':isMotion}"
+            :class="{'bounce':isMotion.two}"
             class="great">
         </span>
         <span v-if="!gameData.projectTwo">
@@ -139,7 +139,7 @@
             class="game02-2">
           <img 
             :src="baseUrl + 'question_mark.png'+ this.$qiniuCompress()"
-            :class="{'tada':isMotion}"
+            :class="{'tada':isMotion.two}"
             class="question">
         </span>
       </div>
@@ -150,7 +150,7 @@
             class="game03-1">
           <img 
             :src="baseUrl + 'great.png'+ this.$qiniuCompress()"
-            :class="{'bounce':isMotion}"
+            :class="{'bounce':isMotion.three}"
             class="great">
         </span>
         <span v-if="!gameData.projectThree">
@@ -159,7 +159,7 @@
             class="game03-2">
           <img 
             :src="baseUrl + 'question_mark.png'+ this.$qiniuCompress()"
-            :class="{'tada':isMotion}"
+            :class="{'tada':isMotion.three}"
             class="question">
         </span>
       </div>  
@@ -172,14 +172,15 @@ import {
   wechatShareTrack,
   isInWechat,
   Cookies,
+  getInfoById,
   userGame,
   getGame
 } from 'services'
-import { normalPages } from '../../mixins/normalPages'
+import { onlyWechatShare } from '../../mixins/onlyWechatShare'
 const cdnUrl = process.env.CDN_URL
 import 'animate.css'
 export default {
-  mixins: [normalPages],
+  mixins: [onlyWechatShare],
   data() {
     return {
       baseUrl: cdnUrl + '/fe/marketing/img/halloween/',
@@ -189,12 +190,33 @@ export default {
         }
       },
       photo: null,
-      isMotion: true,
-      wechat: true,
+      photoImage: {
+        img1: null,
+        img2: null,
+        img3: null
+      },
+      arr: [
+        {
+          belong: 'TrickHalloween',
+          image_url: cdnUrl + '/fe/marketing/img/halloween/game01_1.png'
+        },
+        // {
+        //   belong: 'GhostHunter',
+        //   image_url: cdnUrl + '/fe/marketing/img/halloween/game02_1.png'
+        // }
+        {
+          belong: 'HallowCandy',
+          image_url: cdnUrl + '/fe/marketing/img/halloween/game03_1.png'
+        }
+      ],
+      isMotion: {
+        one: false,
+        two: false,
+        three: false
+      },
+      wechat: false,
       iphoneX: false,
       params: {
-        deUrl:
-          'http://wx.qlogo.cn/mmopen/Q3auHgzwzM4VoBYD1YEIq0E3LFM1XLKsd3sG5VXRAvCUqCVXIPTcI0TzqicRWfzB9Zv40GhTR83RhKAugpzOuaJFC11nxmcnnp6ZbOu04UFw/;',
         userId: null,
         belong: this.$route.query.utm_campaign,
         id: this.$route.query.id,
@@ -208,12 +230,12 @@ export default {
       // 节目数据，是否已玩
       gameData: {
         projectOne: false,
-        projectTwo: true,
+        projectTwo: false,
         projectThree: true
       },
       //分享
       wxShareInfoValue: {
-        title: ' HALLOWEEN万圣节',
+        title: 'HALLOWEEN万圣节',
         desc: '快来陪我玩吧，嘿嘿嘿~',
         link:
           'http://papi.xingstation.com/api/s/nZR' +
@@ -226,11 +248,16 @@ export default {
       }
     }
   },
+  created() {},
   mounted() {
-    this.tabClick(this.params.belong)
+    //为本地测试打开
+    //this.tabClick(this.params.belong, false)
+    //this.projectStatus(this.arr)
+    //分享页面处理
     if (this.$route.query.type != null && this.$route.query.type != undefined) {
-      this.wechat = false
+      this.wechat = true
     }
+    //适配
     if (this.$innerHeight() > 672) {
       this.iphoneX = true
     } else {
@@ -247,23 +274,49 @@ export default {
     }
   },
   methods: {
-    tabClick(adName) {
+    getInfoById() {
+      let id = this.$route.query.id
+      getInfoById(id)
+        .then(res => {
+          this.photo = res.image
+          if (this.wechat) {
+            this.photoImage.img1 = this.photo
+            this.photoImage.img2 = this.photo
+            this.photoImage.img3 = this.photo
+          } else {
+            this.userGame()
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    tabClick(adName, isInit) {
       console.log(adName)
       if (adName === 'TrickHalloween') {
+        this.isMotion.one = isInit ? true : false
         this.tab.one = true
         this.tab.two = false
         this.tab.three = false
       }
       if (adName === 'GhostHunter') {
+        this.isMotion.two = isInit ? true : false
         this.tab.one = false
         this.tab.two = true
         this.tab.three = false
       }
       if (adName === 'HallowCandy') {
+        this.isMotion.three = isInit ? true : false
         this.tab.one = false
         this.tab.two = false
         this.tab.three = true
       }
+      let ref = this
+      setTimeout(function() {
+        ref.isMotion.one = false
+        ref.isMotion.two = false
+        ref.isMotion.three = false
+      }, 1000)
     },
     handleWechatAuth() {
       if (Cookies.get('sign') === null) {
@@ -277,17 +330,16 @@ export default {
       } else {
         this.params.userId = Cookies.get('user_id')
         this.params.belong = this.$route.query.utm_campaign
-        //this.tabClick(this.params.belong)
+        //线上打开
+        this.tabClick(this.params.belong)
         //判断是否是微信分享链接 决定是否向后台发送数据
-        if (this.wechat) {
-          this.userGame()
-        }
+        this.getInfoById()
       }
     },
     userGame() {
       let args = {
         belong: this.params.belong,
-        image_url: this.params.deUrl,
+        image_url: this.photo,
         qiniu_id: this.params.id,
         score: this.params.score
       }
@@ -310,26 +362,29 @@ export default {
         .then(res => {
           console.log('++++++++')
           console.log(res)
-          this.projectStatus(res, userId)
+          this.projectStatus(res)
         })
         .catch(err => {
           console.log(err)
         })
     },
-    projectStatus(list, userId) {
+    projectStatus(list) {
       let data = list
       console.log(list)
       data.map(r => {
         // 节目1，搞怪万圣节
         if (r.belong === 'TrickHalloween') {
+          this.photoImage.img1 = r.image_url
           this.gameData.projectOne = true
         }
         // 节目2，不给糖就捣蛋
         if (r.belong === 'GhostHunter') {
+          this.photoImage.img2 = r.image_url
           this.gameData.projectTwo = true
         }
         // 节目3,抓鬼大冒险
         if (r.belong === 'HallowCandy') {
+          this.photoImage.img3 = r.image_url
           this.gameData.projectThree = true
         }
       })
@@ -467,7 +522,7 @@ img {
     padding: 0 5%;
   }
   .tada {
-    animation: Tada 0.5s linear alternate;
+    animation: Tada 1s linear alternate;
     animation-fill-mode: forwards;
   }
   .bounce {
