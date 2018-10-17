@@ -136,7 +136,7 @@ const Date201810 = [
     location: 'tm/halloween',
     name: 'halloween',
     meta: {
-      title: '万圣节',
+      title: '星视度',
       author: 'xj1012',
       desc: '万圣节三个节目联动'
     },

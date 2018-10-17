@@ -202,7 +202,7 @@ export default {
     }
   },
   mounted() {
-    this.tabClick(this.params.belong)
+    // this.tabClick(this.params.belong)
     //微信授权
     if (isInWechat() === true) {
       if (
