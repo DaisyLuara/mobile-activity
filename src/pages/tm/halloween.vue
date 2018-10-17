@@ -58,7 +58,10 @@
             class="photo">
         </li>
       </ul>
-      <div class="button">
+      <!-- 右边栏的button -->
+      <div 
+        v-if="wechat" 
+        class="button">
         <a @click.self="tabClick('PaPaJohnsPizza')">
           <img 
             v-if="gameData.projectOne"
@@ -92,7 +95,9 @@
       </div>
     </div>
     <!-- 解锁区域 -->
-    <div class="unlockArea">
+    <div 
+      v-if="wechat" 
+      class="unlockArea">
       <div class="unlock">
         <span v-if="gameData.projectOne">
           <img 
@@ -119,7 +124,6 @@
           <img 
             :src="baseUrl + 'great.png'+ this.$qiniuCompress()"
             class="great">
-        <!-- <b class="font">{{score}}</b> -->
         </span>
         <span v-if="!gameData.projectTwo">
           <img 
@@ -138,7 +142,6 @@
           <img 
             :src="baseUrl + 'great.png'+ this.$qiniuCompress()"
             class="great">
-        <!-- <b class="font">{{score}}</b> -->
         </span>
         <span v-if="!gameData.projectThree">
           <img 
@@ -175,6 +178,7 @@ export default {
       },
       photo: null,
       isClick: true,
+      wechat: true,
       params: {
         deUrl:
           'http://wx.qlogo.cn/mmopen/Q3auHgzwzM4VoBYD1YEIq0E3LFM1XLKsd3sG5VXRAvCUqCVXIPTcI0TzqicRWfzB9Zv40GhTR83RhKAugpzOuaJFC11nxmcnnp6ZbOu04UFw/;',
@@ -199,7 +203,10 @@ export default {
       wxShareInfoValue: {
         title: '中秋国庆星乐享，1000份好礼“刷脸”大派送！',
         desc: '大融城-星视度嗨玩节，福利优惠拿不停。',
-        link: 'http://papi.xingstation.com/api/s/nZR' + window.location.search,
+        link:
+          'http://papi.xingstation.com/api/s/nZR' +
+          window.location.search +
+          '&type=WeChat',
         imgUrl: cdnUrl + '/fe/marketing/img/halloween/icon.png',
         success: () => {
           wechatShareTrack()
@@ -209,6 +216,9 @@ export default {
   },
   mounted() {
     // this.tabClick(this.params.belong)
+    if (this.$route.query.type != null && this.$route.query.type != undefined) {
+      this.wechat = false
+    }
     //微信授权
     if (isInWechat() === true) {
       if (
@@ -220,19 +230,19 @@ export default {
     }
   },
   methods: {
-    tabClick(type) {
-      console.log(type)
-      if (type === 'PaPaJohnsPizza') {
+    tabClick(adName) {
+      console.log(adName)
+      if (adName === 'PaPaJohnsPizza') {
         this.tab.one = true
         this.tab.two = false
         this.tab.three = false
       }
-      if (type === 'huawei') {
+      if (adName === 'huawei') {
         this.tab.one = false
         this.tab.two = true
         this.tab.three = false
       }
-      if (type === 'childDream') {
+      if (adName === 'childDream') {
         this.tab.one = false
         this.tab.two = false
         this.tab.three = true
@@ -251,7 +261,10 @@ export default {
         this.params.userId = Cookies.get('user_id')
         this.params.belong = this.$route.query.utm_campaign
         this.tabClick(this.params.belong)
-        this.userGame()
+        //判断是否是微信分享链接 决定是否向后台发送数据
+        if (this.wechat) {
+          this.userGame()
+        }
       }
     },
     userGame() {
