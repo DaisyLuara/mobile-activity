@@ -65,7 +65,7 @@
         v-if="wechat" 
         :class="{'x-button':iphoneX,'button':!iphoneX}"
         class="button">
-        <a @click.self="tabClick('PaPaJohnsPizza')">
+        <a @click.self="tabClick('TrickHalloween')">
           <img 
             v-if="gameData.projectOne"
             :src="baseUrl + 'card01_tag01.png'+ this.$qiniuCompress()"
@@ -75,7 +75,7 @@
             :src="baseUrl + 'card01_tag02.png'+ this.$qiniuCompress()"
             class="card01-tag02">
         </a>
-        <a @click.self="tabClick('huawei')">
+        <a @click.self="tabClick('GhostHunter')">
           <img 
             v-if="gameData.projectTwo"
             :src="baseUrl + 'card02_tag01.png'+ this.$qiniuCompress()"
@@ -85,7 +85,7 @@
             :src="baseUrl + 'card02_tag02.png'+ this.$qiniuCompress()"
             class="card02-tag02">
         </a>
-        <a @click.self="tabClick('childDream')">
+        <a @click.self="tabClick('HallowCandy')">
           <img 
             v-if="gameData.projectThree"
             :src="baseUrl + 'card03_tag01.png'+ this.$qiniuCompress()"
@@ -109,6 +109,7 @@
             class="game01-1">
           <img 
             :src="baseUrl + 'great.png'+ this.$qiniuCompress()"
+            :class="{'bounce':isMotion}"
             class="great">
         </span>
         <span v-if="!gameData.projectOne">
@@ -117,7 +118,9 @@
             class="game01-2">
           <img 
             :src="baseUrl + 'question_mark.png'+ this.$qiniuCompress()"
-            class="question">
+            :class="{'tada':isMotion}"
+            class="question "
+            >
         </span>
       </div>
       <div class="unlock">
@@ -127,6 +130,7 @@
             class="game02-1">
           <img 
             :src="baseUrl + 'great.png'+ this.$qiniuCompress()"
+            :class="{'bounce':isMotion}"
             class="great">
         </span>
         <span v-if="!gameData.projectTwo">
@@ -135,6 +139,7 @@
             class="game02-2">
           <img 
             :src="baseUrl + 'question_mark.png'+ this.$qiniuCompress()"
+            :class="{'tada':isMotion}"
             class="question">
         </span>
       </div>
@@ -145,6 +150,7 @@
             class="game03-1">
           <img 
             :src="baseUrl + 'great.png'+ this.$qiniuCompress()"
+            :class="{'bounce':isMotion}"
             class="great">
         </span>
         <span v-if="!gameData.projectThree">
@@ -153,6 +159,7 @@
             class="game03-2">
           <img 
             :src="baseUrl + 'question_mark.png'+ this.$qiniuCompress()"
+            :class="{'tada':isMotion}"
             class="question">
         </span>
       </div>  
@@ -170,6 +177,7 @@ import {
 } from 'services'
 import { normalPages } from '../../mixins/normalPages'
 const cdnUrl = process.env.CDN_URL
+import 'animate.css'
 export default {
   mixins: [normalPages],
   data() {
@@ -181,7 +189,7 @@ export default {
         }
       },
       photo: null,
-      isClick: true,
+      isMotion: true,
       wechat: true,
       iphoneX: false,
       params: {
@@ -192,7 +200,6 @@ export default {
         id: this.$route.query.id,
         score: this.$route.query.score
       },
-      score: this.$route.query.score,
       tab: {
         one: true,
         two: false,
@@ -200,14 +207,14 @@ export default {
       },
       // 节目数据，是否已玩
       gameData: {
-        projectOne: true,
+        projectOne: false,
         projectTwo: true,
         projectThree: true
       },
       //分享
       wxShareInfoValue: {
-        title: '中秋国庆星乐享，1000份好礼“刷脸”大派送！',
-        desc: '大融城-星视度嗨玩节，福利优惠拿不停。',
+        title: ' HALLOWEEN万圣节',
+        desc: '快来陪我玩吧，嘿嘿嘿~',
         link:
           'http://papi.xingstation.com/api/s/nZR' +
           window.location.search +
@@ -242,17 +249,17 @@ export default {
   methods: {
     tabClick(adName) {
       console.log(adName)
-      if (adName === 'PaPaJohnsPizza') {
+      if (adName === 'TrickHalloween') {
         this.tab.one = true
         this.tab.two = false
         this.tab.three = false
       }
-      if (adName === 'huawei') {
+      if (adName === 'GhostHunter') {
         this.tab.one = false
         this.tab.two = true
         this.tab.three = false
       }
-      if (adName === 'childDream') {
+      if (adName === 'HallowCandy') {
         this.tab.one = false
         this.tab.two = false
         this.tab.three = true
@@ -314,15 +321,15 @@ export default {
       console.log(list)
       data.map(r => {
         // 节目1，搞怪万圣节
-        if (r.belong === 'PaPaJohnsPizza') {
+        if (r.belong === 'TrickHalloween') {
           this.gameData.projectOne = true
         }
         // 节目2，不给糖就捣蛋
-        if (r.belong === 'huawei') {
+        if (r.belong === 'GhostHunter') {
           this.gameData.projectTwo = true
         }
         // 节目3,抓鬼大冒险
-        if (r.belong === 'childDream') {
+        if (r.belong === 'HallowCandy') {
           this.gameData.projectThree = true
         }
       })
@@ -458,6 +465,65 @@ img {
     display: flex;
     justify-content: space-around;
     padding: 0 5%;
+  }
+  .tada {
+    animation: Tada 0.5s linear alternate;
+    animation-fill-mode: forwards;
+  }
+  .bounce {
+    animation: bounceIn 0.5s linear alternate;
+    animation-fill-mode: forwards;
+  }
+}
+
+@keyframes Tada {
+  0% {
+    transform: scale(1);
+    transform: scale(1);
+  }
+
+  10%,
+  20% {
+    transform: scale(0.9) rotate(-3deg);
+    transform: scale(0.9) rotate(-3deg);
+  }
+
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: scale(1.1) rotate(3deg);
+    transform: scale(1.1) rotate(3deg);
+  }
+
+  40%,
+  60%,
+  80% {
+    transform: scale(1.1) rotate(-3deg);
+    transform: scale(1.1) rotate(-3deg);
+  }
+
+  100% {
+    transform: scale(1) rotate(0);
+    transform: scale(1) rotate(0);
+  }
+}
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.2) translate3d(0, 0, 0);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.1);
+  }
+  80% {
+    opacity: 1;
+    transform: scale(0.79);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translate3d(0, 0, 0);
   }
 }
 </style>
