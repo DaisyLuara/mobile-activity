@@ -152,6 +152,17 @@ const Date201810 = [
       desc: '万圣节三个节目联动'
     },
     isAbandoned: false
+  },
+  {
+    path: 'scan',
+    location: 'scanQRCode/index',
+    name: 'scanQRCode',
+    meta: {
+      title: '扫一扫',
+      author: 'Joy',
+      desc: '扫一扫2'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201810
