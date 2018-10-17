@@ -47,7 +47,7 @@ export default {
     wxQrCode() {
       alert(33)
       return new Promise((resolve, reject) => {
-        let requestUrl = 'http://sapi.jingfree.top/api/wx/officialAccount/sign'
+        let requestUrl = process.env.WX_API + '/wx/officialAccount/sign'
         this.$http
           .get(requestUrl)
           .then(response => {
@@ -77,10 +77,9 @@ export default {
                 success: function(res) {
                   alert(res.resultStr)
                 },
-                error: function(e){
+                error: function(e) {
                   alert(JSON.stringify(e))
                 }
-                
               })
               // 配置 wx.config 成功
               resolve({
