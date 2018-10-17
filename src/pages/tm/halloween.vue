@@ -111,9 +111,9 @@
             :src="baseUrl + 'game02_1.png'+ this.$qiniuCompress()"
             class="game02-1">
         <img 
-            :src="baseUrl + 'score.png'+ this.$qiniuCompress()"
+            :src="baseUrl + 'great.png'+ this.$qiniuCompress()"
             class="great">
-        <b class="font">{{score}}</b>
+        <!-- <b class="font">{{score}}</b> -->
       </span>
       <span v-if="!gameData.projectTwo">
         <img 
@@ -130,9 +130,9 @@
             :src="baseUrl + 'game03_1.png'+ this.$qiniuCompress()"
             class="game03-1">
         <img 
-            :src="baseUrl + 'score.png'+ this.$qiniuCompress()"
+            :src="baseUrl + 'great.png'+ this.$qiniuCompress()"
             class="great">
-        <b class="font">{{score}}</b>
+        <!-- <b class="font">{{score}}</b> -->
       </span>
       <span v-if="!gameData.projectThree">
         <img 
@@ -142,8 +142,7 @@
             :src="baseUrl + 'question_mark.png'+ this.$qiniuCompress()"
             class="question">
         </span>
-     </div>
-      
+     </div>  
     </div>
   </div>
 </template>
@@ -186,7 +185,7 @@ export default {
       },
       // 节目数据，是否已玩
       gameData: {
-        projectOne: true,
+        projectOne: false,
         projectTwo: false,
         projectThree: false
       },
@@ -259,6 +258,7 @@ export default {
       userGame(args, this.params.userId)
         .then(res => {
           console.log(res)
+          console.log('-------------')
           this.getGame()
         })
         .catch(e => {
@@ -272,6 +272,7 @@ export default {
       let userId = this.params.userId
       getGame(args, userId)
         .then(res => {
+          console.log('++++++++')
           console.log(res)
           this.projectStatus(res, userId)
         })
@@ -392,25 +393,17 @@ img {
         width: 100%;
       }
       .great {
-        width: 55%;
+        width: 70%;
         position: absolute;
-        left: 44%;
-        top: 18%;
+        left: 37%;
+        top: 12%;
+        z-index: 9;
       }
       .question {
         width: 32%;
         position: absolute;
         left: 55%;
         top: 10%;
-      }
-      .font {
-        font-size: 4vw;
-        display: block;
-        position: absolute;
-        left: 50%;
-        top: 39%;
-        color: #fff;
-        transform: rotate(-15deg);
       }
     }
   }
