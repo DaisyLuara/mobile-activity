@@ -141,6 +141,17 @@ const Date201810 = [
       desc: '超级英雄'
     },
     isAbandoned: false
+  },
+  {
+    path: 'halloween',
+    location: 'tm/halloween',
+    name: 'halloween',
+    meta: {
+      title: '星视度',
+      author: 'xj1012',
+      desc: '万圣节三个节目联动'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201810
