@@ -6,8 +6,10 @@
     <div 
       class="group">
       <ul>
-        <li class="one" v-show="tab.one" >
-           <img 
+        <li 
+          v-show="tab.one" 
+          class="one" >
+          <img 
             :src="baseUrl + 'card01.png'+ this.$qiniuCompress()"
             class="card01">
           <!-- 未解锁 -->
@@ -21,8 +23,10 @@
             :src="photo + this.$qiniuCompress()"
             class="photo">
         </li>
-        <li class="two" v-show="tab.two">
-           <img 
+        <li 
+          v-show="tab.two" 
+          class="two">
+          <img 
             :src="baseUrl + 'card02.png'+ this.$qiniuCompress()"
             class="card02">
           <!-- 未解锁 -->
@@ -36,8 +40,10 @@
             :src="photo + this.$qiniuCompress()"
             class="photo">
         </li>
-        <li class="three" v-show="tab.three" >
-           <img 
+        <li 
+          v-show="tab.three" 
+          class="three" >
+          <img 
             :src="baseUrl + 'card03.png'+ this.$qiniuCompress()"
             class="card03">
           <!-- 未解锁 -->
@@ -53,7 +59,7 @@
         </li>
       </ul>
       <div class="button">
-        <a  @click.self="tabClick('PaPaJohnsPizza')">
+        <a @click.self="tabClick('PaPaJohnsPizza')">
           <img 
             v-if="gameData.projectOne"
             :src="baseUrl + 'card01_tag01.png'+ this.$qiniuCompress()"
@@ -63,7 +69,7 @@
             :src="baseUrl + 'card01_tag02.png'+ this.$qiniuCompress()"
             class="card01-tag02">
         </a>
-         <a  @click.self="tabClick('huawei')">
+        <a @click.self="tabClick('huawei')">
           <img 
             v-if="gameData.projectTwo"
             :src="baseUrl + 'card02_tag01.png'+ this.$qiniuCompress()"
@@ -73,7 +79,7 @@
             :src="baseUrl + 'card02_tag02.png'+ this.$qiniuCompress()"
             class="card02-tag02">
         </a>
-        <a  @click.self="tabClick('childDream')">
+        <a @click.self="tabClick('childDream')">
           <img 
             v-if="gameData.projectThree"
             :src="baseUrl + 'card03_tag01.png'+ this.$qiniuCompress()"
@@ -89,60 +95,60 @@
     <div class="unlockArea">
       <div class="unlock">
         <span v-if="gameData.projectOne">
-        <img 
+          <img 
             :src="baseUrl + 'game01_1.png'+ this.$qiniuCompress()"
             class="game01-1">
-        <img 
+          <img 
             :src="baseUrl + 'great.png'+ this.$qiniuCompress()"
             class="great">
         </span>
         <span v-if="!gameData.projectOne">
-        <img 
+          <img 
             :src="baseUrl + 'game01_2.png'+ this.$qiniuCompress()"
             class="game01-2">
-        <img 
+          <img 
             :src="baseUrl + 'question_mark.png'+ this.$qiniuCompress()"
             class="question">
         </span>
       </div>
       <div class="unlock">
         <span v-if="gameData.projectTwo">
-        <img 
+          <img 
             :src="baseUrl + 'game02_1.png'+ this.$qiniuCompress()"
             class="game02-1">
-        <img 
+          <img 
             :src="baseUrl + 'great.png'+ this.$qiniuCompress()"
             class="great">
         <!-- <b class="font">{{score}}</b> -->
-      </span>
-      <span v-if="!gameData.projectTwo">
-        <img 
+        </span>
+        <span v-if="!gameData.projectTwo">
+          <img 
             :src="baseUrl + 'game02_2.png'+ this.$qiniuCompress()"
             class="game02-2">
-        <img 
+          <img 
             :src="baseUrl + 'question_mark.png'+ this.$qiniuCompress()"
             class="question">
         </span>
       </div>
-     <div class="unlock">
-      <span v-if="gameData.projectThree">
-        <img 
+      <div class="unlock">
+        <span v-if="gameData.projectThree">
+          <img 
             :src="baseUrl + 'game03_1.png'+ this.$qiniuCompress()"
             class="game03-1">
-        <img 
+          <img 
             :src="baseUrl + 'great.png'+ this.$qiniuCompress()"
             class="great">
         <!-- <b class="font">{{score}}</b> -->
-      </span>
-      <span v-if="!gameData.projectThree">
-        <img 
+        </span>
+        <span v-if="!gameData.projectThree">
+          <img 
             :src="baseUrl + 'game03_2.png'+ this.$qiniuCompress()"
             class="game03-2">
-        <img 
+          <img 
             :src="baseUrl + 'question_mark.png'+ this.$qiniuCompress()"
             class="question">
         </span>
-     </div>  
+      </div>  
     </div>
   </div>
 </template>
