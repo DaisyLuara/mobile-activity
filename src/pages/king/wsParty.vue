@@ -5,7 +5,7 @@
     <img 
       :src="baseUrl + 'T.png'+ this.$qiniuCompress()"
       class="topImg">
-     <img 
+    <img 
       :src="baseUrl + 'hand.png'+ this.$qiniuCompress()"
       class="btImg">
     <img 
