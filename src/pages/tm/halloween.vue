@@ -355,8 +355,9 @@ export default {
     },
     getGame() {
       let args = {
-        // withCredentials: true,
-        belong: 'TrickHalloween,GhostHunter,HallowCandy'
+        params: {
+          belong: 'TrickHalloween,GhostHunter,HallowCandy'
+        }
       }
       let userId = this.params.userId
       getGame(args, userId)
