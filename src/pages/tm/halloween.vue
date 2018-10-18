@@ -238,7 +238,7 @@ export default {
         title: 'HALLOWEEN万圣节',
         desc: '快来陪我玩吧，嘿嘿嘿~',
         link:
-          'http://papi.xingstation.com/api/s/nZR' +
+          'http://h5.newgls.cn/marketing/halloween' +
           window.location.search +
           '&type=WeChat',
         imgUrl: cdnUrl + '/fe/marketing/img/halloween/icon.png',
