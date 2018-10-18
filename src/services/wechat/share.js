@@ -67,7 +67,8 @@ const $wechat = () => {
             'onMenuShareWeibo',
             'onMenuShareQZone',
             'hideMenuItems',
-            'hideOptionMenu'
+            'hideOptionMenu',
+            'scanQRCode'
           ]
         })
         wx.ready(() => {
