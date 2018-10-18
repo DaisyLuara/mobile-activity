@@ -41,6 +41,11 @@ const forbidden = () => {
   })
 }
 
+// 微信扫一扫
+const qRCode = scanQrCodeObject => {
+  wx.scanQRCode(scanQrCodeObject)
+}
+
 const $wechat = () => {
   return new Promise((resolve, reject) => {
     let requestUrl = process.env.WX_API + '/wx/officialAccount/sign'
@@ -70,7 +75,8 @@ const $wechat = () => {
           resolve({
             wx,
             share,
-            forbidden
+            forbidden,
+            qRCode
           })
         })
       })
