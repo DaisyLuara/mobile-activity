@@ -50,7 +50,7 @@ const $wechat = () => {
         // sign返回格式
         let r = response.data.data
         wx.config({
-          debug: false,
+          debug: true,
           appId: r.appId,
           timestamp: r.timestamp,
           nonceStr: r.nonceStr,
