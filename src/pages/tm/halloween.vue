@@ -195,20 +195,20 @@ export default {
         img2: null,
         img3: null
       },
-      arr: [
-        {
-          belong: 'TrickHalloween',
-          image_url: cdnUrl + '/fe/marketing/img/halloween/game01_1.png'
-        },
-        // {
-        //   belong: 'GhostHunter',
-        //   image_url: cdnUrl + '/fe/marketing/img/halloween/game02_1.png'
-        // }
-        {
-          belong: 'HallowCandy',
-          image_url: cdnUrl + '/fe/marketing/img/halloween/game03_1.png'
-        }
-      ],
+      // arr: [
+      //   {
+      //     belong: 'TrickHalloween',
+      //     image_url: cdnUrl + '/fe/marketing/img/halloween/game01_1.png'
+      //   },
+      //   // {
+      //   //   belong: 'GhostHunter',
+      //   //   image_url: cdnUrl + '/fe/marketing/img/halloween/game02_1.png'
+      //   // }
+      //   {
+      //     belong: 'HallowCandy',
+      //     image_url: cdnUrl + '/fe/marketing/img/halloween/game03_1.png'
+      //   }
+      // ],
       isMotion: {
         one: false,
         two: false,
@@ -355,7 +355,8 @@ export default {
     },
     getGame() {
       let args = {
-        withCredentials: true
+        withCredentials: true,
+        belong: 'TrickHalloween,GhostHunter,HallowCandy'
       }
       let userId = this.params.userId
       getGame(args, userId)
