@@ -163,6 +163,17 @@ const Date201810 = [
       desc: '扫一扫2'
     },
     isAbandoned: false
+  },
+  {
+    path: 'ws_party',
+    location: 'king/wsParty',
+    name: 'ws_party',
+    meta: {
+      title: '万圣节',
+      author: 'xj1012',
+      desc: '万圣party'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201810
