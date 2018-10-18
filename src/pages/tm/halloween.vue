@@ -5,7 +5,9 @@
     <!-- tab切换区域显示-->
     <div 
       class="group">
-      <ul>
+      <ul
+      :class="{'x-list':iphoneX,'list':!iphoneX}" 
+      class="list">
         <li 
           v-show="tab.one" 
           class="one" >
@@ -20,7 +22,7 @@
           <!-- 已解锁 -->
           <img 
             v-if="gameData.projectOne" 
-            :src="photo + this.$qiniuCompress()"
+            :src="photoImage.img1 + this.$qiniuCompress()"
             class="photo">
         </li>
         <li 
@@ -37,7 +39,7 @@
           <!-- 已解锁 -->
           <img 
             v-if="gameData.projectTwo"
-            :src="photo + this.$qiniuCompress()"
+            :src="photoImage.img2 + this.$qiniuCompress()"
             class="photo">
         </li>
         <li 
@@ -54,12 +56,16 @@
           <!-- 已解锁 -->
           <img 
             v-if="gameData.projectThree" 
-            :src="photo + this.$qiniuCompress()"
+            :src="photoImage.img3 + this.$qiniuCompress()"
             class="photo">
         </li>
       </ul>
-      <div class="button">
-        <a @click.self="tabClick('PaPaJohnsPizza')">
+      <!-- 右边栏的button -->
+      <div 
+        v-if="!wechat" 
+        :class="{'x-button':iphoneX,'button':!iphoneX}"
+        class="button">
+        <a @click.self="tabClick('TrickHalloween',true)">
           <img 
             v-if="gameData.projectOne"
             :src="baseUrl + 'card01_tag01.png'+ this.$qiniuCompress()"
@@ -69,7 +75,7 @@
             :src="baseUrl + 'card01_tag02.png'+ this.$qiniuCompress()"
             class="card01-tag02">
         </a>
-        <a @click.self="tabClick('huawei')">
+        <a @click.self="tabClick('GhostHunter',true)">
           <img 
             v-if="gameData.projectTwo"
             :src="baseUrl + 'card02_tag01.png'+ this.$qiniuCompress()"
@@ -79,7 +85,7 @@
             :src="baseUrl + 'card02_tag02.png'+ this.$qiniuCompress()"
             class="card02-tag02">
         </a>
-        <a @click.self="tabClick('childDream')">
+        <a @click.self="tabClick('HallowCandy',true)">
           <img 
             v-if="gameData.projectThree"
             :src="baseUrl + 'card03_tag01.png'+ this.$qiniuCompress()"
@@ -92,7 +98,10 @@
       </div>
     </div>
     <!-- 解锁区域 -->
-    <div class="unlockArea">
+    <div 
+      v-if="!wechat" 
+      :class="{'x-unlockArea':iphoneX,'unlockArea':!iphoneX}"
+      class="unlockArea">
       <div class="unlock">
         <span v-if="gameData.projectOne">
           <img 
@@ -100,6 +109,7 @@
             class="game01-1">
           <img 
             :src="baseUrl + 'great.png'+ this.$qiniuCompress()"
+            :class="{'bounce':isMotion.one}"
             class="great">
         </span>
         <span v-if="!gameData.projectOne">
@@ -108,7 +118,9 @@
             class="game01-2">
           <img 
             :src="baseUrl + 'question_mark.png'+ this.$qiniuCompress()"
-            class="question">
+            :class="{'tada':isMotion.one}"
+            class="question "
+            >
         </span>
       </div>
       <div class="unlock">
@@ -118,8 +130,8 @@
             class="game02-1">
           <img 
             :src="baseUrl + 'great.png'+ this.$qiniuCompress()"
+            :class="{'bounce':isMotion.two}"
             class="great">
-        <!-- <b class="font">{{score}}</b> -->
         </span>
         <span v-if="!gameData.projectTwo">
           <img 
@@ -127,6 +139,7 @@
             class="game02-2">
           <img 
             :src="baseUrl + 'question_mark.png'+ this.$qiniuCompress()"
+            :class="{'tada':isMotion.two}"
             class="question">
         </span>
       </div>
@@ -137,8 +150,8 @@
             class="game03-1">
           <img 
             :src="baseUrl + 'great.png'+ this.$qiniuCompress()"
+            :class="{'bounce':isMotion.three}"
             class="great">
-        <!-- <b class="font">{{score}}</b> -->
         </span>
         <span v-if="!gameData.projectThree">
           <img 
@@ -146,6 +159,7 @@
             class="game03-2">
           <img 
             :src="baseUrl + 'question_mark.png'+ this.$qiniuCompress()"
+            :class="{'tada':isMotion.three}"
             class="question">
         </span>
       </div>  
@@ -158,13 +172,15 @@ import {
   wechatShareTrack,
   isInWechat,
   Cookies,
+  getInfoById,
   userGame,
   getGame
 } from 'services'
-import { normalPages } from '../../mixins/normalPages'
+import { onlyWechatShare } from '../../mixins/onlyWechatShare'
 const cdnUrl = process.env.CDN_URL
+import 'animate.css'
 export default {
-  mixins: [normalPages],
+  mixins: [onlyWechatShare],
   data() {
     return {
       baseUrl: cdnUrl + '/fe/marketing/img/halloween/',
@@ -174,16 +190,38 @@ export default {
         }
       },
       photo: null,
-      isClick: true,
+      photoImage: {
+        img1: null,
+        img2: null,
+        img3: null
+      },
+      // arr: [
+      //   {
+      //     belong: 'TrickHalloween',
+      //     image_url: cdnUrl + '/fe/marketing/img/halloween/game01_1.png'
+      //   },
+      //   // {
+      //   //   belong: 'GhostHunter',
+      //   //   image_url: cdnUrl + '/fe/marketing/img/halloween/game02_1.png'
+      //   // }
+      //   {
+      //     belong: 'HallowCandy',
+      //     image_url: cdnUrl + '/fe/marketing/img/halloween/game03_1.png'
+      //   }
+      // ],
+      isMotion: {
+        one: false,
+        two: false,
+        three: false
+      },
+      wechat: false,
+      iphoneX: false,
       params: {
-        deUrl:
-          'http://wx.qlogo.cn/mmopen/Q3auHgzwzM4VoBYD1YEIq0E3LFM1XLKsd3sG5VXRAvCUqCVXIPTcI0TzqicRWfzB9Zv40GhTR83RhKAugpzOuaJFC11nxmcnnp6ZbOu04UFw/;',
         userId: null,
         belong: this.$route.query.utm_campaign,
         id: this.$route.query.id,
         score: this.$route.query.score
       },
-      score: this.$route.query.score,
       tab: {
         one: true,
         two: false,
@@ -197,9 +235,12 @@ export default {
       },
       //分享
       wxShareInfoValue: {
-        title: '中秋国庆星乐享，1000份好礼“刷脸”大派送！',
-        desc: '大融城-星视度嗨玩节，福利优惠拿不停。',
-        link: 'http://papi.xingstation.com/api/s/nZR' + window.location.search,
+        title: 'HALLOWEEN万圣节',
+        desc: '快来陪我玩吧，嘿嘿嘿~',
+        link:
+          'http://papi.xingstation.com/api/s/nZR' +
+          window.location.search +
+          '&type=WeChat',
         imgUrl: cdnUrl + '/fe/marketing/img/halloween/icon.png',
         success: () => {
           wechatShareTrack()
@@ -207,8 +248,21 @@ export default {
       }
     }
   },
+  created() {},
   mounted() {
-    // this.tabClick(this.params.belong)
+    //为本地测试打开
+    //this.tabClick(this.params.belong, false)
+    //this.projectStatus(this.arr)
+    //分享页面处理
+    if (this.$route.query.type != null && this.$route.query.type != undefined) {
+      this.wechat = true
+    }
+    //适配
+    if (this.$innerHeight() > 672) {
+      this.iphoneX = true
+    } else {
+      this.iphoneX = false
+    }
     //微信授权
     if (isInWechat() === true) {
       if (
@@ -220,23 +274,49 @@ export default {
     }
   },
   methods: {
-    tabClick(type) {
-      console.log(type)
-      if (type === 'PaPaJohnsPizza') {
+    getInfoById() {
+      let id = this.$route.query.id
+      getInfoById(id)
+        .then(res => {
+          this.photo = res.image
+          if (this.wechat) {
+            this.photoImage.img1 = this.photo
+            this.photoImage.img2 = this.photo
+            this.photoImage.img3 = this.photo
+          } else {
+            this.userGame()
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    tabClick(adName, isInit) {
+      console.log(adName)
+      if (adName === 'TrickHalloween') {
+        this.isMotion.one = isInit ? true : false
         this.tab.one = true
         this.tab.two = false
         this.tab.three = false
       }
-      if (type === 'huawei') {
+      if (adName === 'GhostHunter') {
+        this.isMotion.two = isInit ? true : false
         this.tab.one = false
         this.tab.two = true
         this.tab.three = false
       }
-      if (type === 'childDream') {
+      if (adName === 'HallowCandy') {
+        this.isMotion.three = isInit ? true : false
         this.tab.one = false
         this.tab.two = false
         this.tab.three = true
       }
+      let ref = this
+      setTimeout(function() {
+        ref.isMotion.one = false
+        ref.isMotion.two = false
+        ref.isMotion.three = false
+      }, 1000)
     },
     handleWechatAuth() {
       if (Cookies.get('sign') === null) {
@@ -250,14 +330,16 @@ export default {
       } else {
         this.params.userId = Cookies.get('user_id')
         this.params.belong = this.$route.query.utm_campaign
+        //线上打开
         this.tabClick(this.params.belong)
-        this.userGame()
+        //判断是否是微信分享链接 决定是否向后台发送数据
+        this.getInfoById()
       }
     },
     userGame() {
       let args = {
         belong: this.params.belong,
-        image_url: this.params.deUrl,
+        image_url: this.photo,
         qiniu_id: this.params.id,
         score: this.params.score
       }
@@ -273,33 +355,37 @@ export default {
     },
     getGame() {
       let args = {
-        withCredentials: true
+        withCredentials: true,
+        belong: 'TrickHalloween,GhostHunter,HallowCandy'
       }
       let userId = this.params.userId
       getGame(args, userId)
         .then(res => {
           console.log('++++++++')
           console.log(res)
-          this.projectStatus(res, userId)
+          this.projectStatus(res)
         })
         .catch(err => {
           console.log(err)
         })
     },
-    projectStatus(list, userId) {
+    projectStatus(list) {
       let data = list
       console.log(list)
       data.map(r => {
         // 节目1，搞怪万圣节
-        if (r.belong === 'PaPaJohnsPizza') {
+        if (r.belong === 'TrickHalloween') {
+          this.photoImage.img1 = r.image_url
           this.gameData.projectOne = true
         }
         // 节目2，不给糖就捣蛋
-        if (r.belong === 'huawei') {
+        if (r.belong === 'GhostHunter') {
+          this.photoImage.img2 = r.image_url
           this.gameData.projectTwo = true
         }
         // 节目3,抓鬼大冒险
-        if (r.belong === 'childDream') {
+        if (r.belong === 'HallowCandy') {
+          this.photoImage.img3 = r.image_url
           this.gameData.projectThree = true
         }
       })
@@ -340,13 +426,13 @@ img {
   .group {
     width: 100%;
     position: relative;
-    ul {
+    .list {
       width: 80%;
       position: absolute;
       left: 50%;
       top: 0%;
       transform: translate(-50%, 0);
-      margin-top: 15%;
+      margin-top: 18%;
       li {
         img {
           width: 85%;
@@ -369,11 +455,19 @@ img {
         }
       }
     }
+    .x-list {
+      width: 90%;
+      position: absolute;
+      left: 50%;
+      top: 0%;
+      transform: translate(-50%, 0);
+      margin-top: 25%;
+    }
     .button {
       width: 32%;
       position: absolute;
       right: -15.9%;
-      margin-top: 15%;
+      margin-top: 18%;
       a {
         display: block;
         img {
@@ -382,12 +476,18 @@ img {
         }
       }
     }
+    .x-button {
+      width: 32%;
+      position: absolute;
+      right: -19.9%;
+      margin-top: 25%;
+    }
   }
   .unlockArea {
     width: 100%;
     position: absolute;
     left: 0;
-    bottom: 2%;
+    bottom: 0.8%;
     display: flex;
     justify-content: space-around;
     padding: 0 5%;
@@ -412,6 +512,74 @@ img {
         top: 10%;
       }
     }
+  }
+  .x-unlockArea {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 3%;
+    display: flex;
+    justify-content: space-around;
+    padding: 0 5%;
+  }
+  .tada {
+    animation: Tada 1s linear alternate;
+    animation-fill-mode: forwards;
+  }
+  .bounce {
+    animation: bounceIn 0.5s linear alternate;
+    animation-fill-mode: forwards;
+  }
+}
+
+@keyframes Tada {
+  0% {
+    transform: scale(1);
+    transform: scale(1);
+  }
+
+  10%,
+  20% {
+    transform: scale(0.9) rotate(-3deg);
+    transform: scale(0.9) rotate(-3deg);
+  }
+
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: scale(1.1) rotate(3deg);
+    transform: scale(1.1) rotate(3deg);
+  }
+
+  40%,
+  60%,
+  80% {
+    transform: scale(1.1) rotate(-3deg);
+    transform: scale(1.1) rotate(-3deg);
+  }
+
+  100% {
+    transform: scale(1) rotate(0);
+    transform: scale(1) rotate(0);
+  }
+}
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.2) translate3d(0, 0, 0);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.1);
+  }
+  80% {
+    opacity: 1;
+    transform: scale(0.79);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translate3d(0, 0, 0);
   }
 }
 </style>
