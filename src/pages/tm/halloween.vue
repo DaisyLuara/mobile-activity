@@ -231,7 +231,7 @@ export default {
       gameData: {
         projectOne: false,
         projectTwo: false,
-        projectThree: true
+        projectThree: false
       },
       //分享
       wxShareInfoValue: {
