@@ -223,7 +223,7 @@ export default {
         score: this.$route.query.score
       },
       tab: {
-        one: true,
+        one: false,
         two: false,
         three: false
       },
