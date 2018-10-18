@@ -152,6 +152,39 @@ const Date201810 = [
       desc: '万圣节三个节目联动'
     },
     isAbandoned: false
+  },
+  {
+    path: 'halloween_one',
+    location: 'halloween/one',
+    name: 'halloween_one',
+    meta: {
+      title: '星视度',
+      author: 'xj1012',
+      desc: '万圣节三个节目联动'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'halloween_two',
+    location: 'halloween/two',
+    name: 'halloween_two',
+    meta: {
+      title: '星视度',
+      author: 'xj1012',
+      desc: '万圣节三个节目联动'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'halloween_three',
+    location: 'halloween/three',
+    name: 'halloween_two',
+    meta: {
+      title: '星视度',
+      author: 'xj1012',
+      desc: '万圣节三个节目联动'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201810
