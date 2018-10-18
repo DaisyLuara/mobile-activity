@@ -40,8 +40,8 @@ export default {
       iphoneX: false,
       photo: null,
       wxShareInfoValue: {
-        title: '甜蜜冬日',
-        desc: '不给糖就捣蛋',
+        title: 'Happy Halloween ',
+        desc: '万圣狂欢 等你来Halloween',
         link: 'http://papi.xingstation.com/api/s/Yvp' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/ws_party/icon.png',
         success: () => {
