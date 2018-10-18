@@ -10,13 +10,13 @@
       <div class="verify-camera_input">
         <img :src="img_url+'camera.png?v='+version" />
         <input type="file" id='image' accept="image/*" class="camera-input">
-        <input type="type" placeholder="请输入订单号" maxlength="8">
+        <input v-model="verifyForm.order" type="type" placeholder="请输入订单号" maxlength="8" >
       </div>
     </div>
     <div class="verify-money">
       <div class="verify-money_input">
         <img :src="img_url+'money.png?v='+version" />
-        <input type="type" placeholder="请输入订单金额" maxlength="4">
+        <input v-model="verifyForm.money" type="type" placeholder="请输入订单金额" maxlength="4">
       </div>
     </div>
     <div class="verify-button">
@@ -28,6 +28,7 @@
 
 <script>
 // @ is an alias to /src
+import { $wechat } from 'services'
 import wx from 'weixin-js-sdk'
 const CDN_URL = process.env.CDN_URL
 export default {
@@ -37,7 +38,9 @@ export default {
       img_url: CDN_URL + '/shopM/img/',
       version: 1,
       verifyForm: {
-        coupon: ''
+        coupon: '',
+        order: '',
+        money: ''
       }
     }
   },
@@ -45,53 +48,22 @@ export default {
   created() {},
   methods: {
     wxQrCode() {
-      alert(33)
-      return new Promise((resolve, reject) => {
-        let requestUrl = process.env.WX_API + '/wx/officialAccount/sign'
-        this.$http
-          .get(requestUrl)
-          .then(response => {
-            // sign返回格式
-            let r = response.data.data
-            wx.config({
-              debug: false,
-              appId: r.appId,
-              timestamp: r.timestamp,
-              nonceStr: r.nonceStr,
-              signature: r.signature,
-              jsApiList: [
-                'onMenuShareAppMessage',
-                'onMenuShareTimeline',
-                'onMenuShareQQ',
-                'onMenuShareWeibo',
-                'onMenuShareQZone',
-                'hideMenuItems',
-                'hideOptionMenu',
-                'scanQRCode'
-              ]
-            })
-            wx.ready(() => {
-              wx.scanQRCode({
-                desc: 'scanQRCode desc',
-                needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
-                scanType: ['qrCode', 'barCode'], // 可以指定扫二维码还是一维码，默认二者都有
-                success: function(res) {
-                  alert(res.resultStr)
-                },
-                error: function(e) {
-                  alert(JSON.stringify(e))
-                }
-              })
-              // 配置 wx.config 成功
-              resolve({
-                wx
-              })
-            })
-          })
-          .catch(e => {
-            reject(e)
-          })
-      })
+      let qrCode = {
+        desc: 'scanQRCode desc',
+        needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+        scanType: ['qrCode', 'barCode'], // 可以指定扫二维码还是一维码，默认二者都有
+        success: function(res) {
+          alert(res.resultStr)
+          this.verifyForm.coupon = res.resultStr
+        }
+      }
+      $wechat()
+        .then(res => {
+          res.qRCode(qrCode)
+        })
+        .catch(err => {
+          console.warn(err.message)
+        })
     }
   }
 }
@@ -118,7 +90,7 @@ export default {
       line-height: 1.15;
       .camera-input {
         height: 35px;
-        width: 8%;
+        width: 28px;
         position: absolute;
         left: 9%;
         opacity: 0;
