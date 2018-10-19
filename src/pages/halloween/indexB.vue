@@ -20,7 +20,7 @@
       </ul>
     </div> 
     <img 
-      :src="baseUrl + 'tips02.png'+ this.$qiniuCompress()"
+      :src="baseUrl + 'tips01.png'+ this.$qiniuCompress()"
       :class="{'x-save':iphoneX,'save':!iphoneX}" 
       class="save">
   </div>
