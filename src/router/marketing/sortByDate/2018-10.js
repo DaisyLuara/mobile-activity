@@ -174,6 +174,39 @@ const Date201810 = [
       desc: '万圣party'
     },
     isAbandoned: false
+  },
+  {
+    path: 'halloween_one',
+    location: 'halloween/indexA',
+    name: 'halloween_one',
+    meta: {
+      title: '星视度',
+      author: 'xj1012',
+      desc: '搞怪万圣节-通用版'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'halloween_two',
+    location: 'halloween/indexB',
+    name: 'halloween_two',
+    meta: {
+      title: '星视度',
+      author: 'xj1012',
+      desc: '不给糖就捣蛋-通用版'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'halloween_three',
+    location: 'halloween/indexC',
+    name: 'halloween_three',
+    meta: {
+      title: '星视度',
+      author: 'xj1012',
+      desc: '抓鬼大冒险-通用版'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201810
