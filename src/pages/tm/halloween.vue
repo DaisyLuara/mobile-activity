@@ -78,31 +78,31 @@
         class="button">
         <a @click.self="tabClick('TrickHalloween',true)">
           <img 
-            v-if="gameData.projectOne"
+            v-if="tab.one"
             :src="baseUrl + 'card01_tag01.png'+ this.$qiniuCompress()"
             class="card01-tag01">
           <img 
-            v-if="!gameData.projectOne"
+            v-if="!tab.one"
             :src="baseUrl + 'card01_tag02.png'+ this.$qiniuCompress()"
             class="card01-tag02">
         </a>
         <a @click.self="tabClick('GhostHunter',true)">
           <img 
-            v-if="gameData.projectTwo"
+            v-if="tab.two"
             :src="baseUrl + 'card02_tag01.png'+ this.$qiniuCompress()"
             class="card02-tag01">
           <img 
-            v-if="!gameData.projectTwo"
+            v-if="!tab.two"
             :src="baseUrl + 'card02_tag02.png'+ this.$qiniuCompress()"
             class="card02-tag02">
         </a>
         <a @click.self="tabClick('HallowCandy',true)">
           <img 
-            v-if="gameData.projectThree"
+            v-if="tab.three"
             :src="baseUrl + 'card03_tag01.png'+ this.$qiniuCompress()"
             class="card03-tag01">
           <img 
-            v-if="!gameData.projectThree"
+            v-if="!tab.three"
             :src="baseUrl + 'card03_tag02.png'+ this.$qiniuCompress()"
             class="card03-tag02">
         </a>
@@ -252,9 +252,6 @@ export default {
   },
   created() {},
   mounted() {
-    //为本地测试打开
-    // this.tabClick(this.params.belong, false)
-    // this.projectStatus(this.arr)
     //分享页面处理
     if (this.$route.query.type != null && this.$route.query.type != undefined) {
       this.wechat = true
