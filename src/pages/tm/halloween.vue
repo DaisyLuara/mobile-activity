@@ -20,10 +20,27 @@
             :src="baseUrl + 'card01_unlocked.png'+ this.$qiniuCompress()"
             class="card01-unlocked">
           <!-- 已解锁 -->
-          <img 
+          <video 
             v-if="gameData.projectOne" 
-            :src="photoImage.img1 + this.$qiniuCompress()"
-            class="photo">
+            id="video"
+            class="photo"
+            webkit-playsinline="true" 
+            playsinline="true" 
+            x-webkit-airplay="true" 
+            preload="auto"
+            width="100%" 
+            height="100%">
+            <source 
+              :src="photoImage.img1" 
+              type="video/mp4">
+            您的浏览器不支持video标签.
+          </video>
+          <img 
+            v-show="buttonshow"
+            v-if="gameData.projectOne" 
+            src="https://cdn.exe666.com/fe/marketing/img/save_moonCake/play2.png"
+            class="play"
+            @click="playVideo()">
         </li>
         <li 
           v-show="tab.two" 
@@ -196,14 +213,15 @@ export default {
         img3: null
       },
       // arr: [
-      //   {
-      //     belong: 'TrickHalloween',
-      //     image_url: cdnUrl + '/fe/marketing/img/halloween/game01_1.png'
-      //   },
       //   // {
-      //   //   belong: 'GhostHunter',
-      //   //   image_url: cdnUrl + '/fe/marketing/img/halloween/game02_1.png'
-      //   // }
+      //   //   belong: 'TrickHalloween',
+      //   //   image_url:
+      //   //     'http://cdn.exe666.com/1007/video/TrickHalloween_361_493_1492920566565.mp4'
+      //   // },
+      //   {
+      //     belong: 'GhostHunter',
+      //     image_url: cdnUrl + '/fe/marketing/img/halloween/game02_1.png'
+      //   },
       //   {
       //     belong: 'HallowCandy',
       //     image_url: cdnUrl + '/fe/marketing/img/halloween/game03_1.png'
@@ -214,6 +232,7 @@ export default {
         two: false,
         three: false
       },
+      buttonshow: true,
       wechat: false,
       iphoneX: false,
       params: {
@@ -251,8 +270,8 @@ export default {
   created() {},
   mounted() {
     //为本地测试打开
-    //this.tabClick(this.params.belong, false)
-    //this.projectStatus(this.arr)
+    // this.tabClick(this.params.belong, false)
+    // this.projectStatus(this.arr)
     //分享页面处理
     if (this.$route.query.type != null && this.$route.query.type != undefined) {
       this.wechat = true
@@ -278,11 +297,26 @@ export default {
       let id = this.$route.query.id
       getInfoById(id)
         .then(res => {
-          this.photo = res.image
+          console.log('111111111111111')
+          console.log(this.res)
+          this.photo =
+            this.params.belong === 'TrickHalloween' ? res.url : res.image
+          //是否是微信分享
           if (this.wechat) {
             this.photoImage.img1 = this.photo
-            this.photoImage.img2 = this.photo
-            this.photoImage.img3 = this.photo
+            if (this.params.belong != 'TrickHalloween') {
+              this.photoImage.img2 = this.photo
+              this.photoImage.img3 = this.photo
+            }
+            if (this.params.belong === 'TrickHalloween') {
+              this.gameData.projectOne = true
+            }
+            if (this.params.belong === 'GhostHunter') {
+              this.gameData.projectTwo = true
+            }
+            if (this.params.belong === 'HallowCandy') {
+              this.gameData.projectThree = true
+            }
           } else {
             this.userGame()
           }
@@ -290,6 +324,22 @@ export default {
         .catch(err => {
           console.log(err)
         })
+    },
+    //播放视频
+    playVideo() {
+      let that = this
+      this.playNow = document.getElementById('video')
+      this.playNow.play()
+      this.buttonshow = false
+      this.playNow.onplay = function() {
+        that.playNow.currentTime = 0
+      }
+      this.playNow.onended = function() {
+        that.buttonshow = true
+      }
+      this.playNow.onpause = function() {
+        that.buttonshow = true
+      }
     },
     tabClick(adName, isInit) {
       console.log(adName)
@@ -331,7 +381,7 @@ export default {
         this.params.userId = Cookies.get('user_id')
         this.params.belong = this.$route.query.utm_campaign
         //线上打开
-        this.tabClick(this.params.belong)
+        this.tabClick(this.params.belong, false)
         //判断是否是微信分享链接 决定是否向后台发送数据
         this.getInfoById()
       }
@@ -453,6 +503,16 @@ img {
           left: 50%;
           top: 50%;
           transform: translate(-50%, -50.2%);
+        }
+        .play {
+          width: 24%;
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          user-select: auto;
+          pointer-events: auto;
+          z-index: 10;
         }
       }
     }
