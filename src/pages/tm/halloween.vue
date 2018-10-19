@@ -14,12 +14,10 @@
           <img 
             :src="baseUrl + 'card01.png'+ this.$qiniuCompress()"
             class="card01">
-          <!-- 未解锁 -->
           <img 
             v-if="!gameData.projectOne"
             :src="baseUrl + 'card01_unlocked.png'+ this.$qiniuCompress()"
             class="card01-unlocked">
-          <!-- 已解锁 -->
           <video 
             v-if="gameData.projectOne" 
             id="video"
@@ -48,12 +46,10 @@
           <img 
             :src="baseUrl + 'card02.png'+ this.$qiniuCompress()"
             class="card02">
-          <!-- 未解锁 -->
           <img 
             v-if="!gameData.projectTwo"
             :src="baseUrl + 'card02_unlocked.png'+ this.$qiniuCompress()"
             class="card02-unlocked">
-          <!-- 已解锁 -->
           <img 
             v-if="gameData.projectTwo"
             :src="photoImage.img2 + this.$qiniuCompress()"
@@ -65,12 +61,10 @@
           <img 
             :src="baseUrl + 'card03.png'+ this.$qiniuCompress()"
             class="card03">
-          <!-- 未解锁 -->
           <img 
             v-if="!gameData.projectThree"
             :src="baseUrl + 'card03_unlocked.png'+ this.$qiniuCompress()"
             class="card03-unlocked">
-          <!-- 已解锁 -->
           <img 
             v-if="gameData.projectThree" 
             :src="photoImage.img3 + this.$qiniuCompress()"
@@ -212,21 +206,6 @@ export default {
         img2: null,
         img3: null
       },
-      // arr: [
-      //   // {
-      //   //   belong: 'TrickHalloween',
-      //   //   image_url:
-      //   //     'http://cdn.exe666.com/1007/video/TrickHalloween_361_493_1492920566565.mp4'
-      //   // },
-      //   {
-      //     belong: 'GhostHunter',
-      //     image_url: cdnUrl + '/fe/marketing/img/halloween/game02_1.png'
-      //   },
-      //   {
-      //     belong: 'HallowCandy',
-      //     image_url: cdnUrl + '/fe/marketing/img/halloween/game03_1.png'
-      //   }
-      // ],
       isMotion: {
         one: false,
         two: false,
@@ -257,7 +236,7 @@ export default {
         title: 'HALLOWEEN万圣节',
         desc: '快来陪我玩吧，嘿嘿嘿~',
         link:
-          'http://h5.newgls.cn/marketing/halloween' +
+          'http://papi.xingstation.com/api/s/ZV6' +
           window.location.search +
           '&type=WeChat',
         imgUrl: cdnUrl + '/fe/marketing/img/halloween/icon.png',
@@ -297,7 +276,6 @@ export default {
       let id = this.$route.query.id
       getInfoById(id)
         .then(res => {
-          console.log('111111111111111')
           console.log(res)
           this.photo =
             this.params.belong === 'TrickHalloween' ? res.url : res.image
@@ -396,7 +374,6 @@ export default {
       userGame(args, this.params.userId)
         .then(res => {
           console.log(res)
-          console.log('-------------')
           this.getGame()
         })
         .catch(e => {
@@ -412,7 +389,6 @@ export default {
       let userId = this.params.userId
       getGame(args, userId)
         .then(res => {
-          console.log('++++++++')
           console.log(res)
           this.projectStatus(res)
         })
@@ -484,6 +460,9 @@ img {
       top: 0%;
       transform: translate(-50%, 0);
       margin-top: 18%;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      pointer-events: none;
       li {
         img {
           width: 85%;
@@ -503,6 +482,8 @@ img {
           left: 50%;
           top: 50%;
           transform: translate(-50%, -50.2%);
+          user-select: auto;
+          pointer-events: auto;
         }
         .play {
           width: 24%;
@@ -523,6 +504,9 @@ img {
       top: 0%;
       transform: translate(-50%, 0);
       margin-top: 25%;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      pointer-events: none;
     }
     .button {
       width: 32%;
