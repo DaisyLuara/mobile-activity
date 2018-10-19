@@ -189,7 +189,6 @@ import {
 } from 'services'
 import { onlyWechatShare } from '../../mixins/onlyWechatShare'
 const cdnUrl = process.env.CDN_URL
-import 'animate.css'
 export default {
   mixins: [onlyWechatShare],
   data() {

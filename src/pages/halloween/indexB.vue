@@ -19,6 +19,10 @@
         </li>   
       </ul>
     </div> 
+    <img 
+      :src="baseUrl + 'tips02.png'+ this.$qiniuCompress()"
+      :class="{'x-save':iphoneX,'save':!iphoneX}" 
+      class="save">
   </div>
 </template>
 <script>
@@ -31,7 +35,6 @@ import {
 } from 'services'
 import { normalPages } from '../../mixins/normalPages'
 const cdnUrl = process.env.CDN_URL
-import 'animate.css'
 export default {
   mixins: [normalPages],
   data() {
@@ -43,16 +46,12 @@ export default {
         }
       },
       photo: null,
-      buttonshow: true,
       iphoneX: false,
       //分享
       wxShareInfoValue: {
         title: 'HALLOWEEN万圣节',
         desc: '快来陪我玩吧，嘿嘿嘿~',
-        link:
-          'http://papi.xingstation.com/api/s/ZV6' +
-          window.location.search +
-          '&type=WeChat',
+        link: 'http://papi.xingstation.com/api/s/2vv' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/halloween/icon.png',
         success: () => {
           wechatShareTrack()
@@ -158,6 +157,18 @@ img {
       right: -19.9%;
       margin-top: 25%;
     }
+  }
+  .save {
+    width: 64%;
+    position: absolute;
+    left: 18%;
+    bottom: 1%;
+  }
+  .x-save {
+    width: 70%;
+    position: absolute;
+    left: 15%;
+    bottom: 4%;
   }
 }
 </style>
