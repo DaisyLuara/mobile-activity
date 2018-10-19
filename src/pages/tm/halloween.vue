@@ -6,8 +6,8 @@
     <div 
       class="group">
       <ul
-      :class="{'x-list':iphoneX,'list':!iphoneX}" 
-      class="list">
+        :class="{'x-list':iphoneX,'list':!iphoneX}" 
+        class="list">
         <li 
           v-show="tab.one" 
           class="one" >
@@ -131,7 +131,7 @@
             :src="baseUrl + 'question_mark.png'+ this.$qiniuCompress()"
             :class="{'tada':isMotion.one}"
             class="question "
-            >
+          >
         </span>
       </div>
       <div class="unlock">
