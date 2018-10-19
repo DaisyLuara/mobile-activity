@@ -127,7 +127,7 @@ const Date201810 = [
     meta: {
       title: '万圣节',
       author: 'xj1012',
-      desc: '搞怪万圣节'
+      desc: '万圣节一起扮鬼脸'
     },
     isAbandoned: false
   },
