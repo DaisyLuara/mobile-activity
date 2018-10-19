@@ -236,13 +236,9 @@ export default {
         title: 'HALLOWEEN万圣节',
         desc: '快来陪我玩吧，嘿嘿嘿~',
         link:
-          'http://h5.newgls.cn/marketing/halloween' +
+          'http://papi.xingstation.com/api/s/ZV6' +
           window.location.search +
           '&type=WeChat',
-        // link:
-        //   'http://papi.xingstation.com/api/s/ZV6' +
-        //   window.location.search +
-        //   '&type=WeChat',
         imgUrl: cdnUrl + '/fe/marketing/img/halloween/icon.png',
         success: () => {
           wechatShareTrack()
@@ -359,7 +355,6 @@ export default {
       } else {
         this.params.userId = Cookies.get('user_id')
         this.params.belong = this.$route.query.utm_campaign
-        //线上打开
         this.tabClick(this.params.belong, false)
         //判断是否是微信分享链接 决定是否向后台发送数据
         this.getInfoById()
