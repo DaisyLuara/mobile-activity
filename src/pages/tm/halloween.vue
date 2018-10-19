@@ -298,7 +298,7 @@ export default {
       getInfoById(id)
         .then(res => {
           console.log('111111111111111')
-          console.log(this.res)
+          console.log(res)
           this.photo =
             this.params.belong === 'TrickHalloween' ? res.url : res.image
           //是否是微信分享
