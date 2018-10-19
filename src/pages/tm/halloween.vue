@@ -86,7 +86,7 @@
             :src="baseUrl + 'card01_tag02.png'+ this.$qiniuCompress()"
             class="card01-tag02">
         </a>
-        <a @click.self="tabClick('GhostHunter',true)">
+        <a @click.self="tabClick('HallowCandy',true)">
           <img 
             v-if="tab.two"
             :src="baseUrl + 'card02_tag01.png'+ this.$qiniuCompress()"
@@ -96,7 +96,7 @@
             :src="baseUrl + 'card02_tag02.png'+ this.$qiniuCompress()"
             class="card02-tag02">
         </a>
-        <a @click.self="tabClick('HallowCandy',true)">
+        <a @click.self="tabClick('GhostHunter',true)">
           <img 
             v-if="tab.three"
             :src="baseUrl + 'card03_tag01.png'+ this.$qiniuCompress()"
@@ -290,10 +290,10 @@ export default {
             if (this.params.belong === 'TrickHalloween') {
               this.gameData.projectOne = true
             }
-            if (this.params.belong === 'GhostHunter') {
+            if (this.params.belong === 'HallowCandy') {
               this.gameData.projectTwo = true
             }
-            if (this.params.belong === 'HallowCandy') {
+            if (this.params.belong === 'GhostHunter') {
               this.gameData.projectThree = true
             }
           } else {
@@ -328,13 +328,13 @@ export default {
         this.tab.two = false
         this.tab.three = false
       }
-      if (adName === 'GhostHunter') {
+      if (adName === 'HallowCandy') {
         this.isMotion.two = isInit ? true : false
         this.tab.one = false
         this.tab.two = true
         this.tab.three = false
       }
-      if (adName === 'HallowCandy') {
+      if (adName === 'GhostHunter') {
         this.isMotion.three = isInit ? true : false
         this.tab.one = false
         this.tab.two = false
@@ -384,7 +384,7 @@ export default {
     getGame() {
       let args = {
         params: {
-          belong: 'TrickHalloween,GhostHunter,HallowCandy'
+          belong: 'TrickHalloween,HallowCandy,GhostHunter'
         }
       }
       let userId = this.params.userId
@@ -401,18 +401,18 @@ export default {
       let data = list
       console.log(list)
       data.map(r => {
-        // 节目1，搞怪万圣节
+        // 节目1，搞怪万圣节 TrickHalloween
         if (r.belong === 'TrickHalloween') {
           this.photoImage.img1 = r.image_url
           this.gameData.projectOne = true
         }
-        // 节目2，不给糖就捣蛋
-        if (r.belong === 'GhostHunter') {
+        // 节目2，不给糖就捣蛋 HallowCandy
+        if (r.belong === 'HallowCandy') {
           this.photoImage.img2 = r.image_url
           this.gameData.projectTwo = true
         }
-        // 节目3,抓鬼大冒险
-        if (r.belong === 'HallowCandy') {
+        // 节目3,抓鬼大冒险 GhostHunter
+        if (r.belong === 'GhostHunter') {
           this.photoImage.img3 = r.image_url
           this.gameData.projectThree = true
         }
