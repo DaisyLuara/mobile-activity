@@ -154,35 +154,24 @@ const Date201810 = [
     isAbandoned: false
   },
   {
-    path: 'halloween_one',
-    location: 'halloween/one',
-    name: 'halloween_one',
+    path: 'scan',
+    location: 'scanQRCode/index',
+    name: 'scanQRCode',
     meta: {
-      title: '星视度',
-      author: 'xj1012',
-      desc: '万圣节三个节目联动'
+      title: '扫一扫',
+      author: 'Joy',
+      desc: '扫一扫2'
     },
     isAbandoned: false
   },
   {
-    path: 'halloween_two',
-    location: 'halloween/two',
-    name: 'halloween_two',
+    path: 'ws_party',
+    location: 'king/wsParty',
+    name: 'ws_party',
     meta: {
-      title: '星视度',
+      title: '万圣节',
       author: 'xj1012',
-      desc: '万圣节三个节目联动'
-    },
-    isAbandoned: false
-  },
-  {
-    path: 'halloween_three',
-    location: 'halloween/three',
-    name: 'halloween_two',
-    meta: {
-      title: '星视度',
-      author: 'xj1012',
-      desc: '万圣节三个节目联动'
+      desc: '万圣party'
     },
     isAbandoned: false
   }

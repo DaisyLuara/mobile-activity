@@ -6,7 +6,7 @@
       :src="base + 'bg.png'"
       class="bg">
     <span
-      class="score">{{score}}</span>
+      class="score">{{ score }}</span>
     <div
       class="main">
       <div 
@@ -15,8 +15,7 @@
           :src="base + 'frame.png'"
           class="frame">
         <div
-          id="play">
-        </div>
+          id="play"/>
         <div
           class="text">
           <img
@@ -46,8 +45,7 @@
       </div>
     </div>
     <div
-      class="list">
-    </div>
+      class="list"/>
     <div
       v-show="mask"
       class="mask"
