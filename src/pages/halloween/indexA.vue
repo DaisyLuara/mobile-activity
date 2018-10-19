@@ -36,9 +36,9 @@
       </ul>
     </div> 
     <img 
-        :src="baseUrl + 'tips02.png'+ this.$qiniuCompress()"
-        :class="{'x-save':iphoneX,'save':!iphoneX}" 
-        class="save">
+      :src="baseUrl + 'tips02.png'+ this.$qiniuCompress()"
+      :class="{'x-save':iphoneX,'save':!iphoneX}" 
+      class="save">
   </div>
 </template>
 <script>
