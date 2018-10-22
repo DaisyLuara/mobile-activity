@@ -14,7 +14,7 @@
         <img
           :src="base + 'frame.png'"
           class="frame">
-        <span>{{score}}</span>
+        <span>{{ score }}</span>
         <div
           id="play"/>
         <div
@@ -46,11 +46,12 @@
       </div>
     </div>
     <div
-<<<<<<< HEAD
       class="list">
       <ul 
         class="rank-ul">
-        <li v-for="(item,index) in 4" :key="item.id" >
+        <li 
+          v-for="(item,index) in 4" 
+          :key="item.id" >
           <img
             :src="base + 't' + item + '.png'"
             class="icon_cover">
@@ -61,13 +62,10 @@
           <img
             :src="icon[index]"
             class="icon_img">
-          <span>{{rank_score[index]}}</span>
+          <span>{{ rank_score[index] }}</span>
         </li>
       </ul>
     </div>
-=======
-      class="list"/>
->>>>>>> develop
     <div
       v-show="mask"
       class="mask"
