@@ -352,14 +352,14 @@ export default {
               //头部
               let kui = imageSprite(
                 '/static/hero/1/toukui.png',
-                width * 0.35,
+                width * 0.3,
                 0,
                 width * 0.4,
                 (163 / 354) * width * 0.4
               )
               let head = imageSprite(
                 '/static/hero/1/head.png',
-                width * 0.4,
+                width * 0.41,
                 height * 0.075,
                 width * 0.2,
                 (136 / 235) * width * 0.2
@@ -405,7 +405,7 @@ export default {
                 24,
                 'Athena_016_000',
                 width * 0.35,
-                -height * 0.1,
+                -height * 0.02,
                 width * 0.3,
                 (215 / 121) * width * 0.3,
                 0.4,
