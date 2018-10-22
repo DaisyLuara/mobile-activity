@@ -76,7 +76,7 @@
         v-if="!wechat" 
         :class="{'x-button':iphoneX,'button':!iphoneX}"
         class="button">
-        <a @click.self="tabClick('TrickHalloween',true)">
+        <a @click.self="tabClick('TrickHalloweenLD',true)">
           <img 
             v-if="tab.one"
             :src="baseUrl + 'card01_tag01.png'+ this.$qiniuCompress()"
@@ -86,7 +86,7 @@
             :src="baseUrl + 'card01_tag02.png'+ this.$qiniuCompress()"
             class="card01-tag02">
         </a>
-        <a @click.self="tabClick('HallowCandy',true)">
+        <a @click.self="tabClick('HallowCandyLD',true)">
           <img 
             v-if="tab.two"
             :src="baseUrl + 'card02_tag01.png'+ this.$qiniuCompress()"
@@ -96,7 +96,7 @@
             :src="baseUrl + 'card02_tag02.png'+ this.$qiniuCompress()"
             class="card02-tag02">
         </a>
-        <a @click.self="tabClick('GhostHunter',true)">
+        <a @click.self="tabClick('GhostHunterLD',true)">
           <img 
             v-if="tab.three"
             :src="baseUrl + 'card03_tag01.png'+ this.$qiniuCompress()"
@@ -274,21 +274,21 @@ export default {
         .then(res => {
           console.log(res)
           this.photo =
-            this.params.belong === 'TrickHalloween' ? res.url : res.image
+            this.params.belong === 'TrickHalloweenLD' ? res.url : res.image
           //是否是微信分享
           if (this.wechat) {
             this.photoImage.img1 = this.photo
-            if (this.params.belong != 'TrickHalloween') {
+            if (this.params.belong != 'TrickHalloweenLD') {
               this.photoImage.img2 = this.photo
               this.photoImage.img3 = this.photo
             }
-            if (this.params.belong === 'TrickHalloween') {
+            if (this.params.belong === 'TrickHalloweenLD') {
               this.gameData.projectOne = true
             }
-            if (this.params.belong === 'HallowCandy') {
+            if (this.params.belong === 'HallowCandyLD') {
               this.gameData.projectTwo = true
             }
-            if (this.params.belong === 'GhostHunter') {
+            if (this.params.belong === 'GhostHunterLD') {
               this.gameData.projectThree = true
             }
           } else {
@@ -317,19 +317,19 @@ export default {
     },
     tabClick(adName, isInit) {
       console.log(adName)
-      if (adName === 'TrickHalloween') {
+      if (adName === 'TrickHalloweenLD') {
         this.isMotion.one = isInit ? true : false
         this.tab.one = true
         this.tab.two = false
         this.tab.three = false
       }
-      if (adName === 'HallowCandy') {
+      if (adName === 'HallowCandyLD') {
         this.isMotion.two = isInit ? true : false
         this.tab.one = false
         this.tab.two = true
         this.tab.three = false
       }
-      if (adName === 'GhostHunter') {
+      if (adName === 'GhostHunterLD') {
         this.isMotion.three = isInit ? true : false
         this.tab.one = false
         this.tab.two = false
@@ -378,7 +378,7 @@ export default {
     getGame() {
       let args = {
         params: {
-          belong: 'TrickHalloween,HallowCandy,GhostHunter'
+          belong: 'TrickHalloweenLD,HallowCandyLD,GhostHunterLD'
         }
       }
       let userId = this.params.userId
@@ -395,18 +395,18 @@ export default {
       let data = list
       console.log(list)
       data.map(r => {
-        // 节目1，搞怪万圣节 TrickHalloween
-        if (r.belong === 'TrickHalloween') {
+        // 节目1，搞怪万圣节 TrickHalloweenLD
+        if (r.belong === 'TrickHalloweenLD') {
           this.photoImage.img1 = r.image_url
           this.gameData.projectOne = true
         }
-        // 节目2，不给糖就捣蛋 HallowCandy
-        if (r.belong === 'HallowCandy') {
+        // 节目2，不给糖就捣蛋 HallowCandyLD
+        if (r.belong === 'HallowCandyLD') {
           this.photoImage.img2 = r.image_url
           this.gameData.projectTwo = true
         }
-        // 节目3,抓鬼大冒险 GhostHunter
-        if (r.belong === 'GhostHunter') {
+        // 节目3,抓鬼大冒险 GhostHunterLD
+        if (r.belong === 'GhostHunterLD') {
           this.photoImage.img3 = r.image_url
           this.gameData.projectThree = true
         }
