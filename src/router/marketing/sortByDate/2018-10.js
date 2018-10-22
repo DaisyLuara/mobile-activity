@@ -127,7 +127,7 @@ const Date201810 = [
     meta: {
       title: '万圣节',
       author: 'xj1012',
-      desc: '搞怪万圣节'
+      desc: '万圣节一起扮鬼脸'
     },
     isAbandoned: false
   },
@@ -139,6 +139,72 @@ const Date201810 = [
       title: '超级英雄',
       author: 'lipan',
       desc: '超级英雄'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'halloween',
+    location: 'tm/halloween',
+    name: 'halloween',
+    meta: {
+      title: '星视度',
+      author: 'xj1012',
+      desc: '万圣节三个节目联动'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'scan',
+    location: 'scanQRCode/index',
+    name: 'scanQRCode',
+    meta: {
+      title: '扫一扫',
+      author: 'Joy',
+      desc: '扫一扫2'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'ws_party',
+    location: 'king/wsParty',
+    name: 'ws_party',
+    meta: {
+      title: '万圣节',
+      author: 'xj1012',
+      desc: '万圣party'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'halloween_one',
+    location: 'halloween/indexA',
+    name: 'halloween_one',
+    meta: {
+      title: '星视度',
+      author: 'xj1012',
+      desc: '搞怪万圣节-通用版'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'halloween_two',
+    location: 'halloween/indexB',
+    name: 'halloween_two',
+    meta: {
+      title: '星视度',
+      author: 'xj1012',
+      desc: '不给糖就捣蛋-通用版'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'halloween_three',
+    location: 'halloween/indexC',
+    name: 'halloween_three',
+    meta: {
+      title: '星视度',
+      author: 'xj1012',
+      desc: '抓鬼大冒险-通用版'
     },
     isAbandoned: false
   }
