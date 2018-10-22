@@ -241,7 +241,7 @@ export default {
           type = 'canvas'
         }
         PIXI.utils.sayHello(type)
-
+        let that = this
         let play_div = document.getElementById('play')
         let width = play_div.clientWidth
         let height = play_div.clientHeight
@@ -252,7 +252,7 @@ export default {
         play_div.appendChild(app.view)
         app.renderer.autoResize = true
         app.renderer.resize(width, height)
-        let bg = imageSprite('/static/hero/bg.png', 0, 0, width, height)
+        let bg = imageSprite(that.base + 'test1/bg.png', 0, 0, width, height)
 
         if (this.role == 1) {
           playRole1()
@@ -318,9 +318,9 @@ export default {
         //角色1，女机甲
         function playRole1() {
           PIXI.loader
-            .add('/static/hero/1/lightning1.json')
-            .add('/static/hero/1/lightning2.json')
-            .add('/static/hero/1/pifeng.json')
+            .add(that.base + 'test1/1/lightning1.json')
+            .add(that.base + 'test1/1/lightning2.json')
+            .add(that.base + 'test1/1/pifeng.json')
             .load(function(loader, res) {
               //披风
               let pifeng = doAnimate(
@@ -343,7 +343,7 @@ export default {
               )
               //人
               let people = imageSprite(
-                '/static/hero/1/people.png',
+                that.base + 'test1/1/people.png',
                 0,
                 0,
                 width,
@@ -351,21 +351,21 @@ export default {
               )
               //头部
               let kui = imageSprite(
-                '/static/hero/1/toukui.png',
+                that.base + 'test1/1/toukui.png',
                 width * 0.3,
                 0,
                 width * 0.4,
                 (163 / 354) * width * 0.4
               )
               let head = imageSprite(
-                '/static/hero/1/head.png',
+                that.base + 'test1/1/head.png',
                 width * 0.41,
                 height * 0.075,
                 width * 0.2,
                 (136 / 235) * width * 0.2
               )
               let pa = imageSprite(
-                '/static/hero/1/pa.png',
+                that.base + 'test1/1/pa.png',
                 width * 0.42,
                 height * 0.13,
                 width * 0.18,
@@ -381,12 +381,12 @@ export default {
         //角色2  雅典娜
         function playRole2() {
           PIXI.loader
-            .add('/static/hero/2/Athena.json')
-            .add('/static/hero/2/fires.json')
+            .add(that.base + 'test1/2/Athena.json')
+            .add(that.base + 'test1/2/fires.json')
             .load(function(loader, res) {
               //人
               let people = imageSprite(
-                '/static/hero/2/people.png',
+                that.base + 'test1/2/people.png',
                 0,
                 0,
                 width,
@@ -417,8 +417,8 @@ export default {
         //角色3  钢铁侠
         function playRole3() {
           PIXI.loader
-            .add('/static/hero/3/body1.json')
-            .add('/static/hero/3/head.json')
+            .add(that.base + 'test1/3/body1.json')
+            .add(that.base + 'test1/3/head.json')
             .load(function(loader, res) {
               //人
               let people = doAnimate(
@@ -457,7 +457,7 @@ export default {
         //角色4  超人
         function playRole4() {
           PIXI.loader
-            .add('/static/hero/4/piao.json')
+            .add(that.base + 'test1/4/piao.json')
             .load(function(loader, res) {
               let pao = doAnimate(
                 32,
@@ -470,21 +470,21 @@ export default {
               )
               //人
               let people = imageSprite(
-                '/static/hero/4/people.png',
+                that.base + 'test1/4/people.png',
                 (width - (284 / 846) * height) / 2,
                 0,
                 (284 / 846) * height,
                 height
               )
               // let sao = imageSprite(
-              //   '/static/hero/4/sao.png',
+              //   that.base+'test1/4/sao.png',
               //   0,
               //   0,
               //   width,
               //   height
               // )
               let light = imageSprite(
-                '/static/hero/4/light.png',
+                that.base + 'test1/4/light.png',
                 0,
                 0,
                 width,
