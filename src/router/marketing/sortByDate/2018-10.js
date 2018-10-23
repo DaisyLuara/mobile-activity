@@ -209,6 +209,36 @@ const Date201810 = [
     isAbandoned: false
   },
   {
+    path: 'damai_wanglian',
+    location: 'damai/wanglian',
+    name: 'damaiWanglian',
+    meta: {
+      title: '大麦国际网联',
+      author: 'Anluis',
+      desc: '大麦国际网联不知道什么版'
+    }
+  },
+  {
+    path: 'damai_wl_photo0',
+    location: 'damai/wanglianpt',
+    name: 'damaiWanglianPhoto0',
+    meta: {
+      title: '大麦国际网联',
+      author: 'Anluis',
+      desc: '大麦国际网联不知道什么提取照片的第0版'
+    }
+  },
+  {
+    path: 'damai_wl_photo1',
+    location: 'damai/wanglianpt1',
+    name: 'damaiWanglianPhoto1',
+    meta: {
+      title: '大麦国际网联',
+      author: 'Anluis',
+      desc: '大麦国际网联不知道什么提取照片的第1版'
+    }
+  },
+  {
     path: 'etam',
     location: 'king/etam',
     name: 'etam',
