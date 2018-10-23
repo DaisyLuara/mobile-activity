@@ -189,6 +189,7 @@ export default {
     border-radius: 10px;
     border: 2px solid #d5c8d4;
     padding: 0 20px;
+    text-align: center;
   }
   .button {
     margin-top: 3%;
