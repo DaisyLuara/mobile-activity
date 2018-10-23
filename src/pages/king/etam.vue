@@ -73,10 +73,7 @@ export default {
   text-align: center;
   position: relative;
   overflow: hidden;
-  background-image: url('@{imageHost}bg.png');
-  background-size: 100% 100%;
-  background-position: center bottom;
-  background-repeat: no-repeat;
+  background-color: #fff;
   .topImg {
     width: 100%;
     position: relative;
