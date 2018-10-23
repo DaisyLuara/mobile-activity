@@ -95,9 +95,9 @@ export default {
       },
       baseUrl: cdnUrl + '/fe/marketing/img/damai/wanglian/',
       wxShareInfo: {
-        title: '我要去看世界杯啦',
-        desc: '大融城邀您一起观看精彩世界杯',
-        imgUrl: '',
+        title: '今天，你就是ITF青年大师赛的最酷球迷！',
+        desc: '',
+        imgUrl: cdnUrl + '/fe/marketing/img/damai/wanglian/icon-share.jpg',
         success: () => {
           wechatShareTrack()
         }
