@@ -51,21 +51,21 @@ const router = new Router({
         }
         return routerItem
       })
-    },
-    {
-      path: '/hidol',
-      name: 'hidolApp',
-      component: hidolHome,
-      children: hidolRouter.map(item => {
-        const routerItem = {
-          path: item.path,
-          name: item.name,
-          meta: item.meta,
-          component: _import(item.location)
-        }
-        return routerItem
-      })
     }
+    // {
+    //   path: '/hidol',
+    //   name: 'hidolApp',
+    //   component: hidolHome,
+    //   children: hidolRouter.map(item => {
+    //     const routerItem = {
+    //       path: item.path,
+    //       name: item.name,
+    //       meta: item.meta,
+    //       component: _import(item.location)
+    //     }
+    //     return routerItem
+    //   })
+    // }
   ]
 })
 
