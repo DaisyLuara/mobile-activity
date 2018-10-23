@@ -91,6 +91,11 @@ export default {
         success: () => {
           wechatShareTrack()
         }
+      },
+      params: {
+        userId: null,
+        belong: this.$route.query.utm_campaign,
+        id: this.$route.query.id
       }
     }
   },
