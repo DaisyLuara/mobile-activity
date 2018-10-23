@@ -67,7 +67,7 @@
 <script>
 const cdnUrl = process.env.CDN_URL
 import { normalPages } from '../../mixins/normalPages'
-import { wechatShareTrack, getQRcodeUrl } from 'services'
+import { wechatShareTrack } from 'services'
 import QRCode from 'qrcode'
 export default {
   mixins: [normalPages],
@@ -112,8 +112,10 @@ export default {
   methods: {
     async fetQRCode() {
       try {
-        let url = await getQRcodeUrl(this.$route.query.id)
-        let qrimg = await QRCode.toDataURL(url.data.results.url)
+        // let url = await getQRcodeUrl(this.$route.query.id)
+        let qrimg = await QRCode.toDataURL(
+          window.location.origin + '/marketing/damai_wanglian'
+        )
         this.qrurl = qrimg
       } catch (err) {
         console.error(err)
