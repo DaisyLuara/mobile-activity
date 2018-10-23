@@ -132,7 +132,9 @@ export default {
       }
       userGame(args, this.params.userId)
         .then(res => {
-          Toast('提交成功')
+          Toast(
+            '恭喜你，成功参与抽奖！我们将以短信形式告知获奖用户，请注意查收！'
+          )
           console.log(res)
         })
         .catch(e => {
@@ -189,6 +191,7 @@ export default {
     border-radius: 10px;
     border: 2px solid #d5c8d4;
     padding: 0 20px;
+    text-align: center;
   }
   .button {
     margin-top: 3%;
