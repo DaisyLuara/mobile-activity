@@ -1,0 +1,181 @@
+<template>
+  <div
+    :style="style.root" 
+    class="root"
+  >
+    <div class="xk">
+      <img
+        class="xk-photo"
+        :src="photo + this.$qiniuCompress()"
+      />
+
+      <img
+        class="xk-inner"
+        :src="baseUrl + 'xk.png' + this.$qiniuCompress()"
+      />
+      <img
+        v-if="qrurl !== ''"
+        :style="style.qrcode"
+        class="qrcode"
+        :src="qrurl"
+      />
+    </div>
+
+    <img
+      class="bg" 
+      alt="background"
+      :src="baseUrl + 'BG.png' + this.$qiniuCompress()" 
+    />
+
+    <img
+      class="d-top"
+      :src="baseUrl + '4.png' + this.$qiniuCompress()"
+    />
+
+    <img  
+      :style="style.dright"
+      class="d-right"
+      :src="baseUrl + '2.png' + this.$qiniuCompress()"
+    />
+
+    <img  
+      class="d-left"
+      :style="style.dleft"
+      :src="baseUrl + '3.png' + this.$qiniuCompress()"
+    />
+
+    <img  
+      class="bottom"
+      :src="baseUrl + 'bottom1.png' + this.$qiniuCompress()"
+    />
+    
+  </div>
+</template>
+
+<script>
+const cdnUrl = process.env.CDN_URL
+import { normalPages } from '../../mixins/normalPages'
+import { wechatShareTrack, getQRcodeUrl } from 'services'
+import QRCode from 'qrcode'
+
+export default {
+  mixins: [normalPages],
+  data() {
+    return {
+      style: {
+        root: {
+          height: this.$innerHeight() + 'px'
+        },
+        dleft: {
+          bottom: (this.$innerWidth() * 392) / 750 + 'px'
+        },
+        dright: {
+          bottom: (this.$innerWidth() * 392) / 750 + 'px'
+        },
+        qrcode: {
+          width: (this.$innerWidth() * 140) / 750 + 'px',
+          height: (this.$innerWidth() * 140) / 750 + 'px'
+        }
+      },
+      baseUrl: cdnUrl + '/fe/marketing/img/damai/wanglian/',
+      wxShareInfo: {
+        title: '我要去看世界杯啦',
+        desc: '大融城邀您一起观看精彩世界杯',
+        imgUrl: '',
+        success: () => {
+          wechatShareTrack()
+        }
+      },
+      photo: '',
+      qrurl: ''
+    }
+  },
+  beforeCreate() {
+    if (!this.$route.query.hasOwnProperty('hr')) {
+      window.location.assign(window.location.href + '&hr')
+    }
+  },
+  mounted() {
+    this.fetQRCode()
+  },
+  methods: {
+    async fetQRCode() {
+      try {
+        let url = await getQRcodeUrl(this.$route.query.id)
+        let qrimg = await QRCode.toDataURL(url.data.results.url)
+        this.qrurl = qrimg
+      } catch (err) {
+        console.error(err)
+      }
+    }
+  }
+}
+</script>
+
+<style lang="less" scoped>
+.root {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .bg {
+    z-index: 10;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .xk {
+    position: relative;
+    width: 76%;
+    z-index: 50;
+    .xk-photo {
+      width: 60%;
+      position: absolute;
+      margin: 0 auto;
+      left: 0;
+      right: 0;
+      top: 5%;
+      z-index: 1000;
+    }
+    .xk-inner {
+      width: 100%;
+      z-index: 100;
+    }
+    .qrcode {
+      position: absolute;
+      bottom: 5.5%;
+      left: 36%;
+    }
+  }
+  .d-top {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 17%;
+    z-index: 20;
+  }
+  .d-left {
+    position: absolute;
+    left: 0;
+    width: 20%;
+    z-index: 20;
+  }
+  .d-right {
+    position: absolute;
+    width: 20%;
+    right: 0;
+    z-index: 20;
+  }
+  .bottom {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    z-index: 20;
+  }
+}
+</style>
+
