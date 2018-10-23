@@ -207,6 +207,17 @@ const Date201810 = [
       desc: '抓鬼大冒险-通用版'
     },
     isAbandoned: false
+  },
+  {
+    path: 'etam',
+    location: 'king/etam',
+    name: 'etam',
+    meta: {
+      title: 'Etam',
+      author: 'xj1012',
+      desc: '艾格-秀出自我'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201810
