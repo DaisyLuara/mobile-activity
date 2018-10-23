@@ -14,10 +14,9 @@
         :src="baseUrl + 'xk.png' + this.$qiniuCompress()"
       />
       <img
-        v-if="qrurl !== ''"
         :style="style.qrcode"
         class="qrcode"
-        :src="qrurl"
+        :src="baseUrl + 'damai-qr.png'"
       />
     </div>
 
