@@ -72,7 +72,7 @@ export default {
   mixins: [normalPages],
   beforeCreate() {
     if (!this.$route.query.hasOwnProperty('hr')) {
-      window.location.assign(window.location.href + '&hr')
+      window.location.assign(window.location.href + '&hr=true')
     }
   },
   data() {

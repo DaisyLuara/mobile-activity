@@ -91,7 +91,7 @@ export default {
   },
   beforeCreate() {
     if (!this.$route.query.hasOwnProperty('hr')) {
-      window.location.assign(window.location.href + '&hr')
+      window.location.assign(window.location.href + '&hr=true')
     }
   },
   mounted() {
