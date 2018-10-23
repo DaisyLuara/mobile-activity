@@ -54,6 +54,7 @@ export default {
       wxShareInfoValue: {
         title: '玩儿游戏居然能中大奖？',
         desc: '快来围观头号玩家吧',
+        link: 'http://papi.xingstation.com/api/s/Wng' + window.location.search,
         success: () => {
           wechatShareTrack()
         },
