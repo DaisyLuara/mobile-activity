@@ -3,7 +3,7 @@
     :style="style.root" 
     class="root">
     <img 
-      :src="baseUrl + 'T.png'+ this.$qiniuCompress()"
+      :src="baseUrl + 'T2.png'+ this.$qiniuCompress()"
       class="topImg">
     <img 
       :src="baseUrl + 'hand.png'+ this.$qiniuCompress()"
@@ -43,7 +43,7 @@ export default {
         title: 'Happy Halloween ',
         desc: '万圣狂欢 等你来Halloween',
         link: 'http://papi.xingstation.com/api/s/Yvp' + window.location.search,
-        imgUrl: cdnUrl + '/fe/marketing/img/ws_party/icon.png',
+        imgUrl: cdnUrl + '/fe/marketing/img/ws_party/share.png',
         success: () => {
           wechatShareTrack()
         }
@@ -100,7 +100,7 @@ img {
     margin-top: 25%;
   }
   .frame {
-    width: 61%;
+    width: 56%;
     position: absolute;
     left: 50%;
     top: 50%;
@@ -114,7 +114,7 @@ img {
     transform: translate(-50%, -44%);
   }
   .photo {
-    width: 59%;
+    width: 53.5%;
     position: absolute;
     left: 50%;
     top: 50%;
