@@ -100,7 +100,7 @@ img {
     margin-top: 25%;
   }
   .frame {
-    width: 61%;
+    width: 56%;
     position: absolute;
     left: 50%;
     top: 50%;
@@ -114,7 +114,7 @@ img {
     transform: translate(-50%, -44%);
   }
   .photo {
-    width: 59%;
+    width: 53.5%;
     position: absolute;
     left: 50%;
     top: 50%;
