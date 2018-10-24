@@ -5,48 +5,48 @@
   >
     <div class="xk">
       <img
-        class="xk-photo"
         :src="photo + this.$qiniuCompress()"
-      />
+        class="xk-photo"
+      >
 
       <img
-        class="xk-inner"
         :src="baseUrl + 'xk.png' + this.$qiniuCompress()"
-      />
+        class="xk-inner"
+      >
       <img
         :style="style.qrcode"
-        class="qrcode"
         :src="baseUrl + 'damai-qr.png'"
-      />
+        class="qrcode"
+      >
     </div>
 
     <img
-      class="bg" 
-      alt="background"
       :src="baseUrl + 'BG.png' + this.$qiniuCompress()" 
-    />
+      class="bg"
+      alt="background" 
+    >
 
     <img
-      class="d-top"
       :src="baseUrl + '4.png' + this.$qiniuCompress()"
-    />
+      class="d-top"
+    >
 
     <img  
       :style="style.dright"
-      class="d-right"
       :src="baseUrl + '2.png' + this.$qiniuCompress()"
-    />
+      class="d-right"
+    >
 
     <img  
-      class="d-left"
       :style="style.dleft"
       :src="baseUrl + '3.png' + this.$qiniuCompress()"
-    />
+      class="d-left"
+    >
 
     <img  
-      class="bottom"
       :src="baseUrl + 'bottom1.png' + this.$qiniuCompress()"
-    />
+      class="bottom"
+    >
     
   </div>
 </template>
