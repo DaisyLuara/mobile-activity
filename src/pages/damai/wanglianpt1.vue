@@ -7,58 +7,58 @@
     <div class="pt">
 
       <img
-        class="pt-inner"
         :src="baseUrl + 'photo.png' + this.$qiniuCompress()"
-      />
+        class="pt-inner"
+      >
 
       <img  
-        class="pt-photo"
         :src="photo"
-      />
+        class="pt-photo"
+      >
 
     </div>
 
     <div class="xk">
       <img
-        class="xk-inner"
         :src="baseUrl + 'activity.png' + this.$qiniuCompress()"
-      />
+        class="xk-inner"
+      >
       <img
         :style="style.qrcode"
-        class="qrcode"
         :src="baseUrl + 'damai-qr.png'"
-      />
+        class="qrcode"
+      >
     </div>
 
 
 
     <img
-      class="bg" 
-      alt="background"
       :src="baseUrl + 'BG.png' + this.$qiniuCompress()" 
-    />
+      class="bg"
+      alt="background" 
+    >
 
     <img
-      class="d-top"
       :src="baseUrl + '4.png' + this.$qiniuCompress()"
-    />
+      class="d-top"
+    >
 
     <img  
       :style="style.dright"
-      class="d-right"
       :src="baseUrl + '2.png' + this.$qiniuCompress()"
-    />
+      class="d-right"
+    >
 
     <img  
-      class="d-left"
       :style="style.dleft"
       :src="baseUrl + '3.png' + this.$qiniuCompress()"
-    />
+      class="d-left"
+    >
 
     <img  
-      class="bottom"
       :src="baseUrl + 'bottom1.png' + this.$qiniuCompress()"
-    />
+      class="bottom"
+    >
     
   </div>
 </template>
@@ -70,11 +70,6 @@ import { wechatShareTrack } from 'services'
 import QRCode from 'qrcode'
 export default {
   mixins: [normalPages],
-  beforeCreate() {
-    if (!this.$route.query.hasOwnProperty('hr')) {
-      window.location.assign(window.location.href + '&hr=true')
-    }
-  },
   data() {
     return {
       style: {
@@ -103,6 +98,11 @@ export default {
       },
       photo: '',
       qrurl: ''
+    }
+  },
+  beforeCreate() {
+    if (!this.$route.query.hasOwnProperty('hr')) {
+      window.location.assign(window.location.href + '&hr=true')
     }
   },
   mounted() {
