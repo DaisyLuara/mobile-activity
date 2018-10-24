@@ -248,6 +248,17 @@ const Date201810 = [
       desc: '艾格-秀出自我'
     },
     isAbandoned: false
+  },
+  {
+    path: 'wsj_identity',
+    location: 'king/wsjIdentity',
+    name: 'wsj_identity',
+    meta: {
+      title: '你的万圣节真实身份竟然是...',
+      author: 'xj1012',
+      desc: '万圣节-你是什么鬼'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201810
