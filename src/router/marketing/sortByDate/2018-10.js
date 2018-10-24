@@ -259,6 +259,17 @@ const Date201810 = [
       desc: '万圣节-你是什么鬼'
     },
     isAbandoned: false
+  },
+  {
+    path: 'es',
+    location: 'es/index',
+    name: 'es',
+    meta: {
+      title: '艾格',
+      author: 'Joy',
+      desc: '艾格'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201810
