@@ -3,7 +3,7 @@
     :style="style.root" 
     class="root">
     <img 
-      :src="baseUrl + 'T.png'+ this.$qiniuCompress()"
+      :src="baseUrl + 'T2.png'+ this.$qiniuCompress()"
       class="topImg">
     <img 
       :src="baseUrl + 'hand.png'+ this.$qiniuCompress()"
@@ -43,7 +43,7 @@ export default {
         title: 'Happy Halloween ',
         desc: '万圣狂欢 等你来Halloween',
         link: 'http://papi.xingstation.com/api/s/Yvp' + window.location.search,
-        imgUrl: cdnUrl + '/fe/marketing/img/ws_party/icon.png',
+        imgUrl: cdnUrl + '/fe/marketing/img/ws_party/share.png',
         success: () => {
           wechatShareTrack()
         }
