@@ -3,9 +3,6 @@
     :style="style.root" 
     class="gift-root">
     <div class="gift">
-      <!-- <img
-        class="success"
-        :src="baseUrl+'success.png?v=1'" > -->
       <img
         :src="baseUrl+'frame.png?v=1'"
         class="frame" >
@@ -20,12 +17,10 @@
     <div class="coupon">
       <img 
         :src="baseUrl+'coupon_frame.png?v=1'" 
-        class="coupon-frame" 
-         >
+        class="coupon-frame">
         <div class="coupon-info">
           <img
-            :src="baseUrl+'coupon.png?v=1'" 
-           >
+            :src="baseUrl+'coupon.png?v=1'">
         </div>
     </div>
    
@@ -33,14 +28,7 @@
 </template>
 
 <script>
-import {
-  getInfoById,
-  feedback,
-  getCoupon,
-  verificationCoupon,
-  getTmallCoupon,
-  sendTmallCoupon
-} from 'services'
+import { getInfoById } from 'services'
 const CDN_URL = process.env.CDN_URL
 export default {
   data() {
