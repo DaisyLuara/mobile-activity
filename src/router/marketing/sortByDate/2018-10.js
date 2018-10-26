@@ -270,6 +270,16 @@ const Date201810 = [
       desc: '艾格'
     },
     isAbandoned: false
+  },
+  {
+    path: 'tmall_redpack_nm',
+    location: 'tm/redpackNormal',
+    name: 'tianMaoRedPackNormal',
+    meta: {
+      title: '微笑红包机',
+      author: 'Anluis',
+      desc: '微笑红包机通用版'
+    }
   }
 ]
 export default Date201810
