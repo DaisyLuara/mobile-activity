@@ -27,6 +27,7 @@
 import { getInfoById, wechatShareTrack } from 'services'
 import { onlyWechatShare } from '@/mixins/onlyWechatShare'
 export default {
+  mixins: [onlyWechatShare],
   data() {
     return {
       imgUrl: '',
