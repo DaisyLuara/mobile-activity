@@ -259,6 +259,27 @@ const Date201810 = [
       desc: '万圣节-你是什么鬼'
     },
     isAbandoned: false
+  },
+  {
+    path: 'es',
+    location: 'es/index',
+    name: 'es',
+    meta: {
+      title: '艾格',
+      author: 'Joy',
+      desc: '艾格'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'tmall_redpack_nm',
+    location: 'tm/redpackNormal',
+    name: 'tianMaoRedPackNormal',
+    meta: {
+      title: '微笑红包机',
+      author: 'Anluis',
+      desc: '微笑红包机通用版'
+    }
   }
 ]
 export default Date201810
