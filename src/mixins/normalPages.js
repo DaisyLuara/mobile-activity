@@ -6,6 +6,10 @@ export const normalPages = {
       baseUrl: cdnUrl,
       photo: null,
       wxShareInfoValue: {
+        title: '',
+        desc: '',
+        link: '',
+        imgUrl: '',
         success: () => {
           wechatShareTrack()
         }
