@@ -34,7 +34,6 @@
   </div>
 </template>
 <script>
-import { Cookies, getInfoById, getWxUserInfo, wechatShareTrack } from 'services'
 import { normalPages } from '../../mixins/normalPages'
 const cdnUrl = process.env.CDN_URL
 export default {
@@ -48,15 +47,11 @@ export default {
         }
       },
       iphoneX: false,
-      photo: null,
       wxShareInfoValue: {
         title: '国庆快乐',
         desc: '我为祖国打call！！！',
         link: 'http://papi.xingstation.com/api/s/oYj' + window.location.search,
-        imgUrl: cdnUrl + '/fe/marketing/img/national_day/icon.png',
-        success: () => {
-          wechatShareTrack()
-        }
+        imgUrl: cdnUrl + '/fe/marketing/img/national_day/icon.png'
       }
     }
   },
