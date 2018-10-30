@@ -20,7 +20,7 @@
   </div>
 </template>
 <script>
-import { $wechat, getInfoById, wechatShareTrack, isInWechat } from 'services'
+import { getInfoById } from 'services'
 import { onlyWechatShare } from '../../mixins/onlyWechatShare'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
@@ -42,10 +42,7 @@ export default {
         desc: '快来看看我穿越成了谁？',
         link: 'http://papi.xingstation.com/api/s/rE' + window.location.search,
         imgUrl:
-          'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/pandp/share.jpg',
-        success: () => {
-          wechatShareTrack()
-        }
+          'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/pandp/share.jpg'
       }
     }
   },
@@ -108,7 +105,7 @@ export default {
             he.anchor.set(0.5, 0.5)
             he.position.set(width / 2, height / 2)
             he.width = width
-            he.height = 713 * width / 489
+            he.height = (713 * width) / 489
             he.scale.set(0.5)
             app.stage.addChild(he)
             //文本
@@ -179,7 +176,7 @@ export default {
               -bg.width * 0.09,
               bg.height * 0.24,
               bg.width * 1.18,
-              img.height * bg.width * 1.18 * 0.94 / img.width
+              (img.height * bg.width * 1.18 * 0.94) / img.width
             )
           }
 
@@ -234,7 +231,7 @@ export default {
       bg.src = b_url + 'bg.png'
     },
     drawPloygen(canvas, num, radius, top) {
-      let angle = Math.PI * 2 / num
+      let angle = (Math.PI * 2) / num
       let side = radius * 2 * Math.sin(angle / 2)
       let border = document.getElementById('border')
       let ctx = canvas.getContext('2d')
