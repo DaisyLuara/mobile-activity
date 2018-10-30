@@ -17,13 +17,8 @@
       :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
       class="save">
     <img 
-      v-show="coupon1"
-      :src="baseUrl + 'coupon02.png'+ this.$qiniuCompress()"
+      :src="baseUrl + 'coupon.png'+ this.$qiniuCompress()"
       class="coupon02">
-    <img 
-      v-show="coupon2"
-      :src="baseUrl + 'coupon01.png'+ this.$qiniuCompress()"
-      class="coupon01">
   </div>
 </template>
 <script>
@@ -41,8 +36,6 @@ export default {
         }
       },
       photo: null,
-      coupon1: false,
-      coupon2: false,
       score: this.$route.query.score,
       wxShareInfoValue: {
         title: '点击领取你的餐饮券',
@@ -52,21 +45,6 @@ export default {
         success: () => {
           wechatShareTrack()
         }
-      }
-    }
-  },
-  created() {},
-  mounted() {
-    this.getCoupon()
-  },
-  methods: {
-    getCoupon() {
-      if (this.score >= 0 && this.score <= 200) {
-        this.coupon1 = true
-        this.coupon2 = false
-      } else {
-        this.coupon1 = false
-        this.coupon2 = true
       }
     }
   }
@@ -118,15 +96,6 @@ export default {
     pointer-events: none;
   }
   .coupon02 {
-    width: 100%;
-    position: absolute;
-    left: 0%;
-    top: 0%;
-    margin-top: 128%;
-    user-select: auto;
-    pointer-events: auto;
-  }
-  .coupon01 {
     width: 100%;
     position: absolute;
     left: 0%;
