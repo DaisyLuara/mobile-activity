@@ -1,29 +1,34 @@
 <template>
   <div
-    :style="style.root" 
+    v-show="showImg" 
+    :style="style.root"
     class="root">
-    <div class="top" id="main">
-        <img 
+    <div 
+      id="main" 
+      class="top">
+      <img 
         v-show="showImg"
         :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
         class="frame"> 
-        <img 
+      <img 
         v-show="showImg"
         :src="baseUrl + '666.png'+ this.$qiniuCompress()"
         class="photo"> 
-        <img 
+      <img 
         v-show="showImg"
         :src="baseUrl + '666.png'+ this.$qiniuCompress()"
         class="photo-real"> 
     </div>
-    <div class="bt" v-show="showImg">
-          <img 
-          :src="baseUrl + 'arrow.png'+ this.$qiniuCompress()"
-          class="arrow"> 
-          <img 
-          :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
-          class="save"> 
-      </div>
+    <div 
+      v-show="showImg" 
+      class="bt">
+      <img 
+        :src="baseUrl + 'arrow.png'+ this.$qiniuCompress()"
+        class="arrow"> 
+      <img 
+        :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
+        class="save"> 
+    </div>
   </div>
 </template>
 <script>
@@ -138,12 +143,11 @@ img {
   .top {
     width: 100%;
     position: relative;
-
+    pointer-events: none;
+    user-select: none;
     .frame {
       width: 90%;
       margin-top: 3%;
-      pointer-events: none;
-      user-select: none;
     }
     .photo {
       width: 52.5%;
@@ -172,6 +176,8 @@ img {
     width: 100%;
     height: 30%;
     position: relative;
+    pointer-events: none;
+    user-select: none;
     .arrow {
       width: 8%;
       display: block;
@@ -179,12 +185,8 @@ img {
       left: 46%;
       top: 8%;
       animation: arrow 0.5s linear infinite alternate;
-      pointer-events: none;
-      user-select: none;
     }
     .save {
-      pointer-events: none;
-      user-select: none;
       width: 70%;
       display: block;
       position: absolute;
