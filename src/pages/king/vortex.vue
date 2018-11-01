@@ -92,16 +92,21 @@ img {
   }
   .bt {
     width: 100%;
+    height: 30%;
     position: relative;
-    margin: 0 auto;
-    text-align: center;
     .arrow {
-      width: 50%;
+      width: 8%;
       display: block;
+      position: absolute;
+      left: 46%;
+      top: 8%;
     }
     .save {
-      width: 65%;
+      width: 70%;
       display: block;
+      position: absolute;
+      left: 17%;
+      top: 38%;
     }
   }
 }
