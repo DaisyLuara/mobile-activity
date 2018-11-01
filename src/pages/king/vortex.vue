@@ -1,20 +1,34 @@
 <template>
   <div
-    :style="style.root" 
+    v-show="showImg" 
+    :style="style.root"
     class="root">
-    <div class="top">
-        <img 
+    <div 
+      id="main" 
+      class="top">
+      <img 
+        v-show="showImg"
         :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
         class="frame"> 
+      <img 
+        v-show="showImg"
+        :src="baseUrl + '666.png'+ this.$qiniuCompress()"
+        class="photo"> 
+      <img 
+        v-show="showImg"
+        :src="baseUrl + '666.png'+ this.$qiniuCompress()"
+        class="photo-real"> 
     </div>
-    <div class="bt">
-          <img 
-          :src="baseUrl + 'arrow.png'+ this.$qiniuCompress()"
-          class="arrow"> 
-          <img 
-          :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
-          class="save"> 
-      </div>
+    <div 
+      v-show="showImg" 
+      class="bt">
+      <img 
+        :src="baseUrl + 'arrow.png'+ this.$qiniuCompress()"
+        class="arrow"> 
+      <img 
+        :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
+        class="save"> 
+    </div>
   </div>
 </template>
 <script>
@@ -30,6 +44,7 @@ export default {
           height: this.$innerHeight() + 'px'
         }
       },
+      showImg: false,
       iphoneX: false,
       wxShareInfoValue: {
         title: '历史的时空漩涡',
@@ -39,7 +54,9 @@ export default {
       }
     }
   },
-  created() {},
+  created() {
+    // this.playAnim()
+  },
   mounted() {
     let height = this.$innerHeight()
     if (height > 672) {
@@ -47,8 +64,49 @@ export default {
     } else {
       this.iphoneX = false
     }
+    this.playAnim()
   },
-  methods: {}
+  methods: {
+    playAnim() {
+      import('pixi.js').then(PIXI => {
+        let app = new PIXI.Application({
+          width: window.innerWidth * 0.65,
+          height: window.innerWidth * 0.65,
+          transparent: true
+        })
+        document.getElementById('main').appendChild(app.view)
+        let base = 'http://cdn.exe666.com/fe/marketing/img/spacetime_vortex/'
+        app.view.style.position = 'absolute'
+        app.view.style.top = '15%'
+        app.view.style.left = '50%'
+        app.view.style.transform = 'translateX(-50%)'
+        app.view.style.zIndex = '9999'
+        app.renderer.autoResize = true
+        app.renderer.resize(window.innerWidth * 0.65, window.innerWidth * 0.65)
+        app.stop()
+        PIXI.loader.add('vortex', base + 'vortex.json').load(setUp)
+        function setUp() {
+          let vortex = []
+          let texture = null
+          for (let i = 1; i <= 24; i++) {
+            texture = PIXI.Texture.fromFrame('clock_' + i + '.png')
+            vortex.push(texture)
+          }
+          let animal = new PIXI.extras.AnimatedSprite(vortex)
+          animal.anchor.set(0.5, 0)
+          animal.x = app.screen.width / 2
+          animal.y = 0
+          animal.width = app.screen.width / 2
+          animal.height = (animal.width / 296) * 327
+          animal.gotoAndPlay(0)
+          animal.animationSpeed = 1
+          app.stage.addChild(animal)
+        }
+        app.start()
+        this.showImg = true
+      })
+    }
+  }
 }
 </script>
 
@@ -85,21 +143,48 @@ img {
   .top {
     width: 100%;
     position: relative;
+    pointer-events: none;
+    user-select: none;
     .frame {
       width: 90%;
       margin-top: 3%;
+    }
+    .photo {
+      width: 52.5%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-49%, -26.5%);
+      border-radius: 5%;
+      user-select: auto;
+      pointer-events: auto;
+    }
+    .photo-real {
+      width: 52.5%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-49%, -26.5%);
+      border-radius: 5%;
+      z-index: 10000;
+      user-select: auto;
+      pointer-events: auto;
+      opacity: 0;
     }
   }
   .bt {
     width: 100%;
     height: 30%;
     position: relative;
+    pointer-events: none;
+    user-select: none;
     .arrow {
       width: 8%;
       display: block;
       position: absolute;
       left: 46%;
       top: 8%;
+      animation: arrow 0.5s linear infinite alternate;
     }
     .save {
       width: 70%;
