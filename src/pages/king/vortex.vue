@@ -70,8 +70,8 @@ export default {
     playAnim() {
       import('pixi.js').then(PIXI => {
         let app = new PIXI.Application({
-          width: window.innerWidth * 0.65,
-          height: window.innerWidth * 0.65,
+          width: window.innerWidth * 0.7,
+          height: window.innerWidth * 1.02,
           transparent: true
         })
         document.getElementById('main').appendChild(app.view)
@@ -82,7 +82,7 @@ export default {
         app.view.style.transform = 'translateX(-50%)'
         app.view.style.zIndex = '9999'
         app.renderer.autoResize = true
-        app.renderer.resize(window.innerWidth * 0.65, window.innerWidth * 0.65)
+        app.renderer.resize(window.innerWidth * 0.7, window.innerWidth * 1.02)
         app.stop()
         PIXI.loader.add('vortex', base + 'vortex.json').load(setUp)
         function setUp() {
@@ -97,9 +97,9 @@ export default {
           animal.x = app.screen.width / 2
           animal.y = 0
           animal.width = app.screen.width / 2
-          animal.height = (animal.width / 296) * 327
+          animal.height = (animal.width / 296) * 270
           animal.gotoAndPlay(0)
-          animal.animationSpeed = 1
+          animal.animationSpeed = 1.5
           app.stage.addChild(animal)
         }
         app.start()
