@@ -1,5 +1,20 @@
-import { $wechat, isInWechat } from 'services'
+import { $wechat, isInWechat, wechatShareTrack } from 'services'
+const cdnUrl = process.env.CDN_URL
 export const onlyWechatShare = {
+  data() {
+    return {
+      baseUrl: cdnUrl,
+      wxShareInfoValue: {
+        title: '',
+        desc: '',
+        link: '',
+        imgUrl: '',
+        success: () => {
+          wechatShareTrack()
+        }
+      }
+    }
+  },
   mounted() {
     this.handleWechatShare()
   },
