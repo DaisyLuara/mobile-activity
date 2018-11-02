@@ -76,6 +76,9 @@ export default {
       qrcodeImg: null,
       code: null,
       time: null,
+      params: {
+        user_id: null
+      },
       hasUsed: true,
       hasPost: true,
       wxShareInfoValue: {
@@ -94,9 +97,33 @@ export default {
     } else {
       this.iphoneX = false
     }
-    this.getProjectMassage()
+    //微信授权
+    if (isInWechat() === true) {
+      if (
+        process.env.NODE_ENV === 'production' ||
+        process.env.NODE_ENV === 'testing'
+      ) {
+        this.handleWechatAuth()
+      }
+    }
   },
   methods: {
+    //微信静默授权
+    handleWechatAuth() {
+      if (Cookies.get('sign') === null) {
+        let base_url = encodeURIComponent(String(window.location.href))
+        let redirct_url =
+          process.env.WX_API +
+          '/wx/officialAccount/oauth?url=' +
+          base_url +
+          '&scope=snsapi_base'
+        window.location.href = redirct_url
+      } else {
+        this.userId = Cookies.get('user_id')
+        this.params.user_id = this.userId
+        this.getProjectMassage()
+      }
+    },
     //获取节目抽奖信息
     getProjectMassage() {
       getCouponProjectMessage(this.belong)
