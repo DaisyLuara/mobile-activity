@@ -37,12 +37,12 @@
       >{{ code }}</span>
       <!-- 券已使用 -->
       <img 
-        v-if="hasUsed"
+        v-if="hasUsed&&!hasPost"
         :src="baseUrl + 'used.png'+ this.$qiniuCompress()"
         class="coupon">
       <!--券过期 -->
       <img 
-        v-if="hasPost"
+        v-if="hasPost&&!hasUsed"
         :src="baseUrl + 'failure.png'+ this.$qiniuCompress()"
         class="coupon">
     </div>
@@ -132,7 +132,7 @@ export default {
     getProjectMassage() {
       getCouponProjectMessage(this.belong)
         .then(res => {
-          console.log(res)
+          alert(JSON.stringify(res))
           this.policyID = res.policy_id
           this.getCouponId()
         })
@@ -144,7 +144,7 @@ export default {
     getCouponId() {
       getCouponId(this.policyID)
         .then(res => {
-          console.log(res)
+          alert(JSON.stringify(res))
           this.couponID = res.id
           this.couponImg = res.image_url
           this.checkGetCoupon(res.id)
@@ -161,22 +161,25 @@ export default {
       checkGetCoupon(args)
         .then(res => {
           if (res) {
+            alert(JSON.stringify(res))
             this.qrcodeImg = res.qrcode_url
             this.code = res.code
             this.time = res.created_at
-            //查询此券是否使用过及过期限定
-            // if (
-            //   Math.round(new Date()) -
-            //     (Math.round(this.time) + 24 * 60 * 60 * 1000) >
-            //   0
-            // ) {
-            //   this.hasPost = true
-            //   this.hasUsed = false
-            // }
-            // if (res.status === 1) {
-            //   this.hasUsed = true
-            //   this.hasPost = false
-            // }
+            if (
+              (Math.round(new Date()) -
+                (Math.round(new Date(this.time + '')) + 24 * 60 * 60 * 1000) >
+                0 &&
+                parseInt(res.status) === 0) ||
+              parseInt(res.status) === 2
+            ) {
+              //失效处理
+              this.hasPost = true
+              this.hasUsed = false
+            } else if (parseInt(res.status) === 1) {
+              //已使用
+              this.hasUsed = true
+              this.hasPost = false
+            }
           } else {
             this.getCheck()
           }
@@ -190,19 +193,22 @@ export default {
       let id = this.couponID
       sendCoupon(id)
         .then(res => {
+          alert(JSON.stringify(res))
           this.qrcodeImg = res.qrcode_url
           this.code = res.code
           this.time = res.created_at
-          //是否使用过及过期限定
           if (
-            Math.round(new Date()) -
-              (Math.round(this.time) + 24 * 60 * 60 * 1000) >
-            0
+            (Math.round(new Date()) -
+              (Math.round(new Date(this.time + '')) + 24 * 60 * 60 * 1000) >
+              0 &&
+              parseInt(res.status) === 0) ||
+            parseInt(res.status) === 2
           ) {
+            //失效处理
             this.hasPost = true
             this.hasUsed = false
-          }
-          if (res.status === 1) {
+          } else if (parseInt(res.status) === 1) {
+            //已使用
             this.hasUsed = true
             this.hasPost = false
           }
@@ -293,7 +299,7 @@ img {
       left: 10.5%;
       top: 59%;
     }
-    .quanMa {
+    .quanma {
       display: block;
       position: absolute;
       left: 37%;
