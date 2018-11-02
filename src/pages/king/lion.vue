@@ -12,16 +12,29 @@
       <img 
         :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
         class="frame"> 
+      <img 
+        v-if="photo !== null" 
+        :src="photo + this.$qiniuCompress()"
+        class="photo"> 
+      <img 
+        v-if="photo !== null" 
+        :src="photo + this.$qiniuCompress()"
+        class="photo-real"> 
     </div>
     <div class="bt">
       <img 
         :src="baseUrl + 'coupon_01.png'+ this.$qiniuCompress()"
         class="coupon"> 
+      <img 
+        :src="baseUrl + 'er.jpeg'+ this.$qiniuCompress()"
+        class="erweima"> 
+      <span class="quanMa">123456</span>
     </div>
   </div>
 </template>
 <script>
 import { normalPages } from '../../mixins/normalPages'
+import { checkCouponNumber } from 'services'
 const cdnUrl = process.env.CDN_URL
 export default {
   mixins: [normalPages],
@@ -35,6 +48,8 @@ export default {
       },
       showImg: false,
       iphoneX: false,
+      coupon: 0,
+      coupon_arr: [3, 4, 5, 6],
       wxShareInfoValue: {
         title: '萌狮表情大作战',
         desc: '天降福利，身骑白马闯三关',
@@ -52,7 +67,21 @@ export default {
       this.iphoneX = false
     }
   },
-  methods: {}
+  methods: {
+    //确认优惠券
+    getCheck() {
+      let id = this.coupon_arr[this.coupon]
+      checkCouponNumber(id)
+        .then(res => {
+          console.log(res)
+          this.mask = true
+          this.telform = true
+        })
+        .catch(err => {
+          alert(err.response.data.message)
+        })
+    }
+  }
 }
 </script>
 
@@ -96,10 +125,31 @@ img {
       position: absolute;
       left: 0;
       top: 20%;
+      z-index: 9;
     }
     .frame {
       width: 72%;
       margin-top: 3%;
+    }
+    .photo {
+      width: 56.5%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-49.8%, -56%);
+      user-select: auto;
+      pointer-events: auto;
+    }
+    .photo-real {
+      width: 56.5%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-49.8%, -56%);
+      user-select: auto;
+      pointer-events: auto;
+      z-index: 99;
+      opacity: 0;
     }
   }
   .bt {
@@ -107,6 +157,21 @@ img {
     position: relative;
     text-align: center;
     margin: 0 auto;
+    .erweima {
+      width: 17%;
+      position: absolute;
+      left: 10.5%;
+      top: 59%;
+    }
+    .quanMa {
+      display: block;
+      position: absolute;
+      left: 37%;
+      top: 62.5%;
+      color: #d84a4d;
+      font-size: 4vw;
+      text-align: center;
+    }
     .coupon {
       width: 96%;
     }
