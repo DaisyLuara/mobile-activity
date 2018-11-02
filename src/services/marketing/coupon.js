@@ -175,6 +175,23 @@ const checkCouponNumber = couponId => {
       })
   })
 }
+//  发优惠券
+const sendCoupon = couponId => {
+  let params = {
+    sign: Cookies.get('sign')
+  }
+  return new Promise((resolve, reject) => {
+    axios
+      .post(COUPOUS_URL + couponId, params, REQ_HEADER)
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+
 // 概率获取优惠券ID（coupinId）  抽奖
 const getCouponId = policyId => {
   let params = {
@@ -198,7 +215,7 @@ const checkGetCoupon = params => {
     axios
       .post(OPEN_USER_COUPON, params, REQ_HEADER)
       .then(response => {
-        resolve(response)
+        resolve(response.data)
       })
       .catch(err => {
         reject(err)
@@ -232,5 +249,6 @@ export {
   getCouponId,
   getIntegralCoupon,
   checkGetCoupon,
-  getCouponProjectMessage
+  getCouponProjectMessage,
+  sendCoupon
 }
