@@ -19,7 +19,7 @@ const REQ_HEADER = {
 const createCoupon = params => {
   return new Promise((resolve, reject) => {
     axios
-      .post(COUPOU_URL, params)
+      .post(COUPOU_URL, params, REQ_HEADER)
       .then(response => {
         if (response.data.success) {
           resolve(response.data.data)
