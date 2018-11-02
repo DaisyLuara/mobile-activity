@@ -18,10 +18,10 @@
       <img 
         :src="baseUrl+'coupon_frame.png?v=1'" 
         class="coupon-frame">
-        <div class="coupon-info">
-          <img
-            :src="baseUrl+'coupon.png?v=1'">
-        </div>
+      <div class="coupon-info">
+        <img
+          :src="baseUrl+'coupon.png?v=1'">
+      </div>
     </div>
    
   </div>

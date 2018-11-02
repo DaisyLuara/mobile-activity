@@ -7,6 +7,9 @@ const V5_COUPOU_URL = process.env.SAAS_API + '/v5/common/coupon'
 const COUPOUS_URL = process.env.AD_API + '/api/open/coupons/'
 const OPEN_COUPON = process.env.AD_API + '/api/open/coupon/'
 const OPEN_USER_COUPON = process.env.AD_API + '/api/open/user/coupon'
+
+const OPEN_COUPON_PROJECT = process.env.AD_API + '/api/open/project'
+
 const REQ_HEADER = {
   headers: {
     'api-token': apiToken,
@@ -156,7 +159,7 @@ const getIntegralCoupon = (params, couponId, userId) => {
     }
   })
 }
-// 确认优惠券是否已经领完
+// 确认优惠券是否已经领完    发优惠券
 const checkCouponNumber = couponId => {
   let params = {
     sign: Cookies.get('sign')
@@ -172,7 +175,7 @@ const checkCouponNumber = couponId => {
       })
   })
 }
-// 概率获取优惠券ID（coupinId）
+// 概率获取优惠券ID（coupinId）  抽奖
 const getCouponId = policyId => {
   let params = {
     sign: Cookies.get('sign')
@@ -202,6 +205,20 @@ const checkGetCoupon = params => {
       })
   })
 }
+//获取节目抽奖信息
+const getCouponProjectMessage = belong => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(OPEN_COUPON_PROJECT + '/policy?belong=' + belong)
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+
 export {
   createCoupon,
   getCoupon,
@@ -214,5 +231,6 @@ export {
   checkCouponNumber,
   getCouponId,
   getIntegralCoupon,
-  checkGetCoupon
+  checkGetCoupon,
+  getCouponProjectMessage
 }
