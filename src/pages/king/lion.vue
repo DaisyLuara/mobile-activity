@@ -2,9 +2,9 @@
   <div
     :style="style.root"
     class="root">
-      <img 
-        :src="baseUrl + 'bg.png'+ this.$qiniuCompress()"
-        class="bg"> 
+    <img 
+      :src="baseUrl + 'bg.png'+ this.$qiniuCompress()"
+      class="bg"> 
     <div class="top">
       <img 
         :src="baseUrl + 'topImg.png'+ this.$qiniuCompress()"
@@ -34,7 +34,7 @@
       <span 
         v-if="!hasUsed"
         class="quanMa"
-         >{{code}}</span>
+      >{{ code }}</span>
       <!-- 券已使用 -->
       <img 
         v-if="hasUsed"
