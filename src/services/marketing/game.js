@@ -39,7 +39,7 @@ const userGame = (params, userId) => {
 const getGame = (params, userId) => {
   return new Promise((resolve, reject) => {
     axios
-      .get(GAME_LIST_URL + userId + '/games', params)
+      .get(GAME_LIST_URL + userId + '/games', params, REQ_HEADER)
       .then(response => {
         resolve(response.data.data)
       })
