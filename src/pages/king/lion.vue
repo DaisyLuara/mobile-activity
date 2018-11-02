@@ -161,11 +161,11 @@ export default {
       checkGetCoupon(args)
         .then(res => {
           console.log(res)
-          if (res.status === 200) {
+          if (res) {
             this.qrcodeImg = res.qrcode_url
             this.code = res.code
             this.time = res.created_at
-            // //查询此券是否使用过及过期限定
+            //查询此券是否使用过及过期限定
             // if (
             //   Math.round(new Date()) -
             //     (Math.round(this.time) + 24 * 60 * 60 * 1000) >
