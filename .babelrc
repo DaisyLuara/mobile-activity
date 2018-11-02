@@ -29,7 +29,7 @@
         [
           "@babel/preset-env",
           {
-            "useBuiltIns": "false"
+            "useBuiltIns": "entry"
           }
         ]
       ]
@@ -39,7 +39,7 @@
         [
           "@babel/preset-env",
           {
-            "useBuiltIns": "false"
+            "useBuiltIns": "entry"
           }
         ]
       ]
