@@ -1,12 +1,4 @@
 {
-  "presets": [
-    [
-      "@babel/preset-env",
-      {
-        "useBuiltIns": "usage"
-      }
-    ]
-  ],
   "plugins": [
     "@babel/plugin-syntax-dynamic-import",
     "@babel/transform-runtime",
@@ -21,6 +13,22 @@
   "env": {
     "test": {
       "plugins": ["istanbul"]
+    },
+    "production": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "useBuiltIns": "usage"
+          }
+        ]
+      ]
+    },
+    "testing": {
+      "presets": ["@babel/polyfill"]
+    },
+    "development": {
+      "presets": ["@babel/polyfill"]
     }
   }
 }
