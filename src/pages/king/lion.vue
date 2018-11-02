@@ -54,7 +54,7 @@ import {
   checkCouponNumber,
   getCouponId,
   getCouponProjectMessage,
-  checkGetCoupon,
+  sendCoupon,
   $wechat,
   isInWechat,
   wechatShareTrack,
@@ -188,7 +188,7 @@ export default {
     //发优惠券
     getCheck() {
       let id = this.couponID
-      checkCouponNumber(id)
+      sendCoupon(id)
         .then(res => {
           this.qrcodeImg = res.qrcode_url
           this.code = res.code
