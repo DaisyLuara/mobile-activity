@@ -24,15 +24,15 @@
     <!-- 优惠券部分 -->
     <div class="bt">
       <img 
-        v-if="!hasUsed"
+        v-if="hasUsed&&hasPost"
         :src="couponImg+ this.$qiniuCompress()"
         class="coupon"> 
       <img 
-        v-if="!hasUsed"
+        v-if="hasUsed&&hasPost"
         :src="qrcodeImg+ this.$qiniuCompress()"
         class="erweima"> 
       <span 
-        v-if="!hasUsed"
+        v-if="hasUsed&&hasPost"
         class="quanma"
       >{{ code }}</span>
       <!-- 券已使用 -->
@@ -42,7 +42,7 @@
         class="coupon">
       <!--券过期 -->
       <img 
-        v-if="hasUsed"
+        v-if="hasPost"
         :src="baseUrl + 'failure.png'+ this.$qiniuCompress()"
         class="coupon">
     </div>
@@ -76,7 +76,8 @@ export default {
       qrcodeImg: null,
       code: null,
       time: null,
-      hasUsed: false,
+      hasUsed: true,
+      hasPost: true,
       wxShareInfoValue: {
         title: '萌狮表情大作战',
         desc: '天降福利，身骑白马闯三关',
@@ -132,19 +133,6 @@ export default {
           if (res.status === 200) {
             this.qrcodeImg = res.qrcode_url
             this.code = res.code
-            this.time = res.created_at
-            //是否使用过及过期限定
-            if (
-              Math.round(new Date()) -
-                (Math.round(this.time) + 24 * 60 * 60 * 1000) >
-              0
-            ) {
-              this.hasUsed = true
-            } else {
-              if (res.status === 1) {
-                this.hasUsed = true
-              }
-            }
           } else {
             this.getCheck()
           }
@@ -161,6 +149,20 @@ export default {
           console.log(res)
           this.qrcodeImg = res.qrcode_url
           this.code = res.code
+          this.time = res.created_at
+          //是否使用过及过期限定
+          if (
+            Math.round(new Date()) -
+              (Math.round(this.time) + 24 * 60 * 60 * 1000) >
+            0
+          ) {
+            this.hasPost = true
+            this.hasUsed = false
+          }
+          if (res.status === 1) {
+            this.hasUsed = true
+            this.hasPost = false
+          }
         })
         .catch(err => {
           alert(err.response.data.message)
