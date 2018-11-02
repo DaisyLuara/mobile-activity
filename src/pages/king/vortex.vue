@@ -12,11 +12,13 @@
         class="frame"> 
       <img 
         v-show="showImg"
-        :src="baseUrl + '666.png'+ this.$qiniuCompress()"
+        v-if="photo !== null" 
+        :src="photo + this.$qiniuCompress()"
         class="photo"> 
       <img 
         v-show="showImg"
-        :src="baseUrl + '666.png'+ this.$qiniuCompress()"
+        v-if="photo !== null" 
+        :src="photo + this.$qiniuCompress()"
         class="photo-real"> 
     </div>
     <div 

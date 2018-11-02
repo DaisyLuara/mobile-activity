@@ -2,9 +2,22 @@
   <div
     :style="style.root"
     class="root">
-     <img 
+      <img 
         :src="baseUrl + 'bg.png'+ this.$qiniuCompress()"
         class="bg"> 
+    <div class="top">
+      <img 
+        :src="baseUrl + 'topImg.png'+ this.$qiniuCompress()"
+        class="topImg"> 
+      <img 
+        :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
+        class="frame"> 
+    </div>
+    <div class="bt">
+      <img 
+        :src="baseUrl + 'coupon_01.png'+ this.$qiniuCompress()"
+        class="coupon"> 
+    </div>
   </div>
 </template>
 <script>
@@ -68,12 +81,35 @@ img {
   width: 100%;
   text-align: center;
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
   .bg {
     width: 100%;
     position: absolute;
     left: 0;
     top: 0;
+  }
+  .top {
+    width: 100%;
+    position: relative;
+    .topImg {
+      width: 100%;
+      position: absolute;
+      left: 0;
+      top: 20%;
+    }
+    .frame {
+      width: 72%;
+      margin-top: 3%;
+    }
+  }
+  .bt {
+    width: 100%;
+    position: relative;
+    text-align: center;
+    margin: 0 auto;
+    .coupon {
+      width: 96%;
+    }
   }
 }
 </style>
