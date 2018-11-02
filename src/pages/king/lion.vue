@@ -35,18 +35,6 @@
         v-if="hasUsed&&hasPost"
         class="quanma"
       >{{ code }}</span>
-      <!-- <img 
-        v-if="hasUsed&&hasPost"
-        :src="baseUrl + 'coupon_01.png'+ this.$qiniuCompress()"
-        class="coupon"> 
-      <img 
-        v-if="hasUsed&&hasPost"
-        :src="baseUrl + 'er.jpeg'+ this.$qiniuCompress()"
-        class="erweima"> 
-      <span 
-        v-if="hasUsed&&hasPost"
-        class="quanma"
-      >123456</span> -->
       <!-- 券已使用 -->
       <img 
         v-if="hasUsed&&!hasPost"
