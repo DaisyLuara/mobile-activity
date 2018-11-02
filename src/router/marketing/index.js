@@ -13,5 +13,6 @@ marketingRouter = marketingRouter.concat(Date201806)
 marketingRouter = marketingRouter.concat(Date201807)
 marketingRouter = marketingRouter.concat(Date201808)
 marketingRouter = marketingRouter.concat(Date201809)
+marketingRouter = marketingRouter.concat(Date201810)
 marketingRouter = marketingRouter.concat(Date201811)
 export default marketingRouter
