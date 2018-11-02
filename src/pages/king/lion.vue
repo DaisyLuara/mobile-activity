@@ -51,10 +51,10 @@
 <script>
 import { normalPages } from '../../mixins/normalPages'
 import {
-  checkCouponNumber,
   getCouponId,
   getCouponProjectMessage,
   sendCoupon,
+  checkGetCoupon,
   $wechat,
   isInWechat,
   wechatShareTrack,
