@@ -302,7 +302,7 @@ img {
     .quanma {
       display: block;
       position: absolute;
-      left: 37%;
+      left: 32%;
       top: 62.5%;
       color: #d84a4d;
       font-size: 4vw;
