@@ -57,7 +57,8 @@ import {
   checkGetCoupon,
   $wechat,
   isInWechat,
-  wechatShareTrack
+  wechatShareTrack,
+  Cookies
 } from 'services'
 const cdnUrl = process.env.CDN_URL
 export default {
