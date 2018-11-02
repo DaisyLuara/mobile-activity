@@ -35,6 +35,7 @@
 </template>
 <script>
 import { normalPages } from '../../mixins/normalPages'
+const cdnUrl = process.env.CDN_URL
 export default {
   mixins: [normalPages],
   data() {
