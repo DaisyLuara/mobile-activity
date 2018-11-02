@@ -25,10 +25,24 @@
       ]
     },
     "testing": {
-      "presets": ["@babel/polyfill"]
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "useBuiltIns": "entry"
+          }
+        ]
+      ]
     },
     "development": {
-      "presets": ["@babel/polyfill"]
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "useBuiltIns": "entry"
+          }
+        ]
+      ]
     }
   }
 }
