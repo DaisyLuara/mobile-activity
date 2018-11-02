@@ -132,7 +132,7 @@ export default {
     getProjectMassage() {
       getCouponProjectMessage(this.belong)
         .then(res => {
-          alert(JSON.stringify(res))
+          //alert(JSON.stringify(res))
           this.policyID = res.policy_id
           this.getCouponId()
         })
@@ -144,7 +144,7 @@ export default {
     getCouponId() {
       getCouponId(this.policyID)
         .then(res => {
-          alert(JSON.stringify(res))
+          //alert(JSON.stringify(res))
           this.couponID = res.id
           this.couponImg = res.image_url
           this.checkGetCoupon(res.id)
@@ -161,7 +161,7 @@ export default {
       checkGetCoupon(args)
         .then(res => {
           if (res) {
-            alert(JSON.stringify(res))
+            //alert(JSON.stringify(res))
             this.qrcodeImg = res.qrcode_url
             this.code = res.code
             this.time = res.created_at
@@ -193,7 +193,7 @@ export default {
       let id = this.couponID
       sendCoupon(id)
         .then(res => {
-          alert(JSON.stringify(res))
+          //alert(JSON.stringify(res))
           this.qrcodeImg = res.qrcode_url
           this.code = res.code
           this.time = res.created_at
@@ -252,10 +252,14 @@ img {
     position: absolute;
     left: 0;
     top: 0;
+    pointer-events: none;
+    user-select: none;
   }
   .top {
     width: 100%;
     position: relative;
+    pointer-events: none;
+    user-select: none;
     .topImg {
       width: 100%;
       position: absolute;
@@ -266,6 +270,8 @@ img {
     .frame {
       width: 72%;
       margin-top: 3%;
+      pointer-events: none;
+      user-select: none;
     }
     .photo {
       width: 56.5%;
@@ -293,6 +299,8 @@ img {
     position: relative;
     text-align: center;
     margin: 0 auto;
+    pointer-events: none;
+    user-select: none;
     .erweima {
       width: 17%;
       position: absolute;
