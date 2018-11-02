@@ -133,6 +133,20 @@ export default {
           if (res.status === 200) {
             this.qrcodeImg = res.qrcode_url
             this.code = res.code
+            this.time = res.created_at
+            // //查询此券是否使用过及过期限定
+            // if (
+            //   Math.round(new Date()) -
+            //     (Math.round(this.time) + 24 * 60 * 60 * 1000) >
+            //   0
+            // ) {
+            //   this.hasPost = true
+            //   this.hasUsed = false
+            // }
+            // if (res.status === 1) {
+            //   this.hasUsed = true
+            //   this.hasPost = false
+            // }
           } else {
             this.getCheck()
           }
