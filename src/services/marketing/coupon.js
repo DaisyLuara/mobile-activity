@@ -198,7 +198,7 @@ const checkGetCoupon = params => {
     axios
       .post(OPEN_USER_COUPON, params, REQ_HEADER)
       .then(response => {
-        resolve(response)
+        resolve(response.data)
       })
       .catch(err => {
         reject(err)
