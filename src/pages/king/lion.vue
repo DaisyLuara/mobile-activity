@@ -2,9 +2,9 @@
   <div
     :style="style.root"
     class="root">
-      <img 
-        :src="baseUrl + 'bg.png'+ this.$qiniuCompress()"
-        class="bg"> 
+    <img 
+      :src="baseUrl + 'bg.png'+ this.$qiniuCompress()"
+      class="bg"> 
     <div class="top">
       <img 
         :src="baseUrl + 'topImg.png'+ this.$qiniuCompress()"
@@ -21,20 +21,41 @@
         :src="photo + this.$qiniuCompress()"
         class="photo-real"> 
     </div>
+    <!-- 优惠券部分 -->
     <div class="bt">
       <img 
-        :src="baseUrl + 'coupon_01.png'+ this.$qiniuCompress()"
+        v-if="hasUsed&&hasPost"
+        :src="couponImg+ this.$qiniuCompress()"
         class="coupon"> 
       <img 
-        :src="baseUrl + 'er.jpeg'+ this.$qiniuCompress()"
+        v-if="hasUsed&&hasPost"
+        :src="qrcodeImg+ this.$qiniuCompress()"
         class="erweima"> 
-      <span class="quanMa">123456</span>
+      <span 
+        v-if="hasUsed&&hasPost"
+        class="quanma"
+      >{{ code }}</span>
+      <!-- 券已使用 -->
+      <img 
+        v-if="hasUsed"
+        :src="baseUrl + 'used.png'+ this.$qiniuCompress()"
+        class="coupon">
+      <!--券过期 -->
+      <img 
+        v-if="hasPost"
+        :src="baseUrl + 'failure.png'+ this.$qiniuCompress()"
+        class="coupon">
     </div>
   </div>
 </template>
 <script>
 import { normalPages } from '../../mixins/normalPages'
-import { checkCouponNumber } from 'services'
+import {
+  checkCouponNumber,
+  getCouponId,
+  getCouponProjectMessage,
+  checkGetCoupon
+} from 'services'
 const cdnUrl = process.env.CDN_URL
 export default {
   mixins: [normalPages],
@@ -48,13 +69,20 @@ export default {
       },
       showImg: false,
       iphoneX: false,
-      coupon: 0,
-      coupon_arr: [3, 4, 5, 6],
+      belong: this.$route.query.utm_campaign,
+      policyID: null,
+      couponID: null,
+      couponImg: null,
+      qrcodeImg: null,
+      code: null,
+      time: null,
+      hasUsed: true,
+      hasPost: true,
       wxShareInfoValue: {
         title: '萌狮表情大作战',
         desc: '天降福利，身骑白马闯三关',
-        link: 'http://papi.xingstation.com/api/s/oQK' + window.location.search,
-        imgUrl: cdnUrl + '/fe/marketing/img/lion/icon.png'
+        link: 'http://papi.xingstation.com/api/s/pQ6' + window.location.search,
+        imgUrl: cdnUrl + '/fe/marketing/img/lion/icon.jpeg'
       }
     }
   },
@@ -66,16 +94,75 @@ export default {
     } else {
       this.iphoneX = false
     }
+    this.getProjectMassage()
   },
   methods: {
-    //确认优惠券
+    //获取节目抽奖信息
+    getProjectMassage() {
+      getCouponProjectMessage(this.belong)
+        .then(res => {
+          console.log(res)
+          this.policyID = res.policy_id
+          this.getCouponId()
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    //抽奖
+    getCouponId() {
+      getCouponId(this.policyID)
+        .then(res => {
+          console.log(res)
+          this.couponID = res.id
+          this.couponImg = res.image_url
+          this.checkGetCoupon(res.id)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    //判断是否领过优惠券
+    checkGetCoupon(id) {
+      let args = {
+        coupon_batch_id: id
+      }
+      checkGetCoupon(args)
+        .then(res => {
+          console.log(res)
+          if (res.status === 200) {
+            this.qrcodeImg = res.qrcode_url
+            this.code = res.code
+          } else {
+            this.getCheck()
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    //发优惠券
     getCheck() {
-      let id = this.coupon_arr[this.coupon]
+      let id = this.couponID
       checkCouponNumber(id)
         .then(res => {
           console.log(res)
-          this.mask = true
-          this.telform = true
+          this.qrcodeImg = res.qrcode_url
+          this.code = res.code
+          this.time = res.created_at
+          //是否使用过及过期限定
+          if (
+            Math.round(new Date()) -
+              (Math.round(this.time) + 24 * 60 * 60 * 1000) >
+            0
+          ) {
+            this.hasPost = true
+            this.hasUsed = false
+          }
+          if (res.status === 1) {
+            this.hasUsed = true
+            this.hasPost = false
+          }
         })
         .catch(err => {
           alert(err.response.data.message)
