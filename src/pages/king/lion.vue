@@ -33,7 +33,7 @@
         class="erweima"> 
       <span 
         v-if="!hasUsed"
-        class="quanMa"
+        class="quanma"
       >{{ code }}</span>
       <!-- 券已使用 -->
       <img 
@@ -130,9 +130,21 @@ export default {
         .then(res => {
           console.log(res)
           if (res.status === 200) {
-            //说明领过了 显示券
             this.qrcodeImg = res.qrcode_url
             this.code = res.code
+            this.time = res.created_at
+            //是否使用过及过期限定
+            if (
+              Math.round(new Date()) -
+                (Math.round(this.time) + 24 * 60 * 60 * 1000) >
+              0
+            ) {
+              this.hasUsed = true
+            } else {
+              if (res.status === 1) {
+                this.hasUsed = true
+              }
+            }
           } else {
             this.getCheck()
           }
@@ -149,19 +161,6 @@ export default {
           console.log(res)
           this.qrcodeImg = res.qrcode_url
           this.code = res.code
-          this.time = res.created_at
-          //是否使用过及过期
-          if (
-            Math.round(new Date()) -
-              (Math.round(this.time) + 24 * 60 * 60 * 1000) >
-            0
-          ) {
-            this.hasUsed = false
-          } else {
-            if (res.status === 1) {
-              this.hasUsed = true
-            }
-          }
         })
         .catch(err => {
           alert(err.response.data.message)
