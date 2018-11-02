@@ -161,7 +161,9 @@ export default {
       checkGetCoupon(args)
         .then(res => {
           console.log(res)
+          alert(JSON.stringify(res))
           if (res) {
+            alert('success')
             this.qrcodeImg = res.qrcode_url
             this.code = res.code
             this.time = res.created_at
@@ -179,6 +181,7 @@ export default {
             //   this.hasPost = false
             // }
           } else {
+            alert('fail')
             this.getCheck()
           }
         })
@@ -189,8 +192,10 @@ export default {
     //发优惠券
     getCheck() {
       let id = this.couponID
+      alert(id)
       checkCouponNumber(id)
         .then(res => {
+          alert(JSON.stringify(res))
           console.log(res)
           this.qrcodeImg = res.qrcode_url
           this.code = res.code
