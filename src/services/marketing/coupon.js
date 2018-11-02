@@ -19,7 +19,7 @@ const REQ_HEADER = {
 const createCoupon = params => {
   return new Promise((resolve, reject) => {
     axios
-      .post(COUPOU_URL, params)
+      .post(COUPOU_URL, params, REQ_HEADER)
       .then(response => {
         if (response.data.success) {
           resolve(response.data.data)
@@ -209,7 +209,7 @@ const checkGetCoupon = params => {
 const getCouponProjectMessage = belong => {
   return new Promise((resolve, reject) => {
     axios
-      .get(OPEN_COUPON_PROJECT + '/policy?belong=' + belong)
+      .get(OPEN_COUPON_PROJECT + '/policy?belong=' + belong, REQ_HEADER)
       .then(response => {
         resolve(response.data)
       })
