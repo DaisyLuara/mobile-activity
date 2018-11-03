@@ -51,10 +51,8 @@
 <script>
 import { normalPages } from '../../mixins/normalPages'
 import {
-  getCouponId,
-  getCouponProjectMessage,
   sendCoupon,
-  checkGetCoupon,
+  checkCouponIsUse,
   $wechat,
   isInWechat,
   wechatShareTrack,
@@ -71,11 +69,9 @@ export default {
           height: this.$innerHeight() + 'px'
         }
       },
-      showImg: false,
       iphoneX: false,
       belong: this.$route.query.utm_campaign,
-      policyID: null,
-      couponID: null,
+      couponBatch: 76,
       couponImg: null,
       qrcodeImg: null,
       code: null,
@@ -125,46 +121,22 @@ export default {
       } else {
         this.userId = Cookies.get('user_id')
         this.params.user_id = this.userId
-        this.getProjectMassage()
+        this.checkCouponIsUse()
       }
-    },
-    //获取节目抽奖信息
-    getProjectMassage() {
-      getCouponProjectMessage(this.belong)
-        .then(res => {
-          //alert(JSON.stringify(res))
-          this.policyID = res.policy_id
-          this.getCouponId()
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    },
-    //抽奖
-    getCouponId() {
-      getCouponId(this.policyID)
-        .then(res => {
-          //alert(JSON.stringify(res))
-          this.couponID = res.id
-          this.couponImg = res.image_url
-          this.checkGetCoupon(res.id)
-        })
-        .catch(err => {
-          console.log(err)
-        })
     },
     //判断是否领过优惠券
-    checkGetCoupon(id) {
+    checkCouponIsUse() {
       let args = {
-        coupon_batch_id: id
+        coupon_batch_id: this.couponBatch
       }
-      checkGetCoupon(args)
+      checkCouponIsUse(args)
         .then(res => {
           if (res) {
-            //alert(JSON.stringify(res))
+            alert(JSON.stringify(res))
             this.qrcodeImg = res.qrcode_url
             this.code = res.code
             this.time = res.created_at
+            this.couponImg = res.couponBatch.image_url
             if (
               (Math.round(new Date()) -
                 (Math.round(new Date(this.time + '')) + 24 * 60 * 60 * 1000) >
@@ -181,7 +153,7 @@ export default {
               this.hasPost = false
             }
           } else {
-            this.getCheck()
+            this.sendCoupon()
           }
         })
         .catch(err => {
@@ -189,14 +161,14 @@ export default {
         })
     },
     //发优惠券
-    getCheck() {
-      let id = this.couponID
-      sendCoupon(id)
+    sendCoupon() {
+      sendCoupon(this.couponBatch)
         .then(res => {
-          //alert(JSON.stringify(res))
+          alert(JSON.stringify(res))
           this.qrcodeImg = res.qrcode_url
           this.code = res.code
           this.time = res.created_at
+          this.couponImg = res.couponBatch.image_url
           if (
             (Math.round(new Date()) -
               (Math.round(new Date(this.time + '')) + 24 * 60 * 60 * 1000) >
@@ -302,10 +274,10 @@ img {
     pointer-events: none;
     user-select: none;
     .erweima {
-      width: 17%;
+      width: 18.5%;
       position: absolute;
-      left: 10.5%;
-      top: 59%;
+      left: 10%;
+      top: 58%;
     }
     .quanma {
       display: block;

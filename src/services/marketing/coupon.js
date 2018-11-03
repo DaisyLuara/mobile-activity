@@ -235,6 +235,20 @@ const getCouponProjectMessage = belong => {
       })
   })
 }
+//查看优惠券是否领过
+const checkCouponIsUse = params => {
+  params.sign = Cookies.get('sign')
+  return new Promise((resolve, reject) => {
+    axios
+      .post(OPEN_USER_COUPON + '?include=couponBatch ', params, REQ_HEADER)
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
 
 export {
   createCoupon,
@@ -250,5 +264,6 @@ export {
   getIntegralCoupon,
   checkGetCoupon,
   getCouponProjectMessage,
-  sendCoupon
+  sendCoupon,
+  checkCouponIsUse
 }
