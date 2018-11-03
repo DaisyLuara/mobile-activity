@@ -52,7 +52,7 @@
 import { normalPages } from '../../mixins/normalPages'
 import {
   sendCoupon,
-  checkCouponIsUse,
+  checkGetCoupon,
   $wechat,
   isInWechat,
   wechatShareTrack,
@@ -71,7 +71,7 @@ export default {
       },
       iphoneX: false,
       belong: this.$route.query.utm_campaign,
-      couponBatch: 76,
+      coupon_batch_id: this.$route.query.coupon_batch_id,
       couponImg: null,
       qrcodeImg: null,
       code: null,
@@ -127,9 +127,10 @@ export default {
     //判断是否领过优惠券
     checkCouponIsUse() {
       let args = {
-        coupon_batch_id: this.couponBatch
+        coupon_batch_id: this.coupon_batch_id,
+        include: 'couponBatch'
       }
-      checkCouponIsUse(args)
+      checkGetCoupon(args)
         .then(res => {
           if (res) {
             alert(JSON.stringify(res))
@@ -162,7 +163,7 @@ export default {
     },
     //发优惠券
     sendCoupon() {
-      sendCoupon(this.couponBatch)
+      sendCoupon(this.coupon_batch_id)
         .then(res => {
           alert(JSON.stringify(res))
           this.qrcodeImg = res.qrcode_url
