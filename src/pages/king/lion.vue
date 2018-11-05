@@ -138,18 +138,11 @@ export default {
             this.code = res.code
             this.time = res.created_at
             this.couponImg = res.couponBatch.image_url
-            //  if (
-            //   Math.round(new Date()) -
-            //     (Math.round(new Date(this.time + '')) + 24 * 60 * 60 * 1000) >
-            //   0
-            // ) {
-            //   //失效处理
-            //   this.hasPost = true
-            //   this.hasUsed = false
-            // }
-            let now = new Date().getTime()
-            let myTime = Date.parse(this.time.replace(/-/g, '/'))
-            if (now - myTime > 86400000) {
+            let dateValue = this.time.replace(/\-/g, '/')
+            if (
+              new Date().getTime() - new Date(dateValue).getTime() >
+              86400000
+            ) {
               //失效处理
               this.hasPost = true
               this.hasUsed = false
@@ -178,18 +171,8 @@ export default {
           this.code = res.code
           this.time = res.created_at
           this.couponImg = res.couponBatch.image_url
-          // if (
-          //   Math.round(new Date()) -
-          //     (Math.round(new Date(this.time + '')) + 24 * 60 * 60 * 1000) >
-          //   0
-          // ) {
-          //   //失效处理
-          //   this.hasPost = true
-          //   this.hasUsed = false
-          // }
-          let now = new Date().getTime()
-          let myTime = Date.parse(this.time.replace(/-/g, '/'))
-          if (now - myTime > 86400000) {
+          let dateValue = this.time.replace(/\-/g, '/')
+          if (new Date().getTime() - new Date(dateValue).getTime() > 86400000) {
             //失效处理
             this.hasPost = true
             this.hasUsed = false
