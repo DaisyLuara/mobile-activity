@@ -133,7 +133,7 @@ export default {
       checkGetCoupon(args)
         .then(res => {
           if (res) {
-            alert(JSON.stringify(res))
+            //alert(JSON.stringify(res))
             this.qrcodeImg = res.qrcode_url
             this.code = res.code
             this.time = res.created_at
@@ -166,7 +166,7 @@ export default {
       }
       sendCoupon(args, this.coupon_batch_id)
         .then(res => {
-          alert(JSON.stringify(res))
+          //alert(JSON.stringify(res))
           this.qrcodeImg = res.qrcode_url
           this.code = res.code
           this.time = res.created_at
