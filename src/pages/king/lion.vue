@@ -24,27 +24,24 @@
     <!-- 优惠券部分 -->
     <div class="bt">
       <img 
-        v-if="hasUsed&&hasPost"
         :src="couponImg+ this.$qiniuCompress()"
         class="coupon"> 
       <img 
-        v-if="hasUsed&&hasPost"
         :src="qrcodeImg+ this.$qiniuCompress()"
         class="erweima"> 
       <span 
-        v-if="hasUsed&&hasPost"
         class="quanma"
       >{{ code }}</span>
       <!-- 券已使用 -->
       <img 
         v-if="hasUsed&&!hasPost"
         :src="baseUrl + 'used.png'+ this.$qiniuCompress()"
-        class="coupon">
+        class="coupon-used">
       <!--券过期 -->
       <img 
         v-if="hasPost&&!hasUsed"
         :src="baseUrl + 'failure.png'+ this.$qiniuCompress()"
-        class="coupon">
+        class="coupon-post">
     </div>
   </div>
 </template>
@@ -133,7 +130,6 @@ export default {
       checkGetCoupon(args)
         .then(res => {
           if (res) {
-            //alert(JSON.stringify(res))
             this.qrcodeImg = res.qrcode_url
             this.code = res.code
             this.time = res.created_at
@@ -166,7 +162,6 @@ export default {
       }
       sendCoupon(args, this.coupon_batch_id)
         .then(res => {
-          //alert(JSON.stringify(res))
           this.qrcodeImg = res.qrcode_url
           this.code = res.code
           this.time = res.created_at
@@ -287,6 +282,20 @@ img {
     }
     .coupon {
       width: 96%;
+    }
+    .coupon-used {
+      width: 96%;
+      position: absolute;
+      left: 2%;
+      top: 0;
+      z-index: 19;
+    }
+    .coupon-post {
+      width: 96%;
+      position: absolute;
+      left: 2%;
+      top: 0;
+      z-index: 19;
     }
   }
 }
