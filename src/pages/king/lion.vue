@@ -148,7 +148,7 @@ export default {
             //   this.hasUsed = false
             // }
             let now = new Date().getTime()
-            let myTime = Date.parse(this.time)
+            let myTime = Date.parse(this.time + '')
             if (now - myTime > 86400000) {
               //失效处理
               this.hasPost = true
@@ -188,7 +188,7 @@ export default {
           //   this.hasUsed = false
           // }
           let now = new Date().getTime()
-          let myTime = Date.parse(this.time)
+          let myTime = Date.parse(this.time + '')
           if (now - myTime > 86400000) {
             //失效处理
             this.hasPost = true
