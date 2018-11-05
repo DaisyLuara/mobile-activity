@@ -133,16 +133,23 @@ export default {
       checkGetCoupon(args)
         .then(res => {
           if (res) {
-            //alert(JSON.stringify(res))
+            alert(JSON.stringify(res))
             this.qrcodeImg = res.qrcode_url
             this.code = res.code
             this.time = res.created_at
             this.couponImg = res.couponBatch.image_url
-            if (
-              Math.round(new Date()) -
-                (Math.round(new Date(this.time + '')) + 24 * 60 * 60 * 1000) >
-              0
-            ) {
+            //  if (
+            //   Math.round(new Date()) -
+            //     (Math.round(new Date(this.time + '')) + 24 * 60 * 60 * 1000) >
+            //   0
+            // ) {
+            //   //失效处理
+            //   this.hasPost = true
+            //   this.hasUsed = false
+            // }
+            let now = new Date().getTime()
+            let myTime = Date.parse(this.time)
+            if (now - myTime > 86400000) {
               //失效处理
               this.hasPost = true
               this.hasUsed = false
@@ -166,16 +173,23 @@ export default {
       }
       sendCoupon(args, this.coupon_batch_id)
         .then(res => {
-          //alert(JSON.stringify(res))
+          alert(JSON.stringify(res))
           this.qrcodeImg = res.qrcode_url
           this.code = res.code
           this.time = res.created_at
           this.couponImg = res.couponBatch.image_url
-          if (
-            Math.round(new Date()) -
-              (Math.round(new Date(this.time + '')) + 24 * 60 * 60 * 1000) >
-            0
-          ) {
+          // if (
+          //   Math.round(new Date()) -
+          //     (Math.round(new Date(this.time + '')) + 24 * 60 * 60 * 1000) >
+          //   0
+          // ) {
+          //   //失效处理
+          //   this.hasPost = true
+          //   this.hasUsed = false
+          // }
+          let now = new Date().getTime()
+          let myTime = Date.parse(this.time)
+          if (now - myTime > 86400000) {
             //失效处理
             this.hasPost = true
             this.hasUsed = false
