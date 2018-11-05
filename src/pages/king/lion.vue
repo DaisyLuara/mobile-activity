@@ -161,7 +161,10 @@ export default {
     },
     //发优惠券
     sendCoupon() {
-      sendCoupon(this.coupon_batch_id)
+      let args = {
+        include: 'couponBatch'
+      }
+      sendCoupon(args, this.coupon_batch_id)
         .then(res => {
           alert(JSON.stringify(res))
           this.qrcodeImg = res.qrcode_url
