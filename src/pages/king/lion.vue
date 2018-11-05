@@ -22,7 +22,7 @@
         class="photo-real"> 
     </div>
     <!-- 优惠券部分 -->
-    <div class="bt">
+    <div class="bt" v-show="over">
       <img 
         :src="couponImg+ this.$qiniuCompress()"
         class="coupon"> 
@@ -73,6 +73,7 @@ export default {
       qrcodeImg: null,
       code: null,
       time: null,
+      over: true,
       params: {
         user_id: null
       },
@@ -153,6 +154,7 @@ export default {
         })
         .catch(err => {
           console.log(err)
+          this.over = false
         })
     },
     //发优惠券
@@ -178,6 +180,7 @@ export default {
           }
         })
         .catch(err => {
+          this.over = false
           alert(err.response.data.message)
         })
     }
