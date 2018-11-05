@@ -77,7 +77,6 @@ export default {
         'page7.png'
       ],
       sOption: {
-        initialSlide: 2,
         on: {
           init: () => {},
           slideChange: () => {}
@@ -88,7 +87,7 @@ export default {
       wxShareInfoValue: {
         title: '厦门万象城',
         desc: '厦门万象城',
-        link: '' + window.location.search,
+        link: 'http://papi.xingstation.com/api/s/qYr' + window.location.search,
         imgUrl: '',
         success: () => {
           wechatShareTrack()
@@ -97,13 +96,9 @@ export default {
     }
   },
   mounted() {
-    // if (this.$innerHeight() > 672) {
-    //   document.querySelector('.anim').style.marginTop = '15%'
-    //   document.querySelector('.tips').style.backgroundPosition =
-    //     '32% 78%, 45% 72%'
-    //   document.querySelector('.save').style.top = '78%'
-    // }
-    console.log(this.base)
+    if (this.$innerHeight() > 672) {
+      document.querySelector('.anim').style.marginTop = '0%'
+    }
     this.doAnim()
   },
   methods: {
@@ -151,6 +146,7 @@ img {
   position: relative;
   .anim {
     width: 100%;
+    margin-top: -20%;
   }
   .swiper {
     position: relative;
