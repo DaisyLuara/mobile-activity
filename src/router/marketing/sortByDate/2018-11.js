@@ -20,6 +20,17 @@ const Date201811 = [
       desc: '萌狮表情大作战'
     },
     isAbandoned: false
+  },
+  {
+    path: 'wxc_letter',
+    location: 'loveletter/letter',
+    name: 'wxc_letter',
+    meta: {
+      title: '厦门万象城',
+      author: 'lipan',
+      desc: '厦门万象城'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201811
