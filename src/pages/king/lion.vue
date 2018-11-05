@@ -139,11 +139,9 @@ export default {
             this.time = res.created_at
             this.couponImg = res.couponBatch.image_url
             if (
-              (Math.round(new Date()) -
+              Math.round(new Date()) -
                 (Math.round(new Date(this.time + '')) + 24 * 60 * 60 * 1000) >
-                0 &&
-                parseInt(res.status) === 0) ||
-              parseInt(res.status) === 2
+              0
             ) {
               //失效处理
               this.hasPost = true
@@ -171,11 +169,9 @@ export default {
           this.time = res.created_at
           this.couponImg = res.couponBatch.image_url
           if (
-            (Math.round(new Date()) -
+            Math.round(new Date()) -
               (Math.round(new Date(this.time + '')) + 24 * 60 * 60 * 1000) >
-              0 &&
-              parseInt(res.status) === 0) ||
-            parseInt(res.status) === 2
+            0
           ) {
             //失效处理
             this.hasPost = true
