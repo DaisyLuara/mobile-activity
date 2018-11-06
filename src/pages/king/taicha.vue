@@ -13,9 +13,11 @@
     <div class="center">
       <img 
       :src="baseUrl + 'button.png'+ this.$qiniuCompress()"
+      @click="go()"
       class="button">
       <img 
       :src="baseUrl + 'banner.png'+ this.$qiniuCompress()"
+      @click="go()"
       class="banner">
       <img 
       :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
@@ -23,48 +25,33 @@
     <img 
       v-if="photo !== null" 
       :src="photo + this.$qiniuCompress()"
-      :class="{'x-photo':iphoneX,'photo':!iphoneX}"
       class="photo">
     <img 
       v-if="photo !== null" 
       :src="photo + this.$qiniuCompress()"
-      :class="{'x-real-photo':iphoneX,'real-photo':!iphoneX}"
       class="real-photo">
     </div>
     <div class="bt">
       <img 
       :src="baseUrl + 'bottom.png'+ this.$qiniuCompress()"
       class="btImg">
-      <img 
+       <img 
         :src="baseUrl + 'nav.png'+ this.$qiniuCompress()"
         class="nav">
       <img 
         :src="baseUrl + 'prompt.png'+ this.$qiniuCompress()"
         class="prompt">
-    
     </div>
-    
-    <!--
     <img 
       :src="baseUrl + 'balloon_1.png'+ this.$qiniuCompress()"
       class="balloon1">
     <img 
       :src="baseUrl + 'balloon_2.png'+ this.$qiniuCompress()"
-      class="balloon2"> -->
-    <!-- <img 
+      class="balloon2">
+    <img 
       :src="baseUrl + 'balloon_3.png'+ this.$qiniuCompress()"
       class="balloon3">
-    <div 
-      :class="{'x-bt':iphoneX,'bt':!iphoneX}"
-      class="bt">
-      <img 
-        :src="baseUrl + 'nav.png'+ this.$qiniuCompress()"
-        class="nav">
-      <img 
-        :src="baseUrl + 'prompt.png'+ this.$qiniuCompress()"
-        class="prompt">
-    </div>
-     -->
+    
   </div>
 </template>
 <script>
@@ -103,7 +90,11 @@ export default {
       this.iphoneX = false
     }
   },
-  methods: {}
+  methods: {
+    go() {
+      window.location.href = 'http://papi.xingstation.com/api/s/vor'
+    }
+  }
 }
 </script>
 
@@ -149,28 +140,32 @@ img {
   .center {
     width: 100%;
     position: relative;
-    margin-top: 40%;
     .button {
       width: 90%;
       position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, 42%);
+      left: 5%;
+      top: 0%;
       z-index: 9;
+      margin-top: -18%;
+      animation: scale 1.5s linear infinite alternate;
+      user-select: auto;
+      pointer-events: auto;
     }
     .banner {
-      width: 70%;
+      width: 67%;
       position: absolute;
       left: 50%;
       top: 50%;
-      transform: translate(-50%, 73%);
+      transform: translate(-50%, -4%);
+      user-select: auto;
+      pointer-events: auto;
     }
     .frame {
       width: 75%;
       position: absolute;
       left: 50%;
       top: 50%;
-      transform: translate(-50%, -2%);
+      transform: translate(-50%, 28%);
       z-index: 5;
     }
     .photo {
@@ -178,7 +173,7 @@ img {
       position: absolute;
       left: 50%;
       top: 50%;
-      transform: translate(-50%, 2%);
+      transform: translate(-50%, 35%);
       user-select: auto;
       pointer-events: auto;
       z-index: 3;
@@ -188,7 +183,7 @@ img {
       position: absolute;
       left: 50%;
       top: 50%;
-      transform: translate(-50%, 2%);
+      transform: translate(-50%, 35%);
       z-index: 99;
       opacity: 0;
       user-select: auto;
@@ -198,38 +193,41 @@ img {
   .bt {
     width: 100%;
     position: relative;
-    margin-top: 168.2%;
+    margin-top: 137.2%;
     .nav {
       width: 15%;
       display: block;
       position: absolute;
       left: 42%;
-      bottom: 3%;
+      bottom: 20%;
+      z-index: 15;
+      animation: arrow 0.5s linear infinite alternate;
     }
     .prompt {
-      width: 60%;
+      width: 54%;
       display: block;
       position: absolute;
-      left: 21%;
-      bottom: -9%;
+      left: 23%;
+      bottom: 7%;
+      animation: arrow 0.5s linear infinite alternate;
     }
   }
 
   .balloon1 {
-    width: 16%;
+    width: 18%;
     position: absolute;
     right: 1%;
-    top: 8%;
+    top: 10%;
     animation: arrow2 2s linear infinite alternate;
     -webkit-touch-callout: none;
     user-select: none;
     pointer-events: none;
   }
   .balloon2 {
-    width: 22%;
+    width: 25%;
     position: absolute;
     left: -2%;
-    top: 29%;
+    top: 50%;
     z-index: 5;
     animation: arrow2 2s linear infinite alternate;
     -webkit-touch-callout: none;
@@ -237,10 +235,10 @@ img {
     pointer-events: none;
   }
   .balloon3 {
-    width: 18%;
+    width: 16%;
     position: absolute;
     right: 6%;
-    top: 57%;
+    top: 85%;
     z-index: 5;
     animation: arrow2 2s linear infinite alternate;
     -webkit-touch-callout: none;
@@ -272,13 +270,13 @@ img {
 }
 @keyframes scale {
   from {
-    transform: scale(1.1, 1.1);
+    transform: scale(0.8, 0.8);
   }
   50% {
-    transform: scale(1.5, 1.5);
+    transform: scale(1, 1);
   }
   to {
-    transform: scale(1.2, 1.2);
+    transform: scale(0.8, 0.8);
   }
 }
 </style>
