@@ -64,6 +64,17 @@ const Date201811 = [
       desc: 'high玩全世界-泰茶'
     },
     isAbandoned: false
+  },
+  {
+    path: 'taihe',
+    location: 'king/taihe',
+    name: 'taihe',
+    meta: {
+      title: '太禾影城',
+      author: 'xj1012',
+      desc: '太禾影院-刷脸享优惠 && 太禾影院-新爆米花奥斯卡'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201811
