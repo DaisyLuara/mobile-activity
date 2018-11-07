@@ -26,9 +26,31 @@ const Date201811 = [
     location: 'loveletter/letter',
     name: 'wxc_letter',
     meta: {
-      title: '厦门万象城',
+      title: '厦门万象城邀请函',
       author: 'lipan',
-      desc: '厦门万象城'
+      desc: '厦门万象城邀请函'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'wxc_map',
+    location: 'loveletter/map',
+    name: 'wxc_map',
+    meta: {
+      title: '厦门万象城地图导航',
+      author: 'lipan',
+      desc: '厦门万象城地图导航'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'hengdian',
+    location: 'rainer/hengdian',
+    name: 'hengdian',
+    meta: {
+      title: '横店影城',
+      author: 'lipan',
+      desc: '横店影城'
     },
     isAbandoned: false
   }

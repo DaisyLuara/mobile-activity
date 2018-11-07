@@ -42,15 +42,13 @@
           <img
           :src="base + icon +'.png'"/>
         </div>
-        
       </swiper-slide>
     </swiper>
   </div>
 </template>
 <script>
 import lottie from 'lottie-web'
-import { $wechat, getInfoById, wechatShareTrack } from 'services'
-import { normalPages } from '../../mixins/normalPages'
+import { onlyWechatShare } from '../../mixins/onlyWechatShare'
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 const cdnUrl = process.env.CDN_URL
@@ -59,7 +57,7 @@ export default {
     swiper,
     swiperSlide
   },
-  mixins: [normalPages],
+  mixins: [onlyWechatShare],
   data() {
     return {
       style: {
@@ -142,6 +140,7 @@ img {
 }
 .content {
   width: 100%;
+  max-width: 750px;
   overflow: hidden;
   position: relative;
   .anim {
