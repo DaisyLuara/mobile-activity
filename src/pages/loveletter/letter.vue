@@ -20,6 +20,11 @@
     <img
       :src="base + 'pointer.png'"
       class="pointer">
+    <!-- 底部文字 -->
+    <img
+      v-show="word"
+      :src="base + 'font.png'"
+      class="font">
       <!-- 动画 -->
     <div 
       id="anim"
@@ -61,8 +66,17 @@ export default {
         move: null,
         end: null
       },
+      word: true,
       arrIndex: 0,
-      framesArr: [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]],
+      framesArr: [
+        [0, 100],
+        [101, 200],
+        [201, 300],
+        [301, 400],
+        [401, 500],
+        [501, 600],
+        [601, 700]
+      ],
       //分享
       wxShareInfoValue: {
         title: '贵客齐聚，共赴好宴│11.23厦门万象城正式揭幕',
@@ -99,13 +113,13 @@ export default {
         container: el,
         renderer: 'svg',
         loop: false,
-        assetsPath: that.base + '/images/',
-        path: that.base + 'data.json'
+        assetsPath: that.base + 'data/images/',
+        path: that.base + 'data/data.json'
       })
       this.animation = anim
       anim.addEventListener('DOMLoaded', function() {
-        // 播放0-75帧动画,第一屏动画
-        anim.playSegments([0, 75], true)
+        // 播放0-100帧动画,第一屏动画
+        anim.playSegments([0, 100], true)
       })
     },
     // openLetter() {
@@ -129,12 +143,10 @@ export default {
       if (this.pointer.move - this.pointer.start < -30) {
         console.log('向左滑')
         this.toLeft()
-        return
       }
       if (this.pointer.move - this.pointer.start > 30) {
         console.log('向右滑')
         this.toRight()
-        return
       }
     },
     toLeft() {
@@ -142,7 +154,7 @@ export default {
       if (this.arrIndex <= 0) {
         return
       } else {
-        this.animation.playSegments(framesArr[this.arrIndex - 1], true)
+        this.animation.playSegments(this.framesArr[this.arrIndex - 1], true)
         this.arrIndex--
       }
     },
@@ -151,7 +163,7 @@ export default {
       if (this.arrIndex >= this.framesArr.length - 1) {
         return
       } else {
-        this.animation.playSegments(framesArr[this.arrIndex + 1], true)
+        this.animation.playSegments(this.framesArr[this.arrIndex + 1], true)
         this.arrIndex++
       }
     },
