@@ -28,7 +28,7 @@ const Date201811 = [
     meta: {
       title: 'high玩全世界',
       author: 'xj1012',
-      desc: 'high玩全世界'
+      desc: 'high玩全世界-泰茶'
     },
     isAbandoned: false
   }
