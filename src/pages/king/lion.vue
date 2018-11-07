@@ -22,7 +22,9 @@
         class="photo-real"> 
     </div>
     <!-- 优惠券部分 -->
-    <div class="bt" v-show="over">
+    <div 
+      v-show="over" 
+      class="bt">
       <img 
         :src="couponImg+ this.$qiniuCompress()"
         class="coupon"> 
