@@ -7,35 +7,35 @@
       class="bg">
     <div class="top">
       <img 
-      :src="baseUrl + 'top.png'+ this.$qiniuCompress()"
-      class="topImg">
+        :src="baseUrl + 'top.png'+ this.$qiniuCompress()"
+        class="topImg">
     </div>
     <div class="center">
       <img 
-      :src="baseUrl + 'button.png'+ this.$qiniuCompress()"
-      @click="go()"
-      class="button">
+        :src="baseUrl + 'button.png'+ this.$qiniuCompress()"
+        class="button"
+        @click="go()">
       <img 
-      :src="baseUrl + 'banner.png'+ this.$qiniuCompress()"
-      @click="go()"
-      class="banner">
+        :src="baseUrl + 'banner.png'+ this.$qiniuCompress()"
+        class="banner"
+        @click="go()">
       <img 
-      :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
-      class="frame">
-    <img 
-      v-if="photo !== null" 
-      :src="photo + this.$qiniuCompress()"
-      class="photo">
-    <img 
-      v-if="photo !== null" 
-      :src="photo + this.$qiniuCompress()"
-      class="real-photo">
+        :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
+        class="frame">
+      <img 
+        v-if="photo !== null" 
+        :src="photo + this.$qiniuCompress()"
+        class="photo">
+      <img 
+        v-if="photo !== null" 
+        :src="photo + this.$qiniuCompress()"
+        class="real-photo">
     </div>
     <div class="bt">
       <img 
-      :src="baseUrl + 'bottom.png'+ this.$qiniuCompress()"
-      class="btImg">
-       <img 
+        :src="baseUrl + 'bottom.png'+ this.$qiniuCompress()"
+        class="btImg">
+      <img 
         :src="baseUrl + 'nav.png'+ this.$qiniuCompress()"
         class="nav">
       <img 
