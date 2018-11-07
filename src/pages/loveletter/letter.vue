@@ -141,11 +141,9 @@ export default {
     },
     handleTouchEnd(event) {
       if (this.pointer.move - this.pointer.start < -30) {
-        console.log('向左滑')
         this.toLeft()
       }
       if (this.pointer.move - this.pointer.start > 30) {
-        console.log('向右滑')
         this.toRight()
       }
     },
@@ -226,7 +224,6 @@ img {
   position: relative;
   .anim {
     width: 100%;
-    margin-top: -20%;
   }
   .swiper {
     position: relative;
