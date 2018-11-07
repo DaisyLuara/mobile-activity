@@ -8,14 +8,14 @@
     <div 
       v-show="toImg"
       class="upload"
-      >
+    >
       <input 
         type="file" 
         accept="image/*"
         class="camera"
         @change="toUpLoad">
       <img
-      :src="base + icon +'.png'"/>
+        :src="base + icon +'.png'">
     </div>
     <img
       v-show="word"
@@ -40,7 +40,7 @@
         class="pslider">
         <img
           :src="base + item"
-          class="page"/>
+          class="page">
       </swiper-slide>
     </swiper>
   </div>

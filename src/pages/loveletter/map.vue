@@ -25,7 +25,7 @@
               :key="item.id"
               @click="toLink(item)">
               <img 
-                :src="base + 'icon' + item + '.png'"/>
+                :src="base + 'icon' + item + '.png'">
             </li>
           </ul>
           <!-- 厦门爱乐乐团 -->
@@ -34,7 +34,7 @@
             @click="toAlert(1)">
             <img
               :src="base + 'yuan.png'"
-              class="ding"/>
+              class="ding">
           </a>
           <!-- 高参 -->
           <a
@@ -42,7 +42,7 @@
             @click="toAlert(2)">
             <img
               :src="base + 'yuan.png'"
-              class="ding"/>
+              class="ding">
           </a>
           <!-- 揭幕流程 -->
           <a
@@ -50,7 +50,7 @@
             @click="toAlert(3)">
             <img
               :src="base + 'yuan.png'"
-              class="ding"/>
+              class="ding">
           </a>
           <!-- 夏国璋龙狮团 -->
           <a
@@ -58,7 +58,7 @@
             @click="toAlert(4)">
             <img
               :src="base + 'yuan.png'"
-              class="ding"/>
+              class="ding">
           </a>
           <!-- 豪觅邮局 -->
           <a
@@ -66,7 +66,7 @@
             @click="toAlert(5)">
             <img
               :src="base + 'yuan.png'"
-              class="ding"/>
+              class="ding">
           </a>
           <!-- 永新早食 -->
           <a
@@ -74,7 +74,7 @@
             @click="toAlert(6)">
             <img
               :src="base + 'yuan.png'"
-              class="ding"/>
+              class="ding">
           </a>
           <!-- 华润80年，润物耕心 -->
           <a
@@ -82,7 +82,7 @@
             @click="toAlert(7)">
             <img
               :src="base + 'yuan.png'"
-              class="ding"/>
+              class="ding">
           </a>
         </div>
       </swiper-slide>

@@ -10,7 +10,7 @@
       <img
         :src="photo + this.$qiniuCompress()"
         class="photo">
-       <a 
+      <a 
         class="alink"
         @click="myToBuy">
         <img
