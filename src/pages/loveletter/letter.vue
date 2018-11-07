@@ -3,6 +3,22 @@
     :style="style.root"
     class="content">
     <img
+      :src="base + 'logo.png'"
+      class="logo">
+    <div 
+      v-show="toImg"
+      class="upload"
+      >
+      <input 
+        type="file" 
+        accept="image/*"
+        class="camera"
+        @change="toUpLoad">
+      <img
+      :src="base + icon +'.png'"/>
+    </div>
+    <img
+      v-show="word"
       :src="base + 'font.png'"
       class="font">
     <img
@@ -17,9 +33,6 @@
           id="anim"
           class="page anim"
         />
-        <img
-          :src="base + 'logo.png'"
-          class="logo">
       </swiper-slide>
       <swiper-slide
         v-for="item in pages"
@@ -28,20 +41,6 @@
         <img
           :src="base + item"
           class="page"/>
-        <img
-          :src="base + 'logo.png'"
-          class="logo">
-        <div 
-          class="upload"
-          >
-          <input 
-            type="file" 
-            accept="image/*"
-            class="camera"
-            @change="toUpLoad">
-          <img
-          :src="base + icon +'.png'"/>
-        </div>
       </swiper-slide>
     </swiper>
   </div>
@@ -82,10 +81,24 @@ export default {
         'page7.png'
       ],
       userId: null,
+      toImg: false,
+      word: true,
       sOption: {
         on: {
           init: () => {},
-          slideChange: () => {}
+          slideChange: () => {
+            let index = this.$refs.Swiper.swiper.realIndex
+            if (index === 0) {
+              this.toImg = false
+              this.word = true
+            } else if (index === 6) {
+              this.toImg = true
+              this.word = false
+            } else {
+              this.toImg = true
+              this.word = true
+            }
+          }
         }
       },
       icon: 'icon1',
@@ -193,8 +206,6 @@ img {
   }
   .swiper {
     position: relative;
-    // top: 50%;
-    // transform: translateY(-50%);
   }
   .page {
     position: relative;
@@ -202,10 +213,31 @@ img {
   }
   .logo {
     position: absolute;
-    top: 8%;
+    top: 6%;
     left: 5%;
     width: 33.5%;
     z-index: 99;
+  }
+  .upload {
+    display: inline-block;
+    width: 10%;
+    position: absolute;
+    top: 4%;
+    right: 5%;
+    z-index: 999;
+    img {
+      position: relative;
+      z-index: 0;
+    }
+    input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 999;
+      opacity: 0;
+    }
   }
   .font {
     width: 32%;
@@ -223,27 +255,6 @@ img {
     // transform: translateY(-50%);
     animation: pointer 0.8s linear infinite alternate;
     z-index: 999;
-  }
-  .upload {
-    display: inline-block;
-    width: 10%;
-    position: absolute;
-    top: 7%;
-    right: 5%;
-    z-index: 999;
-    img {
-      position: relative;
-      z-index: 0;
-    }
-    input {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 999;
-      opacity: 0;
-    }
   }
 }
 @keyframes pointer {
