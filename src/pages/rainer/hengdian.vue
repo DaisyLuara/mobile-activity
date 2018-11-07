@@ -11,7 +11,7 @@
         :src="photo + this.$qiniuCompress()"
         class="photo">
        <a 
-        href="http://wap.hengdianfilm.com"
+        href="http://papi.xingstation.com/api/s/yrW"
         class="alink">
         <img
           :src="base + 'hengdian/btn.png'">
