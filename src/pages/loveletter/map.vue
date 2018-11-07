@@ -298,7 +298,7 @@ img {
       width: 15vw;
       height: 25vw;
       border-radius: 50%;
-      border: solid 1px red;
+      // border: solid 1px red;
       position: absolute;
       z-index: 99;
       .ding {
