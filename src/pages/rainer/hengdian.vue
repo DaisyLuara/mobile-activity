@@ -5,25 +5,24 @@
     <div
       class="picture">
       <img 
-        :src="base + 'dgm/kuang.png'"
+        :src="base + 'dgm/kuang.png' + this.$qiniuCompress()"
         class="frame">
       <img
         :src="photo + this.$qiniuCompress()"
         class="photo">
-       <a 
-        href="http://papi.xingstation.com/api/s/yrW"
-        class="alink">
+      <a 
+        class="alink"
+        @click="myToBuy">
         <img
-          :src="base + 'hengdian/btn.png'">
+          :src="base + btn + this.$qiniuCompress()">
       </a>
     </div>
     <img
-      :src="base + 'dgm/save.png'"
+      :src="base + 'dgm/save.png' + this.$qiniuCompress()"
       class="note">
     <img
-      :src="base + 'dgm/di.png'"
+      :src="base + 'dgm/di.png' + this.$qiniuCompress()"
       :class="{light:!absolute,absolute:absolute}">
-     
   </div>
 </template>
 <script>
@@ -43,6 +42,9 @@ export default {
       photo: null,
       iphoneX: false,
       absolute: false,
+      btn: 'hengdian/btn1.png',
+      count: 0,
+      timer: null,
       //微信分享
       wxShareInfoValue: {
         title: '横店APP',
@@ -67,6 +69,28 @@ export default {
       this.iphoneX = true
     } else {
       this.iphoneX = false
+    }
+    this.setAnim()
+  },
+  methods: {
+    setAnim() {
+      if (this.count % 10 == 0) {
+        this.btn =
+          this.btn == 'hengdian/btn1.png'
+            ? 'hengdian/btn2.png'
+            : 'hengdian/btn1.png'
+      }
+      this.count++
+      this.timer = requestAnimationFrame(this.setAnim)
+      if (this.count > 600) {
+        this.count = 0
+        return
+      }
+    },
+    myToBuy() {
+      cancelAnimationFrame(this.timer)
+      this.btn = 'hengdian/press.png'
+      window.location.href = 'http://papi.xingstation.com/api/s/yrW'
     }
   }
 }
