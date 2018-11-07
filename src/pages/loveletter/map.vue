@@ -151,10 +151,10 @@ export default {
       iphoneX: false,
       //分享
       wxShareInfoValue: {
-        title: '厦门万象城',
-        desc: '厦门万象城',
+        title: '厦门万象城', //暂无
+        desc: '厦门万象城', //暂无
         link: 'http://papi.xingstation.com/api/s/xvr' + window.location.search,
-        imgUrl: '',
+        imgUrl: 'https://cdn.exe666.com/fe/image/wxc_map/icon.png', //暂无
         success: () => {
           wechatShareTrack()
         }
@@ -178,7 +178,7 @@ export default {
         return
       }
       if (num === 2) {
-        this.pro = 'wc.png'
+        this.pro = 'wc.png' //暂无
         return
       }
       if (num === 3) {

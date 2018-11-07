@@ -38,7 +38,7 @@
             type="file" 
             accept="image/*"
             class="camera"
-            @click="toUpLoad">
+            @change="toUpLoad">
           <img
           :src="base + icon +'.png'"/>
         </div>
@@ -48,6 +48,13 @@
 </template>
 <script>
 import lottie from 'lottie-web'
+import {
+  $wechat,
+  isInWechat,
+  wechatShareTrack,
+  Cookies,
+  getImage
+} from 'services'
 import { onlyWechatShare } from '../../mixins/onlyWechatShare'
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
@@ -74,6 +81,7 @@ export default {
         'page6.png',
         'page7.png'
       ],
+      userId: null,
       sOption: {
         on: {
           init: () => {},
@@ -83,10 +91,10 @@ export default {
       icon: 'icon1',
       //分享
       wxShareInfoValue: {
-        title: '厦门万象城',
-        desc: '厦门万象城',
+        title: '岁月静安，共赴好宴│11.23厦门万象城正式揭幕',
+        desc: '敬致：永新豪觅。用心好物',
         link: 'http://papi.xingstation.com/api/s/qYr' + window.location.search,
-        imgUrl: '',
+        imgUrl: 'https://cdn.exe666.com/fe/image/wxc_letter/icon.png',
         success: () => {
           wechatShareTrack()
         }
@@ -98,6 +106,15 @@ export default {
       document.querySelector('.anim').style.marginTop = '0%'
     }
     this.doAnim()
+    //微信授权
+    if (isInWechat() === true) {
+      if (
+        process.env.NODE_ENV === 'production' ||
+        process.env.NODE_ENV === 'testing'
+      ) {
+        this.handleWechatAuth()
+      }
+    }
   },
   methods: {
     doAnim() {
@@ -113,8 +130,35 @@ export default {
       })
       this.animation = anim
     },
-    toUpLoad() {
-      console.log(111)
+    //微信静默授权
+    handleWechatAuth() {
+      if (Cookies.get('sign') === null) {
+        let base_url = encodeURIComponent(String(window.location.href))
+        let redirct_url =
+          process.env.WX_API +
+          '/wx/officialAccount/oauth?url=' +
+          base_url +
+          '&scope=snsapi_base'
+        window.location.href = redirct_url
+      } else {
+        this.userId = Cookies.get('user_id')
+      }
+    },
+    toUpLoad(event) {
+      let file = event.target.files[0]
+      let path = file.path
+      let formData = new FormData()
+      formData.append('image', path)
+      formData.append('type', 'avatar')
+      getImage(formData)
+        .then(res => {
+          console.log(res)
+          this.icon = 'icon2'
+        })
+        .catch(err => {
+          alert('图像上传错误！请重新上传，只支持jpg,png格式')
+          console.log(err)
+        })
     }
   }
 }
