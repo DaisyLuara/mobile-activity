@@ -53,6 +53,17 @@ const Date201811 = [
       desc: '横店影城'
     },
     isAbandoned: false
+  },
+  {
+    path: 'hi_play_taicha',
+    location: 'king/taicha',
+    name: 'hi_play_taicha',
+    meta: {
+      title: 'high玩全世界',
+      author: 'xj1012',
+      desc: 'high玩全世界-泰茶'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201811

@@ -22,29 +22,28 @@
         class="photo-real"> 
     </div>
     <!-- 优惠券部分 -->
-    <div class="bt">
+    <div 
+      v-show="over" 
+      class="bt">
       <img 
-        v-if="hasUsed&&hasPost"
         :src="couponImg+ this.$qiniuCompress()"
         class="coupon"> 
       <img 
-        v-if="hasUsed&&hasPost"
         :src="qrcodeImg+ this.$qiniuCompress()"
         class="erweima"> 
       <span 
-        v-if="hasUsed&&hasPost"
         class="quanma"
       >{{ code }}</span>
       <!-- 券已使用 -->
       <img 
         v-if="hasUsed&&!hasPost"
         :src="baseUrl + 'used.png'+ this.$qiniuCompress()"
-        class="coupon">
+        class="coupon-used">
       <!--券过期 -->
       <img 
         v-if="hasPost&&!hasUsed"
         :src="baseUrl + 'failure.png'+ this.$qiniuCompress()"
-        class="coupon">
+        class="coupon-post">
     </div>
   </div>
 </template>
@@ -76,6 +75,7 @@ export default {
       qrcodeImg: null,
       code: null,
       time: null,
+      over: true,
       params: {
         user_id: null
       },
@@ -133,17 +133,14 @@ export default {
       checkGetCoupon(args)
         .then(res => {
           if (res) {
-            //alert(JSON.stringify(res))
             this.qrcodeImg = res.qrcode_url
             this.code = res.code
             this.time = res.created_at
             this.couponImg = res.couponBatch.image_url
+            let dateValue = this.time.replace(/\-/g, '/')
             if (
-              (Math.round(new Date()) -
-                (Math.round(new Date(this.time + '')) + 24 * 60 * 60 * 1000) >
-                0 &&
-                parseInt(res.status) === 0) ||
-              parseInt(res.status) === 2
+              new Date().getTime() - new Date(dateValue).getTime() >
+              86400000
             ) {
               //失效处理
               this.hasPost = true
@@ -159,24 +156,22 @@ export default {
         })
         .catch(err => {
           console.log(err)
+          this.over = false
         })
     },
     //发优惠券
     sendCoupon() {
-      sendCoupon(this.coupon_batch_id)
+      let args = {
+        include: 'couponBatch'
+      }
+      sendCoupon(args, this.coupon_batch_id)
         .then(res => {
-          //alert(JSON.stringify(res))
           this.qrcodeImg = res.qrcode_url
           this.code = res.code
           this.time = res.created_at
           this.couponImg = res.couponBatch.image_url
-          if (
-            (Math.round(new Date()) -
-              (Math.round(new Date(this.time + '')) + 24 * 60 * 60 * 1000) >
-              0 &&
-              parseInt(res.status) === 0) ||
-            parseInt(res.status) === 2
-          ) {
+          let dateValue = this.time.replace(/\-/g, '/')
+          if (new Date().getTime() - new Date(dateValue).getTime() > 86400000) {
             //失效处理
             this.hasPost = true
             this.hasUsed = false
@@ -187,6 +182,7 @@ export default {
           }
         })
         .catch(err => {
+          this.over = false
           alert(err.response.data.message)
         })
     }
@@ -291,6 +287,20 @@ img {
     }
     .coupon {
       width: 96%;
+    }
+    .coupon-used {
+      width: 96%;
+      position: absolute;
+      left: 2%;
+      top: 0;
+      z-index: 19;
+    }
+    .coupon-post {
+      width: 96%;
+      position: absolute;
+      left: 2%;
+      top: 0;
+      z-index: 19;
     }
   }
 }

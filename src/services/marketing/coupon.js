@@ -159,7 +159,7 @@ const getIntegralCoupon = (params, couponId, userId) => {
     }
   })
 }
-// 确认优惠券是否已经领完    发优惠券
+// 确认优惠券是否已经领完
 const checkCouponNumber = couponId => {
   let params = {
     sign: Cookies.get('sign')
@@ -176,10 +176,8 @@ const checkCouponNumber = couponId => {
   })
 }
 //  发优惠券
-const sendCoupon = couponId => {
-  let params = {
-    sign: Cookies.get('sign')
-  }
+const sendCoupon = (params, couponId) => {
+  params.sign = Cookies.get('sign')
   return new Promise((resolve, reject) => {
     axios
       .post(COUPOUS_URL + couponId, params, REQ_HEADER)
@@ -192,7 +190,7 @@ const sendCoupon = couponId => {
   })
 }
 
-// 概率获取优惠券ID（coupinId）  抽奖
+// 概率获取优惠券ID（coupinId）
 const getCouponId = policyId => {
   let params = {
     sign: Cookies.get('sign')
