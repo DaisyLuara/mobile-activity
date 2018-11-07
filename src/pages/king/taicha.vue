@@ -71,9 +71,9 @@ export default {
       iphoneX: false,
       photo: null,
       wxShareInfoValue: {
-        title: '嗨玩全世界',
-        desc: '即刻旅行，就现在',
-        link: 'http://papi.xingstation.com/api/s/Lg4' + window.location.search,
+        title: '快快领取 泰茶兑换券',
+        desc: 'High玩全世界，即刻出发',
+        link: 'http://papi.xingstation.com/api/s/wmw' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/hiplay_world_taicha/icon.png',
         success: () => {
           wechatShareTrack()
@@ -129,10 +129,16 @@ img {
     position: absolute;
     left: 0;
     top: 0;
+    -webkit-touch-callout: none;
+    user-select: none;
+    pointer-events: none;
   }
   .top {
     width: 100%;
     position: relative;
+    -webkit-touch-callout: none;
+    user-select: none;
+    pointer-events: none;
     .topImg {
       width: 100%;
     }
@@ -140,13 +146,16 @@ img {
   .center {
     width: 100%;
     position: relative;
+    -webkit-touch-callout: none;
+    user-select: none;
+    pointer-events: none;
     .button {
       width: 90%;
       position: absolute;
       left: 5%;
       top: 0%;
       z-index: 9;
-      margin-top: -18%;
+      margin-top: -17%;
       animation: scale 1.5s linear infinite alternate;
       user-select: auto;
       pointer-events: auto;
@@ -165,7 +174,7 @@ img {
       position: absolute;
       left: 50%;
       top: 50%;
-      transform: translate(-50%, 28%);
+      transform: translate(-50%, 26%);
       z-index: 5;
     }
     .photo {
@@ -173,7 +182,7 @@ img {
       position: absolute;
       left: 50%;
       top: 50%;
-      transform: translate(-50%, 35%);
+      transform: translate(-50%, 32%);
       user-select: auto;
       pointer-events: auto;
       z-index: 3;
@@ -183,7 +192,7 @@ img {
       position: absolute;
       left: 50%;
       top: 50%;
-      transform: translate(-50%, 35%);
+      transform: translate(-50%, 32%);
       z-index: 99;
       opacity: 0;
       user-select: auto;
@@ -193,13 +202,16 @@ img {
   .bt {
     width: 100%;
     position: relative;
-    margin-top: 137.2%;
+    margin-top: 138%;
+    -webkit-touch-callout: none;
+    user-select: none;
+    pointer-events: none;
     .nav {
       width: 15%;
       display: block;
       position: absolute;
       left: 42%;
-      bottom: 20%;
+      bottom: 36%;
       z-index: 15;
       animation: arrow 0.5s linear infinite alternate;
     }
@@ -208,7 +220,7 @@ img {
       display: block;
       position: absolute;
       left: 23%;
-      bottom: 7%;
+      bottom: 20%;
       animation: arrow 0.5s linear infinite alternate;
     }
   }
