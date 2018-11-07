@@ -2,6 +2,7 @@
   <div
     :style="style.root"
     class="root">
+    <!-- 券图 -->
     <img 
       :src="couponImg+ this.$qiniuCompress()"
       class="couponImg">
@@ -14,6 +15,7 @@
         v-if="photo !== null" 
         :src="photo + this.$qiniuCompress()"
         class="photo"> 
+        <!-- 二维码 -->
       <img 
         :src="qrcodeImg+ this.$qiniuCompress()"
         class="ewm"> 
@@ -21,10 +23,6 @@
         v-if="hasUsed"
         :src="baseUrl + 'used.png'+ this.$qiniuCompress()"
         class="coupon-used">
-      <img 
-        v-show="over"
-        :src="baseUrl + 'over.png'+ this.$qiniuCompress()"
-        class="coupon-over">
     </div>
   </div>
 </template>
@@ -57,7 +55,6 @@ export default {
         user_id: null
       },
       hasUsed: false,
-      over: false,
       wxShareInfoValue: {
         title: '刷脸享优惠，畅快看大片！',
         desc: '太禾影城等你来嗨玩！',
@@ -116,7 +113,6 @@ export default {
         })
         .catch(err => {
           console.log(err)
-          this.over = true
         })
     },
     //发优惠券
@@ -134,7 +130,6 @@ export default {
           }
         })
         .catch(err => {
-          this.over = true
           alert(err.response.data.message)
         })
     }
@@ -202,13 +197,6 @@ img {
       pointer-events: auto;
     }
     .coupon-used {
-      width: 80%;
-      position: absolute;
-      left: 10%;
-      top: 0.4%;
-      z-index: 9;
-    }
-    .coupon-over {
       width: 80%;
       position: absolute;
       left: 10%;
