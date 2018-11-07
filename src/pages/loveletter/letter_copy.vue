@@ -1,13 +1,14 @@
 <template>
   <div 
     :style="style.root"
-    class="content"
-    @touchstart="handleTouchStart"
-    @touchmove="handleTouchMove"
-    @touchend="handleTouchEnd">
-    <!-- 上传头像 -->
+    class="content">
+    <img
+      :src="base + 'logo.png'"
+      class="logo">
     <div 
-      class="upload">
+      v-show="toImg"
+      class="upload"
+    >
       <input 
         type="file" 
         accept="image/*"
@@ -16,15 +17,32 @@
       <img
         :src="base + icon +'.png'">
     </div>
-    <!-- 箭头图片 -->
+    <img
+      v-show="word"
+      :src="base + 'font.png'"
+      class="font">
     <img
       :src="base + 'pointer.png'"
       class="pointer">
-      <!-- 动画 -->
-    <div 
-      id="anim"
-      class="page anim"
-    />
+    <swiper
+      ref="Swiper"
+      :options="sOption"
+      class="swiper">
+      <swiper-slide>
+        <div 
+          id="anim"
+          class="page anim"
+        />
+      </swiper-slide>
+      <swiper-slide
+        v-for="item in pages"
+        :key="item.id"
+        class="pslider">
+        <img
+          :src="base + item"
+          class="page">
+      </swiper-slide>
+    </swiper>
   </div>
 </template>
 <script>
@@ -54,15 +72,37 @@ export default {
         }
       },
       base: cdnUrl + '/fe/image/wxc_letter/',
+      pages: [
+        'page2.png',
+        'page3.png',
+        'page4.png',
+        'page5.png',
+        'page6.png',
+        'page7.png'
+      ],
       userId: null,
-      icon: 'icon1',
-      pointer: {
-        start: null,
-        move: null,
-        end: null
+      toImg: false,
+      word: true,
+      sOption: {
+        effect: 'fade',
+        on: {
+          init: () => {},
+          slideChange: () => {
+            let index = this.$refs.Swiper.swiper.realIndex
+            if (index === 0) {
+              this.toImg = false
+              this.word = true
+            } else if (index === 6) {
+              this.toImg = true
+              this.word = false
+            } else {
+              this.toImg = true
+              this.word = true
+            }
+          }
+        }
       },
-      arrIndex: 0,
-      framesArr: [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]],
+      icon: 'icon1',
       //分享
       wxShareInfoValue: {
         title: '贵客齐聚，共赴好宴│11.23厦门万象城正式揭幕',
@@ -103,57 +143,6 @@ export default {
         path: that.base + 'data.json'
       })
       this.animation = anim
-      anim.addEventListener('DOMLoaded', function() {
-        // 播放0-75帧动画,第一屏动画
-        anim.playSegments([0, 75], true)
-      })
-    },
-    // openLetter() {
-    //   let that = this
-    //   this.animation.setSpeed(1.5) //设置播放速度
-    //   this.animation.playSegments([76, 130], true) // 播放76-130帧动画
-    //   this.animation.loop = false
-    //   this.animation.addEventListener('complete', function() {
-    //     // 动画播放完成后
-    //     // that.lastAnim()
-    //   })
-    // },
-    handleTouchStart(event) {
-      let x = event.touches[0].pageX
-      this.pointer.start = x
-    },
-    handleTouchMove(event) {
-      this.pointer.move = event.touches[0].pageX
-    },
-    handleTouchEnd(event) {
-      if (this.pointer.move - this.pointer.start < -30) {
-        console.log('向左滑')
-        this.toLeft()
-        return
-      }
-      if (this.pointer.move - this.pointer.start > 30) {
-        console.log('向右滑')
-        this.toRight()
-        return
-      }
-    },
-    toLeft() {
-      // 向左滑
-      if (this.arrIndex <= 0) {
-        return
-      } else {
-        this.animation.playSegments(framesArr[this.arrIndex - 1], true)
-        this.arrIndex--
-      }
-    },
-    toRight() {
-      // 向右滑
-      if (this.arrIndex >= this.framesArr.length - 1) {
-        return
-      } else {
-        this.animation.playSegments(framesArr[this.arrIndex + 1], true)
-        this.arrIndex++
-      }
     },
     //微信静默授权
     handleWechatAuth() {
