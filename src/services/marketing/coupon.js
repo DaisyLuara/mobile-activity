@@ -9,6 +9,7 @@ const OPEN_COUPON = process.env.AD_API + '/api/open/coupon/'
 const OPEN_USER_COUPON = process.env.AD_API + '/api/open/user/coupon'
 
 const OPEN_COUPON_PROJECT = process.env.AD_API + '/api/open/project'
+const IMAGE_UPLOAD = process.env.SAAS_API + '/api/images'
 
 const REQ_HEADER = {
   headers: {
@@ -233,7 +234,20 @@ const getCouponProjectMessage = belong => {
       })
   })
 }
-
+// 上传照片接口
+const getImage = formData => {
+  formData.append('sign', Cookies.get('sign'))
+  return new Promise((resolve, reject) => {
+    axios
+      .post(IMAGE_UPLOAD, formData, REQ_HEADER)
+      .then(response => {
+        reject(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
 export {
   createCoupon,
   getCoupon,
@@ -248,5 +262,6 @@ export {
   getIntegralCoupon,
   checkGetCoupon,
   getCouponProjectMessage,
-  sendCoupon
+  sendCoupon,
+  getImage
 }
