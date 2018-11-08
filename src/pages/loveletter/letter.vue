@@ -200,18 +200,10 @@ export default {
       }
     },
     toUpLoad(event) {
-      let file = event.target.files[0]
-      console.log(file)
-      let path = file.name
-      // alert(path)
-      // let formData = new FormData()
-      // formData.append('image', path)
-      // formData.append('type', 'avatar')
-      let args = {
-        image: path,
-        type: 'avatar'
-      }
-      getImage(args)
+      let formData = new FormData()
+      formData.append('file', event.target.files[0])
+      formData.append('type', 'avatar')
+      getImage(formData)
         .then(res => {
           console.log(res)
           this.icon = 'icon2'
