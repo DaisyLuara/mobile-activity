@@ -9,7 +9,7 @@ const OPEN_COUPON = process.env.AD_API + '/api/open/coupon/'
 const OPEN_USER_COUPON = process.env.AD_API + '/api/open/user/coupon'
 
 const OPEN_COUPON_PROJECT = process.env.AD_API + '/api/open/project'
-const IMAGE_UPLOAD = process.env.SAAS_API + '/images'
+const IMAGE_UPLOAD = process.env.AD_API + '/api/images'
 
 const REQ_HEADER = {
   headers: {
