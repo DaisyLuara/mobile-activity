@@ -209,7 +209,7 @@ export default {
           this.icon = 'icon2'
         })
         .catch(err => {
-          alert('图像上传错误！请重新上传，只支持jpg,png格式')
+          // alert('图像上传错误！请重新上传，只支持jpg,png格式')
           console.log(err)
         })
     }
