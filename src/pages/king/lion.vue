@@ -134,6 +134,7 @@ export default {
         .then(res => {
           console.log('res:', res)
           if (res) {
+            console.log('coupon_batch_id：', this.coupon_batch_id)
             let item = this.filterCoupon(res, this.coupon_batch_id)
             console.log('=====', item)
             console.log('isNULL:', item != null)
