@@ -132,9 +132,11 @@ export default {
       }
       checkCoupon(args)
         .then(res => {
+          console.log('res:', res)
           if (res) {
             let item = this.filterCoupon(res, this.coupon_batch_id)
-            console.log(item)
+            console.log('=====', item)
+            console.log('isNULL:', item != null)
             if (item != null) {
               console.log(item)
               this.qrcodeImg = item.qrcode_url
@@ -155,9 +157,11 @@ export default {
                 this.hasPost = false
               }
             } else {
+              console.log('新增2')
               this.sendCoupon()
             }
           } else {
+            console.log('新增2')
             this.sendCoupon()
           }
         })
