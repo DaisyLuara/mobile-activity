@@ -46,7 +46,13 @@
 </template>
 <script>
 import lottie from 'lottie-web'
-import { Cookies, getImage } from 'services'
+import {
+  $wechat,
+  isInWechat,
+  wechatShareTrack,
+  Cookies,
+  getImage
+} from 'services'
 import { onlyWechatShare } from '../../mixins/onlyWechatShare'
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
