@@ -207,10 +207,6 @@ export default {
       let formData = new FormData()
       formData.append('image', path)
       formData.append('type', 'avatar')
-      // let formData = {
-      //   image: path,
-      //   type: 'avatar'
-      // }
       getImage(formData)
         .then(res => {
           console.log(res)
