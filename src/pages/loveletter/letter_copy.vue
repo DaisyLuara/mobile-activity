@@ -2,50 +2,47 @@
   <div 
     :style="style.root"
     class="content">
-    <!-- 上传头像  
-    @touchstart="handleTouchStart"
-    @touchmove="handleTouchMove"
-    @touchend="handleTouchEnd"-->
+    <img
+      :src="base + 'logo.png'"
+      class="logo">
     <div 
-      v-show="Boolean(arrIndex)"
-      class="upload">
+      v-show="toImg"
+      class="upload"
+    >
       <input 
         type="file" 
         accept="image/*"
         class="camera"
         @change="toUpLoad">
       <img
-        v-show="!uploadImgYellow"
         :src="base + icon +'.png'">
-      <img
-        v-show="uploadImgYellow"
-        :src="base +'icon3.png'">
     </div>
-    <div 
-      v-show="Boolean(arrIndex)"
-      class="gonglue"
-      @click="go()">
-      <img
-        :src="base +'icon4.png'">
-    </div>
-    <!-- 箭头图片 -->
-    <div 
-      class="tab"
-      @click="tab()"/>
-    <img
-      v-show="jiantou"
-      :src="base + 'pointer.png'"
-      class="pointer">
-    <!-- 底部文字 -->
     <img
       v-show="word"
       :src="base + 'font.png'"
       class="font">
-    <!-- 动画 -->
-    <div 
-      id="anim"
-      class="page anim"
-    />
+    <img
+      :src="base + 'pointer.png'"
+      class="pointer">
+    <swiper
+      ref="Swiper"
+      :options="sOption"
+      class="swiper">
+      <swiper-slide>
+        <div 
+          id="anim"
+          class="page anim"
+        />
+      </swiper-slide>
+      <swiper-slide
+        v-for="item in pages"
+        :key="item.id"
+        class="pslider">
+        <img
+          :src="base + item"
+          class="page">
+      </swiper-slide>
+    </swiper>
   </div>
 </template>
 <script>
@@ -75,26 +72,37 @@ export default {
         }
       },
       base: cdnUrl + '/fe/image/wxc_letter/',
-      userId: null,
-      icon: 'icon5',
-      pointer: {
-        start: null,
-        move: null,
-        end: null
-      },
-      uploadImgYellow: false,
-      jiantou: true,
-      word: true,
-      arrIndex: 0,
-      framesArr: [
-        [0, 150],
-        [151, 300],
-        [301, 454],
-        [455, 614],
-        [615, 846],
-        [847, 996],
-        [997, 1150]
+      pages: [
+        'page2.png',
+        'page3.png',
+        'page4.png',
+        'page5.png',
+        'page6.png',
+        'page7.png'
       ],
+      userId: null,
+      toImg: false,
+      word: true,
+      sOption: {
+        effect: 'fade',
+        on: {
+          init: () => {},
+          slideChange: () => {
+            let index = this.$refs.Swiper.swiper.realIndex
+            if (index === 0) {
+              this.toImg = false
+              this.word = true
+            } else if (index === 6) {
+              this.toImg = true
+              this.word = false
+            } else {
+              this.toImg = true
+              this.word = true
+            }
+          }
+        }
+      },
+      icon: 'icon1',
       //分享
       wxShareInfoValue: {
         title: '贵客齐聚，共赴好宴│11.23厦门万象城正式揭幕',
@@ -123,9 +131,6 @@ export default {
     }
   },
   methods: {
-    go() {
-      window.location.href = 'http://papi.xingstation.com/api/s/xvr'
-    },
     doAnim() {
       const el = document.getElementById('anim')
       let that = this
@@ -134,67 +139,10 @@ export default {
         container: el,
         renderer: 'svg',
         loop: false,
-        assetsPath: that.base + 'data3/images/',
-        path: that.base + 'data3/data3.json'
+        assetsPath: that.base + '/images/',
+        path: that.base + 'data.json'
       })
       this.animation = anim
-      anim.addEventListener('DOMLoaded', function() {
-        // 播放0-100帧动画,第一屏动画
-        anim.playSegments([0, 100], true)
-      })
-    },
-    // openLetter() {
-    //   let that = this
-    //   this.animation.setSpeed(1.5) //设置播放速度
-    //   this.animation.playSegments([76, 130], true) // 播放76-130帧动画
-    //   this.animation.loop = false
-    //   this.animation.addEventListener('complete', function() {
-    //     // 动画播放完成后
-    //     // that.lastAnim()
-    //   })
-    // },
-    // handleTouchStart(event) {
-    //   let x = event.touches[0].pageX
-    //   this.pointer.start = x
-    // },
-    // handleTouchMove(event) {
-    //   this.pointer.move = event.touches[0].pageX
-    // },
-    // handleTouchEnd(event) {
-    //   if (this.pointer.move - this.pointer.start < -30) {
-    //     this.toLeft()
-    //   }
-    //   if (this.pointer.move - this.pointer.start > 30) {
-    //     this.toRight()
-    //   }
-    // },
-    // toLeft() {
-    //   // 向左滑
-    //   if (this.arrIndex <= 0) {
-    //     return
-    //   } else {
-    //     this.animation.playSegments(this.framesArr[this.arrIndex - 1], true)
-    //     this.arrIndex--
-    //   }
-    // },
-    // else if (this.arrIndex === this.framesArr.length) {
-    //     this.uploadImgYellow = true
-    //     return
-    //   }
-    tab() {
-      this.toRight()
-    },
-    toRight() {
-      // 向右滑
-      this.animation.playSegments(this.framesArr[this.arrIndex + 1], true)
-      this.arrIndex++
-      if (this.arrIndex >= this.framesArr.length - 1) {
-        this.jiantou = false
-        this.uploadImgYellow = false
-      }
-      if (this.arrIndex == this.framesArr.length - 2) {
-        this.uploadImgYellow = true
-      }
     },
     //微信静默授权
     handleWechatAuth() {
@@ -211,8 +159,10 @@ export default {
       }
     },
     toUpLoad(event) {
+      let file = event.target.files[0]
+      let path = file.path
       let formData = new FormData()
-      formData.append('image', event.target.files[0])
+      formData.append('image', path)
       formData.append('type', 'avatar')
       getImage(formData)
         .then(res => {
@@ -253,6 +203,7 @@ img {
   position: relative;
   .anim {
     width: 100%;
+    margin-top: -20%;
   }
   .swiper {
     position: relative;
@@ -273,9 +224,8 @@ img {
     width: 10%;
     position: absolute;
     top: 4%;
-    right: 8%;
+    right: 5%;
     z-index: 999;
-    animation: scale 2s linear infinite alternate;
     img {
       position: relative;
       z-index: 0;
@@ -290,19 +240,6 @@ img {
       opacity: 0;
     }
   }
-  .gonglue {
-    display: inline-block;
-    width: 10%;
-    position: absolute;
-    top: 4%;
-    right: 25%;
-    z-index: 999;
-    animation: scale 2s linear infinite alternate;
-    img {
-      position: relative;
-      z-index: 0;
-    }
-  }
   .font {
     width: 32%;
     position: absolute;
@@ -311,19 +248,11 @@ img {
     right: 5%;
     z-index: 99;
   }
-  .tab {
-    width: 30%;
-    height: 30%;
-    position: absolute;
-    top: 35%;
-    right: 0%;
-    z-index: 1000;
-  }
   .pointer {
-    width: 5%;
+    width: 8%;
     position: absolute;
     top: 50%;
-    right: 2%;
+    right: 5%;
     // transform: translateY(-50%);
     animation: pointer 0.8s linear infinite alternate;
     z-index: 999;
@@ -331,21 +260,10 @@ img {
 }
 @keyframes pointer {
   0% {
-    transform: translate(5px, -50%);
+    transform: translate(10px, -50%);
   }
   100% {
-    transform: translate(-5px, -50%);
-  }
-}
-@keyframes scale {
-  from {
-    transform: scale(0.8, 0.8);
-  }
-  50% {
-    transform: scale(1, 1);
-  }
-  to {
-    transform: scale(0.8, 0.8);
+    transform: translate(-10px, -50%);
   }
 }
 </style>
