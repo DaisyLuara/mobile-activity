@@ -241,7 +241,7 @@ const getImage = params => {
     axios
       .post(IMAGE_UPLOAD, params, REQ_HEADER)
       .then(response => {
-        reject(response.data)
+        resolve(response.data)
       })
       .catch(err => {
         reject(err)
