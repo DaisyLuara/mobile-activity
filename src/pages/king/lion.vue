@@ -135,7 +135,7 @@ export default {
           console.log('res:', res)
           if (res) {
             console.log('coupon_batch_id：', this.coupon_batch_id)
-            let item = this.filterCoupon(res, this.coupon_batch_id)
+            let item = this.filterCoupon(res.data, this.coupon_batch_id)
             console.log('=====', item)
             console.log('isNULL:', item != null)
             if (item != null) {
