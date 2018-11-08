@@ -7,7 +7,6 @@ const V5_COUPOU_URL = process.env.SAAS_API + '/v5/common/coupon'
 const COUPOUS_URL = process.env.AD_API + '/api/open/coupons/'
 const OPEN_COUPON = process.env.AD_API + '/api/open/coupon/'
 const OPEN_USER_COUPON = process.env.AD_API + '/api/open/user/coupon'
-const OPEN_USER_COUPONS = process.env.AD_API + '/api/open/user/coupons'
 
 const OPEN_COUPON_PROJECT = process.env.AD_API + '/api/open/project'
 const IMAGE_UPLOAD = process.env.SAAS_API + '/images'
