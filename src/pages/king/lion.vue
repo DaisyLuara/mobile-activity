@@ -134,7 +134,9 @@ export default {
         .then(res => {
           if (res) {
             let item = this.filterCoupon(res, this.coupon_batch_id)
+            console.log(item)
             if (item != null) {
+              console.log(item)
               this.qrcodeImg = item.qrcode_url
               this.code = item.code
               this.time = item.created_at
