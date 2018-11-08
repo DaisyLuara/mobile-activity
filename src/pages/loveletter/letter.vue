@@ -201,10 +201,16 @@ export default {
     },
     toUpLoad(event) {
       let file = event.target.files[0]
-      let path = file.path
+      console.log(file)
+      let path = file.name
+      // alert(path)
       let formData = new FormData()
       formData.append('image', path)
       formData.append('type', 'avatar')
+      // let formData = {
+      //   image: path,
+      //   type: 'avatar'
+      // }
       getImage(formData)
         .then(res => {
           console.log(res)
