@@ -7,7 +7,7 @@ module.exports = merge(devEnv, {
   DOMAIN: "'.vookan.com'",
   M_URL: "'http://h5.newgls.cn'",
   WX_API: "'http://sapi.newgls.cn/api'",
-  AD_API: "'http://papi.newgls.cn'",
+  AD_API: "'http://gcmaf.newgls.cn'",
   STORE_API: "'http://store.vookan.com'",
   SAAS_API: "'http://sapi.newgls.cn/api'",
   IMAGE_SERVER: "'http://h5-images.oss-cn-shanghai.aliyuncs.com'",
