@@ -135,6 +135,7 @@ export default {
           if (res) {
             let item = this.filterCoupon(res, this.coupon_batch_id)
             if (item != null) {
+              console.log(item)
               this.qrcodeImg = item.qrcode_url
               this.code = item.code
               this.time = item.created_at
