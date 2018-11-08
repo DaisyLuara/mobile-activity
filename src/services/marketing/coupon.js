@@ -8,6 +8,7 @@ const COUPOUS_URL = process.env.AD_API + '/api/open/coupons/'
 const OPEN_COUPON = process.env.AD_API + '/api/open/coupon/'
 const OPEN_USER_COUPON = process.env.AD_API + '/api/open/user/coupon'
 
+const OPEN_USER_COUPONS = process.env.AD_API + '/api/open/user/coupons'
 const OPEN_COUPON_PROJECT = process.env.AD_API + '/api/open/project'
 const IMAGE_UPLOAD = process.env.AD_API + '/api/images'
 
@@ -221,6 +222,20 @@ const checkGetCoupon = params => {
       })
   })
 }
+//查询优惠券
+const checkCoupon = params => {
+  params.sign = Cookies.get('sign')
+  return new Promise((resolve, reject) => {
+    axios
+      .post(OPEN_USER_COUPONS, params, REQ_HEADER)
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
 //获取节目抽奖信息
 const getCouponProjectMessage = belong => {
   return new Promise((resolve, reject) => {
@@ -263,5 +278,6 @@ export {
   checkGetCoupon,
   getCouponProjectMessage,
   sendCoupon,
-  getImage
+  getImage,
+  checkCoupon
 }

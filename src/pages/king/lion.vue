@@ -51,7 +51,7 @@
 import { normalPages } from '../../mixins/normalPages'
 import {
   sendCoupon,
-  checkGetCoupon,
+  checkCoupon,
   $wechat,
   isInWechat,
   wechatShareTrack,
@@ -128,27 +128,32 @@ export default {
     checkCouponIsUse() {
       let args = {
         coupon_batch_id: this.coupon_batch_id,
-        include: 'couponBatch'
+        include: 'couponBatch.company'
       }
-      checkGetCoupon(args)
+      checkCoupon(args)
         .then(res => {
           if (res) {
-            this.qrcodeImg = res.qrcode_url
-            this.code = res.code
-            this.time = res.created_at
-            this.couponImg = res.couponBatch.image_url
-            let dateValue = this.time.replace(/\-/g, '/')
-            if (
-              new Date().getTime() - new Date(dateValue).getTime() >
-              86400000
-            ) {
-              //失效处理
-              this.hasPost = true
-              this.hasUsed = false
-            } else if (parseInt(res.status) === 1) {
-              //已使用
-              this.hasUsed = true
-              this.hasPost = false
+            let item = this.filterCoupon(res, this.coupon_batch_id)
+            if (item != null) {
+              this.qrcodeImg = item.qrcode_url
+              this.code = item.code
+              this.time = item.created_at
+              this.couponImg = item.couponBatch.image_url
+              let dateValue = this.time.replace(/\-/g, '/')
+              if (
+                new Date().getTime() - new Date(dateValue).getTime() >
+                86400000
+              ) {
+                //失效处理
+                this.hasPost = true
+                this.hasUsed = false
+              } else if (parseInt(item.status) === 1) {
+                //已使用
+                this.hasUsed = true
+                this.hasPost = false
+              }
+            } else {
+              this.sendCoupon()
             }
           } else {
             this.sendCoupon()
@@ -185,6 +190,15 @@ export default {
           this.over = false
           alert(err.response.data.message)
         })
+    },
+    //过滤data
+    filterCoupon(data, id) {
+      for (let i = 0; i < data.length; i++) {
+        if (parseInt(data[i].couponBatch.id) === parseInt(id)) {
+          return data[i]
+        }
+      }
+      return null
     }
   }
 }
