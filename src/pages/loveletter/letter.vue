@@ -1,12 +1,13 @@
 <template>
   <div 
     :style="style.root"
-    class="content"
+    class="content">
+    <!-- 上传头像  
     @touchstart="handleTouchStart"
     @touchmove="handleTouchMove"
-    @touchend="handleTouchEnd">
-    <!-- 上传头像 -->
+    @touchend="handleTouchEnd"-->
     <div 
+      v-show="Boolean(arrIndex)"
       class="upload">
       <input 
         type="file" 
@@ -16,8 +17,19 @@
       <img
         :src="base + icon +'.png'">
     </div>
+    <div 
+      v-show="Boolean(arrIndex)"
+      class="gonglue"
+      @click="go()">
+      <img
+        :src="base +'nav2.png'">
+    </div>
     <!-- 箭头图片 -->
+    <div 
+      class="tab"
+      @click="tab()"/>
     <img
+      v-show="jiantou"
       :src="base + 'pointer.png'"
       class="pointer">
     <!-- 底部文字 -->
@@ -25,7 +37,7 @@
       v-show="word"
       :src="base + 'font.png'"
       class="font">
-      <!-- 动画 -->
+    <!-- 动画 -->
     <div 
       id="anim"
       class="page anim"
@@ -66,6 +78,7 @@ export default {
         move: null,
         end: null
       },
+      jiantou: true,
       word: true,
       arrIndex: 0,
       framesArr: [
@@ -105,6 +118,9 @@ export default {
     }
   },
   methods: {
+    go() {
+      window.location.href = 'http://papi.xingstation.com/api/s/xvr'
+    },
     doAnim() {
       const el = document.getElementById('anim')
       let that = this
@@ -113,8 +129,8 @@ export default {
         container: el,
         renderer: 'svg',
         loop: false,
-        assetsPath: that.base + 'data/images/',
-        path: that.base + 'data/data.json'
+        assetsPath: that.base + 'data2/images/',
+        path: that.base + 'data2/data.json'
       })
       this.animation = anim
       anim.addEventListener('DOMLoaded', function() {
@@ -132,33 +148,37 @@ export default {
     //     // that.lastAnim()
     //   })
     // },
-    handleTouchStart(event) {
-      let x = event.touches[0].pageX
-      this.pointer.start = x
-    },
-    handleTouchMove(event) {
-      this.pointer.move = event.touches[0].pageX
-    },
-    handleTouchEnd(event) {
-      if (this.pointer.move - this.pointer.start < -30) {
-        this.toLeft()
-      }
-      if (this.pointer.move - this.pointer.start > 30) {
-        this.toRight()
-      }
-    },
-    toLeft() {
-      // 向左滑
-      if (this.arrIndex <= 0) {
-        return
-      } else {
-        this.animation.playSegments(this.framesArr[this.arrIndex - 1], true)
-        this.arrIndex--
-      }
+    // handleTouchStart(event) {
+    //   let x = event.touches[0].pageX
+    //   this.pointer.start = x
+    // },
+    // handleTouchMove(event) {
+    //   this.pointer.move = event.touches[0].pageX
+    // },
+    // handleTouchEnd(event) {
+    //   if (this.pointer.move - this.pointer.start < -30) {
+    //     this.toLeft()
+    //   }
+    //   if (this.pointer.move - this.pointer.start > 30) {
+    //     this.toRight()
+    //   }
+    // },
+    // toLeft() {
+    //   // 向左滑
+    //   if (this.arrIndex <= 0) {
+    //     return
+    //   } else {
+    //     this.animation.playSegments(this.framesArr[this.arrIndex - 1], true)
+    //     this.arrIndex--
+    //   }
+    // },
+    tab() {
+      this.toRight()
     },
     toRight() {
       // 向右滑
       if (this.arrIndex >= this.framesArr.length - 1) {
+        this.jiantou = false
         return
       } else {
         this.animation.playSegments(this.framesArr[this.arrIndex + 1], true)
@@ -244,8 +264,9 @@ img {
     width: 10%;
     position: absolute;
     top: 4%;
-    right: 5%;
+    right: 8%;
     z-index: 999;
+    animation: scale 2s linear infinite alternate;
     img {
       position: relative;
       z-index: 0;
@@ -260,6 +281,19 @@ img {
       opacity: 0;
     }
   }
+  .gonglue {
+    display: inline-block;
+    width: 10%;
+    position: absolute;
+    top: 4%;
+    right: 25%;
+    z-index: 999;
+    animation: scale 2s linear infinite alternate;
+    img {
+      position: relative;
+      z-index: 0;
+    }
+  }
   .font {
     width: 32%;
     position: absolute;
@@ -267,6 +301,14 @@ img {
     bottom: 5%;
     right: 5%;
     z-index: 99;
+  }
+  .tab {
+    width: 30%;
+    height: 30%;
+    position: absolute;
+    top: 35%;
+    right: 0%;
+    z-index: 1000;
   }
   .pointer {
     width: 8%;
@@ -284,6 +326,17 @@ img {
   }
   100% {
     transform: translate(-10px, -50%);
+  }
+}
+@keyframes scale {
+  from {
+    transform: scale(0.8, 0.8);
+  }
+  50% {
+    transform: scale(1, 1);
+  }
+  to {
+    transform: scale(0.8, 0.8);
   }
 }
 </style>

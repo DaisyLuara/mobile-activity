@@ -9,13 +9,13 @@
     <div 
       class="center">
       <img 
-      :src="baseUrl + 'scan.png'+ this.$qiniuCompress()"
-      class="scan">
+        :src="baseUrl + 'scan.png'+ this.$qiniuCompress()"
+        class="scan">
       <img 
         v-if="photo !== null" 
         :src="photo + this.$qiniuCompress()"
         class="photo"> 
-        <!-- 二维码 -->
+      <!-- 二维码 -->
       <img 
         :src="qrcodeImg+ this.$qiniuCompress()"
         class="ewm"> 
