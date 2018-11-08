@@ -235,11 +235,11 @@ const getCouponProjectMessage = belong => {
   })
 }
 // 上传照片接口
-const getImage = formData => {
-  formData.append('sign', Cookies.get('sign'))
+const getImage = params => {
+  params.sign = Cookies.get('sign')
   return new Promise((resolve, reject) => {
     axios
-      .post(IMAGE_UPLOAD, formData, REQ_HEADER)
+      .post(IMAGE_UPLOAD, params, REQ_HEADER)
       .then(response => {
         reject(response.data)
       })

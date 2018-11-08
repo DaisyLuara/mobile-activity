@@ -204,10 +204,14 @@ export default {
       console.log(file)
       let path = file.name
       // alert(path)
-      let formData = new FormData()
-      formData.append('image', path)
-      formData.append('type', 'avatar')
-      getImage(formData)
+      // let formData = new FormData()
+      // formData.append('image', path)
+      // formData.append('type', 'avatar')
+      let args = {
+        image: path,
+        type: 'avatar'
+      }
+      getImage(args)
         .then(res => {
           console.log(res)
           this.icon = 'icon2'
