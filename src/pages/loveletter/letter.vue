@@ -177,8 +177,8 @@ export default {
         container: el,
         renderer: 'svg',
         loop: false,
-        assetsPath: that.base + 'data4/images/',
-        path: that.base + 'data4/data.json'
+        assetsPath: that.base + 'data5/images/',
+        path: that.base + 'data5/data.json'
       })
       this.animation = anim
       anim.addEventListener('DOMLoaded', function() {
