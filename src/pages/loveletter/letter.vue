@@ -7,16 +7,15 @@
     @touchmove="handleTouchMove"
     @touchend="handleTouchEnd"-->
     <div 
-      v-show="Boolean(arrIndex)"
+      v-show="uploadImgYellow"
       class="upload">
       <input 
         type="file" 
         accept="image/*"
         class="camera"
         @change="toUpLoad">
-      <img
-        v-show="!uploadImgYellow"
-        :src="base + icon +'.png'">
+      <!-- <img
+        :src="base + icon +'.png'"> -->
       <img
         v-show="uploadImgYellow"
         :src="base +'icon3.png'">
@@ -26,16 +25,45 @@
       class="gonglue"
       @click="go()">
       <img
-        :src="base +'icon4.png'">
+        :src="base +'gonglue2.png'">
     </div>
+    <!-- 音乐icon -->
+    <div 
+      class="music" 
+      @click="playOrNot()">
+      <img
+        class="img1"
+        :src="base +'bg.png'">
+      <img
+        id="mbtn"
+        class="img2"
+        :src="base +'music.png'">
+    </div>
+    <!-- audio -->
+    <audio 
+      id="voice" 
+      autobuffer 
+      autoloop 
+      loop 
+      autoplay 
+      hidden>
+      <source :src="base+'yqh.mp3'">
+    </audio>
     <!-- 箭头图片 -->
     <div 
       class="tab"
       @click="tab()"/>
+     <div 
+      class="tab2"
+      @click="tab2()"/>
     <img
-      v-show="jiantou"
-      :src="base + 'pointer.png'"
+      v-show="jiantou1"
+      :src="base + 'arrow1.png'"
       class="pointer">
+    <img
+      v-show="jiantou2"
+      :src="base + 'arrow2.png'"
+      class="pointer2"> 
     <!-- 底部文字 -->
     <img
       v-show="word"
@@ -57,6 +85,7 @@ import {
   Cookies,
   getImage
 } from 'services'
+import $ from 'jquery'
 import { onlyWechatShare } from '../../mixins/onlyWechatShare'
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
@@ -83,7 +112,8 @@ export default {
         end: null
       },
       uploadImgYellow: false,
-      jiantou: true,
+      jiantou1: true,
+      jiantou2: false,
       word: true,
       arrIndex: 0,
       framesArr: [
@@ -93,7 +123,18 @@ export default {
         [455, 614],
         [615, 846],
         [847, 996],
-        [997, 1150]
+        [997, 1162],
+        [1163, 1317]
+      ],
+      framesArr2: [
+        [0, 150],
+        [168, 300],
+        [311, 454],
+        [472, 614],
+        [623, 846],
+        [867, 996],
+        [1008, 1161],
+        [1179, 1317]
       ],
       //分享
       wxShareInfoValue: {
@@ -112,6 +153,7 @@ export default {
       document.querySelector('.anim').style.marginTop = '0%'
     }
     this.doAnim()
+    this.playAudio()
     //微信授权
     if (isInWechat() === true) {
       if (
@@ -125,6 +167,7 @@ export default {
   methods: {
     go() {
       window.location.href = 'http://papi.xingstation.com/api/s/xvr'
+      //window.location.href = 'http://192.168.31.198:8088/marketing/wxc_map'
     },
     doAnim() {
       const el = document.getElementById('anim')
@@ -134,8 +177,8 @@ export default {
         container: el,
         renderer: 'svg',
         loop: false,
-        assetsPath: that.base + 'data3/images/',
-        path: that.base + 'data3/data3.json'
+        assetsPath: that.base + 'data4/images/',
+        path: that.base + 'data4/data.json'
       })
       this.animation = anim
       anim.addEventListener('DOMLoaded', function() {
@@ -168,27 +211,35 @@ export default {
     //     this.toRight()
     //   }
     // },
-    // toLeft() {
-    //   // 向左滑
-    //   if (this.arrIndex <= 0) {
-    //     return
-    //   } else {
-    //     this.animation.playSegments(this.framesArr[this.arrIndex - 1], true)
-    //     this.arrIndex--
-    //   }
-    // },
+    toLeft() {
+      this.jiantou1 = true
+      this.uploadImgYellow = false
+      // 向左滑
+      this.animation.playSegments(this.framesArr2[this.arrIndex - 1], true)
+      this.arrIndex--
+      if (this.arrIndex == 0) {
+        this.jiantou2 = false
+      }
+      if (this.arrIndex == this.framesArr2.length - 3) {
+        this.uploadImgYellow = true
+      }
+    },
     tab() {
       this.toRight()
     },
+    tab2() {
+      this.toLeft()
+    },
     toRight() {
+      this.jiantou2 = true
+      this.uploadImgYellow = false
       // 向右滑
       this.animation.playSegments(this.framesArr[this.arrIndex + 1], true)
       this.arrIndex++
       if (this.arrIndex >= this.framesArr.length - 1) {
-        this.jiantou = false
-        this.uploadImgYellow = false
+        this.jiantou1 = false
       }
-      if (this.arrIndex == this.framesArr.length - 2) {
+      if (this.arrIndex == this.framesArr.length - 3) {
         this.uploadImgYellow = true
       }
     },
@@ -219,6 +270,72 @@ export default {
           alert('图像上传错误！请重新上传，只支持jpg,png格式')
           console.log(err)
         })
+    },
+    playAudio() {
+      var voice = document.getElementById('voice')
+      var mbtn = document.getElementById('mbtn')
+      if (!voice) {
+        return
+      }
+      //调用 <audio> 元素提供的方法 play()
+      voice.play()
+      if (voice.paused) {
+        mbtn.setAttribute('class', ' ')
+      }
+      //判斷 WeixinJSBridge 是否存在
+      if (
+        typeof WeixinJSBridge == 'object' &&
+        typeof WeixinJSBridge.invoke == 'function'
+      ) {
+        voice.play()
+      } else {
+        //監聽客户端抛出事件"WeixinJSBridgeReady"
+        if (document.addEventListener) {
+          document.addEventListener(
+            'WeixinJSBridgeReady',
+            function() {
+              voice.play()
+            },
+            false
+          )
+        } else if (document.attachEvent) {
+          document.attachEvent('WeixinJSBridgeReady', function() {
+            voice.play()
+          })
+          document.attachEvent('onWeixinJSBridgeReady', function() {
+            voice.play()
+          })
+        }
+      }
+
+      //voiceStatu用來記録狀態,使 touchstart 事件只能觸發一次有效,避免與 click 事件衝突
+      var voiceStatu = true
+      //监听 touchstart 事件进而调用 <audio> 元素提供的 play() 方法播放音频
+      document.addEventListener(
+        'touchstart',
+        function(e) {
+          if (voiceStatu) {
+            voice.play()
+            voiceStatu = false
+          }
+        },
+        false
+      )
+      voice.onplay = function() {
+        mbtn.setAttribute('class', 'mplay')
+      }
+      voice.onpause = function() {
+        mbtn.setAttribute('class', ' ')
+      }
+    },
+    playOrNot() {
+      // 依據 audio 的 paused 属性返回音频是否已暂停來判斷播放還是暫停音频。
+      var voice = document.getElementById('voice')
+      if (voice.paused) {
+        voice.play()
+      } else {
+        voice.pause()
+      }
     }
   }
 }
@@ -266,10 +383,10 @@ img {
   }
   .upload {
     display: inline-block;
-    width: 10%;
+    width: 13%;
     position: absolute;
     top: 4%;
-    right: 8%;
+    right: 25%;
     z-index: 999;
     animation: scale 2s linear infinite alternate;
     img {
@@ -288,16 +405,39 @@ img {
   }
   .gonglue {
     display: inline-block;
-    width: 10%;
+    width: 13%;
     position: absolute;
     top: 4%;
-    right: 25%;
+    right: 7%;
     z-index: 999;
     animation: scale 2s linear infinite alternate;
     img {
       position: relative;
       z-index: 0;
     }
+  }
+  .music {
+    display: block;
+    width: 8%;
+    position: absolute;
+    top: 16%;
+    right: 10%;
+    z-index: 999;
+    .img1 {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 1;
+    }
+    .img2 {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 2;
+    }
+  }
+  .mplay {
+    animation: mycir 2s linear infinite;
   }
   .font {
     width: 32%;
@@ -315,6 +455,14 @@ img {
     right: 0%;
     z-index: 1000;
   }
+  .tab2 {
+    width: 30%;
+    height: 30%;
+    position: absolute;
+    top: 35%;
+    left: 0%;
+    z-index: 1000;
+  }
   .pointer {
     width: 5%;
     position: absolute;
@@ -322,6 +470,15 @@ img {
     right: 2%;
     // transform: translateY(-50%);
     animation: pointer 0.8s linear infinite alternate;
+    z-index: 999;
+  }
+  .pointer2 {
+    width: 5%;
+    position: absolute;
+    top: 50%;
+    left: 2%;
+    // transform: translateY(-50%);
+    animation: pointer2 0.8s linear infinite alternate;
     z-index: 999;
   }
 }
@@ -333,6 +490,14 @@ img {
     transform: translate(-5px, -50%);
   }
 }
+@keyframes pointer2 {
+  0% {
+    transform: translate(-5px, -50%);
+  }
+  100% {
+    transform: translate(5px, -50%);
+  }
+}
 @keyframes scale {
   from {
     transform: scale(0.8, 0.8);
@@ -342,6 +507,14 @@ img {
   }
   to {
     transform: scale(0.8, 0.8);
+  }
+}
+@keyframes mycir {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
 </style>
