@@ -2,6 +2,28 @@
   <div 
     :style="style.root"
     class="content">
+    <!-- 音乐icon -->
+    <div 
+      class="music" 
+      @click="playOrNot()">
+      <img
+        class="img1"
+        :src="base +'bg.png'">
+      <img
+        id="mbtn"
+        class="img2"
+        :src="base +'music.png'">
+    </div>
+    <!-- audio -->
+    <audio 
+      id="voice" 
+      autobuffer 
+      autoloop 
+      loop 
+      autoplay 
+      hidden>
+      <source :src="base+'gonglue.mp3'">
+    </audio>
     <swiper
       ref="Swiper"
       class="swiper">
@@ -125,6 +147,7 @@
 import { onlyWechatShare } from '../../mixins/onlyWechatShare'
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
+import $ from 'jquery'
 const cdnUrl = process.env.CDN_URL
 export default {
   components: {
@@ -165,27 +188,32 @@ export default {
     if (this.$innerHeight() > 672) {
       this.iphoneX = true
     }
+    this.playAudio()
   },
   methods: {
     toLink(num) {
-      this.pro_img = false
-      this.mask = true
-      this.alert1 = true
       this.jian = false
       if (num === 1) {
         // 跳转公众号
-        this.pro = 'ewm.png'
+        window.location.href = 'http://papi.xingstation.com/api/s/APz'
         return
       }
       if (num === 2) {
-        this.pro = 'wc.png' //暂无
+        this.pro_img = false
+        this.mask = true
+        this.alert1 = true
+        this.pro = '8.png' //暂无
         return
       }
       if (num === 3) {
-        this.pro = 'hospital.png'
+        this.pro_img = false
+        this.mask = true
+        this.alert1 = true
+        this.pro = '7.png'
         return
       }
       if (num === 4) {
+        this.pro_img = false
         this.mask = false
         this.alert1 = false
         this.jian = true
@@ -205,36 +233,106 @@ export default {
       if (item === 2) {
         this.alert2 = true
         this.timg = 'tt3.png'
-        this.ttext = 'text3.png'
+        this.ttext = 'text2.png'
         return
       }
+      //1
       if (item === 3) {
         this.alert1 = true
-        this.pro = 'jiemu.png'
+        this.pro = '9.png'
         return
       }
       if (item === 4) {
         this.alert2 = true
         this.timg = 'tt2.png'
-        this.ttext = 'text2.png'
+        this.ttext = 'text3.png'
         return
       }
+      //2
       if (item === 5) {
         this.alert1 = true
         this.pro_img = true
-        this.pro = 'yongxin.png'
+        this.pro = '6.png'
         return
       }
+      //3
       if (item === 6) {
         this.alert1 = true
         this.pro_img = true
-        this.pro = 'haomi.png'
+        this.pro = '5.png'
         return
       }
+      //4
       if (item === 7) {
         this.alert1 = true
-        this.pro = 'huarui.png'
+        this.pro = '4.png'
         return
+      }
+    },
+    playAudio() {
+      var voice = document.getElementById('voice')
+      var mbtn = document.getElementById('mbtn')
+      if (!voice) {
+        return
+      }
+      //调用 <audio> 元素提供的方法 play()
+      voice.play()
+      if (voice.paused) {
+        mbtn.setAttribute('class', ' ')
+      }
+      //判斷 WeixinJSBridge 是否存在
+      if (
+        typeof WeixinJSBridge == 'object' &&
+        typeof WeixinJSBridge.invoke == 'function'
+      ) {
+        voice.play()
+      } else {
+        //監聽客户端抛出事件"WeixinJSBridgeReady"
+        if (document.addEventListener) {
+          document.addEventListener(
+            'WeixinJSBridgeReady',
+            function() {
+              voice.play()
+            },
+            false
+          )
+        } else if (document.attachEvent) {
+          document.attachEvent('WeixinJSBridgeReady', function() {
+            voice.play()
+          })
+          document.attachEvent('onWeixinJSBridgeReady', function() {
+            voice.play()
+          })
+        }
+      }
+
+      //voiceStatu用來記録狀態,使 touchstart 事件只能觸發一次有效,避免與 click 事件衝突
+      var voiceStatu = true
+      //监听 touchstart 事件进而调用 <audio> 元素提供的 play() 方法播放音频
+      document.addEventListener(
+        'touchstart',
+        function(e) {
+          if (voiceStatu) {
+            voice.play()
+            voiceStatu = false
+          }
+        },
+        false
+      )
+      voice.onplay = function() {
+        mbtn.setAttribute('class', 'mplay')
+      }
+      voice.onpause = function() {
+        mbtn.setAttribute('class', ' ')
+      }
+    },
+    playOrNot() {
+      // 依據 audio 的 paused 属性返回音频是否已暂停來判斷播放還是暫停音频。
+      var voice = document.getElementById('voice')
+      if (voice.paused) {
+        voice.play()
+      } else {
+        voice.pause()
       }
     }
   }
@@ -264,6 +362,29 @@ img {
   overflow: hidden;
   position: relative;
   background-color: #f0b0ae;
+  .music {
+    display: block;
+    width: 10%;
+    position: absolute;
+    top: 5%;
+    right: 8%;
+    z-index: 999;
+    .img1 {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 1;
+    }
+    .img2 {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 2;
+    }
+  }
+  .mplay {
+    animation: mycir 2s linear infinite;
+  }
   .swiper {
     position: relative;
     z-index: 0;
@@ -389,7 +510,7 @@ img {
     }
     .alert1 {
       img {
-        width: 90%;
+        width: 100%;
         margin: 0 auto;
         position: relative;
         top: 50%;
@@ -397,7 +518,7 @@ img {
         border-radius: 15px;
       }
       .pro {
-        width: 50%;
+        width: 100%;
         border-radius: none;
       }
     }
@@ -445,6 +566,25 @@ img {
   }
   100% {
     transform: translateY(-5px);
+  }
+}
+@keyframes scale {
+  from {
+    transform: scale(0.8, 0.8);
+  }
+  50% {
+    transform: scale(1, 1);
+  }
+  to {
+    transform: scale(0.8, 0.8);
+  }
+}
+@keyframes mycir {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
 </style>
