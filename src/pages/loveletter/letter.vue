@@ -15,14 +15,18 @@
         class="camera"
         @change="toUpLoad">
       <img
+        v-show="!uploadImgYellow"
         :src="base + icon +'.png'">
+      <img
+        v-show="uploadImgYellow"
+        :src="base +'icon3.png'">
     </div>
     <div 
       v-show="Boolean(arrIndex)"
       class="gonglue"
       @click="go()">
       <img
-        :src="base +'nav2.png'">
+        :src="base +'icon4.png'">
     </div>
     <!-- 箭头图片 -->
     <div 
@@ -72,23 +76,24 @@ export default {
       },
       base: cdnUrl + '/fe/image/wxc_letter/',
       userId: null,
-      icon: 'icon1',
+      icon: 'icon5',
       pointer: {
         start: null,
         move: null,
         end: null
       },
+      uploadImgYellow: false,
       jiantou: true,
       word: true,
       arrIndex: 0,
       framesArr: [
-        [0, 100],
-        [101, 200],
-        [201, 300],
-        [301, 400],
-        [401, 500],
-        [501, 600],
-        [601, 700]
+        [0, 150],
+        [151, 300],
+        [301, 454],
+        [455, 614],
+        [615, 846],
+        [847, 996],
+        [997, 1150]
       ],
       //分享
       wxShareInfoValue: {
@@ -129,8 +134,8 @@ export default {
         container: el,
         renderer: 'svg',
         loop: false,
-        assetsPath: that.base + 'data2/images/',
-        path: that.base + 'data2/data.json'
+        assetsPath: that.base + 'data3/images/',
+        path: that.base + 'data3/data3.json'
       })
       this.animation = anim
       anim.addEventListener('DOMLoaded', function() {
@@ -177,12 +182,14 @@ export default {
     },
     toRight() {
       // 向右滑
+      this.animation.playSegments(this.framesArr[this.arrIndex + 1], true)
+      this.arrIndex++
       if (this.arrIndex >= this.framesArr.length - 1) {
         this.jiantou = false
-        return
-      } else {
-        this.animation.playSegments(this.framesArr[this.arrIndex + 1], true)
-        this.arrIndex++
+        this.uploadImgYellow = false
+      }
+      if (this.arrIndex == this.framesArr.length - 2) {
+        this.uploadImgYellow = true
       }
     },
     //微信静默授权
@@ -309,10 +316,10 @@ img {
     z-index: 1000;
   }
   .pointer {
-    width: 8%;
+    width: 5%;
     position: absolute;
     top: 50%;
-    right: 5%;
+    right: 2%;
     // transform: translateY(-50%);
     animation: pointer 0.8s linear infinite alternate;
     z-index: 999;
@@ -320,10 +327,10 @@ img {
 }
 @keyframes pointer {
   0% {
-    transform: translate(10px, -50%);
+    transform: translate(5px, -50%);
   }
   100% {
-    transform: translate(-10px, -50%);
+    transform: translate(-5px, -50%);
   }
 }
 @keyframes scale {
