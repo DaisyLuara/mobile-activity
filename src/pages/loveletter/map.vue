@@ -7,12 +7,12 @@
       class="music" 
       @click="playOrNot()">
       <img
-        class="img1"
-        :src="base +'bg.png'">
+        :src="base +'bg.png'"
+        class="img1">
       <img
         id="mbtn"
-        class="img2"
-        :src="base +'music.png'">
+        :src="base +'music.png'"
+        class="img2">
     </div>
     <!-- audio -->
     <audio 
@@ -27,6 +27,7 @@
     <!-- audio -->
     <swiper
       ref="Swiper"
+      :options="sOptions"
       class="swiper">
       <swiper-slide>
         <img
@@ -34,16 +35,16 @@
           class="page">
         <a
           class="toclicks"
-          @click="toNext"></a>
-          <img
-            :src="base + 'nav.png'"
-            class="pointer">
+          @click="toNext"/>
+        <img
+          :src="base + 'nav.png'"
+          class="pointer">
       </swiper-slide>
       <swiper-slide>
         <!-- <img
           :src="base + 'page2.png'"
           class="map"> -->
-          <!-- 动画 -->
+        <!-- 动画 -->
         <div 
           id="anim"
           class="map anim"
@@ -175,6 +176,16 @@ export default {
         }
       },
       base: cdnUrl + '/fe/image/wxc_map/',
+      sOptions: {
+        on: {
+          slideChange: () => {
+            let index = this.$refs.Swiper.swiper.realIndex
+            if (index === 1) {
+              this.doAnim()
+            }
+          }
+        }
+      },
       pro: 'wc.png',
       mask: false,
       alert1: false,
@@ -284,7 +295,6 @@ export default {
     },
     toNext() {
       this.$refs.Swiper.swiper.slideNext()
-      this.doAnim()
     },
     doAnim() {
       const el = document.getElementById('anim')
