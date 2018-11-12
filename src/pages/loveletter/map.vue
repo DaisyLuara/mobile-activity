@@ -7,12 +7,12 @@
       class="music" 
       @click="playOrNot()">
       <img
-        class="img1"
-        :src="base +'bg.png'">
+        :src="base +'bg.png'"
+        class="img1">
       <img
         id="mbtn"
-        class="img2"
-        :src="base +'music.png'">
+        :src="base +'music.png'"
+        class="img2">
     </div>
     <!-- audio -->
     <audio 
@@ -24,22 +24,34 @@
       hidden>
       <source :src="base+'gonglue.mp3'">
     </audio>
+    <!-- audio -->
     <swiper
       ref="Swiper"
+      :options="sOptions"
       class="swiper">
       <swiper-slide>
         <img
           :src="base + 'page1.png'"
           class="page">
+        <a
+          class="toclicks"
+          @click="toNext"/>
         <img
           :src="base + 'nav.png'"
           class="pointer">
       </swiper-slide>
       <swiper-slide>
-        <img
+        <!-- <img
           :src="base + 'page2.png'"
-          class="map">
-        <div class="alinks">
+          class="map"> -->
+        <!-- 动画 -->
+        <div 
+          id="anim"
+          class="map anim"
+        />
+        <div 
+          v-show="lpointer"
+          class="alinks">
           <ul  
             class="ul-icon">
             <li 
@@ -144,6 +156,7 @@
   </div>
 </template>
 <script>
+import lottie from 'lottie-web'
 import { onlyWechatShare } from '../../mixins/onlyWechatShare'
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
@@ -163,6 +176,16 @@ export default {
         }
       },
       base: cdnUrl + '/fe/image/wxc_map/',
+      sOptions: {
+        on: {
+          slideChange: () => {
+            let index = this.$refs.Swiper.swiper.realIndex
+            if (index === 1) {
+              this.doAnim()
+            }
+          }
+        }
+      },
       pro: 'wc.png',
       mask: false,
       alert1: false,
@@ -172,6 +195,7 @@ export default {
       ttext: 'text1.png',
       pro_img: false,
       iphoneX: false,
+      lpointer: false,
       //分享
       wxShareInfoValue: {
         title: '厦门万象城', //暂无
@@ -268,6 +292,31 @@ export default {
         this.pro = '4.png'
         return
       }
+    },
+    toNext() {
+      this.$refs.Swiper.swiper.slideNext()
+    },
+    doAnim() {
+      const el = document.getElementById('anim')
+      let that = this
+      let anim = lottie.loadAnimation({
+        name: 'anim',
+        container: el,
+        renderer: 'svg',
+        loop: false,
+        assetsPath: that.base + 'images/',
+        path: that.base + 'data.json'
+      })
+      this.animation = anim
+      anim.addEventListener('DOMLoaded', function() {
+        // 播放0-125帧动画,第一屏动画
+        anim.playSegments([0, 125], true)
+      })
+      anim.addEventListener('complete', function() {
+        anim.loop = true
+        anim.playSegments([126, 250], false)
+        that.lpointer = true
+      })
     },
     playAudio() {
       var voice = document.getElementById('voice')
@@ -389,11 +438,21 @@ img {
     position: relative;
     z-index: 0;
   }
+  .toclicks {
+    position: absolute;
+    top: 59%;
+    right: 0%;
+    // border: solid 1px red;
+    width: 60%;
+    height: 100px;
+    display: inline-block;
+    z-index: 9999;
+  }
   .map {
     width: 100%;
     position: relative;
     z-index: 0;
-    margin-top: -5%;
+    margin-top: -15%;
   }
   .alinks {
     position: absolute;
@@ -429,19 +488,20 @@ img {
       }
     }
     .local1 {
-      // top: 30%;
-      top: 26%;
+      // top: 26%;
+      top: 24%;
       left: 1%;
     }
     .local2 {
-      // top: 22%;
+      // top: 19%;
       height: 22vw;
       top: 19%;
       left: 20%;
     }
     .local3 {
       height: 18vw;
-      top: 27%;
+      // top: 27%;
+      top: 25%;
       left: 35%;
     }
     .local4 {
@@ -452,18 +512,22 @@ img {
     }
     .local5 {
       height: 20vw;
-      top: 46%;
+      // top: 46%;
+      top: 42%;
       left: 28%;
     }
     .local6 {
       width: 18vw;
       height: 20vw;
-      top: 57%;
-      left: 22%;
+      // top: 57%;
+      top: 52%;
+      // left: 22%;
+      left: 24%;
     }
     .local7 {
       height: 25vw;
-      top: 40%;
+      // top: 40%;
+      top: 38%;
       right: 24%;
     }
   }
@@ -478,13 +542,17 @@ img {
   .jian {
     width: 25%;
     position: absolute;
-    top: 81%;
-    left: 26%;
+    // top: 81%;
+    top: 83%;
+    // left: 26%;
+    left: 29%;
     z-index: 999;
   }
   .iphoneX {
-    top: 70%;
-    left: 22%;
+    // top: 70%;
+    // left: 22%;
+    top: 72%;
+    left: 24%;
   }
   .mask {
     width: 100%;
