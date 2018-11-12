@@ -108,8 +108,8 @@ export default {
         user_id: null
       },
       wxShareInfoValue: {
-        title: '刷脸享优惠，畅快看大片！',
-        desc: '太禾影城等你来嗨玩！',
+        title: '快来看我的盛世美颜',
+        desc: '参加兰花城活动还有奖品抽哦！',
         link:
           'http://papi.xingstation.com/api/s/zK8' +
           window.location.search +
@@ -157,6 +157,7 @@ export default {
       } else {
         this.userId = Cookies.get('user_id')
         this.params.user_id = this.userId
+        this.checkCouponIsUse()
       }
     },
     //取消
@@ -171,6 +172,39 @@ export default {
     //我的奖品
     getAword() {
       this.show.awardShow = true
+    },
+    //判断是否领过优惠券
+    checkCouponIsUse() {
+      let args = {
+        coupon_batch_id: this.coupon_batch_id,
+        include: 'couponBatch'
+      }
+      checkGetCoupon(args)
+        .then(res => {
+          if (res) {
+            this.qrcodeImg = res.qrcode_url
+            this.couponImg = res.couponBatch.image_url
+          } else {
+            this.sendCoupon()
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    //发优惠券
+    sendCoupon() {
+      let args = {
+        include: 'couponBatch'
+      }
+      sendCoupon(args, this.coupon_batch_id)
+        .then(res => {
+          this.qrcodeImg = res.qrcode_url
+          this.couponImg = res.couponBatch.image_url
+        })
+        .catch(err => {
+          alert(err.response.data.message)
+        })
     }
   }
 }

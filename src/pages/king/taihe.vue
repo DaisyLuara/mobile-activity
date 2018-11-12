@@ -4,7 +4,7 @@
     class="root">
     <!-- 券图 -->
     <img 
-      :src="baseUrl + 'coupon_01.png'+ this.$qiniuCompress()"
+      :src="couponImg+ this.$qiniuCompress()"
       :class="{'x-couponImg':iphoneX,'couponImg':!iphoneX}"
       class="couponImg">
     <div 
@@ -19,7 +19,7 @@
         class="photo"> 
       <!-- 二维码 -->
       <img 
-        :src="baseUrl + 'er.jpeg'+ this.$qiniuCompress()"
+        :src="qrcodeImg+ this.$qiniuCompress()"
         class="ewm"> 
       <!-- 已使用 -->
       <img 
@@ -36,7 +36,14 @@
 </template>
 <script>
 import { onlyGetPhoto } from '../../mixins/onlyGetPhoto'
-import { $wechat, isInWechat, wechatShareTrack, Cookies } from 'services'
+import {
+  $wechat,
+  isInWechat,
+  wechatShareTrack,
+  Cookies,
+  sendCoupon,
+  checkGetCoupon
+} from 'services'
 const cdnUrl = process.env.CDN_URL
 export default {
   mixins: [onlyGetPhoto],
@@ -97,6 +104,7 @@ export default {
       } else {
         this.userId = Cookies.get('user_id')
         this.params.user_id = this.userId
+        this.checkCouponIsUse()
       }
     },
     //禁止微信分享
@@ -107,6 +115,79 @@ export default {
         })
         .catch(_ => {
           console.warn(_.message)
+        })
+    },
+    //判断是否领过优惠券
+    checkCouponIsUse() {
+      let args = {
+        coupon_batch_id: this.coupon_batch_id,
+        include: 'couponBatch'
+      }
+      checkGetCoupon(args)
+        .then(res => {
+          if (res) {
+            this.qrcodeImg = res.qrcode_url
+            this.time = res.created_at
+            this.couponImg = res.couponBatch.image_url
+            let dateValue = this.time.replace(/\-/g, '/')
+            let nextDate = new Date(
+              new Date(dateValue).getTime() + 24 * 60 * 60 * 1000
+            )
+            nextDate.setHours(0)
+            nextDate.setMinutes(0)
+            nextDate.setSeconds(0)
+            nextDate.setMilliseconds(0)
+            let todayStartTime = nextDate.getTime()
+            //当天24点过期
+            if (todayStartTime < new Date().getTime()) {
+              //失效处理
+              this.hasPost = true
+              this.hasUsed = false
+            } else if (parseInt(res.status) === 1) {
+              //已使用
+              this.hasUsed = true
+              this.hasPost = false
+            }
+          } else {
+            this.sendCoupon()
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    //发优惠券
+    sendCoupon() {
+      let args = {
+        include: 'couponBatch'
+      }
+      sendCoupon(args, this.coupon_batch_id)
+        .then(res => {
+          this.qrcodeImg = res.qrcode_url
+          this.time = res.created_at
+          this.couponImg = res.couponBatch.image_url
+          let dateValue = this.time.replace(/\-/g, '/')
+          let nextDate = new Date(
+            new Date(dateValue).getTime() + 24 * 60 * 60 * 1000
+          )
+          nextDate.setHours(0)
+          nextDate.setMinutes(0)
+          nextDate.setSeconds(0)
+          nextDate.setMilliseconds(0)
+          let todayStartTime = nextDate.getTime()
+          //当天24点过期
+          if (todayStartTime < new Date().getTime()) {
+            //失效处理
+            this.hasPost = true
+            this.hasUsed = false
+          } else if (parseInt(res.status) === 1) {
+            //已使用
+            this.hasUsed = true
+            this.hasPost = false
+          }
+        })
+        .catch(err => {
+          alert(err.response.data.message)
         })
     }
   }
