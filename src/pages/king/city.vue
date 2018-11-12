@@ -7,32 +7,40 @@
           class="dot">
       <img 
           :src="baseUrl + 'kuang.png'+ this.$qiniuCompress()"
+          :class="{'x-frame':iphoneX,'frame':!iphoneX}"
           class="frame">
       <img 
         v-if="photo !== null" 
         :src="photo + this.$qiniuCompress()"
+        :class="{'x-photo':iphoneX,'photo':!iphoneX}"
         class="photo">
       <img 
+          v-if="!wechat" 
           :src="baseUrl + 'fc.png'+ this.$qiniuCompress()"
           @click="getAword()"
           class="myaward-btn">
       <img 
           :src="baseUrl + 'c.png'+ this.$qiniuCompress()"
+          :class="{'x-line':iphoneX,'line':!iphoneX}"
           class="line">
       <img 
           :src="baseUrl + 'c.png'+ this.$qiniuCompress()"
+          :class="{'x-line2':iphoneX,'line2':!iphoneX}"
           class="line2">
       <img 
           :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
+          :class="{'x-save':iphoneX,'save':!iphoneX}"
           class="save">
       <img 
           :src="baseUrl + 'a.png'+ this.$qiniuCompress()"
+          :class="{'x-jiantou':iphoneX,'jiantou':!iphoneX}"
           class="jiantou">
     <div 
     v-show="show.drawShow||show.awardShow"
     class="shade"></div>
     <!-- 抽奖层 -->
       <div 
+      v-if="!wechat" 
       v-show="show.drawShow"
       class="letter">
          <img 
@@ -45,6 +53,7 @@
       </div>
     <!-- 奖品层 -->
       <div 
+        v-if="!wechat" 
         v-show="show.awardShow"
         class="letter2">
          <img 
@@ -87,6 +96,7 @@ export default {
         }
       },
       iphoneX: false,
+      wechat: false,
       coupon_batch_id: this.$route.query.coupon_batch_id,
       couponImg: null,
       qrcodeImg: null,
@@ -100,13 +110,24 @@ export default {
       wxShareInfoValue: {
         title: '刷脸享优惠，畅快看大片！',
         desc: '太禾影城等你来嗨玩！',
-        link: 'http://papi.xingstation.com/api/s/zK8' + window.location.search,
+        link:
+          'http://papi.xingstation.com/api/s/zK8' +
+          window.location.search +
+          '&type=WeChat',
         imgUrl: cdnUrl + '/fe/marketing/img/orchid_city/icon.png'
       }
     }
   },
   created() {},
   mounted() {
+    //分享页面处理
+    // if (this.$route.query.type != null && this.$route.query.type != undefined) {
+    //   this.wechat = true
+    // }
+    //分享页处理
+    if (this.$route.query.hasOwnProperty('type')) {
+      this.wechat = true
+    }
     //微信授权
     if (isInWechat() === true) {
       if (
@@ -196,6 +217,9 @@ img {
     top: 50%;
     transform: translate(-50%, -54%);
   }
+  .x-frame {
+    width: 90%;
+  }
   .photo {
     width: 75%;
     position: absolute;
@@ -204,6 +228,9 @@ img {
     transform: translate(-50%, -54%);
     user-select: auto;
     pointer-events: auto;
+  }
+  .x-photo {
+    width: 80%;
   }
   .myaward-btn {
     width: 20%;
@@ -219,14 +246,20 @@ img {
     position: absolute;
     left: 0;
     bottom: 5%;
-    animation: arrow1 1.5s linear infinite alternate;
+    animation: arrow1 0.5s linear infinite alternate;
+  }
+  .x-line2 {
+    bottom: 8%;
   }
   .line {
     width: 25%;
     position: absolute;
     left: 0;
     bottom: 2%;
-    animation: arrow1 1.5s linear infinite alternate;
+    animation: arrow1 0.5s linear infinite alternate;
+  }
+  .x-line {
+    bottom: 10%;
   }
   .save {
     width: 48%;
@@ -235,12 +268,18 @@ img {
     bottom: 3.5%;
     transform: translate(-50%, 0);
   }
+  .x-save {
+    bottom: 8.3%;
+  }
   .jiantou {
     width: 12%;
     position: absolute;
     right: 10%;
     bottom: 4%;
-    animation: arrow3 1.5s linear infinite alternate;
+    animation: arrow3 0.5s linear infinite alternate;
+  }
+  .x-jiantou {
+    bottom: 9%;
   }
   .shade {
     width: 100%;
@@ -256,6 +295,8 @@ img {
     top: 50%;
     transform: translate(-50%, -50%);
     z-index: 98;
+    pointer-events: none;
+    user-select: none;
     .xf {
       width: 85%;
     }
@@ -277,6 +318,8 @@ img {
     top: 0%;
     transform: translate(-50%, 0%);
     z-index: 98;
+    pointer-events: none;
+    user-select: none;
     .xf1 {
       width: 100%;
     }
@@ -302,6 +345,8 @@ img {
       right: 18%;
       top: 30%;
       z-index: 98;
+      user-select: auto;
+      pointer-events: auto;
     }
   }
 }
