@@ -5,8 +5,10 @@
     <!-- 券图 -->
     <img 
       :src="couponImg+ this.$qiniuCompress()"
+      :class="{'x-couponImg':iphoneX,'couponImg':!iphoneX}"
       class="couponImg">
     <div 
+      :class="{'x-center':iphoneX,'center':!iphoneX}"
       class="center">
       <img 
         :src="baseUrl + 'scan.png'+ this.$qiniuCompress()"
@@ -19,26 +21,32 @@
       <img 
         :src="qrcodeImg+ this.$qiniuCompress()"
         class="ewm"> 
+      <!-- 已使用 -->
       <img 
         v-if="hasUsed"
         :src="baseUrl + 'used.png'+ this.$qiniuCompress()"
         class="coupon-used">
+      <!-- 已失效-->
+      <img 
+        v-if="hasPost"
+        :src="baseUrl + 'post.png'+ this.$qiniuCompress()"
+        class="coupon-post">
     </div>
   </div>
 </template>
 <script>
-import { normalPages } from '../../mixins/normalPages'
+import { onlyGetPhoto } from '../../mixins/onlyGetPhoto'
 import {
-  sendCoupon,
-  checkGetCoupon,
   $wechat,
   isInWechat,
   wechatShareTrack,
-  Cookies
+  Cookies,
+  sendCoupon,
+  checkGetCoupon
 } from 'services'
 const cdnUrl = process.env.CDN_URL
 export default {
-  mixins: [normalPages],
+  mixins: [onlyGetPhoto],
   data() {
     return {
       baseUrl: cdnUrl + '/fe/marketing/img/taihe/',
@@ -55,12 +63,13 @@ export default {
         user_id: null
       },
       hasUsed: false,
-      wxShareInfoValue: {
-        title: '刷脸享优惠，畅快看大片！',
-        desc: '太禾影城等你来嗨玩！',
-        link: 'http://papi.xingstation.com/api/s/zK8' + window.location.search,
-        imgUrl: cdnUrl + '/fe/marketing/img/taihe/icon.jpg'
-      }
+      hasPost: false
+      // wxShareInfoValue: {
+      //   title: '刷脸享优惠，畅快看大片！',
+      //   desc: '太禾影城等你来嗨玩！',
+      //   link: 'http://papi.xingstation.com/api/s/zK8' + window.location.search,
+      //   imgUrl: cdnUrl + '/fe/marketing/img/taihe/icon.jpg'
+      // }
     }
   },
   created() {},
@@ -74,6 +83,12 @@ export default {
         this.handleWechatAuth()
       }
     }
+    if (this.$innerHeight() > 672) {
+      this.iphoneX = true
+    } else {
+      this.iphoneX = false
+    }
+    this.handleForbiddenShare()
   },
   methods: {
     //微信静默授权
@@ -92,6 +107,16 @@ export default {
         this.checkCouponIsUse()
       }
     },
+    //禁止微信分享
+    handleForbiddenShare() {
+      $wechat()
+        .then(res => {
+          res.forbidden()
+        })
+        .catch(_ => {
+          console.warn(_.message)
+        })
+    },
     //判断是否领过优惠券
     checkCouponIsUse() {
       let args = {
@@ -102,10 +127,26 @@ export default {
         .then(res => {
           if (res) {
             this.qrcodeImg = res.qrcode_url
+            this.time = res.created_at
             this.couponImg = res.couponBatch.image_url
-            if (parseInt(res.status) === 1) {
+            let dateValue = this.time.replace(/\-/g, '/')
+            let nextDate = new Date(
+              new Date(dateValue).getTime() + 24 * 60 * 60 * 1000
+            )
+            nextDate.setHours(0)
+            nextDate.setMinutes(0)
+            nextDate.setSeconds(0)
+            nextDate.setMilliseconds(0)
+            let todayStartTime = nextDate.getTime()
+            //当天24点过期
+            if (todayStartTime < new Date().getTime()) {
+              //失效处理
+              this.hasPost = true
+              this.hasUsed = false
+            } else if (parseInt(res.status) === 1) {
               //已使用
               this.hasUsed = true
+              this.hasPost = false
             }
           } else {
             this.sendCoupon()
@@ -123,10 +164,26 @@ export default {
       sendCoupon(args, this.coupon_batch_id)
         .then(res => {
           this.qrcodeImg = res.qrcode_url
+          this.time = res.created_at
           this.couponImg = res.couponBatch.image_url
-          if (parseInt(res.status) === 1) {
+          let dateValue = this.time.replace(/\-/g, '/')
+          let nextDate = new Date(
+            new Date(dateValue).getTime() + 24 * 60 * 60 * 1000
+          )
+          nextDate.setHours(0)
+          nextDate.setMinutes(0)
+          nextDate.setSeconds(0)
+          nextDate.setMilliseconds(0)
+          let todayStartTime = nextDate.getTime()
+          //当天24点过期
+          if (todayStartTime < new Date().getTime()) {
+            //失效处理
+            this.hasPost = true
+            this.hasUsed = false
+          } else if (parseInt(res.status) === 1) {
             //已使用
             this.hasUsed = true
+            this.hasPost = false
           }
         })
         .catch(err => {
@@ -172,6 +229,12 @@ img {
     position: relative;
     margin-top: 4%;
   }
+  .x-couponImg {
+    width: 86%;
+    position: relative;
+    margin-top: 12%;
+  }
+
   .center {
     width: 100%;
     position: relative;
@@ -182,7 +245,7 @@ img {
     .photo {
       width: 32.5%;
       position: absolute;
-      left: 17%;
+      left: 16.6%;
       top: 8.5%;
       user-select: auto;
       pointer-events: auto;
@@ -203,6 +266,18 @@ img {
       top: 0.4%;
       z-index: 9;
     }
+    .coupon-post {
+      width: 80%;
+      position: absolute;
+      left: 10%;
+      top: 0.4%;
+      z-index: 9;
+    }
+  }
+  .x-center {
+    width: 100%;
+    position: relative;
+    margin-top: 4.5%;
   }
 }
 </style>
