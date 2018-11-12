@@ -1,5 +1,12 @@
 import { getInfoById } from 'services'
+const cdnUrl = process.env.CDN_URL
 export const onlyGetPhoto = {
+  data() {
+    return {
+      baseUrl: cdnUrl,
+      photo: null
+    }
+  },
   mounted() {
     this.getPhotoByRouteQueryId()
   },

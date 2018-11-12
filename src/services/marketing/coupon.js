@@ -7,6 +7,10 @@ const V5_COUPOU_URL = process.env.SAAS_API + '/v5/common/coupon'
 const COUPOUS_URL = process.env.AD_API + '/api/open/coupons/'
 const OPEN_COUPON = process.env.AD_API + '/api/open/coupon/'
 const OPEN_USER_COUPON = process.env.AD_API + '/api/open/user/coupon'
+
+const OPEN_COUPON_PROJECT = process.env.AD_API + '/api/open/project'
+const IMAGE_UPLOAD = process.env.AD_API + '/api/images'
+
 const REQ_HEADER = {
   headers: {
     'api-token': apiToken,
@@ -16,7 +20,7 @@ const REQ_HEADER = {
 const createCoupon = params => {
   return new Promise((resolve, reject) => {
     axios
-      .post(COUPOU_URL, params)
+      .post(COUPOU_URL, params, REQ_HEADER)
       .then(response => {
         if (response.data.success) {
           resolve(response.data.data)
@@ -172,6 +176,21 @@ const checkCouponNumber = couponId => {
       })
   })
 }
+//  发优惠券
+const sendCoupon = (params, couponId) => {
+  params.sign = Cookies.get('sign')
+  return new Promise((resolve, reject) => {
+    axios
+      .post(COUPOUS_URL + couponId, params, REQ_HEADER)
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+
 // 概率获取优惠券ID（coupinId）
 const getCouponId = policyId => {
   let params = {
@@ -195,7 +214,34 @@ const checkGetCoupon = params => {
     axios
       .post(OPEN_USER_COUPON, params, REQ_HEADER)
       .then(response => {
-        resolve(response)
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+//获取节目抽奖信息
+const getCouponProjectMessage = belong => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(OPEN_COUPON_PROJECT + '/policy?belong=' + belong, REQ_HEADER)
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+// 上传照片接口
+const getImage = params => {
+  params.append('sign', Cookies.get('sign'))
+  return new Promise((resolve, reject) => {
+    axios
+      .post(IMAGE_UPLOAD, params, REQ_HEADER)
+      .then(response => {
+        resolve(response.data)
       })
       .catch(err => {
         reject(err)
@@ -214,5 +260,8 @@ export {
   checkCouponNumber,
   getCouponId,
   getIntegralCoupon,
-  checkGetCoupon
+  checkGetCoupon,
+  getCouponProjectMessage,
+  sendCoupon,
+  getImage
 }

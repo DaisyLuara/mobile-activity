@@ -1,5 +1,21 @@
-import { $wechat, getInfoById, isInWechat } from 'services'
+import { $wechat, getInfoById, isInWechat, wechatShareTrack } from 'services'
+const cdnUrl = process.env.CDN_URL
 export const normalPages = {
+  data() {
+    return {
+      baseUrl: cdnUrl,
+      photo: null,
+      wxShareInfoValue: {
+        title: '',
+        desc: '',
+        link: '',
+        imgUrl: '',
+        success: () => {
+          wechatShareTrack()
+        }
+      }
+    }
+  },
   mounted() {
     this.handleWechatShare()
     this.getPhotoByRouteQueryId()

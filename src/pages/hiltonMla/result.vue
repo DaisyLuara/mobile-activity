@@ -16,15 +16,8 @@
     <div 
       class="coupon">
       <img 
-        v-show="showCoupon.cp1" 
-        :src="imgServerUrl + '/pages/hiltonMla/langouste.png'"
-        alt="" 
+        :src="imgServerUrl + '/pages/hiltonMla/' + oid + '_' + type + '.png'"
         class="cp-1">
-      <img  
-        v-show="showCoupon.cp2" 
-        :src="imgServerUrl + '/pages/hiltonMla/world_cup.png'"
-        alt="" 
-        class="cp-2">
     </div>
     <div 
       class="save">
@@ -55,15 +48,13 @@ export default {
     return {
       imgServerUrl: IMAGE_SERVER,
       resultImgUrl: '',
+      oid: this.$route.query.oid || '0',
       type: this.$route.query.type,
-      showCoupon: {
-        cp1: false,
-        cp2: false
-      },
       //微信分享信息
       wxShareInfoValue: {
         title: '玩儿游戏居然能中大奖？',
         desc: '快来围观头号玩家吧',
+        link: 'http://papi.xingstation.com/api/s/Wng' + window.location.search,
         success: () => {
           wechatShareTrack()
         },
@@ -78,17 +69,8 @@ export default {
   },
   created() {
     this.getImageById()
-    this.show()
   },
   methods: {
-    show() {
-      if (this.type == 1) {
-        this.showCoupon.cp1 = true
-      }
-      if (this.type == 2) {
-        this.showCoupon.cp2 = true
-      }
-    },
     handleShare() {
       $wechat()
         .then(res => {

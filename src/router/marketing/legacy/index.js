@@ -453,7 +453,7 @@ const lagacyPages = [
     path: 'hiltonMla',
     location: 'hiltonMla/result',
     meta: {
-      title: '',
+      title: '希尔顿',
       desc: '马里奥希尔顿'
     }
   },
