@@ -2,74 +2,74 @@
   <div
     :style="style.root"
     class="root">
-      <img 
-          :src="baseUrl + 'b.png'+ this.$qiniuCompress()"
-          class="dot">
-      <img 
-          :src="baseUrl + 'kuang.png'+ this.$qiniuCompress()"
-          :class="{'x-frame':iphoneX,'frame':!iphoneX}"
-          class="frame">
-      <img 
-        v-if="photo !== null" 
-        :src="photo + this.$qiniuCompress()"
-        :class="{'x-photo':iphoneX,'photo':!iphoneX}"
-        class="photo">
-      <img 
-          v-if="!wechat" 
-          :src="baseUrl + 'fc.png'+ this.$qiniuCompress()"
-          @click="getAword()"
-          class="myaward-btn">
-      <img 
-          :src="baseUrl + 'c.png'+ this.$qiniuCompress()"
-          :class="{'x-line':iphoneX,'line':!iphoneX}"
-          class="line">
-      <img 
-          :src="baseUrl + 'c.png'+ this.$qiniuCompress()"
-          :class="{'x-line2':iphoneX,'line2':!iphoneX}"
-          class="line2">
-      <img 
-          :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
-          :class="{'x-save':iphoneX,'save':!iphoneX}"
-          class="save">
-      <img 
-          :src="baseUrl + 'a.png'+ this.$qiniuCompress()"
-          :class="{'x-jiantou':iphoneX,'jiantou':!iphoneX}"
-          class="jiantou">
+    <img 
+      :src="baseUrl + 'b.png'+ this.$qiniuCompress()"
+      class="dot">
+    <img 
+      :src="baseUrl + 'kuang.png'+ this.$qiniuCompress()"
+      :class="{'x-frame':iphoneX,'frame':!iphoneX}"
+      class="frame">
+    <img 
+      v-if="photo !== null" 
+      :src="photo + this.$qiniuCompress()"
+      :class="{'x-photo':iphoneX,'photo':!iphoneX}"
+      class="photo">
+    <img 
+      v-if="!wechat" 
+      :src="baseUrl + 'fc.png'+ this.$qiniuCompress()"
+      class="myaward-btn"
+      @click="getAword()">
+    <img 
+      :src="baseUrl + 'c.png'+ this.$qiniuCompress()"
+      :class="{'x-line':iphoneX,'line':!iphoneX}"
+      class="line">
+    <img 
+      :src="baseUrl + 'c.png'+ this.$qiniuCompress()"
+      :class="{'x-line2':iphoneX,'line2':!iphoneX}"
+      class="line2">
+    <img 
+      :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
+      :class="{'x-save':iphoneX,'save':!iphoneX}"
+      class="save">
+    <img 
+      :src="baseUrl + 'a.png'+ this.$qiniuCompress()"
+      :class="{'x-jiantou':iphoneX,'jiantou':!iphoneX}"
+      class="jiantou">
     <div 
-    v-show="show.drawShow||show.awardShow"
-    class="shade"></div>
+      v-show="show.drawShow||show.awardShow"
+      class="shade"/>
     <!-- 抽奖层 -->
-      <div 
+    <div 
       v-if="!wechat" 
       v-show="show.drawShow"
       class="letter">
-         <img 
-          :src="baseUrl + 'xf.png'+ this.$qiniuCompress()"
-          class="xf">
-         <img 
-          :src="baseUrl + 'btn.png'+ this.$qiniuCompress()"
-          @click.self="draw()"
-          class="draw-btn">
-      </div>
+      <img 
+        :src="baseUrl + 'xf.png'+ this.$qiniuCompress()"
+        class="xf">
+      <img 
+        :src="baseUrl + 'btn.png'+ this.$qiniuCompress()"
+        class="draw-btn"
+        @click.self="draw()">
+    </div>
     <!-- 奖品层 -->
-      <div 
-        v-if="!wechat" 
-        v-show="show.awardShow"
-        class="letter2">
-         <img 
-          :src="baseUrl + 'xf1.png'+ this.$qiniuCompress()"
-          class="xf1">
-         <img 
-          :src="baseUrl + '5.png'+ this.$qiniuCompress()"
-          class="quan">
-        <img 
-          :src="baseUrl + 'cancel.png'+ this.$qiniuCompress()"
-          @click.self="cancle()"
-          class="close-btn">
-          <!-- 二维码 -->
-        <img 
-          :src="baseUrl + 'er.jpeg'+ this.$qiniuCompress()"
-          class="ewm">
+    <div 
+      v-if="!wechat" 
+      v-show="show.awardShow"
+      class="letter2">
+      <img 
+        :src="baseUrl + 'xf1.png'+ this.$qiniuCompress()"
+        class="xf1">
+      <img 
+        :src="baseUrl + '5.png'+ this.$qiniuCompress()"
+        class="quan">
+      <img 
+        :src="baseUrl + 'cancel.png'+ this.$qiniuCompress()"
+        class="close-btn"
+        @click.self="cancle()">
+      <!-- 二维码 -->
+      <img 
+        :src="baseUrl + 'er.jpeg'+ this.$qiniuCompress()"
+        class="ewm">
       
     </div>
   </div>
