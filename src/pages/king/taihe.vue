@@ -57,6 +57,7 @@ export default {
       },
       iphoneX: false,
       coupon_batch_id: this.$route.query.coupon_batch_id,
+      id: this.$route.query.id,
       couponImg: null,
       qrcodeImg: null,
       params: {
@@ -121,25 +122,15 @@ export default {
     checkCouponIsUse() {
       let args = {
         coupon_batch_id: this.coupon_batch_id,
-        include: 'couponBatch'
+        include: 'couponBatch',
+        id: this.id
       }
       checkGetCoupon(args)
         .then(res => {
           if (res) {
             this.qrcodeImg = res.qrcode_url
-            this.time = res.created_at
             this.couponImg = res.couponBatch.image_url
-            let dateValue = this.time.replace(/\-/g, '/')
-            let nextDate = new Date(
-              new Date(dateValue).getTime() + 24 * 60 * 60 * 1000
-            )
-            nextDate.setHours(0)
-            nextDate.setMinutes(0)
-            nextDate.setSeconds(0)
-            nextDate.setMilliseconds(0)
-            let todayStartTime = nextDate.getTime()
-            //当天24点过期
-            if (todayStartTime < new Date().getTime()) {
+            if (parseInt(res.status) === 2) {
               //失效处理
               this.hasPost = true
               this.hasUsed = false
@@ -164,19 +155,9 @@ export default {
       sendCoupon(args, this.coupon_batch_id)
         .then(res => {
           this.qrcodeImg = res.qrcode_url
-          this.time = res.created_at
           this.couponImg = res.couponBatch.image_url
-          let dateValue = this.time.replace(/\-/g, '/')
-          let nextDate = new Date(
-            new Date(dateValue).getTime() + 24 * 60 * 60 * 1000
-          )
-          nextDate.setHours(0)
-          nextDate.setMinutes(0)
-          nextDate.setSeconds(0)
-          nextDate.setMilliseconds(0)
-          let todayStartTime = nextDate.getTime()
           //当天24点过期
-          if (todayStartTime < new Date().getTime()) {
+          if (parseInt(res.status) === 2) {
             //失效处理
             this.hasPost = true
             this.hasUsed = false

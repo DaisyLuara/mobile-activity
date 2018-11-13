@@ -36,6 +36,7 @@
       :class="{'x-jiantou':iphoneX,'jiantou':!iphoneX}"
       class="jiantou">
     <div 
+      v-if="!wechat" 
       v-show="show.drawShow||show.awardShow"
       class="shade"/>
     <!-- 抽奖层 -->
