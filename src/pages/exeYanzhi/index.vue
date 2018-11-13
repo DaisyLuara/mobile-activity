@@ -26,16 +26,18 @@
 </template>
 <script>
 import { $wechat, getInfoById, wechatShareTrack, isInWechat } from 'services'
-const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/'
+import { normalPages } from '../../mixins/normalPages'
+const BASE_URL = process.env.CDN_URL
 export default {
+  mixins: [normalPages],
   data() {
     return {
-      imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/yanzhi/',
+      imgUrl: BASE_URL + '/image/yanzhi/',
       //微信分享
       wxShareInfoValue: {
         title: '我的颜值太高了！居然被印上了钞票！',
         desc: '你也来和我PK颜值吧~',
-        imgUrl: BASE_URL + 'image/yanzhi/index/share.jpg',
+        imgUrl: BASE_URL + 'image/yanzhi/share.jpg',
         success: function() {
           wechatShareTrack()
         }
@@ -98,7 +100,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/yanzhi/';
+@imgUrl: 'http://cdn.exe666.com/image/yanzhi/';
 .yanzhi-photo-content {
   width: 100%;
   text-align: center;

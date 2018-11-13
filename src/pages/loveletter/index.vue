@@ -30,7 +30,7 @@
 import lottie from 'lottie-web'
 import { $wechat, getInfoById, wechatShareTrack } from 'services'
 import { normalPages } from '../../mixins/normalPages'
-const IMG_SERVER = 'http://p22vy0aug.bkt.clouddn.com/'
+const IMG_SERVER = process.env.CDN_URL
 export default {
   mixins: [normalPages],
   data() {
@@ -40,7 +40,7 @@ export default {
           height: this.$innerHeight() + 'px'
         }
       },
-      base: IMG_SERVER + 'image/loveletter/',
+      base: IMG_SERVER + '/image/loveletter/',
       photo: null,
       torun: false,
       last_page: false,
@@ -57,7 +57,7 @@ export default {
         title: '一纸情书',
         desc: '只愿君心似我心 定当不负相思意',
         link: 'http://papi.xingstation.com/api/s/zpY' + window.location.search,
-        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/loveletter/icon.jpg',
+        imgUrl: 'http://cdn.exe666.com/image/loveletter/icon.jpg',
         success: function() {
           wechatShareTrack()
         }
@@ -82,9 +82,8 @@ export default {
         container: el,
         renderer: 'svg',
         // loop: true,
-        assetsPath:
-          'http://p22vy0aug.bkt.clouddn.com/image/loveletter/json/images/',
-        path: 'http://p22vy0aug.bkt.clouddn.com/image/loveletter/json/qixi.json'
+        assetsPath: this.base + 'json/images/',
+        path: this.base + 'json/qixi.json'
       })
       this.animation = anim
       anim.addEventListener('DOMLoaded', function() {
@@ -153,7 +152,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/loveletter/';
+@imgUrl: 'http://cdn.exe666.com/image/loveletter/';
 html,
 body {
   width: 100%;

@@ -78,7 +78,7 @@ import {
   getGame
 } from 'services'
 import { onlyWechatShare } from '../../mixins/onlyWechatShare'
-const IMG_SERVER = 'http://p22vy0aug.bkt.clouddn.com'
+const IMG_SERVER = process.env.CDN_URL
 export default {
   mixins: [onlyWechatShare],
   data() {
@@ -112,7 +112,7 @@ export default {
         title: '中秋快乐 ',
         desc: '月饼被谁吃了',
         link: 'http://papi.xingstation.com/api/s/1wR' + window.location.search,
-        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/zhongqiu/3/share.png',
+        imgUrl: 'http://cdn.exe666.com/image/zhongqiu/3/share.png',
         success: function() {
           wechatShareTrack()
         }
@@ -311,7 +311,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@base: 'http://p22vy0aug.bkt.clouddn.com/image/zhongqiu/3/';
+@base: 'http://cdn.exe666.com/image/zhongqiu/3/';
 html,
 body {
   width: 100%;

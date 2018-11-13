@@ -49,7 +49,7 @@ import { Lazyload } from 'mint-ui'
 Vue.use(Lazyload)
 import { $wechat, wechatShareTrack } from 'services'
 import { normalPages } from '../../mixins/normalPages'
-const IMG_SERVER = 'http://p22vy0aug.bkt.clouddn.com'
+const IMG_SERVER = process.env.CDN_URL
 export default {
   mixins: [normalPages],
   data() {
@@ -66,7 +66,7 @@ export default {
         title: '剪刀手熊猫',
         desc: '它，归隐许久，重回江湖',
         link: 'http://papi.xingstation.com/api/s/ERv' + window.location.search,
-        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/panda/share.png',
+        imgUrl: 'http://cdn.exe666.com/image/panda/share.png',
         success: function() {
           wechatShareTrack()
         }
@@ -75,16 +75,16 @@ export default {
   },
   mounted() {
     let first_arr = [
-      'http://p22vy0aug.bkt.clouddn.com/image/panda/back.png',
-      'http://p22vy0aug.bkt.clouddn.com/image/panda/title.png',
-      'http://p22vy0aug.bkt.clouddn.com/image/panda/frame.png',
+      this.base + 'back.png',
+      this.base + 'title.png',
+      this.base + 'frame.png',
       this.photo
     ]
     let second_arr = [
-      'http://p22vy0aug.bkt.clouddn.com/image/panda/panda1.png',
-      'http://p22vy0aug.bkt.clouddn.com/image/panda/panda2.png',
-      'http://p22vy0aug.bkt.clouddn.com/image/panda/panda3.png',
-      'http://p22vy0aug.bkt.clouddn.com/image/panda/panda4.png'
+      this.base + 'panda1.png',
+      this.base + 'panda2.png',
+      this.base + 'panda3.png',
+      this.base + 'panda4.png'
     ]
     this.ImageLoaded(first_arr)
   },
@@ -106,7 +106,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/panda/';
+@imgUrl: 'http://cdn.exe666.com/image/panda/';
 html,
 body {
   width: 100%;

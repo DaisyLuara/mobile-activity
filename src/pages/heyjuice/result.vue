@@ -34,10 +34,13 @@
 </template>
 <script>
 import { $wechat, getInfoById, wechatShareTrack, isInWechat } from 'services'
+import { onlyWechatShare } from '../../mixins/onlyWechatShare'
+const cdnUrl = process.env.CDN_URL
 export default {
+  mixins: [onlyWechatShare],
   data() {
     return {
-      imgPath: 'http://p22vy0aug.bkt.clouddn.com/image/heyjuice/',
+      imgPath: cdnUrl + '/image/heyjuice/',
       photo: null,
       border: false,
       slider: false,
@@ -45,7 +48,7 @@ export default {
       wxShareInfoValue: {
         title: 'HEYJUICE等待着与你相遇',
         desc: '健康时尚  美味畅享，好在天然，妙在鲜榨',
-        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/heyjuice/icon.png',
+        imgUrl: 'https://cdn.exe666.com/image/heyjuice/icon.png',
         success: function() {
           wechatShareTrack()
         }
@@ -56,7 +59,6 @@ export default {
     document.title = '茶桔便'
   },
   mounted() {
-    this.handleWechatShare()
     let h =
       window.innerHeight ||
       document.documentElement.clientHeight ||
@@ -66,19 +68,6 @@ export default {
     this.getInfoById()
   },
   methods: {
-    handleWechatShare() {
-      if (isInWechat() === true) {
-        $wechat()
-          .then(res => {
-            res.share(this.wxShareInfoValue)
-          })
-          .catch(err => {
-            console.warn(err.message)
-          })
-      } else {
-        console.warn('you r not in wechat environment')
-      }
-    },
     getInfoById() {
       let id = this.$route.query.id
       var that = this
@@ -104,7 +93,7 @@ export default {
 img {
   width: 100%;
 }
-@imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/heyjuice/';
+@imgUrl: 'http://cdn.exe666.com/image/heyjuice/';
 .tea-main {
   width: 100%;
   min-height: 100%;

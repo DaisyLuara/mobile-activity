@@ -39,31 +39,32 @@
         class="jpgbg">
       <img 
         id="mImg" 
-        :src="mImg" 
+        :src="photo" 
         class="photo">
     </div>
     <img 
-      v-show="isShow" 
+      v-show="Boolean(photo)" 
       :src="imgUrl+'hiphop/save.png'" 
       class="press">
   </div>
 </template>
 <script>
 import { $wechat, getInfoById, wechatShareTrack, isInWechat } from 'services'
-const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/'
+import { normalPages } from '../../mixins/normalPages'
+const BASE_URL = process.env.CDN_URL
 export default {
+  mixins: [normalPages],
   data() {
     return {
-      imgUrl: BASE_URL + 'image/',
-      audioUrl: BASE_URL + 'audio/mp3/',
-      mImg: null,
-      isShow: false,
+      imgUrl: BASE_URL + '/image/',
+      audioUrl: BASE_URL + '/audio/mp3/',
+      photo: null,
       //微信分享
       wxShareInfoValue: {
         title: '戴上TA，吴亦凡都直夸：一看就是“老江湖”了！',
         desc: '张震岳Hot Dog 表示：我觉得很OK!',
         imgUrl: BASE_URL + 'image/hiphop/icon.jpg',
-        success: function() {
+        success: () => {
           wechatShareTrack()
         }
       }
@@ -73,40 +74,13 @@ export default {
     document.title = '嘻哈通用版'
   },
   mounted() {
-    this.handleWechatShare()
     let height =
       window.innerHeight ||
       document.documentElement.clientHeight ||
       document.body.clientHeight
     this.playAudio()
-    this.getInfoById()
   },
   methods: {
-    handleWechatShare() {
-      if (isInWechat() === true) {
-        $wechat()
-          .then(res => {
-            res.share(this.wxShareInfoValue)
-          })
-          .catch(err => {
-            console.warn(err.message)
-          })
-      } else {
-        console.warn('you r not in wechat environment')
-      }
-    },
-    getInfoById() {
-      let id = this.$route.query.id
-      let that = this
-      getInfoById(id)
-        .then(res => {
-          that.mImg = res.image
-          that.isShow = true
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    },
     playAudio() {
       var voice = document.getElementById('voice')
       var mbtn = document.getElementById('mbtn')
@@ -177,7 +151,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image';
+@imgUrl: 'http://cdn.exe666.com/image';
 html,
 body {
   width: 100%;

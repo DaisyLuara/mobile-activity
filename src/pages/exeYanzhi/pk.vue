@@ -68,14 +68,13 @@ import {
   $wechat,
   wechatShareTrack
 } from 'services'
-
 import { normalPages } from '../../mixins/normalPages'
-const IMGSERVER = 'http://p22vy0aug.bkt.clouddn.com/'
+const IMGSERVER = process.env.CDN_URL
 export default {
   mixins: [normalPages],
   data() {
     return {
-      base: IMGSERVER + 'image/yanzhi/pk/',
+      base: IMGSERVER + '/image/yanzhi/pk/',
       style: {
         root: {
           'min-height': this.$innerHeight() + 'px'
@@ -97,7 +96,7 @@ export default {
         title: '魔镜，谁是油城最美女神？',
         desc: '是你，抚媚热烈是你，盛世美颜还是你',
         link: 'http://papi.xingstation.com/api/s/G67' + window.location.search,
-        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/yanzhi/pk/share.png',
+        imgUrl: 'http://cdn.exe666.com/image/yanzhi/pk/share.png',
         success: function() {
           wechatShareTrack()
         }
@@ -127,14 +126,13 @@ export default {
         : this.base + this.score + '.png'
 
     let bg = new Image()
-    bg.src = 'http://p22vy0aug.bkt.clouddn.com/image/yanzhi/pk/bg.png'
+    bg.src = this.base + 'bg.png'
     bg.onload = function() {
       let pic = new Image()
-      pic.src = 'http://p22vy0aug.bkt.clouddn.com/image/yanzhi/pk/pic22.png'
+      pic.src = this.base + 'pic22.png'
       pic.onload = function() {
         let kuang = new Image()
-        kuang.src =
-          'http://p22vy0aug.bkt.clouddn.com/image/yanzhi/pk/kuang22.png'
+        kuang.src = this.base + 'kuang22.png'
         kuang.onload = function() {}
       }
     }
@@ -203,7 +201,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/yanzhi/pk/';
+@imgUrl: 'http://cdn.exe666.com/image/yanzhi/pk/';
 html,
 body {
   width: 100%;

@@ -62,7 +62,7 @@
           class="imgbg">
         <img 
           id="mImg" 
-          :src="mImg" 
+          :src="photo" 
           class="mImg">
       </div>
       <img 
@@ -79,18 +79,16 @@
 </template>
 <script>
 import { $wechat, getInfoById, wechatShareTrack, isInWechat } from 'services'
-
-const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/'
+import { normalPages } from '../../mixins/normalPages'
+const BASE_URL = process.env.CDN_URL
 export default {
-  components: {
-    WxShare
-  },
+  mixins: [normalPages],
   data() {
     return {
       imgUrl: BASE_URL + 'image/',
       audioUrl: BASE_URL + 'audio/mp3/',
       xlink: 'http://m.jingfree.com/marketing/brochure?trace_id=nakvx5',
-      mImg: null,
+      photo: null,
       press: false,
       //微信分享
       wxShareInfoValue: {
@@ -106,39 +104,10 @@ export default {
   beforeCreate() {
     document.title = '星视度有嘻哈'
   },
-  created() {
-    this.getInfoById()
-  },
   mounted() {
     this.playAudio()
-    this.handleShare()
   },
   methods: {
-    handleShare() {
-      if (isInWechat() === true) {
-        $wechat()
-          .then(res => {
-            res.share(this.wxShareInfoValue)
-          })
-          .catch(err => {
-            console.warn(err.message)
-          })
-      } else {
-        console.warn('you r not in wechat environment')
-      }
-    },
-    getInfoById() {
-      let id = this.$route.query.id
-      let that = this
-      getInfoById(id)
-        .then(res => {
-          this.mImg = res.image
-          that.press = true
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    },
     playAudio() {
       var voice = document.getElementById('voice')
       var mbtn = document.getElementById('mbtn')

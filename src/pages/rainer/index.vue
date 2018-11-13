@@ -17,12 +17,12 @@
 <script>
 import { $wechat, getInfoById, wechatShareTrack } from 'services'
 import { onlyWechatShare } from '../../mixins/onlyWechatShare'
-const IMG_SERVER = 'http://p22vy0aug.bkt.clouddn.com/'
+const IMG_SERVER = process.env.CDN_URL
 export default {
   mixins: [onlyWechatShare],
   data() {
     return {
-      base_url: IMG_SERVER + 'image/rainer/',
+      base_url: IMG_SERVER + '/image/rainer/',
       style: {
         root: {
           'min-height': this.$innerHeight() + 'px'
@@ -34,7 +34,7 @@ export default {
         title: '秘密花园 尽显美颜',
         desc: '快来寻找秘密花园，施展你的小小控雨魔法',
         link: 'http://papi.xingstation.com/api/s/n5R' + window.location.search,
-        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/rainer/icon.jpg',
+        imgUrl: 'http://cdn.exe666.com/image/rainer/icon.jpg',
         success: function() {
           wechatShareTrack()
         }
@@ -43,7 +43,7 @@ export default {
     }
   },
   mounted() {
-    let base = 'http://p22vy0aug.bkt.clouddn.com/image/rainer/'
+    let base = 'http://cdn.exe666.com/image/rainer/'
     for (let i = 0; i < 12; i++) {
       i = i < 10 ? '0' + i : i
       let texture = base + 'frame/frame_000' + i + '.png'
@@ -115,20 +115,20 @@ export default {
         app.view.style.position = 'relative'
         app.view.style.zIndex = '9999'
 
-        let base = 'http://p22vy0aug.bkt.clouddn.com/image/rainer/'
+        let base = 'http://cdn.exe666.com/image/rainer/'
         let width = app.screen.width
         let height = app.screen.height
         let bottom = PIXI.Sprite.fromImage(base + 'bottom.png')
         bottom.anchor.set(0.5, 0)
         bottom.width = width * 0.81
-        bottom.height = width * 0.81 / 630 * 1016
+        bottom.height = ((width * 0.81) / 630) * 1016
         bottom.position.set(width / 2, height * 0.05)
         app.stage.addChild(bottom)
 
         let photo = PIXI.Sprite.fromImage(image, true)
         photo.anchor.set(0.5, 0)
         photo.width = width * 0.675
-        photo.height = width * 0.675 / 1080 * 1920
+        photo.height = ((width * 0.675) / 1080) * 1920
         app.stage.addChild(photo)
 
         let textureArray = []
@@ -147,7 +147,7 @@ export default {
         animatedSprite.anchor.set(0.5, 0)
         animatedSprite.position.set(width / 2, 10)
         animatedSprite.width = width * 0.91
-        animatedSprite.height = width * 0.91 / 685 * 1096
+        animatedSprite.height = ((width * 0.91) / 685) * 1096
         animatedSprite.animationSpeed = 0.1
         animatedSprite.gotoAndPlay(0)
         app.stage.addChild(animatedSprite)
@@ -159,7 +159,7 @@ export default {
         let save = PIXI.Sprite.fromImage(base + 'save.png')
         save.anchor.set(0.5, 0)
         save.width = width * 0.56
-        save.height = width * 0.56 / 412 * 82
+        save.height = ((width * 0.56) / 412) * 82
         save.position.set(
           width / 2,
           animatedSprite.height + animatedSprite.y + 5
@@ -171,7 +171,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@baseUrl: 'http://p22vy0aug.bkt.clouddn.com/image/rainer/';
+@baseUrl: 'http://cdn.exe666.com/image/rainer/';
 
 html,
 body {
