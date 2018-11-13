@@ -61,7 +61,7 @@
         :src="baseUrl + 'xf1.png'+ this.$qiniuCompress()"
         class="xf1">
       <img 
-        :src="baseUrl + '5.png'+ this.$qiniuCompress()"
+        :src="couponImg+ this.$qiniuCompress()"
         class="quan">
       <img 
         :src="baseUrl + 'cancel.png'+ this.$qiniuCompress()"
@@ -69,7 +69,7 @@
         @click.self="cancle()">
       <!-- 二维码 -->
       <img 
-        :src="baseUrl + 'er.jpeg'+ this.$qiniuCompress()"
+        :src="qrcodeImg+ this.$qiniuCompress()"
         class="ewm">
       
     </div>
@@ -99,7 +99,6 @@ export default {
       iphoneX: false,
       wechat: false,
       coupon_batch_id: this.$route.query.coupon_batch_id,
-      id: this.$route.query.id,
       couponImg: null,
       qrcodeImg: null,
       show: {
@@ -175,8 +174,7 @@ export default {
     checkCouponIsUse() {
       let args = {
         coupon_batch_id: this.coupon_batch_id,
-        include: 'couponBatch',
-        qiniu_id: this.id
+        include: 'couponBatch'
       }
       checkGetCoupon(args)
         .then(res => {

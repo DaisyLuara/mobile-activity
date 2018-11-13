@@ -132,16 +132,8 @@ export default {
             this.couponImg = res.couponBatch.image_url
             this.time = res.created_at
             let dateValue = this.time.replace(/\-/g, '/')
-            let nextDate = new Date(
-              new Date(dateValue).getTime() + 24 * 60 * 60 * 1000
-            )
-            nextDate.setHours(0)
-            nextDate.setMinutes(0)
-            nextDate.setSeconds(0)
-            nextDate.setMilliseconds(0)
-            let todayStartTime = nextDate.getTime()
             //当天24点过期
-            if (todayStartTime < new Date().getTime()) {
+            if (this.formatDate(dateValue) < new Date().getTime()) {
               //失效处理
               this.hasPost = true
               this.hasUsed = false
@@ -161,7 +153,8 @@ export default {
     //发优惠券
     sendCoupon() {
       let args = {
-        include: 'couponBatch'
+        include: 'couponBatch',
+        qiniu_id: this.id
       }
       sendCoupon(args, this.coupon_batch_id)
         .then(res => {
@@ -169,16 +162,8 @@ export default {
           this.couponImg = res.couponBatch.image_url
           this.time = res.created_at
           let dateValue = this.time.replace(/\-/g, '/')
-          let nextDate = new Date(
-            new Date(dateValue).getTime() + 24 * 60 * 60 * 1000
-          )
-          nextDate.setHours(0)
-          nextDate.setMinutes(0)
-          nextDate.setSeconds(0)
-          nextDate.setMilliseconds(0)
-          let todayStartTime = nextDate.getTime()
           //当天24点过期
-          if (todayStartTime < new Date().getTime()) {
+          if (this.formatDate(dateValue) < new Date().getTime()) {
             //失效处理
             this.hasPost = true
             this.hasUsed = false
@@ -191,6 +176,15 @@ export default {
         .catch(err => {
           alert(err.response.data.message)
         })
+    },
+    formatDate(data) {
+      let nextDate = new Date(new Date(data).getTime() + 24 * 60 * 60 * 1000)
+      nextDate.setHours(0)
+      nextDate.setMinutes(0)
+      nextDate.setSeconds(0)
+      nextDate.setMilliseconds(0)
+      let todayStartTime = nextDate.getTime()
+      return todayStartTime
     }
   }
 }
