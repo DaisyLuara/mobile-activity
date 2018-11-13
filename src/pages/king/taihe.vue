@@ -123,13 +123,14 @@ export default {
       let args = {
         coupon_batch_id: this.coupon_batch_id,
         include: 'couponBatch',
-        id: this.id
+        qiniu_id: this.id
       }
       checkGetCoupon(args)
         .then(res => {
           if (res) {
             this.qrcodeImg = res.qrcode_url
             this.couponImg = res.couponBatch.image_url
+            //当天24点过期
             if (parseInt(res.status) === 2) {
               //失效处理
               this.hasPost = true

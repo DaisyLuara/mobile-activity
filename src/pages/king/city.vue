@@ -99,6 +99,7 @@ export default {
       iphoneX: false,
       wechat: false,
       coupon_batch_id: this.$route.query.coupon_batch_id,
+      id: this.$route.query.id,
       couponImg: null,
       qrcodeImg: null,
       show: {
@@ -121,10 +122,6 @@ export default {
   },
   created() {},
   mounted() {
-    //分享页面处理
-    // if (this.$route.query.type != null && this.$route.query.type != undefined) {
-    //   this.wechat = true
-    // }
     //分享页处理
     if (this.$route.query.hasOwnProperty('type')) {
       this.wechat = true
@@ -178,7 +175,8 @@ export default {
     checkCouponIsUse() {
       let args = {
         coupon_batch_id: this.coupon_batch_id,
-        include: 'couponBatch'
+        include: 'couponBatch',
+        qiniu_id: this.id
       }
       checkGetCoupon(args)
         .then(res => {
