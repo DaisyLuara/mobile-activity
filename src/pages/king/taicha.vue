@@ -12,11 +12,11 @@
     </div>
     <div class="center">
       <img 
-        :src="baseUrl + 'button.png'+ this.$qiniuCompress()"
+        :src="baseUrl + 'button2.png'+ this.$qiniuCompress()"
         class="button"
-        @click="go()">
+        @click="goPark()">
       <img 
-        :src="baseUrl + 'banner.png'+ this.$qiniuCompress()"
+        :src="baseUrl + 'banner3.png'+ this.$qiniuCompress()"
         class="banner"
         @click="go()">
       <img 
@@ -92,7 +92,11 @@ export default {
   },
   methods: {
     go() {
-      window.location.href = 'http://papi.xingstation.com/api/s/vor'
+      window.location.href = 'http://papi.xingstation.com/api/s/E9k'
+    },
+    //停车券跳转
+    goPark() {
+      window.location.href = 'http://papi.xingstation.com/api/s/D9n'
     }
   }
 }
