@@ -13,4 +13,5 @@ const validatePhone = number => {
     return false
   }
 }
+
 export { isInWechat, randomIntNum, validatePhone }
