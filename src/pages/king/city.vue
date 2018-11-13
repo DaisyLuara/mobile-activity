@@ -179,6 +179,7 @@ export default {
       checkGetCoupon(args)
         .then(res => {
           if (res) {
+            console.log('checkGetCoupon', res)
             this.qrcodeImg = res.qrcode_url
             this.couponImg = res.couponBatch.image_url
           } else {
@@ -196,6 +197,7 @@ export default {
       }
       sendCoupon(args, this.coupon_batch_id)
         .then(res => {
+          console.log('sendCoupon', res)
           this.qrcodeImg = res.qrcode_url
           this.couponImg = res.couponBatch.image_url
         })

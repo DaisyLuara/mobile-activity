@@ -128,6 +128,7 @@ export default {
       checkGetCoupon(args)
         .then(res => {
           if (res) {
+            console.log('checkGetCoupon', res)
             this.qrcodeImg = res.qrcode_url
             this.couponImg = res.couponBatch.image_url
             this.time = res.created_at
@@ -158,6 +159,7 @@ export default {
       }
       sendCoupon(args, this.coupon_batch_id)
         .then(res => {
+          console.log('sendCoupon', res)
           this.qrcodeImg = res.qrcode_url
           this.couponImg = res.couponBatch.image_url
           this.time = res.created_at
@@ -178,12 +180,14 @@ export default {
         })
     },
     formatDate(data) {
+      console.log(data)
       let nextDate = new Date(new Date(data).getTime() + 24 * 60 * 60 * 1000)
       nextDate.setHours(0)
       nextDate.setMinutes(0)
       nextDate.setSeconds(0)
       nextDate.setMilliseconds(0)
       let todayStartTime = nextDate.getTime()
+      console.log('11111', todayStartTime)
       return todayStartTime
     }
   }
