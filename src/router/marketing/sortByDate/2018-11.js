@@ -75,6 +75,17 @@ const Date201811 = [
       desc: '太禾影院-刷脸享优惠 && 太禾影院-新爆米花奥斯卡'
     },
     isAbandoned: false
+  },
+  {
+    path: 'orchid_city',
+    location: 'king/city',
+    name: 'orchid_city',
+    meta: {
+      title: '兰花城',
+      author: 'xj1012',
+      desc: '兰花城-我美我免单'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201811
