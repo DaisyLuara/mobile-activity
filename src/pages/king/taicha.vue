@@ -12,9 +12,9 @@
     </div>
     <div class="center">
       <img 
-        :src="baseUrl + 'button.png'+ this.$qiniuCompress()"
+        :src="baseUrl + 'button2.png'+ this.$qiniuCompress()"
         class="button"
-        @click="go()">
+        @click="goPark()">
       <img 
         :src="baseUrl + 'banner.png'+ this.$qiniuCompress()"
         class="banner"
@@ -93,6 +93,10 @@ export default {
   methods: {
     go() {
       window.location.href = 'http://papi.xingstation.com/api/s/vor'
+    },
+    //停车券跳转
+    goPark() {
+      window.location.href = 'http://papi.xingstation.com/api/s/D9n'
     }
   }
 }
