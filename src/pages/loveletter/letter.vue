@@ -32,12 +32,12 @@
       class="music" 
       @click="playOrNot()">
       <img
-        class="img1"
-        :src="base +'bg.png'">
+        :src="base +'bg.png'"
+        class="img1">
       <img
         id="mbtn"
-        class="img2"
-        :src="base +'music.png'">
+        :src="base +'music.png'"
+        class="img2">
     </div>
     <!-- audio -->
     <audio 
@@ -53,7 +53,7 @@
     <div 
       class="tab"
       @click="tab()"/>
-     <div 
+    <div 
       class="tab2"
       @click="tab2()"/>
     <img
