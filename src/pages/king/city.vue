@@ -36,6 +36,7 @@
       :class="{'x-jiantou':iphoneX,'jiantou':!iphoneX}"
       class="jiantou">
     <div 
+      v-if="!wechat" 
       v-show="show.drawShow||show.awardShow"
       class="shade"/>
     <!-- 抽奖层 -->
@@ -60,7 +61,7 @@
         :src="baseUrl + 'xf1.png'+ this.$qiniuCompress()"
         class="xf1">
       <img 
-        :src="baseUrl + '5.png'+ this.$qiniuCompress()"
+        :src="couponImg+ this.$qiniuCompress()"
         class="quan">
       <img 
         :src="baseUrl + 'cancel.png'+ this.$qiniuCompress()"
@@ -68,7 +69,7 @@
         @click.self="cancle()">
       <!-- 二维码 -->
       <img 
-        :src="baseUrl + 'er.jpeg'+ this.$qiniuCompress()"
+        :src="qrcodeImg+ this.$qiniuCompress()"
         class="ewm">
       
     </div>
@@ -120,10 +121,6 @@ export default {
   },
   created() {},
   mounted() {
-    //分享页面处理
-    // if (this.$route.query.type != null && this.$route.query.type != undefined) {
-    //   this.wechat = true
-    // }
     //分享页处理
     if (this.$route.query.hasOwnProperty('type')) {
       this.wechat = true
@@ -182,6 +179,7 @@ export default {
       checkGetCoupon(args)
         .then(res => {
           if (res) {
+            console.log('checkGetCoupon', res)
             this.qrcodeImg = res.qrcode_url
             this.couponImg = res.couponBatch.image_url
           } else {
@@ -199,6 +197,7 @@ export default {
       }
       sendCoupon(args, this.coupon_batch_id)
         .then(res => {
+          console.log('sendCoupon', res)
           this.qrcodeImg = res.qrcode_url
           this.couponImg = res.couponBatch.image_url
         })
