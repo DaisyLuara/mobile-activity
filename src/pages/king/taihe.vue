@@ -131,6 +131,10 @@ export default {
             this.handleData(res)
           } else {
             let data = new Date()
+            args = {
+              coupon_batch_id: this.coupon_batch_id,
+              include: 'couponBatch'
+            }
             args.start_date = this.dataFormat(
               new Date(this.formatTimestamp(data, true)),
               'yyyy-MM-dd hh:mm:ss'
