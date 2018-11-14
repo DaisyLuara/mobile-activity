@@ -546,7 +546,7 @@ img {
     top: 83%;
     // left: 26%;
     left: 29%;
-    z-index: 999;
+    z-index: 1000;
   }
   .iphoneX {
     // top: 70%;
