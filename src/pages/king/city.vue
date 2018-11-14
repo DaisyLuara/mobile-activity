@@ -112,7 +112,7 @@ export default {
         title: '快来看我的盛世美颜',
         desc: '参加兰花城活动还有奖品抽哦！',
         link:
-          'http://papi.xingstation.com/api/s/zK8' +
+          'http://papi.xingstation.com/api/s/BLJ' +
           window.location.search +
           '&type=WeChat',
         imgUrl: cdnUrl + '/fe/marketing/img/orchid_city/icon.png'
