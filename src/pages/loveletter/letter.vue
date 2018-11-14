@@ -51,9 +51,11 @@
     </audio>
     <!-- 箭头图片 -->
     <div 
+      v-show="jiantou1"
       class="tab"
       @click="tab()"/>
     <div 
+      v-show="jiantou2"
       class="tab2"
       @click="tab2()"/>
     <img

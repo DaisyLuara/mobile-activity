@@ -128,7 +128,7 @@
     <div 
       v-show="mask"
       class="mask"
-      @click.self="()=>{mask = false; alert1 = false;alert2 = false;}">
+      @click.self="()=>{mask = false; alert1 = false;alert2 = false;jian=false;}">
       <div 
         v-show="alert1"
         class="center alert1">
@@ -238,7 +238,7 @@ export default {
       }
       if (num === 4) {
         this.pro_img = false
-        this.mask = false
+        this.mask = true
         this.alert1 = false
         this.jian = true
         return
@@ -546,7 +546,7 @@ img {
     top: 83%;
     // left: 26%;
     left: 29%;
-    z-index: 999;
+    z-index: 1000;
   }
   .iphoneX {
     // top: 70%;
