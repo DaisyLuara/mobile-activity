@@ -66,57 +66,57 @@
           <a
             class="local-link local1"
             @click="toAlert(1)">
-            <img
+            <!-- <img
               :src="base + 'yuan.png'"
-              class="ding">
+              class="ding"> -->
           </a>
           <!-- 高参 -->
           <a
             class="local-link local2"
             @click="toAlert(2)">
-            <img
+            <!-- <img
               :src="base + 'yuan.png'"
-              class="ding">
+              class="ding"> -->
           </a>
           <!-- 揭幕流程 -->
           <a
             class="local-link local3"
             @click="toAlert(3)">
-            <img
+            <!-- <img
               :src="base + 'yuan.png'"
-              class="ding">
+              class="ding"> -->
           </a>
           <!-- 夏国璋龙狮团 -->
           <a
             class="local-link local4"
             @click="toAlert(4)">
-            <img
+            <!-- <img
               :src="base + 'yuan.png'"
-              class="ding">
+              class="ding"> -->
           </a>
           <!-- 豪觅邮局 -->
           <a
             class="local-link local5"
             @click="toAlert(5)">
-            <img
+            <!-- <img
               :src="base + 'yuan.png'"
-              class="ding">
+              class="ding"> -->
           </a>
           <!-- 永新早食 -->
           <a
             class="local-link local6"
             @click="toAlert(6)">
-            <img
+            <!-- <img
               :src="base + 'yuan.png'"
-              class="ding">
+              class="ding"> -->
           </a>
           <!-- 华润80年，润物耕心 -->
           <a
             class="local-link local7"
             @click="toAlert(7)">
-            <img
+            <!-- <img
               :src="base + 'yuan.png'"
-              class="ding">
+              class="ding"> -->
           </a>
         </div>
       </swiper-slide>
@@ -257,26 +257,26 @@ export default {
       if (item === 2) {
         this.alert2 = true
         this.timg = 'tt3.png'
-        this.ttext = 'text2.png'
+        this.ttext = '3_2.png'
         return
       }
       //1
       if (item === 3) {
         this.alert1 = true
-        this.pro = '9.png'
+        this.pro = '9_1.png'
         return
       }
       if (item === 4) {
         this.alert2 = true
         this.timg = 'tt2.png'
-        this.ttext = 'text3.png'
+        this.ttext = '2_2.png'
         return
       }
       //2
       if (item === 5) {
         this.alert1 = true
         this.pro_img = true
-        this.pro = '6.png'
+        this.pro = '6_1.png'
         return
       }
       //3
@@ -304,8 +304,8 @@ export default {
         container: el,
         renderer: 'svg',
         loop: false,
-        assetsPath: that.base + 'images/',
-        path: that.base + 'data.json'
+        assetsPath: that.base + 'data/img/',
+        path: that.base + 'data/data.json'
       })
       this.animation = anim
       anim.addEventListener('DOMLoaded', function() {
@@ -415,7 +415,7 @@ img {
     display: block;
     width: 10%;
     position: absolute;
-    top: 5%;
+    top: 2.5%;
     right: 8%;
     z-index: 999;
     .img1 {
@@ -481,11 +481,11 @@ img {
       // border: solid 1px red;
       position: absolute;
       z-index: 99;
-      .ding {
-        width: 7vw;
-        position: relative;
-        animation: yuan 0.6s linear infinite alternate;
-      }
+      // .ding {
+      //   width: 7vw;
+      //   position: relative;
+      //   animation: yuan 0.6s linear infinite alternate;
+      // }
     }
     .local1 {
       // top: 26%;
@@ -628,14 +628,14 @@ img {
     transform: translate(-10px, -50%);
   }
 }
-@keyframes yuan {
-  0% {
-    transform: translateY(5px);
-  }
-  100% {
-    transform: translateY(-5px);
-  }
-}
+// @keyframes yuan {
+//   0% {
+//     transform: translateY(5px);
+//   }
+//   100% {
+//     transform: translateY(-5px);
+//   }
+// }
 @keyframes scale {
   from {
     transform: scale(0.8, 0.8);
