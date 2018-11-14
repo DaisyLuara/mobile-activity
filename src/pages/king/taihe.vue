@@ -35,7 +35,7 @@
   </div>
 </template>
 <script>
-import { onlyGetPhoto } from '../../mixins/onlyGetPhoto'
+import { normalPages } from '../../mixins/normalPages'
 import {
   $wechat,
   isInWechat,
@@ -46,7 +46,7 @@ import {
 } from 'services'
 const cdnUrl = process.env.CDN_URL
 export default {
-  mixins: [onlyGetPhoto],
+  mixins: [normalPages],
   data() {
     return {
       baseUrl: cdnUrl + '/fe/marketing/img/taihe/',
@@ -64,13 +64,13 @@ export default {
         user_id: null
       },
       hasUsed: false,
-      hasPost: false
-      // wxShareInfoValue: {
-      //   title: '刷脸享优惠，畅快看大片！',
-      //   desc: '太禾影城等你来嗨玩！',
-      //   link: 'http://papi.xingstation.com/api/s/zK8' + window.location.search,
-      //   imgUrl: cdnUrl + '/fe/marketing/img/taihe/icon.jpg'
-      // }
+      hasPost: false,
+      wxShareInfoValue: {
+        title: '刷脸享优惠，畅快看大片！',
+        desc: '太禾影城等你来嗨玩！',
+        link: 'http://papi.xingstation.com/api/s/zK8' + window.location.search,
+        imgUrl: cdnUrl + '/fe/marketing/img/taihe/icon.jpg'
+      }
     }
   },
   created() {},
@@ -89,7 +89,7 @@ export default {
     } else {
       this.iphoneX = false
     }
-    this.handleForbiddenShare()
+    //this.handleForbiddenShare()
   },
   methods: {
     //微信静默授权
