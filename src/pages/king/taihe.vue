@@ -14,6 +14,9 @@
         :src="baseUrl + 'scan.png'+ this.$qiniuCompress()"
         class="scan">
       <img 
+        :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
+        class="save">
+      <img 
         v-if="photo !== null" 
         :src="photo + this.$qiniuCompress()"
         class="photo"> 
@@ -280,8 +283,17 @@ img {
     width: 100%;
     position: relative;
     margin-top: 2.5%;
+    pointer-events: none;
+    user-select: none;
     .scan {
       width: 80%;
+    }
+    .save {
+      width: 7%;
+      position: absolute;
+      left: 7%;
+      top: 18%;
+      z-index: 3;
     }
     .photo {
       width: 32.5%;
@@ -319,6 +331,8 @@ img {
     width: 100%;
     position: relative;
     margin-top: 4.5%;
+    pointer-events: none;
+    user-select: none;
   }
 }
 </style>
