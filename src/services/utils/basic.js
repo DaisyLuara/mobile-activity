@@ -13,9 +13,9 @@ const validatePhone = number => {
     return false
   }
 }
-//转换日期格式
+//转换日期格式 时间戳转换日期格式2018-11-10 00：00：00
 const dataFormat = (date, fmt) => {
-  var o = {
+  let o = {
     'M+': date.getMonth() + 1,
     'd+': date.getDate(),
     'h+': date.getHours(),
@@ -29,7 +29,7 @@ const dataFormat = (date, fmt) => {
       RegExp.$1,
       (date.getFullYear() + '').substr(4 - RegExp.$1.length)
     )
-  for (var k in o)
+  for (let k in o)
     if (new RegExp('(' + k + ')').test(fmt))
       fmt = fmt.replace(
         RegExp.$1,
