@@ -18,10 +18,10 @@
         :src="base + icon +'.png'"> -->
       <img
         v-show="uploadImgYellow"
-        :src="base +'icon3.png'">
+        :src="base +'icon_n.png'">
     </div>
     <div 
-      v-show="Boolean(arrIndex)"
+      v-show="gonglueImg"
       class="gonglue"
       @click="go()">
       <img
@@ -51,9 +51,11 @@
     </audio>
     <!-- 箭头图片 -->
     <div 
+      v-show="jiantou1"
       class="tab"
       @click="tab()"/>
     <div 
+      v-show="jiantou2"
       class="tab2"
       @click="tab2()"/>
     <img
@@ -112,6 +114,7 @@ export default {
         end: null
       },
       uploadImgYellow: false,
+      gonglueImg: false,
       jiantou1: true,
       jiantou2: false,
       word: true,
@@ -122,19 +125,19 @@ export default {
         [301, 454],
         [455, 614],
         [615, 846],
-        [847, 996],
-        [997, 1162],
-        [1163, 1317]
+        [847, 1001],
+        [1002, 1167],
+        [1168, 1324]
       ],
       framesArr2: [
         [0, 150],
-        [168, 300],
-        [311, 454],
-        [472, 614],
-        [623, 846],
-        [867, 996],
-        [1008, 1161],
-        [1179, 1317]
+        [170, 300],
+        [319, 454],
+        [476, 614],
+        [643, 846],
+        [873, 1001],
+        [1038, 1167],
+        [1183, 1324]
       ],
       //分享
       wxShareInfoValue: {
@@ -177,8 +180,8 @@ export default {
         container: el,
         renderer: 'svg',
         loop: false,
-        assetsPath: that.base + 'data5/images/',
-        path: that.base + 'data5/data.json'
+        assetsPath: that.base + 'data7/images/',
+        path: that.base + 'data7/data.json'
       })
       this.animation = anim
       anim.addEventListener('DOMLoaded', function() {
@@ -220,8 +223,9 @@ export default {
       if (this.arrIndex == 0) {
         this.jiantou2 = false
       }
-      if (this.arrIndex == this.framesArr2.length - 3) {
+      if (this.arrIndex == this.framesArr2.length - 2) {
         this.uploadImgYellow = true
+        this.gonglueImg = false
       }
     },
     tab() {
@@ -238,8 +242,9 @@ export default {
       this.arrIndex++
       if (this.arrIndex >= this.framesArr.length - 1) {
         this.jiantou1 = false
+        this.gonglueImg = true
       }
-      if (this.arrIndex == this.framesArr.length - 3) {
+      if (this.arrIndex >= this.framesArr.length - 2) {
         this.uploadImgYellow = true
       }
     },
@@ -264,10 +269,11 @@ export default {
       getImage(formData)
         .then(res => {
           console.log(res)
+          alert('头像上传成功')
           this.icon = 'icon2'
         })
         .catch(err => {
-          alert('图像上传错误！请重新上传，只支持jpg,png格式')
+          alert('头像上传失败！请重新上传，只支持jpg,png格式')
           console.log(err)
         })
     },
@@ -385,8 +391,8 @@ img {
     display: inline-block;
     width: 13%;
     position: absolute;
-    top: 4%;
-    right: 25%;
+    top: 12%;
+    right: 5%;
     z-index: 999;
     animation: scale 2s linear infinite alternate;
     img {
@@ -407,8 +413,8 @@ img {
     display: inline-block;
     width: 13%;
     position: absolute;
-    top: 4%;
-    right: 7%;
+    top: 24%;
+    right: 5%;
     z-index: 999;
     animation: scale 2s linear infinite alternate;
     img {
@@ -420,8 +426,8 @@ img {
     display: block;
     width: 8%;
     position: absolute;
-    top: 16%;
-    right: 10%;
+    top: 5%;
+    right: 8%;
     z-index: 999;
     .img1 {
       position: absolute;

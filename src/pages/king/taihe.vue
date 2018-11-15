@@ -14,6 +14,9 @@
         :src="baseUrl + 'scan.png'+ this.$qiniuCompress()"
         class="scan">
       <img 
+        :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
+        class="save">
+      <img 
         v-if="photo !== null" 
         :src="photo + this.$qiniuCompress()"
         class="photo"> 
@@ -128,23 +131,32 @@ export default {
       checkGetCoupon(args)
         .then(res => {
           if (res) {
-            console.log('checkGetCoupon', res)
-            this.qrcodeImg = res.qrcode_url
-            this.couponImg = res.couponBatch.image_url
-            this.time = res.created_at
-            let dateValue = this.time.replace(/\-/g, '/')
-            //当天24点过期
-            if (this.formatDate(dateValue) < new Date().getTime()) {
-              //失效处理
-              this.hasPost = true
-              this.hasUsed = false
-            } else if (parseInt(res.status) === 1) {
-              //已使用
-              this.hasUsed = true
-              this.hasPost = false
-            }
+            this.handleData(res)
           } else {
-            this.sendCoupon()
+            let data = new Date()
+            args = {
+              coupon_batch_id: this.coupon_batch_id,
+              include: 'couponBatch'
+            }
+            args.start_date = this.dataFormat(
+              new Date(this.formatTimestamp(data, true)),
+              'yyyy-MM-dd hh:mm:ss'
+            )
+            args.end_date = this.dataFormat(
+              new Date(this.formatTimestamp(data, false) - 1000),
+              'yyyy-MM-dd hh:mm:ss'
+            )
+            checkGetCoupon(args)
+              .then(res => {
+                if (res) {
+                  this.handleData(res)
+                } else {
+                  this.sendCoupon()
+                }
+              })
+              .catch(err => {
+                console.log(err)
+              })
           }
         })
         .catch(err => {
@@ -160,35 +172,67 @@ export default {
       sendCoupon(args, this.coupon_batch_id)
         .then(res => {
           console.log('sendCoupon', res)
-          this.qrcodeImg = res.qrcode_url
-          this.couponImg = res.couponBatch.image_url
-          this.time = res.created_at
-          let dateValue = this.time.replace(/\-/g, '/')
-          //当天24点过期
-          if (this.formatDate(dateValue) < new Date().getTime()) {
-            //失效处理
-            this.hasPost = true
-            this.hasUsed = false
-          } else if (parseInt(res.status) === 1) {
-            //已使用
-            this.hasUsed = true
-            this.hasPost = false
-          }
+          this.handleData(res)
         })
         .catch(err => {
           alert(err.response.data.message)
         })
     },
-    formatDate(data) {
-      console.log(data)
+    //处理返回数据
+    handleData(res) {
+      this.qrcodeImg = res.qrcode_url
+      this.couponImg = res.couponBatch.image_url
+      this.time = res.created_at
+      let dateValue = this.time.replace(/\-/g, '/')
+      //当天24点过期
+      if (this.formatTimestamp(dateValue, false) < new Date().getTime()) {
+        //失效处理
+        this.hasPost = true
+        this.hasUsed = false
+      } else if (parseInt(res.status) === 1) {
+        //已使用
+        this.hasUsed = true
+        this.hasPost = false
+      }
+    },
+    //处理时间
+    formatTimestamp(data, flag) {
       let nextDate = new Date(new Date(data).getTime() + 24 * 60 * 60 * 1000)
+      if (flag) {
+        nextDate = data
+      }
       nextDate.setHours(0)
       nextDate.setMinutes(0)
       nextDate.setSeconds(0)
       nextDate.setMilliseconds(0)
       let todayStartTime = nextDate.getTime()
-      console.log('11111', todayStartTime)
       return todayStartTime
+    },
+    //转换日期格式
+    dataFormat(date, fmt) {
+      var o = {
+        'M+': date.getMonth() + 1,
+        'd+': date.getDate(),
+        'h+': date.getHours(),
+        'm+': date.getMinutes(),
+        's+': date.getSeconds(),
+        'q+': Math.floor((date.getMonth() + 3) / 3),
+        S: date.getMilliseconds()
+      }
+      if (/(y+)/.test(fmt))
+        fmt = fmt.replace(
+          RegExp.$1,
+          (date.getFullYear() + '').substr(4 - RegExp.$1.length)
+        )
+      for (var k in o)
+        if (new RegExp('(' + k + ')').test(fmt))
+          fmt = fmt.replace(
+            RegExp.$1,
+            RegExp.$1.length == 1
+              ? o[k]
+              : ('00' + o[k]).substr(('' + o[k]).length)
+          )
+      return fmt
     }
   }
 }
@@ -239,8 +283,17 @@ img {
     width: 100%;
     position: relative;
     margin-top: 2.5%;
+    pointer-events: none;
+    user-select: none;
     .scan {
       width: 80%;
+    }
+    .save {
+      width: 7%;
+      position: absolute;
+      left: 7%;
+      top: 18%;
+      z-index: 3;
     }
     .photo {
       width: 32.5%;
@@ -278,6 +331,8 @@ img {
     width: 100%;
     position: relative;
     margin-top: 4.5%;
+    pointer-events: none;
+    user-select: none;
   }
 }
 </style>
