@@ -69,6 +69,7 @@
         @click.self="cancle()">
       <!-- 二维码 -->
       <img 
+        v-show="qrcodeShow"
         :src="qrcodeImg+ this.$qiniuCompress()"
         class="ewm">
       
@@ -99,12 +100,14 @@ export default {
       iphoneX: false,
       wechat: false,
       coupon_batch_id: this.$route.query.coupon_batch_id,
+      id: this.$route.query.id,
       couponImg: null,
       qrcodeImg: null,
       show: {
         drawShow: true,
         awardShow: false
       },
+      qrcodeShow: true,
       params: {
         user_id: null
       },
@@ -174,7 +177,8 @@ export default {
     checkCouponIsUse() {
       let args = {
         coupon_batch_id: this.coupon_batch_id,
-        include: 'couponBatch'
+        include: 'couponBatch',
+        qiniu_id: this.id
       }
       checkGetCoupon(args)
         .then(res => {
@@ -182,6 +186,10 @@ export default {
             console.log('checkGetCoupon', res)
             this.qrcodeImg = res.qrcode_url
             this.couponImg = res.couponBatch.image_url
+            this.show.drawShow = false
+            if (res.name === '谢谢惠顾') {
+              this.qrcodeShow = false
+            }
           } else {
             this.sendCoupon()
           }
@@ -193,7 +201,8 @@ export default {
     //发优惠券
     sendCoupon() {
       let args = {
-        include: 'couponBatch'
+        include: 'couponBatch',
+        qiniu_id: this.id
       }
       sendCoupon(args, this.coupon_batch_id)
         .then(res => {
