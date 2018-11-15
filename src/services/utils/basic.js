@@ -14,7 +14,7 @@ const validatePhone = number => {
   }
 }
 //转换日期格式 时间戳转换日期格式2018-11-10 00：00：00
-const dataFormat = (date, fmt) => {
+const dateFormat = (date, fmt) => {
   let o = {
     'M+': date.getMonth() + 1,
     'd+': date.getDate(),
@@ -38,4 +38,4 @@ const dataFormat = (date, fmt) => {
   return fmt
 }
 
-export { isInWechat, randomIntNum, validatePhone, dataFormat }
+export { isInWechat, randomIntNum, validatePhone, dateFormat }

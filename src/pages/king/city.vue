@@ -85,7 +85,7 @@ import {
   isInWechat,
   wechatShareTrack,
   Cookies,
-  dataFormat
+  dateFormat
 } from 'services'
 const cdnUrl = process.env.CDN_URL
 export default {
@@ -192,11 +192,11 @@ export default {
               coupon_batch_id: this.coupon_batch_id,
               include: 'couponBatch'
             }
-            args.start_date = dataFormat(
+            args.start_date = dateFormat(
               new Date(this.formatTimestamp(data, true)),
               'yyyy-MM-dd hh:mm:ss'
             )
-            args.end_date = dataFormat(
+            args.end_date = dateFormat(
               new Date(this.formatTimestamp(data, false) - 1000),
               'yyyy-MM-dd hh:mm:ss'
             )
@@ -257,7 +257,7 @@ export default {
       return todayStartTime
     }
     //转换日期格式
-    // dataFormat(date, fmt) {
+    // dateFormat(date, fmt) {
     //   var o = {
     //     'M+': date.getMonth() + 1,
     //     'd+': date.getDate(),
