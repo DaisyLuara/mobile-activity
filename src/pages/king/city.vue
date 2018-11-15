@@ -102,10 +102,11 @@ export default {
       wechat: false,
       coupon_batch_id: this.$route.query.coupon_batch_id,
       id: this.$route.query.id,
+      oid: this.$route.query.utm_source,
       couponImg: null,
       qrcodeImg: null,
       show: {
-        drawShow: true,
+        drawShow: false,
         awardShow: false
       },
       qrcodeShow: true,
@@ -221,7 +222,9 @@ export default {
     sendCoupon() {
       let args = {
         include: 'couponBatch',
-        qiniu_id: this.id
+        qiniu_id: this.id,
+        oid: this.oid,
+        belong: this.$route.query.utm_campaign
       }
       sendCoupon(args, this.coupon_batch_id)
         .then(res => {
@@ -236,8 +239,8 @@ export default {
     handleData(res, flag) {
       this.qrcodeImg = res.qrcode_url
       this.couponImg = res.couponBatch.image_url
-      if (flag) {
-        this.show.drawShow = false
+      if (!flag) {
+        this.show.drawShow = true
       }
       if (res.name === '谢谢惠顾') {
         this.qrcodeShow = false

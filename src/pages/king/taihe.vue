@@ -170,7 +170,8 @@ export default {
       let args = {
         include: 'couponBatch',
         qiniu_id: this.id,
-        oid: this.oid
+        oid: this.oid,
+        belong: this.$route.query.utm_campaign
       }
       sendCoupon(args, this.coupon_batch_id)
         .then(res => {
