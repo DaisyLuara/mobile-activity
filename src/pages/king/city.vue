@@ -105,7 +105,7 @@ export default {
       couponImg: null,
       qrcodeImg: null,
       show: {
-        drawShow: true,
+        drawShow: false,
         awardShow: false
       },
       qrcodeShow: true,
@@ -236,8 +236,8 @@ export default {
     handleData(res, flag) {
       this.qrcodeImg = res.qrcode_url
       this.couponImg = res.couponBatch.image_url
-      if (flag) {
-        this.show.drawShow = false
+      if (!flag) {
+        this.show.drawShow = true
       }
       if (res.name === '谢谢惠顾') {
         this.qrcodeShow = false
