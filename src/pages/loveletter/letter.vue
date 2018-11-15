@@ -180,7 +180,7 @@ export default {
         container: el,
         renderer: 'svg',
         loop: false,
-        assetsPath: that.base + 'data7/images/',
+        assetsPath: that.base + 'data8/images/',
         path: that.base + 'data7/data.json'
       })
       this.animation = anim
