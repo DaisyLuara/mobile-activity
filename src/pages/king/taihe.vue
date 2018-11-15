@@ -62,6 +62,7 @@ export default {
       iphoneX: false,
       coupon_batch_id: this.$route.query.coupon_batch_id,
       id: this.$route.query.id,
+      oid: this.$route.query.utm_source,
       couponImg: null,
       qrcodeImg: null,
       params: {
@@ -168,7 +169,8 @@ export default {
     sendCoupon() {
       let args = {
         include: 'couponBatch',
-        qiniu_id: this.id
+        qiniu_id: this.id,
+        oid: this.oid
       }
       sendCoupon(args, this.coupon_batch_id)
         .then(res => {
