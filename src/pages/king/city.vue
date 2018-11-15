@@ -102,6 +102,7 @@ export default {
       wechat: false,
       coupon_batch_id: this.$route.query.coupon_batch_id,
       id: this.$route.query.id,
+      oid: this.$route.query.utm_source,
       couponImg: null,
       qrcodeImg: null,
       show: {
@@ -221,7 +222,9 @@ export default {
     sendCoupon() {
       let args = {
         include: 'couponBatch',
-        qiniu_id: this.id
+        qiniu_id: this.id,
+        oid: this.oid,
+        belong: this.$route.query.utm_campaign
       }
       sendCoupon(args, this.coupon_batch_id)
         .then(res => {
