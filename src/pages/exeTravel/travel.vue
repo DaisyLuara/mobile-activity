@@ -52,15 +52,17 @@
 </template>
 <script>
 import $ from 'jquery'
-import { $wechat, getInfoById, wechatShareTrack, isInWechat } from 'services'
-const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/'
+import { $wechat, wechatShareTrack, isInWechat } from 'services'
+import { normalPages } from '../../mixins/normalPages'
+const BASE_URL = process.env.CDN_URL
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
+  mixins: [normalPages],
   data() {
     return {
-      imgPath: BASE_URL + 'image/',
+      imgPath: BASE_URL + '/image/',
       imgServerUrl: IMAGE_SERVER + '/pages/psbh_travel',
-      audioUrl: BASE_URL + 'audio/mp3/',
+      audioUrl: BASE_URL + '/audio/mp3/',
       photo: null,
       wxShareInfoValue: {
         title: '好物相伴，萌游世界',
@@ -75,40 +77,12 @@ export default {
   beforeCreate() {
     document.title = '旅行通用版'
   },
-  created() {
-    this.getPeopleImage()
-  },
   mounted() {
-    this.handleWechatShare()
     $('.photo-content').css('min-height', $(window).height())
     this.init()
     this.playAudio()
   },
   methods: {
-    handleWechatShare() {
-      if (isInWechat() === true) {
-        $wechat()
-          .then(res => {
-            res.share(this.wxShareInfoValue)
-          })
-          .catch(err => {
-            console.warn(err.message)
-          })
-      } else {
-        console.warn('you r not in wechat environment')
-      }
-    },
-    getPeopleImage() {
-      let id = decodeURI(this.$route.query.id)
-      getInfoById(id)
-        .then(result => {
-          this.photo = result.image
-          console.log(result)
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    },
     init() {
       let wid = 0,
         slogen_hei = 0,
@@ -124,9 +98,9 @@ export default {
       $('.photo-content').height(realHight)
 
       wid = $(window).width() > 640 ? 640 : $(window).width()
-      slogen_hei = wid * 330 / 750
+      slogen_hei = (wid * 330) / 750
 
-      boot_hei = wid * 267 / 750
+      boot_hei = (wid * 267) / 750
       $('.boots-wrap').height(boot_hei)
 
       document.addEventListener('touchstart', function() {}, true)
@@ -165,7 +139,7 @@ export default {
           boot_obj.off('touchmove', move)
           boot_obj.off('touchend', end)
         }
-        percent = curr_pos / (start_pos - end_pos) * 100
+        percent = (curr_pos / (start_pos - end_pos)) * 100
         if (percent > 100) {
           $('.cover-img').css('transform', 'translateX(0)')
           return
@@ -256,7 +230,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/travel';
+@imgUrl: 'http://cdn.exe666.com/image/travel';
 @imgServerUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/psbh_travel';
 .travel-content {
   width: 100%;

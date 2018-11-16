@@ -32,7 +32,9 @@
 <script>
 const IMG_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing/pages'
 import { $wechat, getInfoById, wechatShareTrack, isInWechat } from 'services'
+import { onlyWechatShare } from '../../mixins/onlyWechatShare'
 export default {
+  mixins: [onlyWechatShare],
   data() {
     return {
       imgPath: IMG_SERVER + '/heyjiuce/tea/',
@@ -47,7 +49,7 @@ export default {
       wxShareInfoValue: {
         title: 'HEYJUICE等待着与你相遇',
         desc: '健康时尚  美味畅享，好在天然，妙在鲜榨',
-        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/heyjuice/icon.png',
+        imgUrl: 'https://cdn.exe666.com/image/heyjuice/icon.png',
         success: function() {
           wechatShareTrack()
         }
@@ -70,19 +72,6 @@ export default {
     this.toMenu(this.source)
   },
   methods: {
-    handleWechatShare() {
-      if (isInWechat() === true) {
-        $wechat()
-          .then(res => {
-            res.share(this.wxShareInfoValue)
-          })
-          .catch(err => {
-            console.warn(err.message)
-          })
-      } else {
-        console.warn('you r not in wechat environment')
-      }
-    },
     getInfoById() {
       let id = this.$route.query.id
       let that = this

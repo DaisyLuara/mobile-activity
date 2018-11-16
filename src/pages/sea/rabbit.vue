@@ -45,7 +45,7 @@
 import { $wechat, wechatShareTrack } from 'services'
 import { onlyWechatShare } from '../../mixins/onlyWechatShare'
 import 'animate.css'
-const IMGURL = 'http://p22vy0aug.bkt.clouddn.com/image/'
+const IMGURL = process.env.CDN_URL + '/image/'
 export default {
   mixins: [onlyWechatShare],
   data() {
@@ -64,7 +64,7 @@ export default {
         title: '兔兔这么可爱当然要吃萝卜',
         desc: '内有萌兔，请小心点开',
         link: 'http://papi.xingstation.com/api/s/L9w' + window.location.search,
-        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/rabbit/share.jpg',
+        imgUrl: IMGURL + 'rabbit/share.jpg',
         success: function() {
           wechatShareTrack()
         }
@@ -74,13 +74,13 @@ export default {
   created() {},
   mounted() {
     let bg = new Image()
-    bg.src = 'http://p22vy0aug.bkt.clouddn.com/image/rabbit/bg.jpg'
+    bg.src = this.baseUrl + 'bg.jpg'
     bg.onload = function() {
       let sheet = new Image()
-      sheet.src = 'http://p22vy0aug.bkt.clouddn.com/image/rabbit/rabbit.png'
+      sheet.src = this.baseUrl + 'rabbit.png'
       sheet.onload = function() {
         let bunny = new Image()
-        bunny.src = 'http://p22vy0aug.bkt.clouddn.com/image/rabbit/bunny.png'
+        bunny.src = this.baseUrl + 'bunny.png'
         bunny.onload = function() {}
       }
     }
@@ -95,7 +95,7 @@ export default {
           transparent: true
         })
         document.getElementById('main').appendChild(app.view)
-        let base = 'http://p22vy0aug.bkt.clouddn.com/image/rabbit/'
+        let base = 'http://cdn.exe666.com/image/rabbit/'
         app.view.style.position = 'absolute'
         app.view.style.top = '10%'
         app.view.style.left = '50%'
@@ -117,7 +117,7 @@ export default {
           animal.x = app.screen.width / 2
           animal.y = 0
           animal.width = app.screen.width
-          animal.height = animal.width / 296 * 527
+          animal.height = (animal.width / 296) * 527
           animal.gotoAndPlay(0)
           animal.animationSpeed = 0.6
           app.stage.addChild(animal)
@@ -130,7 +130,6 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/rabbit/';
 html,
 body {
   width: 100%;

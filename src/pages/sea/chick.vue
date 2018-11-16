@@ -45,7 +45,7 @@
 import { $wechat, wechatShareTrack } from 'services'
 import { onlyWechatShare } from '../../mixins/onlyWechatShare'
 import 'animate.css'
-const IMGURL = 'http://p22vy0aug.bkt.clouddn.com/image/'
+const IMGURL = process.env.CDN_URL + '/image/'
 export default {
   mixins: [onlyWechatShare],
   data() {
@@ -64,7 +64,7 @@ export default {
         title: '小鸡捉虫',
         desc: '消灭害虫，人人有责',
         link: 'http://papi.xingstation.com/api/s/R6q' + window.location.search,
-        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/chick/share.png',
+        imgUrl: IMGURL + 'chick/share.png',
         success: function() {
           wechatShareTrack()
         }
@@ -75,10 +75,10 @@ export default {
   mounted() {
     let that = this
     let bg = new Image()
-    bg.src = 'http://p22vy0aug.bkt.clouddn.com/image/chick/bg.png'
+    bg.src = this.baseUrl + 'bg.png'
     bg.onload = function() {
       let chick = new Image()
-      chick.src = 'http://p22vy0aug.bkt.clouddn.com/image/chick/he.png'
+      chick.src = this.baseUrl + 'he.png'
       chick.onload = function() {
         that.chick = true
       }
@@ -94,7 +94,7 @@ export default {
           transparent: true
         })
         document.getElementById('main').appendChild(app.view)
-        let base = 'http://p22vy0aug.bkt.clouddn.com/image/chick/'
+        let base = 'http://cdn.exe666.com/image/chick/'
         app.view.style.position = 'absolute'
         app.view.style.top = '8%'
         app.view.style.left = '50%'
@@ -116,7 +116,7 @@ export default {
           animal.x = app.screen.width / 2
           animal.y = 0
           animal.width = app.screen.width
-          animal.height = animal.width / 304 * 581
+          animal.height = (animal.width / 304) * 581
           animal.gotoAndPlay(0)
           animal.animationSpeed = 0.2
           app.stage.addChild(animal)
@@ -129,7 +129,6 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/chick/';
 html,
 body {
   width: 100%;

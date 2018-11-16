@@ -17,11 +17,11 @@
 </template>
 <script>
 import { $wechat, wechatShareTrack, basicTrack } from 'services'
-const IMGURL = 'http://p22vy0aug.bkt.clouddn.com/image/'
+const IMGURL = process.env.CDN_URL + '/image/'
 export default {
   data() {
     return {
-      baseUrl: IMGURL + 'sea/page1/',
+      baseUrl: IMGURL + 'sea/',
       style: {
         root: {
           'min-height': this.$innerHeight() + 'px'
@@ -31,7 +31,7 @@ export default {
       wxShareInfo: {
         title: '来自海洋的问候',
         desc: '更多海洋知识小课堂',
-        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/sea/share.jpg',
+        imgUrl: 'http://cdn.exe666.com/image/sea/share.jpg',
         success: function() {
           wechatShareTrack()
         }
@@ -83,7 +83,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/sea/';
+@imgUrl: 'http://cdn.exe666.com/image/sea/';
 html,
 body {
   width: 100%;
@@ -106,7 +106,7 @@ img {
   width: 100%;
   overflow-x: hidden;
   position: relative;
-  background-image: url('@{imgUrl}page1/bg.jpg');
+  background-image: url('@{imgUrl}bg.jpg');
   background-position: top center;
   background-repeat: no-repeat;
   background-size: 100% auto;
@@ -126,7 +126,7 @@ img {
     }
     .tel {
       width: 70%;
-      background-image: url('@{imgUrl}page1/phone.png');
+      background-image: url('@{imgUrl}/phone.png');
       background-position: center center;
       background-repeat: no-repeat;
       background-size: 100% auto;
