@@ -108,6 +108,17 @@ const Date201811 = [
       desc: '美莱颜值印钞机'
     },
     isAbandoned: false
+  },
+  {
+    path: 'fashion_manufacturing',
+    location: '201811/fashionManufacturing',
+    name: 'fashion_manufacturing',
+    meta: {
+      title: '潮流制造局',
+      author: 'xj1012',
+      desc: '潮流制造局'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201811
