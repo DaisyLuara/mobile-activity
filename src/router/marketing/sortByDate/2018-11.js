@@ -103,7 +103,7 @@ const Date201811 = [
     location: '201811/meilai',
     name: 'meilai',
     meta: {
-      title: '美莱颜值印钞机',
+      title: '美莱整形',
       author: 'lipan',
       desc: '美莱颜值印钞机'
     },

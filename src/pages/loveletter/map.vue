@@ -62,38 +62,31 @@
           <!-- 厦门爱乐乐团 -->
           <a
             class="local-link local1"
-            @click="toAlert(1)">
-          </a>
+            @click="toAlert(1)"/>
           <!-- 高参 -->
           <a
             class="local-link local2"
-            @click="toAlert(2)">
-          </a>
+            @click="toAlert(2)"/>
           <!-- 揭幕流程 -->
           <a
             class="local-link local3"
-            @click="toAlert(3)">
-          </a>
+            @click="toAlert(3)"/>
           <!-- 夏国璋龙狮团 -->
           <a
             class="local-link local4"
-            @click="toAlert(4)">
-          </a>
+            @click="toAlert(4)"/>
           <!-- 豪觅邮局 -->
           <a
             class="local-link local5"
-            @click="toAlert(5)">
-          </a>
+            @click="toAlert(5)"/>
           <!-- 永新早食 -->
           <a
             class="local-link local6"
-            @click="toAlert(6)">
-          </a>
+            @click="toAlert(6)"/>
           <!-- 华润80年，润物耕心 -->
           <a
             class="local-link local7"
-            @click="toAlert(7)">
-          </a>
+            @click="toAlert(7)"/>
         </div>
       </swiper-slide>
     </swiper>

@@ -38,7 +38,7 @@
         :src="photo" 
         class="money">
       <img 
-        :src="imgUrl+'frame.png'" 
+        :src="imgUrl+'frame1.png'" 
         class="imgframe">
     </div>
     <img 
