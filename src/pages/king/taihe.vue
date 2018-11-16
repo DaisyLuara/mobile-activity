@@ -62,6 +62,7 @@ export default {
       iphoneX: false,
       coupon_batch_id: this.$route.query.coupon_batch_id,
       id: this.$route.query.id,
+      oid: this.$route.query.utm_source,
       couponImg: null,
       qrcodeImg: null,
       params: {
@@ -168,7 +169,9 @@ export default {
     sendCoupon() {
       let args = {
         include: 'couponBatch',
-        qiniu_id: this.id
+        qiniu_id: this.id,
+        oid: this.oid,
+        belong: this.$route.query.utm_campaign
       }
       sendCoupon(args, this.coupon_batch_id)
         .then(res => {
@@ -209,32 +212,6 @@ export default {
       let todayStartTime = nextDate.getTime()
       return todayStartTime
     }
-    //转换日期格式
-    // dateFormat(date, fmt) {
-    //   var o = {
-    //     'M+': date.getMonth() + 1,
-    //     'd+': date.getDate(),
-    //     'h+': date.getHours(),
-    //     'm+': date.getMinutes(),
-    //     's+': date.getSeconds(),
-    //     'q+': Math.floor((date.getMonth() + 3) / 3),
-    //     S: date.getMilliseconds()
-    //   }
-    //   if (/(y+)/.test(fmt))
-    //     fmt = fmt.replace(
-    //       RegExp.$1,
-    //       (date.getFullYear() + '').substr(4 - RegExp.$1.length)
-    //     )
-    //   for (var k in o)
-    //     if (new RegExp('(' + k + ')').test(fmt))
-    //       fmt = fmt.replace(
-    //         RegExp.$1,
-    //         RegExp.$1.length == 1
-    //           ? o[k]
-    //           : ('00' + o[k]).substr(('' + o[k]).length)
-    //       )
-    //   return fmt
-    // }
   }
 }
 </script>
