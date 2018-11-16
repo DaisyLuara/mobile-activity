@@ -4,6 +4,7 @@
     class="root">
     <img 
       :src="baseUrl + 'city.png'+ this.$qiniuCompress()"
+      :class="{'x-city':iphoneX,'city':!iphoneX}"
       class="city"> 
      <img 
       :src="baseUrl + 'line.png'+ this.$qiniuCompress()"
@@ -11,7 +12,7 @@
   <div class="center">
      <img 
       :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
-      :class="{'x-frame':iphoneX,'photo-frame':!iphoneX}"
+      :class="{'x-frame':iphoneX,'frame':!iphoneX}"
       class="frame"> 
      <img 
       v-if="photo !== null" 
@@ -121,6 +122,12 @@ img {
     position: absolute;
     left: 0;
     bottom: 31%;
+  }
+  .x-city {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 26%;
   }
   .center {
     width: 100%;
