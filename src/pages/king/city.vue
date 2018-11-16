@@ -70,7 +70,7 @@
       <!-- 二维码 -->
       <img 
         v-show="qrcodeShow"
-        :src="qrcodeImg+ this.$qiniuCompress()"
+        :src="qrcodeImg"
         class="ewm">
       
     </div>
