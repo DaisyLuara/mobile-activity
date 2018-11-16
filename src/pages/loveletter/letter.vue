@@ -2,10 +2,6 @@
   <div 
     :style="style.root"
     class="content">
-    <!-- 上传头像  
-    @touchstart="handleTouchStart"
-    @touchmove="handleTouchMove"
-    @touchend="handleTouchEnd"-->
     <div 
       v-show="uploadImgYellow"
       class="upload">
@@ -14,8 +10,6 @@
         accept="image/*"
         class="camera"
         @change="toUpLoad">
-      <!-- <img
-        :src="base + icon +'.png'"> -->
       <img
         v-show="uploadImgYellow"
         :src="base +'icon_n.png'">
@@ -170,7 +164,6 @@ export default {
   methods: {
     go() {
       window.location.href = 'http://papi.xingstation.com/api/s/xvr'
-      //window.location.href = 'http://192.168.31.198:8088/marketing/wxc_map'
     },
     doAnim() {
       const el = document.getElementById('anim')
@@ -180,7 +173,7 @@ export default {
         container: el,
         renderer: 'svg',
         loop: false,
-        assetsPath: that.base + 'data7/images/',
+        assetsPath: that.base + 'data8/images/',
         path: that.base + 'data7/data.json'
       })
       this.animation = anim
@@ -189,31 +182,6 @@ export default {
         anim.playSegments([0, 100], true)
       })
     },
-    // openLetter() {
-    //   let that = this
-    //   this.animation.setSpeed(1.5) //设置播放速度
-    //   this.animation.playSegments([76, 130], true) // 播放76-130帧动画
-    //   this.animation.loop = false
-    //   this.animation.addEventListener('complete', function() {
-    //     // 动画播放完成后
-    //     // that.lastAnim()
-    //   })
-    // },
-    // handleTouchStart(event) {
-    //   let x = event.touches[0].pageX
-    //   this.pointer.start = x
-    // },
-    // handleTouchMove(event) {
-    //   this.pointer.move = event.touches[0].pageX
-    // },
-    // handleTouchEnd(event) {
-    //   if (this.pointer.move - this.pointer.start < -30) {
-    //     this.toLeft()
-    //   }
-    //   if (this.pointer.move - this.pointer.start > 30) {
-    //     this.toRight()
-    //   }
-    // },
     toLeft() {
       this.jiantou1 = true
       this.uploadImgYellow = false
@@ -474,7 +442,6 @@ img {
     position: absolute;
     top: 50%;
     right: 2%;
-    // transform: translateY(-50%);
     animation: pointer 0.8s linear infinite alternate;
     z-index: 999;
   }
@@ -483,7 +450,6 @@ img {
     position: absolute;
     top: 50%;
     left: 2%;
-    // transform: translateY(-50%);
     animation: pointer2 0.8s linear infinite alternate;
     z-index: 999;
   }
