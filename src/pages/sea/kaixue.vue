@@ -72,7 +72,7 @@
   </div>
 </template>
 <script>
-const IMAGE_SERVER = 'http://p22vy0aug.bkt.clouddn.com/'
+const IMAGE_SERVER = process.env.CDN_URL
 import {
   $wechat,
   wechatShareTrack,
@@ -94,7 +94,7 @@ export default {
           'min-height': this.$innerHeight() + 'px'
         }
       },
-      base: IMAGE_SERVER + 'image/farm/kaixue/',
+      base: IMAGE_SERVER + '/image/kaixue/',
       score: this.$route.query.score,
       total: 0,
       coupon: 0,
@@ -115,7 +115,7 @@ export default {
         title: '开学送福利',
         desc: '亲爱的，礼物准备好了',
         link: 'http://papi.xingstation.com/api/s/j2R' + window.location.search,
-        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/farm/kaixue/icon.jpg',
+        imgUrl: 'http://cdn.exe666.com/image/kaixue/icon.jpg',
         success: function() {
           wechatShareTrack()
         }
@@ -274,7 +274,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@base: 'http://p22vy0aug.bkt.clouddn.com/image/farm/kaixue/';
+@base: 'http://cdn.exe666.com/image/kaixue/';
 html,
 body {
   width: 100%;

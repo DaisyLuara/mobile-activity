@@ -38,33 +38,34 @@
       </div>
       <img 
         id="mImg" 
-        :src="mImg" 
+        :src="photo" 
         class="money">
       <img 
         :src="imgUrl+'frame.png'" 
         class="imgframe">
     </div>
     <img 
-      v-show="press" 
+      v-show="Boolean(photo)" 
       :src="imgUrl+'press.png'" 
       class="press">
   </div>
 </template>
 <script>
 import { $wechat, getInfoById, wechatShareTrack, isInWechat } from 'services'
-const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/'
+import { normalPages } from '../../mixins/normalPages'
+const BASE_URL = process.env.CDN_URL
 export default {
+  mixins: [normalPages],
   data() {
     return {
-      imgUrl: BASE_URL + 'image/yanzhi/content/',
-      mImg: null,
-      press: false,
+      imgUrl: BASE_URL + '/image/yanzhi/content/',
+      photo: null,
       //微信分享
       wxShareInfo: {
         title: '我的颜值太高了！居然被印上了钞票！',
         desc: '你也来和我PK颜值吧~',
-        imgUrl: BASE_URL + 'image/yanzhi/index/share.jpg',
-        success: function() {
+        imgUrl: BASE_URL + '/image/yanzhi/share.jpg',
+        success: () => {
           wechatShareTrack()
         }
       }
@@ -74,45 +75,18 @@ export default {
     document.title = '颜值印钞机通用版'
   },
   mounted() {
-    this.handleWechatShare()
     let height =
       window.innerHeight ||
       document.documentElement.clientHeight ||
       document.body.clientHeight
     let warp = document.getElementById('warp')
     warp.style.minHeight = height + 'px'
-    this.getInfoById()
   },
-  methods: {
-    handleWechatShare() {
-      if (isInWechat() === true) {
-        $wechat()
-          .then(res => {
-            res.share(this.wxShareInfoValue)
-          })
-          .catch(err => {
-            console.warn(err.message)
-          })
-      } else {
-        console.warn('you r not in wechat environment')
-      }
-    },
-    getInfoById() {
-      let id = this.$route.query.id
-      getInfoById(id)
-        .then(res => {
-          this.mImg = res.image
-          this.press = true
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    }
-  }
+  methods: {}
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/yanzhi/';
+@imgUrl: 'http://cdn.exe666.com/image/yanzhi/';
 .yanzhi-result {
   width: 100%;
   text-align: center;

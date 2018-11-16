@@ -80,7 +80,7 @@ import {
 import { normalPages } from '../../mixins/normalPages'
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
-const IMG_SERVER = 'http://p22vy0aug.bkt.clouddn.com'
+const IMG_SERVER = process.env.CDN_URL
 export default {
   components: {
     swiper,
@@ -117,7 +117,7 @@ export default {
         ],
         name: this.$route.query.cake_name,
         headImgUrl: null,
-        // 'http://p22vy0aug.bkt.clouddn.com/image/zhongqiu/1/share.png', //null,
+        // 'http://cdn.exe666.com/image/zhongqiu/1/share.png', //null,
         people: this.$route.query.people_type,
         cake_type_a: this.$route.query.cake_type_a,
         cake_type_b: this.$route.query.cake_type_b
@@ -139,8 +139,8 @@ export default {
         title: '中秋快乐',
         desc: '我亲手做的月饼,你敢吃么？',
         link: 'http://papi.xingstation.com/api/s/YEK' + window.location.search,
-        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/zhongqiu/1/share.png',
-        success: function() {
+        imgUrl: 'http://cdn.exe666.com/image/zhongqiu/1/share.png',
+        success: () => {
           wechatShareTrack()
         }
       }
@@ -269,15 +269,15 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@base: 'http://p22vy0aug.bkt.clouddn.com/image/zhongqiu/1/';
+@base: 'http://cdn.exe666.com/image/zhongqiu/1/';
 /*声明 WebFont*/
 @font-face {
   font-family: 'hanyi';
-  src: url('http://p22vy0aug.bkt.clouddn.com/image/zhongqiu/font/hanyi.ttf');
-  src: url('http://p22vy0aug.bkt.clouddn.com/image/zhongqiu/font/hanyi.eot'),
-    url('http://p22vy0aug.bkt.clouddn.com/image/zhongqiu/font/hanyi.woff'),
-    url('http://p22vy0aug.bkt.clouddn.com/image/zhongqiu/font/hanyi.ttf'),
-    url('http://p22vy0aug.bkt.clouddn.com/image/zhongqiu/font/hanyi.svg');
+  src: url('http://cdn.exe666.com/image/zhongqiu/font/hanyi.ttf');
+  src: url('http://cdn.exe666.com/image/zhongqiu/font/hanyi.eot'),
+    url('http://cdn.exe666.com/image/zhongqiu/font/hanyi.woff'),
+    url('http://cdn.exe666.com/image/zhongqiu/font/hanyi.ttf'),
+    url('http://cdn.exe666.com/image/zhongqiu/font/hanyi.svg');
   font-weight: normal;
   font-style: normal;
 }

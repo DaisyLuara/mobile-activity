@@ -13,27 +13,28 @@
       <img 
         id="mImg" 
         :class="shake?'noshake':'hasshake'" 
-        :src="mImg">
+        :src="photo">
       <img 
         v-show="noteShow" 
         :src="imgUrl+'lianyang/note.png'" 
         class="note">
     </div>
     <img 
-      v-show="isshow" 
+      v-show="Boolean(photo)" 
       :src="imgUrl+'lianyang/press.png'" 
       class="press">
   </div>
 </template>
 <script>
-import { $wechat, getInfoById, wechatShareTrack, isInWechat } from 'services'
-const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/'
+import { $wechat, wechatShareTrack, isInWechat } from 'services'
+import { normalPages } from '../../mixins/normalPages'
+const BASE_URL = process.env.CDN_URL
 export default {
+  mixins: [normalPages],
   data() {
     return {
-      imgUrl: BASE_URL + 'image/',
-      mImg: null,
-      isshow: false,
+      imgUrl: BASE_URL + '/image/',
+      photo: null,
       noteShow: true,
       shake: true,
       //微信分享
@@ -41,7 +42,7 @@ export default {
         title: '乐荟陪你“美”一天',
         desc: '唯乐荟 更懂你',
         imgUrl: BASE_URL + 'image/lianyang/lhlogo.png',
-        success: function() {
+        success: () => {
           wechatShareTrack()
         }
       }
@@ -50,9 +51,6 @@ export default {
   beforeCreate() {
     document.title = '乐荟陪你“美”一天'
   },
-  created() {
-    console.log(this.wxShareInfo)
-  },
   mounted() {
     let height =
       window.innerHeight ||
@@ -60,24 +58,9 @@ export default {
       document.body.clientHeight
     let lehui = document.getElementById('lehui')
     lehui.style.minHeight = height + 'px'
-
-    this.getInfoById()
     this.initShack()
   },
   methods: {
-    handleWechatShare() {
-      if (isInWechat() === true) {
-        $wechat()
-          .then(res => {
-            res.share(this.wxShareInfoValue)
-          })
-          .catch(err => {
-            console.warn(err.message)
-          })
-      } else {
-        console.warn('you r not in wechat environment')
-      }
-    },
     initShack() {
       var last_update = '',
         x,
@@ -108,7 +91,7 @@ export default {
           y = acceleration.y
           z = acceleration.z
           var speed =
-            Math.abs(x + y + z - last_x - last_y - last_z) / diffTime * 10000
+            (Math.abs(x + y + z - last_x - last_y - last_z) / diffTime) * 10000
           if (speed > SHAKE_THRESHOLD) {
             //TODO:在此处可以实现摇一摇之后所要进行的数据逻辑操作
             that.noteShow = false
@@ -119,24 +102,12 @@ export default {
           last_z = z
         }
       }
-    },
-    getInfoById() {
-      let id = this.$route.query.id
-      let that = this
-      getInfoById(id)
-        .then(res => {
-          that.mImg = res.image
-          that.isshow = true
-        })
-        .catch(err => {
-          console.log(err)
-        })
     }
   }
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image';
+@imgUrl: 'http://cdn.exe666.com/image';
 html,
 body {
   overflow-x: hidden;

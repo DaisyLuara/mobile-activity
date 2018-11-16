@@ -86,6 +86,28 @@ const Date201811 = [
       desc: '兰花城-我美我免单'
     },
     isAbandoned: false
+  },
+  {
+    path: 'star',
+    location: '201811/star',
+    name: 'star',
+    meta: {
+      title: '来自星星的你',
+      author: 'lipan',
+      desc: '来自星星的你'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'meilai',
+    location: '201811/meilai',
+    name: 'meilai',
+    meta: {
+      title: '美莱颜值印钞机',
+      author: 'lipan',
+      desc: '美莱颜值印钞机'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201811

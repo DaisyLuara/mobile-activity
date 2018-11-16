@@ -17,12 +17,12 @@
 <script>
 import { $wechat, getInfoById, wechatShareTrack } from 'services'
 import { onlyWechatShare } from '../../mixins/onlyWechatShare'
-const IMG_SERVER = 'http://p22vy0aug.bkt.clouddn.com/'
+const IMG_SERVER = process.env.CDN_URL
 export default {
   mixins: [onlyWechatShare],
   data() {
     return {
-      base_url: IMG_SERVER + 'image/rainer/',
+      base_url: IMG_SERVER + '/image/rainer/',
       style: {
         root: {
           'min-height': this.$innerHeight() + 'px'
@@ -43,7 +43,7 @@ export default {
     }
   },
   mounted() {
-    let base = 'http://p22vy0aug.bkt.clouddn.com/image/rainer/'
+    let base = this.base_url
     for (let i = 0; i < 12; i++) {
       i = i < 10 ? '0' + i : i
       let texture = base + 'frame/frame_000' + i + '.png'
@@ -115,7 +115,7 @@ export default {
         app.view.style.position = 'relative'
         app.view.style.zIndex = '9999'
 
-        let base = 'http://p22vy0aug.bkt.clouddn.com/image/rainer/'
+        let base = 'http://cdn.exe666.com/image/rainer/'
         let width = app.screen.width
         let height = app.screen.height
         let bottom = PIXI.Sprite.fromImage(base + 'bottom.png')
@@ -171,7 +171,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@baseUrl: 'http://p22vy0aug.bkt.clouddn.com/image/rainer/';
+@baseUrl: 'http://cdn.exe666.com/image/rainer/';
 
 html,
 body {

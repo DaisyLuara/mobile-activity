@@ -22,7 +22,7 @@
 <script>
 import { $wechat, wechatShareTrack } from 'services'
 import { normalPages } from '../../mixins/normalPages'
-const IMG_SERVER = 'http://p22vy0aug.bkt.clouddn.com'
+const IMG_SERVER = process.env.CDN_URL
 export default {
   mixins: [normalPages],
   data() {
@@ -40,7 +40,7 @@ export default {
         title: '玩转世纪，世纪汇广场邀你嗨翻世纪',
         desc: '世纪汇广场美食节，狂欢就现在',
         link: 'http://papi.xingstation.com/api/s/68n' + window.location.search,
-        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/tm/shijihui/share.png',
+        imgUrl: IMG_SERVER + '/image/tm/shijihui/share.png',
         success: function() {
           wechatShareTrack()
         }
