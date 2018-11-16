@@ -7,156 +7,52 @@
       <img
         :src="base+'back.jpg'"
         class="background">
-        <!-- 点亮的球 -->
+      <!-- 提示 -->
+      <img
+        :src="base + hint + '.png'"
+        class="hint">
+      <!-- 点亮的球 -->
       <div
         class="light-stars">
+        <!-- 暗的星星 -->
         <a
-          v-for="item in stars"
-          :key="item.id"
+          v-for="item in all"
+          :key="item.key"
           :class="item"
-         >
+          class="dark"
+          @click="()=>{ hint = 'hint2' ; }"
+        >
           <img
             :src="base + item + '0.png'">
         </a>
-      </div> 
+        <!-- 亮的星星 -->
+        <a
+          v-for="item in stars"
+          :key="item.key"
+          :class="item"
+          @click="()=>{ mask = true ; cards[item] = true; }"
+        >
+          <img
+            :src="base + item + '0.png'">
+        </a>
+      </div>
+      <!--蒙版 与卡片  -->
       <div
+        v-show="mask"
         class="mask">
-        <!-- 潘多拉星 1-->
-        <!-- <div 
-          class="star-card pdl-card">
-          <a 
-            class="close"
-            @click="closeCard">
-            <img
-              :src="base + 'close.png'"/>
-          </a>
-          <img
-            :src="base + 'pdl3.png'"
-            class="tit">
-          <img
-            :src="photo"
-            class="photo">
-          <img
-            :src="base + 'save.png'"
-            class="save">
-          <img
-            :src="base + 'pdl1.png'"
-            class="name">
-          <img
-            :src="base + 'pdl2.png'"
-            class="people">
-        </div> -->
-        <!-- 那美克星 2-->
-        <!-- <div 
-          class="star-card nmk-card">
-          <a 
-            class="close"
-            @click="closeCard">
-            <img
-              :src="base + 'close.png'"/>
-          </a>
-          <img
-            :src="base + 'nmk3.png'"
-            class="tit">
-          <img
-            :src="photo"
-            class="photo">
-          <img
-            :src="base + 'save.png'"
-            class="save">
-          <img
-            :src="base + 'nmk1.png'"
-            class="name">
-          <img
-            :src="base + 'nmk2.png'"
-            class="people">
-        </div> -->
-        <!-- 瓦肯星 3-->
-        <!-- <div 
-          class="star-card wk-card">
-          <a 
-            class="close"
-            @click="closeCard">
-            <img
-              :src="base + 'close.png'"/>
-          </a>
-          <img
-            :src="base + 'wk3.png'"
-            class="tit">
-          <img
-            :src="photo"
-            class="photo">
-          <img
-            :src="base + 'save.png'"
-            class="save">
-          <img
-            :src="base + 'wk1.png'"
-            class="name">
-          <img
-            :src="base + 'wk2.png'"
-            class="people">
-        </div> -->
-        <!-- M78 4-->
-        <!-- <div 
-          class="star-card m78-card">
-          <a 
-            class="close"
-            @click="closeCard">
-            <img
-              :src="base + 'close.png'"/>
-          </a>
-          <img
-            :src="base + 'm783.png'"
-            class="tit">
-          <img
-            :src="photo"
-            class="photo">
-          <img
-            :src="base + 'save.png'"
-            class="save">
-          <img
-            :src="base + 'm781.png'"
-            class="name">
-          <img
-            :src="base + 'm782.png'"
-            class="people">
-        </div> -->
-        <!-- kx 5-->
-        <!-- <div 
-          class="star-card kx-card">
-          <a 
-            class="close"
-            @click="closeCard">
-            <img
-              :src="base + 'close.png'"/>
-          </a>
-          <img
-            :src="base + 'kx3.png'"
-            class="tit">
-          <img
-            :src="photo"
-            class="photo">
-          <img
-            :src="base + 'save.png'"
-            class="save">
-          <img
-            :src="base + 'kx1.png'"
-            class="name">
-          <img
-            :src="base + 'kx2.png'"
-            class="people">
-        </div> -->
-        <!-- asgd 6-->
         <div 
-          class="star-card asgd-card">
+          v-for="(value,key) in cards"
+          v-show="value"
+          :key="key"
+          :class="['star-card',key]">
           <a 
             class="close"
-            @click="closeCard">
+            @click="()=>{ cards[key] = false ; mask = false; hint = 'hint1'}">
             <img
-              :src="base + 'close.png'"/>
+              :src="base + 'close.png'">
           </a>
           <img
-            :src="base + 'asgd3.png'"
+            :src="base + key +'3.png'"
             class="tit">
           <img
             :src="photo"
@@ -165,14 +61,13 @@
             :src="base + 'save.png'"
             class="save">
           <img
-            :src="base + 'asgd1.png'"
+            :src="base + key + '1.png'"
             class="name">
           <img
-            :src="base + 'asgd2.png'"
+            :src="base + key + '2.png'"
             class="people">
         </div>
       </div>
-      
     </div>
   </div>
 </template>
@@ -191,8 +86,20 @@ export default {
       },
       base: CDNURL + '/fe/image/star/',
       photo: null,
+      hint: 'hint1',
       // 1，潘多拉，2，阿斯加德，3，克星，4，m78，5，娜美克，6，瓦肯(星星的顺序)
-      stars: ['pdl', 'asgd', 'kx', 'm78', 'nmk', 'wk'],
+      all: ['pdl', 'asgd', 'kx', 'm78', 'nmk', 'wk'],
+      scene: this.$route.query.scene,
+      stars: [], //'pdl','asgd', 'kx', 'm78', 'nmk', 'wk'
+      mask: false,
+      cards: {
+        pdl: false,
+        asgd: false,
+        kx: false,
+        m78: false,
+        nmk: false,
+        wk: false
+      },
       //微信分享
       wxShareInfoValue: {
         title: '来自星星的你',
@@ -205,9 +112,16 @@ export default {
       }
     }
   },
-  mounted() {},
+  mounted() {
+    let star = this.all[this.scene - 1]
+    this.mask = true
+    this.cards[star] = true
+    this.stars.push(star)
+  },
   methods: {
-    closeCard() {}
+    checkStars() {
+      // 调用接口，将获取的星星存入stars数组里
+    }
   }
 }
 </script>
@@ -247,14 +161,24 @@ img {
       position: relative;
       z-index: 0;
     }
+    .hint {
+      position: absolute;
+      width: 67%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 9;
+    }
     .light-stars {
       width: 100%;
       height: 100%;
       position: absolute;
       top: 0%;
       left: 0%;
+      z-index: 99;
       a {
         position: absolute;
+        z-index: 99;
       }
       .pdl {
         width: 24%;
@@ -286,164 +210,172 @@ img {
         bottom: 23%;
         left: 1%;
       }
+      .dark {
+        z-index: 0;
+        img {
+          opacity: 0;
+        }
+      }
     }
+
     .mask {
       position: absolute;
       top: 0%;
       bottom: 0%;
       left: 0%;
       right: 0%;
+      z-index: 9999;
       width: 100%;
       height: 100%;
       background: rgba(0, 0, 0, 0.7);
-    }
-    .tit {
-      width: 47%;
-      position: absolute;
-      top: 2%;
-      left: 4%;
-      z-index: 999;
-    }
-    .close {
-      display: inline-block;
-      width: 14%;
-      position: absolute;
-      top: 8.5%;
-      left: 74%;
-      z-index: 999;
-    }
-    .photo {
-      width: 63%;
-      position: absolute;
-      top: 48.5%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      border: solid 7px #0173d4;
-      border-radius: 5px;
-      z-index: 99;
-      pointer-events: auto;
-      user-select: auto;
-    }
-    .save {
-      width: 12%;
-      position: absolute;
-      top: 49%;
-      transform: translateY(-50%);
-      left: 80.5%;
-      z-index: 9;
-    }
-    .people {
-      width: 34%;
-      position: absolute;
-      bottom: 0%;
-      left: 0%;
-      z-index: 999;
-    }
-    .name {
-      position: absolute;
-      width: 50%;
-      bottom: 8%;
-      left: 30%;
-    }
-    .nmk-card {
       .tit {
-        top: 4%;
-        left: 35%;
+        width: 47%;
+        position: absolute;
+        top: 2%;
+        left: 4%;
+        z-index: 999;
       }
       .close {
-        left: 12%;
-        top: 10.5%;
-      }
-      .photo {
-        top: 50.5%;
-        border-color: #4ff73f;
-      }
-      .people {
-        left: 2%;
-      }
-      .name {
-        bottom: 6.5%;
-      }
-    }
-    .wk-card {
-      .tit {
-        top: 7%;
-        left: 60%;
-      }
-      .close {
-        left: 12%;
-        top: 10.6%;
-      }
-      .photo {
-        top: 50.5%;
-        border-color: #c53ff6;
-      }
-      .people {
-        left: 2%;
-      }
-      .name {
-        bottom: 6.5%;
-      }
-    }
-    .m78-card {
-      .tit {
-        left: 1%;
-        top: 60%;
-      }
-      .close {
+        display: inline-block;
+        width: 14%;
+        position: absolute;
+        top: 8.5%;
         left: 74%;
-        top: 8.6%;
+        z-index: 999;
       }
       .photo {
+        width: 63%;
+        position: absolute;
         top: 48.5%;
-        border-color: #f83f44;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border: solid 7px #0173d4;
+        border-radius: 5px;
+        z-index: 99;
+        pointer-events: auto;
+        user-select: auto;
+      }
+      .save {
+        width: 12%;
+        position: absolute;
+        top: 49%;
+        transform: translateY(-50%);
+        left: 80.5%;
+        z-index: 9;
       }
       .people {
-        width: 23%;
-        left: 11%;
+        width: 34%;
+        position: absolute;
+        bottom: 0%;
+        left: 0%;
+        z-index: 999;
       }
       .name {
-        left: 28%;
-        bottom: 8.5%;
+        position: absolute;
+        width: 50%;
+        bottom: 8%;
+        left: 30%;
       }
-    }
-    .kx-card {
-      .tit {
-        left: 33%;
-        top: 79%;
+      .nmk {
+        .tit {
+          top: 4%;
+          left: 35%;
+        }
+        .close {
+          left: 12%;
+          top: 10.5%;
+        }
+        .photo {
+          top: 50.5%;
+          border-color: #4ff73f;
+        }
+        .people {
+          left: 2%;
+        }
+        .name {
+          bottom: 6.5%;
+        }
       }
-      .close {
-        left: 74%;
-        top: 8.6%;
+      .wk {
+        .tit {
+          top: 7%;
+          left: 60%;
+        }
+        .close {
+          left: 12%;
+          top: 10.6%;
+        }
+        .photo {
+          top: 50.5%;
+          border-color: #c53ff6;
+        }
+        .people {
+          left: 2%;
+        }
+        .name {
+          bottom: 6.5%;
+        }
       }
-      .photo {
-        top: 48.5%;
-        border-color: #3ff7df;
+      .m78 {
+        .tit {
+          left: 1%;
+          top: 60%;
+        }
+        .close {
+          left: 74%;
+          top: 8.6%;
+        }
+        .photo {
+          top: 48.5%;
+          border-color: #f83f44;
+        }
+        .people {
+          width: 23%;
+          left: 11%;
+        }
+        .name {
+          left: 28%;
+          bottom: 8.5%;
+        }
       }
-      .name {
-        left: 23%;
-        top: 5.5%;
+      .kx {
+        .tit {
+          left: 33%;
+          top: 79%;
+        }
+        .close {
+          left: 74%;
+          top: 8.6%;
+        }
+        .photo {
+          top: 48.5%;
+          border-color: #3ff7df;
+        }
+        .name {
+          left: 23%;
+          top: 5.5%;
+        }
       }
-    }
-    .asgd-card {
-      .tit {
-        top: 79.5%;
-        left: 53.5%;
-      }
-      .close {
-        left: 74%;
-        top: 8.6%;
-      }
-      .photo {
-        top: 48.5%;
-        border-color: #f3f515;
-      }
-      .people {
-        left: 18%;
-      }
-      .name {
-        left: 22%;
-        top: 5.8%;
+      .asgd {
+        .tit {
+          top: 79.5%;
+          left: 53.5%;
+        }
+        .close {
+          left: 74%;
+          top: 8.6%;
+        }
+        .photo {
+          top: 48.5%;
+          border-color: #f3f515;
+        }
+        .people {
+          left: 18%;
+        }
+        .name {
+          left: 22%;
+          top: 5.8%;
+        }
       }
     }
   }
