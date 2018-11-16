@@ -41,9 +41,6 @@
           class="pointer">
       </swiper-slide>
       <swiper-slide>
-        <!-- <img
-          :src="base + 'page2.png'"
-          class="map"> -->
         <!-- 动画 -->
         <div 
           id="anim"
@@ -66,57 +63,36 @@
           <a
             class="local-link local1"
             @click="toAlert(1)">
-            <!-- <img
-              :src="base + 'yuan.png'"
-              class="ding"> -->
           </a>
           <!-- 高参 -->
           <a
             class="local-link local2"
             @click="toAlert(2)">
-            <!-- <img
-              :src="base + 'yuan.png'"
-              class="ding"> -->
           </a>
           <!-- 揭幕流程 -->
           <a
             class="local-link local3"
             @click="toAlert(3)">
-            <!-- <img
-              :src="base + 'yuan.png'"
-              class="ding"> -->
           </a>
           <!-- 夏国璋龙狮团 -->
           <a
             class="local-link local4"
             @click="toAlert(4)">
-            <!-- <img
-              :src="base + 'yuan.png'"
-              class="ding"> -->
           </a>
           <!-- 豪觅邮局 -->
           <a
             class="local-link local5"
             @click="toAlert(5)">
-            <!-- <img
-              :src="base + 'yuan.png'"
-              class="ding"> -->
           </a>
           <!-- 永新早食 -->
           <a
             class="local-link local6"
             @click="toAlert(6)">
-            <!-- <img
-              :src="base + 'yuan.png'"
-              class="ding"> -->
           </a>
           <!-- 华润80年，润物耕心 -->
           <a
             class="local-link local7"
             @click="toAlert(7)">
-            <!-- <img
-              :src="base + 'yuan.png'"
-              class="ding"> -->
           </a>
         </div>
       </swiper-slide>
@@ -442,7 +418,6 @@ img {
     position: absolute;
     top: 59%;
     right: 0%;
-    // border: solid 1px red;
     width: 60%;
     height: 100px;
     display: inline-block;
@@ -478,55 +453,41 @@ img {
       width: 15vw;
       height: 25vw;
       border-radius: 50%;
-      // border: solid 1px red;
       position: absolute;
       z-index: 99;
-      // .ding {
-      //   width: 7vw;
-      //   position: relative;
-      //   animation: yuan 0.6s linear infinite alternate;
-      // }
     }
     .local1 {
-      // top: 26%;
       top: 24%;
       left: 1%;
     }
     .local2 {
-      // top: 19%;
       height: 22vw;
       top: 19%;
       left: 20%;
     }
     .local3 {
       height: 18vw;
-      // top: 27%;
       top: 25%;
       left: 35%;
     }
     .local4 {
       width: 18vw;
-      // height: 25vw;
       top: 15%;
       right: 24%;
     }
     .local5 {
       height: 20vw;
-      // top: 46%;
       top: 42%;
       left: 28%;
     }
     .local6 {
       width: 18vw;
       height: 20vw;
-      // top: 57%;
       top: 52%;
-      // left: 22%;
       left: 24%;
     }
     .local7 {
       height: 25vw;
-      // top: 40%;
       top: 38%;
       right: 24%;
     }
@@ -542,15 +503,11 @@ img {
   .jian {
     width: 25%;
     position: absolute;
-    // top: 81%;
     top: 83%;
-    // left: 26%;
     left: 29%;
     z-index: 999;
   }
   .iphoneX {
-    // top: 70%;
-    // left: 22%;
     top: 72%;
     left: 24%;
   }
@@ -628,14 +585,6 @@ img {
     transform: translate(-10px, -50%);
   }
 }
-// @keyframes yuan {
-//   0% {
-//     transform: translateY(5px);
-//   }
-//   100% {
-//     transform: translateY(-5px);
-//   }
-// }
 @keyframes scale {
   from {
     transform: scale(0.8, 0.8);
