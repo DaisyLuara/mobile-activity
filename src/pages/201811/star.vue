@@ -72,7 +72,14 @@
   </div>
 </template>
 <script>
-import { isInWechat, wechatShareTrack, $wechat } from 'services'
+import {
+  isInWechat,
+  wechatShareTrack,
+  $wechat,
+  Cookies,
+  userGame,
+  getGame
+} from 'services'
 import { normalPages } from '../../mixins/normalPages'
 const CDNURL = process.env.CDN_URL
 export default {
@@ -92,6 +99,7 @@ export default {
       scene: this.$route.query.scene,
       stars: [], //'pdl','asgd', 'kx', 'm78', 'nmk', 'wk'
       mask: false,
+      userId: null,
       cards: {
         pdl: false,
         asgd: false,
@@ -117,10 +125,100 @@ export default {
     this.mask = true
     this.cards[star] = true
     this.stars.push(star)
+    //微信授权
+    if (isInWechat() === true) {
+      if (
+        process.env.NODE_ENV === 'production' ||
+        process.env.NODE_ENV === 'testing'
+      ) {
+        this.handleWechatAuth()
+      }
+    }
   },
   methods: {
-    checkStars() {
+    //微信静默授权
+    handleWechatAuth() {
+      if (Cookies.get('sign') === null) {
+        let base_url = encodeURIComponent(String(window.location.href))
+        let redirct_url =
+          process.env.WX_API +
+          '/wx/officialAccount/oauth?url=' +
+          base_url +
+          '&scope=snsapi_base'
+        window.location.href = redirct_url
+      } else {
+        this.userId = Cookies.get('user_id')
+        this.getPhoto()
+      }
+    },
+    getPhoto() {
+      let timer = requestAnimationFrame(this.getPhoto)
+      if (this.photo) {
+        cancelAnimationFrame(timer)
+        this.userGame()
+      }
+    },
+    userGame() {
+      let args = {
+        belong: this.$route.query.utm_campaign,
+        image_url: this.photo,
+        qiniu_id: this.$route.query.id,
+        scene: this.all[this.scene - 1],
+        score: 100
+      }
+      userGame(args, this.userId)
+        .then(res => {
+          console.log(res)
+          this.getGame()
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    },
+    getGame() {
+      let args = {
+        withCredentials: true
+      }
+      getGame(args, this.userId)
+        .then(res => {
+          console.log(res)
+          this.projectStatus(res)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    projectStatus(list) {
+      let data = list
+      let that = this
+      console.log(list)
       // 调用接口，将获取的星星存入stars数组里
+      data.map(r => {
+        // 1，潘多拉
+        if (r.scene === 'pdl') {
+          that.stars.push('pdl')
+        }
+        // 2，阿斯加德
+        if (r.scene === 'asgd') {
+          that.stars.push('asgd')
+        }
+        // 3，克星
+        if (r.scene === 'kx') {
+          that.stars.push('kx')
+        }
+        // 4，m78
+        if (r.scene === 'm78') {
+          that.stars.push('m78')
+        }
+        // 5，娜美克
+        if (r.scene === 'nmk') {
+          that.stars.push('nmk')
+        }
+        //6，瓦肯
+        if (r.scene === 'wk') {
+          that.stars.push('wk')
+        }
+      })
     }
   }
 }
