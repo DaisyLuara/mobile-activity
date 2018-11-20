@@ -70,9 +70,21 @@ export default {
     } else {
       this.iphoneX = false
     }
-    this.setAnim()
+    this.btnOnLoad()
   },
   methods: {
+    btnOnLoad() {
+      let btn1 = new Image()
+      btn1.src = this.base + 'hengdian/btn1.png'
+      let btn2 = new Image()
+      btn2.src = this.base + 'hengdian/btn2.png'
+      let that = this
+      btn1.onload = function() {
+        btn2.onload = function() {
+          that.setAnim()
+        }
+      }
+    },
     setAnim() {
       if (this.count % 10 == 0) {
         this.btn =
