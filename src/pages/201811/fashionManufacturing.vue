@@ -6,42 +6,42 @@
       :src="baseUrl + 'city.png'+ this.$qiniuCompress()"
       :class="{'x-city':iphoneX,'city':!iphoneX}"
       class="city"> 
-     <img 
+    <img 
       :src="baseUrl + 'line.png'+ this.$qiniuCompress()"
       class="line"> 
-  <div class="center">
-     <img 
-      :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
-      :class="{'x-frame':iphoneX,'frame':!iphoneX}"
-      class="frame"> 
-     <img 
-      v-if="photo !== null" 
-      :src="photo + this.$qiniuCompress()"
-      :class="{'x-photo':iphoneX,'photo':!iphoneX}"
-      class="photo">
+    <div class="center">
       <img 
-      v-if="photo !== null" 
-      :src="photo + this.$qiniuCompress()"
-      :class="{'x-photo':iphoneX,'photo-real':!iphoneX}"
-      class="photo-real">
-     <img 
-      :src="baseUrl + 'camera.png'+ this.$qiniuCompress()"
-      class="camera"> 
-     <img 
-      :src="baseUrl + 'open.png'+ this.$qiniuCompress()"
-      class="open"> 
-     <img 
-      :src="baseUrl + 'stone.png'+ this.$qiniuCompress()"
-      class="stone"> 
-  </div>
-  <div class="bt">
-     <img 
-      :src="baseUrl + 'G.gif'+ this.$qiniuCompress()"
-      class="jiantou"> 
-    <img 
-      :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
-      class="save"> 
-  </div>
+        :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
+        :class="{'x-frame':iphoneX,'frame':!iphoneX}"
+        class="frame"> 
+      <img 
+        v-if="photo !== null" 
+        :src="photo + this.$qiniuCompress()"
+        :class="{'x-photo':iphoneX,'photo':!iphoneX}"
+        class="photo">
+      <img 
+        v-if="photo !== null" 
+        :src="photo + this.$qiniuCompress()"
+        :class="{'x-photo':iphoneX,'photo-real':!iphoneX}"
+        class="photo-real">
+      <img 
+        :src="baseUrl + 'camera.png'+ this.$qiniuCompress()"
+        class="camera"> 
+      <img 
+        :src="baseUrl + 'open.png'+ this.$qiniuCompress()"
+        class="open"> 
+      <img 
+        :src="baseUrl + 'stone.png'+ this.$qiniuCompress()"
+        class="stone"> 
+    </div>
+    <div class="bt">
+      <img 
+        :src="baseUrl + 'G.gif'+ this.$qiniuCompress()"
+        class="jiantou"> 
+      <img 
+        :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
+        class="save"> 
+    </div>
   </div>
 </template>
 <script>
