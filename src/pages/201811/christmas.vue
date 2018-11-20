@@ -9,13 +9,13 @@
       :src="baseUrl + 'snow_02.png'+ this.$qiniuCompress()"
       class="snow2"> 
     <div 
-      class="center" 
-      :class="{'x-center':iphoneX,'center':!iphoneX}">
-     <img 
-      :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
-      :class="{'x-frame':iphoneX,'frame':!iphoneX}"
-      class="frame"> 
-    <img 
+      :class="{'x-center':iphoneX,'center':!iphoneX}" 
+      class="center">
+      <img 
+        :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
+        :class="{'x-frame':iphoneX,'frame':!iphoneX}"
+        class="frame"> 
+      <img 
         v-if="photo !== null" 
         :src="photo + this.$qiniuCompress()"
         :class="{'x-photo':iphoneX,'photo':!iphoneX}"
