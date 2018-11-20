@@ -41,8 +41,8 @@ export default {
       photo: null,
       iphoneX: false,
       wxShareInfoValue: {
-        title: '刷脸测一测，你是哪种“潮流偶像”！',
-        desc: '星视度潮流制造局，等你来变身。',
+        title: '惊喜~看看和我合照的是谁？',
+        desc: '快来商场和神秘人物合拍圣诞照片~',
         link: 'http://papi.xingstation.com/api/s/N9z' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/christmas/icon.png',
         success: () => {
