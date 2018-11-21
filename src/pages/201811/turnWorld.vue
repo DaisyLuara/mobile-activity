@@ -14,17 +14,17 @@
       class="floatBottom animated  linear infinite  tada"> 
     <div class="top">
       <img 
-      :src="baseUrl + 'title.png'+ this.$qiniuCompress()"
-      class="title"> 
+        :src="baseUrl + 'title.png'+ this.$qiniuCompress()"
+        class="title"> 
     </div>
     <div class="center">
       <img 
-      :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
-      :class="{'x-frame':iphoneX,'frame':!iphoneX}"
-      class="frame"> 
+        :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
+        :class="{'x-frame':iphoneX,'frame':!iphoneX}"
+        class="frame"> 
       <img 
-      :src="baseUrl + 'spot.png'+ this.$qiniuCompress()"
-      class="spot">
+        :src="baseUrl + 'spot.png'+ this.$qiniuCompress()"
+        class="spot">
       <img 
         v-if="photo !== null" 
         :src="photo + this.$qiniuCompress()"
@@ -38,16 +38,16 @@
     </div>
     <div class="bottom">
       <img 
-      :src="baseUrl + 'nav.png'+ this.$qiniuCompress()"
-      :class="{'x-nav':iphoneX,'nav':!iphoneX}"
-      class="nav"> 
+        :src="baseUrl + 'nav.png'+ this.$qiniuCompress()"
+        :class="{'x-nav':iphoneX,'nav':!iphoneX}"
+        class="nav"> 
       <img 
-      :src="baseUrl + 'bottom.png'+ this.$qiniuCompress()"
-      class="bottomImg"> 
+        :src="baseUrl + 'bottom.png'+ this.$qiniuCompress()"
+        class="bottomImg"> 
       <img 
-      :src="baseUrl + 'prompt.png'+ this.$qiniuCompress()"
-      :class="{'x-save':iphoneX,'save':!iphoneX}"
-      class="save"> 
+        :src="baseUrl + 'prompt.png'+ this.$qiniuCompress()"
+        :class="{'x-save':iphoneX,'save':!iphoneX}"
+        class="save"> 
     </div>
   </div>
 </template>
