@@ -33,7 +33,7 @@
       <img 
         v-if="photo !== null" 
         :src="photo + this.$qiniuCompress()"
-        :class="{'x-photo':iphoneX,'photo':!iphoneX}"
+        :class="{'x-photo':iphoneX,'photo-real':!iphoneX}"
         class="photo-real">
     </div>
     <div class="bottom">
