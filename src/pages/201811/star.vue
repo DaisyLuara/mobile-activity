@@ -42,7 +42,7 @@
         class="mask">
         <div 
           v-for="(value,key) in cards"
-          v-show="value"
+          v-show="Boolean(value)"
           :key="key"
           :class="['star-card',key]">
           <a 
@@ -55,7 +55,7 @@
             :src="base + key +'3.png'"
             class="tit">
           <img
-            :src="photo"
+            :src="value"
             class="photo">
           <img
             :src="base + 'save.png'"
@@ -78,7 +78,7 @@ import {
   $wechat,
   Cookies,
   userGame,
-  getGame
+  getSceneData
 } from 'services'
 import { normalPages } from '../../mixins/normalPages'
 const CDNURL = process.env.CDN_URL
@@ -101,12 +101,12 @@ export default {
       mask: false,
       userId: null,
       cards: {
-        pdl: false,
-        asgd: false,
-        kx: false,
-        m78: false,
-        nmk: false,
-        wk: false
+        pdl: null,
+        asgd: null,
+        kx: null,
+        m78: null,
+        nmk: null,
+        wk: null
       },
       //微信分享
       wxShareInfoValue: {
@@ -121,10 +121,10 @@ export default {
     }
   },
   mounted() {
-    let star = this.all[this.scene - 1]
-    this.mask = true
-    this.cards[star] = true
-    this.stars.push(star)
+    // let star = this.all[this.scene - 1]
+    // this.mask = true
+    // this.cards[star] = this.photo || true
+    // this.stars.push(star)
     //微信授权
     if (isInWechat() === true) {
       if (
@@ -153,8 +153,13 @@ export default {
     },
     getPhoto() {
       let timer = requestAnimationFrame(this.getPhoto)
+
       if (this.photo) {
         cancelAnimationFrame(timer)
+        let star = this.all[this.scene - 1]
+        this.cards[star] = this.photo
+        this.mask = true
+        this.stars.push(star)
         this.userGame()
       }
     },
@@ -169,17 +174,18 @@ export default {
       userGame(args, this.userId)
         .then(res => {
           console.log(res)
-          this.getGame()
+          this.getSceneData()
         })
         .catch(e => {
           console.log(e)
         })
     },
-    getGame() {
+    getSceneData() {
+      let url = '?belong=' + this.$route.query.utm_campaign + '&group_by=scene'
       let args = {
         withCredentials: true
       }
-      getGame(args, this.userId)
+      getSceneData(this.userId, url, args)
         .then(res => {
           console.log(res)
           this.projectStatus(res)
@@ -197,26 +203,32 @@ export default {
         // 1，潘多拉
         if (r.scene === 'pdl') {
           that.stars.push('pdl')
+          that.cards['pdl'] = r.image_url
         }
         // 2，阿斯加德
         if (r.scene === 'asgd') {
           that.stars.push('asgd')
+          that.cards['asgd'] = r.image_url
         }
         // 3，克星
         if (r.scene === 'kx') {
           that.stars.push('kx')
+          that.cards['kx'] = r.image_url
         }
         // 4，m78
         if (r.scene === 'm78') {
           that.stars.push('m78')
+          that.cards['m78'] = r.image_url
         }
         // 5，娜美克
         if (r.scene === 'nmk') {
           that.stars.push('nmk')
+          that.cards['nmk'] = r.image_url
         }
         //6，瓦肯
         if (r.scene === 'wk') {
           that.stars.push('wk')
+          that.cards['wk'] = r.image_url
         }
       })
     }

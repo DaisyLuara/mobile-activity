@@ -10,15 +10,43 @@
     <div
       class="form-data">
       <ul>
-        <li><label for="name">姓名</label><input name="name" id="name" placeholder="请输入姓名"></li>
-        <li><label for="year">年龄</label><input name="year" id="year" placeholder="请输入年龄"></li>
-        <li><label for="sex">性别</label><div class="radio-group">
-        <input type="radio" name="sex" value="male" />男 
-        <input type="radio" name="sex" value="female" />女 </div></li>
-        <li><label for="name">手机</label><input name="name" id="name" placeholder="请输入手机号码"></li>
-        <li><label for="name">居住小区</label><input name="name" id="name" placeholder="请输入小区"></li>
+        <li class="line">
+          <label>姓名</label>
+          <input id="name" type="text"  placeholder="请输入姓名" v-model="people.name"/>
+        </li>
+        <li class="line">
+          <label for="year">年龄</label>
+          <input id="year" type="number" placeholder="请输入年龄" v-model="people.year"/>
+        </li>
+        <li>
+          <label for="sex">性别</label>
+          <div 
+            :class="{'sex-radio':true,checked:male}"
+            @click="()=>{ male = true; female = false; people.sex = 'male';}">
+            <span></span>男
+          </div>
+          <div 
+            :class="{'sex-radio':true,checked:female}"
+            @click="()=>{ male = false; female = true; people.sex = 'female';}">
+            <span></span>女
+          </div>
+        </li>
+        <li class="line">
+          <label >手机</label>
+          <input id="mobile" type="number" placeholder="请输入手机号码" v-model="people.mobile"/>
+        </li>
+        <li class="line">
+          <label >居住小区</label>
+          <input  id="address" type="text" placeholder="请输入小区" v-model="people.address"/>
+        </li>
       </ul>
     </div>
+    <button 
+      class="sub"
+      @click="postData">
+      <img
+        :src="base + 'wc.png'">
+    </button>
   </div>
 </template>
 <script>
@@ -36,8 +64,14 @@ export default {
       },
       base: BASE_URL + '/fe/image/cangqian/',
       people: {
-        name: {}
+        name: null,
+        year: null,
+        sex: 'male',
+        mobile: null,
+        address: null
       },
+      male: true,
+      female: false,
       //微信分享
       wxShareInfoValue: {
         title: '仓前街道市民客厅',
@@ -51,7 +85,9 @@ export default {
     }
   },
   mounted() {},
-  methods: {}
+  methods: {
+    postData() {}
+  }
 }
 </script>
 <style lang="less" scoped>
@@ -108,25 +144,74 @@ a {
     li {
       width: 100%;
       display: inline-block;
+      position: relative;
     }
     ul {
       li {
         overflow: hidden;
         text-align: left;
         margin-top: 5%;
-        border-bottom: solid 2px #434343;
         label {
-          font-size: 24px;
+          font-size: 22px;
           float: left;
           vertical-align: text-bottom;
         }
         input {
-          font-size: 16px;
+          color: #fcfcfc;
+          font-size: 14px;
           display: inline-block;
-          height: 30px;
-          line-height: 30px;
-          float: left;
+          height: 22px;
+          line-height: 22px;
+          // float: left;
           text-align: left;
+          font-family: '微软雅黑';
+          letter-spacing: 1px;
+          padding-left: 10px;
+        }
+        .sex-radio {
+          display: inline-block;
+          font-size: 22px;
+          margin-left: 15px;
+          margin-right: 10px;
+          position: relative;
+          span {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: solid 2px #434343;
+            vertical-align: baseline;
+            margin-right: 2px;
+            border-radius: 50%;
+            position: relative;
+            z-index: 99;
+            transform: translateY(2px);
+          }
+        }
+        .checked {
+          span {
+            &:after {
+              content: ' ';
+              width: 10px;
+              height: 10px;
+              background-color: #fdbc3c;
+              border-radius: 50%;
+              position: absolute;
+              top: 2px;
+              left: 2px;
+              z-index: 0;
+            }
+          }
+        }
+      }
+      .line {
+        &:after {
+          content: ' ';
+          width: 100%;
+          height: 2px;
+          border-bottom: solid 2px #434343;
+          position: absolute;
+          bottom: 2px;
+          left: 0;
         }
       }
     }
