@@ -141,6 +141,17 @@ const Date201811 = [
       desc: '微笑转递-注册页'
     },
     isAbandoned: false
+  },
+  {
+    path: 'christmas_happy',
+    location: '201811/christmas',
+    name: 'christmas_happy',
+    meta: {
+      title: '星视度',
+      author: 'xj1012',
+      desc: '圣诞快乐-星视度'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201811

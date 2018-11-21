@@ -4,11 +4,16 @@ const GAME_URL = process.env.SAAS_API + '/user/'
 const GAME_LIST_URL = process.env.SAAS_API + '/user/'
 const REQ_HEADER = {
   headers: {
-    withCredentials: true
+    'api-token': apiToken,
+    'Set-Cookie': 'sign=' + Cookies.get('sign')
   }
 }
 
 const createGame = (params, userId) => {
+  if (Cookies.get('game_attribute_payload')) {
+    params.game_attribute_payload = Cookies.get('game_attribute_payload')
+  }
+  params.sign = Cookies.get('sign')
   return new Promise((resolve, reject) => {
     axios
       .post(GAME_URL + userId + '/game', params, REQ_HEADER)
@@ -22,7 +27,9 @@ const createGame = (params, userId) => {
 }
 
 const userGame = (params, userId) => {
-  params.game_attribute_payload = Cookies.get('game_attribute_payload')
+  if (Cookies.get('game_attribute_payload')) {
+    params.game_attribute_payload = Cookies.get('game_attribute_payload')
+  }
   params.sign = Cookies.get('sign')
   return new Promise((resolve, reject) => {
     axios

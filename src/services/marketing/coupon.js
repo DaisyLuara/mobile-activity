@@ -17,7 +17,14 @@ const REQ_HEADER = {
     'Set-Cookie': 'sign=' + Cookies.get('sign')
   }
 }
+const handleParma = params => {
+  if (Cookies.get('game_attribute_payload')) {
+    params.game_attribute_payload = Cookies.get('game_attribute_payload')
+  }
+  params.sign = Cookies.get('sign')
+}
 const createCoupon = params => {
+  handleParma(params)
   return new Promise((resolve, reject) => {
     axios
       .post(COUPOU_URL, params, REQ_HEADER)
@@ -124,7 +131,7 @@ const createV5Coupon = params => {
 }
 //根据积分获取券
 const getAdCoupon = (params, id) => {
-  params.sign = Cookies.get('sign')
+  handleParma(params)
   return new Promise((resolve, reject) => {
     axios
       .post(COUPOUS_URL + id, params, REQ_HEADER)
@@ -136,35 +143,10 @@ const getAdCoupon = (params, id) => {
       })
   })
 }
-//根据积分获取券,修改 , 作废接口
-const getIntegralCoupon = (params, couponId, userId) => {
-  return new Promise((resolve, reject) => {
-    if (userId) {
-      axios
-        .post(COUPOUS_URL + couponId + '/' + userId, params, REQ_HEADER)
-        .then(response => {
-          resolve(response.data)
-        })
-        .catch(err => {
-          reject(err)
-        })
-    } else {
-      axios
-        .post(COUPOUS_URL + couponId, params, REQ_HEADER)
-        .then(response => {
-          resolve(response.data)
-        })
-        .catch(err => {
-          reject(err)
-        })
-    }
-  })
-}
 // 确认优惠券是否已经领完
 const checkCouponNumber = couponId => {
-  let params = {
-    sign: Cookies.get('sign')
-  }
+  let params = {}
+  handleParma(params)
   return new Promise((resolve, reject) => {
     axios
       .post(OPEN_COUPON + 'batches/' + couponId, params, REQ_HEADER)
@@ -178,7 +160,7 @@ const checkCouponNumber = couponId => {
 }
 //  发优惠券
 const sendCoupon = (params, couponId) => {
-  params.sign = Cookies.get('sign')
+  handleParma(params)
   return new Promise((resolve, reject) => {
     axios
       .post(COUPOUS_URL + couponId, params, REQ_HEADER)
@@ -193,9 +175,8 @@ const sendCoupon = (params, couponId) => {
 
 // 概率获取优惠券ID（coupinId）
 const getCouponId = policyId => {
-  let params = {
-    sign: Cookies.get('sign')
-  }
+  let params = {}
+  handleParma(params)
   return new Promise((resolve, reject) => {
     axios
       .post(OPEN_COUPON + 'batches?policy_id=' + policyId, params, REQ_HEADER)
@@ -209,7 +190,7 @@ const getCouponId = policyId => {
 }
 //判断是否用手机号领过券
 const checkGetCoupon = params => {
-  params.sign = Cookies.get('sign')
+  handleParma(params)
   return new Promise((resolve, reject) => {
     axios
       .post(OPEN_USER_COUPON, params, REQ_HEADER)
@@ -237,6 +218,9 @@ const getCouponProjectMessage = belong => {
 // 上传照片接口
 const getImage = params => {
   params.append('sign', Cookies.get('sign'))
+  if (Cookies.get('game_attribute_payload')) {
+    params.append(game_attribute_payload, Cookies.get('game_attribute_payload'))
+  }
   return new Promise((resolve, reject) => {
     axios
       .post(IMAGE_UPLOAD, params, REQ_HEADER)
@@ -259,7 +243,6 @@ export {
   getAdCoupon,
   checkCouponNumber,
   getCouponId,
-  getIntegralCoupon,
   checkGetCoupon,
   getCouponProjectMessage,
   sendCoupon,
