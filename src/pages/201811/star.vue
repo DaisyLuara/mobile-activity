@@ -20,7 +20,7 @@
           :key="item.key"
           :class="item"
           class="dark"
-          @click="()=>{ hint = 'hint2' ; }"
+          @click="()=>{ hint = 'hint22' ; }"
         >
           <img
             :src="base + item + '0.png'">
@@ -47,7 +47,7 @@
           :class="['star-card',key]">
           <a 
             class="close"
-            @click="()=>{ cards[key] = false ; mask = false; hint = 'hint1'}">
+            @click="()=>{ cards[key] = false ; mask = false; hint = 'hint11'}">
             <img
               :src="base + 'close.png'">
           </a>
@@ -93,7 +93,7 @@ export default {
       },
       base: CDNURL + '/fe/image/star/',
       photo: null,
-      hint: 'hint1',
+      hint: 'hint11',
       // 1，潘多拉，2，阿斯加德，3，克星，4，m78，5，娜美克，6，瓦肯(星星的顺序)
       all: ['pdl', 'asgd', 'kx', 'm78', 'nmk', 'wk'],
       scene: this.$route.query.scene,

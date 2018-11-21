@@ -113,10 +113,6 @@ export default {
         alert('请输入年龄！')
         return
       }
-      // if (!this.people.mobile) {
-      //   alert('请输入手机号码！')
-      //   return
-      // }
       if (!reg.test(that.people.mobile)) {
         alert('请输入11位有效的手机号码')
         return
