@@ -160,7 +160,7 @@ const Date201811 = [
     meta: {
       title: '翻转世界',
       author: 'xj1012',
-      desc: '翻转世界'
+      desc: '翻转世界遇见你'
     },
     isAbandoned: false
   }
