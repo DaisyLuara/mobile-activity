@@ -55,5 +55,18 @@ const getGame = (params, userId) => {
       })
   })
 }
+//同一游戏不同场景
+const getSceneData = (userId, url, params) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(GAME_LIST_URL + userId + '/games' + url, params, REQ_HEADER)
+      .then(response => {
+        resolve(response.data.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
 
-export { createGame, getGame, userGame }
+export { createGame, getGame, userGame, getSceneData }
