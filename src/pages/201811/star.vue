@@ -42,7 +42,7 @@
         class="mask">
         <div 
           v-for="(value,key) in cards"
-          v-show="Boolean(value)"
+          v-show="value"
           :key="key"
           :class="['star-card',key]">
           <a 
@@ -55,7 +55,7 @@
             :src="base + key +'3.png'"
             class="tit">
           <img
-            :src="value"
+            :src="cards_img[key]"
             class="photo">
           <img
             :src="base + 'save.png'"
@@ -101,6 +101,14 @@ export default {
       mask: false,
       userId: null,
       cards: {
+        pdl: false,
+        asgd: false,
+        kx: false,
+        m78: false,
+        nmk: false,
+        wk: false
+      },
+      cards_img: {
         pdl: null,
         asgd: null,
         kx: null,
@@ -153,11 +161,11 @@ export default {
     },
     getPhoto() {
       let timer = requestAnimationFrame(this.getPhoto)
-
       if (this.photo) {
         cancelAnimationFrame(timer)
         let star = this.all[this.scene - 1]
-        this.cards[star] = this.photo
+        this.cards[star] = true
+        this.cards_img[star] = this.photo
         this.mask = true
         this.stars.push(star)
         this.userGame()
@@ -203,32 +211,32 @@ export default {
         // 1，潘多拉
         if (r.scene === 'pdl') {
           that.stars.push('pdl')
-          that.cards['pdl'] = r.image_url
+          that.cards_img['pdl'] = r.image_url
         }
         // 2，阿斯加德
         if (r.scene === 'asgd') {
           that.stars.push('asgd')
-          that.cards['asgd'] = r.image_url
+          that.cards_img['asgd'] = r.image_url
         }
         // 3，克星
         if (r.scene === 'kx') {
           that.stars.push('kx')
-          that.cards['kx'] = r.image_url
+          that.cards_img['kx'] = r.image_url
         }
         // 4，m78
         if (r.scene === 'm78') {
           that.stars.push('m78')
-          that.cards['m78'] = r.image_url
+          that.cards_img['m78'] = r.image_url
         }
         // 5，娜美克
         if (r.scene === 'nmk') {
           that.stars.push('nmk')
-          that.cards['nmk'] = r.image_url
+          that.cards_img['nmk'] = r.image_url
         }
         //6，瓦肯
         if (r.scene === 'wk') {
           that.stars.push('wk')
-          that.cards['wk'] = r.image_url
+          that.cards_img['wk'] = r.image_url
         }
       })
     }

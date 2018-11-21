@@ -12,7 +12,7 @@
       <ul>
         <li class="line">
           <label>姓名</label>
-          <input id="name" type="text"  placeholder="请输入姓名" v-model="people.name"/>
+          <input id="name" type="text"  placeholder="请输入姓名" v-model="people.name" />
         </li>
         <li class="line">
           <label for="year">年龄</label>
@@ -45,7 +45,7 @@
       class="sub"
       @click="postData">
       <img
-        :src="base + 'wc.png'">
+        :src="base + 'done.png'">
     </button>
   </div>
 </template>
@@ -86,7 +86,31 @@ export default {
   },
   mounted() {},
   methods: {
-    postData() {}
+    postData() {
+      let reg = /^1[3|4|5|6|7|8][0-9]{9}$/
+      let that = this
+      if (!this.people.name) {
+        alert('请输入姓名！')
+        return
+      }
+      if (!this.people.year) {
+        alert('请输入年龄！')
+        return
+      }
+      // if (!this.people.mobile) {
+      //   alert('请输入手机号码！')
+      //   return
+      // }
+      if (!reg.test(that.people.mobile)) {
+        alert('请输入11位有效的手机号码')
+        return
+      }
+      if (!this.people.address) {
+        alert('请输入居住小区！')
+        return
+      }
+      console.log(this.people)
+    }
   }
 }
 </script>
@@ -139,7 +163,7 @@ a {
   .form-data {
     font-family: 'zhehei';
     width: 69%;
-    margin-top: 10%;
+    margin-top: 8%;
     ul,
     li {
       width: 100%;
@@ -150,23 +174,27 @@ a {
       li {
         overflow: hidden;
         text-align: left;
-        margin-top: 5%;
+        margin-top: 7%;
         label {
           font-size: 22px;
           float: left;
           vertical-align: text-bottom;
         }
         input {
-          color: #fcfcfc;
+          color: #aeaeae;
           font-size: 14px;
           display: inline-block;
           height: 22px;
           line-height: 22px;
           // float: left;
           text-align: left;
-          font-family: '微软雅黑';
+          font-family: 'Microsoft YaHei';
           letter-spacing: 1px;
           padding-left: 10px;
+          cursor: pointer;
+          &::placeholder {
+            color: #aeaeae;
+          }
         }
         .sex-radio {
           display: inline-block;
@@ -215,6 +243,12 @@ a {
         }
       }
     }
+  }
+  .sub {
+    width: 75%;
+    border: none;
+    background: none;
+    margin-top: 12%;
   }
 }
 </style>
