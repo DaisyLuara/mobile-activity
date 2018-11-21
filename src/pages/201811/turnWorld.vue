@@ -223,7 +223,7 @@ img {
       animation: arrow 0.8s linear infinite alternate;
     }
     .x-nav {
-      top: -46%;
+      top: -64%;
     }
     .save {
       width: 55%;
@@ -234,7 +234,7 @@ img {
       animation: arrow 0.8s linear infinite alternate;
     }
     .x-save {
-      top: 18%;
+      top: -1%;
     }
   }
 }
