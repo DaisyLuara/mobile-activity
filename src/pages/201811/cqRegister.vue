@@ -12,11 +12,19 @@
       <ul>
         <li class="line">
           <label>姓名</label>
-          <input id="name" type="text"  placeholder="请输入姓名" v-model="people.name" />
+          <input 
+            id="name" 
+            v-model="people.name" 
+            type="text" 
+            placeholder="请输入姓名" >
         </li>
         <li class="line">
           <label for="year">年龄</label>
-          <input id="year" type="number" placeholder="请输入年龄" v-model="people.year"/>
+          <input 
+            id="year" 
+            v-model="people.year" 
+            type="number" 
+            placeholder="请输入年龄">
         </li>
         <li>
           <label for="sex">性别</label>
@@ -33,11 +41,19 @@
         </li>
         <li class="line">
           <label >手机</label>
-          <input id="mobile" type="number" placeholder="请输入手机号码" v-model="people.mobile"/>
+          <input 
+            id="mobile" 
+            v-model="people.mobile" 
+            type="number" 
+            placeholder="请输入手机号码">
         </li>
         <li class="line">
           <label >居住小区</label>
-          <input  id="address" type="text" placeholder="请输入小区" v-model="people.address"/>
+          <input 
+            id="address" 
+            v-model="people.address" 
+            type="text" 
+            placeholder="请输入小区">
         </li>
       </ul>
     </div>
