@@ -54,7 +54,6 @@ export default {
     } else {
       this.iphoneX = false
     }
-    this.handlePost()
   },
   methods: {
     goToRegister() {

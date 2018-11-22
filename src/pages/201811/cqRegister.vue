@@ -133,7 +133,6 @@ export default {
         window.location.href = redirct_url
       } else {
         this.userId = Cookies.get('user_id')
-        this.handlePost()
       }
     },
     postData() {
@@ -173,6 +172,7 @@ export default {
         .then(res => {
           console.log(res)
           alert('注册成功！')
+          that.handlePost()
         })
         .catch(err => {
           console.log(err)
