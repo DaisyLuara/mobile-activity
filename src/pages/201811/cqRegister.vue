@@ -31,12 +31,12 @@
           <div 
             :class="{'sex-radio':true,checked:male}"
             @click="()=>{ male = true; female = false; people.sex = 0;}">
-            <span></span>男
+            <span/>男
           </div>
           <div 
             :class="{'sex-radio':true,checked:female}"
             @click="()=>{ male = false; female = true; people.sex = 1;}">
-            <span></span>女
+            <span/>女
           </div>
         </li>
         <li class="line">
