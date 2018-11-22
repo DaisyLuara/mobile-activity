@@ -66,7 +66,7 @@
   </div>
 </template>
 <script>
-import { $wechat, wechatShareTrack, isInWechat } from 'services'
+import { $wechat, wechatShareTrack, isInWechat, userData } from 'services'
 import { onlyWechatShare } from '../../mixins/onlyWechatShare'
 const BASE_URL = process.env.CDN_URL
 export default {
@@ -140,6 +140,10 @@ export default {
         alert('请输入年龄！')
         return
       }
+      if (this.people.year < 0) {
+        alert('请输入合法年龄！')
+        return
+      }
       if (!reg.test(that.people.mobile)) {
         alert('请输入11位有效的手机号码')
         return
@@ -149,6 +153,26 @@ export default {
         return
       }
       console.log(this.people)
+      let args = {
+        name: this.people.name,
+        mobile: this.people.mobile,
+        address: this.people.address,
+        age: this.people.year,
+        gender: this.people.sex,
+        oid: this.oid,
+        belong: this.belong
+      }
+      userData(args)
+        .then(res => {
+          console.log(res)
+          alert('注册成功！')
+        })
+        .catch(err => {
+          console.log(err)
+          if (err.response.status === 422) {
+            alert('手机号码被占用')
+          }
+        })
     }
   }
 }
