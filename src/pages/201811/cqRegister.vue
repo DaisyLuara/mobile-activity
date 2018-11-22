@@ -66,7 +66,13 @@
   </div>
 </template>
 <script>
-import { $wechat, wechatShareTrack, isInWechat, userData } from 'services'
+import {
+  $wechat,
+  wechatShareTrack,
+  isInWechat,
+  Cookies,
+  userData
+} from 'services'
 import { onlyWechatShare } from '../../mixins/onlyWechatShare'
 const BASE_URL = process.env.CDN_URL
 export default {
