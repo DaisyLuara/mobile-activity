@@ -33,5 +33,4 @@ const getInfoById = id => {
   })
   return promise
 }
-
 export { getPlayResultById, getInfoById }

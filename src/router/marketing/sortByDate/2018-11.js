@@ -121,6 +121,28 @@ const Date201811 = [
     isAbandoned: false
   },
   {
+    path: 'cangqian',
+    location: '201811/cangqian',
+    name: 'cangqian',
+    meta: {
+      title: '仓前街道市民客厅',
+      author: 'lipan',
+      desc: '微笑转递'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'cqRegister',
+    location: '201811/cqRegister',
+    name: 'cqRegister',
+    meta: {
+      title: '仓前街道市民客厅',
+      author: 'lipan',
+      desc: '微笑转递-注册页'
+    },
+    isAbandoned: false
+  },
+  {
     path: 'christmas_happy',
     location: '201811/christmas',
     name: 'christmas_happy',
@@ -128,6 +150,17 @@ const Date201811 = [
       title: '星视度',
       author: 'xj1012',
       desc: '圣诞快乐-星视度'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'turn_world',
+    location: '201811/turnWorld',
+    name: 'turn_world',
+    meta: {
+      title: '翻转世界',
+      author: 'xj1012',
+      desc: '翻转世界遇见你'
     },
     isAbandoned: false
   }

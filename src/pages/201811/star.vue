@@ -20,7 +20,7 @@
           :key="item.key"
           :class="item"
           class="dark"
-          @click="()=>{ hint = 'hint2' ; }"
+          @click="()=>{ hint = 'hint22' ; }"
         >
           <img
             :src="base + item + '0.png'">
@@ -47,7 +47,7 @@
           :class="['star-card',key]">
           <a 
             class="close"
-            @click="()=>{ cards[key] = false ; mask = false; hint = 'hint1'}">
+            @click="()=>{ cards[key] = false ; mask = false; hint = 'hint11'}">
             <img
               :src="base + 'close.png'">
           </a>
@@ -55,7 +55,7 @@
             :src="base + key +'3.png'"
             class="tit">
           <img
-            :src="photo"
+            :src="cards_img[key]"
             class="photo">
           <img
             :src="base + 'save.png'"
@@ -78,7 +78,7 @@ import {
   $wechat,
   Cookies,
   userGame,
-  getGame
+  getSceneData
 } from 'services'
 import { normalPages } from '../../mixins/normalPages'
 const CDNURL = process.env.CDN_URL
@@ -93,7 +93,7 @@ export default {
       },
       base: CDNURL + '/fe/image/star/',
       photo: null,
-      hint: 'hint1',
+      hint: 'hint11',
       // 1，潘多拉，2，阿斯加德，3，克星，4，m78，5，娜美克，6，瓦肯(星星的顺序)
       all: ['pdl', 'asgd', 'kx', 'm78', 'nmk', 'wk'],
       scene: this.$route.query.scene,
@@ -108,6 +108,14 @@ export default {
         nmk: false,
         wk: false
       },
+      cards_img: {
+        pdl: null,
+        asgd: null,
+        kx: null,
+        m78: null,
+        nmk: null,
+        wk: null
+      },
       //微信分享
       wxShareInfoValue: {
         title: '来自星星的你',
@@ -121,10 +129,10 @@ export default {
     }
   },
   mounted() {
-    let star = this.all[this.scene - 1]
-    this.mask = true
-    this.cards[star] = true
-    this.stars.push(star)
+    // let star = this.all[this.scene - 1]
+    // this.mask = true
+    // this.cards[star] = this.photo || true
+    // this.stars.push(star)
     //微信授权
     if (isInWechat() === true) {
       if (
@@ -155,6 +163,11 @@ export default {
       let timer = requestAnimationFrame(this.getPhoto)
       if (this.photo) {
         cancelAnimationFrame(timer)
+        let star = this.all[this.scene - 1]
+        this.cards[star] = true
+        this.cards_img[star] = this.photo
+        this.mask = true
+        this.stars.push(star)
         this.userGame()
       }
     },
@@ -169,17 +182,18 @@ export default {
       userGame(args, this.userId)
         .then(res => {
           console.log(res)
-          this.getGame()
+          this.getSceneData()
         })
         .catch(e => {
           console.log(e)
         })
     },
-    getGame() {
+    getSceneData() {
+      let url = '?belong=' + this.$route.query.utm_campaign + '&group_by=scene'
       let args = {
         withCredentials: true
       }
-      getGame(args, this.userId)
+      getSceneData(this.userId, url, args)
         .then(res => {
           console.log(res)
           this.projectStatus(res)
@@ -197,26 +211,32 @@ export default {
         // 1，潘多拉
         if (r.scene === 'pdl') {
           that.stars.push('pdl')
+          that.cards_img['pdl'] = r.image_url
         }
         // 2，阿斯加德
         if (r.scene === 'asgd') {
           that.stars.push('asgd')
+          that.cards_img['asgd'] = r.image_url
         }
         // 3，克星
         if (r.scene === 'kx') {
           that.stars.push('kx')
+          that.cards_img['kx'] = r.image_url
         }
         // 4，m78
         if (r.scene === 'm78') {
           that.stars.push('m78')
+          that.cards_img['m78'] = r.image_url
         }
         // 5，娜美克
         if (r.scene === 'nmk') {
           that.stars.push('nmk')
+          that.cards_img['nmk'] = r.image_url
         }
         //6，瓦肯
         if (r.scene === 'wk') {
           that.stars.push('wk')
+          that.cards_img['wk'] = r.image_url
         }
       })
     }
