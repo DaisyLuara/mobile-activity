@@ -22,12 +22,12 @@
           <label for="sex">性别</label>
           <div 
             :class="{'sex-radio':true,checked:male}"
-            @click="()=>{ male = true; female = false; people.sex = 'male';}">
+            @click="()=>{ male = true; female = false; people.sex = 0;}">
             <span></span>男
           </div>
           <div 
             :class="{'sex-radio':true,checked:female}"
-            @click="()=>{ male = false; female = true; people.sex = 'female';}">
+            @click="()=>{ male = false; female = true; people.sex = 1;}">
             <span></span>女
           </div>
         </li>
@@ -66,12 +66,15 @@ export default {
       people: {
         name: null,
         year: null,
-        sex: 'male',
+        sex: 0,
         mobile: null,
         address: null
       },
+      oid: this.$route.query.utm_source,
+      belong: this.$route.query.utm_campaign,
       male: true,
       female: false,
+      userId: null,
       //微信分享
       wxShareInfoValue: {
         title: '仓前街道市民客厅',
@@ -84,8 +87,32 @@ export default {
       }
     }
   },
-  mounted() {},
+  mounted() {
+    //微信授权
+    if (isInWechat() === true) {
+      if (
+        process.env.NODE_ENV === 'production' ||
+        process.env.NODE_ENV === 'testing'
+      ) {
+        this.handleWechatAuth()
+      }
+    }
+  },
   methods: {
+    //微信静默授权
+    handleWechatAuth() {
+      if (Cookies.get('sign') === null) {
+        let base_url = encodeURIComponent(String(window.location.href))
+        let redirct_url =
+          process.env.WX_API +
+          '/wx/officialAccount/oauth?url=' +
+          base_url +
+          '&scope=snsapi_base'
+        window.location.href = redirct_url
+      } else {
+        this.userId = Cookies.get('user_id')
+      }
+    },
     postData() {
       let reg = /^1[3|4|5|6|7|8][0-9]{9}$/
       let that = this
