@@ -2,6 +2,7 @@ import axios from 'axios'
 import { apiToken, Cookies } from 'services'
 const GAME_URL = process.env.SAAS_API + '/user/'
 const GAME_LIST_URL = process.env.SAAS_API + '/user/'
+const REGISTER_URL = process.env.SAAS_API + '/api/temp/customer'
 const REQ_HEADER = {
   headers: {
     'api-token': apiToken,
@@ -68,5 +69,19 @@ const getSceneData = (userId, url, params) => {
       })
   })
 }
+//保存临时用户信息
+const userData = params => {
+  params.sign = Cookies.get('sign')
+  return new Promise((resolve, reject) => {
+    axios
+      .post(REGISTER_URL, params, REQ_HEADER)
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
 
-export { createGame, getGame, userGame, getSceneData }
+export { createGame, getGame, userGame, getSceneData, userData }
