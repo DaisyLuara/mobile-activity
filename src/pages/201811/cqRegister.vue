@@ -172,12 +172,32 @@ export default {
         .then(res => {
           console.log(res)
           alert('注册成功！')
+          that.handlePost()
         })
         .catch(err => {
           console.log(err)
           if (err.response.status === 422) {
             alert('手机号码被占用')
           }
+        })
+    },
+    handlePost() {
+      let id = this.$route.query.id
+      let url =
+        'http://exelook.com:8010/pushdiv/?oid=' +
+        this.oid +
+        '&belong=' +
+        this.belong +
+        '&id=' +
+        id +
+        '&api=json'
+      this.$http
+        .get(url)
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => {
+          console.log(err)
         })
     }
   }

@@ -33,6 +33,8 @@ export default {
       base: BASE_URL + '/fe/image/cangqian/',
       photo: null,
       iphoneX: false,
+      oid: this.$route.query.utm_source,
+      belong: this.$route.query.utm_campaign,
       //微信分享
       wxShareInfoValue: {
         title: '仓前街道市民客厅',
@@ -55,12 +57,28 @@ export default {
   },
   methods: {
     goToRegister() {
-      // this.$router.push({
-      //   path: 'http://papi.xingstation.com/api/s/MQ3' + window.location.search
-      // })
       this.$router.push({
         path: 'cqRegister' + window.location.search
       })
+    },
+    handlePost() {
+      let id = this.$route.query.id
+      let url =
+        'http://exelook.com:8010/pushdiv/?oid=' +
+        this.oid +
+        '&belong=' +
+        this.belong +
+        '&id=' +
+        id +
+        '&api=json'
+      this.$http
+        .get(url)
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   }
 }
