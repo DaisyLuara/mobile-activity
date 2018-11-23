@@ -18,6 +18,9 @@
     <div 
       v-show="contentShow"
       class="content">
+      <img 
+        :src="baseUrl + 'huaban.png'+ this.$qiniuCompress()"
+        class="huaban"> 
       <div id="main"></div>
       <img
       id="test" 
@@ -248,6 +251,14 @@ img {
     height: 100%;
     position: relative;
     overflow: hidden;
+    .huaban {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0%;
+      top: 0;
+      z-index: 88;
+    }
     .photoImg {
       width: 100%;
       position: absolute;
@@ -260,9 +271,9 @@ img {
   .save {
     width: 40%;
     position: absolute;
-    left: 50%;
+    left: 30%;
     bottom: 0%;
-    transform: translate(-50%, 0);
+    animation: arrow 0.8s linear infinite alternate;
   }
 }
 @keyframes scale {
@@ -274,6 +285,17 @@ img {
   }
   to {
     transform: scale(1, 1);
+  }
+}
+@keyframes arrow {
+  0% {
+    transform: translateY(-5px);
+  }
+  50% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(5px);
   }
 }
 </style>
