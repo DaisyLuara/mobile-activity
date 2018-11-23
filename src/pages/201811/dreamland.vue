@@ -99,7 +99,7 @@ export default {
       this.iphoneX = false
     }
     this.getInfoById()
-    this.drawing()
+    // this.drawing()
   },
   methods: {
     go() {
