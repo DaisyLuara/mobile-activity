@@ -18,9 +18,6 @@
     <div 
       v-show="contentShow"
       class="content">
-      <!-- <img 
-        :src="baseUrl + 'bg.png'+ this.$qiniuCompress()"
-        class="bg">  -->
       <div id="main"></div>
       <img
       id="test" 
@@ -40,11 +37,12 @@
   </div>
 </template>
 <script>
-import { normalPages } from '../../mixins/normalPages'
+import { onlyWechatShare } from '../../mixins/onlyWechatShare'
+import { getInfoById } from 'services'
 const cdnUrl = process.env.CDN_URL
 import MC from 'mcanvas'
 export default {
-  mixins: [normalPages],
+  mixins: [onlyWechatShare],
   data() {
     return {
       baseUrl: cdnUrl + '/fe/marketing/img/dreamland/',
@@ -57,18 +55,33 @@ export default {
       contentShow: false,
       peopleID: this.$route.query.peopleID,
       iphoneX: false,
+      photo: null,
       base64Data: null,
-      man: ['man_1.png', 'man_2.png', 'man_3.png', 'man_4.png', 'man_5.png'],
-      woman: [
-        'woman_1.png',
-        'woman_2.png',
-        'woman_3.png',
-        'woman_4.png',
-        'woman_5.png'
+      paths: [
+        {
+          scope: 6,
+          paths: [
+            'woman_1.png',
+            'woman_2.png',
+            'woman_3.png',
+            'woman_4.png',
+            'woman_5.png'
+          ]
+        },
+        {
+          scope: 12,
+          paths: [
+            'man_1.png',
+            'man_2.png',
+            'man_3.png',
+            'man_4.png',
+            'man_5.png'
+          ]
+        }
       ],
       wxShareInfoValue: {
-        title: '历史的时空漩涡',
-        desc: '名人穿越，即刻出发',
+        title: '幻境奇缘',
+        desc: '揭开你的身世之谜！',
         link: 'http://papi.xingstation.com/api/s/oQK' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/dreamland/icon.png'
       }
@@ -82,8 +95,7 @@ export default {
     } else {
       this.iphoneX = false
     }
-    this.drawing()
-    this.randomImg()
+    this.getInfoById()
   },
   methods: {
     go() {
@@ -91,10 +103,33 @@ export default {
       this.contentShow = true
       this.playAnim()
     },
+    getInfoById() {
+      let id = this.$route.query.id
+      getInfoById(id)
+        .then(res => {
+          console.log(res)
+          this.photo = res.url
+          this.drawing()
+          console.log(this.photo)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
     //获取随机数图片
-    randomImg() {
+    randomImg(peopleID) {
       let that = this
-      let num = Math.round(Math.random() * 5)
+      let path = ''
+      for (let i = 0; i < that.paths.length; i++) {
+        if (peopleID <= that.paths[i].scope) {
+          path =
+            that.paths[i].paths[
+              Math.floor(Math.random() * that.paths[i].paths.length)
+            ]
+          break
+        }
+      }
+      return path
     },
     //动画
     playAnim() {
@@ -146,12 +181,11 @@ export default {
         height,
         backgroundColor
       })
-      //let url = this.photo + this.$qiniuCompress()
-      let url = that.baseUrl + 'pic.jpg'
+      let url = that.photo + that.$qiniuCompress()
+      //let url = that.baseUrl + 'pic.jpg'
       let imgUrl = null
-      if (that.peopleID >= 0 || that.peopleID <= 6) {
-        imgUrl = that.baseUrl + that.woman[that.randomImg()]
-      }
+      imgUrl = that.baseUrl + that.randomImg(that.peopleID)
+      console.log(imgUrl)
       mc.background(that.baseUrl + 'bg.png', {
         left: 0,
         top: 0,
@@ -169,7 +203,7 @@ export default {
             y: '18%'
           }
         })
-        .add(that.baseUrl + 'juanzhou.png', {
+        .add(imgUrl, {
           width: '100%',
           color: '#000000',
           pos: {
