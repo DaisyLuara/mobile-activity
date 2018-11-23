@@ -146,8 +146,8 @@ export default {
         height,
         backgroundColor
       })
-      //let url = that.photo + that.$qiniuCompress()
-      let url = that.baseUrl + 'pic.jpg'
+      let url = that.photo + that.$qiniuCompress()
+      //let url = that.baseUrl + 'pic.jpg'
       let imgUrl = null
       imgUrl = that.baseUrl + that.randomImg(that.peopleID)
       console.log(imgUrl)
