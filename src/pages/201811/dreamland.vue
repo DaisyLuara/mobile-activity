@@ -34,6 +34,7 @@
       style="display: none" />
     <img  
         :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
+        :class="{'x-save':iphoneX,'save':!iphoneX}"
         class="save"> 
     </div>
      
@@ -139,18 +140,18 @@ export default {
       let imgUrl = null
       imgUrl = that.baseUrl + that.randomImg(that.peopleID)
       console.log(imgUrl)
-      mc.background(that.baseUrl + 'bg.png', {
+      mc.background(that.baseUrl + 'bg4.png', {
         left: 0,
         top: 0,
-        type: 'crop',
-        width: that.$innerWidth(),
+        type: 'origin',
+        width: that.$innerWidth() * 0.9,
         pos: {
           x: '0%',
-          y: '0%'
+          y: '10%'
         }
       })
         .add(url, {
-          width: '80%',
+          width: '78%',
           pos: {
             x: '15%',
             y: '15%'
@@ -167,7 +168,7 @@ export default {
         .draw({
           // 导出图片格式： png/jpg/jpeg/webp;
           // default : png;
-          type: 'jpg',
+          type: 'png',
           //  图片质量，对 png 格式无效； 0~1；
           // default: .9;
           quality: 1,
@@ -266,6 +267,13 @@ img {
     position: absolute;
     left: 30%;
     bottom: 0%;
+    animation: arrow 0.8s linear infinite alternate;
+  }
+  .x-save {
+    width: 40%;
+    position: absolute;
+    left: 30%;
+    bottom: 9%;
     animation: arrow 0.8s linear infinite alternate;
   }
 }
