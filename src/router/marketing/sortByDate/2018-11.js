@@ -163,6 +163,17 @@ const Date201811 = [
       desc: '翻转世界遇见你'
     },
     isAbandoned: false
+  },
+  {
+    path: 'dreamland',
+    location: '201811/dreamland',
+    name: 'dreamland',
+    meta: {
+      title: '幻境',
+      author: 'xj1012',
+      desc: '幻境'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201811
