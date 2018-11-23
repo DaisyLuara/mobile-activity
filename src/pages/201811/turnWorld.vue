@@ -199,6 +199,7 @@ img {
     }
     .x-photo {
       width: 75%;
+      left: 46.5%;
     }
   }
   .bottom {
