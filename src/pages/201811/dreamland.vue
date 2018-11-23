@@ -99,7 +99,7 @@ export default {
       this.iphoneX = false
     }
     this.getInfoById()
-    this.drawing()
+    //this.drawing()
     console.log(this.base64Data)
   },
   methods: {
@@ -113,7 +113,7 @@ export default {
         .then(res => {
           console.log(res)
           this.photo = res.image
-          //this.drawing()
+          this.drawing()
           console.log(this.photo)
         })
         .catch(err => {
