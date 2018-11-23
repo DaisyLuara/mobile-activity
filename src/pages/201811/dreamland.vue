@@ -99,7 +99,8 @@ export default {
       this.iphoneX = false
     }
     this.getInfoById()
-    // this.drawing()
+    //this.drawing()
+    console.log(this.base64Data)
   },
   methods: {
     go() {
@@ -111,7 +112,7 @@ export default {
       getInfoById(id)
         .then(res => {
           console.log(res)
-          this.photo = res.url
+          this.photo = res.image
           this.drawing()
           console.log(this.photo)
         })
@@ -146,7 +147,7 @@ export default {
         backgroundColor
       })
       let url = that.photo + that.$qiniuCompress()
-      // let url = that.baseUrl + 'pic.jpg'
+      //let url = that.baseUrl + 'pic.jpg'
       let imgUrl = null
       imgUrl = that.baseUrl + that.randomImg(that.peopleID)
       console.log(imgUrl)
