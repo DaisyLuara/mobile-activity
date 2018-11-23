@@ -85,7 +85,7 @@ export default {
       wxShareInfoValue: {
         title: '幻境奇缘',
         desc: '揭开你的身世之谜！',
-        link: 'http://papi.xingstation.com/api/s/oQK' + window.location.search,
+        link: 'http://papi.xingstation.com/api/s/PZn' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/dreamland/icon.png'
       }
     }
