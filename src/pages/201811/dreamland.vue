@@ -96,12 +96,12 @@ export default {
       this.iphoneX = false
     }
     this.getInfoById()
+    this.drawing()
   },
   methods: {
     go() {
       this.showImg = false
       this.contentShow = true
-      this.playAnim()
     },
     getInfoById() {
       let id = this.$route.query.id
@@ -131,45 +131,6 @@ export default {
       }
       return path
     },
-    //动画
-    playAnim() {
-      import('pixi.js').then(PIXI => {
-        let app = new PIXI.Application({
-          width: window.innerWidth * 2,
-          height: window.innerWidth * 1.8,
-          transparent: true
-        })
-        document.getElementById('main').appendChild(app.view)
-        let base = 'http://cdn.exe666.com/fe/marketing/img/dreamland/'
-        app.view.style.position = 'absolute'
-        app.view.style.top = '0'
-        app.view.style.left = '0'
-        app.view.style.zIndex = '9999'
-        app.renderer.autoResize = true
-        app.renderer.resize(window.innerWidth * 2, window.innerWidth * 1.8)
-        app.stop()
-        PIXI.loader.add('flower', base + 'flower.json').load(setUp)
-        function setUp() {
-          let flower = []
-          let texture = null
-          for (let i = 0; i <= 39; i++) {
-            texture = PIXI.Texture.fromFrame('hua_' + i + '.png')
-            flower.push(texture)
-          }
-          let animal = new PIXI.extras.AnimatedSprite(flower)
-          animal.anchor.set(0.5, 0)
-          animal.x = 0
-          animal.y = 0
-          animal.width = app.screen.width / 1
-          animal.height = (animal.width / 296) * 527
-          animal.gotoAndPlay(0)
-          animal.animationSpeed = 0.2
-          app.stage.addChild(animal)
-        }
-        app.start()
-        this.contentShow = true
-      })
-    },
     //合成图片
     drawing() {
       let width = this.$innerWidth()
@@ -181,16 +142,16 @@ export default {
         height,
         backgroundColor
       })
-      let url = that.photo + that.$qiniuCompress()
-      //let url = that.baseUrl + 'pic.jpg'
+      //let url = that.photo + that.$qiniuCompress()
+      let url = that.baseUrl + 'pic.jpg'
       let imgUrl = null
       imgUrl = that.baseUrl + that.randomImg(that.peopleID)
       console.log(imgUrl)
       mc.background(that.baseUrl + 'bg.png', {
         left: 0,
         top: 0,
-        type: 'origin',
-        width: that.$innerWidth(),
+        type: 'crop',
+        width: that.$innerWidth() * 0.8,
         pos: {
           x: '0%',
           y: '0%'
