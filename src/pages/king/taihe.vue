@@ -247,20 +247,18 @@ img {
   background-position: center bottom;
   background-repeat: no-repeat;
   .couponImg {
-    width: 86%;
+    width: 100%;
     position: relative;
-    margin-top: 4%;
   }
   .x-couponImg {
-    width: 86%;
+    width: 100%;
     position: relative;
-    margin-top: 12%;
   }
 
   .center {
     width: 100%;
     position: relative;
-    margin-top: 2.5%;
+    margin-top: 5.5%;
     pointer-events: none;
     user-select: none;
     .scan {
@@ -291,16 +289,16 @@ img {
       pointer-events: auto;
     }
     .coupon-used {
-      width: 80%;
+      width: 83%;
       position: absolute;
-      left: 10%;
+      left: 7%;
       top: 0.4%;
       z-index: 9;
     }
     .coupon-post {
-      width: 80%;
+      width: 83%;
       position: absolute;
-      left: 10%;
+      left: 7%;
       top: 0.4%;
       z-index: 9;
     }
@@ -308,7 +306,7 @@ img {
   .x-center {
     width: 100%;
     position: relative;
-    margin-top: 4.5%;
+    margin-top: 8.5%;
     pointer-events: none;
     user-select: none;
   }
