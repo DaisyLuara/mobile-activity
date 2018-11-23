@@ -18,6 +18,9 @@
     <div 
       v-show="contentShow"
       class="content">
+      <img 
+        :src="baseUrl + 'huaban.png'+ this.$qiniuCompress()"
+        class="huaban"> 
       <div id="main"></div>
       <img
       id="test" 
@@ -31,6 +34,7 @@
       style="display: none" />
     <img  
         :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
+        :class="{'x-save':iphoneX,'save':!iphoneX}"
         class="save"> 
     </div>
      
@@ -60,29 +64,17 @@ export default {
       paths: [
         {
           scope: 6,
-          paths: [
-            'woman_1.png',
-            'woman_2.png',
-            'woman_3.png',
-            'woman_4.png',
-            'woman_5.png'
-          ]
+          paths: ['w_1.png', 'w_2.png', 'w_3.png', 'w_4.png', 'w_5.png']
         },
         {
           scope: 12,
-          paths: [
-            'man_1.png',
-            'man_2.png',
-            'man_3.png',
-            'man_4.png',
-            'man_5.png'
-          ]
+          paths: ['m_1.png', 'm_2.png', 'm_3.png', 'm_4.png', 'm_5.png']
         }
       ],
       wxShareInfoValue: {
         title: '幻境奇缘',
         desc: '揭开你的身世之谜！',
-        link: 'http://papi.xingstation.com/api/s/oQK' + window.location.search,
+        link: 'http://papi.xingstation.com/api/s/PZn' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/dreamland/icon.png'
       }
     }
@@ -96,19 +88,19 @@ export default {
       this.iphoneX = false
     }
     this.getInfoById()
+    console.log(this.base64Data)
   },
   methods: {
     go() {
       this.showImg = false
       this.contentShow = true
-      this.playAnim()
     },
     getInfoById() {
       let id = this.$route.query.id
       getInfoById(id)
         .then(res => {
           console.log(res)
-          this.photo = res.url
+          this.photo = res.image
           this.drawing()
           console.log(this.photo)
         })
@@ -131,49 +123,10 @@ export default {
       }
       return path
     },
-    //动画
-    playAnim() {
-      import('pixi.js').then(PIXI => {
-        let app = new PIXI.Application({
-          width: window.innerWidth * 2,
-          height: window.innerWidth * 1.8,
-          transparent: true
-        })
-        document.getElementById('main').appendChild(app.view)
-        let base = 'http://cdn.exe666.com/fe/marketing/img/dreamland/'
-        app.view.style.position = 'absolute'
-        app.view.style.top = '0'
-        app.view.style.left = '0'
-        app.view.style.zIndex = '9999'
-        app.renderer.autoResize = true
-        app.renderer.resize(window.innerWidth * 2, window.innerWidth * 1.8)
-        app.stop()
-        PIXI.loader.add('flower', base + 'flower.json').load(setUp)
-        function setUp() {
-          let flower = []
-          let texture = null
-          for (let i = 0; i <= 39; i++) {
-            texture = PIXI.Texture.fromFrame('hua_' + i + '.png')
-            flower.push(texture)
-          }
-          let animal = new PIXI.extras.AnimatedSprite(flower)
-          animal.anchor.set(0.5, 0)
-          animal.x = 0
-          animal.y = 0
-          animal.width = app.screen.width / 1
-          animal.height = (animal.width / 296) * 527
-          animal.gotoAndPlay(0)
-          animal.animationSpeed = 0.2
-          app.stage.addChild(animal)
-        }
-        app.start()
-        this.contentShow = true
-      })
-    },
     //合成图片
     drawing() {
       let width = this.$innerWidth()
-      let height = this.$innerHeight()
+      let height = (this.$innerWidth() / 1080) * 1800
       let that = this
       let backgroundColor = 'white'
       let mc = new MC({
@@ -182,25 +135,26 @@ export default {
         backgroundColor
       })
       let url = that.photo + that.$qiniuCompress()
-      //let url = that.baseUrl + 'pic.jpg'
+      // let url =
+      //   'http://image.exe666.com/1007/image/DreamLand_148_384_1492925384922.jpg'
       let imgUrl = null
       imgUrl = that.baseUrl + that.randomImg(that.peopleID)
       console.log(imgUrl)
-      mc.background(that.baseUrl + 'bg.png', {
+      mc.background(that.baseUrl + 'bg4.png', {
         left: 0,
         top: 0,
         type: 'origin',
-        width: that.$innerWidth(),
+        width: that.$innerWidth() * 0.9,
         pos: {
           x: '0%',
-          y: '0%'
+          y: '10%'
         }
       })
         .add(url, {
-          width: '70%',
+          width: '78%',
           pos: {
             x: '15%',
-            y: '18%'
+            y: '15%'
           }
         })
         .add(imgUrl, {
@@ -214,7 +168,7 @@ export default {
         .draw({
           // 导出图片格式： png/jpg/jpeg/webp;
           // default : png;
-          type: 'jpg',
+          type: 'png',
           //  图片质量，对 png 格式无效； 0~1；
           // default: .9;
           quality: 1,
@@ -267,7 +221,7 @@ img {
     position: relative;
     overflow: hidden;
     background-image: url('@{imageHost}bg2.png');
-    background-size: 100% 100%;
+    background-size: 100% auto;
     background-position: center top;
     background-repeat: no-repeat;
     .hua {
@@ -287,6 +241,18 @@ img {
     height: 100%;
     position: relative;
     overflow: hidden;
+    background-image: url('@{imageHost}bg.png');
+    background-size: 100% auto;
+    background-position: center top;
+    background-repeat: no-repeat;
+    .huaban {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0%;
+      top: 0;
+      z-index: 88;
+    }
     .photoImg {
       width: 100%;
       position: absolute;
@@ -299,9 +265,16 @@ img {
   .save {
     width: 40%;
     position: absolute;
-    left: 50%;
+    left: 30%;
     bottom: 0%;
-    transform: translate(-50%, 0);
+    animation: arrow 0.8s linear infinite alternate;
+  }
+  .x-save {
+    width: 40%;
+    position: absolute;
+    left: 30%;
+    bottom: 9%;
+    animation: arrow 0.8s linear infinite alternate;
   }
 }
 @keyframes scale {
@@ -313,6 +286,17 @@ img {
   }
   to {
     transform: scale(1, 1);
+  }
+}
+@keyframes arrow {
+  0% {
+    transform: translateY(-5px);
+  }
+  50% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(5px);
   }
 }
 </style>
