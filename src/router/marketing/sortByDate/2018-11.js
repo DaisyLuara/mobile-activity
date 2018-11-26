@@ -75,6 +75,105 @@ const Date201811 = [
       desc: '太禾影院-刷脸享优惠 && 太禾影院-新爆米花奥斯卡'
     },
     isAbandoned: false
+  },
+  {
+    path: 'orchid_city',
+    location: 'king/city',
+    name: 'orchid_city',
+    meta: {
+      title: '兰花城',
+      author: 'xj1012',
+      desc: '兰花城-我美我免单'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'star',
+    location: '201811/star',
+    name: 'star',
+    meta: {
+      title: '来自星星的你',
+      author: 'lipan',
+      desc: '来自星星的你'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'meilai',
+    location: '201811/meilai',
+    name: 'meilai',
+    meta: {
+      title: '美莱整形',
+      author: 'lipan',
+      desc: '美莱颜值印钞机'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'fashion_manufacturing',
+    location: '201811/fashionManufacturing',
+    name: 'fashion_manufacturing',
+    meta: {
+      title: '潮流制造局',
+      author: 'xj1012',
+      desc: '潮流制造局'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'cangqian',
+    location: '201811/cangqian',
+    name: 'cangqian',
+    meta: {
+      title: '仓前街道市民客厅',
+      author: 'lipan',
+      desc: '微笑转递'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'cqRegister',
+    location: '201811/cqRegister',
+    name: 'cqRegister',
+    meta: {
+      title: '仓前街道市民客厅',
+      author: 'lipan',
+      desc: '微笑转递-注册页'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'christmas_happy',
+    location: '201811/christmas',
+    name: 'christmas_happy',
+    meta: {
+      title: '星视度',
+      author: 'xj1012',
+      desc: '圣诞快乐-星视度'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'turn_world',
+    location: '201811/turnWorld',
+    name: 'turn_world',
+    meta: {
+      title: '翻转世界',
+      author: 'xj1012',
+      desc: '翻转世界遇见你'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'dreamland',
+    location: '201811/dreamland',
+    name: 'dreamland',
+    meta: {
+      title: '幻境',
+      author: 'xj1012',
+      desc: '幻境'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201811

@@ -7,12 +7,12 @@
       class="music" 
       @click="playOrNot()">
       <img
-        class="img1"
-        :src="base +'bg.png'">
+        :src="base +'bg.png'"
+        class="img1">
       <img
         id="mbtn"
-        class="img2"
-        :src="base +'music.png'">
+        :src="base +'music.png'"
+        class="img2">
     </div>
     <!-- audio -->
     <audio 
@@ -24,22 +24,31 @@
       hidden>
       <source :src="base+'gonglue.mp3'">
     </audio>
+    <!-- audio -->
     <swiper
       ref="Swiper"
+      :options="sOptions"
       class="swiper">
       <swiper-slide>
         <img
           :src="base + 'page1.png'"
           class="page">
+        <a
+          class="toclicks"
+          @click="toNext"/>
         <img
           :src="base + 'nav.png'"
           class="pointer">
       </swiper-slide>
       <swiper-slide>
-        <img
-          :src="base + 'page2.png'"
-          class="map">
-        <div class="alinks">
+        <!-- 动画 -->
+        <div 
+          id="anim"
+          class="map anim"
+        />
+        <div 
+          v-show="lpointer"
+          class="alinks">
           <ul  
             class="ul-icon">
             <li 
@@ -53,59 +62,31 @@
           <!-- 厦门爱乐乐团 -->
           <a
             class="local-link local1"
-            @click="toAlert(1)">
-            <img
-              :src="base + 'yuan.png'"
-              class="ding">
-          </a>
+            @click="toAlert(1)"/>
           <!-- 高参 -->
           <a
             class="local-link local2"
-            @click="toAlert(2)">
-            <img
-              :src="base + 'yuan.png'"
-              class="ding">
-          </a>
+            @click="toAlert(2)"/>
           <!-- 揭幕流程 -->
           <a
             class="local-link local3"
-            @click="toAlert(3)">
-            <img
-              :src="base + 'yuan.png'"
-              class="ding">
-          </a>
+            @click="toAlert(3)"/>
           <!-- 夏国璋龙狮团 -->
           <a
             class="local-link local4"
-            @click="toAlert(4)">
-            <img
-              :src="base + 'yuan.png'"
-              class="ding">
-          </a>
+            @click="toAlert(4)"/>
           <!-- 豪觅邮局 -->
           <a
             class="local-link local5"
-            @click="toAlert(5)">
-            <img
-              :src="base + 'yuan.png'"
-              class="ding">
-          </a>
+            @click="toAlert(5)"/>
           <!-- 永新早食 -->
           <a
             class="local-link local6"
-            @click="toAlert(6)">
-            <img
-              :src="base + 'yuan.png'"
-              class="ding">
-          </a>
+            @click="toAlert(6)"/>
           <!-- 华润80年，润物耕心 -->
           <a
             class="local-link local7"
-            @click="toAlert(7)">
-            <img
-              :src="base + 'yuan.png'"
-              class="ding">
-          </a>
+            @click="toAlert(7)"/>
         </div>
       </swiper-slide>
     </swiper>
@@ -116,7 +97,7 @@
     <div 
       v-show="mask"
       class="mask"
-      @click.self="()=>{mask = false; alert1 = false;alert2 = false;}">
+      @click.self="()=>{mask = false; alert1 = false;alert2 = false;jian=false;}">
       <div 
         v-show="alert1"
         class="center alert1">
@@ -144,6 +125,7 @@
   </div>
 </template>
 <script>
+import lottie from 'lottie-web'
 import { onlyWechatShare } from '../../mixins/onlyWechatShare'
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
@@ -163,6 +145,16 @@ export default {
         }
       },
       base: cdnUrl + '/fe/image/wxc_map/',
+      sOptions: {
+        on: {
+          slideChange: () => {
+            let index = this.$refs.Swiper.swiper.realIndex
+            if (index === 1) {
+              this.doAnim()
+            }
+          }
+        }
+      },
       pro: 'wc.png',
       mask: false,
       alert1: false,
@@ -172,12 +164,13 @@ export default {
       ttext: 'text1.png',
       pro_img: false,
       iphoneX: false,
+      lpointer: false,
       //分享
       wxShareInfoValue: {
         title: '厦门万象城', //暂无
         desc: '厦门万象城', //暂无
         link: 'http://papi.xingstation.com/api/s/xvr' + window.location.search,
-        imgUrl: 'https://cdn.exe666.com/fe/image/wxc_map/icon.png', //暂无
+        imgUrl: 'https://cdn.exe666.com/fe/image/wxc_map/icon.png',
         success: () => {
           wechatShareTrack()
         }
@@ -214,7 +207,7 @@ export default {
       }
       if (num === 4) {
         this.pro_img = false
-        this.mask = false
+        this.mask = true
         this.alert1 = false
         this.jian = true
         return
@@ -233,26 +226,26 @@ export default {
       if (item === 2) {
         this.alert2 = true
         this.timg = 'tt3.png'
-        this.ttext = 'text2.png'
+        this.ttext = '3_2.png'
         return
       }
       //1
       if (item === 3) {
         this.alert1 = true
-        this.pro = '9.png'
+        this.pro = '9_1.png'
         return
       }
       if (item === 4) {
         this.alert2 = true
         this.timg = 'tt2.png'
-        this.ttext = 'text3.png'
+        this.ttext = '2_2.png'
         return
       }
       //2
       if (item === 5) {
         this.alert1 = true
         this.pro_img = true
-        this.pro = '6.png'
+        this.pro = '6_1.png'
         return
       }
       //3
@@ -268,6 +261,31 @@ export default {
         this.pro = '4.png'
         return
       }
+    },
+    toNext() {
+      this.$refs.Swiper.swiper.slideNext()
+    },
+    doAnim() {
+      const el = document.getElementById('anim')
+      let that = this
+      let anim = lottie.loadAnimation({
+        name: 'anim',
+        container: el,
+        renderer: 'svg',
+        loop: false,
+        assetsPath: that.base + 'data/img/',
+        path: that.base + 'data/data.json'
+      })
+      this.animation = anim
+      anim.addEventListener('DOMLoaded', function() {
+        // 播放0-125帧动画,第一屏动画
+        anim.playSegments([0, 125], true)
+      })
+      anim.addEventListener('complete', function() {
+        anim.loop = true
+        anim.playSegments([126, 250], false)
+        that.lpointer = true
+      })
     },
     playAudio() {
       var voice = document.getElementById('voice')
@@ -366,7 +384,7 @@ img {
     display: block;
     width: 10%;
     position: absolute;
-    top: 5%;
+    top: 2.5%;
     right: 8%;
     z-index: 999;
     .img1 {
@@ -389,11 +407,20 @@ img {
     position: relative;
     z-index: 0;
   }
+  .toclicks {
+    position: absolute;
+    top: 59%;
+    right: 0%;
+    width: 60%;
+    height: 100px;
+    display: inline-block;
+    z-index: 9999;
+  }
   .map {
     width: 100%;
     position: relative;
     z-index: 0;
-    margin-top: -5%;
+    margin-top: -15%;
   }
   .alinks {
     position: absolute;
@@ -419,51 +446,42 @@ img {
       width: 15vw;
       height: 25vw;
       border-radius: 50%;
-      // border: solid 1px red;
       position: absolute;
       z-index: 99;
-      .ding {
-        width: 7vw;
-        position: relative;
-        animation: yuan 0.6s linear infinite alternate;
-      }
     }
     .local1 {
-      // top: 30%;
-      top: 26%;
+      top: 24%;
       left: 1%;
     }
     .local2 {
-      // top: 22%;
       height: 22vw;
       top: 19%;
       left: 20%;
     }
     .local3 {
       height: 18vw;
-      top: 27%;
+      top: 25%;
       left: 35%;
     }
     .local4 {
       width: 18vw;
-      // height: 25vw;
       top: 15%;
       right: 24%;
     }
     .local5 {
       height: 20vw;
-      top: 46%;
+      top: 42%;
       left: 28%;
     }
     .local6 {
       width: 18vw;
       height: 20vw;
-      top: 57%;
-      left: 22%;
+      top: 52%;
+      left: 24%;
     }
     .local7 {
       height: 25vw;
-      top: 40%;
+      top: 38%;
       right: 24%;
     }
   }
@@ -478,13 +496,13 @@ img {
   .jian {
     width: 25%;
     position: absolute;
-    top: 81%;
-    left: 26%;
-    z-index: 999;
+    top: 83%;
+    left: 29%;
+    z-index: 1000;
   }
   .iphoneX {
-    top: 70%;
-    left: 22%;
+    top: 72%;
+    left: 24%;
   }
   .mask {
     width: 100%;
@@ -558,14 +576,6 @@ img {
   }
   100% {
     transform: translate(-10px, -50%);
-  }
-}
-@keyframes yuan {
-  0% {
-    transform: translateY(5px);
-  }
-  100% {
-    transform: translateY(-5px);
   }
 }
 @keyframes scale {

@@ -1,12 +1,9 @@
 <template>
   <div 
-    id="warp" 
-    class="yanzhi-result">
-    <img 
-      :src="dfImg+'title.png'" 
-      class="title" 
-      data-v-content>
-    <div class="content">
+    :style="style.root"
+    :class="{content:true,iphoneX:iphoneX}">
+    <div 
+      class="main">
       <div class="circles"> 
         <img 
           :src="imgUrl+'gear1.png'" 
@@ -38,104 +35,88 @@
       </div>
       <img 
         id="mImg" 
-        :src="mImg" 
+        :src="photo" 
         class="money">
       <img 
-        :src="imgUrl+'frame.png'" 
+        :src="imgUrl+'frame1.png'" 
         class="imgframe">
     </div>
     <img 
-      v-show="press" 
-      :src="imgUrl+'press.png'" 
-      class="press">
-    <img 
-      :src="dfImg+'gift.png'" 
-      class="gift">
-    <img 
-      :src="dfImg+'logo.png'" 
+      :src="imgUrl+'logo.png'" 
       class="logo">
   </div>
 </template>
 <script>
-import { $wechat, getInfoById, wechatShareTrack, isInWechat } from 'services'
-const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/'
+import { $wechat, wechatShareTrack, isInWechat } from 'services'
+import { normalPages } from '../../mixins/normalPages'
+const BASE_URL = process.env.CDN_URL
 export default {
+  mixins: [normalPages],
   data() {
     return {
-      imgUrl: BASE_URL + 'image/yanzhi/content/',
-      dfImg: BASE_URL + 'image/dongfang/',
-      mImg: null,
-      press: false,
+      imgUrl: BASE_URL + '/fe/image/yanzhi/meilai/',
+      style: {
+        root: {
+          'min-height': this.$innerHeight() + 'px'
+        }
+      },
+      photo: null,
+      iphoneX: false,
       //微信分享
       wxShareInfoValue: {
-        title: '我在东方商厦颜值爆表啦',
-        desc: '东方商厦，礼好，你更好',
-        imgUrl: BASE_URL + 'image/dongfang/icon.jpg',
-        success: function() {
+        title: '刷“颜值”，赢好礼！与美莱一起美出新高度！ ',
+        desc: '美莱颜值礼遇，等你来参与！',
+        link: 'http://papi.xingstation.com/api/s/Jqo' + window.location.search,
+        imgUrl: BASE_URL + '/fe/image/yanzhi/meilai/icon.png',
+        success: () => {
           wechatShareTrack()
         }
       }
     }
   },
-  beforeCreate() {
-    document.title = '东方商厦'
-  },
   mounted() {
-    this.handleWechatShare()
-    let height =
-      window.innerHeight ||
-      document.documentElement.clientHeight ||
-      document.body.clientHeight
-    let warp = document.getElementById('warp')
-    warp.style.minHeight = height + 'px'
-    this.getInfoById()
-  },
-  methods: {
-    handleWechatShare() {
-      if (isInWechat() === true) {
-        $wechat()
-          .then(res => {
-            res.share(this.wxShareInfoValue)
-          })
-          .catch(err => {
-            console.warn(err.message)
-          })
-      } else {
-        console.warn('you r not in wechat environment')
-      }
-    },
-    getInfoById() {
-      let id = this.$route.query.id
-      getInfoById(id)
-        .then(res => {
-          this.mImg = res.image
-          this.press = true
-        })
-        .catch(err => {
-          console.log(err)
-        })
+    let height = this.$innerHeight()
+    if (height > 672) {
+      this.iphoneX = true
+    } else {
+      this.iphoneX = false
     }
-  }
+  },
+  methods: {}
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/yanzhi/';
-.yanzhi-result {
+@imgUrl: 'http://cdn.exe666.com/fe/image/yanzhi/meilai';
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  transform: translate3d(0, 0, 0);
+}
+* {
+  padding: 0;
+  margin: 0 auto;
+  text-align: center;
+}
+img {
+  max-width: 100%;
+  pointer-events: none;
+  user-select: none;
+}
+.content {
   width: 100%;
   text-align: center;
   margin: 0 auto;
   font-size: 0;
   position: relative;
-  background: url('@{imgUrl}index/back.jpg') center top/100% 100% no-repeat;
-
-  .title[data-v-content] {
-    width: 97%;
-    margin-top: 15px;
-  }
-  .content {
-    position: relative;
+  overflow-x: hidden;
+  background: url('@{imgUrl}/back.png') center center/100% 100% no-repeat;
+  .main {
     width: 100%;
-    margin-top: -10px;
+    position: relative;
+    overflow: hidden;
   }
   .circles {
     position: absolute;
@@ -148,95 +129,92 @@ export default {
   }
   .gear1 {
     width: 35.6%;
-    left: -13px;
-    margin-top: 23px;
+    left: -7px;
+    top: 2%;
     z-index: 0;
     animation: mycircle 12s infinite linear;
   }
   .gear2 {
     width: 22%;
-    left: 16%;
-    margin-top: 10.5%;
+    left: 17%;
+    top: 6.5%;
     z-index: 9;
     animation: myback 10s infinite linear;
   }
   .gear3 {
     width: 22%;
-    margin-top: 55.6%;
     left: 47%;
+    bottom: 9%;
     z-index: 0;
     animation: mycircle 8s infinite linear;
   }
   .gear4 {
     width: 32.9%;
     left: 61%;
-    margin-top: 51%;
+    bottom: 3.5%;
     animation: myback 10s infinite linear;
   }
   .gear5 {
     width: 17%;
-    left: -2.3%;
-    margin-top: 46.2%;
+    left: 0%;
+    bottom: 12%;
     animation: mycircle 5s infinite linear;
   }
   .gear6 {
     width: 11.2%;
-    left: 87%;
-    margin-top: 15%;
+    right: 0%;
+    top: 12%;
     z-index: 0;
     animation: myback 10s infinite linear alternate;
   }
   .gear7 {
     width: 17%;
     left: 80%;
-    margin-top: 55.4%;
+    bottom: 8%;
     animation: mycircle 6s infinite linear;
   }
   .gear8 {
     width: 10.9%;
     left: 36%;
-    margin-top: 10.8%;
+    top: 6.5%;
     z-index: 999;
     animation: mycircle 6s infinite linear;
   }
   .gear9 {
     width: 16%;
     left: 78%;
-    margin-top: 12.4%;
+    top: 6%;
     z-index: 0;
     animation: mycircle 10s infinite linear alternate;
   }
   .money {
     z-index: 99999;
-    width: 91%;
-    margin: 0 auto;
+    width: 87%;
     position: absolute;
     left: 0;
     right: 0;
-    top: 25.6%;
-    font-size: 20px;
+    top: 12.6%;
+    pointer-events: auto;
+    user-select: auto;
   }
   .imgframe {
-    margin: 20% auto;
-    width: 98%;
+    margin: 15% auto;
+    width: 100%;
     position: relative;
     z-index: 9999;
   }
-  .press {
-    width: 80%;
-    margin: -12% auto 0;
-    animation: updown 0.6s infinite linear alternate;
+  .logo {
+    width: 37%;
+    margin-top: -15%;
+    margin-bottom: 8%;
   }
-  .gift {
-    width: 100%;
-    margin: 0 auto;
-    margin-top: -15px;
+}
+.iphoneX {
+  .main {
+    margin-top: 10%;
   }
   .logo {
-    width: 35%;
-    margin: 0 auto;
-    margin-top: -9%;
-    margin-bottom: 10%;
+    margin-top: -10%;
   }
 }
 @keyframes mycircle {

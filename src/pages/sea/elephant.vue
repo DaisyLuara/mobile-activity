@@ -41,7 +41,7 @@
 <script>
 import { $wechat, wechatShareTrack } from 'services'
 import { normalPages } from '../../mixins/normalPages'
-const IMG_SERVER = 'http://p22vy0aug.bkt.clouddn.com'
+const IMG_SERVER = process.env.CDN_URL
 export default {
   mixins: [normalPages],
   data() {
@@ -59,8 +59,8 @@ export default {
         title: '微笑雨花',
         desc: 'Smile 一周年 ',
         link: 'http://papi.xingstation.com/api/s/QWl' + window.location.search,
-        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/elephant/icon.png',
-        success: function() {
+        imgUrl: 'http://cdn.exe666.com/image/elephant/icon.png',
+        success: () => {
           wechatShareTrack()
         }
       }
@@ -93,7 +93,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/elephant/';
+@imgUrl: 'http://cdn.exe666.com/image/elephant/';
 html,
 body {
   width: 100%;
@@ -122,12 +122,12 @@ img {
   background-size: 100% 100%;
   .els {
     width: 100%;
-    height: 100%;
+    height: 110%;
     position: absolute;
     top: 0%;
     left: 0%;
     z-index: 999;
-    overflow-x:hidden;
+    overflow: hidden;
     .left,
     .right {
       width: 83%;

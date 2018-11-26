@@ -6,7 +6,7 @@
       id="main"
       class="main">
       <img
-        :src="baseUrl + 'chick/meishi/bg.png'+this.$qiniuCompress()"
+        :src="baseUrl + 'meishi/bg.png'+this.$qiniuCompress()"
         class="bg">
       <span
         class="span">{{ score }}</span>
@@ -16,7 +16,7 @@
         class="box infinite tada delay-2s"
         @click="()=>{mask = true;meishi=false;}">
         <img 
-          :src="baseUrl + 'chick/meishi/rabbit.png'">
+          :src="baseUrl + 'meishi/rabbit.png'">
       </a>
     </div>
     <div 
@@ -31,10 +31,10 @@
             :src="baseUrl + 'chick/x.png'">
         </a>
         <img 
-          :src="baseUrl + 'chick/meishi/pop.png'" 
+          :src="baseUrl + 'meishi/pop.png'" 
           class="tips">
         <img 
-          :src="baseUrl + 'chick/meishi/rabbit.png'" 
+          :src="baseUrl + 'meishi/rabbit.png'" 
           :class="{animated:mask}"
           class="tu infinite tada delay-2s">
       </div>
@@ -45,7 +45,7 @@
 import { $wechat, wechatShareTrack } from 'services'
 import { onlyWechatShare } from '../../mixins/onlyWechatShare'
 import 'animate.css'
-const IMGURL = 'http://p22vy0aug.bkt.clouddn.com'
+const IMGURL = process.env.CDN_URL
 export default {
   mixins: [onlyWechatShare],
   data() {
@@ -64,7 +64,7 @@ export default {
         title: '美食PK',
         desc: '发光的美食，你见过吗',
         link: 'http://papi.xingstation.com/api/s/2kK' + window.location.search,
-        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/chick/meishi/share.png',
+        imgUrl: 'http://cdn.exe666.com/image/meishi/share.png',
         success: function() {
           wechatShareTrack()
         }
@@ -74,14 +74,13 @@ export default {
   mounted() {
     let that = this
     let bg = new Image()
-    bg.src = 'http://p22vy0aug.bkt.clouddn.com/image/chick/meishi/bg.png'
+    bg.src = this.baseUrl + 'meishi/bg.png'
     bg.onload = function() {
       let sheet1 = new Image()
-      sheet1.src = 'http://p22vy0aug.bkt.clouddn.com/image/chick/tinified.png'
+      sheet1.src = this.baseUrl + 'chick/tinified.png'
       sheet1.onload = function() {
         let sheet2 = new Image()
-        sheet2.src =
-          'http://p22vy0aug.bkt.clouddn.com/image/chick/meishi/win.png'
+        sheet2.src = this.baseUrl + 'meishi/win.png'
         sheet2.onload = function() {}
       }
     }
@@ -96,7 +95,7 @@ export default {
           transparent: true
         })
         document.getElementById('main').appendChild(app.view)
-        let base = 'http://p22vy0aug.bkt.clouddn.com/image/'
+        let base = 'http://cdn.exe666.com/image/'
         app.view.style.position = 'absolute'
         app.view.style.top = '11%'
         app.view.style.left = '50%'
@@ -107,7 +106,7 @@ export default {
         app.stop()
         PIXI.loader
           .add('chick', base + 'chick/tinified.json')
-          .add('rabbit', base + 'chick/meishi/win.json')
+          .add('rabbit', base + 'meishi/win.json')
           .load(setUp)
         function setUp() {
           let chicken = [],
@@ -127,13 +126,13 @@ export default {
           animal1.x = app.screen.width * 0.05
           animal1.y = 0
           animal1.width = app.screen.width / 2
-          animal1.height = animal1.width / 304 * 581
+          animal1.height = (animal1.width / 304) * 581
           animal1.gotoAndPlay(0)
           animal1.animationSpeed = 0.2
           animal2.x = app.screen.width * 0.51
           animal2.y = app.screen.height * 0.29
           animal2.width = app.screen.width * 0.38
-          animal2.height = animal2.width / 226 * 372
+          animal2.height = (animal2.width / 226) * 372
           animal2.gotoAndPlay(0)
           app.stage.addChild(animal1)
           app.stage.addChild(animal2)
@@ -146,7 +145,6 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/chick/';
 html,
 body {
   width: 100%;

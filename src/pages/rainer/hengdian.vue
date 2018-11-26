@@ -11,10 +11,11 @@
         :src="photo + this.$qiniuCompress()"
         class="photo">
       <a 
-        class="alink"
-        @click="myToBuy">
+        href="http://papi.xingstation.com/api/s/yrW"
+        class="alink">
+        <!-- @click="myToBuy"
         <img
-          :src="base + btn + this.$qiniuCompress()">
+          :src="base + btn + this.$qiniuCompress()"> -->
       </a>
     </div>
     <img
@@ -70,9 +71,21 @@ export default {
     } else {
       this.iphoneX = false
     }
-    this.setAnim()
+    // this.btnOnLoad()
   },
   methods: {
+    btnOnLoad() {
+      let btn1 = new Image()
+      btn1.src = this.base + 'hengdian/btn1.png'
+      let btn2 = new Image()
+      btn2.src = this.base + 'hengdian/btn2.png'
+      let that = this
+      btn1.onload = function() {
+        btn2.onload = function() {
+          that.setAnim()
+        }
+      }
+    },
     setAnim() {
       if (this.count % 10 == 0) {
         this.btn =
@@ -88,14 +101,15 @@ export default {
       }
     },
     myToBuy() {
-      cancelAnimationFrame(this.timer)
-      this.btn = 'hengdian/press.png'
+      // cancelAnimationFrame(this.timer)
+      // this.btn = 'hengdian/press.png'
       window.location.href = 'http://papi.xingstation.com/api/s/yrW'
     }
   }
 }
 </script>
 <style lang="less" scoped>
+@base: 'http://cdn.exe666.com/fe/image/hengdian/';
 html,
 body {
   width: 100%;
@@ -142,11 +156,20 @@ img {
       z-index: 999;
     }
     .alink {
-      width: 45%;
+      width: 45vw;
+      height: 45vw;
       position: absolute;
       bottom: -9%;
       right: -4%;
       z-index: 9999;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 100% auto;
+      animation: myShake 2s linear infinite;
+      &:active {
+        background-image: url('@{base}press.png');
+        animation: none;
+      }
     }
   }
   .note {
@@ -174,6 +197,17 @@ img {
 .iphoneX {
   .picture {
     margin-top: 12%;
+  }
+}
+@keyframes myShake {
+  0% {
+    background-image: url('@{base}btn1.png');
+  }
+  50% {
+    background-image: url('@{base}btn2.png');
+  }
+  100% {
+    background-image: url('@{base}btn1.png');
   }
 }
 </style>

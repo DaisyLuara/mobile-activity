@@ -26,7 +26,7 @@ import {
   getGame
 } from 'services'
 import { normalPages } from '../../mixins/normalPages'
-const IMGSERVER = 'http://p22vy0aug.bkt.clouddn.com/image/'
+const IMGSERVER = process.env.CDN_URL + '/image/'
 export default {
   mixins: [normalPages],
   data() {
@@ -47,7 +47,7 @@ export default {
         title: '狗狗大作战',
         desc: '指挥你的狗狗PK，进击王者不是梦！',
         link: 'http://papi.xingstation.com/api/s/OYp' + window.location.search,
-        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/pandp/pk/share.jpg',
+        imgUrl: 'http://cdn.exe666.com/image/pandp/pk/share.jpg',
         success: function() {
           wechatShareTrack()
         }
@@ -137,15 +137,13 @@ export default {
             cover.width * 0.4,
             cover.height * 0.02,
             cover.width * 0.2,
-            cover.width * 0.2 / cphoto.width * cphoto.height
+            ((cover.width * 0.2) / cphoto.width) * cphoto.height
           )
           ctx.drawImage(cover, 0, 0)
           that.img = canvas.toDataURL('image/png')
         }
         cover.src =
-          'http://p22vy0aug.bkt.clouddn.com/image/pandp/pk/star' +
-          that.star +
-          '.png'
+          'http://cdn.exe666.com/image/pandp/pk/star' + that.star + '.png'
       }
       cphoto.src = this.photo
     }

@@ -63,15 +63,14 @@ import {
   $wechat,
   wechatShareTrack
 } from 'services'
-
 import { normalPages } from '../../mixins/normalPages'
-const IMGSERVER = 'http://p22vy0aug.bkt.clouddn.com/'
+const IMGSERVER = process.env.CDN_URL
 export default {
   mixins: [normalPages],
   data() {
     return {
-      origin: IMGSERVER + 'image/yanzhi/pk/',
-      base: IMGSERVER + 'image/pk/common/',
+      origin: IMGSERVER + '/image/yanzhi/pk/',
+      base: IMGSERVER + '/image/yanzhi/pk/common/',
       style: {
         root: {
           'min-height': this.$innerHeight() + 'px'
@@ -94,7 +93,7 @@ export default {
         title: 'Mirror魔镜PK擂台等你来战',
         desc: 'Mirror魔镜PK擂台等你来战',
         link: 'http://papi.xingstation.com/api/s/lO5' + window.location.search,
-        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/pk/common/share.png',
+        imgUrl: 'http://cdn.exe666.com/image/pk/common/share.png',
         success: function() {
           wechatShareTrack()
         }
@@ -166,22 +165,19 @@ export default {
           console.log(e)
         })
       let oid = this.$route.query.utm_source
-      this.$http
-        .post(
-          'http://exelook.com:8010/pushdiv/?oid=' +
-            oid +
-            '&belong=' +
-            this.utmCampaign +
-            '&url=&name=&image=&api=json'
-        )
-        .then(res => {})
-        .catch(err => {})
+      this.$http.post(
+        'http://exelook.com:8010/pushdiv/?oid=' +
+          oid +
+          '&belong=' +
+          this.utmCampaign +
+          '&url=&name=&image=&api=json'
+      )
     }
   }
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/pk/common/';
+@imgUrl: 'http://cdn.exe666.com/image/yanzhi/pk/common/';
 html,
 body {
   width: 100%;

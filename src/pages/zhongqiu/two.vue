@@ -129,7 +129,7 @@ import {
   setParameter
 } from 'services'
 import { normalPages } from '../../mixins/normalPages'
-const IMG_SERVER = 'http://p22vy0aug.bkt.clouddn.com'
+const IMG_SERVER = process.env.CDN_URL
 export default {
   mixins: [normalPages],
   data() {
@@ -172,7 +172,7 @@ export default {
         title: '中秋快乐',
         desc: '采购中秋月饼,送吃送祝福',
         link: 'http://papi.xingstation.com/api/s/Z6J' + window.location.search,
-        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/zhongqiu/2/share.png',
+        imgUrl: 'http://cdn.exe666.com/image/zhongqiu/2/share.png',
         success: function() {
           wechatShareTrack()
         }
@@ -399,15 +399,15 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@base: 'http://p22vy0aug.bkt.clouddn.com/image/zhongqiu/2/';
+@base: 'http://cdn.exe666.com/image/zhongqiu/2/';
 /*声明 WebFont*/
 @font-face {
   font-family: 'huakang';
-  src: url('http://p22vy0aug.bkt.clouddn.com/image/zhongqiu/font/huakang.ttf');
-  src: url('http://p22vy0aug.bkt.clouddn.com/image/zhongqiu/font/huakang.eot'),
-    url('http://p22vy0aug.bkt.clouddn.com/image/zhongqiu/font/huakang.woff'),
-    url('http://p22vy0aug.bkt.clouddn.com/image/zhongqiu/font/huakang.ttf'),
-    url('http://p22vy0aug.bkt.clouddn.com/image/zhongqiu/font/huakang.svg');
+  src: url('http://cdn.exe666.com/image/zhongqiu/font/huakang.ttf');
+  src: url('http://cdn.exe666.com/image/zhongqiu/font/huakang.eot'),
+    url('http://cdn.exe666.com/image/zhongqiu/font/huakang.woff'),
+    url('http://cdn.exe666.com/image/zhongqiu/font/huakang.ttf'),
+    url('http://cdn.exe666.com/image/zhongqiu/font/huakang.svg');
   font-weight: normal;
   font-style: normal;
 }

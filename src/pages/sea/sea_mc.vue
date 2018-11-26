@@ -1,18 +1,18 @@
 <template>
   <div 
-    :class="{content:true,addbg:addbg}" 
+    :class="{content:true,addbg:Boolean(photo)}" 
     :style="style.root">
     <div class="one">
       <img 
-        :src="mImg" 
+        :src="photo" 
         class="mImg">
       <img 
-        v-show="second" 
+        v-show="Boolean(photo)" 
         :src="baseUrl + 'save.png'" 
         class="save">
     </div>
     <div 
-      v-show="second" 
+      v-show="Boolean(photo)" 
       class="two">
       <img 
         :src="baseUrl + 'titte.png'" 
@@ -36,19 +36,19 @@
 </template>
 <script>
 import { $wechat, getInfoById, wechatShareTrack } from 'services'
-const IMGURL = 'http://p22vy0aug.bkt.clouddn.com/image/'
+import { normalPages } from '../../mixins/normalPages'
+const IMGURL = process.env.CDN_URL + '/image/'
 export default {
+  mixins: [normalPages],
   data() {
     return {
-      baseUrl: IMGURL + 'sea/page2/',
+      baseUrl: IMGURL + 'sea/',
       style: {
         root: {
           'min-height': this.$innerHeight() + 'px'
         }
       },
-      mImg: null,
-      second: false,
-      addbg: false,
+      photo: null,
       tabs: {
         a: true,
         b: false,
@@ -56,48 +56,19 @@ export default {
         d: false
       },
       //微信分享
-      wxShareInfo: {
+      wxShareInfoValue: {
         title: '来自海洋的问候',
         desc: '更多海洋知识小课堂',
         link: 'http://papi.xingstation.com/api/s/0v' + window.location.search,
-        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/sea/share.jpg',
-        success: function() {
+        imgUrl: 'http://cdn.exe666.com/image/sea/share.jpg',
+        success: () => {
           wechatShareTrack()
         }
       }
     }
   },
-  mounted() {
-    this.getInfoById()
-    this.wechatShare()
-  },
+  mounted() {},
   methods: {
-    wechatShare() {
-      $wechat()
-        .then(res => {
-          res.share(this.wxShareInfo)
-        })
-        .catch(_ => {
-          console.warn(_.message)
-        })
-    },
-    getInfoById() {
-      let id = this.$route.query.id
-      getInfoById(id)
-        .then(res => {
-          this.mImg = res.image
-          let img = new Image()
-          let that = this
-          img.src = this.mImg
-          img.onload = function() {
-            that.addbg = true
-            that.second = true
-          }
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    },
     tabClick(item) {
       Object.keys(this.tabs).forEach(element => {
         this.tabs[element] = false
@@ -108,7 +79,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/sea/page2/';
+@imgUrl: 'http://cdn.exe666.com/image/sea/';
 html,
 body {
   width: 100%;

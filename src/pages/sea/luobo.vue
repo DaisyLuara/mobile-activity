@@ -36,7 +36,7 @@
 import { $wechat, wechatShareTrack } from 'services'
 import { onlyWechatShare } from '../../mixins/onlyWechatShare'
 import 'animate.css'
-const IMGSERVER = 'http://p22vy0aug.bkt.clouddn.com/image/'
+const IMGSERVER = process.env.CDN_URL + '/image/'
 export default {
   mixins: [onlyWechatShare],
   data() {
@@ -47,13 +47,13 @@ export default {
         }
       },
       num: Math.random() > 0.5 ? 1 : 2,
-      base: IMGSERVER + 'rabbit/luobo/',
+      base: IMGSERVER + 'luobo/',
       //微信分享
       wxShareInfoValue: {
         title: '萝卜sos',
         desc: '不要一直吸我~',
         link: 'http://papi.xingstation.com/api/s/Nk6' + window.location.search,
-        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/rabbit/luobo/share.png',
+        imgUrl: 'http://cdn.exe666.com/image/luobo/share.png',
         success: function() {
           wechatShareTrack()
         }
@@ -68,8 +68,7 @@ export default {
     playAnim() {
       import('pixi.js').then(PIXI => {
         import('pixi-spine').then(Spine => {
-          let base =
-            'http://p22vy0aug.bkt.clouddn.com/image/rabbit/luobo/assets/'
+          let base = 'http://cdn.exe666.com/image/luobo/assets/'
           let app = new PIXI.Application({
             width: window.innerWidth,
             height: window.innerHeight,
@@ -99,8 +98,8 @@ export default {
             animal.position.set(-localRect.x, -localRect.y)
 
             var scale = Math.min(
-              app.screen.width * 0.8 / animalCage.width,
-              app.screen.height * 0.8 / animalCage.height
+              (app.screen.width * 0.8) / animalCage.width,
+              (app.screen.height * 0.8) / animalCage.height
             )
             animalCage.scale.set(scale, scale)
             animalCage.position.set(
@@ -122,7 +121,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/rabbit/luobo/';
+@imgUrl: 'http://cdn.exe666.com/image/luobo/';
 html,
 body {
   width: 100%;
