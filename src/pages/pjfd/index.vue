@@ -74,10 +74,10 @@ export default {
     },
     async getPhotoByRouteQueryId() {
       let id = this.$route.query.id
-      let { code } = await getInfoById(id).catch(err => {
+      let { image } = await getInfoById(id).catch(err => {
         console.warn(err.message)
       })
-      this.photo = code
+      this.photo = image
     }
   }
 }
