@@ -80,10 +80,10 @@ import {
   userGame,
   getSceneData
 } from 'services'
-import { normalPages } from '../../mixins/normalPages'
+import { onlyGetPhoto } from '../../mixins/onlyGetPhoto'
 const CDNURL = process.env.CDN_URL
 export default {
-  mixins: [normalPages],
+  mixins: [onlyGetPhoto],
   data() {
     return {
       style: {
@@ -115,24 +115,20 @@ export default {
         m78: null,
         nmk: null,
         wk: null
-      },
-      //微信分享
-      wxShareInfoValue: {
-        title: '来自星星的你',
-        desc: '来自星星的你',
-        link: 'http://papi.xingstation.com/api/s/G50' + window.location.search,
-        imgUrl: CDNURL + 'icon.png',
-        success: () => {
-          wechatShareTrack()
-        }
       }
+      //微信分享
+      // wxShareInfoValue: {
+      //   title: '来自星星的你',
+      //   desc: '来自星星的你',
+      //   link: 'http://papi.xingstation.com/api/s/G50' + window.location.search,
+      //   imgUrl: CDNURL + 'icon.png',
+      //   success: () => {
+      //     wechatShareTrack()
+      //   }
+      // }
     }
   },
   mounted() {
-    // let star = this.all[this.scene - 1]
-    // this.mask = true
-    // this.cards[star] = this.photo || true
-    // this.stars.push(star)
     //微信授权
     if (isInWechat() === true) {
       if (
@@ -142,6 +138,7 @@ export default {
         this.handleWechatAuth()
       }
     }
+    this.handleForbiddenShare()
   },
   methods: {
     //微信静默授权
@@ -170,6 +167,16 @@ export default {
         this.stars.push(star)
         this.userGame()
       }
+    },
+    //禁止微信分享
+    handleForbiddenShare() {
+      $wechat()
+        .then(res => {
+          res.forbidden()
+        })
+        .catch(_ => {
+          console.warn(_.message)
+        })
     },
     userGame() {
       let args = {
