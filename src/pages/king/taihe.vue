@@ -7,7 +7,7 @@
       :src="couponImg+ this.$qiniuCompress()"
       :class="{'x-couponImg':iphoneX,'couponImg':!iphoneX}"
       class="couponImg">
-      <!-- <img 
+    <!-- <img 
       :src="baseUrl + 'y_0.5.png'+ this.$qiniuCompress()"
       :class="{'x-couponImg':iphoneX,'couponImg':!iphoneX}"
       class="couponImg">  -->

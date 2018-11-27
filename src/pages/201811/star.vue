@@ -23,7 +23,8 @@
           @click="()=>{ hint = 'hint22' ; }"
         >
           <img
-            :src="base + item + '0.png'">
+            :src="base + item + '0.png'"
+            @error="noFind">
         </a>
         <!-- 亮的星星 -->
         <a
@@ -33,7 +34,8 @@
           @click="()=>{ mask = true ; cards[item] = true; }"
         >
           <img
-            :src="base + item + '0.png'">
+            :src="base + item + '0.png'"
+            @error="noFind">
         </a>
       </div>
       <!--蒙版 与卡片  -->
@@ -116,16 +118,6 @@ export default {
         nmk: null,
         wk: null
       }
-      //微信分享
-      // wxShareInfoValue: {
-      //   title: '来自星星的你',
-      //   desc: '来自星星的你',
-      //   link: 'http://papi.xingstation.com/api/s/G50' + window.location.search,
-      //   imgUrl: CDNURL + 'icon.png',
-      //   success: () => {
-      //     wechatShareTrack()
-      //   }
-      // }
     }
   },
   mounted() {
@@ -167,6 +159,10 @@ export default {
         this.stars.push(star)
         this.userGame()
       }
+    },
+    noFind(obj) {
+      obj.target.style.display = 'none'
+      obj.target.style.border = 'none'
     },
     //禁止微信分享
     handleForbiddenShare() {
@@ -215,38 +211,12 @@ export default {
       console.log(list)
       // 调用接口，将获取的星星存入stars数组里
       data.map(r => {
-        // // 1，潘多拉
-        // if (r.scene === 'pdl') {
-        //   that.stars.push('pdl')
-        //   that.cards_img['pdl'] = r.image_url
-        // }
-        // // 2，阿斯加德
-        // if (r.scene === 'asgd') {
-        //   that.stars.push('asgd')
-        //   that.cards_img['asgd'] = r.image_url
-        // }
-        // // 3，克星
-        // if (r.scene === 'kx') {
-        //   that.stars.push('kx')
-        //   that.cards_img['kx'] = r.image_url
-        // }
-        // // 4，m78
-        // if (r.scene === 'm78') {
-        //   that.stars.push('m78')
-        //   that.cards_img['m78'] = r.image_url
-        // }
-        // // 5，娜美克
-        // if (r.scene === 'nmk') {
-        //   that.stars.push('nmk')
-        //   that.cards_img['nmk'] = r.image_url
-        // }
-        // //6，瓦肯
-        // if (r.scene === 'wk') {
-        //   that.stars.push('wk')
-        //   that.cards_img['wk'] = r.image_url
-        // }
-        that.stars.push(r.scene)
-        that.cards_img[r.scene] = r.image_url
+        r.scene
+          ? that.stars.push(r.scene) &&
+            (that.cards_img[r.scene] = that.cards_img[r.scene]
+              ? that.cards_img[r.scene]
+              : r.image_url)
+          : null
       })
     }
   }
@@ -274,6 +244,12 @@ img {
   max-width: 100%;
   pointer-events: none;
   user-select: none;
+}
+img[src=''],
+img:not([src]) {
+  opacity: 0;
+  display: none;
+  border: none;
 }
 .content {
   width: 100%;
@@ -306,6 +282,9 @@ img {
       a {
         position: absolute;
         z-index: 99;
+        img {
+          border: none;
+        }
       }
       .pdl {
         width: 24%;
