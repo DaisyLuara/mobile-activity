@@ -23,7 +23,8 @@
           @click="()=>{ hint = 'hint22' ; }"
         >
           <img
-            :src="base + item + '0.png'">
+            :src="base + item + '0.png'"
+            @error="noFind">
         </a>
         <!-- 亮的星星 -->
         <a
@@ -33,7 +34,8 @@
           @click="()=>{ mask = true ; cards[item] = true; }"
         >
           <img
-            :src="base + item + '0.png'">
+            :src="base + item + '0.png'"
+            @error="noFind">
         </a>
       </div>
       <!--蒙版 与卡片  -->
@@ -158,6 +160,10 @@ export default {
         this.userGame()
       }
     },
+    noFind(obj) {
+      obj.target.style.display = 'none'
+      obj.target.style.border = 'none'
+    },
     //禁止微信分享
     handleForbiddenShare() {
       $wechat()
@@ -205,10 +211,12 @@ export default {
       console.log(list)
       // 调用接口，将获取的星星存入stars数组里
       data.map(r => {
-        that.stars.push(r.scene)
-        that.cards_img[r.scene] = that.cards_img[r.scene]
-          ? that.cards_img[r.scene]
-          : r.image_url
+        r.scene
+          ? that.stars.push(r.scene) &&
+            (that.cards_img[r.scene] = that.cards_img[r.scene]
+              ? that.cards_img[r.scene]
+              : r.image_url)
+          : null
       })
     }
   }
@@ -236,6 +244,12 @@ img {
   max-width: 100%;
   pointer-events: none;
   user-select: none;
+}
+img[src=''],
+img:not([src]) {
+  opacity: 0;
+  display: none;
+  border: none;
 }
 .content {
   width: 100%;
@@ -268,6 +282,9 @@ img {
       a {
         position: absolute;
         z-index: 99;
+        img {
+          border: none;
+        }
       }
       .pdl {
         width: 24%;
