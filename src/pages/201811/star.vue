@@ -208,36 +208,38 @@ export default {
       console.log(list)
       // 调用接口，将获取的星星存入stars数组里
       data.map(r => {
-        // 1，潘多拉
-        if (r.scene === 'pdl') {
-          that.stars.push('pdl')
-          that.cards_img['pdl'] = r.image_url
-        }
-        // 2，阿斯加德
-        if (r.scene === 'asgd') {
-          that.stars.push('asgd')
-          that.cards_img['asgd'] = r.image_url
-        }
-        // 3，克星
-        if (r.scene === 'kx') {
-          that.stars.push('kx')
-          that.cards_img['kx'] = r.image_url
-        }
-        // 4，m78
-        if (r.scene === 'm78') {
-          that.stars.push('m78')
-          that.cards_img['m78'] = r.image_url
-        }
-        // 5，娜美克
-        if (r.scene === 'nmk') {
-          that.stars.push('nmk')
-          that.cards_img['nmk'] = r.image_url
-        }
-        //6，瓦肯
-        if (r.scene === 'wk') {
-          that.stars.push('wk')
-          that.cards_img['wk'] = r.image_url
-        }
+        // // 1，潘多拉
+        // if (r.scene === 'pdl') {
+        //   that.stars.push('pdl')
+        //   that.cards_img['pdl'] = r.image_url
+        // }
+        // // 2，阿斯加德
+        // if (r.scene === 'asgd') {
+        //   that.stars.push('asgd')
+        //   that.cards_img['asgd'] = r.image_url
+        // }
+        // // 3，克星
+        // if (r.scene === 'kx') {
+        //   that.stars.push('kx')
+        //   that.cards_img['kx'] = r.image_url
+        // }
+        // // 4，m78
+        // if (r.scene === 'm78') {
+        //   that.stars.push('m78')
+        //   that.cards_img['m78'] = r.image_url
+        // }
+        // // 5，娜美克
+        // if (r.scene === 'nmk') {
+        //   that.stars.push('nmk')
+        //   that.cards_img['nmk'] = r.image_url
+        // }
+        // //6，瓦肯
+        // if (r.scene === 'wk') {
+        //   that.stars.push('wk')
+        //   that.cards_img['wk'] = r.image_url
+        // }
+        that.stars.push(r.scene)
+        that.cards_img[r.scene] = r.image_url
       })
     }
   }
