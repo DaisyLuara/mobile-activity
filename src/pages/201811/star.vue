@@ -205,10 +205,12 @@ export default {
       console.log(list)
       // 调用接口，将获取的星星存入stars数组里
       data.map(r => {
-        that.stars.push(r.scene)
-        that.cards_img[r.scene] = that.cards_img[r.scene]
-          ? that.cards_img[r.scene]
-          : r.image_url
+        r.scene
+          ? that.stars.push(r.scene) &&
+            (that.cards_img[r.scene] = that.cards_img[r.scene]
+              ? that.cards_img[r.scene]
+              : r.image_url)
+          : null
       })
     }
   }
@@ -236,6 +238,12 @@ img {
   max-width: 100%;
   pointer-events: none;
   user-select: none;
+}
+img[src=''],
+img:not([src]) {
+  opacity: 0;
+  display: none;
+  border: none;
 }
 .content {
   width: 100%;
@@ -268,6 +276,9 @@ img {
       a {
         position: absolute;
         z-index: 99;
+        img {
+          border: none;
+        }
       }
       .pdl {
         width: 24%;
