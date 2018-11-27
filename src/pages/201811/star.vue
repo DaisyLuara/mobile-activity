@@ -139,6 +139,7 @@ export default {
       }
     }
     this.handleForbiddenShare()
+    console.log(this.all[this.scene - 1])
   },
   methods: {
     //微信静默授权
@@ -241,12 +242,15 @@ export default {
         //   that.cards_img['nmk'] = r.image_url
         // }
         // //6，瓦肯
+
         // if (r.scene === 'wk') {
         //   that.stars.push('wk')
         //   that.cards_img['wk'] = r.image_url
         // }
         that.stars.push(r.scene)
-        that.cards_img[r.scene] = r.image_url
+        that.cards_img[r.scene] = that.cards_img[r.scene]
+          ? that.cards_img[r.scene]
+          : r.image_url
       })
     }
   }
