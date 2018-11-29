@@ -5,32 +5,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1,user-scalable=no, viewport-fit=cover">
 
-  <title>加载中...</title>
-  <script>
-    var _paq = _paq || []; //piwik
-  </script>
-  <% if (htmlWebpackPlugin.options.env.NODE_ENV === '"production"') { %>
+  <title>
+    加载中...
+  </title>
+  <% if (htmlWebpackPlugin.options.env.NODE_ENV === "'production'") { %>
   <script>
     //Piwik
     (function () {
-      /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-      _paq.push(['trackPageView']);
-      _paq.push(['enableLinkTracking']);
-      (function () {
-        var u = "//track.xingstation.com/";
-        var cdnhost = "//h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/js/"
-        _paq.push(['setTrackerUrl', u + 'piwik.php']);
-        _paq.push(['setSiteId', '1']);
-        _paq.push(["setCookieDomain", "*.xingstation.com"]);
-        var d = document,
-          g = d.createElement('script'),
-          s = d.getElementsByTagName('script')[0];
-        g.type = 'text/javascript';
-        g.async = true;
-        g.defer = true;
-        g.src = cdnhost + 'piwik.js';
-        s.parentNode.insertBefore(g, s);
-      })();
       // GrowingIO 统计
       !function (e, t, n, g, i) { e[i] = e[i] || function () { (e[i].q = e[i].q || []).push(arguments) }, n = t.createElement("script"), tag = t.getElementsByTagName("script")[0], n.async = 1, n.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + g, tag.parentNode.insertBefore(n, tag) }(window, document, "script", "h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/js/gio.js", "gio");
       gio('init', '8fcd22590e2dd3e3', {});
@@ -40,30 +21,8 @@
 
     })();
   </script>
-  <% } else if (htmlWebpackPlugin.options.env.NODE_ENV === '"test"') { %>
-  <script>
-    //Piwik
-    (function () {
-      /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-      _paq.push(['trackPageView']);
-      _paq.push(['enableLinkTracking']);
-      (function () {
-        var u = "//track.newgls.cn/";
-        var cdnhost = "//h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/js/"
-        _paq.push(['setTrackerUrl', u + 'piwik.php']);
-        _paq.push(['setSiteId', '4']);
-        var d = document,
-          g = d.createElement('script'),
-          s = d.getElementsByTagName('script')[0];
-        g.type = 'text/javascript';
-        g.async = true;
-        g.defer = true;
-        g.src = cdnhost + 'piwik.js';
-        s.parentNode.insertBefore(g, s);
-      })();
-    })();
-  </script>
   <% } %>
+
 
 </head>
 
