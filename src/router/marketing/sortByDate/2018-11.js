@@ -174,6 +174,17 @@ const Date201811 = [
       desc: '幻境'
     },
     isAbandoned: false
+  },
+  {
+    path: 'ceshi_sn',
+    location: '201811/ceshi',
+    name: 'ceshi_sn',
+    meta: {
+      title: '测试苏宁优惠券跳转',
+      author: 'xj1012',
+      desc: '测试苏宁优惠券跳转'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201811
