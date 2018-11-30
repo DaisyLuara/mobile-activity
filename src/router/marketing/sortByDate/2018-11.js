@@ -196,6 +196,17 @@ const Date201811 = [
       desc: '圣诞掷骰子'
     },
     isAbandoned: false
+  },
+  {
+    path: 'drc_creditsExchange',
+    location: '201811/creditsExchange',
+    name: 'drc_creditsExchange',
+    meta: {
+      title: 'VIP专属福利',
+      author: 'xj1012',
+      desc: '嘉定大融城-积分兑换'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201811
