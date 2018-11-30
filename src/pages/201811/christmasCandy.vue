@@ -1,6 +1,19 @@
 <template>
-  <div :style="style.root" class="root">
-    <img :src="baseUrl + 'bg.png'+ this.$qiniuCompress()" class="bg">
+  <div 
+    :style="style.root" 
+    class="root">
+    <img 
+      :src="baseUrl + 'bg.png'+ this.$qiniuCompress()" 
+      class="bg">
+    <div class="top">
+      <img 
+        :src="baseUrl + 'kuang.png'+ this.$qiniuCompress()" 
+        class="kuang">
+      <img 
+        v-if="photo !== null" 
+        :src="photo + this.$qiniuCompress()" 
+        class="photo">
+    </div>
   </div>
 </template>
 <script>
@@ -65,6 +78,27 @@ img {
   width: 100%;
   text-align: center;
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
+  .bg {
+    width: 100%;
+  }
+  .top {
+    width: 100%;
+    position: relative;
+    .kuang {
+      width: 75%;
+      position: absolute;
+      left: 50%;
+      top: 0%;
+      transform: translate(-50%, 0%);
+    }
+    .photo {
+      width: 70.5%;
+      position: absolute;
+      left: 50%;
+      top: 0%;
+      transform: translate(-50%, -0%);
+    }
+  }
 }
 </style>
