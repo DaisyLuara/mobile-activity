@@ -174,6 +174,17 @@ const Date201811 = [
       desc: '幻境'
     },
     isAbandoned: false
+  },
+  {
+    path: 'christmas_candy',
+    location: '201811/christmasCandy',
+    name: 'christmas_candy',
+    meta: {
+      title: '圣诞糖果',
+      author: 'xj1012',
+      desc: '圣诞糖果'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201811
