@@ -185,6 +185,17 @@ const Date201811 = [
       desc: '圣诞糖果'
     },
     isAbandoned: false
+  },
+  {
+    path: 'christmas_throw',
+    location: '201811/christmasThrow',
+    name: 'christmas_throw',
+    meta: {
+      title: '圣诞掷骰子',
+      author: 'xj1012',
+      desc: '圣诞掷骰子'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201811

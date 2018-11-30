@@ -1,29 +1,36 @@
 <template>
-  <div 
-    :style="style.root" 
-    class="root">
-    <img 
-      :src="baseUrl + 'bg.png'+ this.$qiniuCompress()" 
-      class="bg">
-    <div 
-      :class="{'x-top':iphoneX,'top':!iphoneX}" 
-      class="top">
-      <img 
-        :src="baseUrl + 'kuang.png'+ this.$qiniuCompress()" 
-        class="kuang">
-      <img 
-        v-if="photo !== null" 
-        :src="photo + this.$qiniuCompress()" 
-        class="photo">
-      <img 
-        :src="baseUrl + 'save.png'+ this.$qiniuCompress()" 
-        class="save">
+  <div
+    :style="style.root"
+    class="root"
+  >
+    <img
+      :src="baseUrl + 'bg.png'+ this.$qiniuCompress()"
+      class="bg"
+    >
+    <div
+      :class="{'x-top':iphoneX,'top':!iphoneX}"
+      class="top"
+    >
+      <img
+        :src="baseUrl + 'kuang.png'+ this.$qiniuCompress()"
+        class="kuang"
+      >
+      <img
+        v-if="photo !== null"
+        :src="photo + this.$qiniuCompress()"
+        class="photo"
+      >
+      <img
+        :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
+        class="save"
+      >
     </div>
     <div class="bottom">
-      <img 
-        :src="baseUrl + 'coupon.png'+ this.$qiniuCompress()" 
-        class="coupon" 
-        @click="go()">
+      <img
+        :src="baseUrl + 'coupon.png'+ this.$qiniuCompress()"
+        class="coupon"
+        @click="go()"
+      >
     </div>
   </div>
 </template>
@@ -46,7 +53,7 @@ export default {
       wxShareInfoValue: {
         title: "圣诞糖果屋",
         desc: "欢乐尽享甜蜜梦幻的圣诞狂欢!",
-        link: "http://papi.xingstation.com/api/s/N9z" + window.location.search,
+        link: "http://papi.xingstation.com/api/s/VP1" + window.location.search,
         imgUrl: cdnUrl + "/fe/marketing/img/christmas_candy/icon.png",
         success: () => {
           wechatShareTrack();
