@@ -5,7 +5,9 @@
     <img 
       :src="baseUrl + 'bg.png'+ this.$qiniuCompress()" 
       class="bg">
-    <div class="top">
+    <div 
+      :class="{'x-top':iphoneX,'top':!iphoneX}" 
+      class="top">
       <img 
         :src="baseUrl + 'kuang.png'+ this.$qiniuCompress()" 
         class="kuang">
@@ -13,6 +15,15 @@
         v-if="photo !== null" 
         :src="photo + this.$qiniuCompress()" 
         class="photo">
+      <img 
+        :src="baseUrl + 'save.png'+ this.$qiniuCompress()" 
+        class="save">
+    </div>
+    <div class="bottom">
+      <img 
+        :src="baseUrl + 'coupon.png'+ this.$qiniuCompress()" 
+        class="coupon" 
+        @click="go()">
     </div>
   </div>
 </template>
@@ -33,8 +44,8 @@ export default {
       photo: null,
       iphoneX: false,
       wxShareInfoValue: {
-        title: "惊喜~看看和我合照的是谁？",
-        desc: "快来商场和神秘人物合拍圣诞照片~",
+        title: "圣诞糖果屋",
+        desc: "欢乐尽享甜蜜梦幻的圣诞狂欢!",
         link: "http://papi.xingstation.com/api/s/N9z" + window.location.search,
         imgUrl: cdnUrl + "/fe/marketing/img/christmas_candy/icon.png",
         success: () => {
@@ -48,6 +59,11 @@ export default {
       this.iphoneX = true;
     } else {
       this.iphoneX = false;
+    }
+  },
+  methods: {
+    go() {
+      console.log("111111");
     }
   }
 };
@@ -81,10 +97,17 @@ img {
   overflow-x: hidden;
   .bg {
     width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
   }
   .top {
     width: 100%;
+    height: 90%;
     position: relative;
+    margin-top: 8%;
+    pointer-events: none;
+    user-select: none;
     .kuang {
       width: 75%;
       position: absolute;
@@ -98,6 +121,35 @@ img {
       left: 50%;
       top: 0%;
       transform: translate(-50%, -0%);
+      margin-top: 2.5%;
+      user-select: auto;
+      pointer-events: auto;
+    }
+    .save {
+      width: 45%;
+      position: absolute;
+      left: 50%;
+      bottom: -1.5%;
+      transform: translate(-50%, -0%);
+    }
+  }
+  .x-top {
+    height: 75%;
+  }
+  .bottom {
+    width: 100%;
+    position: relative;
+    margin-top: 24%;
+    pointer-events: none;
+    user-select: none;
+    .coupon {
+      width: 70%;
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translate(-50%, -50%);
+      user-select: auto;
+      pointer-events: auto;
     }
   }
 }
