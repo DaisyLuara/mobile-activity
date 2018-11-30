@@ -3,17 +3,10 @@
     :style="style.root"
     class="root"
   >
-    <img
-      :src="baseUrl + 'bg.png'+ this.$qiniuCompress()"
-      class="bg"
-    >
-    <div
-      :class="{'x-top':iphoneX,'top':!iphoneX}"
-      class="top"
-    >
+    <div class="cot">
       <img
-        :src="baseUrl + 'kuang.png'+ this.$qiniuCompress()"
-        class="kuang"
+        :src="baseUrl + '1.png'+ this.$qiniuCompress()"
+        class="frame"
       >
       <img
         v-if="photo !== null"
@@ -24,14 +17,23 @@
         :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
         class="save"
       >
-    </div>
-    <div class="bottom">
       <img
-        :src="baseUrl + 'coupon.png'+ this.$qiniuCompress()"
-        class="coupon"
-        @click="go()"
+        :src="baseUrl + '2.png'+ this.$qiniuCompress()"
+        class="center-t"
+      >
+      <img
+        :src="baseUrl + '3.png'+ this.$qiniuCompress()"
+        class="center-b"
       >
     </div>
+    <img
+      :src="baseUrl + 'bg_01.png'+ this.$qiniuCompress()"
+      class="bg1"
+    >
+    <img
+      :src="baseUrl + 'bg_02.png'+ this.$qiniuCompress()"
+      class="bg2"
+    >
   </div>
 </template>
 <script>
@@ -42,7 +44,7 @@ export default {
   mixins: [normalPages],
   data() {
     return {
-      baseUrl: cdnUrl + "/fe/marketing/img/christmas_candy/",
+      baseUrl: cdnUrl + "/fe/marketing/img/credits_exchange/",
       style: {
         root: {
           height: this.$innerHeight() + "px"
@@ -51,10 +53,10 @@ export default {
       photo: null,
       iphoneX: false,
       wxShareInfoValue: {
-        title: "圣诞糖果屋",
-        desc: "欢乐尽享甜蜜梦幻的圣诞狂欢!",
-        link: "http://papi.xingstation.com/api/s/VP1" + window.location.search,
-        imgUrl: cdnUrl + "/fe/marketing/img/christmas_candy/icon.png",
+        title: "【积分换礼】VIP专属福利",
+        desc: "好礼不断，立即点击兑换",
+        link: "http://papi.xingstation.com/api/s/Xom" + window.location.search,
+        imgUrl: cdnUrl + "/fe/marketing/img/credits_exchange/icon.png",
         success: () => {
           wechatShareTrack();
         }
@@ -68,16 +70,11 @@ export default {
       this.iphoneX = false;
     }
   },
-  methods: {
-    go() {
-      console.log("111111");
-    }
-  }
 };
 </script>
 
 <style lang="less" scoped>
-@imageHost: "http://cdn.exe666.com/fe/marketing/img/christmas_candy/";
+@imageHost: "http://cdn.exe666.com/fe/marketing/img/credits_exchange/";
 html,
 body {
   width: 100%;
@@ -102,62 +99,53 @@ img {
   text-align: center;
   position: relative;
   overflow-x: hidden;
-  .bg {
+  .cot {
     width: 100%;
     position: absolute;
-    left: 0;
+    left: 50%;
     top: 0;
-  }
-  .top {
-    width: 100%;
-    height: 90%;
-    position: relative;
-    margin-top: 8%;
+    transform: translate(-50%, 0%);
+    z-index: 99;
+    margin-top: 10%;
     pointer-events: none;
     user-select: none;
-    .kuang {
-      width: 75%;
-      position: absolute;
-      left: 50%;
-      top: 0%;
-      transform: translate(-50%, 0%);
-    }
     .photo {
-      width: 70.5%;
-      position: absolute;
-      left: 50%;
-      top: 0%;
-      transform: translate(-50%, -0%);
-      margin-top: 2.5%;
-      user-select: auto;
-      pointer-events: auto;
-    }
-    .save {
-      width: 45%;
-      position: absolute;
-      left: 50%;
-      bottom: -1.5%;
-      transform: translate(-50%, -0%);
-    }
-  }
-  .x-top {
-    height: 75%;
-  }
-  .bottom {
-    width: 100%;
-    position: relative;
-    margin-top: 24%;
-    pointer-events: none;
-    user-select: none;
-    .coupon {
       width: 70%;
       position: absolute;
       left: 50%;
       top: 0;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%, 1.8%);
+      z-index: 100;
       user-select: auto;
       pointer-events: auto;
     }
+    .frame {
+      width: 74%;
+      position: relative;
+    }
+    .save {
+      width: 50%;
+      position: relative;
+      margin-top: 5%;
+    }
+    .center-t {
+      width: 85%;
+      position: relative;
+      margin-top: 6%;
+    }
+    .center-b {
+      width: 85%;
+      position: relative;
+    }
+  }
+  .bg1 {
+    width: 100%;
+    position: relative;
+  }
+  .bg2 {
+    width: 100%;
+    position: relative;
+    margin-top: -1%;
   }
 }
 </style>
