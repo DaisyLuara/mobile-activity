@@ -174,6 +174,39 @@ const Date201811 = [
       desc: '幻境'
     },
     isAbandoned: false
+  },
+  {
+    path: 'christmas_candy',
+    location: '201811/christmasCandy',
+    name: 'christmas_candy',
+    meta: {
+      title: '圣诞糖果',
+      author: 'xj1012',
+      desc: '圣诞糖果'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'christmas_throw',
+    location: '201811/christmasThrow',
+    name: 'christmas_throw',
+    meta: {
+      title: '圣诞掷骰子',
+      author: 'xj1012',
+      desc: '圣诞掷骰子'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'drc_creditsExchange',
+    location: '201811/creditsExchange',
+    name: 'drc_creditsExchange',
+    meta: {
+      title: 'VIP专属福利',
+      author: 'xj1012',
+      desc: '嘉定大融城-积分兑换'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201811
