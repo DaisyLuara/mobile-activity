@@ -99,6 +99,7 @@ img {
   text-align: center;
   position: relative;
   overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
   .cot {
     width: 100%;
     position: absolute;
@@ -136,6 +137,8 @@ img {
     .center-b {
       width: 85%;
       position: relative;
+      user-select: auto;
+      pointer-events: auto;
     }
   }
   .bg1 {

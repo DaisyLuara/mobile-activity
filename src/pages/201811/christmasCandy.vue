@@ -102,6 +102,7 @@ img {
   text-align: center;
   position: relative;
   overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
   .bg {
     width: 100%;
     position: absolute;
