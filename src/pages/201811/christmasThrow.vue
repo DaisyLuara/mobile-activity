@@ -4,17 +4,22 @@
     class="root"
   >
     <img
-      :src="baseUrl + 'top.png'+ this.$qiniuCompress()"
+      :src="baseUrl + 'top2.png'+ this.$qiniuCompress()"
       class="top"
     >
-    <!-- <img
-      :src="baseUrl + 'mid.png'+ this.$qiniuCompress()"
-      class="mid"
-    > -->
-    <img
-      :src="baseUrl + 'bottom.png'+ this.$qiniuCompress()"
-      class="bottom"
+    <div
+      class="bt"
+      :class="{'x-bt':iphoneX,'bt':!iphoneX}"
     >
+      <img
+        :src="baseUrl + 'mid.png'+ this.$qiniuCompress()"
+        class="mid"
+      >
+      <img
+        :src="baseUrl + 'bottom.png'+ this.$qiniuCompress()"
+        class="bottom"
+      >
+    </div>
 
   </div>
 </template>
@@ -88,15 +93,37 @@ img {
   overflow-x: hidden;
   .top {
     width: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
+    position: relative;
   }
-  .bottom {
+  .bt {
     width: 100%;
     position: absolute;
     left: 0;
-    bottom: 0;
+    top: 30%;
+    .mid {
+      width: 100%;
+    }
+    .bottom {
+      width: 100%;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      z-index: 9;
+    }
   }
+  .x-bt {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 34%;
+  }
+  // .mid {
+  //   width: 100%;
+  //   position: relative;
+  // }
+  // .bottom {
+  //   width: 100%;
+  //   position: relative;
+  // }
 }
 </style>
