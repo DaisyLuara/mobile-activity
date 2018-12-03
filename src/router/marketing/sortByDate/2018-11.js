@@ -191,7 +191,7 @@ const Date201811 = [
     location: '201811/christmasThrow',
     name: 'christmas_throw',
     meta: {
-      title: '圣诞掷骰子',
+      title: 'Merry Christmas',
       author: 'xj1012',
       desc: '圣诞掷骰子'
     },
