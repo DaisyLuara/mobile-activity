@@ -13,11 +13,22 @@ const Date201812 = [
   {
     path: 'mu_ming',
     location: '201812/muMing',
-    name: 'divination',
+    name: 'mu_ming',
     meta: {
       title: '姆明一族',
       author: 'xj1012',
       desc: '姆明'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'christmas_xh',
+    location: '201812/christmasXh',
+    name: 'christmas_xh',
+    meta: {
+      title: '星海广场',
+      author: 'xj1012',
+      desc: '星海广场-圣诞配对'
     },
     isAbandoned: false
   }
