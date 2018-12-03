@@ -1,64 +1,64 @@
 <template>
   <div
+    v-show="showImg"
     :style="style.root"
     class="root"
-    v-show="showImg"
   >
     <img
       :src="baseUrl + 'top2.png'+ this.$qiniuCompress()"
       class="top"
     >
-    <div id="main"></div>
+    <div id="main"/>
     <img
       v-if="photo !== null"
       :src="photo + this.$qiniuCompress()"
-      class="photo"
       :class="{'x-photo':iphoneX,'photo':!iphoneX}"
+      class="photo"
     >
     <img
       v-if="photo !== null"
       :src="photo + this.$qiniuCompress()"
-      class="photo-real"
       :class="{'x-photo':iphoneX,'photo-real':!iphoneX}"
+      class="photo-real"
     >
     <img
       :src="baseUrl + 'snow_1.png'+ this.$qiniuCompress()"
-      class="snow-1"
       :class="{'x-snow-1':iphoneX,'snow-1':!iphoneX}"
+      class="snow-1"
     >
     <img
       :src="baseUrl + 'snow_2.png'+ this.$qiniuCompress()"
-      class="snow-2"
       :class="{'x-snow-2':iphoneX,'snow-2':!iphoneX}"
+      class="snow-2"
     >
     <img
       :src="baseUrl + 'snow_3.png'+ this.$qiniuCompress()"
-      class="snow-3"
       :class="{'x-snow-3':iphoneX,'snow-3':!iphoneX}"
+      class="snow-3"
     >
     <img
       :src="baseUrl + 'snow_4.png'+ this.$qiniuCompress()"
-      class="snow-4"
       :class="{'x-snow-4':iphoneX,'snow-4':!iphoneX}"
+      class="snow-4"
     >
     <img
       :src="baseUrl + 'snowman.png'+ this.$qiniuCompress()"
-      class="snowman"
       :class="{'x-snowman':iphoneX,'snowman':!iphoneX}"
+      class="snowman"
     >
     <img
       :src="baseUrl + 'nav.png'+ this.$qiniuCompress()"
-      class="nav"
       :class="{'x-nav':iphoneX,'nav':!iphoneX}"
+      class="nav"
     >
     <img
       :src="baseUrl + 'prompt.png'+ this.$qiniuCompress()"
-      class="prompt"
       :class="{'x-prompt':iphoneX,'prompt':!iphoneX}"
+      class="prompt"
     >
     <div
-      class="bt"
       :class="{'x-bt':iphoneX,'bt':!iphoneX}"
+      class="bt"
     >
       <img
         :src="baseUrl + 'mid.png'+ this.$qiniuCompress()"
