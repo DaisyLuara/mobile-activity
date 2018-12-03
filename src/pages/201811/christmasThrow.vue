@@ -7,6 +7,13 @@
       :src="baseUrl + 'top2.png'+ this.$qiniuCompress()"
       class="top"
     >
+    <div class="center">
+      <div id="main"></div>
+      <img
+        :src="baseUrl + '666.jpeg'+ this.$qiniuCompress()"
+        class="photo"
+      >
+    </div>
     <div
       class="bt"
       :class="{'x-bt':iphoneX,'bt':!iphoneX}"
@@ -56,10 +63,46 @@ export default {
     } else {
       this.iphoneX = false;
     }
+    this.playAnim()
   },
   methods: {
-    go() {
-      console.log("111111");
+    playAnim() {
+      import('pixi.js').then(PIXI => {
+        let app = new PIXI.Application({
+          width: window.innerWidth,
+          height: window.innerWidth * 0.5,
+          transparent: true
+        })
+        document.getElementById('main').appendChild(app.view)
+        let base = 'http://cdn.exe666.com/fe/marketing/img/christmas_throw/'
+        app.view.style.top = '15%'
+        app.view.style.left = '50%'
+        app.view.style.transform = 'translateX(-50%)'
+        app.view.style.zIndex = '9999'
+        app.renderer.autoResize = true
+        app.renderer.resize(window.innerWidth, window.innerWidth * 0.5)
+        app.stop()
+        PIXI.loader.add('guashi', base + 'guashi.json').load(setUp)
+        function setUp() {
+          let guashi = []
+          let texture = null
+          for (let i = 0; i <= 11; i++) {
+            texture = PIXI.Texture.fromFrame('guashi_' + i + '.png')
+            guashi.push(texture)
+          }
+          let animal = new PIXI.extras.AnimatedSprite(guashi)
+          animal.anchor.set(0.5, 0)
+          animal.x = app.screen.width / 2
+          animal.y = 0
+          animal.width = app.screen.width / 2
+          animal.height = (animal.width / 296) * 107
+          animal.gotoAndPlay(0)
+          animal.animationSpeed = 0.5
+          app.stage.addChild(animal)
+        }
+        app.start()
+        // this.showImg = true
+      })
     }
   }
 };
@@ -94,6 +137,18 @@ img {
   .top {
     width: 100%;
     position: relative;
+  }
+  .center {
+    width: 100%;
+    position: absolute;
+    .photo {
+      width: 85%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 11;
+    }
   }
   .bt {
     width: 100%;
