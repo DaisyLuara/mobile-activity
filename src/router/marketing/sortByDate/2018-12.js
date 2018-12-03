@@ -31,6 +31,28 @@ const Date201812 = [
       desc: '星海广场-圣诞配对'
     },
     isAbandoned: false
+  },
+  {
+    path: 'smile_atm',
+    location: '201812/smileAtm',
+    name: 'smile_atm',
+    meta: {
+      title: 'smile',
+      author: 'xj1012',
+      desc: '衡阳连卡福-笑容ATM'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'smile_share',
+    location: '201812/smileShare',
+    name: 'smile_share',
+    meta: {
+      title: 'smile',
+      author: 'xj1012',
+      desc: '衡阳连卡福-笑容ATM(分享页)'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201812
