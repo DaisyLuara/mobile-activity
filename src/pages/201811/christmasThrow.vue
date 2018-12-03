@@ -2,18 +2,58 @@
   <div
     :style="style.root"
     class="root"
+    v-show="showImg"
   >
     <img
       :src="baseUrl + 'top2.png'+ this.$qiniuCompress()"
       class="top"
     >
-    <div class="center">
-      <div id="main"></div>
-      <img
-        :src="baseUrl + '666.jpeg'+ this.$qiniuCompress()"
-        class="photo"
-      >
-    </div>
+    <div id="main"></div>
+    <img
+      :src="baseUrl + '666.jpeg'+ this.$qiniuCompress()"
+      class="photo"
+      :class="{'x-photo':iphoneX,'photo':!iphoneX}"
+    >
+    <img
+      :src="baseUrl + '666.jpeg'+ this.$qiniuCompress()"
+      class="photo-real"
+      :class="{'x-photo':iphoneX,'photo-real':!iphoneX}"
+    >
+    <img
+      :src="baseUrl + 'snow_1.png'+ this.$qiniuCompress()"
+      class="snow-1"
+      :class="{'x-snow-1':iphoneX,'snow-1':!iphoneX}"
+    >
+    <img
+      :src="baseUrl + 'snow_2.png'+ this.$qiniuCompress()"
+      class="snow-2"
+      :class="{'x-snow-2':iphoneX,'snow-2':!iphoneX}"
+    >
+    <img
+      :src="baseUrl + 'snow_3.png'+ this.$qiniuCompress()"
+      class="snow-3"
+      :class="{'x-snow-3':iphoneX,'snow-3':!iphoneX}"
+    >
+    <img
+      :src="baseUrl + 'snow_4.png'+ this.$qiniuCompress()"
+      class="snow-4"
+      :class="{'x-snow-4':iphoneX,'snow-4':!iphoneX}"
+    >
+    <img
+      :src="baseUrl + 'snowman.png'+ this.$qiniuCompress()"
+      class="snowman"
+      :class="{'x-snowman':iphoneX,'snowman':!iphoneX}"
+    >
+    <img
+      :src="baseUrl + 'nav.png'+ this.$qiniuCompress()"
+      class="nav"
+      :class="{'x-nav':iphoneX,'nav':!iphoneX}"
+    >
+    <img
+      :src="baseUrl + 'prompt.png'+ this.$qiniuCompress()"
+      class="prompt"
+      :class="{'x-prompt':iphoneX,'prompt':!iphoneX}"
+    >
     <div
       class="bt"
       :class="{'x-bt':iphoneX,'bt':!iphoneX}"
@@ -46,6 +86,7 @@ export default {
       },
       photo: null,
       iphoneX: false,
+      showImg: false,
       wxShareInfoValue: {
         title: "Merry Christmas",
         desc: "我的圣诞礼物卡",
@@ -69,18 +110,19 @@ export default {
     playAnim() {
       import('pixi.js').then(PIXI => {
         let app = new PIXI.Application({
-          width: window.innerWidth,
-          height: window.innerWidth * 0.5,
+          width: window.innerWidth * 2,
+          height: window.innerWidth * 1.02,
           transparent: true
         })
         document.getElementById('main').appendChild(app.view)
         let base = 'http://cdn.exe666.com/fe/marketing/img/christmas_throw/'
-        app.view.style.top = '15%'
+        app.view.style.position = 'absolute'
+        app.view.style.top = '0%'
         app.view.style.left = '50%'
         app.view.style.transform = 'translateX(-50%)'
         app.view.style.zIndex = '9999'
         app.renderer.autoResize = true
-        app.renderer.resize(window.innerWidth, window.innerWidth * 0.5)
+        app.renderer.resize(window.innerWidth * 2, window.innerWidth * 1.02)
         app.stop()
         PIXI.loader.add('guashi', base + 'guashi.json').load(setUp)
         function setUp() {
@@ -101,7 +143,7 @@ export default {
           app.stage.addChild(animal)
         }
         app.start()
-        // this.showImg = true
+        this.showImg = true
       })
     }
   }
@@ -138,18 +180,102 @@ img {
     width: 100%;
     position: relative;
   }
-  .center {
-    width: 100%;
+  .photo {
+    width: 78%;
     position: absolute;
-    .photo {
-      width: 85%;
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 11;
-    }
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -47%);
+    z-index: 11;
   }
+  .photo-real {
+    width: 78%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -47%);
+    z-index: 999;
+    pointer-events: auto;
+    user-select: auto;
+    opacity: 0;
+  }
+  .x-photo {
+    width: 85%;
+    transform: translate(-50%, -53%);
+  }
+  .snow-1 {
+    width: 10%;
+    position: absolute;
+    left: 7%;
+    top: 18%;
+    z-index: 12;
+    animation: scale 1.5s linear infinite alternate;
+  }
+  .snow-2 {
+    width: 8%;
+    position: absolute;
+    left: 5%;
+    top: 58%;
+    z-index: 12;
+    animation: scale 1.5s linear infinite alternate;
+  }
+  .x-snow-1,
+  .x-snow-2 {
+    left: 2%;
+  }
+  .snow-3 {
+    width: 14%;
+    position: absolute;
+    right: 5%;
+    top: 45%;
+    z-index: 12;
+    animation: scale 1.5s linear infinite alternate;
+  }
+  .snow-4 {
+    width: 8%;
+    position: absolute;
+    right: 7%;
+    top: 20%;
+    z-index: 12;
+    animation: scale 1.5s linear infinite alternate;
+  }
+  .x-snow-3,
+  .x-snow-4 {
+    right: 2%;
+  }
+  .snowman {
+    width: 32%;
+    position: absolute;
+    left: 0;
+    bottom: -8%;
+    z-index: 12;
+  }
+  .x-snowman {
+    bottom: 0%;
+  }
+  .nav {
+    width: 15%;
+    position: absolute;
+    left: 43%;
+    bottom: 4%;
+    z-index: 12;
+    animation: arrow 0.8s linear infinite alternate;
+  }
+  .x-nav {
+    bottom: 11%;
+  }
+  .prompt {
+    width: 55%;
+    position: absolute;
+    left: 25%;
+    bottom: 0%;
+    z-index: 13;
+    animation: arrow 0.8s linear infinite alternate;
+  }
+  .x-prompt {
+    bottom: 7%;
+  }
+
   .bt {
     width: 100%;
     position: absolute;
@@ -172,13 +298,27 @@ img {
     left: 0;
     top: 34%;
   }
-  // .mid {
-  //   width: 100%;
-  //   position: relative;
-  // }
-  // .bottom {
-  //   width: 100%;
-  //   position: relative;
-  // }
+}
+@keyframes scale {
+  from {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1.25, 1.25);
+  }
+  to {
+    transform: scale(1, 1);
+  }
+}
+@keyframes arrow {
+  0% {
+    transform: translateY(-5px);
+  }
+  50% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(5px);
+  }
 }
 </style>
