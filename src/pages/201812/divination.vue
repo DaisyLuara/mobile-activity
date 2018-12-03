@@ -1,14 +1,7 @@
 <template>
-  <div 
-    :style="style.root" 
-    class="content">
-    <img 
-      :src="base + 'title.png'" 
-      class="title">
-    <swiper 
-      ref="Swiper" 
-      :options="sOption" 
-      class="swiper">
+  <div :style="style.root" class="content">
+    <img :src="base + 'title.png'" class="title">
+    <swiper ref="Swiper" :options="sOption" class="swiper">
       <swiper-slide>
         <img :src="photo">
       </swiper-slide>
@@ -16,15 +9,9 @@
         <img :src="base + word + '.png'">
       </swiper-slide>
     </swiper>
-    <img 
-      :src="base + 'note.png'" 
-      class="note">
-    <img 
-      :src="base + 'pointer.png'" 
-      class="pointer">
-    <img 
-      :src="base + 'save.png'" 
-      class="save">
+    <img :src="base + 'note.png'" class="note">
+    <img :src="base + 'pointer.png'" class="pointer">
+    <img :src="base + 'save.png'" class="save">
   </div>
 </template>
 <script>
@@ -153,7 +140,7 @@ img {
     left: 50%;
     transform: translateX(-50%);
     z-index: 99;
-    animation: myshake 0.8s linear infinite alternate;
+    animation: myshake 1.2s ease-in-out infinite alternate;
   }
   .pointer {
     width: 11%;
