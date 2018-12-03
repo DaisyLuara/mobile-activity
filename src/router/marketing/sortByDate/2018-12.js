@@ -9,6 +9,17 @@ const Date201812 = [
       desc: '占卜物语'
     },
     isAbandoned: false
+  },
+  {
+    path: 'mu_ming',
+    location: '201812/muMing',
+    name: 'divination',
+    meta: {
+      title: '姆明一族',
+      author: 'xj1012',
+      desc: '姆明'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201812
