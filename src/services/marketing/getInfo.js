@@ -20,10 +20,10 @@ const getPlayResultById = id => {
   })
 }
 
-const getInfoById = id => {
+const getInfoById = (id, code, state) => {
   let promise = new Promise((resolve, reject) => {
     axios
-      .get(IMAGE_API + id)
+      .get(IMAGE_API + id + '&code=' + code + '&state=' + state)
       .then(response => {
         resolve(response.data.results)
       })
