@@ -10,12 +10,14 @@
     >
     <div id="main"></div>
     <img
-      :src="baseUrl + '666.jpeg'+ this.$qiniuCompress()"
+      v-if="photo !== null"
+      :src="photo + this.$qiniuCompress()"
       class="photo"
       :class="{'x-photo':iphoneX,'photo':!iphoneX}"
     >
     <img
-      :src="baseUrl + '666.jpeg'+ this.$qiniuCompress()"
+      v-if="photo !== null"
+      :src="photo + this.$qiniuCompress()"
       class="photo-real"
       :class="{'x-photo':iphoneX,'photo-real':!iphoneX}"
     >
@@ -176,6 +178,7 @@ img {
   text-align: center;
   position: relative;
   overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
   .top {
     width: 100%;
     position: relative;
@@ -194,7 +197,7 @@ img {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -47%);
-    z-index: 999;
+    z-index: 10001;
     pointer-events: auto;
     user-select: auto;
     opacity: 0;
@@ -257,7 +260,7 @@ img {
     width: 15%;
     position: absolute;
     left: 43%;
-    bottom: 4%;
+    bottom: -1%;
     z-index: 12;
     animation: arrow 0.8s linear infinite alternate;
   }
@@ -268,7 +271,7 @@ img {
     width: 55%;
     position: absolute;
     left: 25%;
-    bottom: 0%;
+    bottom: -5%;
     z-index: 13;
     animation: arrow 0.8s linear infinite alternate;
   }
