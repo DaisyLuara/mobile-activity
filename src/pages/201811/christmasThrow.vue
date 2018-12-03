@@ -8,7 +8,7 @@
       :src="baseUrl + 'top2.png'+ this.$qiniuCompress()"
       class="top"
     >
-    <div id="main"/>
+    <div id="main" />
     <img
       v-if="photo !== null"
       :src="photo + this.$qiniuCompress()"
@@ -73,7 +73,6 @@
   </div>
 </template>
 <script>
-import { wechatShareTrack } from "services";
 import { normalPages } from "../../mixins/normalPages";
 const cdnUrl = process.env.CDN_URL;
 export default {
