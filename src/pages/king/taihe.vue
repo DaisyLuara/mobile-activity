@@ -281,10 +281,10 @@ img {
     }
     .coupon-used,
     .coupon-post {
-      width: 84%;
+      width: 71%;
       position: absolute;
-      left: 8%;
-      top: -1.6%;
+      left: 15%;
+      top: -0.6%;
       z-index: 9;
     }
   }
