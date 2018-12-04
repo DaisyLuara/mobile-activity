@@ -1,15 +1,36 @@
 <template>
   <div class="content">
     <div class="one">
-      <img :src="base + 'img1.png'" class="bg">
-      <img :src="base + 'candy1.png'" class="candy1 animated linear infinite tada">
-      <img :src="base + 'candy2.png'" class="candy2 animated linear infinite tada">
-      <img :src="base + 'bell.png'" class="bell animated linear infinite tada">
+      <img
+        :src="base + 'img1.png'"
+        class="bg"
+      >
+      <img
+        :src="base + 'candy1.png'"
+        class="candy1 animated linear infinite tada"
+      >
+      <img
+        :src="base + 'candy2.png'"
+        class="candy2 animated linear infinite tada"
+      >
+      <img
+        :src="base + 'bell.png'"
+        class="bell animated linear infinite tada"
+      >
     </div>
     <div class="two">
-      <img :src="base + 'img2.png'" class="bg">
-      <img :src="photo" class="photo">
-      <img :src="base + 'note.png'" class="note">
+      <img
+        :src="base + 'img2.png'"
+        class="bg"
+      >
+      <img
+        :src="photo"
+        class="photo"
+      >
+      <img
+        :src="base + 'note.png'"
+        class="note"
+      >
     </div>
   </div>
 </template>
@@ -28,7 +49,7 @@ export default {
       wxShareInfoValue: {
         title: "宝贝，你的圣诞礼物",
         desc: "慈溪保利，圣诞有礼",
-        link: "http://papi.xingstation.com/api/s/YWp" + window.location.search,
+        link: "http://papi.xingstation.com/api/s/2xv" + window.location.search,
         imgUrl: CDNURL + "/fe/image/baolichm/share.png",
         success: () => {
           wechatShareTrack();
@@ -36,7 +57,7 @@ export default {
       }
     };
   },
-  mounted() {},
+  mounted() { },
   methods: {}
 };
 </script>
