@@ -1,39 +1,48 @@
 <template>
   <div
     :style="style.root"
-    class="root">
+    class="root"
+  >
     <!-- 券图 -->
-    <img 
+    <img
       :src="couponImg+ this.$qiniuCompress()"
       :class="{'x-couponImg':iphoneX,'couponImg':!iphoneX}"
-      class="couponImg">
-    <!-- <img 
-      :src="baseUrl + 'y_0.5.png'+ this.$qiniuCompress()"
+      class="couponImg"
+    >
+    <!-- <img
+      :src="baseUrl + 'd.png'+ this.$qiniuCompress()"
       :class="{'x-couponImg':iphoneX,'couponImg':!iphoneX}"
-      class="couponImg">  -->
-    <div 
+      class="couponImg"
+    > -->
+    <div
       :class="{'x-center':iphoneX,'center':!iphoneX}"
-      class="center">
-      <img 
-        :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
-        class="scan">
+      class="center"
+    >
+      <img
+        :src="baseUrl + 's2.png'+ this.$qiniuCompress()"
+        class="scan"
+      >
       <!-- 二维码 -->
-      <img 
+      <img
         :src="qrcodeImg+ this.$qiniuCompress()"
-        class="ewm"> 
-      <!-- <img 
+        class="ewm"
+      >
+      <!-- <img
         :src="baseUrl + 'ewm.jpeg'+ this.$qiniuCompress()"
-        class="ewm"> -->
+        class="ewm"
+      > -->
       <!-- 已使用 -->
-      <img 
+      <img
         v-if="hasUsed"
         :src="baseUrl + 'has_used.png'+ this.$qiniuCompress()"
-        class="coupon-used">
+        class="coupon-used"
+      >
       <!-- 已失效-->
-      <img 
+      <img
         v-if="hasPost"
         :src="baseUrl + 'has_post.png'+ this.$qiniuCompress()"
-        class="coupon-post">
+        class="coupon-post"
+      >
     </div>
   </div>
 </template>
@@ -78,7 +87,7 @@ export default {
       // }
     }
   },
-  created() {},
+  created() { },
   mounted() {
     //微信授权
     if (isInWechat() === true) {
@@ -217,7 +226,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: 'http://cdn.exe666.com/fe/marketing/img/taihe/';
+@imageHost: "http://cdn.exe666.com/fe/marketing/img/taihe/";
 html,
 body {
   width: 100%;
@@ -242,12 +251,12 @@ img {
   text-align: center;
   position: relative;
   overflow: hidden;
-  background-image: url('@{imageHost}background_2.png');
+  background-image: url("@{imageHost}bg6.jpg");
   background-size: 100% 100%;
   background-position: center bottom;
   background-repeat: no-repeat;
   .couponImg {
-    width: 85%;
+    width: 72%;
     position: relative;
   }
   .x-couponImg {
@@ -262,20 +271,20 @@ img {
     pointer-events: none;
     user-select: none;
     .scan {
-      width: 82%;
+      width: 70%;
     }
     .ewm {
-      width: 29.8%;
+      width: 24.5%;
       position: absolute;
-      left: 15.5%;
-      top: 28%;
+      left: 21.5%;
+      top: 45%;
     }
     .coupon-used,
     .coupon-post {
-      width: 84%;
+      width: 71%;
       position: absolute;
-      left: 8%;
-      top: -1.6%;
+      left: 15%;
+      top: -0.6%;
       z-index: 9;
     }
   }
@@ -288,10 +297,10 @@ img {
       width: 87%;
     }
     .ewm {
-      width: 30%;
+      width: 31.5%;
       position: absolute;
       left: 14%;
-      top: 29%;
+      top: 45%;
     }
     .coupon-used,
     .coupon-post {
