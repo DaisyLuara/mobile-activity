@@ -1,15 +1,36 @@
 <template>
   <div class="content">
     <div class="one">
-      <img :src="base + 'img1.png'" class="bg">
-      <img :src="base + 'candy1.png'" class="candy1 animated linear infinite tada">
-      <img :src="base + 'candy2.png'" class="candy2 animated linear infinite tada">
-      <img :src="base + 'bell.png'" class="bell animated linear infinite tada">
+      <img
+        :src="base + 'img1.png'"
+        class="bg"
+      >
+      <img
+        :src="base + 'candy1.png'"
+        class="candy1 animated linear infinite tada"
+      >
+      <img
+        :src="base + 'candy2.png'"
+        class="candy2 animated linear infinite tada"
+      >
+      <img
+        :src="base + 'bell.png'"
+        class="bell animated linear infinite tada"
+      >
     </div>
     <div class="two">
-      <img :src="base + 'img2.png'" class="bg">
-      <img :src="photo" class="photo">
-      <img :src="base + 'note.png'" class="note">
+      <img
+        :src="base + 'img2.png'"
+        class="bg"
+      >
+      <img
+        :src="photo"
+        class="photo"
+      >
+      <img
+        :src="base + 'note.png'"
+        class="note"
+      >
     </div>
   </div>
 </template>
@@ -36,7 +57,7 @@ export default {
       }
     };
   },
-  mounted() {},
+  mounted() { },
   methods: {}
 };
 </script>
