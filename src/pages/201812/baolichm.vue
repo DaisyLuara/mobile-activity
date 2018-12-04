@@ -6,13 +6,13 @@
         class="bg">
       <img 
         :src="base + 'candy1.png'" 
-        class="candy1">
+        class="candy1 animated linear infinite tada">
       <img 
         :src="base + 'candy2.png'" 
-        class="candy2">
+        class="candy2 animated linear infinite tada">
       <img 
         :src="base + 'bell.png'" 
-        class="bell">
+        class="bell animated linear infinite tada">
     </div>
     <div class="two">
       <img 
@@ -30,6 +30,7 @@
 <script>
 import { $wechat, isInWechat, wechatShareTrack } from "services";
 import { normalPages } from "../../mixins/normalPages";
+import "animate.css";
 const CDNURL = process.env.CDN_URL;
 export default {
   mixins: [normalPages],
@@ -41,7 +42,7 @@ export default {
       wxShareInfoValue: {
         title: "宝贝，你的圣诞礼物",
         desc: "慈溪保利，圣诞有礼",
-        link: "" + window.location.search,
+        link: "http://papi.xingstation.com/api/s/YWp" + window.location.search,
         imgUrl: CDNURL + "/fe/image/baolichm/share.png",
         success: () => {
           wechatShareTrack();
@@ -93,7 +94,7 @@ img {
       top: 25%;
       right: -4%;
       z-index: 99;
-      animation: myleft 1.2s linear infinite alternate;
+      //animation: arrow 1.2s linear infinite alternate;
     }
     .candy2 {
       position: absolute;
@@ -101,7 +102,6 @@ img {
       top: 54%;
       right: 0%;
       z-index: 99;
-      animation: myup 0.8s ease-in-out infinite alternate;
     }
     .bell {
       position: absolute;
@@ -109,7 +109,6 @@ img {
       top: 91%;
       left: -6%;
       z-index: 99;
-      animation: myshake 0.6s linear infinite alternate;
     }
   }
   .two {
@@ -132,10 +131,10 @@ img {
     .note {
       width: 47%;
       position: absolute;
-      top: 82%;
-      left: 50%;
-      transform: translateX(-50%);
+      top: 84%;
+      left: 26.5%;
       z-index: 99;
+      animation: myup 0.6s linear infinite alternate;
     }
   }
 }
@@ -161,6 +160,17 @@ img {
   }
   100% {
     transform: translate(-10px, -10px);
+  }
+}
+@keyframes arrow {
+  0% {
+    transform: translateY(-5px);
+  }
+  50% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(5px);
   }
 }
 </style>
