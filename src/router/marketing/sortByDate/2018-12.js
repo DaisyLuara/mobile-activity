@@ -31,6 +31,17 @@ const Date201812 = [
       desc: '星海广场-圣诞配对'
     },
     isAbandoned: false
+  },
+  {
+    path: 'baolichm',
+    location: '201812/baolichm',
+    name: 'baolichm',
+    meta: {
+      title: '圣诞快乐',
+      author: 'lipan',
+      desc: '慈溪保利-圣诞礼遇'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201812

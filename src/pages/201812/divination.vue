@@ -153,7 +153,7 @@ img {
     left: 50%;
     transform: translateX(-50%);
     z-index: 99;
-    animation: myshake 0.8s linear infinite alternate;
+    animation: myshake 1.2s ease-in-out infinite alternate;
   }
   .pointer {
     width: 11%;

@@ -1,13 +1,10 @@
 <template>
   <div 
-    id="mallcoo"
-    class="mallcoo-content"
-  >
+    id="mallcoo" 
+    class="mallcoo-content">
     <div class="coupList">
       <ul class="ul_list">
-        <li class="q_name">
-          {{ quanMsg.MallName }}
-        </li>
+        <li class="q_name">{{ quanMsg.MallName }}</li>
         <li class="q_price">
           <label>
             {{ quanMsg.price }}
@@ -22,20 +19,16 @@
         </li>
         <li 
           v-show="noZero" 
-          class="q_time">
-          有效期至：{{ quanMsg.EndTime }}
-        </li>
+          class="q_time">有效期至：{{ quanMsg.EndTime }}</li>
         <li 
           v-show="isZero" 
-          class="num_err">
-          该券已经发完了
-        </li>
+          class="num_err">该券已经发完了</li>
       </ul>
     </div>
   </div>
 </template>
 <script>
-const REQ_URL = 'http://120.27.144.62:1337/parse/classes/'
+const REQ_URL = "http://120.27.144.62:1337/parse/classes/";
 import {
   $wechat,
   getInfoById,
@@ -43,10 +36,10 @@ import {
   getParamsMap,
   getParameter,
   setParameter
-} from 'services'
-import { parseService } from 'services'
-import { onlyWechatShare } from '../../mixins/onlyWechatShare'
-const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/image'
+} from "services";
+import { parseService } from "services";
+import { onlyWechatShare } from "../../mixins/onlyWechatShare";
+const BASE_URL = process.env.CDN_URL;
 export default {
   mixins: [onlyWechatShare],
   data() {
@@ -65,54 +58,54 @@ export default {
       //授权链接
       //http://sapi.newgls.cn/api/mallcoo/user/oauth?redirect_url=
       //http://sapi.newgls.cn/api/mallcoo/coupon
-      authorize_url: process.env.SAAS_API + '/mallcoo/user/oauth?redirect_url=',
-      coupon_url: process.env.SAAS_API + '/mallcoo/coupon',
+      authorize_url: process.env.SAAS_API + "/mallcoo/user/oauth?redirect_url=",
+      coupon_url: process.env.SAAS_API + "/mallcoo/coupon",
       open_user_id: null,
       //微信分享
       wxShareInfoValue: {
-        title: '旋转跳跃我领着券',
-        desc: '草莓杂货铺欢迎你',
-        imgUrl: BASE_URL + '/maliao/test/share.png',
-        link: '',
+        title: "旋转跳跃我领着券",
+        desc: "草莓杂货铺欢迎你",
+        imgUrl: BASE_URL + "/image/mallcoo/share.png",
+        link: "",
         success: function() {
-          wechatShareTrack()
+          wechatShareTrack();
         }
       }
-    }
+    };
   },
   beforeCreate() {
-    document.title = '马里奥2.0'
+    document.title = "马里奥2.0";
   },
   created() {
-    this.wxShareInfoValue.link = window.location.origin + this.$route.path
+    this.wxShareInfoValue.link = window.location.origin + this.$route.path;
     if (this.$route.query.open_user_id) {
-      this.open_user_id = this.$route.query.open_user_id
-      this.isFirstComeIn(this.$route.query.open_user_id)
+      this.open_user_id = this.$route.query.open_user_id;
+      this.isFirstComeIn(this.$route.query.open_user_id);
     } else {
-      this.getAuthorize()
+      this.getAuthorize();
     }
   },
   mounted() {
-    let height = this.$innerHeight()
-    let mallcoo = document.getElementById('mallcoo')
-    mallcoo.style.minHeight = height + 'px'
-    let w = document.documentElement
-    let a = w.getBoundingClientRect().width
+    let height = this.$innerHeight();
+    let mallcoo = document.getElementById("mallcoo");
+    mallcoo.style.minHeight = height + "px";
+    let w = document.documentElement;
+    let a = w.getBoundingClientRect().width;
     if (a > 750) {
-      a = 750
+      a = 750;
     }
-    let rem = a / 7.5
-    w.style.fontSize = rem + 'px'
+    let rem = a / 7.5;
+    w.style.fontSize = rem + "px";
   },
   methods: {
     //授权跳转
     getAuthorize() {
-      let pageUrl = encodeURIComponent(window.location.href)
+      let pageUrl = encodeURIComponent(window.location.href);
       this.$http.get(this.authorize_url + pageUrl).then(result => {
-        let data = result.data
-        window.location.href = data
-        return
-      })
+        let data = result.data;
+        window.location.href = data;
+        return;
+      });
     },
     //获取券信息
     getQuanMsg(coupon_num) {
@@ -120,29 +113,29 @@ export default {
         .get(this.coupon_url)
         .then(res => {
           //success
-          let data = res.data
-          let list = data.data
-          this.quanMsg.CouponDesc = list[coupon_num].CouponDesc.trim()
-          this.quanMsg.MallName = list[coupon_num].MallName.trim()
-          this.pic_mid = list[coupon_num].PICMID
-          this.getPrice(this.quanMsg.CouponDesc)
+          let data = res.data;
+          let list = data.data;
+          this.quanMsg.CouponDesc = list[coupon_num].CouponDesc.trim();
+          this.quanMsg.MallName = list[coupon_num].MallName.trim();
+          this.pic_mid = list[coupon_num].PICMID;
+          this.getPrice(this.quanMsg.CouponDesc);
           //StoreOverGount
           if (!list[coupon_num].StoreOverGount) {
-            this.noZero = false
-            this.isZero = true
-            alert('该优惠券已发完！')
-            return
+            this.noZero = false;
+            this.isZero = true;
+            alert("该优惠券已发完！");
+            return;
           }
           this.getCoupon(
             this.$route.query.open_user_id,
             list[coupon_num].PICMID
-          )
-          console.log(res)
+          );
+          console.log(res);
         })
         .catch(err => {
-          this.err = '未获取到优惠券信息'
-          console.log('未获取到优惠券信息')
-        })
+          this.err = "未获取到优惠券信息";
+          console.log("未获取到优惠券信息");
+        });
     },
     //发券，用户获取券
     getCoupon(open_id, pic_mid) {
@@ -154,69 +147,69 @@ export default {
         .then(
           res => {
             //success
-            let data = res.data
-            this.quanMsg.Vcode = data.data.VCode
-            this.quanMsg.EndTime = data.data.OverdueTime.split(' ')[0]
-            console.log(res)
+            let data = res.data;
+            this.quanMsg.Vcode = data.data.VCode;
+            this.quanMsg.EndTime = data.data.OverdueTime.split(" ")[0];
+            console.log(res);
           },
           res => {
             //err
           }
-        )
+        );
     },
     //从parseServer获取open_user_id,判断用户是否是新用户
     isFirstComeIn(open_id) {
       let query = {
         open_user_id: open_id
-      }
+      };
       parseService
-        .get(REQ_URL + 'maliao_mall?where=' + JSON.stringify(query))
+        .get(REQ_URL + "maliao_mall?where=" + JSON.stringify(query))
         .then(data => {
-          let results = data.results
+          let results = data.results;
           if (results.length) {
-            this.getQuanMsg(1)
+            this.getQuanMsg(1);
           } else {
-            this.saveUserOpenId(open_id)
-            this.getQuanMsg(0)
+            this.saveUserOpenId(open_id);
+            this.getQuanMsg(0);
           }
         })
-        .catch(err => {})
+        .catch(err => {});
     },
     //存储open_user_id到parseServer
     saveUserOpenId(open_id) {
       let parms = {
         open_user_id: open_id
-      }
+      };
       parseService
-        .post(REQ_URL + 'maliao_mall', parms)
+        .post(REQ_URL + "maliao_mall", parms)
         .then(data => {
           //将open_user_id保存到parseServer的class，maliao_mall中
-          console.log('已经将open_user_id保存到parseServer的maliao_mall中')
+          console.log("已经将open_user_id保存到parseServer的maliao_mall中");
         })
-        .catch(err => {})
+        .catch(err => {});
     },
     //跳转操作
     linkToPath(result_url) {
       this.$router.push({
         path: result_url
-      })
+      });
     },
     //获得券的数值
     getPrice(string) {
-      let p_tsring = null
+      let p_tsring = null;
       for (var i = 0; i < string.length; i++) {
-        p_tsring = string.slice(i)
+        p_tsring = string.slice(i);
         if (!isNaN(parseInt(p_tsring))) {
-          this.quanMsg.price = parseInt(p_tsring.trim())
-          return
+          this.quanMsg.price = parseInt(p_tsring.trim());
+          return;
         }
       }
     }
   }
-}
+};
 </script>
 <style  lang="less" scoped>
-@imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/mallcoo/test';
+@imgUrl: "https://cdn.exe666.com/image/mallcoo";
 html,
 body {
   overflow-x: hidden;
@@ -230,8 +223,8 @@ body {
   min-height: 100%;
   overflow: hidden;
   text-align: center;
-  background-image: url('@{imgUrl}/bg33.png'), url('@{imgUrl}/bg2.png'),
-    url('@{imgUrl}/bg1.png');
+  background-image: url("@{imgUrl}/bg33.png"), url("@{imgUrl}/bg2.png"),
+    url("@{imgUrl}/bg1.png");
   background-position: center bottom, center -10%, center top;
   background-size: 100% 105%, 100% auto, 100% auto;
   background-repeat: no-repeat;
