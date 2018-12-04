@@ -42,6 +42,15 @@ const Date201812 = [
       desc: '慈溪保利-圣诞礼遇'
     },
     isAbandoned: false
+  },
+  {
+    path: 'testforautobuild',
+    location: '201812/testforautobuild',
+    name: 'TestForAutoBuild',
+    meta: {
+      title: 'OK啦'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201812
