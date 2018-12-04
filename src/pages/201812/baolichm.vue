@@ -1,12 +1,29 @@
 <template>
   <div class="content">
     <div class="one">
-      <img :src="base + 'img1.png'">
+      <img 
+        :src="base + 'img1.png'" 
+        class="bg">
+      <img 
+        :src="base + 'candy1.png'" 
+        class="candy1">
+      <img 
+        :src="base + 'candy2.png'" 
+        class="candy2">
+      <img 
+        :src="base + 'bell.png'" 
+        class="bell">
     </div>
     <div class="two">
-      <img :src="base + 'img2.png'" class="pbg">
-      <img :src="photo" class="photo">
-      <img :src="base + 'note.png'" class="note">
+      <img 
+        :src="base + 'img2.png'" 
+        class="bg">
+      <img 
+        :src="photo" 
+        class="photo">
+      <img 
+        :src="base + 'note.png'" 
+        class="note">
     </div>
   </div>
 </template>
@@ -60,14 +77,45 @@ img {
   overflow-x: hidden;
   position: relative;
   text-align: center;
+  max-width: 750px;
   .one {
     width: 100%;
     position: relative;
+    .bg {
+      position: relative;
+      z-index: 0;
+      pointer-events: auto;
+      user-select: auto;
+    }
+    .candy1 {
+      position: absolute;
+      width: 24.5%;
+      top: 25%;
+      right: -4%;
+      z-index: 99;
+      animation: myleft 1.2s linear infinite alternate;
+    }
+    .candy2 {
+      position: absolute;
+      width: 17%;
+      top: 54%;
+      right: 0%;
+      z-index: 99;
+      animation: myup 0.8s ease-in-out infinite alternate;
+    }
+    .bell {
+      position: absolute;
+      width: 30%;
+      top: 91%;
+      left: -6%;
+      z-index: 99;
+      animation: myshake 0.6s linear infinite alternate;
+    }
   }
   .two {
     width: 100%;
     position: relative;
-    .pbg {
+    .bg {
       position: relative;
       z-index: 0;
     }
@@ -89,6 +137,30 @@ img {
       transform: translateX(-50%);
       z-index: 99;
     }
+  }
+}
+@keyframes myshake {
+  0% {
+    transform: rotate(-10deg);
+  }
+  100% {
+    transform: rotate(5deg);
+  }
+}
+@keyframes myup {
+  0% {
+    transform: translate(0, 10px);
+  }
+  100% {
+    transform: translate(0, -10px);
+  }
+}
+@keyframes myleft {
+  0% {
+    transform: translate(10px, 10px);
+  }
+  100% {
+    transform: translate(-10px, -10px);
   }
 }
 </style>
