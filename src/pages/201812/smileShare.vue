@@ -60,7 +60,6 @@ export default {
         .then(res => {
           console.log(res)
           alert('头像上传成功')
-          this.icon = 'icon2'
         })
         .catch(err => {
           alert('头像上传失败！请重新上传，只支持jpg,png格式')
