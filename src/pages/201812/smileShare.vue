@@ -10,6 +10,7 @@
         class="camera"
         @change="toUpLoad"
       >
+      <!-- 上传按钮 -->
       <img
         :src=" 'https://cdn.exe666.com/fe/marketing/img/muming/flower.png'+ this.$qiniuCompress()"
         class="flower"
