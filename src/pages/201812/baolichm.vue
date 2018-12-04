@@ -49,7 +49,7 @@ export default {
       wxShareInfoValue: {
         title: "宝贝，你的圣诞礼物",
         desc: "慈溪保利，圣诞有礼",
-        link: "http://papi.xingstation.com/api/s/YWp" + window.location.search,
+        link: "http://papi.xingstation.com/api/s/2xv" + window.location.search,
         imgUrl: CDNURL + "/fe/image/baolichm/share.png",
         success: () => {
           wechatShareTrack();
