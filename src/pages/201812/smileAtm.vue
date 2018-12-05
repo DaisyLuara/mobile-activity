@@ -24,7 +24,7 @@ export default {
       wxShareInfoValue: {
         title: "穿越仙境 爱意暖冬",
         desc: "点击领取专属照片",
-        link: "http://papi.xingstation.com/api/s/ZY6" + window.location.search,
+        link: "http://papi.xingstation.com/api/s/3QQ" + window.location.search,
         imgUrl: cdnUrl + "/fe/marketing/img/simle_atm/icon.png",
         success: () => {
           wechatShareTrack();

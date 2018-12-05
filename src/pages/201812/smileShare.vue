@@ -3,7 +3,14 @@
     :style="style.root"
     class="root"
   >
-    <div class="upload">
+    <img
+      v-show="atm1"
+      :src="baseUrl + '1.png'+ this.$qiniuCompress()"
+      :class="{'x-start':iphoneX,'start':!iphoneX}"
+      class="start"
+    >
+    <!-- 上传 -->
+    <div class="upload-picture">
       <input
         type="file"
         accept="image/*"
@@ -12,10 +19,14 @@
       >
       <!-- 上传按钮 -->
       <img
-        :src=" 'https://cdn.exe666.com/fe/marketing/img/muming/flower.png'+ this.$qiniuCompress()"
-        class="flower"
+        :src="baseUrl + 'button.png'+ this.$qiniuCompress()"
+        class="button"
       >
     </div>
+    <!-- 正在生成结果 -->
+    <!-- <div class="generate-resultse">
+
+    </div> -->
   </div>
 </template>
 <script>
@@ -34,10 +45,12 @@ export default {
       },
       photo: null,
       iphoneX: false,
+      atm1: true,
+      atm2: false,
       wxShareInfoValue: {
         title: "穿越仙境 爱意暖冬",
         desc: "点击领取专属照片",
-        link: "http://papi.xingstation.com/api/s/ZY6" + window.location.search,
+        link: "http://papi.xingstation.com/api/s/3QQ" + window.location.search,
         imgUrl: cdnUrl + "/fe/marketing/img/simle_atm/icon.png",
         success: () => {
           wechatShareTrack();
@@ -97,19 +110,43 @@ img {
   text-align: center;
   position: relative;
   overflow: hidden;
-  background: #ee658c;
-  .upload {
-    width: 100%;
-    height: 30%;
+  background-image: url("@{imageHost}background.png");
+  background-size: 100% auto;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  .start {
+    width: 85%;
     position: absolute;
-    left: 0;
-    top: 0;
-    .camera {
-      width: 30%;
-      height: 30%;
+    left: 8%;
+    bottom: 0;
+  }
+  .x-start {
+    width: 94%;
+    position: absolute;
+    left: 3%;
+    bottom: 0;
+  }
+  .upload-picture {
+    width: 60%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9;
+    .button {
+      width: 40%;
       position: absolute;
       left: 30%;
-      top: 15%;
+      top: 65%;
+      z-index: 9;
+    }
+    .camera {
+      width: 40%;
+      height: 5%;
+      position: absolute;
+      left: 30%;
+      top: 65%;
+      z-index: 9;
     }
   }
 }
