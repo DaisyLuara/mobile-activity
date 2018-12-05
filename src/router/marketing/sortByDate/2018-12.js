@@ -37,7 +37,7 @@ const Date201812 = [
     location: '201812/smileAtm',
     name: 'smile_atm',
     meta: {
-      title: 'smile',
+      title: '连卡福笑容ATM',
       author: 'xj1012',
       desc: '衡阳连卡福-笑容ATM'
     },
@@ -48,7 +48,7 @@ const Date201812 = [
     location: '201812/smileShare',
     name: 'smile_share',
     meta: {
-      title: 'smile',
+      title: '连卡福笑容ATM',
       author: 'xj1012',
       desc: '衡阳连卡福-笑容ATM(分享页)'
     },
