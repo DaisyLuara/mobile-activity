@@ -64,6 +64,15 @@ const Date201812 = [
       desc: '雪人换装秀'
     },
     isAbandoned: false
+  },
+  {
+    path: 'testforautobuild',
+    location: '201812/testforautobuild',
+    name: 'TestForAutoBuild',
+    meta: {
+      title: 'OK啦'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201812

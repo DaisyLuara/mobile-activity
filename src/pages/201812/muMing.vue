@@ -168,7 +168,7 @@ img {
   }
   .x-photo {
     width: 82%;
-    transform: translate(-50.5%, -52.2%);
+    transform: translate(-49.9%, -52%);
   }
   .cloud-1 {
     width: 30%;
