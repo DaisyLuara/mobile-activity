@@ -53,7 +53,7 @@
   </div>
 </template>
 <script>
-import { $wechat, isInWechat, wechatShareTrack } from "services";
+import { $wechat, isInWechat, wechatShareTrack, getInfoById } from "services";
 import { onlyWechatShare } from "../../mixins/onlyWechatShare";
 const CDNURL = process.env.CDN_URL;
 export default {
@@ -61,7 +61,7 @@ export default {
   data() {
     return {
       base: CDNURL + "/fe/image/snowman/",
-      video: 'http://cdn.exe666.com/1007/video/WhoTakeMoonCake_235_96_1492926959345.mp4',//http://cdn.exe666.com/1007/video/WhoTakeMoonCake_235_96_1492926959345.mp4
+      video: null,//http://cdn.exe666.com/1007/video/WhoTakeMoonCake_235_96_1492926959345.mp4
       style: {
         root: {
           'min-height': this.$innerHeight() + 'px'
@@ -81,26 +81,16 @@ export default {
       }
     };
   },
-  mounted() { },
+  mounted() {
+    this.getInfoById()
+  },
   methods: {
-    handleWechatAuth() {
-      if (Cookies.get('sign') === null) {
-        let base_url = encodeURIComponent(String(window.location.href))
-        let redirct_url =
-          process.env.WX_API +
-          '/wx/officialAccount/oauth?url=' +
-          base_url +
-          '&scope=snsapi_base'
-        window.location.href = redirct_url
-      } else {
-        this.userId = Cookies.get('user_id')
-      }
-    },
     getInfoById() {
       let id = this.$route.query.id
       getInfoById(id)
         .then(res => {
           this.video = res.url
+          console.log(res)
           let video = document.getElementById('video')
           video.load()
         })
@@ -207,8 +197,10 @@ img {
     position: absolute;
     top: 0%;
     left: 0%;
-    object-fit: contain;
-    object-position: 77% auto;
+    // object-fit: contain;
+    object-fit: fill;
+    // object-position: 77% auto;
+    object-position: 100% auto;
     z-index: 99;
   }
 }
