@@ -51,6 +51,17 @@ const Date201812 = [
       title: 'OK啦'
     },
     isAbandoned: false
+  },
+  {
+    path: 'christmas_candy2',
+    location: '201812/christmasCandy',
+    name: 'christmas_candy2',
+    meta: {
+      title: '圣诞糖果',
+      author: 'xj1012',
+      desc: '圣诞糖果-太平洋森活'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201812
