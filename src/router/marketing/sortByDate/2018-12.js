@@ -42,6 +42,28 @@ const Date201812 = [
       desc: '慈溪保利-圣诞礼遇'
     },
     isAbandoned: false
+  },
+  {
+    path: 'lehui_pk',
+    location: '201812/lehuiPK',
+    name: 'lehuiPK',
+    meta: {
+      title: '颜值榜',
+      author: 'lipan',
+      desc: '乐荟-颜值PK'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'snowman',
+    location: '201812/snowman',
+    name: 'snowman',
+    meta: {
+      title: '雪人',
+      author: 'lipan',
+      desc: '雪人换装秀'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201812
