@@ -112,7 +112,7 @@ export default {
       atm1: true,
       atm2: false,
       coupon_batch_id: this.$route.query.coupon_batch_id,
-      couponID: ["111", "112", "113", "114"],
+      couponID: ["23", "24"],
       id: this.$route.query.id,
       oid: this.$route.query.utm_source,
       qrcodeImg: null,
