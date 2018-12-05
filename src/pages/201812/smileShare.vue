@@ -156,7 +156,7 @@ export default {
       let flag = true
       while (flag) {
         let couponID = that.couponID[Math.floor(Math.random() * that.couponID.length)]
-        if (pasreInt(couponID) !== pasreInt(that.coupon_batch_id)) {
+        if (parseInt(couponID) !== parseInt(that.coupon_batch_id)) {
           that.coupon_batch_id = couponID;
           flag = false
         }
