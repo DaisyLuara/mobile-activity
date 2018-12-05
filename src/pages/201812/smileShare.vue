@@ -190,9 +190,10 @@ export default {
       that.atm2 = true,
         that.atm1 = false,
         this.checkCouponIsUse()
-      setTimeout(function () {
-        that.result = false
-      }, 2000)
+    },
+    failure() {
+      this.atm2 = false
+      this.atm1 = true
     },
     //判断是否领过优惠券
     checkCouponIsUse() {
@@ -228,11 +229,13 @@ export default {
                 }
               })
               .catch(err => {
+                this.failure()
                 console.log(err)
               })
           }
         })
         .catch(err => {
+          this.failure()
           console.log(err)
         })
     },
@@ -250,11 +253,16 @@ export default {
           this.handleData(res)
         })
         .catch(err => {
+          this.failure()
           alert(err.response.data.message)
         })
     },
     //处理返回数据
     handleData(res) {
+      let that = this
+      setTimeout(function () {
+        that.result = false
+      }, 2000)
       this.qrcodeImg = res.qrcode_url
       this.couponImg = res.couponBatch.image_url
       if (parseInt(res.status) === 1) {
