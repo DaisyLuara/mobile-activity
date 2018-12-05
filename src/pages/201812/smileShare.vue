@@ -179,7 +179,7 @@ export default {
           alert('头像上传成功')
         })
         .catch(err => {
-          //this.toResult()
+          this.toResult()
           alert('头像上传失败！请重新上传，只支持jpg,png格式')
           console.log(err)
         })
