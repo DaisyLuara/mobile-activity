@@ -1,70 +1,84 @@
 <template>
-  <div 
-    id="content" 
-    class="video-content" >
+  <div
+    id="content"
+    class="video-content"
+  >
     <div class="container">
-      <div 
-        slot="pagination" 
-        class="swiper-pagination swiper-pagination-white"/>
+      <div
+        slot="pagination"
+        class="swiper-pagination swiper-pagination-white"
+      />
       <!-- 标签组 -->
-      <swiper 
-        ref="Swiper2" 
-        :options="labelOption" 
-        class="labels">
-        <swiper-slide 
-          v-for="(item,index) of videoData" 
-          :key="index" 
-          class="slider2">
-          <img 
-            :src="IMGURL + 'label.png'" 
-            class="label-bg">
-          <img 
-            :src="IMGURL + 'left.png'" 
-            class="toleft">
+      <swiper
+        ref="Swiper2"
+        :options="labelOption"
+        class="labels"
+      >
+        <swiper-slide
+          v-for="(item,index) of videoData"
+          :key="index"
+          class="slider2"
+        >
+          <img
+            :src="IMGURL + 'label.png'"
+            class="label-bg"
+          >
+          <img
+            :src="IMGURL + 'left.png'"
+            class="toleft"
+          >
           <p class="label-text">{{ item.labelText }}</p>
-          <img 
-            :src="IMGURL + 'right.png'" 
-            class="toright">
+          <img
+            :src="IMGURL + 'right.png'"
+            class="toright"
+          >
         </swiper-slide>
       </swiper>
       <!-- 背景图组 -->
-      <swiper 
-        ref="Swiper1" 
-        :options="swiperOption" 
-        class="vSwiper">
-        <swiper-slide 
-          v-for="(item,index) in videoData" 
-          :key="index" 
-          class="slider1">
-          <video 
-            v-show="!bgshow" 
-            :id="'video'+index" 
-            webkit-playsinline="true" 
-            playsinline="true" 
-            x-webkit-airplay="true" 
-            controls 
+      <swiper
+        ref="Swiper1"
+        :options="swiperOption"
+        class="vSwiper"
+      >
+        <swiper-slide
+          v-for="(item,index) in videoData"
+          :key="index"
+          class="slider1"
+        >
+          <video
+            v-show="!bgshow"
+            :id="'video'+index"
+            webkit-playsinline="true"
+            playsinline="true"
+            x-webkit-airplay="true"
+            controls
             preload="auto"
-            width="100%" 
-            height="100%">
-            <source 
-              :src="item.vUrl" 
-              type="video/mp4">
+            width="100%"
+            height="100%"
+          >
+            <source
+              :src="item.vUrl"
+              type="video/mp4"
+            >
             您的浏览器不支持video标签.
           </video>
-          <img 
-            v-show="bgshow" 
-            :src="item.bgUrl" 
-            class="vbg">
-          <a 
-            v-show="bgshow" 
-            class="vplay" 
-            @click="vPlay(index)"><img :src="IMGURL + 'video/play.png'"></a>
+          <img
+            v-show="bgshow"
+            :src="item.bgUrl"
+            class="vbg"
+          >
+          <a
+            v-show="bgshow"
+            class="vplay"
+            @click="vPlay(index)"
+          ><img :src="IMGURL + 'video/play.png'"></a>
         </swiper-slide>
       </swiper>
     </div>
-    <a 
-      class="home" 
-      @click="returnMenu"><img :src="IMGURL + 'home.png'"></a>
+    <a
+      class="home"
+      @click="returnMenu"
+    ><img :src="IMGURL + 'home.png'"></a>
   </div>
 </template>
 
@@ -100,7 +114,7 @@ export default {
           el: '.swiper-pagination',
           type: 'bullets',
           clickable: true,
-          renderBullet: function(index, className) {
+          renderBullet: function (index, className) {
             return (
               '<span style="background:#fff;margin:0px 5px;" class="' +
               className +
@@ -111,7 +125,7 @@ export default {
           }
         },
         on: {
-          init: () => {},
+          init: () => { },
           slideChange: () => {
             this.playNow = document.getElementById(
               'video' + this.$refs.Swiper1.swiper.previousIndex
@@ -127,7 +141,7 @@ export default {
         slidesPerView: 3,
         slideToClickedSlide: true,
         on: {
-          init: () => {},
+          init: () => { },
           slideChange: () => {
             scrollTo(0, 0)
             this.toPointer()
@@ -139,7 +153,7 @@ export default {
         title: '星视度',
         desc: '星视度 创想新视界',
         imgUrl: IMAGE_SERVER + '/pages/promotion/icon.jpg',
-        success: function() {
+        success: function () {
           wechatShareTrack()
         }
       }
@@ -193,13 +207,13 @@ export default {
       this.playNow = document.getElementById('video' + index)
       this.playNow.play()
       this.bgshow = false
-      this.playNow.onplay = function() {
+      this.playNow.onplay = function () {
         that.playNow.currentTime = 0
       }
-      this.playNow.onended = function() {
+      this.playNow.onended = function () {
         that.bgshow = true
       }
-      this.playNow.onpause = function() {
+      this.playNow.onpause = function () {
         that.bgshow = true
       }
     },
@@ -235,7 +249,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imgURL: 'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/promotion/';
+@imgURL: "https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/promotion/";
 html,
 body {
   overflow-x: hidden;
