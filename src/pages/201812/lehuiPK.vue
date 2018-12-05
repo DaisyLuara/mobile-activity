@@ -107,7 +107,6 @@ export default {
     if (this.$innerHeight() > 672) {
       document.querySelector('.main').style.marginTop = '10%'
     }
-    this.getPhoto()
     //微信授权
     if (isInWechat() === true) {
       if (
@@ -313,10 +312,10 @@ img {
       .rank {
         width: 48%;
         position: absolute;
-        top: 60%;
+        top: 61%;
         left: 42%;
         text-align: center;
-        font-size: 4.5vw;
+        font-size: 3.5vw;
         color: #fff;
       }
     }
