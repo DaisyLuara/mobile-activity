@@ -102,11 +102,12 @@ export default {
         window.location.href = redirct_url
       } else {
         this.randomCouponID()
-        this.wxShareInfoValue.link = this.wxShareInfoValue.link + "&new_coupon_batch_id=" + this.new_coupon_batch_id
+        this.wxShareInfoValue.link = this.changeUrlArg(this.wxShareInfoValue.link, 'coupon_batch_id', this.new_coupon_batch_id)
         this.handleShare()
         this.userId = Cookies.get('user_id')
         this.params.user_id = this.userId
         this.checkCouponIsUse()
+
       }
     },
     handleShare() {
@@ -117,6 +118,12 @@ export default {
         .catch(_ => {
           console.warn(_.message)
         })
+    },
+    //分享的链接处理函数
+    changeUrlArg(url, arg, val) {
+      let pattern = arg + '=([^&]*)';
+      let replaceText = arg + '=' + val;
+      return url.match(pattern) ? url.replace(eval('/(' + arg + '=)([^&]*)/gi'), replaceText) : (url.match('[\?]') ? url + '&' + replaceText : url + '?' + replaceText);
     },
     //随机出randomCouponID
     randomCouponID() {
