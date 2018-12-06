@@ -53,7 +53,7 @@ export default {
       coupon_batch_id: this.$route.query.coupon_batch_id,
       id: this.$route.query.id,
       oid: this.$route.query.utm_source,
-      couponID: ["23", "24"],
+      couponID: ['111', '112', '113', '114'],
       new_coupon_batch_id: this.$route.query.coupon_batch_id,
       qrcodeImg: null,
       hasUsed: false,
@@ -63,8 +63,8 @@ export default {
       wxShareInfoValue: {
         title: "欢度双十二，连卡福邀你“刷脸”赢好礼！",
         desc: "错过今天，再等N年。",
-        //link: "http://papi.xingstation.com/api/s/3QQ" + window.location.search,
-        link: "http://papi.newgls.cn/api/s/JZo" + window.location.search,
+        link: "http://papi.xingstation.com/api/s/3QQ" + window.location.search,
+        //link: "http://papi.newgls.cn/api/s/JZo" + window.location.search,
         imgUrl: cdnUrl + "/fe/marketing/img/simle_atm/icon.jpg",
         success: () => {
           wechatShareTrack();
