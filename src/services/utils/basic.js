@@ -52,4 +52,4 @@ const formatTimestamp = (data, flag) => {
   return todayStartTime
 }
 
-export { isInWechat, randomIntNum, validatePhone, dateFormat }
+export { isInWechat, randomIntNum, validatePhone, dateFormat, formatTimestamp }
