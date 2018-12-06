@@ -26,7 +26,7 @@
   </div>
 </template>
 <script>
-import { normalPages } from "../../mixins/normalPages";
+import { onlyGetPhoto } from "../../mixins/onlyGetPhoto";
 import {
   $wechat,
   isInWechat,
@@ -39,7 +39,7 @@ import {
 } from 'services'
 const cdnUrl = process.env.CDN_URL;
 export default {
-  mixins: [normalPages],
+  mixins: [onlyGetPhoto],
   data() {
     return {
       baseUrl: cdnUrl + "/fe/marketing/img/simle_atm/",
@@ -53,6 +53,8 @@ export default {
       coupon_batch_id: this.$route.query.coupon_batch_id,
       id: this.$route.query.id,
       oid: this.$route.query.utm_source,
+      couponID: ["23", "24"],
+      new_coupon_batch_id: this.$route.query.coupon_batch_id,
       qrcodeImg: null,
       hasUsed: false,
       params: {
@@ -85,6 +87,7 @@ export default {
     } else {
       this.iphoneX = false;
     }
+
   },
   methods: {
     //微信静默授权
@@ -98,9 +101,30 @@ export default {
           '&scope=snsapi_base'
         window.location.href = redirct_url
       } else {
+        this.randomCouponID()
+        this.wxShareInfoValue.link = this.wxShareInfoValue.link + "&new_coupon_batch_id=" + this.new_coupon_batch_id
+        this.handleShare()
         this.userId = Cookies.get('user_id')
         this.params.user_id = this.userId
         this.checkCouponIsUse()
+      }
+    },
+    handleShare() {
+      $wechat()
+        .then(res => {
+          res.share(this.wxShareInfoValue)
+        })
+        .catch(_ => {
+          console.warn(_.message)
+        })
+    },
+    //随机出randomCouponID
+    randomCouponID() {
+      for (let i = 0; i < this.couponID.length; i++) {
+        if (parseInt(this.couponID[i]) !== this.new_coupon_batch_id) {
+          this.new_coupon_batch_id = this.couponID[i]
+          break;
+        }
       }
     },
     //判断是否领过优惠券

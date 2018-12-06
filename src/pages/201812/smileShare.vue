@@ -112,8 +112,7 @@ export default {
       hasUsed: false,
       atm1: true,
       atm2: false,
-      coupon_batch_id: this.$route.query.coupon_batch_id,
-      couponID: ["23", "24"],
+      coupon_batch_id: this.$route.query.new_coupon_batch_id,
       id: this.$route.query.id,
       oid: this.$route.query.utm_source,
       qrcodeImg: null,
@@ -148,24 +147,8 @@ export default {
     } else {
       this.iphoneX = false;
     }
-
-    this.randomCouponID()
   },
   methods: {
-    //随机出randomCouponID
-    randomCouponID() {
-      let that = this
-      let flag = true
-      while (flag) {
-        let couponID = that.couponID[Math.floor(Math.random() * that.couponID.length)]
-        if (parseInt(couponID) !== parseInt(that.coupon_batch_id)) {
-          that.coupon_batch_id = couponID;
-          console.log(couponID)
-          console.log("=========")
-          flag = false
-        }
-      }
-    },
     //微信静默授权
     handleWechatAuth() {
       if (Cookies.get('sign') === null) {
@@ -188,8 +171,8 @@ export default {
       getImage(formData)
         .then(res => {
           console.log(res)
-          this.toResult()
           alert('头像上传成功')
+          this.toResult()
         })
         .catch(err => {
           alert('头像上传失败！请重新上传，只支持jpg,png格式')
