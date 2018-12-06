@@ -127,12 +127,14 @@ export default {
     },
     //随机出randomCouponID
     randomCouponID() {
-      for (let i = 0; i < this.couponID.length; i++) {
-        if (parseInt(this.couponID[i]) !== this.new_coupon_batch_id) {
-          this.new_coupon_batch_id = this.couponID[i]
-          break;
-        }
-      }
+      let that = this
+      that.new_coupon_batch_id = that.couponID[Math.floor(Math.random() * that.couponID.length)]
+      // for (let i = 0; i < this.couponID.length; i++) {
+      //   if (parseInt(this.couponID[i]) !== this.new_coupon_batch_id) {
+      //     this.new_coupon_batch_id = this.couponID[i]
+      //     break;
+      //   }
+      // }
     },
     //判断是否领过优惠券
     checkCouponIsUse() {
