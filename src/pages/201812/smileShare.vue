@@ -160,7 +160,7 @@ export default {
         let couponID = that.couponID[Math.floor(Math.random() * that.couponID.length)]
         if (parseInt(couponID) !== parseInt(that.coupon_batch_id)) {
           that.coupon_batch_id = couponID;
-          console.log("couponID")
+          console.log(couponID)
           console.log("=========")
           flag = false
         }
