@@ -103,7 +103,7 @@ export default {
         window.location.href = redirct_url
       } else {
         this.randomCouponID()
-        this.wxShareInfoValue.link = this.changeUrlArg(window.location.href + '', 'coupon_batch_id', this.new_coupon_batch_id)
+        this.wxShareInfoValue.link = this.changeUrlArg(this.wxShareInfoValue.link, 'coupon_batch_id', this.new_coupon_batch_id)
         this.handleShare()
         this.userId = Cookies.get('user_id')
         this.params.user_id = this.userId
