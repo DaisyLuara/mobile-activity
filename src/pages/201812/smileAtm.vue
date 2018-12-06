@@ -169,6 +169,19 @@ export default {
         this.hasUsed = true
       }
     },
+    //处理时间
+    formatTimestamp(data, flag) {
+      let nextDate = new Date(new Date(data).getTime() + 24 * 60 * 60 * 1000)
+      if (flag) {
+        nextDate = data
+      }
+      nextDate.setHours(0)
+      nextDate.setMinutes(0)
+      nextDate.setSeconds(0)
+      nextDate.setMilliseconds(0)
+      let todayStartTime = nextDate.getTime()
+      return todayStartTime
+    }
   }
 };
 </script>
