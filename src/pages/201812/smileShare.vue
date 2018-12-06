@@ -123,7 +123,7 @@ export default {
       wxShareInfoValue: {
         title: "欢度双十二，连卡福邀你“刷脸”赢好礼！",
         desc: "错过今天，再等N年。",
-        link: "http://papi.xingstation.com/api/s/3QQ",
+        link: "http://papi.xingstation.com/api/s/3QQ" + window.location.search,
         //link: "http://papi.newgls.cn/api/s/JZo" + window.location.search,
         imgUrl: cdnUrl + "/fe/marketing/img/simle_atm/icon.jpg",
         success: () => {
