@@ -112,6 +112,7 @@ export default {
       }
       checkGetCoupon(args)
         .then(res => {
+          console.log('checkGetCoupon', res)
           if (res) {
             this.handleData(res)
           } else {
@@ -130,6 +131,7 @@ export default {
             )
             checkGetCoupon(args)
               .then(res => {
+                console.log('checkGetCoupon', res)
                 if (res) {
                   this.handleData(res)
                 } else {
