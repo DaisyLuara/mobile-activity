@@ -58,8 +58,8 @@
       </div>
     </div>
     <div
-      class="result"
       v-show="!result"
+      class="result"
     >
       <!-- photo -->
       <img
