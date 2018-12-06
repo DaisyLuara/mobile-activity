@@ -7,32 +7,32 @@
       :src="couponImg+ this.$qiniuCompress()"
       :class="{'x-couponImg':iphoneX,'couponImg':!iphoneX}"
       class="couponImg">
-      <!-- <img 
-      :src="baseUrl + 'y_0.5.png'+ this.$qiniuCompress()"
-      :class="{'x-couponImg':iphoneX,'couponImg':!iphoneX}"
-      class="couponImg">  -->
     <div 
       :class="{'x-center':iphoneX,'center':!iphoneX}"
       class="center">
       <img 
-        :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
+        :src="baseUrl + 'scan.png'+ this.$qiniuCompress()"
         class="scan">
+      <img 
+        :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
+        class="save">
+      <img 
+        v-if="photo !== null" 
+        :src="photo + this.$qiniuCompress()"
+        class="photo"> 
       <!-- 二维码 -->
       <img 
         :src="qrcodeImg+ this.$qiniuCompress()"
         class="ewm"> 
-      <!-- <img 
-        :src="baseUrl + 'ewm.jpeg'+ this.$qiniuCompress()"
-        class="ewm"> -->
       <!-- 已使用 -->
       <img 
         v-if="hasUsed"
-        :src="baseUrl + 'has_used.png'+ this.$qiniuCompress()"
+        :src="baseUrl + 'used.png'+ this.$qiniuCompress()"
         class="coupon-used">
       <!-- 已失效-->
       <img 
         v-if="hasPost"
-        :src="baseUrl + 'has_post.png'+ this.$qiniuCompress()"
+        :src="baseUrl + 'post.png'+ this.$qiniuCompress()"
         class="coupon-post">
     </div>
   </div>
@@ -212,6 +212,32 @@ export default {
       let todayStartTime = nextDate.getTime()
       return todayStartTime
     }
+    //转换日期格式
+    // dateFormat(date, fmt) {
+    //   var o = {
+    //     'M+': date.getMonth() + 1,
+    //     'd+': date.getDate(),
+    //     'h+': date.getHours(),
+    //     'm+': date.getMinutes(),
+    //     's+': date.getSeconds(),
+    //     'q+': Math.floor((date.getMonth() + 3) / 3),
+    //     S: date.getMilliseconds()
+    //   }
+    //   if (/(y+)/.test(fmt))
+    //     fmt = fmt.replace(
+    //       RegExp.$1,
+    //       (date.getFullYear() + '').substr(4 - RegExp.$1.length)
+    //     )
+    //   for (var k in o)
+    //     if (new RegExp('(' + k + ')').test(fmt))
+    //       fmt = fmt.replace(
+    //         RegExp.$1,
+    //         RegExp.$1.length == 1
+    //           ? o[k]
+    //           : ('00' + o[k]).substr(('' + o[k]).length)
+    //       )
+    //   return fmt
+    // }
   }
 }
 </script>
@@ -242,65 +268,75 @@ img {
   text-align: center;
   position: relative;
   overflow: hidden;
-  background-image: url('@{imageHost}background_2.png');
+  background-image: url('@{imageHost}bg.png');
   background-size: 100% 100%;
   background-position: center bottom;
   background-repeat: no-repeat;
   .couponImg {
-    width: 85%;
+    width: 86%;
     position: relative;
+    margin-top: 4%;
   }
   .x-couponImg {
-    width: 90%;
+    width: 86%;
     position: relative;
+    margin-top: 12%;
   }
 
   .center {
     width: 100%;
     position: relative;
-    margin-top: -0.6%;
+    margin-top: 2.5%;
     pointer-events: none;
     user-select: none;
     .scan {
-      width: 82%;
+      width: 80%;
+    }
+    .save {
+      width: 7%;
+      position: absolute;
+      left: 7%;
+      top: 18%;
+      z-index: 3;
+    }
+    .photo {
+      width: 32.5%;
+      position: absolute;
+      left: 16.6%;
+      top: 8.5%;
+      user-select: auto;
+      pointer-events: auto;
+      z-index: 5;
     }
     .ewm {
-      width: 29.8%;
+      width: 25%;
       position: absolute;
-      left: 15.5%;
-      top: 28%;
+      right: 17%;
+      top: 8.5%;
+      user-select: auto;
+      pointer-events: auto;
     }
-    .coupon-used,
-    .coupon-post {
-      width: 84%;
+    .coupon-used {
+      width: 80%;
       position: absolute;
-      left: 8%;
-      top: -1.6%;
+      left: 10%;
+      top: 0.4%;
+      z-index: 9;
+    }
+    .coupon-post {
+      width: 80%;
+      position: absolute;
+      left: 10%;
+      top: 0.4%;
       z-index: 9;
     }
   }
   .x-center {
     width: 100%;
     position: relative;
+    margin-top: 4.5%;
     pointer-events: none;
     user-select: none;
-    .scan {
-      width: 87%;
-    }
-    .ewm {
-      width: 30%;
-      position: absolute;
-      left: 14%;
-      top: 29%;
-    }
-    .coupon-used,
-    .coupon-post {
-      width: 88%;
-      position: absolute;
-      left: 6%;
-      top: -0.6%;
-      z-index: 9;
-    }
   }
 }
 </style>
