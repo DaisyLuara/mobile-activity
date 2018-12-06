@@ -148,6 +148,7 @@ export default {
     } else {
       this.iphoneX = false;
     }
+
     this.randomCouponID()
   },
   methods: {
@@ -159,6 +160,8 @@ export default {
         let couponID = that.couponID[Math.floor(Math.random() * that.couponID.length)]
         if (parseInt(couponID) !== parseInt(that.coupon_batch_id)) {
           that.coupon_batch_id = couponID;
+          console.log("couponID")
+          console.log("=========")
           flag = false
         }
       }
@@ -211,6 +214,8 @@ export default {
         include: 'couponBatch',
         qiniu_id: this.id
       }
+      alert('查询1')
+      alert(this.coupon_batch_id)
       checkGetCoupon(args)
         .then(res => {
           if (res) {
@@ -229,6 +234,8 @@ export default {
               new Date(formatTimestamp(data, false) - 1000),
               'yyyy-MM-dd hh:mm:ss'
             )
+            alert('查询2')
+            alert(this.coupon_batch_id)
             checkGetCoupon(args)
               .then(res => {
                 if (res) {
@@ -256,6 +263,8 @@ export default {
         oid: this.oid,
         belong: this.$route.query.utm_campaign
       }
+      alert('发送')
+      alert(this.coupon_batch_id)
       sendCoupon(args, this.coupon_batch_id)
         .then(res => {
           console.log('sendCoupon', res)
