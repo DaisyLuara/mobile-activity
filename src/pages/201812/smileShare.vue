@@ -218,6 +218,7 @@ export default {
       alert(this.coupon_batch_id)
       checkGetCoupon(args)
         .then(res => {
+          console.log('checkGetCoupon', res)
           if (res) {
             this.handleData(res)
           } else {
@@ -238,6 +239,7 @@ export default {
             alert(this.coupon_batch_id)
             checkGetCoupon(args)
               .then(res => {
+                console.log('checkGetCoupon', res)
                 if (res) {
                   this.handleData(res)
                 } else {

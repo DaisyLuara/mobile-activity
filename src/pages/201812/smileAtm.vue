@@ -112,8 +112,8 @@ export default {
       }
       checkGetCoupon(args)
         .then(res => {
+          console.log('checkGetCoupon', res)
           if (res) {
-            console.log('checkGetCoupon', res)
             this.handleData(res)
           } else {
             let data = new Date()
@@ -131,8 +131,8 @@ export default {
             )
             checkGetCoupon(args)
               .then(res => {
+                console.log('checkGetCoupon', res)
                 if (res) {
-                  console.log('checkGetCoupon', res)
                   this.handleData(res)
                 } else {
                   this.sendCoupon()
