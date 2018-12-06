@@ -317,39 +317,44 @@ img {
     background-size: 100% auto;
     background-position: center bottom;
     background-repeat: no-repeat;
+    pointer-events: none;
+    user-select: none;
     .start {
-      width: 85%;
+      width: 80%;
       position: absolute;
-      left: 8%;
-      bottom: 0;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
     }
     .x-start {
       width: 94%;
-      position: absolute;
-      left: 3%;
-      bottom: 0;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
     }
     .upload-picture {
       .w-1 {
-        width: 57.5%;
+        width: 55%;
         position: absolute;
-        left: 21.5%;
-        top: 30%;
+        left: 22.3%;
+        top: 28.1%;
         z-index: 9;
       }
       .xw {
         width: 63.5%;
         position: absolute;
         left: 18.5%;
-        top: 35%;
+        top: 29%;
         z-index: 9;
       }
       .upload {
         width: 40%;
         position: absolute;
         left: 30%;
-        top: 67%;
+        top: 63%;
         z-index: 10;
+        pointer-events: auto;
+        user-select: auto;
         img {
           width: 100%;
         }
@@ -364,29 +369,31 @@ img {
       }
     }
     .generate-resultse {
+      pointer-events: none;
+      user-select: none;
       .w-2 {
-        width: 57.5%;
+        width: 55%;
         position: absolute;
-        left: 21.5%;
-        top: 30%;
+        left: 22.3%;
+        top: 28.1%;
         z-index: 9;
       }
       .xw {
         width: 63.5%;
         position: absolute;
         left: 18.5%;
-        top: 35%;
+        top: 29%;
         z-index: 9;
       }
       .scan {
         width: 50%;
         position: absolute;
         left: 25%;
-        top: 36%;
+        top: 33%;
         z-index: 9;
       }
       .x-scan {
-        top: 42%;
+        top: 36%;
       }
     }
   }
@@ -398,6 +405,8 @@ img {
     background-size: 100% 100%;
     background-position: center bottom;
     background-repeat: no-repeat;
+    pointer-events: none;
+    user-select: none;
     .photo {
       width: 88%;
       position: absolute;
