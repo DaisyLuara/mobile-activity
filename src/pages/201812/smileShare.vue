@@ -148,6 +148,7 @@ export default {
     } else {
       this.iphoneX = false;
     }
+    alert(this.coupon_batch_id)
     this.randomCouponID()
   },
   methods: {
@@ -159,6 +160,8 @@ export default {
         let couponID = that.couponID[Math.floor(Math.random() * that.couponID.length)]
         if (parseInt(couponID) !== parseInt(that.coupon_batch_id)) {
           that.coupon_batch_id = couponID;
+          //console.log("=========")
+          alert(couponID)
           flag = false
         }
       }
