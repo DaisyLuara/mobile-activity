@@ -93,7 +93,8 @@ import {
   getImage,
   sendCoupon,
   checkGetCoupon,
-  dateFormat} from 'services'
+  dateFormat,
+  formatTimestamp} from 'services'
 const cdnUrl = process.env.CDN_URL;
 export default {
   mixins: [normalPages],
@@ -221,11 +222,11 @@ export default {
               include: 'couponBatch'
             }
             args.start_date = dateFormat(
-              new Date(this.formatTimestamp(data, true)),
+              new Date(formatTimestamp(data, true)),
               'yyyy-MM-dd hh:mm:ss'
             )
             args.end_date = dateFormat(
-              new Date(this.formatTimestamp(data, false) - 1000),
+              new Date(formatTimestamp(data, false) - 1000),
               'yyyy-MM-dd hh:mm:ss'
             )
             checkGetCoupon(args)

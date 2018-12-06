@@ -34,7 +34,8 @@ import {
   Cookies,
   sendCoupon,
   checkGetCoupon,
-  dateFormat
+  dateFormat,
+  formatTimestamp
 } from 'services'
 const cdnUrl = process.env.CDN_URL;
 export default {
@@ -120,11 +121,11 @@ export default {
               include: 'couponBatch'
             }
             args.start_date = dateFormat(
-              new Date(this.formatTimestamp(data, true)),
+              new Date(formatTimestamp(data, true)),
               'yyyy-MM-dd hh:mm:ss'
             )
             args.end_date = dateFormat(
-              new Date(this.formatTimestamp(data, false) - 1000),
+              new Date(formatTimestamp(data, false) - 1000),
               'yyyy-MM-dd hh:mm:ss'
             )
             checkGetCoupon(args)
@@ -168,7 +169,7 @@ export default {
         //已使用
         this.hasUsed = true
       }
-    },
+    }
   }
 };
 </script>
