@@ -73,9 +73,6 @@ export default {
     };
   },
   mounted() {
-    this.randomCouponID()
-    this.wxShareInfoValue.link = this.wxShareInfoValue.link + "&new_coupon_batch_id=" + this.new_coupon_batch_id
-    this.handleShare()
     //微信授权
     if (isInWechat() === true) {
       if (
@@ -104,6 +101,9 @@ export default {
           '&scope=snsapi_base'
         window.location.href = redirct_url
       } else {
+        this.randomCouponID()
+        this.wxShareInfoValue.link = this.wxShareInfoValue.link + "&new_coupon_batch_id=" + this.new_coupon_batch_id
+        this.handleShare()
         this.userId = Cookies.get('user_id')
         this.params.user_id = this.userId
         this.checkCouponIsUse()
