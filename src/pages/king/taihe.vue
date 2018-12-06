@@ -1,39 +1,48 @@
 <template>
   <div
     :style="style.root"
-    class="root">
+    class="root"
+  >
     <!-- 券图 -->
-    <img 
+    <img
       :src="couponImg+ this.$qiniuCompress()"
       :class="{'x-couponImg':iphoneX,'couponImg':!iphoneX}"
-      class="couponImg">
-    <div 
+      class="couponImg"
+    >
+    <!-- <img
+      :src="baseUrl + 'd.png'+ this.$qiniuCompress()"
+      :class="{'x-couponImg':iphoneX,'couponImg':!iphoneX}"
+      class="couponImg"
+    > -->
+    <div
       :class="{'x-center':iphoneX,'center':!iphoneX}"
-      class="center">
-      <img 
-        :src="baseUrl + 'scan.png'+ this.$qiniuCompress()"
-        class="scan">
-      <img 
-        :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
-        class="save">
-      <img 
-        v-if="photo !== null" 
-        :src="photo + this.$qiniuCompress()"
-        class="photo"> 
+      class="center"
+    >
+      <img
+        :src="baseUrl + 's2.png'+ this.$qiniuCompress()"
+        class="scan"
+      >
       <!-- 二维码 -->
-      <img 
+      <img
         :src="qrcodeImg+ this.$qiniuCompress()"
-        class="ewm"> 
+        class="ewm"
+      >
+      <!-- <img
+        :src="baseUrl + 'er.jpeg'+ this.$qiniuCompress()"
+        class="ewm"
+      > -->
       <!-- 已使用 -->
-      <img 
+      <img
         v-if="hasUsed"
         :src="baseUrl + 'used.png'+ this.$qiniuCompress()"
-        class="coupon-used">
+        class="coupon-used"
+      >
       <!-- 已失效-->
-      <img 
+      <img
         v-if="hasPost"
         :src="baseUrl + 'post.png'+ this.$qiniuCompress()"
-        class="coupon-post">
+        class="coupon-post"
+      >
     </div>
   </div>
 </template>
@@ -78,7 +87,7 @@ export default {
       // }
     }
   },
-  created() {},
+  created() { },
   mounted() {
     //微信授权
     if (isInWechat() === true) {
@@ -212,38 +221,12 @@ export default {
       let todayStartTime = nextDate.getTime()
       return todayStartTime
     }
-    //转换日期格式
-    // dateFormat(date, fmt) {
-    //   var o = {
-    //     'M+': date.getMonth() + 1,
-    //     'd+': date.getDate(),
-    //     'h+': date.getHours(),
-    //     'm+': date.getMinutes(),
-    //     's+': date.getSeconds(),
-    //     'q+': Math.floor((date.getMonth() + 3) / 3),
-    //     S: date.getMilliseconds()
-    //   }
-    //   if (/(y+)/.test(fmt))
-    //     fmt = fmt.replace(
-    //       RegExp.$1,
-    //       (date.getFullYear() + '').substr(4 - RegExp.$1.length)
-    //     )
-    //   for (var k in o)
-    //     if (new RegExp('(' + k + ')').test(fmt))
-    //       fmt = fmt.replace(
-    //         RegExp.$1,
-    //         RegExp.$1.length == 1
-    //           ? o[k]
-    //           : ('00' + o[k]).substr(('' + o[k]).length)
-    //       )
-    //   return fmt
-    // }
   }
 }
 </script>
 
 <style lang="less" scoped>
-@imageHost: 'http://cdn.exe666.com/fe/marketing/img/taihe/';
+@imageHost: "http://cdn.exe666.com/fe/marketing/img/taihe/";
 html,
 body {
   width: 100%;
@@ -268,12 +251,12 @@ img {
   text-align: center;
   position: relative;
   overflow: hidden;
-  background-image: url('@{imageHost}bg.png');
+  background-image: url("@{imageHost}bg6.jpg");
   background-size: 100% 100%;
   background-position: center bottom;
   background-repeat: no-repeat;
   .couponImg {
-    width: 86%;
+    width: 72%;
     position: relative;
     margin-top: 4%;
   }
@@ -286,57 +269,50 @@ img {
   .center {
     width: 100%;
     position: relative;
-    margin-top: 2.5%;
     pointer-events: none;
     user-select: none;
     .scan {
-      width: 80%;
-    }
-    .save {
-      width: 7%;
-      position: absolute;
-      left: 7%;
-      top: 18%;
-      z-index: 3;
-    }
-    .photo {
-      width: 32.5%;
-      position: absolute;
-      left: 16.6%;
-      top: 8.5%;
-      user-select: auto;
-      pointer-events: auto;
-      z-index: 5;
+      width: 70%;
     }
     .ewm {
-      width: 25%;
+      width: 24.5%;
       position: absolute;
-      right: 17%;
-      top: 8.5%;
+      left: 21.5%;
+      top: 45%;
       user-select: auto;
       pointer-events: auto;
     }
-    .coupon-used {
-      width: 80%;
-      position: absolute;
-      left: 10%;
-      top: 0.4%;
-      z-index: 9;
-    }
+    .coupon-used,
     .coupon-post {
-      width: 80%;
+      width: 71%;
       position: absolute;
-      left: 10%;
-      top: 0.4%;
+      left: 15%;
+      top: -0.6%;
       z-index: 9;
     }
   }
   .x-center {
     width: 100%;
     position: relative;
-    margin-top: 4.5%;
     pointer-events: none;
     user-select: none;
+    .scan {
+      width: 84%;
+    }
+    .ewm {
+      width: 28.5%;
+      position: absolute;
+      left: 16.5%;
+      top: 45%;
+    }
+    .coupon-used,
+    .coupon-post {
+      width: 85%;
+      position: absolute;
+      left: 7%;
+      top: -0.6%;
+      z-index: 9;
+    }
   }
 }
 </style>
