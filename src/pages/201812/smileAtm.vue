@@ -3,9 +3,10 @@
     :style="style.root"
     class="root"
   >
-    <!-- photo -->
+    <!-- photo :src="baseUrl + '666.png'+ this.$qiniuCompress()" -->
     <img
-      :src="baseUrl + '666.png'+ this.$qiniuCompress()"
+      v-if="photo !== null"
+      :src="photo + this.$qiniuCompress()"
       :class="{'x-photo':iphoneX,'photo':!iphoneX}"
       class="photo"
     >
