@@ -93,8 +93,8 @@ export default {
       rank_url: process.env.SAAS_API + '/user/',
       //分享
       wxShareInfoValue: {
-        title: 'Mirror魔镜PK擂台等你来战',
-        desc: 'Mirror魔镜PK擂台等你来战',
+        title: '乐荟豪礼 等你来领',
+        desc: '即可领取 嗨翻全场',
         link: 'http://papi.xingstation.com/api/s/5QR' + window.location.search,
         imgUrl: IMGSERVER + '/image/pk/common/share.png',
         success: () => {

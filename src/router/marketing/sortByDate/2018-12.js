@@ -48,7 +48,7 @@ const Date201812 = [
     location: '201812/lehuiPK',
     name: 'lehuiPK',
     meta: {
-      title: '颜值榜',
+      title: '乐玩乐荟',
       author: 'lipan',
       desc: '乐荟-颜值PK'
     },
