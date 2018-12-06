@@ -107,7 +107,6 @@ export default {
     if (this.$innerHeight() > 672) {
       document.querySelector('.main').style.marginTop = '10%'
     }
-    this.getPhoto()
     //微信授权
     if (isInWechat() === true) {
       if (
@@ -117,9 +116,9 @@ export default {
         this.handleWechatAuth()
       }
     }
-    let clip = document.getElementById('clip')
-    clip.style.width = this.$innerWidth() * 0.268 + 'px'
-    clip.style.height = this.$innerWidth() * 0.272 + 'px'
+    // let clip = document.getElementById('clip')
+    // clip.style.width = this.$innerWidth() * 0.268 + 'px'
+    // clip.style.height = this.$innerWidth() * 0.272 + 'px'
   },
   methods: {
     handleWechatAuth() {
@@ -145,6 +144,7 @@ export default {
       this.$http
         .get(this.rank_url + userId + '/rank' + query)
         .then(res => {
+          console.log(res)
           this.rank = (parseFloat(res.data.data.rank) * 100).toFixed(2)
         })
         .catch(err => {
@@ -156,7 +156,6 @@ export default {
       if (this.photo) {
         cancelAnimationFrame(timer)
         this.toPK()
-        console.log(this.photo)
         return
       }
 
@@ -172,9 +171,11 @@ export default {
       }
       userGame(args, this.userId)
         .then(res => {
+          console.log(res)
           if (res.success) {
             this.note = 'success'
           }
+          this.note = 'success'
         })
         .catch(e => {
           console.log(e)
@@ -302,21 +303,23 @@ img {
         left: 70%;
       }
       .clip {
-        min-width: 25.5%;
+        width: 31vw;
+        height: 31vw;
         position: absolute;
-        top: 29.5%;
-        left: 10.2%;
+        top: 26.5%;
+        left: 7.2%;
         z-index: 9;
         border-radius: 50%;
         overflow: hidden;
+        border: solid 5px #fff;
       }
       .rank {
         width: 48%;
         position: absolute;
-        top: 60%;
+        top: 61%;
         left: 42%;
         text-align: center;
-        font-size: 4.5vw;
+        font-size: 3.5vw;
         color: #fff;
       }
     }
