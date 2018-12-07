@@ -235,7 +235,7 @@ img {
   text-align: center;
   position: relative;
   overflow: hidden;
-  background-image: url("@{imageHost}bg2.jpg");
+  background-image: url("@{imageHost}bg.jpg");
   background-size: 100% 100%;
   background-position: center bottom;
   background-repeat: no-repeat;
