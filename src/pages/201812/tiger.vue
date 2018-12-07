@@ -28,7 +28,7 @@
         :src="qrcodeImg+ this.$qiniuCompress()"
         class="ewm"
       >
-      <span class="code">{{code}}</span>
+      <span class="code">{{ code }}</span>
     </div>
 
   </div>
