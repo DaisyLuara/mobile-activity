@@ -5,7 +5,7 @@
   >
     <div class="all">
       <img
-        :src="base+'title.png'"
+        :src="base+'title.png' + this.$qiniuCompress()"
         class="title"
       >
       <div class="main">
@@ -29,15 +29,19 @@
           你击败了{{ rank }}%玩家
         </div>
       </div>
+      <img
+        :src="url + 't.png' + this.$qiniuCompress()"
+        class="tips"
+      >
       <div class="todo">
         <a
           class="btn"
           @click="getPhoto"
         >
-          <img :src="base + btn + '.png'">
+          <img :src="base + btn + '.png' + this.$qiniuCompress()">
         </a>
         <img
-          :src="base + note + '.png'"
+          :src="base + note + '.png' + this.$qiniuCompress()"
           class="note"
         >
       </div>
@@ -46,10 +50,16 @@
       v-show="mask"
       :style="style.root"
       class="mask"
-      @click="toLink"
     >
       <div class="alert">
-        <img :src="url + 'alert.png' + this.$qiniuCompress()">
+        <img
+          :src="url + 'alert2.png' + this.$qiniuCompress()"
+          class="erbg"
+        >
+        <img
+          :src="url + 'btn.png' + this.$qiniuCompress()"
+          class="btn"
+        >
         <button
           class="close"
           @click.stop="()=>{ mask = false;}"
@@ -116,9 +126,6 @@ export default {
         this.handleWechatAuth()
       }
     }
-    // let clip = document.getElementById('clip')
-    // clip.style.width = this.$innerWidth() * 0.268 + 'px'
-    // clip.style.height = this.$innerWidth() * 0.272 + 'px'
   },
   methods: {
     handleWechatAuth() {
@@ -245,9 +252,17 @@ img {
       width: 90%;
       margin: 0 auto;
       transform: translateY(-50%);
-      img {
+      .erbg {
         position: relative;
         z-index: 0;
+        pointer-events: auto;
+      }
+      .btn {
+        width: 46vw;
+        position: absolute;
+        top: 63%;
+        left: 50%;
+        transform: translateX(-50%);
       }
       .close {
         width: 10vw;
@@ -263,11 +278,14 @@ img {
     }
   }
   .all {
+    width: 100%;
     position: relative;
     z-index: 0;
+    overflow-x: hidden;
     .title {
       width: 62%;
-      margin: 5% auto;
+      margin: 0 auto;
+      margin-top: 3.5%;
     }
     .main {
       width: 92%;
@@ -323,8 +341,12 @@ img {
         color: #fff;
       }
     }
+    .tips {
+      position: relative;
+      width: 73.5%;
+    }
     .todo {
-      margin-top: 5%;
+      margin-top: 3.5%;
       .btn {
         display: inline-block;
         width: 54%;
