@@ -112,7 +112,7 @@ const Date201812 = [
     location: '201812/tiger',
     name: 'tiger',
     meta: {
-      title: '奖券',
+      title: '请你喝茶',
       author: 'xj1012',
       desc: '颛桥万达老虎机'
     },

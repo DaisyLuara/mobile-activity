@@ -4,8 +4,13 @@
     class="root"
   >
     <!-- 券图 -->
-    <img
+    <!-- <img
       :src="baseUrl + '4.png'+ this.$qiniuCompress()"
+      :class="{'x-couponImg':iphoneX,'couponImg':!iphoneX}"
+      class="couponImg"
+    > -->
+    <img
+      :src="couponImg+ this.$qiniuCompress()"
       :class="{'x-couponImg':iphoneX,'couponImg':!iphoneX}"
       class="couponImg"
     >
@@ -13,11 +18,17 @@
       :class="{'x-contain':iphoneX,'contain':!iphoneX}"
       class="contain"
     >
-      <img
+      <!-- <img
         :src="baseUrl + 'ewm.jpeg'+ this.$qiniuCompress()"
         class="ewm"
-      >
+      > 
       <span class="code">1234567</span>
+    </div>-->
+      <img
+        :src="qrcodeImg+ this.$qiniuCompress()"
+        class="ewm"
+      >
+      <span class="code">{{code}}</span>
     </div>
 
   </div>
@@ -52,7 +63,7 @@ export default {
       couponImg: null,
       qrcodeImg: null,
       code: null,
-      couponID: ['111', '112'],
+      couponID: ['25', '26'],
       new_coupon_batch_id: this.$route.query.coupon_batch_id,
       params: {
         user_id: null
@@ -60,11 +71,11 @@ export default {
       hasUsed: false,
       hasPost: false,
       wxShareInfoValue: {
-        title: '刷脸享优惠，畅快看大片！',
-        desc: '太禾影城等你来嗨玩！',
+        title: '四云奶盖贡茶请你喝奶茶了！',
+        desc: '点击即可领福利',
         //link: 'http://papi.xingstation.com/api/s/zK8' + window.location.search,
         link: 'http://papi.newgls.cn/api/s/Lg4' + window.location.search,
-        imgUrl: cdnUrl + '/fe/marketing/img/tiger/icon.jpg'
+        imgUrl: cdnUrl + '/fe/marketing/img/tiger/icon.png'
       }
     }
   },
@@ -125,6 +136,8 @@ export default {
     randomCouponID() {
       let that = this
       that.new_coupon_batch_id = that.couponID[Math.floor(Math.random() * that.couponID.length)]
+      alert('随机id')
+      alert(that.new_coupon_batch_id)
     },
     //判断是否领过优惠券
     checkCouponIsUse() {
@@ -133,6 +146,8 @@ export default {
         include: 'couponBatch',
         qiniu_id: this.id
       }
+      alert('查询1')
+      alert(this.coupon_batch_id)
       checkGetCoupon(args)
         .then(res => {
           if (res) {
@@ -151,6 +166,8 @@ export default {
               new Date(formatTimestamp(data, false) - 1000),
               'yyyy-MM-dd hh:mm:ss'
             )
+            alert('查询2')
+            alert(this.coupon_batch_id)
             checkGetCoupon(args)
               .then(res => {
                 if (res) {
@@ -176,6 +193,8 @@ export default {
         oid: this.oid,
         belong: this.$route.query.utm_campaign
       }
+      alert('发送')
+      alert(this.coupon_batch_id)
       sendCoupon(args, this.coupon_batch_id)
         .then(res => {
           console.log('sendCoupon', res)
