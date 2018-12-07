@@ -128,6 +128,28 @@ const Date201812 = [
       desc: '吾悦坊美食'
     },
     isAbandoned: false
+  },
+  {
+    path: 'christmas_post',
+    location: '201812/postOffice',
+    name: 'christmas_post',
+    meta: {
+      title: '圣诞祝福邮递局',
+      author: 'xj1012',
+      desc: '圣诞祝福邮递局'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'facing',
+    location: '201812/facing',
+    name: 'facing',
+    meta: {
+      title: '智能面相测试仪',
+      author: 'lipan',
+      desc: '智能面相测试仪 '
+    },
+    isAbandoned: false
   }
 ]
 export default Date201812
