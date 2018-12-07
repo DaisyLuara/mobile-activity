@@ -106,6 +106,17 @@ const Date201812 = [
       desc: '衡阳连卡福-笑容ATM(分享页)'
     },
     isAbandoned: false
+  },
+  {
+    path: 'tiger',
+    location: '201812/tiger',
+    name: 'tiger',
+    meta: {
+      title: '奖券',
+      author: 'xj1012',
+      desc: '颛桥万达老虎机'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201812
