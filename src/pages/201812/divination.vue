@@ -1,14 +1,17 @@
 <template>
-  <div 
-    :style="style.root" 
-    class="content">
-    <img 
-      :src="base + 'title.png'" 
-      class="title">
-    <swiper 
-      ref="Swiper" 
-      :options="sOption" 
-      class="swiper">
+  <div
+    :style="style.root"
+    class="content"
+  >
+    <img
+      :src="base + 'title.png'"
+      class="title"
+    >
+    <swiper
+      ref="Swiper"
+      :options="sOption"
+      class="swiper"
+    >
       <swiper-slide>
         <img :src="photo">
       </swiper-slide>
@@ -16,15 +19,18 @@
         <img :src="base + word + '.png'">
       </swiper-slide>
     </swiper>
-    <img 
-      :src="base + 'note.png'" 
-      class="note">
-    <img 
-      :src="base + 'pointer.png'" 
-      class="pointer">
-    <img 
-      :src="base + 'save.png'" 
-      class="save">
+    <img
+      :src="base + 'note.png'"
+      class="note"
+    >
+    <img
+      :src="base + 'pointer.png'"
+      class="pointer"
+    >
+    <img
+      :src="base + 'save.png'"
+      class="save"
+    >
   </div>
 </template>
 <script>

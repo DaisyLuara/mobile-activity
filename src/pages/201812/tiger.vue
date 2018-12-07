@@ -3,30 +3,38 @@
     :style="style.root"
     class="root"
   >
-    <!-- photo :src="baseUrl + '666.png'+ this.$qiniuCompress()" -->
+    <!-- 券图 -->
+    <!-- <img
+      :src="baseUrl + '4.png'+ this.$qiniuCompress()"
+      :class="{'x-couponImg':iphoneX,'couponImg':!iphoneX}"
+      class="couponImg"
+    > -->
     <img
-      v-if="photo !== null"
-      :src="photo + this.$qiniuCompress()"
-      :class="{'x-photo':iphoneX,'photo':!iphoneX}"
-      class="photo"
+      :src="couponImg+ this.$qiniuCompress()"
+      :class="{'x-couponImg':iphoneX,'couponImg':!iphoneX}"
+      class="couponImg"
     >
-    <!-- 二维码 -->
-    <img
-      :src="qrcodeImg+ this.$qiniuCompress()"
-      :class="{'x-ewm':iphoneX,'ewm':!iphoneX}"
-      class="ewm"
+    <div
+      :class="{'x-contain':iphoneX,'contain':!iphoneX}"
+      class="contain"
     >
-    <!-- 已使用 -->
-    <img
-      v-show="hasUsed"
-      :src="baseUrl + 'hasUsed.png'+ this.$qiniuCompress()"
-      :class="{'x-hasUsed':iphoneX,'hasUsed':!iphoneX}"
-      class="hasUsed"
-    >
+      <!-- <img
+        :src="baseUrl + 'ewm.jpeg'+ this.$qiniuCompress()"
+        class="ewm"
+      > 
+      <span class="code">1234567</span>
+    </div>-->
+      <img
+        :src="qrcodeImg+ this.$qiniuCompress()"
+        class="ewm"
+      >
+      <span class="code">{{code}}</span>
+    </div>
+
   </div>
 </template>
 <script>
-import { onlyGetPhoto } from "../../mixins/onlyGetPhoto";
+import { onlyGetPhoto } from '../../mixins/onlyGetPhoto'
 import {
   $wechat,
   isInWechat,
@@ -37,41 +45,41 @@ import {
   dateFormat,
   formatTimestamp
 } from 'services'
-const cdnUrl = process.env.CDN_URL;
+const cdnUrl = process.env.CDN_URL
 export default {
   mixins: [onlyGetPhoto],
   data() {
     return {
-      baseUrl: cdnUrl + "/fe/marketing/img/simle_atm/",
+      baseUrl: cdnUrl + '/fe/marketing/img/tiger/',
       style: {
         root: {
-          height: this.$innerHeight() + "px"
+          height: this.$innerHeight() + 'px'
         }
       },
-      photo: null,
       iphoneX: false,
       coupon_batch_id: this.$route.query.coupon_batch_id,
       id: this.$route.query.id,
       oid: this.$route.query.utm_source,
-      couponID: ['111', '112', '113', '114'],
-      new_coupon_batch_id: this.$route.query.coupon_batch_id,
+      couponImg: null,
       qrcodeImg: null,
-      hasUsed: false,
+      code: null,
+      couponID: ['116', '117'],
+      new_coupon_batch_id: this.$route.query.coupon_batch_id,
       params: {
         user_id: null
       },
+      hasUsed: false,
+      hasPost: false,
       wxShareInfoValue: {
-        title: "欢度双十二，连卡福邀你“刷脸”赢好礼！",
-        desc: "错过今天，再等N年。",
-        link: "http://papi.xingstation.com/api/s/3QQ" + window.location.search,
-        //link: "http://papi.newgls.cn/api/s/JZo" + window.location.search,
-        imgUrl: cdnUrl + "/fe/marketing/img/simle_atm/icon.jpg",
-        success: () => {
-          wechatShareTrack();
-        }
+        title: '四云奶盖贡茶请你喝奶茶了！',
+        desc: '点击即可领福利',
+        link: 'http://papi.xingstation.com/api/s/913' + window.location.search,
+        //link: 'http://papi.newgls.cn/api/s/Lg4' + window.location.search,
+        imgUrl: cdnUrl + '/fe/marketing/img/tiger/icon.png'
       }
-    };
+    }
   },
+  created() { },
   mounted() {
     //微信授权
     if (isInWechat() === true) {
@@ -83,11 +91,10 @@ export default {
       }
     }
     if (this.$innerHeight() > 672) {
-      this.iphoneX = true;
+      this.iphoneX = true
     } else {
-      this.iphoneX = false;
+      this.iphoneX = false
     }
-
   },
   methods: {
     //微信静默授权
@@ -107,9 +114,9 @@ export default {
         this.userId = Cookies.get('user_id')
         this.params.user_id = this.userId
         this.checkCouponIsUse()
-
       }
     },
+    //分享
     handleShare() {
       $wechat()
         .then(res => {
@@ -129,12 +136,6 @@ export default {
     randomCouponID() {
       let that = this
       that.new_coupon_batch_id = that.couponID[Math.floor(Math.random() * that.couponID.length)]
-      // for (let i = 0; i < this.couponID.length; i++) {
-      //   if (parseInt(this.couponID[i]) !== this.new_coupon_batch_id) {
-      //     this.new_coupon_batch_id = this.couponID[i]
-      //     break;
-      //   }
-      // }
     },
     //判断是否领过优惠券
     checkCouponIsUse() {
@@ -145,7 +146,6 @@ export default {
       }
       checkGetCoupon(args)
         .then(res => {
-          console.log('checkGetCoupon', res)
           if (res) {
             this.handleData(res)
           } else {
@@ -164,7 +164,6 @@ export default {
             )
             checkGetCoupon(args)
               .then(res => {
-                console.log('checkGetCoupon', res)
                 if (res) {
                   this.handleData(res)
                 } else {
@@ -200,17 +199,15 @@ export default {
     //处理返回数据
     handleData(res) {
       this.qrcodeImg = res.qrcode_url
-      if (parseInt(res.status) === 1) {
-        //已使用
-        this.hasUsed = true
-      }
-    }
+      this.couponImg = res.couponBatch.image_url
+      this.code = res.code
+    },
   }
-};
+}
 </script>
 
 <style lang="less" scoped>
-@imageHost: "http://cdn.exe666.com/fe/marketing/img/simle_atm/";
+@imageHost: "http://cdn.exe666.com/fe/marketing/img/tiger/";
 html,
 body {
   width: 100%;
@@ -234,43 +231,42 @@ img {
   width: 100%;
   text-align: center;
   position: relative;
-  overflow: hidden;
-  background-image: url("@{imageHost}bg.jpg");
-  background-size: 100% 100%;
-  background-position: center bottom;
-  background-repeat: no-repeat;
-  .photo {
-    width: 88%;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  .couponImg {
+    width: 100%;
     position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -86%);
+    left: 0;
+    top: 0;
   }
-  .ewm {
-    width: 23%;
-    position: absolute;
-    left: 38.5%;
-    bottom: 26%;
+  .contain {
+    width: 100%;
+    height: 30%;
+    position: relative;
+    margin-top: 70%;
+    .ewm {
+      width: 22%;
+      position: absolute;
+      left: 14%;
+      top: 30%;
+    }
+    .code {
+      width: 50%;
+      height: 16%;
+      display: block;
+      position: absolute;
+      right: 10%;
+      top: 65.8%;
+      color: #000;
+      font-size: 5vw;
+      z-index: 9;
+    }
   }
-  .x-ewm {
-    width: 27%;
-    position: absolute;
-    left: 36.5%;
-    bottom: 26%;
-  }
-  .hasUsed {
-    width: 32.8%;
-    position: absolute;
-    left: 33.5%;
-    bottom: 23%;
-    z-index: 9;
-  }
-  .x-hasUsed {
-    width: 34.5%;
-    position: absolute;
-    left: 33%;
-    bottom: 24.2%;
-    z-index: 9;
+  .x-contain {
+    margin-top: 67%;
+    .code {
+      top: 60.8%;
+    }
   }
 }
 </style>

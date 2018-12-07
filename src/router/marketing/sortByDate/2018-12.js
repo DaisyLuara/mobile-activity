@@ -48,7 +48,7 @@ const Date201812 = [
     location: '201812/lehuiPK',
     name: 'lehuiPK',
     meta: {
-      title: '颜值榜',
+      title: '乐玩乐荟',
       author: 'lipan',
       desc: '乐荟-颜值PK'
     },
@@ -104,6 +104,28 @@ const Date201812 = [
       title: '连卡福笑容ATM',
       author: 'xj1012',
       desc: '衡阳连卡福-笑容ATM(分享页)'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'tiger',
+    location: '201812/tiger',
+    name: 'tiger',
+    meta: {
+      title: '请你喝茶',
+      author: 'xj1012',
+      desc: '颛桥万达老虎机'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'wyf_meishi',
+    location: '201812/wyf',
+    name: 'wyf_meishi',
+    meta: {
+      title: '吾悦坊',
+      author: 'xj1012',
+      desc: '吾悦坊美食'
     },
     isAbandoned: false
   }
