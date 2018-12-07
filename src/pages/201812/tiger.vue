@@ -136,8 +136,6 @@ export default {
     randomCouponID() {
       let that = this
       that.new_coupon_batch_id = that.couponID[Math.floor(Math.random() * that.couponID.length)]
-      alert('随机id')
-      alert(that.new_coupon_batch_id)
     },
     //判断是否领过优惠券
     checkCouponIsUse() {
@@ -146,8 +144,6 @@ export default {
         include: 'couponBatch',
         qiniu_id: this.id
       }
-      alert('查询1')
-      alert(this.coupon_batch_id)
       checkGetCoupon(args)
         .then(res => {
           if (res) {
@@ -166,8 +162,6 @@ export default {
               new Date(formatTimestamp(data, false) - 1000),
               'yyyy-MM-dd hh:mm:ss'
             )
-            alert('查询2')
-            alert(this.coupon_batch_id)
             checkGetCoupon(args)
               .then(res => {
                 if (res) {
@@ -193,8 +187,6 @@ export default {
         oid: this.oid,
         belong: this.$route.query.utm_campaign
       }
-      alert('发送')
-      alert(this.coupon_batch_id)
       sendCoupon(args, this.coupon_batch_id)
         .then(res => {
           console.log('sendCoupon', res)

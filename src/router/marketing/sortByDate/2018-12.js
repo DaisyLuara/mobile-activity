@@ -117,6 +117,17 @@ const Date201812 = [
       desc: '颛桥万达老虎机'
     },
     isAbandoned: false
+  },
+  {
+    path: 'wyf_meishi',
+    location: '201812/wyf',
+    name: 'wyf_meishi',
+    meta: {
+      title: '吾悦坊',
+      author: 'xj1012',
+      desc: '吾悦坊美食'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201812
