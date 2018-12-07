@@ -63,7 +63,7 @@ export default {
       couponImg: null,
       qrcodeImg: null,
       code: null,
-      couponID: ['25', '26'],
+      couponID: ['116', '117'],
       new_coupon_batch_id: this.$route.query.coupon_batch_id,
       params: {
         user_id: null
@@ -73,8 +73,8 @@ export default {
       wxShareInfoValue: {
         title: '四云奶盖贡茶请你喝奶茶了！',
         desc: '点击即可领福利',
-        //link: 'http://papi.xingstation.com/api/s/zK8' + window.location.search,
-        link: 'http://papi.newgls.cn/api/s/Lg4' + window.location.search,
+        link: 'http://papi.xingstation.com/api/s/913' + window.location.search,
+        //link: 'http://papi.newgls.cn/api/s/Lg4' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/tiger/icon.png'
       }
     }
