@@ -139,6 +139,17 @@ const Date201812 = [
       desc: '圣诞祝福邮递局'
     },
     isAbandoned: false
+  },
+  {
+    path: 'facing',
+    location: '201812/facing',
+    name: 'facing',
+    meta: {
+      title: '智能面相测试仪',
+      author: 'lipan',
+      desc: '智能面相测试仪 '
+    },
+    isAbandoned: false
   }
 ]
 export default Date201812
