@@ -39,9 +39,9 @@ export default {
       score: this.$route.query.score,
       //分享
       wxShareInfoValue: {
-        title: '玩转世纪，世纪汇广场邀你嗨翻世纪',
-        desc: '世纪汇广场美食节，狂欢就现在',
-        link: 'http://papi.xingstation.com/api/s/68n' + window.location.search,
+        title: '玩转吾悦坊街坊',
+        desc: '吾悦坊街坊派对月5折起，狂欢就现在',
+        link: 'http://papi.xingstation.com/api/s/81o' + window.location.search,
         imgUrl: IMG_SERVER + '/image/tm/shijihui/icon_wyf.png',
         success: function () {
           wechatShareTrack()
