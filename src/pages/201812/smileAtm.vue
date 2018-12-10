@@ -61,7 +61,7 @@ export default {
         user_id: null
       },
       wxShareInfoValue: {
-        title: "欢度双十二，连卡福邀你“刷脸”赢好礼！",
+        title: "笑容还能换钱花？测一测你的笑容值多少钱。",
         desc: "错过今天，再等N年。",
         link: "http://papi.xingstation.com/api/s/3QQ" + window.location.search,
         //link: "http://papi.newgls.cn/api/s/JZo" + window.location.search,

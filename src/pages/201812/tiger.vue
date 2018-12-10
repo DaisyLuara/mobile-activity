@@ -21,9 +21,9 @@
       <!-- <img
         :src="baseUrl + 'ewm.jpeg'+ this.$qiniuCompress()"
         class="ewm"
-      > 
+      >
       <span class="code">1234567</span>
-    </div>-->
+    </div> -->
       <img
         :src="qrcodeImg+ this.$qiniuCompress()"
         class="ewm"
@@ -256,16 +256,17 @@ img {
       display: block;
       position: absolute;
       right: 10%;
-      top: 65.8%;
+      bottom: 0%;
       color: #000;
       font-size: 5vw;
       z-index: 9;
+      margin-bottom: 9%;
     }
   }
   .x-contain {
     margin-top: 67%;
     .code {
-      top: 60.8%;
+      margin-bottom: 13.8%;
     }
   }
 }
