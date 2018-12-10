@@ -90,7 +90,7 @@ const Date201812 = [
     location: '201812/smileAtm',
     name: 'smile_atm',
     meta: {
-      title: '连卡福笑容ATM',
+      title: '笑容还能换钱花？测一测你的笑容值多少钱。',
       author: 'xj1012',
       desc: '衡阳连卡福-笑容ATM'
     },
@@ -101,7 +101,7 @@ const Date201812 = [
     location: '201812/smileShare',
     name: 'smile_share',
     meta: {
-      title: '连卡福笑容ATM',
+      title: '笑容还能换钱花？测一测你的笑容值多少钱。',
       author: 'xj1012',
       desc: '衡阳连卡福-笑容ATM(分享页)'
     },
