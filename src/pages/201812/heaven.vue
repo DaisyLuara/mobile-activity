@@ -3,6 +3,72 @@
     :style="style.root"
     class="root"
   >
+    <img
+      :src="baseUrl + 'zs4.png'+ this.$qiniuCompress()"
+      class="zs3-left"
+    >
+    <img
+      :src="baseUrl + 'zs2.png'+ this.$qiniuCompress()"
+      class="zs2-left"
+    >
+    <img
+      :src="baseUrl + 'zs4.png'+ this.$qiniuCompress()"
+      class="zs3-right"
+    >
+    <img
+      :src="baseUrl + 'zs2.png'+ this.$qiniuCompress()"
+      class="zs2-right"
+    >
+    <img
+      :src="baseUrl + 'score.png'+ this.$qiniuCompress()"
+      class="sw"
+    >
+    <img
+      :src="baseUrl + 'sw.png'+ this.$qiniuCompress()"
+      class="xuehua-1"
+    >
+    <img
+      :src="baseUrl + 'sw.png'+ this.$qiniuCompress()"
+      class="xuehua-2"
+    >
+    <img
+      :src="baseUrl + 'sw.png'+ this.$qiniuCompress()"
+      class="xuehua-3"
+    >
+    <img
+      :src="baseUrl + 'sw.png'+ this.$qiniuCompress()"
+      class="xuehua-4"
+    >
+    <img
+      :src="baseUrl + 'sw.png'+ this.$qiniuCompress()"
+      class="xuehua-5"
+    >
+    <img
+      :src="baseUrl + 'sw.png'+ this.$qiniuCompress()"
+      class="xuehua-6"
+    >
+    <img
+      :src="baseUrl + 'sw.png'+ this.$qiniuCompress()"
+      class="xuehua-7"
+    >
+    <div
+      :class="{'x-frame':iphoneX,'frame':!iphoneX}"
+      class="frame"
+    >
+      <img
+        :src="baseUrl + 'photo.png'+ this.$qiniuCompress()"
+        class="frame"
+      >
+      <img
+        v-if="photo !== null"
+        :src="photo + this.$qiniuCompress()"
+        class="photo"
+      >
+    </div>
+    <img
+      :src="baseUrl + 'zs1.png'+ this.$qiniuCompress()"
+      class="zs1"
+    >
 
   </div>
 </template>
@@ -22,10 +88,10 @@ export default {
       photo: null,
       iphoneX: false,
       wxShareInfoValue: {
-        title: "刷脸制作圣诞贺卡，送给你爱的TA",
-        desc: "这个圣诞节，玩点不一样~",
-        link: "http://papi.xingstation.com/api/s/0YX" + window.location.search,
-        imgUrl: cdnUrl + "/fe/marketing/img/heaven/icon.jpg",
+        title: "圣诞快乐~",
+        desc: "叮~您有一份“圣诞礼物”，请记得查收",
+        link: "http://papi.xingstation.com/api/s/jZ5" + window.location.search,
+        imgUrl: cdnUrl + "/fe/marketing/img/heaven/icon.png",
         success: () => {
           wechatShareTrack();
         }
@@ -69,5 +135,135 @@ img {
   position: relative;
   overflow: hidden;
   background: #2c0206;
+  .zs3-left {
+    width: 20%;
+    position: absolute;
+    left: -11%;
+    top: -5%;
+    z-index: 3;
+  }
+  .zs2-left {
+    width: 14%;
+    position: absolute;
+    left: -5%;
+    top: 50%;
+    transform: translate(0, -50%);
+    z-index: 3;
+  }
+  .zs3-right {
+    width: 20%;
+    position: absolute;
+    right: -11%;
+    top: -5%;
+    transform: rotate(180deg);
+    z-index: 3;
+  }
+  .zs2-right {
+    width: 14%;
+    position: absolute;
+    right: -1%;
+    top: 50%;
+    transform: translate(0, -50%);
+    z-index: 3;
+  }
+  .sw {
+    position: relative;
+    width: 70%;
+  }
+  .xuehua-1 {
+    width: 20%;
+    position: absolute;
+    left: 1%;
+    top: 5%;
+    animation: mycircle 2s infinite linear;
+  }
+  .xuehua-2 {
+    width: 10%;
+    position: absolute;
+    right: 9%;
+    top: 3%;
+    animation: mycircle 2s infinite linear;
+  }
+  .xuehua-3 {
+    width: 20%;
+    position: absolute;
+    right: 1%;
+    top: 22%;
+    animation: mycircle 2s infinite linear;
+  }
+  .xuehua-4 {
+    width: 13%;
+    position: absolute;
+    right: 11%;
+    top: 45%;
+    z-index: 9;
+    animation: mycircle 2s infinite linear;
+  }
+  .xuehua-5 {
+    width: 10%;
+    position: absolute;
+    right: 12%;
+    top: 54%;
+    z-index: 9;
+    animation: mycircle 2s infinite linear;
+  }
+  .xuehua-6 {
+    width: 10%;
+    position: absolute;
+    left: 8%;
+    top: 34%;
+    animation: mycircle 2s infinite linear;
+  }
+  .xuehua-7 {
+    width: 13%;
+    position: absolute;
+    left: 9%;
+    top: 64%;
+    z-index: 9;
+    animation: mycircle 1s infinite linear;
+  }
+  .frame {
+    width: 80%;
+    position: relative;
+    left: 5%;
+    margin-top: -1%;
+    pointer-events: none;
+    user-select: none;
+    .photo {
+      width: 73%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-43.5%, -55%);
+      pointer-events: auto;
+      user-select: auto;
+    }
+  }
+  .x-frame {
+    width: 85%;
+    position: relative;
+    left: 3.5%;
+    margin-top: -1%;
+    .photo {
+      width: 73%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-43.3%, -55%);
+    }
+  }
+  .zs1 {
+    position: relative;
+    width: 60%;
+    margin-top: 3%;
+  }
+}
+@keyframes mycircle {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>
