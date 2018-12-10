@@ -156,9 +156,9 @@ const Date201812 = [
     location: '201812/heaven',
     name: 'heaven_christmas',
     meta: {
-      title: '天降圣诞',
+      title: '圣诞礼物',
       author: 'xj1012',
-      desc: '天降圣诞'
+      desc: '圣诞礼物'
     },
     isAbandoned: false
   }
