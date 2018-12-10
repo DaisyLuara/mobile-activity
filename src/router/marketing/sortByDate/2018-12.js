@@ -150,6 +150,17 @@ const Date201812 = [
       desc: '智能面相测试仪 '
     },
     isAbandoned: false
+  },
+  {
+    path: 'heaven_christmas',
+    location: '201812/heaven',
+    name: 'heaven_christmas',
+    meta: {
+      title: '天降圣诞',
+      author: 'xj1012',
+      desc: '天降圣诞'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201812
