@@ -22,15 +22,19 @@
         :src="baseUrl + 'ewm.jpeg'+ this.$qiniuCompress()"
         class="ewm"
       >
-      <span class="code">1234567</span>
+      <span
+        class="code"
+      >1234567</span>
     </div> -->
       <img
         :src="qrcodeImg+ this.$qiniuCompress()"
         class="ewm"
       >
-      <span class="code">{{ code }}</span>
+      <span
+        :style="style.code"
+        class="code"
+      >{{ code }}</span>
     </div>
-
   </div>
 </template>
 <script>
@@ -54,6 +58,9 @@ export default {
       style: {
         root: {
           height: this.$innerHeight() + 'px'
+        },
+        code: {
+          bottom: (this.$innerWidth() * 65) / 750 + 'px'
         }
       },
       iphoneX: false,
@@ -256,17 +263,16 @@ img {
       display: block;
       position: absolute;
       right: 10%;
-      bottom: 0%;
+
       color: #000;
       font-size: 5vw;
       z-index: 9;
-      margin-bottom: 9%;
     }
   }
   .x-contain {
     margin-top: 67%;
     .code {
-      margin-bottom: 13.8%;
+      margin-bottom: 5%;
     }
   }
 }
