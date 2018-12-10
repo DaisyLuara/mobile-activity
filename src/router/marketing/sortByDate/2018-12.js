@@ -161,6 +161,28 @@ const Date201812 = [
       desc: '圣诞礼物'
     },
     isAbandoned: false
+  },
+  {
+    path: 'synthetic',
+    location: '201812/synthetic',
+    name: 'synthetic',
+    meta: {
+      title: '为合而来',
+      author: 'xj1012',
+      desc: '为合而来'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'christmas_gift',
+    location: '201812/gift',
+    name: 'christmas_gift',
+    meta: {
+      title: '圣诞老司机狂欢送好礼',
+      author: 'xj1012',
+      desc: '圣诞送好礼'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201812
