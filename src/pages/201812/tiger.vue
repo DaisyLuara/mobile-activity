@@ -23,6 +23,7 @@
         class="ewm"
       >
       <span
+        :style="style.code"
         class="code"
       >1234567</span>
     </div> -->
