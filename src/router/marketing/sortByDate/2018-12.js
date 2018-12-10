@@ -178,7 +178,7 @@ const Date201812 = [
     location: '201812/gift',
     name: 'christmas_gift',
     meta: {
-      title: '圣诞老司机狂欢送好礼',
+      title: '圣诞送好礼',
       author: 'xj1012',
       desc: '圣诞送好礼'
     },

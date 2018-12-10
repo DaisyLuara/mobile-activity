@@ -108,6 +108,8 @@ img {
     left: 50%;
     top: 50%;
     transform: translate(-51%, -59.2%);
+    pointer-events: auto;
+    user-select: auto;
   }
   .x-photo {
     width: 74.8%;
@@ -115,6 +117,8 @@ img {
     left: 50%;
     top: 50%;
     transform: translate(-51%, -59.4%);
+    pointer-events: auto;
+    user-select: auto;
   }
   .save {
     width: 70%;

@@ -41,8 +41,8 @@ export default {
       photo: null,
       iphoneX: false,
       wxShareInfoValue: {
-        title: "刷脸制作圣诞贺卡，送给你爱的TA",
-        desc: "这个圣诞节，玩点不一样~",
+        title: "狂欢过圣诞，解锁送礼新姿势",
+        desc: "这个圣诞，玩点不一样。",
         link: "http://papi.xingstation.com/api/s/lx6" + window.location.search,
         imgUrl: cdnUrl + "/fe/marketing/img/christmas_gift/icon.jpg",
         success: () => {
