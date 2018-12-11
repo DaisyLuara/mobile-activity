@@ -161,9 +161,7 @@ img {
     position: absolute;
     left: 0%;
     top: -10%;
-    //transform: translate(0%, -160%);
     z-index: 99;
-    //animation: wrapper 1.5s linear;
     pointer-events: none;
     user-select: none;
     .frame {
