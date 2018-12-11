@@ -38,8 +38,8 @@ export default {
       photo: null,
       iphoneX: false,
       wxShareInfoValue: {
-        title: "刷脸制作圣诞贺卡，送给你爱的TA",
-        desc: "这个圣诞节，玩点不一样~",
+        title: "HELLO CITY",
+        desc: "创享 生活 新趣",
         link: "http://papi.xingstation.com/api/s/k8X" + window.location.search,
         imgUrl: cdnUrl + "/fe/marketing/img/synthetic/icon.png",
         success: () => {
