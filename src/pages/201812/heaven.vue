@@ -91,8 +91,8 @@ export default {
       iphoneX: false,
       type: this.$route.query.type,
       wxShareInfoValue: {
-        title: "圣诞快乐~",
-        desc: "叮~您有一份“圣诞礼物”，请记得查收",
+        title: "DFC影城祝你圣诞快乐",
+        desc: "点我领取您的圣诞优惠",
         link: "http://papi.xingstation.com/api/s/jZ5" + window.location.search,
         imgUrl: cdnUrl + "/fe/marketing/img/heaven/icon_dfc.png",
         success: () => {
