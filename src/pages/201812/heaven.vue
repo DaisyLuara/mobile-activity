@@ -66,8 +66,10 @@
       >
     </div>
     <img
-      :src="baseUrl + 'zs1.png'+ this.$qiniuCompress()"
+      :src="baseUrl + 'button.png'+ this.$qiniuCompress()"
+      :class="{'x-zs1':iphoneX,'zs1':!iphoneX}"
       class="zs1"
+      @click="goTicket()"
     >
 
   </div>
@@ -87,11 +89,12 @@ export default {
       },
       photo: null,
       iphoneX: false,
+      type: this.$route.query.type,
       wxShareInfoValue: {
-        title: "圣诞快乐~",
-        desc: "叮~您有一份“圣诞礼物”，请记得查收",
+        title: "DFC影城祝你圣诞快乐",
+        desc: "点我领取您的圣诞优惠",
         link: "http://papi.xingstation.com/api/s/jZ5" + window.location.search,
-        imgUrl: cdnUrl + "/fe/marketing/img/heaven/icon.png",
+        imgUrl: cdnUrl + "/fe/marketing/img/heaven/icon_dfc.png",
         success: () => {
           wechatShareTrack();
         }
@@ -103,6 +106,22 @@ export default {
       this.iphoneX = true;
     } else {
       this.iphoneX = false;
+    }
+  },
+  methods: {
+    goTicket() {
+      if (parseInt(this.type) === 1) {
+        //金山店
+        window.location.href = "http://papi.xingstation.com/api/s/mO0"
+      }
+      else if (parseInt(this.type) === 2) {
+        //长清店
+        window.location.href = "http://papi.xingstation.com/api/s/nxl"
+      }
+      else {
+        //龙阳店
+        window.location.href = "http://papi.xingstation.com/api/s/oVK"
+      }
     }
   }
 };
@@ -226,7 +245,7 @@ img {
     width: 80%;
     position: relative;
     left: 5%;
-    margin-top: -1%;
+    margin-top: -2%;
     pointer-events: none;
     user-select: none;
     .photo {
@@ -254,8 +273,17 @@ img {
   }
   .zs1 {
     position: relative;
+    width: 52%;
+    margin-top: 2.5%;
+    pointer-events: auto;
+    user-select: auto;
+  }
+  .x-zs1 {
+    position: relative;
     width: 60%;
-    margin-top: 3%;
+    margin-top: 5%;
+    pointer-events: auto;
+    user-select: auto;
   }
 }
 @keyframes mycircle {
