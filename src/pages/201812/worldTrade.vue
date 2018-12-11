@@ -64,7 +64,7 @@ export default {
       wxShareInfoValue: {
         title: "圣诞狂欢季",
         desc: "惊喜不断，就在昆山世茂广场",
-        link: "http://papi.xingstation.com/api/s/lx6" + window.location.search,
+        link: "http://papi.xingstation.com/api/s/r86" + window.location.search,
         imgUrl: cdnUrl + "/fe/marketing/img/world_trade/icon.png",
         success: () => {
           wechatShareTrack();
