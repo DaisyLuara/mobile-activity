@@ -156,9 +156,9 @@ const Date201812 = [
     location: '201812/heaven',
     name: 'heaven_christmas',
     meta: {
-      title: '圣诞礼物',
+      title: 'DFC影城',
       author: 'xj1012',
-      desc: '圣诞礼物'
+      desc: '圣诞礼物-DFC影城'
     },
     isAbandoned: false
   },
@@ -203,6 +203,17 @@ const Date201812 = [
       title: '街成双 FUN加倍',
       author: 'lipan',
       desc: '龙湖天街-周年狂欢 '
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'world_trade',
+    location: '201812/worldTrade',
+    name: 'world_trade',
+    meta: {
+      title: '冰雪梦幻季',
+      author: 'xj1012',
+      desc: '昆山世贸'
     },
     isAbandoned: false
   }
