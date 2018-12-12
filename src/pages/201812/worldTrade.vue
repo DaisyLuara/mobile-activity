@@ -78,7 +78,8 @@ export default {
   },
   mounted() {
     let that = this
-    if (this.$innerHeight() >= 672) {
+    alert(this.$innerHeight())
+    if (this.$innerHeight() > 672) {
       this.iphoneX = true;
     } else {
       this.iphoneX = false;
@@ -162,18 +163,18 @@ img {
   }
   .center {
     width: 100%;
-    position: absolute;
+    position: relative;
     left: 0%;
     top: -15%;
     z-index: 99;
     pointer-events: none;
     user-select: none;
     .frame {
-      width: 86%;
+      width: 90%;
       margin-left: 5%;
     }
     .photo {
-      width: 44%;
+      width: 46%;
       position: absolute;
       left: 50%;
       top: 50%;
@@ -200,15 +201,13 @@ img {
   }
   .save {
     width: 50%;
-    position: absolute;
-    left: 25%;
-    bottom: 6%;
-    z-index: 3;
+    position: relative;
+    margin-top: -32%;
     animation: arrow 0.8s linear infinite alternate;
     z-index: 100;
   }
   .x-save {
-    bottom: 4%;
+    margin-top: -12%;
   }
 }
 @keyframes arrow {
