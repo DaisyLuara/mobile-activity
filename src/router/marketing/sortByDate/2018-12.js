@@ -183,6 +183,17 @@ const Date201812 = [
       desc: '圣诞送好礼'
     },
     isAbandoned: false
+  },
+  {
+    path: 'world_trade',
+    location: '201812/worldTrade',
+    name: 'world_trade',
+    meta: {
+      title: '冰雪梦幻季',
+      author: 'xj1012',
+      desc: '昆山世贸'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201812
