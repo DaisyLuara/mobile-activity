@@ -40,6 +40,7 @@
     <img
       v-show="saveShow"
       :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
+      :class="{'x-save':iphoneX,'save':!iphoneX}"
       class="save"
     >
   </div>
@@ -132,13 +133,13 @@ img {
   .xuehua-1 {
     width: 10%;
     position: absolute;
-    left: 12%;
+    left: 7%;
     top: 35%;
     z-index: 100;
     animation: mycircle 2s infinite linear;
   }
   .x-xuehua {
-    left: 5%;
+    left: 3%;
   }
   .xuehua-2 {
     width: 25%;
@@ -160,47 +161,47 @@ img {
     width: 100%;
     position: absolute;
     left: 0%;
-    top: -10%;
+    top: -15%;
     z-index: 99;
     pointer-events: none;
     user-select: none;
     .frame {
-      width: 75%;
+      width: 86%;
       margin-left: 5%;
     }
     .photo {
-      width: 38%;
+      width: 44%;
       position: absolute;
       left: 50%;
       top: 50%;
-      transform: translate(-48%, -18%);
+      transform: translate(-49.5%, -18%);
       pointer-events: auto;
       user-select: auto;
     }
     .x-photo {
-      width: 44.5%;
+      width: 50%;
       position: absolute;
       left: 50%;
       top: 50%;
-      transform: translate(-49%, -17.8%);
+      transform: translate(-49%, -18.3%);
       pointer-events: auto;
       user-select: auto;
     }
     .x-frame {
-      width: 88%;
-      margin-left: 5%;
+      width: 98%;
+      margin-left: 4%;
     }
   }
   .save {
     width: 50%;
     position: absolute;
     left: 25%;
-    bottom: 17%;
+    bottom: 7%;
     z-index: 3;
     animation: arrow 0.8s linear infinite alternate;
   }
   .x-save {
-    bottom: 20%;
+    bottom: 15%;
   }
 }
 @keyframes arrow {
