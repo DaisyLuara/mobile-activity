@@ -216,6 +216,28 @@ const Date201812 = [
       desc: '昆山世贸'
     },
     isAbandoned: false
+  },
+  {
+    path: 'longhufood',
+    location: '201812/longhufood',
+    name: 'longhufood',
+    meta: {
+      title: '街成双 FUN加倍',
+      author: 'lipan',
+      desc: '龙湖天街-大饱口福 '
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'longhuyanzhi',
+    location: '201812/longhuyanzhi',
+    name: 'longhuyanzhi',
+    meta: {
+      title: '街成双 FUN加倍',
+      author: 'lipan',
+      desc: '龙湖天街-颜值礼遇 '
+    },
+    isAbandoned: false
   }
 ]
 export default Date201812
