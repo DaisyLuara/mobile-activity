@@ -78,7 +78,7 @@ export default {
   },
   mounted() {
     let that = this
-    if (this.$innerHeight() > 672) {
+    if (this.$innerHeight() >= 672) {
       this.iphoneX = true;
     } else {
       this.iphoneX = false;
@@ -196,7 +196,7 @@ img {
     }
   }
   .x-center {
-    top: -4%;
+    top: -7%;
   }
   .save {
     width: 50%;
@@ -205,6 +205,7 @@ img {
     bottom: 7%;
     z-index: 3;
     animation: arrow 0.8s linear infinite alternate;
+    z-index: 100;
   }
   .x-save {
     bottom: 4%;
