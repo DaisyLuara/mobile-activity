@@ -76,7 +76,7 @@ export default {
       },
       photo: null,
       coupon_batch_id: this.$route.query.coupon_batch_id,
-      belong: this.$route.query.utm_campaign.trim(),
+      belong: this.$route.query.utm_campaign,
       tabs: {
         'LHHappyBirthday': false,
         'LonghuYinFood': false,
