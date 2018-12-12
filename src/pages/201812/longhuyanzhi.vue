@@ -12,12 +12,20 @@
         :src="base + 'one3.png' + this.$qiniuCompress()"
         class="bg"
       >
-      <a
-        class="coupon"
-        @click="getAuth"
-      >
-        <img :src="base + coupon_batch_id + '.png'">
-      </a>
+      <div class="coupon">
+        <img :src="imgUrl">
+        <!-- <img src="https://cdn.exe666.com/fe/image/longhu/coupon01.png"> -->
+        <a
+          v-if="textShow"
+          class="aclick"
+          @click="getAuth"
+        >
+          <img 
+            :src="base
+              + 'click.png'+
+            this.$qiniuCompress()">
+        </a>
+      </div>
     </div>
     <div class="two">
       <ul class="ul-tab">
@@ -46,7 +54,11 @@ import {
   $wechat,
   isInWechat,
   wechatShareTrack,
-  Cookies
+  Cookies,
+  sendCoupon,
+  checkGetCoupon,
+  dateFormat,
+  formatTimestamp
 } from 'services'
 import { normalPages } from '../../mixins/normalPages'
 const cdnUrl = process.env.CDN_URL
@@ -60,6 +72,8 @@ export default {
           'min-height': this.$innerHeight() + 'px'
         }
       },
+      textShow: true,
+      imgUrl: null,
       coupon_batch_id: this.$route.query.coupon_batch_id,
       belong: this.$route.query.utm_campaign,
       tabs: {
@@ -74,7 +88,7 @@ export default {
       wxShareInfoValue: {
         title: '一周年好礼相送',
         desc: '参与互动 福利翻倍',
-        link: 'http://papi.xingstation.com/api/s/wVw' + window.location.search,
+        link: 'http://papi.xingstation.com/api/s/q7r' + window.location.search,
         imgUrl: cdnUrl + '/fe/image/longhu/icon.png',
         success: () => {
           wechatShareTrack()
@@ -84,12 +98,33 @@ export default {
   },
   mounted() {
     this.tabs[this.belong] = true
-    if (this.$route.query.open_user_id) {
-      this.open_user_id = this.$route.query.open_user_id;
-      this.getQuanMsg(this.coupon_batch_id);
+
+    //微信授权
+    if (isInWechat() === true) {
+      if (
+        process.env.NODE_ENV === 'production' ||
+        process.env.NODE_ENV === 'testing'
+      ) {
+        this.handleWechatAuth()
+      }
     }
   },
   methods: {
+    //微信静默授权
+    handleWechatAuth() {
+      if (Cookies.get('sign') === null) {
+        let base_url = encodeURIComponent(String(window.location.href))
+        let redirct_url =
+          process.env.WX_API +
+          '/wx/officialAccount/oauth?url=' +
+          base_url +
+          '&scope=snsapi_base'
+        window.location.href = redirct_url
+      } else {
+        this.userId = Cookies.get('user_id')
+        this.checkGetCoupon()
+      }
+    },
     getTabs(index) {
       for (let i in this.tabs) {
         this.tabs[i] = false
@@ -106,47 +141,41 @@ export default {
       });
     },
     //获取券信息
-    getQuanMsg(coupon_num) {
-      this.$http
-        .get(this.coupon_url)
+    checkGetCoupon() {
+      let args = {
+        coupon_batch_id: this.coupon_batch_id,
+        include: 'couponBatch',
+        qiniu_id: this.id
+      }
+      checkGetCoupon(args).then(res => {
+        if (!res) {
+          this.sendCoupon()
+        } else {
+          this.imgUrl = res.couponBatch.image_url
+          this.textShow = false
+        }
+
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    //发优惠券
+    sendCoupon() {
+      let args = {
+        include: 'couponBatch',
+        qiniu_id: this.$route.query.id,
+        oid: this.$route.query.oid || this.$route.query.utm_source,
+        belong: this.$route.query.utm_campaign
+      }
+      sendCoupon(args, this.coupon_batch_id)
         .then(res => {
-          //success
-          let data = res.data;
-          let list = data.data;
-          //StoreOverGount
-          if (!list[coupon_num].StoreOverGount) {
-            alert("该优惠券已发完！");
-            return;
-          }
-          this.getCoupon(
-            this.$route.query.open_user_id,
-            list[coupon_num].PICMID
-          );
-          console.log(res);
+          this.textShow = true
+          this.imgUrl = res.couponBatch.image_url
         })
         .catch(err => {
-          console.log("未获取到优惠券信息");
-        });
-    },
-    //发券，用户获取券
-    getCoupon(open_id, pic_mid) {
-      this.$http
-        .post(this.coupon_url, {
-          open_user_id: open_id,
-          pic_mid: pic_mid
+          alert(err.response.data.message)
         })
-        .then(
-          res => {
-            //success
-            let data = res.data;
-            console.log(res);
-          },
-          res => {
-            //err
-            console.log(err)
-          }
-        );
-    },
+    }
   }
 }
 </script>
@@ -222,6 +251,17 @@ img {
       left: 50%;
       transform: translateX(-50%);
       z-index: 999;
+      img {
+        z-index: 0;
+      }
+      .aclick {
+        width: 27%;
+        display: inline-block;
+        position: absolute;
+        top: 53%;
+        right: 18%;
+        z-index: 999;
+      }
     }
   }
   .two {
@@ -268,15 +308,6 @@ img {
         transform: translateX(-50%);
       }
     }
-    // .LonghuYinFood {
-    // }
-    // .LHHappyBirthday {
-    //   z-index: 0;
-    //   position: absolute;
-    //   top: 0%;
-    //   left: 50%;
-    //   transform: translateX(-50%);
-    // }
     .ceng2 {
       z-index: 99 !important;
     }
