@@ -183,6 +183,28 @@ const Date201812 = [
       desc: '圣诞送好礼'
     },
     isAbandoned: false
+  },
+  {
+    path: 'wa',
+    location: '201812/wa',
+    name: 'wa',
+    meta: {
+      title: '蛙夫人-推券',
+      author: 'lipan',
+      desc: '蛙夫人-推券 '
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'longhu',
+    location: '201812/longhu',
+    name: 'longhu',
+    meta: {
+      title: '街成双 FUN加倍',
+      author: 'lipan',
+      desc: '龙湖天街-周年狂欢 '
+    },
+    isAbandoned: false
   }
 ]
 export default Date201812
