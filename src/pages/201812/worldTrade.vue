@@ -24,7 +24,10 @@
       :src="baseUrl + 'snow.png'+ this.$qiniuCompress()"
       class="xuehua-3"
     >
-    <div class="center animated  linear   slideInDown">
+    <div
+      :class="{'x-center':iphoneX,'center':!iphoneX}"
+      class="center animated  linear   slideInDown"
+    >
       <img
         :src="baseUrl + 'ka.png'+ this.$qiniuCompress()"
         :class="{'x-frame':iphoneX,'frame':!iphoneX}"
@@ -192,6 +195,9 @@ img {
       margin-left: 4%;
     }
   }
+  .x-center {
+    top: -4%;
+  }
   .save {
     width: 50%;
     position: absolute;
@@ -201,7 +207,7 @@ img {
     animation: arrow 0.8s linear infinite alternate;
   }
   .x-save {
-    bottom: 15%;
+    bottom: 4%;
   }
 }
 @keyframes arrow {
