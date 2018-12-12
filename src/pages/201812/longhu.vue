@@ -23,7 +23,7 @@
     </div>
     <div class="one">
       <img
-        :src="base + 'oneone.png' + this.$qiniuCompress()"
+        :src="base + 'one3.png' + this.$qiniuCompress()"
         class="bg"
       >
       <a
@@ -76,7 +76,7 @@ export default {
       },
       photo: null,
       coupon_batch_id: this.$route.query.coupon_batch_id,
-      belong: this.$route.query.utm_campaign.trim(),
+      belong: this.$route.query.utm_campaign,
       tabs: {
         'LHHappyBirthday': false,
         'LonghuYinFood': false,
@@ -101,8 +101,7 @@ export default {
     this.tabs[this.belong] = true
     if (this.$route.query.open_user_id) {
       this.open_user_id = this.$route.query.open_user_id;
-      // this.getQuanMsg(this.coupon_batch_id);
-      this.getQuanMsg(35);
+      this.getQuanMsg(this.coupon_batch_id);
     }
     //微信授权
     if (isInWechat() === true) {
@@ -246,6 +245,8 @@ img {
       z-index: 99;
       top: 0.6%;
       right: 3.1%;
+      pointer-events: auto;
+      user-select: auto;
     }
   }
   .one {
