@@ -101,8 +101,7 @@ export default {
     this.tabs[this.belong] = true
     if (this.$route.query.open_user_id) {
       this.open_user_id = this.$route.query.open_user_id;
-      // this.getQuanMsg(this.coupon_batch_id);
-      this.getQuanMsg(35);
+      this.getQuanMsg(this.coupon_batch_id);
     }
   },
   methods: {
@@ -223,6 +222,8 @@ img {
       z-index: 99;
       top: 0.6%;
       right: 3.1%;
+      pointer-events: auto;
+      user-select: auto;
     }
   }
   .one {
