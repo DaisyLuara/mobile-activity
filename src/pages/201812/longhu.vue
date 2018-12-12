@@ -23,7 +23,7 @@
     </div>
     <div class="one">
       <img
-        :src="base + 'oneone.png' + this.$qiniuCompress()"
+        :src="base + 'one3.png' + this.$qiniuCompress()"
         class="bg"
       >
       <a
