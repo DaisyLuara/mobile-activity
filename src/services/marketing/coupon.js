@@ -188,7 +188,7 @@ const getCouponId = policyId => {
       })
   })
 }
-//判断是否用手机号领过券
+//获取券的信息（包括判断是否用手机号领过券）
 const checkGetCoupon = params => {
   handleParma(params)
   return new Promise((resolve, reject) => {
