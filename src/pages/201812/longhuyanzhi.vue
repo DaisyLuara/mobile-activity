@@ -7,20 +7,6 @@
       :src="base + 'tit.png' + this.$qiniuCompress()"
       class="tit"
     >
-    <div class="zero">
-      <img
-        :src="base + 'save.png' + this.$qiniuCompress()"
-        class="save"
-      >
-      <img
-        :src="base + 'frame.png' + this.$qiniuCompress()"
-        class="frame"
-      >
-      <img
-        :src="photo + this.$qiniuCompress()"
-        class="photo"
-      >
-    </div>
     <div class="one">
       <img
         :src="base + 'oneone.png' + this.$qiniuCompress()"
@@ -74,7 +60,6 @@ export default {
           'min-height': this.$innerHeight() + 'px'
         }
       },
-      photo: null,
       coupon_batch_id: this.$route.query.coupon_batch_id,
       belong: this.$route.query.utm_campaign.trim(),
       tabs: {
@@ -89,7 +74,7 @@ export default {
       wxShareInfoValue: {
         title: '一周年好礼相送',
         desc: '参与互动 福利翻倍',
-        link: 'http://papi.xingstation.com/api/s/q7r' + window.location.search,
+        link: 'http://papi.xingstation.com/api/s/wVw' + window.location.search,
         imgUrl: cdnUrl + '/fe/image/longhu/icon.png',
         success: () => {
           wechatShareTrack()
@@ -104,31 +89,8 @@ export default {
       // this.getQuanMsg(this.coupon_batch_id);
       this.getQuanMsg(35);
     }
-    //微信授权
-    if (isInWechat() === true) {
-      if (
-        process.env.NODE_ENV === 'production' ||
-        process.env.NODE_ENV === 'testing'
-      ) {
-        this.handleWechatAuth()
-      }
-    }
   },
   methods: {
-    //微信静默授权
-    handleWechatAuth() {
-      if (Cookies.get('sign') === null) {
-        let base_url = encodeURIComponent(String(window.location.href))
-        let redirct_url =
-          process.env.WX_API +
-          '/wx/officialAccount/oauth?url=' +
-          base_url +
-          '&scope=snsapi_base'
-        window.location.href = redirct_url
-      } else {
-        this.userId = Cookies.get('user_id')
-      }
-    },
     getTabs(index) {
       for (let i in this.tabs) {
         this.tabs[i] = false
