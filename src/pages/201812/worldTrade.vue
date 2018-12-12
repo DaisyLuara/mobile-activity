@@ -202,7 +202,7 @@ img {
     width: 50%;
     position: absolute;
     left: 25%;
-    bottom: 7%;
+    bottom: 6%;
     z-index: 3;
     animation: arrow 0.8s linear infinite alternate;
     z-index: 100;
