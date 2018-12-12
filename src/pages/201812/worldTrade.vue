@@ -78,7 +78,7 @@ export default {
   },
   mounted() {
     let that = this
-    alert(this.$innerHeight())
+    // alert(this.$innerHeight())
     if (this.$innerHeight() > 672) {
       this.iphoneX = true;
     } else {
@@ -114,13 +114,20 @@ img {
   max-width: 100%;
 }
 .root {
-  width: 100%;
-  text-align: center;
+  // width: 100%;
+  // text-align: center;
+  // position: relative;
+  // overflow: hidden;
+  // background-image: url("@{imageHost}bg.png");
+  // background-size: 100% 100%;
+  // background-position: center bottom;
+  // background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: relative;
-  overflow: hidden;
-  background-image: url("@{imageHost}bg.png");
+  background-image: url('@{imageHost}bg.png');
   background-size: 100% 100%;
-  background-position: center bottom;
   background-repeat: no-repeat;
   .topImg {
     width: 100%;
@@ -202,7 +209,7 @@ img {
   .save {
     width: 50%;
     position: relative;
-    margin-top: -32%;
+    margin-top: -25%;
     animation: arrow 0.8s linear infinite alternate;
     z-index: 100;
   }
