@@ -44,7 +44,8 @@ import {
   checkGetCoupon,
   dateFormat,
   formatTimestamp,
-  getMallcooOauth
+  getMallcooOauth,
+  checkCouponNumber
 } from "services";
 import { normalPages } from "../../mixins/normalPages";
 const cdnUrl = process.env.CDN_URL;
@@ -59,7 +60,6 @@ export default {
         }
       },
       textShow: true,
-      photo: null,
       imgUrl: null,
       coupon_batch_id: this.$route.query.coupon_batch_id,
       belong: this.$route.query.utm_campaign,
@@ -117,8 +117,6 @@ export default {
       }
       this.tabs[index] = true;
     },
-    
-    //授权
     getAuth() {
       let pageUrl = encodeURIComponent(window.location.href);
       let args = {
@@ -127,8 +125,7 @@ export default {
       getMallcooOauth(args)
         .then(res => {
           console.log(res);
-          let data = res;
-          window.location.href = data;
+          this.sendCoupon(res);
           return;
         })
         .catch(err => {
@@ -140,6 +137,17 @@ export default {
       //   return;
       // });
     },
+    getCouponDetail() {
+      checkCouponNumber(this.coupon_batch_id)
+        .then(res => {
+          console.log(res);
+          this.textShow = true;
+          this.imgUrl = res.couponBatch.image_url;
+        })
+        .catch(err => {
+          alert(err.response.data.message);
+        });
+    },
     //获取券信息
     checkGetCoupon() {
       let args = {
@@ -150,6 +158,7 @@ export default {
       checkGetCoupon(args)
         .then(res => {
           if (!res) {
+            this.getCouponDetail();
             this.sendCoupon();
           } else {
             this.imgUrl = res.couponBatch.image_url;
@@ -161,7 +170,7 @@ export default {
         });
     },
     //发优惠券
-    sendCoupon() {
+    sendCoupon(data) {
       let args = {
         include: "couponBatch",
         qiniu_id: this.$route.query.id,
@@ -170,8 +179,7 @@ export default {
       };
       sendCoupon(args, this.coupon_batch_id)
         .then(res => {
-          this.textShow = true;
-          this.imgUrl = res.couponBatch.image_url;
+          window.location.href = data;
         })
         .catch(err => {
           alert(err.response.data.message);
