@@ -90,10 +90,8 @@ export default {
     }
   },
   methods: {
-  
     //微信静默授权
     handleWechatAuth() {
-      
       if (Cookies.get("sign") === null) {
         let base_url = encodeURIComponent(String(window.location.href));
         let redirct_url =
@@ -123,18 +121,13 @@ export default {
       };
       getMallcooOauth(args)
         .then(res => {
-          console.log(res);
-          this.sendCoupon(res);
+          let data = res.data;
+          window.location.href = data;
           return;
         })
         .catch(err => {
           alert(err.response.data.message);
         });
-      // this.$http.get(this.authorize_url + pageUrl).then(result => {
-      //   let data = result.data;
-      //   window.location.href = data;
-      //   return;
-      // });
     },
     getCouponDetail() {
       checkCouponNumber(this.coupon_batch_id)
@@ -156,6 +149,9 @@ export default {
       checkGetCoupon(args)
         .then(res => {
           if (!res) {
+            if(this.$route.query.open_user_id){
+              this.sendCoupon()
+            }
             this.getCouponDetail();
           } else {
             this.imgUrl = res.couponBatch.image_url;
@@ -167,7 +163,7 @@ export default {
         });
     },
     //发优惠券
-    sendCoupon(data) {
+    sendCoupon() {
       let args = {
         include: "couponBatch",
         qiniu_id: this.$route.query.id,
@@ -175,8 +171,8 @@ export default {
         belong: this.$route.query.utm_campaign
       };
       sendCoupon(args, this.coupon_batch_id)
-        .then(res => {
-          window.location.href = data;
+        .then(() => {
+
         })
         .catch(err => {
           alert(err.response.data.message);
