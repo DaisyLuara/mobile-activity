@@ -29,7 +29,10 @@
         :src="base + 'one3.png' + this.$qiniuCompress()"
         class="bg"
       >
-      <div class="coupon">
+      <div
+        v-show="!hasgeted"
+        class="coupon"
+      >
         <img :src="imgUrl">
         <a
           v-if="textShow"
@@ -41,6 +44,16 @@
             this.$qiniuCompress()">
         </a>
       </div>
+      <a
+        v-show="hasgeted"
+        href="http://papi.xingstation.com/api/s/gZ9"
+      >
+        <div class="coupon">
+
+          <img :src="base + 'geted.png' + this.$qiniuCompress()">
+
+        </div>
+      </a>
     </div>
     <div class="two">
       <ul class="ul-tab">
@@ -62,6 +75,15 @@
       :src="base + 'logo.png' + this.$qiniuCompress()"
       class="logo"
     >
+    <div
+      v-show="mask"
+      class="mask"
+    >
+      <img
+        :src="base + note + '.png' + this.$qiniuCompress()"
+        class="note"
+      >
+    </div>
   </div>
 </template>
 <script>
@@ -101,6 +123,9 @@ export default {
       photo: null,
       id: this.$route.query.id,
       open_user_id: null,
+      mask: true,
+      note: 'note1',
+      hasgeted: false,
       //分享
       wxShareInfoValue: {
         title: "一周年好礼相送",
@@ -124,6 +149,11 @@ export default {
         this.handleWechatAuth();
       }
     }
+    let that = this
+    let timer = setTimeout(function () {
+      that.mask = false;
+      clearTimeout(timer)
+    }, 2000)
   },
   methods: {
     //微信静默授权
@@ -155,16 +185,24 @@ export default {
       let args = {
         redirect_url: url
       };
-      getMallcooOauth(args)
-        .then(res => {
-          console.log(res);
-          let data = res;
-          window.location.href = data;
-          return;
-        })
-        .catch(err => {
-          alert(err.response.data.message);
-        });
+      this.note = 'note2'
+      this.mask = true
+      let that = this
+      let timer = setTimeout(function () {
+        that.mask = false;
+        getMallcooOauth(args)
+          .then(res => {
+            console.log(res);
+            let data = res;
+            window.location.href = data;
+            return;
+          })
+          .catch(err => {
+            alert(err.response.data.message);
+          });
+        clearTimeout(timer)
+      }, 2000)
+
     },
     getCouponDetail() {
       checkCouponNumber(this.coupon_batch_id)
@@ -193,9 +231,9 @@ export default {
               this.textShow = true;
             }
           } else {
-            // this.imgUrl = res.couponBatch.image_url;
-            this.textShow = false;
-            window.location.href = 'http://m.mallcoo.cn/a/coupon/10620'
+            //this.textShow = false;
+            this.hasgeted = true
+            //window.location.href = 'http://papi.xingstation.com/api/s/gZ9'
           }
         })
         .catch(err => {
@@ -212,9 +250,8 @@ export default {
       };
       sendCoupon(args, this.coupon_batch_id)
         .then(res => {
-          // this.imgUrl = res.couponBatch.image_url;
           this.textShow = false;
-          window.location.href = 'http://m.mallcoo.cn/a/coupon/10620'
+          window.location.href = 'http://papi.xingstation.com/api/s/gZ9'
         })
         .catch(err => {
           alert(err.response.data.message);
@@ -254,12 +291,17 @@ img {
     position: relative;
     z-index: 0;
   }
+  .tit {
+    position: relative;
+    z-index: 0;
+  }
   .zero {
     position: relative;
     width: 70%;
     overflow: hidden;
     margin-top: -3%;
     margin-bottom: 5%;
+    z-index: 0;
     .save {
       position: absolute;
       left: 0%;
@@ -287,6 +329,7 @@ img {
   .one {
     position: relative;
     width: 95%;
+    z-index: 0;
     .coupon {
       display: inline-block;
       width: 90%;
@@ -312,6 +355,7 @@ img {
     position: relative;
     width: 100%;
     margin-top: 8%;
+    z-index: 0;
     .ul-tab {
       width: 87%;
       height: 8%;
@@ -361,6 +405,22 @@ img {
     width: 42%;
     margin-top: 2%;
     margin-bottom: 4%;
+    z-index: 0;
+  }
+  .mask {
+    position: fixed;
+    width: 100%;
+    top: 0%;
+    bottom: 0%;
+    left: 0%;
+    right: 0%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 999;
+    .note {
+      width: 80%;
+      position: relative;
+      margin-top: 20%;
+    }
   }
 }
 </style>
