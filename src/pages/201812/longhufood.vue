@@ -187,6 +187,7 @@ export default {
       };
       this.note = 'note2'
       this.mask = true
+      let that = this
       let timer = setTimeout(function () {
         that.mask = false;
         getMallcooOauth(args)
