@@ -118,7 +118,7 @@ export default {
       this.tabs[index] = true;
     },
     getAuth() {
-      let pageUrl = encodeURIComponent(window.location.href);
+      let pageUrl = encodeURIComponent(String(window.location.href));
       let args = {
         redirect_url: pageUrl
       };
@@ -140,9 +140,8 @@ export default {
     getCouponDetail() {
       checkCouponNumber(this.coupon_batch_id)
         .then(res => {
-          console.log(res);
           this.textShow = true;
-          this.imgUrl = res.couponBatch.image_url;
+          this.imgUrl = res.image_url;
         })
         .catch(err => {
           alert(err.response.data.message);
