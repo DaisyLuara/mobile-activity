@@ -7,6 +7,23 @@
       :src="base + 'tit.png' + this.$qiniuCompress()"
       class="tit"
     >
+    <div
+      class="zero"
+      v-if="belong!='cpLongfor'"
+    >
+      <img
+        :src="base + 'save.png' + this.$qiniuCompress()"
+        class="save"
+      >
+      <img
+        :src="base + 'frame.png' + this.$qiniuCompress()"
+        class="frame"
+      >
+      <img
+        :src="photo + this.$qiniuCompress()"
+        class="photo"
+      >
+    </div>
     <div class="one">
       <img
         :src="base + 'one3.png' + this.$qiniuCompress()"
@@ -14,7 +31,6 @@
       >
       <div class="coupon">
         <img :src="imgUrl">
-        <!-- <img src="https://cdn.exe666.com/fe/image/longhu/coupon01.png"> -->
         <a
           v-if="textShow"
           class="aclick"
@@ -73,7 +89,7 @@ export default {
           "min-height": this.$innerHeight() + "px"
         }
       },
-      textShow: true,
+      textShow: false,
       imgUrl: null,
       coupon_batch_id: this.$route.query.coupon_batch_id,
       belong: this.$route.query.utm_campaign,
@@ -82,8 +98,9 @@ export default {
         LonghuYinFood: false,
         cpLongfor: false
       },
+      photo: null,
+      id: this.$route.query.id,
       open_user_id: null,
-      coupon_url: process.env.AD_API + "/api/mallcoo/coupon",
       //分享
       wxShareInfoValue: {
         title: "一周年好礼相送",
@@ -121,7 +138,7 @@ export default {
         window.location.href = redirct_url;
       } else {
         this.userId = Cookies.get("user_id");
-        this.checkGetCoupon();
+        this.getCouponDetail();
       }
     },
     getTabs(index) {
@@ -140,6 +157,7 @@ export default {
       };
       getMallcooOauth(args)
         .then(res => {
+          console.log(res);
           let data = res;
           window.location.href = data;
           return;
@@ -151,8 +169,9 @@ export default {
     getCouponDetail() {
       checkCouponNumber(this.coupon_batch_id)
         .then(res => {
-          this.textShow = true;
+          // this.textShow = true;
           this.imgUrl = res.image_url;
+          this.checkGetCoupon()
         })
         .catch(err => {
           alert(err.response.data.message);
@@ -163,7 +182,7 @@ export default {
       let args = {
         coupon_batch_id: this.coupon_batch_id,
         include: "couponBatch",
-        qiniu_id: this.id
+        qiniu_id: this.$route.query.id,
       };
       checkGetCoupon(args)
         .then(res => {
@@ -171,10 +190,10 @@ export default {
             if (this.$route.query.open_user_id) {
               this.sendCoupon();
             } else {
-              this.getCouponDetail();
+              this.textShow = true;
             }
           } else {
-            this.imgUrl = res.couponBatch.image_url;
+            // this.imgUrl = res.couponBatch.image_url;
             this.textShow = false;
             window.location.href = 'http://m.mallcoo.cn/a/coupon/10620'
           }
@@ -193,7 +212,7 @@ export default {
       };
       sendCoupon(args, this.coupon_batch_id)
         .then(res => {
-          this.imgUrl = res.couponBatch.image_url;
+          // this.imgUrl = res.couponBatch.image_url;
           this.textShow = false;
           window.location.href = 'http://m.mallcoo.cn/a/coupon/10620'
         })
