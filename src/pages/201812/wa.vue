@@ -129,30 +129,7 @@ export default {
         if (res) {
           this.handleData(res)
         } else {
-          let date = new Date()
-          args = {
-            coupon_batch_id: this.coupon_batch_id,
-            include: 'couponBatch'
-          }
-          args.start_date = dateFormat(
-            new Date(formatTimestamp(date, true)),
-            'yyyy-MM-dd hh:mm:ss'
-          )
-          args.end_date = dateFormat(
-            new Date(formatTimestamp(date, false) - 1000),
-            'yyyy-MM-dd hh:mm:ss'
-          )
-          checkGetCoupon(args)
-            .then(res => {
-              if (res) {
-                this.handleData(res)
-              } else {
-                this.sendCoupon()
-              }
-            })
-            .catch(err => {
-              console.log(err)
-            })
+          this.sendCoupon()
         }
       }).catch(err => {
         console.log(err)
