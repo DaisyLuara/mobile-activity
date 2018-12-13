@@ -66,8 +66,8 @@ export default {
       iphoneX: false,
       saveShow: false,
       wxShareInfoValue: {
-        title: "圣诞狂欢季",
-        desc: "惊喜不断，就在昆山世茂广场",
+        title: "美照与美茂更配哦",
+        desc: "昆山世茂广场冰雪梦幻季",
         link: "http://papi.xingstation.com/api/s/r86" + window.location.search,
         imgUrl: cdnUrl + "/fe/marketing/img/world_trade/icon.png",
         success: () => {
@@ -126,7 +126,7 @@ img {
   flex-direction: column;
   align-items: center;
   position: relative;
-  background-image: url('@{imageHost}bg.png');
+  background-image: url("@{imageHost}bg.png");
   background-size: 100% 100%;
   background-repeat: no-repeat;
   .topImg {
