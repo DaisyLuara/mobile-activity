@@ -154,7 +154,6 @@ export default {
         .then(res => {
           if (!res) {
             this.getCouponDetail();
-            this.sendCoupon();
           } else {
             this.imgUrl = res.couponBatch.image_url;
             this.textShow = false;
