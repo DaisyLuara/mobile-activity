@@ -149,10 +149,11 @@ export default {
       checkGetCoupon(args)
         .then(res => {
           if (!res) {
-            if(this.$route.query.open_user_id){
-              this.sendCoupon()
+            if (this.$route.query.open_user_id) {
+              this.sendCoupon();
+            }else{
+              this.getCouponDetail();
             }
-            this.getCouponDetail();
           } else {
             this.imgUrl = res.couponBatch.image_url;
             this.textShow = false;
@@ -171,8 +172,9 @@ export default {
         belong: this.$route.query.utm_campaign
       };
       sendCoupon(args, this.coupon_batch_id)
-        .then(() => {
-
+        .then(res => {
+          this.imgUrl = res.couponBatch.image_url;
+          this.textShow = false;
         })
         .catch(err => {
           alert(err.response.data.message);
