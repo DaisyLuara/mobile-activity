@@ -1,12 +1,25 @@
 <template>
-  <div :style="style.root" class="content">
-    <img :src="base + 'tit.png' + this.$qiniuCompress()" class="tit">
+  <div
+    :style="style.root"
+    class="content"
+  >
+    <img
+      :src="base + 'tit.png' + this.$qiniuCompress()"
+      class="tit"
+    >
     <div class="one">
-      <img :src="base + 'one3.png' + this.$qiniuCompress()" class="bg">
+      <img
+        :src="base + 'one3.png' + this.$qiniuCompress()"
+        class="bg"
+      >
       <div class="coupon">
         <img :src="imgUrl">
         <!-- <img src="https://cdn.exe666.com/fe/image/longhu/coupon01.png"> -->
-        <a v-if="textShow" class="aclick" @click="getAuth">
+        <a
+          v-if="textShow"
+          class="aclick"
+          @click="getAuth"
+        >
           <img :src="base
               + 'click.png'+
             this.$qiniuCompress()">
@@ -15,8 +28,11 @@
     </div>
     <div class="two">
       <ul class="ul-tab">
-        <li v-for="(item,index) in tabs" :key="index">
-          <a @click="getTabs(index)"/>
+        <li
+          v-for="(item,index) in tabs"
+          :key="index"
+        >
+          <a @click="getTabs(index)" />
         </li>
       </ul>
       <img
@@ -26,7 +42,10 @@
         :class="{bg:true,ceng2:item}"
       >
     </div>
-    <img :src="base + 'logo.png' + this.$qiniuCompress()" class="logo">
+    <img
+      :src="base + 'logo.png' + this.$qiniuCompress()"
+      class="logo"
+    >
   </div>
 </template>
 <script>
@@ -151,12 +170,13 @@ export default {
           if (!res) {
             if (this.$route.query.open_user_id) {
               this.sendCoupon();
-            }else{
+            } else {
               this.getCouponDetail();
             }
           } else {
             this.imgUrl = res.couponBatch.image_url;
             this.textShow = false;
+            window.location.href = 'http://m.mallcoo.cn/a/coupon/10620'
           }
         })
         .catch(err => {
@@ -175,6 +195,7 @@ export default {
         .then(res => {
           this.imgUrl = res.couponBatch.image_url;
           this.textShow = false;
+          window.location.href = 'http://m.mallcoo.cn/a/coupon/10620'
         })
         .catch(err => {
           alert(err.response.data.message);
