@@ -46,7 +46,7 @@
       </div>
       <a
         v-show="hasgeted"
-        href="http://m.mallcoo.cn/a/coupon/10620"
+        href="http://papi.xingstation.com/api/s/gZ9"
       >
         <div class="coupon">
 
@@ -233,7 +233,7 @@ export default {
           } else {
             //this.textShow = false;
             this.hasgeted = true
-            //window.location.href = 'http://m.mallcoo.cn/a/coupon/10620'
+            //window.location.href = 'http://papi.xingstation.com/api/s/gZ9'
           }
         })
         .catch(err => {
@@ -251,7 +251,7 @@ export default {
       sendCoupon(args, this.coupon_batch_id)
         .then(res => {
           this.textShow = false;
-          window.location.href = 'http://m.mallcoo.cn/a/coupon/10620'
+          window.location.href = 'http://papi.xingstation.com/api/s/gZ9'
         })
         .catch(err => {
           alert(err.response.data.message);
