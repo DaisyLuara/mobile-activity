@@ -7,7 +7,10 @@
       :src="base + 'tit.png' + this.$qiniuCompress()"
       class="tit"
     >
-    <div class="zero">
+    <div
+      class="zero"
+      v-if="belong!='cpLongfor'"
+    >
       <img
         :src="base + 'save.png' + this.$qiniuCompress()"
         class="save"
@@ -26,12 +29,18 @@
         :src="base + 'one3.png' + this.$qiniuCompress()"
         class="bg"
       >
-      <a
-        class="coupon"
-        @click="getAuth"
-      >
-        <img :src="base + coupon_batch_id + '.png'">
-      </a>
+      <div class="coupon">
+        <img :src="imgUrl">
+        <a
+          v-if="textShow"
+          class="aclick"
+          @click="getAuth"
+        >
+          <img :src="base
+              + 'click.png'+
+            this.$qiniuCompress()">
+        </a>
+      </div>
     </div>
     <div class="two">
       <ul class="ul-tab">
@@ -60,133 +69,159 @@ import {
   $wechat,
   isInWechat,
   wechatShareTrack,
-  Cookies
-} from 'services'
-import { normalPages } from '../../mixins/normalPages'
-const cdnUrl = process.env.CDN_URL
+  Cookies,
+  sendCoupon,
+  checkGetCoupon,
+  dateFormat,
+  formatTimestamp,
+  getMallcooOauth,
+  checkCouponNumber
+} from "services";
+import { normalPages } from "../../mixins/normalPages";
+const cdnUrl = process.env.CDN_URL;
 export default {
   mixins: [normalPages],
   data() {
     return {
-      base: cdnUrl + '/fe/image/longhu/',
+      base: cdnUrl + "/fe/image/longhu/",
       style: {
         root: {
-          'min-height': this.$innerHeight() + 'px'
+          "min-height": this.$innerHeight() + "px"
         }
       },
-      photo: null,
+      textShow: false,
+      imgUrl: null,
       coupon_batch_id: this.$route.query.coupon_batch_id,
       belong: this.$route.query.utm_campaign,
       tabs: {
-        'LHHappyBirthday': false,
-        'LonghuYinFood': false,
-        'cpLongfor': false,
+        LHHappyBirthday: false,
+        LonghuYinFood: false,
+        cpLongfor: false
       },
+      photo: null,
+      id: this.$route.query.id,
       open_user_id: null,
-      authorize_url: process.env.AD_API + '/api/mallcoo/user/oauth?redirect_url=',
-      coupon_url: process.env.AD_API + "/api/mallcoo/coupon",
       //分享
       wxShareInfoValue: {
-        title: '一周年好礼相送',
-        desc: '参与互动 福利翻倍',
-        link: 'http://papi.xingstation.com/api/s/q7r' + window.location.search,
-        imgUrl: cdnUrl + '/fe/image/longhu/icon.png',
+        title: "一周年好礼相送",
+        desc: "参与互动 福利翻倍",
+        link: "http://papi.xingstation.com/api/s/q7r" + window.location.search,
+        imgUrl: cdnUrl + "/fe/image/longhu/icon.png",
         success: () => {
-          wechatShareTrack()
+          wechatShareTrack();
         }
       }
-    }
+    };
   },
   mounted() {
-    this.tabs[this.belong] = true
-    if (this.$route.query.open_user_id) {
-      this.open_user_id = this.$route.query.open_user_id;
-      this.getQuanMsg(this.coupon_batch_id);
-    }
+    this.tabs[this.belong] = true;
     //微信授权
     if (isInWechat() === true) {
       if (
-        process.env.NODE_ENV === 'production' ||
-        process.env.NODE_ENV === 'testing'
+        process.env.NODE_ENV === "production" ||
+        process.env.NODE_ENV === "testing"
       ) {
-        this.handleWechatAuth()
+        this.handleWechatAuth();
       }
     }
   },
   methods: {
     //微信静默授权
     handleWechatAuth() {
-      if (Cookies.get('sign') === null) {
-        let base_url = encodeURIComponent(String(window.location.href))
+      if (Cookies.get("sign") === null) {
+        let base_url = encodeURIComponent(String(window.location.href));
         let redirct_url =
           process.env.WX_API +
-          '/wx/officialAccount/oauth?url=' +
+          "/wx/officialAccount/oauth?url=" +
           base_url +
-          '&scope=snsapi_base'
-        window.location.href = redirct_url
+          "&scope=snsapi_base";
+        window.location.href = redirct_url;
       } else {
-        this.userId = Cookies.get('user_id')
+        this.userId = Cookies.get("user_id");
+        this.getCouponDetail();
       }
     },
     getTabs(index) {
       for (let i in this.tabs) {
-        this.tabs[i] = false
+        this.tabs[i] = false;
       }
-      this.tabs[index] = true
+      this.tabs[index] = true;
     },
-    //授权
     getAuth() {
-      let pageUrl = encodeURIComponent(window.location.href);
-      this.$http.get(this.authorize_url + pageUrl).then(result => {
-        let data = result.data;
-        window.location.href = data;
-        return;
-      });
-    },
-    //获取券信息
-    getQuanMsg(coupon_num) {
-      this.$http
-        .get(this.coupon_url)
+      let url =
+        window.location.origin +
+        window.location.pathname +
+        encodeURIComponent(String(window.location.search));
+      let args = {
+        redirect_url: url
+      };
+      getMallcooOauth(args)
         .then(res => {
-          //success
-          let data = res.data;
-          let list = data.data;
-          //StoreOverGount
-          if (!list[coupon_num].StoreOverGount) {
-            alert("该优惠券已发完！");
-            return;
-          }
-          this.getCoupon(
-            this.$route.query.open_user_id,
-            list[coupon_num].PICMID
-          );
           console.log(res);
+          let data = res;
+          window.location.href = data;
+          return;
         })
         .catch(err => {
-          console.log("未获取到优惠券信息");
+          alert(err.response.data.message);
         });
     },
-    //发券，用户获取券
-    getCoupon(open_id, pic_mid) {
-      this.$http
-        .post(this.coupon_url, {
-          open_user_id: open_id,
-          pic_mid: pic_mid
+    getCouponDetail() {
+      checkCouponNumber(this.coupon_batch_id)
+        .then(res => {
+          // this.textShow = true;
+          this.imgUrl = res.image_url;
+          this.checkGetCoupon()
         })
-        .then(
-          res => {
-            //success
-            let data = res.data;
-            console.log(res);
-          },
-          res => {
-            //err
-            console.log(err)
-          }
-        );
+        .catch(err => {
+          alert(err.response.data.message);
+        });
     },
+    //获取券信息
+    checkGetCoupon() {
+      let args = {
+        coupon_batch_id: this.coupon_batch_id,
+        include: "couponBatch",
+        qiniu_id: this.$route.query.id,
+      };
+      checkGetCoupon(args)
+        .then(res => {
+          if (!res) {
+            if (this.$route.query.open_user_id) {
+              this.sendCoupon();
+            } else {
+              this.textShow = true;
+            }
+          } else {
+            // this.imgUrl = res.couponBatch.image_url;
+            this.textShow = false;
+            window.location.href = 'http://m.mallcoo.cn/a/coupon/10620'
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    //发优惠券
+    sendCoupon() {
+      let args = {
+        include: "couponBatch",
+        qiniu_id: this.$route.query.id,
+        oid: this.$route.query.oid || this.$route.query.utm_source,
+        belong: this.$route.query.utm_campaign
+      };
+      sendCoupon(args, this.coupon_batch_id)
+        .then(res => {
+          // this.imgUrl = res.couponBatch.image_url;
+          this.textShow = false;
+          window.location.href = 'http://m.mallcoo.cn/a/coupon/10620'
+        })
+        .catch(err => {
+          alert(err.response.data.message);
+        });
+    }
   }
-}
+};
 </script>
 <style lang="less" scoped>
 @img: "https://cdn.exe666.com/fe/image/longhu/";
@@ -260,6 +295,17 @@ img {
       left: 50%;
       transform: translateX(-50%);
       z-index: 999;
+      img {
+        z-index: 0;
+      }
+      .aclick {
+        width: 27%;
+        display: inline-block;
+        position: absolute;
+        top: 53%;
+        right: 18%;
+        z-index: 999;
+      }
     }
   }
   .two {
@@ -306,15 +352,6 @@ img {
         transform: translateX(-50%);
       }
     }
-    // .LonghuYinFood {
-    // }
-    // .LHHappyBirthday {
-    //   z-index: 0;
-    //   position: absolute;
-    //   top: 0%;
-    //   left: 50%;
-    //   transform: translateX(-50%);
-    // }
     .ceng2 {
       z-index: 99 !important;
     }

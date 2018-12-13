@@ -17,6 +17,11 @@
           :src="ewm"
           class="er"
         >
+        <img
+          v-show="used"
+          :src="base + 'used.png'"
+          class="used"
+        >
         <span class="code">{{ code }}</span>
       </div>
       <img
@@ -65,7 +70,8 @@ export default {
       iphoneX: false,
       userId: null,
       coupon_batch_id: this.$route.query.coupon_batch_id,
-      id: this.$route.query.id
+      id: this.$route.query.id,
+      used: false,
     }
   },
   mounted() {
@@ -123,30 +129,7 @@ export default {
         if (res) {
           this.handleData(res)
         } else {
-          let date = new Date()
-          args = {
-            coupon_batch_id: this.coupon_batch_id,
-            include: 'couponBatch'
-          }
-          args.start_date = dateFormat(
-            new Date(formatTimestamp(date, true)),
-            'yyyy-MM-dd hh:mm:ss'
-          )
-          args.end_date = dateFormat(
-            new Date(formatTimestamp(date, false) - 1000),
-            'yyyy-MM-dd hh:mm:ss'
-          )
-          checkGetCoupon(args)
-            .then(res => {
-              if (res) {
-                this.handleData(res)
-              } else {
-                this.sendCoupon()
-              }
-            })
-            .catch(err => {
-              console.log(err)
-            })
+          this.sendCoupon()
         }
       }).catch(err => {
         console.log(err)
@@ -173,6 +156,9 @@ export default {
     handleData(res) {
       this.ewm = res.qrcode_url
       this.code = res.code
+      if (parseInt(res.status) === 1) {
+        this.used = true
+      }
     }
   }
 }
@@ -231,7 +217,15 @@ img {
         left: 9%;
         z-index: 99;
         width: 24.5vw;
-        //height: 24.55vw;
+        pointer-events: auto;
+        user-select: auto;
+      }
+      .used {
+        position: absolute;
+        top: 17%;
+        left: 4%;
+        z-index: 999;
+        width: 33vw;
         pointer-events: auto;
         user-select: auto;
       }
