@@ -84,7 +84,6 @@ export default {
   },
   mounted() {
     this.tabs[this.belong] = true;
-
     //微信授权
     if (isInWechat() === true) {
       if (
@@ -118,9 +117,12 @@ export default {
       this.tabs[index] = true;
     },
     getAuth() {
-      let pageUrl = encodeURIComponent(String(window.location.href));
+      let url =
+        window.location.origin +
+        window.location.pathname +
+        encodeURIComponent(String(window.location.search));
       let args = {
-        redirect_url: pageUrl
+        redirect_url: url
       };
       getMallcooOauth(args)
         .then(res => {
