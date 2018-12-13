@@ -126,6 +126,7 @@ export default {
       };
       getMallcooOauth(args)
         .then(res => {
+          console.log(res);
           let data = res;
           window.location.href = data;
           return;
