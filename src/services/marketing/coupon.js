@@ -7,6 +7,7 @@ const V5_COUPOU_URL = process.env.SAAS_API + '/v5/common/coupon'
 const COUPOUS_URL = process.env.AD_API + '/api/open/coupons/'
 const OPEN_COUPON = process.env.AD_API + '/api/open/coupon/'
 const OPEN_USER_COUPON = process.env.AD_API + '/api/open/user/coupon'
+const MALLCOO_API = process.env.AD_API + '/api/mallcoo/user/oauth'
 
 const OPEN_COUPON_PROJECT = process.env.AD_API + '/api/open/project'
 const IMAGE_UPLOAD = process.env.AD_API + '/api/images'
@@ -235,6 +236,21 @@ const getImage = params => {
       })
   })
 }
+
+//猫酷授权
+const getMallcooOauth = params => {
+  handleParma(params)
+  return new Promise((resolve, reject) => {
+    axios
+      .post(MALLCOO_API, params, REQ_HEADER)
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
 export {
   createCoupon,
   getCoupon,
@@ -249,5 +265,6 @@ export {
   checkGetCoupon,
   getCouponProjectMessage,
   sendCoupon,
-  getImage
+  getImage,
+  getMallcooOauth
 }

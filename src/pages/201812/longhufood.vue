@@ -1,41 +1,18 @@
 <template>
-  <div
-    :style="style.root"
-    class="content"
-  >
-    <img
-      :src="base + 'tit.png' + this.$qiniuCompress()"
-      class="tit"
-    >
+  <div :style="style.root" class="content">
+    <img :src="base + 'tit.png' + this.$qiniuCompress()" class="tit">
     <div class="zero">
-      <img
-        :src="base + 'save.png' + this.$qiniuCompress()"
-        class="save"
-      >
-      <img
-        :src="base + 'frame.png' + this.$qiniuCompress()"
-        class="frame"
-      >
-      <img
-        :src="photo + this.$qiniuCompress()"
-        class="photo"
-      >
+      <img :src="base + 'save.png' + this.$qiniuCompress()" class="save">
+      <img :src="base + 'frame.png' + this.$qiniuCompress()" class="frame">
+      <img :src="photo + this.$qiniuCompress()" class="photo">
     </div>
     <div class="one">
-      <img
-        :src="base + 'one3.png' + this.$qiniuCompress()"
-        class="bg"
-      >
+      <img :src="base + 'one3.png' + this.$qiniuCompress()" class="bg">
       <div class="coupon">
         <img :src="imgUrl">
         <!-- <img src="https://cdn.exe666.com/fe/image/longhu/coupon01.png"> -->
-        <a
-          v-if="textShow"
-          class="aclick"
-          @click="getAuth"
-        >
-          <img 
-            :src="base
+        <a v-if="textShow" class="aclick" @click="getAuth">
+          <img :src="base
               + 'click.png'+
             this.$qiniuCompress()">
         </a>
@@ -43,11 +20,8 @@
     </div>
     <div class="two">
       <ul class="ul-tab">
-        <li
-          v-for="(item,index) in tabs"
-          :key="index"
-        >
-          <a @click="getTabs(index)" />
+        <li v-for="(item,index) in tabs" :key="index">
+          <a @click="getTabs(index)"/>
         </li>
       </ul>
       <img
@@ -57,10 +31,7 @@
         :class="{bg:true,ceng2:item}"
       >
     </div>
-    <img
-      :src="base + 'logo.png' + this.$qiniuCompress()"
-      class="logo"
-    >
+    <img :src="base + 'logo.png' + this.$qiniuCompress()" class="logo">
   </div>
 </template>
 <script>
@@ -72,18 +43,19 @@ import {
   sendCoupon,
   checkGetCoupon,
   dateFormat,
-  formatTimestamp
-} from 'services'
-import { normalPages } from '../../mixins/normalPages'
-const cdnUrl = process.env.CDN_URL
+  formatTimestamp,
+  getMallcooOauth
+} from "services";
+import { normalPages } from "../../mixins/normalPages";
+const cdnUrl = process.env.CDN_URL;
 export default {
   mixins: [normalPages],
   data() {
     return {
-      base: cdnUrl + '/fe/image/longhu/',
+      base: cdnUrl + "/fe/image/longhu/",
       style: {
         root: {
-          'min-height': this.$innerHeight() + 'px'
+          "min-height": this.$innerHeight() + "px"
         }
       },
       textShow: true,
@@ -92,107 +64,121 @@ export default {
       coupon_batch_id: this.$route.query.coupon_batch_id,
       belong: this.$route.query.utm_campaign,
       tabs: {
-        'LHHappyBirthday': false,
-        'LonghuYinFood': false,
-        'cpLongfor': false,
+        LHHappyBirthday: false,
+        LonghuYinFood: false,
+        cpLongfor: false
       },
       open_user_id: null,
-      authorize_url: process.env.AD_API + '/api/mallcoo/user/oauth?redirect_url=',
       coupon_url: process.env.AD_API + "/api/mallcoo/coupon",
       //分享
       wxShareInfoValue: {
-        title: '一周年好礼相送',
-        desc: '参与互动 福利翻倍',
-        link: 'http://papi.xingstation.com/api/s/q7r' + window.location.search,
-        imgUrl: cdnUrl + '/fe/image/longhu/icon.png',
+        title: "一周年好礼相送",
+        desc: "参与互动 福利翻倍",
+        link: "http://papi.xingstation.com/api/s/q7r" + window.location.search,
+        imgUrl: cdnUrl + "/fe/image/longhu/icon.png",
         success: () => {
-          wechatShareTrack()
+          wechatShareTrack();
         }
       }
-    }
+    };
   },
   mounted() {
-    this.tabs[this.belong] = true
+    this.tabs[this.belong] = true;
 
     //微信授权
     if (isInWechat() === true) {
       if (
-        process.env.NODE_ENV === 'production' ||
-        process.env.NODE_ENV === 'testing'
+        process.env.NODE_ENV === "production" ||
+        process.env.NODE_ENV === "testing"
       ) {
-        this.handleWechatAuth()
+        this.handleWechatAuth();
       }
     }
   },
   methods: {
     //微信静默授权
     handleWechatAuth() {
-      if (Cookies.get('sign') === null) {
-        let base_url = encodeURIComponent(String(window.location.href))
+      if (Cookies.get("sign") === null) {
+        let base_url = encodeURIComponent(String(window.location.href));
         let redirct_url =
           process.env.WX_API +
-          '/wx/officialAccount/oauth?url=' +
+          "/wx/officialAccount/oauth?url=" +
           base_url +
-          '&scope=snsapi_base'
-        window.location.href = redirct_url
+          "&scope=snsapi_base";
+        window.location.href = redirct_url;
       } else {
-        this.userId = Cookies.get('user_id')
-        this.checkGetCoupon()
+        this.userId = Cookies.get("user_id");
+        this.checkGetCoupon();
       }
     },
     getTabs(index) {
       for (let i in this.tabs) {
-        this.tabs[i] = false
+        this.tabs[i] = false;
       }
-      this.tabs[index] = true
+      this.tabs[index] = true;
     },
+    
     //授权
     getAuth() {
       let pageUrl = encodeURIComponent(window.location.href);
-      this.$http.get(this.authorize_url + pageUrl).then(result => {
-        let data = result.data;
-        window.location.href = data;
-        return;
-      });
+      let args = {
+        redirct_url: pageUrl
+      };
+      getMallcooOauth(args)
+        .then(res => {
+          console.log(res);
+          let data = res;
+          window.location.href = data;
+          return;
+        })
+        .catch(err => {
+          alert(err.response.data.message);
+        });
+      // this.$http.get(this.authorize_url + pageUrl).then(result => {
+      //   let data = result.data;
+      //   window.location.href = data;
+      //   return;
+      // });
     },
     //获取券信息
     checkGetCoupon() {
       let args = {
         coupon_batch_id: this.coupon_batch_id,
-        include: 'couponBatch',
+        include: "couponBatch",
         qiniu_id: this.id
-      }
-      checkGetCoupon(args).then(res => {
-        if (!res) {
-          this.sendCoupon()
-        } else {
-          this.imgUrl = res.couponBatch.image_url
-          this.textShow = false
-        }
-
-      }).catch(err => {
-        console.log(err)
-      })
+      };
+      checkGetCoupon(args)
+        .then(res => {
+          if (!res) {
+            this.sendCoupon();
+          } else {
+            this.imgUrl = res.couponBatch.image_url;
+            this.textShow = false;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
     //发优惠券
     sendCoupon() {
       let args = {
-        include: 'couponBatch',
+        include: "couponBatch",
         qiniu_id: this.$route.query.id,
         oid: this.$route.query.oid || this.$route.query.utm_source,
         belong: this.$route.query.utm_campaign
-      }
+      };
       sendCoupon(args, this.coupon_batch_id)
         .then(res => {
-          this.textShow = true
-          this.imgUrl = res.couponBatch.image_url
+          this.textShow = true;
+          this.imgUrl = res.couponBatch.image_url;
         })
         .catch(err => {
-          alert(err.response.data.message)
-        })
+          alert(err.response.data.message);
+        });
     }
   }
-}
+};
 </script>
 <style lang="less" scoped>
 @img: "https://cdn.exe666.com/fe/image/longhu/";
