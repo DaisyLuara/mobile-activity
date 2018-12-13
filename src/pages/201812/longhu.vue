@@ -121,7 +121,7 @@ export default {
     getAuth() {
       let pageUrl = encodeURIComponent(window.location.href);
       let args = {
-        redirct_url: pageUrl
+        redirect_url: pageUrl
       };
       getMallcooOauth(args)
         .then(res => {
