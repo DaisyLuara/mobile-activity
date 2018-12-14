@@ -5,7 +5,7 @@
   >
     <div class="all">
       <img
-        :src="base+'title.png'"
+        :src="base+'title.png' + this.$qiniuCompress()"
         class="title"
       >
       <div class="main">
@@ -29,15 +29,19 @@
           你击败了{{ rank }}%玩家
         </div>
       </div>
+      <img
+        :src="url + 't.png' + this.$qiniuCompress()"
+        class="tips"
+      >
       <div class="todo">
         <a
           class="btn"
           @click="getPhoto"
         >
-          <img :src="base + btn + '.png'">
+          <img :src="base + btn + '.png' + this.$qiniuCompress()">
         </a>
         <img
-          :src="base + note + '.png'"
+          :src="base + note + '.png' + this.$qiniuCompress()"
           class="note"
         >
       </div>
@@ -46,10 +50,16 @@
       v-show="mask"
       :style="style.root"
       class="mask"
-      @click="toLink"
     >
       <div class="alert">
-        <img :src="url + 'alert.png' + this.$qiniuCompress()">
+        <img
+          :src="url + 'alert2.png' + this.$qiniuCompress()"
+          class="erbg"
+        >
+        <img
+          :src="url + 'btn.png' + this.$qiniuCompress()"
+          class="btn"
+        >
         <button
           class="close"
           @click.stop="()=>{ mask = false;}"
@@ -93,8 +103,8 @@ export default {
       rank_url: process.env.SAAS_API + '/user/',
       //分享
       wxShareInfoValue: {
-        title: 'Mirror魔镜PK擂台等你来战',
-        desc: 'Mirror魔镜PK擂台等你来战',
+        title: '乐荟豪礼 等你来领',
+        desc: '即可领取 嗨翻全场',
         link: 'http://papi.xingstation.com/api/s/5QR' + window.location.search,
         imgUrl: IMGSERVER + '/image/pk/common/share.png',
         success: () => {
@@ -107,7 +117,6 @@ export default {
     if (this.$innerHeight() > 672) {
       document.querySelector('.main').style.marginTop = '10%'
     }
-    this.getPhoto()
     //微信授权
     if (isInWechat() === true) {
       if (
@@ -117,9 +126,6 @@ export default {
         this.handleWechatAuth()
       }
     }
-    let clip = document.getElementById('clip')
-    clip.style.width = this.$innerWidth() * 0.268 + 'px'
-    clip.style.height = this.$innerWidth() * 0.272 + 'px'
   },
   methods: {
     handleWechatAuth() {
@@ -145,6 +151,7 @@ export default {
       this.$http
         .get(this.rank_url + userId + '/rank' + query)
         .then(res => {
+          console.log(res)
           this.rank = (parseFloat(res.data.data.rank) * 100).toFixed(2)
         })
         .catch(err => {
@@ -156,7 +163,6 @@ export default {
       if (this.photo) {
         cancelAnimationFrame(timer)
         this.toPK()
-        console.log(this.photo)
         return
       }
 
@@ -172,9 +178,11 @@ export default {
       }
       userGame(args, this.userId)
         .then(res => {
+          console.log(res)
           if (res.success) {
             this.note = 'success'
           }
+          this.note = 'success'
         })
         .catch(e => {
           console.log(e)
@@ -244,9 +252,17 @@ img {
       width: 90%;
       margin: 0 auto;
       transform: translateY(-50%);
-      img {
+      .erbg {
         position: relative;
         z-index: 0;
+        pointer-events: auto;
+      }
+      .btn {
+        width: 46vw;
+        position: absolute;
+        top: 63%;
+        left: 50%;
+        transform: translateX(-50%);
       }
       .close {
         width: 10vw;
@@ -262,11 +278,14 @@ img {
     }
   }
   .all {
+    width: 100%;
     position: relative;
     z-index: 0;
+    overflow-x: hidden;
     .title {
       width: 62%;
-      margin: 5% auto;
+      margin: 0 auto;
+      margin-top: 3.5%;
     }
     .main {
       width: 92%;
@@ -302,26 +321,32 @@ img {
         left: 70%;
       }
       .clip {
-        min-width: 25.5%;
+        width: 31vw;
+        height: 31vw;
         position: absolute;
-        top: 29.5%;
-        left: 10.2%;
+        top: 26.5%;
+        left: 7.2%;
         z-index: 9;
         border-radius: 50%;
         overflow: hidden;
+        border: solid 5px #fff;
       }
       .rank {
         width: 48%;
         position: absolute;
-        top: 60%;
+        top: 61%;
         left: 42%;
         text-align: center;
-        font-size: 4.5vw;
+        font-size: 3.5vw;
         color: #fff;
       }
     }
+    .tips {
+      position: relative;
+      width: 73.5%;
+    }
     .todo {
-      margin-top: 5%;
+      margin-top: 3.5%;
       .btn {
         display: inline-block;
         width: 54%;

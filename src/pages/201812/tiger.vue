@@ -4,46 +4,38 @@
     class="root"
   >
     <!-- 券图 -->
+    <!-- <img
+      :src="baseUrl + '4.png'+ this.$qiniuCompress()"
+      :class="{'x-couponImg':iphoneX,'couponImg':!iphoneX}"
+      class="couponImg"
+    > -->
     <img
       :src="couponImg+ this.$qiniuCompress()"
       :class="{'x-couponImg':iphoneX,'couponImg':!iphoneX}"
       class="couponImg"
     >
-    <!-- <img
-      :src="baseUrl + 'd.png'+ this.$qiniuCompress()"
-      :class="{'x-couponImg':iphoneX,'couponImg':!iphoneX}"
-      class="couponImg"
-    > -->
     <div
-      :class="{'x-center':iphoneX,'center':!iphoneX}"
-      class="center"
+      :class="{'x-contain':iphoneX,'contain':!iphoneX}"
+      class="contain"
     >
-      <img
-        :src="baseUrl + 's2.png'+ this.$qiniuCompress()"
-        class="scan"
-      >
-      <!-- 二维码 -->
+      <!-- <img
+        :src="baseUrl + 'ewm.jpeg'+ this.$qiniuCompress()"
+        class="ewm"
+      > 
+      <span 
+        :style="style.code"
+        class="code">1234567</span>
+    </div>-->
       <img
         :src="qrcodeImg+ this.$qiniuCompress()"
         class="ewm"
       >
-      <!-- <img
-        :src="baseUrl + 'er.jpeg'+ this.$qiniuCompress()"
-        class="ewm"
-      > -->
-      <!-- 已使用 -->
-      <img
-        v-if="hasUsed"
-        :src="baseUrl + 'used.png'+ this.$qiniuCompress()"
-        class="coupon-used"
-      >
-      <!-- 已失效-->
-      <img
-        v-if="hasPost"
-        :src="baseUrl + 'post.png'+ this.$qiniuCompress()"
-        class="coupon-post"
-      >
+      <span
+        :style="style.code"
+        class="code"
+      >{{ code }}</span>
     </div>
+
   </div>
 </template>
 <script>
@@ -55,17 +47,21 @@ import {
   Cookies,
   sendCoupon,
   checkGetCoupon,
-  dateFormat
+  dateFormat,
+  formatTimestamp
 } from 'services'
 const cdnUrl = process.env.CDN_URL
 export default {
   mixins: [onlyGetPhoto],
   data() {
     return {
-      baseUrl: cdnUrl + '/fe/marketing/img/taihe/',
+      baseUrl: cdnUrl + '/fe/marketing/img/tiger/',
       style: {
         root: {
           height: this.$innerHeight() + 'px'
+        },
+        code: {
+          bottom: (this.$innerWidth() * 65) / 750 + 'px'
         }
       },
       iphoneX: false,
@@ -74,17 +70,21 @@ export default {
       oid: this.$route.query.utm_source,
       couponImg: null,
       qrcodeImg: null,
+      code: null,
+      couponID: ['116', '117'],
+      new_coupon_batch_id: this.$route.query.coupon_batch_id,
       params: {
         user_id: null
       },
       hasUsed: false,
-      hasPost: false
-      // wxShareInfoValue: {
-      //   title: '刷脸享优惠，畅快看大片！',
-      //   desc: '太禾影城等你来嗨玩！',
-      //   link: 'http://papi.xingstation.com/api/s/zK8' + window.location.search,
-      //   imgUrl: cdnUrl + '/fe/marketing/img/taihe/icon.jpg'
-      // }
+      hasPost: false,
+      wxShareInfoValue: {
+        title: '四云奶盖贡茶请你喝奶茶了！',
+        desc: '点击即可领福利',
+        link: 'http://papi.xingstation.com/api/s/913' + window.location.search,
+        //link: 'http://papi.newgls.cn/api/s/Lg4' + window.location.search,
+        imgUrl: cdnUrl + '/fe/marketing/img/tiger/icon.png'
+      }
     }
   },
   created() { },
@@ -103,7 +103,6 @@ export default {
     } else {
       this.iphoneX = false
     }
-    this.handleForbiddenShare()
   },
   methods: {
     //微信静默授权
@@ -117,20 +116,34 @@ export default {
           '&scope=snsapi_base'
         window.location.href = redirct_url
       } else {
+        this.randomCouponID()
+        this.wxShareInfoValue.link = this.changeUrlArg(this.wxShareInfoValue.link, 'coupon_batch_id', this.new_coupon_batch_id)
+        this.handleShare()
         this.userId = Cookies.get('user_id')
         this.params.user_id = this.userId
         this.checkCouponIsUse()
       }
     },
-    //禁止微信分享
-    handleForbiddenShare() {
+    //分享
+    handleShare() {
       $wechat()
         .then(res => {
-          res.forbidden()
+          res.share(this.wxShareInfoValue)
         })
         .catch(_ => {
           console.warn(_.message)
         })
+    },
+    //分享的链接处理函数
+    changeUrlArg(url, arg, val) {
+      let pattern = arg + '=([^&]*)';
+      let replaceText = arg + '=' + val;
+      return url.match(pattern) ? url.replace(eval('/(' + arg + '=)([^&]*)/gi'), replaceText) : (url.match('[\?]') ? url + '&' + replaceText : url + '?' + replaceText);
+    },
+    //随机出randomCouponID
+    randomCouponID() {
+      let that = this
+      that.new_coupon_batch_id = that.couponID[Math.floor(Math.random() * that.couponID.length)]
     },
     //判断是否领过优惠券
     checkCouponIsUse() {
@@ -150,11 +163,11 @@ export default {
               include: 'couponBatch'
             }
             args.start_date = dateFormat(
-              new Date(this.formatTimestamp(data, true)),
+              new Date(formatTimestamp(data, true)),
               'yyyy-MM-dd hh:mm:ss'
             )
             args.end_date = dateFormat(
-              new Date(this.formatTimestamp(data, false) - 1000),
+              new Date(formatTimestamp(data, false) - 1000),
               'yyyy-MM-dd hh:mm:ss'
             )
             checkGetCoupon(args)
@@ -195,38 +208,14 @@ export default {
     handleData(res) {
       this.qrcodeImg = res.qrcode_url
       this.couponImg = res.couponBatch.image_url
-      this.time = res.created_at
-      let dateValue = this.time.replace(/\-/g, '/')
-      //当天24点过期
-      if (this.formatTimestamp(dateValue, false) < new Date().getTime()) {
-        //失效处理
-        this.hasPost = true
-        this.hasUsed = false
-      } else if (parseInt(res.status) === 1) {
-        //已使用
-        this.hasUsed = true
-        this.hasPost = false
-      }
+      this.code = res.code
     },
-    //处理时间
-    formatTimestamp(data, flag) {
-      let nextDate = new Date(new Date(data).getTime() + 24 * 60 * 60 * 1000)
-      if (flag) {
-        nextDate = data
-      }
-      nextDate.setHours(0)
-      nextDate.setMinutes(0)
-      nextDate.setSeconds(0)
-      nextDate.setMilliseconds(0)
-      let todayStartTime = nextDate.getTime()
-      return todayStartTime
-    }
   }
 }
 </script>
 
 <style lang="less" scoped>
-@imageHost: "http://cdn.exe666.com/fe/marketing/img/taihe/";
+@imageHost: "http://cdn.exe666.com/fe/marketing/img/tiger/";
 html,
 body {
   width: 100%;
@@ -250,68 +239,41 @@ img {
   width: 100%;
   text-align: center;
   position: relative;
-  overflow: hidden;
-  background-image: url("@{imageHost}bg6.jpg");
-  background-size: 100% 100%;
-  background-position: center bottom;
-  background-repeat: no-repeat;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
   .couponImg {
-    width: 72%;
-    position: relative;
-    margin-top: 4%;
-  }
-  .x-couponImg {
-    width: 86%;
-    position: relative;
-    margin-top: 12%;
-  }
-
-  .center {
     width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  .contain {
+    width: 100%;
+    height: 30%;
     position: relative;
-    pointer-events: none;
-    user-select: none;
-    .scan {
-      width: 70%;
-    }
+    margin-top: 70%;
     .ewm {
-      width: 24.5%;
+      width: 22%;
       position: absolute;
-      left: 21.5%;
-      top: 45%;
-      user-select: auto;
-      pointer-events: auto;
+      left: 14%;
+      top: 30%;
     }
-    .coupon-used,
-    .coupon-post {
-      width: 71%;
+    .code {
+      width: 50%;
+      height: 16%;
+      display: block;
       position: absolute;
-      left: 15%;
-      top: -0.6%;
+      right: 10%;
+      //top: 65.8%;
+      color: #000;
+      font-size: 5vw;
       z-index: 9;
     }
   }
-  .x-center {
-    width: 100%;
-    position: relative;
-    pointer-events: none;
-    user-select: none;
-    .scan {
-      width: 84%;
-    }
-    .ewm {
-      width: 28.5%;
-      position: absolute;
-      left: 16.5%;
-      top: 45%;
-    }
-    .coupon-used,
-    .coupon-post {
-      width: 85%;
-      position: absolute;
-      left: 7%;
-      top: -0.6%;
-      z-index: 9;
+  .x-contain {
+    margin-top: 67%;
+    .code {
+      margin-bottom: 5%;
     }
   }
 }

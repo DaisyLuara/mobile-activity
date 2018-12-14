@@ -48,7 +48,7 @@ const Date201812 = [
     location: '201812/lehuiPK',
     name: 'lehuiPK',
     meta: {
-      title: '颜值榜',
+      title: '乐玩乐荟',
       author: 'lipan',
       desc: '乐荟-颜值PK'
     },
@@ -82,6 +82,160 @@ const Date201812 = [
       title: '圣诞糖果',
       author: 'xj1012',
       desc: '圣诞糖果-太平洋森活'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'smile_atm',
+    location: '201812/smileAtm',
+    name: 'smile_atm',
+    meta: {
+      title: '笑容还能换钱花？测一测你的笑容值多少钱。',
+      author: 'xj1012',
+      desc: '衡阳连卡福-笑容ATM'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'smile_share',
+    location: '201812/smileShare',
+    name: 'smile_share',
+    meta: {
+      title: '笑容还能换钱花？测一测你的笑容值多少钱。',
+      author: 'xj1012',
+      desc: '衡阳连卡福-笑容ATM(分享页)'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'tiger',
+    location: '201812/tiger',
+    name: 'tiger',
+    meta: {
+      title: '请你喝茶',
+      author: 'xj1012',
+      desc: '颛桥万达老虎机'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'wyf_meishi',
+    location: '201812/wyf',
+    name: 'wyf_meishi',
+    meta: {
+      title: '吾悦坊',
+      author: 'xj1012',
+      desc: '吾悦坊美食'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'christmas_post',
+    location: '201812/postOffice',
+    name: 'christmas_post',
+    meta: {
+      title: '圣诞祝福邮递局',
+      author: 'xj1012',
+      desc: '圣诞祝福邮递局'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'facing',
+    location: '201812/facing',
+    name: 'facing',
+    meta: {
+      title: '智能面相测试仪',
+      author: 'lipan',
+      desc: '智能面相测试仪 '
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'heaven_christmas',
+    location: '201812/heaven',
+    name: 'heaven_christmas',
+    meta: {
+      title: 'DFC影城',
+      author: 'xj1012',
+      desc: '圣诞礼物-DFC影城'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'synthetic',
+    location: '201812/synthetic',
+    name: 'synthetic',
+    meta: {
+      title: '为合而来',
+      author: 'xj1012',
+      desc: '为合而来'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'christmas_gift',
+    location: '201812/gift',
+    name: 'christmas_gift',
+    meta: {
+      title: '圣诞送好礼',
+      author: 'xj1012',
+      desc: '圣诞送好礼'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'wa',
+    location: '201812/wa',
+    name: 'wa',
+    meta: {
+      title: '蛙夫人-推券',
+      author: 'lipan',
+      desc: '蛙夫人-推券 '
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'longhu',
+    location: '201812/longhu',
+    name: 'longhu',
+    meta: {
+      title: '街成双 FUN加倍',
+      author: 'lipan',
+      desc: '龙湖天街-周年狂欢 '
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'world_trade',
+    location: '201812/worldTrade',
+    name: 'world_trade',
+    meta: {
+      title: '冰雪梦幻季',
+      author: 'xj1012',
+      desc: '昆山世贸'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'longhufood',
+    location: '201812/longhufood',
+    name: 'longhufood',
+    meta: {
+      title: '街成双 FUN加倍',
+      author: 'lipan',
+      desc: '龙湖天街-大饱口福 '
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'longhuyanzhi',
+    location: '201812/longhuyanzhi',
+    name: 'longhuyanzhi',
+    meta: {
+      title: '街成双 FUN加倍',
+      author: 'lipan',
+      desc: '龙湖天街-颜值礼遇 '
     },
     isAbandoned: false
   }

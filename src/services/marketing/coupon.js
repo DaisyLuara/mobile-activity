@@ -7,6 +7,7 @@ const V5_COUPOU_URL = process.env.SAAS_API + '/v5/common/coupon'
 const COUPOUS_URL = process.env.AD_API + '/api/open/coupons/'
 const OPEN_COUPON = process.env.AD_API + '/api/open/coupon/'
 const OPEN_USER_COUPON = process.env.AD_API + '/api/open/user/coupon'
+const MALLCOO_API = process.env.AD_API + '/api/mallcoo/user/oauth'
 
 const OPEN_COUPON_PROJECT = process.env.AD_API + '/api/open/project'
 const IMAGE_UPLOAD = process.env.AD_API + '/api/images'
@@ -188,7 +189,7 @@ const getCouponId = policyId => {
       })
   })
 }
-//判断是否用手机号领过券
+//获取券的信息（包括判断是否用手机号领过券）
 const checkGetCoupon = params => {
   handleParma(params)
   return new Promise((resolve, reject) => {
@@ -219,11 +220,29 @@ const getCouponProjectMessage = belong => {
 const getImage = params => {
   params.append('sign', Cookies.get('sign'))
   if (Cookies.get('game_attribute_payload')) {
-    params.append('game_attribute_payload', Cookies.get('game_attribute_payload'))
+    params.append(
+      'game_attribute_payload',
+      Cookies.get('game_attribute_payload')
+    )
   }
   return new Promise((resolve, reject) => {
     axios
       .post(IMAGE_UPLOAD, params, REQ_HEADER)
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+
+//猫酷授权
+const getMallcooOauth = params => {
+  handleParma(params)
+  return new Promise((resolve, reject) => {
+    axios
+      .post(MALLCOO_API, params, REQ_HEADER)
       .then(response => {
         resolve(response.data)
       })
@@ -246,5 +265,6 @@ export {
   checkGetCoupon,
   getCouponProjectMessage,
   sendCoupon,
-  getImage
+  getImage,
+  getMallcooOauth
 }
