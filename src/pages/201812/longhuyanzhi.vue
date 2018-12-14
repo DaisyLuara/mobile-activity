@@ -123,7 +123,7 @@ export default {
       photo: null,
       id: this.$route.query.id,
       open_user_id: null,
-      mask: true,
+      mask: false,
       note: 'note1',
       hasgeted: false,
       //分享
@@ -150,10 +150,17 @@ export default {
       }
     }
     let that = this
-    let timer = setTimeout(function () {
-      that.mask = false;
-      clearTimeout(timer)
-    }, 2000)
+    if (this.$route.query.open_user_id) {
+      return
+    } else {
+      this.mask = true
+      let timer = setTimeout(function () {
+        that.mask = false;
+        clearTimeout(timer)
+      }, 2000)
+      return
+    }
+
   },
   methods: {
     //微信静默授权
