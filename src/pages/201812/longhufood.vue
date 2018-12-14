@@ -226,8 +226,7 @@ export default {
     checkGetCoupon() {
       let args = {
         coupon_batch_id: this.coupon_batch_id,
-        include: "couponBatch",
-        qiniu_id: this.$route.query.id,
+        include: "couponBatch"
       };
       checkGetCoupon(args)
         .then(res => {
