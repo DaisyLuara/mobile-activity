@@ -150,17 +150,16 @@ export default {
       }
     }
     let that = this
-    if (this.$route.query.open_user_id) {
+    if (window.localStorage.getItem('longhu')) {
       return
     } else {
       this.mask = true
       let timer = setTimeout(function () {
         that.mask = false;
         clearTimeout(timer)
+        window.localStorage.setItem('longhu', 'longhu')
       }, 2000)
-      return
     }
-
   },
   methods: {
     //微信静默授权
@@ -214,7 +213,6 @@ export default {
     getCouponDetail() {
       checkCouponNumber(this.coupon_batch_id)
         .then(res => {
-          // this.textShow = true;
           this.imgUrl = res.image_url;
           this.checkGetCoupon()
         })
@@ -237,9 +235,7 @@ export default {
               this.textShow = true;
             }
           } else {
-            //this.textShow = false;
             this.hasgeted = true
-            //window.location.href = 'http://papi.xingstation.com/api/s/gZ9'
           }
         })
         .catch(err => {
