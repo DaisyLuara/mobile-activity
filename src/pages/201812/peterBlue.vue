@@ -317,16 +317,16 @@ img {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.65);
     width: 100%;
     text-align: center;
     margin: 0;
     padding: 0;
     z-index: 999;
     .map {
-      width: 80%;
+      width: 85%;
       position: relative;
-      margin-top: 20%;
+      margin-top: 15%;
     }
   }
 }
