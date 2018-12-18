@@ -249,6 +249,17 @@ const Date201812 = [
       desc: '周浦绿地-圣诞'
     },
     isAbandoned: false
+  },
+  {
+    path: 'expressions_imitate',
+    location: '201812/expressions',
+    name: 'expressions_imitate',
+    meta: {
+      title: '表情模仿',
+      author: 'xj1012',
+      desc: '福州万达-表情模仿'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201812

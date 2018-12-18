@@ -111,6 +111,8 @@ img {
     background-size: 100% auto;
     background-position: center bottom;
     background-repeat: no-repeat;
+    pointer-events: none;
+    user-select: none;
     .save {
       width: 65%;
       margin-top: 4%;
@@ -148,6 +150,8 @@ img {
       left: 50%;
       top: 50%;
       transform: translate(-50%, -43.5%);
+      pointer-events: auto;
+      user-select: auto;
     }
     .btImg {
       width: 100%;
@@ -167,6 +171,8 @@ img {
   .bt {
     width: 100%;
     position: relative;
+    pointer-events: none;
+    user-select: none;
     .content {
       width: 100%;
     }
