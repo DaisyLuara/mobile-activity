@@ -88,7 +88,7 @@
   </div>
 </template>
 <script>
-import { $wechat, isInWechat, wechatShareTrack } from "services";
+import { $wechat, isInWechat, wechatShareTrack, Cookies } from "services";
 import { normalPages } from "../../mixins/normalPages";
 import "animate.css";
 import LinkAge from 'modules/linkAge'
