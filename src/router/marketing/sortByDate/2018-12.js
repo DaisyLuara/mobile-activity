@@ -293,6 +293,17 @@ const Date201812 = [
       desc: '福州万达-表情模仿'
     },
     isAbandoned: false
+  },
+  {
+    path: 'greenchm',
+    location: '201812/greenchm',
+    name: 'greenchm',
+    meta: {
+      title: '圣诞转盘',
+      author: 'lipan',
+      desc: '圣诞转盘-周浦绿地'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201812

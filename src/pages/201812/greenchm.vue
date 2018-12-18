@@ -6,7 +6,7 @@
     <!-- 券 -->
     <div class="one">
       <img
-        :src="coupon + this.$qiniuCompress()"
+        :src="imgUrl + this.$qiniuCompress()"
         class="coupon"
       >
     </div>
@@ -20,10 +20,19 @@
     <!-- 照片 -->
     <div class="three">
       <img
+        :src="base + 'kuang.png' + this.$qiniuCompress()"
+        class="bg"
+      >
+      <img
         :src="photo + this.$qiniuCompress()"
         class="photo"
       >
     </div>
+    <img
+      v-show="Boolean(photo)"
+      :src="base + 'save.png' + this.$qiniuCompress()"
+      class="save"
+    >
   </div>
 </template>
 <script>
@@ -53,13 +62,15 @@ export default {
       },
       coupon_batch_id: this.$route.query.coupon_batch_id,
       belong: this.$route.query.utm_campaign,
+      oid: this.$route.query.oid || this.$route.query.utm_source,
       photo: null,
+      imgUrl: null,//'https://cdn.exe666.com//fe/image/zpld_chr/7winter.png',
       id: this.$route.query.id,
       //分享
       wxShareInfoValue: {
-        title: "",
-        desc: "",
-        link: "" + window.location.search,
+        title: "圣诞转盘-周浦绿地",
+        desc: "圣诞转盘-周浦绿地",
+        link: "http://papi.xingstation.com/api/s/p81" + window.location.search,
         imgUrl: cdnUrl + "/fe/image/greenchm/icon.png",
         success: () => {
           wechatShareTrack();
@@ -123,9 +134,9 @@ export default {
     sendCoupon() {
       let args = {
         include: "couponBatch",
-        qiniu_id: this.$route.query.id,
-        oid: this.$route.query.oid || this.$route.query.utm_source,
-        belong: this.$route.query.utm_campaign
+        qiniu_id: this.id,
+        oid: this.oid,
+        belong: this.belong
       };
       sendCoupon(args, this.coupon_batch_id)
         .then(res => {
@@ -162,18 +173,46 @@ img {
   width: 100%;
   overflow-x: hidden;
   position: relative;
-  background: url("@{img}bg.png") center top / 100% 100% no-repeat;
-  padding: 25% 0;
+  background-color: #01a660;
+  background: url("@{img}bg.png") center top / 100% auto no-repeat;
+  padding: 31% 0%;
   & > div {
     position: relative;
     width: 88%;
-    margin-bottom: 8%;
+    margin-bottom: 6%;
   }
-  .one {
-  }
-  .two {
-  }
+  // .one {
+  // }
+  // .two {
+  // }
   .three {
+    width: 74%;
+    margin-bottom: 0%;
+    .bg {
+      position: relative;
+      z-index: 0;
+    }
+    .photo {
+      width: 70vw;
+      position: absolute;
+      top: 1.5%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+  .save {
+    width: 47%;
+    position: relative;
+    margin-top: 15px;
+    animation: myslider 0.6s linear infinite alternate;
+  }
+}
+@keyframes myslider {
+  0% {
+    transform: translateY(5px);
+  }
+  100% {
+    transform: translateY(-5px);
   }
 }
 </style>
