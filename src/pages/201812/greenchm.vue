@@ -3,6 +3,11 @@
     :style="style.root"
     class="content"
   >
+    <img
+      v-show="Boolean(imgUrl)"
+      :src="base + 'title.png' + this.$qiniuCompress()"
+      class="title"
+    >
     <!-- 券 -->
     <div class="one">
       <img
@@ -32,6 +37,10 @@
       v-show="Boolean(photo)"
       :src="base + 'save.png' + this.$qiniuCompress()"
       class="save"
+    >
+    <img
+      :src="base + 'logo.png' + this.$qiniuCompress()"
+      class="logo"
     >
   </div>
 </template>
@@ -159,6 +168,7 @@ body {
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   transform: translate3d(0, 0, 0);
+  background-color: #01a660;
 }
 * {
   padding: 0;
@@ -176,8 +186,12 @@ img {
   overflow-x: hidden;
   position: relative;
   background-color: #01a660;
-  background: url("@{img}bg.png") center top / 100% auto no-repeat;
-  padding: 31% 0%;
+  background: url("@{img}back.png") center top / 100% auto repeat;
+  padding-top: 12%;
+  .title {
+    width: 56%;
+    margin-bottom: 7%;
+  }
   & > div {
     position: relative;
     width: 88%;
@@ -200,6 +214,8 @@ img {
       top: 1.5%;
       left: 50%;
       transform: translateX(-50%);
+      pointer-events: auto;
+      user-select: auto;
     }
   }
   .save {
@@ -207,6 +223,11 @@ img {
     position: relative;
     margin-top: 15px;
     animation: myslider 0.6s linear infinite alternate;
+  }
+  .logo {
+    width: 85.5%;
+    margin-top: 13%;
+    margin-bottom: 7%;
   }
 }
 @keyframes myslider {
