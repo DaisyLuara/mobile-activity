@@ -240,6 +240,39 @@ const Date201812 = [
     isAbandoned: false
   },
   {
+    path: 'peter_red',
+    location: '201812/peterRed',
+    name: 'peter_red',
+    meta: {
+      title: '彼得兔丛林探险',
+      author: 'lipan',
+      desc: '华侨城-彼得兔-红'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'peter_blue',
+    location: '201812/peterBlue',
+    name: 'peter_blue',
+    meta: {
+      title: '彼得兔丛林探险',
+      author: 'lipan',
+      desc: '华侨城-彼得兔-蓝'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'peter_yellow',
+    location: '201812/peterYellow',
+    name: 'peter_yellow',
+    meta: {
+      title: '彼得兔丛林探险',
+      author: 'lipan',
+      desc: '华侨城-彼得兔-黄'
+    },
+    isAbandoned: false
+  },
+  {
     path: 'green_space',
     location: '201812/green',
     name: 'green_space',
@@ -258,6 +291,17 @@ const Date201812 = [
       title: '表情模仿',
       author: 'xj1012',
       desc: '福州万达-表情模仿'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'greenchm',
+    location: '201812/greenchm',
+    name: 'greenchm',
+    meta: {
+      title: '圣诞转盘',
+      author: 'lipan',
+      desc: '圣诞转盘-周浦绿地'
     },
     isAbandoned: false
   }
