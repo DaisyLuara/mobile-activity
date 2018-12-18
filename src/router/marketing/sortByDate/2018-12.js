@@ -244,7 +244,7 @@ const Date201812 = [
     location: '201812/peterRed',
     name: 'peter_red',
     meta: {
-      title: '华侨城-彼得兔-红',
+      title: '彼得兔丛林探险',
       author: 'lipan',
       desc: '华侨城-彼得兔-红'
     },
@@ -255,7 +255,7 @@ const Date201812 = [
     location: '201812/peterBlue',
     name: 'peter_blue',
     meta: {
-      title: '华侨城-彼得兔-蓝',
+      title: '彼得兔丛林探险',
       author: 'lipan',
       desc: '华侨城-彼得兔-蓝'
     },
@@ -266,7 +266,7 @@ const Date201812 = [
     location: '201812/peterYellow',
     name: 'peter_yellow',
     meta: {
-      title: '华侨城-彼得兔-黄',
+      title: '彼得兔丛林探险',
       author: 'lipan',
       desc: '华侨城-彼得兔-黄'
     },

@@ -136,8 +136,8 @@ export default {
       },
       //微信分享
       wxShareInfoValue: {
-        title: "华侨城",
-        desc: "彼得兔",
+        title: "出发，彼得兔",
+        desc: "我们一定要去探险！",
         link: "http://papi.xingstation.com/api/s/lxl" + window.location.search,
         imgUrl: CDNURL + "/fe/image/peter/share.png",
         success: () => {
