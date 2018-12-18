@@ -77,7 +77,6 @@ export default {
           this.proData.projects[r.belong].state = true
           console.log(this.proData.projects[r.belong])
         }
-
       })
     },
   }
