@@ -8,8 +8,8 @@
       class="tit"
     >
     <div
-      class="zero"
       v-if="belong!='cpLongfor'"
+      class="zero"
     >
       <img
         :src="base + 'save.png' + this.$qiniuCompress()"
@@ -130,7 +130,7 @@ export default {
       wxShareInfoValue: {
         title: "一周年好礼相送",
         desc: "参与互动 福利翻倍",
-        link: "http://papi.xingstation.com/api/s/q7r" + window.location.search,
+        link: "http://papi.xingstation.com/api/s/wVw" + window.location.search,
         imgUrl: cdnUrl + "/fe/image/longhu/icon.png",
         success: () => {
           wechatShareTrack();
