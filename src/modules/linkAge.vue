@@ -73,7 +73,11 @@ export default {
       let data = list
       console.log(this.proData.projects)
       data.map(r => {
-        this.proData.projects[r.belong].state = this.proData.projects[r.belong] ? true : false;
+        if (this.proData.projects[r.belong]) {
+          this.proData.projects[r.belong].state = true
+          console.log(this.proData.projects[r.belong])
+        }
+
       })
     },
   }
