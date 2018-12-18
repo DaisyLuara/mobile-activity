@@ -79,10 +79,12 @@
     <div
       v-show="mask"
       class="mask"
+      @click.self="()=>{mask = false;}"
     >
       <img
         :src="base + 'map.png'+ this.$qiniuCompress()"
         class="map"
+        @click="()=>{mask = true;}"
       >
     </div>
   </div>
@@ -195,6 +197,9 @@ img {
   max-width: 100%;
   pointer-events: none;
   user-select: none;
+}
+a {
+  display: inline-block;
 }
 .warp {
   width: 100%;
@@ -327,6 +332,7 @@ img {
       width: 85%;
       position: relative;
       margin-top: 15%;
+      pointer-events: auto;
     }
   }
 }
