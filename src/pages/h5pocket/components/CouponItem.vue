@@ -1,7 +1,7 @@
 <template>
-  <div class="citem">
+  <div class="citem" @click="handleCouponClick">
     <div class="cimg">
-      <img :src="imgUrl">
+      <img :src="couponData.couponBatch.image_url">
     </div>
     <div class="ctext">
       <span class="inner">{{remindtext}}</span>
@@ -12,9 +12,14 @@
 <script>
 export default {
   props: {
-    imgUrl: {
-      type: String,
-      default: "",
+    couponData: {
+      type: Object,
+      default: {
+        couponBatch: {
+          id: null,
+          image_url: ""
+        }
+      },
       required: true
     },
     couponType: {
@@ -28,7 +33,23 @@ export default {
       if (this.couponType === "default") {
         return "立即免费获取";
       }
+      if (this.couponType === "wallet") {
+        return "立即使用";
+      }
       return "";
+    }
+  },
+  methods: {
+    handleCouponClick() {
+      if (this.couponType === "default") {
+        this.$router.push({
+          path: "/hpocket/cpd?type=default&id=" + this.couponData.couponBatch.id
+        });
+      } else if (this.couponType === "wallet") {
+        this.$router.push({
+          path: "/hpocket/cpd?type=wallet&id=" + this.couponData.couponBatch.id
+        });
+      }
     }
   }
 };

@@ -1,29 +1,102 @@
 <template>
   <div class="cdt">
-    <div class="coupon-img"></div>
-    <div class="explain-text">
-      这是一个使用说明使用说明使用说明使用说明使用说
-      使用说明使用说明使用说明使用说明使用说明使用说
-      使用说明使用说明使用说明使用说明使用说明
+    <p v-if="errorMessage !== ''">{{errorMessage}}</p>
+    <div class="coupon-img">
+      <img v-if="resData.image_url !== null" :src="resData.image_url">
     </div>
-    <div class="btn">{{computedBtnText}}</div>
+    <div class="explain-text">{{resData.description}}</div>
+    <div class="btn" @click="handleCouponButtonClick">{{computedBtnText}}</div>
   </div>
 </template>
 
 <script>
+import { getConponMini, bindCouponMini } from "services";
+import { Toast } from "mint-ui";
+
 export default {
+  data() {
+    return {
+      type: null,
+      id: null,
+      errorMessage: "",
+      resData: {
+        image_url: null,
+        description: ""
+      }
+    };
+  },
+  mounted() {
+    this.errorMessage = "";
+    this.fetchCouponDetail();
+  },
   computed: {
-    couponStatus() {
-      return "canget";
-    },
     computedBtnText() {
-      if (this.couponStatus === "canget") {
+      if (this.type === "default") {
         return "立即兑换";
       }
-      if (this.couponStatus === "canuse") {
+      if (this.type === "wallet") {
         return "立即使用";
       }
       return "";
+    }
+  },
+  methods: {
+    fetchCouponDetail() {
+      this.errorMessage = "";
+      if (
+        this.$route.query.hasOwnProperty("type") &&
+        this.$route.query.hasOwnProperty("id")
+      ) {
+        const { type, id } = this.$route.query;
+        let localZ = localStorage.getItem("z");
+        let localOid = localStorage.getItem("oid");
+        if (localZ === null || localOid === null) {
+          this.errorMessage = "未授权，请通过二维码进入";
+        } else {
+          this.type = type;
+          this.id = id;
+          getConponMini(this.id, localZ)
+            .then(r => {
+              console.dir(r);
+              this.resData = r;
+            })
+            .catch(e => {
+              this.errorMessage = String(e);
+            });
+        }
+      }
+    },
+    handleCouponButtonClick() {
+      if (this.type === "default") {
+        const { type, id } = this.$route.query;
+        let localZ = localStorage.getItem("z");
+        let localOid = localStorage.getItem("oid");
+        if (localZ === null || localOid === null) {
+          this.errorMessage = "未授权，请通过二维码进入";
+        } else {
+          bindCouponMini(this.resData.couponBatch.id, localZ)
+            .then(r => {
+              console.dir(r);
+              if (r.hasOwnProperty("code")) {
+                Toast("领取成功");
+                setTimeout(() => {
+                  this.$router.push({
+                    path: "/hpocket/wallet"
+                  });
+                }, 1500);
+              } else {
+                Toast("领取失败");
+              }
+            })
+            .catch(e => {
+              this.errorMessage = String(e);
+            });
+        }
+      } else if (this.type === "wallet") {
+        this.$router.push({
+          path: "/hpocket/cqr?id=" + this.resData.couponBatch.id
+        });
+      }
     }
   }
 };
@@ -43,6 +116,10 @@ export default {
     height: 1.65rem;
     background: gray;
     z-index: 20;
+    img {
+      width: 100%;
+      height: 100%;
+    }
   }
   .explain-text {
     margin-top: -0.28rem;

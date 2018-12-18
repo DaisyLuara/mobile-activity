@@ -1,5 +1,6 @@
 <template>
   <div class="mall">
+    <p>{{errorMessage}}</p>
     <TabBar/>
     <mt-loadmore
       :bottomDistance="bindBottomDistance"
@@ -11,7 +12,7 @@
       @bottom-status-change="handleBottomChange"
     >
       <div v-for="(item, index) in list" :key="index" class="coupon-wrapper">
-        <CouponItem :couponType="couponType" :imgUrl="''"/>
+        <CouponItem :couponType="couponType" :couponData="item"/>
       </div>
       <div slot="top" class="mint-loadmore-top">
         <span v-show="topStatus !== 'loading'" :class="{ 'rotate': topStatus === 'drop' }">↓</span>
@@ -31,21 +32,25 @@
 import CouponItem from "../components/CouponItem";
 import { Loadmore } from "mint-ui";
 import TabBar from "../components/TabBar";
+import { getMallListMini } from "services";
 export default {
   data() {
     return {
-      list: Array(10).fill(0),
+      list: [],
       topStatus: "",
       bottomStatus: "",
       couponType: "default",
       bindBottomDistance: 0,
       isFetching: false,
-      isAllLoaded: false
+      isAllLoaded: false,
+      errorMessage: "",
+      currentPage: 1,
+      pageSize: 10
     };
   },
   mounted() {
     this.bindBottomDistance = (this.$parent.screenWidth / 375) * 100 * 0.48;
-    this.fetchList();
+    this.handleInit();
   },
   components: {
     "mt-loadmore": Loadmore,
@@ -53,6 +58,10 @@ export default {
     TabBar
   },
   methods: {
+    handleInit() {
+      this.errorMessage = "";
+      this.fetchList();
+    },
     handleTopChange(status) {
       this.topStatus = status;
     },
@@ -82,12 +91,29 @@ export default {
       if (this.isAllLoaded || this.isFetching) {
         return;
       }
-      const requestUrl = "";
-      let requestParms = {};
-      this.$http
-        .get(requestUrl, requestParms)
-        .then(r => {})
-        .catch(e => {});
+      let localZ = localStorage.getItem("z");
+      let localOid = localStorage.getItem("oid");
+      if (localZ === null || localOid === null) {
+        this.errorMessage = "未授权，请通过二维码进入";
+      } else {
+        this.isFetching = true;
+        getMallListMini(localZ, this.currentPage, this.pageSize, localOid)
+          .then(r => {
+            console.dir(r);
+            let { data } = r.data;
+            let { pagination } = r.data.meta;
+            this.list = this.list.concat(data);
+            if (pagination.current_page >= pagination.total_pages) {
+              this.isAllLoaded = true;
+            } else {
+              this.currentPage++;
+            }
+          })
+          .catch(e => {
+            this.isFetching = false;
+            this.errorMessage = String(e);
+          });
+      }
     }
   }
 };
@@ -116,6 +142,9 @@ export default {
     height: 0.48rem;
     width: 100%;
     background-color: transparent;
+  }
+  p {
+    font-size: 14px;
   }
 }
 </style>

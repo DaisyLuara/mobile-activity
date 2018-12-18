@@ -4,8 +4,10 @@
     <div class="decoration-r"></div>
     <div class="qr-code">
       <div class="title">{{qrtitle}}</div>
-      <div class="qr-img"></div>
-      <div class="code">{{qrcode}}</div>
+      <div class="qr-img">
+        <img :src="imgUrl" v-if="imgUrl !== ''">
+      </div>
+      <div class="code">{{code}}</div>
     </div>
     <div class="bottom-stupid-remind">
       <div class="xo">
@@ -19,19 +21,56 @@
 </template>
 
 <script>
+import { getCouponQRCodeMini, getConponMini } from "services";
 export default {
   data() {
     return {
       code: "",
-      imgUrl: ""
+      imgUrl: "",
+      errorMessage: "",
+      title: ""
     };
   },
   computed: {
     qrtitle() {
-      return "优惠券名称";
-    },
-    qrcode() {
-      return "兑换码：SSASFF";
+      if (this.errorMessage !== "") {
+        return this.errorMessage;
+      }
+      return this.title;
+    }
+  },
+  mounted() {
+    this.errorMessage = "";
+    this.fetchTheFuckingQrCode();
+  },
+  fetchTheFuckingQrCode() {
+    let localZ = localStorage.getItem("z");
+    let localOid = localStorage.getItem("oid");
+    let { id } = this.$route.query;
+    if (id === undefined) {
+      this.errorMessage = "无法获取";
+      return;
+    }
+    if (localZ === null || localOid === null) {
+      this.errorMessage = "未授权，请通过二维码进入";
+    } else {
+      getConponMini(id, localZ)
+        .then(r => {
+          console.dir(r);
+          this.title = r.data.couponBatch.name;
+          this.code = code;
+          getCouponQRCodeMini(localZ, this.code)
+            .then(r => {
+              console.dir(r);
+              this.imgUrl = r.data.qrcode_url;
+            })
+            .catch(e => {
+              this.errorMessage += String(e);
+            });
+        })
+        .catch(e => {
+          this.errorMessage += String(e);
+        });
     }
   }
 };
@@ -89,7 +128,10 @@ export default {
     .qr-img {
       width: 2.5rem;
       height: 2.5rem;
-      background: gray;
+      img {
+        width: 100%;
+        height: 100%;
+      }
     }
     .code {
       font-size: 0.14rem;
