@@ -238,6 +238,39 @@ const Date201812 = [
       desc: '龙湖天街-颜值礼遇 '
     },
     isAbandoned: false
+  },
+  {
+    path: 'peter_red',
+    location: '201812/peterRed',
+    name: 'peter_red',
+    meta: {
+      title: '华侨城-彼得兔-红',
+      author: 'lipan',
+      desc: '华侨城-彼得兔-红'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'peter_blue',
+    location: '201812/peterBlue',
+    name: 'peter_blue',
+    meta: {
+      title: '华侨城-彼得兔-蓝',
+      author: 'lipan',
+      desc: '华侨城-彼得兔-蓝 '
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'peter_yellow',
+    location: '201812/peterYellow',
+    name: 'peter_yellow',
+    meta: {
+      title: '华侨城-彼得兔-黄',
+      author: 'lipan',
+      desc: '华侨城-彼得兔-黄'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201812

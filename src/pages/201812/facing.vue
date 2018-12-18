@@ -23,7 +23,7 @@
         class="photo center"
       >
       <img
-        :src="base + gender + 'word' + type + '.png'"
+        :src="base + gender + 'word' + type + '.png?0708'"
         class="word"
       >
     </div>
@@ -43,7 +43,7 @@ export default {
           'min-height': this.$innerHeight() + 'px'
         }
       },
-      gender: this.$route.query.gender.trim(),
+      gender: this.$route.query.gender,
       score: this.$route.query.score,
       type: null,
       photo: null,

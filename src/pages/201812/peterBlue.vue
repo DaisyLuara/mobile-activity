@@ -1,0 +1,343 @@
+<template>
+  <div
+    :style="root"
+    class="warp"
+  >
+    <img
+      :src="base + 'top.png' + this.$qiniuCompress()"
+      class="top"
+    >
+    <img
+      :src="base + 'shake_left.png' + this.$qiniuCompress()"
+      class="shake left animated linear infinite tada"
+    >
+    <img
+      :src="base + 'shake_right.png' + this.$qiniuCompress()"
+      class="shake right animated linear infinite tada"
+    >
+    <!-- 勋章-联动-3个节目 -->
+    <div class="one">
+      <img
+        :src="base + '1.png' + this.$qiniuCompress()"
+        class="bg"
+      >
+      <LinkAge
+        ref="linkAge"
+        :pro-data="proData"
+      />
+      <button
+        class="map-btn"
+        @click="()=>{mask = true;}"
+      >
+        <img :src="base + 'button_2.png' + this.$qiniuCompress()">
+      </button>
+    </div>
+    <!-- 图片，相片展示 -->
+    <div class="two">
+      <img
+        :src="base + 'flower.png' + this.$qiniuCompress()"
+        class="flower"
+      >
+      <img
+        :src="base + 'tree.png' + this.$qiniuCompress()"
+        class="tree"
+      >
+      <img
+        :src="photo + this.$qiniuCompress()"
+        class="photo"
+      >
+      <img
+        v-show="Boolean(photo)"
+        :src="base + 'arrow.png' + this.$qiniuCompress()"
+        class="arrow"
+      >
+      <img
+        v-show="Boolean(photo)"
+        :src="base + 'prompt.png' + this.$qiniuCompress()"
+        class="prompt"
+      >
+      <img
+        :src="base + 'tree_2.png' + this.$qiniuCompress()"
+        class="tree2"
+      >
+    </div>
+
+    <!-- 链接跳转-停车缴费 -->
+    <div class="three">
+      <a href="">
+        <img
+          :src="base + 'button.png' + this.$qiniuCompress()"
+          class="link-btn"
+        >
+      </a>
+    </div>
+    <img
+      :src="base + 'bottom.png' + this.$qiniuCompress()"
+      class="bottom"
+    >
+    <!-- mask 遮罩 -->
+    <div
+      v-show="mask"
+      class="mask"
+    >
+      <img
+        :src="base + 'map.png'+ this.$qiniuCompress()"
+        class="map"
+      >
+    </div>
+  </div>
+</template>
+<script>
+import { $wechat, isInWechat, wechatShareTrack } from "services";
+import { normalPages } from "../../mixins/normalPages";
+import "animate.css";
+import LinkAge from 'modules/linkAge'
+
+const CDNURL = process.env.CDN_URL;
+export default {
+  mixins: [normalPages],
+  components: {
+    LinkAge
+  },
+  data() {
+    return {
+      base: CDNURL + "/fe/image/peter/",
+      photo: null,
+      root: {
+        'min-height': this.$innerHeight() + 'px'
+      },
+      mask: false,
+      userId: null,
+      proData: {
+        style: {
+          li: {
+            display: 'inline-block',
+            width: '28%',
+            margin: '0% 2% 0% 2%'
+          }
+        },
+        projects: {
+          ptRabbitBlue: {
+            state: false,
+            notget: CDNURL + '/fe/image/peter/noblue.png',
+            geted: CDNURL + '/fe/image/peter/getblue.png'
+          },
+          ptRabbitRed: {
+            state: false,
+            notget: CDNURL + '/fe/image/peter/nored.png',
+            geted: CDNURL + '/fe/image/peter/getred.png'
+          },
+          ptRabbitYellow: {
+            state: false,
+            notget: CDNURL + '/fe/image/peter/noyellow.png',
+            geted: CDNURL + '/fe/image/peter/getyellow.png'
+          }
+        }
+      },
+      //微信分享
+      wxShareInfoValue: {
+        title: "华侨城",
+        desc: "彼得兔",
+        link: "http://papi.xingstation.com/api/s/k8x" + window.location.search,
+        imgUrl: CDNURL + "/fe/image/peter/share.png",
+        success: () => {
+          wechatShareTrack();
+        }
+      }
+    }
+  },
+  mounted() {
+    //微信授权
+    if (isInWechat() === true) {
+      if (
+        process.env.NODE_ENV === "production" ||
+        process.env.NODE_ENV === "testing"
+      ) {
+        this.handleWechatAuth();
+      }
+    }
+  },
+  methods: {
+    //微信静默授权
+    handleWechatAuth() {
+      if (Cookies.get("sign") === null) {
+        let base_url = encodeURIComponent(String(window.location.href));
+        let redirct_url =
+          process.env.WX_API +
+          "/wx/officialAccount/oauth?url=" +
+          base_url +
+          "&scope=snsapi_base";
+        window.location.href = redirct_url;
+      } else {
+        let utm_campaign = this.$route.query.utm_campaign
+        this.userId = Cookies.get("user_id");
+        this.$refs.LinkAge.createGame(utm_campaign, this.userId);
+      }
+    },
+  }
+}
+</script>
+<style lang="less" scoped>
+@imgurl: "http://cdn.exe666.com/fe/image/peter/";
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+* {
+  padding: 0;
+  text-align: center;
+  margin: 0 auto;
+  font-size: 0;
+}
+img {
+  max-width: 100%;
+  pointer-events: none;
+  user-select: none;
+}
+.warp {
+  width: 100%;
+  overflow-x: hidden;
+  position: relative;
+  background-color: #3981a9;
+  // background: rgba(57, 129, 169, 0.8);
+  background-image: url("@{imgurl}spot.png");
+  background-repeat: repeat;
+  background-position: center top;
+  background-size: 100% auto;
+  & > div {
+    width: 100%;
+    display: block;
+    position: relative;
+    width: 87.5%;
+    margin-bottom: 5%;
+    z-index: 0;
+  }
+  .bg {
+    position: relative;
+    width: 100%;
+    z-index: 0;
+  }
+  .top {
+    position: relative;
+    z-index: 0;
+    margin-bottom: 3%;
+  }
+  .bottom {
+    position: relative;
+    z-index: 9;
+    margin-top: -11%;
+  }
+  .shake {
+    width: 26%;
+    position: absolute;
+    top: 3%;
+    z-index: 99;
+  }
+  .left {
+    left: 3%;
+  }
+  .right {
+    right: 3%;
+  }
+  .one {
+    overflow: hidden;
+    .programs {
+      position: absolute;
+      top: 22%;
+      left: 0%;
+      z-index: 99;
+    }
+    .map-btn {
+      width: 32vw;
+      position: absolute;
+      left: 50%;
+      bottom: 5%;
+      transform: translateX(-50%);
+      background: transparent;
+      border: none;
+    }
+  }
+  .two {
+    background-color: #fff;
+    padding: 5vw;
+    z-index: 9;
+    .flower {
+      width: 21vw;
+      position: absolute;
+      top: -4%;
+      left: -8%;
+      z-index: 999;
+    }
+    .tree {
+      width: 17vw;
+      position: absolute;
+      top: -11%;
+      right: -8%;
+      z-index: 999;
+    }
+    .tree2 {
+      width: 14.5vw;
+      position: absolute;
+      bottom: -8%;
+      left: -8%;
+      z-index: 999;
+    }
+    .photo {
+      border: solid 1.5vw #9cc0d4;
+      z-index: 0;
+      pointer-events: auto;
+      user-select: auto;
+      position: relative;
+      display: block;
+    }
+    .arrow {
+      width: 8vw;
+      margin-top: -5px;
+      z-index: 9;
+      animation: myslider linear 0.4s infinite alternate;
+      position: relative;
+      display: block;
+    }
+    .prompt {
+      width: 66vw;
+      position: relative;
+      display: block;
+      z-index: 0;
+    }
+  }
+  .three {
+    background-color: #fff;
+    padding: 5vw 7vw;
+  }
+  .mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    z-index: 999;
+    .map {
+      width: 80%;
+      position: relative;
+      margin-top: 20%;
+    }
+  }
+}
+@keyframes myslider {
+  0% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(-5px);
+  }
+}
+</style>
+
+
