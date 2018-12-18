@@ -171,7 +171,7 @@ export default {
       } else {
         let utm_campaign = this.$route.query.utm_campaign
         this.userId = Cookies.get("user_id");
-        this.$refs.LinkAge.createGame(utm_campaign, this.userId);
+        this.$refs.linkAge.createGame(utm_campaign, this.userId);
       }
     },
   }
