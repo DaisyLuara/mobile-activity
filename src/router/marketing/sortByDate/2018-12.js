@@ -26,7 +26,7 @@ const Date201812 = [
     location: '201812/christmasXh',
     name: 'christmas_xh',
     meta: {
-      title: '星海广场',
+      title: '星海生活广场',
       author: 'xj1012',
       desc: '星海广场-圣诞配对'
     },
@@ -236,6 +236,17 @@ const Date201812 = [
       title: '街成双 FUN加倍',
       author: 'lipan',
       desc: '龙湖天街-颜值礼遇 '
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'green_space',
+    location: '201812/green',
+    name: 'green_space',
+    meta: {
+      title: '缤纷双旦 纷享礼',
+      author: 'xj1012',
+      desc: '周浦绿地-圣诞'
     },
     isAbandoned: false
   }
