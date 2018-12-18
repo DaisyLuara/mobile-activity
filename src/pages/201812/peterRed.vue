@@ -144,7 +144,7 @@ export default {
       wxShareInfoValue: {
         title: "出发，彼得兔",
         desc: "我们一定要去探险！",
-        link: "http://papi.xingstation.com/api/s/jZW" + window.location.search,
+        link: "http://papi.xingstation.com/api/s/q73" + window.location.search,
         imgUrl: CDNURL + "/fe/image/peter/share.png",
         success: () => {
           wechatShareTrack();
