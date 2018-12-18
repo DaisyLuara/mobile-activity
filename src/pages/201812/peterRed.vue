@@ -64,7 +64,7 @@
 
     <!-- 链接跳转-停车缴费 -->
     <div class="three">
-      <a href="">
+      <a href="http://papi.xingstation.com/api/s/oVz">
         <img
           :src="base + 'button.png' + this.$qiniuCompress()"
           class="link-btn"
