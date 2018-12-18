@@ -8,8 +8,8 @@
       class="tit"
     >
     <div
-      class="zero"
       v-if="belong!='cpLongfor'"
+      class="zero"
     >
       <img
         :src="base + 'save.png' + this.$qiniuCompress()"
@@ -39,7 +39,8 @@
           class="aclick"
           @click="getAuth"
         >
-          <img :src="base
+          <img 
+            :src="base
               + 'click.png'+
             this.$qiniuCompress()">
         </a>

@@ -142,7 +142,7 @@ img {
     }
   }
   .save {
-    width: 75%;
+    width: 68%;
     position: relative;
   }
 }
