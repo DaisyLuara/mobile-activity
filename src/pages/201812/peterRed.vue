@@ -82,7 +82,11 @@
       @click.self="()=>{mask = false;}"
     >
       <img
-        :src="base + 'map.png'+ this.$qiniuCompress()"
+        :src="base + 'map_top.png'+ this.$qiniuCompress()"
+        class="map-top"
+      >`
+      <img
+        :src="base + 'map_m.png'+ this.$qiniuCompress()"
         class="map"
         @click="()=>{mask = true;}"
       >
@@ -328,10 +332,17 @@ a {
     margin: 0;
     padding: 0;
     z-index: 999;
+    .map-top {
+      width: 34%;
+      position: relative;
+      z-index: 99;
+      margin-top: 15%;
+      margin-bottom: -17%;
+    }
     .map {
       width: 85%;
       position: relative;
-      margin-top: 15%;
+      z-index: 0;
       pointer-events: auto;
     }
   }
