@@ -124,7 +124,9 @@ export default {
       };
       checkGetCoupon(args)
         .then(res => {
-          this.sendCoupon();
+          if (!res) {
+            this.sendCoupon();
+          }
         })
         .catch(err => {
           console.log(err);
