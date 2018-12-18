@@ -26,7 +26,7 @@ const Date201812 = [
     location: '201812/christmasXh',
     name: 'christmas_xh',
     meta: {
-      title: '星海广场',
+      title: '星海生活广场',
       author: 'xj1012',
       desc: '星海广场-圣诞配对'
     },
@@ -257,7 +257,7 @@ const Date201812 = [
     meta: {
       title: '华侨城-彼得兔-蓝',
       author: 'lipan',
-      desc: '华侨城-彼得兔-蓝 '
+      desc: '华侨城-彼得兔-蓝'
     },
     isAbandoned: false
   },
@@ -269,6 +269,28 @@ const Date201812 = [
       title: '华侨城-彼得兔-黄',
       author: 'lipan',
       desc: '华侨城-彼得兔-黄'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'green_space',
+    location: '201812/green',
+    name: 'green_space',
+    meta: {
+      title: '缤纷双旦 纷享礼',
+      author: 'xj1012',
+      desc: '周浦绿地-圣诞'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'expressions_imitate',
+    location: '201812/expressions',
+    name: 'expressions_imitate',
+    meta: {
+      title: '表情模仿',
+      author: 'xj1012',
+      desc: '福州万达-表情模仿'
     },
     isAbandoned: false
   }
