@@ -85,7 +85,7 @@ export default {
       let url = that.photo + that.$qiniuCompress()
       // let url =
       //   'https://cdn.exe666.com/fe/marketing/img/christmas/666.jpg'
-      mc.background(that.baseUrl + 'frame_new2.png', {
+      mc.background(that.baseUrl + 'frame3.png', {
         left: 0,
         top: 0,
         type: 'origin',
@@ -103,7 +103,7 @@ export default {
             y: '5%'
           }
         })
-        .add(that.baseUrl + 'frame_new2.png', {
+        .add(that.baseUrl + 'frame3.png', {
           width: '100%',
           pos: {
             x: '0%',
