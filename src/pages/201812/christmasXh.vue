@@ -6,7 +6,6 @@
     <img
       id="test"
       :src="base64Data"
-      :class="{'x-photoImg':iphoneX,'photoImg':!iphoneX}"
       alt=""
       class="photoImg"
     >
