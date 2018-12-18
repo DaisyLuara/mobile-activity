@@ -10,7 +10,7 @@
       @top-status-change="handleTopChange"
       @bottom-status-change="handleBottomChange"
     >
-      <div v-for="(item, index) in list" :key="index" class="info-card">
+      <div v-for="(item, index) in list" :key="index" class="coupon-wrapper">
         <CouponItem :couponType="couponType" :imgUrl="''"/>
       </div>
       <div slot="top" class="mint-loadmore-top">
@@ -22,6 +22,7 @@
         <span v-show="bottomStatus === 'loading'">Loading...</span>
       </div>
     </mt-loadmore>
+    <div class="loadmore-add"/>
     <div class="loadmore-add"/>
   </div>
 </template>
@@ -37,11 +38,14 @@ export default {
       topStatus: "",
       bottomStatus: "",
       couponType: "default",
-      bindBottomDistance: 0
+      bindBottomDistance: 0,
+      isFetching: false,
+      isAllLoaded: false
     };
   },
   mounted() {
     this.bindBottomDistance = (this.$parent.screenWidth / 375) * 100 * 0.48;
+    this.fetchList();
   },
   components: {
     "mt-loadmore": Loadmore,
@@ -73,6 +77,17 @@ export default {
         this.$refs.loadmore.onBottomLoaded();
         this.bottomStatus = "";
       }, 2000);
+    },
+    fetchList() {
+      if (this.isAllLoaded || this.isFetching) {
+        return;
+      }
+      const requestUrl = "";
+      let requestParms = {};
+      this.$http
+        .get(requestUrl, requestParms)
+        .then(r => {})
+        .catch(e => {});
     }
   }
 };
@@ -83,14 +98,19 @@ export default {
   position: relative;
   bottom: constant(safe-area-inset-bottom); /* 兼容 iOS < 11.2 */
   bottom: env(safe-area-inset-bottom); /* 兼容 iOS >= 11.2 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 20px;
   .mint-loadmore-top {
     font-size: 0.14rem;
   }
   .mint-loadmore-bottom {
     font-size: 0.14rem;
   }
-  .info-card {
-    padding: 0.2rem;
+  .coupon-wrapper {
+    margin-top: 14px;
   }
   .loadmore-add {
     height: 0.48rem;
