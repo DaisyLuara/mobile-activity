@@ -77,7 +77,7 @@ export default {
           bindCouponMini(this.resData.id, localZ)
             .then(r => {
               console.dir(r);
-              if (r.hasOwnProperty("code")) {
+              if (r.data.hasOwnProperty("code")) {
                 Toast("领取成功");
                 setTimeout(() => {
                   this.$router.push({
