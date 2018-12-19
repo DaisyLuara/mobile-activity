@@ -36,7 +36,7 @@ export default {
         if (localZ === null || localOid === null) {
           let infoRes = await getInfoById(id, code, state);
           console.dir(infoRes);
-          if (infoResuserinfo !== null) {
+          if (infoRes.userinfo !== null) {
             if (infoRes.userinfo.hasOwnProperty("z")) {
               let setZ = infoRes.userinfo.z;
               localZ = setZ;
