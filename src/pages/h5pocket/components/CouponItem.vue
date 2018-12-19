@@ -77,6 +77,10 @@ export default {
     width: 3.65rem;
     z-index: 20;
     overflow: hidden;
+    img {
+      width: 100%;
+      height: 100%;
+    }
   }
   .ctext {
     z-index: 15;

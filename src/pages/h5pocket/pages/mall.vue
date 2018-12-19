@@ -76,6 +76,9 @@ export default {
     loadTop() {
       this.topStatus = "loading";
       setTimeout(() => {
+        this.currentPage = 1;
+        this.list = [];
+        this.fetchList();
         this.$refs.loadmore.onTopLoaded();
         this.topStatus = "";
       }, 2000);
@@ -83,6 +86,7 @@ export default {
     loadBottom() {
       this.bottomStatus = "loading";
       setTimeout(() => {
+        this.fetchList();
         this.$refs.loadmore.onBottomLoaded();
         this.bottomStatus = "";
       }, 2000);
@@ -92,12 +96,12 @@ export default {
         return;
       }
       let localZ = localStorage.getItem("z");
-      let localOid = localStorage.getItem("oid");
-      if (localZ === null || localOid === null) {
+      let localMarketId = localStorage.getItem("marketid");
+      if (localZ === null || localMarketId === null) {
         this.errorMessage = "未授权，请通过二维码进入";
       } else {
         this.isFetching = true;
-        getMallListMini(localZ, this.currentPage, this.pageSize, localOid)
+        getMallListMini(localZ, this.currentPage, this.pageSize, localMarketId)
           .then(r => {
             console.dir(r);
             let { data } = r.data;
@@ -111,7 +115,7 @@ export default {
           })
           .catch(e => {
             this.isFetching = false;
-            this.errorMessage = String(e);
+            this.errorMessage = String(e.data.message);
           });
       }
     }
