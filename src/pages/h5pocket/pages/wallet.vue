@@ -21,7 +21,8 @@ export default {
     };
   },
   components: {
-    TabBar
+    TabBar,
+    CouponItem
   },
   mounted() {
     this.handleInit();

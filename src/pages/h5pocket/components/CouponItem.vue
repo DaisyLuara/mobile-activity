@@ -38,10 +38,10 @@ export default {
     },
     computedImgUrl() {
       if (this.couponType === "default") {
-        return couponData.image_url;
+        return this.couponData.image_url;
       }
       if (this.couponType === "wallet") {
-        return couponData.couponBatch.image_url;
+        return this.couponData.couponBatch.image_url;
       }
       return "";
     }
