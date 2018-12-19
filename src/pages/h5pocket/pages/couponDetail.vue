@@ -58,7 +58,7 @@ export default {
           getConponMini(this.id, localZ)
             .then(r => {
               console.dir(r);
-              this.resData = r;
+              this.resData = r.data;
             })
             .catch(e => {
               this.errorMessage = String(e);
@@ -94,7 +94,7 @@ export default {
         }
       } else if (this.type === "wallet") {
         this.$router.push({
-          path: "/hpocket/cqr?id=" + this.resData.couponBatch.id
+          path: "/hpocket/cqr?id=" + this.resData.id
         });
       }
     }
