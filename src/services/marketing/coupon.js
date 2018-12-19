@@ -256,7 +256,7 @@ const getMallcooOauth = params => {
 
 const bindCouponMini = (couponId, z) => {
   return new Promise((resolve, reject) => {
-    const requestUrl = MINI_API + '/user/coupon_batch/'
+    const requestUrl = MINI_API + '/user/coupon_batch/' + couponId
     const requestParams = {
       z: z
     }
