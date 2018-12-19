@@ -10,6 +10,7 @@
 
 <script>
 import { getInfoById, getWalletListMini, bindCouponMini } from "services";
+import { Toast } from "mint-ui";
 import CouponItem from "../components/CouponItem";
 import TabBar from "../components/TabBar";
 export default {
@@ -52,6 +53,7 @@ export default {
           await this.fetchWalletList();
         }
       } catch (e) {
+        console.dir(e);
         Toast(e.data.message);
       }
     },
@@ -63,7 +65,8 @@ export default {
         this.list = walletList.data.data;
       } catch {
         e => {
-          console.log(e);
+          Toast(e.data.message);
+          console.dir(e);
         };
       }
     },
@@ -75,6 +78,7 @@ export default {
       try {
         let bindRes = await bindCouponMini(coupon_batch_id, z);
       } catch (e) {
+        console.dir(e);
         Toast(e.data.message);
       }
     }
