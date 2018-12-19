@@ -38,10 +38,10 @@ export default {
     },
     computedImgUrl() {
       if (this.couponType === "default") {
-        return couponData.image_url;
+        return this.couponData.image_url;
       }
       if (this.couponType === "wallet") {
-        return couponData.couponBatch.image_url;
+        return this.couponData.couponBatch.image_url;
       }
       return "";
     }
@@ -54,7 +54,11 @@ export default {
         });
       } else if (this.couponType === "wallet") {
         this.$router.push({
-          path: "/hpocket/cpd?type=wallet&id=" + this.couponData.id
+          path:
+            "/hpocket/cpd?type=wallet&code=" +
+            this.couponData.code +
+            "&id=" +
+            this.couponData.couponBatch.id
         });
       }
     }

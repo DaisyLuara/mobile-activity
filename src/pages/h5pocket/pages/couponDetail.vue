@@ -89,12 +89,12 @@ export default {
               }
             })
             .catch(e => {
-              this.errorMessage = String(e);
+              Toast(e.message);
             });
         }
       } else if (this.type === "wallet") {
         this.$router.push({
-          path: "/hpocket/cqr?id=" + this.resData.id
+          path: "/hpocket/cqr?code=" + this.$route.query.code
         });
       }
     }
