@@ -87,7 +87,7 @@ export default {
       wxShareInfoValue: {
         title: '快快领取 泰茶兑换券',
         desc: 'High玩全世界，即刻出发',
-        link: 'http://papi.xingstation.com/api/s/wmw' + window.location.search,
+        link: 'http://papi.xingstation.com/api/s/vlV' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/hiplay_world_taicha/icon.png',
         success: () => {
           wechatShareTrack()
