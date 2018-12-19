@@ -1,7 +1,7 @@
 <template>
   <div class="citem" @click="handleCouponClick">
     <div class="cimg">
-      <img :src="couponData.couponBatch.image_url">
+      <img :src="couponData.image_url">
     </div>
     <div class="ctext">
       <span class="inner">{{remindtext}}</span>
@@ -15,10 +15,8 @@ export default {
     couponData: {
       type: Object,
       default: {
-        couponBatch: {
-          id: null,
-          image_url: ""
-        }
+        id: null,
+        image_url: ""
       },
       required: true
     },
@@ -43,11 +41,11 @@ export default {
     handleCouponClick() {
       if (this.couponType === "default") {
         this.$router.push({
-          path: "/hpocket/cpd?type=default&id=" + this.couponData.couponBatch.id
+          path: "/hpocket/cpd?type=default&id=" + this.couponData.id
         });
       } else if (this.couponType === "wallet") {
         this.$router.push({
-          path: "/hpocket/cpd?type=wallet&id=" + this.couponData.couponBatch.id
+          path: "/hpocket/cpd?type=wallet&id=" + this.couponData.id
         });
       }
     }
