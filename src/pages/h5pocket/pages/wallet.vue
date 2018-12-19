@@ -10,6 +10,7 @@
 
 <script>
 import { getInfoById, getWalletListMini, bindCouponMini } from "services";
+import { Toast } from "mint-ui";
 import CouponItem from "../components/CouponItem";
 import TabBar from "../components/TabBar";
 export default {
