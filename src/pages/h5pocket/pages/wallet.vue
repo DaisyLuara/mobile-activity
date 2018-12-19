@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { getInfoById, getWalletListMini } from "services";
+import { getInfoById, getWalletListMini, bindCouponMini } from "services";
 import CouponItem from "../components/CouponItem";
 import TabBar from "../components/TabBar";
 export default {
@@ -31,9 +31,9 @@ export default {
     async handleInit() {
       this.errorMessage = "";
       const { id, code, state } = this.$route.query;
+      let localZ = localStorage.getItem("z");
+      let localOid = localStorage.getItem("oid");
       try {
-        let localZ = localStorage.getItem("z");
-        let localOid = localStorage.getItem("oid");
         if (localZ === null || localOid === null) {
           let infoRes = await getInfoById(id, code, state);
           console.dir(infoRes);
@@ -43,14 +43,16 @@ export default {
               localZ = setZ;
               localStorage.setItem("z", setZ);
               localStorage.setItem("oid", infoRes.oid);
-              this.fetchWalletList();
+              await this.hanldeFirstGetCoupon(localZ);
+              await this.fetchWalletList();
             }
           }
         } else {
-          this.fetchWalletList();
+          await this.hanldeFirstGetCoupon(localZ);
+          await this.fetchWalletList();
         }
       } catch (e) {
-        this.errorMessage = String(e);
+        Toast(e.data.message);
       }
     },
     async fetchWalletList() {
@@ -63,6 +65,17 @@ export default {
         e => {
           console.log(e);
         };
+      }
+    },
+    async hanldeFirstGetCoupon(z) {
+      const { coupon_batch_id } = this.$route.query;
+      if (coupon_batch_id === undefined) {
+        return;
+      }
+      try {
+        let bindRes = await bindCouponMini(coupon_batch_id, z);
+      } catch (e) {
+        Toast(e.data.message);
       }
     }
   }
