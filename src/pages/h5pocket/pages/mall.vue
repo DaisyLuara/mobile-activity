@@ -115,7 +115,7 @@ export default {
           })
           .catch(e => {
             this.isFetching = false;
-            this.errorMessage = String(e.data.message);
+            this.errorMessage = String(e.message);
           });
       }
     }

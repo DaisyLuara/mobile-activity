@@ -61,7 +61,7 @@ export default {
               this.resData = r.data;
             })
             .catch(e => {
-              this.errorMessage = String(e.data.message);
+              this.errorMessage = String(e.message);
             });
         }
       }
@@ -89,7 +89,7 @@ export default {
               }
             })
             .catch(e => {
-              Toast(e.data.message);
+              Toast(e.message);
             });
         }
       } else if (this.type === "wallet") {

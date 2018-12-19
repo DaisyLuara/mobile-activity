@@ -63,7 +63,7 @@ export default {
             this.imgUrl = r.data.qrcode_url;
           })
           .catch(e => {
-            this.errorMessage += String(e.data.message);
+            this.errorMessage += String(e.message);
           });
       }
     }
