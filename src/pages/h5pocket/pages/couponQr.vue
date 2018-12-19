@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { getCouponQRCodeMini, getConponMini } from "services";
+import { getCouponQRCodeMini } from "services";
 export default {
   data() {
     return {
@@ -43,34 +43,29 @@ export default {
     this.errorMessage = "";
     this.fetchTheFuckingQrCode();
   },
-  fetchTheFuckingQrCode() {
-    let localZ = localStorage.getItem("z");
-    let localOid = localStorage.getItem("oid");
-    let { id } = this.$route.query;
-    if (id === undefined) {
-      this.errorMessage = "无法获取";
-      return;
-    }
-    if (localZ === null || localOid === null) {
-      this.errorMessage = "未授权，请通过二维码进入";
-    } else {
-      getConponMini(id, localZ)
-        .then(r => {
-          console.dir(r);
-          this.title = r.data.couponBatch.name;
-          this.code = code;
-          getCouponQRCodeMini(localZ, this.code)
-            .then(r => {
-              console.dir(r);
-              this.imgUrl = r.data.qrcode_url;
-            })
-            .catch(e => {
-              this.errorMessage += String(e);
-            });
-        })
-        .catch(e => {
-          this.errorMessage += String(e);
-        });
+  methods: {
+    fetchTheFuckingQrCode() {
+      let localZ = localStorage.getItem("z");
+      let localOid = localStorage.getItem("oid");
+      let { id } = this.$route.query;
+      if (id === undefined) {
+        this.errorMessage = "无法获取";
+        return;
+      }
+      if (localZ === null || localOid === null) {
+        this.errorMessage = "未授权，请通过二维码进入";
+      } else {
+        getCouponQRCodeMini(id, localZ)
+          .then(r => {
+            console.dir(r);
+            this.title = r.data.name;
+            this.code = r.data.code;
+            this.imgUrl = r.data.qrcode_url;
+          })
+          .catch(e => {
+            this.errorMessage += String(e);
+          });
+      }
     }
   }
 };

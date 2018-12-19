@@ -58,7 +58,7 @@ export default {
           getConponMini(this.id, localZ)
             .then(r => {
               console.dir(r);
-              this.resData = r;
+              this.resData = r.data;
             })
             .catch(e => {
               this.errorMessage = String(e);
@@ -74,10 +74,10 @@ export default {
         if (localZ === null || localOid === null) {
           this.errorMessage = "未授权，请通过二维码进入";
         } else {
-          bindCouponMini(this.resData.couponBatch.id, localZ)
+          bindCouponMini(this.resData.id, localZ)
             .then(r => {
               console.dir(r);
-              if (r.hasOwnProperty("code")) {
+              if (r.data.hasOwnProperty("code")) {
                 Toast("领取成功");
                 setTimeout(() => {
                   this.$router.push({
@@ -94,7 +94,7 @@ export default {
         }
       } else if (this.type === "wallet") {
         this.$router.push({
-          path: "/hpocket/cqr?id=" + this.resData.couponBatch.id
+          path: "/hpocket/cqr?id=" + this.resData.id
         });
       }
     }
