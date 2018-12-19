@@ -92,12 +92,12 @@ export default {
         return;
       }
       let localZ = localStorage.getItem("z");
-      let localOid = localStorage.getItem("oid");
-      if (localZ === null || localOid === null) {
+      let localMarketId = localStorage.getItem("marketid");
+      if (localZ === null || localMarketId === null) {
         this.errorMessage = "未授权，请通过二维码进入";
       } else {
         this.isFetching = true;
-        getMallListMini(localZ, this.currentPage, this.pageSize, localOid)
+        getMallListMini(localZ, this.currentPage, this.pageSize, localMarketId)
           .then(r => {
             console.dir(r);
             let { data } = r.data;

@@ -49,8 +49,8 @@ export default {
       ) {
         const { type, id } = this.$route.query;
         let localZ = localStorage.getItem("z");
-        let localOid = localStorage.getItem("oid");
-        if (localZ === null || localOid === null) {
+        let localMarketId = localStorage.getItem("marketid");
+        if (localZ === null || localMarketId === null) {
           this.errorMessage = "未授权，请通过二维码进入";
         } else {
           this.type = type;
@@ -70,8 +70,8 @@ export default {
       if (this.type === "default") {
         const { type, id } = this.$route.query;
         let localZ = localStorage.getItem("z");
-        let localOid = localStorage.getItem("oid");
-        if (localZ === null || localOid === null) {
+        let localMarketId = localStorage.getItem("marketid");
+        if (localZ === null || localMarketId === null) {
           this.errorMessage = "未授权，请通过二维码进入";
         } else {
           bindCouponMini(this.resData.id, localZ)
