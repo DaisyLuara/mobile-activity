@@ -333,6 +333,7 @@ const getCouponQRCodeMini = (code, z) => {
       params: {
         z: z,
         size: 200,
+        include: 'couponBatch.company'
       },
       ...REQ_HEADER
     }

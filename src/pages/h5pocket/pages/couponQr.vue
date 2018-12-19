@@ -47,15 +47,15 @@ export default {
     fetchTheFuckingQrCode() {
       let localZ = localStorage.getItem("z");
       let localOid = localStorage.getItem("oid");
-      let { id } = this.$route.query;
-      if (id === undefined) {
+      let { code } = this.$route.query;
+      if (code === undefined) {
         this.errorMessage = "无法获取";
         return;
       }
       if (localZ === null || localOid === null) {
         this.errorMessage = "未授权，请通过二维码进入";
       } else {
-        getCouponQRCodeMini(id, localZ)
+        getCouponQRCodeMini(code, localZ)
           .then(r => {
             console.dir(r);
             this.title = r.data.name;

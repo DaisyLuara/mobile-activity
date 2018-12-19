@@ -54,7 +54,11 @@ export default {
         });
       } else if (this.couponType === "wallet") {
         this.$router.push({
-          path: "/hpocket/cpd?type=wallet&id=" + this.couponData.id
+          path:
+            "/hpocket/cpd?type=wallet&code=" +
+            this.couponData.code +
+            "&id=" +
+            this.couponData.couponBatch.id
         });
       }
     }
