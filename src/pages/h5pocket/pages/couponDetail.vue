@@ -74,7 +74,7 @@ export default {
         if (localZ === null || localOid === null) {
           this.errorMessage = "未授权，请通过二维码进入";
         } else {
-          bindCouponMini(this.resData.couponBatch.id, localZ)
+          bindCouponMini(this.resData.id, localZ)
             .then(r => {
               console.dir(r);
               if (r.hasOwnProperty("code")) {

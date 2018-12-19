@@ -63,6 +63,7 @@ export default {
     height: 1.74rem;
     width: 3.65rem;
     z-index: 20;
+    overflow: hidden;
   }
   .ctext {
     z-index: 15;
