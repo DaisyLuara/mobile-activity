@@ -42,20 +42,26 @@ export default {
               localZ = setZ;
               localStorage.setItem("z", setZ);
               localStorage.setItem("oid", infoRes.oid);
+              this.fetchWalletList();
             }
           }
         } else {
-          getWalletListMini(localZ)
-            .then(r => {
-              console.dir(r);
-              this.list = r.data.data;
-            })
-            .catch(e => {
-              console.log(e);
-            });
+          this.fetchWalletList();
         }
       } catch (e) {
         this.errorMessage = String(e);
+      }
+    },
+    async fetchWalletList() {
+      const localZ = localStorage.getItem("z");
+      try {
+        let walletList = await getWalletListMini(localZ);
+        console.dir(walletList);
+        this.list = walletList.data.data;
+      } catch {
+        e => {
+          console.log(e);
+        };
       }
     }
   }
