@@ -256,7 +256,7 @@ const getMallcooOauth = params => {
 
 const bindCouponMini = (couponId, z) => {
   return new Promise((resolve, reject) => {
-    const requestUrl = MINI_API + '/user/coupon_batch/'
+    const requestUrl = MINI_API + '/user/coupon_batch/' + couponId
     const requestParams = {
       z: z
     }
@@ -272,9 +272,12 @@ const getConponMini = (couponId, z) => {
   return new Promise((resolve, reject) => {
     const requestUrl = MINI_API + '/coupon/batches/' + couponId
     const requestParams = {
-      include: 'company'
+      params: {
+        include: 'company'
+      },
+      ...REQ_HEADER
     }
-    axios.get(requestUrl, requestParams, REQ_HEADER).then(r => {
+    axios.get(requestUrl, requestParams).then(r => {
       resolve(r)
     }).catch(e => {
       reject(e)
@@ -286,17 +289,21 @@ const getMallListMini = (z, page, per_page, oid) => {
   return new Promise((resolve, reject) => {
     const requestUrl = MINI_API + '/coupon/batches'
     const requestParams = {
-      include: 'company',
-      z: z,
-      page: page,
-      per_page: per_page,
-      oid: oid
+      params: {
+        include: 'company',
+        z: z,
+        page: page,
+        per_page: per_page,
+        oid: oid
+      },
+      ...REQ_HEADER
     }
-    axios.get(requestUrl, requestParams, REQ_HEADER).then(r => {
-      resolve(r)
-    }).catch(e => {
-      reject(e)
-    })
+    axios
+      .get(requestUrl, requestParams).then(r => {
+        resolve(r)
+      }).catch(e => {
+        reject(e)
+      })
   })
 }
 
@@ -304,26 +311,33 @@ const getWalletListMini = (z) => {
   return new Promise((resolve, reject) => {
     const requestUrl = MINI_API + '/user/coupons'
     const requestParams = {
-      z: z,
-      include: 'couponBatch'
+      params: {
+        z: z,
+        include: 'couponBatch'
+      },
+      ...REQ_HEADER
     }
-    axios.get(requestUrl, requestParams, REQ_HEADER).then(r => {
-      resolve(r)
-    }).catch(e => {
-      reject(e)
-    })
+    axios
+      .get(requestUrl, requestParams).then(r => {
+        resolve(r)
+      }).catch(e => {
+        reject(e)
+      })
   })
 }
 
 const getCouponQRCodeMini = (code, z) => {
   return new Promise((resolve, reject) => {
-    let request_url = MINI_API + '/user/coupons/' + code
-    let request_params = {
-      z: z,
-      size: 200
+    let requestUrl = MINI_API + '/user/coupons/' + code
+    let requestParams = {
+      params: {
+        z: z,
+        size: 200,
+      },
+      ...REQ_HEADER
     }
     axios
-      .get(request_url, request_params, REQ_HEADER)
+      .get(requestUrl, requestParams)
       .then(r => {
         resolve(r)
       })

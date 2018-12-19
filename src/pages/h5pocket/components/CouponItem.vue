@@ -1,7 +1,7 @@
 <template>
   <div class="citem" @click="handleCouponClick">
     <div class="cimg">
-      <img :src="couponData.couponBatch.image_url">
+      <img :src="computedImgUrl">
     </div>
     <div class="ctext">
       <span class="inner">{{remindtext}}</span>
@@ -15,10 +15,8 @@ export default {
     couponData: {
       type: Object,
       default: {
-        couponBatch: {
-          id: null,
-          image_url: ""
-        }
+        id: null,
+        image_url: ""
       },
       required: true
     },
@@ -37,17 +35,26 @@ export default {
         return "立即使用";
       }
       return "";
+    },
+    computedImgUrl() {
+      if (this.couponType === "default") {
+        return couponData.image_url;
+      }
+      if (this.couponType === "wallet") {
+        return couponData.couponBatch.image_url;
+      }
+      return "";
     }
   },
   methods: {
     handleCouponClick() {
       if (this.couponType === "default") {
         this.$router.push({
-          path: "/hpocket/cpd?type=default&id=" + this.couponData.couponBatch.id
+          path: "/hpocket/cpd?type=default&id=" + this.couponData.id
         });
       } else if (this.couponType === "wallet") {
         this.$router.push({
-          path: "/hpocket/cpd?type=wallet&id=" + this.couponData.couponBatch.id
+          path: "/hpocket/cpd?type=wallet&id=" + this.couponData.id
         });
       }
     }
@@ -65,6 +72,7 @@ export default {
     height: 1.74rem;
     width: 3.65rem;
     z-index: 20;
+    overflow: hidden;
   }
   .ctext {
     z-index: 15;
