@@ -32,9 +32,9 @@ export default {
       this.errorMessage = "";
       const { id, code, state } = this.$route.query;
       let localZ = localStorage.getItem("z");
-      let localOid = localStorage.getItem("oid");
+      let localMarketId = localStorage.getItem("marketid");
       try {
-        if (localZ === null || localOid === null) {
+        if (localZ === null || localMarketId === null) {
           let infoRes = await getInfoById(id, code, state);
           console.dir(infoRes);
           if (infoRes.userinfo !== null) {
@@ -42,7 +42,7 @@ export default {
               let setZ = infoRes.userinfo.z;
               localZ = setZ;
               localStorage.setItem("z", setZ);
-              localStorage.setItem("oid", infoRes.oid);
+              localStorage.setItem("marketid", infoRes.marketid);
               await this.hanldeFirstGetCoupon(localZ);
               await this.fetchWalletList();
             }

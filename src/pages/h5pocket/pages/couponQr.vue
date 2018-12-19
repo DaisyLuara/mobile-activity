@@ -46,13 +46,13 @@ export default {
   methods: {
     fetchTheFuckingQrCode() {
       let localZ = localStorage.getItem("z");
-      let localOid = localStorage.getItem("oid");
+      let localMarketId = localStorage.getItem("marketid");
       let { code } = this.$route.query;
       if (code === undefined) {
         this.errorMessage = "无法获取";
         return;
       }
-      if (localZ === null || localOid === null) {
+      if (localZ === null || localMarketId === null) {
         this.errorMessage = "未授权，请通过二维码进入";
       } else {
         getCouponQRCodeMini(code, localZ)
