@@ -272,7 +272,9 @@ const getConponMini = (couponId, z) => {
   return new Promise((resolve, reject) => {
     const requestUrl = MINI_API + '/coupon/batches/' + couponId
     const requestParams = {
-      include: 'company',
+      params: {
+        include: 'company'
+      },
       ...REQ_HEADER
     }
     axios.get(requestUrl, requestParams).then(r => {
@@ -287,11 +289,13 @@ const getMallListMini = (z, page, per_page, oid) => {
   return new Promise((resolve, reject) => {
     const requestUrl = MINI_API + '/coupon/batches'
     const requestParams = {
-      include: 'company',
-      z: z,
-      page: page,
-      per_page: per_page,
-      oid: oid,
+      params: {
+        include: 'company',
+        z: z,
+        page: page,
+        per_page: per_page,
+        oid: oid
+      },
       ...REQ_HEADER
     }
     axios
@@ -307,8 +311,10 @@ const getWalletListMini = (z) => {
   return new Promise((resolve, reject) => {
     const requestUrl = MINI_API + '/user/coupons'
     const requestParams = {
-      z: z,
-      include: 'couponBatch',
+      params: {
+        z: z,
+        include: 'couponBatch'
+      },
       ...REQ_HEADER
     }
     axios
@@ -324,8 +330,10 @@ const getCouponQRCodeMini = (code, z) => {
   return new Promise((resolve, reject) => {
     let requestUrl = MINI_API + '/user/coupons/' + code
     let requestParams = {
-      z: z,
-      size: 200,
+      params: {
+        z: z,
+        size: 200,
+      },
       ...REQ_HEADER
     }
     axios
