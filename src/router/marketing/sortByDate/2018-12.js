@@ -304,6 +304,17 @@ const Date201812 = [
       desc: '圣诞转盘-周浦绿地'
     },
     isAbandoned: false
+  },
+  {
+    path: 'hi_play_taicha2',
+    location: '201812/taicha',
+    name: 'hi_play_taicha2',
+    meta: {
+      title: 'high玩全世界',
+      author: 'xj1012',
+      desc: 'high玩全世界-泰茶-仅此为测试'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201812
