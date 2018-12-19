@@ -61,7 +61,7 @@ export default {
               this.resData = r.data;
             })
             .catch(e => {
-              this.errorMessage = String(e);
+              this.errorMessage = String(e.message);
             });
         }
       }

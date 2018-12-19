@@ -76,6 +76,9 @@ export default {
     loadTop() {
       this.topStatus = "loading";
       setTimeout(() => {
+        this.currentPage = 1;
+        this.list = [];
+        this.fetchList();
         this.$refs.loadmore.onTopLoaded();
         this.topStatus = "";
       }, 2000);
@@ -83,6 +86,7 @@ export default {
     loadBottom() {
       this.bottomStatus = "loading";
       setTimeout(() => {
+        this.fetchList();
         this.$refs.loadmore.onBottomLoaded();
         this.bottomStatus = "";
       }, 2000);
@@ -111,7 +115,7 @@ export default {
           })
           .catch(e => {
             this.isFetching = false;
-            this.errorMessage = String(e);
+            this.errorMessage = String(e.message);
           });
       }
     }
