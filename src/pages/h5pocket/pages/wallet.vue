@@ -36,26 +36,32 @@ export default {
         if (localZ === null || localOid === null) {
           let infoRes = await getInfoById(id, code, state);
           console.dir(infoRes);
-          if (infoRes.results.userinfo !== null) {
-            if (infoRes.results.userinfo.hasOwnProperty("z")) {
-              let setZ = infoRes.results.userinfo.z;
+          if (infoResuserinfo !== null) {
+            if (infoRes.userinfo.hasOwnProperty("z")) {
+              let setZ = infoRes.userinfo.z;
               localZ = setZ;
               localStorage.setItem("z", setZ);
-              localStorage.setItem("oid", infoRes.results.oid);
+              localStorage.setItem("oid", infoRes.oid);
+              this.fetchWalletList();
             }
           }
         } else {
-          getWalletListMini(localZ)
-            .then(r => {
-              console.dir(r);
-              this.list = r.data.data;
-            })
-            .catch(e => {
-              console.log(e);
-            });
+          this.fetchWalletList();
         }
       } catch (e) {
         this.errorMessage = String(e);
+      }
+    },
+    async fetchWalletList() {
+      const localZ = localStorage.getItem("z");
+      try {
+        let walletList = await getWalletListMini(localZ);
+        console.dir(walletList);
+        this.list = walletList.data.data;
+      } catch {
+        e => {
+          console.log(e);
+        };
       }
     }
   }
