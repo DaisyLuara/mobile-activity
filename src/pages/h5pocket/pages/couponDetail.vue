@@ -89,7 +89,7 @@ export default {
               }
             })
             .catch(e => {
-              this.errorMessage = String(e);
+              Toast(e.message);
             });
         }
       } else if (this.type === "wallet") {

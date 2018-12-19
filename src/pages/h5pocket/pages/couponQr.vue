@@ -117,7 +117,7 @@ export default {
     text-align: center;
     align-items: center;
     .title {
-      font-size: 0.24rem;
+      font-size: 0.14rem;
       font-weight: bold;
     }
     .qr-img {
