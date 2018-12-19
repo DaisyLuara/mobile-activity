@@ -1,7 +1,7 @@
 <template>
   <div class="citem" @click="handleCouponClick">
     <div class="cimg">
-      <img :src="couponData.image_url">
+      <img :src="computedImgUrl">
     </div>
     <div class="ctext">
       <span class="inner">{{remindtext}}</span>
@@ -33,6 +33,15 @@ export default {
       }
       if (this.couponType === "wallet") {
         return "立即使用";
+      }
+      return "";
+    },
+    computedImgUrl() {
+      if (this.couponType === "default") {
+        return couponData.image_url;
+      }
+      if (this.couponType === "wallet") {
+        return couponData.couponBatch.image_url;
       }
       return "";
     }
