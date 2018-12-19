@@ -54,7 +54,7 @@ export default {
         }
       } catch (e) {
         console.dir(e);
-        Toast(e.data.message);
+        Toast(e.message);
       }
     },
     async fetchWalletList() {
@@ -65,7 +65,7 @@ export default {
         this.list = walletList.data.data;
       } catch {
         e => {
-          Toast(e.data.message);
+          Toast(e.message);
           console.dir(e);
         };
       }
@@ -79,7 +79,7 @@ export default {
         let bindRes = await bindCouponMini(coupon_batch_id, z);
       } catch (e) {
         console.dir(e);
-        Toast(e.data.message);
+        Toast(e.message);
       }
     }
   }
