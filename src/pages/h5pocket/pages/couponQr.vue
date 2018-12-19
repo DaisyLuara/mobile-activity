@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { getCouponQRCodeMini, getConponMini } from "services";
+import { getCouponQRCodeMini } from "services";
 export default {
   data() {
     return {
@@ -55,19 +55,12 @@ export default {
       if (localZ === null || localOid === null) {
         this.errorMessage = "未授权，请通过二维码进入";
       } else {
-        getConponMini(id, localZ)
+        getCouponQRCodeMini(id, localZ)
           .then(r => {
             console.dir(r);
-            this.title = r.data.couponBatch.name;
-            this.code = code;
-            getCouponQRCodeMini(localZ, this.code)
-              .then(r => {
-                console.dir(r);
-                this.imgUrl = r.data.qrcode_url;
-              })
-              .catch(e => {
-                this.errorMessage += String(e);
-              });
+            this.title = r.data.name;
+            this.code = r.data.code;
+            this.imgUrl = r.data.qrcode_url;
           })
           .catch(e => {
             this.errorMessage += String(e);
