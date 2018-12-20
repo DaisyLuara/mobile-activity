@@ -12,6 +12,8 @@ const MALLCOO_API = process.env.AD_API + '/api/mallcoo/user/oauth'
 const OPEN_COUPON_PROJECT = process.env.AD_API + '/api/open/project'
 const IMAGE_UPLOAD = process.env.AD_API + '/api/images'
 
+const MINI_API = process.env.AD_API + '/api/mini'
+
 const REQ_HEADER = {
   headers: {
     'api-token': apiToken,
@@ -47,8 +49,8 @@ const getCoupon = couponIds => {
     axios
       .get(
         process.env.STORE_API +
-          '/rest/coupon/batch?coupon_batch_ids=' +
-          couponIds.join(',')
+        '/rest/coupon/batch?coupon_batch_ids=' +
+        couponIds.join(',')
       )
       .then(response => {
         resolve(response)
@@ -251,6 +253,101 @@ const getMallcooOauth = params => {
       })
   })
 }
+
+const bindCouponMini = (couponId, z) => {
+  return new Promise((resolve, reject) => {
+    const requestUrl = MINI_API + '/user/coupon_batch/' + couponId
+    const requestParams = {
+      z: z
+    }
+    axios.post(requestUrl, requestParams, REQ_HEADER).then(response => {
+      resolve(response)
+    }).catch(e => {
+      reject(e)
+    })
+  })
+}
+
+const getConponMini = (couponId, z) => {
+  return new Promise((resolve, reject) => {
+    const requestUrl = MINI_API + '/coupon/batches/' + couponId
+    const requestParams = {
+      params: {
+        include: 'company'
+      },
+      ...REQ_HEADER
+    }
+    axios.get(requestUrl, requestParams).then(r => {
+      resolve(r)
+    }).catch(e => {
+      reject(e)
+    })
+  })
+}
+
+const getMallListMini = (z, page, per_page, marketId) => {
+  return new Promise((resolve, reject) => {
+    const requestUrl = MINI_API + '/coupon/batches'
+    const requestParams = {
+      params: {
+        include: 'company',
+        z: z,
+        page: page,
+        per_page: per_page,
+        marketid: marketId
+      },
+      ...REQ_HEADER
+    }
+    axios
+      .get(requestUrl, requestParams).then(r => {
+        resolve(r)
+      }).catch(e => {
+        reject(e)
+      })
+  })
+}
+
+const getWalletListMini = (z) => {
+  return new Promise((resolve, reject) => {
+    const requestUrl = MINI_API + '/user/coupons'
+    const requestParams = {
+      params: {
+        z: z,
+        include: 'couponBatch'
+      },
+      ...REQ_HEADER
+    }
+    axios
+      .get(requestUrl, requestParams).then(r => {
+        resolve(r)
+      }).catch(e => {
+        reject(e)
+      })
+  })
+}
+
+const getCouponQRCodeMini = (code, z) => {
+  return new Promise((resolve, reject) => {
+    let requestUrl = MINI_API + '/user/coupons/' + code
+    let requestParams = {
+      params: {
+        z: z,
+        size: 200,
+        include: 'couponBatch.company'
+      },
+      ...REQ_HEADER
+    }
+    axios
+      .get(requestUrl, requestParams)
+      .then(r => {
+        resolve(r)
+      })
+      .catch(e => {
+        reject(e)
+      })
+  })
+}
+
 export {
   createCoupon,
   getCoupon,
@@ -266,5 +363,10 @@ export {
   getCouponProjectMessage,
   sendCoupon,
   getImage,
-  getMallcooOauth
+  getMallcooOauth,
+  bindCouponMini,
+  getConponMini,
+  getMallListMini,
+  getWalletListMini,
+  getCouponQRCodeMini
 }

@@ -8,8 +8,8 @@
       class="tit"
     >
     <div
-      class="zero"
       v-if="belong!='cpLongfor'"
+      class="zero"
     >
       <img
         :src="base + 'save.png' + this.$qiniuCompress()"
@@ -39,7 +39,8 @@
           class="aclick"
           @click="getAuth"
         >
-          <img :src="base
+          <img 
+            :src="base
               + 'click.png'+
             this.$qiniuCompress()">
         </a>
@@ -123,14 +124,14 @@ export default {
       photo: null,
       id: this.$route.query.id,
       open_user_id: null,
-      mask: true,
+      mask: false,
       note: 'note1',
       hasgeted: false,
       //分享
       wxShareInfoValue: {
         title: "一周年好礼相送",
         desc: "参与互动 福利翻倍",
-        link: "http://papi.xingstation.com/api/s/q7r" + window.location.search,
+        link: "http://papi.xingstation.com/api/s/vlr" + window.location.search,
         imgUrl: cdnUrl + "/fe/image/longhu/icon.png",
         success: () => {
           wechatShareTrack();
@@ -150,10 +151,16 @@ export default {
       }
     }
     let that = this
-    let timer = setTimeout(function () {
-      that.mask = false;
-      clearTimeout(timer)
-    }, 2000)
+    if (window.localStorage.getItem('longhu')) {
+      return
+    } else {
+      this.mask = true
+      let timer = setTimeout(function () {
+        that.mask = false;
+        clearTimeout(timer)
+        window.localStorage.setItem('longhu', 'longhu')
+      }, 2000)
+    }
   },
   methods: {
     //微信静默授权
@@ -207,7 +214,6 @@ export default {
     getCouponDetail() {
       checkCouponNumber(this.coupon_batch_id)
         .then(res => {
-          // this.textShow = true;
           this.imgUrl = res.image_url;
           this.checkGetCoupon()
         })
@@ -219,8 +225,7 @@ export default {
     checkGetCoupon() {
       let args = {
         coupon_batch_id: this.coupon_batch_id,
-        include: "couponBatch",
-        qiniu_id: this.$route.query.id,
+        include: "couponBatch"
       };
       checkGetCoupon(args)
         .then(res => {
@@ -231,9 +236,7 @@ export default {
               this.textShow = true;
             }
           } else {
-            //this.textShow = false;
             this.hasgeted = true
-            //window.location.href = 'http://papi.xingstation.com/api/s/gZ9'
           }
         })
         .catch(err => {
