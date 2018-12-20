@@ -5,7 +5,9 @@
     <div class="qr-code">
       <div class="title">{{ qrtitle }}</div>
       <div class="qr-img">
-        <img v-if="imgUrl !== ''" :src="imgUrl">
+        <img 
+          v-if="imgUrl !== ''" 
+          :src="imgUrl">
       </div>
       <div class="code">{{ code }}</div>
     </div>
