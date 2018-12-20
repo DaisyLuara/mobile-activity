@@ -74,9 +74,6 @@ export default {
           "min-height": this.$innerHeight() + "px"
         }
       },
-      photo: null,
-      score: this.$route.query.score,
-      timer: null,
       mask: false,
       //微信分享
       wxShareInfoValue: {
@@ -84,35 +81,20 @@ export default {
         desc: '由心咖啡 买一赠一',
         link: 'http://papi.xingstation.com/api/s/xnJ' + window.location.search,
         imgUrl: cdnUrl + '/fe/image/youxin/icon.png',
-        success: () => {
-          wechatShareTrack()
-        }
       }
     }
   },
   mounted() {
-    this.getData()
+
   },
   methods: {
     toLink() {
-      let that = this
       this.mask = true
       let timer = setTimeout(() => {
-        window.location.href = 'http://papi.xingstation.com/api/s/wVJ'
-        that.mask = false
         clearTimeout(timer)
+        window.location.href = 'http://papi.xingstation.com/api/s/wVJ'
       }, 3000)
     },
-    getData() {
-      this.timer = requestAnimationFrame(this.getData)
-      let that = this
-      if (this.parms) {
-        cancelAnimationFrame(that.timer)
-        this.score = this.parms.score
-        console.log(this.parms)
-      }
-
-    }
   }
 }
 </script>
