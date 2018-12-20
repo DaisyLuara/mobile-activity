@@ -65,9 +65,11 @@ export default {
           }
         } else {
           let infoRes = await getInfoById(id, code, state);
-          let parms = splitParms(infoRes.parms);
-          if (parms.hasOwnProperty("coupon_batch_id")) {
-            await this.hanldeFirstGetCoupon(localZ, parms["coupon_batch_id"]);
+          if (infoRes.hasOwnProperty("parms")) {
+            let parms = splitParms(infoRes.parms);
+            if (parms.hasOwnProperty("coupon_batch_id")) {
+              await this.hanldeFirstGetCoupon(localZ, parms["coupon_batch_id"]);
+            }
           }
           await this.fetchWalletList();
         }
