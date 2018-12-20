@@ -315,6 +315,17 @@ const Date201812 = [
       desc: 'high玩全世界-泰茶-仅此为测试'
     },
     isAbandoned: false
+  },
+  {
+    path: 'jinyingstar',
+    location: '201812/vstar',
+    name: 'jingyingstar',
+    meta: {
+      title: '12星座',
+      author: 'Anluis',
+      desc: '十二星宝闹新春,2018相约金鹰，欢度新春'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201812

@@ -1,11 +1,15 @@
 <template>
   <div class="cdt">
-    <p v-if="errorMessage !== ''">{{errorMessage}}</p>
+    <p v-if="errorMessage !== ''">{{ errorMessage }}</p>
     <div class="coupon-img">
-      <img v-if="resData.image_url !== null" :src="resData.image_url">
+      <img 
+        v-if="resData.image_url !== null" 
+        :src="resData.image_url">
     </div>
-    <div class="explain-text">{{resData.description}}</div>
-    <div class="btn" @click="handleCouponButtonClick">{{computedBtnText}}</div>
+    <div class="explain-text">{{ resData.description }}</div>
+    <div 
+      class="btn" 
+      @click="handleCouponButtonClick">{{ computedBtnText }}</div>
   </div>
 </template>
 
@@ -25,10 +29,6 @@ export default {
       }
     };
   },
-  mounted() {
-    this.errorMessage = "";
-    this.fetchCouponDetail();
-  },
   computed: {
     computedBtnText() {
       if (this.type === "default") {
@@ -39,6 +39,10 @@ export default {
       }
       return "";
     }
+  },
+  mounted() {
+    this.errorMessage = "";
+    this.fetchCouponDetail();
   },
   methods: {
     fetchCouponDetail() {
