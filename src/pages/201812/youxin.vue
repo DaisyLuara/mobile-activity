@@ -8,7 +8,7 @@
         href="http://papi.xingstation.com/api/s/wVJ"
         class="coupon"
       >
-        <img :src="base + 'coupon.png' + this.$qiniuCompress()">
+        <img :src="base + 'coupon1.png' + this.$qiniuCompress()">
       </a>
     </div>
     <div class="two">
@@ -121,7 +121,7 @@ a {
     width: 100%;
     position: relative;
     a {
-      width: 100%;
+      width: 90%;
       animation: mybig 1s linear infinite alternate;
     }
   }
