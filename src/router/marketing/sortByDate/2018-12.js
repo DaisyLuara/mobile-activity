@@ -317,6 +317,17 @@ const Date201812 = [
     isAbandoned: false
   },
   {
+    path: 'jinyingstar',
+    location: '201812/vstar',
+    name: 'jingyingstar',
+    meta: {
+      title: '12星座',
+      author: 'Anluis',
+      desc: '十二星宝闹新春,2018相约金鹰，欢度新春'
+    },
+    isAbandoned: false
+  },
+  {
     path: 'youxin',
     location: '201812/youxin',
     name: 'youxin',
