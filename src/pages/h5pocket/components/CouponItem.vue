@@ -1,5 +1,7 @@
 <template>
-  <div class="citem" @click="handleCouponClick">
+  <div 
+    class="citem" 
+    @click="handleCouponClick">
     <div class="cimg">
       <img :src="computedImgUrl">
     </div>
