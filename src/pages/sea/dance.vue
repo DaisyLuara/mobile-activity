@@ -83,7 +83,7 @@ import {
   getAdCoupon,
   checkCouponNumber
 } from 'services'
-import { normalPages } from '../../mixins/normalPages'
+import { normalPages } from '@/mixins/normalPages'
 import MC from 'mcanvas'
 export default {
   mixins: [normalPages],

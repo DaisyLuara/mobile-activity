@@ -53,7 +53,7 @@
 </template>
 <script>
 import { $wechat, wechatShareTrack } from 'services'
-import { normalPages } from '../../mixins/normalPages'
+import { normalPages } from '@/mixins/normalPages'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
   mixins: [normalPages],

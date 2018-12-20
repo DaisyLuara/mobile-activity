@@ -42,7 +42,7 @@
 <script>
 const wih = window.innerHeight
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
-import { normalPages } from '../../mixins/normalPages'
+import { normalPages } from '@/mixins/normalPages'
 import { wechatShareTrack } from 'services'
 export default {
   mixins: [normalPages],

@@ -84,7 +84,7 @@ import {
   getAdCoupon,
   checkCouponNumber
 } from 'services'
-import { normalPages } from '../../mixins/normalPages'
+import { normalPages } from '@/mixins/normalPages'
 export default {
   mixins: [normalPages],
   data() {

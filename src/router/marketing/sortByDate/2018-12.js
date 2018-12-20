@@ -326,6 +326,39 @@ const Date201812 = [
       desc: '十二星宝闹新春,2018相约金鹰，欢度新春'
     },
     isAbandoned: false
+  },
+  {
+    path: 'youxin',
+    location: '201812/youxin',
+    name: 'youxin',
+    meta: {
+      title: '买一赠一',
+      author: 'lipan',
+      desc: '来福士广场由心咖啡'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'lh_vision',
+    location: '201812/lhvision',
+    name: 'lh_vision',
+    meta: {
+      title: '街成双 FUN加倍',
+      author: 'lipan',
+      desc: '龙湖天街-幻境'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'lh_delivery',
+    location: '201812/lhdelivery',
+    name: 'lh_delivery',
+    meta: {
+      title: '街成双 FUN加倍',
+      author: 'lipan',
+      desc: '龙湖天街-圣诞派送'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201812

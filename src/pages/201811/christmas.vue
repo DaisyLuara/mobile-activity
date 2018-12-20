@@ -1,32 +1,38 @@
 <template>
   <div
-    :style="style.root" 
-    class="root">
-    <img 
+    :style="style.root"
+    class="root"
+  >
+    <img
       :src="baseUrl + 'snow_01.png'+ this.$qiniuCompress()"
-      class="snow1"> 
-    <img 
+      class="snow1"
+    >
+    <img
       :src="baseUrl + 'snow_02.png'+ this.$qiniuCompress()"
-      class="snow2"> 
-    <div 
-      :class="{'x-center':iphoneX,'center':!iphoneX}" 
-      class="center">
-      <img 
+      class="snow2"
+    >
+    <div
+      :class="{'x-center':iphoneX,'center':!iphoneX}"
+      class="center"
+    >
+      <img
         :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
         :class="{'x-frame':iphoneX,'frame':!iphoneX}"
-        class="frame"> 
-      <img 
-        v-if="photo !== null" 
+        class="frame"
+      >
+      <img
+        v-if="photo !== null"
         :src="photo + this.$qiniuCompress()"
         :class="{'x-photo':iphoneX,'photo':!iphoneX}"
-        class="photo">
+        class="photo"
+      >
     </div>
-    
+
   </div>
 </template>
 <script>
 import { wechatShareTrack } from 'services'
-import { normalPages } from '../../mixins/normalPages'
+import { normalPages } from '@/mixins/normalPages'
 const cdnUrl = process.env.CDN_URL
 export default {
   mixins: [normalPages],
@@ -62,7 +68,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: 'http://cdn.exe666.com/fe/marketing/img/christmas/';
+@imageHost: "http://cdn.exe666.com/fe/marketing/img/christmas/";
 html,
 body {
   width: 100%;
@@ -87,7 +93,7 @@ img {
   text-align: center;
   position: relative;
   overflow: hidden;
-  background-image: url('@{imageHost}back.jpg');
+  background-image: url("@{imageHost}back.jpg");
   background-size: 100% 100%;
   background-position: center bottom;
   background-repeat: no-repeat;

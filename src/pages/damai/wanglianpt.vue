@@ -53,7 +53,7 @@
 
 <script>
 const cdnUrl = process.env.CDN_URL
-import { normalPages } from '../../mixins/normalPages'
+import { normalPages } from '@/mixins/normalPages'
 import { wechatShareTrack } from 'services'
 import QRCode from 'qrcode'
 

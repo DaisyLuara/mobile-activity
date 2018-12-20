@@ -36,7 +36,7 @@
 </template>
 <script>
 import { $wechat, getInfoById, wechatShareTrack } from 'services'
-import { normalPages } from '../../mixins/normalPages'
+import { normalPages } from '@/mixins/normalPages'
 const IMGURL = process.env.CDN_URL + '/image/'
 export default {
   mixins: [normalPages],

@@ -43,5 +43,4 @@ const splitParms = parms => {
   })
   return res
 }
-
 export { getPlayResultById, getInfoById, splitParms }

@@ -1,67 +1,66 @@
 <template>
-  <div 
+  <div
     :style="style.root"
-    class="content">
-    <div 
-      class="main">
+    class="content"
+  >
+    <div class="main">
       <img
         :src="base + 'machine.png'"
-        class="cover">
-      <div 
-        class="yuebing">
+        class="cover"
+      >
+      <div class="yuebing">
         <img
           :src="base + 'copybg.png'"
-          class="copybg">
-        <div 
-          class="idol user">
-          <img
-            :src="bing.headImgUrl">
+          class="copybg"
+        >
+        <div class="idol user">
+          <img :src="bing.headImgUrl">
         </div>
-        <div 
-          class="idol people">
-          <img
-            :src="origin + 'people/people' + bing.people + '.png'">
+        <div class="idol people">
+          <img :src="origin + 'people/people' + bing.people + '.png'">
         </div>
         <p>{{ bing.name }}</p>
-        <div 
-          class="bingbing">
-          <img
-            :src="base + bing.left[bing.cake_type_a]">
-          <img
-            :src="base + bing.right[bing.cake_type_b]">
+        <div class="bingbing">
+          <img :src="base + bing.left[bing.cake_type_a]">
+          <img :src="base + bing.right[bing.cake_type_b]">
         </div>
       </div>
-      <div 
-        class="picture">
-        <img 
+      <div class="picture">
+        <img
           :src="photo"
-          class="photo">
-        <swiper 
-          ref="Swiper1" 
-          :options="swiperOption" 
-          class="cardSwiper">
-          <swiper-slide 
-            v-for="item in 5" 
-            :key="item.id" 
-            class="slider">
+          class="photo"
+        >
+        <swiper
+          ref="Swiper1"
+          :options="swiperOption"
+          class="cardSwiper"
+        >
+          <swiper-slide
+            v-for="item in 5"
+            :key="item.id"
+            class="slider"
+          >
             <img
               :src="base + 'card_' + item + '.png'"
-              class="card">
+              class="card"
+            >
           </swiper-slide>
         </swiper>
       </div>
-      <img 
+      <img
         :src="base + 'prompt.png'"
-        class="prompt">
+        class="prompt"
+      >
     </div>
-    <div 
-      class="task-group">
-      <img 
+    <div class="task-group">
+      <img
         :src="origin + 'proj/' + task.left + '.png?1212'"
-        class="left">
-      <img 
+        class="left"
+      >
+      <img
         :src="origin + 'proj/' + task.right + '.png?1212'"
-        class="right">
+        class="right"
+      >
     </div>
   </div>
 </template>
@@ -77,7 +76,7 @@ import {
   getGame,
   setParameter
 } from 'services'
-import { normalPages } from '../../mixins/normalPages'
+import { normalPages } from '@/mixins/normalPages'
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 const IMG_SERVER = process.env.CDN_URL
@@ -99,7 +98,6 @@ export default {
       deUrl:
         'http://wx.qlogo.cn/mmopen/Q3auHgzwzM4VoBYD1YEIq0E3LFM1XLKsd3sG5VXRAvCUqCVXIPTcI0TzqicRWfzB9Zv40GhTR83RhKAugpzOuaJFC11nxmcnnp6ZbOu04UFw/0',
       userId: null,
-      belong: this.$route.query.utm_campaign,
       bing: {
         left: [
           'bingpi_left.png',
@@ -115,18 +113,17 @@ export default {
           'mocha_right.png',
           'wuren_right.png'
         ],
-        name: this.$route.query.cake_name,
+        name: null,//this.$route.query.cake_name,
         headImgUrl: null,
         // 'http://cdn.exe666.com/image/zhongqiu/1/share.png', //null,
-        people: this.$route.query.people_type,
-        cake_type_a: this.$route.query.cake_type_a,
-        cake_type_b: this.$route.query.cake_type_b
+        people: null,//this.$route.query.people_type,
+        cake_type_a: null, //this.$route.query.cake_type_a,
+        cake_type_b: null, //this.$route.query.cake_type_b
       },
       task: {
         left: '22',
         right: '33'
       },
-      photo: null,
       swiperOption: {
         initialSlide: 1,
         slidesPerView: 3,
@@ -140,10 +137,18 @@ export default {
         desc: '我亲手做的月饼,你敢吃么？',
         link: 'http://papi.xingstation.com/api/s/YEK' + window.location.search,
         imgUrl: 'http://cdn.exe666.com/image/zhongqiu/1/share.png',
-        success: () => {
-          wechatShareTrack()
-        }
       }
+    }
+  },
+  watch: {
+    parms() {
+      this.bing.name = this.parms.cake_name
+      this.bing.people = this.parms.people_type
+      this.bing.cake_type_a = this.parms.cake_type_a
+      this.bing.cake_type_b = this.parms.cake_type_b
+      this.handlePost()
+      this.createGame(this.belong, this.userId)
+      this.userGame()
     }
   },
   mounted() {
@@ -171,7 +176,6 @@ export default {
         this.userId = Cookies.get('user_id')
         this.createGame(this.belong, this.userId)
         this.userGame()
-        this.handlePost()
         //获取微信头像
         if (this.$route.query.utm_term) {
           this.bing.headImgUrl = this.$route.query.headImgUrl
@@ -269,15 +273,15 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@base: 'http://cdn.exe666.com/image/zhongqiu/1/';
+@base: "http://cdn.exe666.com/image/zhongqiu/1/";
 /*声明 WebFont*/
 @font-face {
-  font-family: 'hanyi';
-  src: url('http://cdn.exe666.com/image/zhongqiu/font/hanyi.ttf');
-  src: url('http://cdn.exe666.com/image/zhongqiu/font/hanyi.eot'),
-    url('http://cdn.exe666.com/image/zhongqiu/font/hanyi.woff'),
-    url('http://cdn.exe666.com/image/zhongqiu/font/hanyi.ttf'),
-    url('http://cdn.exe666.com/image/zhongqiu/font/hanyi.svg');
+  font-family: "hanyi";
+  src: url("http://cdn.exe666.com/image/zhongqiu/font/hanyi.ttf");
+  src: url("http://cdn.exe666.com/image/zhongqiu/font/hanyi.eot"),
+    url("http://cdn.exe666.com/image/zhongqiu/font/hanyi.woff"),
+    url("http://cdn.exe666.com/image/zhongqiu/font/hanyi.ttf"),
+    url("http://cdn.exe666.com/image/zhongqiu/font/hanyi.svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -305,7 +309,7 @@ img {
   width: 100%;
   overflow-x: hidden;
   background-color: #281765;
-  background-image: url('@{base}lantern.png'), url('@{base}spot.png');
+  background-image: url("@{base}lantern.png"), url("@{base}spot.png");
   background-position: center top, center bottom;
   background-repeat: no-repeat, no-repeat;
   background-size: 100% auto, 100% auto;
@@ -347,7 +351,7 @@ img {
       }
       p {
         width: 100%;
-        font-family: 'hanyi';
+        font-family: "hanyi";
         font-size: 12vw;
         text-align: center;
         position: absolute;

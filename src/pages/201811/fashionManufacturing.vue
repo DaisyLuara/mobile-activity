@@ -1,52 +1,63 @@
 <template>
   <div
-    :style="style.root" 
-    class="root">
-    <img 
+    :style="style.root"
+    class="root"
+  >
+    <img
       :src="baseUrl + 'city.png'+ this.$qiniuCompress()"
       :class="{'x-city':iphoneX,'city':!iphoneX}"
-      class="city"> 
-    <img 
+      class="city"
+    >
+    <img
       :src="baseUrl + 'line.png'+ this.$qiniuCompress()"
-      class="line"> 
+      class="line"
+    >
     <div class="center">
-      <img 
+      <img
         :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
         :class="{'x-frame':iphoneX,'frame':!iphoneX}"
-        class="frame"> 
-      <img 
-        v-if="photo !== null" 
+        class="frame"
+      >
+      <img
+        v-if="photo !== null"
         :src="photo + this.$qiniuCompress()"
         :class="{'x-photo':iphoneX,'photo':!iphoneX}"
-        class="photo">
-      <img 
-        v-if="photo !== null" 
+        class="photo"
+      >
+      <img
+        v-if="photo !== null"
         :src="photo + this.$qiniuCompress()"
         :class="{'x-photo':iphoneX,'photo-real':!iphoneX}"
-        class="photo-real">
-      <img 
+        class="photo-real"
+      >
+      <img
         :src="baseUrl + 'camera.png'+ this.$qiniuCompress()"
-        class="camera"> 
-      <img 
+        class="camera"
+      >
+      <img
         :src="baseUrl + 'open.png'+ this.$qiniuCompress()"
-        class="open"> 
-      <img 
+        class="open"
+      >
+      <img
         :src="baseUrl + 'stone.png'+ this.$qiniuCompress()"
-        class="stone"> 
+        class="stone"
+      >
     </div>
     <div class="bt">
-      <img 
+      <img
         :src="baseUrl + 'G.gif'+ this.$qiniuCompress()"
-        class="jiantou"> 
-      <img 
+        class="jiantou"
+      >
+      <img
         :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
-        class="save"> 
+        class="save"
+      >
     </div>
   </div>
 </template>
 <script>
 import { wechatShareTrack } from 'services'
-import { normalPages } from '../../mixins/normalPages'
+import { normalPages } from '@/mixins/normalPages'
 const cdnUrl = process.env.CDN_URL
 export default {
   mixins: [normalPages],
@@ -82,7 +93,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: 'http://cdn.exe666.com/fe/marketing/img/fashion_manufacturing/';
+@imageHost: "http://cdn.exe666.com/fe/marketing/img/fashion_manufacturing/";
 html,
 body {
   width: 100%;
@@ -107,7 +118,7 @@ img {
   text-align: center;
   position: relative;
   overflow: hidden;
-  background-image: url('@{imageHost}bg.png');
+  background-image: url("@{imageHost}bg.png");
   background-size: 100% 100%;
   background-position: center bottom;
   background-repeat: no-repeat;
