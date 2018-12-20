@@ -122,7 +122,7 @@ a {
     position: relative;
     a {
       width: 90%;
-      animation: mybig 1s linear infinite alternate;
+      animation: mybig 0.6s linear infinite alternate;
     }
   }
   .two {
@@ -169,7 +169,7 @@ a {
 }
 @keyframes mybig {
   0% {
-    transform: scale(0.8);
+    transform: scale(0.9);
   }
   100% {
     transform: scale(1);
