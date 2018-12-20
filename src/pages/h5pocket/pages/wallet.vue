@@ -65,10 +65,15 @@ export default {
           }
         } else {
           let infoRes = await getInfoById(id, code, state);
-          if (infoRes.hasOwnProperty("parms")) {
-            let parms = splitParms(infoRes.parms);
-            if (parms.hasOwnProperty("coupon_batch_id")) {
-              await this.hanldeFirstGetCoupon(localZ, parms["coupon_batch_id"]);
+          if (infoRes !== undefined) {
+            if (infoRes.hasOwnProperty("parms")) {
+              let parms = splitParms(infoRes.parms);
+              if (parms.hasOwnProperty("coupon_batch_id")) {
+                await this.hanldeFirstGetCoupon(
+                  localZ,
+                  parms["coupon_batch_id"]
+                );
+              }
             }
           }
           await this.fetchWalletList();
@@ -96,7 +101,7 @@ export default {
         let bindRes = await bindCouponMini(coupon_batch_id, z);
       } catch (e) {
         console.dir(e);
-        Toast(e.message);
+        // Toast(e.message);
       }
     }
   }
