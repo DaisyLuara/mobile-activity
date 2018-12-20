@@ -285,7 +285,7 @@ const getConponMini = (couponId, z) => {
   })
 }
 
-const getMallListMini = (z, page, per_page, oid) => {
+const getMallListMini = (z, page, per_page, marketId) => {
   return new Promise((resolve, reject) => {
     const requestUrl = MINI_API + '/coupon/batches'
     const requestParams = {
@@ -294,7 +294,7 @@ const getMallListMini = (z, page, per_page, oid) => {
         z: z,
         page: page,
         per_page: per_page,
-        oid: oid
+        marketid: marketId
       },
       ...REQ_HEADER
     }

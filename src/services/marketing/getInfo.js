@@ -33,6 +33,7 @@ const getInfoById = (id, code, state) => {
   })
   return promise
 }
+
 const splitParms = parms => {
   let arr = parms.toString().split('&')
   let res = {}

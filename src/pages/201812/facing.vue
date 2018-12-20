@@ -54,7 +54,7 @@ export default {
     };
   },
   watch: {
-    photo() {
+    parms() {
       this.getType()
     }
   },
@@ -62,7 +62,6 @@ export default {
   },
   methods: {
     getType() {
-
       let scores = this.score
       if (scores > 94) {
         this.type = '0'
