@@ -119,11 +119,6 @@ export default {
       }
     }
   },
-  watch: {
-    belong() {
-      this.handlePost()
-    }
-  },
   methods: {
     //微信静默授权
     handleWechatAuth() {

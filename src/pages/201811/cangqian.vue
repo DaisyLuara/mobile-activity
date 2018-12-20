@@ -50,36 +50,12 @@ export default {
       this.iphoneX = false
     }
   },
-  watch: {
-    belong() {
-      this.handlePost()
-    }
-  },
   methods: {
     goToRegister() {
       this.$router.push({
         path: 'cqRegister' + window.location.search
       })
     },
-    handlePost() {
-      let id = this.$route.query.id
-      let url =
-        'http://exelook.com:8010/pushdiv/?oid=' +
-        this.oid +
-        '&belong=' +
-        this.belong +
-        '&id=' +
-        id +
-        '&api=json'
-      this.$http
-        .get(url)
-        .then(res => {
-          console.log(res)
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    }
   }
 }
 </script>
