@@ -43,27 +43,26 @@ export default {
           'min-height': this.$innerHeight() + 'px'
         }
       },
-      gender: this.$route.query.gender,
-      score: this.$route.query.score,
       type: null,
-      photo: null,
       //微信分享
       wxShareInfoValue: {
         title: "刷脸测一测，你有天生贵相吗？",
         desc: "老夫掐指一算，你竟然是……",
         link: "http://papi.xingstation.com/api/s/gZ6" + window.location.search,
         imgUrl: CDNURL + "/fe/image/facing/share.png",
-        success: () => {
-          wechatShareTrack();
-        }
       }
     };
   },
+  watch: {
+    photo() {
+      this.getType()
+    }
+  },
   mounted() {
-    this.getType()
   },
   methods: {
     getType() {
+
       let scores = this.score
       if (scores > 94) {
         this.type = '0'

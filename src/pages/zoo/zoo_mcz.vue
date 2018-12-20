@@ -1,22 +1,26 @@
 <template>
   <div
-    :style="style.root" 
-    class="root">
-    <img  
+    :style="style.root"
+    class="root"
+  >
+    <img
       :src="baseUrl + 'mask.png'"
-      class="animate-cover">
-    <div  
+      class="animate-cover"
+    >
+    <div
       v-show="photoWrap"
-      class="photo-wrap">
-      <div  
-        :style="style.photoHei" 
-        class="photo">
-        <img  
-          :src="photoUrl + this.$qiniuCompress()">
+      class="photo-wrap"
+    >
+      <div
+        :style="style.photoHei"
+        class="photo"
+      >
+        <img :src="photo + this.$qiniuCompress()">
       </div>
-      <img  
+      <img
         :src="baseUrl + 'save.png'"
-        class="save-tips">
+        class="save-tips"
+      >
     </div>
   </div>
 </template>
@@ -25,13 +29,13 @@ const wih = window.innerHeight
 const wiw = window.innerWidth
 const baseUrl =
   'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/zoo/'
-import { $wechat, wechatShareTrack, getInfoById, isInWechat } from 'services'
-
+import { $wechat, wechatShareTrack, isInWechat } from 'services'
+import { normalPages } from '@/mixins/normalPages'
 export default {
+  mixins: [normalPages],
   data() {
     return {
       baseUrl: baseUrl,
-      photoUrl: '',
       style: {
         root: {
           height: wih + 'px'
@@ -49,49 +53,18 @@ export default {
         shouldInputRemindShow: true,
         step: 'input'
       },
-      wxShareInfo: {
+      wxShareInfoValue: {
         title: '动物去哪了',
         desc: '让我们去动物园吧',
         imgUrl: baseUrl + 'share.png',
-        success: () => {
-          wechatShareTrack()
-        }
       }
     }
-  },
-  created() {
-    this.handleWeChatShare()
-    this.getInfo()
   },
   mounted() {
     setTimeout(() => {
       this.photoWrap = true
     }, 1500)
   },
-  methods: {
-    //处理微信分享
-    handleWeChatShare() {
-      if (isInWechat() === true) {
-        $wechat()
-          .then(res => {
-            res.share(this.wxShareInfo)
-          })
-          .catch(_ => {
-            console.warn(_.message)
-          })
-      }
-    },
-    getInfo() {
-      let id = this.$route.query.id
-      getInfoById(id)
-        .then(res => {
-          this.photoUrl = res.image
-        })
-        .catch(_ => {
-          console.warn(_.message)
-        })
-    }
-  }
 }
 </script>
 

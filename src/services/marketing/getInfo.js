@@ -33,4 +33,13 @@ const getInfoById = (id, code, state) => {
   })
   return promise
 }
-export { getPlayResultById, getInfoById }
+const splitParms = parms => {
+  let arr = parms.toString().split('&')
+  let res = {}
+  arr.map(ele => {
+    let children = ele.split('=')
+    res[children[0]] = children[1]
+  })
+  return res
+}
+export { getPlayResultById, getInfoById, splitParms }

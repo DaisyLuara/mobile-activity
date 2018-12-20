@@ -1,67 +1,71 @@
 <template>
   <div
     :style="style.root"
-    class="content">
-    <div 
-      class="head">
-      <img
-        :src="base + 'logo.png'">
+    class="content"
+  >
+    <div class="head">
+      <img :src="base + 'logo.png'">
     </div>
-    <div
-      class="form-data">
+    <div class="form-data">
       <ul>
         <li class="line">
           <label>姓名</label>
-          <input 
-            id="name" 
-            v-model="people.name" 
-            type="text" 
-            placeholder="请输入姓名" >
+          <input
+            id="name"
+            v-model="people.name"
+            type="text"
+            placeholder="请输入姓名"
+          >
         </li>
         <li class="line">
           <label for="year">年龄</label>
-          <input 
-            id="year" 
-            v-model="people.year" 
-            type="number" 
-            placeholder="请输入年龄">
+          <input
+            id="year"
+            v-model="people.year"
+            type="number"
+            placeholder="请输入年龄"
+          >
         </li>
         <li>
           <label for="sex">性别</label>
-          <div 
+          <div
             :class="{'sex-radio':true,checked:male}"
-            @click="()=>{ male = true; female = false; people.sex = 0;}">
-            <span/>男
+            @click="()=>{ male = true; female = false; people.sex = 0;}"
+          >
+            <span />男
           </div>
-          <div 
+          <div
             :class="{'sex-radio':true,checked:female}"
-            @click="()=>{ male = false; female = true; people.sex = 1;}">
-            <span/>女
+            @click="()=>{ male = false; female = true; people.sex = 1;}"
+          >
+            <span />女
           </div>
         </li>
         <li class="line">
-          <label >手机</label>
-          <input 
-            id="mobile" 
-            v-model="people.mobile" 
-            type="number" 
-            placeholder="请输入手机号码">
+          <label>手机</label>
+          <input
+            id="mobile"
+            v-model="people.mobile"
+            type="number"
+            placeholder="请输入手机号码"
+          >
         </li>
         <li class="line">
-          <label >居住小区</label>
-          <input 
-            id="address" 
-            v-model="people.address" 
-            type="text" 
-            placeholder="请输入小区">
+          <label>居住小区</label>
+          <input
+            id="address"
+            v-model="people.address"
+            type="text"
+            placeholder="请输入小区"
+          >
         </li>
       </ul>
     </div>
-    <button 
+    <button
       class="sub"
-      @click="postData">
-      <img
-        :src="base + 'done.png'">
+      @click="postData"
+    >
+      <img :src="base + 'done.png'">
     </button>
   </div>
 </template>
@@ -73,10 +77,10 @@ import {
   Cookies,
   userData
 } from 'services'
-import { onlyWechatShare } from '../../mixins/onlyWechatShare'
+import { normalPages } from '@/mixins/normalPages'
 const BASE_URL = process.env.CDN_URL
 export default {
-  mixins: [onlyWechatShare],
+  mixins: [normalPages],
   data() {
     return {
       style: {
@@ -92,8 +96,6 @@ export default {
         mobile: null,
         address: null
       },
-      oid: this.$route.query.utm_source,
-      belong: this.$route.query.utm_campaign,
       male: true,
       female: false,
       userId: null,
@@ -103,9 +105,6 @@ export default {
         desc: '微笑转递',
         link: 'http://papi.xingstation.com/api/s/MQ3' + window.location.search,
         imgUrl: BASE_URL + '/fe/image/cangqian/icon.png',
-        success: () => {
-          wechatShareTrack()
-        }
       }
     }
   },
@@ -204,13 +203,13 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@base: 'http://cdn.exe666.com/fe/image/cangqian/';
+@base: "http://cdn.exe666.com/fe/image/cangqian/";
 /*声明 WebFont*/
 @font-face {
-  font-family: 'zhehei';
-  src: url('@{base}zhehei.ttf');
-  src: url('@{base}zhehei.eot'), url('@{base}zhehei.woff'),
-    url('@{base}zhehei.ttf'), url('@{base}zhehei.svg');
+  font-family: "zhehei";
+  src: url("@{base}zhehei.ttf");
+  src: url("@{base}zhehei.eot"), url("@{base}zhehei.woff"),
+    url("@{base}zhehei.ttf"), url("@{base}zhehei.svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -250,7 +249,7 @@ a {
     }
   }
   .form-data {
-    font-family: 'zhehei';
+    font-family: "zhehei";
     width: 69%;
     margin-top: 8%;
     ul,
@@ -277,7 +276,7 @@ a {
           line-height: 22px;
           // float: left;
           text-align: left;
-          font-family: 'Microsoft YaHei';
+          font-family: "Microsoft YaHei";
           letter-spacing: 1px;
           padding-left: 10px;
           cursor: pointer;
@@ -307,7 +306,7 @@ a {
         .checked {
           span {
             &:after {
-              content: ' ';
+              content: " ";
               width: 10px;
               height: 10px;
               background-color: #fdbc3c;
@@ -322,7 +321,7 @@ a {
       }
       .line {
         &:after {
-          content: ' ';
+          content: " ";
           width: 100%;
           height: 2px;
           border-bottom: solid 2px #434343;

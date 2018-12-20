@@ -118,7 +118,7 @@ import {
   getCouponId,
   getAdCoupon
 } from 'services'
-import { normalPages } from '../../mixins/normalPages'
+import { normalPages } from '@/mixins/normalPages'
 const REQ_URL = 'http://120.27.144.62:1337/parse/classes/'
 const IMG_SERVER = 'http://p22vy0aug.bkt.clouddn.com'
 export default {

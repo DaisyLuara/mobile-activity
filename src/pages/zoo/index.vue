@@ -1,44 +1,55 @@
 <template>
   <div
-    :style="style.root" 
-    class="root">
-    <img  
+    :style="style.root"
+    class="root"
+  >
+    <img
       :src="baseUrl + 'bg.png'"
-      :style="style.root" 
+      :style="style.root"
       :class="{isMoveBg:isMovebg}"
-      class="bg">
-    <div 
+      class="bg"
+    >
+    <div
       :class="{isMoveEnter:isMove}"
-      class="enter">
-      <img  
+      class="enter"
+    >
+      <img
         :src="baseUrl + 'enter.png'"
-        class="enter-bg">
-      <div 
-        class="input-area"  
-        @click="clearError">
-        <img 
+        class="enter-bg"
+      >
+      <div
+        class="input-area"
+        @click="clearError"
+      >
+        <img
           :src="baseUrl + 'b.png'"
-          class="input-bg">
-        <img 
+          class="input-bg"
+        >
+        <img
           v-show="status.isPhoneError"
           :src="baseUrl + 'error.png'"
-          class="input-error">
-        <input 
-          ref="inputreal" 
+          class="input-error"
+        >
+        <input
+          ref="inputreal"
           v-model="phoneValue"
-          maxlength="11" 
-          class="input-value">
-        <img 
-          v-if="status.shouldInputRemindShow" 
+          maxlength="11"
+          class="input-value"
+        >
+        <img
+          v-if="status.shouldInputRemindShow"
           :src="baseUrl + 'phone.png'"
-          class="input-rel">
+          class="input-rel"
+        >
       </div>
-      <div 
-        class="button" 
-        @click="checkPhoneValue">
-        <img 
+      <div
+        class="button"
+        @click="checkPhoneValue"
+      >
+        <img
           :src="baseUrl + 'a.png'"
-          class="remind-bt">
+          class="remind-bt"
+        >
       </div>
     </div>
   </div>
@@ -48,8 +59,10 @@ const wih = window.innerHeight
 const wiw = window.innerWidth
 const baseUrl =
   'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/zoo/'
-import { $wechat, wechatShareTrack, getInfoById, isInWechat } from 'services'
+import { $wechat, wechatShareTrack, isInWechat } from 'services'
+import { normalPages } from '@/mixins/normalPages'
 export default {
+  mixins: [normalPages],
   data() {
     return {
       baseUrl: baseUrl,
@@ -58,7 +71,6 @@ export default {
           height: wih + 'px'
         }
       },
-      photoUrl: '',
       isMovebg: false,
       isMove: false,
       phoneValue: null,
@@ -68,34 +80,18 @@ export default {
         shouldInputRemindShow: true,
         step: 'input'
       },
-      wxShareInfo: {
+      wxShareInfoValue: {
         title: '动物去哪了',
         desc: '让我们去动物园吧',
         imgUrl: baseUrl + 'share.png',
-        success: () => {
-          wechatShareTrack()
-        }
       }
     }
   },
   created() {
-    this.handleWeChatShare()
     this.getInfo()
   },
-  mounted() {},
+  mounted() { },
   methods: {
-    //处理微信分享
-    handleWeChatShare() {
-      if (isInWechat() === true) {
-        $wechat()
-          .then(res => {
-            res.share(this.wxShareInfo)
-          })
-          .catch(_ => {
-            console.warn(_.message)
-          })
-      }
-    },
     handleTrack() {
       let url =
         'http://exelook.com/client/goodsxsd/?id=' +
@@ -103,17 +99,9 @@ export default {
         '&mobile=' +
         String(this.phoneValue) +
         '&api=json'
-      this.$http.get(url).then(r => {})
+      this.$http.get(url).then(r => { })
     },
     getInfo() {
-      let id = this.$route.query.id
-      getInfoById(id)
-        .then(res => {
-          this.photoUrl = res.image
-        })
-        .catch(_ => {
-          console.warn(_.message)
-        })
       if (localStorage.getItem(this.mobile) != null) {
         this.redirct()
       }

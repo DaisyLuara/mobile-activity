@@ -28,7 +28,7 @@
 <script>
 const baseUrl = process.env.CDN_URL
 import { wechatShareTrack } from 'services'
-import { normalPages } from '../../mixins/normalPages'
+import { normalPages } from '@/mixins/normalPages'
 export default {
   mixins: [normalPages],
   data() {

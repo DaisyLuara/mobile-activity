@@ -1,59 +1,71 @@
 <template>
   <div
-    :style="style.root" 
-    class="root">
-    <img 
+    :style="style.root"
+    class="root"
+  >
+    <img
       :src="baseUrl + 'float_1.png'+ this.$qiniuCompress()"
-      class="floatLeft  animated  linear infinite  tada"> 
-    <img 
+      class="floatLeft  animated  linear infinite  tada"
+    >
+    <img
       :src="baseUrl + 'float_2.png'+ this.$qiniuCompress()"
-      class="floatRight animated  linear infinite  tada"> 
-    <img 
+      class="floatRight animated  linear infinite  tada"
+    >
+    <img
       :src="baseUrl + 'float_3.png'+ this.$qiniuCompress()"
       :class="{'x-floatBottom':iphoneX,'floatBottom':!iphoneX}"
-      class="floatBottom animated  linear infinite  tada"> 
+      class="floatBottom animated  linear infinite  tada"
+    >
     <div class="top">
-      <img 
+      <img
         :src="baseUrl + 'title.png'+ this.$qiniuCompress()"
-        class="title"> 
+        class="title"
+      >
     </div>
     <div class="center">
-      <img 
+      <img
         :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
         :class="{'x-frame':iphoneX,'frame':!iphoneX}"
-        class="frame"> 
-      <img 
+        class="frame"
+      >
+      <img
         :src="baseUrl + 'spot.png'+ this.$qiniuCompress()"
-        class="spot">
-      <img 
-        v-if="photo !== null" 
+        class="spot"
+      >
+      <img
+        v-if="photo !== null"
         :src="photo + this.$qiniuCompress()"
         :class="{'x-photo':iphoneX,'photo':!iphoneX}"
-        class="photo">
-      <img 
-        v-if="photo !== null" 
+        class="photo"
+      >
+      <img
+        v-if="photo !== null"
         :src="photo + this.$qiniuCompress()"
         :class="{'x-photo':iphoneX,'photo-real':!iphoneX}"
-        class="photo-real">
+        class="photo-real"
+      >
     </div>
     <div class="bottom">
-      <img 
+      <img
         :src="baseUrl + 'nav.png'+ this.$qiniuCompress()"
         :class="{'x-nav':iphoneX,'nav':!iphoneX}"
-        class="nav"> 
-      <img 
+        class="nav"
+      >
+      <img
         :src="baseUrl + 'bottom.png'+ this.$qiniuCompress()"
-        class="bottomImg"> 
-      <img 
+        class="bottomImg"
+      >
+      <img
         :src="baseUrl + 'prompt.png'+ this.$qiniuCompress()"
         :class="{'x-save':iphoneX,'save':!iphoneX}"
-        class="save"> 
+        class="save"
+      >
     </div>
   </div>
 </template>
 <script>
 import { wechatShareTrack } from 'services'
-import { normalPages } from '../../mixins/normalPages'
+import { normalPages } from '@/mixins/normalPages'
 const cdnUrl = process.env.CDN_URL
 import 'animate.css'
 export default {
@@ -90,7 +102,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: 'http://cdn.exe666.com/fe/marketing/img/turn_world/';
+@imageHost: "http://cdn.exe666.com/fe/marketing/img/turn_world/";
 html,
 body {
   width: 100%;

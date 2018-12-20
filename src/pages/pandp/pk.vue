@@ -25,7 +25,7 @@ import {
   createGame,
   getGame
 } from 'services'
-import { normalPages } from '../../mixins/normalPages'
+import { normalPages } from '@/mixins/normalPages'
 const IMGSERVER = process.env.CDN_URL + '/image/'
 export default {
   mixins: [normalPages],

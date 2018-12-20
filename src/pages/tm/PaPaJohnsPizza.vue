@@ -73,7 +73,7 @@ import {
   validatePhone,
   checkGetCoupon
 } from 'services'
-import { normalPages } from '../../mixins/normalPages'
+import { normalPages } from '@/mixins/normalPages'
 import { Toast } from 'mint-ui'
 const cdnUrl = process.env.CDN_URL
 export default {
