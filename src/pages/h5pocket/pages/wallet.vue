@@ -2,13 +2,8 @@
   <div class="wallet">
     <p>{{ errorMessage }}</p>
     <TabBar/>
-    <div 
-      v-for="(item, index) in list" 
-      :key="index" 
-      class="coupon-wrapper">
-      <CouponItem 
-        :coupon-type="couponType" 
-        :coupon-data="item"/>
+    <div v-for="(item, index) in list" :key="index" class="coupon-wrapper">
+      <CouponItem :coupon-type="couponType" :coupon-data="item"/>
     </div>
   </div>
 </template>
@@ -46,9 +41,10 @@ export default {
           if (infoRes.userinfo !== null) {
             if (infoRes.userinfo.hasOwnProperty("z")) {
               let setZ = infoRes.userinfo.z;
+              let setMarketId = infoRes.userinfo.marketid;
               localZ = setZ;
               localStorage.setItem("z", setZ);
-              localStorage.setItem("marketid", infoRes.marketid);
+              localStorage.setItem("marketid", setMarketId);
               await this.hanldeFirstGetCoupon(localZ);
               await this.fetchWalletList();
             }
