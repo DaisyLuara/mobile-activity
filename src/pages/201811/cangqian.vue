@@ -1,25 +1,26 @@
 <template>
   <div
     :style="style.root"
-    :class="{content:true,iphoneX:iphoneX}">
-    <div 
-      class="main">
-      <img  
+    :class="{content:true,iphoneX:iphoneX}"
+  >
+    <div class="main">
+      <img
         :src="photo"
-        class="photo">
+        class="photo"
+      >
       <a
         href="javascript:void(0)"
         class="zc"
-        @click="goToRegister">
-        <img 
-          :src="base + 'zc.png'">
+        @click="goToRegister"
+      >
+        <img :src="base + 'zc.png'">
       </a>
     </div>
   </div>
 </template>
 <script>
 import { $wechat, wechatShareTrack, isInWechat } from 'services'
-import { normalPages } from '../../mixins/normalPages'
+import { normalPages } from '@/mixins/normalPages'
 const BASE_URL = process.env.CDN_URL
 export default {
   mixins: [normalPages],
@@ -31,19 +32,13 @@ export default {
         }
       },
       base: BASE_URL + '/fe/image/cangqian/',
-      photo: null,
       iphoneX: false,
-      oid: this.$route.query.utm_source,
-      belong: this.$route.query.utm_campaign,
       //微信分享
       wxShareInfoValue: {
         title: '仓前街道市民客厅',
         desc: '微笑转递',
         link: 'http://papi.xingstation.com/api/s/L84' + window.location.search,
         imgUrl: BASE_URL + '/fe/image/cangqian/icon.png',
-        success: () => {
-          wechatShareTrack()
-        }
       }
     }
   },
@@ -53,6 +48,11 @@ export default {
       this.iphoneX = true
     } else {
       this.iphoneX = false
+    }
+  },
+  watch: {
+    belong() {
+      this.handlePost()
     }
   },
   methods: {
@@ -84,7 +84,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@base: 'http://cdn.exe666.com/fe/image/cangqian/';
+@base: "http://cdn.exe666.com/fe/image/cangqian/";
 html,
 body {
   width: 100%;
@@ -115,7 +115,7 @@ a {
   .main {
     position: relative;
     width: 100%;
-    background: url('@{base}frame.png') 65% top / 88.5% auto no-repeat;
+    background: url("@{base}frame.png") 65% top / 88.5% auto no-repeat;
     .photo {
       width: 74%;
       pointer-events: auto;

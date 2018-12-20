@@ -36,7 +36,7 @@
 const wih = window.innerHeight
 import { $wechat, getInfoById, wechatShareTrack } from 'services'
 import { Toast } from 'mint-ui'
-import { normalPages } from '../../mixins/normalPages'
+import { normalPages } from '@/mixins/normalPages'
 const IMAGE_SERVER =
   'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/pjfd/'
 export default {

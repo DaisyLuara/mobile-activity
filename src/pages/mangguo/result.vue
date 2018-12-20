@@ -19,7 +19,7 @@
 <script>
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 import { $wechat, wechatShareTrack } from 'services'
-import { normalPages } from '../../mixins/normalPages'
+import { normalPages } from '@/mixins/normalPages'
 export default {
   mixins: [normalPages],
   data() {

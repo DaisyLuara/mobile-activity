@@ -31,7 +31,7 @@
 import { wechatShareTrack, parseService } from 'services'
 import $ from 'jquery'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
-import { normalPages } from '../../mixins/normalPages'
+import { normalPages } from '@/mixins/normalPages'
 export default {
   mixins: [normalPages],
   data() {

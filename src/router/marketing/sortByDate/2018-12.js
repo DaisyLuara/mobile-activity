@@ -343,7 +343,7 @@ const Date201812 = [
     location: '201812/lhvision',
     name: 'lh_vision',
     meta: {
-      title: '幻境',
+      title: '街成双 FUN加倍',
       author: 'lipan',
       desc: '龙湖天街-幻境'
     },
@@ -354,7 +354,7 @@ const Date201812 = [
     location: '201812/lhdelivery',
     name: 'lh_delivery',
     meta: {
-      title: '圣诞派送',
+      title: '街成双 FUN加倍',
       author: 'lipan',
       desc: '龙湖天街-圣诞派送'
     },

@@ -53,7 +53,7 @@
 <script>
 import $ from 'jquery'
 import { $wechat, wechatShareTrack, isInWechat } from 'services'
-import { normalPages } from '../../mixins/normalPages'
+import { normalPages } from '@/mixins/normalPages'
 const BASE_URL = process.env.CDN_URL
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {

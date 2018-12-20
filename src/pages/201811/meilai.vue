@@ -1,54 +1,66 @@
 <template>
-  <div 
+  <div
     :style="style.root"
-    :class="{content:true,iphoneX:iphoneX}">
-    <div 
-      class="main">
-      <div class="circles"> 
-        <img 
-          :src="imgUrl+'gear1.png'" 
-          class="gear1">
-        <img 
-          :src="imgUrl+'gear2.png'" 
-          class="gear2">
-        <img 
-          :src="imgUrl+'gear3.png'" 
-          class="gear3">
-        <img 
-          :src="imgUrl+'gear4.png'" 
-          class="gear4">
-        <img 
-          :src="imgUrl+'gear5.png'" 
-          class="gear5">
-        <img 
-          :src="imgUrl+'gear6.png'" 
-          class="gear6">
-        <img 
-          :src="imgUrl+'gear7.png'" 
-          class="gear7">
-        <img 
-          :src="imgUrl+'gear8.png'" 
-          class="gear8">
-        <img 
-          :src="imgUrl+'gear9.png'" 
-          class="gear9">
+    :class="{content:true,iphoneX:iphoneX}"
+  >
+    <div class="main">
+      <div class="circles">
+        <img
+          :src="imgUrl+'gear1.png'"
+          class="gear1"
+        >
+        <img
+          :src="imgUrl+'gear2.png'"
+          class="gear2"
+        >
+        <img
+          :src="imgUrl+'gear3.png'"
+          class="gear3"
+        >
+        <img
+          :src="imgUrl+'gear4.png'"
+          class="gear4"
+        >
+        <img
+          :src="imgUrl+'gear5.png'"
+          class="gear5"
+        >
+        <img
+          :src="imgUrl+'gear6.png'"
+          class="gear6"
+        >
+        <img
+          :src="imgUrl+'gear7.png'"
+          class="gear7"
+        >
+        <img
+          :src="imgUrl+'gear8.png'"
+          class="gear8"
+        >
+        <img
+          :src="imgUrl+'gear9.png'"
+          class="gear9"
+        >
       </div>
-      <img 
-        id="mImg" 
-        :src="photo" 
-        class="money">
-      <img 
-        :src="imgUrl+'frame1.png'" 
-        class="imgframe">
+      <img
+        id="mImg"
+        :src="photo"
+        class="money"
+      >
+      <img
+        :src="imgUrl+'frame1.png'"
+        class="imgframe"
+      >
     </div>
-    <img 
-      :src="imgUrl+'logo.png'" 
-      class="logo">
+    <img
+      :src="imgUrl+'logo.png'"
+      class="logo"
+    >
   </div>
 </template>
 <script>
 import { $wechat, wechatShareTrack, isInWechat } from 'services'
-import { normalPages } from '../../mixins/normalPages'
+import { normalPages } from '@/mixins/normalPages'
 const BASE_URL = process.env.CDN_URL
 export default {
   mixins: [normalPages],
@@ -86,7 +98,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://cdn.exe666.com/fe/image/yanzhi/meilai';
+@imgUrl: "http://cdn.exe666.com/fe/image/yanzhi/meilai";
 html,
 body {
   width: 100%;
@@ -112,7 +124,7 @@ img {
   font-size: 0;
   position: relative;
   overflow-x: hidden;
-  background: url('@{imgUrl}/back.png') center center/100% 100% no-repeat;
+  background: url("@{imgUrl}/back.png") center center/100% 100% no-repeat;
   .main {
     width: 100%;
     position: relative;

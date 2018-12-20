@@ -77,7 +77,7 @@ import {
   getGame,
   setParameter
 } from 'services'
-import { normalPages } from '../../mixins/normalPages'
+import { normalPages } from '@/mixins/normalPages'
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 const IMG_SERVER = process.env.CDN_URL
