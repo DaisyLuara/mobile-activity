@@ -4,15 +4,15 @@
       <div class="boots-wrap">
         <div class="slide-wrap pos-common">
           <img
-            :src="imgServerUrl + '/boot-line.png'" 
+            :src="imgServerUrl + '/boot-line.png'"
             class="boot-line pos-common"
           >
           <img
-            :src="imgServerUrl + '/boot-text.png'" 
+            :src="imgServerUrl + '/boot-text.png'"
             class="boot-text pos-common"
           >
           <img
-            :src="imgServerUrl + '/gesture-img.png'" 
+            :src="imgServerUrl + '/gesture-img.png'"
             class="gesture-img pos-common"
           >
           <div class="boot-img" />
@@ -20,22 +20,22 @@
       </div>
       <div class="photo-wrap">
         <img
-          :src="imgServerUrl + '/photo_frame.png'" 
+          :src="imgServerUrl + '/photo_frame.png'"
           class="envelope-bg"
         >
         <img
-          :src="img_url" 
+          :src="photo"
           class="photo-img"
         >
         <div class="photo-cover">
           <img
-            :src="imgServerUrl + '/photo-cover2.png'" 
+            :src="imgServerUrl + '/photo-cover2.png'"
             class="cover-img"
           >
         </div>
         <img
-          :src="imgServerUrl + '/save-img3.png'" 
-          class="save-img" 
+          :src="imgServerUrl + '/save-img3.png'"
+          class="save-img"
         >
       </div>
     </div>
@@ -43,19 +43,20 @@
 </template>
 <script>
 import $ from 'jquery'
-import { $wechat, getInfoById, wechatShareTrack } from 'services'
+import { $wechat, wechatShareTrack } from 'services'
+import { normalPages } from "../../mixins/normalPages";
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 
 export default {
+  mixins: [normalPages],
   data() {
     return {
-      img_url: '',
       imgServerUrl: IMAGE_SERVER + '/pages/psbh_travel',
       wxShareInfo: {
         title: '我在携程未来旅行空间站，高清硬照求围观！',
         desc: '4月5日-7日，苏州站邀你体验',
         imgUrl:
-          'http://p22vy0aug.bkt.clouddn.com/image/xiecheng/travelicon.png',
+          'https://cdn.exe666.com/image/xiecheng/travelicon.png',
         success: () => {
           wechatShareTrack()
         }
@@ -76,20 +77,7 @@ export default {
         console.warn(_.message)
       })
   },
-  created() {
-    this.getPeopleImage()
-  },
   methods: {
-    getPeopleImage() {
-      let id = decodeURI(this.$route.query.id)
-      getInfoById(id)
-        .then(result => {
-          this.img_url = result.image
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    },
     init() {
       let wid = 0,
         slogen_hei = 0,
@@ -105,7 +93,7 @@ export default {
       boot_hei = wid * 267 / 750
       $('.boots-wrap').height(boot_hei)
 
-      document.addEventListener('touchstart', function() {}, true)
+      document.addEventListener('touchstart', function () { }, true)
 
       boot_obj.off('touchstart', enter)
       boot_obj.on('touchstart', enter)
@@ -131,7 +119,7 @@ export default {
 
         if (diff > end_pos) {
           curr_pos = end_pos - start_pos
-          setTimeout(function() {
+          setTimeout(function () {
             $('.boots-wrap').addClass('hide')
             $('.boots-btn-wrap').addClass('show')
           }, 500)
@@ -158,7 +146,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgServerUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/psbh_travel';
+@imgServerUrl: "http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/psbh_travel";
 .psbh-travel-wrap {
   .photo-content {
     width: 100%;
@@ -255,13 +243,13 @@ export default {
           .mask {
             background-size: 102%;
             background-position-x: -5px;
-            background-image: url('@{imgServerUrl}/adv2-img.png');
-            -webkit-mask-image: url('@{imgServerUrl}/mask2-img.png');
+            background-image: url("@{imgServerUrl}/adv2-img.png");
+            -webkit-mask-image: url("@{imgServerUrl}/mask2-img.png");
             background-position: 50% 50%;
             animation: moveFromRight 1s 0.2s 1 forwards;
           }
           .outer {
-            background-image: url('@{imgServerUrl}/frame2-img.png');
+            background-image: url("@{imgServerUrl}/frame2-img.png");
           }
         }
         &.frame3 {
@@ -270,12 +258,12 @@ export default {
           top: 53%;
           .mask {
             background-position: -5px -10px;
-            background-image: url('@{imgServerUrl}/adv3-img.png');
-            -webkit-mask-image: url('@{imgServerUrl}/mask3-img.png');
+            background-image: url("@{imgServerUrl}/adv3-img.png");
+            -webkit-mask-image: url("@{imgServerUrl}/mask3-img.png");
             animation: moveFromLest 1s 0.5s 1 forwards;
           }
           .outer {
-            background-image: url('@{imgServerUrl}/frame3-img.png');
+            background-image: url("@{imgServerUrl}/frame3-img.png");
           }
         }
         &.frame4 {
@@ -284,10 +272,10 @@ export default {
           top: 56.5%;
           .mask {
             opacity: 1;
-            -webkit-mask-image: url('@{imgServerUrl}/mask4-img.png');
+            -webkit-mask-image: url("@{imgServerUrl}/mask4-img.png");
           }
           .outer {
-            background-image: url('@{imgServerUrl}/frame4-img.png');
+            background-image: url("@{imgServerUrl}/frame4-img.png");
             .finger-img {
               position: absolute;
               left: 13%;
@@ -396,15 +384,15 @@ export default {
           z-index: 5;
           background-repeat: no-repeat;
           background-size: 100%;
-          background-image: url('@{imgServerUrl}/plane.png');
+          background-image: url("@{imgServerUrl}/plane.png");
           &.proccess1 {
-            background-image: url('@{imgServerUrl}/boot2-img.png');
+            background-image: url("@{imgServerUrl}/boot2-img.png");
           }
           &.proccess2 {
-            background-image: url('@{imgServerUrl}/boot3-img.png');
+            background-image: url("@{imgServerUrl}/boot3-img.png");
           }
           &.proccess3 {
-            background-image: url('@{imgServerUrl}/boot4-img.png');
+            background-image: url("@{imgServerUrl}/boot4-img.png");
           }
           transition: background 0.5s;
         }
@@ -617,9 +605,9 @@ export default {
           width: 52.4%;
           left: 8.5%;
           .mask {
-            background-image: url('@{imgServerUrl}/bubble1-bg.png');
+            background-image: url("@{imgServerUrl}/bubble1-bg.png");
             -webkit-mask-size: 100%;
-            -webkit-mask-image: url('@{imgServerUrl}/bubble1-mask.png');
+            -webkit-mask-image: url("@{imgServerUrl}/bubble1-mask.png");
             z-index: 2;
           }
           .bubble-animate {
@@ -638,9 +626,9 @@ export default {
           width: 41.2%;
           right: 8.5%;
           .mask {
-            background-image: url('@{imgServerUrl}/bubble2-bg.png');
+            background-image: url("@{imgServerUrl}/bubble2-bg.png");
             -webkit-mask-size: 100%;
-            -webkit-mask-image: url('@{imgServerUrl}/bubble2-mask.png');
+            -webkit-mask-image: url("@{imgServerUrl}/bubble2-mask.png");
             z-index: 3;
           }
         }
@@ -668,7 +656,7 @@ export default {
         z-index: 1;
       }
       .compass-img {
-        background-image: url('@{imgServerUrl}/compass-img.png');
+        background-image: url("@{imgServerUrl}/compass-img.png");
         background-repeat: no-repeat;
         background-size: 100%;
         z-index: 5;

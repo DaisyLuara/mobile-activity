@@ -1,67 +1,73 @@
 <template>
-  <div 
+  <div
     :style="style.root"
-    class="content">
-    <div 
-      class="main">
-      <img 
+    class="content"
+  >
+    <div class="main">
+      <img
         :src="base+'frame.png'"
-        class="cover">
-      <div 
+        class="cover"
+      >
+      <div
         :class="{audio:true,circle:circle}"
-        @click="playOrNot">
-        <img
-          :src="base + music + '.png'">
-        <audio 
-          id="voice" 
+        @click="playOrNot"
+      >
+        <img :src="base + music + '.png'">
+        <audio
+          id="voice"
           loop
-          autobuffer 
-          autoplay 
-          hidden>
+          autobuffer
+          autoplay
+          hidden
+        >
           <source :src="origin + 'mp3/'+m_name[m_num]+'.mp3'">
         </audio>
       </div>
-      <div 
+      <div
         v-show="vshow"
-        class="showing">
-        <video 
-          id="video" 
-          webkit-playsinline="true" 
-          playsinline="true" 
-          x-webkit-airplay="true" 
+        class="showing"
+      >
+        <video
+          id="video"
+          webkit-playsinline="true"
+          playsinline="true"
+          x-webkit-airplay="true"
           x5-video-player-type="h5"
           preload="auto"
           qb-video-float-mode="true"
-          style="width: 100%; height:100%; position: absolute; left: 0px; top: 0px;">
-          <source 
-            :src="video" 
-            type="video/mp4">
+          style="width: 100%; height:100%; position: absolute; left: 0px; top: 0px;"
+        >
+          <source
+            :src="video"
+            type="video/mp4"
+          >
           您的浏览器不支持video标签.
         </video>
       </div>
       <img
         v-show="bgshow"
         :src="base + 'vbg.png'+this.$qiniuCompress()"
-        class="vbg">
-      <div
-        class="playing">
-        <a 
+        class="vbg"
+      >
+      <div class="playing">
+        <a
           v-show="Boolean(video)"
           class="vbtn"
-          @click="playVideo">
-          <img
-            :src="base + v_status+'.png'">
+          @click="playVideo"
+        >
+          <img :src="base + v_status+'.png'">
         </a>
       </div>
     </div>
-    <div 
-      class="task-group">
-      <img 
+    <div class="task-group">
+      <img
         :src="origin + 'proj/' + task.left + '.png?1212'"
-        class="left">
-      <img 
+        class="left"
+      >
+      <img
         :src="origin +'proj/' + task.right + '.png?1212'"
-        class="right">
+        class="right"
+      >
     </div>
   </div>
 </template>
@@ -77,7 +83,7 @@ import {
   getInfoById,
   getGame
 } from 'services'
-import { onlyWechatShare } from '../../mixins/onlyWechatShare'
+import { onlyWechatShare } from '@/mixins/onlyWechatShare'
 const IMG_SERVER = process.env.CDN_URL
 export default {
   mixins: [onlyWechatShare],
@@ -93,7 +99,6 @@ export default {
       deUrl:
         'http://wx.qlogo.cn/mmopen/Q3auHgzwzM4VoBYD1YEIq0E3LFM1XLKsd3sG5VXRAvCUqCVXIPTcI0TzqicRWfzB9Zv40GhTR83RhKAugpzOuaJFC11nxmcnnp6ZbOu04UFw/0',
       userId: null,
-      belong: this.$route.query.utm_campaign,
       task: {
         left: '11',
         right: '22'
@@ -105,6 +110,7 @@ export default {
       vshow: false,
       v_status: 'play',
       video: null,
+      belong: null,
       //'http://cdn.exe666.com/1007/video/WhoTakeMoonCake_235_96_1492926959345.mp4',
       bgshow: true,
       //微信分享
@@ -113,9 +119,6 @@ export default {
         desc: '月饼被谁吃了',
         link: 'http://papi.xingstation.com/api/s/1wR' + window.location.search,
         imgUrl: 'http://cdn.exe666.com/image/zhongqiu/3/share.png',
-        success: function() {
-          wechatShareTrack()
-        }
       }
     }
   },
@@ -130,7 +133,7 @@ export default {
       }
     }
     this.playAudio()
-    this.getInfoById()
+
   },
   methods: {
     handleWechatAuth() {
@@ -144,8 +147,7 @@ export default {
         window.location.href = redirct_url
       } else {
         this.userId = Cookies.get('user_id')
-        this.createGame(this.belong, this.userId)
-        this.userGame()
+        this.getInfoById()
       }
     },
     getInfoById() {
@@ -153,6 +155,9 @@ export default {
       getInfoById(id)
         .then(res => {
           this.video = res.url
+          this.belong = res.belong
+          this.createGame(this.belong, this.userId)
+          this.userGame()
         })
         .catch(err => {
           console.log(err)
@@ -218,17 +223,17 @@ export default {
       video.load()
       video.play()
 
-      video.onplay = function() {
+      video.onplay = function () {
         video.currentTime = 0
         that.vshow = true
         that.v_status = 'pause'
       }
-      video.onpause = function() {
+      video.onpause = function () {
         that.bgshow = true
         that.vshow = false
         that.v_status = 'play'
       }
-      video.onended = function() {
+      video.onended = function () {
         that.bgshow = true
         that.vshow = false
         that.v_status = 'play'
@@ -261,16 +266,16 @@ export default {
         if (document.addEventListener) {
           document.addEventListener(
             'WeixinJSBridgeReady',
-            function() {
+            function () {
               voice.play()
             },
             false
           )
         } else if (document.attachEvent) {
-          document.attachEvent('WeixinJSBridgeReady', function() {
+          document.attachEvent('WeixinJSBridgeReady', function () {
             voice.play()
           })
-          document.attachEvent('onWeixinJSBridgeReady', function() {
+          document.attachEvent('onWeixinJSBridgeReady', function () {
             voice.play()
           })
         }
@@ -281,7 +286,7 @@ export default {
       //监听 touchstart 事件进而调用 <audio> 元素提供的 play() 方法播放音频
       document.addEventListener(
         'touchstart',
-        function(e) {
+        function (e) {
           if (voiceStatu) {
             voice.play()
             voiceStatu = false
@@ -289,11 +294,11 @@ export default {
         },
         false
       )
-      voice.onplay = function() {
+      voice.onplay = function () {
         that.music = 'music_open'
         that.circle = true
       }
-      voice.onpause = function() {
+      voice.onpause = function () {
         that.music = 'music_close'
         that.circle = false
       }
@@ -311,7 +316,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@base: 'http://cdn.exe666.com/image/zhongqiu/3/';
+@base: "http://cdn.exe666.com/image/zhongqiu/3/";
 html,
 body {
   width: 100%;

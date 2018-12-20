@@ -113,12 +113,12 @@ export default {
           'mocha_right.png',
           'wuren_right.png'
         ],
-        name: null,//this.$route.query.cake_name,
+        name: null,
         headImgUrl: null,
         // 'http://cdn.exe666.com/image/zhongqiu/1/share.png', //null,
-        people: null,//this.$route.query.people_type,
-        cake_type_a: null, //this.$route.query.cake_type_a,
-        cake_type_b: null, //this.$route.query.cake_type_b
+        people: null,
+        cake_type_a: null,
+        cake_type_b: null,
       },
       task: {
         left: '22',

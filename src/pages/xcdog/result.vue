@@ -2,93 +2,70 @@
   <div class="photo-content">
     <div class="boots-wrap">
       <div class="slide-wrap pos-common">
-        <img 
+        <img
           :src="imgPath+'line.png'"
-          class="boot-line" 
-        > 
-        <img 
+          class="boot-line"
+        >
+        <img
           :src="imgPath+'text1.png'"
           class="boot-text pos-common"
         >
         <img
-          :src="imgPath+'gesture-img.png'" 
+          :src="imgPath+'gesture-img.png'"
           class="gesture-img"
-        > 
-        <div class="boot-img"/>
+        >
+        <div class="boot-img" />
       </div>
     </div>
     <div class="photo-wrap">
       <img
-        :src="imgPath+'frame.png'" 
-        class="envelope-bg" 
+        :src="imgPath+'frame.png'"
+        class="envelope-bg"
       >
       <img
-        :src="photo" 
+        :src="photo"
         class="photo-img"
       >
     </div>
     <div class="save-img">
       <img
-        :src="imgPath+'text.png'" 
+        :src="imgPath+'text.png'"
         class="hint"
       >
     </div>
     <div class="photo-cover">
       <img
-        :src="imgPath+'shade.png'" 
+        :src="imgPath+'shade.png'"
         class="cover-img"
       >
     </div>
   </div>
 </template>
 <script>
-const IMG_URL = 'http://p22vy0aug.bkt.clouddn.com/image/'
+const IMG_URL = process.env.CDN_URL;
 import $ from 'jquery'
 import { $wechat, wechatShareTrack } from 'services'
+import { normalPages } from '@/mixins/normalPages'
 export default {
+  mixins: [normalPages],
   data() {
     return {
-      imgPath: IMG_URL + 'xcdog/',
-      photo: null,
-      wxShareInfo: {
+      imgPath: IMG_URL + '/fe/image/xcdog/',
+      wxShareInfoValue: {
         title: '我在携程未来旅行空间站，高清硬照求围观！',
         desc: '4月5日-7日，苏州站邀你体验',
-        imgUrl: IMG_URL + 'xcdog/icon.jpg',
-        success: () => {
-          wechatShareTrack()
-        }
+        imgUrl: IMG_URL + '/fe/image/xcdog/icon.jpg'
       }
     }
   },
   beforeCreate() {
     document.title = '携程旅行'
   },
-  created() {
-    this.getPeopleImage()
-  },
   mounted() {
     $('.photo-content').css('min-height', $(window).height())
     this.init()
-    $wechat()
-      .then(res => {
-        res.share(this.wxShareInfoValue)
-      })
-      .catch(_ => {
-        console.warn(_.message)
-      })
   },
   methods: {
-    getPeopleImage() {
-      let id = decodeURI(this.$route.query.id)
-      getInfoById(id)
-        .then(result => {
-          this.photo = result.image
-          console.log(result)
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    },
     init() {
       let wid = 0,
         slogen_hei = 0,
@@ -109,7 +86,7 @@ export default {
       boot_hei = wid * 267 / 750
       $('.boots-wrap').height(boot_hei)
 
-      document.addEventListener('touchstart', function() {}, true)
+      document.addEventListener('touchstart', function () { }, true)
 
       boot_obj.off('touchstart', enter)
       boot_obj.on('touchstart', enter)
@@ -135,7 +112,7 @@ export default {
         }
         if (diff < end_pos) {
           curr_pos = end_pos - start_pos
-          setTimeout(function() {
+          setTimeout(function () {
             $('.boots-wrap').addClass('hide')
             $('.boots-btn-wrap').addClass('show')
           }, 500)
@@ -170,13 +147,13 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/xcdog';
+@imgUrl: "https://cdn.exe666.com/fe/image/xcdog";
 
 .photo-content {
   width: 100%;
   height: 100vh;
   position: relative;
-  background-image: url('@{imgUrl}/back.jpg');
+  background-image: url("@{imgUrl}/back.jpg");
   overflow: hidden;
   text-align: center;
   display: -webkit-box;
@@ -412,7 +389,7 @@ export default {
         z-index: 5;
         background-repeat: no-repeat;
         background-size: 100%;
-        background-image: url('@{imgUrl}/logo.png');
+        background-image: url("@{imgUrl}/logo.png");
 
         transition: background 0.5s;
       }

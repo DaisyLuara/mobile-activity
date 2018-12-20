@@ -1,117 +1,127 @@
 <template>
-  <div 
+  <div
     :style="style.root"
-    class="content">
+    class="content"
+  >
     <div
-      v-show="Boolean(share_audio)" 
+      v-show="Boolean(share_audio)"
       :class="{audio:true,circle:circle}"
-      @click="playOrNot">
-      <img
-        :src="origin + '/3/' + music + '.png'">
-      <audio 
-        id="vshare" 
+      @click="playOrNot"
+    >
+      <img :src="origin + '/3/' + music + '.png'">
+      <audio
+        id="vshare"
         loop
-        autobuffer 
-        autoplay 
-        hidden>
+        autobuffer
+        autoplay
+        hidden
+      >
         <source :src="origin + 'mp3/' + share_audio + '.mp3'">
       </audio>
     </div>
-    <div 
-      class="one">
-      <img 
+    <div class="one">
+      <img
         :src="base+'bg1.png'"
-        class="bg">
-      <img 
+        class="bg"
+      >
+      <img
         :src="base+'ggift.png'"
-        class="gift">
-      <img 
+        class="gift"
+      >
+      <img
         :src="origin + 'people/people' + people_type + '.png'"
-        class="people">
-      <span
-        class="text">{{ text }}</span>
+        class="people"
+      >
+      <span class="text">{{ text }}</span>
       <a
         class="btn"
-        @click="checkPop">
-        <img 
-          :src="base + tobtn + '.png'">
+        @click="checkPop"
+      >
+        <img :src="base + tobtn + '.png'">
       </a>
-      <div 
+      <div
         v-show="popUp"
-        class="pop">
+        class="pop"
+      >
         <ul>
-          <li 
-            v-for="item in 6" 
-            :key="item.id">
-            <div 
-              v-if="item==5"/>
+          <li
+            v-for="item in 6"
+            :key="item.id"
+          >
+            <div v-if="item==5" />
             <div
-              v-else 
-              class="sound-icon">
-              <a 
+              v-else
+              class="sound-icon"
+            >
+              <a
                 class="iconbox"
-                @click="playVoice(item)">
+                @click="playVoice(item)"
+              >
                 <img
                   :src="base + 'icon_mask.png'"
-                  :class="{icon_mask:true,active:item==ins}">
+                  :class="{icon_mask:true,active:item==ins}"
+                >
                 <img
                   :src="base + 'icon' + item + '.png?111'"
-                  class="icon">
+                  class="icon"
+                >
                 <label>
-                  <img
-                    :src="base + 'iconbg.png?111'">
+                  <img :src="base + 'iconbg.png?111'">
                   <span>{{ audio.text[item] }}</span>
                 </label>
               </a>
             </div>
           </li>
         </ul>
-        <div 
-          :class="{voices:true,playvoice:startvoice}">
-          <audio 
-            id="voice" 
-            autobuffer 
-            autoplay >
+        <div :class="{voices:true,playvoice:startvoice}">
+          <audio
+            id="voice"
+            autobuffer
+            autoplay
+          >
             <source src="">
           </audio>
         </div>
-        <a 
+        <a
           class="sub"
-          @click="toSub">
-          <img 
-            :src="base+'sub.png'">
+          @click="toSub"
+        >
+          <img :src="base+'sub.png'">
         </a>
       </div>
       <div
         v-show="shareNote"
         class="share-note"
-        @click="()=>{shareNote=false;}">
-        <img
-          :src="base+'share_note.png'">
+        @click="()=>{shareNote=false;}"
+      >
+        <img :src="base+'share_note.png'">
       </div>
     </div>
-    <div 
-      class="two">
-      <img 
+    <div class="two">
+      <img
         :src="base+'bg2.png'"
-        class="bg">
-      <img 
+        class="bg"
+      >
+      <img
         :src="base + 'pic.png'"
-        class="frame">
-      <img 
+        class="frame"
+      >
+      <img
         :src="photo"
-        class="photo">
-      <div 
-        class="task-group">
-        <img 
+        class="photo"
+      >
+      <div class="task-group">
+        <img
           :src="origin + 'proj/' + task.left + '.png?1212'"
-          class="left">
-        <img 
+          class="left"
+        >
+        <img
           :src="origin +'proj/' + task.right + '.png?1212'"
-          class="right">
+          class="right"
+        >
       </div>
     </div>
-    
+
   </div>
 </template>
 <script>
@@ -147,12 +157,13 @@ export default {
       headImgUrl: null,
       mask: false,
       startvoice: false,
-      people_type: this.$route.query.people_type,
-      belong: this.$route.query.utm_campaign,
-      text: this.$route.query.cake_name,
+      people_type: null,
+      text: null,
+      cake_type_a: null,
+      cake_type_b: null,
       ins: 0,
       circle: true,
-      share_audio: this.$route.query.share_voice,
+      share_audio: null,
       audioUrl: null,
       shareNote: false,
       popUp: false,
@@ -173,10 +184,20 @@ export default {
         desc: '采购中秋月饼,送吃送祝福',
         link: 'http://papi.xingstation.com/api/s/Z6J' + window.location.search,
         imgUrl: 'http://cdn.exe666.com/image/zhongqiu/2/share.png',
-        success: function() {
-          wechatShareTrack()
-        }
       }
+    }
+  },
+  watch: {
+    parms() {
+      this.people_type = this.parms.people_type
+      this.text = this.parms.cake_name
+      this.share_audio = this.parms.share_audio
+      this.cake_type_a = this.parms.cake_type_a
+      this.cake_type_b = this.parms.cake_type_b
+      this.playAudio()
+      this.handlePost()
+      this.createGame(this.belong, this.userId)
+      this.userGame()
     }
   },
   mounted() {
@@ -189,10 +210,7 @@ export default {
         this.handleWechatAuth()
       }
     }
-    if (this.$route.query.share_voice) {
-      this.playAudio()
-    }
-    this.handlePost()
+
   },
   methods: {
     handleWechatAuth() {
@@ -208,7 +226,7 @@ export default {
         this.userId = Cookies.get('user_id')
         this.createGame(this.belong, this.userId)
         this.userGame()
-        this.handlePost()
+        // this.handlePost()
       }
     },
     createGame(belong, userId) {
@@ -271,17 +289,14 @@ export default {
       this.popUp = true
     },
     handlePost() {
-      let oid = this.$route.query.utm_source
       let id = this.$route.query.id
-      let cake_type_a = this.$route.query.cake_type_a
-      let cake_type_b = this.$route.query.cake_type_b
       let url =
         'http://exelook.com:8010/pushdiv/?oid=563,213,387,229,427,220,544,475,435&belong=WhoTakeMoonCake&id=' +
         id +
         "&url={'cakeID':0,'cake_type_a':" +
-        cake_type_a +
+        this.cake_type_a +
         ",'cake_type_b':" +
-        cake_type_b +
+        this.cake_type_b +
         ",'people_type':" +
         this.people_type +
         '}&name&image&api=json'
@@ -318,16 +333,16 @@ export default {
         if (document.addEventListener) {
           document.addEventListener(
             'WeixinJSBridgeReady',
-            function() {
+            function () {
               vshare.play()
             },
             false
           )
         } else if (document.attachEvent) {
-          document.attachEvent('WeixinJSBridgeReady', function() {
+          document.attachEvent('WeixinJSBridgeReady', function () {
             vshare.play()
           })
-          document.attachEvent('onWeixinJSBridgeReady', function() {
+          document.attachEvent('onWeixinJSBridgeReady', function () {
             vshare.play()
           })
         }
@@ -338,7 +353,7 @@ export default {
       //监听 touchstart 事件进而调用 <audio> 元素提供的 play() 方法播放音频
       document.addEventListener(
         'touchstart',
-        function(e) {
+        function (e) {
           if (voiceStatu) {
             vshare.play()
             voiceStatu = false
@@ -346,12 +361,12 @@ export default {
         },
         false
       )
-      vshare.onplay = function() {
+      vshare.onplay = function () {
         that.music = 'music_open'
         that.circle = true
         that.voice.pause()
       }
-      vshare.onpause = function() {
+      vshare.onpause = function () {
         that.music = 'music_close'
         that.circle = false
       }
@@ -376,13 +391,13 @@ export default {
       voice.src = this.origin + 'mp3/' + this.audio.url[item] + '.mp3'
       voice.currentTime = 0
       voice.play()
-      voice.onplay = function() {
+      voice.onplay = function () {
         that.startvoice = true
       }
-      voice.onpause = function() {
+      voice.onpause = function () {
         that.startvoice = false
       }
-      voice.onended = function() {
+      voice.onended = function () {
         that.startvoice = false
       }
     },
@@ -399,15 +414,15 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@base: 'http://cdn.exe666.com/image/zhongqiu/2/';
+@base: "http://cdn.exe666.com/image/zhongqiu/2/";
 /*声明 WebFont*/
 @font-face {
-  font-family: 'huakang';
-  src: url('http://cdn.exe666.com/image/zhongqiu/font/huakang.ttf');
-  src: url('http://cdn.exe666.com/image/zhongqiu/font/huakang.eot'),
-    url('http://cdn.exe666.com/image/zhongqiu/font/huakang.woff'),
-    url('http://cdn.exe666.com/image/zhongqiu/font/huakang.ttf'),
-    url('http://cdn.exe666.com/image/zhongqiu/font/huakang.svg');
+  font-family: "huakang";
+  src: url("http://cdn.exe666.com/image/zhongqiu/font/huakang.ttf");
+  src: url("http://cdn.exe666.com/image/zhongqiu/font/huakang.eot"),
+    url("http://cdn.exe666.com/image/zhongqiu/font/huakang.woff"),
+    url("http://cdn.exe666.com/image/zhongqiu/font/huakang.ttf"),
+    url("http://cdn.exe666.com/image/zhongqiu/font/huakang.svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -475,7 +490,7 @@ img {
       transform: rotate(10deg);
     }
     .text {
-      font-family: 'huakang';
+      font-family: "huakang";
       position: absolute;
       top: 32%;
       left: 58%;
@@ -497,7 +512,7 @@ img {
       left: 50%;
       transform: translateX(-50%);
       width: 78%;
-      background-image: url('@{base}out.png');
+      background-image: url("@{base}out.png");
       background-position: center top;
       background-size: 100% 100%;
       background-repeat: no-repeat;
@@ -555,7 +570,7 @@ img {
                   top: 50%;
                   left: 50%;
                   transform: translate(-50%, -50%);
-                  font-family: 'huakang';
+                  font-family: "huakang";
                   font-size: 0.4vw;
                   letter-spacing: 1px;
                 }
@@ -574,7 +589,7 @@ img {
         top: 40%;
         left: 50%;
         transform: translateX(-50%);
-        background-image: url('@{base}voice4.png');
+        background-image: url("@{base}voice4.png");
         background-position: center center;
         background-size: 100% auto;
         background-repeat: no-repeat;
@@ -658,19 +673,19 @@ img {
 }
 @keyframes voice {
   0% {
-    background-image: url('@{base}voice4.png');
+    background-image: url("@{base}voice4.png");
   }
   25% {
-    background-image: url('@{base}voice3.png');
+    background-image: url("@{base}voice3.png");
   }
   50% {
-    background-image: url('@{base}voice2.png');
+    background-image: url("@{base}voice2.png");
   }
   75% {
-    background-image: url('@{base}voice1.png');
+    background-image: url("@{base}voice1.png");
   }
   100% {
-    background-image: url('@{base}voice4.png');
+    background-image: url("@{base}voice4.png");
   }
 }
 @keyframes circle {
