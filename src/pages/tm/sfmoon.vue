@@ -1,43 +1,48 @@
 <template>
-  <div 
+  <div
     :style="style.root"
-    class="content">
-    <div 
-      class="picture">
+    class="content"
+  >
+    <div class="picture">
       <img
         :src="base + 'frame.png'+ this.$qiniuCompress()"
-        class="frame">
+        class="frame"
+      >
       <img
         :src="photo + this.$qiniuCompress()"
-        class="photo">
+        class="photo"
+      >
     </div>
     <img
       :src="base+'save.png'"
-      class="save">
-    <div
-      class="coup">
+      class="save"
+    >
+    <div class="coup">
       <img
         v-show="Boolean(score>=4000)"
         :src="base+'coupon00.png'"
-        class="coupon0">
+        class="coupon0"
+      >
       <img
         v-show="Boolean(score>=4000)"
-        :src="base+'rule0.png'">
-      <a 
+        :src="base+'rule0.png'"
+      >
+      <a
         :href="link.link1"
-        class="link1">
-        <img
-          :src="base+'coupon1.png'">
+        class="link1"
+      >
+        <img :src="base+'coupon1.png'">
       </a>
-      <a 
+      <a
         :href="link.link2"
-        class="link1">
-        <img
-          :src="base+'coupon2.png'">
+        class="link1"
+      >
+        <img :src="base+'coupon2.png'">
       </a>
       <img
         :src="base+'rule1.png'"
-        class="rule">
+        class="rule"
+      >
     </div>
   </div>
 </template>
@@ -50,7 +55,7 @@ import {
   userGame
 } from 'services'
 import { normalPages } from '@/mixins/normalPages'
-const IMG_SERVER = 'http://p22vy0aug.bkt.clouddn.com'
+const IMG_SERVER = process.env.CDN_URL
 export default {
   mixins: [normalPages],
   data() {
@@ -60,7 +65,7 @@ export default {
           'min-height': this.$innerHeight() + 'px'
         }
       },
-      base: IMG_SERVER + '/image/sfmoon/',
+      base: IMG_SERVER + '/fe/image/sfmoon/',
       photo: null,
       score: Number(this.$route.query.score),
       userId: null,
@@ -74,8 +79,8 @@ export default {
         title: '中秋豪礼 味你而来',
         desc: '中秋豪礼 味你而来',
         link: 'http://papi.xingstation.com/api/s/W6J' + window.location.search,
-        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/sfmoon/share.jpg',
-        success: function() {
+        imgUrl: IMG_SERVER + '/fe/image/sfmoon/share.jpg',
+        success: function () {
           wechatShareTrack()
         }
       }
@@ -137,7 +142,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@base: 'http://p22vy0aug.bkt.clouddn.com/image/sfmoon/';
+@base: "https://cdn.exe666.com/fe/image/sfmoon/";
 html,
 body {
   width: 100%;
@@ -159,7 +164,7 @@ img {
 .content {
   width: 100%;
   overflow-x: hidden;
-  background-image: url('@{base}bgbg.png');
+  background-image: url("@{base}bgbg.png");
   background-position: center top;
   background-size: 100% 100%;
   background-repeat: no-repeat;
