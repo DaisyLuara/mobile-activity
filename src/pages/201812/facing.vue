@@ -54,12 +54,15 @@ export default {
     };
   },
   watch: {
-    parms() {
+    photo() {
       this.getType()
     }
   },
+  mounted() {
+  },
   methods: {
     getType() {
+
       let scores = this.score
       if (scores > 94) {
         this.type = '0'
