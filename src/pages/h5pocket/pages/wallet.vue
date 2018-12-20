@@ -9,7 +9,12 @@
 </template>
 
 <script>
-import { getInfoById, getWalletListMini, bindCouponMini } from "services";
+import {
+  getInfoById,
+  getWalletListMini,
+  bindCouponMini,
+  splitParms
+} from "services";
 import { Toast } from "mint-ui";
 import CouponItem from "../components/CouponItem";
 import TabBar from "../components/TabBar";
@@ -34,6 +39,7 @@ export default {
       const { id, code, state } = this.$route.query;
       let localZ = localStorage.getItem("z");
       let localMarketId = localStorage.getItem("marketid");
+
       try {
         if (localZ === null || localMarketId === null) {
           let infoRes = await getInfoById(id, code, state);
@@ -45,12 +51,17 @@ export default {
               localZ = setZ;
               localStorage.setItem("z", setZ);
               localStorage.setItem("marketid", setMarketId);
-              await this.hanldeFirstGetCoupon(localZ);
+              let parms = splitParms(infoRes.parms);
+              if (parms.hasOwnProperty("coupon_batch_id")) {
+                await this.hanldeFirstGetCoupon(
+                  localZ,
+                  parms["coupon_batch_id"]
+                );
+              }
               await this.fetchWalletList();
             }
           }
         } else {
-          await this.hanldeFirstGetCoupon(localZ);
           await this.fetchWalletList();
         }
       } catch (e) {
@@ -71,11 +82,7 @@ export default {
         };
       }
     },
-    async hanldeFirstGetCoupon(z) {
-      const { coupon_batch_id } = this.$route.query;
-      if (coupon_batch_id === undefined) {
-        return;
-      }
+    async hanldeFirstGetCoupon(z, coupon_batch_id) {
       try {
         let bindRes = await bindCouponMini(coupon_batch_id, z);
       } catch (e) {
