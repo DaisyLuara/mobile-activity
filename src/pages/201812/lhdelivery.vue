@@ -73,7 +73,7 @@ export default {
           "min-height": this.$innerHeight() + "px"
         }
       },
-      imgUrl: 'https://cdn.exe666.com/fe/image/longhu/120.png',//null
+      imgUrl: null,//'https://cdn.exe666.com/fe/image/longhu/120.png'
       id: this.$route.query.id,
       open_user_id: null,
       hasgeted: false,
@@ -81,7 +81,7 @@ export default {
       wxShareInfoValue: {
         title: "一周年好礼相送",
         desc: "参与互动 福利翻倍",
-        link: "" + window.location.search,
+        link: "http://papi.xingstation.com/api/s/ANB" + window.location.search,
         imgUrl: cdnUrl + "/fe/image/longhu/icon.png",
 
       }

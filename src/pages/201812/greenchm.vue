@@ -68,7 +68,7 @@ export default {
           "min-height": this.$innerHeight() + "px"
         }
       },
-      imgUrl: 'https://cdn.exe666.com//fe/image/zpld_chr/7winter.png',//null,
+      imgUrl: null,//'https://cdn.exe666.com//fe/image/zpld_chr/7winter.png'
       id: this.$route.query.id,
       userId: null,
       getdate: null,
@@ -78,9 +78,6 @@ export default {
         desc: "缤纷双旦纷享礼，感谢有你",
         link: "http://papi.xingstation.com/api/s/p81" + window.location.search,
         imgUrl: cdnUrl + "/fe/image/greenchm/icon.png",
-        success: () => {
-          wechatShareTrack();
-        }
       }
     };
   },
@@ -104,6 +101,11 @@ export default {
       localStorage.setItem('greenchm' + this.id, this.getdate)
     }
   },
+  watch: {
+    parms() {
+      this.getCouponDetail();
+    }
+  },
   methods: {
     //微信静默授权
     handleWechatAuth() {
@@ -117,7 +119,6 @@ export default {
         window.location.href = redirct_url;
       } else {
         this.userId = Cookies.get("user_id");
-        this.getCouponDetail();
       }
     },
     //获取券信息
