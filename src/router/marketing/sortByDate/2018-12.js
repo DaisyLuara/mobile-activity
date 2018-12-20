@@ -322,8 +322,30 @@ const Date201812 = [
     name: 'youxin',
     meta: {
       title: '买一赠一',
-      author: 'xj1012',
+      author: 'lipan',
       desc: '来福士广场由心咖啡'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'lh_vision',
+    location: '201812/lhvision',
+    name: 'lh_vision',
+    meta: {
+      title: '幻境',
+      author: 'lipan',
+      desc: '龙湖天街-幻境'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'lh_delivery',
+    location: '201812/lhdelivery',
+    name: 'lh_delivery',
+    meta: {
+      title: '圣诞派送',
+      author: 'lipan',
+      desc: '龙湖天街-圣诞派送'
     },
     isAbandoned: false
   }
