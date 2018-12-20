@@ -1,10 +1,12 @@
 <template>
-  <div class="citem" @click="handleCouponClick">
+  <div 
+    class="citem" 
+    @click="handleCouponClick">
     <div class="cimg">
       <img :src="computedImgUrl">
     </div>
     <div class="ctext">
-      <span class="inner">{{remindtext}}</span>
+      <span class="inner">{{ remindtext }}</span>
     </div>
   </div>
 </template>

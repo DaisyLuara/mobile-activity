@@ -1,13 +1,29 @@
 <template>
   <div class="tab">
-    <div class="tab-item" @click="handleRouterChange('wallet')">
-      <img :src="wallet" v-if="currentRouteName !== 'PocketWallet'" alt="卡包">
-      <img :src="walletSelected" v-if="currentRouteName === 'PocketWallet'" alt="卡包">
+    <div 
+      class="tab-item" 
+      @click="handleRouterChange('wallet')">
+      <img 
+        v-if="currentRouteName !== 'PocketWallet'" 
+        :src="wallet" 
+        alt="卡包">
+      <img 
+        v-if="currentRouteName === 'PocketWallet'" 
+        :src="walletSelected" 
+        alt="卡包">
       <span>卡包</span>
     </div>
-    <div class="tab-item" @click="handleRouterChange('mall')">
-      <img :src="mall" v-if="currentRouteName !== 'PocketMall'" alt="商城">
-      <img :src="mallSelected" v-if="currentRouteName === 'PocketMall'" alt="商城">
+    <div 
+      class="tab-item" 
+      @click="handleRouterChange('mall')">
+      <img 
+        v-if="currentRouteName !== 'PocketMall'" 
+        :src="mall" 
+        alt="商城">
+      <img 
+        v-if="currentRouteName === 'PocketMall'" 
+        :src="mallSelected" 
+        alt="商城">
       <span>商城</span>
     </div>
   </div>
