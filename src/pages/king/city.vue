@@ -77,7 +77,7 @@
   </div>
 </template>
 <script>
-import { normalPages } from '../../mixins/normalPages'
+import { normalPages } from '@/mixins/normalPages'
 import {
   sendCoupon,
   checkGetCoupon,

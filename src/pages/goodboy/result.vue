@@ -1,47 +1,47 @@
 <template>
-  <div 
-    id="warp" 
+  <div
+    id="warp"
     :style="style.root"
-    class="content">
+    class="content"
+  >
     <div class="div_img">
-      <img 
-        :src="new_base + 'newbg.jpg'" 
-        class="bg">
-      <img 
-        :src="new_base + 'frame.png'" 
-        class="frame">
-      <img 
-        :src="photo + this.$qiniuCompress()" 
-        class="photo">
+      <img
+        :src="new_base + 'newbg.jpg'"
+        class="bg"
+      >
+      <img
+        :src="new_base + 'frame.png'"
+        class="frame"
+      >
+      <img
+        :src="photo + this.$qiniuCompress()"
+        class="photo"
+      >
     </div>
   </div>
 </template>
 <script>
 import { $wechat, wechatShareTrack } from 'services'
-import { normalPages } from '../../mixins/normalPages'
-const NEW_SERVER = 'http://p22vy0aug.bkt.clouddn.com'
+import { normalPages } from '@/mixins/normalPages'
+const NEW_SERVER = process.env.CDN_URL
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
   mixins: [normalPages],
   data() {
     return {
       IMAGE_URL: IMAGE_SERVER + '/pages/goodboy/',
-      new_base: NEW_SERVER + '/image/goodboy/',
+      new_base: NEW_SERVER + '/fe/image/goodboy/',
       style: {
         root: {
           'min-height': this.$innerHeight() + 'px'
         }
       },
-      photo: null,
       //微信分享
       wxShareInfoValue: {
         title: '限时活动丨转发靓照集赞赢大奖！',
         desc: '点击领取你的高颜值靓照',
         link: 'http://papi.xingstation.com/api/s/3M' + window.location.search,
         imgUrl: IMAGE_SERVER + '/pages/goodboy/share.png',
-        success: function() {
-          wechatShareTrack()
-        }
       }
     }
   },
@@ -58,7 +58,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/goodboy/';
+@imgUrl: "http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/goodboy/";
 html,
 body {
   width: 100%;
@@ -82,7 +82,7 @@ img {
 .content {
   width: 100%;
   overflow-x: hidden;
-  background: url('@{imgUrl}bg.png') center bottom/100% auto repeat;
+  background: url("@{imgUrl}bg.png") center bottom/100% auto repeat;
   .div_img {
     width: 100%;
     position: relative;

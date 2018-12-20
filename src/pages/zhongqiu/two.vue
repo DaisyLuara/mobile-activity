@@ -128,7 +128,7 @@ import {
   getParameter,
   setParameter
 } from 'services'
-import { normalPages } from '../../mixins/normalPages'
+import { normalPages } from '@/mixins/normalPages'
 const IMG_SERVER = process.env.CDN_URL
 export default {
   mixins: [normalPages],

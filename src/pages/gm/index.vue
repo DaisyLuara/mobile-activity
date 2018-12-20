@@ -50,7 +50,7 @@
 <script>
 import { $wechat, wechatShareTrack, isInWechat, Cookies } from 'services'
 import { createGame, getGame } from 'services'
-import { normalPages } from '../../mixins/normalPages'
+import { normalPages } from '@/mixins/normalPages'
 import MC from 'mcanvas'
 
 const cdnUrl = process.env.CDN_URL

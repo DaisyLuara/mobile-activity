@@ -1,20 +1,20 @@
 <template>
-  <div 
+  <div
     :style="style.root"
-    class="content">
-    <div
-      class="main">
+    class="content"
+  >
+    <div class="main">
       <img
         :src="base + 'frame.png'"
-        class="frame">
-      <div 
-        class="picture">
+        class="frame"
+      >
+      <div class="picture">
         <img
           :src="photo + this.$qiniuCompress()"
-          class="photo">
+          class="photo"
+        >
       </div>
-      <span
-        class="score">{{ score }}</span>
+      <span class="score">{{ score }}</span>
     </div>
   </div>
 </template>
@@ -22,12 +22,10 @@
 import {
   $wechat,
   wechatShareTrack,
-  isInWechat,
-  Cookies,
-  userGame
+  isInWechat
 } from 'services'
-import { normalPages } from '../../mixins/normalPages'
-const IMAGE_SERVER = 'http://p22vy0aug.bkt.clouddn.com/image/'
+import { normalPages } from '@/mixins/normalPages'
+const IMAGE_SERVER = process.env.CDN_URL;
 export default {
   mixins: [normalPages],
   data() {
@@ -37,78 +35,45 @@ export default {
           'min-height': this.$innerHeight() + 'px'
         }
       },
-      base: IMAGE_SERVER + 'goodboy/dino/',
+      base: IMAGE_SERVER + '/fe/image/dino/',
       photo: null,
       score: this.$route.query.score,
+      parms: null,
+      id: this.$route.query.id,
+      belong: null,
+      userId: null,
       //微信分享
       wxShareInfoValue: {
         title: '限时活动丨PK游戏之王赢大奖',
         desc: '点击领取你的游戏结果',
         link: 'http://papi.xingstation.com/api/s/0Rv' + window.location.search,
-        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/goodboy/dino/share.png'
+        imgUrl: IMAGE_SERVER + 'share.png',
+        success: () => {
+          wechatShareTrack();
+        }
       }
     }
   },
   mounted() {
-    //微信授权
-    if (isInWechat() === true) {
-      if (
-        process.env.NODE_ENV === 'production' ||
-        process.env.NODE_ENV === 'testing'
-      ) {
-        this.handleWechatAuth()
-      }
-    }
+    this.getPhoto()
   },
   methods: {
-    handleWechatAuth() {
-      if (Cookies.get('sign') === null) {
-        let base_url = encodeURIComponent(String(window.location.href))
-        let redirct_url =
-          process.env.WX_API +
-          '/wx/officialAccount/oauth?url=' +
-          base_url +
-          '&scope=snsapi_base'
-        window.location.href = redirct_url
-      } else {
-        this.userId = Cookies.get('user_id')
-        this.getPhoto()
-      }
-    },
     getPhoto() {
       let timer = requestAnimationFrame(this.getPhoto)
       if (this.photo) {
         cancelAnimationFrame(timer)
-        this.userGame()
-        return
+        this.score = this.parms.score
       }
-    },
-    userGame() {
-      let args = {
-        belong: this.$route.query.utm_campaign,
-        image_url: this.photo,
-        score: this.$route.query.score,
-        qiniu_id: this.$route.query.id
-      }
-      userGame(args, this.userId)
-        .then(res => {
-          if (res.success) {
-            console.log(res)
-          }
-        })
-        .catch(e => {
-          console.log(e)
-        })
     }
   }
 }
 </script>
 <style lang="less" scoped>
 @font-face {
-  font-family: 'mianhuatang';
-  src: url('http://p22vy0aug.bkt.clouddn.com/font/mianhuatang.ttf');
+  font-family: "mianhuatang";
+  src: url("https://cdn.exe666.com/fe/font/mianhuatang.ttf");
 }
-@base: 'http://p22vy0aug.bkt.clouddn.com/image/goodboy/dino/';
+@base: "https://cdn.exe666.com/fe/image/dino/";
 html,
 body {
   width: 100%;
@@ -133,7 +98,7 @@ img {
   position: relative;
   overflow-x: hidden;
   background-color: #ee9616;
-  background-image: url('@{base}bg.png');
+  background-image: url("@{base}bg.png");
   background-position: center bottom;
   background-size: 100% auto;
   background-repeat: no-repeat;
@@ -177,7 +142,7 @@ img {
       left: 51%;
       color: #fff;
       font-size: 15vw;
-      font-family: 'mianhuatang';
+      font-family: "mianhuatang";
       z-index: 99;
     }
   }

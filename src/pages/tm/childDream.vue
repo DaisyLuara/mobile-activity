@@ -74,7 +74,7 @@ import {
   checkGetCoupon
 } from 'services'
 import { Toast } from 'mint-ui'
-import { normalPages } from '../../mixins/normalPages'
+import { normalPages } from '@/mixins/normalPages'
 const cdnUrl = process.env.CDN_URL
 export default {
   mixins: [normalPages],
