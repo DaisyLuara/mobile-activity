@@ -1,39 +1,80 @@
 <template>
-  <div class="star-wrap" :style="bindStyle">
-    <img class="title abs" :src="base + 'title.png'" alt>
-    <img class="bg" :src="base + 'bg.jpg'" alt>
+  <div 
+    :style="bindStyle" 
+    class="star-wrap">
+    <img 
+      :src="base + 'title.png'" 
+      class="title abs" 
+      alt>
+    <img 
+      :src="base + 'bg.jpg'" 
+      class="bg" 
+      alt>
     <div class="photo-wrap abs">
-      <img class="big-star abs" :src="currSelectedStar" alt>
-      <img class="white-frame" :src="base + 'white_frame.png'" alt>
-      <swiper class="photo-swiper abs" :options="swiperOption" ref="mySwiper">
+      <img 
+        :src="currSelectedStar" 
+        class="big-star abs" 
+        alt>
+      <img 
+        :src="base + 'white_frame.png'" 
+        class="white-frame" 
+        alt>
+      <swiper 
+        ref="mySwiper" 
+        :options="swiperOption" 
+        class="photo-swiper abs">
         <template v-for="star in stars">
-          <swiper-slide class="swiper-item" :key="star.star_id">
-            <img class="photo-frame" :src="base + 'frame.png'" alt>
-            <img class="photo-img abs" :src="star.photo_url" alt>
+          <swiper-slide 
+            :key="star.star_id" 
+            class="swiper-item">
+            <img 
+              :src="base + 'frame.png'" 
+              class="photo-frame" 
+              alt>
+            <img 
+              :src="star.photo_url" 
+              class="photo-img abs" 
+              alt>
           </swiper-slide>
         </template>
       </swiper>
       <div class="swiper-nav abs">
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"/>
+        <div class="swiper-button-next"/>
       </div>
-      <img class="arrow-down abs" :src="base + 'arrow_d.png'" alt>
-      <img class="text abs" :src="base + 'text.png'" alt>
+      <img 
+        :src="base + 'arrow_d.png'" 
+        class="arrow-down abs" 
+        alt>
+      <img 
+        :src="base + 'text.png'" 
+        class="text abs" 
+        alt>
       <div class="star-plate abs">
-        <img class="unlight-star" :src="base + 'unlight.png'" alt>
-        <img class="center abs" v-show="stars.length >= 12" :src="base + 'center.png'" alt>
+        <img 
+          :src="base + 'unlight.png'" 
+          class="unlight-star" 
+          alt>
+        <img 
+          v-show="stars.length >= 12" 
+          :src="base + 'center.png'" 
+          class="center abs" 
+          alt>
         <template v-for="star in stars">
           <img
-            class="light-star abs"
             :class="'star-' + star.star_id"
             :src="base + 'light_star/'+ star.star_id + '.png'"
-            alt
             :key="star.star_id"
+            class="light-star abs"
+            alt
           >
         </template>
       </div>
     </div>
-    <img class="logo abs" :src="base + '/logo.png'" alt>
+    <img 
+      :src="base + '/logo.png'" 
+      class="logo abs" 
+      alt>
     <div class="auth abs">本活动由星视度科技提供技术支持</div>
   </div>
 </template>
@@ -45,11 +86,11 @@ import { getInfoById } from "services";
 const cdnUrl = process.env.CDN_URL;
 
 export default {
-  mixins: [onlyWechatShare],
   components: {
     swiper,
     swiperSlide
   },
+  mixins: [onlyWechatShare],
   data() {
     return {
       base: cdnUrl + "/fe/image/jinying/",
@@ -81,6 +122,39 @@ export default {
         minHeight: this.$innerHeight() + "px"
       }
     };
+  },
+  computed: {
+    swiper() {
+      return this.$refs.mySwiper.swiper;
+    },
+    swiperOption() {
+      let that = this;
+      return {
+        direction: "horizontal",
+        slidesPerView: 1,
+        spaceBetween: 30,
+        mousewheel: true,
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev"
+        },
+        on: {
+          slideChangeTransitionStart: function() {
+            that.currSelectedStar = require(that.base +
+              "big_star/" +
+              that.stars[this.activeIndex].star_id +
+              ".png");
+          }
+        }
+      };
+    }
+  },
+  watch: {
+    currSlider: function(val) {
+      setTimeout(() => {
+        this.swiper.slideTo(val, 0, false);
+      }, 0);
+    }
   },
   created() {
     if (!this.openId) {
@@ -192,39 +266,6 @@ export default {
       }
     }
   },
-  computed: {
-    swiper() {
-      return this.$refs.mySwiper.swiper;
-    },
-    swiperOption() {
-      let that = this;
-      return {
-        direction: "horizontal",
-        slidesPerView: 1,
-        spaceBetween: 30,
-        mousewheel: true,
-        navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev"
-        },
-        on: {
-          slideChangeTransitionStart: function() {
-            that.currSelectedStar = require(that.base +
-              "big_star/" +
-              that.stars[this.activeIndex].star_id +
-              ".png");
-          }
-        }
-      };
-    }
-  },
-  watch: {
-    currSlider: function(val) {
-      setTimeout(() => {
-        this.swiper.slideTo(val, 0, false);
-      }, 0);
-    }
-  }
 };
 </script>
 <style lang="less">
