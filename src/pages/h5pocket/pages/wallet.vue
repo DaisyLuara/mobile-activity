@@ -5,6 +5,8 @@
     <div v-for="(item, index) in list" :key="index" class="coupon-wrapper">
       <CouponItem :coupon-type="couponType" :coupon-data="item"/>
     </div>
+    <div class="loadmore-add"/>
+    <div class="loadmore-add"/>
   </div>
 </template>
 
@@ -62,6 +64,11 @@ export default {
             }
           }
         } else {
+          let infoRes = await getInfoById(id, code, state);
+          let parms = splitParms(infoRes.parms);
+          if (parms.hasOwnProperty("coupon_batch_id")) {
+            await this.hanldeFirstGetCoupon(localZ, parms["coupon_batch_id"]);
+          }
           await this.fetchWalletList();
         }
       } catch (e) {
@@ -103,12 +110,16 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding-top: 20px;
   .coupon-wrapper {
     margin-top: 14px;
   }
   p {
     font-size: 14px;
+  }
+  .loadmore-add {
+    height: 0.48rem;
+    width: 100%;
+    background-color: transparent;
   }
 }
 </style>

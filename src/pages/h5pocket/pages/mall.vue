@@ -5,34 +5,20 @@
     <mt-loadmore
       ref="loadmore"
       :bottom-distance="bindBottomDistance"
-      :top-method="loadTop"
       :bottom-method="loadBottom"
       :auto-fill="false"
       @top-status-change="handleTopChange"
       @bottom-status-change="handleBottomChange"
     >
-      <div 
-        v-for="(item, index) in list" 
-        :key="index" 
-        class="coupon-wrapper">
-        <CouponItem 
-          :coupon-type="couponType" 
-          :coupon-data="item"/>
+      <div v-for="(item, index) in list" :key="index" class="coupon-wrapper">
+        <CouponItem :coupon-type="couponType" :coupon-data="item"/>
       </div>
-      <div 
-        slot="top" 
-        class="mint-loadmore-top">
-        <span 
-          v-show="topStatus !== 'loading'" 
-          :class="{ 'rotate': topStatus === 'drop' }">↓</span>
+      <div slot="top" class="mint-loadmore-top">
+        <span v-show="topStatus !== 'loading'" :class="{ 'rotate': topStatus === 'drop' }">↓</span>
         <span v-show="topStatus === 'loading'">Loading...</span>
       </div>
-      <div 
-        slot="bottom" 
-        class="mint-loadmore-bottom">
-        <span 
-          v-show="bottomStatus !== 'loading'" 
-          :class="{ 'rotate': topStatus === 'drop' }">释放加载更多</span>
+      <div slot="bottom" class="mint-loadmore-bottom">
+        <span v-show="bottomStatus !== 'loading'" :class="{ 'rotate': topStatus === 'drop' }">释放加载更多</span>
         <span v-show="bottomStatus === 'loading'">Loading...</span>
       </div>
     </mt-loadmore>
@@ -73,6 +59,7 @@ export default {
   methods: {
     handleInit() {
       this.errorMessage = "";
+      this.list = [];
       this.fetchList();
     },
     handleTopChange(status) {
@@ -117,6 +104,7 @@ export default {
         getMallListMini(localZ, this.currentPage, this.pageSize, localMarketId)
           .then(r => {
             console.dir(r);
+            this.isFetching = false;
             let { data } = r.data;
             let { pagination } = r.data.meta;
             this.list = this.list.concat(data);
@@ -145,7 +133,6 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding-top: 20px;
   .mint-loadmore-top {
     font-size: 0.14rem;
   }
