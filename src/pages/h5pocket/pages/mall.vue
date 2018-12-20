@@ -1,25 +1,38 @@
 <template>
   <div class="mall">
-    <p>{{errorMessage}}</p>
+    <p>{{ errorMessage }}</p>
     <TabBar/>
     <mt-loadmore
-      :bottomDistance="bindBottomDistance"
       ref="loadmore"
+      :bottom-distance="bindBottomDistance"
       :top-method="loadTop"
       :bottom-method="loadBottom"
       :auto-fill="false"
       @top-status-change="handleTopChange"
       @bottom-status-change="handleBottomChange"
     >
-      <div v-for="(item, index) in list" :key="index" class="coupon-wrapper">
-        <CouponItem :couponType="couponType" :couponData="item"/>
+      <div 
+        v-for="(item, index) in list" 
+        :key="index" 
+        class="coupon-wrapper">
+        <CouponItem 
+          :coupon-type="couponType" 
+          :coupon-data="item"/>
       </div>
-      <div slot="top" class="mint-loadmore-top">
-        <span v-show="topStatus !== 'loading'" :class="{ 'rotate': topStatus === 'drop' }">↓</span>
+      <div 
+        slot="top" 
+        class="mint-loadmore-top">
+        <span 
+          v-show="topStatus !== 'loading'" 
+          :class="{ 'rotate': topStatus === 'drop' }">↓</span>
         <span v-show="topStatus === 'loading'">Loading...</span>
       </div>
-      <div slot="bottom" class="mint-loadmore-bottom">
-        <span v-show="bottomStatus !== 'loading'" :class="{ 'rotate': topStatus === 'drop' }">释放加载更多</span>
+      <div 
+        slot="bottom" 
+        class="mint-loadmore-bottom">
+        <span 
+          v-show="bottomStatus !== 'loading'" 
+          :class="{ 'rotate': topStatus === 'drop' }">释放加载更多</span>
         <span v-show="bottomStatus === 'loading'">Loading...</span>
       </div>
     </mt-loadmore>
@@ -34,6 +47,11 @@ import { Loadmore } from "mint-ui";
 import TabBar from "../components/TabBar";
 import { getMallListMini } from "services";
 export default {
+  components: {
+    "mt-loadmore": Loadmore,
+    CouponItem,
+    TabBar
+  },
   data() {
     return {
       list: [],
@@ -51,11 +69,6 @@ export default {
   mounted() {
     this.bindBottomDistance = (this.$parent.screenWidth / 375) * 100 * 0.48;
     this.handleInit();
-  },
-  components: {
-    "mt-loadmore": Loadmore,
-    CouponItem,
-    TabBar
   },
   methods: {
     handleInit() {

@@ -101,10 +101,10 @@ import LinkAge from 'modules/linkAge'
 
 const CDNURL = process.env.CDN_URL;
 export default {
-  mixins: [normalPages],
   components: {
     LinkAge
   },
+  mixins: [normalPages],
   data() {
     return {
       base: CDNURL + "/fe/image/peter/",

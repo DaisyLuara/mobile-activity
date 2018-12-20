@@ -1,13 +1,15 @@
 <template>
   <div class="cqr">
-    <div class="decoration-tr"></div>
-    <div class="decoration-r"></div>
+    <div class="decoration-tr"/>
+    <div class="decoration-r"/>
     <div class="qr-code">
-      <div class="title">{{qrtitle}}</div>
+      <div class="title">{{ qrtitle }}</div>
       <div class="qr-img">
-        <img :src="imgUrl" v-if="imgUrl !== ''">
+        <img 
+          v-if="imgUrl !== ''" 
+          :src="imgUrl">
       </div>
-      <div class="code">{{code}}</div>
+      <div class="code">{{ code }}</div>
     </div>
     <div class="bottom-stupid-remind">
       <div class="xo">

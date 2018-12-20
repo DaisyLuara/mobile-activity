@@ -1,9 +1,14 @@
 <template>
   <div class="wallet">
-    <p>{{errorMessage}}</p>
+    <p>{{ errorMessage }}</p>
     <TabBar/>
-    <div v-for="(item, index) in list" :key="index" class="coupon-wrapper">
-      <CouponItem :couponType="couponType" :couponData="item"/>
+    <div 
+      v-for="(item, index) in list" 
+      :key="index" 
+      class="coupon-wrapper">
+      <CouponItem 
+        :coupon-type="couponType" 
+        :coupon-data="item"/>
     </div>
   </div>
 </template>
@@ -14,16 +19,16 @@ import { Toast } from "mint-ui";
 import CouponItem from "../components/CouponItem";
 import TabBar from "../components/TabBar";
 export default {
+  components: {
+    TabBar,
+    CouponItem
+  },
   data() {
     return {
       list: [],
       couponType: "wallet",
       errorMessage: ""
     };
-  },
-  components: {
-    TabBar,
-    CouponItem
   },
   mounted() {
     this.handleInit();
