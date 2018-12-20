@@ -66,8 +66,8 @@ export default {
         }
       },
       base: IMG_SERVER + '/fe/image/sfmoon/',
-      photo: null,
-      score: Number(this.$route.query.score),
+      // photo: null,
+      // score: Number(this.$route.query.score),
       userId: null,
       link: {
         link1: 'http://papi.xingstation.com/api/s/5yB', //新人注册-券
@@ -80,9 +80,6 @@ export default {
         desc: '中秋豪礼 味你而来',
         link: 'http://papi.xingstation.com/api/s/W6J' + window.location.search,
         imgUrl: IMG_SERVER + '/fe/image/sfmoon/share.jpg',
-        success: function () {
-          wechatShareTrack()
-        }
       }
     }
   },
@@ -97,6 +94,12 @@ export default {
       }
     }
   },
+  watch: {
+    parms() {
+      this.score = Number(this.score)
+      this.userGame()
+    }
+  },
   methods: {
     handleWechatAuth() {
       if (Cookies.get('sign') === null) {
@@ -109,23 +112,14 @@ export default {
         window.location.href = redirct_url
       } else {
         this.userId = Cookies.get('user_id')
-        this.getPhoto()
-      }
-    },
-    getPhoto() {
-      let timer = requestAnimationFrame(this.getPhoto)
-      if (this.photo) {
-        console.log('2')
-        cancelAnimationFrame(timer)
         this.userGame()
-        return
       }
     },
     userGame() {
       let args = {
-        belong: this.$route.query.utm_campaign,
+        belong: this.belong,
         image_url: this.photo,
-        score: this.$route.query.score,
+        score: this.score,
         qiniu_id: this.$route.query.id
       }
       userGame(args, this.userId)
