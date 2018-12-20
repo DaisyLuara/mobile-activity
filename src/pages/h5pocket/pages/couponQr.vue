@@ -5,9 +5,7 @@
     <div class="qr-code">
       <div class="title">{{ qrtitle }}</div>
       <div class="qr-img">
-        <img 
-          v-if="imgUrl !== ''" 
-          :src="imgUrl">
+        <img v-if="imgUrl !== ''" :src="imgUrl">
       </div>
       <div class="code">{{ code }}</div>
     </div>
@@ -82,6 +80,7 @@ export default {
   align-items: center;
   justify-content: space-between;
   background: rgba(57, 48, 104, 1);
+  overflow: hidden;
   z-index: 10;
   .decoration-tr {
     position: absolute;
@@ -121,16 +120,19 @@ export default {
     .title {
       font-size: 0.14rem;
       font-weight: bold;
+      width: 80%;
+      flex-shrink: 0;
     }
     .qr-img {
-      width: 2.5rem;
-      height: 2.5rem;
+      width: 2.1rem;
+      height: 2.1rem;
       img {
         width: 100%;
         height: 100%;
       }
     }
     .code {
+      flex-shrink: 0;
       font-size: 0.14rem;
       color: rgba(165, 165, 165, 1);
     }
