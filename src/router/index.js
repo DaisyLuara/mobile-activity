@@ -65,7 +65,7 @@ const router = new Router({
           path: 'mall',
           name: 'PocketMall',
           meta: {
-            title: '商城'
+            title: '圣诞福利'
           },
           component: () => import('@/pages/h5pocket/pages/mall')
         },
@@ -73,7 +73,7 @@ const router = new Router({
           path: 'wallet',
           name: 'PocketWallet',
           meta: {
-            title: '钱包'
+            title: '圣诞福利'
           },
           component: () => import('@/pages/h5pocket/pages/wallet')
         },
@@ -81,7 +81,7 @@ const router = new Router({
           path: 'cpd',
           name: 'CouponDetail',
           meta: {
-            title: '优惠券详情'
+            title: '圣诞福利'
           },
           component: () => import('@/pages/h5pocket/pages/couponDetail')
         },
@@ -89,7 +89,7 @@ const router = new Router({
           path: 'cqr',
           name: 'CouponQR',
           meta: {
-            title: '二维码'
+            title: '圣诞福利'
           },
           component: () => import('@/pages/h5pocket/pages/couponQr')
         }

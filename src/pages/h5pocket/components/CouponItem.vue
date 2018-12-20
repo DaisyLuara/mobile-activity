@@ -1,7 +1,5 @@
 <template>
-  <div 
-    class="citem" 
-    @click="handleCouponClick">
+  <div class="citem" @click="handleCouponClick">
     <div class="cimg">
       <img :src="computedImgUrl">
     </div>
@@ -78,10 +76,12 @@ export default {
     height: 1.74rem;
     width: 3.65rem;
     z-index: 20;
-    overflow: hidden;
+    position: relative;
     img {
       width: 100%;
       height: 100%;
+      z-index: 30;
+      position: relative;
     }
   }
   .ctext {
