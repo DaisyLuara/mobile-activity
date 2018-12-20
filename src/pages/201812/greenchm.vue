@@ -18,7 +18,7 @@
     <!-- 规则提示 -->
     <div class="two">
       <img
-        :src="base + 'note.png' + this.$qiniuCompress()"
+        :src="base + 'note2.png' + this.$qiniuCompress()"
         class="note"
       >
     </div>
@@ -39,7 +39,7 @@
       class="save"
     >
     <img
-      :src="base + 'logo.png' + this.$qiniuCompress()"
+      :src="base + 'newlogo.png' + this.$qiniuCompress()"
       class="logo"
     >
   </div>
@@ -52,9 +52,6 @@ import {
   Cookies,
   sendCoupon,
   checkGetCoupon,
-  dateFormat,
-  formatTimestamp,
-  getMallcooOauth,
   checkCouponNumber
 } from "services";
 import { normalPages } from "../../mixins/normalPages";
@@ -69,16 +66,13 @@ export default {
           "min-height": this.$innerHeight() + "px"
         }
       },
-      coupon_batch_id: this.$route.query.coupon_batch_id,
-      belong: this.$route.query.utm_campaign,
-      oid: this.$route.query.oid || this.$route.query.utm_source,
-      photo: null,
       imgUrl: null,//'https://cdn.exe666.com//fe/image/zpld_chr/7winter.png',
       id: this.$route.query.id,
+      userId: null,
       //分享
       wxShareInfoValue: {
-        title: "圣诞转盘-周浦绿地",
-        desc: "圣诞转盘-周浦绿地",
+        title: "周浦绿地广场双旦狂欢季，转出缤纷好礼",
+        desc: "缤纷双旦纷享礼，感谢有你",
         link: "http://papi.xingstation.com/api/s/p81" + window.location.search,
         imgUrl: cdnUrl + "/fe/image/greenchm/icon.png",
         success: () => {
@@ -116,7 +110,7 @@ export default {
     },
     //获取券信息
     getCouponDetail() {
-      checkCouponNumber(this.coupon_batch_id)
+      checkCouponNumber(this.parms.coupon_batch_id)
         .then(res => {
           this.imgUrl = res.image_url;
           this.checkGetCoupon()
@@ -128,7 +122,7 @@ export default {
     //获取券信息,判断是否领过券
     checkGetCoupon() {
       let args = {
-        coupon_batch_id: this.coupon_batch_id,
+        coupon_batch_id: this.parms.coupon_batch_id,
         include: "couponBatch"
       };
       checkGetCoupon(args)
@@ -149,7 +143,7 @@ export default {
         oid: this.oid,
         belong: this.belong
       };
-      sendCoupon(args, this.coupon_batch_id)
+      sendCoupon(args, this.parms.coupon_batch_id)
         .then(res => {
         })
         .catch(err => {
@@ -197,10 +191,6 @@ img {
     width: 88%;
     margin-bottom: 6%;
   }
-  // .one {
-  // }
-  // .two {
-  // }
   .three {
     width: 74%;
     margin-bottom: 0%;
@@ -219,14 +209,16 @@ img {
     }
   }
   .save {
+    display: block;
     width: 47%;
     position: relative;
     margin-top: 15px;
     animation: myslider 0.6s linear infinite alternate;
   }
   .logo {
-    width: 85.5%;
-    margin-top: 13%;
+    display: block;
+    width: 42%;
+    margin-top: 11.5%;
     margin-bottom: 7%;
   }
 }

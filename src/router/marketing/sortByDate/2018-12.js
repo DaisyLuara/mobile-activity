@@ -315,6 +315,17 @@ const Date201812 = [
       desc: 'high玩全世界-泰茶-仅此为测试'
     },
     isAbandoned: false
+  },
+  {
+    path: 'youxin',
+    location: '201812/youxin',
+    name: 'youxin',
+    meta: {
+      title: '买一赠一',
+      author: 'xj1012',
+      desc: '来福士广场由心咖啡'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201812
