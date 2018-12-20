@@ -40,14 +40,13 @@
 <script>
 import { swiper, swiperSlide } from "vue-awesome-swiper";
 import "swiper/dist/css/swiper.css";
-import { normalPages } from "@/mixins/normalPages";
-
+import { onlyWechatShare } from "@/mixins/onlyWechatShare";
+import { getInfoById } from "services";
 const cdnUrl = process.env.CDN_URL;
 
 export default {
-  mixins: [normalPages],
+  mixins: [onlyWechatShare],
   components: {
-    normalPages,
     swiper,
     swiperSlide
   },
@@ -56,11 +55,14 @@ export default {
       base: cdnUrl + "/fe/image/jinying/",
       openId: this.$route.query.open_id,
       stars: [],
+      photo: "",
       currSlider: 0,
       currStar: parseInt(this.$route.query.star_id),
-      currSelectedStar: require("assets/star/big_star/" +
+      currSelectedStar:
+        cdnUrl +
+        "/fe/image/jinying/big_star/" +
         this.$route.query.star_id +
-        ".png"),
+        ".png",
       reqUrl: "http://120.27.144.62:1337/parse/classes/star",
       reqHeader: {
         headers: {
@@ -76,7 +78,7 @@ export default {
         imgUrl: cdnUrl + "/fe/image/jinying/share-icon-star.jpg"
       },
       bindStyle: {
-        height: this.$innerHeight() + "px"
+        minHeight: this.$innerHeight() + "px"
       }
     };
   },
@@ -107,6 +109,15 @@ export default {
             // 找到
             this.stars = res.data.results;
           }
+          getInfoById(this.$route.query.id)
+            .then(r => {
+              console.dir(r);
+              this.photo = r.image;
+              this.checkStar();
+            })
+            .catch(err => {
+              console.log(err);
+            });
         })
         .catch(err => {
           console.log(err);
@@ -198,7 +209,8 @@ export default {
         },
         on: {
           slideChangeTransitionStart: function() {
-            that.currSelectedStar = require("assets/star/big_star/" +
+            that.currSelectedStar = require(that.base +
+              "big_star/" +
               that.stars[this.activeIndex].star_id +
               ".png");
           }
@@ -216,6 +228,7 @@ export default {
 };
 </script>
 <style lang="less">
+@img: "https://cdn.exe666.com/fe/image/jinying";
 .star-wrap {
   position: relative;
   img {
@@ -271,11 +284,11 @@ export default {
       width: 100%;
       .swiper-button-prev {
         left: 10%;
-        background-image: url("~assets/star/arrow_l.png");
+        background-image: url("@{img}/arrow_l.png");
       }
       .swiper-button-next {
         right: 10%;
-        background-image: url("~assets/star/arrow_r.png");
+        background-image: url("@{img}/arrow_r.png");
       }
     }
     .arrow-down {
