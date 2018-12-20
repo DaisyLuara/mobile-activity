@@ -12,8 +12,15 @@
         v-show="!hasgeted"
         class="coupon"
       >
-        <a @click="getAuth">
-          <img :src="imgUrl">
+        <img :src="imgUrl">
+        <a
+          v-if="textShow"
+          class="aclick"
+          @click="getAuth"
+        >
+          <img :src="base
+              + 'click.png'+
+            this.$qiniuCompress()">
         </a>
       </div>
       <a
@@ -73,10 +80,11 @@ export default {
           "min-height": this.$innerHeight() + "px"
         }
       },
-      imgUrl: null,//'https://cdn.exe666.com/fe/image/longhu/120.png'
+      imgUrl: 'https://cdn.exe666.com/fe/image/longhu/120.png',//'https://cdn.exe666.com/fe/image/longhu/120.png'
       id: this.$route.query.id,
       open_user_id: null,
       hasgeted: false,
+      textShow: true,
       //分享
       wxShareInfoValue: {
         title: "一周年好礼相送",
@@ -177,6 +185,7 @@ export default {
       };
       sendCoupon(args, this.coupon_batch_id)
         .then(res => {
+          this.textShow = false;
           window.location.href = 'http://papi.xingstation.com/api/s/gZ9'
         })
         .catch(err => {
@@ -230,10 +239,13 @@ img {
       left: 50%;
       transform: translateX(-50%);
       z-index: 999;
-      a {
-        display: block;
-        width: 100%;
-        height: 100%;
+      .aclick {
+        width: 27%;
+        display: inline-block;
+        position: absolute;
+        top: 53%;
+        right: 18%;
+        z-index: 999;
       }
       img {
         z-index: 0;

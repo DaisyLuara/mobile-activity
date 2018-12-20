@@ -1,42 +1,44 @@
 <template>
-  <div 
-    id="content" 
-    :style="style.root">
-    <div 
-      class="main">
-      <img 
+  <div
+    id="content"
+    :style="style.root"
+  >
+    <div class="main">
+      <img
         :src="imgServerUrl + '/pages/ynf/bg2.png'"
-        class="bg">
+        class="bg"
+      >
     </div>
-    <div 
-      class="photo-area">
-      <img   
-        
-        :src="photo" 
+    <div class="photo-area">
+      <img
+        :src="photo"
         alt=""
-        class="photo">
-    <!-- <img class="photo"  :src="imgServerUrl + '/pages/ynf/3.png'" alt=""/> -->
+        class="photo"
+      >
+      <!-- <img class="photo"  :src="imgServerUrl + '/pages/ynf/3.png'" alt=""/> -->
     </div>
-    <img 
-      :src="imgServerUrl + '/pages/ynf/mouse1.png'" 
+    <img
+      :src="imgServerUrl + '/pages/ynf/mouse1.png'"
       alt=""
-      class="mouse1">
-    <img 
-      :src="imgServerUrl + '/pages/ynf/mouse2.png'" 
+      class="mouse1"
+    >
+    <img
+      :src="imgServerUrl + '/pages/ynf/mouse2.png'"
       alt=""
-      class="mouse2">
-    <div 
-      class="jiantou">
-      <img  
-        :src="imgServerUrl + '/pages/ynf/nav.png'" 
-        alt="">
+      class="mouse2"
+    >
+    <div class="jiantou">
+      <img
+        :src="imgServerUrl + '/pages/ynf/nav.png'"
+        alt=""
+      >
     </div>
-    <div 
-      class="text">
-      <img  
-        :src="imgServerUrl + '/pages/ynf/title.png'" 
-        alt="">
-    </div> 
+    <div class="text">
+      <img
+        :src="imgServerUrl + '/pages/ynf/title.png'"
+        alt=""
+      >
+    </div>
   </div>
 </template>
 <script>
@@ -49,7 +51,6 @@ export default {
   data() {
     return {
       imgServerUrl: IMAGE_SERVER,
-      photo: '',
       style: {
         root: {
           height: wih + 'px'
@@ -59,9 +60,6 @@ export default {
       wxShareInfoValue: {
         title: '美爆头条',
         desc: '扫码领取',
-        success: () => {
-          wechatShareTrack()
-        },
         imgUrl:
           'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/ynf_share_icon.png'
       }
@@ -76,7 +74,7 @@ export default {
 img {
   width: 100%;
 }
-@imageHost: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/ynf';
+@imageHost: "http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/ynf";
 #content {
   width: 100%;
   display: flex;
