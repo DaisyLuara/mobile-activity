@@ -5,9 +5,10 @@
   >
     <img
       v-show="Boolean(imgUrl)"
-      :src="base + 'title.png' + this.$qiniuCompress()"
+      :src="base + 'top.png' + this.$qiniuCompress()"
       class="title"
     >
+    <span class="getdate">{{getdate}}</span>
     <!-- 券 -->
     <div class="one">
       <img
@@ -50,6 +51,7 @@ import {
   isInWechat,
   wechatShareTrack,
   Cookies,
+  dateFormat,
   sendCoupon,
   checkGetCoupon,
   checkCouponNumber
@@ -66,9 +68,10 @@ export default {
           "min-height": this.$innerHeight() + "px"
         }
       },
-      imgUrl: null,//'https://cdn.exe666.com//fe/image/zpld_chr/7winter.png',
+      imgUrl: 'https://cdn.exe666.com//fe/image/zpld_chr/7winter.png',//null,
       id: this.$route.query.id,
       userId: null,
+      getdate: null,
       //分享
       wxShareInfoValue: {
         title: "周浦绿地广场双旦狂欢季，转出缤纷好礼",
@@ -90,6 +93,15 @@ export default {
       ) {
         this.handleWechatAuth();
       }
+    }
+    if (localStorage.getItem('greenchm' + this.id)) {
+      this.getdate = localStorage.getItem('greenchm' + this.id)
+    } else {
+      this.getdate = dateFormat(
+        new Date(),
+        'yyyy-MM-dd hh:mm:ss'
+      )
+      localStorage.setItem('greenchm' + this.id, this.getdate)
     }
   },
   methods: {
@@ -182,8 +194,17 @@ img {
   background-color: #01a660;
   background: url("@{img}back.png") center top / 100% auto repeat;
   padding-top: 12%;
+  .getdate {
+    position: absolute;
+    top: 0.5%;
+    right: 2%;
+    font-size: 3vw;
+    color: #000;
+    font-weight: 400;
+    z-index: 999;
+  }
   .title {
-    width: 56%;
+    width: 66%;
     margin-bottom: 7%;
   }
   & > div {
