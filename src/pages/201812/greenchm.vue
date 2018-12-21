@@ -67,7 +67,7 @@ export default {
           "min-height": this.$innerHeight() + "px"
         }
       },
-      imgUrl: 'https://cdn.exe666.com//fe/image/zpld_chr/7winter.png',//'https://cdn.exe666.com//fe/image/zpld_chr/7winter.png'
+      imgUrl: null,//'https://cdn.exe666.com//fe/image/zpld_chr/7winter.png'
       id: this.$route.query.id,
       userId: null,
       getdate: null,
