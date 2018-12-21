@@ -2,13 +2,8 @@
   <div class="wallet">
     <p>{{ errorMessage }}</p>
     <TabBar/>
-    <div 
-      v-for="(item, index) in list" 
-      :key="index" 
-      class="coupon-wrapper">
-      <CouponItem 
-        :coupon-type="couponType" 
-        :coupon-data="item"/>
+    <div v-for="(item, index) in list" :key="index" class="coupon-wrapper">
+      <CouponItem :coupon-type="couponType" :coupon-data="item"/>
     </div>
     <div class="loadmore-add"/>
     <div class="loadmore-add"/>
@@ -46,23 +41,24 @@ export default {
       const { id, code, state } = this.$route.query;
       let localZ = localStorage.getItem("z");
       let localMarketId = localStorage.getItem("marketid");
-
+      let localOid = localStorage.getItem("oid");
       try {
-        if (localZ === null || localMarketId === null) {
+        if (localZ === null || localMarketId === null || localOid === null) {
           let infoRes = await getInfoById(id, code, state);
           console.dir(infoRes);
           if (infoRes.userinfo !== null) {
             if (infoRes.userinfo.hasOwnProperty("z")) {
-              let setZ = infoRes.userinfo.z;
-              let setMarketId = infoRes.userinfo.marketid;
-              localZ = setZ;
-              localStorage.setItem("z", setZ);
-              localStorage.setItem("marketid", setMarketId);
+              let { z, marketid } = infoRes.userinfo;
+              let { oid } = infoRes;
+              localStorage.setItem("z", z);
+              localStorage.setItem("marketid", marketid);
+              localStorage.setItem("oid", oid);
               let parms = splitParms(infoRes.parms);
               if (parms.hasOwnProperty("coupon_batch_id")) {
                 await this.hanldeFirstGetCoupon(
-                  localZ,
-                  parms["coupon_batch_id"]
+                  z,
+                  parms["coupon_batch_id"],
+                  oid
                 );
               }
               await this.fetchWalletList();
@@ -70,13 +66,20 @@ export default {
           }
         } else {
           let infoRes = await getInfoById(id, code, state);
+          let { z, marketid } = infoRes.userinfo;
+          let { oid } = infoRes;
+
+          localStorage.setItem("z", z);
+          localStorage.setItem("marketid", marketid);
+          localStorage.setItem("oid", oid);
           if (infoRes !== undefined) {
             if (infoRes.hasOwnProperty("parms")) {
               let parms = splitParms(infoRes.parms);
               if (parms.hasOwnProperty("coupon_batch_id")) {
                 await this.hanldeFirstGetCoupon(
                   localZ,
-                  parms["coupon_batch_id"]
+                  parms["coupon_batch_id"],
+                  oid
                 );
               }
             }
@@ -91,7 +94,7 @@ export default {
     async fetchWalletList() {
       const localZ = localStorage.getItem("z");
       try {
-        let walletList = await getWalletListMini(localZ);
+        let walletList = await getWalletListMini(localZ, 3);
         console.dir(walletList);
         this.list = walletList.data.data;
       } catch {
@@ -101,9 +104,9 @@ export default {
         };
       }
     },
-    async hanldeFirstGetCoupon(z, coupon_batch_id) {
+    async hanldeFirstGetCoupon(z, coupon_batch_id, oid) {
       try {
-        let bindRes = await bindCouponMini(coupon_batch_id, z);
+        let bindRes = await bindCouponMini(coupon_batch_id, z, oid);
       } catch (e) {
         console.dir(e);
         // Toast(e.message);
