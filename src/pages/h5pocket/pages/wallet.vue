@@ -54,7 +54,11 @@ export default {
               localStorage.setItem("oid", oid);
               let parms = splitParms(infoRes.parms);
               if (parms.hasOwnProperty("coupon_batch_id")) {
-                await this.hanldeFirstGetCoupon(z, parms["coupon_batch_id"]);
+                await this.hanldeFirstGetCoupon(
+                  z,
+                  parms["coupon_batch_id"],
+                  oid
+                );
               }
               await this.fetchWalletList();
             }
