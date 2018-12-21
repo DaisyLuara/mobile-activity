@@ -51,12 +51,11 @@ import {
   isInWechat,
   wechatShareTrack,
   Cookies,
-  dateFormat,
   sendCoupon,
   checkGetCoupon,
   checkCouponNumber
 } from "services";
-import { normalPages } from "../../mixins/normalPages";
+import { normalPages } from "@/mixins/normalPages";
 const cdnUrl = process.env.CDN_URL;
 export default {
   mixins: [normalPages],
@@ -82,6 +81,7 @@ export default {
     };
   },
   mounted() {
+    this.handleForbiddenShare()
     //微信授权
     if (isInWechat() === true) {
       if (
@@ -91,15 +91,7 @@ export default {
         this.handleWechatAuth();
       }
     }
-    if (localStorage.getItem('greenchm' + this.id)) {
-      this.getdate = localStorage.getItem('greenchm' + this.id)
-    } else {
-      this.getdate = dateFormat(
-        new Date(),
-        'yyyy-MM-dd hh:mm:ss'
-      )
-      localStorage.setItem('greenchm' + this.id, this.getdate)
-    }
+    this.handleForbiddenShare()
   },
   watch: {
     parms() {
@@ -121,11 +113,24 @@ export default {
         this.userId = Cookies.get("user_id");
       }
     },
+    //禁止微信分享
+    handleForbiddenShare() {
+      $wechat()
+        .then(res => {
+          res.forbidden()
+        })
+        .catch(_ => {
+          console.warn(_.message)
+        })
+    },
     //获取券信息
     getCouponDetail() {
       checkCouponNumber(this.parms.coupon_batch_id)
         .then(res => {
+          console.log('detail')
+          console.log(res)
           this.imgUrl = res.image_url;
+          this.getdate = res.create_at
           this.checkGetCoupon()
         })
         .catch(err => {
@@ -158,6 +163,8 @@ export default {
       };
       sendCoupon(args, this.parms.coupon_batch_id)
         .then(res => {
+          console.log('send')
+          console.log(res)
         })
         .catch(err => {
           alert(err.response.data.message);

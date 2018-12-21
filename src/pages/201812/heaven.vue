@@ -75,7 +75,7 @@
   </div>
 </template>
 <script>
-import { normalPages } from "../../mixins/normalPages";
+import { normalPages } from "@/mixins/normalPages";
 const cdnUrl = process.env.CDN_URL;
 export default {
   mixins: [normalPages],
@@ -87,19 +87,20 @@ export default {
           height: this.$innerHeight() + "px"
         }
       },
-      photo: null,
       iphoneX: false,
-      type: this.$route.query.type,
+      type: null,
       wxShareInfoValue: {
         title: "DFC影城祝你圣诞快乐",
         desc: "点我领取您的圣诞优惠",
         link: "http://papi.xingstation.com/api/s/jZ5" + window.location.search,
         imgUrl: cdnUrl + "/fe/marketing/img/heaven/icon_dfc.png",
-        success: () => {
-          wechatShareTrack();
-        }
       }
     };
+  },
+  watch: {
+    parms() {
+      this.type = this.parms.type
+    }
   },
   mounted() {
     if (this.$innerHeight() > 672) {

@@ -26,7 +26,7 @@
   </div>
 </template>
 <script>
-import { normalPages } from "../../mixins/normalPages";
+import { normalPages } from "@/mixins/normalPages";
 const cdnUrl = process.env.CDN_URL;
 export default {
   mixins: [normalPages],
@@ -38,16 +38,12 @@ export default {
           height: this.$innerHeight() + "px"
         }
       },
-      photo: null,
       iphoneX: false,
       wxShareInfoValue: {
         title: "狂欢过圣诞，解锁送礼新姿势",
         desc: "这个圣诞，玩点不一样。",
         link: "http://papi.xingstation.com/api/s/lx6" + window.location.search,
         imgUrl: cdnUrl + "/fe/marketing/img/christmas_gift/icon.png",
-        success: () => {
-          wechatShareTrack();
-        }
       }
     };
   },

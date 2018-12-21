@@ -1,19 +1,20 @@
 <template>
   <div
     :style="style.root"
-    class="content">
-    <div 
-      class="main">
+    class="content"
+  >
+    <div class="main">
       <img
         :src="base+'back.jpg'"
-        class="background">
+        class="background"
+      >
       <!-- 提示 -->
       <img
         :src="base + hint + '.png'"
-        class="hint">
+        class="hint"
+      >
       <!-- 点亮的球 -->
-      <div
-        class="light-stars">
+      <div class="light-stars">
         <!-- 暗的星星 -->
         <a
           v-for="item in all"
@@ -24,7 +25,8 @@
         >
           <img
             :src="base + item + '0.png'"
-            @error="noFind">
+            @error="noFind"
+          >
         </a>
         <!-- 亮的星星 -->
         <a
@@ -35,39 +37,47 @@
         >
           <img
             :src="base + item + '0.png'"
-            @error="noFind">
+            @error="noFind"
+          >
         </a>
       </div>
       <!--蒙版 与卡片  -->
       <div
         v-show="mask"
-        class="mask">
-        <div 
+        class="mask"
+      >
+        <div
           v-for="(value,key) in cards"
           v-show="value"
           :key="key"
-          :class="['star-card',key]">
-          <a 
+          :class="['star-card',key]"
+        >
+          <a
             class="close"
-            @click="()=>{ cards[key] = false ; mask = false; hint = 'hint11'}">
-            <img
-              :src="base + 'close.png'">
+            @click="()=>{ cards[key] = false ; mask = false; hint = 'hint11'}"
+          >
+            <img :src="base + 'close.png'">
           </a>
           <img
             :src="base + key +'3.png'"
-            class="tit">
+            class="tit"
+          >
           <img
             :src="cards_img[key]"
-            class="photo">
+            class="photo"
+          >
           <img
             :src="base + 'save.png'"
-            class="save">
+            class="save"
+          >
           <img
             :src="base + key + '1.png'"
-            class="name">
+            class="name"
+          >
           <img
             :src="base + key + '2.png'"
-            class="people">
+            class="people"
+          >
         </div>
       </div>
     </div>
@@ -94,11 +104,10 @@ export default {
         }
       },
       base: CDNURL + '/fe/image/star/',
-      photo: null,
       hint: 'hint11',
       // 1，潘多拉，2，阿斯加德，3，克星，4，m78，5，娜美克，6，瓦肯(星星的顺序)
       all: ['pdl', 'asgd', 'kx', 'm78', 'nmk', 'wk'],
-      scene: this.$route.query.scene,
+      scene: null,
       stars: [], //'pdl','asgd', 'kx', 'm78', 'nmk', 'wk'
       mask: false,
       userId: null,
@@ -118,6 +127,17 @@ export default {
         nmk: null,
         wk: null
       }
+    }
+  },
+  watch: {
+    parms() {
+      this.scene = this.parms.scene
+      let star = this.all[this.scene - 1]
+      this.cards[star] = true
+      this.cards_img[star] = this.photo
+      this.mask = true
+      this.stars.push(star)
+      this.userGame()
     }
   },
   mounted() {
@@ -145,18 +165,6 @@ export default {
         window.location.href = redirct_url
       } else {
         this.userId = Cookies.get('user_id')
-        this.getPhoto()
-      }
-    },
-    getPhoto() {
-      let timer = requestAnimationFrame(this.getPhoto)
-      if (this.photo) {
-        cancelAnimationFrame(timer)
-        let star = this.all[this.scene - 1]
-        this.cards[star] = true
-        this.cards_img[star] = this.photo
-        this.mask = true
-        this.stars.push(star)
         this.userGame()
       }
     },
@@ -176,7 +184,7 @@ export default {
     },
     userGame() {
       let args = {
-        belong: this.$route.query.utm_campaign,
+        belong: this.belong,
         image_url: this.photo,
         qiniu_id: this.$route.query.id,
         scene: this.all[this.scene - 1],
@@ -192,7 +200,7 @@ export default {
         })
     },
     getSceneData() {
-      let url = '?belong=' + this.$route.query.utm_campaign + '&group_by=scene'
+      let url = '?belong=' + this.belong + '&group_by=scene'
       let args = {
         withCredentials: true
       }
@@ -213,9 +221,9 @@ export default {
       data.map(r => {
         r.scene
           ? that.stars.push(r.scene) &&
-            (that.cards_img[r.scene] = that.cards_img[r.scene]
-              ? that.cards_img[r.scene]
-              : r.image_url)
+          (that.cards_img[r.scene] = that.cards_img[r.scene]
+            ? that.cards_img[r.scene]
+            : r.image_url)
           : null
       })
     }
@@ -223,7 +231,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@img: 'https://cdn.exe666.com/fe/image/star/';
+@img: "https://cdn.exe666.com/fe/image/star/";
 html,
 body {
   width: 100%;
@@ -245,7 +253,7 @@ img {
   pointer-events: none;
   user-select: none;
 }
-img[src=''],
+img[src=""],
 img:not([src]) {
   opacity: 0;
   display: none;

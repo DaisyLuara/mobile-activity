@@ -35,7 +35,7 @@
 </template>
 <script>
 import { wechatShareTrack } from "services";
-import { normalPages } from "../../mixins/normalPages";
+import { normalPages } from "@/mixins/normalPages";
 const cdnUrl = process.env.CDN_URL;
 export default {
   mixins: [normalPages],
@@ -47,16 +47,12 @@ export default {
           height: this.$innerHeight() + "px"
         }
       },
-      photo: null,
       iphoneX: false,
       wxShareInfoValue: {
         title: "圣诞糖果屋",
         desc: "欢乐尽享甜蜜梦幻的圣诞狂欢!",
         link: "http://papi.xingstation.com/api/s/71A" + window.location.search,
         imgUrl: cdnUrl + "/fe/marketing/img/christmas_candy/icon.png",
-        success: () => {
-          wechatShareTrack();
-        }
       }
     };
   },
@@ -66,8 +62,6 @@ export default {
     } else {
       this.iphoneX = false;
     }
-  },
-  methods: {
   }
 };
 </script>
