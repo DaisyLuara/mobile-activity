@@ -67,7 +67,7 @@ export default {
           "min-height": this.$innerHeight() + "px"
         }
       },
-      imgUrl: null,//'https://cdn.exe666.com//fe/image/zpld_chr/7winter.png'
+      imgUrl: 'https://cdn.exe666.com//fe/image/zpld_chr/7winter.png',//'https://cdn.exe666.com//fe/image/zpld_chr/7winter.png'
       id: this.$route.query.id,
       userId: null,
       getdate: null,
@@ -81,7 +81,6 @@ export default {
     };
   },
   mounted() {
-    this.handleForbiddenShare()
     //微信授权
     if (isInWechat() === true) {
       if (
@@ -127,8 +126,7 @@ export default {
     getCouponDetail() {
       checkCouponNumber(this.parms.coupon_batch_id)
         .then(res => {
-          console.log('detail')
-          console.log(res)
+          alert(res)
           this.imgUrl = res.image_url;
           this.getdate = res.create_at
           this.checkGetCoupon()
