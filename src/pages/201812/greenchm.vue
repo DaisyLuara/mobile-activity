@@ -8,7 +8,7 @@
       :src="base + 'top.png' + this.$qiniuCompress()"
       class="title"
     >
-    <span class="getdate">{{getdate}}</span>
+    <span class="getdate">{{coupon_date}}</span>
     <!-- 券 -->
     <div class="one">
       <img
@@ -51,11 +51,12 @@ import {
   isInWechat,
   wechatShareTrack,
   Cookies,
+  dateFormat,
   sendCoupon,
   checkGetCoupon,
   checkCouponNumber
 } from "services";
-import { normalPages } from "@/mixins/normalPages";
+import { normalPages } from "../../mixins/normalPages";
 const cdnUrl = process.env.CDN_URL;
 export default {
   mixins: [normalPages],
@@ -70,7 +71,7 @@ export default {
       imgUrl: null,//'https://cdn.exe666.com//fe/image/zpld_chr/7winter.png'
       id: this.$route.query.id,
       userId: null,
-      getdate: null,
+      coupon_date: null,
       //分享
       wxShareInfoValue: {
         title: "周浦绿地广场双旦狂欢季，转出缤纷好礼",
@@ -91,7 +92,6 @@ export default {
       }
     }
     this.handleForbiddenShare()
-    console.log('test1')
   },
   watch: {
     parms() {
@@ -127,9 +127,7 @@ export default {
     getCouponDetail() {
       checkCouponNumber(this.parms.coupon_batch_id)
         .then(res => {
-          alert(res)
           this.imgUrl = res.image_url;
-          // this.getdate = res.create_at
           this.checkGetCoupon()
         })
         .catch(err => {
@@ -144,8 +142,38 @@ export default {
       };
       checkGetCoupon(args)
         .then(res => {
-          if (!res) {
-            this.sendCoupon();
+          // if (!res) {
+          //   this.sendCoupon();
+          // } else {
+          //   this.coupon_date = res.created_at
+          // }
+          if (res) {
+            this.handleData(res)
+          } else {
+            let data = new Date()
+            args = {
+              coupon_batch_id: this.coupon_batch_id,
+              include: 'couponBatch'
+            }
+            args.start_date = dateFormat(
+              new Date(formatTimestamp(data, true)),
+              'yyyy-MM-dd hh:mm:ss'
+            )
+            args.end_date = dateFormat(
+              new Date(formatTimestamp(data, false) - 1000),
+              'yyyy-MM-dd hh:mm:ss'
+            )
+            checkGetCoupon(args)
+              .then(res => {
+                if (res) {
+                  this.handleData(res)
+                } else {
+                  this.sendCoupon()
+                }
+              })
+              .catch(err => {
+                console.log(err)
+              })
           }
         })
         .catch(err => {
@@ -162,11 +190,17 @@ export default {
       };
       sendCoupon(args, this.parms.coupon_batch_id)
         .then(res => {
+          console.log('send', res)
+          this.handleData(res)
         })
         .catch(err => {
           alert(err.response.data.message);
         });
-    }
+    },
+    //处理返回数据
+    handleData(res) {
+      this.coupon_date = res.created_at
+    },
   }
 };
 </script>
@@ -257,5 +291,3 @@ img {
   }
 }
 </style>
-
-
