@@ -81,7 +81,7 @@ export default {
           "min-height": this.$innerHeight() + "px"
         }
       },
-      imgUrl: 'https://cdn.exe666.com/fe/image/longhu/120.png',//'https://cdn.exe666.com/fe/image/longhu/120.png'
+      imgUrl: null,//'https://cdn.exe666.com/fe/image/longhu/120.png'
       id: this.$route.query.id,
       open_user_id: null,
       hasgeted: false,
