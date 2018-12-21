@@ -91,6 +91,7 @@ export default {
       }
     }
     this.handleForbiddenShare()
+    console.log('test1')
   },
   watch: {
     parms() {
@@ -128,7 +129,7 @@ export default {
         .then(res => {
           alert(res)
           this.imgUrl = res.image_url;
-          this.getdate = res.create_at
+          // this.getdate = res.create_at
           this.checkGetCoupon()
         })
         .catch(err => {
