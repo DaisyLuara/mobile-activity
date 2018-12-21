@@ -91,6 +91,7 @@ export default {
         this.handleWechatAuth();
       }
     }
+    this.handleForbiddenShare()
   },
   watch: {
     parms() {
@@ -112,6 +113,16 @@ export default {
         this.userId = Cookies.get("user_id");
       }
     },
+    //禁止微信分享
+    handleForbiddenShare() {
+      $wechat()
+        .then(res => {
+          res.forbidden()
+        })
+        .catch(_ => {
+          console.warn(_.message)
+        })
+    },
     //获取券信息
     getCouponDetail() {
       checkCouponNumber(this.parms.coupon_batch_id)
@@ -131,10 +142,38 @@ export default {
       };
       checkGetCoupon(args)
         .then(res => {
-          if (!res) {
-            this.sendCoupon();
+          // if (!res) {
+          //   this.sendCoupon();
+          // } else {
+          //   this.coupon_date = res.created_at
+          // }
+          if (res) {
+            this.handleData(res)
           } else {
-            this.coupon_date = res.created_at
+            let data = new Date()
+            args = {
+              coupon_batch_id: this.coupon_batch_id,
+              include: 'couponBatch'
+            }
+            args.start_date = dateFormat(
+              new Date(formatTimestamp(data, true)),
+              'yyyy-MM-dd hh:mm:ss'
+            )
+            args.end_date = dateFormat(
+              new Date(formatTimestamp(data, false) - 1000),
+              'yyyy-MM-dd hh:mm:ss'
+            )
+            checkGetCoupon(args)
+              .then(res => {
+                if (res) {
+                  this.handleData(res)
+                } else {
+                  this.sendCoupon()
+                }
+              })
+              .catch(err => {
+                console.log(err)
+              })
           }
         })
         .catch(err => {
@@ -151,12 +190,17 @@ export default {
       };
       sendCoupon(args, this.parms.coupon_batch_id)
         .then(res => {
-          this.coupon_date = res.created_at
+          console.log('send', res)
+          this.handleData(res)
         })
         .catch(err => {
           alert(err.response.data.message);
         });
-    }
+    },
+    //处理返回数据
+    handleData(res) {
+      this.coupon_date = res.created_at
+    },
   }
 };
 </script>
