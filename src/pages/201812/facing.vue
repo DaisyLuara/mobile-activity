@@ -31,7 +31,7 @@
 </template>
 <script>
 import { $wechat, isInWechat, wechatShareTrack } from "services";
-import { normalPages } from "../../mixins/normalPages";
+import { normalPages } from "@/mixins/normalPages";
 const CDNURL = process.env.CDN_URL;
 export default {
   mixins: [normalPages],

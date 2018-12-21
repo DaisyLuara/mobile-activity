@@ -21,7 +21,7 @@
   </div>
 </template>
 <script>
-import { onlyWechatShare } from '../../mixins/onlyWechatShare'
+import { onlyWechatShare } from '@/mixins/onlyWechatShare'
 import { getInfoById } from 'services'
 import MC from 'mcanvas'
 const cdnUrl = process.env.CDN_URL
@@ -65,7 +65,6 @@ export default {
           console.log(res)
           this.photo = res.image
           this.drawing()
-          console.log(this.photo)
         })
         .catch(err => {
           console.log(err)

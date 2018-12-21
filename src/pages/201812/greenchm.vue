@@ -51,7 +51,6 @@ import {
   isInWechat,
   wechatShareTrack,
   Cookies,
-  dateFormat,
   sendCoupon,
   checkGetCoupon,
   checkCouponNumber
@@ -82,6 +81,7 @@ export default {
     };
   },
   mounted() {
+    this.handleForbiddenShare()
     //微信授权
     if (isInWechat() === true) {
       if (
@@ -92,15 +92,6 @@ export default {
       }
     }
     this.handleForbiddenShare()
-    if (localStorage.getItem('greenchm' + this.id)) {
-      this.getdate = localStorage.getItem('greenchm' + this.id)
-    } else {
-      this.getdate = dateFormat(
-        new Date(),
-        'yyyy-MM-dd hh:mm:ss'
-      )
-      localStorage.setItem('greenchm' + this.id, this.getdate)
-    }
   },
   watch: {
     parms() {
@@ -136,7 +127,10 @@ export default {
     getCouponDetail() {
       checkCouponNumber(this.parms.coupon_batch_id)
         .then(res => {
+          console.log('detail')
+          console.log(res)
           this.imgUrl = res.image_url;
+          this.getdate = res.create_at
           this.checkGetCoupon()
         })
         .catch(err => {
@@ -169,6 +163,8 @@ export default {
       };
       sendCoupon(args, this.parms.coupon_batch_id)
         .then(res => {
+          console.log('send')
+          console.log(res)
         })
         .catch(err => {
           alert(err.response.data.message);

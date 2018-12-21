@@ -36,7 +36,7 @@
 </template>
 <script>
 import { $wechat, isInWechat, wechatShareTrack } from "services";
-import { normalPages } from "../../mixins/normalPages";
+import { normalPages } from "@/mixins/normalPages";
 import "animate.css";
 const CDNURL = process.env.CDN_URL;
 export default {
@@ -44,21 +44,15 @@ export default {
   data() {
     return {
       base: CDNURL + "/fe/image/baolichm/",
-      photo: null,
       //微信分享
       wxShareInfoValue: {
         title: "宝贝，你的圣诞礼物",
         desc: "慈溪保利，圣诞有礼",
         link: "http://papi.xingstation.com/api/s/2xv" + window.location.search,
         imgUrl: CDNURL + "/fe/image/baolichm/share.png",
-        success: () => {
-          wechatShareTrack();
-        }
       }
     };
-  },
-  mounted() { },
-  methods: {}
+  }
 };
 </script>
 <style lang="less" scoped>
