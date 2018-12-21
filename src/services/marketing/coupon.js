@@ -254,11 +254,12 @@ const getMallcooOauth = params => {
   })
 }
 
-const bindCouponMini = (couponId, z) => {
+const bindCouponMini = (couponId, z, oid) => {
   return new Promise((resolve, reject) => {
     const requestUrl = MINI_API + '/user/coupon_batch/' + couponId
     const requestParams = {
-      z: z
+      z: z,
+      oid: oid
     }
     axios.post(requestUrl, requestParams, REQ_HEADER).then(response => {
       resolve(response)
