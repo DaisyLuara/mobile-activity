@@ -12,8 +12,8 @@
       :src="base + 'top.png' + this.$qiniuCompress()"
       class="title"
     >
-    <span class="getdate">{{coupon_date}}</span>
-    <span class="code">{{code}}</span>
+    <span class="getdate">{{ coupon_date }}</span>
+    <span class="code">{{ code }}</span>
     <!-- 券 -->
     <div class="one">
       <img
@@ -88,6 +88,11 @@ export default {
       }
     };
   },
+  watch: {
+    parms() {
+      this.getCouponDetail();
+    }
+  },
   mounted() {
     //微信授权
     if (isInWechat() === true) {
@@ -99,11 +104,6 @@ export default {
       }
     }
     this.handleForbiddenShare()
-  },
-  watch: {
-    parms() {
-      this.getCouponDetail();
-    }
   },
   methods: {
     //微信静默授权
