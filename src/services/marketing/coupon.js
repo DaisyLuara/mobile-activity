@@ -254,11 +254,12 @@ const getMallcooOauth = params => {
   })
 }
 
-const bindCouponMini = (couponId, z) => {
+const bindCouponMini = (couponId, z, oid) => {
   return new Promise((resolve, reject) => {
     const requestUrl = MINI_API + '/user/coupon_batch/' + couponId
     const requestParams = {
-      z: z
+      z: z,
+      oid: oid
     }
     axios.post(requestUrl, requestParams, REQ_HEADER).then(response => {
       resolve(response)
@@ -307,13 +308,14 @@ const getMallListMini = (z, page, per_page, marketId) => {
   })
 }
 
-const getWalletListMini = (z) => {
+const getWalletListMini = (z, status) => {
   return new Promise((resolve, reject) => {
     const requestUrl = MINI_API + '/user/coupons'
     const requestParams = {
       params: {
         z: z,
-        include: 'couponBatch'
+        include: 'couponBatch',
+        status: status
       },
       ...REQ_HEADER
     }

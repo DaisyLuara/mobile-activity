@@ -2,7 +2,6 @@ import {
   $wechat,
   getInfoById,
   isInWechat,
-  wechatShareTrack,
   splitParms
 } from 'services'
 const cdnUrl = process.env.CDN_URL
@@ -21,10 +20,7 @@ export const normalPages = {
         title: '',
         desc: '',
         link: '',
-        imgUrl: '',
-        success: () => {
-          wechatShareTrack()
-        }
+        imgUrl: ''
       }
     }
   },

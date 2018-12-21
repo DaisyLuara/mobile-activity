@@ -5,9 +5,7 @@
     <div class="qr-code">
       <div class="title">{{ qrtitle }}</div>
       <div class="qr-img">
-        <img 
-          v-if="imgUrl !== ''" 
-          :src="imgUrl">
+        <img v-if="imgUrl !== ''" :src="imgUrl">
       </div>
       <div class="code">{{ code }}</div>
     </div>
@@ -126,8 +124,8 @@ export default {
       flex-shrink: 0;
     }
     .qr-img {
-      width: 2.1rem;
-      height: 2.1rem;
+      width: 2rem;
+      height: 2rem;
       img {
         width: 100%;
         height: 100%;
