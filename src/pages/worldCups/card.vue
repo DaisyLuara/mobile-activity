@@ -3,112 +3,128 @@
   <!-- isAbandoned -->
   <div
     v-if="loadingDone === true"
-    :style="style.root" 
-    class="card-root">
-      <div 
-        v-if="control.currentMenu === 0"
-        :style="style.pic">
+    :style="style.root"
+    class="card-root"
+  >
+    <div
+      v-if="control.currentMenu === 0"
+      :style="style.pic"
+    >
       <img
         class="root-pic-inner"
         style="height: 100%;"
         :src="this.baseUrl + 'header.png'"
       />
-     </div>
-     <div
-        :style="style.power"
-        :class="{'show': this.control.powerStatus, 'hide': !this.control.powerStatus}"
-        class="mid-power">
-        <Spider 
-          v-if="control.loadingData === false"
-          :powerData="bindData" 
-          :width="style.bindWith"
-          :style="style.spider"/>
-        <img 
-          @click="handlePowerStatusChange"
-          class="power-img"
-          :src="this.baseUrl + (this.control.powerStatus ? 'nav1.png' : 'nav2.png')"/>
-        <img
-          style="width: 100%"
-          :src="this.baseUrl + 'power.png'" />
-      </div>
- 
+    </div>
+    <div
+      :style="style.power"
+      :class="{'show': this.control.powerStatus, 'hide': !this.control.powerStatus}"
+      class="mid-power"
+    >
+      <Spider
+        v-if="control.loadingData === false"
+        :powerData="bindData"
+        :width="style.bindWith"
+        :style="style.spider"
+      />
+      <img
+        @click="handlePowerStatusChange"
+        class="power-img"
+        :src="this.baseUrl + (this.control.powerStatus ? 'nav1.png' : 'nav2.png')"
+      />
+      <img
+        style="width: 100%"
+        :src="this.baseUrl + 'power.png'"
+      />
+    </div>
+
     <game-menu />
-    <div class="root-header" >
+    <div class="root-header">
 
     </div>
 
     <div
       v-show="control.currentMenu === 0"
-      :style="style.mid" 
-      class="root-mid">
+      :style="style.mid"
+      class="root-mid"
+    >
 
       <img
-        :src="imgUrl" 
-        class="real-photo" />
+        :src="imgUrl"
+        class="real-photo"
+      />
       <img
         :src="baseUrl + 'light-left.png'"
         class="mid-left"
       />
 
-      <img 
+      <img
         :src="baseUrl + 'light-right.png'"
         class="mid-right"
       />
-     
+
       <div
-        :style="style.casediv" 
-        class="mid-case-div">
+        :style="style.casediv"
+        class="mid-case-div"
+      >
         <div class="scan-area">
           <img
             :src="baseUrl + 'scan.png'"
             class="mid-scan"
           />
         </div>
-        <img 
-          :src="baseUrl + 'kuang.png'" 
+        <img
+          :src="baseUrl + 'kuang.png'"
           class="mid-case"
         />
 
-        <img 
-          :src="imgUrl" 
+        <img
+          :src="imgUrl"
           class="mid-photo"
         />
       </div>
-      
 
     </div>
 
     <div
       v-show="control.currentMenu === 1"
-      :style="style.mid" 
-      class="root-mid">
-      <img 
+      :style="style.mid"
+      class="root-mid"
+    >
+      <img
         style="width: 80%"
-        :src="baseUrl + 'card/next.png'" />
+        :src="baseUrl + 'card/next.png'"
+      />
       <img
         :style="style.comming"
-        :src="baseUrl + 'card/act2.png'" />
+        :src="baseUrl + 'card/act2.png'"
+      />
     </div>
 
     <div
       v-show="control.currentMenu === 2"
-      :style="style.mid" 
-      class="root-mid">
-      <img 
+      :style="style.mid"
+      class="root-mid"
+    >
+      <img
         style="width: 80%"
-        :src="baseUrl + 'card/next.png'" />
+        :src="baseUrl + 'card/next.png'"
+      />
       <img
         :style="style.comming"
-        :src="baseUrl + 'card/act3.png'" />
+        :src="baseUrl + 'card/act3.png'"
+      />
     </div>
 
     <div
       v-show="control.currentMenu === 3"
-      :style="style.mid" 
-      class="root-mid">
-      <img 
+      :style="style.mid"
+      class="root-mid"
+    >
+      <img
         style="width: 80%"
-        :src="baseUrl + 'card/rule.png'" />
+        :src="baseUrl + 'card/rule.png'"
+      />
     </div>
 
     <div class="root-bottom" />
@@ -119,11 +135,13 @@
 import GameMenu from './components/gameMenu'
 import Spider from './components/spider'
 import { Toast, Indicator } from 'mint-ui'
+import { normalPages } from '@/mixins/normalPages'
 export default {
   components: {
     GameMenu,
     Spider
   },
+  mixins: [normalPages],
   data() {
     return {
       baseUrl:
@@ -181,20 +199,11 @@ export default {
       },
       imgUrl: '',
       gamerst: null,
-      loadingDone: false
+      loadingDone: false,
+      game_id: null,
     }
   },
   created() {
-    if (localStorage.getItem('wc_card') === null) {
-      this.handleAuth()
-    } else {
-      let wc_store = JSON.parse(localStorage.getItem('wc_card'))
-      if (!wc_store.game_ids.includes(String(this.$route.query.game_id))) {
-        this.handleAuth()
-      } else {
-        this.getUserData()
-      }
-    }
 
     document.title = '球星卡'
     this.style.mid.height = window.innerWidth * 1124 / 690 + 'px'
@@ -207,6 +216,22 @@ export default {
         (window.innerHeight - window.innerWidth * 1124 / 690) / 2 + 'px'
     }
   },
+  wacth: {
+    parms() {
+      this.game_id = this.parms.game_id
+      if (localStorage.getItem('wc_card') === null) {
+        this.handleAuth()
+      } else {
+        let wc_store = JSON.parse(localStorage.getItem('wc_card'))
+        if (!wc_store.game_ids.includes(String(this.game_id))) {
+          this.handleAuth()
+        } else {
+          this.getUserData()
+        }
+      }
+
+    }
+  },
   mounted() {
     this.getPhoto()
   },
@@ -217,11 +242,11 @@ export default {
           game_ids: [],
           id: this.$route.query.id
         }
-        storeData.game_ids.push(String(this.$route.query.game_id))
+        storeData.game_ids.push(String(this.game_id))
         localStorage.setItem('wc_card', JSON.stringify(storeData))
       } else {
         let storeData = JSON.parse(localStorage.getItem('wc_card'))
-        storeData.game_ids.push(String(this.$route.query.game_id))
+        storeData.game_ids.push(String(this.game_id))
         storeData.id = this.$route.query.id
         localStorage.setItem('wc_card', JSON.stringify(storeData))
       }
@@ -243,7 +268,7 @@ export default {
       let rq =
         process.env.WX_API +
         '/wx/officialAccount/user?game_id=' +
-        String(this.$route.query.game_id)
+        String(this.game_id)
 
       this.$http.get(rq, { withCredentials: true }).then(r => {
         // console.dir(r)
@@ -371,7 +396,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imgServerUrl: 'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup';
+@imgServerUrl: "https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup";
 @keyframes flash {
   from {
     top: -20%;
@@ -436,7 +461,7 @@ export default {
     width: 100%;
     flex-grow: 0;
     flex-shrink: 0;
-    background-image: url('@{imgServerUrl}/bg_mid.png');
+    background-image: url("@{imgServerUrl}/bg_mid.png");
     background-size: contain;
     display: flex;
     justify-content: center;
@@ -512,7 +537,7 @@ export default {
   .root-header {
     flex-grow: 1;
     flex-shrink: 1;
-    background-image: url('@{imgServerUrl}/bg_top.png');
+    background-image: url("@{imgServerUrl}/bg_top.png");
     background-size: cover;
     width: 100%;
     position: relative;
@@ -520,7 +545,7 @@ export default {
   .root-bottom {
     flex-grow: 1;
     flex-shrink: 1;
-    background-image: url('@{imgServerUrl}/bg_bottom.png');
+    background-image: url("@{imgServerUrl}/bg_bottom.png");
     background-size: cover;
     width: 100%;
   }
