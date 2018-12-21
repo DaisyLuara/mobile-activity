@@ -135,7 +135,6 @@ export default {
       checkCouponNumber(this.parms.coupon_batch_id)
         .then(res => {
           this.imgUrl = res.image_url;
-          // this.handleData(res)
           this.checkGetCoupon()
         })
         .catch(err => {
