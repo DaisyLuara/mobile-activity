@@ -93,7 +93,7 @@ export default {
                 await this.hanldeFirstGetCoupon(
                   localZ,
                   parms["coupon_batch_id"],
-                  oid
+                  localOid
                 );
               }
             }
