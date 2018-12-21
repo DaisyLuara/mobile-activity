@@ -90,8 +90,11 @@ export default {
         this.handleWechatAuth();
       }
     }
+    if (process.env.NODE_ENV === "testing") {
+      this.imgUrl = 'https://cdn.exe666.com//fe/image/zpld_chr/7winter.png'
+    }
     //this.handleForbiddenShare()
-    console.log('test1')
+    console.log('aaa')
   },
   watch: {
     parms() {
@@ -125,7 +128,7 @@ export default {
     },
     //获取券信息
     getCouponDetail() {
-      checkCouponNumber(this.parms.coupon_batch_id)
+      checkCouponNumber(this.coupon_batch_id)
         .then(res => {
           console.log(res)
           this.imgUrl = res.image_url;
@@ -140,7 +143,7 @@ export default {
     //获取券信息,判断是否领过券
     checkGetCoupon() {
       let args = {
-        coupon_batch_id: this.parms.coupon_batch_id,
+        coupon_batch_id: this.coupon_batch_id,
         include: "couponBatch"
       };
       checkGetCoupon(args)
@@ -163,7 +166,7 @@ export default {
         oid: this.oid,
         belong: this.belong
       };
-      sendCoupon(args, this.parms.coupon_batch_id)
+      sendCoupon(args, this.coupon_batch_id)
         .then(res => {
         })
         .catch(err => {
