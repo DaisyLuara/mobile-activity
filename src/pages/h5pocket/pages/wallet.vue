@@ -45,25 +45,29 @@ export default {
       try {
         if (localZ === null || localMarketId === null || localOid === null) {
           let infoRes = await getInfoById(id, code, state);
-          console.dir(infoRes);
-          if (infoRes.userinfo !== null) {
-            if (infoRes.userinfo.hasOwnProperty("z")) {
-              let { z, marketid } = infoRes.userinfo;
-              let { oid } = infoRes;
-              localStorage.setItem("z", z);
-              localStorage.setItem("marketid", marketid);
-              localStorage.setItem("oid", oid);
-              let parms = splitParms(infoRes.parms);
-              if (parms.hasOwnProperty("coupon_batch_id")) {
-                await this.hanldeFirstGetCoupon(
-                  z,
-                  parms["coupon_batch_id"],
-                  oid
-                );
+          // console.dir(infoRes);
+          if (infoRes !== undefined) {
+            if (infoRes.hasOwnProperty("userinfo")) {
+              if (infoRes.userinfo !== null) {
+                if (infoRes.userinfo.hasOwnProperty("z")) {
+                  let { z, marketid } = infoRes.userinfo;
+                  let { oid } = infoRes;
+                  localStorage.setItem("z", z);
+                  localStorage.setItem("marketid", marketid);
+                  localStorage.setItem("oid", oid);
+                  let parms = splitParms(infoRes.parms);
+                  if (parms.hasOwnProperty("coupon_batch_id")) {
+                    await this.hanldeFirstGetCoupon(
+                      z,
+                      parms["coupon_batch_id"],
+                      oid
+                    );
+                  }
+                }
               }
-              await this.fetchWalletList();
             }
           }
+          await this.fetchWalletList();
         } else {
           let infoRes = await getInfoById(id, code, state);
           let { z, marketid } = infoRes.userinfo;
