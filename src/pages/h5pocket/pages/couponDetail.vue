@@ -90,9 +90,7 @@ export default {
             })
             .catch(e => {
               console.dir(e);
-              if (e.response.status === 500) {
-                Toast(e.response.message);
-              }
+              Toast(e.response.data.message);
             });
         }
       } else if (this.type === "wallet") {
