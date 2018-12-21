@@ -8,7 +8,7 @@
       :src="base + 'top.png' + this.$qiniuCompress()"
       class="title"
     >
-    <span class="getdate">{{getdate}}</span>
+    <span class="getdate">{{coupon_date}}</span>
     <!-- 券 -->
     <div class="one">
       <img
@@ -71,7 +71,7 @@ export default {
       imgUrl: null,//'https://cdn.exe666.com//fe/image/zpld_chr/7winter.png'
       id: this.$route.query.id,
       userId: null,
-      getdate: null,
+      coupon_date: null,
       //分享
       wxShareInfoValue: {
         title: "周浦绿地广场双旦狂欢季，转出缤纷好礼",
@@ -90,15 +90,6 @@ export default {
       ) {
         this.handleWechatAuth();
       }
-    }
-    if (localStorage.getItem('greenchm' + this.id)) {
-      this.getdate = localStorage.getItem('greenchm' + this.id)
-    } else {
-      this.getdate = dateFormat(
-        new Date(),
-        'yyyy-MM-dd hh:mm:ss'
-      )
-      localStorage.setItem('greenchm' + this.id, this.getdate)
     }
   },
   watch: {
@@ -142,6 +133,8 @@ export default {
         .then(res => {
           if (!res) {
             this.sendCoupon();
+          } else {
+            this.coupon_date = res.created_at
           }
         })
         .catch(err => {
@@ -158,6 +151,7 @@ export default {
       };
       sendCoupon(args, this.parms.coupon_batch_id)
         .then(res => {
+          this.coupon_date = res.created_at
         })
         .catch(err => {
           alert(err.response.data.message);
