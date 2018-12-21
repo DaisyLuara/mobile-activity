@@ -13,6 +13,7 @@
       class="title"
     >
     <span class="getdate">{{coupon_date}}</span>
+    <span class="code">{{code}}</span>
     <!-- 券 -->
     <div class="one">
       <img
@@ -72,10 +73,11 @@ export default {
           "min-height": this.$innerHeight() + "px"
         }
       },
-      imgUrl: 'https://cdn.exe666.com//fe/image/zpld_chr/7winter.png',
+      imgUrl: null,//'https://cdn.exe666.com//fe/image/zpld_chr/7winter.png'
       id: this.$route.query.id,
       userId: null,
       coupon_date: null,
+      code: null,
       //分享
       wxShareInfoValue: {
         title: "周浦绿地广场双旦狂欢季，转出缤纷好礼",
@@ -132,6 +134,7 @@ export default {
       checkCouponNumber(this.parms.coupon_batch_id)
         .then(res => {
           this.imgUrl = res.image_url;
+          // this.handleData(res)
           this.checkGetCoupon()
         })
         .catch(err => {
@@ -189,6 +192,7 @@ export default {
     //处理返回数据
     handleData(res) {
       this.coupon_date = res.created_at
+      this.code = res.code
     },
   }
 };
@@ -232,6 +236,15 @@ img {
     top: 0.5%;
     right: 2%;
     font-size: 3vw;
+    color: #000;
+    font-weight: 400;
+    z-index: 999;
+  }
+  .code {
+    position: absolute;
+    top: 0.5%;
+    left: 2%;
+    font-size: 5vw;
     color: #000;
     font-weight: 400;
     z-index: 999;
