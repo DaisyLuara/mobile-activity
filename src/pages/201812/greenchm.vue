@@ -91,6 +91,7 @@ export default {
         this.handleWechatAuth();
       }
     }
+    this.handleForbiddenShare()
   },
   watch: {
     parms() {
@@ -111,6 +112,16 @@ export default {
       } else {
         this.userId = Cookies.get("user_id");
       }
+    },
+    //禁止微信分享
+    handleForbiddenShare() {
+      $wechat()
+        .then(res => {
+          res.forbidden()
+        })
+        .catch(_ => {
+          console.warn(_.message)
+        })
     },
     //获取券信息
     getCouponDetail() {
