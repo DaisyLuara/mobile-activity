@@ -27,13 +27,7 @@ const basicTrack = (id, phoneNumber) => {
     console.log('ok')
   })
 }
-
-// 微信分享回调追踪
-const wechatShareTrack = (desc = 'share_page_wechat_300') => {
-  console.log(customTrack.adId)
-  if (_paq || window._paq) {
-    _paq.push(['trackEvent', customTrack.adId, customTrack.laId, desc])
-  }
+const wechatShareTrack = () => {
+  return
 }
-
 export { basicTrack, wechatShareTrack }
