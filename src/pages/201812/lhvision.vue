@@ -18,7 +18,8 @@
           class="aclick"
           @click="getAuth"
         >
-          <img :src="base
+          <img 
+            :src="base
               + 'click.png'+
             this.$qiniuCompress()">
         </a>

@@ -201,13 +201,6 @@ export default {
       game_id: null,
     }
   },
-  created() {
-    if (process.env.NODE_ENV === 'development') {
-      this.handleNext()
-    } else {
-      this.Init()
-    }
-  },
   watch: {
     parms() {
       this.game_id = this.parms.game_id
@@ -216,6 +209,13 @@ export default {
       } else {
         this.Init()
       }
+    }
+  },
+  created() {
+    if (process.env.NODE_ENV === 'development') {
+      this.handleNext()
+    } else {
+      this.Init()
     }
   },
   methods: {
