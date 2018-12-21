@@ -59,7 +59,8 @@ import {
   dateFormat,
   sendCoupon,
   checkGetCoupon,
-  checkCouponNumber
+  checkCouponNumber,
+  formatTimestamp
 } from "services";
 import { normalPages } from "../../mixins/normalPages";
 const cdnUrl = process.env.CDN_URL;
@@ -134,7 +135,6 @@ export default {
       checkCouponNumber(this.parms.coupon_batch_id)
         .then(res => {
           this.imgUrl = res.image_url;
-          // this.handleData(res)
           this.checkGetCoupon()
         })
         .catch(err => {
@@ -147,17 +147,14 @@ export default {
         coupon_batch_id: this.parms.coupon_batch_id,
         include: "couponBatch"
       };
-      let data = new Date()
-      args = {
-        coupon_batch_id: this.coupon_batch_id,
-        include: 'couponBatch'
-      }
+      let date = new Date()
       args.start_date = dateFormat(
-        new Date(formatTimestamp(data, true)),
+        new Date(formatTimestamp(date, true)),
         'yyyy-MM-dd hh:mm:ss'
       )
+
       args.end_date = dateFormat(
-        new Date(formatTimestamp(data, false) - 1000),
+        new Date(formatTimestamp(date, false) - 1000),
         'yyyy-MM-dd hh:mm:ss'
       )
       checkGetCoupon(args)
