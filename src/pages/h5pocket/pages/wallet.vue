@@ -70,13 +70,23 @@ export default {
           await this.fetchWalletList();
         } else {
           let infoRes = await getInfoById(id, code, state);
-          let { z, marketid } = infoRes.userinfo;
-          let { oid } = infoRes;
-
-          localStorage.setItem("z", z);
-          localStorage.setItem("marketid", marketid);
-          localStorage.setItem("oid", oid);
           if (infoRes !== undefined) {
+            // 存在更新点位信息
+            if (infoRes.hasOwnProperty("oid")) {
+              if (infoRes.oid !== null) {
+                let { oid } = infoRes;
+                localStorage.setItem("oid", oid);
+              }
+            }
+            // 存在更新用户信息
+            if (infoRes.hasOwnProperty("userinfo")) {
+              if (infoRes.userinfo !== null) {
+                let { z, marketid } = infoRes.userinfo;
+                localStorage.setItem("z", z);
+                localStorage.setItem("marketid", marketid);
+              }
+            }
+            // 存在更新优惠券
             if (infoRes.hasOwnProperty("parms")) {
               let parms = splitParms(infoRes.parms);
               if (parms.hasOwnProperty("coupon_batch_id")) {
