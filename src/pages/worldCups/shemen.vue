@@ -1,187 +1,217 @@
 <template>
   <!-- eslint-disable -->
   <!-- isAbandoned -->
-  <div 
+  <div
     v-if="loadingDone === true"
     :style="style.root"
-    class="root-sm">
+    class="root-sm"
+  >
     <GameMenu />
 
-    <img 
-      :src="bindImage" 
+    <img
+      :src="bindImage"
       v-if="control.currentMenu === 1"
-      class="root-real-photo" />
+      class="root-real-photo"
+    />
 
-    <div 
+    <div
       v-if="control.currentMenu === 1"
-      class="root-head-img">
+      class="root-head-img"
+    >
 
       <img :src="this.baseUrl + 'sm-header.png'" />
 
-
-      <div 
+      <div
         :style="style.headScore"
-        class="head-score">
-        <div v-for="(item, index) in score.toString()" :key="index" style="height: 100%">
-          <img style="height: 100%" :src="baseUrl + 'df/' + item + '.png'" />
+        class="head-score"
+      >
+        <div
+          v-for="(item, index) in score.toString()"
+          :key="index"
+          style="height: 100%"
+        >
+          <img
+            style="height: 100%"
+            :src="baseUrl + 'df/' + item + '.png'"
+          />
         </div>
       </div>
 
       <div
-        :style="style.headPlayer" 
-        class="head-player">
+        :style="style.headPlayer"
+        class="head-player"
+      >
         <div
           style="height: 100%"
-          v-for="(item, index) in player.toString()" :key="index">
+          v-for="(item, index) in player.toString()"
+          :key="index"
+        >
           <img
             style="height: 100%"
-            :src="baseUrl + 'df/' + item + '.png'" />
+            :src="baseUrl + 'df/' + item + '.png'"
+          />
         </div>
       </div>
 
       <div class="head-l">
         <img
-          :style="style.leftArrow" 
-          :src="this.baseUrl + 'sm-l-1.png'" />
+          :style="style.leftArrow"
+          :src="this.baseUrl + 'sm-l-1.png'"
+        />
       </div>
 
       <div class="head-r">
         <img
-          :style="style.rightArrow" 
-          :src="this.baseUrl + 'rm-r-1.png'" />
+          :style="style.rightArrow"
+          :src="this.baseUrl + 'rm-r-1.png'"
+        />
       </div>
     </div>
 
-
     <div class="root-header" />
 
-    <div 
+    <div
       :style="style.mid"
-      :class="{'root-mid hasBg':control.currentMenu === 1, 'root-mid offBg': control.currentMenu !== 1}">
+      :class="{'root-mid hasBg':control.currentMenu === 1, 'root-mid offBg': control.currentMenu !== 1}"
+    >
 
       <!-- 1 -->
-      <div 
+      <div
         v-if="control.currentMenu === 1"
-        class="mid-game">
+        class="mid-game"
+      >
         <!-- cover photo -->
         <img
-          class="mid-photo" 
-          :src="bindImage" />
+          class="mid-photo"
+          :src="bindImage"
+        />
 
         <div class="mid-l-s">
         </div>
 
-
         <div class="mid-r-s">
         </div>
 
-
-        <div 
+        <div
           class="mid-mj"
-          :style="style.mj">
+          :style="style.mj"
+        >
           <img
             style="position: absolute; z-index: 20"
-            :src="this.baseUrl + 'sm-mj.png'" />
+            :src="this.baseUrl + 'sm-mj.png'"
+          />
 
-          <canvas 
+          <canvas
             style="width: 100%; z-index: 20; position: absolute"
-            id="canvas-left" />
+            id="canvas-left"
+          />
 
           <canvas
             style="width: 100%; z-index: 30; position: absolute"
-            id="canvas-left-min" />
-            
-          <div
-            :style="style.mj1">
+            id="canvas-left-min"
+          />
+
+          <div :style="style.mj1">
             <span
-            style="display:inline-block"
-            v-for="(item, index) in this.mj.toString()"
-            :key="index">
-              <img 
-              :src="baseUrl + 'mt/' + item + '.png'" />
+              style="display:inline-block"
+              v-for="(item, index) in this.mj.toString()"
+              :key="index"
+            >
+              <img :src="baseUrl + 'mt/' + item + '.png'" />
             </span>
           </div>
         </div>
 
         <div
           class="mid-tl"
-          :style="style.tl">
+          :style="style.tl"
+        >
           <img
-            style="position: absolute; z-index: 20" 
-            :src="this.baseUrl + 'sm-tl.png'" />
+            style="position: absolute; z-index: 20"
+            :src="this.baseUrl + 'sm-tl.png'"
+          />
 
-          <canvas 
+          <canvas
             style="width: 100%; z-index: 20; position: absolute"
-            id="canvas-right" />
+            id="canvas-right"
+          />
 
           <canvas
             style="width: 100%; z-index: 30; position: absolute"
-            id="canvas-right-min" />
-          <div
-            :style="style.tl1">
+            id="canvas-right-min"
+          />
+          <div :style="style.tl1">
             <span
-            style="display:inline-block"
-            v-for="(item, index) in this.tl.toString()"
-            :key="index">
-              <img 
-              :src="baseUrl + 'mt/' + item + '.png'" />
+              style="display:inline-block"
+              v-for="(item, index) in this.tl.toString()"
+              :key="index"
+            >
+              <img :src="baseUrl + 'mt/' + item + '.png'" />
             </span>
           </div>
 
         </div>
 
-
         <img
           class="mid-card"
           :style="style.card"
-          :src="this.baseUrl + 'sm-card.png'" />
+          :src="this.baseUrl + 'sm-card.png'"
+        />
 
         <img
           v-if="this.title === 0"
           class="mid-card-text"
           :style="style.cardText"
-          :src="this.baseUrl + 'word-1.png'" />
+          :src="this.baseUrl + 'word-1.png'"
+        />
 
         <img
           v-if="this.title === 1"
           class="mid-card-text"
           :style="style.cardText"
-          :src="this.baseUrl + 'word-2.png'" />
+          :src="this.baseUrl + 'word-2.png'"
+        />
 
         <img
           v-if="this.title === 2"
           class="mid-card-text"
           :style="style.cardText"
-          :src="this.baseUrl + 'word-3.png'" />
+          :src="this.baseUrl + 'word-3.png'"
+        />
 
         <img
           v-if="this.title === 3"
           class="mid-card-text"
           :style="style.cardText"
-          :src="this.baseUrl + 'word-4.png'" />
+          :src="this.baseUrl + 'word-4.png'"
+        />
 
         <img
           v-if="this.title === 4"
           class="mid-card-text"
           :style="style.cardText"
-          :src="this.baseUrl + 'word-5.png'" />
+          :src="this.baseUrl + 'word-5.png'"
+        />
 
         <img
           v-if="this.title < 0 || this.title > 4"
           class="mid-card-text"
           :style="style.cardText"
-          :src="this.baseUrl + 'word-5.png'" />
-      
+          :src="this.baseUrl + 'word-5.png'"
+        />
+
       </div>
 
       <!-- 3 -->
       <div
         class="mid-game"
         style="width: 80%"
-        v-if="control.currentMenu === 3">
-        <img 
+        v-if="control.currentMenu === 3"
+      >
+        <img
           class="rule-img"
-          src="https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup/card/rule.png" />
+          src="https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup/card/rule.png"
+        />
       </div>
     </div>
 
@@ -192,11 +222,13 @@
 <script>
 import { Toast, Indicator } from 'mint-ui'
 import GameMenu from './components/gameMenu'
+import { normalPages } from '@/mixins/normalPages'
 const wiw = window.innerWidth
 export default {
   components: {
     GameMenu
   },
+  mixins: [normalPages],
   data() {
     return {
       loadingDone: false,
@@ -286,7 +318,8 @@ export default {
         currentMenu: 1
       },
       title: -1,
-      gamerst: null
+      gamerst: null,
+      game_id: null
     }
   },
   created() {
@@ -295,6 +328,16 @@ export default {
       this.Init()
     } else {
       this.loadingDone = true
+    }
+  },
+  watch: {
+    parms() {
+      this.game_id = this.parms.game_id
+      if (process.env.NODE_ENV !== 'development') {
+        this.Init()
+      } else {
+        this.loadingDone = true
+      }
     }
   },
   mounted() {
@@ -319,7 +362,7 @@ export default {
         this.handleAuth()
       } else {
         let wc_store = JSON.parse(localStorage.getItem('wc_shemen'))
-        if (!wc_store.game_ids.includes(String(this.$route.query.game_id))) {
+        if (!wc_store.game_ids.includes(String(this.game_id))) {
           this.handleAuth()
         } else {
           this.getUserData()
@@ -332,11 +375,11 @@ export default {
           game_ids: [],
           id: this.$route.query.id
         }
-        storeData.game_ids.push(String(this.$route.query.game_id))
+        storeData.game_ids.push(String(this.game_id))
         localStorage.setItem('wc_shemen', JSON.stringify(storeData))
       } else {
         let storeData = JSON.parse(localStorage.getItem('wc_shemen'))
-        storeData.game_ids.push(String(this.$route.query.game_id))
+        storeData.game_ids.push(String(this.game_id))
         storeData.id = this.$route.query.id
         localStorage.setItem('wc_shemen', JSON.stringify(storeData))
       }
@@ -358,7 +401,7 @@ export default {
       let rq =
         process.env.WX_API +
         '/wx/officialAccount/user?game_id=' +
-        String(this.$route.query.game_id)
+        String(this.game_id)
 
       this.$http.get(rq, { withCredentials: true }).then(r => {
         // console.dir(r)
@@ -404,7 +447,7 @@ export default {
     processStartAngle(score) {
       return (score - 50) * 3 / 2 * Math.PI
     },
-    processEndAngle(score) {},
+    processEndAngle(score) { },
     drawCircle(circleObj) {
       let ctx = circleObj.ctx
       ctx.beginPath()
@@ -569,7 +612,7 @@ export default {
 img {
   width: 100%;
 }
-@imgServerUrl: 'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup';
+@imgServerUrl: "https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup";
 
 .root-sm {
   width: 100%;
@@ -599,7 +642,7 @@ img {
     flex-shrink: 0;
     display: flex;
     &.hasBg {
-      background-image: url('@{imgServerUrl}/sm-bg.png');
+      background-image: url("@{imgServerUrl}/sm-bg.png");
     }
     &.offBg {
       background-color: black;

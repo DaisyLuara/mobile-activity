@@ -3,86 +3,109 @@
   <div
     v-if="loadingDone === true"
     :style="style.root"
-    class="hj-root">
+    class="hj-root"
+  >
 
-    <div class="root-rule" v-if="control.currentMenu === 1">
-       <img 
+    <div
+      class="root-rule"
+      v-if="control.currentMenu === 1"
+    >
+      <img
         class="rule-img"
-        src="https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup/card/next.png" />
-        <img 
-          :style="style.icon"
-          src="https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup/card/act2.png" />
+        src="https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup/card/next.png"
+      />
+      <img
+        :style="style.icon"
+        src="https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup/card/act2.png"
+      />
     </div>
 
-
-    <div class="root-game" v-show="control.currentMenu === 2">
+    <div
+      class="root-game"
+      v-show="control.currentMenu === 2"
+    >
       <!-- top img -->
-      <img 
+      <img
         class="root-topimg"
-        :src="this.baseUrl + 'bg1.png'" />
+        :src="this.baseUrl + 'bg1.png'"
+      />
       <!-- mid photo -->
       <div
-        :style="style.photoOuter" 
-        class="root-photo">
-        <img 
+        :style="style.photoOuter"
+        class="root-photo"
+      >
+        <img
           :style="style.logo"
-          :src="this.baseUrl + 'logo.png'" />
+          :src="this.baseUrl + 'logo.png'"
+        />
         <img
           :style="style.remind"
-          :src="this.baseUrl + 'remind.png'" />
-          <div class="inner-photo">
-            <img
+          :src="this.baseUrl + 'remind.png'"
+        />
+        <div class="inner-photo">
+          <img
             :style="style.innerPhoto"
-            :src="this.bindImage" />
-          </div>
+            :src="this.bindImage"
+          />
+        </div>
       </div>
       <!-- power -->
       <div
-        :style="style.power" 
-        class="root-power">
+        :style="style.power"
+        class="root-power"
+      >
         <div
-          :style="style.powerItem" 
-          :class="{'power-item p':control.l === 1, 'power-item':control.l === 0}">
-          <div
-            class="item-numbers">
+          :style="style.powerItem"
+          :class="{'power-item p':control.l === 1, 'power-item':control.l === 0}"
+        >
+          <div class="item-numbers">
             <img
               v-for="(item, index) in String(bindData.l)"
               :key="index"
-              :style="style.number" 
-              :src="baseUrl + item + '.png'" />
+              :style="style.number"
+              :src="baseUrl + item + '.png'"
+            />
           </div>
-          <img 
-            :style="style.numberLabel" 
-            :src="baseUrl + 'power.png'" />
+          <img
+            :style="style.numberLabel"
+            :src="baseUrl + 'power.png'"
+          />
         </div>
         <div
-          :style="style.balanceItem" 
-          :class="{'balance-item p':control.r === 1, 'balance-item':control.r === 0}">
-          <div
-            class="item-numbers">
+          :style="style.balanceItem"
+          :class="{'balance-item p':control.r === 1, 'balance-item':control.r === 0}"
+        >
+          <div class="item-numbers">
             <img
               v-for="(item, index) in String(bindData.r)"
               :key="index"
-              :style="style.number" 
-              :src="baseUrl + item + '.png'" />
+              :style="style.number"
+              :src="baseUrl + item + '.png'"
+            />
           </div>
-          <img 
-            :style="style.numberLabel" 
-            :src="baseUrl + 'balance.png'" />
+          <img
+            :style="style.numberLabel"
+            :src="baseUrl + 'balance.png'"
+          />
         </div>
 
       </div>
 
       <!-- real photo -->
-      <img 
+      <img
         :src="bindImage"
-        class="top-img"/>
+        class="top-img"
+      />
     </div>
 
-    <div class="root-rule" v-if="control.currentMenu === 3">
-      <img 
+    <div
+      class="root-rule"
+      v-if="control.currentMenu === 3"
+    >
+      <img
         class="rule-img"
-        src="https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup/card/rule.png" />
+        src="https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup/card/rule.png"
+      />
     </div>
 
     <GameMenu />
@@ -93,10 +116,12 @@
 const wiw = window.innerWidth
 import { Toast, Indicator } from 'mint-ui'
 import GameMenu from './components/gameMenu'
+import { normalPages } from '@/mixins/normalPages'
 export default {
   components: {
     GameMenu
   },
+  mixins: [normalPages],
   data() {
     const baseUrl =
       'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup/heijiu/'
@@ -172,7 +197,8 @@ export default {
         l: 0,
         r: 0
       },
-      gamerst: null
+      gamerst: null,
+      game_id: null,
     }
   },
   created() {
@@ -182,13 +208,23 @@ export default {
       this.Init()
     }
   },
+  watch: {
+    parms() {
+      this.game_id = this.parms.game_id
+      if (process.env.NODE_ENV === 'development') {
+        this.handleNext()
+      } else {
+        this.Init()
+      }
+    }
+  },
   methods: {
     Init() {
       if (localStorage.getItem('wc_heijiu') === null) {
         this.handleAuth()
       } else {
         let wc_store = JSON.parse(localStorage.getItem('wc_heijiu'))
-        if (!wc_store.game_ids.includes(String(this.$route.query.game_id))) {
+        if (!wc_store.game_ids.includes(String(this.game_id))) {
           this.handleAuth()
         } else {
           this.getUserData()
@@ -201,11 +237,11 @@ export default {
           game_ids: [],
           id: this.$route.query.id
         }
-        storeData.game_ids.push(String(this.$route.query.game_id))
+        storeData.game_ids.push(String(this.game_id))
         localStorage.setItem('wc_heijiu', JSON.stringify(storeData))
       } else {
         let storeData = JSON.parse(localStorage.getItem('wc_heijiu'))
-        storeData.game_ids.push(String(this.$route.query.game_id))
+        storeData.game_ids.push(String(this.game_id))
         storeData.id = this.$route.query.id
         localStorage.setItem('wc_heijiu', JSON.stringify(storeData))
       }
@@ -227,7 +263,7 @@ export default {
       let rq =
         process.env.WX_API +
         '/wx/officialAccount/user?game_id=' +
-        String(this.$route.query.game_id)
+        String(this.game_id)
 
       this.$http.get(rq, { withCredentials: true }).then(r => {
         // console.dir(r)
@@ -332,9 +368,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imgServerUrl: 'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup/heijiu/';
+@imgServerUrl: "https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup/heijiu/";
 .hj-root {
-  background-image: url('@{imgServerUrl}bg2.png');
+  background-image: url("@{imgServerUrl}bg2.png");
   background-repeat: repeat-y;
   display: flex;
   flex-direction: column;
@@ -367,10 +403,10 @@ export default {
       background-color: white;
       .inner-photo {
         @diff : 10px;
-        width: calc(~'100% - @{diff}');
+        width: calc(~"100% - @{diff}");
         margin: 5px;
         border: 1px solid black;
-        height: calc(~'100% - @{diff}');
+        height: calc(~"100% - @{diff}");
         overflow: hidden;
       }
     }
@@ -443,228 +479,228 @@ export default {
 }
 @keyframes tineng {
   0% {
-    background-image: url('@{imgServerUrl}tn/power01.png');
+    background-image: url("@{imgServerUrl}tn/power01.png");
   }
   2% {
-    background-image: url('@{imgServerUrl}tn/power02.png');
+    background-image: url("@{imgServerUrl}tn/power02.png");
   }
   4% {
-    background-image: url('@{imgServerUrl}tn/power03.png');
+    background-image: url("@{imgServerUrl}tn/power03.png");
   }
   6% {
-    background-image: url('@{imgServerUrl}tn/power04.png');
+    background-image: url("@{imgServerUrl}tn/power04.png");
   }
   7% {
-    background-image: url('@{imgServerUrl}tn/power05.png');
+    background-image: url("@{imgServerUrl}tn/power05.png");
   }
   8% {
-    background-image: url('@{imgServerUrl}tn/power06.png');
+    background-image: url("@{imgServerUrl}tn/power06.png");
   }
   9% {
-    background-image: url('@{imgServerUrl}tn/power07.png');
+    background-image: url("@{imgServerUrl}tn/power07.png");
   }
   13% {
-    background-image: url('@{imgServerUrl}tn/power08.png');
+    background-image: url("@{imgServerUrl}tn/power08.png");
   }
   14% {
-    background-image: url('@{imgServerUrl}tn/power09.png');
+    background-image: url("@{imgServerUrl}tn/power09.png");
   }
   18% {
-    background-image: url('@{imgServerUrl}tn/power10.png');
+    background-image: url("@{imgServerUrl}tn/power10.png");
   }
   22% {
-    background-image: url('@{imgServerUrl}tn/power11.png');
+    background-image: url("@{imgServerUrl}tn/power11.png");
   }
   26% {
-    background-image: url('@{imgServerUrl}tn/power12.png');
+    background-image: url("@{imgServerUrl}tn/power12.png");
   }
   30% {
-    background-image: url('@{imgServerUrl}tn/power13.png');
+    background-image: url("@{imgServerUrl}tn/power13.png");
   }
   33% {
-    background-image: url('@{imgServerUrl}tn/power14.png');
+    background-image: url("@{imgServerUrl}tn/power14.png");
   }
   36% {
-    background-image: url('@{imgServerUrl}tn/power15.png');
+    background-image: url("@{imgServerUrl}tn/power15.png");
   }
   40% {
-    background-image: url('@{imgServerUrl}tn/power16.png');
+    background-image: url("@{imgServerUrl}tn/power16.png");
   }
   44% {
-    background-image: url('@{imgServerUrl}tn/power17.png');
+    background-image: url("@{imgServerUrl}tn/power17.png");
   }
   47% {
-    background-image: url('@{imgServerUrl}tn/power18.png');
+    background-image: url("@{imgServerUrl}tn/power18.png");
   }
   50% {
-    background-image: url('@{imgServerUrl}tn/power19.png');
+    background-image: url("@{imgServerUrl}tn/power19.png");
   }
   53% {
-    background-image: url('@{imgServerUrl}tn/power20.png');
+    background-image: url("@{imgServerUrl}tn/power20.png");
   }
   57% {
-    background-image: url('@{imgServerUrl}tn/power21.png');
+    background-image: url("@{imgServerUrl}tn/power21.png");
   }
   60% {
-    background-image: url('@{imgServerUrl}tn/power22.png');
+    background-image: url("@{imgServerUrl}tn/power22.png");
   }
   63% {
-    background-image: url('@{imgServerUrl}tn/power23.png');
+    background-image: url("@{imgServerUrl}tn/power23.png");
   }
   67% {
-    background-image: url('@{imgServerUrl}tn/power24.png');
+    background-image: url("@{imgServerUrl}tn/power24.png");
   }
   70% {
-    background-image: url('@{imgServerUrl}tn/power25.png');
+    background-image: url("@{imgServerUrl}tn/power25.png");
   }
   73% {
-    background-image: url('@{imgServerUrl}tn/power26.png');
+    background-image: url("@{imgServerUrl}tn/power26.png");
   }
   76% {
-    background-image: url('@{imgServerUrl}tn/power27.png');
+    background-image: url("@{imgServerUrl}tn/power27.png");
   }
   79% {
-    background-image: url('@{imgServerUrl}tn/power28.png');
+    background-image: url("@{imgServerUrl}tn/power28.png");
   }
   81% {
-    background-image: url('@{imgServerUrl}tn/power29.png');
+    background-image: url("@{imgServerUrl}tn/power29.png");
   }
   84% {
-    background-image: url('@{imgServerUrl}tn/power30.png');
+    background-image: url("@{imgServerUrl}tn/power30.png");
   }
   86% {
-    background-image: url('@{imgServerUrl}tn/power31.png');
+    background-image: url("@{imgServerUrl}tn/power31.png");
   }
   88% {
-    background-image: url('@{imgServerUrl}tn/power32.png');
+    background-image: url("@{imgServerUrl}tn/power32.png");
   }
   90% {
-    background-image: url('@{imgServerUrl}tn/power33.png');
+    background-image: url("@{imgServerUrl}tn/power33.png");
   }
   92% {
-    background-image: url('@{imgServerUrl}tn/power34.png');
+    background-image: url("@{imgServerUrl}tn/power34.png");
   }
   96% {
-    background-image: url('@{imgServerUrl}tn/power35.png');
+    background-image: url("@{imgServerUrl}tn/power35.png");
   }
   98% {
-    background-image: url('@{imgServerUrl}tn/power36.png');
+    background-image: url("@{imgServerUrl}tn/power36.png");
   }
   100% {
-    background-image: url('@{imgServerUrl}tn/power37.png');
+    background-image: url("@{imgServerUrl}tn/power37.png");
   }
 }
 @keyframes pingheng {
   0% {
-    background-image: url('@{imgServerUrl}ph/balance01.png');
+    background-image: url("@{imgServerUrl}ph/balance01.png");
   }
   2% {
-    background-image: url('@{imgServerUrl}ph/balance02.png');
+    background-image: url("@{imgServerUrl}ph/balance02.png");
   }
   4% {
-    background-image: url('@{imgServerUrl}ph/balance03.png');
+    background-image: url("@{imgServerUrl}ph/balance03.png");
   }
   6% {
-    background-image: url('@{imgServerUrl}ph/balance04.png');
+    background-image: url("@{imgServerUrl}ph/balance04.png");
   }
   7% {
-    background-image: url('@{imgServerUrl}ph/balance05.png');
+    background-image: url("@{imgServerUrl}ph/balance05.png");
   }
   8% {
-    background-image: url('@{imgServerUrl}ph/balance06.png');
+    background-image: url("@{imgServerUrl}ph/balance06.png");
   }
   9% {
-    background-image: url('@{imgServerUrl}ph/balance07.png');
+    background-image: url("@{imgServerUrl}ph/balance07.png");
   }
   13% {
-    background-image: url('@{imgServerUrl}ph/balance08.png');
+    background-image: url("@{imgServerUrl}ph/balance08.png");
   }
   14% {
-    background-image: url('@{imgServerUrl}ph/balance09.png');
+    background-image: url("@{imgServerUrl}ph/balance09.png");
   }
   18% {
-    background-image: url('@{imgServerUrl}ph/balance10.png');
+    background-image: url("@{imgServerUrl}ph/balance10.png");
   }
   22% {
-    background-image: url('@{imgServerUrl}ph/balance11.png');
+    background-image: url("@{imgServerUrl}ph/balance11.png");
   }
   26% {
-    background-image: url('@{imgServerUrl}ph/balance12.png');
+    background-image: url("@{imgServerUrl}ph/balance12.png");
   }
   30% {
-    background-image: url('@{imgServerUrl}ph/balance13.png');
+    background-image: url("@{imgServerUrl}ph/balance13.png");
   }
   33% {
-    background-image: url('@{imgServerUrl}ph/balance14.png');
+    background-image: url("@{imgServerUrl}ph/balance14.png");
   }
   36% {
-    background-image: url('@{imgServerUrl}ph/balance15.png');
+    background-image: url("@{imgServerUrl}ph/balance15.png");
   }
   40% {
-    background-image: url('@{imgServerUrl}ph/balance16.png');
+    background-image: url("@{imgServerUrl}ph/balance16.png");
   }
   44% {
-    background-image: url('@{imgServerUrl}ph/balance17.png');
+    background-image: url("@{imgServerUrl}ph/balance17.png");
   }
   47% {
-    background-image: url('@{imgServerUrl}ph/balance18.png');
+    background-image: url("@{imgServerUrl}ph/balance18.png");
   }
   50% {
-    background-image: url('@{imgServerUrl}ph/balance19.png');
+    background-image: url("@{imgServerUrl}ph/balance19.png");
   }
   53% {
-    background-image: url('@{imgServerUrl}ph/balance20.png');
+    background-image: url("@{imgServerUrl}ph/balance20.png");
   }
   57% {
-    background-image: url('@{imgServerUrl}ph/balance21.png');
+    background-image: url("@{imgServerUrl}ph/balance21.png");
   }
   60% {
-    background-image: url('@{imgServerUrl}ph/balance22.png');
+    background-image: url("@{imgServerUrl}ph/balance22.png");
   }
   63% {
-    background-image: url('@{imgServerUrl}ph/balance23.png');
+    background-image: url("@{imgServerUrl}ph/balance23.png");
   }
   67% {
-    background-image: url('@{imgServerUrl}ph/balance24.png');
+    background-image: url("@{imgServerUrl}ph/balance24.png");
   }
   70% {
-    background-image: url('@{imgServerUrl}ph/balance25.png');
+    background-image: url("@{imgServerUrl}ph/balance25.png");
   }
   73% {
-    background-image: url('@{imgServerUrl}ph/balance26.png');
+    background-image: url("@{imgServerUrl}ph/balance26.png");
   }
   76% {
-    background-image: url('@{imgServerUrl}ph/balance27.png');
+    background-image: url("@{imgServerUrl}ph/balance27.png");
   }
   79% {
-    background-image: url('@{imgServerUrl}ph/balance28.png');
+    background-image: url("@{imgServerUrl}ph/balance28.png");
   }
   81% {
-    background-image: url('@{imgServerUrl}ph/balance29.png');
+    background-image: url("@{imgServerUrl}ph/balance29.png");
   }
   84% {
-    background-image: url('@{imgServerUrl}ph/balance30.png');
+    background-image: url("@{imgServerUrl}ph/balance30.png");
   }
   86% {
-    background-image: url('@{imgServerUrl}ph/balance31.png');
+    background-image: url("@{imgServerUrl}ph/balance31.png");
   }
   88% {
-    background-image: url('@{imgServerUrl}ph/balance32.png');
+    background-image: url("@{imgServerUrl}ph/balance32.png");
   }
   90% {
-    background-image: url('@{imgServerUrl}ph/balance33.png');
+    background-image: url("@{imgServerUrl}ph/balance33.png");
   }
   92% {
-    background-image: url('@{imgServerUrl}ph/balance34.png');
+    background-image: url("@{imgServerUrl}ph/balance34.png");
   }
   96% {
-    background-image: url('@{imgServerUrl}ph/balance35.png');
+    background-image: url("@{imgServerUrl}ph/balance35.png");
   }
   98% {
-    background-image: url('@{imgServerUrl}ph/balance36.png');
+    background-image: url("@{imgServerUrl}ph/balance36.png");
   }
   100% {
-    background-image: url('@{imgServerUrl}ph/balance37.png');
+    background-image: url("@{imgServerUrl}ph/balance37.png");
   }
 }
 </style>

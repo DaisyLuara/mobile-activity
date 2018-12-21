@@ -56,7 +56,7 @@ import {
   checkGetCoupon,
   checkCouponNumber
 } from "services";
-import { normalPages } from "../../mixins/normalPages";
+import { normalPages } from "@/mixins/normalPages";
 const cdnUrl = process.env.CDN_URL;
 export default {
   mixins: [normalPages],
@@ -91,6 +91,7 @@ export default {
         this.handleWechatAuth();
       }
     }
+    this.handleForbiddenShare()
     if (localStorage.getItem('greenchm' + this.id)) {
       this.getdate = localStorage.getItem('greenchm' + this.id)
     } else {
@@ -120,6 +121,16 @@ export default {
       } else {
         this.userId = Cookies.get("user_id");
       }
+    },
+    //禁止微信分享
+    handleForbiddenShare() {
+      $wechat()
+        .then(res => {
+          res.forbidden()
+        })
+        .catch(_ => {
+          console.warn(_.message)
+        })
     },
     //获取券信息
     getCouponDetail() {
