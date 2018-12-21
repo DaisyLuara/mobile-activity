@@ -51,11 +51,12 @@ import {
   isInWechat,
   wechatShareTrack,
   Cookies,
+  dateFormat,
   sendCoupon,
   checkGetCoupon,
   checkCouponNumber
 } from "services";
-import { normalPages } from "@/mixins/normalPages";
+import { normalPages } from "../../mixins/normalPages";
 const cdnUrl = process.env.CDN_URL;
 export default {
   mixins: [normalPages],
@@ -90,11 +91,15 @@ export default {
         this.handleWechatAuth();
       }
     }
-    if (process.env.NODE_ENV === "testing") {
-      this.imgUrl = 'https://cdn.exe666.com//fe/image/zpld_chr/7winter.png'
+    if (localStorage.getItem('greenchm' + this.id)) {
+      this.getdate = localStorage.getItem('greenchm' + this.id)
+    } else {
+      this.getdate = dateFormat(
+        new Date(),
+        'yyyy-MM-dd hh:mm:ss'
+      )
+      localStorage.setItem('greenchm' + this.id, this.getdate)
     }
-    //this.handleForbiddenShare()
-    console.log('aaa')
   },
   watch: {
     parms() {
@@ -116,24 +121,11 @@ export default {
         this.userId = Cookies.get("user_id");
       }
     },
-    //禁止微信分享
-    handleForbiddenShare() {
-      $wechat()
-        .then(res => {
-          res.forbidden()
-        })
-        .catch(_ => {
-          console.warn(_.message)
-        })
-    },
     //获取券信息
     getCouponDetail() {
-      checkCouponNumber(this.coupon_batch_id)
+      checkCouponNumber(this.parms.coupon_batch_id)
         .then(res => {
-          console.log(res)
           this.imgUrl = res.image_url;
-          this.getdate = res.create_at
-          console.log(res.create_at)
           this.checkGetCoupon()
         })
         .catch(err => {
@@ -143,7 +135,7 @@ export default {
     //获取券信息,判断是否领过券
     checkGetCoupon() {
       let args = {
-        coupon_batch_id: this.coupon_batch_id,
+        coupon_batch_id: this.parms.coupon_batch_id,
         include: "couponBatch"
       };
       checkGetCoupon(args)
@@ -151,8 +143,6 @@ export default {
           if (!res) {
             this.sendCoupon();
           }
-          this.getdate = res.create_at
-          console.log(res)
         })
         .catch(err => {
           console.log(err);
@@ -166,7 +156,7 @@ export default {
         oid: this.oid,
         belong: this.belong
       };
-      sendCoupon(args, this.coupon_batch_id)
+      sendCoupon(args, this.parms.coupon_batch_id)
         .then(res => {
         })
         .catch(err => {
@@ -203,7 +193,7 @@ img {
   overflow-x: hidden;
   position: relative;
   background-color: #01a660;
-  background: url("@{img}back.png?000") center top / 100% auto repeat;
+  background: url("@{img}back.png") center top / 100% auto repeat;
   padding-top: 12%;
   .getdate {
     position: absolute;
@@ -263,5 +253,3 @@ img {
   }
 }
 </style>
-
-
