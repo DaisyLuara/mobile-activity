@@ -48,7 +48,8 @@ export default {
           console.dir(infoRes);
           if (infoRes.userinfo !== null) {
             if (infoRes.userinfo.hasOwnProperty("z")) {
-              let { z, marketid, oid } = infoRes.userinfo;
+              let { z, marketid } = infoRes.userinfo;
+              let { oid } = infoRes;
               localStorage.setItem("z", z);
               localStorage.setItem("marketid", marketid);
               localStorage.setItem("oid", oid);
@@ -65,7 +66,9 @@ export default {
           }
         } else {
           let infoRes = await getInfoById(id, code, state);
-          let { z, marketid, oid } = infoRes.userinfo;
+          let { z, marketid } = infoRes.userinfo;
+          let { oid } = infoRes;
+
           localStorage.setItem("z", z);
           localStorage.setItem("marketid", marketid);
           localStorage.setItem("oid", oid);
@@ -91,7 +94,7 @@ export default {
     async fetchWalletList() {
       const localZ = localStorage.getItem("z");
       try {
-        let walletList = await getWalletListMini(localZ);
+        let walletList = await getWalletListMini(localZ, 3);
         console.dir(walletList);
         this.list = walletList.data.data;
       } catch {

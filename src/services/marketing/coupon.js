@@ -308,13 +308,14 @@ const getMallListMini = (z, page, per_page, marketId) => {
   })
 }
 
-const getWalletListMini = (z) => {
+const getWalletListMini = (z, status) => {
   return new Promise((resolve, reject) => {
     const requestUrl = MINI_API + '/user/coupons'
     const requestParams = {
       params: {
         z: z,
-        include: 'couponBatch'
+        include: 'couponBatch',
+        status: status
       },
       ...REQ_HEADER
     }
