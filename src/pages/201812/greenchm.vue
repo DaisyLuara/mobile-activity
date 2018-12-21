@@ -73,7 +73,7 @@ export default {
           "min-height": this.$innerHeight() + "px"
         }
       },
-      imgUrl: 'https://cdn.exe666.com//fe/image/zpld_chr/7winter.png',
+      imgUrl: null,//'https://cdn.exe666.com//fe/image/zpld_chr/7winter.png'
       id: this.$route.query.id,
       userId: null,
       coupon_date: null,
@@ -134,6 +134,7 @@ export default {
       checkCouponNumber(this.parms.coupon_batch_id)
         .then(res => {
           this.imgUrl = res.image_url;
+          this.handleData(res)
           this.checkGetCoupon()
         })
         .catch(err => {
