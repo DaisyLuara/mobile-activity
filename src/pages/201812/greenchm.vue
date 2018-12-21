@@ -67,7 +67,7 @@ export default {
           "min-height": this.$innerHeight() + "px"
         }
       },
-      imgUrl: 'https://cdn.exe666.com//fe/image/zpld_chr/7winter.png',//'https://cdn.exe666.com//fe/image/zpld_chr/7winter.png'
+      imgUrl: null,//'https://cdn.exe666.com//fe/image/zpld_chr/7winter.png'
       id: this.$route.query.id,
       userId: null,
       getdate: null,
@@ -91,6 +91,7 @@ export default {
       }
     }
     this.handleForbiddenShare()
+    console.log('test1')
   },
   watch: {
     parms() {
@@ -128,7 +129,7 @@ export default {
         .then(res => {
           alert(res)
           this.imgUrl = res.image_url;
-          this.getdate = res.create_at
+          // this.getdate = res.create_at
           this.checkGetCoupon()
         })
         .catch(err => {
@@ -161,8 +162,6 @@ export default {
       };
       sendCoupon(args, this.parms.coupon_batch_id)
         .then(res => {
-          console.log('send')
-          console.log(res)
         })
         .catch(err => {
           alert(err.response.data.message);
