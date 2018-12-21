@@ -42,7 +42,7 @@ import {
   Cookies,
   getImage
 } from "services";
-import { normalPages } from "../../mixins/normalPages";
+import { normalPages } from "@/mixins/normalPages";
 import "swiper/dist/css/swiper.css";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
 const cdnUrl = process.env.CDN_URL;
@@ -61,7 +61,6 @@ export default {
       },
       base: cdnUrl + "/fe/image/divination/",
       userId: null,
-      photo: null,
       sOption: {
         effect: "flip",
         flipEffect: {
@@ -76,9 +75,6 @@ export default {
         desc: "窥探你内心的秘密",
         link: "http://papi.xingstation.com/api/s/YWp" + window.location.search,
         imgUrl: cdnUrl + "/fe/image/divination/icon.png",
-        success: () => {
-          wechatShareTrack();
-        }
       }
     };
   },

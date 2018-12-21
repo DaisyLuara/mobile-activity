@@ -38,7 +38,7 @@
   </div>
 </template>
 <script>
-import { normalPages } from "../../mixins/normalPages";
+import { normalPages } from "@/mixins/normalPages";
 const cdnUrl = process.env.CDN_URL;
 export default {
   mixins: [normalPages],
@@ -50,16 +50,12 @@ export default {
           height: this.$innerHeight() + "px"
         }
       },
-      photo: null,
       iphoneX: false,
       wxShareInfoValue: {
         title: "绿地狂欢 圣诞派送",
         desc: "更多活动 等你来参加",
         link: "http://papi.xingstation.com/api/s/mOp" + window.location.search,
         imgUrl: cdnUrl + "/fe/marketing/img/green_space/icon.png",
-        success: () => {
-          wechatShareTrack();
-        }
       }
     };
   },
