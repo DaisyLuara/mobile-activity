@@ -359,6 +359,17 @@ const Date201812 = [
       desc: '龙湖天街-圣诞派送'
     },
     isAbandoned: false
+  },
+  {
+    path: 'lh_tiger',
+    location: '201812/lhtiger',
+    name: 'lh_tiger',
+    meta: {
+      title: '街成双 FUN加倍',
+      author: 'lipan',
+      desc: '龙湖天街-老虎机'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201812

@@ -161,8 +161,6 @@ export default {
       };
       sendCoupon(args, this.parms.coupon_batch_id)
         .then(res => {
-          console.log('send')
-          console.log(res)
         })
         .catch(err => {
           alert(err.response.data.message);
