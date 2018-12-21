@@ -4,6 +4,10 @@
     class="content"
   >
     <img
+      :src="base + 'back.png' + this.$qiniuCompress()"
+      class="back"
+    >
+    <img
       v-show="Boolean(imgUrl)"
       :src="base + 'top.png' + this.$qiniuCompress()"
       class="title"
@@ -68,7 +72,7 @@ export default {
           "min-height": this.$innerHeight() + "px"
         }
       },
-      imgUrl: null,//'https://cdn.exe666.com//fe/image/zpld_chr/7winter.png'
+      imgUrl: 'https://cdn.exe666.com//fe/image/zpld_chr/7winter.png',
       id: this.$route.query.id,
       userId: null,
       coupon_date: null,
@@ -140,40 +144,25 @@ export default {
         coupon_batch_id: this.parms.coupon_batch_id,
         include: "couponBatch"
       };
+      let data = new Date()
+      args = {
+        coupon_batch_id: this.coupon_batch_id,
+        include: 'couponBatch'
+      }
+      args.start_date = dateFormat(
+        new Date(formatTimestamp(data, true)),
+        'yyyy-MM-dd hh:mm:ss'
+      )
+      args.end_date = dateFormat(
+        new Date(formatTimestamp(data, false) - 1000),
+        'yyyy-MM-dd hh:mm:ss'
+      )
       checkGetCoupon(args)
         .then(res => {
-          // if (!res) {
-          //   this.sendCoupon();
-          // } else {
-          //   this.coupon_date = res.created_at
-          // }
           if (res) {
             this.handleData(res)
           } else {
-            let data = new Date()
-            args = {
-              coupon_batch_id: this.coupon_batch_id,
-              include: 'couponBatch'
-            }
-            args.start_date = dateFormat(
-              new Date(formatTimestamp(data, true)),
-              'yyyy-MM-dd hh:mm:ss'
-            )
-            args.end_date = dateFormat(
-              new Date(formatTimestamp(data, false) - 1000),
-              'yyyy-MM-dd hh:mm:ss'
-            )
-            checkGetCoupon(args)
-              .then(res => {
-                if (res) {
-                  this.handleData(res)
-                } else {
-                  this.sendCoupon()
-                }
-              })
-              .catch(err => {
-                console.log(err)
-              })
+            this.sendCoupon()
           }
         })
         .catch(err => {
@@ -226,13 +215,18 @@ img {
   user-select: none;
   max-width: 100%;
 }
+
 .content {
   width: 100%;
   overflow-x: hidden;
-  position: relative;
-  background-color: #01a660;
-  background: url("@{img}back.png") center top / 100% auto repeat;
   padding-top: 12%;
+  .back {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+  }
   .getdate {
     position: absolute;
     top: 0.5%;
@@ -243,13 +237,16 @@ img {
     z-index: 999;
   }
   .title {
+    position: relative;
     width: 66%;
     margin-bottom: 7%;
+    z-index: 9;
   }
   & > div {
     position: relative;
     width: 88%;
     margin-bottom: 6%;
+    z-index: 9;
   }
   .three {
     width: 74%;
@@ -274,12 +271,14 @@ img {
     position: relative;
     margin-top: 15px;
     animation: myslider 0.6s linear infinite alternate;
+    z-index: 9;
   }
   .logo {
+    position: relative;
     display: block;
     width: 42%;
-    margin-top: 11.5%;
-    margin-bottom: 7%;
+    margin-top: 8.5%;
+    z-index: 9;
   }
 }
 @keyframes myslider {
