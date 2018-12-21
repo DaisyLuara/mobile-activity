@@ -90,7 +90,7 @@ export default {
         this.handleWechatAuth();
       }
     }
-    this.handleForbiddenShare()
+    //this.handleForbiddenShare()
     console.log('test1')
   },
   watch: {
@@ -127,9 +127,10 @@ export default {
     getCouponDetail() {
       checkCouponNumber(this.parms.coupon_batch_id)
         .then(res => {
-          alert(res)
+          console.log(res)
           this.imgUrl = res.image_url;
-          // this.getdate = res.create_at
+          this.getdate = res.create_at
+          console.log(res.create_at)
           this.checkGetCoupon()
         })
         .catch(err => {
@@ -147,6 +148,8 @@ export default {
           if (!res) {
             this.sendCoupon();
           }
+          this.getdate = res.create_at
+          console.log(res)
         })
         .catch(err => {
           console.log(err);
@@ -197,7 +200,7 @@ img {
   overflow-x: hidden;
   position: relative;
   background-color: #01a660;
-  background: url("@{img}back.png") center top / 100% auto repeat;
+  background: url("@{img}back.png?000") center top / 100% auto repeat;
   padding-top: 12%;
   .getdate {
     position: absolute;
