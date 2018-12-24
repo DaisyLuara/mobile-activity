@@ -56,15 +56,12 @@ export default {
               if (infoRes.userinfo !== null) {
                 if (infoRes.userinfo.hasOwnProperty("z")) {
                   let { z, marketid } = infoRes.userinfo;
-                  let { oid, share } = infoRes;
+                  let { oid } = infoRes;
                   localStorage.setItem("z", z);
                   localStorage.setItem("marketid", marketid);
                   localStorage.setItem("oid", oid);
                   let parms = splitParms(infoRes.parms);
-                  if (
-                    parms.hasOwnProperty("coupon_batch_id") &&
-                    String(share) !== "1"
-                  ) {
+                  if (parms.hasOwnProperty("coupon_batch_id")) {
                     await this.hanldeFirstGetCoupon(
                       z,
                       parms["coupon_batch_id"],
@@ -95,8 +92,7 @@ export default {
               }
             }
             // 存在更新优惠券
-            let { share } = infoRes;
-            if (infoRes.hasOwnProperty("parms") && String(share) !== "1") {
+            if (infoRes.hasOwnProperty("parms")) {
               let parms = splitParms(infoRes.parms);
               if (parms.hasOwnProperty("coupon_batch_id")) {
                 await this.hanldeFirstGetCoupon(
