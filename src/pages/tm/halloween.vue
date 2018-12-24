@@ -1,133 +1,159 @@
 <template>
-  <div 
-    :style="style.root" 
-    class="root">
+  <div
+    :style="style.root"
+    class="root"
+  >
     <!-- tab切换区域显示-->
-    <div 
-      class="group">
+    <div class="group">
       <ul
-        :class="{'x-list':iphoneX,'list':!iphoneX}" 
-        class="list">
-        <li 
-          v-show="tab.one" 
-          class="one" >
-          <img 
+        :class="{'x-list':iphoneX,'list':!iphoneX}"
+        class="list"
+      >
+        <li
+          v-show="tab.one"
+          class="one"
+        >
+          <img
             :src="baseUrl + 'card01.png'+ this.$qiniuCompress()"
-            class="card01">
-          <img 
+            class="card01"
+          >
+          <img
             v-if="!gameData.projectOne"
             :src="baseUrl + 'card01_unlocked.png'+ this.$qiniuCompress()"
-            class="card01-unlocked">
-          <video 
-            v-if="gameData.projectOne" 
+            class="card01-unlocked"
+          >
+          <video
+            v-if="gameData.projectOne"
             id="video"
             class="photo"
-            webkit-playsinline="true" 
-            playsinline="true" 
-            x-webkit-airplay="true" 
+            webkit-playsinline="true"
+            playsinline="true"
+            x-webkit-airplay="true"
             preload="auto"
-            width="100%" 
-            height="100%">
-            <source 
-              :src="photoImage.img1" 
-              type="video/mp4">
+            width="100%"
+            height="100%"
+          >
+            <source
+              :src="photoImage.img1"
+              type="video/mp4"
+            >
             您的浏览器不支持video标签.
           </video>
-          <img 
+          <img
             v-show="buttonshow"
-            v-if="gameData.projectOne" 
+            v-if="gameData.projectOne"
             src="https://cdn.exe666.com/fe/marketing/img/save_moonCake/play2.png"
             class="play"
-            @click="playVideo()">
+            @click="playVideo()"
+          >
         </li>
-        <li 
-          v-show="tab.two" 
-          class="two">
-          <img 
+        <li
+          v-show="tab.two"
+          class="two"
+        >
+          <img
             :src="baseUrl + 'card02.png'+ this.$qiniuCompress()"
-            class="card02">
-          <img 
+            class="card02"
+          >
+          <img
             v-if="!gameData.projectTwo"
             :src="baseUrl + 'card02_unlocked.png'+ this.$qiniuCompress()"
-            class="card02-unlocked">
-          <img 
+            class="card02-unlocked"
+          >
+          <img
             v-if="gameData.projectTwo"
             :src="photoImage.img2 + this.$qiniuCompress()"
-            class="photo">
+            class="photo"
+          >
         </li>
-        <li 
-          v-show="tab.three" 
-          class="three" >
-          <img 
+        <li
+          v-show="tab.three"
+          class="three"
+        >
+          <img
             :src="baseUrl + 'card03.png'+ this.$qiniuCompress()"
-            class="card03">
-          <img 
+            class="card03"
+          >
+          <img
             v-if="!gameData.projectThree"
             :src="baseUrl + 'card03_unlocked.png'+ this.$qiniuCompress()"
-            class="card03-unlocked">
-          <img 
-            v-if="gameData.projectThree" 
+            class="card03-unlocked"
+          >
+          <img
+            v-if="gameData.projectThree"
             :src="photoImage.img3 + this.$qiniuCompress()"
-            class="photo">
+            class="photo"
+          >
         </li>
       </ul>
       <!-- 右边栏的button -->
-      <div 
-        v-if="!wechat" 
+      <div
+        v-if="!wechat"
         :class="{'x-button':iphoneX,'button':!iphoneX}"
-        class="button">
+        class="button"
+      >
         <a @click.self="tabClick('TrickHalloweenLD',true)">
-          <img 
+          <img
             v-if="tab.one"
             :src="baseUrl + 'card01_tag01.png'+ this.$qiniuCompress()"
-            class="card01-tag01">
-          <img 
+            class="card01-tag01"
+          >
+          <img
             v-if="!tab.one"
             :src="baseUrl + 'card01_tag02.png'+ this.$qiniuCompress()"
-            class="card01-tag02">
+            class="card01-tag02"
+          >
         </a>
         <a @click.self="tabClick('HallowCandyLD',true)">
-          <img 
+          <img
             v-if="tab.two"
             :src="baseUrl + 'card02_tag01.png'+ this.$qiniuCompress()"
-            class="card02-tag01">
-          <img 
+            class="card02-tag01"
+          >
+          <img
             v-if="!tab.two"
             :src="baseUrl + 'card02_tag02.png'+ this.$qiniuCompress()"
-            class="card02-tag02">
+            class="card02-tag02"
+          >
         </a>
         <a @click.self="tabClick('GhostHunterLD',true)">
-          <img 
+          <img
             v-if="tab.three"
             :src="baseUrl + 'card03_tag01.png'+ this.$qiniuCompress()"
-            class="card03-tag01">
-          <img 
+            class="card03-tag01"
+          >
+          <img
             v-if="!tab.three"
             :src="baseUrl + 'card03_tag02.png'+ this.$qiniuCompress()"
-            class="card03-tag02">
+            class="card03-tag02"
+          >
         </a>
       </div>
     </div>
     <!-- 解锁区域 -->
-    <div 
-      v-if="!wechat" 
+    <div
+      v-if="!wechat"
       :class="{'x-unlockArea':iphoneX,'unlockArea':!iphoneX}"
-      class="unlockArea">
+      class="unlockArea"
+    >
       <div class="unlock">
         <span v-if="gameData.projectOne">
-          <img 
+          <img
             :src="baseUrl + 'game01_1.png'+ this.$qiniuCompress()"
-            class="game01-1">
-          <img 
+            class="game01-1"
+          >
+          <img
             :src="baseUrl + 'great.png'+ this.$qiniuCompress()"
             :class="{'bounce':isMotion.one}"
-            class="great">
+            class="great"
+          >
         </span>
         <span v-if="!gameData.projectOne">
-          <img 
+          <img
             :src="baseUrl + 'game01_2.png'+ this.$qiniuCompress()"
-            class="game01-2">
-          <img 
+            class="game01-2"
+          >
+          <img
             :src="baseUrl + 'question_mark.png'+ this.$qiniuCompress()"
             :class="{'tada':isMotion.one}"
             class="question "
@@ -136,44 +162,52 @@
       </div>
       <div class="unlock">
         <span v-if="gameData.projectTwo">
-          <img 
+          <img
             :src="baseUrl + 'game02_1.png'+ this.$qiniuCompress()"
-            class="game02-1">
-          <img 
+            class="game02-1"
+          >
+          <img
             :src="baseUrl + 'great.png'+ this.$qiniuCompress()"
             :class="{'bounce':isMotion.two}"
-            class="great">
+            class="great"
+          >
         </span>
         <span v-if="!gameData.projectTwo">
-          <img 
+          <img
             :src="baseUrl + 'game02_2.png'+ this.$qiniuCompress()"
-            class="game02-2">
-          <img 
+            class="game02-2"
+          >
+          <img
             :src="baseUrl + 'question_mark.png'+ this.$qiniuCompress()"
             :class="{'tada':isMotion.two}"
-            class="question">
+            class="question"
+          >
         </span>
       </div>
       <div class="unlock">
         <span v-if="gameData.projectThree">
-          <img 
+          <img
             :src="baseUrl + 'game03_1.png'+ this.$qiniuCompress()"
-            class="game03-1">
-          <img 
+            class="game03-1"
+          >
+          <img
             :src="baseUrl + 'great.png'+ this.$qiniuCompress()"
             :class="{'bounce':isMotion.three}"
-            class="great">
+            class="great"
+          >
         </span>
         <span v-if="!gameData.projectThree">
-          <img 
+          <img
             :src="baseUrl + 'game03_2.png'+ this.$qiniuCompress()"
-            class="game03-2">
-          <img 
+            class="game03-2"
+          >
+          <img
             :src="baseUrl + 'question_mark.png'+ this.$qiniuCompress()"
             :class="{'tada':isMotion.three}"
-            class="question">
+            class="question"
+          >
         </span>
-      </div>  
+      </div>
     </div>
   </div>
 </template>
@@ -245,7 +279,7 @@ export default {
       }
     }
   },
-  created() {},
+  created() { },
   mounted() {
     //分享页面处理
     if (this.$route.query.type != null && this.$route.query.type != undefined) {
@@ -273,6 +307,8 @@ export default {
       getInfoById(id)
         .then(res => {
           console.log(res)
+          this.params.belong = res.belong
+          this.params.score = res.parms.split('=')[1]
           this.photo =
             this.params.belong === 'TrickHalloweenLD' ? res.url : res.image
           //是否是微信分享
@@ -305,13 +341,13 @@ export default {
       this.playNow = document.getElementById('video')
       this.playNow.play()
       this.buttonshow = false
-      this.playNow.onplay = function() {
+      this.playNow.onplay = function () {
         that.playNow.currentTime = 0
       }
-      this.playNow.onended = function() {
+      this.playNow.onended = function () {
         that.buttonshow = true
       }
-      this.playNow.onpause = function() {
+      this.playNow.onpause = function () {
         that.buttonshow = true
       }
     },
@@ -336,7 +372,7 @@ export default {
         this.tab.three = true
       }
       let ref = this
-      setTimeout(function() {
+      setTimeout(function () {
         ref.isMotion.one = false
         ref.isMotion.two = false
         ref.isMotion.three = false
@@ -416,7 +452,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imageHost: 'http://cdn.exe666.com/fe/marketing/img/halloween/';
+@imageHost: "http://cdn.exe666.com/fe/marketing/img/halloween/";
 html,
 body {
   width: 100%;
@@ -441,7 +477,7 @@ img {
   text-align: center;
   position: relative;
   overflow: hidden;
-  background-image: url('@{imageHost}bg.png');
+  background-image: url("@{imageHost}bg.png");
   background-size: 100% 100%;
   background-position: center bottom;
   background-repeat: no-repeat;

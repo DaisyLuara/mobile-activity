@@ -1,66 +1,70 @@
 <template>
-  <div 
+  <div
     :style="style.root"
-    class="root" 
+    class="root"
   >
     <img
-      :src="serverUrl + 'bg-inner.jpg' + this.$qiniuCompress()" 
-      class="bg" 
+      :src="serverUrl + 'bg-inner.jpg' + this.$qiniuCompress()"
+      class="bg"
     >
     <img
-      :src="serverUrl + 'title.png' + this.$qiniuCompress()" 
+      :src="serverUrl + 'title.png' + this.$qiniuCompress()"
       class="title"
     >
-    <img 
+    <img
       :src="serverUrl + 'dagger.png' + this.$qiniuCompress()"
       :style="style.dagger"
       class="dagger"
     >
     <div
       :style="style.photo"
-      class="photo">
+      class="photo"
+    >
       <img
         :src="serverUrl + 'photo-cover.png' + this.$qiniuCompress()"
         style="width: 100%;"
       >
-      <div 
+      <div
         :style="style.priceArea"
         class="price-area"
       >
         <img :src="serverUrl + 's.png'">
-        <img 
-          v-for="(item, index) in bindNumber" 
-          :key="index" 
-          :src="serverUrl + String(item) + '.png'" 
+        <img
+          v-for="(item, index) in bindNumber"
+          :key="index"
+          :src="serverUrl + String(item) + '.png'"
         >
       </div>
     </div>
-    <div 
+    <div
       :style="style.coverphoto"
-      class="cover-photo">
+      class="cover-photo"
+    >
       <img
-        :src="bindImgUrl + this.$qiniuCompress()" 
+        :src="photo + this.$qiniuCompress()"
         class="inner-photo"
       >
     </div>
     <!-- real photo -->
     <img
-      :src="bindImgUrl + this.$qiniuCompress()" 
+      :src="photo + this.$qiniuCompress()"
       :style="style.realphoto"
       class="real-photo"
     >
     <img
       :src="serverUrl + 'save-remind.png' + this.$qiniuCompress()"
       :style="style.remind"
-      class="remind" 
+      class="remind"
     >
   </div>
 </template>
 
 <script>
 const serverUrl = process.env.CDN_URL
-import { getInfoById, $wechat } from 'services'
+import { isInWechat, $wechat, wechatShareTrack } from 'services'
+import { normalPages } from '@/mixins/normalPages'
 export default {
+  mixins: [normalPages],
   data() {
     return {
       style: {
@@ -91,32 +95,36 @@ export default {
         }
       },
       serverUrl: serverUrl + '/fe/marketing/wanted/',
-      bindImgUrl: '',
       bindNumber: '',
       wxShareInfoValue: {
         title: '悬赏令',
         desc: 'wow，我可是身价百万的大海盗！',
         imgUrl: serverUrl + '/fe/marketing/wanted/icon.jpg',
-        success: function() {
+        success: function () {
           wechatShareTrack()
         }
       }
     }
   },
+  watch: {
+    parms() {
+      this.bindNumber = this.parms.price
+    }
+  },
   mounted() {
-    this.getPrice()
-    this.getImage()
+    // this.getPrice()
+    // this.getImage()
     this.handleShare()
   },
   methods: {
-    getPrice() {
-      this.bindNumber = this.$route.query.price
-    },
-    getImage() {
-      getInfoById(this.$route.query.id).then(r => {
-        this.bindImgUrl = r.image
-      })
-    },
+    // getPrice() {
+    //   this.bindNumber = this.$route.query.price
+    // },
+    // getImage() {
+    //   getInfoById(this.$route.query.id).then(r => {
+    //     this.photo = r.image
+    //   })
+    // },
     handleShare() {
       if (this.$route.query.hasOwnProperty('price')) {
         this.wxShareInfoValue.desc =

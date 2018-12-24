@@ -1,22 +1,24 @@
 <template>
-  <div 
+  <div
     :style="style.root"
-    class="content">
-    <div 
-      class="main">
+    class="content"
+  >
+    <div class="main">
       <img
         :src="base + 'bg.png'+ this.$qiniuCompress()"
-        class="frame">
+        class="frame"
+      >
       <img
         :src="base + 'qiu.png'+ this.$qiniuCompress()"
-        class="qiu">
-      <span
-        class="score">{{ score }}</span>
+        class="qiu"
+      >
+      <span class="score">{{ score }}</span>
       <img
         :src="photo + this.$qiniuCompress()"
-        class="photo">
+        class="photo"
+      >
     </div>
-    
+
   </div>
 </template>
 <script>
@@ -33,17 +35,12 @@ export default {
         }
       },
       base: IMG_SERVER + '/image/tm/shijihui/',
-      photo: null,
-      score: this.$route.query.score,
       //分享
       wxShareInfoValue: {
         title: '玩转世纪，世纪汇广场邀你嗨翻世纪',
         desc: '世纪汇广场美食节，狂欢就现在',
         link: 'http://papi.xingstation.com/api/s/68n' + window.location.search,
         imgUrl: IMG_SERVER + '/image/tm/shijihui/share.png',
-        success: function() {
-          wechatShareTrack()
-        }
       }
     }
   }
@@ -52,17 +49,17 @@ export default {
 <style lang="less" scoped>
 /*声明 WebFont*/
 @font-face {
-  font-family: 'mutouren';
-  src: url('http://p22vy0aug.bkt.clouddn.com/font/mutouren.ttf');
-  src: url('http://p22vy0aug.bkt.clouddn.com/font/mutouren.eot'),
-    url('http://p22vy0aug.bkt.clouddn.com/font/mutouren.woff'),
-    url('http://p22vy0aug.bkt.clouddn.com/font/mutouren.ttf'),
-    url('http://p22vy0aug.bkt.clouddn.com/font/mutouren.svg');
+  font-family: "mutouren";
+  src: url("http://p22vy0aug.bkt.clouddn.com/font/mutouren.ttf");
+  src: url("http://p22vy0aug.bkt.clouddn.com/font/mutouren.eot"),
+    url("http://p22vy0aug.bkt.clouddn.com/font/mutouren.woff"),
+    url("http://p22vy0aug.bkt.clouddn.com/font/mutouren.ttf"),
+    url("http://p22vy0aug.bkt.clouddn.com/font/mutouren.svg");
   font-weight: normal;
   font-style: normal;
 }
 
-@base: 'http://p22vy0aug.bkt.clouddn.com/image/tm/shijihui/';
+@base: "http://p22vy0aug.bkt.clouddn.com/image/tm/shijihui/";
 html,
 body {
   width: 100%;
@@ -104,7 +101,7 @@ img {
       animation: sheng 1.2s linear infinite alternate;
     }
     .score {
-      font-family: 'mutouren';
+      font-family: "mutouren";
       font-size: 10vw;
       position: absolute;
       top: 28%;

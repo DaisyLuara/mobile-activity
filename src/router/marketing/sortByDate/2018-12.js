@@ -370,6 +370,17 @@ const Date201812 = [
       desc: '龙湖天街-老虎机'
     },
     isAbandoned: false
+  },
+  {
+    path: 'su_pk',
+    location: '201812/suPK',
+    name: 'su_pk',
+    meta: {
+      title: '苏州中心PK',
+      author: 'lipan',
+      desc: '苏州中心PK'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201812
