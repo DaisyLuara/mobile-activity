@@ -95,7 +95,7 @@
 import {
   isInWechat,
   Cookies,
-  userGame,
+  getInfoById,
   $wechat,
   wechatShareTrack
 } from 'services'
@@ -160,28 +160,33 @@ export default {
           '&scope=snsapi_base'
         window.location.href = redirct_url
       } else {
-        this.utmCampaign = this.$route.query.utm_campaign
         this.userId = Cookies.get('user_id')
-        this.getRank(this.userId)
       }
     },
     toPK() {
-      let args = {
-        belong: this.belong,
-        image_url: this.photo,
-        score: this.score,
-        qiniu_id: this.$route.query.id,
-        gender: this.gender
-      }
-      userGame(args, this.userId)
-        .then(res => {
-          console.log(res)
-          this.btn = 'btned'
-        })
-        .catch(e => {
-          console.log(e)
-        })
-      let oid = this.oid
+      // let args = {
+      //   belong: this.belong,
+      //   image_url: this.photo,
+      //   score: this.score,
+      //   qiniu_id: this.$route.query.id,
+      //   gender: this.gender
+      // }
+      // userGame(args, this.userId)
+      //   .then(res => {
+      //     console.log(res)
+      //     this.btn = 'btned'
+      //   })
+      //   .catch(e => {
+      //     console.log(e)
+      //   })
+      // let oid = this.oid
+      let id = this.$route.id
+      let code = this.$route.code
+      let state = this.$route.state
+      getInfoById(id, code, state).then(res => {
+        console.log(res)
+        this.btn = 'btned'
+      }).catch(err => { console.log(err) })
       this.$http.post(
         'http://exelook.com:8010/pushdiv/?oid=' +
         oid +
