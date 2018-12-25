@@ -1,54 +1,68 @@
 <template>
-  <div 
-    id="warp" 
+  <div
+    id="warp"
     :style="style.root"
-    class="yanzhi-result">
-    <img 
-      :src="imgUrl+'title.png'" 
-      class="title" 
-      data-v-content>
+    class="yanzhi-result"
+  >
+    <img
+      :src="imgUrl+'title.png'"
+      class="title"
+      data-v-content
+    >
     <div class="content">
-      <div class="circles"> 
-        <img 
-          :src="imgUrl+'gear1.png'" 
-          class="gear1">
-        <img 
-          :src="imgUrl+'gear2.png'" 
-          class="gear2">
-        <img 
-          :src="imgUrl+'gear3.png'" 
-          class="gear3">
-        <img 
-          :src="imgUrl+'gear4.png'" 
-          class="gear4">
-        <img 
-          :src="imgUrl+'gear5.png'" 
-          class="gear5">
-        <img 
-          :src="imgUrl+'gear6.png'" 
-          class="gear6">
-        <img 
-          :src="imgUrl+'gear7.png'" 
-          class="gear7">
-        <img 
-          :src="imgUrl+'gear8.png'" 
-          class="gear8">
-        <img 
-          :src="imgUrl+'gear9.png'" 
-          class="gear9">
+      <div class="circles">
+        <img
+          :src="imgUrl+'gear1.png'"
+          class="gear1"
+        >
+        <img
+          :src="imgUrl+'gear2.png'"
+          class="gear2"
+        >
+        <img
+          :src="imgUrl+'gear3.png'"
+          class="gear3"
+        >
+        <img
+          :src="imgUrl+'gear4.png'"
+          class="gear4"
+        >
+        <img
+          :src="imgUrl+'gear5.png'"
+          class="gear5"
+        >
+        <img
+          :src="imgUrl+'gear6.png'"
+          class="gear6"
+        >
+        <img
+          :src="imgUrl+'gear7.png'"
+          class="gear7"
+        >
+        <img
+          :src="imgUrl+'gear8.png'"
+          class="gear8"
+        >
+        <img
+          :src="imgUrl+'gear9.png'"
+          class="gear9"
+        >
       </div>
-      <img 
-        id="mImg" 
-        :src="photo" 
-        class="money">
-      <img 
-        :src="imgUrl+'frame.png'" 
-        class="imgframe">
+      <img
+        id="mImg"
+        :src="photo"
+        class="money"
+      >
+      <img
+        :src="imgUrl+'frame.png'"
+        class="imgframe"
+      >
     </div>
-    <img 
-      v-show="Boolean(photo)" 
-      :src="base+'baoli/save.png'" 
-      class="press">
+    <img
+      v-show="Boolean(photo)"
+      :src="base+'baoli/save.png'"
+      class="press"
+    >
   </div>
 </template>
 <script>
@@ -67,23 +81,19 @@ export default {
       },
       base: IMAGE_SERVER + '/pages/yanzhi/',
       imgUrl: IMAGE_SERVER + '/pages/yanzhi/hilton/',
-      photo: null,
       //微信分享
       wxShareInfoValue: {
         title: '快来看看我的颜“值”多少吧',
         desc: '快来看看我的颜“值”多少吧',
         link: 'http://papi.xingstation.com/api/s/BBX' + window.location.search,
         imgUrl: IMAGE_SERVER + '/pages/yanzhi/baoli/share.png',
-        success: function() {
-          wechatShareTrack()
-        }
       }
     }
   }
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/yanzhi/hilton/';
+@imgUrl: "http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/yanzhi/hilton/";
 html,
 body {
   padding: 0;
@@ -105,7 +115,7 @@ img {
   overflow-x: hidden;
   font-size: 0;
   position: relative;
-  background: url('@{imgUrl}bg.jpg') center top/100% 100% no-repeat;
+  background: url("@{imgUrl}bg.jpg") center top/100% 100% no-repeat;
 
   .title[data-v-content] {
     width: 97%;

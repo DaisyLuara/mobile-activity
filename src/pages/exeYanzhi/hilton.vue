@@ -1,59 +1,75 @@
 <template>
-  <div 
+  <div
     id="warp"
-    :style="style.root" 
-    class="yanzhi-result">
-    <img 
-      :src="imgUrl+'title.png'" 
-      class="title" 
-      data-v-content>
+    :style="style.root"
+    class="yanzhi-result"
+  >
+    <img
+      :src="imgUrl+'title.png'"
+      class="title"
+      data-v-content
+    >
     <div class="content">
-      <div class="circles"> 
-        <img 
-          :src="imgUrl+'gear1.png'" 
-          class="gear1">
-        <img 
-          :src="imgUrl+'gear2.png'" 
-          class="gear2">
-        <img 
-          :src="imgUrl+'gear3.png'" 
-          class="gear3">
-        <img 
-          :src="imgUrl+'gear4.png'" 
-          class="gear4">
-        <img 
-          :src="imgUrl+'gear5.png'" 
-          class="gear5">
-        <img 
-          :src="imgUrl+'gear6.png'" 
-          class="gear6">
-        <img 
-          :src="imgUrl+'gear7.png'" 
-          class="gear7">
-        <img 
-          :src="imgUrl+'gear8.png'" 
-          class="gear8">
-        <img 
-          :src="imgUrl+'gear9.png'" 
-          class="gear9">
+      <div class="circles">
+        <img
+          :src="imgUrl+'gear1.png'"
+          class="gear1"
+        >
+        <img
+          :src="imgUrl+'gear2.png'"
+          class="gear2"
+        >
+        <img
+          :src="imgUrl+'gear3.png'"
+          class="gear3"
+        >
+        <img
+          :src="imgUrl+'gear4.png'"
+          class="gear4"
+        >
+        <img
+          :src="imgUrl+'gear5.png'"
+          class="gear5"
+        >
+        <img
+          :src="imgUrl+'gear6.png'"
+          class="gear6"
+        >
+        <img
+          :src="imgUrl+'gear7.png'"
+          class="gear7"
+        >
+        <img
+          :src="imgUrl+'gear8.png'"
+          class="gear8"
+        >
+        <img
+          :src="imgUrl+'gear9.png'"
+          class="gear9"
+        >
       </div>
-      <img 
-        id="mImg" 
-        :src="photo" 
-        class="money">
-      <img 
-        :src="imgUrl+'frame.png'" 
-        class="imgframe">
+      <img
+        id="mImg"
+        :src="photo"
+        class="money"
+      >
+      <img
+        :src="imgUrl+'frame.png'"
+        class="imgframe"
+      >
     </div>
-    <img 
-      :src="imgUrl+'press.png'" 
-      class="press">
-    <img 
-      :src="imgUrl + posNum + name + '.png'" 
-      class="coupon">
-    <img 
-      :src="imgUrl+'logo.png'" 
-      class="logo">
+    <img
+      :src="imgUrl+'press.png'"
+      class="press"
+    >
+    <img
+      :src="imgUrl + posNum + name + '.png'"
+      class="coupon"
+    >
+    <img
+      :src="imgUrl+'logo.png'"
+      class="logo"
+    >
   </div>
 </template>
 <script>
@@ -65,34 +81,31 @@ export default {
   data() {
     return {
       imgUrl: IMAGE_SERVER + '/pages/yanzhi/hilton/',
-      photo: null,
-      posNum: this.$route.query.posNum || '',
+      posNum: null,
       style: {
         root: {
           'min-height': this.$innerHeight() + 'px'
         }
       },
-      name: this.$route.query.coupon,
+      name: null,//this.$route.query.coupon,
       //微信分享
       wxShareInfoValue: {
         title: '靠颜值就能中大奖？',
         desc: '快来看看我的颜“值”多少吧',
         imgUrl: IMAGE_SERVER + '/pages/yanzhi/hilton/share.jpg',
-        success: function() {
-          wechatShareTrack()
-        }
       }
     }
   },
-  beforeCreate() {
-    document.title = ''
-  },
-  mounted() {},
-  methods: {}
+  watch: {
+    parms() {
+      this.name = this.parms.coupon
+      this.posNum = this.parms.posNum || ''
+    }
+  }
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/yanzhi/hilton/';
+@imgUrl: "http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/yanzhi/hilton/";
 html,
 body {
   padding: 0;
@@ -114,7 +127,7 @@ img {
   overflow-x: hidden;
   font-size: 0;
   position: relative;
-  background: url('@{imgUrl}bg.jpg') center top/100% 100% no-repeat;
+  background: url("@{imgUrl}bg.jpg") center top/100% 100% no-repeat;
 
   .title[data-v-content] {
     width: 97%;

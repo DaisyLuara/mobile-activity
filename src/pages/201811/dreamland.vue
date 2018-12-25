@@ -1,43 +1,52 @@
 <template>
   <div
     :style="style.root"
-    class="root">
+    class="root"
+  >
     <!-- 遮罩 -->
-    <div 
+    <div
       v-show="showImg"
       class="shade"
-      @click="go">
-      <img 
+      @click="go"
+    >
+      <img
         :src="baseUrl + 'hua.png'+ this.$qiniuCompress()"
-        class="hua"> 
-      <img 
+        class="hua"
+      >
+      <img
         :src="baseUrl + 'tip.png'+ this.$qiniuCompress()"
-        class="tip"> 
+        class="tip"
+      >
     </div>
     <!-- 内容 -->
-    <div 
+    <div
       v-show="contentShow"
-      class="content">
-      <img 
-        :src="baseUrl + 'huaban.png'+ this.$qiniuCompress()"
-        class="huaban"> 
-      <div id="main"/>
+      class="content"
+    >
       <img
-        id="test" 
+        :src="baseUrl + 'huaban.png'+ this.$qiniuCompress()"
+        class="huaban"
+      >
+      <div id="main" />
+      <img
+        id="test"
         :src="base64Data"
-        :class="{'x-photoImg':iphoneX,'photoImg':!iphoneX}" 
+        :class="{'x-photoImg':iphoneX,'photoImg':!iphoneX}"
         alt=""
-        class="photoImg" >
-      <canvas 
-        id="canvas" 
         class="photoImg"
-        style="display: none" />
-      <img  
+      >
+      <canvas
+        id="canvas"
+        class="photoImg"
+        style="display: none"
+      />
+      <img
         :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
         :class="{'x-save':iphoneX,'save':!iphoneX}"
-        class="save"> 
+        class="save"
+      >
     </div>
-     
+
   </div>
 </template>
 <script>
@@ -57,9 +66,8 @@ export default {
       },
       showImg: true,
       contentShow: false,
-      peopleID: this.$route.query.peopleID,
+      peopleID: null,
       iphoneX: false,
-      photo: null,
       base64Data: null,
       paths: [
         {
@@ -79,7 +87,12 @@ export default {
       }
     }
   },
-  created() {},
+  watch: {
+    parms() {
+      this.peopleID = this.parms.peopleID
+      this.drawing()
+    }
+  },
   mounted() {
     let height = this.$innerHeight()
     if (height > 672) {
@@ -87,26 +100,12 @@ export default {
     } else {
       this.iphoneX = false
     }
-    this.getInfoById()
     console.log(this.base64Data)
   },
   methods: {
     go() {
       this.showImg = false
       this.contentShow = true
-    },
-    getInfoById() {
-      let id = this.$route.query.id
-      getInfoById(id)
-        .then(res => {
-          console.log(res)
-          this.photo = res.image
-          this.drawing()
-          console.log(this.photo)
-        })
-        .catch(err => {
-          console.log(err)
-        })
     },
     //获取随机数图片
     randomImg(peopleID) {
@@ -116,7 +115,7 @@ export default {
         if (peopleID <= that.paths[i].scope) {
           path =
             that.paths[i].paths[
-              Math.floor(Math.random() * that.paths[i].paths.length)
+            Math.floor(Math.random() * that.paths[i].paths.length)
             ]
           break
         }
@@ -190,7 +189,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: 'http://cdn.exe666.com/fe/marketing/img/dreamland/';
+@imageHost: "http://cdn.exe666.com/fe/marketing/img/dreamland/";
 html,
 body {
   width: 100%;
@@ -220,7 +219,7 @@ img {
     height: 100%;
     position: relative;
     overflow: hidden;
-    background-image: url('@{imageHost}bg2.png');
+    background-image: url("@{imageHost}bg2.png");
     background-size: 100% auto;
     background-position: center top;
     background-repeat: no-repeat;
@@ -241,7 +240,7 @@ img {
     height: 100%;
     position: relative;
     overflow: hidden;
-    background-image: url('@{imageHost}bg.png');
+    background-image: url("@{imageHost}bg.png");
     background-size: 100% auto;
     background-position: center top;
     background-repeat: no-repeat;

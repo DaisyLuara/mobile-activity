@@ -376,7 +376,7 @@ const Date201812 = [
     location: '201812/suPK',
     name: 'su_pk',
     meta: {
-      title: '苏州中心PK',
+      title: '颜值PK 赢好礼',
       author: 'lipan',
       desc: '苏州中心PK'
     },

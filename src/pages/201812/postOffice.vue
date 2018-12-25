@@ -42,16 +42,12 @@ export default {
           height: this.$innerHeight() + "px"
         }
       },
-      photo: null,
       iphoneX: false,
       wxShareInfoValue: {
         title: "刷脸制作圣诞贺卡，送给你爱的TA",
         desc: "这个圣诞节，玩点不一样~",
         link: "http://papi.xingstation.com/api/s/0YX" + window.location.search,
         imgUrl: cdnUrl + "/fe/marketing/img/post_office/icon.jpg",
-        success: () => {
-          wechatShareTrack();
-        }
       }
     };
   },

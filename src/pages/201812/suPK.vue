@@ -24,7 +24,7 @@
       <img :src="base + 'btn2.png'">
     </a>
     <a
-      href=""
+      href="http://papi.xingstation.com/api/s/E8N"
       class="btn-right"
     >
       <img :src="base + 'btn1.png'">
@@ -53,7 +53,7 @@
           id="clip"
           class="clip"
         >
-          <img :src="photo + this.$qiniuCompress()">
+          <img :src="parms.link + this.$qiniuCompress()">
         </div>
         <img
           :src="base + 'pic.png' +  this.$qiniuCompress()"
@@ -95,9 +95,10 @@
 import {
   isInWechat,
   Cookies,
-  getInfoById,
   $wechat,
-  wechatShareTrack
+  wechatShareTrack,
+  newGameList,
+  gameListNeedCheck
 } from 'services'
 import { normalPages } from '@/mixins/normalPages'
 import "animate.css";
@@ -115,14 +116,13 @@ export default {
       pkshow: false,
       mask1: false,
       mask2: false,
-      year: 22,
-      score: 89,
+      year: null,
       btn: 'btn',
       //分享
       wxShareInfoValue: {
-        title: '',
-        desc: '',
-        link: '' + window.location.search,
+        title: '魔镜颜值PK擂台',
+        desc: '互动扫码 赢取好礼',
+        link: 'http://papi.xingstation.com/api/s/Gvy' + window.location.search,
         imgUrl: IMGSERVER + '/fe/image/supk/share.png',
       }
     }
@@ -164,42 +164,42 @@ export default {
       }
     },
     toPK() {
-      // let args = {
-      //   belong: this.belong,
-      //   image_url: this.photo,
-      //   score: this.score,
-      //   qiniu_id: this.$route.query.id,
-      //   gender: this.gender
-      // }
-      // userGame(args, this.userId)
-      //   .then(res => {
-      //     console.log(res)
-      //     this.btn = 'btned'
-      //   })
-      //   .catch(e => {
-      //     console.log(e)
-      //   })
-      // let oid = this.oid
-      let id = this.$route.id
-      let code = this.$route.code
-      let state = this.$route.state
-      getInfoById(id, code, state).then(res => {
-        console.log(res)
-        this.btn = 'btned'
-      }).catch(err => { console.log(err) })
-      this.$http.post(
-        'http://exelook.com:8010/pushdiv/?oid=' +
-        oid +
-        '&belong=' +
-        this.belong +
-        '&url=&name=&image=&api=json'
-      )
+      if (!this.awardinfo) {
+        return
+      }
+      this.btn = 'btned'
+      if (this.awardinfo.pass == 0 || this.awardinfo.valuetmp != this.awardinfo.value) {
+        gameListNeedCheck(this.awardinfo.auid, this.userinfo.z).then(res => {
+          console.log(res)
+        }).catch(err => {
+          console.log(err)
+        })
+      } else {
+        newGameList(this.awardinfo.akey).then(res => {
+          console.log(res)
+        }).catch(err => { console.log(err) })
+      }
     }
+
   }
 }
 </script>
 <style lang="less" scoped>
 @url: "http://cdn.exe666.com/fe/image/supk/";
+@font: "http://cdn.exe666.com/fe/font/";
+/*声明 WebFont*/
+@font-face {
+  font-family: "smallnum";
+  src: url("@{font}smallnum.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "boldnum";
+  src: url("@{font}boldnum.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
 html,
 body {
   width: 100%;
@@ -322,6 +322,7 @@ img {
         font-weight: 600;
         top: 50%;
         left: 24%;
+        font-family: "smallnum";
       }
       .yz-score {
         width: 18%;
@@ -330,6 +331,7 @@ img {
         color: #fff;
         top: 48%;
         left: 42%;
+        font-family: "boldnum";
       }
       .clip {
         width: 31vw;

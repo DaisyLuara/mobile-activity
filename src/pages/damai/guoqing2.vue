@@ -1,58 +1,66 @@
 <template>
-  <div 
-    :style="style.root"  
-    class="damai" >
-    <img 
-      :src="baseUrl + 'bg.png'" 
-      :style="style.bg" 
+  <div
+    :style="style.root"
+    class="damai"
+  >
+    <img
+      :src="baseUrl + 'bg.png'"
+      :style="style.bg"
       class="top-bg"
     >
-    <div 
-      :style="style.photoArea" 
-      class="photo-area">
-      <img 
-        :src="baseUrl + 'bg2.png'" 
-        :style="style.photobg" 
+    <div
+      :style="style.photoArea"
+      class="photo-area"
+    >
+      <img
+        :src="baseUrl + 'bg2.png'"
+        :style="style.photobg"
         class="bg"
       >
-      <img 
-        :src="photo + this.$qiniuCompress()" 
-        :style="style.photo" 
+      <img
+        :src="photo + this.$qiniuCompress()"
+        :style="style.photo"
         class="photo"
       >
-      <img 
+      <img
         :src="baseUrl + 'remind.png'"
-        class="remind" 
+        class="remind"
       >
-      <div 
-        :style="style.button" 
-        class="button" 
-        @click="handleNavi">
+      <div
+        :style="style.button"
+        class="button"
+        @click="handleNavi"
+      >
         <img
-          :src="baseUrl + 'flash_00000.png'" 
-          class="flash" >
-        <img 
-          :src="baseUrl + 'button-bg.png'" 
-          class="bg" >
-        <img 
-          :src="baseUrl + 'button-text.png'" 
-          class="text" >
-        <img 
-          v-show="control.bg1" 
-          :src="baseUrl + 'button_00001.png'" 
-          class="bg-02" >
-        <img 
-          v-show="control.bg2" 
-          :src="baseUrl + 'button_00003.png'" 
-          class="bg-01" >
-        <img 
-          v-show="control.bg3" 
-          :src="baseUrl + 'button_00005.png'" 
-          class="bg-01" >
+          :src="baseUrl + 'flash_00000.png'"
+          class="flash"
+        >
+        <img
+          :src="baseUrl + 'button-bg.png'"
+          class="bg"
+        >
+        <img
+          :src="baseUrl + 'button-text.png'"
+          class="text"
+        >
+        <img
+          v-show="control.bg1"
+          :src="baseUrl + 'button_00001.png'"
+          class="bg-02"
+        >
+        <img
+          v-show="control.bg2"
+          :src="baseUrl + 'button_00003.png'"
+          class="bg-01"
+        >
+        <img
+          v-show="control.bg3"
+          :src="baseUrl + 'button_00005.png'"
+          class="bg-01"
+        >
       </div>
     </div>
-    
-   
+
   </div>
 </template>
 
@@ -85,7 +93,6 @@ export default {
           height: (this.$innerWidth() * 601) / 390 + 'px'
         }
       },
-      photo: null,
       control: {
         bg3: true,
         bg2: true,

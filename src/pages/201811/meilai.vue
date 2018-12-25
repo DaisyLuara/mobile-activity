@@ -72,7 +72,6 @@ export default {
           'min-height': this.$innerHeight() + 'px'
         }
       },
-      photo: null,
       iphoneX: false,
       //微信分享
       wxShareInfoValue: {
@@ -80,9 +79,6 @@ export default {
         desc: '美莱颜值礼遇，等你来参与！',
         link: 'http://papi.xingstation.com/api/s/Jqo' + window.location.search,
         imgUrl: BASE_URL + '/fe/image/yanzhi/meilai/icon.png',
-        success: () => {
-          wechatShareTrack()
-        }
       }
     }
   },

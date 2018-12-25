@@ -108,7 +108,6 @@ export default {
   data() {
     return {
       base: CDNURL + "/fe/image/peter/",
-      photo: null,
       root: {
         'min-height': this.$innerHeight() + 'px'
       },
@@ -146,10 +145,12 @@ export default {
         desc: "我们一定要去探险！",
         link: "http://papi.xingstation.com/api/s/lxl" + window.location.search,
         imgUrl: CDNURL + "/fe/image/peter/share.png",
-        success: () => {
-          wechatShareTrack();
-        }
       }
+    }
+  },
+  watch: {
+    belong() {
+      this.$refs.linkAge.createGame(this.belong, this.userId);
     }
   },
   mounted() {

@@ -75,16 +75,12 @@ export default {
           height: this.$innerHeight() + "px"
         }
       },
-      photo: null,
       iphoneX: false,
       wxShareInfoValue: {
         title: "穿越仙境 爱意暖冬",
         desc: "点击领取专属照片",
         link: "http://papi.xingstation.com/api/s/ZY6" + window.location.search,
         imgUrl: cdnUrl + "/fe/marketing/img/muming/icon.png",
-        success: () => {
-          wechatShareTrack();
-        }
       }
     };
   },

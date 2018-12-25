@@ -35,16 +35,12 @@ export default {
           height: this.$innerHeight() + "px"
         }
       },
-      photo: null,
       iphoneX: false,
       wxShareInfoValue: {
         title: "HELLO CITY",
         desc: "创享 生活 新趣",
         link: "http://papi.xingstation.com/api/s/k8X" + window.location.search,
         imgUrl: cdnUrl + "/fe/marketing/img/synthetic/icon.png",
-        success: () => {
-          wechatShareTrack();
-        }
       }
     };
   },

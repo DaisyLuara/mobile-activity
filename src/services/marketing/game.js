@@ -3,6 +3,8 @@ import { apiToken, Cookies } from 'services'
 const GAME_URL = process.env.SAAS_API + '/user/'
 const GAME_LIST_URL = process.env.SAAS_API + '/user/'
 const REGISTER_URL = process.env.AD_API + '/api/temp/customer'
+const NEW_LIST_NOCHECK = 'http://exelook.com/client/h5/awardlist/?api=json'
+const NEW_LIST_NEEDCHECK = 'http://exelook.com/client/all/awardpass/?api=json'
 const REQ_HEADER = {
   headers: {
     'api-token': apiToken,
@@ -83,5 +85,68 @@ const userData = params => {
       })
   })
 }
-
-export { createGame, getGame, userGame, getSceneData, userData }
+//排行榜新接口 akey  http://exelook.com/client/h5/awardlist/?akey=2043162232&cp=1&size=100&api=json  不需要用户确定，自动排行
+const newGameList = akey => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(NEW_LIST_NOCHECK + '&akey=' + akey)
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+//排行榜新接口 awardinfo结构体中，pass==0或者valuetmp!=value的时候，则代表需要参与者点击确认 http://exelook.com/client/all/awardpass/?auid=442&z=4fk2d91686b0fcef93b6e594689846cb4631n5&api=json
+const gameListNeedCheck = (auid, z) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(NEW_LIST_NEEDCHECK + '&auid=' + auid + '$z=' + z)
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+// const chooseGameList = res => {
+//   if (!res.awardinfo) {
+//     newGameList(res.awardinfo.akey)
+//       .then(res => {
+//         console.log(res)
+//       })
+//       .catch(err => {
+//         console.log(err)
+//       })
+//   } else if (
+//     res.awardinfo.pass == 0 ||
+//     res.awardinfo.valuetmp != res.awardinfo.value
+//   ) {
+//     gameListNeedCheck(res.awardinfo.auid, res.userinfo.z)
+//       .then(res => {
+//         console.log(res)
+//       })
+//       .catch(err => {
+//         console.log(err)
+//       })
+//   } else {
+//     newGameList(res.awardinfo.akey)
+//       .then(res => {
+//         console.log(res)
+//       })
+//       .catch(err => {
+//         console.log(err)
+//       })
+//   }
+// }
+export {
+  createGame,
+  getGame,
+  userGame,
+  getSceneData,
+  userData,
+  newGameList,
+  gameListNeedCheck
+}

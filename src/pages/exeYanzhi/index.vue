@@ -1,26 +1,31 @@
 <template>
-  <div 
-    id="content" 
-    class="yanzhi-photo-content">
-    <img 
-      :src="imgUrl+'index/title.png'" 
-      class="title" 
-      data-v-index>
-    <h4 
-      class="h4" 
-      data-v-index>输入手机号<br>领取我的颜民币</h4>
+  <div
+    id="content"
+    class="yanzhi-photo-content"
+  >
+    <img
+      :src="imgUrl+'index/title.png'"
+      class="title"
+      data-v-index
+    >
+    <h4
+      class="h4"
+      data-v-index
+    >输入手机号<br>领取我的颜民币</h4>
     <div class="form">
-      <input 
-        id="tel" 
-        type="tel" 
-        name="" 
-        maxlength="11" 
-        placeholder="请输入手机号" >
-      <input 
-        id="button" 
-        type="button" 
-        value="确认" 
-        @click="redirectToPhoto">
+      <input
+        id="tel"
+        type="tel"
+        name=""
+        maxlength="11"
+        placeholder="请输入手机号"
+      >
+      <input
+        id="button"
+        type="button"
+        value="确认"
+        @click="redirectToPhoto"
+      >
     </div>
   </div>
 </template>
@@ -38,9 +43,6 @@ export default {
         title: '我的颜值太高了！居然被印上了钞票！',
         desc: '你也来和我PK颜值吧~',
         imgUrl: BASE_URL + 'image/yanzhi/share.jpg',
-        success: function() {
-          wechatShareTrack()
-        }
       }
     }
   },
@@ -100,7 +102,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://cdn.exe666.com/image/yanzhi/';
+@imgUrl: "http://cdn.exe666.com/image/yanzhi/";
 .yanzhi-photo-content {
   width: 100%;
   text-align: center;
@@ -108,7 +110,7 @@ export default {
   position: relative;
   min-height: 100%;
   font-size: 0;
-  background: url('@{imgUrl}index/back.jpg') center top/100% 100% repeat-y;
+  background: url("@{imgUrl}index/back.jpg") center top/100% 100% repeat-y;
   .title[data-v-index] {
     width: 97%;
     margin-top: 5%;
