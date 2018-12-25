@@ -18,7 +18,7 @@
     <!-- 勋章-联动-3个节目 -->
     <div class="one">
       <img
-        :src="base + '1.png' + this.$qiniuCompress()"
+        :src="base + '2.png' + this.$qiniuCompress()"
         class="bg"
       >
       <LinkAge
