@@ -362,7 +362,10 @@ img {
     .address {
       background-color: #fde480;
       color: #000;
-      width: 90%;
+      width: 93%;
+      padding: 10px;
+      margin-top: 20px;
+      border-radius: 5px;
       p {
         width: 100%;
         text-align: left;
