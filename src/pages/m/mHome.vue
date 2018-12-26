@@ -7,7 +7,8 @@
 
 <script>
 import { reCalculateRem } from "@/mixins/reCalculateRem";
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
+import { Toast } from "mint-ui";
 import {
   isInWechat,
   NaviToWechatAuth,
@@ -18,6 +19,9 @@ export default {
   name: "mSiteHome",
   mixins: [reCalculateRem],
   computed: {
+    ...mapMutations({
+      setLoginState: "SET_LOGIN_STATE"
+    }),
     ...mapGetters(["z"])
   },
   data() {
@@ -42,8 +46,19 @@ export default {
       if (code !== undefined && state !== undefined) {
         try {
           let r = await getUserInfoByCodeAndState(code, state);
+          if (r.hasOwnProperty("data")) {
+            if (r.data.hasOwnProperty("results")) {
+              const loginState = {
+                z: r.data.results.z
+              };
+              setLoginState(loginState);
+            }
+          } else {
+            Toast(r.data.results);
+          }
           console.dir(r);
         } catch (e) {
+          Toast(e.message);
           console.dir(e);
         }
       } else {
