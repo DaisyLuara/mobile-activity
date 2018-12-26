@@ -15,7 +15,7 @@
         id="clip"
         class="clip"
       >
-        <img :src="parms.link + this.$qiniuCompress()">
+        <img :src="linkimg + this.$qiniuCompress()">
       </div>
       <img
         :src="base + 'pic.png' +  this.$qiniuCompress()"
@@ -70,11 +70,12 @@ export default {
       pkshow: false,
       year: '0',
       btn: 'btn',
+      linkimg: null,
       //分享
       wxShareInfoValue: {
         title: '魔镜颜值PK擂台',
         desc: '互动扫码 赢取好礼',
-        link: '' + window.location.search,
+        link: 'http://papi.xingstation.com/api/s/J8D' + window.location.search,
         imgUrl: IMGSERVER + '/fe/image/supk/share.png',
       }
     }
@@ -95,6 +96,7 @@ export default {
   },
   watch: {
     parms() {
+      this.linkimg = this.parms.link
       this.pkshow = true
       this.year = this.parms.year || this.awardinfo.age || this.year
     }

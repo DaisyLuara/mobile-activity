@@ -24,6 +24,8 @@ export const onlyGetPhoto = {
     async getPhotoByRouteQueryId() {
       try {
         let id = this.$route.query.id
+        let code = this.$route.query.code
+        let state = this.$route.query.state
         let {
           belong,
           image,
@@ -32,7 +34,7 @@ export const onlyGetPhoto = {
           awardinfo,
           actinfo,
           userinfo
-        } = await getInfoById(id)
+        } = await getInfoById(id, code, state)
         this.belong = belong
         this.photo = image
         this.oid = oid
