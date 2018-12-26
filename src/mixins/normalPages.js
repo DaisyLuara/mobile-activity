@@ -2,6 +2,7 @@ import {
   $wechat,
   getInfoById,
   isInWechat,
+  wechatShareTrack,
   splitParms
 } from 'services'
 const cdnUrl = process.env.CDN_URL
@@ -15,12 +16,18 @@ export const normalPages = {
       parms: null,
       gender: null,
       score: null,
+      awardinfo: null,
+      userinfo: null,
+      actinfo: null,
       coupon_batch_id: null,
       wxShareInfoValue: {
         title: '',
         desc: '',
         link: '',
-        imgUrl: ''
+        imgUrl: '',
+        success: () => {
+          wechatShareTrack()
+        }
       }
     }
   },
@@ -45,11 +52,22 @@ export const normalPages = {
     async getPhotoByRouteQueryId() {
       try {
         let id = this.$route.query.id
-        let { belong, image, oid, parms } = await getInfoById(id)
+        let {
+          belong,
+          image,
+          oid,
+          parms,
+          awardinfo,
+          actinfo,
+          userinfo
+        } = await getInfoById(id)
         this.belong = belong
         this.photo = image
         this.oid = oid
         this.parms = splitParms(parms)
+        this.awardinfo = awardinfo
+        this.actinfo = actinfo
+        this.userinfo = userinfo
         if (this.parms.gender) {
           this.gender = this.parms.gender
         }

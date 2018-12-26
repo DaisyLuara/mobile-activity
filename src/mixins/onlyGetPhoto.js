@@ -11,7 +11,10 @@ export const onlyGetPhoto = {
       parms: null,
       gender: null,
       score: null,
-      coupon_batch_id: null
+      coupon_batch_id: null,
+      awardinfo: null,
+      actinfo: null,
+      userinfo: null
     }
   },
   mounted() {
@@ -21,11 +24,22 @@ export const onlyGetPhoto = {
     async getPhotoByRouteQueryId() {
       try {
         let id = this.$route.query.id
-        let { belong, image, oid, parms } = await getInfoById(id)
+        let {
+          belong,
+          image,
+          oid,
+          parms,
+          awardinfo,
+          actinfo,
+          userinfo
+        } = await getInfoById(id)
         this.belong = belong
         this.photo = image
         this.oid = oid
         this.parms = splitParms(parms)
+        this.awardinfo = awardinfo
+        this.userinfo = userinfo
+        this.actinfo = actinfo
         if (this.parms.gender) {
           this.gender = this.parms.gender
         }
