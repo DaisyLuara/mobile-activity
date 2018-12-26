@@ -36,7 +36,7 @@ import {
   isInWechat,
   wechatShareTrack,
 } from "services";
-import { normalPages } from "../../mixins/normalPages";
+import { normalPages } from "@/mixins/normalPages";
 const cdnUrl = process.env.CDN_URL;
 export default {
   mixins: [normalPages],
@@ -56,9 +56,6 @@ export default {
         imgUrl: cdnUrl + '/fe/image/youxin/icon.png',
       }
     }
-  },
-  mounted() {
-
   },
   methods: {
     toLink() {

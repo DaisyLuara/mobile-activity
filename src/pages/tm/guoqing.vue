@@ -1,102 +1,108 @@
 <template>
-  <div 
+  <div
     :style="(mask?'height:':'min-height:') + this.$innerHeight() + 'px'"
     :class="{overflow:mask}"
-    class="content">
+    class="content"
+  >
     <!-- 欢乐积攒有惊喜 四级联动显示-->
-    <div 
-      class="group">
+    <div class="group">
       <div
         v-show="!isfinished"
-        class="block unfinish">
+        class="block unfinish"
+      >
         <img
           :src="base + 'group3.png' + this.$qiniuCompress()"
-          class="bg">
+          class="bg"
+        >
         <img
           v-show="gameData.projectOne"
           :src="base + 'a.png' + this.$qiniuCompress()"
-          class="done1">
+          class="done1"
+        >
         <img
           v-show="gameData.projectTwo"
           :src="base + 'b.png' + this.$qiniuCompress()"
-          class="done2">
+          class="done2"
+        >
         <img
           v-show="gameData.projectThree"
           :src="base + 'c.png' + this.$qiniuCompress()"
-          class="done3">
+          class="done3"
+        >
         <img
           v-show="gameData.projectFour"
           :src="base + 'd.png' + this.$qiniuCompress()"
-          class="done4">
-        <span
-          class="span">已集齐<span class="white">{{ gameData.numArr[gameData.num] }}</span>赞
+          class="done4"
+        >
+        <span class="span">已集齐<span class="white">{{ gameData.numArr[gameData.num] }}</span>赞
         </span>
       </div>
-      <div 
+      <div
         v-show="isfinished"
-        class="block finish">
-        <img 
-          :src="base + 'finish3.png'">
+        class="block finish"
+      >
+        <img :src="base + 'finish3.png'">
       </div>
       <a
         v-show="gameData.num==4&&!mask"
         class="alert"
-        @click="()=>{mask = true}">
-        <img 
-          :src="base + 'alert.gif'">
+        @click="()=>{mask = true}"
+      >
+        <img :src="base + 'alert.gif'">
       </a>
     </div>
     <!-- 商品优惠内容 -->
-    <div 
-      class="block coupons">
-      <img 
-        :src="base + params.belong + '.png?887' + this.$qiniuCompress()">
+    <div class="block coupons">
+      <img :src="base + belong + '.png?887' + this.$qiniuCompress()">
     </div>
     <!-- tips -->
-    <img 
+    <img
       :src="base + 'tips.png'"
-      class="tips">
-    <div 
+      class="tips"
+    >
+    <div
       v-show="mask"
-      class="mask">
-      <div 
-        class="mask-main">
-        <img 
+      class="mask"
+    >
+      <div class="mask-main">
+        <img
           :src="base + 'winbg.png?111'"
-          class="winbg">
+          class="winbg"
+        >
         <a
           class="close"
-          @click="()=>{mask = false}"/>
-        <canvas 
+          @click="()=>{mask = false}"
+        />
+        <canvas
           v-if="award"
-          id="canvasDoodle" 
+          id="canvasDoodle"
           class="canvas-ele"
-          width="200" 
-          height="90" 
+          width="200"
+          height="90"
           @touchstart="handleTouchStart"
           @touchmove="handleTouchMove"
           @touchend="handleTouchEnd"
         />
-        <div 
-          class="win-text">
+        <div class="win-text">
           <!-- 优惠券 -->
-          <img  
-            :src="coupon.url + this.$qiniuCompress()">
+          <img :src="coupon.url + this.$qiniuCompress()">
         </div>
-        <div 
-          class="form">
-          <input 
+        <div class="form">
+          <input
             v-model="mobile"
-            type="text" 
+            type="text"
             maxlength="11"
             placeholder="请输入手机号"
-            class="input">
-          <a 
+            class="input"
+          >
+          <a
             class="get-btn"
-            @click="checkMobile(mobile)"/>
-          <a 
+            @click="checkMobile(mobile)"
+          />
+          <a
             class="cancel-btn"
-            @click="()=>{mask = false}"/>
+            @click="()=>{mask = false}"
+          />
         </div>
       </div>
     </div>
@@ -116,20 +122,17 @@ import {
 } from 'services'
 import { normalPages } from '@/mixins/normalPages'
 const REQ_URL = 'http://120.27.144.62:1337/parse/classes/'
-const IMG_SERVER = 'http://p22vy0aug.bkt.clouddn.com'
+const cdnUrl = process.env.CDN_URL
 export default {
   mixins: [normalPages],
   data() {
     return {
-      base: IMG_SERVER + '/image/tm/guoqing/',
+      base: cdnUrl + '/fe/image/drc/guoqing/',
       height: this.$innerHeight(),
-      params: {
-        deUrl:
-          'http://wx.qlogo.cn/mmopen/Q3auHgzwzM4VoBYD1YEIq0E3LFM1XLKsd3sG5VXRAvCUqCVXIPTcI0TzqicRWfzB9Zv40GhTR83RhKAugpzOuaJFC11nxmcnnp6ZbOu04UFw/0',
-        userId: null,
-        belong: this.$route.query.utm_campaign,
-        id: this.$route.query.id
-      },
+      deUrl:
+        'http://wx.qlogo.cn/mmopen/Q3auHgzwzM4VoBYD1YEIq0E3LFM1XLKsd3sG5VXRAvCUqCVXIPTcI0TzqicRWfzB9Zv40GhTR83RhKAugpzOuaJFC11nxmcnnp6ZbOu04UFw/0',
+      userId: null,
+      id: this.$route.query.id,
       coupon: {
         policyId: 4,
         couponId: null,
@@ -155,10 +158,10 @@ export default {
         desc: '大融城-星视度嗨玩节，福利优惠拿不停。',
         link: 'http://papi.xingstation.com/api/s/nZR' + window.location.search,
         imgUrl:
-          'http://p22vy0aug.bkt.clouddn.com/image/tm/guoqing/share_' +
+          'http://cdn.exe666.com/image/tm/guoqing/share_' +
           this.$route.query.utm_campaign.trim() +
           '.png',
-        success: function() {
+        success: function () {
           wechatShareTrack()
         }
       }
@@ -181,6 +184,11 @@ export default {
     //   this.getCouponId()
     // }
   },
+  watch: {
+    belong() {
+      this.userGame()
+    }
+  },
   methods: {
     handleWechatAuth() {
       if (Cookies.get('sign') === null) {
@@ -192,19 +200,18 @@ export default {
           '&scope=snsapi_base'
         window.location.href = redirct_url
       } else {
-        this.params.userId = Cookies.get('user_id')
-        this.params.belong = this.$route.query.utm_campaign
+        this.userId = Cookies.get('user_id')
         this.userGame()
       }
     },
     userGame() {
       let args = {
-        belong: this.params.belong,
-        image_url: this.params.deUrl,
-        qiniu_id: this.params.id,
+        belong: this.belong,
+        image_url: this.deUrl,
+        qiniu_id: this.id,
         score: 100
       }
-      userGame(args, this.params.userId)
+      userGame(args, this.userId)
         .then(res => {
           console.log(res)
           this.getGame()
@@ -217,7 +224,7 @@ export default {
       let args = {
         withCredentials: true
       }
-      let userId = this.params.userId
+      let userId = this.userId
       getGame(args, userId)
         .then(res => {
           console.log(res)
@@ -275,7 +282,7 @@ export default {
         '&mobile=' +
         String(mobile) +
         '&api=json'
-      this.$http.get(url).then(r => {})
+      this.$http.get(url).then(r => { })
     },
     initCanvas() {
       let that = this
@@ -383,16 +390,16 @@ export default {
 <style lang="less" scoped>
 /*声明 WebFont*/
 @font-face {
-  font-family: 'haibao';
-  src: url('http://p22vy0aug.bkt.clouddn.com/font/haibao.ttf');
-  src: url('http://p22vy0aug.bkt.clouddn.com/font/haibao.eot'),
-    url('http://p22vy0aug.bkt.clouddn.com/font/haibao.woff'),
-    url('http://p22vy0aug.bkt.clouddn.com/font/haibao.ttf'),
-    url('http://p22vy0aug.bkt.clouddn.com/font/haibao.svg');
+  font-family: "haibao";
+  src: url("http://cdn.exe666.com/font/haibao.ttf");
+  src: url("http://cdn.exe666.com/font/haibao.eot"),
+    url("http://cdn.exe666.com/font/haibao.woff"),
+    url("http://cdn.exe666.com/font/haibao.ttf"),
+    url("http://cdn.exe666.com/font/haibao.svg");
   font-weight: normal;
   font-style: normal;
 }
-@base: 'http://p22vy0aug.bkt.clouddn.com/image/tm/guoqing/';
+@base: "http://cdn.exe666.com/image/tm/guoqing/";
 html,
 body {
   width: 100%;
@@ -422,7 +429,7 @@ img {
   overflow-x: hidden;
   background-color: #fef6d1;
   max-width: 750px;
-  background-image: url('@{base}background.png');
+  background-image: url("@{base}background.png");
   background-position: center top;
   background-size: 100% auto;
   background-repeat: no-repeat;
@@ -448,7 +455,7 @@ img {
   .group {
     position: relative;
     width: 100%;
-    background-image: url('@{base}bg.png');
+    background-image: url("@{base}bg.png");
     background-position: center top;
     background-size: 100% auto;
     background-repeat: no-repeat;
@@ -481,7 +488,7 @@ img {
     .span {
       width: 56%;
       text-align: center;
-      font-family: 'haibao';
+      font-family: "haibao";
       font-size: 8vw;
       letter-spacing: 2px;
       text-stroke: 1px #000;

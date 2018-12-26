@@ -1,10 +1,11 @@
 <template>
-  <div 
-    :style="style.root" 
-    class="test-coupon-content">
+  <div
+    :style="style.root"
+    class="test-coupon-content"
+  >
     <!-- <img  class="bg" :src="imgServerUrl + '/pages/drc_ty/bg.png'" alt="" :style="style.bg"/> -->
     <div class="gender">
-      <span>{{ gender }}</span>
+      <span>{{ genderName }}</span>
       <span>{{ age }} 岁</span>
     </div>
     <!-- <img  class="photo" :src="couponUrl" alt=""/> -->
@@ -12,32 +13,36 @@
     <div class="photo">
       {{ couponContent }}
     </div>
-    <img 
-      :src="imgServerUrl + '/pages/zoo/b.png'" 
-      class="input-bg" >
-    <img 
-      v-show="isPhoneError" 
-      :src="imgServerUrl + '/pages/zoo/error.png'" 
-      class="input-error" >
-    <input 
-      ref="inputreal" 
-      v-model="phoneValue" 
-      maxlength="11" 
-      class="input-value" 
-      @click="isPhoneError=false">
-    <img 
-      :src="imgServerUrl + '/pages/zoo/a.png'" 
-      class="remind-bt" 
-      @click="submit">
+    <img
+      :src="imgServerUrl + '/pages/zoo/b.png'"
+      class="input-bg"
+    >
+    <img
+      v-show="isPhoneError"
+      :src="imgServerUrl + '/pages/zoo/error.png'"
+      class="input-error"
+    >
+    <input
+      ref="inputreal"
+      v-model="phoneValue"
+      maxlength="11"
+      class="input-value"
+      @click="isPhoneError=false"
+    >
+    <img
+      :src="imgServerUrl + '/pages/zoo/a.png'"
+      class="remind-bt"
+      @click="submit"
+    >
   </div>
 </template>
 <script>
 import { $wechat, getInfoById, wechatShareTrack } from 'services'
 import { Toast } from 'mint-ui'
-
+import { normalPages } from '@/mixins/normalPages'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
-
 export default {
+  mixins: [normalPages],
   data() {
     return {
       style: {
@@ -54,11 +59,11 @@ export default {
       phoneValue: '',
       imgServerUrl: IMAGE_SERVER,
       couponUrl: '',
-      gender: '',
+      genderName: '',
       age: '',
       isPhoneError: false,
       //微信分享信息
-      wxShareInfo: {
+      wxShareInfoValue: {
         title: '测试',
         desc: '测试',
         imgUrl:
@@ -66,11 +71,15 @@ export default {
       }
     }
   },
+  watch: {
+    parms() {
+      this.genderName = this.gender === '1' ? '女' : '男'
+      this.age = this.parms.age
+      this.getCoupon()
+    }
+  },
   mounted() {
-    this.wechatShare()
-    this.gender = this.$route.query.gender === '1' ? '女' : '男'
-    this.age = this.$route.query.age
-    this.getCoupon()
+
   },
   methods: {
     submit() {
@@ -104,28 +113,11 @@ export default {
         }
       }
     },
-    wechatShare() {
-      $wechat()
-        .then(res => {
-          res.share({
-            // 配置分享
-            title: this.wxShareInfo.title,
-            desc: this.wxShareInfo.desc,
-            imgUrl: this.wxShareInfo.imgUrl,
-            success: function() {
-              wechatShareTrack()
-            }
-          })
-        })
-        .catch(_ => {
-          console.warn(_.message)
-        })
-    },
     getCoupon() {
       let rq = process.env.AD_API + '/api/open/coupon/batches'
-      let policy_id = this.$route.query.policy_id
-      let gender = this.$route.query.gender
-      let age = this.$route.query.age
+      let policy_id = this.parms.policy_id
+      let gender = this.gender
+      let age = this.age
       let rd = {
         policy_id: policy_id,
         gender: gender,
@@ -152,7 +144,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imageHost: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/tmall';
+@imageHost: "http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/tmall";
 html,
 body {
   overflow-x: hidden;

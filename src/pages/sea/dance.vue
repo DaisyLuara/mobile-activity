@@ -1,73 +1,79 @@
 <template>
   <div
     :style="style.root"
-    :class="{content:true,iphoneX:iphoneX}">
-    <div 
-      class="main">
+    :class="{content:true,iphoneX:iphoneX}"
+  >
+    <div class="main">
       <!-- 照片区域 -->
-      <div 
-        class="picture">
+      <div class="picture">
         <img
           :src="base + 'frame.png' + this.$qiniuCompress()"
-          class="frame">
+          class="frame"
+        >
         <img
           id="test"
           :src="compoundUrl"
-          class="test">
+          class="test"
+        >
       </div>
-      <div 
-        class="scores">
+      <div class="scores">
         <img
           :src="base + 'score.png' + this.$qiniuCompress()"
-          class="scorebg">
+          class="scorebg"
+        >
         <span>{{ score }}</span>
       </div>
-      <div
-        class="coupons">
+      <div class="coupons">
         <img
           :src="base + 'text.png' + this.$qiniuCompress()"
-          class="couponbg">
+          class="couponbg"
+        >
         <img
           :src="base + coupon + '.png' + this.$qiniuCompress()"
-          class="coupon">
+          class="coupon"
+        >
       </div>
       <a
         class="button"
-        @click="toOtherLink">
+        @click="toOtherLink"
+      >
         <img
           :src="base+'button.png' + this.$qiniuCompress()"
-          class="button">
+          class="button"
+        >
       </a>
     </div>
     <div
       v-show="mask"
-      :class="{mask:true,iphoneX:iphoneX}">
+      :class="{mask:true,iphoneX:iphoneX}"
+    >
       <!-- 说明 -->
       <div
         v-show="explain1"
         class="explain1"
-        @click="()=>{explain1 = false;mask=false;}">
-        <img
-          :src="base + 'explain.png' + this.$qiniuCompress()">
+        @click="()=>{explain1 = false;mask=false;}"
+      >
+        <img :src="base + 'explain.png' + this.$qiniuCompress()">
         <a
           class="close"
-          @click="()=>{explain1=false;mask=false;}">
-          <img
-            :src="base+'close.png' + this.$qiniuCompress()">
+          @click="()=>{explain1=false;mask=false;}"
+        >
+          <img :src="base+'close.png' + this.$qiniuCompress()">
         </a>
       </div>
       <!-- 领券，停顿显示图片，跳转链接 -->
-      <div 
+      <div
         v-show="explain2"
-        class="explain2">
-        <img
-          :src="base+'explain2.png'">
+        class="explain2"
+      >
+        <img :src="base+'explain2.png'">
       </div>
     </div>
-    <canvas 
-      id="canvas" 
+    <canvas
+      id="canvas"
       class="photoImg"
-      style="display: none" />
+      style="display: none"
+    />
   </div>
 </template>
 <script>
@@ -114,7 +120,7 @@ export default {
         desc: '金秋十月！来旭辉mall吃喝玩乐',
         link: 'http://papi.xingstation.com/api/s/pg6' + window.location.search,
         imgUrl: 'http://cdn.exe666.com/fe/image/xh_dance/icon.png',
-        success: function() {
+        success: function () {
           wechatShareTrack()
         }
       }
@@ -234,7 +240,7 @@ export default {
       let seal = new Image()
       seal.setAttribute('crossOrigin', 'Anonymous')
       image.src = this.base64Data
-      image.onload = function() {
+      image.onload = function () {
         canvas.width = image.width
         canvas.height = image.height
         ctx.drawImage(image, 0, 0, image.width, image.height)
@@ -248,7 +254,7 @@ export default {
         ctx.translate(x, y)
         ctx.fillText(text, 0, 0)
         ctx.restore()
-        seal.onload = function() {
+        seal.onload = function () {
           ctx.drawImage(
             seal,
             0,
@@ -330,7 +336,7 @@ export default {
       this.mask = true
       this.explain2 = true
       let that = this
-      let timer = setTimeout(function() {
+      let timer = setTimeout(function () {
         window.location.href = that.link
       }, 3000)
     }
@@ -338,10 +344,10 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@base: 'http://cdn.exe666.com/fe/image/xh_dance/';
+@base: "http://cdn.exe666.com/fe/image/xh_dance/";
 @font-face {
-  font-family: 'jingzhuan';
-  src: url('http://cdn.exe666.com/fe/marketing/img/xsd_ad/jinzhuan2.TTF');
+  font-family: "jingzhuan";
+  src: url("http://cdn.exe666.com/fe/marketing/img/xsd_ad/jinzhuan2.TTF");
   font-weight: normal;
   font-style: normal;
 }
@@ -371,7 +377,7 @@ img {
   width: 100%;
   overflow: hidden;
   position: relative;
-  background-image: url('@{base}back.png');
+  background-image: url("@{base}back.png");
   background-position: center bottom;
   background-size: 100% 100%;
   background-repeat: no-repeat;
@@ -410,7 +416,7 @@ img {
         z-index: 0;
       }
       span {
-        font-family: 'jingzhuan';
+        font-family: "jingzhuan";
         font-size: 15vw;
         color: #fff;
         position: absolute;

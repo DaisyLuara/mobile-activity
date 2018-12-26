@@ -48,16 +48,12 @@ export default {
           height: this.$innerHeight() + "px"
         }
       },
-      photo: null,
       iphoneX: false,
       wxShareInfoValue: {
         title: "圣诞糖果屋",
         desc: "欢乐尽享甜蜜梦幻的圣诞狂欢!",
         link: "http://papi.xingstation.com/api/s/VP1" + window.location.search,
         imgUrl: cdnUrl + "/fe/marketing/img/christmas_candy/icon.png",
-        success: () => {
-          wechatShareTrack();
-        }
       }
     };
   },

@@ -18,7 +18,7 @@
     <!-- 勋章-联动-3个节目 -->
     <div class="one">
       <img
-        :src="base + '1.png' + this.$qiniuCompress()"
+        :src="base + '2.png' + this.$qiniuCompress()"
         class="bg"
       >
       <LinkAge
@@ -108,7 +108,6 @@ export default {
   data() {
     return {
       base: CDNURL + "/fe/image/peter/",
-      photo: null,
       root: {
         'min-height': this.$innerHeight() + 'px'
       },
@@ -146,10 +145,12 @@ export default {
         desc: "我们一定要去探险！",
         link: "http://papi.xingstation.com/api/s/q73" + window.location.search,
         imgUrl: CDNURL + "/fe/image/peter/share.png",
-        success: () => {
-          wechatShareTrack();
-        }
       }
+    }
+  },
+  watch: {
+    belong() {
+      this.$refs.linkAge.createGame(this.belong, this.userId);
     }
   },
   mounted() {

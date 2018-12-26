@@ -1,24 +1,30 @@
 <template>
   <div
-    :style="style.root" 
-    class="root">
+    :style="style.root"
+    class="root"
+  >
     <div
       :class="{'x-center':iphoneX}"
-      class="center">
-      <img 
-        v-if="photo !== null" 
-        :src="photo + this.$qiniuCompress()" 
-        class="photo" > 
+      class="center"
+    >
+      <img
+        v-if="photo !== null"
+        :src="photo + this.$qiniuCompress()"
+        class="photo"
+      >
     </div>
-    <div 
+    <div
       :class="{'x-bottom':iphoneX}"
-      class="bottom">
-      <img 
+      class="bottom"
+    >
+      <img
         :src="baseUrl + 'A.gif'"
-        class="jiantou" >
-      <img 
+        class="jiantou"
+      >
+      <img
         :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
-        class="save" >
+        class="save"
+      >
     </div>
   </div>
 </template>
@@ -27,7 +33,6 @@
 import { wechatShareTrack } from 'services'
 import { normalPages } from '@/mixins/normalPages'
 const cdnUrl = process.env.CDN_URL
-
 export default {
   mixins: [normalPages],
   data() {
@@ -38,20 +43,16 @@ export default {
           height: this.$innerHeight() + 'px'
         }
       },
-      photo: '',
       iphoneX: false,
       wxShareInfoValue: {
         title: '刷脸为自己加油打call，让健康生活不只是口号！',
         desc: '星视度超级加油站',
         link: 'http://papi.xingstation.com/api/s/Dkx' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/superPetrolStation/icon.jpg',
-        success: () => {
-          wechatShareTrack()
-        }
       }
     }
   },
-  created() {},
+  created() { },
   mounted() {
     let height = this.$innerHeight()
     if (height > 672) {
@@ -65,11 +66,11 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: 'http://cdn.exe666.com/fe/marketing/img/superPetrolStation';
+@imageHost: "http://cdn.exe666.com/fe/marketing/img/superPetrolStation";
 .root {
   width: 100%;
   background-repeat: no-repeat;
-  background-image: url('@{imageHost}/bg.jpg');
+  background-image: url("@{imageHost}/bg.jpg");
   background-size: 100% 100%;
   position: relative;
   overflow: hidden;
@@ -88,7 +89,7 @@ export default {
     pointer-events: none;
     user-select: none;
     background-repeat: no-repeat;
-    background-image: url('@{imageHost}/kuang.png');
+    background-image: url("@{imageHost}/kuang.png");
     background-size: 100% 100%;
     .photo {
       position: absolute;
