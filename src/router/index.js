@@ -94,6 +94,40 @@ const router = new Router({
           component: () => import('@/pages/h5pocket/pages/couponQr')
         }
       ]
+    },
+    {
+      path: '/m/',
+      name: 'mSite',
+      meta: {
+        title: 'M站'
+      },
+      component: () => import('@/pages/m/mHome'),
+      children: [
+        {
+          path: ':mid/trends/index',
+          name: 'TrendsIndex',
+          meta: {
+            title: '我的足迹'
+          },
+          component: () => import('@/pages/m/pages/trends/index/index')
+        },
+        {
+          path: ':mid/trends/detail',
+          name: 'TrendsDetail',
+          meta: {
+            title: '足迹详情'
+          },
+          component: () => import('@/pages/m/pages/trends/detail/index')
+        },
+        {
+          path: ':mid/theme/index',
+          name: 'ThemeIndex',
+          meta: {
+            title: '主题详情'
+          },
+          component: () => import('@/pages/m/pages/activity/theme/index')
+        }
+      ]
     }
     // {
     //   path: '/hidol',
