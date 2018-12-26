@@ -53,7 +53,7 @@
           id="clip"
           class="clip"
         >
-          <img :src="parms.link + this.$qiniuCompress()">
+          <img :src="linkimg + this.$qiniuCompress()">
         </div>
         <img
           :src="base + 'pic.png' +  this.$qiniuCompress()"
@@ -119,6 +119,7 @@ export default {
       mask2: false,
       year: '0',
       btn: 'btn',
+      linkimg: null,
       //分享
       wxShareInfoValue: {
         title: '魔镜颜值PK擂台',
@@ -147,6 +148,7 @@ export default {
       this.pkshow = true
     },
     parms() {
+      this.linkimg = this.parms.link
       this.year = this.parms.year || this.awardinfo.age || this.year
     }
   },

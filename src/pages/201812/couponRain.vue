@@ -94,13 +94,54 @@ export default {
         button.buttonMode = true
         button.on('click', onCheckScene).on('touchend', onCheckScene)
 
-
-        //容器二，游戏界面
+        //容器二  倒计时
         let container2 = new PIXI.Container()
         container2.width = as_width
         container2.height = as_height
         container2.position.set(0, 0);
         app.stage.addChild(container2)
+        let graphics = new PIXI.Graphics()
+        graphics.beginFill(0x000000, 0.5)
+        graphics.drawRect(0, 0, as_width, as_height)
+        graphics.endFill()
+        container2.addChild(graphics)
+        let bigNUm = 3
+        let bigStyle = new PIXI.TextStyle({
+          fontFamily: '黑体',
+          fontSize: 150,
+          fontWeight: 'bold',
+          fill: ['#fae767'],
+          stroke: '#942013',
+          strokeThickness: 5,
+          dropShadow: true,
+          dropShadowColor: '#000000',
+          dropShadowBlur: 4,
+          dropShadowAngle: Math.PI / 6,
+          dropShadowDistance: 6,
+          wordWrap: true,
+          wordWrapWidth: 440
+        })
+        let bigText = new PIXI.Text(bigNUm, bigStyle)
+
+        let timer1 = setInterval(function () {
+          if (bigNUm == 0) {
+            clearInterval(timer1)
+            container3 = true
+            return
+          }
+          bigText = new PIXI.Text(bigNUm, bigStyle)
+          bigNUm--
+        }, 1000)
+        bigText.anchor.set(0.5)
+        bigText.position.set(as_width / 2, as_height / 2)
+        container2.addChild(bigText)
+        //容器三，游戏界面
+        let container3 = new PIXI.Container()
+        container3.width = as_width
+        container3.height = as_height
+        container3.position.set(0, 0);
+
+
 
         //元宝
         let gold = PIXI.Sprite.fromImage(url + 'gold.png')
@@ -113,16 +154,18 @@ export default {
         cover.width = as_width
         cover.height = cover.width / 750 * 1334
         cover.position.set(0, -as_height * 0.1)
-
+        app.stage.addChild(container3)
         container1.addChild(pig)
         container1.addChild(logo)
         container1.addChild(button)
 
-        container2.addChild(gold)
-        container2.addChild(cover)
+
+
+        container3.addChild(gold)
+        container3.addChild(cover)
         container1.visible = true
         container2.visible = false
-
+        container3.visible = false
         // for (let i = 0; i < totalDudes; i++) {
         //   let dude = PIXI.Sprite.fromImage(url + 'th.jpg');
 
