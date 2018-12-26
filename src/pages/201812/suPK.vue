@@ -174,6 +174,7 @@ export default {
       }
       this.btn = 'btned'
       if (this.awardinfo.pass == 0 || this.awardinfo.valuetmp != this.awardinfo.value) {
+        alert(this.userinfo.z)
         gameListNeedCheck(this.awardinfo.auid, this.userinfo.z).then(res => {
           console.log(res)
         }).catch(err => {
