@@ -209,11 +209,10 @@ export default {
       this.code = res.code
       this.coupon = res.couponBatch.image_url
       this.description = res.couponBatch.description
-      this.text = this.description.split('/n')
-      this.address = res.address.split('/n')
       if (parseInt(res.status) === 1) {
         this.used = true
       }
+      this.text = this.description.split('/n')
     }
   }
 }
