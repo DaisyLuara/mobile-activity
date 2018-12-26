@@ -112,26 +112,27 @@ export default {
           fontWeight: 'bold',
           fill: ['#fae767'],
           stroke: '#942013',
-          strokeThickness: 5,
+          strokeThickness: 7,
           dropShadow: true,
-          dropShadowColor: '#000000',
-          dropShadowBlur: 4,
+          dropShadowColor: 'rgba(0,0,0,0.5)',
+          dropShadowBlur: 2,
           dropShadowAngle: Math.PI / 6,
-          dropShadowDistance: 6,
-          wordWrap: true,
-          wordWrapWidth: 440
+          // dropShadowDistance: 6,
+          // wordWrap: true,
+          // wordWrapWidth: 440
         })
         let bigText = new PIXI.Text(bigNUm, bigStyle)
 
-        let timer1 = setInterval(function () {
-          if (bigNUm == 0) {
-            clearInterval(timer1)
-            container3 = true
-            return
-          }
-          bigText = new PIXI.Text(bigNUm, bigStyle)
-          bigNUm--
-        }, 1000)
+        // let timer1 = setInterval(function () {
+        //   if (bigNUm == 0) {
+        //     clearInterval(timer1)
+        //     container3 = true
+        //     return
+        //   }
+        //   bigText = new PIXI.Text(bigNUm, bigStyle)
+        //   bigNUm--
+        //   console.log(bigNUm)
+        // }, 1000)
         bigText.anchor.set(0.5)
         bigText.position.set(as_width / 2, as_height / 2)
         container2.addChild(bigText)
@@ -197,6 +198,23 @@ export default {
         //   app.screen.height + dudeBoundsPadding * 2);
 
         app.ticker.add(function () {
+          let bigNUm = 3
+          let bigStyle = new PIXI.TextStyle({
+            fontFamily: '黑体',
+            fontSize: 150,
+            fontWeight: 'bold',
+            fill: ['#fae767'],
+            stroke: '#942013',
+            strokeThickness: 7,
+            dropShadow: true,
+            dropShadowColor: 'rgba(0,0,0,0.5)',
+            dropShadowBlur: 2,
+            dropShadowAngle: Math.PI / 6,
+          })
+          let bigText = new PIXI.Text(bigNUm, bigStyle)
+          bigText.anchor.set(0.5)
+          bigText.position.set(as_width / 2, as_height / 2)
+          container2.addChild(bigText)
           // for (let i = 0; i < aliens.length; i++) {
 
           //   let dude = aliens[i];
