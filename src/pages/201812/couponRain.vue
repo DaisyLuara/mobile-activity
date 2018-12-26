@@ -31,7 +31,8 @@ export default {
       import('pixi.js').then(PIXI => {
         let app = new PIXI.Application({
           width: window.innerWidth,
-          height: window.innerHeight
+          height: window.innerHeight,
+          transparent: true
         });
         let content = document.querySelector('.content')
         content.appendChild(app.view);
@@ -39,7 +40,8 @@ export default {
         // holder to store the aliens
         let url = CDNURL + '/fe/image/couponrain/'
         let aliens = [];
-
+        let count = 0
+        let time = 21
         let totalDudes = 20;
 
         for (let i = 0; i < totalDudes; i++) {
@@ -51,11 +53,16 @@ export default {
           dude.x = Math.random() * app.screen.width;
           dude.y = Math.random() * app.screen.height;
 
-          // dude.tint = Math.random() * 0xFFFFFF;
-          dude.direction = Math.random() * Math.PI * 2;
+          dude.direction = Math.random() * Math.PI / 3;
 
           dude.turningSpeed = Math.random() - 0.8;
           dude.speed = 2 + Math.random() * 2;
+          dude.interactive = true;
+          dude.buttonMode = true
+          dude.on('pointerdown', onButtonDown)
+            .on('pointerup', onButtonUp)
+            .on('touchstart', onButtonDown)
+            .on('touchend', onButtonUp)
           aliens.push(dude);
 
           app.stage.addChild(dude);
@@ -91,7 +98,15 @@ export default {
             }
           }
         });
-
+        function onButtonDown() {
+          console.log('1')
+        }
+        function onButtonUp() {
+          console.log('2')
+        }
+        function onButtonOut() {
+          console.log('3')
+        }
       })
     }
   }
