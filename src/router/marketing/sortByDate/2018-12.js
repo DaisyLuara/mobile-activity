@@ -381,6 +381,17 @@ const Date201812 = [
       desc: '苏州中心PK'
     },
     isAbandoned: false
+  },
+  {
+    path: 'coupon_rain',
+    location: '201812/couponRain',
+    name: 'coupon_rain',
+    meta: {
+      title: '衡阳连卡福-福猪港味年',
+      author: 'lipan',
+      desc: '衡阳连卡福-福猪港味年-红包雨'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201812

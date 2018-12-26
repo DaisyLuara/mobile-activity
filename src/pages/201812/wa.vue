@@ -149,6 +149,7 @@ export default {
       } else {
         this.userId = Cookies.get('user_id')
         this.checkGetCoupon()
+        this.getCompanyInfo()
       }
     },
     //禁止微信分享

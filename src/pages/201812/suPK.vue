@@ -1,7 +1,7 @@
 <template>
   <div
     :style="style.root"
-    class="content"
+    :class="{content:true,iphoneX:iphoneX}"
   >
     <img
       :src="base + 'kuang.png' + this.$qiniuCompress()"
@@ -113,10 +113,11 @@ export default {
           'min-height': this.$innerHeight() + 'px'
         }
       },
+      iphoneX: false,
       pkshow: false,
-      mask1: false,
+      mask1: true,
       mask2: false,
-      year: null,
+      year: '0',
       btn: 'btn',
       //分享
       wxShareInfoValue: {
@@ -129,7 +130,7 @@ export default {
   },
   mounted() {
     if (this.$innerHeight() > 672) {
-      document.querySelector('.main').style.marginTop = '10%'
+      this.iphoneX = true
     }
     //微信授权
     if (isInWechat() === true) {
@@ -146,7 +147,7 @@ export default {
       this.pkshow = true
     },
     parms() {
-      this.year = this.parms.year
+      this.year = this.parms.year || this.awardinfo.age || this.year
     }
   },
   methods: {
@@ -165,6 +166,7 @@ export default {
     },
     toPK() {
       if (!this.awardinfo) {
+        this.pkshow = false
         return
       }
       this.btn = 'btned'
@@ -190,13 +192,13 @@ export default {
 /*声明 WebFont*/
 @font-face {
   font-family: "smallnum";
-  src: url("@{font}smallnum.ttf");
+  src: url("@{font}smallnum.TTF");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: "boldnum";
-  src: url("@{font}boldnum.ttf");
+  src: url("@{font}boldnum.TTF");
   font-weight: normal;
   font-style: normal;
 }
@@ -280,10 +282,11 @@ img {
     bottom: 0%;
     z-index: 9999;
     background-color: rgba(0, 0, 0, 0.8);
-    background-image: url("@{url}top.png"), url("@{url}bottom.png");
-    background-position: right top, left bottom;
-    background-size: 49% auto, 35% auto;
-    background-repeat: no-repeat, no-repeat;
+    background-image: url("@{url}tip.png"), url("@{url}top.png"),
+      url("@{url}bottom.png");
+    background-position: center 97%, right top, left bottom;
+    background-size: 34% auto, 49% auto, 35% auto;
+    background-repeat: no-repeat, no-repeat, no-repeat;
     .main {
       width: 68%;
       position: relative;
@@ -308,28 +311,28 @@ img {
         z-index: 99;
         border-radius: 50%;
         background: transparent;
+        border: none;
       }
       span {
         position: absolute;
         z-index: 99;
       }
       .year {
-        width: 12vw;
+        width: 10vw;
         line-height: normal;
         text-align: center;
-        font-size: 4.5vw;
+        font-size: 3.5vw;
         color: #fff;
-        font-weight: 600;
-        top: 50%;
-        left: 24%;
+        top: 52%;
+        left: 28%;
         font-family: "smallnum";
       }
       .yz-score {
         width: 18%;
         text-align: left;
-        font-size: 15vw;
+        font-size: 12vw;
         color: #fff;
-        top: 48%;
+        top: 50%;
         left: 42%;
         font-family: "boldnum";
       }
@@ -378,6 +381,32 @@ img {
       left: 50%;
       transform: translateX(-50%);
     }
+  }
+}
+.iphoneX {
+  .mask1 {
+    .main {
+      margin-top: 35%;
+      width: 75%;
+    }
+  }
+  .mask2 {
+    .note {
+      top: 78%;
+    }
+  }
+  .kuang {
+    top: 10%;
+  }
+  .photo {
+    top: 11%;
+  }
+  .winbtn {
+    top: 7%;
+  }
+  .btn-left,
+  .btn-right {
+    bottom: 12%;
   }
 }
 @keyframes mybig {
