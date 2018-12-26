@@ -35,10 +35,10 @@ export default {
       this.wechat = true;
     }
     // state code
-    console.log("z:");
-    console.log(this.z);
+    // console.log("z:");
+    // console.log(this.z);
     this.handleLogin();
-    console.log(this.$route.query);
+    // console.log(this.$route.query);
   },
   methods: {
     async handleLogin() {
@@ -47,13 +47,10 @@ export default {
         try {
           let r = await getUserInfoByCodeAndState(code, state);
           if (typeof r.data.results === "object") {
-            const loginState = {
-              z: String(r.data.results.z)
-            };
-            console.log(loginState);
-            this.setLoginState(loginState);
+            let savedLoginState = r.data.results;
+            this.setLoginState(savedLoginState);
           } else {
-            console.log(r);
+            // console.log(r);
             // Toast(r.data.results);
           }
         } catch (e) {
