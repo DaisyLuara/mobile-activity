@@ -52,12 +52,12 @@ const webpackConfig = merge(baseWebpackConfig, {
       uglifyJS: {
         output: {
           comments: false
-        },
-        compress: {
-          warnings: process.argv[2] === 'preprod' ? true : false,
-          drop_debugger: process.argv[2] === 'preprod' ? false : true,
-          drop_console: process.argv[2] === 'preprod' ? false : true
         }
+        // compress: {
+        //   warnings: process.argv[2] === 'preprod' ? true : false,
+        //   drop_debugger: process.argv[2] === 'preprod' ? false : true,
+        //   drop_console: process.argv[2] === 'preprod' ? false : true
+        // }
       }
     }),
     // extract css into its own file

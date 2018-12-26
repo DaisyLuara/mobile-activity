@@ -104,6 +104,7 @@ const gameListNeedCheck = (auid, z) => {
     axios
       .get(NEW_LIST_NEEDCHECK + '&auid=' + auid + '$z=' + z)
       .then(response => {
+        console.log(NEW_LIST_NEEDCHECK + '&auid=' + auid + '$z=' + z)
         resolve(response.data)
       })
       .catch(err => {
