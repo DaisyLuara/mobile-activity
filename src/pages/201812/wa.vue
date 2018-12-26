@@ -41,7 +41,7 @@
       </div>
       <div class="check">
         <img
-          :src="base + 'hexiao.png'"
+          :src="base + 'checkbg.png'"
           class="checkbg"
         >
         <img
@@ -82,8 +82,7 @@ import {
   Cookies,
   sendCoupon,
   checkGetCoupon,
-  dateFormat,
-  formatTimestamp
+  getConponMini
 } from 'services'
 const cdnUrl = process.env.CDN_URL
 export default {
@@ -127,8 +126,6 @@ export default {
     } else {
       this.iphoneX = false
     }
-    // this.text = this.description.split('/n')
-    // this.address = this.address.split('/n')
   },
   // watch: {
   //   parms() {
@@ -163,12 +160,9 @@ export default {
         })
     },
     getCompanyInfo() {
-      let args = {
-        include: 'company'
-      }
-      checkGetCoupon(args).then(res => {
+      getConponMini(this.coupon_batch_id).then(res => {
         console.log(res)
-        this.address = res.address.split('/n')
+        this.address = res.company.address.split('/n')
       }).catch(err => {
         console.log(err)
       })
@@ -215,6 +209,7 @@ export default {
       this.coupon = res.couponBatch.image_url
       this.description = res.couponBatch.description
       this.text = this.description.split('/n')
+      this.address = res.address.split('/n')
       if (parseInt(res.status) === 1) {
         this.used = true
       }

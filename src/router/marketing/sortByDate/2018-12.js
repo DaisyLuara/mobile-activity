@@ -383,6 +383,17 @@ const Date201812 = [
     isAbandoned: false
   },
   {
+    path: 'su_pk2',
+    location: '201812/suPK2',
+    name: 'su_pk2',
+    meta: {
+      title: '颜值PK 赢好礼',
+      author: 'lipan',
+      desc: '苏州中心PK-简版'
+    },
+    isAbandoned: false
+  },
+  {
     path: 'coupon_rain',
     location: '201812/couponRain',
     name: 'coupon_rain',
