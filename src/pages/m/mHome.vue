@@ -47,7 +47,7 @@ export default {
         try {
           let r = await getUserInfoByCodeAndState(code, state);
           if (typeof r.data.results === "object") {
-            let savedLoginState = r.data.results;
+            let savedLoginState = JSON.parse(JSON.stringify(r.data.results));
             this.setLoginState(savedLoginState);
           } else {
             // console.log(r);
@@ -55,7 +55,7 @@ export default {
           }
         } catch (e) {
           // Toast(e.message);
-          console.log(e);
+          // console.log(e);
         }
       } else {
         if (this.z === "") {
