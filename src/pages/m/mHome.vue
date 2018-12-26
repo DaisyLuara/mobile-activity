@@ -55,11 +55,12 @@ export default {
               this.setLoginState(loginState);
             }
           } else {
-            Toast(r.data.results);
+            console.dir(r.data);
+            // Toast(r.data.results);
           }
           console.dir(r);
         } catch (e) {
-          Toast(e.message);
+          // Toast(e.message);
           console.dir(e);
         }
       } else {
