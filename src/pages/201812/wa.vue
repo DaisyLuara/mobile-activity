@@ -161,8 +161,9 @@ export default {
     },
     getCompanyInfo() {
       getConponMini(this.coupon_batch_id).then(res => {
-        console.log(res)
-        this.address = res.company.address.split('/n')
+        let company = res.company || res.data.company || res.data.data.company
+        this.address = company.address.split('/n')
+        console.log(res.data.company)
       }).catch(err => {
         console.log(err)
       })
@@ -369,6 +370,10 @@ img {
         font-size: 4.5vw;
         letter-spacing: 2px;
         margin-bottom: 3%;
+        &:first-child {
+          font-size: 5vw;
+          font-weight: bold;
+        }
       }
     }
   }
