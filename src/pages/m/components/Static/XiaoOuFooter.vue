@@ -32,29 +32,34 @@ export default {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  z-index: 10;
   .qr {
-    width: 2.31rem;
-    height: 2.31rem;
+    width: 1.155rem;
+    height: 1.155rem;
     border-radius: 50%;
+    z-index: 30;
   }
   .remind {
     width: 100%;
     display: flex;
     flex-direction: row;
-    height: 3.34rem;
+    height: 1.67rem;
     justify-content: center;
+    z-index: 50;
     .xo {
-      height: 3.34rem;
-      width: 3.34rem;
+      height: 1.67rem;
+      width: 1.67rem;
       img {
         width: 100%;
         height: 100%;
       }
+      z-index: 60;
     }
     .remind-text {
-      width: 2.88rem;
-      height: 1.1rem;
-      margin-left: -0.77rem;
+      z-index: 70;
+      width: 1.44rem;
+      height: 0.55rem;
+      margin-left: -0.385rem;
       position: relative;
       display: flex;
       flex-direction: column;
@@ -62,13 +67,15 @@ export default {
       justify-content: center;
       text-align: center;
       .title {
-        font-size: 0.28rem;
+        font-size: 0.14rem;
         color: rgba(9, 9, 9, 1);
         font-weight: 500;
+        z-index: 80;
       }
       .sub-title {
-        font-size: 0.22rem;
+        font-size: 0.11rem;
         color: rgba(168, 168, 168, 1);
+        z-index: 80;
       }
       .bg-img {
         position: absolute;

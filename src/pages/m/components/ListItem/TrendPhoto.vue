@@ -35,6 +35,15 @@ export default {
   },
   methods: {
     handleTrendItemClick() {
+      this.$router.push({
+        name: "TrendsDetail",
+        params: {
+          mid: this.$route.params.mid
+        },
+        query: {
+          avrid: this.avrid
+        }
+      });
       // this.$router.push({})
     }
   }
@@ -45,27 +54,27 @@ export default {
 <style lang="less" scoped>
 .trend-photo {
   position: relative;
-  width: 3.42rem;
-  height: 6.09rem;
+  width: 1.71rem;
+  height: 3.045rem;
   z-index: 30;
   overflow: hidden;
   .item-photo {
     width: 100%;
     height: 100%;
-    border-radius: 20px;
+    border-radius: 0.1rem;
   }
   .item-info {
-    width: 3.02rem;
-    height: 0.82rem;
+    width: 1.51rem;
+    height: 0.41rem;
     background: rgba(57, 48, 104, 0.9);
-    border-radius: 0px 0px 0.2rem 0.2rem;
+    border-radius: 0px 0px 0.1rem 0.1rem;
     opacity: 0.9;
     position: absolute;
     bottom: 0;
     left: 0;
-    font-size: 0.26rem;
+    font-size: 0.13rem;
     color: white;
-    padding: 0 0.2rem;
+    padding: 0 0.1rem;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
