@@ -51,7 +51,7 @@ export default {
               const loginState = {
                 z: r.data.results.z
               };
-              setLoginState(loginState);
+              this.setLoginState(loginState);
             }
           } else {
             Toast(r.data.results);
