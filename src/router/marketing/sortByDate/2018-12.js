@@ -398,7 +398,7 @@ const Date201812 = [
     location: '201812/couponRain',
     name: 'coupon_rain',
     meta: {
-      title: '衡阳连卡福-福猪港味年',
+      title: '连卡福红包雨',
       author: 'lipan',
       desc: '衡阳连卡福-福猪港味年-红包雨'
     },
