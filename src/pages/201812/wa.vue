@@ -26,7 +26,10 @@
           @click="()=>{arrow=arrow=='arrow01'?'arrow02':'arrow01';toleft=!toleft;toright = !toleft}"
         ></a>
         <div class="txt">
-          <ol>
+          <ol
+            start="1"
+            type="1"
+          >
             <li
               v-for="item in text"
               :key="item.id"
@@ -94,12 +97,12 @@ export default {
       base: cdnUrl + '/fe/image/wa/',
       ewm: null,
       code: null,
-      coupon: 'http://cdn.exe666.com/fe/image/wa/coupon01.png',
-      description: '蛙夫人蛙夫人蛙夫人蛙夫人蛙夫人蛙夫人蛙夫人蛙夫人蛙夫人蛙夫人蛙夫人蛙夫人蛙夫人',
-      address: '蛙夫人蛙夫人蛙夫人蛙夫人蛙夫人蛙夫人蛙夫人蛙夫人蛙夫人蛙夫人蛙夫人蛙夫人蛙夫人',
+      coupon: null,//'http://cdn.exe666.com/fe/image/wa/coupon01.png',
+      description: null,
+      address: null,
       iphoneX: false,
       userId: null,
-      text: '蛙夫人蛙夫人蛙夫人蛙夫人蛙夫人蛙夫人蛙夫人蛙夫人蛙夫人蛙夫人蛙夫人蛙夫人蛙夫人',
+      text: null,
       arrow: 'arrow01',
       coupon_batch_id: this.$route.query.coupon_batch_id,
       id: this.$route.query.id,
@@ -124,6 +127,8 @@ export default {
     } else {
       this.iphoneX = false
     }
+    // this.text = this.description.split('/n')
+    // this.address = this.address.split('/n')
   },
   // watch: {
   //   parms() {
@@ -162,7 +167,7 @@ export default {
       }
       checkGetCoupon(args).then(res => {
         console.log(res)
-        this.address = res.address.split(';')
+        this.address = res.address.split('/n')
       }).catch(err => {
         console.log(err)
       })
@@ -208,7 +213,7 @@ export default {
       this.code = res.code
       this.coupon = res.couponBatch.image_url
       this.description = res.couponBatch.description
-      this.text = this.description.split(';')
+      this.text = this.description.split('/n')
       if (parseInt(res.status) === 1) {
         this.used = true
       }
@@ -271,7 +276,7 @@ img {
       top: 0%;
       left: 2%;
       z-index: 99;
-      transform: translateX(89%);
+      transform: translateX(81%);
       .bg {
         position: relative;
         z-index: 0;
@@ -296,14 +301,18 @@ img {
         width: 70%;
         position: absolute;
         top: 5%;
-        left: 8%;
+        left: 25%;
         z-index: 9999;
-        ol li {
-          display: block;
-          color: #fff;
-          font-size: 4vw;
-          letter-spacing: 2px;
-          margin: 3% auto;
+        ol {
+          width: 100%;
+          li {
+            width: 100%;
+            color: #fff;
+            font-size: 4vw;
+            letter-spacing: 2px;
+            margin: 3% auto;
+            text-align: left;
+          }
         }
       }
     }
@@ -359,8 +368,9 @@ img {
       width: 90%;
       p {
         width: 100%;
+        text-align: left;
         color: #000;
-        font-size: 6vw;
+        font-size: 4.5vw;
         letter-spacing: 2px;
         margin-bottom: 3%;
       }
@@ -407,7 +417,7 @@ img {
 }
 @keyframes myleft {
   0% {
-    transform: translateX(89%);
+    transform: translateX(81%);
   }
   100% {
     transform: translateX(0%);
@@ -418,7 +428,7 @@ img {
     transform: translateX(0%);
   }
   100% {
-    transform: translateX(89%);
+    transform: translateX(81%);
   }
 }
 </style>
