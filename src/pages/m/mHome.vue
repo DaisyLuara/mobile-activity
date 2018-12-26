@@ -46,22 +46,19 @@ export default {
       if (code !== undefined && state !== undefined) {
         try {
           let r = await getUserInfoByCodeAndState(code, state);
-          console.dir(r);
-          if (r.hasOwnProperty("data")) {
-            if (r.data.hasOwnProperty("results")) {
-              const loginState = {
-                z: String(r.data.results.z)
-              };
-              this.setLoginState(loginState);
-            }
+          if (typeof r.data.results === "object") {
+            const loginState = {
+              z: String(r.data.results.z)
+            };
+            console.log(loginState);
+            this.setLoginState(loginState);
           } else {
-            console.dir(r.data);
+            console.log(r);
             // Toast(r.data.results);
           }
-          console.dir(r);
         } catch (e) {
           // Toast(e.message);
-          console.dir(e);
+          console.log(e);
         }
       } else {
         if (this.z === "") {
