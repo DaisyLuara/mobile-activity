@@ -308,6 +308,7 @@ img {
         z-index: 99;
         border-radius: 50%;
         background: transparent;
+        border: none;
       }
       span {
         position: absolute;
