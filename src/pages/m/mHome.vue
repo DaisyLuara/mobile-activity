@@ -46,10 +46,11 @@ export default {
       if (code !== undefined && state !== undefined) {
         try {
           let r = await getUserInfoByCodeAndState(code, state);
+          console.dir(r);
           if (r.hasOwnProperty("data")) {
             if (r.data.hasOwnProperty("results")) {
               const loginState = {
-                z: r.data.results.z
+                z: String(r.data.results.z)
               };
               this.setLoginState(loginState);
             }
