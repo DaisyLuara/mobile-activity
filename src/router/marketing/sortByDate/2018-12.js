@@ -381,6 +381,17 @@ const Date201812 = [
       desc: '苏州中心PK'
     },
     isAbandoned: false
+  },
+  {
+    path: 'su_pk2',
+    location: '201812/suPK2',
+    name: 'su_pk2',
+    meta: {
+      title: '颜值PK 赢好礼',
+      author: 'lipan',
+      desc: '苏州中心PK-简版'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201812
