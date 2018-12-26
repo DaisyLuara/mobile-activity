@@ -19,9 +19,6 @@ export default {
   name: "mSiteHome",
   mixins: [reCalculateRem],
   computed: {
-    ...mapMutations({
-      setLoginState: "SET_LOGIN_STATE"
-    }),
     ...mapGetters(["z"])
   },
   data() {
@@ -41,6 +38,9 @@ export default {
     // console.log(this.$route.query);
   },
   methods: {
+    ...mapMutations({
+      setLoginState: "SET_LOGIN_STATE"
+    }),
     async handleLogin() {
       const { code, state } = this.$route.query;
       if (code !== undefined && state !== undefined) {
