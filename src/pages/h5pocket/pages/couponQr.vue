@@ -126,8 +126,8 @@ export default {
       flex-shrink: 0;
     }
     .qr-img {
-      width: 2.1rem;
-      height: 2.1rem;
+      width: 2rem;
+      height: 2rem;
       img {
         width: 100%;
         height: 100%;

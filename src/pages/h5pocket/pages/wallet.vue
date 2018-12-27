@@ -46,37 +46,59 @@ export default {
       const { id, code, state } = this.$route.query;
       let localZ = localStorage.getItem("z");
       let localMarketId = localStorage.getItem("marketid");
-
+      let localOid = localStorage.getItem("oid");
       try {
-        if (localZ === null || localMarketId === null) {
+        if (localZ === null || localMarketId === null || localOid === null) {
           let infoRes = await getInfoById(id, code, state);
-          console.dir(infoRes);
-          if (infoRes.userinfo !== null) {
-            if (infoRes.userinfo.hasOwnProperty("z")) {
-              let setZ = infoRes.userinfo.z;
-              let setMarketId = infoRes.userinfo.marketid;
-              localZ = setZ;
-              localStorage.setItem("z", setZ);
-              localStorage.setItem("marketid", setMarketId);
-              let parms = splitParms(infoRes.parms);
-              if (parms.hasOwnProperty("coupon_batch_id")) {
-                await this.hanldeFirstGetCoupon(
-                  localZ,
-                  parms["coupon_batch_id"]
-                );
+          // console.dir(infoRes);
+          if (infoRes !== undefined) {
+            if (infoRes.hasOwnProperty("userinfo")) {
+              if (infoRes.userinfo !== null) {
+                if (infoRes.userinfo.hasOwnProperty("z")) {
+                  let { z, marketid } = infoRes.userinfo;
+                  let { oid } = infoRes;
+                  localStorage.setItem("z", z);
+                  localStorage.setItem("marketid", marketid);
+                  localStorage.setItem("oid", oid);
+                  let parms = splitParms(infoRes.parms);
+                  if (parms.hasOwnProperty("coupon_batch_id")) {
+                    await this.hanldeFirstGetCoupon(
+                      z,
+                      parms["coupon_batch_id"],
+                      oid
+                    );
+                  }
+                }
               }
-              await this.fetchWalletList();
             }
           }
+          await this.fetchWalletList();
         } else {
           let infoRes = await getInfoById(id, code, state);
           if (infoRes !== undefined) {
+            // 存在更新点位信息
+            if (infoRes.hasOwnProperty("oid")) {
+              if (infoRes.oid !== null) {
+                let { oid } = infoRes;
+                localStorage.setItem("oid", oid);
+              }
+            }
+            // 存在更新用户信息
+            if (infoRes.hasOwnProperty("userinfo")) {
+              if (infoRes.userinfo !== null) {
+                let { z, marketid } = infoRes.userinfo;
+                localStorage.setItem("z", z);
+                localStorage.setItem("marketid", marketid);
+              }
+            }
+            // 存在更新优惠券
             if (infoRes.hasOwnProperty("parms")) {
               let parms = splitParms(infoRes.parms);
               if (parms.hasOwnProperty("coupon_batch_id")) {
                 await this.hanldeFirstGetCoupon(
                   localZ,
-                  parms["coupon_batch_id"]
+                  parms["coupon_batch_id"],
+                  localOid
                 );
               }
             }
@@ -91,7 +113,7 @@ export default {
     async fetchWalletList() {
       const localZ = localStorage.getItem("z");
       try {
-        let walletList = await getWalletListMini(localZ);
+        let walletList = await getWalletListMini(localZ, 3);
         console.dir(walletList);
         this.list = walletList.data.data;
       } catch {
@@ -101,9 +123,9 @@ export default {
         };
       }
     },
-    async hanldeFirstGetCoupon(z, coupon_batch_id) {
+    async hanldeFirstGetCoupon(z, coupon_batch_id, oid) {
       try {
-        let bindRes = await bindCouponMini(coupon_batch_id, z);
+        let bindRes = await bindCouponMini(coupon_batch_id, z, oid);
       } catch (e) {
         console.dir(e);
         // Toast(e.message);

@@ -322,14 +322,6 @@ export default {
       game_id: null
     }
   },
-  created() {
-    this.InitBasic()
-    if (process.env.NODE_ENV !== 'development') {
-      this.Init()
-    } else {
-      this.loadingDone = true
-    }
-  },
   watch: {
     parms() {
       this.game_id = this.parms.game_id
@@ -338,6 +330,14 @@ export default {
       } else {
         this.loadingDone = true
       }
+    }
+  },
+  created() {
+    this.InitBasic()
+    if (process.env.NODE_ENV !== 'development') {
+      this.Init()
+    } else {
+      this.loadingDone = true
     }
   },
   mounted() {

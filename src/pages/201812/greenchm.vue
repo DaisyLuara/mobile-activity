@@ -12,8 +12,8 @@
       :src="base + 'top.png' + this.$qiniuCompress()"
       class="title"
     >
-    <span class="getdate">{{coupon_date}}</span>
-    <span class="code">{{code}}</span>
+    <span class="getdate">{{ coupon_date }}</span>
+    <span class="code">{{ code }}</span>
     <!-- 券 -->
     <div class="one">
       <img
@@ -59,7 +59,8 @@ import {
   dateFormat,
   sendCoupon,
   checkGetCoupon,
-  checkCouponNumber
+  checkCouponNumber,
+  formatTimestamp
 } from "services";
 import { normalPages } from "../../mixins/normalPages";
 const cdnUrl = process.env.CDN_URL;
@@ -87,6 +88,11 @@ export default {
       }
     };
   },
+  watch: {
+    parms() {
+      this.getCouponDetail();
+    }
+  },
   mounted() {
     //微信授权
     if (isInWechat() === true) {
@@ -98,11 +104,6 @@ export default {
       }
     }
     this.handleForbiddenShare()
-  },
-  watch: {
-    parms() {
-      this.getCouponDetail();
-    }
   },
   methods: {
     //微信静默授权
@@ -134,7 +135,6 @@ export default {
       checkCouponNumber(this.parms.coupon_batch_id)
         .then(res => {
           this.imgUrl = res.image_url;
-          // this.handleData(res)
           this.checkGetCoupon()
         })
         .catch(err => {
@@ -147,17 +147,14 @@ export default {
         coupon_batch_id: this.parms.coupon_batch_id,
         include: "couponBatch"
       };
-      let data = new Date()
-      args = {
-        coupon_batch_id: this.coupon_batch_id,
-        include: 'couponBatch'
-      }
+      let date = new Date()
       args.start_date = dateFormat(
-        new Date(formatTimestamp(data, true)),
+        new Date(formatTimestamp(date, true)),
         'yyyy-MM-dd hh:mm:ss'
       )
+
       args.end_date = dateFormat(
-        new Date(formatTimestamp(data, false) - 1000),
+        new Date(formatTimestamp(date, false) - 1000),
         'yyyy-MM-dd hh:mm:ss'
       )
       checkGetCoupon(args)

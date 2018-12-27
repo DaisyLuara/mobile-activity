@@ -1,4 +1,4 @@
-import { $wechat, isInWechat, wechatShareTrack } from 'services'
+import { $wechat, isInWechat } from 'services'
 const cdnUrl = process.env.CDN_URL
 export const onlyWechatShare = {
   data() {
@@ -8,10 +8,7 @@ export const onlyWechatShare = {
         title: '',
         desc: '',
         link: '',
-        imgUrl: '',
-        success: () => {
-          wechatShareTrack()
-        }
+        imgUrl: ''
       }
     }
   },

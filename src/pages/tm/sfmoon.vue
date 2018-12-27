@@ -82,6 +82,12 @@ export default {
       }
     }
   },
+  watch: {
+    parms() {
+      this.score = Number(this.score)
+      this.userGame()
+    }
+  },
   mounted() {
     //微信授权
     if (isInWechat() === true) {
@@ -91,12 +97,6 @@ export default {
       ) {
         this.handleWechatAuth()
       }
-    }
-  },
-  watch: {
-    parms() {
-      this.score = Number(this.score)
-      this.userGame()
     }
   },
   methods: {

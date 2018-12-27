@@ -111,36 +111,6 @@ const gameListNeedCheck = (auid, z) => {
       })
   })
 }
-// const chooseGameList = res => {
-//   if (!res.awardinfo) {
-//     newGameList(res.awardinfo.akey)
-//       .then(res => {
-//         console.log(res)
-//       })
-//       .catch(err => {
-//         console.log(err)
-//       })
-//   } else if (
-//     res.awardinfo.pass == 0 ||
-//     res.awardinfo.valuetmp != res.awardinfo.value
-//   ) {
-//     gameListNeedCheck(res.awardinfo.auid, res.userinfo.z)
-//       .then(res => {
-//         console.log(res)
-//       })
-//       .catch(err => {
-//         console.log(err)
-//       })
-//   } else {
-//     newGameList(res.awardinfo.akey)
-//       .then(res => {
-//         console.log(res)
-//       })
-//       .catch(err => {
-//         console.log(err)
-//       })
-//   }
-// }
 export {
   createGame,
   getGame,
