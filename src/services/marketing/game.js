@@ -102,9 +102,8 @@ const newGameList = akey => {
 const gameListNeedCheck = (auid, z) => {
   return new Promise((resolve, reject) => {
     axios
-      .get(NEW_LIST_NEEDCHECK + '&auid=' + auid + '$z=' + z)
+      .get(NEW_LIST_NEEDCHECK + '&auid=' + auid + '&z=' + z)
       .then(response => {
-        console.log(NEW_LIST_NEEDCHECK + '&auid=' + auid + '$z=' + z)
         resolve(response.data)
       })
       .catch(err => {
