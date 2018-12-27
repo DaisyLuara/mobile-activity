@@ -69,8 +69,8 @@ export default {
       couponImg: null,
       qrcodeImg: null,
       code: null,
-      couponID: ['132', '137', '138'],
-      //couponID: ['31', '32'],
+      //couponID: ['132', '137', '138'],
+      couponID: ['31', '32'],
       new_coupon_batch_id: null,
       id: this.$route.query.id,
       params: {
@@ -81,8 +81,8 @@ export default {
       wxShareInfoValue: {
         title: '大融城美食券免费领！',
         desc: '点击即可领福利',
-        link: 'http://papi.xingstation.com/api/s/LZg' + window.location.search,
-        //link: 'http://papi.newgls.cn/api/s/2vv' + window.location.search,
+        //link: 'http://papi.xingstation.com/api/s/LZg' + window.location.search,
+        link: 'http://papi.newgls.cn/api/s/2vv' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/drc_tiger/icon.png'
       }
     }
