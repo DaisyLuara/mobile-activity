@@ -162,6 +162,7 @@ export default {
           base_url +
           '&scope=snsapi_base'
         window.location.href = redirct_url
+        console.log(window.location.href)
       } else {
         this.userId = Cookies.get('user_id')
       }

@@ -55,13 +55,6 @@
         >
         <span class="code">{{ code }}</span>
       </div>
-      <div class="address">
-        <p
-          v-for="item in address"
-          :key="item.id"
-        >{{item}}
-        </p>
-      </div>
     </div>
 
     <img
@@ -98,7 +91,6 @@ export default {
       code: null,
       coupon: null,//'http://cdn.exe666.com/fe/image/wa/coupon01.png',
       description: null,
-      address: null,
       iphoneX: false,
       userId: null,
       text: null,
@@ -146,7 +138,6 @@ export default {
       } else {
         this.userId = Cookies.get('user_id')
         this.checkGetCoupon()
-        this.getCompanyInfo()
       }
     },
     //禁止微信分享
@@ -158,15 +149,6 @@ export default {
         .catch(_ => {
           console.warn(_.message)
         })
-    },
-    getCompanyInfo() {
-      getConponMini(this.coupon_batch_id).then(res => {
-        let company = res.company || res.data.company || res.data.data.company
-        this.address = company.address.split('/n')
-        console.log(res.data.company)
-      }).catch(err => {
-        console.log(err)
-      })
     },
     //判断是否领过优惠券
     checkGetCoupon() {
@@ -209,11 +191,10 @@ export default {
       this.code = res.code
       this.coupon = res.couponBatch.image_url
       this.description = res.couponBatch.description
-      this.text = this.description.split('/n')
-      this.address = res.address.split('/n')
       if (parseInt(res.status) === 1) {
         this.used = true
       }
+      this.text = this.description.split('/n')
     }
   }
 }
@@ -321,8 +302,6 @@ img {
     }
     .check {
       margin: 0 auto;
-      margin-bottom: -3%;
-      margin-top: 2%;
       position: relative;
       .checkbg {
         position: relative;
@@ -357,26 +336,6 @@ img {
         font-size: 5vw;
         line-height: 10.2vw;
         color: #000;
-      }
-    }
-    .address {
-      background-color: #fde480;
-      color: #000;
-      width: 93%;
-      padding: 10px;
-      margin-top: 20px;
-      border-radius: 5px;
-      p {
-        width: 100%;
-        text-align: left;
-        color: #000;
-        font-size: 4.5vw;
-        letter-spacing: 2px;
-        margin-bottom: 3%;
-        &:first-child {
-          font-size: 5vw;
-          font-weight: bold;
-        }
       }
     }
   }

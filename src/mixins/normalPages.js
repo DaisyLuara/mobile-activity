@@ -52,8 +52,7 @@ export const normalPages = {
     async getPhotoByRouteQueryId() {
       try {
         let id = this.$route.query.id
-        let code = this.$route.query.code
-        let state = this.$route.query.state
+        let { code, state } = this.$route.query
         let {
           belong,
           image,
@@ -66,10 +65,12 @@ export const normalPages = {
         this.belong = belong
         this.photo = image
         this.oid = oid
-        this.parms = splitParms(parms)
         this.awardinfo = awardinfo
         this.actinfo = actinfo
         this.userinfo = userinfo
+        if (parms) {
+          this.parms = splitParms(parms)
+        }
         if (this.parms.gender) {
           this.gender = this.parms.gender
         }
