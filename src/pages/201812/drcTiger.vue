@@ -72,6 +72,7 @@ export default {
       couponID: ['132', '137', '138'],
       //couponID: ['31', '32'],
       new_coupon_batch_id: null,
+      id: this.$route.query.id,
       params: {
         user_id: null
       },
