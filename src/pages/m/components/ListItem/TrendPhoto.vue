@@ -64,7 +64,13 @@ export default {
     border-radius: 0.1rem;
   }
   .item-info {
-    width: 1.51rem;
+    .info-title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 100%;
+    }
+    width: 100%;
     height: 0.41rem;
     background: rgba(57, 48, 104, 0.9);
     border-radius: 0px 0px 0.1rem 0.1rem;

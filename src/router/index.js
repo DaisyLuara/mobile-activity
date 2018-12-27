@@ -104,7 +104,7 @@ const router = new Router({
       component: () => import('@/pages/m/mHome'),
       children: [
         {
-          path: ':mid/trends/index',
+          path: ':mkey/trends/index',
           name: 'TrendsIndex',
           meta: {
             title: '我的足迹'
@@ -112,7 +112,7 @@ const router = new Router({
           component: () => import('@/pages/m/pages/trends/index/index')
         },
         {
-          path: ':mid/trends/detail',
+          path: ':mkey/trends/detail',
           name: 'TrendsDetail',
           meta: {
             title: '足迹详情'
@@ -120,12 +120,20 @@ const router = new Router({
           component: () => import('@/pages/m/pages/trends/detail/index')
         },
         {
-          path: ':mid/theme/index',
+          path: ':mkey/theme/index',
           name: 'ThemeIndex',
           meta: {
             title: '主题详情'
           },
           component: () => import('@/pages/m/pages/activity/theme/index')
+        },
+        {
+          path: ':mkey/activity/shop',
+          name: 'ActivityShop',
+          meta: {
+            title: '商家活动'
+          },
+          component: () => import('@/pages/m/pages/activity/shop/index')
         }
       ]
     }

@@ -1,7 +1,7 @@
 <template>
   <div class="trend-detail">
-    <TrendsTopBar/>
-    <img class="photo" :src="photo">
+    <TrendsTopBar :title="resData.title" :time="resData.date" v-if="resData.image !== ''"/>
+    <img class="photo" :src="resData.image">
     <XiaoOuFooter/>
     <TrendsBottomBar
       @onTrendDelete="handleTrendDeleteModalShow"
@@ -25,6 +25,8 @@ import XiaoOuFooter from "@/pages/m/components/Static/XiaoOuFooter";
 import DeletePhotoModal from "@/pages/m/components/Reminder/DeletePhotoModal";
 import SharePhotoModal from "@/pages/m/components/Reminder/SharePhotoModal";
 import { mapGetters, mapMutations } from "vuex";
+import { getHdInfo, deleteATrend } from "services";
+import { Toast } from "mint-ui";
 export default {
   components: {
     TrendsTopBar,
@@ -37,9 +39,13 @@ export default {
   data() {
     return {
       goodsxsd: "http://exelook.com:8010/goodsxsd/",
-      photo: "",
       shouldDeleteModalShow: false,
-      shouldShareModalShow: false
+      shouldShareModalShow: false,
+      resData: {
+        image: "",
+        title: "",
+        date: ""
+      }
     };
   },
   mounted() {
@@ -54,16 +60,14 @@ export default {
     }),
     async fetchTrend() {
       const { avrid } = this.$route.query;
-      const getObject = {
-        params: {
-          id: avrid,
-          z: "l3h115113f53c4489065049c79804083a73wm7",
-          api: "json"
-        }
+      const payload = {
+        avrid: avrid,
+        z: this.z,
+        api: "json"
       };
       try {
-        let r = await this.$http.get(this.goodsxsd, getObject);
-        this.photo = r.data.results.image;
+        let r = await getHdInfo(payload);
+        this.resData = r.data.results;
       } catch (e) {
         console.log(e);
       }
@@ -75,6 +79,28 @@ export default {
       this.shouldDeleteModalShow = false;
     },
     handleTrendDeleteConfirm() {
+      const { avrid } = this.$route.query;
+      const payload = {
+        avrid: avrid,
+        api: "json",
+        z: this.z
+      };
+      deleteATrend(payload)
+        .then(r => {
+          console.dir(r);
+          if (r.data.results.hasOwnProperty("id")) {
+            console.log("ok");
+            this.$router.push({
+              name: "TrendsIndex"
+            });
+          } else {
+            Toast("删除失败");
+          }
+        })
+        .catch(e => {
+          console.log(e);
+          // Toast(e.message);
+        });
       this.shouldDeleteModalShow = false;
     },
     handleShareModalHide() {

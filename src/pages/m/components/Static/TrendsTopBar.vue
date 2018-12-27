@@ -1,9 +1,11 @@
 <template>
   <div class="ttb">
     <div class="profile">
-      <div class="avatar"></div>
+      <div class="avatar">
+        <img :src="loginState.face">
+      </div>
       <div class="location">
-        <div class="place">{{place}}</div>
+        <div class="place">{{title}}</div>
         <div class="time">{{time}}</div>
       </div>
     </div>
@@ -12,12 +14,26 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
+  props: {
+    title: {
+      type: String,
+      default: "",
+      required: true
+    },
+    time: {
+      type: String,
+      default: "",
+      required: true
+    }
+  },
+  computed: {
+    ...mapGetters(["loginState"])
+  },
   data() {
     return {
-      avatarImgUrl: "",
-      place: "在横店影城驻留足迹",
-      time: "2018-10-11"
+      avatarImgUrl: ""
     };
   },
   methods: {
@@ -54,7 +70,15 @@ export default {
       height: 0.45rem;
       width: 0.45rem;
       border-radius: 50%;
-      background: gray;
+      overflow: hidden;
+      position: relative;
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
     }
     .location {
       margin-left: 0.12rem;
