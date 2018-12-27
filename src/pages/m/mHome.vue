@@ -24,14 +24,14 @@ export default {
   data() {
     return {
       // must change before production
-      wechat: true
+      wechat: false
     };
   },
   created() {
     if (isInWechat() === true) {
       this.wechat = true;
+      this.handleLogin();
     }
-    // this.handleLogin();
   },
   methods: {
     ...mapMutations({
