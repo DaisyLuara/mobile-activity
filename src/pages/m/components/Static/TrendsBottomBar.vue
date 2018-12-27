@@ -12,8 +12,8 @@
       </div>
     </div>
     <div class="button">
-      <div class="title">{{buttonTitle}}</div>
-      <div class="time">{{subTitle}}</div>
+      <div class="title" @click="naviToShopActivity">{{buttonTitle}}</div>
+      <!-- <div class="time">{{subTitle}}</div> -->
     </div>
   </div>
 </template>
@@ -26,11 +26,16 @@ export default {
       deleteUrl: "https://cdn.exe666.com/fe/image/m/m-menu-delete.svg",
       saveUrl: "https://cdn.exe666.com/fe/image/m/m-menu-download.svg",
       shareUrl: "https://cdn.exe666.com/fe/image/m/m-menu-share.svg",
-      buttonTitle: "报名参与赢大奖",
+      buttonTitle: "查看更多活动",
       subTitle: "活动倒计时:12:14:33"
     };
   },
   methods: {
+    naviToShopActivity() {
+      this.$router.push({
+        name: "ActivityShop"
+      });
+    },
     handleFuncClick(mode) {
       if (mode === "delete") {
         this.$emit("onTrendDelete");

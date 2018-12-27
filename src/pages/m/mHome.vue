@@ -31,11 +31,7 @@ export default {
     if (isInWechat() === true) {
       this.wechat = true;
     }
-    // state code
-    // console.log("z:");
-    // console.log(this.z);
-    this.handleLogin();
-    // console.log(this.$route.query);
+    // this.handleLogin();
   },
   methods: {
     ...mapMutations({

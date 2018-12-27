@@ -1,19 +1,16 @@
 <template>
-  <div class="trends">
+  <div class="shop-act">
     <MyTrendsSwiper/>
     <ul
-      class="trends-wrapper"
+      class="activity-wrapper"
       v-infinite-scroll="loadMore"
       infinite-scroll-disabled="loading"
       infinite-scroll-distance="10"
     >
       <div class="item-wrapper" v-for="(item, index) in trends" :key="index">
-        <TrendPhoto
-          :image="item.avr.image"
-          :title="item.avr.title"
-          :date="item.avr.date"
-          :avrid="item.avr.avrid"
-        />
+        <img :src="item.image">
+        <div class="title">{{item.title}}</div>
+        <div class="time">开始日期：{{item.date}}</div>
       </div>
     </ul>
   </div>
@@ -21,16 +18,14 @@
 
 <script>
 import Vue from "vue";
-import TrendPhoto from "@/pages/m/components/ListItem/TrendPhoto";
 import MyTrendsSwiper from "@/pages/m/components/Banner/MyTrendsSwiper";
 import { InfiniteScroll } from "mint-ui";
-import { getUserTrends } from "services";
+import { fetchShopActivityList } from "services";
 import { mapGetters } from "vuex";
 export default {
   name: "trendsIndex",
 
   components: {
-    TrendPhoto,
     MyTrendsSwiper
   },
 
@@ -77,9 +72,11 @@ export default {
         z: this.z,
         api: "json",
         size: 10,
-        cp: this.currentPage
+        cp: this.currentPage,
+        allt: 0,
+        mkey: this.$route.params.mkey
       };
-      getUserTrends(payload)
+      fetchShopActivityList(this, payload)
         .then(r => {
           let res = r.data.results.data;
           this.isLoading = false;
@@ -90,6 +87,7 @@ export default {
           this.currentPage++;
         })
         .catch(e => {
+          console.log(e);
           this.isLoading = false;
         });
     }
@@ -101,21 +99,59 @@ export default {
 .mint-loadmore-bottom {
   font-size: 0.14rem !important;
 }
-.trends {
+.shop-act {
   position: relative;
   width: 100%;
-  .trends-wrapper {
+  z-index: 10;
+  .activity-wrapper {
+    width: 100%;
     position: relative;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
     justify-content: flex-start;
+    z-index: 20;
+    .item-wrapper {
+      width: 3.55rem;
+      height: 1.75rem;
+      margin: 0.1rem 0.08rem;
+      border-radius: 0.15rem;
+      position: relative;
+      z-index: 30;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: flex-start;
+      overflow: hidden;
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        z-index: 40;
+      }
+      .title {
+        z-index: 50;
+        font-size: 0.17rem;
+        color: rgba(255, 255, 255, 1);
+        text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+        margin-left: 0.145rem;
+        margin-bottom: 0.05rem;
+      }
+      .time {
+        z-index: 50;
+        font-size: 0.1rem;
+        font-weight: 500;
+        text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.16);
+        opacity: 0.76;
+        line-height: 0.14rem;
+        color: rgba(255, 255, 255, 1);
+        margin-left: 0.145rem;
+        margin-bottom: 0.08rem;
+      }
+    }
   }
-  .item-wrapper {
-    width: 1.71rem;
-    height: 3.045rem;
-    margin: 0.1rem 0.08rem;
-  }
+
   .mint-loadmore-bottom {
     font-size: 0.14rem;
   }
