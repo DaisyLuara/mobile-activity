@@ -112,9 +112,9 @@ export default {
       hasUsed: false,
       atm1: true,
       atm2: false,
-      coupon_batch_id: this.$route.query.coupon_batch_id,
+      // coupon_batch_id: this.$route.query.coupon_batch_id,
       id: this.$route.query.id,
-      oid: this.$route.query.utm_source,
+      // oid: this.$route.query.utm_source,
       qrcodeImg: null,
       couponImg: null,
       params: {
@@ -131,6 +131,11 @@ export default {
         }
       }
     };
+  },
+  watch: {
+    parms() {
+      this.checkCouponIsUse()
+    }
   },
   mounted() {
     //微信授权
@@ -242,7 +247,7 @@ export default {
         include: 'couponBatch',
         qiniu_id: this.id,
         oid: this.oid,
-        belong: this.$route.query.utm_campaign
+        belong: this.belong
       }
       sendCoupon(args, this.coupon_batch_id)
         .then(res => {

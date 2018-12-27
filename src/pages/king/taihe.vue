@@ -55,7 +55,8 @@ import {
   Cookies,
   sendCoupon,
   checkGetCoupon,
-  dateFormat
+  dateFormat,
+  formatTimestamp
 } from 'services'
 const cdnUrl = process.env.CDN_URL
 export default {
@@ -69,9 +70,7 @@ export default {
         }
       },
       iphoneX: false,
-      coupon_batch_id: this.$route.query.coupon_batch_id,
       id: this.$route.query.id,
-      oid: this.$route.query.utm_source,
       couponImg: null,
       qrcodeImg: null,
       params: {
@@ -87,7 +86,11 @@ export default {
       // }
     }
   },
-  created() { },
+  watch: {
+    parms() {
+      this.checkCouponIsUse()
+    }
+  },
   mounted() {
     //微信授权
     if (isInWechat() === true) {
@@ -150,11 +153,11 @@ export default {
               include: 'couponBatch'
             }
             args.start_date = dateFormat(
-              new Date(this.formatTimestamp(data, true)),
+              new Date(formatTimestamp(data, true)),
               'yyyy-MM-dd hh:mm:ss'
             )
             args.end_date = dateFormat(
-              new Date(this.formatTimestamp(data, false) - 1000),
+              new Date(formatTimestamp(data, false) - 1000),
               'yyyy-MM-dd hh:mm:ss'
             )
             checkGetCoupon(args)
@@ -180,7 +183,7 @@ export default {
         include: 'couponBatch',
         qiniu_id: this.id,
         oid: this.oid,
-        belong: this.$route.query.utm_campaign
+        belong: this.belong
       }
       sendCoupon(args, this.coupon_batch_id)
         .then(res => {
@@ -198,7 +201,7 @@ export default {
       this.time = res.created_at
       let dateValue = this.time.replace(/\-/g, '/')
       //当天24点过期
-      if (this.formatTimestamp(dateValue, false) < new Date().getTime()) {
+      if (formatTimestamp(dateValue, false) < new Date().getTime()) {
         //失效处理
         this.hasPost = true
         this.hasUsed = false
@@ -208,19 +211,6 @@ export default {
         this.hasPost = false
       }
     },
-    //处理时间
-    formatTimestamp(data, flag) {
-      let nextDate = new Date(new Date(data).getTime() + 24 * 60 * 60 * 1000)
-      if (flag) {
-        nextDate = data
-      }
-      nextDate.setHours(0)
-      nextDate.setMinutes(0)
-      nextDate.setSeconds(0)
-      nextDate.setMilliseconds(0)
-      let todayStartTime = nextDate.getTime()
-      return todayStartTime
-    }
   }
 }
 </script>

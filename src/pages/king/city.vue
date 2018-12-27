@@ -1,78 +1,96 @@
 <template>
   <div
     :style="style.root"
-    class="root">
-    <img 
+    class="root"
+  >
+    <img
       :src="baseUrl + 'b.png'+ this.$qiniuCompress()"
-      class="dot">
-    <img 
+      class="dot"
+    >
+    <img
       :src="baseUrl + 'kuang.png'+ this.$qiniuCompress()"
       :class="{'x-frame':iphoneX,'frame':!iphoneX}"
-      class="frame">
-    <img 
-      v-if="photo !== null" 
+      class="frame"
+    >
+    <img
+      v-if="photo !== null"
       :src="photo + this.$qiniuCompress()"
       :class="{'x-photo':iphoneX,'photo':!iphoneX}"
-      class="photo">
-    <img 
-      v-if="!wechat" 
+      class="photo"
+    >
+    <img
+      v-if="!wechat"
       :src="baseUrl + 'fc.png'+ this.$qiniuCompress()"
       class="myaward-btn"
-      @click="getAword()">
-    <img 
+      @click="getAword()"
+    >
+    <img
       :src="baseUrl + 'c.png'+ this.$qiniuCompress()"
       :class="{'x-line':iphoneX,'line':!iphoneX}"
-      class="line">
-    <img 
+      class="line"
+    >
+    <img
       :src="baseUrl + 'c.png'+ this.$qiniuCompress()"
       :class="{'x-line2':iphoneX,'line2':!iphoneX}"
-      class="line2">
-    <img 
+      class="line2"
+    >
+    <img
       :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
       :class="{'x-save':iphoneX,'save':!iphoneX}"
-      class="save">
-    <img 
+      class="save"
+    >
+    <img
       :src="baseUrl + 'a.png'+ this.$qiniuCompress()"
       :class="{'x-jiantou':iphoneX,'jiantou':!iphoneX}"
-      class="jiantou">
-    <div 
-      v-if="!wechat" 
+      class="jiantou"
+    >
+    <div
+      v-if="!wechat"
       v-show="show.drawShow||show.awardShow"
-      class="shade"/>
+      class="shade"
+    />
     <!-- 抽奖层 -->
-    <div 
-      v-if="!wechat" 
+    <div
+      v-if="!wechat"
       v-show="show.drawShow"
-      class="letter">
-      <img 
+      class="letter"
+    >
+      <img
         :src="baseUrl + 'xf.png'+ this.$qiniuCompress()"
-        class="xf">
-      <img 
+        class="xf"
+      >
+      <img
         :src="baseUrl + 'btn.png'+ this.$qiniuCompress()"
         class="draw-btn"
-        @click.self="draw()">
+        @click.self="draw()"
+      >
     </div>
     <!-- 奖品层 -->
-    <div 
-      v-if="!wechat" 
+    <div
+      v-if="!wechat"
       v-show="show.awardShow"
-      class="letter2">
-      <img 
+      class="letter2"
+    >
+      <img
         :src="baseUrl + 'xf1.png'+ this.$qiniuCompress()"
-        class="xf1">
-      <img 
+        class="xf1"
+      >
+      <img
         :src="couponImg+ this.$qiniuCompress()"
-        class="quan">
-      <img 
+        class="quan"
+      >
+      <img
         :src="baseUrl + 'cancel.png'+ this.$qiniuCompress()"
         class="close-btn"
-        @click.self="cancle()">
+        @click.self="cancle()"
+      >
       <!-- 二维码 -->
-      <img 
+      <img
         v-show="qrcodeShow"
         :src="qrcodeImg"
-        class="ewm">
-      
+        class="ewm"
+      >
+
     </div>
   </div>
 </template>
@@ -85,7 +103,8 @@ import {
   isInWechat,
   wechatShareTrack,
   Cookies,
-  dateFormat
+  dateFormat,
+  formatTimestamp
 } from 'services'
 const cdnUrl = process.env.CDN_URL
 export default {
@@ -100,9 +119,9 @@ export default {
       },
       iphoneX: false,
       wechat: false,
-      coupon_batch_id: this.$route.query.coupon_batch_id,
+      // coupon_batch_id: this.$route.query.coupon_batch_id,
       id: this.$route.query.id,
-      oid: this.$route.query.utm_source,
+      // oid: this.$route.query.utm_source,
       couponImg: null,
       qrcodeImg: null,
       show: {
@@ -124,7 +143,11 @@ export default {
       }
     }
   },
-  created() {},
+  watch: {
+    parms() {
+      this.checkCouponIsUse()
+    }
+  },
   mounted() {
     //分享页处理
     if (this.$route.query.hasOwnProperty('type')) {
@@ -194,11 +217,11 @@ export default {
               include: 'couponBatch'
             }
             args.start_date = dateFormat(
-              new Date(this.formatTimestamp(data, true)),
+              new Date(formatTimestamp(data, true)),
               'yyyy-MM-dd hh:mm:ss'
             )
             args.end_date = dateFormat(
-              new Date(this.formatTimestamp(data, false) - 1000),
+              new Date(formatTimestamp(data, false) - 1000),
               'yyyy-MM-dd hh:mm:ss'
             )
             checkGetCoupon(args)
@@ -224,7 +247,7 @@ export default {
         include: 'couponBatch',
         qiniu_id: this.id,
         oid: this.oid,
-        belong: this.$route.query.utm_campaign
+        belong: this.belong
       }
       sendCoupon(args, this.coupon_batch_id)
         .then(res => {
@@ -246,25 +269,12 @@ export default {
         this.qrcodeShow = false
       }
     },
-    //处理时间
-    formatTimestamp(data, flag) {
-      let nextDate = new Date(new Date(data).getTime() + 24 * 60 * 60 * 1000)
-      if (flag) {
-        nextDate = data
-      }
-      nextDate.setHours(0)
-      nextDate.setMinutes(0)
-      nextDate.setSeconds(0)
-      nextDate.setMilliseconds(0)
-      let todayStartTime = nextDate.getTime()
-      return todayStartTime
-    }
   }
 }
 </script>
 
 <style lang="less" scoped>
-@imageHost: 'http://cdn.exe666.com/fe/marketing/img/orchid_city/';
+@imageHost: "http://cdn.exe666.com/fe/marketing/img/orchid_city/";
 html,
 body {
   width: 100%;

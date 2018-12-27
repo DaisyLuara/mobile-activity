@@ -65,14 +65,15 @@ export default {
         }
       },
       iphoneX: false,
-      coupon_batch_id: this.$route.query.coupon_batch_id,
+      // coupon_batch_id: this.$route.query.coupon_batch_id,
       id: this.$route.query.id,
-      oid: this.$route.query.utm_source,
+      // oid: this.$route.query.utm_source,
       couponImg: null,
       qrcodeImg: null,
       code: null,
-      couponID: ['116', '117'],
-      new_coupon_batch_id: this.$route.query.coupon_batch_id,
+      // couponID: ['116', '117'],
+      couponID: ['31', '32'],
+      new_coupon_batch_id: null,
       params: {
         user_id: null
       },
@@ -81,13 +82,17 @@ export default {
       wxShareInfoValue: {
         title: '四云奶盖贡茶请你喝奶茶了！',
         desc: '点击即可领福利',
-        link: 'http://papi.xingstation.com/api/s/913' + window.location.search,
-        //link: 'http://papi.newgls.cn/api/s/Lg4' + window.location.search,
+        //link: 'http://papi.xingstation.com/api/s/913' + window.location.search,
+        link: 'http://papi.newgls.cn/api/s/Lg4' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/tiger/icon.png'
       }
     }
   },
-  created() { },
+  watch: {
+    parms() {
+      this.checkCouponIsUse()
+    }
+  },
   mounted() {
     //微信授权
     if (isInWechat() === true) {
@@ -193,7 +198,7 @@ export default {
         include: 'couponBatch',
         qiniu_id: this.id,
         oid: this.oid,
-        belong: this.$route.query.utm_campaign
+        belong: this.$route.belong
       }
       sendCoupon(args, this.coupon_batch_id)
         .then(res => {
