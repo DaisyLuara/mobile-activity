@@ -47,7 +47,7 @@
 </template>
 <script>
 import { $wechat, wechatShareTrack } from 'services'
-import { normalPages } from '../../mixins/normalPages'
+import { normalPages } from '@/mixins/normalPages'
 import 'animate.css'
 const IMGURL = process.env.CDN_URL + '/image/'
 export default {

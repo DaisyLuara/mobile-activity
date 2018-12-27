@@ -189,7 +189,7 @@ const Date201812 = [
     location: '201812/wa',
     name: 'wa',
     meta: {
-      title: '蛙夫人-推券',
+      title: '领取优惠券',
       author: 'lipan',
       desc: '蛙夫人-推券 '
     },
