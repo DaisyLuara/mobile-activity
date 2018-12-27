@@ -129,7 +129,7 @@ export default {
           })
           .catch(e => {
             this.isFetching = false;
-            this.errorMessage = String(e.message);
+            this.errorMessage = String(e.response.data.message);
           });
       }
     }

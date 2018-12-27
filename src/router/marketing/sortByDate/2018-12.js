@@ -394,17 +394,6 @@ const Date201812 = [
     isAbandoned: false
   },
   {
-    path: 'coupon_rain',
-    location: '201812/couponRain',
-    name: 'coupon_rain',
-    meta: {
-      title: '连卡福红包雨',
-      author: 'lipan',
-      desc: '衡阳连卡福-福猪港味年-红包雨'
-    },
-    isAbandoned: false
-  },
-  {
     path: 'drc_tiger',
     location: '201812/drcTiger',
     name: 'drc_tiger',

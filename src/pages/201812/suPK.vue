@@ -162,6 +162,7 @@ export default {
           base_url +
           '&scope=snsapi_base'
         window.location.href = redirct_url
+        console.log(window.location.href)
       } else {
         this.userId = Cookies.get('user_id')
       }
@@ -172,6 +173,7 @@ export default {
         return
       }
       this.btn = 'btned'
+      alert(this.userinfo.z)
       if (this.awardinfo.pass == 0 || this.awardinfo.valuetmp != this.awardinfo.value) {
         gameListNeedCheck(this.awardinfo.auid, this.userinfo.z).then(res => {
           console.log(res)

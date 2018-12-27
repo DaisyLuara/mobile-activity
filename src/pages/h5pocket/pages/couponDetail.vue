@@ -75,10 +75,12 @@ export default {
         const { type, id } = this.$route.query;
         let localZ = localStorage.getItem("z");
         let localMarketId = localStorage.getItem("marketid");
-        if (localZ === null || localMarketId === null) {
+        let localOid = localStorage.getItem("oid");
+
+        if (localZ === null || localMarketId === null || localOid === null) {
           this.errorMessage = "未授权，请通过二维码进入";
         } else {
-          bindCouponMini(this.resData.id, localZ)
+          bindCouponMini(this.resData.id, localZ, localOid)
             .then(r => {
               console.dir(r);
               if (r.data.hasOwnProperty("code")) {
@@ -93,7 +95,8 @@ export default {
               }
             })
             .catch(e => {
-              Toast(e.message);
+              console.dir(e);
+              Toast(e.response.data.message);
             });
         }
       } else if (this.type === "wallet") {

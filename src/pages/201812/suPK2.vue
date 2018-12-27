@@ -96,8 +96,8 @@ export default {
   },
   watch: {
     parms() {
-      this.pkshow = true
       this.linkimg = this.parms.link
+      this.pkshow = true
       this.year = this.parms.year || this.awardinfo.age || this.year
     }
   },
