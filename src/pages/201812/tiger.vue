@@ -65,14 +65,14 @@ export default {
         }
       },
       iphoneX: false,
-      coupon_batch_id: this.$route.query.coupon_batch_id,
+      // coupon_batch_id: this.$route.query.coupon_batch_id,
       id: this.$route.query.id,
-      oid: this.$route.query.utm_source,
+      // oid: this.$route.query.utm_source,
       couponImg: null,
       qrcodeImg: null,
       code: null,
       couponID: ['116', '117'],
-      new_coupon_batch_id: this.$route.query.coupon_batch_id,
+      new_coupon_batch_id: null,
       params: {
         user_id: null
       },
@@ -87,7 +87,11 @@ export default {
       }
     }
   },
-  created() { },
+  watch: {
+    parms() {
+      this.checkCouponIsUse()
+    }
+  },
   mounted() {
     //微信授权
     if (isInWechat() === true) {
@@ -193,7 +197,7 @@ export default {
         include: 'couponBatch',
         qiniu_id: this.id,
         oid: this.oid,
-        belong: this.$route.query.utm_campaign
+        belong: this.$route.belong
       }
       sendCoupon(args, this.coupon_batch_id)
         .then(res => {

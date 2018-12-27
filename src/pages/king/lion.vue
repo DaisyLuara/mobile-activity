@@ -1,49 +1,58 @@
 <template>
   <div
     :style="style.root"
-    class="root">
-    <img 
+    class="root"
+  >
+    <img
       :src="baseUrl + 'bg.png'+ this.$qiniuCompress()"
-      class="bg"> 
+      class="bg"
+    >
     <div class="top">
-      <img 
+      <img
         :src="baseUrl + 'topImg.png'+ this.$qiniuCompress()"
-        class="topImg"> 
-      <img 
+        class="topImg"
+      >
+      <img
         :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
-        class="frame"> 
-      <img 
-        v-if="photo !== null" 
+        class="frame"
+      >
+      <img
+        v-if="photo !== null"
         :src="photo + this.$qiniuCompress()"
-        class="photo"> 
-      <img 
-        v-if="photo !== null" 
+        class="photo"
+      >
+      <img
+        v-if="photo !== null"
         :src="photo + this.$qiniuCompress()"
-        class="photo-real"> 
+        class="photo-real"
+      >
     </div>
     <!-- 优惠券部分 -->
-    <div 
-      v-show="over" 
-      class="bt">
-      <img 
+    <div
+      v-show="over"
+      class="bt"
+    >
+      <img
         :src="couponImg+ this.$qiniuCompress()"
-        class="coupon"> 
-      <img 
+        class="coupon"
+      >
+      <img
         :src="qrcodeImg+ this.$qiniuCompress()"
-        class="erweima"> 
-      <span 
-        class="quanma"
-      >{{ code }}</span>
+        class="erweima"
+      >
+      <span class="quanma">{{ code }}</span>
       <!-- 券已使用 -->
-      <img 
+      <img
         v-if="hasUsed&&!hasPost"
         :src="baseUrl + 'used.png'+ this.$qiniuCompress()"
-        class="coupon-used">
+        class="coupon-used"
+      >
       <!--券过期 -->
-      <img 
+      <img
         v-if="hasPost&&!hasUsed"
         :src="baseUrl + 'failure.png'+ this.$qiniuCompress()"
-        class="coupon-post">
+        class="coupon-post"
+      >
     </div>
   </div>
 </template>
@@ -69,8 +78,8 @@ export default {
         }
       },
       iphoneX: false,
-      belong: this.$route.query.utm_campaign,
-      coupon_batch_id: this.$route.query.coupon_batch_id,
+      // belong: this.$route.query.utm_campaign,
+      // coupon_batch_id: this.$route.query.coupon_batch_id,
       couponImg: null,
       qrcodeImg: null,
       code: null,
@@ -89,7 +98,11 @@ export default {
       }
     }
   },
-  created() {},
+  watch: {
+    parms() {
+      this.checkCouponIsUse()
+    }
+  },
   mounted() {
     let height = this.$innerHeight()
     if (height > 672) {
@@ -191,7 +204,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: 'http://cdn.exe666.com/fe/marketing/img/lion/';
+@imageHost: "http://cdn.exe666.com/fe/marketing/img/lion/";
 html,
 body {
   width: 100%;
