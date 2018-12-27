@@ -403,6 +403,28 @@ const Date201812 = [
       desc: '衡阳连卡福-福猪港味年-红包雨'
     },
     isAbandoned: false
+  },
+  {
+    path: 'drc_tiger',
+    location: '201812/drcTiger',
+    name: 'drc_tiger',
+    meta: {
+      title: '美味时间',
+      author: 'xj1012',
+      desc: '大融城老虎机'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'dry_warehouse',
+    location: '201812/warehouse',
+    name: 'dry_warehouse',
+    meta: {
+      title: '乾仓',
+      author: 'xj1012',
+      desc: '乾仓'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201812
