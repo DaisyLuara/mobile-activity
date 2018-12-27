@@ -109,6 +109,8 @@ img {
     top: 50%;
     transform: translate(-50%, -52%);
     z-index: 99;
+    pointer-events: auto;
+    user-select: auto;
   }
   .x-frame {
     width: 88%;
@@ -125,6 +127,8 @@ img {
     top: 50%;
     transform: translate(-50%, -55%);
     z-index: 99;
+    pointer-events: auto;
+    user-select: auto;
   }
 }
 </style>
