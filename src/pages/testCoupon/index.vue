@@ -5,7 +5,7 @@
   >
     <!-- <img  class="bg" :src="imgServerUrl + '/pages/drc_ty/bg.png'" alt="" :style="style.bg"/> -->
     <div class="gender">
-      <span>{{ genderName }}</span>
+      <span>{{ gender }}</span>
       <span>{{ age }} 岁</span>
     </div>
     <!-- <img  class="photo" :src="couponUrl" alt=""/> -->
@@ -39,10 +39,10 @@
 <script>
 import { $wechat, getInfoById, wechatShareTrack } from 'services'
 import { Toast } from 'mint-ui'
-import { normalPages } from '@/mixins/normalPages'
+
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
+
 export default {
-  mixins: [normalPages],
   data() {
     return {
       style: {
@@ -59,11 +59,11 @@ export default {
       phoneValue: '',
       imgServerUrl: IMAGE_SERVER,
       couponUrl: '',
-      genderName: '',
+      gender: '',
       age: '',
       isPhoneError: false,
       //微信分享信息
-      wxShareInfoValue: {
+      wxShareInfo: {
         title: '测试',
         desc: '测试',
         imgUrl:
@@ -71,15 +71,11 @@ export default {
       }
     }
   },
-  watch: {
-    parms() {
-      this.genderName = this.gender === '1' ? '女' : '男'
-      this.age = this.parms.age
-      this.getCoupon()
-    }
-  },
   mounted() {
-
+    this.wechatShare()
+    this.gender = this.$route.query.gender === '1' ? '女' : '男'
+    this.age = this.$route.query.age
+    this.getCoupon()
   },
   methods: {
     submit() {
@@ -113,11 +109,28 @@ export default {
         }
       }
     },
+    wechatShare() {
+      $wechat()
+        .then(res => {
+          res.share({
+            // 配置分享
+            title: this.wxShareInfo.title,
+            desc: this.wxShareInfo.desc,
+            imgUrl: this.wxShareInfo.imgUrl,
+            success: function () {
+              wechatShareTrack()
+            }
+          })
+        })
+        .catch(_ => {
+          console.warn(_.message)
+        })
+    },
     getCoupon() {
       let rq = process.env.AD_API + '/api/open/coupon/batches'
-      let policy_id = this.parms.policy_id
-      let gender = this.gender
-      let age = this.age
+      let policy_id = this.$route.query.policy_id
+      let gender = this.$route.query.gender
+      let age = this.$route.query.age
       let rd = {
         policy_id: policy_id,
         gender: gender,

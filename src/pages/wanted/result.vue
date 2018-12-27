@@ -100,9 +100,6 @@ export default {
         title: '悬赏令',
         desc: 'wow，我可是身价百万的大海盗！',
         imgUrl: serverUrl + '/fe/marketing/wanted/icon.jpg',
-        success: function () {
-          wechatShareTrack()
-        }
       }
     }
   },

@@ -26,7 +26,7 @@
 <script>
 import { $wechat, wechatShareTrack } from 'services'
 import { normalPages } from '@/mixins/normalPages'
-const IMG_SERVER = 'http://p22vy0aug.bkt.clouddn.com'
+const IMG_SERVER = process.env.CDN_URL
 export default {
   mixins: [normalPages],
   data() {
@@ -36,13 +36,13 @@ export default {
           'min-height': this.$innerHeight() + 'px'
         }
       },
-      base: IMG_SERVER + '/image/tm/wfj/',
+      base: IMG_SERVER + '/fe/image/tm/wfj/',
       //分享
       wxShareInfoValue: {
         title: 'Fun肆玩尽情GO',
         desc: '王福井ONE岁生日快乐！',
         link: 'http://papi.xingstation.com/api/s/wjR' + window.location.search,
-        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/tm/wfj/icon.jpg',
+        imgUrl: IMG_SERVER + '/fe/image/tm/wfj/icon.jpg',
       }
     }
   },
@@ -51,7 +51,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: "http://p22vy0aug.bkt.clouddn.com/image/tm/wfj/";
+@imgUrl: "https://cdn.exe666.com/fe/image/tm/wfj/";
 html,
 body {
   width: 100%;
