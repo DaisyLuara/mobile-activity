@@ -1,44 +1,57 @@
 <template>
-  <div 
+  <div
     :style="style.root"
-    class="haoke-content">
-    <img  
-      :src="resultImgUrl" 
+    class="haoke-content"
+  >
+    <img
+      :src="resultImgUrl"
       alt=""
-      class="photo-id">
+      class="photo-id"
+    >
     <!--
       <img  
         class="photo-id" 
         :src="imgServerUrl + '/pages/popcorn/Bronze.jpg'" 
         alt="">
     -->
-    <div  
+    <div
       class="coupons"
-      @click="goUrl()">
-      <img  
-        v-show="showCoupon.showFree" 
-        :src="imgServerUrl + '/pages/haoke/free.png'" 
+      @click="goUrl()"
+    >
+      <img
+        v-show="showCoupon.showFree"
+        :src="imgServerUrl + '/pages/haoke/free.png'"
         alt=""
-        class="free">
-      <img 
-        v-show="showCoupon.couponFive" 
+        class="free"
+      >
+      <img
+        v-show="showCoupon.couponFive"
         :src="imgServerUrl + '/pages/haoke/5.png'"
-        alt=""  
-        class="five" >
-      <img  
-        v-show="showCoupon.couponEightyFive" 
+        alt=""
+        class="five"
+      >
+      <img
+        v-show="showCoupon.couponEightyFive"
         :src="imgServerUrl + '/pages/haoke/85.png'"
-        alt="" 
-        class="eighty-five" >
+        alt=""
+        class="eighty-five"
+      >
     </div>
   </div>
 </template>
 <script>
 import $ from 'jquery'
-import { getInfoById } from 'services'
+import { normalPages } from '@/mixins/normalPages'
+import {
+  $wechat,
+  isInWechat,
+  wechatShareTrack,
+  Cookies,
+} from 'services'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 const wih = window.innerHeight
 export default {
+  mixins: [normalPages],
   data() {
     return {
       style: {
@@ -48,7 +61,7 @@ export default {
       },
       imgServerUrl: IMAGE_SERVER,
       resultImgUrl: '',
-      couponType: this.$route.query.couponType,
+      couponType: null,
       showCoupon: {
         couponFive: false,
         couponEightyFive: false,
@@ -65,58 +78,25 @@ export default {
   beforeCreate() {
     document.title = '豪客来'
   },
-  created() {
-    this.forbidWXShare()
-    //拿取图片id
-    this.getImageById()
+  watch: {
+    parms() {
+      this.couponType = this.parms.couponType
+      this.show()
+    }
   },
   mounted() {
     this.show()
-    var bool = false
-    setTimeout(() => {
-      bool = true
-    }, 1000)
-
-    window.addEventListener(
-      'popstate',
-      () => {
-        if (bool) {
-          // 做你想要做的操作
-          this.forbidWXShare()
-        }
-      },
-      false
-    )
+    this.handleForbiddenShare()
   },
   methods: {
-    forbidWXShare() {
-      if (typeof WeixinJSBridge === 'undefined') {
-        if (document.addEventListener) {
-          document.addEventListener(
-            'WeixinJSBridgeReady',
-            this.onBridgeReady,
-            false
-          )
-        } else if (document.attachEvent) {
-          document.attachEvent('WeixinJSBridgeReady', this.onBridgeReady)
-          document.attachEvent('onWeixinJSBridgeReady', this.onBridgeReady)
-        }
-      } else {
-        this.onBridgeReady()
-      }
-    },
-    onBridgeReady() {
-      WeixinJSBridge.call('hideOptionMenu')
-    },
-    //拿取图片id
-    getImageById() {
-      let id = this.$route.query.id
-      getInfoById(id)
-        .then(result => {
-          this.resultImgUrl = result.image
+    //禁止微信分享
+    handleForbiddenShare() {
+      $wechat()
+        .then(res => {
+          res.forbidden()
         })
-        .catch(err => {
-          console.log(err)
+        .catch(_ => {
+          console.warn(_.message)
         })
     },
     show() {
@@ -169,12 +149,12 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imageHost: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/haoke';
+@imageHost: "http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/haoke";
 .haoke-content {
   width: 100%;
   height: 100%;
   background-repeat: no-repeat;
-  background-image: url('@{imageHost}/bg_2.jpg');
+  background-image: url("@{imageHost}/bg_2.jpg");
   background-size: 100% 100%;
   position: relative;
   text-align: center;
