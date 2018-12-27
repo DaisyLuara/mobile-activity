@@ -40,6 +40,9 @@ export default {
     async handleLogin() {
       const { code, state } = this.$route.query;
       if (code !== undefined && state !== undefined) {
+        if (this.z !== "") {
+          return;
+        }
         try {
           let r = await getUserInfoByCodeAndState(code, state);
           if (typeof r.data.results === "object") {
