@@ -57,10 +57,10 @@ export default {
         // holder to store the aliens
         let url = CDNURL + '/fe/image/couponrain/'
         let as_width = app.screen.width
-        let as_height = app.screen.height
-        // let aliens = [];
-        // let count = 0
-        // let time = 21
+        let as_height = app.screen.height;
+        let aliens = [];
+        let scores = 0
+        let time = 21
         // let totalDudes = 20;
 
         // 背景设置
@@ -117,22 +117,8 @@ export default {
           dropShadowColor: 'rgba(0,0,0,0.5)',
           dropShadowBlur: 2,
           dropShadowAngle: Math.PI / 6,
-          // dropShadowDistance: 6,
-          // wordWrap: true,
-          // wordWrapWidth: 440
         })
         let bigText = new PIXI.Text(bigNUm, bigStyle)
-
-        // let timer1 = setInterval(function () {
-        //   if (bigNUm == 0) {
-        //     clearInterval(timer1)
-        //     container3 = true
-        //     return
-        //   }
-        //   bigText = new PIXI.Text(bigNUm, bigStyle)
-        //   bigNUm--
-        //   console.log(bigNUm)
-        // }, 1000)
         bigText.anchor.set(0.5)
         bigText.position.set(as_width / 2, as_height / 2)
         container2.addChild(bigText)
@@ -141,9 +127,6 @@ export default {
         container3.width = as_width
         container3.height = as_height
         container3.position.set(0, 0);
-
-
-
         //元宝
         let gold = PIXI.Sprite.fromImage(url + 'gold.png')
         gold.width = as_width * 0.18
@@ -156,65 +139,40 @@ export default {
         cover.height = cover.width / 750 * 1334
         cover.position.set(0, -as_height * 0.1)
         app.stage.addChild(container3)
+
         container1.addChild(pig)
         container1.addChild(logo)
         container1.addChild(button)
 
-
-
         container3.addChild(gold)
         container3.addChild(cover)
-        container1.visible = true
+        //红包
+        for (let i = 0; i < 6; i++) {
+          let dude = PIXI.Sprite.fromImage(url + 'red.png')
+          dude.anchor.set(0.5);
+          dude.width = as_width * 0.15;
+          dude.height = dude.width / 122 * 162
+          dude.x = dude.width / 2 + as_width * 0.15 * i + Math.random() * app.screen.width / 6;
+          dude.y = Math.random() * app.screen.height * 2 / 3;
+          dude.direction = Math.PI / 4;
+          dude.speed = 2 + Math.random() * 2;
+          dude.interactive = true;
+          dude.buttonMode = true
+          dude.on('pointerdown', onButtonDown)
+            .on('pointerup', onButtonUp)
+            .on('touchstart', onButtonDown)
+            .on('touchend', onButtonUp)
+          aliens.push(dude);
+          container3.addChild(dude);
+        }
+        // container1.visible = true
+        // container2.visible = false
+        // container3.visible = false
+        container1.visible = false
         container2.visible = false
-        container3.visible = false
-        // for (let i = 0; i < totalDudes; i++) {
-        //   let dude = PIXI.Sprite.fromImage(url + 'th.jpg');
-
-        //   dude.anchor.set(0.5);
-
-        //   dude.scale.set(0.2 + Math.random() * 0.3);
-        //   dude.x = Math.random() * app.screen.width;
-        //   dude.y = Math.random() * app.screen.height;
-
-        //   dude.direction = Math.random() * Math.PI / 3;
-
-        //   dude.turningSpeed = Math.random() - 0.8;
-        //   dude.speed = 2 + Math.random() * 2;
-        //   dude.interactive = true;
-        //   dude.buttonMode = true
-        //   dude.on('pointerdown', onButtonDown)
-        //     .on('pointerup', onButtonUp)
-        //     .on('touchstart', onButtonDown)
-        //     .on('touchend', onButtonUp)
-        //   aliens.push(dude);
-
-        //   app.stage.addChild(dude);
-        // }
-
-        // let dudeBoundsPadding = 100;
-        // let dudeBounds = new PIXI.Rectangle(-dudeBoundsPadding,
-        //   -dudeBoundsPadding,
-        //   app.screen.width + dudeBoundsPadding * 2,
-        //   app.screen.height + dudeBoundsPadding * 2);
-
+        container3.visible = true
         app.ticker.add(function () {
-          let bigNUm = 3
-          let bigStyle = new PIXI.TextStyle({
-            fontFamily: '黑体',
-            fontSize: 150,
-            fontWeight: 'bold',
-            fill: ['#fae767'],
-            stroke: '#942013',
-            strokeThickness: 7,
-            dropShadow: true,
-            dropShadowColor: 'rgba(0,0,0,0.5)',
-            dropShadowBlur: 2,
-            dropShadowAngle: Math.PI / 6,
-          })
-          let bigText = new PIXI.Text(bigNUm, bigStyle)
-          bigText.anchor.set(0.5)
-          bigText.position.set(as_width / 2, as_height / 2)
-          container2.addChild(bigText)
+
           // for (let i = 0; i < aliens.length; i++) {
 
           //   let dude = aliens[i];
@@ -241,7 +199,18 @@ export default {
         function onCheckScene() {
           container1.visible = false
           container2.visible = true
-          console.log('a')
+          let timer1 = setInterval(function () {
+            if (bigNUm == 0) {
+              clearInterval(timer1)
+              container2.visible = false
+              container3.visible = true
+              bigNUm = 3
+              return
+            }
+
+            bigText.text = --bigNUm
+            console.log(bigNUm)
+          }, 1000)
         }
         function onButtonDown() {
           console.log('1')
