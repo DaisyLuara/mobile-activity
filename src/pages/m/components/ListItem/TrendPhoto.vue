@@ -1,9 +1,13 @@
 <template>
-  <div class="trend-photo" @click="handleTrendItemClick(avrid)">
-    <img :src="image" class="item-photo">
+  <div 
+    class="trend-photo" 
+    @click="handleTrendItemClick(avrid)">
+    <img 
+      :src="image" 
+      class="item-photo">
     <div class="item-info">
-      <div class="info-title">{{title}}</div>
-      <div class="info-location-date">{{computedDate}}</div>
+      <div class="info-title">{{ title }}</div>
+      <div class="info-location-date">{{ computedDate }}</div>
     </div>
   </div>
 </template>

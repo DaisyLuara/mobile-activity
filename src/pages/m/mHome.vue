@@ -1,7 +1,9 @@
 <template>
   <div class="mHome">
-    <router-view v-if="wechat === true && this.z !== ''"/>
-    <div v-else class="wx-remind">请在微信中打开</div>
+    <router-view v-if="wechat === true && z !== ''"/>
+    <div 
+      v-if="wechat !== true" 
+      class="wx-remind">请在微信中打开</div>
   </div>
 </template>
 
@@ -16,16 +18,16 @@ import {
 } from "services";
 
 export default {
-  name: "mSiteHome",
+  name: "MSiteHome",
   mixins: [reCalculateRem],
-  computed: {
-    ...mapGetters(["z"])
-  },
   data() {
     return {
       // must change before production
       wechat: false
     };
+  },
+  computed: {
+    ...mapGetters(["z"])
   },
   created() {
     if (isInWechat() === true) {

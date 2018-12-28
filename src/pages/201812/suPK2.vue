@@ -18,7 +18,7 @@
         <img :src="linkimg + this.$qiniuCompress()">
       </div>
       <img
-        :src="base + 'pic.png' +  this.$qiniuCompress()"
+        :src="base + 'pic.png' + this.$qiniuCompress()"
         class="coverbg"
       >
       <!-- 年龄，颜值分数-->
@@ -80,6 +80,13 @@ export default {
       }
     }
   },
+  watch: {
+    parms() {
+      this.linkimg = this.parms.link
+      this.pkshow = true
+      this.year = this.parms.year || this.awardinfo.age || this.year
+    }
+  },
   mounted() {
     if (this.$innerHeight() > 672) {
       this.iphoneX = true
@@ -92,13 +99,6 @@ export default {
       ) {
         this.handleWechatAuth()
       }
-    }
-  },
-  watch: {
-    parms() {
-      this.linkimg = this.parms.link
-      this.pkshow = true
-      this.year = this.parms.year || this.awardinfo.age || this.year
     }
   },
   methods: {

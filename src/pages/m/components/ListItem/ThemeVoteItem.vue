@@ -1,9 +1,11 @@
 <template>
   <div class="vote-item">
     <div class="vote-photo">
-      <img class="inner-photo" :src="photoUrl">
+      <img 
+        :src="photoUrl" 
+        class="inner-photo">
     </div>
-    <div class="vote-title"></div>
+    <div class="vote-title"/>
     <div class="vote-button">投票</div>
   </div>
 </template>

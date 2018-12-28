@@ -5,11 +5,13 @@
         <img :src="loginState.face">
       </div>
       <div class="location">
-        <div class="place">{{title}}</div>
-        <div class="time">{{time}}</div>
+        <div class="place">{{ title }}</div>
+        <div class="time">{{ time }}</div>
       </div>
     </div>
-    <div class="button" @click="handleNaviToMoreTrends">更多足迹</div>
+    <div 
+      class="button" 
+      @click="handleNaviToMoreTrends">更多足迹</div>
   </div>
 </template>
 
@@ -28,14 +30,15 @@ export default {
       required: true
     }
   },
-  computed: {
-    ...mapGetters(["loginState"])
-  },
   data() {
     return {
       avatarImgUrl: ""
     };
   },
+  computed: {
+    ...mapGetters(["loginState"])
+  },
+
   methods: {
     handleNaviToMoreTrends() {
       this.$router.push({

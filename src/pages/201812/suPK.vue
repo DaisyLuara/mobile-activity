@@ -30,8 +30,8 @@
       <img :src="base + 'btn1.png'">
     </a>
     <div
-      :style="style.root"
       v-show="mask1"
+      :style="style.root"
       class="mask1"
     >
       <div class="main">
@@ -47,7 +47,7 @@
         <button
           class="close"
           @click="()=>{mask1=false;}"
-        ></button>
+        />
         <!-- 头像 -->
         <div
           id="clip"
@@ -56,7 +56,7 @@
           <img :src="linkimg + this.$qiniuCompress()">
         </div>
         <img
-          :src="base + 'pic.png' +  this.$qiniuCompress()"
+          :src="base + 'pic.png' + this.$qiniuCompress()"
           class="coverbg"
         >
         <!-- 年龄，颜值分数-->
@@ -129,6 +129,15 @@ export default {
       }
     }
   },
+  watch: {
+    photo() {
+      this.pkshow = true
+    },
+    parms() {
+      this.linkimg = this.parms.link
+      this.year = this.parms.year || this.awardinfo.age || this.year
+    }
+  },
   mounted() {
     if (this.$innerHeight() > 672) {
       this.iphoneX = true
@@ -141,15 +150,6 @@ export default {
       ) {
         this.handleWechatAuth()
       }
-    }
-  },
-  watch: {
-    photo() {
-      this.pkshow = true
-    },
-    parms() {
-      this.linkimg = this.parms.link
-      this.year = this.parms.year || this.awardinfo.age || this.year
     }
   },
   methods: {

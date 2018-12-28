@@ -24,7 +24,7 @@
         <a
           class="ashow"
           @click="()=>{arrow=arrow=='arrow01'?'arrow02':'arrow01';toleft=!toleft;toright = !toleft}"
-        ></a>
+        />
         <div class="txt">
           <ol
             start="1"
@@ -33,7 +33,7 @@
             <li
               v-for="item in text"
               :key="item.id"
-            >{{item}}
+            >{{ item }}
             </li>
           </ol>
         </div>
