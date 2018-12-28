@@ -2,12 +2,15 @@
   <div class="trends">
     <MyTrendsSwiper/>
     <ul
-      class="trends-wrapper"
       v-infinite-scroll="loadMore"
+      class="trends-wrapper"
       infinite-scroll-disabled="loading"
       infinite-scroll-distance="10"
     >
-      <div class="item-wrapper" v-for="(item, index) in trends" :key="index">
+      <div 
+        v-for="(item, index) in trends" 
+        :key="index" 
+        class="item-wrapper">
         <TrendPhoto
           :image="item.avr.image"
           :title="item.avr.title"
@@ -27,11 +30,22 @@ import { InfiniteScroll } from "mint-ui";
 import { getUserTrends } from "services";
 import { mapGetters } from "vuex";
 export default {
-  name: "trendsIndex",
+  name: "TrendsIndex",
 
   components: {
     TrendPhoto,
     MyTrendsSwiper
+  },
+
+  data() {
+    return {
+      bindBottomDistance: 0,
+      bottomStatus: "",
+      currentPage: 1,
+      isLoading: false,
+      isAllLoaded: false,
+      trends: []
+    };
   },
 
   computed: {
@@ -55,16 +69,6 @@ export default {
     this.bindBottomDistance = (this.$parent.screenWidth / 375) * 100 * 0.48;
   },
 
-  data() {
-    return {
-      bindBottomDistance: 0,
-      bottomStatus: "",
-      currentPage: 1,
-      isLoading: false,
-      isAllLoaded: false,
-      trends: []
-    };
-  },
   methods: {
     loadMore() {
       this.loading = true;

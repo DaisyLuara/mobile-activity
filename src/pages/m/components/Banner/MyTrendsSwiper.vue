@@ -1,10 +1,22 @@
 <template>
-  <div class="mts" v-if="imgUrls.length > 0">
-    <swiper ref="mySwiper" :options="swiperOption" class="swiper">
-      <swiper-slide v-for="(item, index) of imgUrls" :key="index">
-        <img :src="item.image" class="slide-pic" @click="handlePhotoClick(item)">
+  <div 
+    v-if="imgUrls.length > 0" 
+    class="mts">
+    <swiper 
+      ref="mySwiper" 
+      :options="swiperOption" 
+      class="swiper">
+      <swiper-slide 
+        v-for="(item, index) of imgUrls" 
+        :key="index">
+        <img 
+          :src="item.image" 
+          class="slide-pic" 
+          @click="handlePhotoClick(item)">
       </swiper-slide>
-      <div slot="pagination" class="swiper-pagination"/>
+      <div 
+        slot="pagination" 
+        class="swiper-pagination"/>
     </swiper>
   </div>
 </template>

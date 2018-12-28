@@ -1,7 +1,12 @@
 <template>
   <div class="trend-detail">
-    <TrendsTopBar :title="resData.title" :time="resData.date" v-if="resData.image !== ''"/>
-    <img class="photo" :src="resData.image">
+    <TrendsTopBar 
+      v-if="resData.image !== ''" 
+      :title="resData.title" 
+      :time="resData.date"/>
+    <img 
+      :src="resData.image" 
+      class="photo">
     <XiaoOuFooter/>
     <TrendsBottomBar
       @onTrendDelete="handleTrendDeleteModalShow"
@@ -13,7 +18,9 @@
       @onHandleModalHide="handleModalHide"
       @handleDeleteConfirm="handleTrendDeleteConfirm"
     />
-    <SharePhotoModal :show="shouldShareModalShow" @onHandleShareModalHide="handleShareModalHide"/>
+    <SharePhotoModal 
+      :show="shouldShareModalShow" 
+      @onHandleShareModalHide="handleShareModalHide"/>
   </div>
 </template>
 
@@ -48,11 +55,12 @@ export default {
       }
     };
   },
-  mounted() {
-    this.fetchTrend();
-  },
+
   computed: {
     ...mapGetters(["z"])
+  },
+  mounted() {
+    this.fetchTrend();
   },
   methods: {
     ...mapMutations({

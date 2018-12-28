@@ -1,5 +1,5 @@
 <template>
-  <div class="tbbh"></div>
+  <div class="tbbh"/>
 </template>
 
 <style lang="less" scoped>
