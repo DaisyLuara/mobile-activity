@@ -11,9 +11,8 @@
   </div>
 </template>
 <script>
-import { $wechat, isInWechat, wechatShareTrack } from "services";
+import { $wechat, isInWechat, wechatShareTrack, Cookies, sendCoupon, checkGetCoupon } from "services";
 import { normalPages } from "@/mixins/normalPages";
-import "animate.css";
 const CDNURL = process.env.CDN_URL;
 export default {
   mixins: [normalPages],
@@ -49,21 +48,20 @@ export default {
           antialias: true,
           transparent: true
         })
-
         let root = document.getElementById('anim')
         root.appendChild(app.view);
         app.renderer.autoResize = true
         app.renderer.resize(window.innerWidth, window.innerHeight)
         // holder to store the aliens
         //通用变量
-        let [url, as_width, as_height] = [CDNURL + '/fe/image/couponrain/', app.screen.width, app.screen.height]
+        let [url, as_width, as_height, game_start] = [CDNURL + '/fe/image/couponrain/', app.screen.width, app.screen.height, false]
         //第二屏计时使用到的变量
         let bigNUm = 3
-
         //第三屏 红包游戏变量
         let [game_time, game_score] = [15, 0]//游戏时间与游戏积分
         let aliens = [];
-        let totalDudes = 20;
+        let totalDudes = 8;
+        // 背景
         let bg = getNewSpriteImage(url + 'Background.png', {}, app.stage)//红色背景图片
         //新建容器1, 2, 3
         let container1 = getNewContainer({ x: 0, y: 0, width: as_width, height: as_height }, app.stage)
@@ -102,7 +100,7 @@ export default {
         //容器三，游戏界面
         let gold = getNewSpriteImage(url + 'gold.png', { x: as_width / 2, y: as_height / 2, width: as_width * 0.18, height: as_width * 0.18 / 133 * 70 }, container3)//元宝
         gold.anchor.set(0.5, 0.5)
-        let cover = getNewSpriteImage(url + 'cover.png', { y: -as_height * 0.1, width: as_width, height: as_width / 750 * 1334 }, container3)//cover图
+        let cover = getNewSpriteImage(url + 'cover.png', { y: -as_height * 0.1, width: as_width, height: as_height * 1.1 }, container3)//cover图as_width / 750 * 1334
         let style1 = new PIXI.TextStyle({
           fontFamily: '黑体',
           fontSize: 18,
@@ -132,6 +130,16 @@ export default {
         let scoreText = getNewText(game_score, style2, as_width - 15, 43, container3)
         scoreText.anchor.set(1, 0)
         //红包
+        for (let i = 0; i < 6; i++) {
+
+          let x = as_width * i + Math.random() * as_width * 0.15
+          let y = as_height * 0.1 + Math.random() * as_height * 0.4 + as_height * (i % 3)
+          let dude = getNewSpriteImage(url + 'red.png', { x: x, y: y, width: as_width * 0.15, height: as_width * 0.15 / 122 * 162 }, container3)
+          dude.interactive = true
+          dude.buttonMode = true
+          dude.on('click', onButtonUp).on('touchend', onButtonUp)
+
+        }
 
         //新建容器和设置他们的基本属性
         function getNewContainer(args, parent) {
@@ -172,6 +180,7 @@ export default {
               clearInterval(timer)
               container2.visible = false
               container3.visible = true
+              game_start = true
               deleteTime()
               bigNUm = 3
               return
