@@ -55,18 +55,23 @@ export default {
         app.renderer.autoResize = true
         app.renderer.resize(window.innerWidth, window.innerHeight)
         // holder to store the aliens
+        //通用变量
         let [url, as_width, as_height] = [CDNURL + '/fe/image/couponrain/', app.screen.width, app.screen.height]
+        //第二屏计时使用到的变量
+        let bigNUm = 3
+
+        //第三屏 红包游戏变量
+        let [game_time, game_score] = [15, 0]//游戏时间与游戏积分
         let aliens = [];
-        let scores = 0
-        let time = 21
         let totalDudes = 20;
         let bg = getNewSpriteImage(url + 'Background.png', {}, app.stage)//红色背景图片
         //新建容器1, 2, 3
-        let container1 = getNewContainer({}, app.stage)
-        let container2 = getNewContainer({}, app.stage) //容器二  倒计时
-        let container3 = getNewContainer({}, app.stage)
+        let container1 = getNewContainer({ x: 0, y: 0, width: as_width, height: as_height }, app.stage)
+        let container2 = getNewContainer({ x: 0, y: 0, width: as_width, height: as_height }, app.stage) //容器二  倒计时
+        let container3 = getNewContainer({ x: 0, y: 0, width: as_width, height: as_height }, app.stage)
+        container1.visible = false
         container2.visible = false
-        container3.visible = false
+        container3.visible = true
         //容器一
         let pig = getNewSpriteImage(url + 'pig.png', { y: -as_height * 0.04, height: as_width / 750 * 1086 }, container1)//猪年大吉图像
         let logo = getNewSpriteImage(url + 'logo.png', { x: as_width * 0.83, y: as_height * 0.02, width: as_width * 0.15, height: as_width * 0.15 / 104 * 87 }, container1)
@@ -80,7 +85,6 @@ export default {
         graphics.drawRect(0, 0, as_width, as_height)
         graphics.endFill()
         container2.addChild(graphics)
-        let bigNUm = 3
         let bigStyle = new PIXI.TextStyle({
           fontFamily: '黑体',
           fontSize: 150,
@@ -93,42 +97,45 @@ export default {
           dropShadowBlur: 2,
           dropShadowAngle: Math.PI / 6,
         })
-        let bigText = getNewText(bigNUm, bigStyle, 0.5, 0.5, { x: as_width / 2, y: as_height / 2 }, container2)
+        let bigText = getNewText(bigNUm, bigStyle, as_width * 0.5, as_height * 0.5, container2)
+        bigText.anchor.set(0.5)
         //容器三，游戏界面
         let gold = getNewSpriteImage(url + 'gold.png', { x: as_width / 2, y: as_height / 2, width: as_width * 0.18, height: as_width * 0.18 / 133 * 70 }, container3)//元宝
         gold.anchor.set(0.5, 0.5)
         let cover = getNewSpriteImage(url + 'cover.png', { y: -as_height * 0.1, width: as_width, height: as_width / 750 * 1334 }, container3)//cover图
-
-        //游戏时间与游戏积分
-        let game_time = 15
-        let game_score = 0
-        let style = new PIXI.TextStyle({
+        let style1 = new PIXI.TextStyle({
           fontFamily: '黑体',
-          fontSize: 20,
+          fontSize: 18,
           fill: ['#e8c044'],
           stroke: '#942013',
+          letterSpacing: 2,
           strokeThickness: 3,
           dropShadow: true,
+          dropShadowBlur: 2,
           dropShadowColor: '#981d15',
         })
-        let time_name = getNewText('游戏时间', style, 0, 0, { x: 20, y: 20 }, container3)
-        let score_name = getNewText('游戏时间', style, 0, 0, { x: as_width - 100, y: 20 }, container3)
-        console.log(container2.width)
-        console.log(container2.height)
-        console.log(container2.x)
-        console.log(app.screen.width)
+        let style2 = new PIXI.TextStyle({
+          fontFamily: '黑体',
+          fontSize: 30,
+          fill: ['#e8c044'],
+          stroke: '#942013',
+          letterSpacing: 2,
+          strokeThickness: 3,
+          dropShadow: true,
+          dropShadowBlur: 2,
+          dropShadowColor: '#981d15',
+        })
+        let time_name = getNewText('游戏时间', style1, 20, 20, container3)
+        let score_name = getNewText('游戏积分', style1, as_width - 15, 20, container3)
+        score_name.anchor.set(1, 0)
+        let timeText = getNewText(game_time, style2, 20, 43, container3)
+        let scoreText = getNewText(game_score, style2, as_width - 15, 43, container3)
+        scoreText.anchor.set(1, 0)
         //红包
 
-        app.ticker.add(function () {
-
-        });
         //新建容器和设置他们的基本属性
         function getNewContainer(args, parent) {
           let container = new PIXI.Container()
-          container.x = args.x || 0
-          container.y = args.y || 0
-          container.width = args.width || app.screen.width
-          container.height = args.height || app.screen.height
           for (let key in args) {
             container.key = args.key
           }
@@ -149,42 +156,51 @@ export default {
           return sprite
         }
         //新建文本和设置他们的基本属性
-        function getNewText(text, style, centerX = 0, centerY = 0, args, parent) {
+        function getNewText(text, style, x, y, parent) {
           let txt = new PIXI.Text(text, style)
-          txt.anchor.set(centerX, centerY)
-          for (let key in args) {
-            txt.key = args.key
-          }
+          txt.x = x;
+          txt.y = y;
           parent.addChild(txt)
           return txt
         }
         //动作
         function onCheckScene() {
-          console.log('abs')
           container1.visible = false
           container2.visible = true
-          let timer1 = setInterval(function () {
+          let timer = setInterval(function () {
             if (bigNUm == 0) {
-              clearInterval(timer1)
+              clearInterval(timer)
               container2.visible = false
               container3.visible = true
+              deleteTime()
               bigNUm = 3
               return
             }
-
             bigText.text = --bigNUm
-            console.log(bigNUm)
+          }, 1000)
+        }
+        //15秒计时
+        function deleteTime() {
+          let timer = setInterval(function () {
+            if (game_time == 0) {
+              clearInterval(timer)
+              return
+            }
+            game_time--
+            timeText.text = game_time
           }, 1000)
         }
         function onButtonDown() {
           console.log('1')
         }
         function onButtonUp() {
-          console.log('2')
+          game_score += 25
+          scoreText.text = game_score
+
         }
-        function onButtonOut() {
-          console.log('3')
-        }
+        app.ticker.add(function () {
+
+        });
       })
     }
   }
