@@ -3,12 +3,13 @@
     <img :src="image" class="item-photo">
     <div class="item-info">
       <div class="info-title">{{title}}</div>
-      <div class="info-location-date">{{date}}</div>
+      <div class="info-location-date">{{computedDate}}</div>
     </div>
   </div>
 </template>
 
 <script>
+import moment from "moment";
 export default {
   name: "TrendPhotoItem",
   props: {
@@ -22,15 +23,32 @@ export default {
       default: "",
       required: true
     },
-    date: {
+    clientdate: {
       type: String,
-      default: "",
+      default: "1540965666000",
       required: true
     },
     avrid: {
       type: String,
       default: "",
       required: true
+    }
+  },
+  computed: {
+    computedDate() {
+      let now = moment(new Date().getTime());
+      let cld = moment(Number(this.clientdate));
+      // console.log(cld);
+      let diffyear = cld.diff(now, "years");
+      let diffday = now.diff(cld, "days");
+      if (diffyear >= 1) {
+        return cld.format("YYYY-MM-DD HH:mm:ss");
+      } else if (diffday <= 1) {
+        return cld.format("HH:mm:ss");
+      } else {
+        return cld.format("MM-DD HH:mm:ss");
+      }
+      return "";
     }
   },
   methods: {
@@ -44,7 +62,6 @@ export default {
           avrid: this.avrid
         }
       });
-      // this.$router.push({})
     }
   }
 };

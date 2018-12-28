@@ -1,7 +1,7 @@
 <template>
   <div class="mHome">
-    <router-view v-if="wechat === true"/>
-    <div v-else class="remind">请在微信中打开</div>
+    <router-view v-if="wechat === true && this.z !== ''"/>
+    <div v-else class="wx-remind">请在微信中打开</div>
   </div>
 </template>
 
@@ -24,7 +24,7 @@ export default {
   data() {
     return {
       // must change before production
-      wechat: false
+      wechat: true
     };
   },
   created() {
@@ -66,3 +66,11 @@ export default {
   }
 };
 </script>
+
+<style lang="less" scoped>
+.mHome {
+  .wx-remind {
+    font-size: 18px;
+  }
+}
+</style>
