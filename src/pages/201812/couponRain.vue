@@ -60,16 +60,16 @@ export default {
         //第三屏 红包游戏变量
         let [game_time, game_score] = [15, 0]//游戏时间与游戏积分
         let aliens = [];
-        let totalDudes = 8;
+        let totalDudes = 16;
         // 背景
         let bg = getNewSpriteImage(url + 'Background.png', {}, app.stage)//红色背景图片
         //新建容器1, 2, 3
         let container1 = getNewContainer({ x: 0, y: 0, width: as_width, height: as_height }, app.stage)
-        let container2 = getNewContainer({ x: 0, y: 0, width: as_width, height: as_height }, app.stage) //容器二  倒计时
         let container3 = getNewContainer({ x: 0, y: 0, width: as_width, height: as_height }, app.stage)
-        container1.visible = false
+        let container2 = getNewContainer({ x: 0, y: 0, width: as_width, height: as_height }, app.stage) //容器二  倒计时
+        container1.visible = true
         container2.visible = false
-        container3.visible = true
+        container3.visible = false
         //容器一
         let pig = getNewSpriteImage(url + 'pig.png', { y: -as_height * 0.04, height: as_width / 750 * 1086 }, container1)//猪年大吉图像
         let logo = getNewSpriteImage(url + 'logo.png', { x: as_width * 0.83, y: as_height * 0.02, width: as_width * 0.15, height: as_width * 0.15 / 104 * 87 }, container1)
@@ -123,23 +123,14 @@ export default {
           dropShadowBlur: 2,
           dropShadowColor: '#981d15',
         })
+        //红包
+        getNewRed()
         let time_name = getNewText('游戏时间', style1, 20, 20, container3)
         let score_name = getNewText('游戏积分', style1, as_width - 15, 20, container3)
         score_name.anchor.set(1, 0)
         let timeText = getNewText(game_time, style2, 20, 43, container3)
         let scoreText = getNewText(game_score, style2, as_width - 15, 43, container3)
         scoreText.anchor.set(1, 0)
-        //红包
-        for (let i = 0; i < 6; i++) {
-
-          let x = as_width * i + Math.random() * as_width * 0.15
-          let y = as_height * 0.1 + Math.random() * as_height * 0.4 + as_height * (i % 3)
-          let dude = getNewSpriteImage(url + 'red.png', { x: x, y: y, width: as_width * 0.15, height: as_width * 0.15 / 122 * 162 }, container3)
-          dude.interactive = true
-          dude.buttonMode = true
-          dude.on('click', onButtonUp).on('touchend', onButtonUp)
-
-        }
 
         //新建容器和设置他们的基本属性
         function getNewContainer(args, parent) {
@@ -171,15 +162,28 @@ export default {
           parent.addChild(txt)
           return txt
         }
+        function getNewRed() {
+          for (let i = 0; i < totalDudes; i++) {
+            let x = Math.random() * as_width * 0.85
+            let y = Math.random() * as_height
+            let dude = getNewSpriteImage(url + 'red.png', { x: x, y: y, width: as_width * 0.15, height: as_width * 0.15 / 122 * 162 }, container3)
+            dude.direction = Math.random() * Math.PI / 2;
+            dude.speed = 2 + Math.random() * 2;
+            dude.interactive = true
+            dude.buttonMode = true
+            dude.on('click', onButtonUp).on('touchend', onButtonUp)
+            aliens.push(dude)
+          }
+        }
         //动作
         function onCheckScene() {
           container1.visible = false
+          container3.visible = true
           container2.visible = true
           let timer = setInterval(function () {
             if (bigNUm == 0) {
               clearInterval(timer)
               container2.visible = false
-              container3.visible = true
               game_start = true
               deleteTime()
               bigNUm = 3
@@ -200,15 +204,28 @@ export default {
           }, 1000)
         }
         function onButtonDown() {
-          console.log('1')
         }
-        function onButtonUp() {
-          game_score += 25
-          scoreText.text = game_score
+        function onButtonUp(e) {
+          if (game_time > 0) {
+            game_score += 25
+            scoreText.text = game_score
+            e.target.x = Math.random() * as_width * 0.85
+            e.target.y = -Math.random() * as_height
+          }
 
         }
         app.ticker.add(function () {
-
+          if (!game_start || game_time == 0) {
+            return
+          }
+          for (let i = 0; i < aliens.length; i++) {
+            let dude = aliens[i]
+            dude.y += 3 + Math.cos(dude.direction) * dude.speed;
+            if (dude.y > as_height) {
+              dude.x = Math.random() * as_width * 0.85
+              dude.y = Math.random() * as_height * 0.25 - as_height * 0.2
+            }
+          }
         });
       })
     }
