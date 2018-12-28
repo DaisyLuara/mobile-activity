@@ -7,10 +7,12 @@
       infinite-scroll-disabled="loading"
       infinite-scroll-distance="10"
     >
-      <div 
-        v-for="(item, index) in trends" 
-        :key="index" 
-        class="item-wrapper">
+      <div
+        @click="handleNaviToTrendDetail(item)"
+        v-for="(item, index) in trends"
+        :key="index"
+        class="item-wrapper"
+      >
         <img :src="item.image">
         <div class="title">{{ item.title }}</div>
         <div class="time">开始日期：{{ item.date }}</div>
@@ -61,6 +63,17 @@ export default {
   },
 
   methods: {
+    handleNaviToTrendDetail(item) {
+      this.$router.push({
+        name: "ActivityShopDetail",
+        params: {
+          mkey: this.$route.params.mkey
+        },
+        query: {
+          acid: item.acid
+        }
+      });
+    },
     loadMore() {
       this.loading = true;
       setTimeout(() => {

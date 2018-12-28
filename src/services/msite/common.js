@@ -14,20 +14,6 @@ const fetchMSiteBanners = (_this, payload) => {
   })
 }
 
-const fetchShopActivityList = (_this, payload) => {
-  const url = 'http://exelook.com/client/h5/useractivity/'
-  const params = {
-    params: {
-      ...payload
-    }
-  }
-  return new Promise((resolve, reject) => {
-    _this.$http.get(url, params).then(r => {
-      resolve(r)
-    }).catch(e => {
-      reject(e)
-    })
-  })
-}
 
-export { fetchMSiteBanners, fetchShopActivityList } 
+
+export { fetchMSiteBanners } 
