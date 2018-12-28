@@ -50,12 +50,11 @@
   </div>
 </template>
 <script>
-import { onlyWechatShare } from '../../mixins/onlyWechatShare'
-import { getInfoById } from 'services'
+import { normalPages } from "@/mixins/normalPages";
 const cdnUrl = process.env.CDN_URL
 import MC from 'mcanvas'
 export default {
-  mixins: [onlyWechatShare],
+  mixins: [normalPages],
   data() {
     return {
       baseUrl: cdnUrl + '/fe/marketing/img/dreamland/',
