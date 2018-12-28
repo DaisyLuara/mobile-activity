@@ -24,7 +24,7 @@ export default {
   data() {
     return {
       // must change before production
-      wechat: true
+      wechat: false
     };
   },
   created() {
