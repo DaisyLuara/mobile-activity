@@ -1,9 +1,7 @@
 <template>
   <div class="mHome">
     <router-view v-if="wechat === true && z !== ''"/>
-    <div 
-      v-if="wechat !== true" 
-      class="wx-remind">请在微信中打开</div>
+    <div v-if="wechat !== true" class="wx-remind">请在微信中打开</div>
   </div>
 </template>
 

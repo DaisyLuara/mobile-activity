@@ -134,6 +134,14 @@ const router = new Router({
             title: '商家活动'
           },
           component: () => import('@/pages/m/pages/activity/shop/index')
+        },
+        {
+          path: ':mkey/activity/shop/detail',
+          name: 'ActivityShopDetail',
+          meta: {
+            title: '商家活动详情',
+          },
+          component: () => import('@/pages/m/pages/activity/shop/detail')
         }
       ]
     }
