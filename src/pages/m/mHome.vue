@@ -46,8 +46,9 @@ export default {
         try {
           let r = await getUserInfoByCodeAndState(code, state);
           if (typeof r.data.results === "object") {
-            let savedLoginState = JSON.parse(JSON.stringify(r.data.results));
+            let savedLoginState = r.data.results;
             this.setLoginState(savedLoginState);
+            window.location.reload();
           } else {
             // console.log(r);
             // Toast(r.data.results);

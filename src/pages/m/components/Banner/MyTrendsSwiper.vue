@@ -1,5 +1,5 @@
 <template>
-  <div class="mts">
+  <div class="mts" v-if="imgUrls.length > 0">
     <swiper ref="mySwiper" :options="swiperOption" class="swiper">
       <swiper-slide v-for="(item, index) of imgUrls" :key="index">
         <img :src="item.image" class="slide-pic" @click="handlePhotoClick(item)">
@@ -27,17 +27,16 @@ export default {
           el: ".swiper-pagination"
         }
       },
-      imgUrls: [
-        "http://cdn.exe666.com/fe/hidol/img/sample/1.jpg",
-        "http://cdn.exe666.com/fe/hidol/img/sample/2.jpg",
-        "http://cdn.exe666.com/fe/hidol/img/sample/3.jpg"
-      ]
+      imgUrls: []
     };
   },
   computed: {
     ...mapGetters(["z"])
   },
   mounted() {
+    if (this.z === "") {
+      return;
+    }
     this.fetchTrendsSwiperInfo();
   },
   methods: {
