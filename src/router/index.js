@@ -107,7 +107,7 @@ const router = new Router({
           path: ':mkey/trends/index',
           name: 'TrendsIndex',
           meta: {
-            title: '我的足迹'
+            title: '我的照片'
           },
           component: () => import('@/pages/m/pages/trends/index/index')
         },
@@ -115,7 +115,7 @@ const router = new Router({
           path: ':mkey/trends/detail',
           name: 'TrendsDetail',
           meta: {
-            title: '足迹详情'
+            title: '照片详情'
           },
           component: () => import('@/pages/m/pages/trends/detail/index')
         },

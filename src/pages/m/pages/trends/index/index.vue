@@ -11,7 +11,7 @@
         <TrendPhoto
           :image="item.avr.image"
           :title="item.avr.title"
-          :date="item.avr.date"
+          :clientdate="item.avr.clientdate"
           :avrid="item.avr.avrid"
         />
       </div>
@@ -39,6 +39,9 @@ export default {
   },
 
   created() {
+    if (this.z === "") {
+      return;
+    }
     this.fetchList();
     Vue.use(InfiniteScroll);
     console.log("trendindex");
