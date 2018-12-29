@@ -39,7 +39,7 @@ export default {
   computed: {
     buttonTitle() {
       if (Number(this.acid) > 0) {
-        return "查看活动详情";
+        return "活动详情";
       } else {
         return "";
       }

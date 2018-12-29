@@ -21,7 +21,7 @@ export default {
   data() {
     return {
       // must change before production
-      wechat: false
+      wechat: process.env.NODE_ENV === "production" ? false : true
     };
   },
   computed: {

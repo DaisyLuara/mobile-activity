@@ -183,9 +183,6 @@ export default {
     padding: 16px;
     width: 100%;
     font-size: 0.14rem;
-    img {
-      width: 3.75rem;
-    }
   }
 }
 </style>

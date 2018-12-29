@@ -101,7 +101,7 @@ export default {
       }
       .mname {
         color: rgba(13, 13, 13, 1);
-        font-size: 0.14rem;
+        font-size: 0.1rem;
         font-weight: 400;
         margin: 0.05rem 0;
       }
