@@ -38,7 +38,7 @@ export default {
         return "";
       } else {
         let cld = moment(Number(this.resData.sdate) * 1000);
-        return cld.format("YYYY-MM-DD");
+        return cld.format("YYYY-MM-DD hh:mm");
       }
     },
     endTime() {
@@ -46,7 +46,7 @@ export default {
         return "";
       } else {
         let cld = moment(Number(this.resData.edate) * 1000);
-        return cld.format("YYYY-MM-DD");
+        return cld.format("YYYY-MM-DD hh:mm");
       }
     }
   },
@@ -116,6 +116,7 @@ export default {
   align-items: center;
   background: rgba(243, 243, 243, 1);
   min-height: 100vh;
+  padding-bottom: 40px;
   .info {
     padding: 16px;
     width: 100%;
