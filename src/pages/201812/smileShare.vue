@@ -112,7 +112,7 @@ export default {
       hasUsed: false,
       atm1: true,
       atm2: false,
-      // coupon_batch_id: this.$route.query.coupon_batch_id,
+      coupon_batch_id: this.$route.query.coupon_batch_id,
       id: this.$route.query.id,
       // oid: this.$route.query.utm_source,
       couponBatchIdDirty: false,
@@ -132,12 +132,6 @@ export default {
         }
       }
     };
-  },
-  watch: {
-    parms() {
-      this.couponBatchIdDirty = true;
-      //this.checkCouponIsUse()
-    },
   },
   mounted() {
     //微信授权
