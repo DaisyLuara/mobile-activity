@@ -1,12 +1,12 @@
 <template>
   <div class="trend-detail">
-    <TrendsTopBar 
-      v-if="resData.image !== ''" 
-      :title="resData.title" 
-      :time="resData.date"/>
-    <img 
-      :src="resData.image" 
-      class="photo">
+    <TrendsTopBar
+      v-if="resData.image !== ''"
+      :title="resData.title"
+      :mname="resData.mname"
+      :time="resData.date"
+    />
+    <img :src="resData.image" class="photo">
     <XiaoOuFooter/>
     <TrendsBottomBar
       @onTrendDelete="handleTrendDeleteModalShow"
@@ -18,9 +18,7 @@
       @onHandleModalHide="handleModalHide"
       @handleDeleteConfirm="handleTrendDeleteConfirm"
     />
-    <SharePhotoModal 
-      :show="shouldShareModalShow" 
-      @onHandleShareModalHide="handleShareModalHide"/>
+    <div class="blank-holder"></div>
   </div>
 </template>
 
@@ -30,7 +28,6 @@ import TrendsBottomBar from "@/pages/m/components/Static/TrendsBottomBar";
 import TrendsBottomBlankHolder from "@/pages/m/components/Static/TrendsBottomBlankHolder";
 import XiaoOuFooter from "@/pages/m/components/Static/XiaoOuFooter";
 import DeletePhotoModal from "@/pages/m/components/Reminder/DeletePhotoModal";
-import SharePhotoModal from "@/pages/m/components/Reminder/SharePhotoModal";
 import { mapGetters, mapMutations } from "vuex";
 import { getHdInfo, deleteATrend } from "services";
 import { Toast } from "mint-ui";
@@ -40,8 +37,7 @@ export default {
     TrendsBottomBar,
     XiaoOuFooter,
     TrendsBottomBlankHolder,
-    DeletePhotoModal,
-    SharePhotoModal
+    DeletePhotoModal
   },
   data() {
     return {
@@ -132,6 +128,11 @@ export default {
   .photo {
     margin-top: 0.2rem;
     width: 95%;
+  }
+  .blank-holder {
+    width: 100%;
+    background: transparent;
+    height: 0.8rem;
   }
 }
 </style>

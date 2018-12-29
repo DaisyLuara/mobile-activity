@@ -6,12 +6,11 @@
       </div>
       <div class="location">
         <div class="place">{{ title }}</div>
+        <div class="mname">{{ mname }}</div>
         <div class="time">{{ time }}</div>
       </div>
     </div>
-    <div 
-      class="button" 
-      @click="handleNaviToMoreTrends">更多足迹</div>
+    <div class="button" @click="handleNaviToMoreTrends">更多照片</div>
   </div>
 </template>
 
@@ -25,6 +24,11 @@ export default {
       required: true
     },
     time: {
+      type: String,
+      default: "",
+      required: true
+    },
+    mname: {
       type: String,
       default: "",
       required: true
@@ -94,6 +98,12 @@ export default {
         font-size: 0.13rem;
         color: rgba(13, 13, 13, 1);
         font-weight: 400;
+      }
+      .mname {
+        color: rgba(13, 13, 13, 1);
+        font-size: 0.14rem;
+        font-weight: 400;
+        margin: 0.05rem 0;
       }
       .time {
         color: rgba(204, 204, 204, 1);
