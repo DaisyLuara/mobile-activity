@@ -115,7 +115,6 @@ export default {
       coupon_batch_id: this.$route.query.coupon_batch_id,
       id: this.$route.query.id,
       // oid: this.$route.query.utm_source,
-      couponBatchIdDirty: false,
       qrcodeImg: null,
       couponImg: null,
       params: {
@@ -182,14 +181,9 @@ export default {
     },
     //上传成功之后的操作
     toResult() {
-      let that = this
-      that.atm2 = true;
-      that.atm1 = false;
-      if (that.couponBatchIdDirty) {
-        that.couponBatchIdDirty = fasle
-        this.checkCouponIsUse()
-      }
-
+      this.atm2 = true;
+      this.atm1 = false;
+      this.checkCouponIsUse()
     },
     failure() {
       this.atm2 = false
