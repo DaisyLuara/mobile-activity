@@ -10,6 +10,7 @@
     <TrendsBottomBar
       @onTrendDelete="handleTrendDeleteModalShow"
       @onTrendShare="handleShareModalShare"
+      :acid="Number(resData.acid)"
     />
     <TrendsBottomBlankHolder/>
     <DeletePhotoModal
@@ -18,18 +19,22 @@
       @handleDeleteConfirm="handleTrendDeleteConfirm"
     />
     <SharePhotoModal :show="shouldShareModalShow" @onHandleShareModalHide="handleShareModalHide"/>
+
+    <div class="info" v-html="infolink"></div>
+    <div class="info" v-html="pslink"></div>
     <div class="blank-holder"></div>
   </div>
 </template>
 
 <script>
+import "./extraStyle.less";
 import TrendsTopBar from "@/pages/m/components/Static/TrendsTopBar";
 import TrendsBottomBar from "@/pages/m/components/Static/TrendsBottomBar";
 import TrendsBottomBlankHolder from "@/pages/m/components/Static/TrendsBottomBlankHolder";
 import DeletePhotoModal from "@/pages/m/components/Reminder/DeletePhotoModal";
 import SharePhotoModal from "@/pages/m/components/Reminder/SharePhotoModal";
 import { mapGetters, mapMutations } from "vuex";
-import { getHdInfo, deleteATrend } from "services";
+import { getHdInfo, deleteATrend, fetchShopActivityDetail } from "services";
 import { Toast } from "mint-ui";
 export default {
   components: {
@@ -47,8 +52,15 @@ export default {
       resData: {
         image: "",
         title: "",
-        date: ""
-      }
+        date: "",
+        acid: 0
+      },
+      actDetail: {
+        infolink: "",
+        pslink: ""
+      },
+      infolink: "",
+      pslink: ""
     };
   },
 
@@ -72,6 +84,20 @@ export default {
       try {
         let r = await getHdInfo(payload);
         this.resData = r.data.results;
+        if (Number(this.resData.acid) > 0) {
+          let actDetailPayload = {
+            actid: this.resData.acid,
+            z: this.z,
+            api: "json"
+          };
+          let ractDetail = await fetchShopActivityDetail(
+            this,
+            actDetailPayload
+          );
+          this.actDetail = ractDetail.data.results;
+          this.infolink = await this.loadPage(this.actDetail.infolink);
+          this.pslink = await this.loadPage(this.actDetail.pslink);
+        }
       } catch (e) {
         console.log(e);
       }
@@ -112,6 +138,25 @@ export default {
     },
     handleShareModalShare() {
       this.shouldShareModalShow = true;
+    },
+    loadPage(url) {
+      if (url && url.length > 0 && url !== null) {
+        // 加载中
+        let param = {
+          accept: "text/html, text/plain"
+        };
+        return new Promise((resolve, reject) => {
+          this.$http
+            .get(url, param)
+            .then(response => {
+              // 处理HTML显示
+              resolve(response.data);
+            })
+            .catch(() => {
+              reject("加载失败");
+            });
+        });
+      }
     }
   }
 };
@@ -133,6 +178,14 @@ export default {
     width: 100%;
     background: transparent;
     height: 0.8rem;
+  }
+  .info {
+    padding: 16px;
+    width: 100%;
+    font-size: 0.14rem;
+    img {
+      width: 3.75rem;
+    }
   }
 }
 </style>
