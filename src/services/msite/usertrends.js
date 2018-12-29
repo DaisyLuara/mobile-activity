@@ -1,6 +1,6 @@
 import axios from 'axios'
 const getUserTrends = (payload) => {
-  const url = 'http://exelook.com/client/usertrends/'
+  const url = 'http://exelook.com/client/h5/userphoto/'
   return new Promise((resolve, reject) => {
     const requestParams = {
       params: {

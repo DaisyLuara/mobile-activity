@@ -7,10 +7,7 @@
       infinite-scroll-disabled="loading"
       infinite-scroll-distance="10"
     >
-      <div 
-        v-for="(item, index) in trends" 
-        :key="index" 
-        class="item-wrapper">
+      <div v-for="(item, index) in trends" :key="index" class="item-wrapper">
         <TrendPhoto
           :image="item.avr.image"
           :title="item.avr.title"
@@ -81,10 +78,11 @@ export default {
         return;
       }
       let payload = {
-        z: this.z,
         api: "json",
+        cp: this.currentPage,
         size: 10,
-        cp: this.currentPage
+        mkey: this.$route.params.mkey,
+        z: this.z
       };
       getUserTrends(payload)
         .then(r => {
