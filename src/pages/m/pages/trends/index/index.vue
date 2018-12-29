@@ -9,10 +9,10 @@
     >
       <div v-for="(item, index) in trends" :key="index" class="item-wrapper">
         <TrendPhoto
-          :image="item.avr.image"
-          :title="item.avr.title"
-          :clientdate="item.avr.clientdate"
-          :avrid="item.avr.avrid"
+          :image="item.image"
+          :title="item.title"
+          :clientdate="item.clientdate"
+          :avrid="item.avrid"
         />
       </div>
     </ul>
