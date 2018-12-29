@@ -131,7 +131,7 @@ const router = new Router({
           path: ':mkey/activity/shop',
           name: 'ActivityShop',
           meta: {
-            title: '商家活动'
+            title: '热门活动'
           },
           component: () => import('@/pages/m/pages/activity/shop/index')
         },
@@ -139,7 +139,7 @@ const router = new Router({
           path: ':mkey/activity/shop/detail',
           name: 'ActivityShopDetail',
           meta: {
-            title: '商家活动详情',
+            title: '热门活动详情',
           },
           component: () => import('@/pages/m/pages/activity/shop/detail')
         }
