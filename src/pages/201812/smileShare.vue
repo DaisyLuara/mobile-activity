@@ -136,10 +136,8 @@ export default {
   watch: {
     parms() {
       this.couponBatchIdDirty = true;
+      //this.checkCouponIsUse()
     },
-    // coupon_batch_id() {
-    //   this.couponBatchIdDirty = true;
-    // }
   },
   mounted() {
     //微信授权
