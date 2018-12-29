@@ -81,7 +81,6 @@ export default {
   watch: {
     parms() {
       this.couponType = this.parms.couponType
-      this.show()
     }
   },
   mounted() {

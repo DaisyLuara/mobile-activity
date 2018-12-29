@@ -143,11 +143,6 @@ export default {
       }
     }
   },
-  watch: {
-    parms() {
-      this.checkCouponIsUse()
-    }
-  },
   mounted() {
     //分享页处理
     if (this.$route.query.hasOwnProperty('type')) {
