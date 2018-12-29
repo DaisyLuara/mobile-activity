@@ -132,6 +132,11 @@ export default {
       }
     };
   },
+  watch: {
+    parms() {
+      this.checkCouponIsUse()
+    }
+  },
   mounted() {
     //微信授权
     if (isInWechat() === true) {
