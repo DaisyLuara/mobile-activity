@@ -98,6 +98,11 @@ export default {
       }
     }
   },
+  watch: {
+    parms() {
+      this.checkCouponIsUse()
+    }
+  },
   mounted() {
     let height = this.$innerHeight()
     if (height > 672) {
