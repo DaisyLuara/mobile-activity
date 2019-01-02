@@ -7,22 +7,21 @@
       :src="baseUrl + 'top.png'+ this.$qiniuCompress()"
       class="topImg"
     >
-    <img
-      :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
-      :class="{'x-frame':iphoneX,'frame':!iphoneX}"
-      class="frame"
-    >
-    <img
-      v-if="photo !== null"
-      :src="photo + this.$qiniuCompress()"
-      :class="{'x-photo':iphoneX,'photo':!iphoneX}"
-      class="photo"
-    >
-    <img
-      :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
-      :class="{'x-save':iphoneX,'save':!iphoneX}"
-      class="save"
-    >
+    <div class="contain">
+      <img
+        :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
+        class="frame"
+      >
+      <img
+        v-if="photo !== null"
+        :src="photo + this.$qiniuCompress()"
+        class="photo"
+      >
+      <img
+        :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
+        class="save"
+      >
+    </div>
   </div>
 </template>
 <script>
@@ -47,13 +46,6 @@ export default {
       }
     };
   },
-  mounted() {
-    if (this.$innerHeight() > 672) {
-      this.iphoneX = true;
-    } else {
-      this.iphoneX = false;
-    }
-  }
 };
 </script>
 
@@ -79,8 +71,10 @@ img {
   max-width: 100%;
 }
 .root {
-  width: 100%;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
   position: relative;
   overflow: hidden;
   background-image: url("@{imageHost}bg.png");
@@ -89,42 +83,30 @@ img {
   background-repeat: no-repeat;
   .topImg {
     width: 100%;
-  }
-  .frame {
-    width: 70%;
     position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-49%, -54%);
+    left: 0%;
+    top: 0%;
   }
-  .x-frame {
-    transform: translate(-49%, -63%);
-  }
-  .save {
-    width: 50%;
-    position: absolute;
-    left: 26%;
-    bottom: 0.5%;
-    animation: arrow 0.5s linear infinite alternate;
-  }
-  .x-save {
-    width: 55%;
-    position: absolute;
-    left: 23.5%;
-    bottom: 14.5%;
-    animation: arrow 0.5s linear infinite alternate;
-  }
-  .photo {
-    width: 64.5%;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-49%, -46.6%);
-    pointer-events: auto;
-    user-select: auto;
-  }
-  .x-photo {
-    transform: translate(-49%, -57.6%);
+  .contain {
+    position: relative;
+    margin-top: 5%;
+    .frame {
+      width: 70%;
+    }
+    .save {
+      width: 50%;
+      margin-top: 1%;
+      animation: arrow 0.5s linear infinite alternate;
+    }
+    .photo {
+      width: 64.5%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -47.6%);
+      pointer-events: auto;
+      user-select: auto;
+    }
   }
 }
 @keyframes arrow {
