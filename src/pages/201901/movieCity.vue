@@ -8,10 +8,6 @@
       :src="couponImg+ this.$qiniuCompress()"
       class="couponImg"
     >
-    <!-- <img
-      :src="baseUrl + '3.png'+ this.$qiniuCompress()"
-      class="couponImg"
-    > -->
     <div class="center">
       <img
         :src="baseUrl + '1.png'+ this.$qiniuCompress()"
@@ -22,10 +18,6 @@
         :src="qrcodeImg+ this.$qiniuCompress()"
         class="ewm"
       >
-      <!-- <img
-        :src="baseUrl + 'ewm.jpeg'+ this.$qiniuCompress()"
-        class="ewm"
-      > -->
       <!-- 已使用 -->
       <img
         v-if="hasUsed"
@@ -68,12 +60,6 @@ export default {
         user_id: null
       },
       hasUsed: false,
-      // wxShareInfoValue: {
-      //   title: '刷脸享优惠，畅快看大片！',
-      //   desc: '太禾影城等你来嗨玩！',
-      //   link: 'http://papi.xingstation.com/api/s/zK8' + window.location.search,
-      //   imgUrl: cdnUrl + '/fe/marketing/img/movie_city/icon.jpg'
-      // }
     }
   },
   watch: {
