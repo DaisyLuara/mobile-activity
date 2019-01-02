@@ -51,6 +51,7 @@ import {
   formatTimestamp
 } from 'services'
 const cdnUrl = process.env.CDN_URL
+const dayjs = require('dayjs')
 export default {
   mixins: [onlyGetPhoto],
   data() {
@@ -71,8 +72,8 @@ export default {
       couponImg: null,
       qrcodeImg: null,
       code: null,
-      // couponID: ['116', '117'],
-      couponID: ['31', '32'],
+      couponID: ['116', '117'],
+      //couponID: ['31', '32'],
       new_coupon_batch_id: null,
       params: {
         user_id: null
@@ -82,10 +83,15 @@ export default {
       wxShareInfoValue: {
         title: '四云奶盖贡茶请你喝奶茶了！',
         desc: '点击即可领福利',
-        //link: 'http://papi.xingstation.com/api/s/913' + window.location.search,
-        link: 'http://papi.newgls.cn/api/s/Lg4' + window.location.search,
+        link: 'http://papi.xingstation.com/api/s/913' + window.location.search,
+        //link: 'http://papi.newgls.cn/api/s/Lg4' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/tiger/icon.png'
       }
+    }
+  },
+  watch: {
+    parms() {
+      this.checkCouponIsUse()
     }
   },
   mounted() {
@@ -162,14 +168,16 @@ export default {
               coupon_batch_id: this.coupon_batch_id,
               include: 'couponBatch'
             }
-            args.start_date = dateFormat(
-              new Date(formatTimestamp(data, true)),
-              'yyyy-MM-dd hh:mm:ss'
-            )
-            args.end_date = dateFormat(
-              new Date(formatTimestamp(data, false) - 1000),
-              'yyyy-MM-dd hh:mm:ss'
-            )
+            // args.start_date = dateFormat(
+            //   new Date(formatTimestamp(data, true)),
+            //   'yyyy-MM-dd hh:mm:ss'
+            // )
+            // args.end_date = dateFormat(
+            //   new Date(formatTimestamp(data, false) - 1000),
+            //   'yyyy-MM-dd hh:mm:ss'
+            // )
+            args.start_date = dayjs(new Date(formatTimestamp(data, true))).format('YYYY-MM-DD HH:mm:ss')
+            args.end_date = dayjs(new Date(formatTimestamp(data, false) - 1000)).format('YYYY-MM-DD HH:mm:ss')
             checkGetCoupon(args)
               .then(res => {
                 if (res) {

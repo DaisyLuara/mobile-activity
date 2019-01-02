@@ -96,6 +96,7 @@ import {
   dateFormat,
   formatTimestamp} from 'services'
 const cdnUrl = process.env.CDN_URL;
+const dayjs = require('dayjs');
 export default {
   mixins: [normalPages],
   data() {
@@ -112,7 +113,7 @@ export default {
       hasUsed: false,
       atm1: true,
       atm2: false,
-      // coupon_batch_id: this.$route.query.coupon_batch_id,
+      coupon_batch_id: this.$route.query.coupon_batch_id,
       id: this.$route.query.id,
       // oid: this.$route.query.utm_source,
       qrcodeImg: null,
@@ -181,10 +182,9 @@ export default {
     },
     //上传成功之后的操作
     toResult() {
-      let that = this
-      that.atm2 = true,
-        that.atm1 = false,
-        this.checkCouponIsUse()
+      this.atm2 = true;
+      this.atm1 = false;
+      this.checkCouponIsUse()
     },
     failure() {
       this.atm2 = false
@@ -208,14 +208,16 @@ export default {
               coupon_batch_id: this.coupon_batch_id,
               include: 'couponBatch'
             }
-            args.start_date = dateFormat(
-              new Date(formatTimestamp(data, true)),
-              'yyyy-MM-dd hh:mm:ss'
-            )
-            args.end_date = dateFormat(
-              new Date(formatTimestamp(data, false) - 1000),
-              'yyyy-MM-dd hh:mm:ss'
-            )
+            // args.start_date = dateFormat(
+            //   new Date(formatTimestamp(data, true)),
+            //   'yyyy-MM-dd hh:mm:ss'
+            // )
+            // args.end_date = dateFormat(
+            //   new Date(formatTimestamp(data, false) - 1000),
+            //   'yyyy-MM-dd hh:mm:ss'
+            // )
+            args.start_date = dayjs(new Date(formatTimestamp(data, true))).format('YYYY-MM-DD HH:mm:ss')
+            args.end_date = dayjs(new Date(formatTimestamp(data, false) - 1000)).format('YYYY-MM-DD HH:mm:ss')
             checkGetCoupon(args)
               .then(res => {
                 console.log('checkGetCoupon', res)

@@ -3,7 +3,26 @@
     :style="style.root"
     class="root"
   >
-
+    <img
+      :src="baseUrl + 'top.png'+ this.$qiniuCompress()"
+      class="topImg"
+    >
+    <img
+      :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
+      :class="{'x-frame':iphoneX,'frame':!iphoneX}"
+      class="frame"
+    >
+    <img
+      v-if="photo !== null"
+      :src="photo + this.$qiniuCompress()"
+      :class="{'x-photo':iphoneX,'photo':!iphoneX}"
+      class="photo"
+    >
+    <img
+      :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
+      :class="{'x-save':iphoneX,'save':!iphoneX}"
+      class="save"
+    >
   </div>
 </template>
 <script>
@@ -23,7 +42,7 @@ export default {
       wxShareInfoValue: {
         title: "猪年来缤纷城福气满满！",
         desc: "点击领取福气美照 ",
-        link: "http://papi.xingstation.com/api/s/lx6" + window.location.search,
+        link: "http://papi.xingstation.com/api/s/Ogg" + window.location.search,
         imgUrl: cdnUrl + "/fe/marketing/img/pig_green/icon.png",
       }
     };
@@ -64,10 +83,49 @@ img {
   text-align: center;
   position: relative;
   overflow: hidden;
-  background-image: url("@{imageHost}bg2.png");
-  background-size: 100% 100%;
+  background-image: url("@{imageHost}bg.png");
+  background-size: 100% auto;
   background-position: center bottom;
   background-repeat: no-repeat;
+  .topImg {
+    width: 100%;
+  }
+  .frame {
+    width: 70%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-49%, -54%);
+  }
+  .x-frame {
+    transform: translate(-49%, -63%);
+  }
+  .save {
+    width: 50%;
+    position: absolute;
+    left: 26%;
+    bottom: 0.5%;
+    animation: arrow 0.5s linear infinite alternate;
+  }
+  .x-save {
+    width: 55%;
+    position: absolute;
+    left: 23.5%;
+    bottom: 14.5%;
+    animation: arrow 0.5s linear infinite alternate;
+  }
+  .photo {
+    width: 64.5%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-49%, -46.6%);
+    pointer-events: auto;
+    user-select: auto;
+  }
+  .x-photo {
+    transform: translate(-49%, -57.6%);
+  }
 }
 @keyframes arrow {
   0% {

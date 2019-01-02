@@ -59,6 +59,7 @@ import {
   formatTimestamp
 } from 'services'
 const cdnUrl = process.env.CDN_URL
+const dayjs = require('dayjs')
 export default {
   mixins: [onlyGetPhoto],
   data() {
@@ -84,6 +85,11 @@ export default {
       //   link: 'http://papi.xingstation.com/api/s/zK8' + window.location.search,
       //   imgUrl: cdnUrl + '/fe/marketing/img/taihe/icon.jpg'
       // }
+    }
+  },
+  watch: {
+    parms() {
+      this.checkCouponIsUse()
     }
   },
   mounted() {
@@ -147,14 +153,16 @@ export default {
               coupon_batch_id: this.coupon_batch_id,
               include: 'couponBatch'
             }
-            args.start_date = dateFormat(
-              new Date(formatTimestamp(data, true)),
-              'yyyy-MM-dd hh:mm:ss'
-            )
-            args.end_date = dateFormat(
-              new Date(formatTimestamp(data, false) - 1000),
-              'yyyy-MM-dd hh:mm:ss'
-            )
+            // args.start_date = dateFormat(
+            //   new Date(formatTimestamp(data, true)),
+            //   'yyyy-MM-dd hh:mm:ss'
+            // )
+            // args.end_date = dateFormat(
+            //   new Date(formatTimestamp(data, false) - 1000),
+            //   'yyyy-MM-dd hh:mm:ss'
+            // )
+            args.start_date = dayjs(new Date(formatTimestamp(data, true))).format('YYYY-MM-DD HH:mm:ss')
+            args.end_date = dayjs(new Date(formatTimestamp(data, false) - 1000)).format('YYYY-MM-DD HH:mm:ss')
             checkGetCoupon(args)
               .then(res => {
                 if (res) {
