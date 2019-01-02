@@ -54,8 +54,8 @@ export default {
       // coupon_batch_id: this.$route.query.coupon_batch_id,
       // oid: this.$route.query.utm_source,
       id: this.$route.query.id,
-      //couponID: ['111', '112', '113', '114'],
-      couponID: ['28', '29'],
+      couponID: ['111', '112', '113', '114'],
+      //couponID: ['28', '29'],
       new_coupon_batch_id: null,
       qrcodeImg: null,
       hasUsed: false,
@@ -65,8 +65,8 @@ export default {
       wxShareInfoValue: {
         title: "笑容还能换钱花？测一测你的笑容值多少钱。",
         desc: "错过今天，再等N年。",
-        //link: "http://papi.xingstation.com/api/s/3QQ" + window.location.search,
-        link: "http://papi.newgls.cn/api/s/JZo" + window.location.search,
+        link: "http://papi.xingstation.com/api/s/3QQ" + window.location.search,
+        //link: "http://papi.newgls.cn/api/s/JZo" + window.location.search,
         imgUrl: cdnUrl + "/fe/marketing/img/simle_atm/icon.jpg",
         success: () => {
           wechatShareTrack();
