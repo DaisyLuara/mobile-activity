@@ -1,0 +1,101 @@
+// 底部的按钮
+<template>
+  <div class="btb" v-if="menuCode !== '00000'">
+    <div class="bitem" v-if="menuCode[0] === '1'" @click="handleMenuClick('TrendsIndex')">
+      <img :src="photo" v-if="currentRoute !== 'TrendsIndex'">
+      <img :src="photo_p" v-if="currentRoute === 'TrendsIndex'">
+      <span>照片</span>
+    </div>
+    <div class="bitem" v-if="menuCode[1] === '1'" @click="handleMenuClick('ActivityShop')">
+      <img :src="act" v-if="currentRoute !== 'ActivityShop'">
+      <img :src="act_p" v-if="currentRoute === 'ActivityShop'">
+      <span>活动</span>
+    </div>
+    <div class="bitem" v-if="menuCode[2] === '1'" @click="handleMenuClick('MallIndex')">
+      <img :src="mall" v-if="currentRoute !== 'MallIndex'">
+      <img :src="mall_p" v-if="currentRoute === 'MallIndex'">
+      <span>商城</span>
+    </div>
+    <div class="bitem" v-if="menuCode[3] === '1'" @click="handleMenuClick('CardIndex')">
+      <img :src="card" v-if="currentRoute !== 'CardIndex'">
+      <img :src="card_p" v-if="currentRoute === 'CardIndex'">
+      <span>卡包</span>
+    </div>
+    <div class="bitem" v-if="menuCode[4] === '1'" @click="handleMenuClick('MyIndex')">
+      <img :src="my" v-if="currentRoute !== 'MyIndex'">
+      <img :src="my_p" v-if="currentRoute === 'MyIndex'">
+      <span>我的</span>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      photo: "https://cdn.exe666.com/fe/image/m/btn_photo_normal@3x.png",
+      photo_p: "https://cdn.exe666.com/fe/image/m/btn_photo_pressed@3x.png",
+      act: "https://cdn.exe666.com/fe/image/m/btn_sale_normal@3x.png",
+      act_p: "https://cdn.exe666.com/fe/image/m/btn_sale_pressed@3x.png",
+      mall: "https://cdn.exe666.com/fe/image/m/btn_mall_normal@3x.png",
+      mall_p: "https://cdn.exe666.com/fe/image/m/btn_mall_pressed@3x.png",
+      card: "https://cdn.exe666.com/fe/image/m/btn_card_normal@3x.png",
+      card_p: "https://cdn.exe666.com/fe/image/m/btn_card_pressed@3x.png",
+      my: "https://cdn.exe666.com/fe/image/m/btn_my_normal@3x.png",
+      my_p: "https://cdn.exe666.com/fe/image/m/btn_my_pressed@3x.png"
+    };
+  },
+  computed: {
+    menuCode() {
+      let ten = this.$route.params.mcode;
+      if (ten === undefined) {
+        return "00000";
+      } else {
+        let bi = parseInt(ten).toString(2) || "00000";
+        return bi;
+      }
+    },
+    currentRoute() {
+      return this.$route.name;
+    }
+  },
+  methods: {
+    handleMenuClick(routerName) {
+      this.$router.push({
+        name: routerName,
+        params: this.$route.params
+      });
+    }
+  }
+};
+</script>
+
+<style lang="less" scoped>
+.btb {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 3.75rem;
+  height: 0.48rem;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.16);
+  z-index: 10000;
+  padding: 0 0.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  .bitem {
+    height: 100%;
+    width: 0.3rem;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    font-size: 0.08rem;
+    img {
+      width: 0.25rem;
+      height: 0.25rem;
+    }
+  }
+}
+</style>

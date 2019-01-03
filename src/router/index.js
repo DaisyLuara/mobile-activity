@@ -104,7 +104,7 @@ const router = new Router({
       component: () => import('@/pages/m/mHome'),
       children: [
         {
-          path: ':mkey/trends/index',
+          path: ':mkey/:mcode/trends/index',
           name: 'TrendsIndex',
           meta: {
             title: '我的照片'
@@ -112,7 +112,7 @@ const router = new Router({
           component: () => import('@/pages/m/pages/trends/index/index')
         },
         {
-          path: ':mkey/trends/detail',
+          path: ':mkey/:mcode/trends/detail',
           name: 'TrendsDetail',
           meta: {
             title: '照片详情'
@@ -120,7 +120,7 @@ const router = new Router({
           component: () => import('@/pages/m/pages/trends/detail/index')
         },
         {
-          path: ':mkey/theme/index',
+          path: ':mkey/:mcode/theme/index',
           name: 'ThemeIndex',
           meta: {
             title: '主题详情'
@@ -128,7 +128,7 @@ const router = new Router({
           component: () => import('@/pages/m/pages/activity/theme/index')
         },
         {
-          path: ':mkey/activity/shop',
+          path: ':mkey/:mcode/activity/shop',
           name: 'ActivityShop',
           meta: {
             title: '热门活动'
@@ -136,12 +136,20 @@ const router = new Router({
           component: () => import('@/pages/m/pages/activity/shop/index')
         },
         {
-          path: ':mkey/activity/shop/detail',
+          path: ':mkey/:mcode/activity/shop/detail',
           name: 'ActivityShopDetail',
           meta: {
             title: '热门活动详情',
           },
           component: () => import('@/pages/m/pages/activity/shop/detail')
+        },
+        {
+          path: ':mkey/:mcode/activity/shop/progress',
+          name: 'ActivityShopAllTopProgress',
+          meta: {
+            title: '投票活动进度'
+          },
+          component: () => import('@/pages/m/pages/activity/theme/alltop')
         }
       ]
     }

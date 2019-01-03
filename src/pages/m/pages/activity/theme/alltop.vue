@@ -1,6 +1,5 @@
 <template>
-  <div class="trends">
-    <MyTrendsSwiper/>
+  <div class="alltop">
     <ul
       v-infinite-scroll="loadMore"
       class="trends-wrapper"
@@ -8,7 +7,7 @@
       infinite-scroll-distance="10"
     >
       <div v-for="(item, index) in trends" :key="index" class="item-wrapper">
-        <TrendPhoto
+        <ThemeVoteItem
           :image="item.image"
           :title="item.title"
           :clientdate="item.clientdate"
@@ -16,28 +15,16 @@
         />
       </div>
     </ul>
-
-    <BottomBar/>
   </div>
 </template>
 
 <script>
 import Vue from "vue";
-import TrendPhoto from "@/pages/m/components/ListItem/TrendPhoto";
-import MyTrendsSwiper from "@/pages/m/components/Banner/MyTrendsSwiper";
-import { InfiniteScroll } from "mint-ui";
-import { getUserTrends } from "services";
 import { mapGetters } from "vuex";
-import BottomBar from "@/pages/m/components/Static/BottomBar";
+import { InfiniteScroll } from "mint-ui";
+import { fetchShopActivityProgress } from "services";
+import ThemeVoteItem from "@/pages/m/components/ListItem/ThemeVoteItem";
 export default {
-  name: "TrendsIndex",
-
-  components: {
-    TrendPhoto,
-    MyTrendsSwiper,
-    BottomBar
-  },
-
   data() {
     return {
       bindBottomDistance: 0,
@@ -48,27 +35,23 @@ export default {
       trends: []
     };
   },
-
+  components: {
+    ThemeVoteItem
+  },
   computed: {
     ...mapGetters(["z"])
   },
-
   created() {
-    if (this.z === "") {
-      return;
-    }
-    this.fetchList();
     Vue.use(InfiniteScroll);
   },
-
   mounted() {
     this.currentPage = 1;
     this.isLoading = false;
     this.isAllLoaded = false;
     this.trends = [];
     this.bindBottomDistance = (this.$parent.screenWidth / 375) * 100 * 0.48;
+    this.fetchList();
   },
-
   methods: {
     loadMore() {
       this.loading = true;
@@ -84,11 +67,12 @@ export default {
         api: "json",
         cp: this.currentPage,
         size: 10,
-        mkey: this.$route.params.mkey,
+        awardkey: this.$route.query.awardkey,
         z: this.z
       };
-      getUserTrends(payload)
+      fetchShopActivityProgress(payload)
         .then(r => {
+          console.dir(r);
           let res = r.data.results.data;
           this.isLoading = false;
           this.trends = this.trends.concat(res);
@@ -106,10 +90,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.mint-loadmore-bottom {
-  font-size: 0.14rem !important;
-}
-.trends {
+.alltop {
   position: relative;
   width: 100%;
   .trends-wrapper {

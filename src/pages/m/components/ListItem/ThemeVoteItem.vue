@@ -1,9 +1,7 @@
 <template>
   <div class="vote-item">
     <div class="vote-photo">
-      <img 
-        :src="photoUrl" 
-        class="inner-photo">
+      <img :src="photoUrl" class="inner-photo">
     </div>
     <div class="vote-title"/>
     <div class="vote-button">投票</div>
@@ -11,12 +9,42 @@
 </template>
 
 <script>
+import { handleH5SaasVote } from "services";
 export default {
+  props: {
+    // 投票id
+    auid: {
+      type: String,
+      default: "",
+      required: true
+    },
+    photoUrl: {
+      type: String,
+      default: "",
+      required: true
+    },
+    face: {
+      type: String,
+      default: "",
+      required: true
+    },
+    nickname: {
+      type: String,
+      default: "",
+      required: true
+    }
+  },
   data() {
     return {
       vtitle: "获得票数：20612",
       photoUrl: ""
     };
+  },
+  methods: {
+    handleVote() {
+      let payload = {};
+      handleH5SaasVote(this, payload).then(r => {});
+    }
   }
 };
 </script>

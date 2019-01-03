@@ -11,15 +11,33 @@
         <img :src="shareUrl" class="share">
       </div>
     </div>
-    <div class="button" v-if="acid >0">
-      <div class="title" @click="naviToShopActivityDetail">{{ buttonTitle }}</div>
+
+    <div class="button">
+      <div class="title" @click="naviToShopActivityDetail" v-if="acid >0">{{ buttonTitle }}</div>
+      <div
+        class="title"
+        @click="showActsCanJoin"
+        v-if="acid <=0 && actList.length > 0"
+      >{{ buttonTitle }}</div>
       <!-- <div class="time">{{subTitle}}</div> -->
     </div>
+    <transition name="fade">
+      <div class="list" v-if="shoudListShow">
+        <div
+          class="list-item"
+          v-for="(item, index) in actList"
+          :key="index"
+          @click="naviGateToActDetail(item)"
+        >{{item.aname}}</div>
+      </div>
+    </transition>
   </div>
 </template>
 
 <script>
 import { Toast } from "mint-ui";
+import { mapGetters } from "vuex";
+import { fetchShopActivityList } from "services";
 export default {
   props: {
     acid: {
@@ -33,17 +51,23 @@ export default {
       deleteUrl: "https://cdn.exe666.com/fe/image/m/m-menu-delete.svg",
       saveUrl: "https://cdn.exe666.com/fe/image/m/m-menu-download.svg",
       shareUrl: "https://cdn.exe666.com/fe/image/m/m-menu-share.svg",
-      subTitle: "活动倒计时:12:14:33"
+      subTitle: "活动倒计时:12:14:33",
+      actList: [],
+      shoudListShow: false
     };
+  },
+  mounted() {
+    this.preFetchActList();
   },
   computed: {
     buttonTitle() {
       if (Number(this.acid) > 0) {
         return "活动详情";
       } else {
-        return "";
+        return "参与活动";
       }
-    }
+    },
+    ...mapGetters(["z"])
   },
   methods: {
     naviToShopActivity() {
@@ -71,12 +95,42 @@ export default {
       if (mode === "share") {
         this.$emit("onTrendShare");
       }
+    },
+    preFetchActList() {
+      let payload = {
+        mkey: this.$route.params.mkey,
+        z: this.z,
+        api: "json",
+        allt: "1"
+      };
+      fetchShopActivityList(this, payload).then(r => {
+        this.actList = r.data.results.data;
+      });
+    },
+    showActsCanJoin() {
+      this.shoudListShow = true;
+    },
+    naviGateToActDetail(item) {
+      this.$router.push({
+        name: "ActivityShopDetail",
+        query: {
+          acid: item.acid
+        },
+        params: this.$route.params
+      });
     }
   }
 };
 </script>
 
 <style lang="less" scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
 .tbb {
   position: fixed;
   left: 0;
@@ -136,6 +190,21 @@ export default {
       font-size: 0.1rem;
       font-weight: 400;
       color: white;
+    }
+  }
+  .list {
+    width: 100%;
+    padding: 20px 0;
+    position: absolute;
+    bottom: 0.47rem;
+    left: 0;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    .list-item {
+      text-align: center;
+      font-size: 0.18rem;
+      padding: 10px 0;
     }
   }
 }

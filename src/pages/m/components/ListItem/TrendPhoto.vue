@@ -4,6 +4,7 @@
     <div class="item-info">
       <div class="info-title">{{ title }}</div>
       <div class="info-location-date">{{ computedDate }}</div>
+      <div class="act">活动</div>
     </div>
   </div>
 </template>
@@ -81,11 +82,30 @@ export default {
     border-radius: 0.1rem;
   }
   .item-info {
+    position: relative;
     .info-title {
+      width: 1.2rem;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      width: 100%;
+    }
+    .info-location-date {
+      width: 1.2rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .act {
+      position: absolute;
+      right: 0.1rem;
+      text-align: center;
+      top: 0.12rem;
+      width: 0.305rem;
+      height: 0.17rem;
+      border: 0.5px solid rgba(255, 255, 255, 1);
+      border-radius: 0.09rem;
+      font-size: 0.09rem;
+      line-height: 0.17rem;
     }
     width: 100%;
     height: 0.41rem;
