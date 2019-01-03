@@ -72,6 +72,8 @@ export default {
 
 <style lang="less" scoped>
 .btb {
+  bottom: constant(safe-area-inset-bottom); /* 兼容 iOS < 11.2 */
+  bottom: env(safe-area-inset-bottom); /* 兼容 iOS >= 11.2 */
   position: fixed;
   bottom: 0;
   left: 0;

@@ -7,7 +7,12 @@
     <div class="info" v-html="infolink"></div>
     <div class="info" v-html="pslink"></div>
     <div class="main-button" @click="handleNaviToActList">查看更多商家活动</div>
-    <ActivityBottom :acid="resData.acid" :acttype="resData.type" :awardkey="resData.awardkey"/>
+    <ActivityBottom
+      :acid="resData.acid"
+      :acttype="resData.type"
+      :awardkey="resData.awardkey"
+      :auid="resData.auid"
+    />
   </div>
 </template>
 
@@ -30,7 +35,8 @@ export default {
         pslink: null,
         awardkey: "",
         acid: "",
-        type: ""
+        type: "",
+        auid: ""
       },
       infolink: null,
       pslink: null
@@ -124,7 +130,7 @@ export default {
   align-items: center;
   background: rgba(243, 243, 243, 1);
   min-height: 100vh;
-  padding-bottom: 40px;
+  padding-bottom: 60px;
   .info {
     padding: 16px;
     width: 100%;

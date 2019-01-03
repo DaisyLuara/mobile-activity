@@ -7,6 +7,8 @@
 
 <script>
 import { Toast } from "mint-ui";
+import { inShopActivityAward } from "services";
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
@@ -14,6 +16,9 @@ export default {
         alltop: "ActivityShopAllTopProgress"
       }
     };
+  },
+  computed: {
+    ...mapGetters(["z"])
   },
   props: {
     acid: {
@@ -47,7 +52,25 @@ export default {
         }
       });
     },
-    awardIn() {}
+    awardIn() {
+      let payload = {
+        actid: this.$route.query.acid,
+        avrid: this.$route.query.avrid,
+        z: this.z,
+        mkey: this.$route.params.mkey,
+        api: "json"
+      };
+      inShopActivityAward(this, payload)
+        .then(r => {
+          console.dir(r);
+          if (r.data.state !== "0") {
+            Toast(r.data.results);
+          }
+        })
+        .catch(e => {
+          console.dir(e);
+        });
+    }
   }
 };
 </script>
@@ -56,6 +79,8 @@ export default {
 .activity-bottom {
   position: fixed;
   bottom: 0;
+  bottom: constant(safe-area-inset-bottom); /* 兼容 iOS < 11.2 */
+  bottom: env(safe-area-inset-bottom); /* 兼容 iOS >= 11.2 */
   left: 0;
   height: 0.47rem;
   width: 100%;

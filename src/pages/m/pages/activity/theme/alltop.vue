@@ -42,6 +42,7 @@ export default {
     ...mapGetters(["z"])
   },
   created() {
+    this.fetchList();
     Vue.use(InfiniteScroll);
   },
   mounted() {
@@ -50,7 +51,6 @@ export default {
     this.isAllLoaded = false;
     this.trends = [];
     this.bindBottomDistance = (this.$parent.screenWidth / 375) * 100 * 0.48;
-    this.fetchList();
   },
   methods: {
     loadMore() {
@@ -70,9 +70,12 @@ export default {
         awardkey: this.$route.query.awardkey,
         z: this.z
       };
-      fetchShopActivityProgress(payload)
+      fetchShopActivityProgress(this, payload)
         .then(r => {
           console.dir(r);
+          if (r.state !== "1") {
+            return;
+          }
           let res = r.data.results.data;
           this.isLoading = false;
           this.trends = this.trends.concat(res);
@@ -82,6 +85,7 @@ export default {
           this.currentPage++;
         })
         .catch(e => {
+          console.log(e);
           this.isLoading = false;
         });
     }

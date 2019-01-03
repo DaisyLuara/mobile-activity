@@ -81,4 +81,21 @@ const handleH5SaasVote = (_this, payload) => {
   })
 }
 
-export { fetchShopActivityList, fetchActivityDetail, fetchShopActivityDetail, fetchShopActivityProgress, handleH5SaasVote }
+// 0162.H5 Saas活动报名
+const inShopActivityAward = (_this, payload) => {
+  const url = 'http://exelook.com/client/h5/actpi/'
+  const params = {
+    params: {
+      ...payload
+    }
+  }
+  return new Promise((resolve, reject) => {
+    _this.$http.get(url, params).then(r => {
+      resolve(r)
+    }).catch(e => {
+      reject(e)
+    })
+  })
+}
+
+export { fetchShopActivityList, fetchActivityDetail, fetchShopActivityDetail, fetchShopActivityProgress, handleH5SaasVote, inShopActivityAward }

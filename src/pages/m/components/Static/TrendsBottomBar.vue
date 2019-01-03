@@ -114,7 +114,8 @@ export default {
       this.$router.push({
         name: "ActivityShopDetail",
         query: {
-          acid: item.acid
+          acid: item.acid,
+          avrid: this.$route.query.avrid
         },
         params: this.$route.params
       });
@@ -132,6 +133,8 @@ export default {
   opacity: 0;
 }
 .tbb {
+  bottom: constant(safe-area-inset-bottom); /* 兼容 iOS < 11.2 */
+  bottom: env(safe-area-inset-bottom); /* 兼容 iOS >= 11.2 */
   position: fixed;
   left: 0;
   bottom: 0;
