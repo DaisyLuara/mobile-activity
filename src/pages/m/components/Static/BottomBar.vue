@@ -72,17 +72,18 @@ export default {
 
 <style lang="less" scoped>
 .btb {
-  bottom: constant(safe-area-inset-bottom); /* 兼容 iOS < 11.2 */
-  bottom: env(safe-area-inset-bottom); /* 兼容 iOS >= 11.2 */
+  margin-bottom: constant(safe-area-inset-bottom); /* 兼容 iOS < 11.2 */
+  margin-bottom: env(safe-area-inset-bottom); /* 兼容 iOS >= 11.2 */
   position: fixed;
-  bottom: 0;
   left: 0;
+  bottom: 0;
   width: 3.75rem;
   height: 0.48rem;
   background: rgba(255, 255, 255, 1);
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.16);
   z-index: 10000;
-  padding: 0 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
