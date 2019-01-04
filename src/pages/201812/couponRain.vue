@@ -8,6 +8,31 @@
       :style="style.root"
       class="anim"
     />
+    <div
+      v-show="cshow"
+      class="coupon"
+    >
+      <!-- <img
+        :src="coupon_img"
+        class="bg"
+      >
+      <img
+        :src="qrcodeImg"
+        class="qrcodeImg"
+      > -->
+      <img id="mImg">
+      <img
+        v-show="used"
+        :src="base + 'used.png'"
+        class="used"
+      >
+    </div>
+    <img
+      v-show="cshow"
+      :src="base + 'hint.png'"
+      class="hint"
+    >
+    <canvas id="pcanvas"></canvas>
   </div>
 </template>
 <script>
@@ -24,19 +49,48 @@ export default {
           height: this.$innerHeight() + 'px'
         }
       },
+      id: this.$route.query.id,
+      used: false,
+      userId: null,
+      cshow: false,//true
+      coupon_img: null,//'https://cdn.exe666.com/fe/image/couponrain/Lee.png',
+      qrcodeImg: null,
+      arr: [190, 193, 194, 195, 196],
+      num: parseInt(Math.random() * 4),
       //微信分享
       wxShareInfoValue: {
         title: "猪福港味年，红包抢翻天！  ",
         desc: "点击马上抢【连卡福】新春红包！",
         link: "http://papi.xingstation.com/api/s/K8r" + window.location.search,
-        imgUrl: CDNURL + "/fe/image/couponrain/share.png",
+        imgUrl: CDNURL + "/fe/image/couponrain/share.jpg",
       }
     };
   },
+  watch: {
+    parms() {
+      this.checkGetCoupon()
+    }
+  },
   mounted() {
+    // this.getNewPhoto('https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png', 'https://cdn.exe666.com/fe/image/couponrain/Lee.png')
     this.doAnimate()
   },
   methods: {
+    //微信静默授权
+    handleWechatAuth() {
+      if (Cookies.get('sign') === null) {
+        let base_url = encodeURIComponent(String(window.location.href))
+        let redirct_url =
+          process.env.WX_API +
+          '/wx/officialAccount/oauth?url=' +
+          base_url +
+          '&scope=snsapi_base'
+        window.location.href = redirct_url
+      } else {
+        this.userId = Cookies.get('user_id')
+      }
+    },
+
     doAnimate() {
       import('pixi.js').then(PIXI => {
         let type = 'WebGL'
@@ -52,37 +106,22 @@ export default {
         root.appendChild(app.view);
         app.renderer.autoResize = true
         app.renderer.resize(window.innerWidth, window.innerHeight)
-        // holder to store the aliens
         //通用变量
-        let [url, as_width, as_height, game_start] = [CDNURL + '/fe/image/couponrain/', app.screen.width, app.screen.height, false]
+        let that = this
+        let [url, as_width, as_height, game_start] = [CDNURL + '/fe/image/couponrain/', app.screen.width, app.screen.height, false];
+        //容器
+        let container1 = null, container2 = null, container3 = null;
+        //精灵
+        let [bg, pig, logo, button, gold, cover, red, graphics] = []
+        //文本
+        let [bigText, time_name, score_name, timeText, scoreText] = []
         //第二屏计时使用到的变量
         let bigNUm = 3
         //第三屏 红包游戏变量
         let [game_time, game_score] = [15, 0]//游戏时间与游戏积分
         let aliens = [];
         let totalDudes = 16;
-        // 背景
-        let bg = getNewSpriteImage(url + 'Background.png', {}, app.stage)//红色背景图片
-        //新建容器1, 2, 3
-        let container1 = getNewContainer({ x: 0, y: 0, width: as_width, height: as_height }, app.stage)
-        let container3 = getNewContainer({ x: 0, y: 0, width: as_width, height: as_height }, app.stage)
-        let container2 = getNewContainer({ x: 0, y: 0, width: as_width, height: as_height }, app.stage) //容器二  倒计时
-        container1.visible = true
-        container2.visible = false
-        container3.visible = false
-        //容器一
-        let pig = getNewSpriteImage(url + 'pig.png', { y: -as_height * 0.04, height: as_width / 750 * 1086 }, container1)//猪年大吉图像
-        let logo = getNewSpriteImage(url + 'logo.png', { x: as_width * 0.83, y: as_height * 0.02, width: as_width * 0.15, height: as_width * 0.15 / 104 * 87 }, container1)
-        let button = getNewSpriteImage(url + 'button.png', { x: as_width * 0.1, y: as_height * 0.815, width: as_width * 0.8, height: as_width * 0.8 / 608 * 158 }, container1) //按钮
-        button.interactive = true
-        button.buttonMode = true
-        button.on('click', onCheckScene).on('touchend', onCheckScene)
-        //容器二  倒计时
-        let graphics = new PIXI.Graphics()
-        graphics.beginFill(0x000000, 0.5)
-        graphics.drawRect(0, 0, as_width, as_height)
-        graphics.endFill()
-        container2.addChild(graphics)
+        //文本变量
         let bigStyle = new PIXI.TextStyle({
           fontFamily: '黑体',
           fontSize: 150,
@@ -95,12 +134,6 @@ export default {
           dropShadowBlur: 2,
           dropShadowAngle: Math.PI / 6,
         })
-        let bigText = getNewText(bigNUm, bigStyle, as_width * 0.5, as_height * 0.5, container2)
-        bigText.anchor.set(0.5)
-        //容器三，游戏界面
-        let gold = getNewSpriteImage(url + 'gold.png', { x: as_width / 2, y: as_height / 2, width: as_width * 0.18, height: as_width * 0.18 / 133 * 70 }, container3)//元宝
-        gold.anchor.set(0.5, 0.5)
-        let cover = getNewSpriteImage(url + 'cover.png', { y: -as_height * 0.1, width: as_width, height: as_height * 1.1 }, container3)//cover图as_width / 750 * 1334
         let style1 = new PIXI.TextStyle({
           fontFamily: '黑体',
           fontSize: 18,
@@ -123,14 +156,57 @@ export default {
           dropShadowBlur: 2,
           dropShadowColor: '#981d15',
         })
-        //红包
-        getNewRed()
-        let time_name = getNewText('游戏时间', style1, 20, 20, container3)
-        let score_name = getNewText('游戏积分', style1, as_width - 15, 20, container3)
-        score_name.anchor.set(1, 0)
-        let timeText = getNewText(game_time, style2, 20, 43, container3)
-        let scoreText = getNewText(game_score, style2, as_width - 15, 43, container3)
-        scoreText.anchor.set(1, 0)
+        PIXI.loader
+          .add([
+            url + 'Background.png',
+            url + 'pig.png',
+            url + 'logo.png',
+            url + 'button.png',
+            url + 'gold.png',
+            url + 'cover.png',
+            url + 'red.png',
+          ])
+          .load(setup)
+        function setup() {
+          // 背景
+          bg = getNewSpriteImage(url + 'Background.png', {}, app.stage)//红色背景图片
+          //新建容器1, 2, 3
+          container1 = getNewContainer({ x: 0, y: 0, width: as_width, height: as_height }, app.stage)
+          container3 = getNewContainer({ x: 0, y: 0, width: as_width, height: as_height }, app.stage)
+          container2 = getNewContainer({ x: 0, y: 0, width: as_width, height: as_height }, app.stage) //容器二  倒计时
+          container1.visible = true
+          container2.visible = false
+          container3.visible = false
+          //容器一
+          pig = getNewSpriteImage(url + 'pig.png', { y: -as_height * 0.04, height: as_width / 750 * 1086 }, container1)//猪年大吉图像
+          logo = getNewSpriteImage(url + 'logo.png', { x: as_width * 0.83, y: as_height * 0.02, width: as_width * 0.15, height: as_width * 0.15 / 104 * 87 }, container1)
+          button = getNewSpriteImage(url + 'button.png', { x: as_width * 0.1, y: as_height * 0.815, width: as_width * 0.8, height: as_width * 0.8 / 608 * 158 }, container1) //按钮
+          button.interactive = true
+          button.buttonMode = true
+          button.on('click', onCheckScene).on('touchend', onCheckScene)
+          //容器二  倒计时
+          graphics = new PIXI.Graphics()
+          graphics.beginFill(0x000000, 0.5)
+          graphics.drawRect(0, 0, as_width, as_height)
+          graphics.endFill()
+          container2.addChild(graphics)
+
+          bigText = getNewText(bigNUm, bigStyle, as_width * 0.5, as_height * 0.5, container2)
+          bigText.anchor.set(0.5)
+          //容器三，游戏界面
+          gold = getNewSpriteImage(url + 'gold.png', { x: as_width / 2, y: as_height / 2, width: as_width * 0.18, height: as_width * 0.18 / 133 * 70 }, container3)//元宝
+          gold.anchor.set(0.5, 0.5)
+          cover = getNewSpriteImage(url + 'cover.png', { y: -as_height * 0.1, width: as_width, height: as_height * 1.1 }, container3)//cover图as_width / 750 * 1334
+
+          //红包
+          getNewRed()
+          time_name = getNewText('游戏时间', style1, 20, 20, container3)
+          score_name = getNewText('游戏积分', style1, as_width - 15, 20, container3)
+          score_name.anchor.set(1, 0)
+          timeText = getNewText(game_time, style2, 20, 43, container3)
+          scoreText = getNewText(game_score, style2, as_width - 15, 43, container3)
+          scoreText.anchor.set(1, 0)
+        }
 
         //新建容器和设置他们的基本属性
         function getNewContainer(args, parent) {
@@ -143,7 +219,8 @@ export default {
         }
         //新建图片精灵和设置他们的基本属性
         function getNewSpriteImage(url, args, parent) {
-          let sprite = PIXI.Sprite.fromImage(url)
+          // let sprite = PIXI.Sprite.fromImage(url)
+          let sprite = new PIXI.Sprite(PIXI.loader.resources[url].texture)
           sprite.x = args.x || 0
           sprite.y = args.y || 0
           sprite.width = args.width || app.screen.width
@@ -154,6 +231,7 @@ export default {
           parent.addChild(sprite)
           return sprite
         }
+
         //新建文本和设置他们的基本属性
         function getNewText(text, style, x, y, parent) {
           let txt = new PIXI.Text(text, style)
@@ -197,6 +275,7 @@ export default {
           let timer = setInterval(function () {
             if (game_time == 0) {
               clearInterval(timer)
+              that.cshow = true
               return
             }
             game_time--
@@ -228,6 +307,71 @@ export default {
           }
         });
       })
+    },
+    getNewPhoto(qrcode, coupon) {
+      let canvas = document.getElementById('pcanvas')
+      let ctx = canvas.getContext('2d')
+      let bg = new Image()
+      bg.src = coupon
+      let cover = new Image()
+      bg.setAttribute('crossOrigin', 'Anonymous')
+      cover.setAttribute('crossOrigin', 'Anonymous')
+      bg.onload = function () {
+        canvas.width = bg.width
+        canvas.height = bg.height
+        cover.onload = function () {
+          ctx.drawImage(bg, 0, 0)
+          ctx.drawImage(cover, 0, 0, cover.width, cover.height, bg.width * 0.29, bg.height * 0.65, bg.width * 0.42, bg.width * 0.42)
+          let url = canvas.toDataURL('image/png')
+          let img = document.getElementById('mImg')
+          img.src = url
+        }
+        cover.src = qrcode
+      }
+    },
+    //判断是否领过优惠券
+    checkGetCoupon() {
+      let args = {
+        coupon_batch_id: this.arr[this.num],
+        include: 'couponBatch',
+        qiniu_id: this.id
+      }
+      checkGetCoupon(args).then(res => {
+        console.log(res)
+        if (res) {
+          this.handleData(res)
+        } else {
+          this.sendCoupon()
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    //发优惠券
+    sendCoupon() {
+      let args = {
+        include: 'couponBatch',
+        qiniu_id: this.id,
+        oid: this.oid,
+        belong: this.belong
+      }
+      sendCoupon(args, this.arr[this.num])
+        .then(res => {
+          console.log('sendCoupon', res)
+          this.handleData(res)
+        })
+        .catch(err => {
+          alert(err.response.data.message)
+        })
+    },
+    //处理返回数据
+    handleData(res) {
+      this.qrcodeImg = res.qrcode_url
+      this.coupon_img = res.couponBatch.image_url
+      this.getNewPhoto(res.qrcode_url, res.couponBatch.image_url)
+      if (parseInt(res.status) === 1) {
+        this.used = true
+      }
     }
   }
 };
@@ -260,6 +404,57 @@ img {
   .anim {
     width: 100%;
     overflow: hidden;
+    position: relative;
+    z-index: 9;
+  }
+  .coupon {
+    width: 58.5%;
+    position: absolute;
+    top: 12%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 99;
+    #mImg {
+      position: relative;
+      z-index: 0;
+      pointer-events: auto;
+      user-select: auto;
+    }
+    .bg {
+      position: relative;
+      z-index: 0;
+    }
+    .qrcodeImg {
+      position: absolute;
+      width: 30vw;
+      // height: 30vw;
+      top: 63%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 99;
+    }
+    .used {
+      position: absolute;
+      width: 26vw;
+      top: 68%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 999;
+    }
+  }
+  .hint {
+    width: 25%;
+    position: absolute;
+    top: 55%;
+    right: 4%;
+    z-index: 999;
+  }
+  #pcanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    display: none;
   }
 }
 </style>
