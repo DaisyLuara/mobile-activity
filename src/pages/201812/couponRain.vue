@@ -117,7 +117,7 @@ export default {
         //精灵
         let [bg, pig, logo, button, gold, cover, red, graphics] = []
         //文本
-        let [bigText, time_name, score_name, timeText, scoreText] = []
+        let [bigText, time_name, score_name, timeText, scoreText, addText] = []
         //第二屏计时使用到的变量
         let bigNUm = 3
         //第三屏 红包游戏变量
@@ -165,7 +165,6 @@ export default {
             url + 'pig.png',
             url + 'logo.png',
             url + 'button.png',
-            url + 'gold.png',
             url + 'cover.png',
             url + 'red.png',
           ])
@@ -197,8 +196,8 @@ export default {
           bigText = getNewText(bigNUm, bigStyle, as_width * 0.5, as_height * 0.5, container2)
           bigText.anchor.set(0.5)
           //容器三，游戏界面
-          gold = getNewSpriteImage(url + 'gold.png', { x: as_width / 2, y: as_height / 2, width: as_width * 0.18, height: as_width * 0.18 / 133 * 70 }, container3)//元宝
-          gold.anchor.set(0.5, 0.5)
+          // gold = getNewSpriteImage(url + 'gold.png', { x: as_width / 2, y: as_height / 2, width: as_width * 0.18, height: as_width * 0.18 / 133 * 70 }, container3)//元宝
+          // gold.anchor.set(0.5, 0.5)
           cover = getNewSpriteImage(url + 'cover.png', { y: -as_height * 0.1, width: as_width, height: as_height * 1.1 }, container3)//cover图as_width / 750 * 1334
 
           //红包
@@ -209,6 +208,10 @@ export default {
           timeText = getNewText(game_time, style2, 20, 43, container3)
           scoreText = getNewText(game_score, style2, as_width - 15, 43, container3)
           scoreText.anchor.set(1, 0)
+          addText = getNewText('+25', style2, as_width * 0.48, as_height * 0.65, container3)
+
+          addText.alpha = 0
+          addText.scale.set(1.2)
         }
 
         //新建容器和设置他们的基本属性
@@ -286,9 +289,13 @@ export default {
           }, 1000)
         }
         function onButtonDown() {
+
         }
         function onButtonUp(e) {
           if (game_time > 0) {
+            addText.x = as_width * 0.35 + Math.random() * as_width * 0.15
+            addText.y = as_height * 0.4 + Math.random() * as_height * 0.4
+            addText.alpha = 1
             game_score += 25
             scoreText.text = game_score
             e.target.x = Math.random() * as_width * 0.85
@@ -300,6 +307,7 @@ export default {
           if (!game_start || game_time == 0) {
             return
           }
+          addText.alpha -= 0.02
           for (let i = 0; i < aliens.length; i++) {
             let dude = aliens[i]
             dude.y += 3 + Math.cos(dude.direction) * dude.speed;
@@ -335,7 +343,7 @@ export default {
     //判断是否领过优惠券
     checkGetCoupon() {
       let args = {
-        coupon_batch_id: this.arr[this.num],
+        coupon_batch_id: this.$route.query.coupon_batch_id,
         include: 'couponBatch',
         qiniu_id: this.id
       }
@@ -358,7 +366,7 @@ export default {
         oid: this.oid,
         belong: this.belong
       }
-      sendCoupon(args, this.arr[this.num])
+      sendCoupon(args, this.$route.query.coupon_batch_id)
         .then(res => {
           console.log('sendCoupon', res)
           this.handleData(res)
