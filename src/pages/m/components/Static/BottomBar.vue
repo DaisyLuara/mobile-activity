@@ -77,8 +77,8 @@ export default {
   position: fixed;
   left: 0;
   bottom: 0;
-  width: 3.75rem;
-  height: 0.48rem;
+  width: 100%;
+  height: 48px;
   background: rgba(255, 255, 255, 1);
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.16);
   z-index: 10000;
@@ -89,7 +89,7 @@ export default {
   justify-content: space-between;
   .bitem {
     height: 100%;
-    width: 0.3rem;
+    width: 30px;
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
@@ -97,8 +97,8 @@ export default {
     font-size: 12px;
     align-items: center;
     img {
-      width: 0.25rem;
-      height: 0.25rem;
+      width: 25px;
+      height: 25px;
     }
   }
 }
