@@ -35,6 +35,7 @@ import { $wechat, isInWechat, wechatShareTrack, Cookies, sendCoupon, checkGetCou
 import { normalPages } from '@/mixins/normalPages'
 const CDN_URL = process.env.CDN_URL
 export default {
+  mixins: [normalPages],
   data() {
     return {
       base: CDN_URL + '/fe/image/couponrain/lkf/',
