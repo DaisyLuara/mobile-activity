@@ -72,6 +72,9 @@ export default {
     }
   },
   mounted() {
+    if (process.env.NODE_ENV === 'testing') {
+      this.wxShareInfoValue.link = 'http://papi.newgls.cn/api/s/59R' + window.location.search
+    }
     // this.getNewPhoto('https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png', 'https://cdn.exe666.com/fe/image/couponrain/Lee.png')
     this.doAnimate()
   },
