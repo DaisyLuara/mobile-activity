@@ -32,7 +32,7 @@
       :src="base + 'hint.png'"
       class="hint"
     >
-    <canvas id="pcanvas"></canvas>
+    <canvas id="pcanvas"/>
   </div>
 </template>
 <script>

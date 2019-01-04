@@ -1,5 +1,8 @@
 <template>
-  <div class="spd" v-if="show" @click.self="handleModalHide">
+  <div 
+    v-if="show" 
+    class="spd" 
+    @click.self="handleModalHide">
     <div class="remind">请点击右上角分享</div>
   </div>
 </template>

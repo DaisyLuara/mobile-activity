@@ -118,6 +118,11 @@ export default {
       stage: null
     }
   },
+  watch: {
+    parms() {
+
+    }
+  },
   beforeCreate() {
     document.title = '凯德绿享新生活'
   },
@@ -143,11 +148,6 @@ export default {
       this.head_img_url = this.$route.query.head_img_url
     } else {
       this.getUserInfo()
-    }
-  },
-  watch: {
-    parms() {
-
     }
   },
   methods: {

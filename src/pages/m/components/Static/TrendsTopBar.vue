@@ -1,25 +1,50 @@
 <template>
   <div class="ttb">
     <div class="profile">
-      <div class="avatar"></div>
+      <div class="avatar">
+        <img :src="loginState.face">
+      </div>
       <div class="location">
-        <div class="place">{{place}}</div>
-        <div class="time">{{time}}</div>
+        <div class="place">{{ title }}</div>
+        <div class="mname">{{ mname }}</div>
+        <div class="time">{{ time }}</div>
       </div>
     </div>
-    <div class="button" @click="handleNaviToMoreTrends">更多足迹</div>
+    <div 
+      class="button" 
+      @click="handleNaviToMoreTrends">更多照片</div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
+  props: {
+    title: {
+      type: String,
+      default: "",
+      required: true
+    },
+    time: {
+      type: String,
+      default: "",
+      required: true
+    },
+    mname: {
+      type: String,
+      default: "",
+      required: true
+    }
+  },
   data() {
     return {
-      avatarImgUrl: "",
-      place: "在横店影城驻留足迹",
-      time: "2018-10-11"
+      avatarImgUrl: ""
     };
   },
+  computed: {
+    ...mapGetters(["loginState"])
+  },
+
   methods: {
     handleNaviToMoreTrends() {
       this.$router.push({
@@ -54,7 +79,15 @@ export default {
       height: 0.45rem;
       width: 0.45rem;
       border-radius: 50%;
-      background: gray;
+      overflow: hidden;
+      position: relative;
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
     }
     .location {
       margin-left: 0.12rem;
@@ -67,6 +100,12 @@ export default {
         font-size: 0.13rem;
         color: rgba(13, 13, 13, 1);
         font-weight: 400;
+      }
+      .mname {
+        color: rgba(13, 13, 13, 1);
+        font-size: 0.1rem;
+        font-weight: 400;
+        margin: 0.05rem 0;
       }
       .time {
         color: rgba(204, 204, 204, 1);

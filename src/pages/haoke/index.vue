@@ -75,13 +75,13 @@ export default {
       // },
     }
   },
-  beforeCreate() {
-    document.title = '豪客来'
-  },
   watch: {
     parms() {
       this.couponType = this.parms.couponType
     }
+  },
+  beforeCreate() {
+    document.title = '豪客来'
   },
   mounted() {
     this.show()
