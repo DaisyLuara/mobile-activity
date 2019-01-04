@@ -1,10 +1,10 @@
 <template>
   <div class="trend-photo" @click="handleTrendItemClick(avrid)">
+    <div class="act">活动</div>
     <img :src="image" class="item-photo">
     <div class="item-info">
       <div class="info-title">{{ title }}</div>
       <div class="info-location-date">{{ computedDate }}</div>
-      <div class="act">活动</div>
     </div>
   </div>
 </template>
@@ -76,6 +76,21 @@ export default {
   height: 3.045rem;
   z-index: 30;
   overflow: hidden;
+  .act {
+    position: absolute;
+    right: 0.1rem;
+    text-align: center;
+    top: 0.12rem;
+    font-size: 0.09rem;
+    width: 0.32rem;
+    height: 0.2rem;
+    background: rgba(255, 255, 255, 1);
+    border: 1px solid rgba(57, 48, 104, 1);
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+    border-radius: 0.09rem;
+    line-height: 0.2rem;
+    color: black;
+  }
   .item-photo {
     width: 100%;
     height: 100%;
@@ -84,29 +99,18 @@ export default {
   .item-info {
     position: relative;
     .info-title {
-      width: 1.2rem;
+      width: 100%;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
     .info-location-date {
-      width: 1.2rem;
+      width: 100%;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
-    .act {
-      position: absolute;
-      right: 0.1rem;
-      text-align: center;
-      top: 0.12rem;
-      width: 0.305rem;
-      height: 0.17rem;
-      border: 0.5px solid rgba(255, 255, 255, 1);
-      border-radius: 0.09rem;
-      font-size: 0.09rem;
-      line-height: 0.17rem;
-    }
+
     width: 100%;
     height: 0.41rem;
     background: rgba(57, 48, 104, 0.9);

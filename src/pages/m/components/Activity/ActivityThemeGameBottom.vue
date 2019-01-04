@@ -1,9 +1,17 @@
 <template>
-  <div class="activity-theme-game-bottom">查看更多活动</div>
+  <div class="activity-theme-game-bottom" @click="naviToActivitys">查看更多活动</div>
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    naviToActivitys() {
+      this.$router.push({
+        name: "ActivityShop"
+      });
+    }
+  }
+};
 </script>
 
 <style lang="less" scoped>
@@ -16,12 +24,11 @@ export default {};
   height: 0.47rem;
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   text-align: center;
   background: rgba(109, 30, 255, 1);
   color: rgba(255, 255, 255, 1);
   font-size: 0.16rem;
-  text-align: center;
   line-height: 0.47rem;
 }
 </style>

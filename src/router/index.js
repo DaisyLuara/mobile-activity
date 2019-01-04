@@ -144,12 +144,44 @@ const router = new Router({
           component: () => import('@/pages/m/pages/activity/shop/detail')
         },
         {
-          path: ':mkey/:mcode/activity/shop/progress',
+          path: ':mkey/:mcode/activity/shop/alltopprogress',
           name: 'ActivityShopAllTopProgress',
           meta: {
             title: '投票活动进度'
           },
           component: () => import('@/pages/m/pages/activity/theme/alltop')
+        },
+        {
+          path: ':mkey/:mcode/activity/shop/gameprogress',
+          name: 'ActivityShopGameProgress',
+          meta: {
+            title: '排行榜'
+          },
+          component: () => import('@/pages/m/pages/activity/theme/game')
+        },
+        {
+          path: ':mkey/:mcode/wallet/',
+          name: 'CardIndex',
+          meta: {
+            title: '卡包'
+          },
+          component: () => import('@/pages/m/pages/wallet/index')
+        },
+        {
+          path: ':mkey/:mcode/mall/',
+          name: 'MallIndex',
+          meta: {
+            title: '商城'
+          },
+          component: () => import('@/pages/m/pages/mall/index')
+        },
+        {
+          path: ':mkey/:mcode/my/',
+          name: 'MyIndex',
+          meta: {
+            title: '我的'
+          },
+          component: () => import('@/pages/m/pages/my/index')
         }
       ]
     }

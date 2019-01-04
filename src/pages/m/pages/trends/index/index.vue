@@ -1,5 +1,7 @@
 <template>
   <div class="trends">
+    <NoListContentReminder words="暂时还没有活动" :show="trends.length ===0 && firstFetch"/>
+
     <MyTrendsSwiper/>
     <ul
       v-infinite-scroll="loadMore"
@@ -29,13 +31,15 @@ import { InfiniteScroll } from "mint-ui";
 import { getUserTrends } from "services";
 import { mapGetters } from "vuex";
 import BottomBar from "@/pages/m/components/Static/BottomBar";
+import NoListContentReminder from "@/pages/m/components/Reminder/NoListContentReminder";
 export default {
   name: "TrendsIndex",
 
   components: {
     TrendPhoto,
     MyTrendsSwiper,
-    BottomBar
+    BottomBar,
+    NoListContentReminder
   },
 
   data() {
@@ -45,6 +49,7 @@ export default {
       currentPage: 1,
       isLoading: false,
       isAllLoaded: false,
+      firstFetch: false,
       trends: []
     };
   },
@@ -99,6 +104,9 @@ export default {
         })
         .catch(e => {
           this.isLoading = false;
+        })
+        .finally(() => {
+          this.firstFetch = true;
         });
     }
   }
@@ -112,6 +120,7 @@ export default {
 .trends {
   position: relative;
   width: 100%;
+  min-height: 100vh;
   .trends-wrapper {
     position: relative;
     display: flex;

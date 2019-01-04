@@ -1,7 +1,7 @@
 <template>
   <div class="activity-bottom">
     <div class="progress" @click="naviGateToAct">查看活动进度</div>
-    <div class="award" @click="awardIn">立即报名</div>
+    <div class="award" @click="awardIn" v-if="isAllow === '1'">立即报名</div>
   </div>
 </template>
 
@@ -13,7 +13,8 @@ export default {
   data() {
     return {
       nameMap: {
-        alltop: "ActivityShopAllTopProgress"
+        alltop: "ActivityShopAllTopProgress",
+        game: "ActivityShopGameProgress"
       }
     };
   },
@@ -35,6 +36,11 @@ export default {
       type: String,
       default: "",
       requried: true
+    },
+    isAllow: {
+      type: String,
+      default: "0",
+      requried: true
     }
   },
   methods: {
@@ -44,7 +50,7 @@ export default {
         return;
       }
       this.$router.push({
-        name: this.nameMap["alltop"],
+        name: this.nameMap[this.acttype],
         params: this.$route.params,
         query: {
           acid: this.acid,
@@ -53,6 +59,17 @@ export default {
       });
     },
     awardIn() {
+      console.log("awardin");
+      if (this.$route.query.avrid === undefined) {
+        Toast("你还没有玩过这个活动呢，请参与你玩过的活动吧！");
+
+        setTimeout(() => {
+          this.$router.push({
+            name: "TrendsIndex"
+          });
+        }, 1500);
+        return;
+      }
       let payload = {
         actid: this.$route.query.acid,
         avrid: this.$route.query.avrid,
@@ -65,9 +82,12 @@ export default {
           console.dir(r);
           if (r.data.state !== "0") {
             Toast(r.data.results);
+          } else {
+            Toast("报名成功");
           }
         })
         .catch(e => {
+          Toast("网络不太好，请重试");
           console.dir(e);
         });
     }

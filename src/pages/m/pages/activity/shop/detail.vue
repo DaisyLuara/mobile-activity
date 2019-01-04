@@ -12,6 +12,7 @@
       :acttype="resData.type"
       :awardkey="resData.awardkey"
       :auid="resData.auid"
+      :isAllow="resData.allow"
     />
   </div>
 </template>
@@ -36,7 +37,8 @@ export default {
         awardkey: "",
         acid: "",
         type: "",
-        auid: ""
+        auid: "",
+        allow: "0"
       },
       infolink: null,
       pslink: null
