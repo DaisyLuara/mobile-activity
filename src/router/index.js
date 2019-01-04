@@ -186,6 +186,7 @@ const router = new Router({
         }
       ]
     },
+    { path: '/404', component: PageNotFound },
     { path: '*', component: PageNotFound },
     // {
     //   path: '/hidol',
