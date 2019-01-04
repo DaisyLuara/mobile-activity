@@ -72,6 +72,10 @@ export default {
         this.handleWechatAuth()
       }
     }
+    if (process.env.NODE_ENV === 'testing') {
+      this.wxShareInfoValue.link = 'http://papi.newgls.cn/api/s/59R' + window.location.search
+    }
+
   },
   methods: {
     //微信静默授权
