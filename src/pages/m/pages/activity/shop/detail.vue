@@ -7,10 +7,18 @@
     <div class="info" v-html="infolink"></div>
     <div class="info" v-html="pslink"></div>
     <div class="main-button" @click="handleNaviToActList">查看更多商家活动</div>
+    <ActivityBottom
+      :acid="resData.acid"
+      :acttype="resData.type"
+      :awardkey="resData.awardkey"
+      :auid="resData.auid"
+      :isAllow="resData.allow"
+    />
   </div>
 </template>
 
 <script>
+import ActivityBottom from "@/pages/m/components/Activity/ActivityBottom";
 import { fetchActivityDetail, fetchShopActivityDetail } from "services";
 import { mapGetters } from "vuex";
 import moment from "moment";
@@ -25,11 +33,19 @@ export default {
         sdate: null,
         edate: null,
         infolink: null,
-        pslink: null
+        pslink: null,
+        awardkey: "",
+        acid: "",
+        type: "",
+        auid: "",
+        allow: "0"
       },
       infolink: null,
       pslink: null
     };
+  },
+  components: {
+    ActivityBottom
   },
   computed: {
     ...mapGetters(["z"]),
@@ -116,7 +132,7 @@ export default {
   align-items: center;
   background: rgba(243, 243, 243, 1);
   min-height: 100vh;
-  padding-bottom: 40px;
+  padding-bottom: 60px;
   .info {
     padding: 16px;
     width: 100%;
