@@ -115,6 +115,11 @@ export default {
       }
     }
   },
+  watch: {
+    belong() {
+      this.userGame()
+    }
+  },
   mounted() {
     //微信授权
     if (isInWechat() === true) {
@@ -126,11 +131,6 @@ export default {
       }
     }
     // this.initCanvas()
-  },
-  watch: {
-    belong() {
-      this.userGame()
-    }
   },
   methods: {
     handleWechatAuth() {

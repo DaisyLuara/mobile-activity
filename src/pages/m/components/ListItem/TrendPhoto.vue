@@ -1,14 +1,20 @@
 <template>
-  <div class="trend-photo" @click="handleTrendItemClick(avrid)">
-    <img :src="image" class="item-photo">
+  <div 
+    class="trend-photo" 
+    @click="handleTrendItemClick(avrid)">
+    <div class="act">活动</div>
+    <img 
+      :src="image" 
+      class="item-photo">
     <div class="item-info">
-      <div class="info-title">{{title}}</div>
-      <div class="info-location-date">{{date}}</div>
+      <div class="info-title">{{ title }}</div>
+      <div class="info-location-date">{{ computedDate }}</div>
     </div>
   </div>
 </template>
 
 <script>
+import moment from "moment";
 export default {
   name: "TrendPhotoItem",
   props: {
@@ -22,9 +28,9 @@ export default {
       default: "",
       required: true
     },
-    date: {
+    clientdate: {
       type: String,
-      default: "",
+      default: "1540965666000",
       required: true
     },
     avrid: {
@@ -33,18 +39,34 @@ export default {
       required: true
     }
   },
+  computed: {
+    computedDate() {
+      let now = moment(new Date().getTime());
+      let cld = moment(Number(this.clientdate));
+      // console.log(cld);
+      let diffyear = cld.diff(now, "years");
+      let diffday = now.diff(cld, "days");
+      if (diffyear >= 1) {
+        return cld.format("YYYY-MM-DD HH:mm:ss");
+      } else if (diffday <= 1) {
+        return cld.format("HH:mm:ss");
+      } else {
+        return cld.format("MM-DD HH:mm:ss");
+      }
+      return "";
+    }
+  },
   methods: {
     handleTrendItemClick() {
       this.$router.push({
         name: "TrendsDetail",
         params: {
-          mid: this.$route.params.mid
+          mkey: this.$route.params.mkey
         },
         query: {
           avrid: this.avrid
         }
       });
-      // this.$router.push({})
     }
   }
 };
@@ -58,13 +80,42 @@ export default {
   height: 3.045rem;
   z-index: 30;
   overflow: hidden;
+  .act {
+    position: absolute;
+    right: 0.1rem;
+    text-align: center;
+    top: 0.12rem;
+    font-size: 12px;
+    width: 32px;
+    height: 20px;
+    background: rgba(255, 255, 255, 1);
+    border: 1px solid rgba(57, 48, 104, 1);
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+    border-radius: 9px;
+    line-height: 20px;
+    color: black;
+  }
   .item-photo {
     width: 100%;
     height: 100%;
     border-radius: 0.1rem;
   }
   .item-info {
-    width: 1.51rem;
+    position: relative;
+    .info-title {
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .info-location-date {
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    width: 100%;
     height: 0.41rem;
     background: rgba(57, 48, 104, 0.9);
     border-radius: 0px 0px 0.1rem 0.1rem;

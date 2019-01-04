@@ -1,10 +1,22 @@
 <template>
-  <div class="mts">
-    <swiper ref="mySwiper" :options="swiperOption" class="swiper">
-      <swiper-slide v-for="(item, index) of imgUrls" :key="index">
-        <img :src="imgUrls[index]" class="slide-pic" @click="handlePhotoClick">
+  <div 
+    v-if="imgUrls.length > 0" 
+    class="mts">
+    <swiper 
+      ref="mySwiper" 
+      :options="swiperOption" 
+      class="swiper">
+      <swiper-slide 
+        v-for="(item, index) of imgUrls" 
+        :key="index">
+        <img 
+          :src="item.image" 
+          class="slide-pic" 
+          @click="handlePhotoClick(item)">
       </swiper-slide>
-      <div slot="pagination" class="swiper-pagination"/>
+      <div 
+        slot="pagination" 
+        class="swiper-pagination"/>
     </swiper>
   </div>
 </template>
@@ -13,6 +25,8 @@
 import "swiper/dist/css/swiper.css";
 import "./swiper.less";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
+import { mapGetters } from "vuex";
+import { fetchMSiteBanners } from "services";
 export default {
   components: {
     swiper,
@@ -24,20 +38,37 @@ export default {
         pagination: {
           el: ".swiper-pagination"
         }
-      }
+      },
+      imgUrls: []
     };
   },
   computed: {
-    imgUrls() {
-      return [
-        "http://cdn.exe666.com/fe/hidol/img/sample/1.jpg",
-        "http://cdn.exe666.com/fe/hidol/img/sample/2.jpg",
-        "http://cdn.exe666.com/fe/hidol/img/sample/3.jpg"
-      ];
+    ...mapGetters(["z"])
+  },
+  mounted() {
+    if (this.z === "") {
+      return;
     }
+    this.fetchTrendsSwiperInfo();
   },
   methods: {
-    handlePhotoClick() {}
+    handlePhotoClick(item) {
+      window.location.href = item.infolink;
+    },
+    fetchTrendsSwiperInfo() {
+      const payload = {
+        z: this.z,
+        mkey: this.$route.params.mkey,
+        api: "json"
+      };
+      fetchMSiteBanners(this, payload)
+        .then(r => {
+          this.imgUrls = r.data.results.data;
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    }
   }
 };
 </script>

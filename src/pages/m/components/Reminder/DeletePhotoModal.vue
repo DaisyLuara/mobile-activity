@@ -1,10 +1,17 @@
 <template>
-  <div class="del-remind" v-if="show" @click.self="handleModalHide">
+  <div 
+    v-if="show" 
+    class="del-remind" 
+    @click.self="handleModalHide">
     <div class="modal">
-      <div class="title">{{title}}</div>
-      <div class="sub-title">{{subTitile}}</div>
-      <div class="main-button">{{mainButtonText}}</div>
-      <div class="sub-button" @click="handleModalHide">{{subButtonText}}</div>
+      <div class="title">{{ title }}</div>
+      <div class="sub-title">{{ subTitile }}</div>
+      <div 
+        class="main-button" 
+        @click="handleDeleteConfirm">{{ mainButtonText }}</div>
+      <div 
+        class="sub-button" 
+        @click="handleModalHide">{{ subButtonText }}</div>
     </div>
   </div>
 </template>
@@ -31,7 +38,7 @@ export default {
       this.$emit("onHandleModalHide");
     },
     handleDeleteConfirm() {
-      this.$emit("onHandleModalDelete");
+      this.$emit("handleDeleteConfirm");
     }
   }
 };

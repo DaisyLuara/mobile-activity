@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import marketingHome from 'pages/marketingHome'
 import bindHome from 'pages/bindHome'
 import hidolHome from 'pages/hidolHome'
+import PageNotFound from 'pages/404'
 
 // 被分割的子路由信息
 import marketingRouter from './marketing/index'
@@ -104,31 +105,88 @@ const router = new Router({
       component: () => import('@/pages/m/mHome'),
       children: [
         {
-          path: ':mid/trends/index',
+          path: ':mkey/:mcode/trends/index',
           name: 'TrendsIndex',
           meta: {
-            title: '我的足迹'
+            title: '我的照片'
           },
           component: () => import('@/pages/m/pages/trends/index/index')
         },
         {
-          path: ':mid/trends/detail',
+          path: ':mkey/:mcode/trends/detail',
           name: 'TrendsDetail',
           meta: {
-            title: '足迹详情'
+            title: '照片详情'
           },
           component: () => import('@/pages/m/pages/trends/detail/index')
         },
         {
-          path: ':mid/theme/index',
+          path: ':mkey/:mcode/theme/index',
           name: 'ThemeIndex',
           meta: {
             title: '主题详情'
           },
           component: () => import('@/pages/m/pages/activity/theme/index')
+        },
+        {
+          path: ':mkey/:mcode/activity/shop',
+          name: 'ActivityShop',
+          meta: {
+            title: '热门活动'
+          },
+          component: () => import('@/pages/m/pages/activity/shop/index')
+        },
+        {
+          path: ':mkey/:mcode/activity/shop/detail',
+          name: 'ActivityShopDetail',
+          meta: {
+            title: '热门活动详情',
+          },
+          component: () => import('@/pages/m/pages/activity/shop/detail')
+        },
+        {
+          path: ':mkey/:mcode/activity/shop/alltopprogress',
+          name: 'ActivityShopAllTopProgress',
+          meta: {
+            title: '投票活动进度'
+          },
+          component: () => import('@/pages/m/pages/activity/theme/alltop')
+        },
+        {
+          path: ':mkey/:mcode/activity/shop/gameprogress',
+          name: 'ActivityShopGameProgress',
+          meta: {
+            title: '排行榜'
+          },
+          component: () => import('@/pages/m/pages/activity/theme/game')
+        },
+        {
+          path: ':mkey/:mcode/wallet/',
+          name: 'CardIndex',
+          meta: {
+            title: '卡包'
+          },
+          component: () => import('@/pages/m/pages/wallet/index')
+        },
+        {
+          path: ':mkey/:mcode/mall/',
+          name: 'MallIndex',
+          meta: {
+            title: '商城'
+          },
+          component: () => import('@/pages/m/pages/mall/index')
+        },
+        {
+          path: ':mkey/:mcode/my/',
+          name: 'MyIndex',
+          meta: {
+            title: '我的'
+          },
+          component: () => import('@/pages/m/pages/my/index')
         }
       ]
-    }
+    },
+    { path: '*', component: PageNotFound },
     // {
     //   path: '/hidol',
     //   name: 'hidolApp',

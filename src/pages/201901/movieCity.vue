@@ -1,55 +1,49 @@
 <template>
-  <div
-    :style="style.root"
-    class="root"
-  >
+  <div 
+    :style="style.root" 
+    class="root">
     <!-- 券图 -->
-    <img
-      :src="couponImg+ this.$qiniuCompress()"
-      class="couponImg"
-    >
+    <img 
+      :src="couponImg+ this.$qiniuCompress()" 
+      class="couponImg">
     <div class="center">
-      <img
-        :src="baseUrl + '1.png'+ this.$qiniuCompress()"
-        class="scan"
-      >
+      <img 
+        :src="baseUrl + '1.png'+ this.$qiniuCompress()" 
+        class="scan">
       <!-- 二维码 -->
-      <img
-        :src="qrcodeImg+ this.$qiniuCompress()"
-        class="ewm"
-      >
+      <img 
+        :src="qrcodeImg+ this.$qiniuCompress()" 
+        class="ewm">
       <!-- 已使用 -->
-      <img
-        v-if="hasUsed"
-        :src="baseUrl + '2.png'+ this.$qiniuCompress()"
-        class="coupon-used"
-      >
+      <img 
+        v-if="hasUsed" 
+        :src="baseUrl + '2.png'+ this.$qiniuCompress()" 
+        class="coupon-used">
     </div>
-    <img
-      :src="baseUrl + 'logo.png'+ this.$qiniuCompress()"
-      class="logo"
-    >
+    <img 
+      :src="baseUrl + 'logo.png'+ this.$qiniuCompress()" 
+      class="logo">
   </div>
 </template>
 <script>
-import { onlyGetPhoto } from '../../mixins/onlyGetPhoto'
+import { onlyGetPhoto } from "../../mixins/onlyGetPhoto";
 import {
   $wechat,
   isInWechat,
   wechatShareTrack,
   Cookies,
   sendCoupon,
-  checkGetCoupon,
-} from 'services'
-const cdnUrl = process.env.CDN_URL
+  checkGetCoupon
+} from "services";
+const cdnUrl = process.env.CDN_URL;
 export default {
   mixins: [onlyGetPhoto],
   data() {
     return {
-      baseUrl: cdnUrl + '/fe/marketing/img/movie_city/',
+      baseUrl: cdnUrl + "/fe/marketing/img/movie_city/",
       style: {
         root: {
-          height: this.$innerHeight() + 'px'
+          height: this.$innerHeight() + "px"
         }
       },
       iphoneX: false,
@@ -59,101 +53,101 @@ export default {
       params: {
         user_id: null
       },
-      hasUsed: false,
-    }
+      hasUsed: false
+    };
   },
   watch: {
     parms() {
-      this.checkCouponIsUse()
+      this.checkCouponIsUse();
     }
   },
   mounted() {
     //微信授权
     if (isInWechat() === true) {
       if (
-        process.env.NODE_ENV === 'production' ||
-        process.env.NODE_ENV === 'testing'
+        process.env.NODE_ENV === "production" ||
+        process.env.NODE_ENV === "testing"
       ) {
-        this.handleWechatAuth()
+        this.handleWechatAuth();
       }
     }
-    this.handleForbiddenShare()
+    this.handleForbiddenShare();
   },
   methods: {
     //微信静默授权
     handleWechatAuth() {
-      if (Cookies.get('sign') === null) {
-        let base_url = encodeURIComponent(String(window.location.href))
+      if (Cookies.get("sign") === null) {
+        let base_url = encodeURIComponent(String(window.location.href));
         let redirct_url =
           process.env.WX_API +
-          '/wx/officialAccount/oauth?url=' +
+          "/wx/officialAccount/oauth?url=" +
           base_url +
-          '&scope=snsapi_base'
-        window.location.href = redirct_url
+          "&scope=snsapi_base";
+        window.location.href = redirct_url;
       } else {
-        this.userId = Cookies.get('user_id')
-        this.params.user_id = this.userId
-        this.checkCouponIsUse()
+        this.userId = Cookies.get("user_id");
+        this.params.user_id = this.userId;
+        this.checkCouponIsUse();
       }
     },
     //禁止微信分享
     handleForbiddenShare() {
       $wechat()
         .then(res => {
-          res.forbidden()
+          res.forbidden();
         })
         .catch(_ => {
-          console.warn(_.message)
-        })
+          console.warn(_.message);
+        });
     },
     //判断是否领过优惠券
     checkCouponIsUse() {
       let args = {
         coupon_batch_id: this.coupon_batch_id,
-        include: 'couponBatch',
+        include: "couponBatch",
         qiniu_id: this.id
-      }
+      };
       checkGetCoupon(args)
         .then(res => {
           if (res) {
-            console.log('checkGetCoupon', res)
-            this.handleData(res)
+            console.log("checkGetCoupon", res);
+            this.handleData(res);
           } else {
-            this.sendCoupon()
+            this.sendCoupon();
           }
         })
         .catch(err => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     },
     //发优惠券
     sendCoupon() {
       let args = {
-        include: 'couponBatch',
+        include: "couponBatch",
         qiniu_id: this.id,
         oid: this.oid,
         belong: this.belong
-      }
+      };
       sendCoupon(args, this.coupon_batch_id)
         .then(res => {
-          console.log('sendCoupon', res)
-          this.handleData(res)
+          console.log("sendCoupon", res);
+          this.handleData(res);
         })
         .catch(err => {
-          alert(err.response.data.message)
-        })
+          alert(err.response.data.message);
+        });
     },
     //处理返回数据
     handleData(res) {
-      this.qrcodeImg = res.qrcode_url
-      this.couponImg = res.couponBatch.image_url
+      this.qrcodeImg = res.qrcode_url;
+      this.couponImg = res.couponBatch.image_url;
       if (parseInt(res.status) === 1) {
         //已使用
-        this.hasUsed = true
+        this.hasUsed = true;
       }
-    },
+    }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>

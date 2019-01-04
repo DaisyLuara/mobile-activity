@@ -88,13 +88,6 @@ export default {
       }
     }
   },
-  beforeCreate() {
-    document.title = '扭蛋机'
-  },
-  created() {
-    // this.show()
-    this.query()
-  },
   watch: {
     parms() {
       this.type = this.parms.type
@@ -102,6 +95,13 @@ export default {
       this.drawCanvas(res.image)
       this.press = true
     }
+  },
+  beforeCreate() {
+    document.title = '扭蛋机'
+  },
+  created() {
+    // this.show()
+    this.query()
   },
   methods: {
     show() {

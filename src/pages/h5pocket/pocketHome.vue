@@ -1,7 +1,9 @@
 <template>
   <div class="pocket">
     <router-view v-if="wechat === true"/>
-    <div v-else class="remind">请在微信中打开</div>
+    <div 
+      v-else 
+      class="remind">请在微信中打开</div>
   </div>
 </template>
 
