@@ -15,6 +15,7 @@
 <script>
 import { handleH5SaasVote } from "services";
 import { mapGetters } from "vuex";
+import { Toast } from "mint-ui";
 export default {
   props: {
     // 投票id
@@ -62,6 +63,13 @@ export default {
       };
       handleH5SaasVote(this, payload)
         .then(r => {
+          console.dir(r);
+          if (r.data.state === "1") {
+            Toast("投票成功");
+            return;
+          } else if (r.data.state !== "0") {
+            Toast(r.data.results);
+          }
           console.dir(r);
         })
         .catch(e => {
