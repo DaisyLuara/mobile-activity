@@ -93,7 +93,8 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    font-size: 0.08rem;
+    font-size: 12px;
+    align-items: center;
     img {
       width: 0.25rem;
       height: 0.25rem;
