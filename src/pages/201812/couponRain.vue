@@ -12,7 +12,16 @@
       v-show="cshow"
       class="coupon"
     >
-      <img id="mImg">
+      <img
+        :src="coupon_img"
+        class="bg"
+      >
+      <div class="clip">
+        <img
+          :src="qrcodeImg"
+          class="qrcodeImg"
+        >
+      </div>
       <img
         v-show="used"
         :src="base + 'used.png'"
@@ -21,10 +30,9 @@
     </div>
     <img
       v-show="cshow"
-      :src="base + 'hint.png'"
+      :src="base + 'print.png'"
       class="hint"
     >
-    <canvas id="pcanvas"></canvas>
   </div>
 </template>
 <script>
@@ -46,7 +54,7 @@ export default {
       userId: null,
       cshow: false,//true
       coupon_img: null,//'https://cdn.exe666.com/fe/image/couponrain/Lee.png',
-      qrcodeImg: null,
+      qrcodeImg: null,// 'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
       arr: [190, 193, 194, 195, 196],
       num: parseInt(Math.random() * 4),
       //微信分享
@@ -61,14 +69,23 @@ export default {
   watch: {
     parms() {
       this.checkGetCoupon()
+      console.log(this.arr[this.num])
     }
   },
   mounted() {
+    //微信授权
+    if (isInWechat() === true) {
+      if (
+        process.env.NODE_ENV === 'production' ||
+        process.env.NODE_ENV === 'testing'
+      ) {
+        this.handleWechatAuth()
+      }
+    }
     if (process.env.NODE_ENV === 'testing') {
       this.wxShareInfoValue.link = 'http://papi.newgls.cn/api/s/59R' + window.location.search
     }
-    this.getNewPhoto('https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png', 'https://cdn.exe666.com/fe/image/couponrain/Lee.png')
-    //this.doAnimate()
+    this.doAnimate()
   },
   methods: {
     //微信静默授权
@@ -188,8 +205,6 @@ export default {
           bigText = getNewText(bigNUm, bigStyle, as_width * 0.5, as_height * 0.5, container2)
           bigText.anchor.set(0.5)
           //容器三，游戏界面
-          // gold = getNewSpriteImage(url + 'gold.png', { x: as_width / 2, y: as_height / 2, width: as_width * 0.18, height: as_width * 0.18 / 133 * 70 }, container3)//元宝
-          // gold.anchor.set(0.5, 0.5)
           cover = getNewSpriteImage(url + 'cover.png', { y: -as_height * 0.1, width: as_width, height: as_height * 1.1 }, container3)//cover图as_width / 750 * 1334
 
           //红包
@@ -311,27 +326,6 @@ export default {
         });
       })
     },
-    getNewPhoto(qrcode, coupon) {
-      let canvas = document.getElementById('pcanvas')
-      let ctx = canvas.getContext('2d')
-      let bg = new Image()
-      bg.src = coupon
-      let cover = new Image()
-      bg.setAttribute('crossOrigin', 'Anonymous')
-      cover.setAttribute('crossOrigin', 'Anonymous')
-      bg.onload = function () {
-        canvas.width = bg.width
-        canvas.height = bg.height
-        cover.onload = function () {
-          ctx.drawImage(bg, 0, 0)
-          ctx.drawImage(cover, cover.width * 0.1, cover.height * 0.1, cover.width * 0.8, cover.height * 0.8, bg.width * 0.29, bg.height * 0.65, bg.width * 0.42, bg.width * 0.42)
-          let url = canvas.toDataURL('image/png')
-          let img = document.getElementById('mImg')
-          img.src = url
-        }
-        cover.src = qrcode
-      }
-    },
     //判断是否领过优惠券
     checkGetCoupon() {
       let args = {
@@ -371,7 +365,6 @@ export default {
     handleData(res) {
       this.qrcodeImg = res.qrcode_url
       this.coupon_img = res.couponBatch.image_url
-      this.getNewPhoto(res.qrcode_url, res.couponBatch.image_url)
       if (parseInt(res.status) === 1) {
         this.used = true
       }
@@ -417,24 +410,28 @@ img {
     left: 50%;
     transform: translateX(-50%);
     z-index: 99;
-    #mImg {
-      position: relative;
-      z-index: 0;
-      pointer-events: auto;
-      user-select: auto;
-    }
     .bg {
       position: relative;
       z-index: 0;
     }
+    .clip {
+      width: 23.5vw;
+      height: 23.5vw;
+      overflow: hidden;
+      position: absolute;
+      top: 66%;
+      left: 50.5%;
+      z-index: 9;
+      transform: translateX(-50%);
+      text-align: center;
+    }
     .qrcodeImg {
       position: absolute;
-      width: 30vw;
-      // height: 30vw;
-      top: 63%;
+      width: 31vw;
+      max-width: 35vw;
+      top: 50%;
       left: 50%;
-      transform: translateX(-50%);
-      z-index: 99;
+      transform: translate(-50%, -50%);
     }
     .used {
       position: absolute;
