@@ -89,6 +89,7 @@ img {
   }
   .contain {
     position: relative;
+    margin-top: 2%;
     .frame {
       width: 70%;
     }
