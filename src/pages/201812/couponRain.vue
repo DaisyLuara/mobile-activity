@@ -12,14 +12,14 @@
       v-show="cshow"
       class="coupon"
     >
-      <!-- <img
+      <img
         :src="coupon_img"
         class="bg"
       >
       <img
         :src="qrcodeImg"
         class="qrcodeImg"
-      > -->
+      >
       <img id="mImg">
       <img
         v-show="used"
@@ -54,7 +54,7 @@ export default {
       userId: null,
       cshow: false,//true
       coupon_img: null,//'https://cdn.exe666.com/fe/image/couponrain/Lee.png',
-      qrcodeImg: null,
+      qrcodeImg: null,// 'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
       arr: [190, 193, 194, 195, 196],
       num: parseInt(Math.random() * 4),
       //微信分享
@@ -72,6 +72,15 @@ export default {
     }
   },
   mounted() {
+    //微信授权
+    if (isInWechat() === true) {
+      if (
+        process.env.NODE_ENV === 'production' ||
+        process.env.NODE_ENV === 'testing'
+      ) {
+        this.handleWechatAuth()
+      }
+    }
     if (process.env.NODE_ENV === 'testing') {
       this.wxShareInfoValue.link = 'http://papi.newgls.cn/api/s/59R' + window.location.search
     }
@@ -320,6 +329,8 @@ export default {
       })
     },
     getNewPhoto(qrcode, coupon) {
+      console.log('qrcode:' + qrcode)
+      console.log('coupon:' + coupon)
       let canvas = document.getElementById('pcanvas')
       let ctx = canvas.getContext('2d')
       let bg = new Image()
@@ -426,8 +437,13 @@ img {
     transform: translateX(-50%);
     z-index: 99;
     #mImg {
-      position: relative;
-      z-index: 0;
+      // position: relative;
+      // z-index: 0;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 99;
       pointer-events: auto;
       user-select: auto;
     }
@@ -438,7 +454,6 @@ img {
     .qrcodeImg {
       position: absolute;
       width: 30vw;
-      // height: 30vw;
       top: 63%;
       left: 50%;
       transform: translateX(-50%);
