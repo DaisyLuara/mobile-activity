@@ -96,7 +96,7 @@ img {
     pointer-events: none;
     user-select: none;
     .frame {
-      width: 88%;
+      width: 92%;
     }
     .save {
       width: 50%;
@@ -104,7 +104,7 @@ img {
       animation: arrow 0.5s linear infinite alternate;
     }
     .photo {
-      width: 64.5%;
+      width: 67.55%;
       position: absolute;
       left: 50%;
       top: 50%;
