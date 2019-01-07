@@ -108,7 +108,7 @@ img {
       position: absolute;
       left: 50%;
       top: 50%;
-      transform: translate(-50%, -55.95%);
+      transform: translate(-50%, -55.8%);
       pointer-events: auto;
       user-select: auto;
     }
