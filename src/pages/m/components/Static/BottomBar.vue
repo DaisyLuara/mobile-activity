@@ -1,6 +1,6 @@
 // 底部的按钮
 <template>
-  <div class="btb" v-if="menuCode !== '00000'">
+  <div class="btb" v-if="menuCode !== '00000' && showRoutes.includes(this.$route.name)">
     <div class="bitem" v-if="menuCode[0] === '1'" @click="handleMenuClick('TrendsIndex')">
       <img :src="photo" v-if="currentRoute !== 'TrendsIndex'">
       <img :src="photo_p" v-if="currentRoute === 'TrendsIndex'">
@@ -42,7 +42,14 @@ export default {
       card: "https://cdn.exe666.com/fe/image/m/btn_card_normal@3x.png",
       card_p: "https://cdn.exe666.com/fe/image/m/btn_card_pressed@3x.png",
       my: "https://cdn.exe666.com/fe/image/m/btn_my_normal@3x.png",
-      my_p: "https://cdn.exe666.com/fe/image/m/btn_my_pressed@3x.png"
+      my_p: "https://cdn.exe666.com/fe/image/m/btn_my_pressed@3x.png",
+      showRoutes: [
+        "MyIndex",
+        "MallIndex",
+        "CardIndex",
+        "TrendsIndex",
+        "ActivityShop"
+      ]
     };
   },
   computed: {
@@ -96,6 +103,7 @@ export default {
     justify-content: space-around;
     font-size: 12px;
     align-items: center;
+    color: rgba(166, 153, 150, 1);
     img {
       width: 25px;
       height: 25px;

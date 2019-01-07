@@ -1,6 +1,9 @@
 <template>
   <div class="trend-photo" @click="handleTrendItemClick(avrid)">
-    <div class="act">活动</div>
+    <div class="act">
+      <img v-if="type === 'game'" :src="game">
+      <img v-if="type === 'alltop'" :src="alltop">
+    </div>
     <img :src="image" class="item-photo">
     <div class="item-info">
       <div class="info-title">{{ title }}</div>
@@ -33,7 +36,18 @@ export default {
       type: String,
       default: "",
       required: true
+    },
+    type: {
+      type: String,
+      default: " ",
+      required: true
     }
+  },
+  data() {
+    return {
+      alltop: "https://cdn.exe666.com/fe/image/m/trend-index-activity.svg",
+      game: "https://cdn.exe666.com/fe/image/m/trend-index-alltop.svg"
+    };
   },
   computed: {
     computedDate() {
@@ -78,18 +92,17 @@ export default {
   overflow: hidden;
   .act {
     position: absolute;
-    right: 0.1rem;
-    text-align: center;
-    top: 0.12rem;
-    font-size: 12px;
-    width: 32px;
-    height: 20px;
-    background: rgba(255, 255, 255, 1);
-    border: 1px solid rgba(57, 48, 104, 1);
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
-    border-radius: 9px;
-    line-height: 20px;
-    color: black;
+    top: 0;
+    right: 0;
+    width: 0.44rem;
+    height: 0.44rem;
+    img {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+    }
   }
   .item-photo {
     width: 100%;

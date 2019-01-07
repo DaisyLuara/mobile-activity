@@ -1,6 +1,6 @@
 <template>
   <div class="activity-bottom">
-    <div class="progress" @click="naviGateToAct">查看活动进度</div>
+    <div class="progress" @click="naviGateToAct">{{buttonText}}</div>
     <div class="award" @click="awardIn" v-if="isAllow === '1'">立即报名</div>
   </div>
 </template>
@@ -19,7 +19,16 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["z"])
+    ...mapGetters(["z"]),
+    buttonText() {
+      if (this.acttype === "alltop") {
+        return "查看投票榜单";
+      }
+      if (this.acttype === "game") {
+        return "查看活动排行榜";
+      }
+      return "查看活动进度";
+    }
   },
   props: {
     acid: {
