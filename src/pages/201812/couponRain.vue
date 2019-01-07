@@ -12,14 +12,14 @@
       v-show="cshow"
       class="coupon"
     >
-      <!-- <img
+      <img
         :src="coupon_img"
         class="bg"
       >
       <img
         :src="qrcodeImg"
         class="qrcodeImg"
-      > -->
+      >
       <img id="mImg">
       <img
         v-show="used"
@@ -54,7 +54,7 @@ export default {
       userId: null,
       cshow: false,//true
       coupon_img: null,//'https://cdn.exe666.com/fe/image/couponrain/Lee.png',
-      qrcodeImg: null,
+      qrcodeImg: null,// 'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
       arr: [190, 193, 194, 195, 196],
       num: parseInt(Math.random() * 4),
       //微信分享
@@ -437,8 +437,13 @@ img {
     transform: translateX(-50%);
     z-index: 99;
     #mImg {
-      position: relative;
-      z-index: 0;
+      // position: relative;
+      // z-index: 0;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 99;
       pointer-events: auto;
       user-select: auto;
     }
@@ -449,7 +454,6 @@ img {
     .qrcodeImg {
       position: absolute;
       width: 30vw;
-      // height: 30vw;
       top: 63%;
       left: 50%;
       transform: translateX(-50%);
