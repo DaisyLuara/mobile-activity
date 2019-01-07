@@ -1,21 +1,26 @@
 <template>
-  <div 
-    :style="style.root" 
-    class="root">
-    <img 
-      :src="baseUrl + 'top.png'+ this.$qiniuCompress()" 
-      class="topImg">
+  <div
+    :style="style.root"
+    class="root"
+  >
+    <img
+      :src="baseUrl + 'top.png'+ this.$qiniuCompress()"
+      class="topImg"
+    >
     <div class="contain">
-      <img 
-        :src="baseUrl + 'frame.png'+ this.$qiniuCompress()" 
-        class="frame">
-      <img 
-        v-if="photo !== null" 
-        :src="photo + this.$qiniuCompress()" 
-        class="photo">
-      <img 
-        :src="baseUrl + 'save.png'+ this.$qiniuCompress()" 
-        class="save">
+      <img
+        :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
+        class="frame"
+      >
+      <img
+        v-if="photo !== null"
+        :src="photo + this.$qiniuCompress()"
+        class="photo"
+      >
+      <img
+        :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
+        class="save"
+      >
     </div>
   </div>
 </template>
@@ -68,7 +73,7 @@ img {
 .root {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-around;
   align-items: center;
   position: relative;
   overflow: hidden;
@@ -84,7 +89,6 @@ img {
   }
   .contain {
     position: relative;
-    margin-top: 5%;
     .frame {
       width: 70%;
     }
