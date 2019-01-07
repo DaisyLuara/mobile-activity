@@ -4,12 +4,13 @@
       v-if="resData.image !== ''"
       :title="resData.title"
       :mname="resData.mname"
-      :time="resData.date"
+      :clientdate="resData.clientdate"
     />
     <img :src="resData.image" class="photo">
     <TrendsBottomBar
       @onTrendDelete="handleTrendDeleteModalShow"
       @onTrendShare="handleShareModalShare"
+      :actDetail="actDetail"
       :acid="Number(resData.acid)"
     />
     <TrendsBottomBlankHolder/>
@@ -52,12 +53,13 @@ export default {
       resData: {
         image: "",
         title: "",
-        date: "",
-        acid: 0
+        acid: 0,
+        clientdate: ""
       },
       actDetail: {
         infolink: "",
-        pslink: ""
+        pslink: "",
+        type: ""
       },
       infolink: "",
       pslink: ""

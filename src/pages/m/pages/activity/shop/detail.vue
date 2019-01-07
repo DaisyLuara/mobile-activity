@@ -87,6 +87,7 @@ export default {
           z: this.z,
           api: "json"
         };
+        document.title = this.resData.aname;
         this.infolink = await this.loadPage(this.resData.infolink);
         this.pslink = await this.loadPage(this.resData.pslink);
       } catch (e) {

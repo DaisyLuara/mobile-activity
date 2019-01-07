@@ -17,7 +17,9 @@
           :views="item.views"
         />
       </div>
+      <div class="blank-holder"></div>
     </ul>
+    <ActivityThemeGameBottom/>
   </div>
 </template>
 
@@ -28,6 +30,8 @@ import { InfiniteScroll } from "mint-ui";
 import { fetchShopActivityProgress, fetchActivityDetail } from "services";
 import ThemeVoteItem from "@/pages/m/components/ListItem/ThemeVoteItem";
 import NoListContentReminder from "@/pages/m/components/Reminder/NoListContentReminder";
+import ActivityThemeGameBottom from "@/pages/m/components/Activity/ActivityThemeGameBottom";
+
 export default {
   data() {
     return {
@@ -45,7 +49,8 @@ export default {
   },
   components: {
     ThemeVoteItem,
-    NoListContentReminder
+    NoListContentReminder,
+    ActivityThemeGameBottom
   },
   computed: {
     ...mapGetters(["z"])
@@ -114,6 +119,7 @@ export default {
         try {
           let r = await fetchActivityDetail(this, payload);
           this.actData = r.data.results;
+          document.title = this.actData.aname;
         } catch (e) {
           console.log(e);
         }
@@ -152,6 +158,11 @@ export default {
   .main-photo {
     width: 100%;
     margin-bottom: 20px;
+  }
+  .blank-holder {
+    width: 100%;
+    background: transparent;
+    height: 0.8rem;
   }
 }
 </style>

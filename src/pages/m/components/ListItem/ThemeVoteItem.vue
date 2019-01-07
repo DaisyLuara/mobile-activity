@@ -7,7 +7,7 @@
       </div>
       <img :src="photoUrl" class="inner-photo">
     </div>
-    <div class="vote-title">获得票数{{views}}</div>
+    <div class="vote-title">{{views}} 票</div>
     <div class="vote-button" @click="handleVote">投票</div>
   </div>
 </template>

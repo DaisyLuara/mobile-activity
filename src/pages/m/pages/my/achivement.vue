@@ -1,43 +1,30 @@
 <template>
-  <div class="trends">
-    <NoListContentReminder words="暂时还没有活动" :show="trends.length ===0 && firstFetch"/>
-
-    <MyTrendsSwiper/>
+  <div class="achivement">
+    <div class="title">我解锁的成就</div>
     <ul
       v-infinite-scroll="loadMore"
-      class="trends-wrapper"
+      class="achives"
       infinite-scroll-disabled="loading"
       infinite-scroll-distance="10"
     >
-      <div v-for="(item, index) in trends" :key="index" class="item-wrapper">
-        <TrendPhoto
-          :image="item.image"
-          :title="item.title"
-          :clientdate="item.clientdate"
-          :avrid="item.avrid"
-          :type="item.ac_type"
-        />
+      <div v-for="(item, index) in trends" :key="index" class="achive">
+        <div class="header">
+          <img :src="item.xicon">
+        </div>
+        <div class="text">{{item.xname}}</div>
       </div>
+      <div class="no-achive" v-if="trends.length === 0 && firstFetch">暂无解锁的成就</div>
     </ul>
   </div>
 </template>
 
 <script>
 import Vue from "vue";
-import TrendPhoto from "@/pages/m/components/ListItem/TrendPhoto";
-import MyTrendsSwiper from "@/pages/m/components/Banner/MyTrendsSwiper";
-import { InfiniteScroll } from "mint-ui";
-import { getUserTrends } from "services";
 import { mapGetters } from "vuex";
-import NoListContentReminder from "@/pages/m/components/Reminder/NoListContentReminder";
+import { InfiniteScroll } from "mint-ui";
+import { fetchMyAchivement } from "services";
 export default {
-  name: "TrendsIndex",
-  components: {
-    TrendPhoto,
-    MyTrendsSwiper,
-    NoListContentReminder
-  },
-
+  name: "MyAchivement",
   data() {
     return {
       bindBottomDistance: 0,
@@ -49,11 +36,9 @@ export default {
       trends: []
     };
   },
-
   computed: {
     ...mapGetters(["z"])
   },
-
   created() {
     if (this.z === "") {
       return;
@@ -61,7 +46,6 @@ export default {
     this.fetchList();
     Vue.use(InfiniteScroll);
   },
-
   mounted() {
     this.currentPage = 1;
     this.isLoading = false;
@@ -69,7 +53,6 @@ export default {
     this.trends = [];
     this.bindBottomDistance = (this.$parent.screenWidth / 375) * 100 * 0.48;
   },
-
   methods: {
     loadMore() {
       this.loading = true;
@@ -87,8 +70,9 @@ export default {
         size: 10,
         mkey: this.$route.params.mkey,
         z: this.z
+        // z: "4fk2d91686b0fcef93b6e594689846cb4631n5"
       };
-      getUserTrends(payload)
+      fetchMyAchivement(payload)
         .then(r => {
           let res = r.data.results.data;
           this.isLoading = false;
@@ -113,22 +97,81 @@ export default {
 .mint-loadmore-bottom {
   font-size: 0.14rem !important;
 }
-.trends {
+.achivement {
   position: relative;
   width: 100%;
   min-height: 100vh;
-  .trends-wrapper {
+  .title {
+    width: 2.1rem;
+    height: 0.33rem;
+    background: rgba(248, 198, 124, 1);
+    box-shadow: 0px 2px 0px rgba(219, 170, 97, 1);
+    opacity: 1;
+    border-radius: 33px;
+    position: absolute;
+    font-size: 0.14rem;
+    line-height: 0.33rem;
+    text-align: center;
+    z-index: 100;
+    margin-top: -0.2rem;
+    margin-left: 0.83rem;
+    color: rgba(123, 74, 45, 1);
+    font-weight: bold;
+  }
+  .achives {
+    z-index: 50;
     position: relative;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
+    margin: 0 0.08rem;
+    background: rgba(252, 246, 239, 1);
+    border-radius: 38px;
+    margin-top: 0.45rem;
+    padding-top: 0.3rem;
+    .achive {
+      width: 1.2rem;
+      height: 1.32rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      .header {
+        width: 0.84rem;
+        border: 1px solid rgba(212, 212, 212, 1);
+        height: 0.84rem;
+        border-radius: 50%;
+        position: relative;
+        overflow: hidden;
+        img {
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          top: 0;
+          left: 0;
+        }
+      }
+      .text {
+        font-size: 0.14rem;
+        height: 0.2rem;
+        width: 100%;
+        font-weight: 400;
+        text-align: center;
+        overflow: hidden;
+        color: rgba(159, 110, 67, 1);
+      }
+    }
+    .no-achive {
+      align-self: center;
+      font-size: 0.14rem;
+      text-align: center;
+      color: #7b4a2d;
+      height: 1rem;
+      width: 100%;
+    }
   }
-  .item-wrapper {
-    width: 1.71rem;
-    height: 3.045rem;
-    margin: 0.1rem 0.08rem;
-  }
+
   .mint-loadmore-bottom {
     font-size: 0.14rem;
   }

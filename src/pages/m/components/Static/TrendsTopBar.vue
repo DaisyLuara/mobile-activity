@@ -7,7 +7,7 @@
       <div class="location">
         <div class="place">{{ title }}</div>
         <div class="mname">{{ mname }}</div>
-        <div class="time">{{ time }}</div>
+        <div class="time">{{ computedDate }}</div>
       </div>
     </div>
     <div class="button" @click="handleNaviToMoreTrends">更多照片</div>
@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import moment from "moment";
 import { mapGetters } from "vuex";
 export default {
   props: {
@@ -23,7 +24,7 @@ export default {
       default: "",
       required: true
     },
-    time: {
+    clientdate: {
       type: String,
       default: "",
       required: true
@@ -40,7 +41,22 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["loginState"])
+    ...mapGetters(["loginState"]),
+    computedDate() {
+      let now = moment(new Date().getTime());
+      let cld = moment(Number(this.clientdate));
+      // console.log(cld);
+      let diffyear = cld.diff(now, "years");
+      let diffday = now.diff(cld, "days");
+      if (diffyear >= 1) {
+        return cld.format("YYYY-MM-DD HH:mm:ss");
+      } else if (diffday <= 1) {
+        return cld.format("HH:mm:ss");
+      } else {
+        return cld.format("MM-DD HH:mm:ss");
+      }
+      return "";
+    }
   },
 
   methods: {

@@ -15,9 +15,11 @@
       >
         <img :src="item.image">
         <div class="title">{{ item.title }}</div>
-        <div class="time">开始日期：{{ item.date }}</div>
+        <div class="time">活动日期：{{computedDate(item.sdate)}} - {{computedDate(item.edate)}}</div>
       </div>
     </ul>
+    <div class="loadmore-add"/>
+    <div class="loadmore-add"/>
   </div>
 </template>
 
@@ -27,6 +29,7 @@ import MyTrendsSwiper from "@/pages/m/components/Banner/MyTrendsSwiper";
 import { InfiniteScroll } from "mint-ui";
 import { fetchShopActivityList } from "services";
 import { mapGetters } from "vuex";
+import moment from "moment";
 export default {
   name: "TrendsIndex",
 
@@ -79,6 +82,21 @@ export default {
       setTimeout(() => {
         this.fetchList();
       }, 2000);
+    },
+    computedDate(clientdate) {
+      let now = moment(new Date().getTime());
+      let cld = moment(Number(clientdate));
+      // console.log(cld);
+      let diffyear = cld.diff(now, "years");
+      let diffday = now.diff(cld, "days");
+      if (diffyear >= 1) {
+        return cld.format("YYYY-MM-DD HH:mm:ss");
+      } else if (diffday <= 1) {
+        return cld.format("HH:mm:ss");
+      } else {
+        return cld.format("MM-DD HH:mm:ss");
+      }
+      return "";
     },
     fetchList() {
       if (this.isAllLoaded || this.isLoading) {
