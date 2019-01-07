@@ -4,8 +4,12 @@
     class="root"
   >
     <img
-      :src="baseUrl + 'top.png'+ this.$qiniuCompress()"
+      :src="baseUrl + 'top2.png'+ this.$qiniuCompress()"
       class="topImg"
+    >
+    <img
+      :src="baseUrl + 'lion.png'+ this.$qiniuCompress()"
+      class="lion"
     >
     <div class="contain">
       <img
@@ -31,7 +35,7 @@ export default {
   mixins: [normalPages],
   data() {
     return {
-      baseUrl: cdnUrl + "/fe/marketing/img/pig_green/",
+      baseUrl: cdnUrl + "/fe/marketing/img/happy_newYear/",
       style: {
         root: {
           height: this.$innerHeight() + "px"
@@ -39,10 +43,10 @@ export default {
       },
       iphoneX: false,
       wxShareInfoValue: {
-        title: "猪年来缤纷城福气满满！",
-        desc: "点击领取福气美照 ",
-        link: "http://papi.xingstation.com/api/s/Ogg" + window.location.search,
-        imgUrl: cdnUrl + "/fe/marketing/img/pig_green/icon.png"
+        title: "亲爱的，新年快乐!",
+        desc: "猪年大吉，猪事顺利",
+        link: "http://papi.xingstation.com/api/s/RlL" + window.location.search,
+        imgUrl: cdnUrl + "/fe/marketing/img/happy_newYear/icon.png"
       }
     };
   }
@@ -50,7 +54,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: "http://cdn.exe666.com/fe/marketing/img/pig_green/";
+@imageHost: "http://cdn.exe666.com/fe/marketing/img/happy_newYear/";
 html,
 body {
   width: 100%;
@@ -84,29 +88,36 @@ img {
   .topImg {
     width: 100%;
     position: absolute;
-    left: 0%;
-    top: 0%;
+    left: 0;
+    top: 0;
   }
   .contain {
     position: relative;
-    margin-top: 2%;
+    pointer-events: none;
+    user-select: none;
     .frame {
-      width: 70%;
+      width: 92%;
     }
     .save {
       width: 50%;
-      margin-top: 1%;
+      margin-top: -25%;
       animation: arrow 0.5s linear infinite alternate;
     }
     .photo {
-      width: 64.5%;
+      width: 67.55%;
       position: absolute;
       left: 50%;
       top: 50%;
-      transform: translate(-50%, -47.6%);
+      transform: translate(-50%, -55.95%);
       pointer-events: auto;
       user-select: auto;
     }
+  }
+  .lion {
+    width: 32%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
   }
 }
 @keyframes arrow {
