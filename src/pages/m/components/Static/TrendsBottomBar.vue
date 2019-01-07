@@ -1,36 +1,106 @@
 <template>
   <div class="tbb">
     <div class="function">
-      <div class="fitem" @click="handleFuncClick('delete')">
-        <img :src="deleteUrl" class="delete">
+      <div 
+        class="fitem" 
+        @click="handleFuncClick('delete')">
+        <img 
+          :src="deleteUrl" 
+          class="delete">
       </div>
-      <div class="fitem" @click="handleFuncClick('save')">
-        <img :src="saveUrl" class="save">
+      <div 
+        class="fitem" 
+        @click="handleFuncClick('save')">
+        <img 
+          :src="saveUrl" 
+          class="save">
       </div>
-      <div class="fitem" @click="handleFuncClick('share')">
-        <img :src="shareUrl" class="share">
+      <div 
+        class="fitem" 
+        @click="handleFuncClick('share')">
+        <img 
+          :src="shareUrl" 
+          class="share">
       </div>
     </div>
+
     <div class="button">
-      <div class="title">{{buttonTitle}}</div>
-      <div class="time">{{subTitle}}</div>
+      <div 
+        v-if="acid >0" 
+        class="title" 
+        @click="naviToShopActivityDetail">{{ buttonTitle }}</div>
+      <div
+        v-if="acid <=0 && actList.length > 0"
+        class="title"
+        @click="showActsCanJoin"
+      >{{ buttonTitle }}</div>
+      <!-- <div class="time">{{subTitle}}</div> -->
     </div>
+    <transition name="fade">
+      <div 
+        v-if="shoudListShow" 
+        class="list">
+        <div
+          v-for="(item, index) in actList"
+          :key="index"
+          class="list-item"
+          @click="naviGateToActDetail(item)"
+        >{{ item.aname }}</div>
+      </div>
+    </transition>
   </div>
 </template>
 
 <script>
 import { Toast } from "mint-ui";
+import { mapGetters } from "vuex";
+import { fetchShopActivityList } from "services";
 export default {
+  props: {
+    acid: {
+      type: Number,
+      default: 0,
+      required: true
+    }
+  },
   data() {
     return {
       deleteUrl: "https://cdn.exe666.com/fe/image/m/m-menu-delete.svg",
       saveUrl: "https://cdn.exe666.com/fe/image/m/m-menu-download.svg",
       shareUrl: "https://cdn.exe666.com/fe/image/m/m-menu-share.svg",
-      buttonTitle: "报名参与赢大奖",
-      subTitle: "活动倒计时:12:14:33"
+      subTitle: "活动倒计时:12:14:33",
+      actList: [],
+      shoudListShow: false
     };
   },
+  mounted() {
+    this.preFetchActList();
+  },
+  computed: {
+    buttonTitle() {
+      if (Number(this.acid) > 0) {
+        return "活动详情";
+      } else {
+        return "参与活动";
+      }
+    },
+    ...mapGetters(["z"])
+  },
   methods: {
+    naviToShopActivity() {
+      this.$router.push({
+        name: "ActivityShop"
+      });
+    },
+    naviToShopActivityDetail() {
+      this.$router.push({
+        name: "ActivityShopDetail",
+        params: this.$route.params,
+        query: {
+          acid: this.acid
+        }
+      });
+    },
     handleFuncClick(mode) {
       if (mode === "delete") {
         this.$emit("onTrendDelete");
@@ -42,13 +112,46 @@ export default {
       if (mode === "share") {
         this.$emit("onTrendShare");
       }
+    },
+    preFetchActList() {
+      let payload = {
+        mkey: this.$route.params.mkey,
+        z: this.z,
+        api: "json",
+        allt: "1"
+      };
+      fetchShopActivityList(this, payload).then(r => {
+        this.actList = r.data.results.data;
+      });
+    },
+    showActsCanJoin() {
+      this.shoudListShow = true;
+    },
+    naviGateToActDetail(item) {
+      this.$router.push({
+        name: "ActivityShopDetail",
+        query: {
+          acid: item.acid,
+          avrid: this.$route.query.avrid
+        },
+        params: this.$route.params
+      });
     }
   }
 };
 </script>
 
 <style lang="less" scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
 .tbb {
+  bottom: constant(safe-area-inset-bottom); /* 兼容 iOS < 11.2 */
+  bottom: env(safe-area-inset-bottom); /* 兼容 iOS >= 11.2 */
   position: fixed;
   left: 0;
   bottom: 0;
@@ -107,6 +210,21 @@ export default {
       font-size: 0.1rem;
       font-weight: 400;
       color: white;
+    }
+  }
+  .list {
+    width: 100%;
+    padding: 20px 0;
+    position: absolute;
+    bottom: 0.47rem;
+    left: 0;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    .list-item {
+      text-align: center;
+      font-size: 0.18rem;
+      padding: 10px 0;
     }
   }
 }

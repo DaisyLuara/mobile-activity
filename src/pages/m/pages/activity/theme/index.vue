@@ -1,15 +1,20 @@
 <template>
   <div class="theme">
-    <img class="main-img" :src="themeImageUrl">
+    <img 
+      :src="themeImageUrl" 
+      class="main-img">
     <div class="time-count">
-      <div class="inner-remind">{{timeCount}}</div>
+      <div class="inner-remind">{{ timeCount }}</div>
     </div>
-    <div class="theme-item-wrapper" v-for="(item, index) in themeActItems" :key="index">
+    <div 
+      v-for="(item, index) in themeActItems" 
+      :key="index" 
+      class="theme-item-wrapper">
       <ThemeVoteItem/>
     </div>
     <div class="activity">
-      <div class="title"></div>
-      <div class="desc"></div>
+      <div class="title"/>
+      <div class="desc"/>
     </div>
   </div>
 </template>
@@ -17,6 +22,9 @@
 <script>
 import ThemeVoteItem from "@/pages/m/components/ListItem/ThemeVoteItem";
 export default {
+  components: {
+    ThemeVoteItem
+  },
   data() {
     return {
       themeActItems: [],
@@ -31,9 +39,6 @@ export default {
       return "活动倒计时:12:14:33";
     }
   },
-  components: {
-    ThemeVoteItem
-  }
 };
 </script>
 

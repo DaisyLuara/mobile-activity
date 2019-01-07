@@ -1,26 +1,21 @@
 <template>
-  <div
-    :style="style.root"
-    class="root"
-  >
-    <img
-      :src="baseUrl + 'top.png'+ this.$qiniuCompress()"
-      class="topImg"
-    >
+  <div 
+    :style="style.root" 
+    class="root">
+    <img 
+      :src="baseUrl + 'top.png'+ this.$qiniuCompress()" 
+      class="topImg">
     <div class="contain">
-      <img
-        :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
-        class="frame"
-      >
-      <img
-        v-if="photo !== null"
-        :src="photo + this.$qiniuCompress()"
-        class="photo"
-      >
-      <img
-        :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
-        class="save"
-      >
+      <img 
+        :src="baseUrl + 'frame.png'+ this.$qiniuCompress()" 
+        class="frame">
+      <img 
+        v-if="photo !== null" 
+        :src="photo + this.$qiniuCompress()" 
+        class="photo">
+      <img 
+        :src="baseUrl + 'save.png'+ this.$qiniuCompress()" 
+        class="save">
     </div>
   </div>
 </template>
@@ -42,10 +37,10 @@ export default {
         title: "猪年来缤纷城福气满满！",
         desc: "点击领取福气美照 ",
         link: "http://papi.xingstation.com/api/s/Ogg" + window.location.search,
-        imgUrl: cdnUrl + "/fe/marketing/img/pig_green/icon.png",
+        imgUrl: cdnUrl + "/fe/marketing/img/pig_green/icon.png"
       }
     };
-  },
+  }
 };
 </script>
 
