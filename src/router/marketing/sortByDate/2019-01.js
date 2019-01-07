@@ -31,6 +31,17 @@ const Date201901 = [
       desc: '连卡福红包雨-大屏h5'
     },
     isAbandoned: false
+  },
+  {
+    path: 'drc_meifu',
+    location: '201901/meifu',
+    name: 'drc_meifu',
+    meta: {
+      title: '美肤测试仪',
+      author: 'xj1012',
+      desc: '美肤测试仪'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201901
