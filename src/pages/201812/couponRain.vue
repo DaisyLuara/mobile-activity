@@ -72,6 +72,15 @@ export default {
     }
   },
   mounted() {
+    //微信授权
+    if (isInWechat() === true) {
+      if (
+        process.env.NODE_ENV === 'production' ||
+        process.env.NODE_ENV === 'testing'
+      ) {
+        this.handleWechatAuth()
+      }
+    }
     if (process.env.NODE_ENV === 'testing') {
       this.wxShareInfoValue.link = 'http://papi.newgls.cn/api/s/59R' + window.location.search
     }
@@ -320,6 +329,8 @@ export default {
       })
     },
     getNewPhoto(qrcode, coupon) {
+      console.log('qrcode:' + qrcode)
+      console.log('coupon:' + coupon)
       let canvas = document.getElementById('pcanvas')
       let ctx = canvas.getContext('2d')
       let bg = new Image()
