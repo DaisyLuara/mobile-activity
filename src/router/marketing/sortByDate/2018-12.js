@@ -414,6 +414,17 @@ const Date201812 = [
       desc: '乾仓'
     },
     isAbandoned: false
+  },
+  {
+    path: 'coupon_rain',
+    location: '201812/couponRain',
+    name: 'coupon_rain',
+    meta: {
+      title: '连卡福红包雨',
+      author: 'lipan',
+      desc: '衡阳连卡福-福猪港味年-红包雨'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201812
