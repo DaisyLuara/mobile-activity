@@ -13,9 +13,11 @@
         :key="index"
         class="item-wrapper"
       >
-        <img :src="item.image">
+        <img class="type" :src="bindType(item.type)" v-if="item.type !== ''">
+        <img class="main" :src="item.image">
         <div class="title">{{ item.title }}</div>
         <div class="time">活动日期：{{computedDate(item.sdate)}} - {{computedDate(item.edate)}}</div>
+        <img class="time-shadow" :src="coverShadow">
       </div>
     </ul>
     <div class="loadmore-add"/>
@@ -43,7 +45,11 @@ export default {
       currentPage: 1,
       isLoading: false,
       isAllLoaded: false,
-      trends: []
+      trends: [],
+      coverShadow:
+        "https://cdn.exe666.com/fe/image/m/activity-cover-shadow.svg",
+      alltop: "https://cdn.exe666.com/fe/image/m/trend-index-activity.svg",
+      game: "https://cdn.exe666.com/fe/image/m/trend-index-alltop.svg"
     };
   },
 
@@ -124,6 +130,14 @@ export default {
           console.log(e);
           this.isLoading = false;
         });
+    },
+    bindType(type) {
+      if (type === "alltop") {
+        return this.alltop;
+      }
+      if (type === "game") {
+        return this.game;
+      }
     }
   }
 };
@@ -156,7 +170,15 @@ export default {
       justify-content: flex-end;
       align-items: flex-start;
       overflow: hidden;
-      img {
+      .type {
+        z-index: 60;
+        top: 0;
+        right: 0;
+        width: 0.44rem;
+        height: 0.44rem;
+        position: absolute;
+      }
+      .main {
         position: absolute;
         top: 0;
         left: 0;
@@ -182,6 +204,14 @@ export default {
         color: rgba(255, 255, 255, 1);
         margin-left: 0.145rem;
         margin-bottom: 0.08rem;
+      }
+      .time-shadow {
+        z-index: 49;
+        width: 100%;
+        height: 0.67rem;
+        position: absolute;
+        bottom: 0;
+        left: 0;
       }
     }
   }
