@@ -74,7 +74,7 @@ img {
 .root {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-around;
   align-items: center;
   position: relative;
   overflow: hidden;
@@ -90,7 +90,7 @@ img {
   }
   .contain {
     position: relative;
-    margin-top: 5%;
+    margin-top: 2%;
     .frame {
       width: 70%;
     }
