@@ -33,17 +33,6 @@ const Date201901 = [
     isAbandoned: false
   },
   {
-    path: 'drc_meifu',
-    location: '201901/meifu',
-    name: 'drc_meifu',
-    meta: {
-      title: '美肤测试仪',
-      author: 'xj1012',
-      desc: '美肤测试仪'
-    },
-    isAbandoned: false
-  },
-  {
     path: 'happy_newYear',
     location: '201901/newYear',
     name: 'happy_newYear',
@@ -51,6 +40,17 @@ const Date201901 = [
       title: '过年啦',
       author: 'xj1012',
       desc: '新年快乐-通用版'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'drc_meifu',
+    location: '201901/meifu',
+    name: 'drc_meifu',
+    meta: {
+      title: '美肤测试仪',
+      author: 'xj1012',
+      desc: '美肤测试仪'
     },
     isAbandoned: false
   }
