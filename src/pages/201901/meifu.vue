@@ -42,7 +42,7 @@ export default {
       wxShareInfoValue: {
         title: "猪年来缤纷城福气满满！",
         desc: "点击领取福气美照 ",
-        link: "http://papi.xingstation.com/api/s/Ogg" + window.location.search,
+        link: "http://papi.xingstation.com/api/s/Vv5" + window.location.search,
         imgUrl: cdnUrl + "/fe/marketing/img/drc_meifu/icon.png"
       }
     };
@@ -153,7 +153,7 @@ img {
 .root {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-around;
   align-items: center;
   position: relative;
   overflow: hidden;

@@ -43,9 +43,9 @@ export default {
       },
       iphoneX: false,
       wxShareInfoValue: {
-        title: "猪年来缤纷城福气满满！",
-        desc: "点击领取福气美照 ",
-        link: "http://papi.xingstation.com/api/s/Ogg" + window.location.search,
+        title: "亲爱的，新年快乐!",
+        desc: "猪年大吉，猪事顺利",
+        link: "http://papi.xingstation.com/api/s/RlL" + window.location.search,
         imgUrl: cdnUrl + "/fe/marketing/img/happy_newYear/icon.png"
       }
     };

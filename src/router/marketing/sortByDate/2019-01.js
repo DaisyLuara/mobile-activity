@@ -48,7 +48,7 @@ const Date201901 = [
     location: '201901/newYear',
     name: 'happy_newYear',
     meta: {
-      title: '新年快乐',
+      title: '过年啦',
       author: 'xj1012',
       desc: '新年快乐-通用版'
     },
