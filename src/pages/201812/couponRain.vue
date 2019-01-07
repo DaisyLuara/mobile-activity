@@ -332,7 +332,7 @@ export default {
         canvas.height = bg.height
         cover.onload = function () {
           ctx.drawImage(bg, 0, 0)
-          ctx.drawImage(cover, 0, 0, cover.width, cover.height, bg.width * 0.29, bg.height * 0.65, bg.width * 0.42, bg.width * 0.42)
+          ctx.drawImage(cover, cover.width * 0.1, cover.height * 0.1, cover.width * 0.8, cover.height * 0.8, bg.width * 0.29, bg.height * 0.65, bg.width * 0.42, bg.width * 0.42)
           let url = canvas.toDataURL('image/png')
           let img = document.getElementById('mImg')
           img.src = url

@@ -17,10 +17,12 @@
           :src="base + '3.png'"
           class="erbg"
         >
-        <img
-          :src="qrcodeImg"
-          class="qrcode"
-        >
+        <div class="clip">
+          <img
+            :src="qrcodeImg"
+            class="qrcode"
+          >
+        </div>
         <img
           v-show="used"
           :src="base + 'used.png'"
@@ -46,8 +48,8 @@ export default {
       },
       id: this.$route.query.id,
       userId: null,
-      coupon_img: null,//'https://cdn.exe666.com/fe/image/couponrain/lkf/Lee.png',
-      qrcodeImg: null,// 'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
+      coupon_img: null,// 'https://cdn.exe666.com/fe/image/couponrain/lkf/Lee.png',
+      qrcodeImg: null,//'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
       used: false,
       //微信分享
       wxShareInfoValue: {
@@ -202,14 +204,26 @@ img {
         position: relative;
         z-index: 0;
       }
-      .qrcode {
-        width: 23vw;
-        // height: 25vw;
+      .clip {
+        width: 20vw;
+        height: 20vw;
+        overflow: hidden;
         position: absolute;
-        top: 11%;
+        top: 15.5%;
         left: 50%;
         z-index: 9;
         transform: translateX(-50%);
+        text-align: center;
+      }
+      .qrcode {
+        width: 25vw;
+        max-width: 30vw;
+        margin: 0 auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        // height: 25vw;
       }
       .used {
         width: 27vw;
