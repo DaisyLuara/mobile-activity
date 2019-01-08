@@ -118,12 +118,16 @@ export default {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      font-size: 0.14rem;
+      margin-bottom: 0.01rem;
     }
     .info-location-date {
       width: 100%;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      color: rgba(212, 212, 212, 1);
+      font-size: 0.13rem;
     }
 
     width: 100%;
@@ -139,7 +143,7 @@ export default {
     padding: 0 0.1rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     align-items: flex-start;
   }
 }
