@@ -118,8 +118,9 @@ export default {
     },
     //判断是否领过优惠券
     checkCouponIsUse() {
+      let coupon_batch_id = this.$route.query.coupon_batch_id || this.coupon_batch_id
       let args = {
-        coupon_batch_id: this.coupon_batch_id,
+        coupon_batch_id: coupon_batch_id,
         include: "couponBatch",
         qiniu_id: this.id
       };
@@ -138,13 +139,14 @@ export default {
     },
     //发优惠券
     sendCoupon() {
+      let coupon_batch_id = this.$route.query.coupon_batch_id || this.coupon_batch_id
       let args = {
         include: "couponBatch",
         qiniu_id: this.id,
         oid: this.oid,
         belong: this.belong
       };
-      sendCoupon(args, this.coupon_batch_id)
+      sendCoupon(args, coupon_batch_id)
         .then(res => {
           console.log("sendCoupon", res);
           this.handleData(res);
