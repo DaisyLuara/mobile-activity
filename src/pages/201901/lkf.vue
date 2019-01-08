@@ -240,6 +240,11 @@ img {
       }
     }
   }
+  .btb {
+    margin-bottom: 0;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
 }
 </style>
 
