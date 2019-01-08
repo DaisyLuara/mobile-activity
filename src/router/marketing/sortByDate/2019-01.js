@@ -53,6 +53,17 @@ const Date201901 = [
       desc: '美肤测试仪'
     },
     isAbandoned: false
+  },
+  {
+    path: 'dgm_movie',
+    location: '201901/dgmMovie',
+    name: 'dgm_movie',
+    meta: {
+      title: '大光明影城',
+      author: 'xj1012',
+      desc: '大光明电影院'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201901
