@@ -1,15 +1,63 @@
 <template>
   <div class="wallet">
-    <NoListContentReminder :show="true" words="你还没有卡券"/>
+    <img class="bg" src="https://cdn.exe666.com/fe/image/m/wallet-no-bg.jpeg">
+    <img class="xo" src="https://cdn.exe666.com/fe/image/m/wallet-no-xo.png">
+    <img class="icon" :src="currentIcon">
   </div>
 </template>
 
 <script>
-import NoListContentReminder from "@/pages/m/components/Reminder/NoListContentReminder";
+import { fetchRunPro } from "services";
+import { mapGetters } from "vuex";
 
 export default {
-  components: {
-    NoListContentReminder
+  data() {
+    return {
+      resData: [],
+      itv: null,
+      count: 0
+    };
+  },
+  components: {},
+  created() {
+    this.fetchMyData();
+  },
+  beforeDestroy() {
+    clearInterval(this.itv);
+  },
+  computed: {
+    ...mapGetters(["z"]),
+    currentP() {
+      if (this.resData.length === 0) {
+        return null;
+      }
+      return this.count % this.resData.length;
+    },
+    currentIcon() {
+      if (this.currentP === null) {
+        return "";
+      }
+      let n = this.resData[this.currentP].icon;
+      return n;
+    }
+  },
+  methods: {
+    async fetchMyData() {
+      try {
+        let payload = {
+          z: this.z,
+          mkey: this.$route.params.mkey,
+          api: "json"
+        };
+        let r = await fetchRunPro(payload);
+        this.resData = r.data.results.data;
+        this.itv = setInterval(() => {
+          this.count++;
+        }, 5000);
+      } catch (e) {
+        console.log(e);
+      }
+    }
   }
 };
 </script>
@@ -18,5 +66,27 @@ export default {
 .wallet {
   position: relative;
   min-height: 100vh;
+  z-index: 10;
+  .bg {
+    position: relative;
+    width: 100%;
+    z-index: 20;
+  }
+  .xo {
+    position: absolute;
+    bottom: 0;
+    width: 80%;
+    margin-left: 10%;
+    z-index: 30;
+  }
+  .icon {
+    position: absolute;
+    z-index: 60;
+    width: 0.3rem;
+    height: 0.3rem;
+    border-radius: 0.08rem;
+    top: 2.4rem;
+    left: 1.725rem;
+  }
 }
 </style>

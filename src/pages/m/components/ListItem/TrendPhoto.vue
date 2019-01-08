@@ -3,6 +3,7 @@
     <div class="act">
       <img v-if="type === 'game'" :src="game">
       <img v-if="type === 'alltop'" :src="alltop">
+      <img v-if="type === 'honor'" :src="honor">
     </div>
     <img :src="image" class="item-photo">
     <div class="item-info">
@@ -40,13 +41,14 @@ export default {
     type: {
       type: String,
       default: " ",
-      required: true
+      required: false
     }
   },
   data() {
     return {
       alltop: "https://cdn.exe666.com/fe/image/m/trend-index-activity.svg",
-      game: "https://cdn.exe666.com/fe/image/m/trend-index-alltop.svg"
+      game: "https://cdn.exe666.com/fe/image/m/trend-index-alltop.svg",
+      honor: "https://cdn.exe666.com/fe/image/m/trend-index-honor.svg"
     };
   },
   computed: {
@@ -58,7 +60,7 @@ export default {
       let diffday = now.diff(cld, "days");
       if (diffyear >= 1) {
         return cld.format("YYYY-MM-DD HH:mm:ss");
-      } else if (diffday <= 1) {
+      } else if (moment(now).isSame(cld, "day")) {
         return cld.format("HH:mm:ss");
       } else {
         return cld.format("MM-DD HH:mm:ss");
@@ -107,7 +109,7 @@ export default {
   .item-photo {
     width: 100%;
     height: 100%;
-    border-radius: 0.1rem;
+    border-radius: 0.15rem;
   }
   .item-info {
     position: relative;
