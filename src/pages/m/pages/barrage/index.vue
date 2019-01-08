@@ -52,6 +52,7 @@ export default {
         .then(r => {
           console.dir(r);
           if (r.data.state === "1") {
+            this.setLastBarrageTime(Date.now());
             Toast("发送成功");
             this.inputvalue = "";
           } else {
