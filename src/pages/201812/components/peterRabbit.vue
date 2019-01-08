@@ -158,8 +158,8 @@ export default {
   },
   watch: {
     belong() {
-      this.$refs.linkAge.getGameHonour(3, '8b96bc7fba4c1176b3fc0861e94f22465c0f6a');
-      // this.$refs.linkAge.getGameHonour(3, this.userinfo.z);
+      // this.$refs.linkAge.getGameHonour(3, '8b96bc7fba4c1176b3fc0861e94f22465c0f6a');
+      this.$refs.linkAge.getGameHonour(3, this.userinfo.z);
     }
   },
   mounted() {
