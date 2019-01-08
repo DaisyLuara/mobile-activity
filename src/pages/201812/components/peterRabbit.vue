@@ -160,10 +160,9 @@ export default {
     }
   },
   watch: {
-    belong() {
+    userinfo() {
       // this.$refs.linkAge.getGameHonour(3, '8b96bc7fba4c1176b3fc0861e94f22465c0f6a');
       this.$refs.linkAge.getGameHonour(3, this.userinfo.z);
-      alert(this.userinfo.z)
     }
   },
   mounted() {
