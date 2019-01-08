@@ -64,6 +64,28 @@ const Date201901 = [
       desc: '大光明电影院'
     },
     isAbandoned: false
+  },
+  {
+    path: 'didi',
+    location: '201901/didi',
+    name: 'didi',
+    meta: {
+      title: '星视度',
+      author: 'lipan',
+      desc: 'didi'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'luwan',
+    location: '201901/luwan',
+    name: 'luwan',
+    meta: {
+      title: '时来运转',
+      author: 'lipan',
+      desc: '时来运转-凯德卢湾'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201901
