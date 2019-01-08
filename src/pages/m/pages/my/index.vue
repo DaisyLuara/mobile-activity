@@ -61,7 +61,6 @@
     </div>
 
     <div class="my-holder"/>
-    <StarAnimation :num="10"/>
   </div>
 </template>
 
@@ -69,7 +68,6 @@
 import NoListContentReminder from "@/pages/m/components/Reminder/NoListContentReminder";
 import { mapGetters } from "vuex";
 import { fetchRunPro } from "services";
-import StarAnimation from "@/pages/m/components/My/StarAnimation";
 export default {
   data() {
     return {
@@ -85,8 +83,7 @@ export default {
     };
   },
   components: {
-    NoListContentReminder,
-    StarAnimation
+    NoListContentReminder
   },
   computed: {
     ...mapGetters(["loginState", "z"]),
