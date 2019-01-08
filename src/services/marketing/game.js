@@ -5,6 +5,8 @@ const GAME_LIST_URL = process.env.SAAS_API + '/user/'
 const REGISTER_URL = process.env.AD_API + '/api/temp/customer'
 const NEW_LIST_NOCHECK = 'http://exelook.com/client/h5/awardlist/?api=json'
 const NEW_LIST_NEEDCHECK = 'http://exelook.com/client/all/awardpass/?api=json'
+const USER_HONOUR =
+  'http://exelook.com/client/h5/userhonour/?cp=1&size=10&api=json'
 const REQ_HEADER = {
   headers: {
     'api-token': apiToken,
@@ -111,7 +113,19 @@ const gameListNeedCheck = (auid, z) => {
       })
   })
 }
-
+//联动，荣耀honour  http://exelook.com/client/h5/userhonour/?cp=1&size=10&bid=0&z=4fk2d91686b0fcef93b6e594689846cb4631n5&api=json&document=truxish2114558de 联动，获取勋章
+const getGameHonour = (bid, z) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(USER_HONOUR + '&bid=' + bid + '&z=' + z)
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
 export {
   createGame,
   getGame,
@@ -119,5 +133,6 @@ export {
   getSceneData,
   userData,
   newGameList,
-  gameListNeedCheck
+  gameListNeedCheck,
+  getGameHonour
 }
