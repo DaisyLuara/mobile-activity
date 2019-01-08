@@ -3,48 +3,32 @@
     :style="style.root"
     class="root"
   >
-    <img
-      :src="baseUrl + 'bg.png'+ this.$qiniuCompress()"
-      class="bg"
-    >
-    <div class="top">
-      <img
-        :src="baseUrl + 'top2.png'+ this.$qiniuCompress()"
-        class="topImg"
-      >
-      <img
-        v-if="photo !== null"
-        :src="photo + this.$qiniuCompress()"
-        class="photo"
-      >
-    </div>
     <!-- 券图 -->
+    <img
+      :src="couponImg+ this.$qiniuCompress()"
+      class="couponImg"
+    >
     <div class="center">
       <img
-        :src="couponImg"
-        class="coupon"
-      >
-    </div>
-    <div class="bottom">
-      <img
-        :src="baseUrl + 'bt.png'+ this.$qiniuCompress()"
-        class="btImg"
+        :src="baseUrl + '1.png'+ this.$qiniuCompress()"
+        class="scan"
       >
       <!-- 二维码 -->
       <img
-        :src="qrcodeImg"
+        :src="qrcodeImg+ this.$qiniuCompress()"
         class="ewm"
       >
+      <!-- 已使用 -->
       <img
         v-if="hasUsed"
-        :src="baseUrl + 'has.png'+ this.$qiniuCompress()"
-        class="hasUsed"
+        :src="baseUrl + '3.png'+ this.$qiniuCompress()"
+        class="coupon-used"
       >
     </div>
   </div>
 </template>
 <script>
-import { onlyGetPhoto } from "@/mixins/onlyGetPhoto";
+import { onlyGetPhoto } from "../../mixins/onlyGetPhoto";
 import {
   $wechat,
   isInWechat,
@@ -58,7 +42,7 @@ export default {
   mixins: [onlyGetPhoto],
   data() {
     return {
-      baseUrl: cdnUrl + "/fe/marketing/img/drc_meifu/",
+      baseUrl: cdnUrl + "/fe/marketing/img/dgm_movie/",
       style: {
         root: {
           height: this.$innerHeight() + "px"
@@ -68,10 +52,10 @@ export default {
       id: this.$route.query.id,
       couponImg: null,
       qrcodeImg: null,
-      // couponImg: 'https://cdn.exe666.com/fe/marketing/img/drc_meifu/coupon.png',
+      // couponImg: 'https://cdn.exe666.com/fe/marketing/img/dgm_movie/2.png',
       // qrcodeImg: 'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
       userId: null,
-      hasUsed: false,
+      hasUsed: false
     };
   },
   watch: {
@@ -162,12 +146,12 @@ export default {
         this.hasUsed = true;
       }
     }
-  },
+  }
 };
 </script>
 
 <style lang="less" scoped>
-@imageHost: "http://cdn.exe666.com/fe/marketing/img/drc_meifu/";
+@imageHost: "http://cdn.exe666.com/fe/marketing/img/dgm_movie/";
 html,
 body {
   width: 100%;
@@ -193,54 +177,44 @@ img {
   justify-content: flex-start;
   align-items: center;
   position: relative;
-  overflow-x: hidden;
-  .bg {
-    width: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-  }
-  .top {
+  text-align: center;
+  overflow: hidden;
+  background-image: url("@{imageHost}bg.png");
+  background-size: 100% 100%;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  .couponImg {
+    width: 76%;
     position: relative;
     margin-top: 4%;
-    pointer-events: none;
-    user-select: none;
-    .photo {
-      width: 43%;
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-48.8%, -50%);
-      pointer-events: auto;
-      user-select: auto;
-    }
+  }
+  .logo {
+    position: relative;
+    width: 15%;
+    margin-top: 3%;
   }
   .center {
+    width: 100%;
     position: relative;
-    width: 88%;
-    margin-top: 4%;
     pointer-events: none;
     user-select: none;
-  }
-  .bottom {
-    position: relative;
-    margin-top: 5%;
-    width: 88%;
-    pointer-events: none;
-    user-select: none;
-    .ewm {
-      width: 30%;
-      position: absolute;
-      left: 2%;
-      top: 15%;
-      pointer-events: auto;
-      user-select: auto;
+    margin-top: -0.5%;
+    .scan {
+      width: 74%;
     }
-    .hasUsed {
-      width: 100%;
+    .ewm {
+      width: 25%;
       position: absolute;
-      left: 0;
-      top: -1%;
+      left: 20.5%;
+      top: 46%;
+      user-select: auto;
+      pointer-events: auto;
+    }
+    .coupon-used {
+      width: 76%;
+      position: absolute;
+      left: 12%;
+      top: -1.75%;
       z-index: 9;
     }
   }

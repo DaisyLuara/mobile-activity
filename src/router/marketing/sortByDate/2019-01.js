@@ -33,6 +33,17 @@ const Date201901 = [
     isAbandoned: false
   },
   {
+    path: 'happy_newYear',
+    location: '201901/newYear',
+    name: 'happy_newYear',
+    meta: {
+      title: '过年啦',
+      author: 'xj1012',
+      desc: '新年快乐-通用版'
+    },
+    isAbandoned: false
+  },
+  {
     path: 'drc_meifu',
     location: '201901/meifu',
     name: 'drc_meifu',
@@ -44,13 +55,13 @@ const Date201901 = [
     isAbandoned: false
   },
   {
-    path: 'happy_newYear',
-    location: '201901/newYear',
-    name: 'happy_newYear',
+    path: 'dgm_movie',
+    location: '201901/dgmMovie',
+    name: 'dgm_movie',
     meta: {
-      title: '过年啦',
+      title: '大光明影城',
       author: 'xj1012',
-      desc: '新年快乐-通用版'
+      desc: '大光明电影院'
     },
     isAbandoned: false
   }
