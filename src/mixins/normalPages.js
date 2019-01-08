@@ -61,6 +61,7 @@ export const normalPages = {
           actinfo,
           userinfo
         } = await getInfoById(id, code, state)
+        this.userinfo = userinfo
         this.belong = belong
         this.photo = image
         this.oid = oid
@@ -78,7 +79,6 @@ export const normalPages = {
         }
         this.awardinfo = awardinfo
         this.actinfo = actinfo
-        this.userinfo = userinfo
       } catch (e) {
         console.warn(e.message)
       }
