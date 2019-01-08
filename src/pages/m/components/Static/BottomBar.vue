@@ -36,6 +36,13 @@
 
 <script>
 export default {
+  props: {
+    menucode: {
+      type: String,
+      default: "000000",
+      required: false
+    }
+  },
   data() {
     return {
       photo: "https://cdn.exe666.com/fe/image/m/btn_photo_normal@3x.png",
@@ -62,7 +69,7 @@ export default {
   },
   computed: {
     menuCode() {
-      let ten = this.$route.params.mcode;
+      let ten = this.menucode;
       if (ten === undefined) {
         return "000000";
       } else {

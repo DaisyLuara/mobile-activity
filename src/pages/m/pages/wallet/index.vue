@@ -45,6 +45,7 @@ export default {
     async fetchMyData() {
       try {
         let payload = {
+          policy: "0",
           z: this.z,
           mkey: this.$route.params.mkey,
           api: "json"
