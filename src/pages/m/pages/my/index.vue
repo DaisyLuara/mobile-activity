@@ -16,18 +16,30 @@
       <div class="title">今日互动指数</div>
       <div class="sub">
         <span class="label">人气指数</span>
-        <img class="star" :src="star" v-for="(item, index) in inviteNum" :key="index">
-        <img class="star" :src="halfstar" v-if="inviteNumExtra">
+        <transition-group name="fade">
+          <img class="star" :src="star" v-for="(item, index) in inviteNum" :key="index">
+        </transition-group>
+        <transition name="fade">
+          <img class="star" :src="halfstar" v-if="inviteNumExtra">
+        </transition>
       </div>
       <div class="sub">
         <span class="label">幸运指数</span>
-        <img class="star" :src="star" v-for="(item, index) in luckNum" :key="index">
-        <img class="star" :src="halfstar" v-if="luckNumExtra">
+        <transition-group name="fade">
+          <img class="star" :src="star" v-for="(item, index) in luckNum" :key="index">
+        </transition-group>
+        <transition name="fade">
+          <img class="star" :src="halfstar" v-if="luckNumExtra">
+        </transition>
       </div>
       <div class="sub">
         <span class="label">推荐指数</span>
-        <img class="star" :src="star" v-for="(item, index) in topNum" :key="index">
-        <img class="star" :src="halfstar" v-if="topNumExtra">
+        <transition-group name="fade">
+          <img class="star" :src="star" v-for="(item, index) in topNum" :key="index">
+        </transition-group>
+        <transition name="fade">
+          <img class="star" :src="halfstar" v-if="topNumExtra">
+        </transition>
       </div>
     </div>
     <div class="avatar">
@@ -49,6 +61,7 @@
     </div>
 
     <div class="my-holder"/>
+    <StarAnimation :num="10"/>
   </div>
 </template>
 
@@ -56,6 +69,7 @@
 import NoListContentReminder from "@/pages/m/components/Reminder/NoListContentReminder";
 import { mapGetters } from "vuex";
 import { fetchRunPro } from "services";
+import StarAnimation from "@/pages/m/components/My/StarAnimation";
 export default {
   data() {
     return {
@@ -71,7 +85,8 @@ export default {
     };
   },
   components: {
-    NoListContentReminder
+    NoListContentReminder,
+    StarAnimation
   },
   computed: {
     ...mapGetters(["loginState", "z"]),
@@ -187,6 +202,13 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 1s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
 .my {
   position: relative;
   min-height: 100vh;
