@@ -91,13 +91,15 @@
         @click="()=>{mask = true;}"
       >
     </div>
+    <BottomBar :menucode="'56'" />
   </div>
 </template>
 <script>
 import { $wechat, isInWechat, wechatShareTrack, Cookies } from "services";
 import { normalPages } from "@/mixins/normalPages";
 import "animate.css";
-import LinkAge from 'modules/linkAge'
+import BottomBar from "@/pages/m/components/Static/BottomBar";
+import LinkAge from 'modules/linkAge';
 const CDNURL = process.env.CDN_URL;
 export default {
   props: {
@@ -107,6 +109,7 @@ export default {
     }
   },
   components: {
+    BottomBar,
     LinkAge
   },
   mixins: [normalPages],
@@ -158,8 +161,8 @@ export default {
   },
   watch: {
     belong() {
-      // this.$refs.linkAge.getGameHonour(3, '8b96bc7fba4c1176b3fc0861e94f22465c0f6a');
-      this.$refs.linkAge.getGameHonour(3, this.userinfo.z);
+      this.$refs.linkAge.getGameHonour(3, '8b96bc7fba4c1176b3fc0861e94f22465c0f6a');
+      // this.$refs.linkAge.getGameHonour(3, this.userinfo.z);
     }
   },
   mounted() {
@@ -224,7 +227,7 @@ a {
   background-repeat: repeat;
   background-position: center top;
   background-size: 100% auto;
-  & > div {
+  & > div:not(.btb) {
     width: 100%;
     display: block;
     position: relative;
