@@ -287,7 +287,6 @@ export default {
       font-size: 0.13rem;
       height: 0.475rem;
       line-height: 0.475rem;
-      font-weight: bold;
       color: black;
       z-index: 60;
       padding-left: 0.2rem;
@@ -300,7 +299,8 @@ export default {
         width: 0.3rem;
         height: 0.3rem;
         border-radius: 0.08rem;
-        margin: 0 0.02rem;
+        margin-left: 0.02rem;
+        margin-right: 0.04rem;
       }
     }
   }
