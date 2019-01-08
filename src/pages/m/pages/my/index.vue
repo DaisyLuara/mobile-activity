@@ -5,7 +5,7 @@
     <div class="reminder">
       <div class="text" v-if="currentName.length <=7">
         <img class="icon" :src="currentIcon">
-        当前互动"{{currentName}}"
+        当前互动“{{currentName}}”
       </div>
       <div class="text" v-if="currentName.length >7">
         <img class="icon" :src="currentIcon">
@@ -303,7 +303,7 @@ export default {
     .text {
       width: 100%;
       overflow: hidden;
-      font-size: 0.13rem;
+      font-size: 0.14rem;
       height: 0.475rem;
       line-height: 0.475rem;
       color: black;

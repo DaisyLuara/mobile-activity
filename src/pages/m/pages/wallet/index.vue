@@ -3,6 +3,7 @@
     <img class="bg" src="https://cdn.exe666.com/fe/image/m/wallet-no-bg.jpeg">
     <img class="xo" src="https://cdn.exe666.com/fe/image/m/wallet-no-xo.png">
     <img class="icon" :src="currentIcon">
+    <!-- <div class="zan">+1</div> -->
   </div>
 </template>
 
@@ -89,6 +90,9 @@ export default {
     border-radius: 0.08rem;
     top: 2.4rem;
     left: 1.575rem;
+  }
+  .zan {
+    font-size: 0.14rem;
   }
 }
 </style>

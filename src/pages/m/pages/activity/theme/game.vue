@@ -188,13 +188,13 @@ export default {
   }
   .game-item {
     &.last {
-      border-bottom: rgba(194, 194, 194, 1) solid 0.5px;
+      border-bottom-left-radius: 0.05rem;
+      border-bottom-right-radius: 0.05rem;
+      border-bottom: none;
     }
     width: 3.42rem;
     height: 0.685rem;
-    border-top: rgba(194, 194, 194, 1) solid 0.5px;
-    border-left: rgba(194, 194, 194, 1) solid 1px;
-    border-right: rgba(194, 194, 194, 1) solid 1px;
+    border-bottom: rgba(194, 194, 194, 1) solid 0.5px;
     background: white;
     display: flex;
     flex-direction: row;
