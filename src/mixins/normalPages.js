@@ -64,7 +64,7 @@ export const normalPages = {
         this.belong = belong
         this.photo = image
         this.oid = oid
-        if (this.parms !== undefined) {
+        if (this.parms !== null && this.parms !== undefined) {
           this.parms = splitParms(parms)
           if (this.parms.gender) {
             this.gender = this.parms.gender
