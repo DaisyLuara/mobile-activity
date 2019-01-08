@@ -44,7 +44,7 @@
   </div>
 </template>
 <script>
-import { normalPages } from "@/mixins/normalPages";
+import { onlyGetPhoto } from "@/mixins/onlyGetPhoto";
 import {
   $wechat,
   isInWechat,
@@ -55,7 +55,7 @@ import {
 } from "services";
 const cdnUrl = process.env.CDN_URL;
 export default {
-  mixins: [normalPages],
+  mixins: [onlyGetPhoto],
   data() {
     return {
       baseUrl: cdnUrl + "/fe/marketing/img/drc_meifu/",
