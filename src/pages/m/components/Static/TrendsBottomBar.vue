@@ -65,7 +65,8 @@ export default {
       shoudListShow: false,
       nameMap: {
         alltop: "ActivityShopAllTopProgress",
-        game: "ActivityShopGameProgress"
+        game: "ActivityShopGameProgress",
+        honour: "MyAchivement"
       }
     };
   },

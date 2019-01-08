@@ -3,7 +3,7 @@
     <div class="act">
       <img v-if="type === 'game'" :src="game">
       <img v-if="type === 'alltop'" :src="alltop">
-      <img v-if="type === 'honor'" :src="honor">
+      <img v-if="type === 'honour'" :src="honor">
     </div>
     <img :src="image" class="item-photo">
     <div class="item-info">
