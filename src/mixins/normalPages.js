@@ -71,15 +71,15 @@ export const normalPages = {
         this.userinfo = userinfo
         if (parms) {
           this.parms = splitParms(parms)
-        }
-        if (this.parms.gender) {
-          this.gender = this.parms.gender
-        }
-        if (this.parms.score) {
-          this.score = this.parms.score
-        }
-        if (this.parms.coupon_batch_id) {
-          this.coupon_batch_id = this.parms.coupon_batch_id
+          if (this.parms.gender) {
+            this.gender = this.parms.gender
+          }
+          if (this.parms.score) {
+            this.score = this.parms.score
+          }
+          if (this.parms.coupon_batch_id) {
+            this.coupon_batch_id = this.parms.coupon_batch_id
+          }
         }
       } catch (e) {
         console.warn(e.message)
