@@ -167,32 +167,8 @@ export default {
     }
   },
   mounted() {
-    //微信授权
-    if (isInWechat() === true) {
-      if (
-        process.env.NODE_ENV === "production" ||
-        process.env.NODE_ENV === "testing"
-      ) {
-        this.handleWechatAuth();
-      }
-    }
   },
   methods: {
-    //微信静默授权
-    handleWechatAuth() {
-      if (Cookies.get("sign") === null) {
-        let base_url = encodeURIComponent(String(window.location.href));
-        let redirct_url =
-          process.env.WX_API +
-          "/wx/officialAccount/oauth?url=" +
-          base_url +
-          "&scope=snsapi_base";
-        window.location.href = redirct_url;
-      } else {
-        let utm_campaign = this.$route.query.utm_campaign
-        this.userId = Cookies.get("user_id");
-      }
-    },
   }
 }
 </script>
@@ -228,8 +204,7 @@ a {
   background-repeat: repeat;
   background-position: center top;
   background-size: 100% auto;
-  & > div:not(.btb) {
-    width: 100%;
+  & > div {
     display: block;
     position: relative;
     width: 87.5%;
@@ -357,6 +332,41 @@ a {
       position: relative;
       z-index: 0;
       pointer-events: auto;
+    }
+  }
+  .btb {
+    margin-bottom: 0;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-bottom: constant(safe-area-inset-bottom); /* 兼容 iOS < 11.2 */
+    margin-bottom: env(safe-area-inset-bottom); /* 兼容 iOS >= 11.2 */
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 48px;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.16);
+    z-index: 10000;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .bitem {
+      height: 100%;
+      width: 30px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      font-size: 12px;
+      align-items: center;
+      color: rgba(166, 153, 150, 1);
+      img {
+        width: 25px;
+        height: 25px;
+      }
     }
   }
 }

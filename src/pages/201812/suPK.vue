@@ -143,30 +143,30 @@ export default {
       this.iphoneX = true
     }
     //微信授权
-    if (isInWechat() === true) {
-      if (
-        process.env.NODE_ENV === 'production' ||
-        process.env.NODE_ENV === 'testing'
-      ) {
-        this.handleWechatAuth()
-      }
-    }
+    // if (isInWechat() === true) {
+    //   if (
+    //     process.env.NODE_ENV === 'production' ||
+    //     process.env.NODE_ENV === 'testing'
+    //   ) {
+    //     this.handleWechatAuth()
+    //   }
+    // }
   },
   methods: {
-    handleWechatAuth() {
-      if (Cookies.get('sign') === null) {
-        let base_url = encodeURIComponent(String(window.location.href))
-        let redirct_url =
-          process.env.WX_API +
-          '/wx/officialAccount/oauth?url=' +
-          base_url +
-          '&scope=snsapi_base'
-        window.location.href = redirct_url
-        console.log(window.location.href)
-      } else {
-        this.userId = Cookies.get('user_id')
-      }
-    },
+    // handleWechatAuth() {
+    //   if (Cookies.get('sign') === null) {
+    //     let base_url = encodeURIComponent(String(window.location.href))
+    //     let redirct_url =
+    //       process.env.WX_API +
+    //       '/wx/officialAccount/oauth?url=' +
+    //       base_url +
+    //       '&scope=snsapi_base'
+    //     window.location.href = redirct_url
+    //     console.log(window.location.href)
+    //   } else {
+    //     this.userId = Cookies.get('user_id')
+    //   }
+    // },
     toPK() {
       if (!this.awardinfo) {
         this.pkshow = false
