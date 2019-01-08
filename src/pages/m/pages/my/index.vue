@@ -3,7 +3,14 @@
     <NoListContentReminder :show="false" words="你还没有解锁嗨玩屏"/>
     <img class="bg" :src="bgUrl">
     <div class="reminder">
-      <div class="text">当前互动"{{currentName}}"</div>
+      <div class="text" v-if="currentName.length <=7">
+        <img class="icon" :src="currentIcon">
+        当前互动"{{currentName}}"
+      </div>
+      <div class="text" v-if="currentName.length >7">
+        <img class="icon" :src="currentIcon">
+        {{currentName}}
+      </div>
     </div>
     <div class="board">
       <div class="title">今日互动指数</div>
@@ -27,7 +34,7 @@
       <img :src="loginState.face">
     </div>
     <div class="nickname">{{loginState.username}}</div>
-    <div class="barrage">
+    <div class="barrage" @click="navinagteToBarrage">
       <img class="hot" :src="hot">
       <div class="barrage-icon"/>
       <div>发弹幕</div>
@@ -125,6 +132,13 @@ export default {
       }
       let n = Number(this.resData[this.currentP].top_num);
       return n - Math.floor(n) > 0 ? true : false;
+    },
+    currentIcon() {
+      if (this.currentP === null) {
+        return "";
+      }
+      let n = this.resData[this.currentP].icon;
+      return n;
     }
   },
   created() {
@@ -161,6 +175,12 @@ export default {
         name: "MyAchivement",
         params: this.$route.params
       });
+    },
+    navinagteToBarrage() {
+      this.$router.push({
+        name: "BarrageIndex",
+        params: this.$route.params
+      });
     }
   }
 };
@@ -171,6 +191,7 @@ export default {
   position: relative;
   min-height: 100vh;
   z-index: 10;
+  margin-top: -0.64rem;
   .bg {
     z-index: 20;
     width: 100%;
@@ -269,9 +290,18 @@ export default {
       font-weight: bold;
       color: black;
       z-index: 60;
-      padding: 0 0.2rem;
+      padding-left: 0.2rem;
       background-image: url("https://cdn.exe666.com/fe/image/m/my-text-bg.png");
       background-size: 100% 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      .icon {
+        width: 0.3rem;
+        height: 0.3rem;
+        border-radius: 0.08rem;
+        margin: 0 0.02rem;
+      }
     }
   }
   .barrage {
@@ -332,7 +362,7 @@ export default {
       width: 0.41rem;
       height: 0.41rem;
       background-size: 100% 100%;
-      background-image: url("https://cdn.exe666.com/fe/image/m/my-achive.svg");
+      background-image: url("https://cdn.exe666.com/fe/image/m/my-medal.svg");
       margin: 0 0.08rem;
     }
   }

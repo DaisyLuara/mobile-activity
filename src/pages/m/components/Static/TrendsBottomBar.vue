@@ -121,7 +121,7 @@ export default {
     showActsCanJoin() {
       this.shoudListShow = true;
     },
-    naviGateToActDetail() {
+    naviGateToActDetail(item) {
       this.$router.push({
         name: "ActivityShopDetail",
         query: {

@@ -19,6 +19,8 @@
         />
       </div>
     </ul>
+    <div class="loadmore-add"/>
+    <div class="loadmore-add"/>
   </div>
 </template>
 

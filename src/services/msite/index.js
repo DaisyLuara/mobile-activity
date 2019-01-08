@@ -7,3 +7,5 @@ export * from './hdinfo'
 export * from './common'
 
 export * from './my'
+
+export * from './barrage'
