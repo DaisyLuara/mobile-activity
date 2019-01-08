@@ -88,7 +88,6 @@ export default {
         window.location.href = redirct_url;
       } else {
         this.userId = Cookies.get("user_id");
-        this.checkCouponIsUse();
       }
     },
     //禁止微信分享
