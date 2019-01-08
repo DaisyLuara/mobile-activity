@@ -3,7 +3,7 @@
     <div class="act">
       <img v-if="type === 'game'" :src="game">
       <img v-if="type === 'alltop'" :src="alltop">
-      <img v-if="type === 'honour'" :src="honor">
+      <img v-if="type === 'honour'" :src="honour">
     </div>
     <img :src="image" class="item-photo">
     <div class="item-info">
@@ -46,9 +46,9 @@ export default {
   },
   data() {
     return {
-      alltop: "https://cdn.exe666.com/fe/image/m/trend-index-activity.svg",
-      game: "https://cdn.exe666.com/fe/image/m/trend-index-alltop.svg",
-      honor: "https://cdn.exe666.com/fe/image/m/trend-index-honor.svg"
+      alltop: "https://cdn.exe666.com/fe/image/m/tag-toupiao.svg",
+      game: "https://cdn.exe666.com/fe/image/m/tag-paihang.svg",
+      honour: "https://cdn.exe666.com/fe/image/m/tag-xunzhang.svg"
     };
   },
   computed: {

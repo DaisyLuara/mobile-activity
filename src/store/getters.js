@@ -4,6 +4,9 @@ const getters = {
   },
   loginState: state => {
     return state.loginState
+  },
+  lastBarrageTime: state => {
+    return state.lastBarrageTime
   }
 }
 
