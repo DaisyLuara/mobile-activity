@@ -47,7 +47,7 @@
       >
     </div>
     <BottomBar
-      :menucode="'48'"
+      :menucode="'56'"
       :replaceMkey="mkey"
     />
   </div>
