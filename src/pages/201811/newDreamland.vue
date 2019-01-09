@@ -47,7 +47,7 @@
       >
     </div>
     <BottomBar
-      :menucode="'48'"
+      :menucode="'56'"
       :replaceMkey="mkey"
     />
   </div>
@@ -282,6 +282,44 @@ img {
     left: 30%;
     bottom: 9%;
     animation: arrow 0.8s linear infinite alternate;
+  }
+  .btb {
+    margin-bottom: 0;
+    // padding-left: 30px;
+    // padding-right: 30px;
+    margin-bottom: constant(safe-area-inset-bottom); /* 兼容 iOS < 11.2 */
+    margin-bottom: env(safe-area-inset-bottom); /* 兼容 iOS >= 11.2 */
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 48px;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.16);
+    z-index: 10000;
+    // padding-left: 0.5rem;
+    // padding-right: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    .bitem {
+      height: 100%;
+      // width: 30px;
+      width: 33%;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      font-size: 12px;
+      align-items: center;
+      flex-grow: 1;
+      color: rgba(166, 153, 150, 1);
+      img {
+        width: 25px;
+        height: 25px;
+      }
+    }
   }
 }
 @keyframes scale {
