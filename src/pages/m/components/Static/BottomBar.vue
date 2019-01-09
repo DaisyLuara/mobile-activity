@@ -35,7 +35,7 @@
       <span>活动</span>
     </div>
     <div
-      v-if="menuCode[2] === '1'"
+      v-if="menuCode[2] === '1' && showRoutes.includes(this.$route.name==='newDreamland')"
       class="bitem"
       @click="handleMenuClick('BarrageIndex')"
     >
@@ -130,7 +130,8 @@ export default {
         "new_blue",
         "new_red",
         "new_yellow",
-        "lkf"
+        "lkf",
+        "newDreamland"
       ]
     };
   },
