@@ -102,7 +102,10 @@
         @click="()=>{mask = true;}"
       >
     </div>
-    <BottomBar :menucode="'56'" />
+    <BottomBar
+      :menucode="'56'"
+      :replaceMkey="mkey"
+    />
   </div>
 </template>
 <script>
@@ -135,6 +138,7 @@ export default {
       },
       mask: false,
       userId: null,
+      mkey: 'y6541h00',
       projects: {
         '8': {
           name: 'ptRabbitRed',
