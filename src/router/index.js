@@ -198,6 +198,14 @@ const router = new Router({
             title: '我的成就'
           },
           component: () => import('@/pages/m/pages/my/achivement')
+        },
+        {
+          path: ':mkey/:mcode/barrage/index/',
+          name: 'BarrageIndex',
+          meta: {
+            title: '弹幕'
+          },
+          component: () => import('@/pages/m/pages/barrage/index')
         }
       ]
     }

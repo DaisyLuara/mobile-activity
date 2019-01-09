@@ -26,7 +26,7 @@
 </template>
 <script>
 const imgUrl = process.env.CDN_URL
-import { createGame, getGame } from 'services'
+import { getGameHonour } from 'services'
 export default {
   props: {
     proData: {
@@ -34,53 +34,23 @@ export default {
       require: true
     },
   },
-  data() {
-    return {
-
-    }
-  },
-  created() { },
-  mounted() { },
   methods: {
-    createGame(belong, userId) {
-      let args = {
-        belong: belong
-      }
-      createGame(args, userId)
-        .then(res => {
-          if (res.success) {
-            this.getGame(userId)
-          }
-        })
-        .catch(e => {
-          console.log(e)
-        })
+    getGameHonour(bid, z) {
+      getGameHonour(bid, z).then(res => {
+        console.log(res)
+        this.projectStatus(res.results.data)
+      }).catch(err => {
+        console.log(err)
+      })
     },
-    getGame(userId) {
-      let args = {
-        withCredentials: true
-      }
-      getGame(args, userId)
-        .then(res => {
-          console.log(res)
-          this.projectStatus(res, userId)
-        })
-        .catch(e => {
-          console.log(e)
-        })
-    },
-    projectStatus(list, userId) {
-      let data = list
-      console.log(this.proData.projects)
+    projectStatus(data) {
       data.map(r => {
-        if (this.proData.projects[r.belong]) {
-          this.proData.projects[r.belong].state = true
-          console.log(this.proData.projects[r.belong])
+        if (this.proData.projects[r.xid]) {
+          this.proData.projects[r.xid].state = true
         }
       })
     },
   }
-
 }
 </script>
 <style lang="less" scoped>

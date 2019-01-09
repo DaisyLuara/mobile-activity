@@ -131,7 +131,7 @@ export default {
     margin-top: 0.45rem;
     padding-top: 0.3rem;
     .achive {
-      width: 1.2rem;
+      width: 1.16rem;
       height: 1.32rem;
       display: flex;
       flex-direction: column;

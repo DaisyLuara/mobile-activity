@@ -13,10 +13,10 @@
         :key="index"
         class="item-wrapper"
       >
-        <img class="type" :src="bindType(item.type)" v-if="item.type !== ''">
+        <img class="type" :src="bindType(item.type)" v-if="bindType(item.type) !== ''">
         <img class="main" :src="item.image">
         <div class="title">{{ item.title }}</div>
-        <div class="time">活动日期：{{computedDate(item.sdate)}} - {{computedDate(item.edate)}}</div>
+        <div class="time">{{computedDate(item.sdate)}} 至 {{computedDate(item.edate)}}</div>
         <img class="time-shadow" :src="coverShadow">
       </div>
     </ul>
@@ -48,8 +48,9 @@ export default {
       trends: [],
       coverShadow:
         "https://cdn.exe666.com/fe/image/m/activity-cover-shadow.svg",
-      alltop: "https://cdn.exe666.com/fe/image/m/trend-index-activity.svg",
-      game: "https://cdn.exe666.com/fe/image/m/trend-index-alltop.svg"
+      alltop: "https://cdn.exe666.com/fe/image/m/tag-toupiao.svg",
+      game: "https://cdn.exe666.com/fe/image/m/tag-paihang.svg",
+      honour: "https://cdn.exe666.com/fe/image/m/tag-xunzhang.svg"
     };
   },
 
@@ -90,19 +91,8 @@ export default {
       }, 2000);
     },
     computedDate(clientdate) {
-      let now = moment(new Date().getTime());
-      let cld = moment(Number(clientdate));
-      // console.log(cld);
-      let diffyear = cld.diff(now, "years");
-      let diffday = now.diff(cld, "days");
-      if (diffyear >= 1) {
-        return cld.format("YYYY-MM-DD HH:mm:ss");
-      } else if (diffday <= 1) {
-        return cld.format("HH:mm:ss");
-      } else {
-        return cld.format("MM-DD HH:mm:ss");
-      }
-      return "";
+      let cld = moment(Number(clientdate) * 1000);
+      return cld.format("YYYY-MM-DD HH:mm:ss");
     },
     fetchList() {
       if (this.isAllLoaded || this.isLoading) {
@@ -138,6 +128,10 @@ export default {
       if (type === "game") {
         return this.game;
       }
+      if (type === "honour") {
+        return this.honour;
+      }
+      return "";
     }
   }
 };

@@ -65,7 +65,8 @@ export default {
       shoudListShow: false,
       nameMap: {
         alltop: "ActivityShopAllTopProgress",
-        game: "ActivityShopGameProgress"
+        game: "ActivityShopGameProgress",
+        honour: "MyAchivement"
       }
     };
   },
@@ -121,7 +122,7 @@ export default {
     showActsCanJoin() {
       this.shoudListShow = true;
     },
-    naviGateToActDetail() {
+    naviGateToActDetail(item) {
       this.$router.push({
         name: "ActivityShopDetail",
         query: {

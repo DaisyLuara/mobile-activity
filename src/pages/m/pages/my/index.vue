@@ -3,31 +3,50 @@
     <NoListContentReminder :show="false" words="你还没有解锁嗨玩屏"/>
     <img class="bg" :src="bgUrl">
     <div class="reminder">
-      <div class="text">当前互动"{{currentName}}"</div>
+      <div class="text" v-if="currentName.length <=7">
+        <img class="icon" :src="currentIcon">
+        当前互动“{{currentName}}”
+      </div>
+      <div class="text" v-if="currentName.length >7">
+        <img class="icon" :src="currentIcon">
+        {{currentName}}
+      </div>
     </div>
     <div class="board">
       <div class="title">今日互动指数</div>
       <div class="sub">
         <span class="label">人气指数</span>
-        <img class="star" :src="star" v-for="(item, index) in inviteNum" :key="index">
-        <img class="star" :src="halfstar" v-if="inviteNumExtra">
+        <transition-group name="fade">
+          <img class="star" :src="star" v-for="(item, index) in inviteNum" :key="index">
+        </transition-group>
+        <transition name="fade">
+          <img class="star" :src="halfstar" v-if="inviteNumExtra">
+        </transition>
       </div>
       <div class="sub">
         <span class="label">幸运指数</span>
-        <img class="star" :src="star" v-for="(item, index) in luckNum" :key="index">
-        <img class="star" :src="halfstar" v-if="luckNumExtra">
+        <transition-group name="fade">
+          <img class="star" :src="star" v-for="(item, index) in luckNum" :key="index">
+        </transition-group>
+        <transition name="fade">
+          <img class="star" :src="halfstar" v-if="luckNumExtra">
+        </transition>
       </div>
       <div class="sub">
         <span class="label">推荐指数</span>
-        <img class="star" :src="star" v-for="(item, index) in topNum" :key="index">
-        <img class="star" :src="halfstar" v-if="topNumExtra">
+        <transition-group name="fade">
+          <img class="star" :src="star" v-for="(item, index) in topNum" :key="index">
+        </transition-group>
+        <transition name="fade">
+          <img class="star" :src="halfstar" v-if="topNumExtra">
+        </transition>
       </div>
     </div>
     <div class="avatar">
       <img :src="loginState.face">
     </div>
     <div class="nickname">{{loginState.username}}</div>
-    <div class="barrage">
+    <div class="barrage" @click="navinagteToBarrage">
       <img class="hot" :src="hot">
       <div class="barrage-icon"/>
       <div>发弹幕</div>
@@ -125,6 +144,13 @@ export default {
       }
       let n = Number(this.resData[this.currentP].top_num);
       return n - Math.floor(n) > 0 ? true : false;
+    },
+    currentIcon() {
+      if (this.currentP === null) {
+        return "";
+      }
+      let n = this.resData[this.currentP].icon;
+      return n;
     }
   },
   created() {
@@ -161,16 +187,30 @@ export default {
         name: "MyAchivement",
         params: this.$route.params
       });
+    },
+    navinagteToBarrage() {
+      this.$router.push({
+        name: "BarrageIndex",
+        params: this.$route.params
+      });
     }
   }
 };
 </script>
 
 <style lang="less" scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 1s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
 .my {
   position: relative;
   min-height: 100vh;
   z-index: 10;
+  margin-top: -0.64rem;
   .bg {
     z-index: 20;
     width: 100%;
@@ -263,15 +303,24 @@ export default {
     .text {
       width: 100%;
       overflow: hidden;
-      font-size: 0.13rem;
+      font-size: 0.14rem;
       height: 0.475rem;
       line-height: 0.475rem;
-      font-weight: bold;
       color: black;
       z-index: 60;
-      padding: 0 0.2rem;
+      padding-left: 0.2rem;
       background-image: url("https://cdn.exe666.com/fe/image/m/my-text-bg.png");
       background-size: 100% 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      .icon {
+        width: 0.3rem;
+        height: 0.3rem;
+        border-radius: 0.08rem;
+        margin-left: 0.02rem;
+        margin-right: 0.04rem;
+      }
     }
   }
   .barrage {
@@ -332,7 +381,7 @@ export default {
       width: 0.41rem;
       height: 0.41rem;
       background-size: 100% 100%;
-      background-image: url("https://cdn.exe666.com/fe/image/m/my-achive.svg");
+      background-image: url("https://cdn.exe666.com/fe/image/m/my-medal.svg");
       margin: 0 0.08rem;
     }
   }

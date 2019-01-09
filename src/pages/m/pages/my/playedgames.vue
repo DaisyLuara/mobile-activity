@@ -65,7 +65,7 @@ export default {
       let diffday = now.diff(cld, "days");
       if (diffyear >= 1) {
         return cld.format("YYYY-MM-DD HH:mm:ss");
-      } else if (diffday <= 1) {
+      } else if (moment(now).isSame(cld, "day")) {
         return cld.format("HH:mm:ss");
       } else {
         return cld.format("MM-DD HH:mm:ss");

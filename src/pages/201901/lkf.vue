@@ -30,14 +30,19 @@
         >
       </div>
     </div>
+    <BottomBar :menucode="'56'" />
   </div>
 </template>
 <script>
 import { $wechat, isInWechat, wechatShareTrack, Cookies, sendCoupon, checkGetCoupon } from 'services'
 import { normalPages } from '@/mixins/normalPages'
+import BottomBar from "@/pages/m/components/Static/BottomBar";
 const CDN_URL = process.env.CDN_URL
 export default {
   mixins: [normalPages],
+  components: {
+    BottomBar
+  },
   data() {
     return {
       base: CDN_URL + '/fe/image/couponrain/lkf/',
@@ -234,6 +239,11 @@ img {
         z-index: 999;
       }
     }
+  }
+  .btb {
+    margin-bottom: 0;
+    padding-left: 30px;
+    padding-right: 30px;
   }
 }
 </style>

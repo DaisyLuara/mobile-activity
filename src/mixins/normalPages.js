@@ -51,9 +51,7 @@ export const normalPages = {
     },
     async getPhotoByRouteQueryId() {
       try {
-        let id = this.$route.query.id
-        let code = this.$route.query.code
-        let state = this.$route.query.state
+        let { id, code, state } = this.$route.query
         let {
           belong,
           image,
@@ -63,22 +61,24 @@ export const normalPages = {
           actinfo,
           userinfo
         } = await getInfoById(id, code, state)
+        this.userinfo = userinfo
         this.belong = belong
         this.photo = image
         this.oid = oid
-        this.parms = splitParms(parms)
+        if (this.parms !== null && this.parms !== undefined) {
+          this.parms = splitParms(parms)
+          if (this.parms.gender) {
+            this.gender = this.parms.gender
+          }
+          if (this.parms.score) {
+            this.score = this.parms.score
+          }
+          if (this.parms.coupon_batch_id) {
+            this.coupon_batch_id = this.parms.coupon_batch_id
+          }
+        }
         this.awardinfo = awardinfo
         this.actinfo = actinfo
-        this.userinfo = userinfo
-        if (this.parms.gender) {
-          this.gender = this.parms.gender
-        }
-        if (this.parms.score) {
-          this.score = this.parms.score
-        }
-        if (this.parms.coupon_batch_id) {
-          this.coupon_batch_id = this.parms.coupon_batch_id
-        }
       } catch (e) {
         console.warn(e.message)
       }

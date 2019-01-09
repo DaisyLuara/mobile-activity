@@ -14,7 +14,8 @@ export default {
     return {
       nameMap: {
         alltop: "ActivityShopAllTopProgress",
-        game: "ActivityShopGameProgress"
+        game: "ActivityShopGameProgress",
+        honour: "MyAchivement"
       }
     };
   },
