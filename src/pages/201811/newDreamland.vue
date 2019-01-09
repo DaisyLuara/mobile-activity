@@ -107,7 +107,11 @@ export default {
     } else {
       this.iphoneX = false
     }
-    console.log(this.base64Data)
+    let timer = setTimeout(() => {
+      this.showImg = false
+      this.contentShow = true
+      clearTimeout(timer)
+    }, 3000)
   },
   methods: {
     go() {
