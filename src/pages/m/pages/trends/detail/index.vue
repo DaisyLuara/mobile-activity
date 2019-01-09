@@ -85,6 +85,12 @@ export default {
       };
       try {
         let r = await getHdInfo(payload);
+        console.dir(r);
+        if (r.data.state === "40035") {
+          this.$router.push({
+            name: "mSite404"
+          });
+        }
         this.resData = r.data.results;
         if (Number(this.resData.acid) > 0) {
           let actDetailPayload = {

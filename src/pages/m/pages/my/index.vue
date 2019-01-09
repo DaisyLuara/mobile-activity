@@ -53,7 +53,7 @@
     </div>
     <div class="achivement" @click="navinagteToAchivement">
       <div class="achivement-icon"/>
-      <div>成就奖章</div>
+      <div>成就勋章</div>
     </div>
     <div class="mygame" @click="navinagteToGamePlayed">
       <div class="mygame-icon"/>
@@ -168,6 +168,11 @@ export default {
           api: "json"
         };
         let r = await fetchRunPro(payload);
+        if (r.data.state === "40035") {
+          this.$router.push({
+            name: "mSite404"
+          });
+        }
         this.resData = r.data.results.data;
         this.itv = setInterval(() => {
           this.count++;

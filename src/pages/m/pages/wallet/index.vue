@@ -1,7 +1,14 @@
 <template>
   <div class="wallet">
     <img class="bg" src="https://cdn.exe666.com/fe/image/m/wallet-no-bg.jpeg">
-    <img class="xo" src="https://cdn.exe666.com/fe/image/m/wallet-no-xo.png">
+    
+    <img
+      v-if="loginState.gender === '1'"
+      class="xo"
+      src="https://cdn.exe666.com/fe/image/m/wallet-no-xo.png"
+    >
+    <img v-else class="xo" src="https://cdn.exe666.com/fe/image/m/wallet-no-xo-boy.png">
+    
     <img class="icon" :src="currentIcon">
     <!-- <div class="zan">+1</div> -->
   </div>
@@ -27,7 +34,7 @@ export default {
     clearInterval(this.itv);
   },
   computed: {
-    ...mapGetters(["z"]),
+    ...mapGetters(["z", "loginState"]),
     currentP() {
       if (this.resData.length === 0) {
         return null;
@@ -52,6 +59,11 @@ export default {
           api: "json"
         };
         let r = await fetchRunPro(payload);
+        if (r.data.state === "40035") {
+          this.$router.push({
+            name: "mSite404"
+          });
+        }
         this.resData = r.data.results.data;
         this.itv = setInterval(() => {
           this.count++;

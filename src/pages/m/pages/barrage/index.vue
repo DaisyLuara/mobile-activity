@@ -9,6 +9,14 @@
       :class="{'button gray': inputvalue.length === 0, 'button': inputvalue !== 0}"
       @click="handleSendBarrage"
     >发送</div>
+    <div class="xo-combine" @click="getBarrage">
+      <img v-if="loginState.gender === '1'" class="xo-img" :src="xoGirl">
+      <img v-else class="xo-img" :src="xoBoy">
+      <div class="text-holder">
+        <div class="text">{{computedText}}</div>
+        <img class="text-bg" :src="textHolder">
+      </div>
+    </div>
   </div>
 </template>
 
@@ -19,14 +27,25 @@ import { mapGetters, mapMutations } from "vuex";
 export default {
   data() {
     return {
-      inputvalue: ""
+      inputvalue: "",
+      xoBoy: "https://cdn.exe666.com/fe/image/m/barrage-xo-boy.png",
+      xoGirl: "https://cdn.exe666.com/fe/image/m/barrage-xo-girl.png",
+      textHolder: "https://cdn.exe666.com/fe/image/m/barrage-text-holder.svg"
     };
   },
   computed: {
     currentWords() {
       return this.inputvalue.length;
     },
-    ...mapGetters(["z", "loginState", "lastBarrageTime"])
+    ...mapGetters(["z", "loginState", "lastBarrageTime"]),
+    computedText() {
+      if (this.loginState.gender === "1") {
+        return "小哥哥，点我试试！生成最潮弹幕~";
+      } else if (this.loginState.gender === "2") {
+        return "小姐姐，点我试试！生成最潮弹幕~";
+      }
+      return "点我试试！生成最潮弹幕~";
+    }
   },
   methods: {
     ...mapMutations({
@@ -62,7 +81,8 @@ export default {
         .catch(e => {
           Toast("网络错误");
         });
-    }
+    },
+    getBarrage() {}
   }
 };
 </script>
@@ -77,6 +97,7 @@ export default {
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
+  position: relative;
   .holder {
     width: 3.65rem;
     height: 90px;
@@ -137,6 +158,50 @@ export default {
     color: white;
     &.gray {
       background: gray;
+    }
+  }
+  .xo-combine {
+    height: 3.2rem;
+    width: 3.75rem;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 20;
+    .xo-img {
+      width: 3.03rem;
+      position: absolute;
+      z-index: 30;
+      left: -0.4rem;
+      bottom: 48px;
+    }
+    .text-holder {
+      width: 1.5rem;
+      height: 0.63rem;
+      position: absolute;
+      bottom: 1.35rem;
+      right: 0.23rem;
+      z-index: 60;
+      font-size: 0.12rem;
+      .text-bg {
+        width: 100%;
+        height: 100%;
+        z-index: 50;
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+      .text {
+        padding: 0.14rem 0.2rem;
+        width: 100%;
+        height: 100%;
+        z-index: 60;
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: rgba(57, 57, 61, 1);
+        line-height: 0.17rem;
+        font-weight: bold;
+      }
     }
   }
 }

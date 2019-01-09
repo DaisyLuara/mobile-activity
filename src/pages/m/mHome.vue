@@ -38,6 +38,9 @@ export default {
   created() {
     if (isInWechat() === true) {
       this.wechat = true;
+      if (this.$route.name === "mSite404") {
+        return;
+      }
       this.handleLogin();
     }
   },

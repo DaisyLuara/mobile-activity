@@ -92,6 +92,11 @@ export default {
       };
       getUserTrends(payload)
         .then(r => {
+          if (r.data.state === "40035") {
+            this.$router.push({
+              name: "mSite404"
+            });
+          }
           let res = r.data.results.data;
           this.isLoading = false;
           this.trends = this.trends.concat(res);
