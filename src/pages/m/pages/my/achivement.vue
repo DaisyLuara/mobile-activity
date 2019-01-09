@@ -9,8 +9,8 @@
     >
       <div v-for="(item, index) in trends" :key="index" class="achive">
         <div class="header">
-          <img :src="item.xicon" v-if="item.xid > 0">
-          <img :src="item.xtabicon" v-if="item.xid <= 0">
+          <img :src="item.xicon" v-if="item.hid > 0">
+          <img :src="item.xtabicon" v-if="item.hid <= 0">
         </div>
         <div class="text">{{ item.xname }}</div>
       </div>
