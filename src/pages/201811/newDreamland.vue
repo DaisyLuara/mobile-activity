@@ -73,7 +73,6 @@ export default {
       showImg: true,
       contentShow: false,
       peopleID: null,
-      // peopleID: this.$route.query.peopleID,
       iphoneX: false,
       base64Data: null,
       mkey: 'y6541h00',
@@ -109,7 +108,6 @@ export default {
       this.iphoneX = false
     }
     console.log(this.base64Data)
-    //this.drawing()
   },
   methods: {
     go() {
