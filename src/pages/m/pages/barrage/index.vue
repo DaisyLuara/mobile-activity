@@ -1,36 +1,20 @@
 <template>
   <div class="barrage">
     <div class="holder">
-      <img 
-        :src="loginState.face" 
-        class="avatar">
-      <textarea 
-        v-model="inputvalue" 
-        class="inputarea" 
-        placeholder="请输入" 
-        maxlength="40"/>
+      <img :src="loginState.face" class="avatar">
+      <textarea v-model="inputvalue" class="inputarea" placeholder="请输入" maxlength="40"/>
       <div class="count">{{ currentWords }}/40</div>
     </div>
     <div
       :class="{'button gray': inputvalue.length === 0, 'button': inputvalue !== 0}"
       @click="handleSendBarrage"
     >发送</div>
-    <div 
-      class="xo-combine" 
-      @click="getBarrage">
-      <img 
-        v-if="loginState.gender === '1'" 
-        :src="xoGirl" 
-        class="xo-img">
-      <img 
-        v-else 
-        :src="xoBoy" 
-        class="xo-img">
+    <div class="xo-combine" @click="getBarrage">
+      <img v-if="loginState.gender === '1'" :src="xoGirl" class="xo-img">
+      <img v-else :src="xoBoy" class="xo-img">
       <div class="text-holder">
         <div class="text">{{ computedText }}</div>
-        <img 
-          :src="textHolder" 
-          class="text-bg">
+        <img :src="textHolder" class="text-bg">
       </div>
     </div>
   </div>
@@ -46,7 +30,8 @@ export default {
       inputvalue: "",
       xoBoy: "https://cdn.exe666.com/fe/image/m/barrage-xo-boy.png",
       xoGirl: "https://cdn.exe666.com/fe/image/m/barrage-xo-girl.png",
-      textHolder: "https://cdn.exe666.com/fe/image/m/barrage-text-holder.svg"
+      textHolder: "https://cdn.exe666.com/fe/image/m/barrage-text-holder.svg",
+      sendingLock: false
     };
   },
   computed: {
@@ -68,6 +53,9 @@ export default {
       setLastBarrageTime: "SET_LAST_BARRAGE_TIME"
     }),
     handleSendBarrage() {
+      if (this.sendingLock) {
+        return;
+      }
       if (this.inputvalue.length === 0) {
         return;
       }
@@ -83,6 +71,7 @@ export default {
         comment: this.inputvalue,
         api: "json"
       };
+      this.sendingLock = true;
       sendBarrage(payload)
         .then(r => {
           console.dir(r);
@@ -96,6 +85,9 @@ export default {
         })
         .catch(e => {
           Toast("网络错误");
+        })
+        .finally(() => {
+          this.sendingLock = false;
         });
     },
     getBarrage() {

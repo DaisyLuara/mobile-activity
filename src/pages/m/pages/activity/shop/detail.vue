@@ -1,26 +1,19 @@
 <template>
   <div class="act-shop-detail">
-    <img 
-      :src="resData.image" 
-      class="main-photo">
+    <img :src="resData.image" class="main-photo">
     <div class="main-text">{{ resData.txt }}</div>
     <div class="start-time">开始时间: {{ startTime }}</div>
     <div class="end-time">结束时间: {{ endTime }}</div>
-    <div 
-      class="info" 
-      v-html="infolink"/>
-    <div 
-      class="info" 
-      v-html="pslink"/>
-    <div 
-      class="main-button" 
-      @click="handleNaviToActList">查看更多商家活动</div>
+    <div class="info" v-html="infolink"/>
+    <div class="info" v-html="pslink"/>
+    <div class="main-button" @click="handleNaviToActList">查看更多热门活动</div>
     <ActivityBottom
       :acid="resData.acid"
       :acttype="resData.type"
       :awardkey="resData.awardkey"
       :auid="resData.auid"
       :is-allow="resData.allow"
+      :xinfo="resData.xinfo"
     />
   </div>
 </template>
@@ -95,7 +88,7 @@ export default {
           z: this.z,
           api: "json"
         };
-        document.title = this.resData.aname;
+        document.title = this.resData.title;
         this.infolink = await this.loadPage(this.resData.infolink);
         this.pslink = await this.loadPage(this.resData.pslink);
       } catch (e) {
