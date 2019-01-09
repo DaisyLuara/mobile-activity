@@ -68,7 +68,7 @@ export default {
   mixins: [normalPages],
   data() {
     return {
-      baseUrl: cdnUrl + "/fe/marketing/img/new_luck/",
+      baseUrl: cdnUrl + "/fe/marketing/img/luck/",
       style: {
         root: {
           height: this.$innerHeight() + "px"
@@ -78,7 +78,7 @@ export default {
         title: "新年运势",
         desc: "2019锦鲤非你莫属！",
         link: "http://papi.xingstation.com/api/s/462" + window.location.search,
-        imgUrl: cdnUrl + "/fe/marketing/img/new_luck/icon.jpg"
+        imgUrl: cdnUrl + "/fe/marketing/img/luck/icon.jpg"
       }
     };
   }
@@ -86,7 +86,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: "http://cdn.exe666.com/fe/marketing/img/new_luck/";
+@imageHost: "http://cdn.exe666.com/fe/marketing/img/luck/";
 html,
 body {
   width: 100%;
