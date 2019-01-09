@@ -1,5 +1,7 @@
 <template>
-  <div class="ptp" v-if="show">
+  <div 
+    v-if="show" 
+    class="ptp">
     <img :src="imgUrl">
   </div>
 </template>

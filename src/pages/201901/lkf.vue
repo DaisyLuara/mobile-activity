@@ -39,10 +39,10 @@ import { normalPages } from '@/mixins/normalPages'
 import BottomBar from "@/pages/m/components/Static/BottomBar";
 const CDN_URL = process.env.CDN_URL
 export default {
-  mixins: [normalPages],
   components: {
     BottomBar
   },
+  mixins: [normalPages],
   data() {
     return {
       base: CDN_URL + '/fe/image/couponrain/lkf/',

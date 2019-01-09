@@ -13,22 +13,22 @@
     </div>
 
     <div class="button">
-      <div class="title" @click="naviToShopActivityDetail" v-if="acid >0">{{ buttonTitle }}</div>
+      <div v-if="acid >0" class="title" @click="naviToShopActivityDetail">{{ buttonTitle }}</div>
       <div
+        v-if="acid <=0 && actList.length > 0"
         class="title"
         @click="showActsCanJoin"
-        v-if="acid <=0 && actList.length > 0"
       >{{ buttonTitle }}</div>
       <!-- <div class="time">{{subTitle}}</div> -->
     </div>
     <transition name="fade">
-      <div class="list" v-if="shoudListShow">
+      <div v-if="shoudListShow" class="list">
         <div
-          class="list-item"
           v-for="(item, index) in actList"
           :key="index"
+          class="list-item"
           @click="naviGateToActDetail(item)"
-        >{{item.aname}}</div>
+        >{{ item.title }}</div>
       </div>
     </transition>
   </div>
@@ -142,12 +142,17 @@ export default {
           }
         });
       } else {
+        let bid = null;
+        if (this.actDetail.xinfo !== null) {
+          bid = this.actDetail.xinfo.bid;
+        }
         this.$router.push({
           name: this.nameMap[this.actDetail.type],
           params: this.$route.params,
           query: {
             acid: this.actDetail.acid,
-            awardkey: this.actDetail.awardkey
+            awardkey: this.actDetail.awardkey,
+            bid: bid
           }
         });
       }

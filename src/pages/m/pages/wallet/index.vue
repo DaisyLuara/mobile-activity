@@ -1,9 +1,17 @@
 <template>
   <div class="wallet">
     <img class="bg" src="https://cdn.exe666.com/fe/image/m/wallet-no-bg.jpeg">
-    <img class="xo" src="https://cdn.exe666.com/fe/image/m/wallet-no-xo.png">
-    <img class="icon" :src="currentIcon">
-    <!-- <div class="zan">+1</div> -->
+    
+    <img
+      v-if="loginState.gender === '1'"
+      class="xo"
+      src="https://cdn.exe666.com/fe/image/m/wallet-no-xo.png"
+    >
+    <img v-else class="xo" src="https://cdn.exe666.com/fe/image/m/wallet-no-xo-boy.png">
+
+    <div class="icon">
+      <img :src="currentIcon">
+    </div>
   </div>
 </template>
 
@@ -12,14 +20,15 @@ import { fetchRunPro } from "services";
 import { mapGetters } from "vuex";
 
 export default {
+  components: {},
   data() {
     return {
       resData: [],
       itv: null,
-      count: 0
+      count: 0,
+      clicked: false
     };
   },
-  components: {},
   created() {
     this.fetchMyData();
   },
@@ -27,7 +36,7 @@ export default {
     clearInterval(this.itv);
   },
   computed: {
-    ...mapGetters(["z"]),
+    ...mapGetters(["z", "loginState"]),
     currentP() {
       if (this.resData.length === 0) {
         return null;
@@ -43,6 +52,73 @@ export default {
     }
   },
   methods: {
+    handleClick() {
+      let options = {
+        obj: null, //jq对象，要在那个html标签上显示
+        str: "+1", //字符串，要显示的内容;也可以传一段html，如: "<b style='font-family:Microsoft YaHei;'>+1</b>"
+        startSize: "12px", //动画开始的文字大小
+        endSize: "30px", //动画结束的文字大小
+        interval: 600, //动画时间间隔
+        color: "red" //文字颜色
+      };
+      let num = document.createElement("div");
+      let icon = document.getElementsByClassName("icon")[0];
+      let wallet = document.getElementsByClassName("wallet")[0];
+
+      num.innerHTML = "+1";
+      num.className = "zan";
+
+      wallet.append(num);
+
+      let left = this.getOffset(icon).left + this.getWidth(icon) / 2;
+      let top = this.getOffset(icon).top - this.getHeight(icon);
+
+      num.style.position = "absolute";
+      num.style.left = left + "px";
+      num.style.top = "2.3rem";
+      num.style.zIndex = 9999;
+      num.style.fontSize = options.startSize;
+      num.style.lineHeight = options.endSize;
+      num.style.color = "red";
+
+      let params = {
+        "font-size": options.endSize,
+        opacity: "0",
+        top: "2rem"
+      };
+      num.style.transition = "all " + "0.6s";
+      Object.keys(params).forEach(key => (num.style[key] = params[key]));
+    },
+    getOffset(el) {
+      const box = el.getBoundingClientRect();
+      return {
+        top: box.top + window.pageYOffset - document.documentElement.clientTop,
+        left:
+          box.left + window.pageXOffset - document.documentElement.clientLeft
+      };
+    },
+    getHeight(el) {
+      const styles = window.getComputedStyle(el);
+      const height = el.offsetHeight;
+      const borderTopWidth = parseFloat(styles.borderTopWidth);
+      const borderBottomWidth = parseFloat(styles.borderBottomWidth);
+      const paddingTop = parseFloat(styles.paddingTop);
+      const paddingBottom = parseFloat(styles.paddingBottom);
+      return (
+        height - borderBottomWidth - borderTopWidth - paddingTop - paddingBottom
+      );
+    },
+    getWidth(el) {
+      const styles = window.getComputedStyle(el);
+      const height = el.offsetWidth;
+      const borderTopWidth = parseFloat(styles.borderTopWidth);
+      const borderBottomWidth = parseFloat(styles.borderBottomWidth);
+      const paddingTop = parseFloat(styles.paddingTop);
+      const paddingBottom = parseFloat(styles.paddingBottom);
+      return (
+        height - borderBottomWidth - borderTopWidth - paddingTop - paddingBottom
+      );
+    },
     async fetchMyData() {
       try {
         let payload = {
@@ -52,9 +128,16 @@ export default {
           api: "json"
         };
         let r = await fetchRunPro(payload);
+        if (r.data.state === "40035") {
+          this.$router.push({
+            name: "mSite404"
+          });
+        }
         this.resData = r.data.results.data;
+        this.handleClick();
         this.itv = setInterval(() => {
           this.count++;
+          this.handleClick();
         }, 5000);
       } catch (e) {
         console.log(e);
@@ -70,6 +153,7 @@ export default {
   min-height: 100vh;
   z-index: 10;
   margin-top: -0.64rem;
+  font-size: 12px;
   .bg {
     position: relative;
     width: 100%;
@@ -90,9 +174,14 @@ export default {
     border-radius: 0.08rem;
     top: 2.4rem;
     left: 1.575rem;
-  }
-  .zan {
-    font-size: 0.14rem;
+    overflow: hidden;
+    img {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
   }
 }
 </style>

@@ -1,23 +1,31 @@
 <template>
   <div class="alltop">
-    <NoListContentReminder :show="trends.length === 0 && firstFetch" words="暂时没有活动内容哦"/>
-    <img class="main-photo" :src="actData.image" v-if="actData.image !== ''">
+    <NoListContentReminder 
+      :show="trends.length === 0 && firstFetch" 
+      words="暂时没有活动内容哦"/>
+    <img 
+      v-if="actData.image !== ''" 
+      :src="actData.image" 
+      class="main-photo">
     <ul
       v-infinite-scroll="loadMore"
       class="trends-wrapper"
       infinite-scroll-disabled="loading"
       infinite-scroll-distance="10"
     >
-      <div v-for="(item, index) in trends" :key="index" class="item-wrapper">
+      <div 
+        v-for="(item, index) in trends" 
+        :key="index" 
+        class="item-wrapper">
         <ThemeVoteItem
           :auid="item.auid"
-          :photoUrl="item.link"
+          :photo-url="item.link"
           :face="item.face"
           :nickname="item.nickname"
           :views="item.views"
         />
       </div>
-      <div class="blank-holder"></div>
+      <div class="blank-holder"/>
     </ul>
     <ActivityThemeGameBottom/>
   </div>
@@ -33,6 +41,11 @@ import NoListContentReminder from "@/pages/m/components/Reminder/NoListContentRe
 import ActivityThemeGameBottom from "@/pages/m/components/Activity/ActivityThemeGameBottom";
 
 export default {
+  components: {
+    ThemeVoteItem,
+    NoListContentReminder,
+    ActivityThemeGameBottom
+  },
   data() {
     return {
       bindBottomDistance: 0,
@@ -46,11 +59,6 @@ export default {
       },
       firstFetch: false
     };
-  },
-  components: {
-    ThemeVoteItem,
-    NoListContentReminder,
-    ActivityThemeGameBottom
   },
   computed: {
     ...mapGetters(["z"])

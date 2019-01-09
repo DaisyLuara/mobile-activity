@@ -112,6 +112,11 @@ import "animate.css";
 import BottomBar from "@/pages/m/components/Static/BottomBar";
 const CDNURL = process.env.CDN_URL;
 export default {
+  components: {
+    BottomBar,
+    LinkAge
+  },
+  mixins: [normalPages],
   props: {
     linkData: {
       type: String,

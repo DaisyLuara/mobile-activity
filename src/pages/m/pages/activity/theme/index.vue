@@ -1,7 +1,12 @@
 <template>
   <div class="theme">
-    <img :src="themeImageUrl" class="main-img">
-    <div v-for="(item, index) in themeActItems" :key="index" class="theme-item-wrapper">
+    <img 
+      :src="themeImageUrl" 
+      class="main-img">
+    <div 
+      v-for="(item, index) in themeActItems" 
+      :key="index" 
+      class="theme-item-wrapper">
       <ThemeVoteItem/>
     </div>
     <div class="activity">

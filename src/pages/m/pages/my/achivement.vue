@@ -1,6 +1,6 @@
 <template>
   <div class="achivement">
-    <div class="title">我解锁的成就</div>
+    <div class="title">{{fixedTitle}}</div>
     <ul
       v-infinite-scroll="loadMore"
       class="achives"
@@ -9,11 +9,12 @@
     >
       <div v-for="(item, index) in trends" :key="index" class="achive">
         <div class="header">
-          <img :src="item.xicon">
+          <img :src="item.xicon" v-if="item.hid > 0">
+          <img :src="item.xtabicon" v-if="item.hid <= 0">
         </div>
-        <div class="text">{{item.xname}}</div>
+        <div class="text">{{ item.xname }}</div>
       </div>
-      <div class="no-achive" v-if="trends.length === 0 && firstFetch">暂无解锁的成就</div>
+      <div v-if="trends.length === 0 && firstFetch" class="no-achive">暂无解锁的成就</div>
     </ul>
   </div>
 </template>
@@ -33,7 +34,8 @@ export default {
       isLoading: false,
       isAllLoaded: false,
       firstFetch: false,
-      trends: []
+      trends: [],
+      fixedTitle: "我解锁的成就"
     };
   },
   computed: {
@@ -70,10 +72,16 @@ export default {
         size: 10,
         mkey: this.$route.params.mkey,
         z: this.z
-        // z: "4fk2d91686b0fcef93b6e594689846cb4631n5"
       };
+      let { bid } = this.$route.query;
+      if (bid !== undefined) {
+        payload.bid = bid;
+      }
       fetchMyAchivement(payload)
         .then(r => {
+          if (r.data.results.info !== null) {
+            this.fixedTitle = r.data.results.info.name;
+          }
           let res = r.data.results.data;
           this.isLoading = false;
           this.trends = this.trends.concat(res);

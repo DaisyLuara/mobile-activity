@@ -8,10 +8,10 @@
     />
     <img :src="resData.image" class="photo">
     <TrendsBottomBar
+      :act-detail="actDetail"
+      :acid="Number(resData.acid)"
       @onTrendDelete="handleTrendDeleteModalShow"
       @onTrendShare="handleShareModalShare"
-      :actDetail="actDetail"
-      :acid="Number(resData.acid)"
     />
     <TrendsBottomBlankHolder/>
     <DeletePhotoModal
@@ -21,9 +21,9 @@
     />
     <SharePhotoModal :show="shouldShareModalShow" @onHandleShareModalHide="handleShareModalHide"/>
 
-    <div class="info" v-html="infolink"></div>
-    <div class="info" v-html="pslink"></div>
-    <div class="blank-holder"></div>
+    <div class="info" v-html="infolink"/>
+    <div class="info" v-html="pslink"/>
+    <div class="blank-holder"/>
   </div>
 </template>
 
@@ -85,6 +85,12 @@ export default {
       };
       try {
         let r = await getHdInfo(payload);
+        console.dir(r);
+        if (r.data.state === "40035") {
+          this.$router.push({
+            name: "mSite404"
+          });
+        }
         this.resData = r.data.results;
         if (Number(this.resData.acid) > 0) {
           let actDetailPayload = {
@@ -96,7 +102,9 @@ export default {
             this,
             actDetailPayload
           );
+
           this.actDetail = ractDetail.data.results;
+          document.title = ractDetail.data.results.title;
           this.infolink = await this.loadPage(this.actDetail.infolink);
           this.pslink = await this.loadPage(this.actDetail.pslink);
         }
