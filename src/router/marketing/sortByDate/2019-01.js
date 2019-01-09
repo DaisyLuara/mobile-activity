@@ -66,6 +66,17 @@ const Date201901 = [
     isAbandoned: false
   },
   {
+    path: 'new_red',
+    location: '201812/newRed',
+    name: 'new_red',
+    meta: {
+      title: '彼得兔丛林探险',
+      author: 'lipan',
+      desc: '华侨城-彼得兔-红'
+    },
+    isAbandoned: false
+  },
+  {
     path: 'drc_meifu',
     location: '201901/meifu',
     name: 'drc_meifu',
@@ -73,6 +84,28 @@ const Date201901 = [
       title: '美肤测试仪',
       author: 'xj1012',
       desc: '美肤测试仪'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'new_blue',
+    location: '201812/newBlue',
+    name: 'new_blue',
+    meta: {
+      title: '彼得兔丛林探险',
+      author: 'lipan',
+      desc: '华侨城-彼得兔-蓝'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'new_yellow',
+    location: '201812/newYellow',
+    name: 'new_yellow',
+    meta: {
+      title: '彼得兔丛林探险',
+      author: 'lipan',
+      desc: '华侨城-彼得兔-黄'
     },
     isAbandoned: false
   },

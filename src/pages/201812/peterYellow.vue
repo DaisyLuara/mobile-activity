@@ -1,16 +1,16 @@
 <template>
   <div>
-    <PeterRabbit
-      ref="peterRabbit"
+    <OldPeter
+      ref="oldPeter"
       :link-data="link"
-    ></PeterRabbit>
+    ></OldPeter>
   </div>
 </template>
 <script>
-import PeterRabbit from '@/pages/201812/components/peterRabbit'
+import OldPeter from '@/pages/201812/components/oldPeter'
 export default {
   components: {
-    PeterRabbit
+    OldPeter
   },
   data() {
     return {
@@ -18,7 +18,7 @@ export default {
     }
   },
   mounted() {
-    // console.log(this.$refs.peterRabbit.wxShareInfoValue)
+    // console.log(this.$refs.oldPeter.wxShareInfoValue)
   }
 }
 </script>
