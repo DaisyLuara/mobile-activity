@@ -78,16 +78,12 @@ export default {
           height: this.$innerHeight() + 'px'
         }
       },
-      photo: null,
       iphoneX: false,
       wxShareInfoValue: {
         title: '翻转世界遇见你',
         desc: '一个世间独一无二的你',
         link: 'http://papi.xingstation.com/api/s/OyN' + window.location.search,
-        imgUrl: cdnUrl + '/fe/marketing/img/turn_world/icon.png',
-        success: () => {
-          wechatShareTrack()
-        }
+        imgUrl: cdnUrl + '/fe/marketing/img/turn_world/icon.png'
       }
     }
   },

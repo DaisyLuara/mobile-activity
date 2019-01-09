@@ -21,8 +21,8 @@
         :src="base + '2.png' + this.$qiniuCompress()"
         class="bg"
       >
-      <LinkAge
-        ref="linkAge"
+      <OldHonour
+        ref="oldHonour"
         :pro-data="proData"
       />
       <button
@@ -91,15 +91,15 @@
         @click="()=>{mask = true;}"
       >
     </div>
-    <BottomBar :menucode="'56'" />
+    <!-- <BottomBar :menucode="'56'" /> -->
   </div>
 </template>
 <script>
 import { $wechat, isInWechat, wechatShareTrack, Cookies } from "services";
 import { normalPages } from "@/mixins/normalPages";
 import "animate.css";
-import BottomBar from "@/pages/m/components/Static/BottomBar";
-import LinkAge from 'modules/linkAge';
+// import BottomBar from "@/pages/m/components/Static/BottomBar";
+import OldHonour from 'modules/oldHonour';
 const CDNURL = process.env.CDN_URL;
 export default {
   props: {
@@ -109,8 +109,8 @@ export default {
     }
   },
   components: {
-    BottomBar,
-    LinkAge
+    // BottomBar,
+    OldHonour
   },
   mixins: [normalPages],
   data() {
@@ -130,21 +130,19 @@ export default {
           }
         },
         projects: {
-          '8': {
+          ptRabbitRed: {
             state: false,
-            name: 'ptRabbitRed',
             notget: CDNURL + '/fe/image/peter/nored.png',
             geted: CDNURL + '/fe/image/peter/getred.png'
           },
-          '9': {
+          ptRabbitBlue: {
             state: false,
             name: 'ptRabbitBlue',
             notget: CDNURL + '/fe/image/peter/noblue.png',
             geted: CDNURL + '/fe/image/peter/getblue.png'
           },
-          '10': {
+          ptRabbitYellow: {
             state: false,
-            name: 'ptRabbitYellow',
             notget: CDNURL + '/fe/image/peter/noyellow.png',
             geted: CDNURL + '/fe/image/peter/getyellow.png'
           }
@@ -160,16 +158,37 @@ export default {
     }
   },
   watch: {
-    userinfo() {
-      this.$refs.linkAge.getGameHonour(3, this.userinfo.z);
+    belong() {
+      this.$refs.oldHonour.createGame(this.belong, this.userId);
     }
-    // belong() {
-    //   this.$refs.linkAge.getGameHonour(3, '8b96bc7fba4c1176b3fc0861e94f22465c0f6a');
-    // }
   },
   mounted() {
+    //微信授权
+    if (isInWechat() === true) {
+      if (
+        process.env.NODE_ENV === "production" ||
+        process.env.NODE_ENV === "testing"
+      ) {
+        this.handleWechatAuth();
+      }
+    }
   },
   methods: {
+    //微信静默授权
+    handleWechatAuth() {
+      if (Cookies.get("sign") === null) {
+        let base_url = encodeURIComponent(String(window.location.href));
+        let redirct_url =
+          process.env.WX_API +
+          "/wx/officialAccount/oauth?url=" +
+          base_url +
+          "&scope=snsapi_base";
+        window.location.href = redirct_url;
+      } else {
+        this.userId = Cookies.get("user_id");
+        this.$refs.oldHonour.createGame(this.belong, this.userId);
+      }
+    }
   }
 }
 </script>
@@ -349,15 +368,12 @@ a {
     background: rgba(255, 255, 255, 1);
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.16);
     z-index: 10000;
-    // padding-left: 0.5rem;
-    // padding-right: 0.5rem;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
 
     .bitem {
       height: 100%;
-      // width: 30px;
       width: 33%;
       flex-shrink: 0;
       display: flex;

@@ -90,7 +90,6 @@ export default {
           'min-height': this.$innerHeight() + 'px'
         }
       },
-      photo: null,
       btn: 'btn1',
       note: 'note',
       utmCampaign: null,
@@ -106,10 +105,7 @@ export default {
         title: '乐荟豪礼 等你来领',
         desc: '即可领取 嗨翻全场',
         link: 'http://papi.xingstation.com/api/s/5QR' + window.location.search,
-        imgUrl: IMGSERVER + '/image/pk/common/share.png',
-        success: () => {
-          wechatShareTrack()
-        }
+        imgUrl: IMGSERVER + '/image/pk/common/share.png'
       }
     }
   },

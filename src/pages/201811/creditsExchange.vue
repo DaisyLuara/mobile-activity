@@ -38,7 +38,7 @@
 </template>
 <script>
 import { wechatShareTrack } from "services";
-import { normalPages } from "../../mixins/normalPages";
+import { normalPages } from "@/mixins/normalPages";
 const cdnUrl = process.env.CDN_URL;
 export default {
   mixins: [normalPages],
@@ -50,16 +50,12 @@ export default {
           height: this.$innerHeight() + "px"
         }
       },
-      photo: null,
       iphoneX: false,
       wxShareInfoValue: {
         title: "【积分换礼】VIP专属福利",
         desc: "好礼不断，立即点击兑换",
         link: "http://papi.xingstation.com/api/s/Xom" + window.location.search,
-        imgUrl: cdnUrl + "/fe/marketing/img/credits_exchange/icon.png",
-        success: () => {
-          wechatShareTrack();
-        }
+        imgUrl: cdnUrl + "/fe/marketing/img/credits_exchange/icon.png"
       }
     };
   },

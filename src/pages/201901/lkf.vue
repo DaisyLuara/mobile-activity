@@ -242,8 +242,12 @@ img {
   }
   .btb {
     margin-bottom: 0;
-    padding-left: 30px;
-    padding-right: 30px;
+    // padding-left: 30px;
+    // padding-right: 30px;
+    justify-content: space-around;
+    .bitem {
+      width: 33%;
+    }
   }
 }
 </style>
