@@ -175,9 +175,9 @@ export default {
           });
         }
         this.resData = r.data.results.data;
-        // this.itv = setInterval(() => {
-        //   this.count++;
-        // }, 5000);
+        this.itv = setInterval(() => {
+          this.count++;
+        }, 5000);
       } catch (e) {
         console.log(e);
       }
