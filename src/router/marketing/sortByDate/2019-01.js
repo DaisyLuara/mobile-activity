@@ -66,7 +66,6 @@ const Date201901 = [
     isAbandoned: false
   },
   {
-<<<<<<< HEAD
     path: 'new_red',
     location: '201812/newRed',
     name: 'new_red',
@@ -74,7 +73,10 @@ const Date201901 = [
       title: '彼得兔丛林探险',
       author: 'lipan',
       desc: '华侨城-彼得兔-红'
-=======
+    },
+    isAbandoned: false
+  },
+  {
     path: 'drc_meifu',
     location: '201901/meifu',
     name: 'drc_meifu',
@@ -82,12 +84,10 @@ const Date201901 = [
       title: '美肤测试仪',
       author: 'xj1012',
       desc: '美肤测试仪'
->>>>>>> master
     },
     isAbandoned: false
   },
   {
-<<<<<<< HEAD
     path: 'new_blue',
     location: '201812/newBlue',
     name: 'new_blue',
@@ -106,7 +106,10 @@ const Date201901 = [
       title: '彼得兔丛林探险',
       author: 'lipan',
       desc: '华侨城-彼得兔-黄'
-=======
+    },
+    isAbandoned: false
+  },
+  {
     path: 'dgm_movie',
     location: '201901/dgmMovie',
     name: 'dgm_movie',
@@ -114,7 +117,6 @@ const Date201901 = [
       title: '大光明影城',
       author: 'xj1012',
       desc: '大光明电影院'
->>>>>>> master
     },
     isAbandoned: false
   }
