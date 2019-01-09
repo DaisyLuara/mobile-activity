@@ -69,7 +69,6 @@ export default {
   watch: {
     parms() {
       this.checkGetCoupon()
-      console.log(this.arr[this.num])
     }
   },
   mounted() {
