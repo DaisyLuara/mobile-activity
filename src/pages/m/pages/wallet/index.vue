@@ -1,16 +1,23 @@
 <template>
   <div class="wallet">
-    <img class="bg" src="https://cdn.exe666.com/fe/image/m/wallet-no-bg.jpeg">
+    <img 
+      class="bg" 
+      src="https://cdn.exe666.com/fe/image/m/wallet-no-bg.jpeg">
     
     <img
       v-if="loginState.gender === '1'"
       class="xo"
       src="https://cdn.exe666.com/fe/image/m/wallet-no-xo.png"
     >
-    <img v-else class="xo" src="https://cdn.exe666.com/fe/image/m/wallet-no-xo-boy.png">
+    <img 
+      v-else 
+      class="xo" 
+      src="https://cdn.exe666.com/fe/image/m/wallet-no-xo-boy.png">
     
-    <img class="icon" :src="currentIcon">
-    <!-- <div class="zan">+1</div> -->
+    <img 
+      :src="currentIcon" 
+      class="icon">
+      <!-- <div class="zan">+1</div> -->
   </div>
 </template>
 
@@ -19,6 +26,7 @@ import { fetchRunPro } from "services";
 import { mapGetters } from "vuex";
 
 export default {
+  components: {},
   data() {
     return {
       resData: [],
@@ -26,7 +34,6 @@ export default {
       count: 0
     };
   },
-  components: {},
   created() {
     this.fetchMyData();
   },

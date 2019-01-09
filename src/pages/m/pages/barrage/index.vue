@@ -1,20 +1,36 @@
 <template>
   <div class="barrage">
     <div class="holder">
-      <img class="avatar" :src="loginState.face">
-      <textarea class="inputarea" v-model="inputvalue" placeholder="请输入" maxlength="40"></textarea>
-      <div class="count">{{currentWords}}/40</div>
+      <img 
+        :src="loginState.face" 
+        class="avatar">
+      <textarea 
+        v-model="inputvalue" 
+        class="inputarea" 
+        placeholder="请输入" 
+        maxlength="40"/>
+      <div class="count">{{ currentWords }}/40</div>
     </div>
     <div
       :class="{'button gray': inputvalue.length === 0, 'button': inputvalue !== 0}"
       @click="handleSendBarrage"
     >发送</div>
-    <div class="xo-combine" @click="getBarrage">
-      <img v-if="loginState.gender === '1'" class="xo-img" :src="xoGirl">
-      <img v-else class="xo-img" :src="xoBoy">
+    <div 
+      class="xo-combine" 
+      @click="getBarrage">
+      <img 
+        v-if="loginState.gender === '1'" 
+        :src="xoGirl" 
+        class="xo-img">
+      <img 
+        v-else 
+        :src="xoBoy" 
+        class="xo-img">
       <div class="text-holder">
-        <div class="text">{{computedText}}</div>
-        <img class="text-bg" :src="textHolder">
+        <div class="text">{{ computedText }}</div>
+        <img 
+          :src="textHolder" 
+          class="text-bg">
       </div>
     </div>
   </div>

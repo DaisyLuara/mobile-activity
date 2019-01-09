@@ -1,5 +1,7 @@
 <template>
-  <div class="activity-theme-game-bottom" @click="naviToActivitys">查看更多热门活动</div>
+  <div 
+    class="activity-theme-game-bottom" 
+    @click="naviToActivitys">查看更多热门活动</div>
 </template>
 
 <script>

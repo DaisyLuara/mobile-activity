@@ -1,96 +1,96 @@
 // 底部的按钮
 <template>
   <div
-    class="btb"
     v-if="menuCode !== '00000' && showRoutes.includes(this.$route.name)"
+    class="btb"
   >
     <div
-      class="bitem"
       v-if="menuCode[0] === '1'"
+      class="bitem"
       @click="handleMenuClick('TrendsIndex')"
     >
       <img
-        :src="photo"
         v-if="currentRoute !== 'TrendsIndex'"
+        :src="photo"
       >
       <img
-        :src="photo_p"
         v-if="currentRoute === 'TrendsIndex'"
+        :src="photo_p"
       >
       <span>照片</span>
     </div>
     <div
-      class="bitem"
       v-if="menuCode[1] === '1'"
+      class="bitem"
       @click="handleMenuClick('ActivityShop')"
     >
       <img
-        :src="act"
         v-if="currentRoute !== 'ActivityShop'"
+        :src="act"
       >
       <img
-        :src="act_p"
         v-if="currentRoute === 'ActivityShop'"
+        :src="act_p"
       >
       <span>活动</span>
     </div>
     <div
-      class="bitem"
       v-if="menuCode[2] === '1'"
+      class="bitem"
       @click="handleMenuClick('BarrageIndex')"
     >
       <img
-        :src="barrage"
         v-if="currentRoute !== 'BarrageIndex'"
+        :src="barrage"
       >
       <img
-        :src="barrage_p"
         v-if="currentRoute === 'BarrageIndex'"
+        :src="barrage_p"
       >
       <span>弹幕</span>
     </div>
     <div
-      class="bitem"
       v-if="menuCode[3] === '1'"
+      class="bitem"
       @click="handleMenuClick('MallIndex')"
     >
       <img
-        :src="mall"
         v-if="currentRoute !== 'MallIndex'"
+        :src="mall"
       >
       <img
-        :src="mall_p"
         v-if="currentRoute === 'MallIndex'"
+        :src="mall_p"
       >
       <span>商城</span>
     </div>
     <div
-      class="bitem"
       v-if="menuCode[4] === '1'"
+      class="bitem"
       @click="handleMenuClick('CardIndex')"
     >
       <img
-        :src="card"
         v-if="currentRoute !== 'CardIndex'"
+        :src="card"
       >
       <img
-        :src="card_p"
         v-if="currentRoute === 'CardIndex'"
+        :src="card_p"
       >
       <span>卡包</span>
     </div>
     <div
-      class="bitem"
       v-if="menuCode[5] === '1'"
+      class="bitem"
       @click="handleMenuClick('MyIndex')"
     >
       <img
-        :src="my"
         v-if="currentRoute !== 'MyIndex'"
+        :src="my"
       >
       <img
-        :src="my_p"
         v-if="currentRoute === 'MyIndex'"
+        :src="my_p"
       >
       <span>我的</span>
     </div>

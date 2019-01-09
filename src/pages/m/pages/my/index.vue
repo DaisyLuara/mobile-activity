@@ -1,15 +1,27 @@
 <template>
   <div class="my">
-    <NoListContentReminder :show="false" words="你还没有解锁嗨玩屏"/>
-    <img class="bg" :src="bgUrl">
+    <NoListContentReminder 
+      :show="false" 
+      words="你还没有解锁嗨玩屏"/>
+    <img 
+      :src="bgUrl" 
+      class="bg">
     <div class="reminder">
-      <div class="text" v-if="currentName.length <=7">
-        <img class="icon" :src="currentIcon">
-        当前互动“{{currentName}}”
+      <div 
+        v-if="currentName.length <=7" 
+        class="text">
+        <img 
+          :src="currentIcon" 
+          class="icon">
+        当前互动“{{ currentName }}”
       </div>
-      <div class="text" v-if="currentName.length >7">
-        <img class="icon" :src="currentIcon">
-        {{currentName}}
+      <div 
+        v-if="currentName.length >7" 
+        class="text">
+        <img 
+          :src="currentIcon" 
+          class="icon">
+        {{ currentName }}
       </div>
     </div>
     <div class="board">
@@ -17,45 +29,74 @@
       <div class="sub">
         <span class="label">人气指数</span>
         <transition-group name="fade">
-          <img class="star" :src="star" v-for="(item, index) in inviteNum" :key="index">
+          <img 
+            v-for="(item, index) in inviteNum" 
+            :src="star" 
+            :key="index" 
+            class="star">
         </transition-group>
         <transition name="fade">
-          <img class="star" :src="halfstar" v-if="inviteNumExtra">
+          <img 
+            v-if="inviteNumExtra" 
+            :src="halfstar" 
+            class="star">
         </transition>
       </div>
       <div class="sub">
         <span class="label">幸运指数</span>
         <transition-group name="fade">
-          <img class="star" :src="star" v-for="(item, index) in luckNum" :key="index">
+          <img 
+            v-for="(item, index) in luckNum" 
+            :src="star" 
+            :key="index" 
+            class="star">
         </transition-group>
         <transition name="fade">
-          <img class="star" :src="halfstar" v-if="luckNumExtra">
+          <img 
+            v-if="luckNumExtra" 
+            :src="halfstar" 
+            class="star">
         </transition>
       </div>
       <div class="sub">
         <span class="label">推荐指数</span>
         <transition-group name="fade">
-          <img class="star" :src="star" v-for="(item, index) in topNum" :key="index">
+          <img 
+            v-for="(item, index) in topNum" 
+            :src="star" 
+            :key="index" 
+            class="star">
         </transition-group>
         <transition name="fade">
-          <img class="star" :src="halfstar" v-if="topNumExtra">
+          <img 
+            v-if="topNumExtra" 
+            :src="halfstar" 
+            class="star">
         </transition>
       </div>
     </div>
     <div class="avatar">
       <img :src="loginState.face">
     </div>
-    <div class="nickname">{{loginState.username}}</div>
-    <div class="barrage" @click="navinagteToBarrage">
-      <img class="hot" :src="hot">
+    <div class="nickname">{{ loginState.username }}</div>
+    <div 
+      class="barrage" 
+      @click="navinagteToBarrage">
+      <img 
+        :src="hot" 
+        class="hot">
       <div class="barrage-icon"/>
       <div>发弹幕</div>
     </div>
-    <div class="achivement" @click="navinagteToAchivement">
+    <div 
+      class="achivement" 
+      @click="navinagteToAchivement">
       <div class="achivement-icon"/>
       <div>成就勋章</div>
     </div>
-    <div class="mygame" @click="navinagteToGamePlayed">
+    <div 
+      class="mygame" 
+      @click="navinagteToGamePlayed">
       <div class="mygame-icon"/>
       <div>参与过的互动</div>
     </div>
@@ -69,6 +110,9 @@ import NoListContentReminder from "@/pages/m/components/Reminder/NoListContentRe
 import { mapGetters } from "vuex";
 import { fetchRunPro } from "services";
 export default {
+  components: {
+    NoListContentReminder
+  },
   data() {
     return {
       hasFetched: false,
@@ -81,9 +125,6 @@ export default {
       itv: null,
       count: 0
     };
-  },
-  components: {
-    NoListContentReminder
   },
   computed: {
     ...mapGetters(["loginState", "z"]),

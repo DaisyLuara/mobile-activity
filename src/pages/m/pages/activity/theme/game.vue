@@ -1,34 +1,51 @@
 <template>
   <div class="game">
-    <div class="game-my" v-if="myData !== null">
-      <img class="bg" src="https://cdn.exe666.com/fe/image/m/game-my.png">
+    <div 
+      v-if="myData !== null" 
+      class="game-my">
+      <img 
+        class="bg" 
+        src="https://cdn.exe666.com/fe/image/m/game-my.png">
       <div class="info">
-        <img :src="myData.face" class="avatar">
+        <img 
+          :src="myData.face" 
+          class="avatar">
         <div class="info-more">
-          <span class="yz">颜值: {{myData.value}} 分</span>
-          <span class="date">{{computedDate(myData.clientdate)}}</span>
+          <span class="yz">颜值: {{ myData.value }} 分</span>
+          <span class="date">{{ computedDate(myData.clientdate) }}</span>
         </div>
       </div>
       <div class="my-rank">
-        <div class="rank">{{myData.topnum}}</div>
+        <div class="rank">{{ myData.topnum }}</div>
         <div class="label">我的排名</div>
       </div>
     </div>
     <div
-      :class="{'game-item': index !== resData.length - 1, 'game-item last': index === resData.length - 1}"
       v-for="(item, index) in resData"
+      :class="{'game-item': index !== resData.length - 1, 'game-item last': index === resData.length - 1}"
       :key="index"
     >
       <div class="info">
-        <img :src="item.face" class="avatar">
+        <img 
+          :src="item.face" 
+          class="avatar">
         <div class="info-more">
-          <span class="yz">颜值: {{item.value}} 分</span>
-          <span class="date">{{computedDate(item.clientdate)}}</span>
+          <span class="yz">颜值: {{ item.value }} 分</span>
+          <span class="date">{{ computedDate(item.clientdate) }}</span>
         </div>
       </div>
-      <img class="crown" v-if="index === 0" src="https://cdn.exe666.com/fe/image/m/first.png">
-      <img class="crown" v-if="index === 1" src="https://cdn.exe666.com/fe/image/m/second.png">
-      <img class="crown" v-if="index === 2" src="https://cdn.exe666.com/fe/image/m/third.png">
+      <img 
+        v-if="index === 0" 
+        class="crown" 
+        src="https://cdn.exe666.com/fe/image/m/first.png">
+      <img 
+        v-if="index === 1" 
+        class="crown" 
+        src="https://cdn.exe666.com/fe/image/m/second.png">
+      <img 
+        v-if="index === 2" 
+        class="crown" 
+        src="https://cdn.exe666.com/fe/image/m/third.png">
     </div>
     <ActivityThemeGameBottom/>
   </div>
@@ -40,14 +57,14 @@ import { fetchShopActivityProgress } from "services";
 import ActivityThemeGameBottom from "@/pages/m/components/Activity/ActivityThemeGameBottom";
 import { mapGetters } from "vuex";
 export default {
+  components: {
+    ActivityThemeGameBottom
+  },
   data() {
     return {
       resData: [],
       my: {}
     };
-  },
-  components: {
-    ActivityThemeGameBottom
   },
   computed: {
     ...mapGetters(["z"]),

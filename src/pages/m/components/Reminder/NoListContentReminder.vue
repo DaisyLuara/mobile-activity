@@ -1,10 +1,16 @@
 <template>
-  <div class="nct" v-if="show">
+  <div 
+    v-if="show" 
+    class="nct">
     <div class="word">
-      <img class="bg" src="https://cdn.exe666.com/fe/image/m/xo-remind-text.svg">
-      <span class="text">{{words}}</span>
+      <img 
+        class="bg" 
+        src="https://cdn.exe666.com/fe/image/m/xo-remind-text.svg">
+      <span class="text">{{ words }}</span>
     </div>
-    <img class="img" src="https://cdn.exe666.com/fe/image/m/xo-no-content.png">
+    <img 
+      class="img" 
+      src="https://cdn.exe666.com/fe/image/m/xo-no-content.png">
   </div>
 </template>
 

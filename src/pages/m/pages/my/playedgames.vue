@@ -6,16 +6,21 @@
       infinite-scroll-disabled="loading"
       infinite-scroll-distance="10"
     >
-      <div v-for="(item, index) in trends" :key="index" class="game">
+      <div 
+        v-for="(item, index) in trends" 
+        :key="index" 
+        class="game">
         <div class="icon">
           <img :src="item.picon">
         </div>
         <div class="texts">
-          <div class="title">{{item.pname}}</div>
-          <div class="time">{{computedDate(item.clientdate)}}</div>
+          <div class="title">{{ item.pname }}</div>
+          <div class="time">{{ computedDate(item.clientdate) }}</div>
         </div>
       </div>
-      <div class="no-game" v-if="trends.length === 0 && firstFetch">还没有玩过游戏呢～</div>
+      <div 
+        v-if="trends.length === 0 && firstFetch" 
+        class="no-game">还没有玩过游戏呢～</div>
     </ul>
   </div>
 </template>

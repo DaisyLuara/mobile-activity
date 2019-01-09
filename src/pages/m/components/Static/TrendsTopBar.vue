@@ -10,7 +10,9 @@
         <div class="time">{{ computedDate }}</div>
       </div>
     </div>
-    <div class="button" @click="handleNaviToMoreTrends">更多照片</div>
+    <div 
+      class="button" 
+      @click="handleNaviToMoreTrends">更多照片</div>
   </div>
 </template>
 

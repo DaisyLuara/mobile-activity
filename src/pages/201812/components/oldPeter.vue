@@ -102,17 +102,17 @@ import "animate.css";
 import OldHonour from 'modules/oldHonour';
 const CDNURL = process.env.CDN_URL;
 export default {
+  components: {
+    // BottomBar,
+    OldHonour
+  },
+  mixins: [normalPages],
   props: {
     linkData: {
       type: String,
       required: true
     }
   },
-  components: {
-    // BottomBar,
-    OldHonour
-  },
-  mixins: [normalPages],
   data() {
     return {
       base: CDNURL + "/fe/image/peter/",

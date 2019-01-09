@@ -1,18 +1,26 @@
 <template>
   <div class="act-shop-detail">
-    <img class="main-photo" :src="resData.image">
-    <div class="main-text">{{resData.txt}}</div>
-    <div class="start-time">开始时间: {{startTime}}</div>
-    <div class="end-time">结束时间: {{endTime}}</div>
-    <div class="info" v-html="infolink"></div>
-    <div class="info" v-html="pslink"></div>
-    <div class="main-button" @click="handleNaviToActList">查看更多商家活动</div>
+    <img 
+      :src="resData.image" 
+      class="main-photo">
+    <div class="main-text">{{ resData.txt }}</div>
+    <div class="start-time">开始时间: {{ startTime }}</div>
+    <div class="end-time">结束时间: {{ endTime }}</div>
+    <div 
+      class="info" 
+      v-html="infolink"/>
+    <div 
+      class="info" 
+      v-html="pslink"/>
+    <div 
+      class="main-button" 
+      @click="handleNaviToActList">查看更多商家活动</div>
     <ActivityBottom
       :acid="resData.acid"
       :acttype="resData.type"
       :awardkey="resData.awardkey"
       :auid="resData.auid"
-      :isAllow="resData.allow"
+      :is-allow="resData.allow"
     />
   </div>
 </template>
@@ -25,6 +33,9 @@ import moment from "moment";
 import "./extraStyle.less";
 
 export default {
+  components: {
+    ActivityBottom
+  },
   data() {
     return {
       resData: {
@@ -43,9 +54,6 @@ export default {
       infolink: null,
       pslink: null
     };
-  },
-  components: {
-    ActivityBottom
   },
   computed: {
     ...mapGetters(["z"]),

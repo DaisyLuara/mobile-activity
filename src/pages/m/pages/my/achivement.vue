@@ -7,13 +7,18 @@
       infinite-scroll-disabled="loading"
       infinite-scroll-distance="10"
     >
-      <div v-for="(item, index) in trends" :key="index" class="achive">
+      <div 
+        v-for="(item, index) in trends" 
+        :key="index" 
+        class="achive">
         <div class="header">
           <img :src="item.xicon">
         </div>
-        <div class="text">{{item.xname}}</div>
+        <div class="text">{{ item.xname }}</div>
       </div>
-      <div class="no-achive" v-if="trends.length === 0 && firstFetch">暂无解锁的成就</div>
+      <div 
+        v-if="trends.length === 0 && firstFetch" 
+        class="no-achive">暂无解锁的成就</div>
     </ul>
   </div>
 </template>

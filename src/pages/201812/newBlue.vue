@@ -3,7 +3,7 @@
     <PeterRabbit
       ref="peterRabbit"
       :link-data="link"
-    ></PeterRabbit>
+    />
   </div>
 </template>
 <script>

@@ -10,7 +10,7 @@
     <a
       href="http://papi.xingstation.com/api/s/Y70"
       class="tolink"
-    ></a>
+    />
     <div class="main">
       <img
         :src="base + 'tu.png' + this.$qiniuCompress()"

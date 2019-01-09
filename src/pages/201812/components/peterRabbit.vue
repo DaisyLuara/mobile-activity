@@ -102,17 +102,17 @@ import BottomBar from "@/pages/m/components/Static/BottomBar";
 import LinkAge from 'modules/linkAge';
 const CDNURL = process.env.CDN_URL;
 export default {
+  components: {
+    BottomBar,
+    LinkAge
+  },
+  mixins: [normalPages],
   props: {
     linkData: {
       type: String,
       required: true
     }
   },
-  components: {
-    BottomBar,
-    LinkAge
-  },
-  mixins: [normalPages],
   data() {
     return {
       base: CDNURL + "/fe/image/peter/",
