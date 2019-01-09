@@ -35,7 +35,7 @@
       <span>活动</span>
     </div>
     <div
-      v-if="menuCode[2] === '1' && showRoutes.includes(this.$route.name==='newDreamland')"
+      v-if="menuCode[2] === '1'"
       class="bitem"
       @click="handleMenuClick('BarrageIndex')"
     >
