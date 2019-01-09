@@ -110,7 +110,6 @@ import { $wechat, isInWechat, wechatShareTrack, Cookies, getGameHonour } from "s
 import { normalPages } from "@/mixins/normalPages";
 import "animate.css";
 import BottomBar from "@/pages/m/components/Static/BottomBar";
-// import LinkAge from 'modules/linkAge';
 const CDNURL = process.env.CDN_URL;
 export default {
   props: {
@@ -121,7 +120,6 @@ export default {
   },
   components: {
     BottomBar,
-    // LinkAge
   },
   mixins: [normalPages],
   data() {
