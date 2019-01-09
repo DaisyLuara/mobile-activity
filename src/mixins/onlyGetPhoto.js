@@ -23,9 +23,7 @@ export const onlyGetPhoto = {
   methods: {
     async getPhotoByRouteQueryId() {
       try {
-        let id = this.$route.query.id
-        let code = this.$route.query.code
-        let state = this.$route.query.state
+        let { id, code, state } = this.$route.query
         let {
           belong,
           image,
@@ -39,7 +37,7 @@ export const onlyGetPhoto = {
         this.belong = belong
         this.photo = image
         this.oid = oid
-        if (this.parms !== null && this.parms !== undefined) {
+        if (parms !== null && parms !== undefined) {
           this.parms = splitParms(parms)
           if (this.parms.gender) {
             this.gender = this.parms.gender
