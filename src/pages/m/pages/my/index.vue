@@ -5,7 +5,8 @@
     <div class="reminder">
       <div v-if="currentName.length <=7" class="text">
         <img :src="currentIcon" class="icon">
-        当前互动“{{ currentName }}”
+        当前互动“
+        <span style="color: #6d1eff;">{{ currentName }}</span>”
       </div>
       <div v-if="currentName.length >7" class="text">
         <img :src="currentIcon" class="icon">
@@ -16,7 +17,7 @@
       <div class="title">今日互动指数</div>
       <div class="sub">
         <span class="label">人气指数</span>
-        <transition-group name="fade">
+        <transition-group name="fade" class="trg">
           <img v-for="(item, index) in inviteNum" :src="star" :key="index" class="star">
         </transition-group>
         <transition name="fade">
@@ -25,7 +26,7 @@
       </div>
       <div class="sub">
         <span class="label">幸运指数</span>
-        <transition-group name="fade">
+        <transition-group name="fade" class="trg">
           <img v-for="(item, index) in luckNum" :src="star" :key="index" class="star">
         </transition-group>
         <transition name="fade">
@@ -34,7 +35,7 @@
       </div>
       <div class="sub">
         <span class="label">推荐指数</span>
-        <transition-group name="fade">
+        <transition-group name="fade" class="trg">
           <img v-for="(item, index) in topNum" :src="star" :key="index" class="star">
         </transition-group>
         <transition name="fade">
@@ -255,6 +256,12 @@ export default {
       .star {
         height: 0.14rem;
         margin: 0 0.025rem;
+      }
+      .trg {
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
       }
     }
   }

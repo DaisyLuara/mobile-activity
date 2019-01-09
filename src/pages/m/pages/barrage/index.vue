@@ -13,7 +13,10 @@
       <img v-if="loginState.gender === '1'" :src="xoGirl" class="xo-img">
       <img v-else :src="xoBoy" class="xo-img">
       <div class="text-holder">
-        <div class="text">{{ computedText }}</div>
+        <div class="text">
+          <span style="color: #6d1eff;">{{ computedText }}</span>
+          <span>点我试试！生成最潮弹幕~</span>
+        </div>
         <img :src="textHolder" class="text-bg">
       </div>
     </div>
@@ -41,11 +44,11 @@ export default {
     ...mapGetters(["z", "loginState", "lastBarrageTime"]),
     computedText() {
       if (this.loginState.gender === "1") {
-        return "小哥哥，点我试试！生成最潮弹幕~";
+        return "小哥哥,";
       } else if (this.loginState.gender === "2") {
-        return "小姐姐，点我试试！生成最潮弹幕~";
+        return "小姐姐,";
       }
-      return "点我试试！生成最潮弹幕~";
+      return "";
     }
   },
   methods: {
