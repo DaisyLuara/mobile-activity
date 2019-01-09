@@ -131,7 +131,7 @@ export default {
   justify-content: space-between;
   .bitem {
     height: 100%;
-    width: 33%;
+    width: 30px;
     flex-shrink: 0;
     display: flex;
     flex-direction: column;

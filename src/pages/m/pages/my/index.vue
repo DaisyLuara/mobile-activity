@@ -1,26 +1,14 @@
 <template>
   <div class="my">
-    <NoListContentReminder 
-      :show="false" 
-      words="你还没有解锁嗨玩屏"/>
-    <img 
-      :src="bgUrl" 
-      class="bg">
+    <NoListContentReminder :show="false" words="你还没有解锁嗨玩屏"/>
+    <img :src="bgUrl" class="bg">
     <div class="reminder">
-      <div 
-        v-if="currentName.length <=7" 
-        class="text">
-        <img 
-          :src="currentIcon" 
-          class="icon">
+      <div v-if="currentName.length <=7" class="text">
+        <img :src="currentIcon" class="icon">
         当前互动“{{ currentName }}”
       </div>
-      <div 
-        v-if="currentName.length >7" 
-        class="text">
-        <img 
-          :src="currentIcon" 
-          class="icon">
+      <div v-if="currentName.length >7" class="text">
+        <img :src="currentIcon" class="icon">
         {{ currentName }}
       </div>
     </div>
@@ -29,49 +17,28 @@
       <div class="sub">
         <span class="label">人气指数</span>
         <transition-group name="fade">
-          <img 
-            v-for="(item, index) in inviteNum" 
-            :src="star" 
-            :key="index" 
-            class="star">
+          <img v-for="(item, index) in inviteNum" :src="star" :key="index" class="star">
         </transition-group>
         <transition name="fade">
-          <img 
-            v-if="inviteNumExtra" 
-            :src="halfstar" 
-            class="star">
+          <img v-if="inviteNumExtra" :src="halfstar" class="star">
         </transition>
       </div>
       <div class="sub">
         <span class="label">幸运指数</span>
         <transition-group name="fade">
-          <img 
-            v-for="(item, index) in luckNum" 
-            :src="star" 
-            :key="index" 
-            class="star">
+          <img v-for="(item, index) in luckNum" :src="star" :key="index" class="star">
         </transition-group>
         <transition name="fade">
-          <img 
-            v-if="luckNumExtra" 
-            :src="halfstar" 
-            class="star">
+          <img v-if="luckNumExtra" :src="halfstar" class="star">
         </transition>
       </div>
       <div class="sub">
         <span class="label">推荐指数</span>
         <transition-group name="fade">
-          <img 
-            v-for="(item, index) in topNum" 
-            :src="star" 
-            :key="index" 
-            class="star">
+          <img v-for="(item, index) in topNum" :src="star" :key="index" class="star">
         </transition-group>
         <transition name="fade">
-          <img 
-            v-if="topNumExtra" 
-            :src="halfstar" 
-            class="star">
+          <img v-if="topNumExtra" :src="halfstar" class="star">
         </transition>
       </div>
     </div>
@@ -79,24 +46,16 @@
       <img :src="loginState.face">
     </div>
     <div class="nickname">{{ loginState.username }}</div>
-    <div 
-      class="barrage" 
-      @click="navinagteToBarrage">
-      <img 
-        :src="hot" 
-        class="hot">
+    <div class="barrage" @click="navinagteToBarrage">
+      <img :src="hot" class="hot">
       <div class="barrage-icon"/>
       <div>发弹幕</div>
     </div>
-    <div 
-      class="achivement" 
-      @click="navinagteToAchivement">
+    <div class="achivement" @click="navinagteToAchivement">
       <div class="achivement-icon"/>
       <div>成就勋章</div>
     </div>
-    <div 
-      class="mygame" 
-      @click="navinagteToGamePlayed">
+    <div class="mygame" @click="navinagteToGamePlayed">
       <div class="mygame-icon"/>
       <div>参与过的互动</div>
     </div>
@@ -215,9 +174,9 @@ export default {
           });
         }
         this.resData = r.data.results.data;
-        this.itv = setInterval(() => {
-          this.count++;
-        }, 5000);
+        // this.itv = setInterval(() => {
+        //   this.count++;
+        // }, 5000);
       } catch (e) {
         console.log(e);
       }
@@ -270,7 +229,7 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 0.09rem 0.12rem;
+    padding: 0.09rem 0.1rem;
     .title {
       line-height: 0.2rem;
       color: rgba(230, 151, 151, 1);
