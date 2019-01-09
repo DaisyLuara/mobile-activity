@@ -34,7 +34,7 @@
   </div>
 </template>
 <script>
-import { $wechat, isInWechat, wechatShareTrack, Cookies, sendCoupon, checkGetCoupon } from 'services'
+import { $wechat, isInWechat, wechatShareTrack, Cookies, sendCoupon, checkGetCoupon, setParameter } from 'services'
 import { normalPages } from '@/mixins/normalPages'
 import BottomBar from "@/pages/m/components/Static/BottomBar";
 const CDN_URL = process.env.CDN_URL
@@ -56,11 +56,12 @@ export default {
       coupon_img: null,//'https://cdn.exe666.com/fe/image/couponrain/lkf/Lee.png',
       qrcodeImg: null,//'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
       used: false,
+      arr: [190, 193, 194, 195, 196],
+      num: parseInt(Math.random() * 4),
       //微信分享
       wxShareInfoValue: {
         title: "猪福港味年，红包抢翻天！  ",
         desc: "点击马上抢【连卡福】新春红包！",
-        link: "http://papi.xingstation.com/api/s/K8r" + window.location.search,
         imgUrl: CDN_URL + "/fe/image/couponrain/share.jpg",
       }
     }
@@ -71,6 +72,8 @@ export default {
     }
   },
   mounted() {
+
+
     //微信授权
     if (isInWechat() === true) {
       if (
@@ -80,9 +83,9 @@ export default {
         this.handleWechatAuth()
       }
     }
-    if (process.env.NODE_ENV === 'testing') {
-      this.wxShareInfoValue.link = 'http://papi.newgls.cn/api/s/59R' + window.location.search
-    }
+    // if (process.env.NODE_ENV === 'testing') {
+    //   this.wxShareInfoValue.link = 'http://papi.newgls.cn/api/s/59R' + window.location.search
+    // }
 
   },
   methods: {
@@ -98,6 +101,9 @@ export default {
         window.location.href = redirct_url
       } else {
         this.userId = Cookies.get('user_id')
+        let newid = this.arr[this.num]
+        this.wxShareInfoValue.link = setParameter(coupon_batch_id, newid, "http://papi.xingstation.com/api/s/K8r" + window.location.search)
+        console.log(this.wxShareInfoValue)
       }
     },
     //判断是否领过优惠券
