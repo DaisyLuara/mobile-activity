@@ -70,12 +70,12 @@ export default {
 
       wallet.append(num);
 
-      let left = this.getOffset(icon).left + this.getHeight(icon) / 2;
-      let top = this.getOffset(icon).top - this.getHeight(icon) / 2;
+      let left = this.getOffset(icon).left + this.getWidth(icon) / 2;
+      let top = this.getOffset(icon).top - this.getHeight(icon);
 
       num.style.position = "absolute";
       num.style.left = left + "px";
-      num.style.top = top + "px";
+      num.style.top = "2.3rem";
       num.style.zIndex = 9999;
       num.style.fontSize = options.startSize;
       num.style.lineHeight = options.endSize;
@@ -84,7 +84,7 @@ export default {
       let params = {
         "font-size": options.endSize,
         opacity: "0",
-        top: top - parseInt(options.endSize) + "px"
+        top: "2rem"
       };
       num.style.transition = "all " + "0.6s";
       Object.keys(params).forEach(key => (num.style[key] = params[key]));
@@ -108,6 +108,17 @@ export default {
         height - borderBottomWidth - borderTopWidth - paddingTop - paddingBottom
       );
     },
+    getWidth(el) {
+      const styles = window.getComputedStyle(el);
+      const height = el.offsetWidth;
+      const borderTopWidth = parseFloat(styles.borderTopWidth);
+      const borderBottomWidth = parseFloat(styles.borderBottomWidth);
+      const paddingTop = parseFloat(styles.paddingTop);
+      const paddingBottom = parseFloat(styles.paddingBottom);
+      return (
+        height - borderBottomWidth - borderTopWidth - paddingTop - paddingBottom
+      );
+    },
     async fetchMyData() {
       try {
         let payload = {
@@ -123,8 +134,10 @@ export default {
           });
         }
         this.resData = r.data.results.data;
+        this.handleClick();
         this.itv = setInterval(() => {
           this.count++;
+          this.handleClick();
         }, 5000);
       } catch (e) {
         console.log(e);
@@ -140,6 +153,7 @@ export default {
   min-height: 100vh;
   z-index: 10;
   margin-top: -0.64rem;
+  font-size: 12px;
   .bg {
     position: relative;
     width: 100%;

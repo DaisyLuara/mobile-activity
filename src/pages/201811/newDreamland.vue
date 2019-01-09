@@ -46,7 +46,7 @@
         class="save"
       >
     </div>
-    <BottomBar :menucode="'56'" />
+    <BottomBar :menucode="'48'" />
   </div>
 </template>
 <script>
