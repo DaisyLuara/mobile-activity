@@ -12,6 +12,7 @@
     <div class="icon">
       <img :src="currentIcon">
     </div>
+    <div class="fuli">福利</div>
   </div>
 </template>
 
@@ -67,6 +68,7 @@ export default {
 
       num.innerHTML = "+1";
       num.className = "zan";
+      num.style.color = "white";
 
       wallet.append(num);
 
@@ -79,7 +81,7 @@ export default {
       num.style.zIndex = 9999;
       num.style.fontSize = options.startSize;
       num.style.lineHeight = options.endSize;
-      num.style.color = "red";
+      num.style.color = "white";
 
       let params = {
         "font-size": options.endSize,
@@ -154,6 +156,14 @@ export default {
   z-index: 10;
   margin-top: -0.64rem;
   font-size: 12px;
+  .fuli {
+    color: white;
+    position: absolute;
+    z-index: 100;
+    top: 2.1rem;
+    left: 1.6rem;
+    font-size: 14px;
+  }
   .bg {
     position: relative;
     width: 100%;
