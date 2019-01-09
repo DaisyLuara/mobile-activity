@@ -3,7 +3,7 @@
     <div class="act">
       <img v-if="type === 'game'" :src="game">
       <img v-if="type === 'alltop'" :src="alltop">
-      <img v-if="type === 'honor'" :src="honor">
+      <img v-if="type === 'honour'" :src="honour">
     </div>
     <img :src="image" class="item-photo">
     <div class="item-info">
@@ -46,9 +46,9 @@ export default {
   },
   data() {
     return {
-      alltop: "https://cdn.exe666.com/fe/image/m/trend-index-activity.svg",
-      game: "https://cdn.exe666.com/fe/image/m/trend-index-alltop.svg",
-      honor: "https://cdn.exe666.com/fe/image/m/trend-index-honor.svg"
+      alltop: "https://cdn.exe666.com/fe/image/m/tag-toupiao.svg",
+      game: "https://cdn.exe666.com/fe/image/m/tag-paihang.svg",
+      honour: "https://cdn.exe666.com/fe/image/m/tag-xunzhang.svg"
     };
   },
   computed: {
@@ -118,12 +118,16 @@ export default {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      font-size: 0.14rem;
+      margin-bottom: 0.01rem;
     }
     .info-location-date {
       width: 100%;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      color: rgba(212, 212, 212, 1);
+      font-size: 0.13rem;
     }
 
     width: 100%;
@@ -139,7 +143,7 @@ export default {
     padding: 0 0.1rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     align-items: flex-start;
   }
 }

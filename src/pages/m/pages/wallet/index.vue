@@ -3,6 +3,7 @@
     <img class="bg" src="https://cdn.exe666.com/fe/image/m/wallet-no-bg.jpeg">
     <img class="xo" src="https://cdn.exe666.com/fe/image/m/wallet-no-xo.png">
     <img class="icon" :src="currentIcon">
+    <!-- <div class="zan">+1</div> -->
   </div>
 </template>
 
@@ -45,7 +46,7 @@ export default {
     async fetchMyData() {
       try {
         let payload = {
-          policy: "0",
+          policy: "1",
           z: this.z,
           mkey: this.$route.params.mkey,
           api: "json"
@@ -68,6 +69,7 @@ export default {
   position: relative;
   min-height: 100vh;
   z-index: 10;
+  margin-top: -0.64rem;
   .bg {
     position: relative;
     width: 100%;
@@ -83,11 +85,14 @@ export default {
   .icon {
     position: absolute;
     z-index: 60;
-    width: 0.3rem;
-    height: 0.3rem;
+    width: 0.6rem;
+    height: 0.6rem;
     border-radius: 0.08rem;
     top: 2.4rem;
-    left: 1.725rem;
+    left: 1.575rem;
+  }
+  .zan {
+    font-size: 0.14rem;
   }
 }
 </style>

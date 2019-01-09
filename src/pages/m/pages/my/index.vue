@@ -5,7 +5,7 @@
     <div class="reminder">
       <div class="text" v-if="currentName.length <=7">
         <img class="icon" :src="currentIcon">
-        当前互动"{{currentName}}"
+        当前互动“{{currentName}}”
       </div>
       <div class="text" v-if="currentName.length >7">
         <img class="icon" :src="currentIcon">
@@ -16,18 +16,30 @@
       <div class="title">今日互动指数</div>
       <div class="sub">
         <span class="label">人气指数</span>
-        <img class="star" :src="star" v-for="(item, index) in inviteNum" :key="index">
-        <img class="star" :src="halfstar" v-if="inviteNumExtra">
+        <transition-group name="fade">
+          <img class="star" :src="star" v-for="(item, index) in inviteNum" :key="index">
+        </transition-group>
+        <transition name="fade">
+          <img class="star" :src="halfstar" v-if="inviteNumExtra">
+        </transition>
       </div>
       <div class="sub">
         <span class="label">幸运指数</span>
-        <img class="star" :src="star" v-for="(item, index) in luckNum" :key="index">
-        <img class="star" :src="halfstar" v-if="luckNumExtra">
+        <transition-group name="fade">
+          <img class="star" :src="star" v-for="(item, index) in luckNum" :key="index">
+        </transition-group>
+        <transition name="fade">
+          <img class="star" :src="halfstar" v-if="luckNumExtra">
+        </transition>
       </div>
       <div class="sub">
         <span class="label">推荐指数</span>
-        <img class="star" :src="star" v-for="(item, index) in topNum" :key="index">
-        <img class="star" :src="halfstar" v-if="topNumExtra">
+        <transition-group name="fade">
+          <img class="star" :src="star" v-for="(item, index) in topNum" :key="index">
+        </transition-group>
+        <transition name="fade">
+          <img class="star" :src="halfstar" v-if="topNumExtra">
+        </transition>
       </div>
     </div>
     <div class="avatar">
@@ -187,6 +199,13 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 1s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
 .my {
   position: relative;
   min-height: 100vh;
@@ -284,10 +303,9 @@ export default {
     .text {
       width: 100%;
       overflow: hidden;
-      font-size: 0.13rem;
+      font-size: 0.14rem;
       height: 0.475rem;
       line-height: 0.475rem;
-      font-weight: bold;
       color: black;
       z-index: 60;
       padding-left: 0.2rem;
@@ -300,7 +318,8 @@ export default {
         width: 0.3rem;
         height: 0.3rem;
         border-radius: 0.08rem;
-        margin: 0 0.02rem;
+        margin-left: 0.02rem;
+        margin-right: 0.04rem;
       }
     }
   }

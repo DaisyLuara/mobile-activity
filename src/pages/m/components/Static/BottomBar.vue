@@ -171,8 +171,8 @@ export default {
   background: rgba(255, 255, 255, 1);
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.16);
   z-index: 10000;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+  padding-left: 0.3rem;
+  padding-right: 0.3rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

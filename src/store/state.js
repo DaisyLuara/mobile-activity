@@ -4,12 +4,14 @@ const devState = {
     gender: '1',
     username: 'Wending',
     face: 'http://thirdwx.qlogo.cn/mmopen/vi_32/kPmo3eFGlBOPalDZHOpAicFPfQaicU7icJnypiaUxUcFEOE2kdddNsFXPkmiaeBo6LCRau0ibZK72fUtDpo9dSZccXTA/132'
-  }
+  },
+  lastBarrageTime: null
 }
 const productionState = {
   loginState: {
     z: ''
-  }
+  },
+  lastBarrageTime: null
 }
 
 
