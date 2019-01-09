@@ -46,7 +46,10 @@
         class="save"
       >
     </div>
-    <BottomBar :menucode="'48'" />
+    <BottomBar
+      :menucode="'48'"
+      :replaceMkey="mkey"
+    />
   </div>
 </template>
 <script>
@@ -69,10 +72,11 @@ export default {
       },
       showImg: true,
       contentShow: false,
-      //peopleID: null,
-      peopleID: this.$route.query.peopleID,
+      peopleID: null,
+      // peopleID: this.$route.query.peopleID,
       iphoneX: false,
       base64Data: null,
+      mkey: 'y6541h00',
       paths: [
         {
           scope: 6,
@@ -91,12 +95,12 @@ export default {
       }
     }
   },
-  // watch: {
-  //   parms() {
-  //     this.peopleID = this.parms.peopleID
-  //     this.drawing()
-  //   }
-  // },
+  watch: {
+    parms() {
+      this.peopleID = this.parms.peopleID
+      this.drawing()
+    }
+  },
   mounted() {
     let height = this.$innerHeight()
     if (height > 672) {
@@ -105,7 +109,7 @@ export default {
       this.iphoneX = false
     }
     console.log(this.base64Data)
-    this.drawing()
+    //this.drawing()
   },
   methods: {
     go() {
