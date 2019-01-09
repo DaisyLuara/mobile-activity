@@ -34,7 +34,7 @@
   </div>
 </template>
 <script>
-import { $wechat, isInWechat, wechatShareTrack, Cookies, sendCoupon, checkGetCoupon, setParameter } from 'services'
+import { $wechat, isInWechat, wechatShareTrack, Cookies, sendCoupon, checkGetCoupon } from 'services'
 import { normalPages } from '@/mixins/normalPages'
 // import BottomBar from "@/pages/m/components/Static/BottomBar";
 const CDN_URL = process.env.CDN_URL
@@ -72,15 +72,7 @@ export default {
       this.checkGetCoupon()
     }
   },
-  created() {
-    let newid = this.arr[this.num]
-    this.wxShareInfoValue.link = setParameter('coupon_batch_id', newid, "http://papi.xingstation.com/api/s/K8r")
-    console.log(this.wxShareInfoValue)
-  },
   mounted() {
-    let newid = this.arr[this.num]
-    this.wxShareInfoValue.link = setParameter('coupon_batch_id', newid, "http://papi.xingstation.com/api/s/K8r")
-    console.log(this.wxShareInfoValue)
     //微信授权
     if (isInWechat() === true) {
       if (
@@ -90,9 +82,6 @@ export default {
         this.handleWechatAuth()
       }
     }
-    // if (process.env.NODE_ENV === 'testing') {
-    //   this.wxShareInfoValue.link = 'http://papi.newgls.cn/api/s/59R' + window.location.search
-    // }
   },
   methods: {
     //微信静默授权
@@ -107,8 +96,8 @@ export default {
         window.location.href = redirct_url
       } else {
         this.userId = Cookies.get('user_id')
-        let newid = this.arr[this.num]
-        this.wxShareInfoValue.link = setParameter('coupon_batch_id', newid, "http://papi.xingstation.com/api/s/K8r")
+        // let newid = this.arr[this.num]
+        // this.wxShareInfoValue.link = setParameter('coupon_batch_id', newid, "http://papi.xingstation.com/api/s/K8r")
       }
     },
     //判断是否领过优惠券
