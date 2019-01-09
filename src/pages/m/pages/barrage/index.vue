@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { sendBarrage } from "services";
+import { sendBarrage, getAcgn } from "services";
 import { Toast } from "mint-ui";
 import { mapGetters, mapMutations } from "vuex";
 export default {
@@ -82,7 +82,23 @@ export default {
           Toast("网络错误");
         });
     },
-    getBarrage() {}
+    getBarrage() {
+      let payload = {
+        z: this.z,
+        mkey: this.$route.params.mkey,
+        api: "json"
+      };
+      getAcgn(payload)
+        .then(r => {
+          console.dir(r);
+          if (r.data.state === "1") {
+            this.inputvalue = r.data.results.parms;
+          }
+        })
+        .catch(e => {
+          Toast(e.message);
+        });
+    }
   }
 };
 </script>

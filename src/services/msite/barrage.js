@@ -16,4 +16,20 @@ const sendBarrage = (payload) => {
   })
 }
 
-export { sendBarrage }
+const getAcgn = (payload) => {
+  const url = 'http://exelook.com/client/h5/useracgn/'
+  const params = {
+    params: {
+      ...payload
+    }
+  }
+  return new Promise((resolve, reject) => {
+    axios.get(url, params).then(r => {
+      resolve(r)
+    }).catch(e => {
+      reject(e)
+    })
+  })
+}
+
+export { sendBarrage, getAcgn }
