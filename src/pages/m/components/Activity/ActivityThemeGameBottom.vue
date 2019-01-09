@@ -1,7 +1,5 @@
 <template>
-  <div 
-    class="activity-theme-game-bottom" 
-    @click="naviToActivitys">查看更多热门活动</div>
+  <div class="activity-theme-game-bottom" @click="naviToActivitys">查看更多热门活动</div>
 </template>
 
 <script>
@@ -32,5 +30,6 @@ export default {
   color: rgba(255, 255, 255, 1);
   font-size: 0.16rem;
   line-height: 0.47rem;
+  z-index: 10000;
 }
 </style>
