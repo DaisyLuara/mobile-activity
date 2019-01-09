@@ -36,7 +36,7 @@
   </div>
 </template>
 <script>
-import { $wechat, isInWechat, wechatShareTrack, Cookies, sendCoupon, checkGetCoupon, getParameter, setParameter } from "services";
+import { $wechat, isInWechat, wechatShareTrack, Cookies, sendCoupon, checkGetCoupon } from "services";
 import { normalPages } from "@/mixins/normalPages";
 const CDNURL = process.env.CDN_URL;
 export default {
@@ -55,8 +55,6 @@ export default {
       cshow: false,//true
       coupon_img: null,//'https://cdn.exe666.com/fe/image/couponrain/Lee.png',
       qrcodeImg: null,// 'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
-      arr: [190, 193, 194, 195, 196],
-      num: parseInt(Math.random() * 4),
       //微信分享
       wxShareInfoValue: {
         title: "猪福港味年，红包抢翻天！  ",
@@ -71,15 +69,7 @@ export default {
       this.checkGetCoupon()
     }
   },
-  created() {
-    let newid = this.arr[this.num]
-    this.wxShareInfoValue.link = setParameter('coupon_batch_id', newid, "http://papi.xingstation.com/api/s/K8r")
-    console.log(this.wxShareInfoValue)
-  },
   mounted() {
-    let newid = this.arr[this.num]
-    this.wxShareInfoValue.link = setParameter('coupon_batch_id', newid, "http://papi.xingstation.com/api/s/K8r")
-    console.log(this.wxShareInfoValue)
     //微信授权
     if (isInWechat() === true) {
       if (
@@ -104,11 +94,10 @@ export default {
         window.location.href = redirct_url
       } else {
         this.userId = Cookies.get('user_id')
-        let newid = this.arr[this.num]
-        this.wxShareInfoValue.link = setParameter('coupon_batch_id', newid, "http://papi.xingstation.com/api/s/K8r")
+        // let newid = this.arr[this.num]
+        // this.wxShareInfoValue.link = setParameter('coupon_batch_id', newid, "http://papi.xingstation.com/api/s/K8r")
       }
     },
-
     doAnimate() {
       import('pixi.js').then(PIXI => {
         let type = 'WebGL'
@@ -263,9 +252,6 @@ export default {
             frames.push(PIXI.Texture.fromFrame(name + val + '.png'))
           }
           let anim = new PIXI.extras.AnimatedSprite(frames)
-          // for (let key in args) {
-          //   anim.key = args.key
-          // }
           anim.x = args.x
           anim.y = args.y
           anim.width = args.width
@@ -358,7 +344,7 @@ export default {
     },
     //判断是否领过优惠券
     checkGetCoupon() {
-      let coupon_batch_id = getParameter('coupon_batch_id', window.location.href) || this.$route.query.coupon_batch_id
+      let coupon_batch_id = this.$route.query.coupon_batch_id || this.coupon_batch_id
       let args = {
         coupon_batch_id: coupon_batch_id,
         include: 'couponBatch',
@@ -377,7 +363,7 @@ export default {
     },
     //发优惠券
     sendCoupon() {
-      let coupon_batch_id = getParameter('coupon_batch_id', window.location.href) || this.$route.query.coupon_batch_id
+      let coupon_batch_id = this.$route.query.coupon_batch_id || this.coupon_batch_id
       let args = {
         include: 'couponBatch',
         qiniu_id: this.id,
