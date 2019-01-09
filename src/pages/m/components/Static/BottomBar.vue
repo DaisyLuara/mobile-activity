@@ -127,9 +127,9 @@ export default {
         "TrendsIndex",
         "ActivityShop",
         "BarrageIndex",
-        "peter_blue",
-        "peter_red",
-        "peter_yellow",
+        "new_blue",
+        "new_red",
+        "new_yellow",
         "lkf"
       ]
     };

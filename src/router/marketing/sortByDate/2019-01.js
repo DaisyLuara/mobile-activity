@@ -64,6 +64,39 @@ const Date201901 = [
       desc: '时来运转-凯德卢湾'
     },
     isAbandoned: false
+  },
+  {
+    path: 'new_red',
+    location: '201812/newRed',
+    name: 'new_red',
+    meta: {
+      title: '彼得兔丛林探险',
+      author: 'lipan',
+      desc: '华侨城-彼得兔-红'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'new_blue',
+    location: '201812/newBlue',
+    name: 'new_blue',
+    meta: {
+      title: '彼得兔丛林探险',
+      author: 'lipan',
+      desc: '华侨城-彼得兔-蓝'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'new_yellow',
+    location: '201812/newYellow',
+    name: 'new_yellow',
+    meta: {
+      title: '彼得兔丛林探险',
+      author: 'lipan',
+      desc: '华侨城-彼得兔-黄'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201901
