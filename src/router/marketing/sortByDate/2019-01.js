@@ -86,6 +86,17 @@ const Date201901 = [
       desc: '时来运转-凯德卢湾'
     },
     isAbandoned: false
+  },
+  {
+    path: 'new_luck',
+    location: '201901/luck',
+    name: 'new_luck',
+    meta: {
+      title: '新年运势',
+      author: 'xj1012',
+      desc: '2019新年运势'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201901

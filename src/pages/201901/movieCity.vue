@@ -1,28 +1,34 @@
 <template>
-  <div 
-    :style="style.root" 
-    class="root">
+  <div
+    :style="style.root"
+    class="root"
+  >
     <!-- 券图 -->
-    <img 
-      :src="couponImg+ this.$qiniuCompress()" 
-      class="couponImg">
+    <img
+      :src="couponImg+ this.$qiniuCompress()"
+      class="couponImg"
+    >
     <div class="center">
-      <img 
-        :src="baseUrl + '1.png'+ this.$qiniuCompress()" 
-        class="scan">
+      <img
+        :src="baseUrl + '1.png'+ this.$qiniuCompress()"
+        class="scan"
+      >
       <!-- 二维码 -->
-      <img 
-        :src="qrcodeImg+ this.$qiniuCompress()" 
-        class="ewm">
+      <img
+        :src="qrcodeImg+ this.$qiniuCompress()"
+        class="ewm"
+      >
       <!-- 已使用 -->
-      <img 
-        v-if="hasUsed" 
-        :src="baseUrl + '2.png'+ this.$qiniuCompress()" 
-        class="coupon-used">
+      <img
+        v-if="hasUsed"
+        :src="baseUrl + '2.png'+ this.$qiniuCompress()"
+        class="coupon-used"
+      >
     </div>
-    <img 
-      :src="baseUrl + 'logo.png'+ this.$qiniuCompress()" 
-      class="logo">
+    <img
+      :src="baseUrl + 'logo.png'+ this.$qiniuCompress()"
+      class="logo"
+    >
   </div>
 </template>
 <script>
@@ -50,9 +56,7 @@ export default {
       id: this.$route.query.id,
       couponImg: null,
       qrcodeImg: null,
-      params: {
-        user_id: null
-      },
+      userId: null,
       hasUsed: false
     };
   },
@@ -86,8 +90,8 @@ export default {
         window.location.href = redirct_url;
       } else {
         this.userId = Cookies.get("user_id");
-        this.params.user_id = this.userId;
-        this.checkCouponIsUse();
+        // this.params.user_id = this.userId;
+        // this.checkCouponIsUse();
       }
     },
     //禁止微信分享
