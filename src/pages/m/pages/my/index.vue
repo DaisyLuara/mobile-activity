@@ -8,7 +8,7 @@
         当前互动“
         <span style="color: #6d1eff;">{{ currentName }}</span>”
       </div>
-      <div v-if="currentName.length >7" class="text">
+      <div style="color: #6d1eff;" v-if="currentName.length >7" class="text">
         <img :src="currentIcon" class="icon">
         {{ currentName }}
       </div>
