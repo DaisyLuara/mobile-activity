@@ -1,34 +1,51 @@
 <template>
   <div class="tbb">
     <div class="function">
-      <div class="fitem" @click="handleFuncClick('delete')">
-        <img :src="deleteUrl" class="delete">
+      <div 
+        class="fitem" 
+        @click="handleFuncClick('delete')">
+        <img 
+          :src="deleteUrl" 
+          class="delete">
       </div>
-      <div class="fitem" @click="handleFuncClick('save')">
-        <img :src="saveUrl" class="save">
+      <div 
+        class="fitem" 
+        @click="handleFuncClick('save')">
+        <img 
+          :src="saveUrl" 
+          class="save">
       </div>
-      <div class="fitem" @click="handleFuncClick('share')">
-        <img :src="shareUrl" class="share">
+      <div 
+        class="fitem" 
+        @click="handleFuncClick('share')">
+        <img 
+          :src="shareUrl" 
+          class="share">
       </div>
     </div>
 
     <div class="button">
-      <div class="title" @click="naviToShopActivityDetail" v-if="acid >0">{{ buttonTitle }}</div>
+      <div 
+        v-if="acid >0" 
+        class="title" 
+        @click="naviToShopActivityDetail">{{ buttonTitle }}</div>
       <div
+        v-if="acid <=0 && actList.length > 0"
         class="title"
         @click="showActsCanJoin"
-        v-if="acid <=0 && actList.length > 0"
       >{{ buttonTitle }}</div>
       <!-- <div class="time">{{subTitle}}</div> -->
     </div>
     <transition name="fade">
-      <div class="list" v-if="shoudListShow">
+      <div 
+        v-if="shoudListShow" 
+        class="list">
         <div
-          class="list-item"
           v-for="(item, index) in actList"
           :key="index"
+          class="list-item"
           @click="naviGateToActDetail(item)"
-        >{{item.aname}}</div>
+        >{{ item.aname }}</div>
       </div>
     </transition>
   </div>

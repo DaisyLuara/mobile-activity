@@ -1,7 +1,9 @@
 <template>
   <div class="mHome">
     <router-view v-if="wechat === true && z !== ''"/>
-    <div v-if="wechat !== true" class="wx-remind">请在微信中打开</div>
+    <div 
+      v-if="wechat !== true" 
+      class="wx-remind">请在微信中打开</div>
     <BottomBar :menucode="computedCode"/>
   </div>
 </template>
@@ -19,10 +21,10 @@ import {
 
 export default {
   name: "MSiteHome",
-  mixins: [reCalculateRem],
   components: {
     BottomBar
   },
+  mixins: [reCalculateRem],
   data() {
     return {
       // must change before production
@@ -38,6 +40,9 @@ export default {
   created() {
     if (isInWechat() === true) {
       this.wechat = true;
+      if (this.$route.name === "mSite404") {
+        return;
+      }
       this.handleLogin();
     }
   },

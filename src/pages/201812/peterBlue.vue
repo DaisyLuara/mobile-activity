@@ -3,7 +3,7 @@
     <OldPeter
       ref="oldPeter"
       :link-data="link"
-    ></OldPeter>
+    />
   </div>
 </template>
 <script>

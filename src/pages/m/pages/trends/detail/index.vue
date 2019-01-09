@@ -6,12 +6,14 @@
       :mname="resData.mname"
       :clientdate="resData.clientdate"
     />
-    <img :src="resData.image" class="photo">
+    <img 
+      :src="resData.image" 
+      class="photo">
     <TrendsBottomBar
+      :act-detail="actDetail"
+      :acid="Number(resData.acid)"
       @onTrendDelete="handleTrendDeleteModalShow"
       @onTrendShare="handleShareModalShare"
-      :actDetail="actDetail"
-      :acid="Number(resData.acid)"
     />
     <TrendsBottomBlankHolder/>
     <DeletePhotoModal
@@ -19,11 +21,17 @@
       @onHandleModalHide="handleModalHide"
       @handleDeleteConfirm="handleTrendDeleteConfirm"
     />
-    <SharePhotoModal :show="shouldShareModalShow" @onHandleShareModalHide="handleShareModalHide"/>
+    <SharePhotoModal 
+      :show="shouldShareModalShow" 
+      @onHandleShareModalHide="handleShareModalHide"/>
 
-    <div class="info" v-html="infolink"></div>
-    <div class="info" v-html="pslink"></div>
-    <div class="blank-holder"></div>
+    <div 
+      class="info" 
+      v-html="infolink"/>
+    <div 
+      class="info" 
+      v-html="pslink"/>
+    <div class="blank-holder"/>
   </div>
 </template>
 
@@ -85,6 +93,12 @@ export default {
       };
       try {
         let r = await getHdInfo(payload);
+        console.dir(r);
+        if (r.data.state === "40035") {
+          this.$router.push({
+            name: "mSite404"
+          });
+        }
         this.resData = r.data.results;
         if (Number(this.resData.acid) > 0) {
           let actDetailPayload = {

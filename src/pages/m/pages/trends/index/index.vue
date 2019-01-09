@@ -1,6 +1,8 @@
 <template>
   <div class="trends">
-    <NoListContentReminder words="暂时还没有活动" :show="trends.length ===0 && firstFetch"/>
+    <NoListContentReminder 
+      :show="trends.length ===0 && firstFetch" 
+      words="暂时还没有活动"/>
 
     <MyTrendsSwiper/>
     <ul
@@ -9,7 +11,10 @@
       infinite-scroll-disabled="loading"
       infinite-scroll-distance="10"
     >
-      <div v-for="(item, index) in trends" :key="index" class="item-wrapper">
+      <div 
+        v-for="(item, index) in trends" 
+        :key="index" 
+        class="item-wrapper">
         <TrendPhoto
           :image="item.image"
           :title="item.title"
@@ -92,6 +97,11 @@ export default {
       };
       getUserTrends(payload)
         .then(r => {
+          if (r.data.state === "40035") {
+            this.$router.push({
+              name: "mSite404"
+            });
+          }
           let res = r.data.results.data;
           this.isLoading = false;
           this.trends = this.trends.concat(res);

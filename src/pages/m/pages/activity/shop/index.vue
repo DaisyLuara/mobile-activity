@@ -8,16 +8,23 @@
       infinite-scroll-distance="10"
     >
       <div
-        @click="handleNaviToTrendDetail(item)"
         v-for="(item, index) in trends"
         :key="index"
         class="item-wrapper"
+        @click="handleNaviToTrendDetail(item)"
       >
-        <img class="type" :src="bindType(item.type)" v-if="bindType(item.type) !== ''">
-        <img class="main" :src="item.image">
+        <img 
+          v-if="bindType(item.type) !== ''" 
+          :src="bindType(item.type)" 
+          class="type">
+        <img 
+          :src="item.image" 
+          class="main">
         <div class="title">{{ item.title }}</div>
-        <div class="time">{{computedDate(item.sdate)}} 至 {{computedDate(item.edate)}}</div>
-        <img class="time-shadow" :src="coverShadow">
+        <div class="time">{{ computedDate(item.sdate) }} 至 {{ computedDate(item.edate) }}</div>
+        <img 
+          :src="coverShadow" 
+          class="time-shadow">
       </div>
     </ul>
     <div class="loadmore-add"/>

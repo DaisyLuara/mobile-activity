@@ -206,6 +206,14 @@ const router = new Router({
             title: '弹幕'
           },
           component: () => import('@/pages/m/pages/barrage/index')
+        },
+        {
+          path: '404',
+          name: 'mSite404',
+          meta: {
+            title: '我的嗨屏'
+          },
+          component: () => import('@/pages/m/pages/static/404')
         }
       ]
     }
