@@ -80,6 +80,8 @@ export default {
           return "我的榜单";
         } else if (this.actDetail.type === "game") {
           return "查看排行";
+        } else if (this.actDetail.type === "honour") {
+          return "查看勋章";
         } else {
           return "活动详情";
         }

@@ -28,6 +28,9 @@ export default {
       if (this.acttype === "game") {
         return "查看活动排行榜";
       }
+      if (this.acttype === "honour") {
+        return "查看勋章收集进度";
+      }
       return "查看活动进度";
     }
   },
