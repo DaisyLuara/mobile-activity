@@ -207,6 +207,17 @@ const Date201811 = [
       desc: '嘉定大融城-积分兑换'
     },
     isAbandoned: false
+  },
+  {
+    path: 'newDreamland',
+    location: '201811/newDreamland',
+    name: 'newDreamland',
+    meta: {
+      title: '幻境',
+      author: 'xj1012',
+      desc: '幻境-新'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201811

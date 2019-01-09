@@ -72,7 +72,8 @@ export default {
         "new_blue",
         "new_red",
         "new_yellow",
-        "lkf"
+        "lkf",
+        "newDreamland"
       ]
     };
   },
@@ -130,7 +131,7 @@ export default {
   justify-content: space-between;
   .bitem {
     height: 100%;
-    width: 30px;
+    width: 33%;
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
