@@ -61,6 +61,7 @@ export default {
       wxShareInfoValue: {
         title: "猪福港味年，红包抢翻天！  ",
         desc: "点击马上抢【连卡福】新春红包！",
+        link: "http://papi.xingstation.com/api/s/K8r" + window.location.search,
         imgUrl: CDNURL + "/fe/image/couponrain/share.jpg",
       }
     };
@@ -70,7 +71,15 @@ export default {
       this.checkGetCoupon()
     }
   },
+  created() {
+    let newid = this.arr[this.num]
+    this.wxShareInfoValue.link = setParameter('coupon_batch_id', newid, "http://papi.xingstation.com/api/s/K8r")
+    console.log(this.wxShareInfoValue)
+  },
   mounted() {
+    let newid = this.arr[this.num]
+    this.wxShareInfoValue.link = setParameter('coupon_batch_id', newid, "http://papi.xingstation.com/api/s/K8r")
+    console.log(this.wxShareInfoValue)
     //微信授权
     if (isInWechat() === true) {
       if (
@@ -96,7 +105,7 @@ export default {
       } else {
         this.userId = Cookies.get('user_id')
         let newid = this.arr[this.num]
-        this.wxShareInfoValue.link = setParameter(coupon_batch_id, newid, "http://papi.xingstation.com/api/s/K8r" + window.location.search)
+        this.wxShareInfoValue.link = setParameter('coupon_batch_id', newid, "http://papi.xingstation.com/api/s/K8r")
       }
     },
 
@@ -349,7 +358,7 @@ export default {
     },
     //判断是否领过优惠券
     checkGetCoupon() {
-      let coupon_batch_id = getParameter(coupon_batch_id, window.location.href)
+      let coupon_batch_id = getParameter('coupon_batch_id', window.location.href) || this.$route.query.coupon_batch_id
       let args = {
         coupon_batch_id: coupon_batch_id,
         include: 'couponBatch',
@@ -368,7 +377,7 @@ export default {
     },
     //发优惠券
     sendCoupon() {
-      let coupon_batch_id = getParameter(coupon_batch_id, window.location.href)
+      let coupon_batch_id = getParameter('coupon_batch_id', window.location.href) || this.$route.query.coupon_batch_id
       let args = {
         include: 'couponBatch',
         qiniu_id: this.id,

@@ -62,6 +62,7 @@ export default {
       wxShareInfoValue: {
         title: "猪福港味年，红包抢翻天！  ",
         desc: "点击马上抢【连卡福】新春红包！",
+        link: "http://papi.xingstation.com/api/s/K8r" + window.location.search,
         imgUrl: CDN_URL + "/fe/image/couponrain/share.jpg",
       }
     }
@@ -71,9 +72,15 @@ export default {
       this.checkGetCoupon()
     }
   },
+  created() {
+    let newid = this.arr[this.num]
+    this.wxShareInfoValue.link = setParameter('coupon_batch_id', newid, "http://papi.xingstation.com/api/s/K8r")
+    console.log(this.wxShareInfoValue)
+  },
   mounted() {
-
-
+    let newid = this.arr[this.num]
+    this.wxShareInfoValue.link = setParameter('coupon_batch_id', newid, "http://papi.xingstation.com/api/s/K8r")
+    console.log(this.wxShareInfoValue)
     //微信授权
     if (isInWechat() === true) {
       if (
@@ -86,7 +93,6 @@ export default {
     // if (process.env.NODE_ENV === 'testing') {
     //   this.wxShareInfoValue.link = 'http://papi.newgls.cn/api/s/59R' + window.location.search
     // }
-
   },
   methods: {
     //微信静默授权
@@ -102,8 +108,7 @@ export default {
       } else {
         this.userId = Cookies.get('user_id')
         let newid = this.arr[this.num]
-        this.wxShareInfoValue.link = setParameter(coupon_batch_id, newid, "http://papi.xingstation.com/api/s/K8r" + window.location.search)
-        console.log(this.wxShareInfoValue)
+        this.wxShareInfoValue.link = setParameter('coupon_batch_id', newid, "http://papi.xingstation.com/api/s/K8r")
       }
     },
     //判断是否领过优惠券
