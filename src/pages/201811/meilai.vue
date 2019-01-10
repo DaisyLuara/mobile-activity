@@ -78,7 +78,11 @@ export default {
         title: '刷“颜值”，赢好礼！与美莱一起美出新高度！ ',
         desc: '美莱颜值礼遇，等你来参与！',
         link: 'http://papi.xingstation.com/api/s/Jqo' + window.location.search,
+<<<<<<< HEAD
         imgUrl: BASE_URL + '/fe/image/yanzhi/meilai/icon.png'
+=======
+        imgUrl: BASE_URL + '/fe/image/yanzhi/meilai/icon.png',
+>>>>>>> develop
       }
     }
   },

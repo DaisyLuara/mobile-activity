@@ -1,5 +1,6 @@
 <template>
   <div class="wallet">
+<<<<<<< HEAD
     <img class="bg" src="https://cdn.exe666.com/fe/image/m/wallet-no-bg.jpeg">
     
     <img
@@ -13,6 +14,12 @@
       <img :src="currentIcon">
     </div>
     <div class="fuli">福利</div>
+=======
+    <NoListContentReminder 
+      :show="true" 
+      words="你还没有卡券"/>
+    <BottomBar/>
+>>>>>>> develop
   </div>
 </template>
 

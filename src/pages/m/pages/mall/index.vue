@@ -3,6 +3,10 @@
     <NoListContentReminder 
       :show="true" 
       words="商城还没有开放哦"/>
+<<<<<<< HEAD
+=======
+    <BottomBar/>
+>>>>>>> develop
   </div>
 </template>
 

@@ -1,5 +1,6 @@
 <template>
   <div class="act-shop-detail">
+<<<<<<< HEAD
     <img :src="resData.image" class="main-photo">
     <div class="main-text">{{ resData.txt }}</div>
     <div class="start-time">开始时间: {{ startTime }}</div>
@@ -7,13 +8,33 @@
     <div class="info" v-html="infolink"/>
     <div class="info" v-html="pslink"/>
     <div class="main-button" @click="handleNaviToActList">查看更多热门活动</div>
+=======
+    <img 
+      :src="resData.image" 
+      class="main-photo">
+    <div class="main-text">{{ resData.txt }}</div>
+    <div class="start-time">开始时间: {{ startTime }}</div>
+    <div class="end-time">结束时间: {{ endTime }}</div>
+    <div 
+      class="info" 
+      v-html="infolink"/>
+    <div 
+      class="info" 
+      v-html="pslink"/>
+    <div 
+      class="main-button" 
+      @click="handleNaviToActList">查看更多商家活动</div>
+>>>>>>> develop
     <ActivityBottom
       :acid="resData.acid"
       :acttype="resData.type"
       :awardkey="resData.awardkey"
       :auid="resData.auid"
       :is-allow="resData.allow"
+<<<<<<< HEAD
       :xinfo="resData.xinfo"
+=======
+>>>>>>> develop
     />
   </div>
 </template>

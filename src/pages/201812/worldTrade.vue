@@ -62,7 +62,6 @@ export default {
           height: this.$innerHeight() + "px"
         }
       },
-      photo: null,
       iphoneX: false,
       saveShow: false,
       wxShareInfoValue: {
@@ -70,9 +69,6 @@ export default {
         desc: "昆山世茂广场冰雪梦幻季",
         link: "http://papi.xingstation.com/api/s/r86" + window.location.search,
         imgUrl: cdnUrl + "/fe/marketing/img/world_trade/icon.png",
-        success: () => {
-          wechatShareTrack();
-        }
       }
     };
   },

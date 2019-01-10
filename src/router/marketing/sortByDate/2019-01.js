@@ -99,6 +99,17 @@ const Date201901 = [
     isAbandoned: false
   },
   {
+    path: 'dgm_movie',
+    location: '201901/dgmMovie',
+    name: 'dgm_movie',
+    meta: {
+      title: '大光明影城',
+      author: 'xj1012',
+      desc: '大光明电影院'
+    },
+    isAbandoned: false
+  },
+  {
     path: 'new_yellow',
     location: '201812/newYellow',
     name: 'new_yellow',
@@ -110,6 +121,17 @@ const Date201901 = [
     isAbandoned: false
   },
   {
+    path: 'didi',
+    location: '201901/didi',
+    name: 'didi',
+    meta: {
+      title: '滴滴出行',
+      author: 'lipan',
+      desc: 'didi'
+    },
+    isAbandoned: false
+  },
+  {
     path: 'dgm_movie',
     location: '201901/dgmMovie',
     name: 'dgm_movie',
@@ -117,6 +139,17 @@ const Date201901 = [
       title: '大光明影城',
       author: 'xj1012',
       desc: '大光明电影院'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'luwan',
+    location: '201901/luwan',
+    name: 'luwan',
+    meta: {
+      title: '时来运转',
+      author: 'lipan',
+      desc: '时来运转-凯德卢湾'
     },
     isAbandoned: false
   },

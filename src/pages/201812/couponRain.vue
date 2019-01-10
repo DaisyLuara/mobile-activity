@@ -55,6 +55,11 @@ export default {
       cshow: false,//true
       coupon_img: null,//'https://cdn.exe666.com/fe/image/couponrain/Lee.png',
       qrcodeImg: null,// 'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
+<<<<<<< HEAD
+=======
+      arr: [190, 193, 194, 195, 196],
+      num: parseInt(Math.random() * 4),
+>>>>>>> develop
       //微信分享
       wxShareInfoValue: {
         title: "猪福港味年，红包抢翻天！  ",
@@ -79,6 +84,12 @@ export default {
         this.handleWechatAuth()
       }
     }
+<<<<<<< HEAD
+=======
+    if (process.env.NODE_ENV === 'testing') {
+      this.wxShareInfoValue.link = 'http://papi.newgls.cn/api/s/59R' + window.location.search
+    }
+>>>>>>> develop
     this.doAnimate()
   },
   methods: {
@@ -94,10 +105,16 @@ export default {
         window.location.href = redirct_url
       } else {
         this.userId = Cookies.get('user_id')
+<<<<<<< HEAD
         // let newid = this.arr[this.num]
         // this.wxShareInfoValue.link = setParameter('coupon_batch_id', newid, "http://papi.xingstation.com/api/s/K8r")
       }
     },
+=======
+      }
+    },
+
+>>>>>>> develop
     doAnimate() {
       import('pixi.js').then(PIXI => {
         let type = 'WebGL'
@@ -119,7 +136,11 @@ export default {
         //容器
         let container1 = null, container2 = null, container3 = null;
         //精灵
+<<<<<<< HEAD
         let [bg, title, pig, logo, button, gold, cover, red, graphics] = []
+=======
+        let [bg, pig, logo, button, gold, cover, red, graphics] = []
+>>>>>>> develop
         //文本
         let [bigText, time_name, score_name, timeText, scoreText, addText] = []
         //第二屏计时使用到的变量
@@ -166,10 +187,16 @@ export default {
         PIXI.loader
           .add([
             url + 'Background.png',
+<<<<<<< HEAD
             url + 'title.json',
             url + 'pigbg.png',
             url + 'logo.png',
             url + 'down.png',
+=======
+            url + 'pig.png',
+            url + 'logo.png',
+            url + 'button.png',
+>>>>>>> develop
             url + 'cover.png',
             url + 'red.png',
           ])
@@ -184,6 +211,7 @@ export default {
           container1.visible = true
           container2.visible = false
           container3.visible = false
+<<<<<<< HEAD
           container2.interactive = true
           container2.buttonMode = true
           //容器一
@@ -192,6 +220,12 @@ export default {
           title = getAnimation('title_000', 0, 12, { x: as_width * 0.12, y: as_height * 0.01, width: as_width * 0.76, height: as_width * 0.76 / 584 * 254 }, container1)
           title.animationSpeed = 0.4
           button = getNewSpriteImage(url + 'down.png', { x: as_width * 0.1, y: as_height * 0.815, width: as_width * 0.8, height: as_width * 0.8 / 608 * 158 }, container1) //按钮
+=======
+          //容器一
+          pig = getNewSpriteImage(url + 'pig.png', { y: -as_height * 0.04, height: as_width / 750 * 1086 }, container1)//猪年大吉图像
+          logo = getNewSpriteImage(url + 'logo.png', { x: as_width * 0.83, y: as_height * 0.02, width: as_width * 0.15, height: as_width * 0.15 / 104 * 87 }, container1)
+          button = getNewSpriteImage(url + 'button.png', { x: as_width * 0.1, y: as_height * 0.815, width: as_width * 0.8, height: as_width * 0.8 / 608 * 158 }, container1) //按钮
+>>>>>>> develop
           button.interactive = true
           button.buttonMode = true
           button.on('click', onCheckScene).on('touchend', onCheckScene)
@@ -244,6 +278,7 @@ export default {
           parent.addChild(sprite)
           return sprite
         }
+<<<<<<< HEAD
         //新建动画
         function getAnimation(name, start, length, args, parent) {
           let frames = []
@@ -261,6 +296,9 @@ export default {
           parent.addChild(anim)
           return anim
         }
+=======
+
+>>>>>>> develop
         //新建文本和设置他们的基本属性
         function getNewText(text, style, x, y, parent) {
           let txt = new PIXI.Text(text, style)
@@ -344,9 +382,14 @@ export default {
     },
     //判断是否领过优惠券
     checkGetCoupon() {
+<<<<<<< HEAD
       let coupon_batch_id = this.$route.query.coupon_batch_id || this.coupon_batch_id
       let args = {
         coupon_batch_id: coupon_batch_id,
+=======
+      let args = {
+        coupon_batch_id: this.$route.query.coupon_batch_id,
+>>>>>>> develop
         include: 'couponBatch',
         qiniu_id: this.id
       }
@@ -363,14 +406,21 @@ export default {
     },
     //发优惠券
     sendCoupon() {
+<<<<<<< HEAD
       let coupon_batch_id = this.$route.query.coupon_batch_id || this.coupon_batch_id
+=======
+>>>>>>> develop
       let args = {
         include: 'couponBatch',
         qiniu_id: this.id,
         oid: this.oid,
         belong: this.belong
       }
+<<<<<<< HEAD
       sendCoupon(args, coupon_batch_id)
+=======
+      sendCoupon(args, this.$route.query.coupon_batch_id)
+>>>>>>> develop
         .then(res => {
           console.log('sendCoupon', res)
           this.handleData(res)

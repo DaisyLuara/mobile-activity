@@ -2,48 +2,48 @@
   <div class="greenlife-content">
     <!-- 用户信息显示 -->
     <div class="user">
-      <img 
-        :src="imgServerUrl + '/people.png'" 
+      <img
+        :src="imgServerUrl + '/people.png'"
         class="cover"
       >
-      <img 
+      <img
         id="userImg"
-        :src="head_img_url" 
+        :src="head_img_url"
       >
       <p class="userName">
         {{ nick_name }}
       </p>
     </div>
     <img
-      :src="imgServerUrl + '/title.png'" 
-      class="title" 
+      :src="imgServerUrl + '/title.png'"
+      class="title"
     >
     <!-- 礼物区 -->
     <div class="gift">
-      <img 
+      <img
         :src="imgServerUrl + '/notetit.png'"
-        class="gtit" 
+        class="gtit"
       >
-      <a 
-        :href="giftUrl" 
+      <a
+        :href="giftUrl"
         @click="sendcount"
       >
         <img
-          :src="imgServerUrl + '/gift.png'" 
-          class="giftImg" 
+          :src="imgServerUrl + '/gift.png'"
+          class="giftImg"
         >
       </a>
       <img
-        :src="imgServerUrl + '/noteclick.png'" 
-        class="tag" 
+        :src="imgServerUrl + '/noteclick.png'"
+        class="tag"
       >
     </div>
     <!-- 树动画显示 -->
     <!-- <div class="showtree"> </div> -->
-    <div 
-      id="treeDiv" 
+    <div
+      id="treeDiv"
       ref="element"
-      class="trees"  
+      class="trees"
     />
   </div>
 </template>
@@ -57,10 +57,11 @@ import {
   getParameter,
   setParameter
 } from 'services'
+const CDN_URL = process.env.CDN_URL
 export default {
   data() {
     return {
-      imgServerUrl: 'http://p22vy0aug.bkt.clouddn.com/image/kaidegreenlife',
+      imgServerUrl: CDN_URL + '/fe/image/greenlife/',
       giftUrl: 'javascript:void(0)',
       nick_name: '',
       head_img_url: '',
@@ -107,7 +108,7 @@ export default {
         title: '凯德绿享新生活~',
         desc: '争当森林小卫士',
         imgUrl:
-          'http://p22vy0aug.bkt.clouddn.com/image/kaidegreenlife/icon.jpg',
+          CDN_URL + '/fe/image/greenlift/icon.jpg',
         link: '',
         success: () => {
           wechatShareTrack()
@@ -115,6 +116,11 @@ export default {
       },
       renderer: null,
       stage: null
+    }
+  },
+  watch: {
+    parms() {
+
     }
   },
   beforeCreate() {
@@ -214,9 +220,9 @@ export default {
           PIXI.loader
             .add(
               'spineCharacter',
-              'http://p22vy0aug.bkt.clouddn.com/spine/greenlife/treeH5.json'
+              CDN_URL + '/fe/image/greenlife/spine/treeH5.json'
             )
-            .load(function(loader, resources) {
+            .load(function (loader, resources) {
               that.animation = new PIXI.spine.Spine(
                 resources.spineCharacter.spineData
               )
@@ -253,9 +259,9 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imageHost: 'http://p22vy0aug.bkt.clouddn.com/image/kaidegreenlife';
+@imageHost: "http://cdn.exe666.com/fe/image/greenlife";
 .clearfix:after {
-  content: '.';
+  content: ".";
   display: block;
   height: 0;
   visibility: hidden;
@@ -304,8 +310,8 @@ export default {
   transform: translate3d(0, 0, 0);
   -webkit-overflow-scrolling: auto;
   text-align: center;
-  background-image: url('@{imageHost}/leaf2.png'), url('@{imageHost}/leaf1.png'),
-    url('@{imageHost}/grass.png');
+  background-image: url("@{imageHost}/leaf2.png"), url("@{imageHost}/leaf1.png"),
+    url("@{imageHost}/grass.png");
   background-size: 100% auto, 100% auto, 100% auto;
   background-repeat: no-repeat, no-repeat, no-repeat;
   background-position: center bottom, center top, center bottom;
@@ -382,9 +388,9 @@ export default {
     position: absolute;
     bottom: 0;
     z-index: 9;
-    background-image: url('@{imageHost}/word.png'),
-      url('@{imageHost}/glitz.png'), url('@{imageHost}/barrierleft.png'),
-      url('@{imageHost}/barrier.png'), url('@{imageHost}/logo.png');
+    background-image: url("@{imageHost}/word.png"),
+      url("@{imageHost}/glitz.png"), url("@{imageHost}/barrierleft.png"),
+      url("@{imageHost}/barrier.png"), url("@{imageHost}/logo.png");
     background-size: 35% auto, 100% auto, 22% auto, 22% auto, 22% auto;
     background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
     background-position: center 91%, center center, left bottom, right bottom,

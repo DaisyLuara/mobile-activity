@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <div class="trend-photo" @click="handleTrendItemClick(avrid)">
     <div class="act">
       <img v-if="type === 'game'" :src="game">
@@ -11,6 +12,15 @@
       class="item-photo"
     >
     <img v-if="type !== null" :src="image" class="item-photo">
+=======
+  <div 
+    class="trend-photo" 
+    @click="handleTrendItemClick(avrid)">
+    <div class="act">活动</div>
+    <img 
+      :src="image" 
+      class="item-photo">
+>>>>>>> develop
     <div class="item-info">
       <div class="info-title">{{ title }}</div>
       <div class="info-location-date">{{ computedDate }}</div>

@@ -30,7 +30,6 @@ export default {
         }
       },
       base: cdnUrl + '/fe/marketing/img/sjh/',
-      score: this.$route.query.score,
       //分享
       wxShareInfoValue: {
         title: '天降美食',

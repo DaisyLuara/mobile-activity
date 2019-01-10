@@ -66,7 +66,6 @@ export default {
         }
       },
       base: IMG_SERVER + '/fe/image/sfmoon/',
-      // photo: null,
       // score: Number(this.$route.query.score),
       userId: null,
       link: {

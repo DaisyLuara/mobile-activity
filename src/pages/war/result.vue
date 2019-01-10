@@ -1,35 +1,34 @@
 <template>
   <!-- isAbandoned -->
-  <div 
+  <div
     :style="style.root"
-    class="war-content">
-    <img  
-      :src="resultImgUrl" 
-      class="photo" 
-      alt="">
-    <!--
-      <img  
-        :src="imgServerUrl + '/pages/popcorn/Bronze.jpg'" 
-        class="photo" 
-        alt="">
-    -->
-    <img 
-      :src="imgServerUrl + '/pages/war/Bot.png'" 
-      class="bot" 
-      alt="" >
-    <div 
-      class="jiantou">
-      <img 
-        :src="imgServerUrl + '/pages/war/A.gif'" 
-        alt="" >
+    class="war-content"
+  >
+    <img
+      :src="photo"
+      class="photo"
+      alt=""
+    >
+    <img
+      :src="imgServerUrl + '/pages/war/Bot.png'"
+      class="bot"
+      alt=""
+    >
+    <div class="jiantou">
+      <img
+        :src="imgServerUrl + '/pages/war/A.gif'"
+        alt=""
+      >
     </div>
   </div>
 </template>
 <script>
 const wih = window.innerHeight
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
-
+import { isInWechat, $wechat, wechatShareTrack } from 'services'
+import { normalPages } from '@/mixins/normalPages'
 export default {
+  mixins: [normalPages],
   data() {
     return {
       style: {
@@ -38,7 +37,6 @@ export default {
         }
       },
       imgServerUrl: IMAGE_SERVER,
-      resultImgUrl: '',
       //微信分享信息
       wxShareInfoValue: {
         title: '脑洞大开！芒果TV《三宝大战诸葛亮》欢乐上线',
@@ -48,57 +46,15 @@ export default {
       }
     }
   },
-  computed: {
-    //微信分享
-    wxShareInfo() {
-      let wxShareInfo = {
-        title: this.wxShareInfoValue.title,
-        desc: this.wxShareInfoValue.desc,
-        imgUrl: this.wxShareInfoValue.imgUrl,
-        success: () => {
-          customTrack.shareWeChat()
-        }
-      }
-      return wxShareInfo
-    }
-  },
-  mounted() {
-    this.handleShare()
-  },
-  created() {
-    this.getImageById()
-  },
-  methods: {
-    //拿取图片id
-    getImageById() {
-      let id = this.$route.query.id
-      getInfoById(id)
-        .then(result => {
-          this.resultImgUrl = result.image
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    },
-    handleShare() {
-      $wechat()
-        .then(res => {
-          res.share(this.wxShareInfoValue)
-        })
-        .catch(_ => {
-          console.warn(_.message)
-        })
-    }
-  }
 }
 </script>
 <style lang="less" scoped>
-@imageHost: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/war';
+@imageHost: "http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/war";
 .war-content {
   width: 100%;
   height: 100%;
   background-repeat: no-repeat;
-  background-image: url('@{imageHost}/bg_war.jpg');
+  background-image: url("@{imageHost}/bg_war.jpg");
   background-size: 100% 100%;
   position: relative;
   text-align: center;

@@ -1,7 +1,8 @@
 <template>
-  <div 
-    :style="style.root" 
-    class="test-coupon-content">
+  <div
+    :style="style.root"
+    class="test-coupon-content"
+  >
     <!-- <img  class="bg" :src="imgServerUrl + '/pages/drc_ty/bg.png'" alt="" :style="style.bg"/> -->
     <div class="gender">
       <span>{{ gender }}</span>
@@ -12,23 +13,27 @@
     <div class="photo">
       {{ couponContent }}
     </div>
-    <img 
-      :src="imgServerUrl + '/pages/zoo/b.png'" 
-      class="input-bg" >
-    <img 
-      v-show="isPhoneError" 
-      :src="imgServerUrl + '/pages/zoo/error.png'" 
-      class="input-error" >
-    <input 
-      ref="inputreal" 
-      v-model="phoneValue" 
-      maxlength="11" 
-      class="input-value" 
-      @click="isPhoneError=false">
-    <img 
-      :src="imgServerUrl + '/pages/zoo/a.png'" 
-      class="remind-bt" 
-      @click="submit">
+    <img
+      :src="imgServerUrl + '/pages/zoo/b.png'"
+      class="input-bg"
+    >
+    <img
+      v-show="isPhoneError"
+      :src="imgServerUrl + '/pages/zoo/error.png'"
+      class="input-error"
+    >
+    <input
+      ref="inputreal"
+      v-model="phoneValue"
+      maxlength="11"
+      class="input-value"
+      @click="isPhoneError=false"
+    >
+    <img
+      :src="imgServerUrl + '/pages/zoo/a.png'"
+      class="remind-bt"
+      @click="submit"
+    >
   </div>
 </template>
 <script>
@@ -112,7 +117,7 @@ export default {
             title: this.wxShareInfo.title,
             desc: this.wxShareInfo.desc,
             imgUrl: this.wxShareInfo.imgUrl,
-            success: function() {
+            success: function () {
               wechatShareTrack()
             }
           })
@@ -152,7 +157,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imageHost: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/tmall';
+@imageHost: "http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/tmall";
 html,
 body {
   overflow-x: hidden;

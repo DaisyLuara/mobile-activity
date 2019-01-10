@@ -1,5 +1,11 @@
 <template>
+<<<<<<< HEAD
   <div v-if="show" class="activity-theme-game-bottom" @click="naviToActivitys">查看更多热门活动</div>
+=======
+  <div 
+    class="activity-theme-game-bottom" 
+    @click="naviToActivitys">查看更多活动</div>
+>>>>>>> develop
 </template>
 
 <script>

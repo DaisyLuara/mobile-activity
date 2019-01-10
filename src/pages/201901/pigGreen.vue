@@ -22,7 +22,6 @@
         class="save"
       >
     </div>
-
   </div>
 </template>
 <script>
@@ -43,10 +42,10 @@ export default {
         title: "猪年来缤纷城福气满满！",
         desc: "点击领取福气美照 ",
         link: "http://papi.xingstation.com/api/s/Ogg" + window.location.search,
-        imgUrl: cdnUrl + "/fe/marketing/img/pig_green/icon.png",
+        imgUrl: cdnUrl + "/fe/marketing/img/pig_green/icon.png"
       }
     };
-  },
+  }
 };
 </script>
 

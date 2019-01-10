@@ -1,13 +1,15 @@
 <template>
   <div
-    :style="style.root" 
-    class="rp-root">
+    :style="style.root"
+    class="rp-root"
+  >
     <div class="xk">
       <img
-        class="frame" 
-        src="http://cdn.exe666.com/fe/image/tmall/redpack/frame.png" >
-      <img 
-        :src="imgUrl + this.$qiniuCompress()"
+        class="frame"
+        src="http://cdn.exe666.com/fe/image/tmall/redpack/frame.png"
+      >
+      <img
+        :src="photo + this.$qiniuCompress()"
         class="photo"
       >
     </div>
@@ -25,12 +27,11 @@
 
 <script>
 import { getInfoById, wechatShareTrack } from 'services'
-import { onlyWechatShare } from '@/mixins/onlyWechatShare'
+import { normalPages } from '@/mixins/normalPages'
 export default {
-  mixins: [onlyWechatShare],
+  mixins: [normalPages],
   data() {
     return {
-      imgUrl: '',
       style: {
         root: {
           minHeight: window.innerHeight + 'px'
@@ -43,32 +44,18 @@ export default {
         link: 'http://papi.xingstation.com/api/s/mQ0' + window.location.search,
         imgUrl:
           'https://cdn.exe666.com/fe/marketing/img/tm/rpnormal/shareicon.png',
-        success: function() {
-          wechatShareTrack()
-        }
       }
     }
   },
-  mounted() {
-    if (this.$route.query.coupon_type === '0') {
-      this.redpackType = 10
-    } else if (this.$route.query.coupon_type === '1') {
-      this.redpackType = 30
-    } else if (this.$route.query.coupon_type === '2') {
-      this.redpackType = 50
-    }
-    this.getPhoto()
-  },
-  methods: {
-    getPhoto() {
-      let id = this.$route.query.id
-      getInfoById(id)
-        .then(res => {
-          this.imgUrl = res.image
-        })
-        .catch(err => {
-          console.log(err)
-        })
+  watch: {
+    parms() {
+      if (this.parms.coupon_type === '0') {
+        this.redpackType = 10
+      } else if (this.parms.coupon_type === '1') {
+        this.redpackType = 30
+      } else if (this.parms.coupon_type === '2') {
+        this.redpackType = 50
+      }
     }
   }
 }

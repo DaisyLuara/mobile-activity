@@ -1,5 +1,6 @@
 // 底部的按钮
 <template>
+<<<<<<< HEAD
   <div v-if="menuCode !== '00000' && showRoutes.includes(this.$route.name)" class="btb">
     <div v-if="menuCode[0] === '1'" class="bitem" @click="handleMenuClick('TrendsIndex')">
       <img v-if="currentRoute !== 'TrendsIndex'" :src="photo">
@@ -29,6 +30,69 @@
     <div v-if="menuCode[5] === '1'" class="bitem" @click="handleMenuClick('MyIndex')">
       <img v-if="currentRoute !== 'MyIndex'" :src="my">
       <img v-if="currentRoute === 'MyIndex'" :src="my_p">
+=======
+  <div 
+    v-if="menuCode !== '00000'" 
+    class="btb">
+    <div 
+      v-if="menuCode[0] === '1'" 
+      class="bitem" 
+      @click="handleMenuClick('TrendsIndex')">
+      <img 
+        v-if="currentRoute !== 'TrendsIndex'" 
+        :src="photo">
+      <img 
+        v-if="currentRoute === 'TrendsIndex'" 
+        :src="photo_p">
+      <span>照片</span>
+    </div>
+    <div 
+      v-if="menuCode[1] === '1'" 
+      class="bitem" 
+      @click="handleMenuClick('ActivityShop')">
+      <img 
+        v-if="currentRoute !== 'ActivityShop'" 
+        :src="act">
+      <img 
+        v-if="currentRoute === 'ActivityShop'" 
+        :src="act_p">
+      <span>活动</span>
+    </div>
+    <div 
+      v-if="menuCode[2] === '1'" 
+      class="bitem" 
+      @click="handleMenuClick('MallIndex')">
+      <img 
+        v-if="currentRoute !== 'MallIndex'" 
+        :src="mall">
+      <img 
+        v-if="currentRoute === 'MallIndex'" 
+        :src="mall_p">
+      <span>商城</span>
+    </div>
+    <div 
+      v-if="menuCode[3] === '1'" 
+      class="bitem" 
+      @click="handleMenuClick('CardIndex')">
+      <img 
+        v-if="currentRoute !== 'CardIndex'" 
+        :src="card">
+      <img 
+        v-if="currentRoute === 'CardIndex'" 
+        :src="card_p">
+      <span>卡包</span>
+    </div>
+    <div 
+      v-if="menuCode[4] === '1'" 
+      class="bitem" 
+      @click="handleMenuClick('MyIndex')">
+      <img 
+        v-if="currentRoute !== 'MyIndex'" 
+        :src="my">
+      <img 
+        v-if="currentRoute === 'MyIndex'" 
+        :src="my_p">
+>>>>>>> develop
       <span>我的</span>
     </div>
   </div>

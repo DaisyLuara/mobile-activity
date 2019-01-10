@@ -1,14 +1,27 @@
 <template>
   <div class="alltop">
+<<<<<<< HEAD
     <NoListContentReminder :show="trends.length === 0 && firstFetch" words="暂时没有活动内容哦"/>
     <img v-if="actData.image !== ''" :src="actData.image" class="main-photo">
+=======
+    <NoListContentReminder 
+      :show="trends.length === 0 && firstFetch" 
+      words="暂时没有活动内容哦"/>
+    <img 
+      v-if="actData.image !== ''" 
+      :src="actData.image" 
+      class="main-photo">
+>>>>>>> develop
     <ul
       v-infinite-scroll="loadMore"
       class="trends-wrapper"
       infinite-scroll-disabled="loading"
       infinite-scroll-distance="10"
     >
-      <div v-for="(item, index) in trends" :key="index" class="item-wrapper">
+      <div 
+        v-for="(item, index) in trends" 
+        :key="index" 
+        class="item-wrapper">
         <ThemeVoteItem
           :auid="item.auid"
           :photo-url="item.link"
@@ -44,9 +57,13 @@ import ActivityThemeGameBottom from "@/pages/m/components/Activity/ActivityTheme
 export default {
   components: {
     ThemeVoteItem,
+<<<<<<< HEAD
     NoListContentReminder,
     ActivityThemeGameBottom,
     "md-image-viewer": ImageViewer
+=======
+    NoListContentReminder
+>>>>>>> develop
   },
   data() {
     return {

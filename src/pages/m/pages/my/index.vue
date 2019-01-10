@@ -1,5 +1,6 @@
 <template>
   <div class="my">
+<<<<<<< HEAD
     <NoListContentReminder :show="false" words="你还没有解锁嗨玩屏"/>
     <img :src="bgUrl" class="bg">
     <div class="reminder">
@@ -62,6 +63,12 @@
     </div>
 
     <div class="my-holder"/>
+=======
+    <NoListContentReminder 
+      :show="true" 
+      words="你还没有解锁嗨玩屏"/>
+    <BottomBar/>
+>>>>>>> develop
   </div>
 </template>
 

@@ -91,7 +91,11 @@ export default {
         title: "Merry Christmas",
         desc: "我的圣诞礼物卡",
         link: "http://papi.xingstation.com/api/s/W7g" + window.location.search,
+<<<<<<< HEAD
         imgUrl: cdnUrl + "/fe/marketing/img/christmas_throw/icon.jpg"
+=======
+        imgUrl: cdnUrl + "/fe/marketing/img/christmas_throw/icon.jpg",
+>>>>>>> develop
       }
     };
   },

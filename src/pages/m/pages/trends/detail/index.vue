@@ -6,9 +6,14 @@
       :mname="resData.mname"
       :clientdate="resData.clientdate"
     />
-    <img :src="resData.image" class="photo">
+    <img 
+      :src="resData.image" 
+      class="photo">
     <TrendsBottomBar
+<<<<<<< HEAD
       :act-detail="actDetail"
+=======
+>>>>>>> develop
       :acid="Number(resData.acid)"
       @onTrendDelete="handleTrendDeleteModalShow"
       @onTrendShare="handleShareModalShare"
@@ -19,10 +24,21 @@
       @onHandleModalHide="handleModalHide"
       @handleDeleteConfirm="handleTrendDeleteConfirm"
     />
-    <SharePhotoModal :show="shouldShareModalShow" @onHandleShareModalHide="handleShareModalHide"/>
+    <SharePhotoModal 
+      :show="shouldShareModalShow" 
+      @onHandleShareModalHide="handleShareModalHide"/>
 
+<<<<<<< HEAD
     <div class="info" v-html="infolink"/>
     <div class="info" v-html="pslink"/>
+=======
+    <div 
+      class="info" 
+      v-html="infolink"/>
+    <div 
+      class="info" 
+      v-html="pslink"/>
+>>>>>>> develop
     <div class="blank-holder"/>
   </div>
 </template>

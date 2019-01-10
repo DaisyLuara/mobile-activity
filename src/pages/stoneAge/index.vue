@@ -1,41 +1,50 @@
 <template>
   <div
-    :style="style.root" 
-    class="root">
-    <div 
+    :style="style.root"
+    class="root"
+  >
+    <div
       :style="style.photoHei"
-      class="photo">
+      class="photo"
+    >
       <!-- :src="baseUrl + '666.jpeg'+ this.$qiniuCompress()" -->
-      <img 
-        v-if="photo !== null" 
+      <img
+        v-if="photo !== null"
         :src="photo + this.$qiniuCompress()"
-        class="photo-real">
-      <img 
+        class="photo-real"
+      >
+      <img
         :src="baseUrl + 'star_1.png'+ this.$qiniuCompress()"
-        class="star1">
-      <img 
+        class="star1"
+      >
+      <img
         :src="baseUrl + 'star_2.png'+ this.$qiniuCompress()"
-        class="star2">
-      <img 
+        class="star2"
+      >
+      <img
         :src="baseUrl + 'star_3.png'+ this.$qiniuCompress()"
-        class="star3">
-      <img 
+        class="star3"
+      >
+      <img
         :src="baseUrl + 'star_4.png'+ this.$qiniuCompress()"
-        class="star4">
-      <img 
+        class="star4"
+      >
+      <img
         :src="baseUrl + 'star_5.png'+ this.$qiniuCompress()"
-        class="star5">
-      <div 
-        :class="{'x-bt':iponeX,'bt':!iponeX}">
-        <img 
+        class="star5"
+      >
+      <div :class="{'x-bt':iponeX,'bt':!iponeX}">
+        <img
           :src="baseUrl + 'nav.png'+ this.$qiniuCompress()"
-          class="nav">
-        <img 
+          class="nav"
+        >
+        <img
           :src="baseUrl + 'tip.png'+ this.$qiniuCompress()"
-          class="tip">
+          class="tip"
+        >
       </div>
     </div>
-  
+
   </div>
 </template>
 
@@ -57,7 +66,6 @@ export default {
           height: this.$innerHeight() * 0.85 + 'px'
         }
       },
-      photo: null,
       iponeX: false,
       wxShareInfoValue: {
         title: '我的异想记',
@@ -70,7 +78,7 @@ export default {
       }
     }
   },
-  created() {},
+  created() { },
   mounted() {
     let height = this.$innerHeight()
     if (height > 672) {
@@ -84,12 +92,12 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: 'http://cdn.exe666.com/fe/marketing/img/stone_age/';
+@imageHost: "http://cdn.exe666.com/fe/marketing/img/stone_age/";
 .root {
   width: 100%;
   position: relative;
   text-align: center;
-  background-image: url('@{imageHost}bg.jpg');
+  background-image: url("@{imageHost}bg.jpg");
   background-size: 100% 100%;
   background-position: center bottom;
   background-repeat: no-repeat;

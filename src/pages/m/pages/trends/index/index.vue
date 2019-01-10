@@ -1,6 +1,12 @@
 <template>
   <div class="trends">
+<<<<<<< HEAD
     <NoListContentReminder :show="trends.length ===0 && firstFetch" words="暂时还没有活动"/>
+=======
+    <NoListContentReminder 
+      :show="trends.length ===0 && firstFetch" 
+      words="暂时还没有活动"/>
+>>>>>>> develop
 
     <MyTrendsSwiper/>
     <ul
@@ -9,7 +15,10 @@
       infinite-scroll-disabled="loading"
       infinite-scroll-distance="10"
     >
-      <div v-for="(item, index) in trends" :key="index" class="item-wrapper">
+      <div 
+        v-for="(item, index) in trends" 
+        :key="index" 
+        class="item-wrapper">
         <TrendPhoto
           :image="item.image"
           :title="item.title"

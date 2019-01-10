@@ -10,7 +10,11 @@
     <a
       href="http://papi.xingstation.com/api/s/Y70"
       class="tolink"
+<<<<<<< HEAD
     />
+=======
+    ></a>
+>>>>>>> develop
     <div class="main">
       <img
         :src="base + 'tu.png' + this.$qiniuCompress()"
@@ -40,7 +44,11 @@ export default {
       wxShareInfoValue: {
         title: '快快领取 新年红包',
         desc: '金猪送福 新年大吉',
+<<<<<<< HEAD
         link: 'http://papi.xingstation.com/api/s/Z8v' + window.location.search,
+=======
+        link: '' + window.location.search,
+>>>>>>> develop
         imgUrl: CDN_URL + '/fe/image/luwan/share.png'
       }
     }

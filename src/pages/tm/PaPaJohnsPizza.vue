@@ -1,61 +1,63 @@
 <template>
-  <div 
+  <div
     :style="style.root"
-    class="content">
+    class="content"
+  >
     <!-- 刮刮卡抽奖-->
-    <div
-      class="group">
-      <div 
-        class="winner">
-        <img 
+    <div class="group">
+      <div class="winner">
+        <img
           :src="base + 'head1.png'"
-          class="head">
-        <img 
+          class="head"
+        >
+        <img
           :src="base + 'winbg.png'"
-          class="winbg">
-        <canvas 
+          class="winbg"
+        >
+        <canvas
           v-if="award"
-          id="canvasDoodle" 
+          id="canvasDoodle"
           class="canvas-ele"
-          width="200" 
-          height="90" 
+          width="200"
+          height="90"
           @touchstart="handleTouchStart"
           @touchmove="handleTouchMove"
           @touchend="handleTouchEnd"
         />
-        <div 
-          class="win-text">
+        <div class="win-text">
           <!-- 优惠券 -->
-          <img  
-            :src="coupon.url + this.$qiniuCompress()">
+          <img :src="coupon.url + this.$qiniuCompress()">
         </div>
         <img
-          v-show="award" 
+          v-show="award"
           :src="base + 'text.png'"
-          class="text">
-        <div 
+          class="text"
+        >
+        <div
           v-show="form"
-          class="form">
-          <input 
+          class="form"
+        >
+          <input
             v-model="mobile"
-            type="text" 
+            type="text"
             maxlength="11"
             placeholder="请输入手机号"
-            class="input">
-          <a 
+            class="input"
+          >
+          <a
             class="get-btn"
-            @click="checkMobile(mobile)"/>
-          <a 
+            @click="checkMobile(mobile)"
+          />
+          <a
             class="cancel-btn"
-            @click="()=>{mobile='';}"/>
+            @click="()=>{mobile='';}"
+          />
         </div>
       </div>
     </div>
     <!-- 商品优惠内容 -->
-    <div 
-      class="block coupons">
-      <img 
-        :src="base + 'PaPaJohnsPizza1.png' + this.$qiniuCompress()">
+    <div class="block coupons">
+      <img :src="base + 'PaPaJohnsPizza1.png' + this.$qiniuCompress()">
     </div>
   </div>
 </template>
@@ -86,13 +88,10 @@ export default {
           'min-height': this.$innerHeight() + 'px'
         }
       },
-      params: {
-        deUrl:
-          'http://wx.qlogo.cn/mmopen/Q3auHgzwzM4VoBYD1YEIq0E3LFM1XLKsd3sG5VXRAvCUqCVXIPTcI0TzqicRWfzB9Zv40GhTR83RhKAugpzOuaJFC11nxmcnnp6ZbOu04UFw/0',
-        userId: null,
-        belong: this.$route.query.utm_campaign,
-        id: this.$route.query.id
-      },
+      deUrl:
+        'http://wx.qlogo.cn/mmopen/Q3auHgzwzM4VoBYD1YEIq0E3LFM1XLKsd3sG5VXRAvCUqCVXIPTcI0TzqicRWfzB9Zv40GhTR83RhKAugpzOuaJFC11nxmcnnp6ZbOu04UFw/0',
+      userId: null,
+      id: this.$route.query.id,
       coupon: {
         policyId: 4,
         couponId: null,
@@ -109,11 +108,13 @@ export default {
         desc: '大融城-星视度嗨玩节，福利优惠拿不停。',
         link: 'http://papi.xingstation.com/api/s/k5X' + window.location.search,
         imgUrl:
-          'http://p22vy0aug.bkt.clouddn.com/image/tm/guoqing/share_PaPaJohnsPizza.png',
-        success: function() {
-          wechatShareTrack()
-        }
+          'http://cdn.exe666.com/image/tm/guoqing/share_PaPaJohnsPizza.png',
       }
+    }
+  },
+  watch: {
+    belong() {
+      this.userGame()
     }
   },
   mounted() {
@@ -126,7 +127,6 @@ export default {
         this.handleWechatAuth()
       }
     }
-    // this.initCanvas()
   },
   methods: {
     handleWechatAuth() {
@@ -139,21 +139,21 @@ export default {
           '&scope=snsapi_base'
         window.location.href = redirct_url
       } else {
-        this.params.userId = Cookies.get('user_id')
-        this.params.belong = this.$route.query.utm_campaign
-        this.initCanvas()
+        this.userId = Cookies.get('user_id')
+
         this.userGame()
       }
     },
     userGame() {
       let args = {
-        belong: this.params.belong,
-        image_url: this.params.deUrl,
-        qiniu_id: this.params.id,
+        belong: this.belong,
+        image_url: this.deUrl,
+        qiniu_id: this.id,
         score: 100
       }
-      userGame(args, this.params.userId)
+      userGame(args, this.userId)
         .then(res => {
+          this.initCanvas()
           this.getCouponId()
         })
         .catch(e => {
@@ -293,16 +293,16 @@ export default {
 <style lang="less" scoped>
 /*声明 WebFont*/
 @font-face {
-  font-family: 'haibao';
-  src: url('http://p22vy0aug.bkt.clouddn.com/font/haibao.ttf');
-  src: url('http://p22vy0aug.bkt.clouddn.com/font/haibao.eot'),
-    url('http://p22vy0aug.bkt.clouddn.com/font/haibao.woff'),
-    url('http://p22vy0aug.bkt.clouddn.com/font/haibao.ttf'),
-    url('http://p22vy0aug.bkt.clouddn.com/font/haibao.svg');
+  font-family: "haibao";
+  src: url("http://cdn.exe666.com/font/haibao.ttf");
+  src: url("http://cdn.exe666.com/font/haibao.eot"),
+    url("http://cdn.exe666.com/font/haibao.woff"),
+    url("http://cdn.exe666.com/font/haibao.ttf"),
+    url("http://cdn.exe666.com/font/haibao.svg");
   font-weight: normal;
   font-style: normal;
 }
-@base: 'http://cdn.exe666.com/fe/image/drc/guoqing/';
+@base: "http://cdn.exe666.com/fe/image/drc/guoqing/";
 html,
 body {
   width: 100%;
@@ -332,7 +332,7 @@ img {
   overflow-x: hidden;
   background-color: #fef6d1;
   max-width: 750px;
-  background-image: url('@{base}background.png');
+  background-image: url("@{base}background.png");
   background-position: center top;
   background-size: 100% auto;
   background-repeat: no-repeat;
@@ -351,7 +351,7 @@ img {
   .group {
     position: relative;
     width: 100%;
-    background-image: url('@{base}bg.png');
+    background-image: url("@{base}bg.png");
     background-position: center top;
     background-size: 100% auto;
     background-repeat: no-repeat;
@@ -366,7 +366,7 @@ img {
     width: 100%;
     position: relative;
     margin-bottom: 6%;
-    background-image: url('@{base}topbg.png');
+    background-image: url("@{base}topbg.png");
     background-position: center top;
     background-size: 100% auto;
     background-repeat: no-repeat;
@@ -421,7 +421,7 @@ img {
     left: 50%;
     transform: translateX(-50%);
     overflow-x: hidden;
-    background-image: url('@{base}formbg.png');
+    background-image: url("@{base}formbg.png");
     background-position: center top;
     background-size: 100% auto;
     background-repeat: no-repeat;
