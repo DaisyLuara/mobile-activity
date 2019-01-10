@@ -1,28 +1,35 @@
 
 <template>
-  <div 
-    id="lehui" 
-    class="lehui-content">
-    <img 
-      :src="imgUrl+'lianyang/lhwords.png'" 
-      class="title">
+  <div
+    id="lehui"
+    :style="style.root"
+    class="lehui-content"
+  >
+    <img
+      :src="imgUrl+'lianyang/lhwords.png'"
+      class="title"
+    >
     <div class="frame">
-      <img 
-        :src="imgUrl+'lianyang/frame.png'" 
-        class="border">
-      <img 
-        id="mImg" 
-        :class="shake?'noshake':'hasshake'" 
-        :src="photo">
-      <img 
-        v-show="noteShow" 
-        :src="imgUrl+'lianyang/note.png'" 
-        class="note">
+      <img
+        :src="imgUrl+'lianyang/frame.png'"
+        class="border"
+      >
+      <img
+        id="mImg"
+        :class="shake?'noshake':'hasshake'"
+        :src="photo"
+      >
+      <img
+        v-show="noteShow"
+        :src="imgUrl+'lianyang/note.png'"
+        class="note"
+      >
     </div>
-    <img 
-      v-show="Boolean(photo)" 
-      :src="imgUrl+'lianyang/press.png'" 
-      class="press">
+    <img
+      v-show="Boolean(photo)"
+      :src="imgUrl+'lianyang/press.png'"
+      class="press"
+    >
   </div>
 </template>
 <script>
@@ -37,14 +44,16 @@ export default {
       photo: null,
       noteShow: true,
       shake: true,
+      style: {
+        root: {
+          'min-height': this.$innerHeight() + 'px'
+        }
+      },
       //微信分享
       wxShareInfoValue: {
         title: '乐荟陪你“美”一天',
         desc: '唯乐荟 更懂你',
         imgUrl: BASE_URL + 'image/lianyang/lhlogo.png',
-        success: () => {
-          wechatShareTrack()
-        }
       }
     }
   },
@@ -52,12 +61,6 @@ export default {
     document.title = '乐荟陪你“美”一天'
   },
   mounted() {
-    let height =
-      window.innerHeight ||
-      document.documentElement.clientHeight ||
-      document.body.clientHeight
-    let lehui = document.getElementById('lehui')
-    lehui.style.minHeight = height + 'px'
     this.initShack()
   },
   methods: {
@@ -107,7 +110,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://cdn.exe666.com/image';
+@imgUrl: "http://cdn.exe666.com/image";
 html,
 body {
   overflow-x: hidden;
@@ -121,7 +124,7 @@ body {
   text-align: center;
   font-size: 0;
   position: relative;
-  background: url('@{imgUrl}/lianyang/lybg.png') center top / 100% 100%
+  background: url("@{imgUrl}/lianyang/lybg.png") center top / 100% 100%
     no-repeat;
   .title {
     width: 60%;
@@ -134,7 +137,7 @@ body {
     margin: 0 auto;
     position: relative;
     &:after {
-      content: '';
+      content: "";
       width: 90%;
       height: 92%;
       position: absolute;

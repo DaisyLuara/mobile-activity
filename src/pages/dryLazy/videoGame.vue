@@ -1,31 +1,38 @@
 <template>
   <div
-    :style="style.root" 
-    class="root">
+    :style="style.root"
+    class="root"
+  >
     <!-- 遮罩 -->
-    <div 
-      v-show="shade" 
-      class="shade">
-      <div class="back"/>
-      <img 
+    <div
+      v-show="shade"
+      class="shade"
+    >
+      <div class="back" />
+      <img
         :src="baseUrl + 'loading1.png'+ this.$qiniuCompress()"
-        class="loading1">
-      <img 
+        class="loading1"
+      >
+      <img
         :src="baseUrl + 'loading2.png'+ this.$qiniuCompress()"
-        class="loading2">
+        class="loading2"
+      >
     </div>
-    <img 
+    <img
       :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
-      class="frame">
+      class="frame"
+    >
     <!-- :src="baseUrl + '666.png'+ this.$qiniuCompress()" -->
-    <img 
-      v-if="photo !== null" 
-      :src="photo + this.$qiniuCompress()" 
-      class="photo">
-    <img 
+    <img
+      v-if="photo !== null"
+      :src="photo + this.$qiniuCompress()"
+      class="photo"
+    >
+    <img
       :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
       :class="{'x-save':iphoneX,'save':!iphoneX}"
-      class="save">
+      class="save"
+    >
   </div>
 </template>
 
@@ -45,20 +52,16 @@ export default {
         }
       },
       shade: true,
-      photo: null,
       iphoneX: false,
       wxShareInfoValue: {
         title: '电玩！来福士！',
         desc: '嗨玩就现在，come on',
         link: 'http://papi.xingstation.com/api/s/k55' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/videoGame/icon.jpg',
-        success: () => {
-          wechatShareTrack()
-        }
       }
     }
   },
-  created() {},
+  created() { },
   mounted() {
     let height = this.$innerHeight()
     let that = this
@@ -67,7 +70,7 @@ export default {
     } else {
       that.iphoneX = false
     }
-    setTimeout(function() {
+    setTimeout(function () {
       that.shade = false
     }, 2000)
   },
@@ -76,7 +79,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: 'http://cdn.exe666.com/fe/marketing/img/videoGame/';
+@imageHost: "http://cdn.exe666.com/fe/marketing/img/videoGame/";
 img {
   max-width: 100%;
 }
@@ -85,7 +88,7 @@ img {
   position: relative;
   text-align: center;
   overflow: hidden;
-  background-image: url('@{imageHost}bg.png');
+  background-image: url("@{imageHost}bg.png");
   background-size: 100% 100%;
   background-position: center bottom;
   background-repeat: no-repeat;

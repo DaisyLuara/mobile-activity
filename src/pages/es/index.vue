@@ -1,29 +1,33 @@
 <template>
   <div
-    :style="style.root" 
-    class="gift-root">
+    :style="style.root"
+    class="gift-root"
+  >
     <div class="gift">
       <img
         :src="baseUrl+'frame.png?v=1'"
-        class="frame" >
+        class="frame"
+      >
       <img
-        :src="baseUrl+'photo_frame.png?v=1'" 
-        class="photo-frame">
+        :src="baseUrl+'photo_frame.png?v=1'"
+        class="photo-frame"
+      >
       <img
         v-if="photo !== null"
         :src="photo + this.$qiniuCompress()"
-        class="photo">
+        class="photo"
+      >
     </div>
     <div class="coupon">
-      <img 
-        :src="baseUrl+'coupon_frame.png?v=1'" 
-        class="coupon-frame">
+      <img
+        :src="baseUrl+'coupon_frame.png?v=1'"
+        class="coupon-frame"
+      >
       <div class="coupon-info">
-        <img
-          :src="baseUrl+'coupon.png?v=1'">
+        <img :src="baseUrl+'coupon.png?v=1'">
       </div>
     </div>
-   
+
   </div>
 </template>
 
@@ -61,13 +65,13 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@base: 'http://cdn.exe666.com/fe/image/tmall/play_gift/';
+@base: "http://cdn.exe666.com/fe/image/tmall/play_gift/";
 .gift-root {
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
-  background-image: url('@{base}bg.png?v=1');
+  background-image: url("@{base}bg.png?v=1");
   background-size: 100% 100%;
   background-repeat: no-repeat;
   .gift {

@@ -1,50 +1,53 @@
 <template>
-  <div
-    class="concert-content">
-    <div 
-      class="main">
-      <img 
-        :src="imgServerUrl + '/pages/dh/bg.png'" 
+  <div class="concert-content">
+    <div class="main">
+      <img
+        :src="imgServerUrl + '/pages/dh/bg.png'"
         class="bg"
       >
-      <img 
-        :src="resultImgUrl"
+      <img
+        :src="photo"
         alt=""
         class="photo"
       >
       <img
         :src="imgServerUrl + '/pages/dh/cloud1.png'"
         alt=""
-        class="cloud1">
-      <img 
-        :src="imgServerUrl + '/pages/dh/cloud2.png'" 
+        class="cloud1"
+      >
+      <img
+        :src="imgServerUrl + '/pages/dh/cloud2.png'"
         alt=""
-        class="cloud2">
-      <img 
+        class="cloud2"
+      >
+      <img
         :src="imgServerUrl + '/pages/dh/cloud3.png'"
         alt=""
-        class="cloud3">
-      <div
-        class="jiantou">
-        <img 
+        class="cloud3"
+      >
+      <div class="jiantou">
+        <img
           :src="imgServerUrl + '/pages/dh/arrow.png?v=1'"
-          alt="" >
+          alt=""
+        >
       </div>
-      <div
-        class="text">
-        <img 
+      <div class="text">
+        <img
           :src="imgServerUrl + '/pages/dh/text.png'"
-          alt="" >
+          alt=""
+        >
       </div>
     </div>
   </div>
 </template>
 <script>
 import $ from 'jquery'
-import { $wechat, wechatShareTrack, getInfoById } from 'services'
+import { $wechat, wechatShareTrack, isInWechat } from 'services'
+import { normalPages } from '@/mixins/normalPages'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 
 export default {
+  mixins: [normalPages],
   data() {
     return {
       imgServerUrl: IMAGE_SERVER,
@@ -60,29 +63,6 @@ export default {
   },
   mounted() {
     $('.concert-content').css('min-height', $(window).height())
-    $wechat()
-      .then(res => {
-        res.share(this.wxShareInfoValue)
-      })
-      .catch(_ => {
-        console.warn(_.message)
-      })
-  },
-  created() {
-    this.getImageById()
-  },
-  methods: {
-    //拿取图片id
-    getImageById() {
-      let id = this.$route.query.id
-      getInfoById(id)
-        .then(result => {
-          this.resultImgUrl = result.image
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    }
   }
 }
 </script>
@@ -90,7 +70,7 @@ export default {
 img {
   width: 100%;
 }
-@imageHost: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/dh';
+@imageHost: "http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/dh";
 .concert-content {
   width: 100%;
   height: 100%;

@@ -20,6 +20,12 @@ const REQ_HEADER = {
     'Set-Cookie': 'sign=' + Cookies.get('sign')
   }
 }
+const V2_HEADER = {
+  headers: {
+    'api-token': apiToken,
+    Accept: 'application / vdn.xingstation.v2 + json'
+  }
+}
 const handleParma = params => {
   if (Cookies.get('game_attribute_payload')) {
     params.game_attribute_payload = Cookies.get('game_attribute_payload')
@@ -49,8 +55,8 @@ const getCoupon = couponIds => {
     axios
       .get(
         process.env.STORE_API +
-        '/rest/coupon/batch?coupon_batch_ids=' +
-        couponIds.join(',')
+          '/rest/coupon/batch?coupon_batch_ids=' +
+          couponIds.join(',')
       )
       .then(response => {
         resolve(response)
@@ -261,11 +267,14 @@ const bindCouponMini = (couponId, z, oid) => {
       z: z,
       oid: oid
     }
-    axios.post(requestUrl, requestParams, REQ_HEADER).then(response => {
-      resolve(response)
-    }).catch(e => {
-      reject(e)
-    })
+    axios
+      .post(requestUrl, requestParams, REQ_HEADER)
+      .then(response => {
+        resolve(response)
+      })
+      .catch(e => {
+        reject(e)
+      })
   })
 }
 
@@ -278,11 +287,14 @@ const getConponMini = (couponId, z) => {
       },
       ...REQ_HEADER
     }
-    axios.get(requestUrl, requestParams).then(r => {
-      resolve(r)
-    }).catch(e => {
-      reject(e)
-    })
+    axios
+      .get(requestUrl, requestParams)
+      .then(r => {
+        resolve(r)
+      })
+      .catch(e => {
+        reject(e)
+      })
   })
 }
 
@@ -300,9 +312,11 @@ const getMallListMini = (z, page, per_page, marketId) => {
       ...REQ_HEADER
     }
     axios
-      .get(requestUrl, requestParams).then(r => {
+      .get(requestUrl, requestParams)
+      .then(r => {
         resolve(r)
-      }).catch(e => {
+      })
+      .catch(e => {
         reject(e)
       })
   })
@@ -320,9 +334,11 @@ const getWalletListMini = (z, status) => {
       ...REQ_HEADER
     }
     axios
-      .get(requestUrl, requestParams).then(r => {
+      .get(requestUrl, requestParams)
+      .then(r => {
         resolve(r)
-      }).catch(e => {
+      })
+      .catch(e => {
         reject(e)
       })
   })
@@ -349,7 +365,34 @@ const getCouponQRCodeMini = (code, z) => {
       })
   })
 }
+//V2版本   发券
 
+//获取券的信息（包括判断是否用手机号领过券）
+const checkV2Coupon = params => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(OPEN_USER_COUPON, params, V2_HEADER)
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+//  发优惠券
+const sendV2Coupon = (params, couponId) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(COUPOUS_URL + couponId, params, V2_HEADER)
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
 export {
   createCoupon,
   getCoupon,
@@ -370,5 +413,7 @@ export {
   getConponMini,
   getMallListMini,
   getWalletListMini,
-  getCouponQRCodeMini
+  getCouponQRCodeMini,
+  checkV2Coupon,
+  sendV2Coupon
 }
