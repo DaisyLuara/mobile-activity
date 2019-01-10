@@ -1,51 +1,52 @@
 <template>
-  <div 
-    id="content" 
+  <div
+    id="content"
     :style="style.root"
   >
-    <img 
+    <img
       :src="IMGURL + 'title.png'"
       class="title"
     >
     <div class="msg">
-      <img 
+      <img
         :src="IMGURL + 'wow.png'"
-        class="wow" 
+        class="wow"
       >
-      <img 
+      <img
         :src="IMGURL + 'mcgee.png'"
-        class="message" 
+        class="message"
       >
     </div>
-    <div 
+    <div
       v-show="later"
       class="picture"
     >
-      <img 
-        :src="mImg" 
+      <img
+        :src="photo"
         class="photo"
       >
     </div>
-    <img 
+    <img
       v-show="later"
-      :src="IMGURL + 'prompt.png'" 
-      class="note" 
+      :src="IMGURL + 'prompt.png'"
+      class="note"
     >
-    <img 
+    <img
       v-show="later"
-      :src="IMGURL + 'date.png'" 
-      class="date" 
+      :src="IMGURL + 'date.png'"
+      class="date"
     >
   </div>
 </template>
 <script>
-import { $wechat, getInfoById, wechatShareTrack } from 'services'
+import { $wechat, isInWechat, wechatShareTrack } from 'services'
+import { normalPages } from '@/mixins/normalPages'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
+  mixins: [normalPages],
   data() {
     return {
       IMGURL: IMAGE_SERVER + '/pages/wdenglish/',
-      mImg: null,
       later: false,
       style: {
         root: {
@@ -54,7 +55,7 @@ export default {
         }
       },
       //微信分享
-      wxShareInfo: {
+      wxShareInfoValue: {
         title: '凭照片到店即刻领好礼',
         desc: '还不赶快行动',
         imgUrl:
@@ -62,44 +63,17 @@ export default {
       }
     }
   },
-  mounted() {
-    this.wechatShare()
-    this.getInfoById()
+  watch: {
+    photo() {
+      this.later = true
+    }
   },
   methods: {
-    wechatShare() {
-      $wechat()
-        .then(res => {
-          res.share({
-            //配置分享
-            title: this.wxShareInfo.title,
-            desc: this.wxShareInfo.desc,
-            imgUrl: this.wxShareInfo.imgUrl,
-            success: function() {
-              wechatShareTrack()
-            }
-          })
-        })
-        .catch(_ => {
-          console.warn(_.message)
-        })
-    },
-    getInfoById() {
-      let id = this.$route.query.id
-      getInfoById(id)
-        .then(res => {
-          this.mImg = res.image
-          this.later = true
-        })
-        .catch(e => {
-          console.log(e)
-        })
-    }
   }
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/wdenglish/';
+@imgUrl: "https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/wdenglish/";
 html,
 body {
   overflow-x: hidden;
@@ -119,7 +93,7 @@ img {
   user-select: none;
 }
 #content {
-  background-image: url('@{imgUrl}back.png');
+  background-image: url("@{imgUrl}back.png");
   background-position: top center;
   background-size: 100% auto;
   background-repeat: no-repeat;
@@ -148,7 +122,7 @@ img {
   .picture {
     width: 88.5%;
     margin: 5% auto;
-    background-image: url('@{imgUrl}frame.png');
+    background-image: url("@{imgUrl}frame.png");
     background-position: top center;
     background-size: 100% auto;
     background-repeat: no-repeat;

@@ -1,46 +1,52 @@
 <template>
-  <div 
-    :style="style.root" 
-    class="tmall-content">
-    <img 
-      :src="imgServerUrl + '/pages/drc_ty/bg.png'" 
-      :style="style.bg" 
-      class="bg" 
-      alt="">
-    <img 
-      :src="resultImgUrl + this.$qiniuCompress()" 
-      :class="{'photo': !iphoneX, 'x-photo': iphoneX}" 
-      alt="">
+  <div
+    :style="style.root"
+    class="tmall-content"
+  >
+    <img
+      :src="imgServerUrl + '/pages/drc_ty/bg.png'"
+      :style="style.bg"
+      class="bg"
+      alt=""
+    >
+    <img
+      :src="photo + this.$qiniuCompress()"
+      :class="{'photo': !iphoneX, 'x-photo': iphoneX}"
+      alt=""
+    >
     <!-- <img  src="http://image.exe666.com/1007/image/GuideJDBigCityGift_519_432_1492928440995.jpg" alt="" :class="{'photo': !iphoneX, 'x-photo': iphoneX}" /> -->
-    <img 
-      :src="imgServerUrl + '/pages/drc_ty/blue.png'" 
-      class="blue" 
-      alt="">
-    <img 
-      :src="imgServerUrl + '/pages/drc_ty/pick_small.png'" 
-      class="pick-small" 
-      alt="">
-    <img 
-      :src="imgServerUrl + '/pages/drc_ty/pick_big.png'" 
-      :class="{'pick-big': !iphoneX, 'x-pick-big': iphoneX}" 
-      alt="">
+    <img
+      :src="imgServerUrl + '/pages/drc_ty/blue.png'"
+      class="blue"
+      alt=""
+    >
+    <img
+      :src="imgServerUrl + '/pages/drc_ty/pick_small.png'"
+      class="pick-small"
+      alt=""
+    >
+    <img
+      :src="imgServerUrl + '/pages/drc_ty/pick_big.png'"
+      :class="{'pick-big': !iphoneX, 'x-pick-big': iphoneX}"
+      alt=""
+    >
     <div class="jiantou">
-      <img 
-        :src="imgServerUrl + '/pages/drc_ty/save.png'" 
-        alt="" >
+      <img
+        :src="imgServerUrl + '/pages/drc_ty/save.png'"
+        alt=""
+      >
     </div>
   </div>
 </template>
 <script>
-import { $wechat, getInfoById, wechatShareTrack } from 'services'
-
+import { $wechat, wechatShareTrack, isInWechat } from 'services'
+import { normalPages } from '@/mixins/normalPages'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
-
 export default {
+  mixins: [normalPages],
   data() {
     return {
       imgServerUrl: IMAGE_SERVER,
-      resultImgUrl: '',
       style: {
         root: {
           width: '100%',
@@ -52,7 +58,7 @@ export default {
       },
       iphoneX: false,
       //微信分享信息
-      wxShareInfo: {
+      wxShareInfoValue: {
         title: '让夏天，更清凉',
         desc: 'gift for you 点击领取',
         imgUrl:
@@ -62,44 +68,10 @@ export default {
   },
   mounted() {
     let height = this.$innerHeight()
-    console.log(this.$innerHeight() > 672)
     if (height > 672) {
       this.iphoneX = true
-      console.log(33)
     } else {
       this.iphoneX = false
-      console.log(33)
-    }
-    this.wechatShare()
-    this.getInfoById()
-  },
-  methods: {
-    wechatShare() {
-      $wechat()
-        .then(res => {
-          res.share({
-            // 配置分享
-            title: this.wxShareInfo.title,
-            desc: this.wxShareInfo.desc,
-            imgUrl: this.wxShareInfo.imgUrl,
-            success: function() {
-              wechatShareTrack()
-            }
-          })
-        })
-        .catch(_ => {
-          console.warn(_.message)
-        })
-    },
-    getInfoById() {
-      let id = this.$route.query.id
-      getInfoById(id)
-        .then(res => {
-          this.resultImgUrl = res.image
-        })
-        .catch(e => {
-          console.log(e)
-        })
     }
   }
 }

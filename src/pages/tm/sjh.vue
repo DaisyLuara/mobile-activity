@@ -1,19 +1,19 @@
 <template>
-  <div 
+  <div
     :style="style.root"
-    class="content">
-    <div 
-      class="main">
+    class="content"
+  >
+    <div class="main">
       <img
         :src="base + 'bg2.png'+ this.$qiniuCompress()"
-        class="frame">
-      <span
-        class="score">{{ score }}</span>
+        class="frame"
+      >
+      <span class="score">{{ score }}</span>
       <img
         :src="photo + this.$qiniuCompress()"
-        class="photo">
+        class="photo"
+      >
     </div>
-    
   </div>
 </template>
 <script>
@@ -30,7 +30,6 @@ export default {
         }
       },
       base: cdnUrl + '/fe/marketing/img/sjh/',
-      photo: null,
       score: this.$route.query.score,
       //分享
       wxShareInfoValue: {
@@ -38,9 +37,6 @@ export default {
         desc: '欲罢不能 吞食天下',
         link: 'http://papi.xingstation.com/api/s/DRn' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/sjh/icon.jpeg',
-        success: () => {
-          wechatShareTrack()
-        }
       }
     }
   }
@@ -49,12 +45,12 @@ export default {
 <style lang="less" scoped>
 /*声明 WebFont*/
 @font-face {
-  font-family: 'mutouren';
-  src: url('http://p22vy0aug.bkt.clouddn.com/font/mutouren.ttf');
-  src: url('http://p22vy0aug.bkt.clouddn.com/font/mutouren.eot'),
-    url('http://p22vy0aug.bkt.clouddn.com/font/mutouren.woff'),
-    url('http://p22vy0aug.bkt.clouddn.com/font/mutouren.ttf'),
-    url('http://p22vy0aug.bkt.clouddn.com/font/mutouren.svg');
+  font-family: "mutouren";
+  src: url("https://cdn.exe666.com/fe/font/mutouren.ttf");
+  src: url("https://cdn.exe666.com/fe/font/mutouren.eot"),
+    url("https://cdn.exe666.com/fe/font/mutouren.woff"),
+    url("https://cdn.exe666.com/fe/font/mutouren.ttf"),
+    url("https://cdn.exe666.com/fe/font/mutouren.svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -92,7 +88,7 @@ img {
       z-index: 0;
     }
     .score {
-      font-family: 'mutouren';
+      font-family: "mutouren";
       font-size: 10vw;
       position: absolute;
       top: 28%;

@@ -1,142 +1,129 @@
 <template>
   <div class="animal-content">
-    <audio 
-      id="voice" 
-      autobuffer 
-      autoloop 
-      loop 
-      autoplay 
-      hidden>
+    <audio
+      id="voice"
+      autobuffer
+      autoloop
+      loop
+      autoplay
+      hidden
+    >
       <source :src="audioUrl+'xiha.mp3'">
     </audio>
-    <img 
-      :src="imgUrl+'kaide/contentback.jpg'" 
-      class="bg2">
+    <img
+      :src="imgUrl+'kaide/contentback.jpg'"
+      class="bg2"
+    >
     <div class="main">
-      <img 
-        :src="imgUrl+'universal/title.png'" 
-        class="title">
-      <img 
-        id="mbtn" 
-        :src="imgUrl+'kaide/yinyue.png'" 
-        class="mplay" 
-        @click="playOrNot" >
+      <img
+        :src="imgUrl+'universal/title.png'"
+        class="title"
+      >
+      <img
+        id="mbtn"
+        :src="imgUrl+'kaide/yinyue.png'"
+        class="mplay"
+        @click="playOrNot"
+      >
       <div class="kuang">
-        <img 
-          :src="imgUrl+'kaide/1.png'" 
-          class="kbg1" >
-        <img 
-          :src="imgUrl+'kaide/2.png'" 
-          class="kbg2" >
-        <img 
-          :src="imgUrl+'kaide/3.png'" 
-          class="kbg3" >
-        <img 
-          :src="imgUrl+'kaide/4.png'" 
-          class="kbg4" >
-        <img 
-          :src="imgUrl+'kaide/back2.png'" 
-          class="kmask">
-        <img 
-          :src="imgUrl+'kaide/rabbit2.png'" 
-          class="kbg1 boss1" >
-        <img 
-          :src="imgUrl+'kaide/cat2.png'" 
-          class="kbg2 boss2" >
-        <img 
-          :src="imgUrl+'kaide/dog2.png'" 
-          class="kbg3 boss3" >
-        <img 
-          :src="imgUrl+'kaide_animal/text3.png'" 
-          class="kbg4 boss4" >
+        <img
+          :src="imgUrl+'kaide/1.png'"
+          class="kbg1"
+        >
+        <img
+          :src="imgUrl+'kaide/2.png'"
+          class="kbg2"
+        >
+        <img
+          :src="imgUrl+'kaide/3.png'"
+          class="kbg3"
+        >
+        <img
+          :src="imgUrl+'kaide/4.png'"
+          class="kbg4"
+        >
+        <img
+          :src="imgUrl+'kaide/back2.png'"
+          class="kmask"
+        >
+        <img
+          :src="imgUrl+'kaide/rabbit2.png'"
+          class="kbg1 boss1"
+        >
+        <img
+          :src="imgUrl+'kaide/cat2.png'"
+          class="kbg2 boss2"
+        >
+        <img
+          :src="imgUrl+'kaide/dog2.png'"
+          class="kbg3 boss3"
+        >
+        <img
+          :src="imgUrl+'kaide_animal/text3.png'"
+          class="kbg4 boss4"
+        >
 
-        <img 
-          :src="imgUrl+'kaide/text1.png'" 
-          class="text1">
-        <img 
-          :src="imgUrl+'kaide/text2.png'" 
-          class="text2">
+        <img
+          :src="imgUrl+'kaide/text1.png'"
+          class="text1"
+        >
+        <img
+          :src="imgUrl+'kaide/text2.png'"
+          class="text2"
+        >
       </div>
       <div class="picture">
-        <img 
-          :src="imgUrl+'kaide/frame.png'" 
-          class="imgbg">
-        <img 
-          id="mImg" 
-          :src="mImg" 
-          class="mImg">
+        <img
+          :src="imgUrl+'kaide/frame.png'"
+          class="imgbg"
+        >
+        <img
+          id="mImg"
+          :src="photo"
+          class="mImg"
+        >
       </div>
-      <img 
-        v-show="press" 
-        :src="imgUrl+'kaide/prompt.png'" 
-        class="press">
+      <img
+        v-show="Boolean(photo)"
+        :src="imgUrl+'kaide/prompt.png'"
+        class="press"
+      >
       <a :href="xlink">
-        <img 
-          :src="imgUrl+'kaide/sponsor.png?111'" 
-          class="xinglink">
+        <img
+          :src="imgUrl+'kaide/sponsor.png?111'"
+          class="xinglink"
+        >
       </a>
     </div>
-    <wx-share :wx-share-info="wxShareInfo"/>
+    <wx-share :wx-share-info="wxShareInfo" />
   </div>
 </template>
 <script>
-import { $wechat, getInfoById, wechatShareTrack, isInWechat } from 'services'
-const BASE_URL = 'http://p22vy0aug.bkt.clouddn.com/'
+import { $wechat, wechatShareTrack, isInWechat } from 'services'
+import { normalPages } from '@/mixins/normalPages'
+const BASE_URL = process.env.CDN_URL
 export default {
+  mixins: [normalPages],
   data() {
     return {
       imgUrl: BASE_URL + 'image/',
       audioUrl: BASE_URL + 'audio/mp3/',
       xlink: 'http://m.jingfree.com/marketing/brochure?trace_id=nakvx5',
-      mImg: null,
-      press: false,
       //微信分享
       wxShareInfoValue: {
         title: '星视度有嘻哈',
         desc: '你就是嘻哈王者',
         imgUrl: BASE_URL + 'image/universal/icon.png',
-        success: function() {
-          wechatShareTrack()
-        }
       }
     }
   },
   beforeCreate() {
     document.title = '星视度有嘻哈'
   },
-  created() {
-    this.getInfoById()
-  },
   mounted() {
-    this.handleWechatShare()
     this.playAudio()
   },
   methods: {
-    handleWechatShare() {
-      if (isInWechat() === true) {
-        $wechat()
-          .then(res => {
-            res.share(this.wxShareInfoValue)
-          })
-          .catch(err => {
-            console.warn(err.message)
-          })
-      } else {
-        console.warn('you r not in wechat environment')
-      }
-    },
-    getInfoById() {
-      let id = this.$route.query.id
-      let that = this
-      getInfoById(id)
-        .then(res => {
-          this.mImg = res.image
-          this.press = true
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    },
     playAudio() {
       let mbtn = document.getElementById('mbtn')
       let voice = document.getElementById('voice')
@@ -159,16 +146,16 @@ export default {
         if (document.addEventListener) {
           document.addEventListener(
             'WeixinJSBridgeReady',
-            function() {
+            function () {
               voice.play()
             },
             false
           )
         } else if (document.attachEvent) {
-          document.attachEvent('WeixinJSBridgeReady', function() {
+          document.attachEvent('WeixinJSBridgeReady', function () {
             voice.play()
           })
-          document.attachEvent('onWeixinJSBridgeReady', function() {
+          document.attachEvent('onWeixinJSBridgeReady', function () {
             voice.play()
           })
         }
@@ -179,7 +166,7 @@ export default {
       //监听 touchstart 事件进而调用 <audio> 元素提供的 play() 方法播放音频
       document.addEventListener(
         'touchstart',
-        function(e) {
+        function (e) {
           if (voiceStatu) {
             voice.play()
             voiceStatu = false
@@ -187,10 +174,10 @@ export default {
         },
         false
       )
-      voice.onplay = function() {
+      voice.onplay = function () {
         mbtn.setAttribute('class', 'mplay')
       }
-      voice.onpause = function() {
+      voice.onpause = function () {
         mbtn.setAttribute('class', ' ')
       }
     },

@@ -1,38 +1,33 @@
 <template>
-  <div 
+  <div
     :style="style.root"
-    class="concert-content">
-    <img  
-      :src="resultImgUrl" 
+    class="concert-content"
+  >
+    <img
+      :src="photo + this.$qiniuCompress()"
       alt=""
-      class="photo">
-    <!--
-      <img  
-        class="photo" 
-        :src="imgServerUrl + '/pages/popcorn/Bronze.jpg'" 
-        alt="">
-    -->
-    <div 
-      class="jiantou">
-      <img 
-        :src="imgServerUrl + '/pages/concert/A.gif'" 
-        alt="">
+      class="photo"
+    >
+    <div class="jiantou">
+      <img
+        :src="imgServerUrl + '/pages/concert/A.gif'"
+        alt=""
+      >
     </div>
-    <!-- <wx-share :WxShareInfo="wxShareInfo"></wx-share> -->
   </div>
 </template>
 <script>
-import { $wechat, wechatShareTrack, getInfoById } from 'services'
+import { $wechat, wechatShareTrack, isInWechat } from 'services'
+import { normalPages } from '@/mixins/normalPages'
 import $ from 'jquery'
-const wih = window.innerHeight
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
-
 export default {
+  mixins: [normalPages],
   data() {
     return {
       style: {
         root: {
-          height: wih + 'px'
+          'min-height': this.$innerHeight() + 'px'
         }
       },
       imgServerUrl: IMAGE_SERVER,
@@ -42,51 +37,19 @@ export default {
         title: '为偶像打Call，2018黄子韬演唱会邀你一起燥！',
         desc: '4月30号 上海站 晚 7：30',
         imgUrl:
-          'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/concert_share_icon.jpg',
-        success: () => {
-          wechatShareTrack()
-        }
+          'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/concert_share_icon.jpg'
       }
-    }
-  },
-  mounted() {
-    $('.concert-content').css('min-height', $(window).height())
-    this.handleShare()
-  },
-  created() {
-    this.getImageById()
-  },
-  methods: {
-    //拿取图片id
-    getImageById() {
-      let id = this.$route.query.id
-      getInfoById(id)
-        .then(result => {
-          this.resultImgUrl = result.image
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    },
-    handleShare() {
-      $wechat()
-        .then(res => {
-          res.share(this.wxShareInfoValue)
-        })
-        .catch(_ => {
-          console.warn(_.message)
-        })
     }
   }
 }
 </script>
 <style lang="less" scoped>
-@imageHost: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/concert';
+@imageHost: "http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/concert";
 .concert-content {
   width: 100%;
   height: 100%;
   background-repeat: no-repeat;
-  background-image: url('@{imageHost}/bg_concert.jpg');
+  background-image: url("@{imageHost}/bg_concert.jpg");
   background-size: 100% 100%;
   position: relative;
   overflow: hidden;
