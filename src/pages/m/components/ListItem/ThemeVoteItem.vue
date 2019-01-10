@@ -2,19 +2,17 @@
   <div class="vote-item">
     <div class="vote-photo">
       <div class="vote-title">
-        <img 
-          :src="face" 
-          class="avatar">
+        <img :src="face" class="avatar">
         <span class="title">{{ nickname }}</span>
       </div>
-      <img 
-        :src="photoUrl" 
-        class="inner-photo">
+      <img
+        @click="handlePhotoPrivew"
+        :src="photoUrl + '?imageView2/1/w/200/h/320/format/jpg/q/75|imageslim'"
+        class="inner-photo"
+      >
     </div>
     <div class="vote-title">{{ views }} 票</div>
-    <div 
-      class="vote-button" 
-      @click="handleVote">投票</div>
+    <div class="vote-button" @click="handleVote">投票</div>
   </div>
 </template>
 
@@ -60,6 +58,10 @@ export default {
     };
   },
   methods: {
+    handlePhotoPrivew() {
+      console.log("e");
+      this.$emit("onShowViewer");
+    },
     handleVote() {
       let payload = {
         api: "json",
@@ -128,7 +130,6 @@ export default {
       }
     }
     .inner-photo {
-      width: 100%;
       height: 100%;
     }
     .photo-cover {
