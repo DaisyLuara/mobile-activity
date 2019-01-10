@@ -84,7 +84,7 @@ export default {
         return "000000";
       } else {
         let bi = parseInt(ten).toString(2) || "000000";
-        return bi;
+        return this.padNumber(bi, 6);
       }
     },
     currentRoute() {
@@ -92,6 +92,10 @@ export default {
     }
   },
   methods: {
+    padNumber(num, fill) {
+      var len = ("" + num).length;
+      return Array(fill > len ? fill - len + 1 || 0 : 0).join(0) + num;
+    },
     handleMenuClick(routerName) {
       let { mkey, mcode } = this.$route.params;
       if (mkey === undefined) {
