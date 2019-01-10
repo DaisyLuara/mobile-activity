@@ -1,15 +1,9 @@
 <template>
   <div class="game">
-    <div 
-      v-if="myData !== null" 
-      class="game-my">
-      <img 
-        class="bg" 
-        src="https://cdn.exe666.com/fe/image/m/game-my.png">
+    <div v-if="myData !== null" class="game-my">
+      <img class="bg" src="https://cdn.exe666.com/fe/image/m/game-my.png">
       <div class="info">
-        <img 
-          :src="myData.face" 
-          class="avatar">
+        <img :src="myData.face" class="avatar">
         <div class="info-more">
           <span class="yz">颜值: {{ myData.value }} 分</span>
           <span class="date">{{ computedDate(myData.clientdate) }}</span>
@@ -26,28 +20,18 @@
       :key="index"
     >
       <div class="info">
-        <img 
-          :src="item.face" 
-          class="avatar">
+        <img :src="item.face" class="avatar">
         <div class="info-more">
           <span class="yz">颜值: {{ item.value }} 分</span>
           <span class="date">{{ computedDate(item.clientdate) }}</span>
         </div>
       </div>
-      <img 
-        v-if="index === 0" 
-        class="crown" 
-        src="https://cdn.exe666.com/fe/image/m/first.png">
-      <img 
-        v-if="index === 1" 
-        class="crown" 
-        src="https://cdn.exe666.com/fe/image/m/second.png">
-      <img 
-        v-if="index === 2" 
-        class="crown" 
-        src="https://cdn.exe666.com/fe/image/m/third.png">
+      <img v-if="index === 0" class="crown" src="https://cdn.exe666.com/fe/image/m/first.png">
+      <img v-if="index === 1" class="crown" src="https://cdn.exe666.com/fe/image/m/second.png">
+      <img v-if="index === 2" class="crown" src="https://cdn.exe666.com/fe/image/m/third.png">
     </div>
     <ActivityThemeGameBottom/>
+    <div class="bottom-holder"></div>
   </div>
 </template>
 
@@ -129,6 +113,11 @@ export default {
   align-items: center;
   padding-top: 20px;
   z-index: 10;
+  .bottom-holder {
+    width: 100%;
+    height: 1.2rem;
+    background: transparent;
+  }
   .game-my {
     position: relative;
     width: 3.63rem;
