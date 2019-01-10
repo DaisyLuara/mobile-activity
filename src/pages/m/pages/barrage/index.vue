@@ -1,5 +1,5 @@
 <template>
-  <div class="barrage">
+  <div class="barrage" :style="bindStyle">
     <div class="holder">
       <img :src="loginState.face" class="avatar">
       <textarea v-model="inputvalue" class="inputarea" placeholder="请输入" maxlength="40"/>
@@ -34,7 +34,10 @@ export default {
       xoBoy: "https://cdn.exe666.com/fe/image/m/barrage-xo-boy.png",
       xoGirl: "https://cdn.exe666.com/fe/image/m/barrage-xo-girl.png",
       textHolder: "https://cdn.exe666.com/fe/image/m/barrage-text-holder.svg",
-      sendingLock: false
+      sendingLock: false,
+      bindStyle: {
+        minHeight: this.$innerHeight() + "px"
+      }
     };
   },
   computed: {
@@ -119,7 +122,6 @@ export default {
 .barrage {
   background: white;
   width: 100%;
-  height: 100vh;
   display: flex;
   justify-content: flex-start;
   align-items: center;
