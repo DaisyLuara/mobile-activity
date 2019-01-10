@@ -8,11 +8,20 @@
         "libraryName": "mint-ui",
         "style": true
       }
+    ],
+    [
+      "import",
+      {
+        "libraryName": "mand-mobile",
+        "libraryDirectory": "lib"
+      }
     ]
   ],
   "env": {
     "test": {
-      "plugins": ["istanbul"]
+      "plugins": [
+        "istanbul"
+      ]
     },
     "production": {
       "presets": [
