@@ -1,28 +1,32 @@
 <template>
-  <div 
+  <div
     :style="style.root"
-    class="content">
-    <div 
-      class="main">
-      <img 
+    class="content"
+  >
+    <div class="main">
+      <img
         :src="base + 'Frame.png' + this.$qiniuCompress()"
-        class="frame">
+        class="frame"
+      >
       <img
         :src="photo + this.$qiniuCompress()"
-        class="photo">
+        class="photo"
+      >
     </div>
-    <img 
+    <img
       :src="base + 'g.gif'"
-      class="up">
-    <img 
+      class="up"
+    >
+    <img
       :src="base + 'Front.png' + this.$qiniuCompress()"
-      class="front">
+      class="front"
+    >
   </div>
 </template>
 <script>
 import { $wechat, wechatShareTrack } from 'services'
 import { normalPages } from '@/mixins/normalPages'
-const IMG_SERVER = 'http://p22vy0aug.bkt.clouddn.com'
+const IMG_SERVER = process.env.CDN_URL
 export default {
   mixins: [normalPages],
   data() {
@@ -32,26 +36,22 @@ export default {
           'min-height': this.$innerHeight() + 'px'
         }
       },
-      base: IMG_SERVER + '/image/tm/wfj/',
-      photo: null,
+      base: IMG_SERVER + '/fe/image/tm/wfj/',
       //分享
       wxShareInfoValue: {
         title: 'Fun肆玩尽情GO',
         desc: '王福井ONE岁生日快乐！',
         link: 'http://papi.xingstation.com/api/s/wjR' + window.location.search,
-        imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/tm/wfj/icon.jpg',
-        success: function() {
-          wechatShareTrack()
-        }
+        imgUrl: IMG_SERVER + '/fe/image/tm/wfj/icon.jpg',
       }
     }
   },
-  mounted() {},
+  mounted() { },
   methods: {}
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/tm/wfj/';
+@imgUrl: "https://cdn.exe666.com/fe/image/tm/wfj/";
 html,
 body {
   width: 100%;
@@ -74,7 +74,7 @@ img {
 .content {
   width: 100%;
   overflow-x: hidden;
-  background-image: url('@{imgUrl}bg.jpg');
+  background-image: url("@{imgUrl}bg.jpg");
   background-position: center top;
   background-size: 100% 100%;
   background-repeat: no-repeat;
