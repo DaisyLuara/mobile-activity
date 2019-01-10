@@ -53,11 +53,7 @@ export default {
         title: "圣诞糖果屋",
         desc: "欢乐尽享甜蜜梦幻的圣诞狂欢!",
         link: "http://papi.xingstation.com/api/s/VP1" + window.location.search,
-<<<<<<< HEAD
         imgUrl: cdnUrl + "/fe/marketing/img/christmas_candy/icon.png"
-=======
-        imgUrl: cdnUrl + "/fe/marketing/img/christmas_candy/icon.png",
->>>>>>> develop
       }
     };
   },

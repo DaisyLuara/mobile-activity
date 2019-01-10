@@ -30,26 +30,18 @@
         >
       </div>
     </div>
-<<<<<<< HEAD
     <!-- <BottomBar :menucode="'56'" /> -->
-=======
->>>>>>> develop
   </div>
 </template>
 <script>
 import { $wechat, isInWechat, wechatShareTrack, Cookies, sendCoupon, checkGetCoupon } from 'services'
 import { normalPages } from '@/mixins/normalPages'
-<<<<<<< HEAD
 // import BottomBar from "@/pages/m/components/Static/BottomBar";
 const CDN_URL = process.env.CDN_URL
 export default {
   components: {
     // BottomBar
   },
-=======
-const CDN_URL = process.env.CDN_URL
-export default {
->>>>>>> develop
   mixins: [normalPages],
   data() {
     return {
@@ -61,17 +53,11 @@ export default {
       },
       id: this.$route.query.id,
       userId: null,
-<<<<<<< HEAD
       coupon_img: null,//'https://cdn.exe666.com/fe/image/couponrain/lkf/Lee.png',
       qrcodeImg: null,//'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
       used: false,
       arr: [190, 193, 194, 195, 196],
       num: parseInt(Math.random() * 4),
-=======
-      coupon_img: null,// 'https://cdn.exe666.com/fe/image/couponrain/lkf/Lee.png',
-      qrcodeImg: null,//'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
-      used: false,
->>>>>>> develop
       //微信分享
       wxShareInfoValue: {
         title: "猪福港味年，红包抢翻天！  ",
@@ -96,13 +82,6 @@ export default {
         this.handleWechatAuth()
       }
     }
-<<<<<<< HEAD
-=======
-    if (process.env.NODE_ENV === 'testing') {
-      this.wxShareInfoValue.link = 'http://papi.newgls.cn/api/s/59R' + window.location.search
-    }
-
->>>>>>> develop
   },
   methods: {
     //微信静默授权
@@ -117,20 +96,11 @@ export default {
         window.location.href = redirct_url
       } else {
         this.userId = Cookies.get('user_id')
-<<<<<<< HEAD
-        // let newid = this.arr[this.num]
-        // this.wxShareInfoValue.link = setParameter('coupon_batch_id', newid, "http://papi.xingstation.com/api/s/K8r")
-=======
->>>>>>> develop
       }
     },
     //判断是否领过优惠券
     checkGetCoupon() {
-<<<<<<< HEAD
       let coupon_batch_id = this.coupon_batch_id
-=======
-      let coupon_batch_id = this.$route.query.coupon_batch_id || this.coupon_batch_id
->>>>>>> develop
       let args = {
         coupon_batch_id: coupon_batch_id,
         include: 'couponBatch',
@@ -155,11 +125,7 @@ export default {
         oid: this.oid,
         belong: this.belong
       }
-<<<<<<< HEAD
       let coupon_batch_id = this.coupon_batch_id
-=======
-      let coupon_batch_id = this.$route.query.coupon_batch_id || this.coupon_batch_id
->>>>>>> develop
       sendCoupon(args, coupon_batch_id)
         .then(res => {
           console.log('sendCoupon', res)
@@ -272,7 +238,6 @@ img {
       }
     }
   }
-<<<<<<< HEAD
   .btb {
     margin-bottom: 0;
     // padding-left: 30px;
@@ -282,8 +247,6 @@ img {
       width: 33%;
     }
   }
-=======
->>>>>>> develop
 }
 </style>
 

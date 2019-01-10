@@ -21,7 +21,6 @@
         :src="base + '2.png' + this.$qiniuCompress()"
         class="bg"
       >
-<<<<<<< HEAD
       <!--多级联动通用版-->
       <div class="programs">
         <ul class="ul-list">
@@ -37,12 +36,6 @@
           </li>
         </ul>
       </div>
-=======
-      <LinkAge
-        ref="linkAge"
-        :pro-data="proData"
-      />
->>>>>>> develop
       <button
         class="map-btn"
         @click="()=>{mask = true;}"
@@ -109,7 +102,6 @@
         @click="()=>{mask = true;}"
       >
     </div>
-<<<<<<< HEAD
     <BottomBar
       :menucode="'56'"
       :replaceMkey="mkey"
@@ -127,17 +119,6 @@ export default {
     BottomBar
   },
   mixins: [normalPages],
-=======
-  </div>
-</template>
-<script>
-import { $wechat, isInWechat, wechatShareTrack, Cookies } from "services";
-import { normalPages } from "@/mixins/normalPages";
-import "animate.css";
-import LinkAge from 'modules/linkAge'
-const CDNURL = process.env.CDN_URL;
-export default {
->>>>>>> develop
   props: {
     linkData: {
       type: String,
@@ -145,11 +126,7 @@ export default {
     }
   },
   components: {
-<<<<<<< HEAD
     BottomBar,
-=======
-    LinkAge
->>>>>>> develop
   },
   mixins: [normalPages],
   data() {
@@ -160,7 +137,6 @@ export default {
       },
       mask: false,
       userId: null,
-<<<<<<< HEAD
       mkey: 'y6541h00',
       projects: {
         '8': {
@@ -174,35 +150,6 @@ export default {
         '10': {
           name: 'ptRabbitYellow',
           img: ''
-=======
-      proData: {
-        style: {
-          li: {
-            display: 'inline-block',
-            width: '28%',
-            margin: '0% 2% 0% 2%'
-          }
-        },
-        projects: {
-          '8': {
-            state: false,
-            name: 'ptRabbitRed',
-            notget: CDNURL + '/fe/image/peter/nored.png',
-            geted: CDNURL + '/fe/image/peter/getred.png'
-          },
-          '9': {
-            state: false,
-            name: 'ptRabbitBlue',
-            notget: CDNURL + '/fe/image/peter/noblue.png',
-            geted: CDNURL + '/fe/image/peter/getblue.png'
-          },
-          '10': {
-            state: false,
-            name: 'ptRabbitYellow',
-            notget: CDNURL + '/fe/image/peter/noyellow.png',
-            geted: CDNURL + '/fe/image/peter/getyellow.png'
-          }
->>>>>>> develop
         }
       },
       //微信分享
@@ -215,7 +162,6 @@ export default {
     }
   },
   watch: {
-<<<<<<< HEAD
     userinfo() {
       this.getGameHonour(3, this.userinfo.z);
     }
@@ -242,39 +188,6 @@ export default {
           this.projects[r.xid].img = r.xicon
         }
       })
-=======
-    belong() {
-      // this.$refs.linkAge.getGameHonour(3, '8b96bc7fba4c1176b3fc0861e94f22465c0f6a');
-      this.$refs.linkAge.getGameHonour(3, this.userinfo.z);
-    }
-  },
-  mounted() {
-    //微信授权
-    if (isInWechat() === true) {
-      if (
-        process.env.NODE_ENV === "production" ||
-        process.env.NODE_ENV === "testing"
-      ) {
-        this.handleWechatAuth();
-      }
-    }
-  },
-  methods: {
-    //微信静默授权
-    handleWechatAuth() {
-      if (Cookies.get("sign") === null) {
-        let base_url = encodeURIComponent(String(window.location.href));
-        let redirct_url =
-          process.env.WX_API +
-          "/wx/officialAccount/oauth?url=" +
-          base_url +
-          "&scope=snsapi_base";
-        window.location.href = redirct_url;
-      } else {
-        let utm_campaign = this.$route.query.utm_campaign
-        this.userId = Cookies.get("user_id");
-      }
->>>>>>> develop
     },
   }
 }
@@ -306,19 +219,11 @@ a {
   overflow-x: hidden;
   position: relative;
   background-color: #3981a9;
-<<<<<<< HEAD
-=======
-  // background: rgba(57, 129, 169, 0.8);
->>>>>>> develop
   background-image: url("@{imgurl}spot.png");
   background-repeat: repeat;
   background-position: center top;
   background-size: 100% auto;
   & > div {
-<<<<<<< HEAD
-=======
-    width: 100%;
->>>>>>> develop
     display: block;
     position: relative;
     width: 87.5%;
@@ -359,7 +264,6 @@ a {
       top: 22%;
       left: 0%;
       z-index: 99;
-<<<<<<< HEAD
       ul {
         display: inline-block;
         li {
@@ -389,8 +293,6 @@ a {
           }
         }
       }
-=======
->>>>>>> develop
     }
     .map-btn {
       width: 32vw;
@@ -480,7 +382,6 @@ a {
       pointer-events: auto;
     }
   }
-<<<<<<< HEAD
   .btb {
     margin-bottom: 0;
     // padding-left: 30px;
@@ -519,8 +420,6 @@ a {
       }
     }
   }
-=======
->>>>>>> develop
 }
 @keyframes myslider {
   0% {

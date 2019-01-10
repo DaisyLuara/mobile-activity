@@ -1,17 +1,14 @@
 <template>
   <div class="activity-bottom">
-<<<<<<< HEAD
-    <div class="progress" @click="naviGateToAct">{{ buttonText }}</div>
-    <div v-if="isAllow === '1'" class="award" @click="awardIn">立即报名</div>
-=======
-    <div 
-      class="progress" 
-      @click="naviGateToAct">查看活动进度</div>
-    <div 
-      v-if="isAllow === '1'" 
-      class="award" 
-      @click="awardIn">立即报名</div>
->>>>>>> develop
+    <div
+      class="progress"
+      @click="naviGateToAct"
+    >{{ buttonText }}</div>
+    <div
+      v-if="isAllow === '1'"
+      class="award"
+      @click="awardIn"
+    >立即报名</div>
   </div>
 </template>
 

@@ -2,8 +2,10 @@
   <div class="vote-item">
     <div class="vote-photo">
       <div class="vote-title">
-<<<<<<< HEAD
-        <img :src="face" class="avatar">
+        <img
+          :src="face"
+          class="avatar"
+        >
         <span class="title">{{ nickname }}</span>
       </div>
       <img
@@ -13,22 +15,10 @@
       >
     </div>
     <div class="vote-title">{{ views }} 票</div>
-    <div class="vote-button" @click="handleVote">投票</div>
-=======
-        <img 
-          :src="face" 
-          class="avatar">
-        <span class="title">{{ nickname }}</span>
-      </div>
-      <img 
-        :src="photoUrl" 
-        class="inner-photo">
-    </div>
-    <div class="vote-title">获得票数{{ views }}</div>
-    <div 
-      class="vote-button" 
-      @click="handleVote">投票</div>
->>>>>>> develop
+    <div
+      class="vote-button"
+      @click="handleVote"
+    >投票</div>
   </div>
 </template>
 

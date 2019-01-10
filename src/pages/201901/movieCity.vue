@@ -57,13 +57,8 @@ export default {
       couponImg: null,
       qrcodeImg: null,
       userId: null,
-<<<<<<< HEAD
       hasUsed: false,
     }
-=======
-      hasUsed: false
-    };
->>>>>>> develop
   },
   watch: {
     parms() {
@@ -94,13 +89,7 @@ export default {
           "&scope=snsapi_base";
         window.location.href = redirct_url;
       } else {
-<<<<<<< HEAD
         this.userId = Cookies.get('user_id')
-=======
-        this.userId = Cookies.get("user_id");
-        // this.params.user_id = this.userId;
-        // this.checkCouponIsUse();
->>>>>>> develop
       }
     },
     //禁止微信分享

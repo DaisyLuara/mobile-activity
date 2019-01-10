@@ -1,6 +1,6 @@
 <template>
   <div class="xof">
-    <div class="qr"/>
+    <div class="qr" />
     <div class="remind">
       <div class="xo">
         <img :src="xoImgUrl">
@@ -8,9 +8,10 @@
       <div class="remind-text">
         <div class="title">长按识别二维码</div>
         <div class="sub-title">了解更多精彩福利</div>
-        <img 
-          :src="xoReminder" 
-          class="bg-img">
+        <img
+          :src="xoReminder"
+          class="bg-img"
+        >
       </div>
     </div>
   </div>
