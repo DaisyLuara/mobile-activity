@@ -97,6 +97,7 @@ export default {
   height: 3.045rem;
   z-index: 30;
   overflow: hidden;
+  border-radius: 0.15rem;
   .act {
     position: absolute;
     top: 0;
