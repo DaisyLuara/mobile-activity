@@ -1,21 +1,21 @@
 <template>
   <div
-    :style="style.root" 
+    :style="style.root"
     class="root"
   >
     <img
-      :src="baseUrl + 'BG.png' + this.$qiniuCompress()" 
+      :src="baseUrl + 'BG.png' + this.$qiniuCompress()"
       class="bg"
-      alt="background" 
+      alt="background"
     >
 
     <img
-      :src="baseUrl + 'title.png' + this.$qiniuCompress()" 
+      :src="baseUrl + 'title.png' + this.$qiniuCompress()"
       class="title"
     >
 
     <img
-      :src="baseUrl + 'Words.png' + this.$qiniuCompress()" 
+      :src="baseUrl + 'Words.png' + this.$qiniuCompress()"
       class="remind"
     >
 
@@ -36,19 +36,19 @@
       class="d-top"
     >
 
-    <img  
+    <img
       :style="style.dright"
       :src="baseUrl + '2.png' + this.$qiniuCompress()"
       class="d-right"
     >
 
-    <img  
+    <img
       :style="style.dleft"
       :src="baseUrl + '3.png' + this.$qiniuCompress()"
       class="d-left"
     >
 
-    <img  
+    <img
       :src="baseUrl + '1.png' + this.$qiniuCompress()"
       class="bottom"
     >
@@ -58,7 +58,7 @@
 
 <script>
 const cdnUrl = process.env.CDN_URL
-import { onlyWechatShare } from '../../mixins/onlyWechatShare'
+import { onlyWechatShare } from '@/mixins/onlyWechatShare'
 import {
   wechatShareTrack,
   isInWechat,

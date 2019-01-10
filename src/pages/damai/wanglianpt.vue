@@ -1,6 +1,6 @@
 <template>
   <div
-    :style="style.root" 
+    :style="style.root"
     class="root"
   >
     <div class="xk">
@@ -21,9 +21,9 @@
     </div>
 
     <img
-      :src="baseUrl + 'BG.png' + this.$qiniuCompress()" 
+      :src="baseUrl + 'BG.png' + this.$qiniuCompress()"
       class="bg"
-      alt="background" 
+      alt="background"
     >
 
     <img
@@ -31,23 +31,23 @@
       class="d-top"
     >
 
-    <img  
+    <img
       :style="style.dright"
       :src="baseUrl + '2.png' + this.$qiniuCompress()"
       class="d-right"
     >
 
-    <img  
+    <img
       :style="style.dleft"
       :src="baseUrl + '3.png' + this.$qiniuCompress()"
       class="d-left"
     >
 
-    <img  
+    <img
       :src="baseUrl + 'bottom1.png' + this.$qiniuCompress()"
       class="bottom"
     >
-    
+
   </div>
 </template>
 
@@ -77,13 +77,10 @@ export default {
         }
       },
       baseUrl: cdnUrl + '/fe/marketing/img/damai/wanglian/',
-      wxShareInfo: {
+      wxShareInfoValue: {
         title: '今天，你就是ITF青年大师赛的最酷球迷！',
         desc: '',
         imgUrl: cdnUrl + '/fe/marketing/img/damai/wanglian/icon-share.jpg',
-        success: () => {
-          wechatShareTrack()
-        }
       },
       photo: '',
       qrurl: ''

@@ -5,8 +5,14 @@
     class="content"
   >
     <canvas id="canvas" />
-    <div class="line" />
-    <div class="printer">
+    <div
+      v-show="Boolean(photo)"
+      class="line"
+    />
+    <div
+      v-show="Boolean(photo)"
+      class="printer"
+    >
       <span class="dolt" />
       <img
         :src="IMG_URL + '/cover.png'"
@@ -29,19 +35,24 @@
         class="bottom"
       >
     </div>
-    <div class="photo"><img
+    <div
+      v-show="tostart"
+      class="photo"
+    >
+      <img
         id="mImg"
         src=""
-      ></div>
+      >
+    </div>
     <img
-      v-show="Boolean(photo)"
+      v-show="tostart"
       :src="IMG_URL +'/press.png'"
       class="press"
     >
   </div>
 </template>
 <script>
-import { wechatShareTrack } from 'services'
+import { $wechat, wechatShareTrack, isInWechat } from 'services'
 import { normalPages } from '@/mixins/normalPages'
 const IMG_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing/pages'
 export default {
@@ -54,6 +65,7 @@ export default {
           'min-height': this.$innerHeight() + 'px'
         }
       },
+      tostart: false,
       //微信分享
       wxShareInfoValue: {
         title: '欢迎来到近铁马戏城！',
@@ -64,11 +76,12 @@ export default {
   },
   watch: {
     photo() {
-      this.drawCanvas(photo)
+      this.drawCanvas(this.photo)
     }
   },
   methods: {
     drawCanvas(image) {
+      let that = this
       let canvas = document.getElementById('canvas')
       let ctx = canvas.getContext('2d')
       let frame = new Image()
@@ -85,8 +98,9 @@ export default {
           let url = canvas.toDataURL('image/png')
           let img = document.querySelector('#mImg')
           img.src = url
+          that.tostart = true
         }
-        mImg.src = image
+        mImg.src = image + that.$qiniuCompress()
       }
     }
   }

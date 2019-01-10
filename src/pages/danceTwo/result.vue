@@ -1,31 +1,36 @@
 <template>
   <div
-    :style="style.root" 
-    class="root">
-    <img 
+    :style="style.root"
+    class="root"
+  >
+    <img
       :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
-      :class="{'x-frame':iphoneX,'frame':!iphoneX}" 
-      class="frame">
-    <img 
+      :class="{'x-frame':iphoneX,'frame':!iphoneX}"
+      class="frame"
+    >
+    <img
       :src="baseUrl + 'text.png'+ this.$qiniuCompress()"
       :class="{'x-text':iphoneX,'text':!iphoneX}"
-      class="text">
+      class="text"
+    >
     <img
-      id="test" 
+      id="test"
       :src="compoundUrl"
-      :class="{'x-photoImg':iphoneX,'photoImg':!iphoneX}" 
+      :class="{'x-photoImg':iphoneX,'photoImg':!iphoneX}"
       alt=""
-      class="photoImg" >
-    <canvas 
-      id="canvas" 
       class="photoImg"
-      style="display: none" />
+    >
+    <canvas
+      id="canvas"
+      class="photoImg"
+      style="display: none"
+    />
     <p>1234567890</p>
   </div>
 </template>
 <script>
 import { Cookies, getInfoById, getWxUserInfo, wechatShareTrack } from 'services'
-import { onlyWechatShare } from '../../mixins/onlyWechatShare'
+import { onlyWechatShare } from '@/mixins/onlyWechatShare'
 import MC from 'mcanvas'
 const cdnUrl = process.env.CDN_URL
 export default {
@@ -157,7 +162,7 @@ export default {
       let seal = new Image()
       seal.setAttribute('crossOrigin', 'Anonymous')
       image.src = this.base64Data
-      image.onload = function() {
+      image.onload = function () {
         canvas.width = image.width
         canvas.height = image.height
         ctx.drawImage(image, 0, 0, image.width, image.height)
@@ -171,7 +176,7 @@ export default {
         ctx.translate(x, y)
         ctx.fillText(text, 0, 0)
         ctx.restore()
-        seal.onload = function() {
+        seal.onload = function () {
           ctx.drawImage(
             seal,
             0,
@@ -196,10 +201,10 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: 'http://cdn.exe666.com/fe/marketing/img/xsd_ad/';
+@imageHost: "http://cdn.exe666.com/fe/marketing/img/xsd_ad/";
 @font-face {
-  font-family: 'jingzhuan';
-  src: url('http://cdn.exe666.com/fe/marketing/img/xsd_ad/jinzhuan2.TTF');
+  font-family: "jingzhuan";
+  src: url("http://cdn.exe666.com/fe/marketing/img/xsd_ad/jinzhuan2.TTF");
   font-weight: normal;
   font-style: normal;
 }
@@ -208,7 +213,7 @@ export default {
   text-align: center;
   position: relative;
   overflow: hidden;
-  background-image: url('@{imageHost}back.png');
+  background-image: url("@{imageHost}back.png");
   background-size: 100% 100%;
   background-position: center bottom;
   background-repeat: no-repeat;
@@ -279,7 +284,7 @@ export default {
     pointer-events: none;
   }
   p {
-    font-family: 'jingzhuan';
+    font-family: "jingzhuan";
     font-size: 8vw;
     opacity: 0;
   }
