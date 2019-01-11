@@ -109,15 +109,4 @@ img {
     position: relative;
   }
 }
-@keyframes arrow {
-  0% {
-    transform: translateY(-5px);
-  }
-  50% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(5px);
-  }
-}
 </style>
