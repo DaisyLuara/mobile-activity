@@ -83,7 +83,7 @@ export default {
         title: '翻转世界遇见你',
         desc: '一个世间独一无二的你',
         link: 'http://papi.xingstation.com/api/s/OyN' + window.location.search,
-        imgUrl: cdnUrl + '/fe/marketing/img/turn_world/icon.png',
+        imgUrl: cdnUrl + '/fe/marketing/img/turn_world/icon.png'
       }
     }
   },

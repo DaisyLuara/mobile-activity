@@ -52,8 +52,6 @@ export default {
       id: this.$route.query.id,
       couponImg: null,
       qrcodeImg: null,
-      // couponImg: 'https://cdn.exe666.com/fe/marketing/img/dgm_movie/2.png',
-      // qrcodeImg: 'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
       userId: null,
       hasUsed: false
     };

@@ -57,8 +57,8 @@ export default {
       couponImg: null,
       qrcodeImg: null,
       userId: null,
-      hasUsed: false
-    };
+      hasUsed: false,
+    }
   },
   watch: {
     parms() {
@@ -89,9 +89,7 @@ export default {
           "&scope=snsapi_base";
         window.location.href = redirct_url;
       } else {
-        this.userId = Cookies.get("user_id");
-        // this.params.user_id = this.userId;
-        // this.checkCouponIsUse();
+        this.userId = Cookies.get('user_id')
       }
     },
     //禁止微信分享

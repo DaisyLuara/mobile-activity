@@ -1,34 +1,41 @@
 <template>
   <div class="tbb">
     <div class="function">
-      <div 
-        class="fitem" 
-        @click="handleFuncClick('delete')">
-        <img 
-          :src="deleteUrl" 
-          class="delete">
+      <div
+        class="fitem"
+        @click="handleFuncClick('delete')"
+      >
+        <img
+          :src="deleteUrl"
+          class="delete"
+        >
       </div>
-      <div 
-        class="fitem" 
-        @click="handleFuncClick('save')">
-        <img 
-          :src="saveUrl" 
-          class="save">
+      <div
+        class="fitem"
+        @click="handleFuncClick('save')"
+      >
+        <img
+          :src="saveUrl"
+          class="save"
+        >
       </div>
-      <div 
-        class="fitem" 
-        @click="handleFuncClick('share')">
-        <img 
-          :src="shareUrl" 
-          class="share">
+      <div
+        class="fitem"
+        @click="handleFuncClick('share')"
+      >
+        <img
+          :src="shareUrl"
+          class="share"
+        >
       </div>
     </div>
 
     <div class="button">
-      <div 
-        v-if="acid >0" 
-        class="title" 
-        @click="naviToShopActivityDetail">{{ buttonTitle }}</div>
+      <div
+        v-if="acid >0"
+        class="title"
+        @click="naviToShopActivityDetail"
+      >{{ buttonTitle }}</div>
       <div
         v-if="acid <=0 && actList.length > 0"
         class="title"
@@ -37,15 +44,16 @@
       <!-- <div class="time">{{subTitle}}</div> -->
     </div>
     <transition name="fade">
-      <div 
-        v-if="shoudListShow" 
-        class="list">
+      <div
+        v-if="shoudListShow"
+        class="list"
+      >
         <div
           v-for="(item, index) in actList"
           :key="index"
           class="list-item"
           @click="naviGateToActDetail(item)"
-        >{{ item.aname }}</div>
+        >{{ item.title }}</div>
       </div>
     </transition>
   </div>
@@ -61,6 +69,15 @@ export default {
       type: Number,
       default: 0,
       required: true
+    },
+    actDetail: {
+      type: Object,
+      default: {
+        infolink: "",
+        pslink: "",
+        type: ""
+      },
+      required: true
     }
   },
   data() {
@@ -70,7 +87,12 @@ export default {
       shareUrl: "https://cdn.exe666.com/fe/image/m/m-menu-share.svg",
       subTitle: "活动倒计时:12:14:33",
       actList: [],
-      shoudListShow: false
+      shoudListShow: false,
+      nameMap: {
+        alltop: "ActivityShopAllTopProgress",
+        game: "ActivityShopGameProgress",
+        honour: "MyAchivement"
+      }
     };
   },
   mounted() {
@@ -79,9 +101,17 @@ export default {
   computed: {
     buttonTitle() {
       if (Number(this.acid) > 0) {
-        return "活动详情";
+        if (this.actDetail.type === "alltop") {
+          return "我的榜单";
+        } else if (this.actDetail.type === "game") {
+          return "查看排行";
+        } else if (this.actDetail.type === "honour") {
+          return "查看勋章";
+        } else {
+          return "活动详情";
+        }
       } else {
-        return "参与活动";
+        return "参与报名";
       }
     },
     ...mapGetters(["z"])
@@ -92,15 +122,7 @@ export default {
         name: "ActivityShop"
       });
     },
-    naviToShopActivityDetail() {
-      this.$router.push({
-        name: "ActivityShopDetail",
-        params: this.$route.params,
-        query: {
-          acid: this.acid
-        }
-      });
-    },
+
     handleFuncClick(mode) {
       if (mode === "delete") {
         this.$emit("onTrendDelete");
@@ -136,6 +158,31 @@ export default {
         },
         params: this.$route.params
       });
+    },
+    naviToShopActivityDetail() {
+      if (this.actDetail.type === "") {
+        this.$router.push({
+          name: "ActivityShopDetail",
+          params: this.$route.params,
+          query: {
+            acid: this.acid
+          }
+        });
+      } else {
+        let bid = null;
+        if (this.actDetail.xinfo !== null) {
+          bid = this.actDetail.xinfo.bid;
+        }
+        this.$router.push({
+          name: this.nameMap[this.actDetail.type],
+          params: this.$route.params,
+          query: {
+            acid: this.actDetail.acid,
+            awardkey: this.actDetail.awardkey,
+            bid: bid
+          }
+        });
+      }
     }
   }
 };

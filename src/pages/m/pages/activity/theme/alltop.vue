@@ -1,45 +1,63 @@
 <template>
   <div class="alltop">
-    <NoListContentReminder 
-      :show="trends.length === 0 && firstFetch" 
-      words="暂时没有活动内容哦"/>
-    <img 
-      v-if="actData.image !== ''" 
-      :src="actData.image" 
-      class="main-photo">
+    <NoListContentReminder
+      :show="trends.length === 0 && firstFetch"
+      words="暂时没有活动内容哦"
+    />
+    <img
+      v-if="actData.image !== ''"
+      :src="actData.image"
+      class="main-photo"
+    >
     <ul
       v-infinite-scroll="loadMore"
       class="trends-wrapper"
       infinite-scroll-disabled="loading"
       infinite-scroll-distance="10"
     >
-      <div 
-        v-for="(item, index) in trends" 
-        :key="index" 
-        class="item-wrapper">
+      <div
+        v-for="(item, index) in trends"
+        :key="index"
+        class="item-wrapper"
+      >
         <ThemeVoteItem
           :auid="item.auid"
           :photo-url="item.link"
           :face="item.face"
           :nickname="item.nickname"
           :views="item.views"
+          @onShowViewer="showViewer(item.link)"
         />
       </div>
+      <div class="blank-holder" />
     </ul>
+
+    <md-image-viewer
+      v-model="isViewerShow"
+      :list="showImg"
+      :has-dots="false"
+      :initial-index="viewerIndex"
+    ></md-image-viewer>
+    <ActivityThemeGameBottom :show="!isViewerShow" />
   </div>
 </template>
 
 <script>
+import { ImageViewer } from "mand-mobile";
 import Vue from "vue";
 import { mapGetters } from "vuex";
 import { InfiniteScroll } from "mint-ui";
 import { fetchShopActivityProgress, fetchActivityDetail } from "services";
 import ThemeVoteItem from "@/pages/m/components/ListItem/ThemeVoteItem";
 import NoListContentReminder from "@/pages/m/components/Reminder/NoListContentReminder";
+import ActivityThemeGameBottom from "@/pages/m/components/Activity/ActivityThemeGameBottom";
+
 export default {
   components: {
     ThemeVoteItem,
-    NoListContentReminder
+    NoListContentReminder,
+    ActivityThemeGameBottom,
+    "md-image-viewer": ImageViewer
   },
   data() {
     return {
@@ -52,7 +70,10 @@ export default {
       actData: {
         image: ""
       },
-      firstFetch: false
+      firstFetch: false,
+      isViewerShow: false,
+      viewerIndex: 0,
+      showImg: []
     };
   },
   computed: {
@@ -71,6 +92,11 @@ export default {
     this.bindBottomDistance = (this.$parent.screenWidth / 375) * 100 * 0.48;
   },
   methods: {
+    showViewer(url) {
+      this.showImg = [url];
+      this.viewerIndex = 0;
+      this.isViewerShow = true;
+    },
     loadMore() {
       this.loading = true;
       setTimeout(() => {
@@ -122,6 +148,7 @@ export default {
         try {
           let r = await fetchActivityDetail(this, payload);
           this.actData = r.data.results;
+          document.title = this.actData.aname;
         } catch (e) {
           console.log(e);
         }
@@ -160,6 +187,11 @@ export default {
   .main-photo {
     width: 100%;
     margin-bottom: 20px;
+  }
+  .blank-holder {
+    width: 100%;
+    background: transparent;
+    height: 0.8rem;
   }
 }
 </style>

@@ -73,7 +73,7 @@
   </div>
 </template>
 <script>
-import { normalPages } from "../../mixins/normalPages";
+import { normalPages } from "@/mixins/normalPages";
 const cdnUrl = process.env.CDN_URL;
 export default {
   mixins: [normalPages],
@@ -91,7 +91,7 @@ export default {
         title: "Merry Christmas",
         desc: "我的圣诞礼物卡",
         link: "http://papi.xingstation.com/api/s/W7g" + window.location.search,
-        imgUrl: cdnUrl + "/fe/marketing/img/christmas_throw/icon.jpg",
+        imgUrl: cdnUrl + "/fe/marketing/img/christmas_throw/icon.jpg"
       }
     };
   },

@@ -1142,6 +1142,14 @@ babel-plugin-component@^1.1.1:
   dependencies:
     "@babel/helper-module-imports" "7.0.0-beta.35"
 
+babel-plugin-import@^1.11.0:
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-import/-/babel-plugin-import-1.11.0.tgz#78ac908e6b225206babb734e19eae5f78d6d1035"
+  integrity sha512-de9dWdU1YjmWRPYurlHRKD2hTd24z0bIQ0/JgyXqLMXML+TsvEkVhtqzOsNtu9MmCuvwBiTTTjZBbZXA1Xu7TQ==
+  dependencies:
+    "@babel/helper-module-imports" "^7.0.0"
+    "@babel/runtime" "^7.0.0"
+
 babel-plugin-istanbul@^4.1.1:
   version "4.1.6"
   resolved "http://registry.npm.taobao.org/babel-plugin-istanbul/download/babel-plugin-istanbul-4.1.6.tgz#36c59b2192efce81c5b378321b74175add1c9a45"
@@ -5113,6 +5121,11 @@ make-dir@^1.0.0:
   resolved "http://registry.npm.taobao.org/make-dir/download/make-dir-1.3.0.tgz#79c1033b80515bd6d24ec9933e860ca75ee27f0c"
   dependencies:
     pify "^3.0.0"
+
+mand-mobile@^1.6.7:
+  version "1.6.7"
+  resolved "https://registry.yarnpkg.com/mand-mobile/-/mand-mobile-1.6.7.tgz#0901a653400cfad2ffc8ba712793d1faa40da7e6"
+  integrity sha512-qGjWNJZG0ULkTbLg8Fn5QgPQzP/23F9Va/pl/exXLz2rhfVN1DWzG7TW4WYEAapKakbTRs/iL/hBCO8qT+VwVw==
 
 map-cache@^0.2.2:
   version "0.2.2"

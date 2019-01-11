@@ -3,9 +3,6 @@
     <img 
       :src="themeImageUrl" 
       class="main-img">
-    <div class="time-count">
-      <div class="inner-remind">{{ timeCount }}</div>
-    </div>
     <div 
       v-for="(item, index) in themeActItems" 
       :key="index" 
@@ -16,29 +13,24 @@
       <div class="title"/>
       <div class="desc"/>
     </div>
+    <ActivityThemeGameBottom/>
   </div>
 </template>
 
 <script>
+import ActivityThemeGameBottom from "@/pages/m/components/Activity/ActivityThemeGameBottom";
 import ThemeVoteItem from "@/pages/m/components/ListItem/ThemeVoteItem";
 export default {
   components: {
-    ThemeVoteItem
+    ThemeVoteItem,
+    ActivityThemeGameBottom
   },
   data() {
     return {
       themeActItems: [],
-      themeImageUrl: "",
-      themeTitle: "这里是活动文字说明标题",
-      themeContext:
-        "这里是活动文字说明内容这里是活动文字说明内容这里是活动文字说明内容这里是活动文字说明内容这里是活动文字说明内容这里是活动文字说明内容这里是活动文字说明内容这里是活动文字说明内容"
+      themeImageUrl: ""
     };
-  },
-  computed: {
-    timeCount() {
-      return "活动倒计时:12:14:33";
-    }
-  },
+  }
 };
 </script>
 

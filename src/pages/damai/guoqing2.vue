@@ -66,7 +66,7 @@
 
 <script>
 const cdnUrl = process.env.CDN_URL
-import { onlyGetPhoto } from '../../mixins/onlyGetPhoto'
+import { onlyGetPhoto } from '@/mixins/onlyGetPhoto'
 export default {
   mixins: [onlyGetPhoto],
   data() {
@@ -102,45 +102,10 @@ export default {
     }
   },
   mounted() {
-    // let count = 0
-    // this.newInterval = setInterval(() => {
-    //   count++
-    //   if (count % 6 === 0) {
-    //     this.control.bg1 = false
-    //     this.control.bg2 = false
-    //     this.control.bg3 = false
-    //   }
-    //   if (count % 6 === 1) {
-    //     this.control.bg1 = true
-    //     this.control.bg2 = false
-    //     this.control.bg3 = false
-    //   }
-    //   if (count % 6 === 2) {
-    //     this.control.bg1 = false
-    //     this.control.bg2 = true
-    //     this.control.bg3 = false
-    //   }
-    //   if (count % 6 === 3) {
-    //     this.control.bg1 = false
-    //     this.control.bg2 = false
-    //     this.control.bg3 = true
-    //   }
-    //   if (count % 6 === 4) {
-    //     this.control.bg1 = false
-    //     this.control.bg2 = true
-    //     this.control.bg3 = false
-    //   }
-    //   if (count % 6 === 5) {
-    //     this.control.bg1 = true
-    //     this.control.bg2 = false
-    //     this.control.bg3 = false
-    //   }
-    // }, 300)
     this.newInterval()
   },
   beforeDestroy() {
     cancelAnimationFrame(this.newInterval)
-    // clearInterval(this.newInterval)
   },
   methods: {
     newInterval() {

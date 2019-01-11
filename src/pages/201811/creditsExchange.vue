@@ -55,7 +55,7 @@ export default {
         title: "【积分换礼】VIP专属福利",
         desc: "好礼不断，立即点击兑换",
         link: "http://papi.xingstation.com/api/s/Xom" + window.location.search,
-        imgUrl: cdnUrl + "/fe/marketing/img/credits_exchange/icon.png",
+        imgUrl: cdnUrl + "/fe/marketing/img/credits_exchange/icon.png"
       }
     };
   },

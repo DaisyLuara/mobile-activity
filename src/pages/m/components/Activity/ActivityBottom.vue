@@ -1,12 +1,14 @@
 <template>
   <div class="activity-bottom">
-    <div 
-      class="progress" 
-      @click="naviGateToAct">查看活动进度</div>
-    <div 
-      v-if="isAllow === '1'" 
-      class="award" 
-      @click="awardIn">立即报名</div>
+    <div
+      class="progress"
+      @click="naviGateToAct"
+    >{{ buttonText }}</div>
+    <div
+      v-if="isAllow === '1'"
+      class="award"
+      @click="awardIn"
+    >立即报名</div>
   </div>
 </template>
 
@@ -19,12 +21,25 @@ export default {
     return {
       nameMap: {
         alltop: "ActivityShopAllTopProgress",
-        game: "ActivityShopGameProgress"
+        game: "ActivityShopGameProgress",
+        honour: "MyAchivement"
       }
     };
   },
   computed: {
-    ...mapGetters(["z"])
+    ...mapGetters(["z"]),
+    buttonText() {
+      if (this.acttype === "alltop") {
+        return "查看投票榜单";
+      }
+      if (this.acttype === "game") {
+        return "查看活动排行榜";
+      }
+      if (this.acttype === "honour") {
+        return "查看勋章收集进度";
+      }
+      return "查看活动进度";
+    }
   },
   props: {
     acid: {
@@ -46,6 +61,11 @@ export default {
       type: String,
       default: "0",
       requried: true
+    },
+    xinfo: {
+      type: Object,
+      defualt: null,
+      required: false
     }
   },
   methods: {
@@ -54,12 +74,17 @@ export default {
       if (this.acid === "" || this.acttype === "" || this.awardkey === "") {
         return;
       }
+      let bid = null;
+      if (this.xinfo !== null) {
+        bid = this.xinfo.bid;
+      }
       this.$router.push({
         name: this.nameMap[this.acttype],
         params: this.$route.params,
         query: {
           acid: this.acid,
-          awardkey: this.awardkey
+          awardkey: this.awardkey,
+          bid: bid
         }
       });
     },

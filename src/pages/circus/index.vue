@@ -1,77 +1,87 @@
 <template>
-  <div 
-    id="content" 
-    class="content">
-    <canvas id="canvas"/>
-    <div class="line"/>
-    <div class="printer">
-      <span class="dolt"/>
-      <img 
-        :src="IMG_URL + '/cover.png'" 
-        class="cover">
-      <img 
-        :src="IMG_URL + '/card.png'" 
-        class="card">
-      <img 
-        :src="IMG_URL + '/shadow.png'" 
-        class="shadow">
-      <img 
-        :src="IMG_URL + '/slider.png'" 
-        class="topRect">
-      <img 
-        :src="IMG_URL + '/bottom.png'" 
-        class="bottom">
+  <div
+    id="content"
+    :style="style.root"
+    class="content"
+  >
+    <canvas id="canvas" />
+    <div
+      v-show="Boolean(photo)"
+      class="line"
+    />
+    <div
+      v-show="Boolean(photo)"
+      class="printer"
+    >
+      <span class="dolt" />
+      <img
+        :src="IMG_URL + '/cover.png'"
+        class="cover"
+      >
+      <img
+        :src="IMG_URL + '/card.png'"
+        class="card"
+      >
+      <img
+        :src="IMG_URL + '/shadow.png'"
+        class="shadow"
+      >
+      <img
+        :src="IMG_URL + '/slider.png'"
+        class="topRect"
+      >
+      <img
+        :src="IMG_URL + '/bottom.png'"
+        class="bottom"
+      >
     </div>
-    <div class="photo"><img 
-      id="mImg" 
-      src=""></div>
-    <img 
-      v-show="press" 
-      :src="IMG_URL +'/press.png'" 
-      class="press">
+    <div
+      v-show="tostart"
+      class="photo"
+    >
+      <img
+        id="mImg"
+        src=""
+      >
+    </div>
+    <img
+      v-show="tostart"
+      :src="IMG_URL +'/press.png'"
+      class="press"
+    >
   </div>
 </template>
 <script>
-import { wechatShareTrack, getInfoById } from 'services'
-import { onlyWechatShare } from '../../mixins/onlyWechatShare'
+import { $wechat, wechatShareTrack, isInWechat } from 'services'
+import { normalPages } from '@/mixins/normalPages'
 const IMG_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing/pages'
 export default {
-  mixins: [onlyWechatShare],
+  mixins: [normalPages],
   data() {
     return {
       IMG_URL: IMG_SERVER + '/circus',
-      press: false,
+      style: {
+        root: {
+          'min-height': this.$innerHeight() + 'px'
+        }
+      },
+      tostart: false,
       //微信分享
       wxShareInfoValue: {
         title: '欢迎来到近铁马戏城！',
         desc: '旋转、跳跃、我闭着眼！',
-        imgUrl: IMG_SERVER + '/circus/share.png',
-        success: function() {
-          wechatShareTrack()
-        }
+        imgUrl: IMG_SERVER + '/circus/share.png'
       }
     }
   },
-  mounted() {
-    let height =
-      window.innerHeight ||
-      document.documentElement.clientHeight ||
-      document.body.clientHeight
-    let content = document.getElementById('content')
-    content.style.minHeight = height + 'px'
-    this.getInfoById()
+  watch: {
+    photo() {
+      this.drawCanvas(this.photo)
+    }
   },
   methods: {
-    getInfoById() {
-      let id = this.$route.query.id
-      getInfoById(id)
-        .then(res => {
-          this.drawCanvas(res.image)
-          this.press = true
-        })
-        .catch(err => {})
-    },
     drawCanvas(image) {
+      let that = this
       let canvas = document.getElementById('canvas')
       let ctx = canvas.getContext('2d')
       let frame = new Image()
@@ -79,24 +89,25 @@ export default {
       let mImg = new Image()
       mImg.setAttribute('crossOrigin', 'Anonymous')
 
-      frame.onload = function() {
+      frame.onload = function () {
         canvas.width = frame.width
         canvas.height = frame.height
-        mImg.onload = function() {
+        mImg.onload = function () {
           ctx.drawImage(mImg, 0, 0, frame.width, frame.height)
           ctx.drawImage(frame, 0, 0)
           let url = canvas.toDataURL('image/png')
           let img = document.querySelector('#mImg')
           img.src = url
+          that.tostart = true
         }
-        mImg.src = image
+        mImg.src = image + that.$qiniuCompress()
       }
     }
   }
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/circus/';
+@imgUrl: "https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/circus/";
 html,
 body {
   width: 100%;
@@ -113,7 +124,7 @@ body {
   margin: 0;
   padding: 0;
   font-size: 0;
-  background: url('@{imgUrl}bg.png') center top / 100% auto no-repeat;
+  background: url("@{imgUrl}bg.png") center top / 100% auto no-repeat;
   #canvas {
     display: none;
     height: 100%;
@@ -153,7 +164,7 @@ body {
       z-index: 999;
       width: 13px;
       height: 15px;
-      background: url('@{imgUrl}yellow.png') center top / 90% auto no-repeat;
+      background: url("@{imgUrl}yellow.png") center top / 90% auto no-repeat;
       animation: bgshake 3s 0.5s 1 forwards;
     }
     .card {
@@ -287,37 +298,37 @@ body {
 }
 @keyframes bgshake {
   0% {
-    background-image: url('@{imgUrl}yellow.png');
+    background-image: url("@{imgUrl}yellow.png");
   }
   10% {
-    background-image: url('@{imgUrl}red.png');
+    background-image: url("@{imgUrl}red.png");
   }
   20% {
-    background-image: url('@{imgUrl}yellow.png');
+    background-image: url("@{imgUrl}yellow.png");
   }
   30% {
-    background-image: url('@{imgUrl}red.png');
+    background-image: url("@{imgUrl}red.png");
   }
   40% {
-    background-image: url('@{imgUrl}yellow.png');
+    background-image: url("@{imgUrl}yellow.png");
   }
   50% {
-    background-image: url('@{imgUrl}red.png');
+    background-image: url("@{imgUrl}red.png");
   }
   60% {
-    background-image: url('@{imgUrl}yellow.png');
+    background-image: url("@{imgUrl}yellow.png");
   }
   70% {
-    background-image: url('@{imgUrl}red.png');
+    background-image: url("@{imgUrl}red.png");
   }
   80% {
-    background-image: url('@{imgUrl}yellow.png');
+    background-image: url("@{imgUrl}yellow.png");
   }
   90% {
-    background-image: url('@{imgUrl}red.png');
+    background-image: url("@{imgUrl}red.png");
   }
   100% {
-    background-image: url('@{imgUrl}yellow.png');
+    background-image: url("@{imgUrl}yellow.png");
   }
 }
 @keyframes printer {

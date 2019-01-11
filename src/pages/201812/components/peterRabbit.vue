@@ -21,10 +21,21 @@
         :src="base + '2.png' + this.$qiniuCompress()"
         class="bg"
       >
-      <LinkAge
-        ref="linkAge"
-        :pro-data="proData"
-      />
+      <!--多级联动通用版-->
+      <div class="programs">
+        <ul class="ul-list">
+          <li
+            v-for="(item,index) in projects"
+            :key="index"
+            class="list-li"
+          >
+            <img
+              :src="item.img"
+              class="notget"
+            >
+          </li>
+        </ul>
+      </div>
       <button
         class="map-btn"
         @click="()=>{mask = true;}"
@@ -91,15 +102,23 @@
         @click="()=>{mask = true;}"
       >
     </div>
+    <BottomBar
+      :menucode="'56'"
+      :replaceMkey="mkey"
+    />
   </div>
 </template>
 <script>
-import { $wechat, isInWechat, wechatShareTrack, Cookies } from "services";
+import { $wechat, isInWechat, wechatShareTrack, Cookies, getGameHonour } from "services";
 import { normalPages } from "@/mixins/normalPages";
 import "animate.css";
-import LinkAge from 'modules/linkAge'
+import BottomBar from "@/pages/m/components/Static/BottomBar";
 const CDNURL = process.env.CDN_URL;
 export default {
+  components: {
+    BottomBar
+  },
+  mixins: [normalPages],
   props: {
     linkData: {
       type: String,
@@ -107,7 +126,7 @@ export default {
     }
   },
   components: {
-    LinkAge
+    BottomBar,
   },
   mixins: [normalPages],
   data() {
@@ -118,33 +137,19 @@ export default {
       },
       mask: false,
       userId: null,
-      proData: {
-        style: {
-          li: {
-            display: 'inline-block',
-            width: '28%',
-            margin: '0% 2% 0% 2%'
-          }
+      mkey: 'y6541h00',
+      projects: {
+        '8': {
+          name: 'ptRabbitRed',
+          img: ''
         },
-        projects: {
-          '8': {
-            state: false,
-            name: 'ptRabbitRed',
-            notget: CDNURL + '/fe/image/peter/nored.png',
-            geted: CDNURL + '/fe/image/peter/getred.png'
-          },
-          '9': {
-            state: false,
-            name: 'ptRabbitBlue',
-            notget: CDNURL + '/fe/image/peter/noblue.png',
-            geted: CDNURL + '/fe/image/peter/getblue.png'
-          },
-          '10': {
-            state: false,
-            name: 'ptRabbitYellow',
-            notget: CDNURL + '/fe/image/peter/noyellow.png',
-            geted: CDNURL + '/fe/image/peter/getyellow.png'
-          }
+        '9': {
+          name: 'ptRabbitBlue',
+          img: ''
+        },
+        '10': {
+          name: 'ptRabbitYellow',
+          img: ''
         }
       },
       //微信分享
@@ -157,37 +162,32 @@ export default {
     }
   },
   watch: {
-    belong() {
-      // this.$refs.linkAge.getGameHonour(3, '8b96bc7fba4c1176b3fc0861e94f22465c0f6a');
-      this.$refs.linkAge.getGameHonour(3, this.userinfo.z);
+    userinfo() {
+      this.getGameHonour(3, this.userinfo.z);
     }
+    // belong() {
+    //   this.getGameHonour(3, '8b96bc7fba4c1176b3fc0861e94f22465c0f6a');
+    // }
   },
   mounted() {
-    //微信授权
-    if (isInWechat() === true) {
-      if (
-        process.env.NODE_ENV === "production" ||
-        process.env.NODE_ENV === "testing"
-      ) {
-        this.handleWechatAuth();
-      }
-    }
   },
   methods: {
-    //微信静默授权
-    handleWechatAuth() {
-      if (Cookies.get("sign") === null) {
-        let base_url = encodeURIComponent(String(window.location.href));
-        let redirct_url =
-          process.env.WX_API +
-          "/wx/officialAccount/oauth?url=" +
-          base_url +
-          "&scope=snsapi_base";
-        window.location.href = redirct_url;
-      } else {
-        let utm_campaign = this.$route.query.utm_campaign
-        this.userId = Cookies.get("user_id");
-      }
+    getGameHonour(bid, z) {
+      getGameHonour(bid, z).then(res => {
+        console.log(res)
+        this.projectStatus(res.results.data)
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    projectStatus(data) {
+      data.map(r => {
+        if (r.hid <= 0) {
+          this.projects[r.xid].img = r.xtabicon
+        } else {
+          this.projects[r.xid].img = r.xicon
+        }
+      })
     },
   }
 }
@@ -219,13 +219,11 @@ a {
   overflow-x: hidden;
   position: relative;
   background-color: #3981a9;
-  // background: rgba(57, 129, 169, 0.8);
   background-image: url("@{imgurl}spot.png");
   background-repeat: repeat;
   background-position: center top;
   background-size: 100% auto;
   & > div {
-    width: 100%;
     display: block;
     position: relative;
     width: 87.5%;
@@ -266,6 +264,35 @@ a {
       top: 22%;
       left: 0%;
       z-index: 99;
+      ul {
+        display: inline-block;
+        li {
+          display: inline-block;
+          position: relative;
+          display: inline-block;
+          width: 28%;
+          margin: 0% 2% 0% 2%;
+          &:first-child {
+            margin-left: 0%;
+          }
+          &:last-child {
+            margin-left: 0%;
+          }
+          img {
+            max-width: 100%;
+          }
+          .notget {
+            position: relative;
+            z-index: 0;
+          }
+          .geted {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 99;
+          }
+        }
+      }
     }
     .map-btn {
       width: 32vw;
@@ -353,6 +380,44 @@ a {
       position: relative;
       z-index: 0;
       pointer-events: auto;
+    }
+  }
+  .btb {
+    margin-bottom: 0;
+    // padding-left: 30px;
+    // padding-right: 30px;
+    margin-bottom: constant(safe-area-inset-bottom); /* 兼容 iOS < 11.2 */
+    margin-bottom: env(safe-area-inset-bottom); /* 兼容 iOS >= 11.2 */
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 48px;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.16);
+    z-index: 10000;
+    // padding-left: 0.5rem;
+    // padding-right: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    .bitem {
+      height: 100%;
+      // width: 30px;
+      width: 33%;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      font-size: 12px;
+      align-items: center;
+      flex-grow: 1;
+      color: rgba(166, 153, 150, 1);
+      img {
+        width: 25px;
+        height: 25px;
+      }
     }
   }
 }

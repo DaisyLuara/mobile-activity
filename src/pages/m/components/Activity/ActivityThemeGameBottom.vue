@@ -1,11 +1,20 @@
 <template>
-  <div 
-    class="activity-theme-game-bottom" 
-    @click="naviToActivitys">查看更多活动</div>
+  <div
+    v-if="show"
+    class="activity-theme-game-bottom"
+    @click="naviToActivitys"
+  >查看更多热门活动</div>
 </template>
 
 <script>
 export default {
+  props: {
+    show: {
+      type: Boolean,
+      default: true,
+      required: false
+    }
+  },
   methods: {
     naviToActivitys() {
       this.$router.push({
@@ -32,5 +41,6 @@ export default {
   color: rgba(255, 255, 255, 1);
   font-size: 0.16rem;
   line-height: 0.47rem;
+  z-index: 10000;
 }
 </style>

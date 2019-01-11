@@ -100,7 +100,7 @@ import {
   getMallcooOauth,
   checkCouponNumber
 } from "services";
-import { normalPages } from "../../mixins/normalPages";
+import { normalPages } from "@/mixins/normalPages";
 const cdnUrl = process.env.CDN_URL;
 export default {
   mixins: [normalPages],
@@ -121,7 +121,6 @@ export default {
         LonghuYinFood: false,
         cpLongfor: false
       },
-      photo: null,
       id: this.$route.query.id,
       open_user_id: null,
       mask: false,
@@ -132,10 +131,7 @@ export default {
         title: "一周年好礼相送",
         desc: "参与互动 福利翻倍",
         link: "http://papi.xingstation.com/api/s/q7r" + window.location.search,
-        imgUrl: cdnUrl + "/fe/image/longhu/icon.png",
-        success: () => {
-          wechatShareTrack();
-        }
+        imgUrl: cdnUrl + "/fe/image/longhu/icon.png"
       }
     };
   },

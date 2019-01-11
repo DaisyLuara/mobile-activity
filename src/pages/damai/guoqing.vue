@@ -66,7 +66,7 @@
 
 <script>
 const cdnUrl = process.env.CDN_URL
-import { onlyGetPhoto } from '../../mixins/onlyGetPhoto'
+import { onlyGetPhoto } from '@/mixins/onlyGetPhoto'
 export default {
   mixins: [onlyGetPhoto],
   data() {
@@ -106,7 +106,6 @@ export default {
   },
   beforeDestroy() {
     cancelAnimationFrame(this.newInterval)
-    // clearInterval(this.newInterval)
   },
   methods: {
     newInterval() {

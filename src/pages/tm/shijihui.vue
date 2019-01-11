@@ -58,7 +58,6 @@ export default {
   font-weight: normal;
   font-style: normal;
 }
-
 @base: "http://p22vy0aug.bkt.clouddn.com/image/tm/shijihui/";
 html,
 body {

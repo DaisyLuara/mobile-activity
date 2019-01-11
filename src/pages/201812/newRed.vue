@@ -1,0 +1,24 @@
+<template>
+  <div>
+    <PeterRabbit
+      ref="peterRabbit"
+      :link-data="link"
+    />
+  </div>
+</template>
+<script>
+import PeterRabbit from '@/pages/201812/components/peterRabbit'
+export default {
+  components: {
+    PeterRabbit
+  },
+  data() {
+    return {
+      link: 'http://papi.xingstation.com/api/s/163'
+    }
+  },
+  mounted() {
+    // console.log(this.$refs.peterRabbit.wxShareInfoValue)
+  }
+}
+</script>

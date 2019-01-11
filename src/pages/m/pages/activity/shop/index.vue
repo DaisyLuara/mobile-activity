@@ -13,11 +13,22 @@
         class="item-wrapper"
         @click="handleNaviToTrendDetail(item)"
       >
-        <img :src="item.image">
+        <img 
+          v-if="bindType(item.type) !== ''" 
+          :src="bindType(item.type)" 
+          class="type">
+        <img 
+          :src="item.image" 
+          class="main">
         <div class="title">{{ item.title }}</div>
-        <div class="time">开始日期：{{ item.date }}</div>
+        <div class="time">{{ computedDate(item.sdate) }} 至 {{ computedDate(item.edate) }}</div>
+        <img 
+          :src="coverShadow" 
+          class="time-shadow">
       </div>
     </ul>
+    <div class="loadmore-add"/>
+    <div class="loadmore-add"/>
   </div>
 </template>
 
@@ -27,6 +38,7 @@ import MyTrendsSwiper from "@/pages/m/components/Banner/MyTrendsSwiper";
 import { InfiniteScroll } from "mint-ui";
 import { fetchShopActivityList } from "services";
 import { mapGetters } from "vuex";
+import moment from "moment";
 export default {
   name: "TrendsIndex",
 
@@ -40,7 +52,12 @@ export default {
       currentPage: 1,
       isLoading: false,
       isAllLoaded: false,
-      trends: []
+      trends: [],
+      coverShadow:
+        "https://cdn.exe666.com/fe/image/m/activity-cover-shadow.svg",
+      alltop: "https://cdn.exe666.com/fe/image/m/tag-toupiao.svg",
+      game: "https://cdn.exe666.com/fe/image/m/tag-paihang.svg",
+      honour: "https://cdn.exe666.com/fe/image/m/tag-xunzhang.svg"
     };
   },
 
@@ -80,6 +97,10 @@ export default {
         this.fetchList();
       }, 2000);
     },
+    computedDate(clientdate) {
+      let cld = moment(Number(clientdate) * 1000);
+      return cld.format("YYYY-MM-DD HH:mm:ss");
+    },
     fetchList() {
       if (this.isAllLoaded || this.isLoading) {
         return;
@@ -106,6 +127,18 @@ export default {
           console.log(e);
           this.isLoading = false;
         });
+    },
+    bindType(type) {
+      if (type === "alltop") {
+        return this.alltop;
+      }
+      if (type === "game") {
+        return this.game;
+      }
+      if (type === "honour") {
+        return this.honour;
+      }
+      return "";
     }
   }
 };
@@ -138,7 +171,15 @@ export default {
       justify-content: flex-end;
       align-items: flex-start;
       overflow: hidden;
-      img {
+      .type {
+        z-index: 60;
+        top: 0;
+        right: 0;
+        width: 0.44rem;
+        height: 0.44rem;
+        position: absolute;
+      }
+      .main {
         position: absolute;
         top: 0;
         left: 0;
@@ -164,6 +205,14 @@ export default {
         color: rgba(255, 255, 255, 1);
         margin-left: 0.145rem;
         margin-bottom: 0.08rem;
+      }
+      .time-shadow {
+        z-index: 49;
+        width: 100%;
+        height: 0.67rem;
+        position: absolute;
+        bottom: 0;
+        left: 0;
       }
     }
   }

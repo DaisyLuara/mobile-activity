@@ -30,13 +30,18 @@
         >
       </div>
     </div>
+    <!-- <BottomBar :menucode="'56'" /> -->
   </div>
 </template>
 <script>
 import { $wechat, isInWechat, wechatShareTrack, Cookies, sendCoupon, checkGetCoupon } from 'services'
 import { normalPages } from '@/mixins/normalPages'
+// import BottomBar from "@/pages/m/components/Static/BottomBar";
 const CDN_URL = process.env.CDN_URL
 export default {
+  components: {
+    // BottomBar
+  },
   mixins: [normalPages],
   data() {
     return {
@@ -48,9 +53,11 @@ export default {
       },
       id: this.$route.query.id,
       userId: null,
-      coupon_img: null,// 'https://cdn.exe666.com/fe/image/couponrain/lkf/Lee.png',
+      coupon_img: null,//'https://cdn.exe666.com/fe/image/couponrain/lkf/Lee.png',
       qrcodeImg: null,//'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
       used: false,
+      arr: [190, 193, 194, 195, 196],
+      num: parseInt(Math.random() * 4),
       //微信分享
       wxShareInfoValue: {
         title: "猪福港味年，红包抢翻天！  ",
@@ -75,10 +82,6 @@ export default {
         this.handleWechatAuth()
       }
     }
-    if (process.env.NODE_ENV === 'testing') {
-      this.wxShareInfoValue.link = 'http://papi.newgls.cn/api/s/59R' + window.location.search
-    }
-
   },
   methods: {
     //微信静默授权
@@ -97,7 +100,7 @@ export default {
     },
     //判断是否领过优惠券
     checkGetCoupon() {
-      let coupon_batch_id = this.$route.query.coupon_batch_id || this.coupon_batch_id
+      let coupon_batch_id = this.coupon_batch_id
       let args = {
         coupon_batch_id: coupon_batch_id,
         include: 'couponBatch',
@@ -122,7 +125,7 @@ export default {
         oid: this.oid,
         belong: this.belong
       }
-      let coupon_batch_id = this.$route.query.coupon_batch_id || this.coupon_batch_id
+      let coupon_batch_id = this.coupon_batch_id
       sendCoupon(args, coupon_batch_id)
         .then(res => {
           console.log('sendCoupon', res)
@@ -233,6 +236,15 @@ img {
         transform: translateX(-50%);
         z-index: 999;
       }
+    }
+  }
+  .btb {
+    margin-bottom: 0;
+    // padding-left: 30px;
+    // padding-right: 30px;
+    justify-content: space-around;
+    .bitem {
+      width: 33%;
     }
   }
 }

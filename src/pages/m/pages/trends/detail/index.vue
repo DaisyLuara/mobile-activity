@@ -4,12 +4,16 @@
       v-if="resData.image !== ''"
       :title="resData.title"
       :mname="resData.mname"
-      :time="resData.date"
+      :clientdate="resData.clientdate"
     />
     <img 
       :src="resData.image" 
       class="photo">
     <TrendsBottomBar
+<<<<<<< HEAD
+      :act-detail="actDetail"
+=======
+>>>>>>> develop
       :acid="Number(resData.acid)"
       @onTrendDelete="handleTrendDeleteModalShow"
       @onTrendShare="handleShareModalShare"
@@ -24,12 +28,17 @@
       :show="shouldShareModalShow" 
       @onHandleShareModalHide="handleShareModalHide"/>
 
+<<<<<<< HEAD
+    <div class="info" v-html="infolink"/>
+    <div class="info" v-html="pslink"/>
+=======
     <div 
       class="info" 
       v-html="infolink"/>
     <div 
       class="info" 
       v-html="pslink"/>
+>>>>>>> develop
     <div class="blank-holder"/>
   </div>
 </template>
@@ -60,12 +69,13 @@ export default {
       resData: {
         image: "",
         title: "",
-        date: "",
-        acid: 0
+        acid: 0,
+        clientdate: ""
       },
       actDetail: {
         infolink: "",
-        pslink: ""
+        pslink: "",
+        type: ""
       },
       infolink: "",
       pslink: ""
@@ -91,6 +101,12 @@ export default {
       };
       try {
         let r = await getHdInfo(payload);
+        console.dir(r);
+        if (r.data.state === "40035") {
+          this.$router.push({
+            name: "mSite404"
+          });
+        }
         this.resData = r.data.results;
         if (Number(this.resData.acid) > 0) {
           let actDetailPayload = {
@@ -102,7 +118,9 @@ export default {
             this,
             actDetailPayload
           );
+
           this.actDetail = ractDetail.data.results;
+          document.title = ractDetail.data.results.title;
           this.infolink = await this.loadPage(this.actDetail.infolink);
           this.pslink = await this.loadPage(this.actDetail.pslink);
         }

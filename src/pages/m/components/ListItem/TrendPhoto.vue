@@ -1,11 +1,32 @@
 <template>
-  <div 
-    class="trend-photo" 
-    @click="handleTrendItemClick(avrid)">
-    <div class="act">活动</div>
-    <img 
-      :src="image" 
-      class="item-photo">
+  <div
+    class="trend-photo"
+    @click="handleTrendItemClick(avrid)"
+  >
+    <div class="act">
+      <img
+        v-if="type === 'game'"
+        :src="game"
+      >
+      <img
+        v-if="type === 'alltop'"
+        :src="alltop"
+      >
+      <img
+        v-if="type === 'honour'"
+        :src="honour"
+      >
+    </div>
+    <img
+      v-if="type === null"
+      :src="image +'?imageView2/1/w/200/h/320/format/jpg/q/75|imageslim'"
+      class="item-photo"
+    >
+    <img
+      v-if="type !== null"
+      :src="image"
+      class="item-photo"
+    >
     <div class="item-info">
       <div class="info-title">{{ title }}</div>
       <div class="info-location-date">{{ computedDate }}</div>
@@ -37,7 +58,19 @@ export default {
       type: String,
       default: "",
       required: true
+    },
+    type: {
+      type: String,
+      default: " ",
+      required: false
     }
+  },
+  data() {
+    return {
+      alltop: "https://cdn.exe666.com/fe/image/m/tag-toupiao.svg",
+      game: "https://cdn.exe666.com/fe/image/m/tag-paihang.svg",
+      honour: "https://cdn.exe666.com/fe/image/m/tag-xunzhang.svg"
+    };
   },
   computed: {
     computedDate() {
@@ -48,7 +81,7 @@ export default {
       let diffday = now.diff(cld, "days");
       if (diffyear >= 1) {
         return cld.format("YYYY-MM-DD HH:mm:ss");
-      } else if (diffday <= 1) {
+      } else if (moment(now).isSame(cld, "day")) {
         return cld.format("HH:mm:ss");
       } else {
         return cld.format("MM-DD HH:mm:ss");
@@ -80,25 +113,24 @@ export default {
   height: 3.045rem;
   z-index: 30;
   overflow: hidden;
+  border-radius: 0.15rem;
   .act {
     position: absolute;
-    right: 0.1rem;
-    text-align: center;
-    top: 0.12rem;
-    font-size: 12px;
-    width: 32px;
-    height: 20px;
-    background: rgba(255, 255, 255, 1);
-    border: 1px solid rgba(57, 48, 104, 1);
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
-    border-radius: 9px;
-    line-height: 20px;
-    color: black;
+    top: 0;
+    right: 0;
+    width: 0.44rem;
+    height: 0.44rem;
+    img {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+    }
   }
   .item-photo {
-    width: 100%;
     height: 100%;
-    border-radius: 0.1rem;
+    border-radius: 0.15rem;
   }
   .item-info {
     position: relative;
@@ -107,12 +139,16 @@ export default {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      font-size: 0.14rem;
+      margin-bottom: 0.01rem;
     }
     .info-location-date {
       width: 100%;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      color: rgba(212, 212, 212, 1);
+      font-size: 0.13rem;
     }
 
     width: 100%;
@@ -128,7 +164,7 @@ export default {
     padding: 0 0.1rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     align-items: flex-start;
   }
 }

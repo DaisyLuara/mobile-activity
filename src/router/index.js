@@ -180,9 +180,41 @@ const router = new Router({
           path: ':mkey/:mcode/my/',
           name: 'MyIndex',
           meta: {
-            title: '我的'
+            title: '我的嗨屏'
           },
           component: () => import('@/pages/m/pages/my/index')
+        },
+        {
+          path: ':mkey/:mcode/my/gameplayed/',
+          name: 'MyGamePlayed',
+          meta: {
+            title: '参与过的互动'
+          },
+          component: () => import('@/pages/m/pages/my/playedgames')
+        },
+        {
+          path: ':mkey/:mcode/my/achivement/',
+          name: 'MyAchivement',
+          meta: {
+            title: '我的成就'
+          },
+          component: () => import('@/pages/m/pages/my/achivement')
+        },
+        {
+          path: ':mkey/:mcode/barrage/index/',
+          name: 'BarrageIndex',
+          meta: {
+            title: '弹幕'
+          },
+          component: () => import('@/pages/m/pages/barrage/index')
+        },
+        {
+          path: '404',
+          name: 'mSite404',
+          meta: {
+            title: '我的嗨屏'
+          },
+          component: () => import('@/pages/m/pages/static/404')
         }
       ]
     },

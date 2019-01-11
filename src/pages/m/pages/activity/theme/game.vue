@@ -1,18 +1,27 @@
 <template>
   <div class="game">
+<<<<<<< HEAD
+    <div v-if="myData !== null" class="game-my">
+      <img class="bg" src="https://cdn.exe666.com/fe/image/m/game-my.png">
+=======
     <div 
       v-if="myData !== null" 
       class="game-my">
       <img 
         class="bg" 
         src="https://cdn.exe666.com/fe/image/m/game-my.png">
+>>>>>>> develop
       <div class="info">
         <img 
           :src="myData.face" 
           class="avatar">
         <div class="info-more">
           <span class="yz">颜值: {{ myData.value }} 分</span>
+<<<<<<< HEAD
+          <span class="date">{{ computedDate(myData.clientdate) }}</span>
+=======
           <span class="date">{{ myData.date.substring(0,10) }}</span>
+>>>>>>> develop
         </div>
       </div>
       <div class="my-rank">
@@ -20,16 +29,32 @@
         <div class="label">我的排名</div>
       </div>
     </div>
+<<<<<<< HEAD
+    <div
+      v-for="(item, index) in resData"
+      :class="{'game-item': index !== resData.length - 1, 'game-item last': index === resData.length - 1}"
+      :key="index"
+    >
+=======
     <div 
       v-for="(item, index) in resData" 
       :key="index" 
       class="game-item">
+>>>>>>> develop
       <div class="info">
         <img 
           :src="item.face" 
           class="avatar">
         <div class="info-more">
           <span class="yz">颜值: {{ item.value }} 分</span>
+<<<<<<< HEAD
+          <span class="date">{{ computedDate(item.clientdate) }}</span>
+        </div>
+      </div>
+      <img v-if="index === 0" class="crown" src="https://cdn.exe666.com/fe/image/m/first.png">
+      <img v-if="index === 1" class="crown" src="https://cdn.exe666.com/fe/image/m/second.png">
+      <img v-if="index === 2" class="crown" src="https://cdn.exe666.com/fe/image/m/third.png">
+=======
           <span class="date">{{ item.date.substring(0,10) }}</span>
         </div>
       </div>
@@ -45,12 +70,15 @@
         v-if="index === 2" 
         class="crown" 
         src="https://cdn.exe666.com/fe/image/m/third.png">
+>>>>>>> develop
     </div>
     <ActivityThemeGameBottom/>
+    <div class="bottom-holder"></div>
   </div>
 </template>
 
 <script>
+import moment from "moment";
 import { fetchShopActivityProgress } from "services";
 import ActivityThemeGameBottom from "@/pages/m/components/Activity/ActivityThemeGameBottom";
 import { mapGetters } from "vuex";
@@ -78,6 +106,21 @@ export default {
     this.fetchGameResults();
   },
   methods: {
+    computedDate(clientdate) {
+      let now = moment(new Date().getTime());
+      let cld = moment(Number(clientdate));
+      // console.log(cld);
+      let diffyear = cld.diff(now, "years");
+      let diffday = now.diff(cld, "days");
+      if (diffyear >= 1) {
+        return cld.format("YYYY-MM-DD HH:mm:ss");
+      } else if (moment(now).isSame(cld, "day")) {
+        return cld.format("HH:mm:ss");
+      } else {
+        return cld.format("MM-DD HH:mm:ss");
+      }
+      return "";
+    },
     fetchGameResults() {
       let payload = {
         api: "json",
@@ -112,6 +155,11 @@ export default {
   align-items: center;
   padding-top: 20px;
   z-index: 10;
+  .bottom-holder {
+    width: 100%;
+    height: 1.2rem;
+    background: transparent;
+  }
   .game-my {
     position: relative;
     width: 3.63rem;
@@ -187,12 +235,15 @@ export default {
     }
   }
   .game-item {
+    &.last {
+      border-bottom-left-radius: 0.05rem;
+      border-bottom-right-radius: 0.05rem;
+      border-bottom: none;
+    }
     width: 3.42rem;
     height: 0.685rem;
-    border-top: rgba(194, 194, 194, 1) solid 0.5px;
     border-bottom: rgba(194, 194, 194, 1) solid 0.5px;
-    border-left: rgba(194, 194, 194, 1) solid 1px;
-    border-right: rgba(194, 194, 194, 1) solid 1px;
+    background: white;
     display: flex;
     flex-direction: row;
     align-items: center;

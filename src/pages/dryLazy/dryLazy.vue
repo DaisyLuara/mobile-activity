@@ -1,50 +1,61 @@
 <template>
   <div
-    :style="style.root" 
-    class="root">
+    :style="style.root"
+    class="root"
+  >
     <div class="top">
-      <img 
+      <img
         :src="baseUrl + 'tip.png'+ this.$qiniuCompress()"
-        class="tip">
+        class="tip"
+      >
     </div>
     <div class="center">
-      <img 
+      <img
         :src="baseUrl + 'kuang.png'+ this.$qiniuCompress()"
-        class="kuang">
-      <img 
+        class="kuang"
+      >
+      <img
         :src="baseUrl + 'left.png'+ this.$qiniuCompress()"
-        class="left">
-      <img 
+        class="left"
+      >
+      <img
         :src="baseUrl + 'right.png'+ this.$qiniuCompress()"
-        class="right">
-      <img 
+        class="right"
+      >
+      <img
         :src="baseUrl + 'paopao2.png'+ this.$qiniuCompress()"
-        class="paopao1">
-      <img 
+        class="paopao1"
+      >
+      <img
         :src="baseUrl + 'paopao1.png'+ this.$qiniuCompress()"
-        class="paopao2">
-      <img 
+        class="paopao2"
+      >
+      <img
         :src="baseUrl + '1111.png'+ this.$qiniuCompress()"
-        class="hua">
+        class="hua"
+      >
       <div class="photo">
         <!--  :src="baseUrl + '222.png'+ this.$qiniuCompress()" -->
-        <img 
-          v-if="photo !== null" 
-          :src="photo + this.$qiniuCompress()" 
-          class="photo-base">
-        <img 
-          v-if="photo !== null" 
-          :src="photo + this.$qiniuCompress()" 
-          class="photo-real">
+        <img
+          v-if="photo !== null"
+          :src="photo + this.$qiniuCompress()"
+          class="photo-base"
+        >
+        <img
+          v-if="photo !== null"
+          :src="photo + this.$qiniuCompress()"
+          class="photo-real"
+        >
       </div>
     </div>
     <div class="bottom">
-      <img 
+      <img
         :src="baseUrl + 'text.png'+ this.$qiniuCompress()"
         :class="{'x-text':iphoneX,'text':!iphoneX}"
-        class="text">
+        class="text"
+      >
     </div>
-   
+
   </div>
 </template>
 
@@ -63,20 +74,16 @@ export default {
           height: this.$innerHeight() + 'px'
         }
       },
-      photo: null,
       iphoneX: false,
       wxShareInfoValue: {
         title: '旱獭直播间',
         desc: '主播已上线，合影马上生成',
         link: 'http://papi.xingstation.com/api/s/g5Y' + window.location.search,
-        imgUrl: cdnUrl + '/fe/marketing/img/dryLazy/icon.png',
-        success: () => {
-          wechatShareTrack()
-        }
+        imgUrl: cdnUrl + '/fe/marketing/img/dryLazy/icon.png'
       }
     }
   },
-  created() {},
+  created() { },
   mounted() {
     let height = this.$innerHeight()
     if (height > 672) {
@@ -90,7 +97,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: 'http://cdn.exe666.com/fe/marketing/img/dryLazy/';
+@imageHost: "http://cdn.exe666.com/fe/marketing/img/dryLazy/";
 img {
   max-width: 100%;
 }
@@ -99,7 +106,7 @@ img {
   position: relative;
   text-align: center;
   overflow: hidden;
-  background-image: url('@{imageHost}bg.png');
+  background-image: url("@{imageHost}bg.png");
   background-size: 100% 100%;
   background-position: center bottom;
   background-repeat: no-repeat;

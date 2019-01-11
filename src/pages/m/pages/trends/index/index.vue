@@ -1,8 +1,12 @@
 <template>
   <div class="trends">
+<<<<<<< HEAD
+    <NoListContentReminder :show="trends.length ===0 && firstFetch" words="暂时还没有活动"/>
+=======
     <NoListContentReminder 
       :show="trends.length ===0 && firstFetch" 
       words="暂时还没有活动"/>
+>>>>>>> develop
 
     <MyTrendsSwiper/>
     <ul
@@ -20,11 +24,12 @@
           :title="item.title"
           :clientdate="item.clientdate"
           :avrid="item.avrid"
+          :type="item.ac_type"
         />
       </div>
     </ul>
-
-    <BottomBar/>
+    <div class="loadmore-add"/>
+    <div class="loadmore-add"/>
   </div>
 </template>
 
@@ -35,15 +40,12 @@ import MyTrendsSwiper from "@/pages/m/components/Banner/MyTrendsSwiper";
 import { InfiniteScroll } from "mint-ui";
 import { getUserTrends } from "services";
 import { mapGetters } from "vuex";
-import BottomBar from "@/pages/m/components/Static/BottomBar";
 import NoListContentReminder from "@/pages/m/components/Reminder/NoListContentReminder";
 export default {
   name: "TrendsIndex",
-
   components: {
     TrendPhoto,
     MyTrendsSwiper,
-    BottomBar,
     NoListContentReminder
   },
 
@@ -67,8 +69,9 @@ export default {
     if (this.z === "") {
       return;
     }
-    this.fetchList();
+    // this.fetchList();
     Vue.use(InfiniteScroll);
+    this.fetchList();
   },
 
   mounted() {
@@ -83,7 +86,9 @@ export default {
     loadMore() {
       this.loading = true;
       setTimeout(() => {
-        this.fetchList();
+        if (this.$route.name === "TrendsIndex") {
+          this.fetchList();
+        }
       }, 2000);
     },
     fetchList() {
@@ -99,6 +104,11 @@ export default {
       };
       getUserTrends(payload)
         .then(r => {
+          if (r.data.state === "40035") {
+            this.$router.push({
+              name: "mSite404"
+            });
+          }
           let res = r.data.results.data;
           this.isLoading = false;
           this.trends = this.trends.concat(res);

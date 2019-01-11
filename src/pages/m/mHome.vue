@@ -4,6 +4,10 @@
     <div 
       v-if="wechat !== true" 
       class="wx-remind">请在微信中打开</div>
+<<<<<<< HEAD
+    <BottomBar :menucode="computedCode"/>
+=======
+>>>>>>> develop
   </div>
 </template>
 
@@ -11,6 +15,7 @@
 import { reCalculateRem } from "@/mixins/reCalculateRem";
 import { mapGetters, mapMutations } from "vuex";
 import { Toast } from "mint-ui";
+import BottomBar from "@/pages/m/components/Static/BottomBar";
 import {
   isInWechat,
   NaviToWechatAuth,
@@ -19,6 +24,9 @@ import {
 
 export default {
   name: "MSiteHome",
+  components: {
+    BottomBar
+  },
   mixins: [reCalculateRem],
   data() {
     return {
@@ -27,11 +35,17 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["z"])
+    ...mapGetters(["z"]),
+    computedCode() {
+      return this.$route.params.mcode;
+    }
   },
   created() {
     if (isInWechat() === true) {
       this.wechat = true;
+      if (this.$route.name === "mSite404") {
+        return;
+      }
       this.handleLogin();
     }
   },
