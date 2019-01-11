@@ -5,11 +5,11 @@
       v-for="(item, index) in this.menuCode"
       :key="index"
       class="bitem"
-      @click="handleMenuClick(routes[item.order])"
+      @click="handleMenuClick(routes[item.index])"
     >
-      <img v-if="currentRoute !== routes[item.order]" :src="labelImg[item.order]">
-      <img v-if="currentRoute === routes[item.order]" :src="labelImgPressed[item.order]">
-      <span>{{labels[item.order]}}</span>
+      <img v-if="currentRoute !== routes[item.index]" :src="labelImg[item.index]">
+      <img v-if="currentRoute === routes[item.index]" :src="labelImgPressed[item.index]">
+      <span>{{labels[item.index]}}</span>
     </div>
   </div>
 </template>
@@ -104,7 +104,7 @@ export default {
         }
       });
       arr.sort(function(a, b) {
-        return a.order - b.order;
+        return b.order - a.order;
       });
 
       return arr;
