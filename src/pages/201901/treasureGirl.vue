@@ -103,10 +103,22 @@ img {
     width: 75%;
     position: relative;
     margin-top: -10%;
+    animation: arrow 0.5s linear infinite alternate;
   }
   .logo {
     width: 45%;
     position: relative;
+  }
+}
+@keyframes arrow {
+  0% {
+    transform: translateY(-5px);
+  }
+  50% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(5px);
   }
 }
 </style>
