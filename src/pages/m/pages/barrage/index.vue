@@ -66,7 +66,7 @@ export default {
         return;
       }
       if (this.lastBarrageTime === null) {
-        this.setLastBarrageTime(Date.now());
+        this.setLastBarrageTime(new Date().getTime());
       } else if (new Date().getTime() - this.lastBarrageTime < 2000) {
         Toast("请不要发得太快哦");
         return;
