@@ -1,12 +1,17 @@
 // 底部的按钮
 <template>
   <div v-if="menuCode !== '00000' && showRoutes.includes(this.$route.name)" class="btb">
-    <div v-if="menuCode[0] === '1'" class="bitem" @click="handleMenuClick('TrendsIndex')">
+    <div
+      v-for="(item, index) in this.menuCode"
+      :key="index"
+      class="bitem"
+      @click="handleMenuClick(index)"
+    >
       <img v-if="currentRoute !== 'TrendsIndex'" :src="photo">
       <img v-if="currentRoute === 'TrendsIndex'" :src="photo_p">
-      <span>照片</span>
+      <span>{{labels[index]}}</span>
     </div>
-    <div v-if="menuCode[1] === '1'" class="bitem" @click="handleMenuClick('ActivityShop')">
+    <!-- <div v-if="menuCode[1] === '1'" class="bitem" @click="handleMenuClick('ActivityShop')">
       <img v-if="currentRoute !== 'ActivityShop'" :src="act">
       <img v-if="currentRoute === 'ActivityShop'" :src="act_p">
       <span>活动</span>
@@ -30,7 +35,7 @@
       <img v-if="currentRoute !== 'MyIndex'" :src="my">
       <img v-if="currentRoute === 'MyIndex'" :src="my_p">
       <span>我的</span>
-    </div>
+    </div>-->
   </div>
 </template>
 
@@ -50,18 +55,22 @@ export default {
   },
   data() {
     return {
-      photo: "https://cdn.exe666.com/fe/image/m/btn_photo_normal@3x.png",
-      photo_p: "https://cdn.exe666.com/fe/image/m/btn_photo_pressed@3x.png",
-      act: "https://cdn.exe666.com/fe/image/m/btn_sale_normal@3x.png",
-      act_p: "https://cdn.exe666.com/fe/image/m/btn_sale_pressed@3x.png",
-      mall: "https://cdn.exe666.com/fe/image/m/btn_mall_normal@3x.png",
-      mall_p: "https://cdn.exe666.com/fe/image/m/btn_mall_pressed@3x.png",
-      card: "https://cdn.exe666.com/fe/image/m/btn_card_normal@3x.png",
-      card_p: "https://cdn.exe666.com/fe/image/m/btn_card_pressed@3x.png",
-      my: "https://cdn.exe666.com/fe/image/m/btn_my_normal@3x.png",
-      my_p: "https://cdn.exe666.com/fe/image/m/btn_my_pressed@3x.png",
-      barrage: "https://cdn.exe666.com/fe/image/m/barrage.png",
-      barrage_p: "https://cdn.exe666.com/fe/image/m/barrage-p.png",
+      labelImg: [
+        "https://cdn.exe666.com/fe/image/m/btn_photo_normal@3x.png",
+        "https://cdn.exe666.com/fe/image/m/btn_sale_normal@3x.png",
+        "https://cdn.exe666.com/fe/image/m/btn_mall_normal@3x.png",
+        "https://cdn.exe666.com/fe/image/m/btn_card_normal@3x.png",
+        "https://cdn.exe666.com/fe/image/m/btn_my_normal@3x.png",
+        "https://cdn.exe666.com/fe/image/m/barrage.png"
+      ],
+      labelImgPressed: [
+        "https://cdn.exe666.com/fe/image/m/btn_photo_pressed@3x.png",
+        "https://cdn.exe666.com/fe/image/m/btn_sale_pressed@3x.png",
+        "https://cdn.exe666.com/fe/image/m/btn_mall_pressed@3x.png",
+        "https://cdn.exe666.com/fe/image/m/btn_card_pressed@3x.png",
+        "https://cdn.exe666.com/fe/image/m/btn_my_pressed@3x.png",
+        "https://cdn.exe666.com/fe/image/m/barrage-p.png"
+      ],
       showRoutes: [
         "MyIndex",
         "MallIndex",
@@ -74,18 +83,24 @@ export default {
         "new_yellow",
         "lkf",
         "newDreamland"
-      ]
+      ],
+      labels: ["照片", "活动", "弹幕", "商城", "卡包", "我的"],
+      labelMarks: "000000"
     };
   },
   computed: {
     menuCode() {
-      let ten = this.menucode;
-      if (ten === undefined) {
-        return "000000";
-      } else {
-        let bi = parseInt(ten).toString(2) || "000000";
-        return this.padNumber(bi, 6);
+      let number32 = this.menucode;
+      if (number32 === undefined) {
+        let marks = "";
+        this.labels.forEach(element => {
+          marks += "0";
+        });
+        return marks;
       }
+
+      let ten = parseInt(number32, 32).toString(10);
+      return this.padNumber(ten, this.labels.length);
     },
     currentRoute() {
       return this.$route.name;
