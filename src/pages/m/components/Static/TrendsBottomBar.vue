@@ -148,14 +148,18 @@ export default {
         if (this.actDetail.xinfo !== null) {
           bid = this.actDetail.xinfo.bid;
         }
+        let query = {
+          acid: this.actDetail.acid,
+          awardkey: this.actDetail.awardkey,
+          bid: bid
+        };
+        if (this.actDetail.tabs) {
+          query.tabs = this.actDetail.tabs;
+        }
         this.$router.push({
           name: this.nameMap[this.actDetail.type],
           params: this.$route.params,
-          query: {
-            acid: this.actDetail.acid,
-            awardkey: this.actDetail.awardkey,
-            bid: bid
-          }
+          query: query
         });
       }
     }

@@ -5,7 +5,7 @@
       <div class="info">
         <img :src="myData.face" class="avatar">
         <div class="info-more">
-          <span class="yz">颜值: {{ myData.value }} 分</span>
+          <span class="yz">{{computedLabelName}}: {{ myData.value }} 分</span>
           <span class="date">{{ computedDate(myData.clientdate) }}</span>
         </div>
       </div>
@@ -58,6 +58,14 @@ export default {
       } else {
         return null;
       }
+    },
+    computedLabelName() {
+      let { tabs } = this.$route.query;
+      let name = "颜值";
+      if (tabs !== undefined) {
+        name = tabs;
+      }
+      return name;
     }
   },
   mounted() {

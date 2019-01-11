@@ -14,6 +14,7 @@
       :auid="resData.auid"
       :is-allow="resData.allow"
       :xinfo="resData.xinfo"
+      :tabs="resData.tabs"
     />
   </div>
 </template>
