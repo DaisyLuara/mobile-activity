@@ -129,7 +129,7 @@ export default {
       let { mkey, mcode } = this.$route.params;
 
       if (this.replaceMkey !== "") {
-        meky = this.replaceMkey;
+        mkey = this.replaceMkey;
       }
 
       if (this.replaceMenuCode !== "") {
