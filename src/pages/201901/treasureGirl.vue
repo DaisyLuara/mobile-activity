@@ -38,11 +38,10 @@ export default {
           height: this.$innerHeight() + "px"
         }
       },
-      photo: 'https://cdn.exe666.com/fe/marketing/img/treasure_girl/666.png',
       wxShareInfoValue: {
         title: "亲爱的，新年快乐!",
         desc: "猪年大吉，猪事顺利",
-        link: "http://papi.xingstation.com/api/s/RlL" + window.location.search,
+        link: "http://papi.xingstation.com/api/s/k2x" + window.location.search,
         imgUrl: cdnUrl + "/fe/marketing/img/treasure_girl/icon.png"
       }
     };
