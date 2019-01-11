@@ -1,10 +1,8 @@
 <template>
   <div class="mHome">
     <router-view v-if="wechat === true && z !== ''"/>
-    <div 
-      v-if="wechat !== true" 
-      class="wx-remind">请在微信中打开</div>
-    <BottomBar :menucode="computedCode"/>
+    <div v-if="wechat !== true" class="wx-remind">请在微信中打开</div>
+    <BottomBar/>
   </div>
 </template>
 
@@ -32,10 +30,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["z"]),
-    computedCode() {
-      return this.$route.params.mcode;
-    }
+    ...mapGetters(["z"])
   },
   created() {
     if (isInWechat() === true) {

@@ -154,6 +154,30 @@ wxShareInfoValue - 微信分享 Object
 
 mixins/normalPages.js 中 getPhotoByRouteQueryId 方法执行的是 this.photo = res.image
 
+## 通用组件
+
+### @/pages/m/components/Static/BottomBar
+
+#### 菜单规则 replaceMenuCode
+
+replaceMenuCode 菜单代码 规则
+
+照片 活动 弹幕 商城 卡包 我的
+6    5   4   3    2   1
+
+如果要使用 照片 活动 弹幕 三个 菜单则
+
+照片 活动 弹幕 商城 卡包 我的
+1    2   3   0    0   0
+
+123000 转化为 32 进制为 3o3o 传入这个组件的 Prop replaceMenuCode
+
+#### mkey 自定义 replaceMkey
+
+传入 replaceMkey 作为 Prop 就可以
+
+如上海湾的是 y6541h00
+
 ## Service 模块
 
 ### 约定
@@ -171,12 +195,6 @@ wechat 微信
 直接 import { methodName } from 'services'
 
 services 已配置 alias
-
-## Todo
-
-### 整理旧方法、模块
-
-需要去掉旧的方法和模块
 
 ### 静态资源走 cdn
 
