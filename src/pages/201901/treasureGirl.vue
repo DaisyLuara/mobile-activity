@@ -39,8 +39,8 @@ export default {
         }
       },
       wxShareInfoValue: {
-        title: "亲爱的，新年快乐!",
-        desc: "猪年大吉，猪事顺利",
+        title: "遇见最可爱的你",
+        desc: "与众不同 点击领取",
         link: "http://papi.xingstation.com/api/s/k2x" + window.location.search,
         imgUrl: cdnUrl + "/fe/marketing/img/treasure_girl/icon.png"
       }

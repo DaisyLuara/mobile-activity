@@ -103,9 +103,9 @@ const Date201901 = [
     location: '201901/treasureGirl',
     name: 'treasure_girl',
     meta: {
-      title: '',
+      title: '最美万达',
       author: 'xj1012',
-      desc: '万达导视'
+      desc: '万达导视(仓山店)'
     },
     isAbandoned: false
   }
