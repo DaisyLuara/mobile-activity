@@ -66,8 +66,8 @@ export default {
         return;
       }
       if (this.lastBarrageTime === null) {
-        this.setLastBarrageTime(Date.now());
-      } else if (Date.now() - this.lastBarrageTime < 2000) {
+        this.setLastBarrageTime(new Date().getTime());
+      } else if (new Date().getTime() - this.lastBarrageTime < 2000) {
         Toast("请不要发得太快哦");
         return;
       }
@@ -88,9 +88,11 @@ export default {
           } else {
             Toast(String(r.data.results));
           }
+          this.sendingLock = false;
         })
         .catch(e => {
           Toast("网络错误");
+          this.sendingLock = false;
         })
         .finally(() => {
           this.sendingLock = false;
@@ -106,10 +108,11 @@ export default {
         .then(r => {
           console.dir(r);
           if (r.data.state === "1") {
-            this.inputvalue = r.data.results.parms;
+            this.inputvalue = String(r.data.results.parms);
           }
         })
         .catch(e => {
+          this.inputvalue = "";
           Toast(e.message);
         });
     }
