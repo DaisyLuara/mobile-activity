@@ -168,9 +168,11 @@ replaceMenuCode 菜单代码 规则
 如果要使用 照片 活动 弹幕 三个 菜单则
 
 照片 活动 弹幕 商城 卡包 我的
-1    2   3   0    0   0
+3    2   1   0    0   0
 
-123000 转化为 32 进制为 3o3o 传入这个组件的 Prop replaceMenuCode
+321000 转化为 32 进制为 9pf8 传入这个组件的 Prop replaceMenuCode
+
+数字大的排在左侧
 
 #### mkey 自定义 replaceMkey
 

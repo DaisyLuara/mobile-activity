@@ -59,6 +59,11 @@ export default {
       type: Object,
       defualt: null,
       required: false
+    },
+    tabs: {
+      type: String,
+      defualt: undefined,
+      requried: false
     }
   },
   methods: {
@@ -71,14 +76,18 @@ export default {
       if (this.xinfo !== null) {
         bid = this.xinfo.bid;
       }
+      let query = {
+        acid: this.acid,
+        awardkey: this.awardkey,
+        bid: bid
+      };
+      if (this.tabs !== undefined && this.tabs !== null) {
+        query.tabs = this.tabs;
+      }
       this.$router.push({
         name: this.nameMap[this.acttype],
         params: this.$route.params,
-        query: {
-          acid: this.acid,
-          awardkey: this.awardkey,
-          bid: bid
-        }
+        query: query
       });
     },
     awardIn() {
