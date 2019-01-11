@@ -60,8 +60,8 @@ export default {
       num: parseInt(Math.random() * 4),
       //微信分享
       wxShareInfoValue: {
-        title: "猪福港味年，红包抢翻天！  ",
-        desc: "点击马上抢【连卡福】新春红包！",
+        title: "高能预警！一大波“红包雨”强势来袭！",
+        desc: "拼手速，抢抢抢抢抢抢连卡福新春红包",
         link: "http://papi.xingstation.com/api/s/K8r" + window.location.search,
         imgUrl: CDN_URL + "/fe/image/couponrain/share.jpg",
       }
