@@ -54,7 +54,7 @@
         @click="()=>{mask = true;}"
       >
     </div>
-    <BottomBar :replaceMenuCode="'3o3o'" :replaceMkey="mkey"/>
+    <BottomBar :replaceMenuCode="'9pf8'" :replaceMkey="mkey"/>
   </div>
 </template>
 <script>
