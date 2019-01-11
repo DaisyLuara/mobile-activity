@@ -1,56 +1,41 @@
 <template>
-  <div
-    :style="style.root"
-    class="warp"
-  >
-    <img
-      :src="base + 'bg.png' + this.$qiniuCompress()"
-      class="bg"
-    >
-    <a
-      href="http://papi.xingstation.com/api/s/Y70"
-      class="tolink"
-    />
+  <div :style="style.root" class="warp">
+    <img :src="base + 'bg.png?v=1' + this.$qiniuCompress()" class="bg">
+    <a href="http://papi.xingstation.com/api/s/Y70" class="tolink"/>
     <div class="main">
-      <img
-        :src="base + 'tu.png' + this.$qiniuCompress()"
-        class="frame"
-      >
-      <img
-        :src="photo"
-        class="photo"
-      >
+      <img :src="base + 'tu.png' + this.$qiniuCompress()" class="frame">
+      <img :src="photo" class="photo">
     </div>
   </div>
 </template>
 <script>
-import { normalPages } from '@/mixins/normalPages'
-const CDN_URL = process.env.CDN_URL
+import { normalPages } from "@/mixins/normalPages";
+const CDN_URL = process.env.CDN_URL;
 export default {
   mixins: [normalPages],
   data() {
     return {
-      base: CDN_URL + '/fe/image/luwan/',
+      base: CDN_URL + "/fe/image/luwan/",
       style: {
         root: {
-          'min-height': this.$innerHeight() + 'px'
+          "min-height": this.$innerHeight() + "px"
         }
       },
       //微信分享
       wxShareInfoValue: {
-        title: '快快领取 新年红包',
-        desc: '金猪送福 新年大吉',
-        link: 'http://papi.xingstation.com/api/s/Z8v' + window.location.search,
-        imgUrl: CDN_URL + '/fe/image/luwan/share.png'
+        title: "快快领取 新年红包",
+        desc: "金猪送福 新年大吉",
+        link: "http://papi.xingstation.com/api/s/Z8v" + window.location.search,
+        imgUrl: CDN_URL + "/fe/image/luwan/share.png"
       }
-    }
+    };
   },
   mounted() {
-    if (process.env.NODE_ENV === 'testing') {
-      this.wxShareInfoValue.link = '' + window.location.search
+    if (process.env.NODE_ENV === "testing") {
+      this.wxShareInfoValue.link = "" + window.location.search;
     }
   }
-}
+};
 </script>
 <style lang="less" scoped>
 @url: "http://cdn.exe666.com/fe/image/luwan/";
@@ -96,7 +81,7 @@ img {
   .main {
     width: 71.5%;
     position: absolute;
-    top: 54%;
+    top: 42%;
     left: 50%;
     transform: translateX(-50%);
     z-index: 99;
