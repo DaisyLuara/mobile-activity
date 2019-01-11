@@ -97,6 +97,17 @@ const Date201901 = [
       desc: '2019新年运势'
     },
     isAbandoned: false
+  },
+  {
+    path: 'treasure_girl',
+    location: '201901/treasureGirl',
+    name: 'treasure_girl',
+    meta: {
+      title: '最美万达',
+      author: 'xj1012',
+      desc: '万达导视(仓山店)'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201901
