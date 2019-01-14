@@ -1,22 +1,28 @@
 // 底部的按钮
 <template>
-  <div v-if="shouldMenuShow" class="btb">
+  <div 
+    v-if="shouldMenuShow" 
+    class="btb">
     <div
       v-for="(item, index) in this.menuCode"
       :key="index"
       class="bitem"
       @click="handleMenuClick(routes[item.index])"
     >
-      <img v-if="currentRoute !== routes[item.index]" :src="labelImg[item.index]">
-      <img v-if="currentRoute === routes[item.index]" :src="labelImgPressed[item.index]">
-      <span>{{labels[item.index]}}</span>
+      <img 
+        v-if="currentRoute !== routes[item.index]" 
+        :src="labelImg[item.index]">
+      <img 
+        v-if="currentRoute === routes[item.index]" 
+        :src="labelImgPressed[item.index]">
+      <span>{{ labels[item.index] }}</span>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "mSiteBottomBar",
+  name: "MSiteBottomBar",
   props: {
     // 是否替换默认menucode
     // 传入 Prop 则自定义菜单

@@ -1,16 +1,27 @@
 <template>
-  <div class="trend-photo" @click="handleTrendItemClick(avrid)">
+  <div 
+    class="trend-photo" 
+    @click="handleTrendItemClick(avrid)">
     <div class="act">
-      <img v-if="type === 'game'" :src="game">
-      <img v-if="type === 'alltop'" :src="alltop">
-      <img v-if="type === 'honour'" :src="honour">
+      <img 
+        v-if="type === 'game'" 
+        :src="game">
+      <img 
+        v-if="type === 'alltop'" 
+        :src="alltop">
+      <img 
+        v-if="type === 'honour'" 
+        :src="honour">
     </div>
     <img
       v-if="type === null"
       :src="image +'?imageView2/1/w/200/h/320/format/jpg/q/75|imageslim'"
       class="item-photo"
     >
-    <img v-if="type !== null" :src="image" class="item-photo">
+    <img 
+      v-if="type !== null" 
+      :src="image" 
+      class="item-photo">
     <div class="item-info">
       <div class="info-title">{{ title }}</div>
       <div class="info-location-date">{{ computedDate }}</div>

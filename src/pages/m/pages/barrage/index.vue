@@ -1,23 +1,41 @@
 <template>
-  <div class="barrage" :style="bindStyle">
+  <div 
+    :style="bindStyle" 
+    class="barrage">
     <div class="holder">
-      <img :src="loginState.face" class="avatar">
-      <textarea v-model="inputvalue" class="inputarea" placeholder="请输入" maxlength="40"/>
+      <img 
+        :src="loginState.face" 
+        class="avatar">
+      <textarea 
+        v-model="inputvalue" 
+        class="inputarea" 
+        placeholder="请输入" 
+        maxlength="40"/>
       <div class="count">{{ currentWords }}/40</div>
     </div>
     <div
       :class="{'button gray': inputvalue.length === 0, 'button': inputvalue !== 0}"
       @click="handleSendBarrage"
     >发送</div>
-    <div class="xo-combine" @click="getBarrage">
-      <img v-if="loginState.gender === '1'" :src="xoGirl" class="xo-img">
-      <img v-else :src="xoBoy" class="xo-img">
+    <div 
+      class="xo-combine" 
+      @click="getBarrage">
+      <img 
+        v-if="loginState.gender === '1'" 
+        :src="xoGirl" 
+        class="xo-img">
+      <img 
+        v-else 
+        :src="xoBoy" 
+        class="xo-img">
       <div class="text-holder">
         <div class="text">
           <span style="color: #6d1eff;">{{ computedText }}</span>
           <span>点我试试！生成最潮弹幕~</span>
         </div>
-        <img :src="textHolder" class="text-bg">
+        <img 
+          :src="textHolder" 
+          class="text-bg">
       </div>
     </div>
   </div>

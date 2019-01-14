@@ -1,12 +1,20 @@
 <template>
   <div class="act-shop-detail">
-    <img :src="resData.image" class="main-photo">
+    <img 
+      :src="resData.image" 
+      class="main-photo">
     <div class="main-text">{{ resData.txt }}</div>
     <div class="start-time">开始时间: {{ startTime }}</div>
     <div class="end-time">结束时间: {{ endTime }}</div>
-    <div class="info" v-html="infolink"/>
-    <div class="info" v-html="pslink"/>
-    <div class="main-button" @click="handleNaviToActList">查看更多热门活动</div>
+    <div 
+      class="info" 
+      v-html="infolink"/>
+    <div 
+      class="info" 
+      v-html="pslink"/>
+    <div 
+      class="main-button" 
+      @click="handleNaviToActList">查看更多热门活动</div>
     <ActivityBottom
       :acid="resData.acid"
       :acttype="resData.type"
