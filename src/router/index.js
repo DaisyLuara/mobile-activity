@@ -237,8 +237,6 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   if (router.app.$options.store.weixinUrl === '') {
     router.app.$options.store.commit('SET_WX_JS_URL', document.URL)
-  } else if (document.URL !== router.app.$options.store.weixinUrl) {
-    router.app.$options.store.commit('SET_WX_JS_URL', document.URL)
   }
   document.title = to.meta.title ? to.meta.title : '未找到页面'
   next()
