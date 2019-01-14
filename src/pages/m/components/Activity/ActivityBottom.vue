@@ -15,6 +15,40 @@ import { Toast } from "mint-ui";
 import { inShopActivityAward } from "services";
 import { mapGetters } from "vuex";
 export default {
+  props: {
+    acid: {
+      type: String,
+      default: "",
+      requried: true
+    },
+    acttype: {
+      type: String,
+      default: "",
+      requried: true
+    },
+    awardkey: {
+      type: String,
+      default: "",
+      requried: true
+    },
+    isAllow: {
+      type: String,
+      default: "0",
+      requried: true
+    },
+    xinfo: {
+      type: Object,
+      default: () => {
+        bid: "";
+      },
+      required: false
+    },
+    tabs: {
+      type: String,
+      default: "",
+      requried: false
+    }
+  },
   data() {
     return {
       nameMap: {
@@ -39,38 +73,6 @@ export default {
       return "查看活动进度";
     }
   },
-  props: {
-    acid: {
-      type: String,
-      default: "",
-      requried: true
-    },
-    acttype: {
-      type: String,
-      default: "",
-      requried: true
-    },
-    awardkey: {
-      type: String,
-      default: "",
-      requried: true
-    },
-    isAllow: {
-      type: String,
-      default: "0",
-      requried: true
-    },
-    xinfo: {
-      type: Object,
-      defualt: null,
-      required: false
-    },
-    tabs: {
-      type: String,
-      defualt: undefined,
-      requried: false
-    }
-  },
   methods: {
     naviGateToAct() {
       console.log(this.nameMap["alltop"]);
@@ -79,14 +81,16 @@ export default {
       }
       let bid = null;
       if (this.xinfo !== null) {
-        bid = this.xinfo.bid;
+        if (this.xinfo.bid) {
+          bid = this.xinfo.bid;
+        }
       }
       let query = {
         acid: this.acid,
         awardkey: this.awardkey,
         bid: bid
       };
-      if (this.tabs !== undefined && this.tabs !== null) {
+      if (this.tabs !== undefined && this.tabs !== null && this.tabs !== "") {
         query.tabs = this.tabs;
       }
       this.$router.push({

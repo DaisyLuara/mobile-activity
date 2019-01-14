@@ -24,8 +24,8 @@
       <div id="main"/>
       <img
         id="test"
-        :src="base64Data"
         :class="{'x-photoImg':iphoneX,'photoImg':!iphoneX}"
+        :src="base64Data"
         alt
         class="photoImg"
       >
@@ -34,8 +34,8 @@
         class="photoImg" 
         style="display: none"/>
       <img
-        :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
         :class="{'x-save':iphoneX,'save':!iphoneX}"
+        :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
         class="save"
       >
     </div>

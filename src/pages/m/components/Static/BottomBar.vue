@@ -4,7 +4,7 @@
     v-if="shouldMenuShow" 
     class="btb">
     <div
-      v-for="(item, index) in this.menuCode"
+      v-for="(item, index) in menuCode"
       :key="index"
       class="bitem"
       @click="handleMenuClick(routes[item.index])"
