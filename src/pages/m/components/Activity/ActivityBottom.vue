@@ -80,8 +80,10 @@ export default {
         return;
       }
       let bid = null;
-      if (this.xinfo.bid !== "") {
-        bid = this.xinfo.bid;
+      if (this.xinfo !== null) {
+        if (this.xinfo.bid) {
+          bid = this.xinfo.bid;
+        }
       }
       let query = {
         acid: this.acid,

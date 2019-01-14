@@ -15,7 +15,9 @@
       src="https://cdn.exe666.com/fe/image/m/wallet-no-xo-boy.png">
 
     <div class="icon">
-      <img :src="currentIcon">
+      <img 
+        v-if="currentIcon !== ''" 
+        :src="currentIcon">
     </div>
     <div class="fuli">福利</div>
   </div>
@@ -135,17 +137,21 @@ export default {
           api: "json"
         };
         let r = await fetchRunPro(payload);
+        console.dir(r);
         if (r.data.state === "40035") {
           this.$router.push({
             name: "mSite404"
           });
-        }
-        this.resData = r.data.results.data;
-        this.handleClick();
-        this.itv = setInterval(() => {
-          this.count++;
+        } else if (r.data.state === "0") {
+          return;
+        } else {
+          this.resData = r.data.results.data;
           this.handleClick();
-        }, 5000);
+          this.itv = setInterval(() => {
+            this.count++;
+            this.handleClick();
+          }, 5000);
+        }
       } catch (e) {
         console.log(e);
       }

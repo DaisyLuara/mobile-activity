@@ -13,7 +13,7 @@
         @click="handlePhotoPrivew"
       >
     </div>
-    <div class="vote-title">{{ views }} 票</div>
+    <div class="vote-title">{{ computedView }} 票</div>
     <div 
       class="vote-button" 
       @click="handleVote">投票</div>
@@ -55,15 +55,21 @@ export default {
   },
   data() {
     return {
-      vtitle: "获得票数：20612"
+      voteSuccess: false
     };
   },
   computed: {
-    ...mapGetters(["z"])
+    ...mapGetters(["z"]),
+    computedView() {
+      if (this.voteSuccess) {
+        return Number(this.views) + 1;
+      } else {
+        return this.views;
+      }
+    }
   },
   methods: {
     handlePhotoPrivew() {
-      console.log("e");
       this.$emit("onShowViewer");
     },
     handleVote() {
@@ -77,6 +83,7 @@ export default {
         .then(r => {
           console.dir(r);
           if (r.data.state === "1") {
+            this.voteSuccess = true;
             Toast("投票成功");
             return;
           } else if (r.data.state !== "0") {
