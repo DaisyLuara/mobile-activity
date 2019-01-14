@@ -1,8 +1,7 @@
 <template>
-  <div 
-    v-if="imgUrls.length > 0" 
-    class="mts">
-    <swiper 
+  <div v-if="imgUrls.length > 0" class="mts">
+    <!-- fuck  vue-awesome-swiper-->
+    <!-- <swiper 
       ref="mySwiper" 
       :options="swiperOption" 
       class="swiper">
@@ -17,7 +16,12 @@
       <div 
         slot="pagination" 
         class="swiper-pagination"/>
-    </swiper>
+    </swiper>-->
+    <md-swiper ref="swiper" class="swiper">
+      <md-swiper-item :key="$index" v-for="(item, $index) in imgUrls">
+        <img :src="item.image" class="slide-pic" @click="handlePhotoClick(item)">
+      </md-swiper-item>
+    </md-swiper>
   </div>
 </template>
 
@@ -27,10 +31,12 @@ import "./swiper.less";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
 import { mapGetters } from "vuex";
 import { fetchMSiteBanners } from "services";
+
+import { Swiper, SwiperItem } from "mand-mobile";
 export default {
   components: {
-    swiper,
-    swiperSlide
+    "md-swiper": Swiper,
+    "md-swiper-item": SwiperItem
   },
   data() {
     return {
