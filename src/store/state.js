@@ -7,15 +7,13 @@ const devState = {
     face:
       'http://thirdwx.qlogo.cn/mmopen/vi_32/kPmo3eFGlBOPalDZHOpAicFPfQaicU7icJnypiaUxUcFEOE2kdddNsFXPkmiaeBo6LCRau0ibZK72fUtDpo9dSZccXTA/132'
   },
-  lastBarrageTime: null,
-  weixinUrl: ''
+  lastBarrageTime: null
 }
 const productionState = {
   loginState: {
     z: ''
   },
-  lastBarrageTime: null,
-  weixinUrl: ''
+  lastBarrageTime: null
 }
 
 let state = process.env.NODE_ENV === 'development' ? devState : productionState

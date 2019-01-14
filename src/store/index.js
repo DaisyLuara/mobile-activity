@@ -10,14 +10,5 @@ export default new Vuex.Store({
   state,
   mutations,
   getters,
-  plugins: [
-    createPersistedState({
-      storage: window.localStorage,
-      reducer(val) {
-        return {
-          loginState: val.loginState
-        }
-      }
-    })
-  ]
+  plugins: [createPersistedState({})]
 })

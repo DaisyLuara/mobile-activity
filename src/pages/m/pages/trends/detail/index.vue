@@ -77,7 +77,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["z", "wexinUrl"])
+    ...mapGetters(["z"])
   },
   mounted() {
     this.fetchTrend();
@@ -120,7 +120,7 @@ export default {
             imgUrl: this.actDetail.micon
           };
           if (isInWechat() === true) {
-            $wechat(this.wexinUrl)
+            $wechat(sessionStorage.getItem("wexinUrl"))
               .then(res => {
                 res.share(wxShareInfoValue);
               })
