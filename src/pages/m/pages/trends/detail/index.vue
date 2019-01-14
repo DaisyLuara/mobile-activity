@@ -45,10 +45,9 @@ import SharePhotoModal from "@/pages/m/components/Reminder/SharePhotoModal";
 import { mapGetters, mapMutations } from "vuex";
 import { getHdInfo, deleteATrend, fetchShopActivityDetail } from "services";
 import { Toast } from "mint-ui";
-import { onlyWechatShare } from "@/mixins/onlyWechatShare";
+import { $wechat, isInWechat } from "services";
 
 export default {
-  mixins: [onlyWechatShare],
   components: {
     TrendsTopBar,
     TrendsBottomBar,
@@ -124,6 +123,15 @@ export default {
             link: window.location.href,
             imgUrl: this.actDetail.micon
           };
+          if (isInWechat() === true) {
+            $wechat()
+              .then(res => {
+                res.share(wxShareInfoValue);
+              })
+              .catch(err => {
+                console.warn(err.message);
+              });
+          }
         }
       } catch (e) {
         console.log(e);
