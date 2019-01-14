@@ -5,9 +5,6 @@ const mutations = {
   },
   [types.SET_LAST_BARRAGE_TIME](state, v) {
     state.lastBarrageTime = v
-  },
-  [types.SET_WX_JS_URL](state, url) {
-    state.weixinUrl = url
   }
 }
 
