@@ -17,9 +17,13 @@
         slot="pagination" 
         class="swiper-pagination"/>
     </swiper>-->
-    <md-swiper ref="swiper" class="swiper">
-      <md-swiper-item :key="$index" v-for="(item, $index) in imgUrls">
-        <img :src="item.image" class="slide-pic" @click="handlePhotoClick(item)">
+    <md-swiper ref="swiper" class="swiper" :is-prevent="false">
+      <md-swiper-item
+        :key="$index"
+        v-for="(item, $index) in imgUrls"
+        @click.native="handlePhotoClick(item)"
+      >
+        <img :src="item.image" class="slide-pic">
       </md-swiper-item>
     </md-swiper>
   </div>
@@ -59,6 +63,7 @@ export default {
   },
   methods: {
     handlePhotoClick(item) {
+      // console.log(e);
       window.location.href = item.infolink;
     },
     fetchTrendsSwiperInfo() {
