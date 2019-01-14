@@ -104,7 +104,7 @@ export default {
         }
       });
       arr.sort(function(a, b) {
-        return b.order - a.order;
+        return a.order - b.order;
       });
 
       return arr;
