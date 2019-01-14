@@ -88,7 +88,7 @@
       >
     </div>
     <BottomBar 
-      :replace-menu-code="'9pf8'" 
+      :replace-menu-code="'3o3o'" 
       :replace-mkey="mkey"/>
   </div>
 </template>
