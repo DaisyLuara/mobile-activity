@@ -77,7 +77,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["z"])
+    ...mapGetters(["z", "wexinUrl"])
   },
   mounted() {
     this.fetchTrend();
@@ -95,7 +95,6 @@ export default {
       };
       try {
         let r = await getHdInfo(payload);
-        console.dir(r);
         if (r.data.state === "40035") {
           this.$router.push({
             name: "mSite404"
@@ -114,9 +113,6 @@ export default {
           );
 
           this.actDetail = ractDetail.data.results;
-          document.title = ractDetail.data.results.title;
-          this.infolink = await this.loadPage(this.actDetail.infolink);
-          this.pslink = await this.loadPage(this.actDetail.pslink);
           let wxShareInfoValue = {
             title: this.actDetail.title,
             desc: this.actDetail.aname,
@@ -124,7 +120,7 @@ export default {
             imgUrl: this.actDetail.micon
           };
           if (isInWechat() === true) {
-            $wechat()
+            $wechat(this.wexinUrl)
               .then(res => {
                 res.share(wxShareInfoValue);
               })
@@ -132,6 +128,9 @@ export default {
                 console.warn(err.message);
               });
           }
+          document.title = ractDetail.data.results.title;
+          this.infolink = await this.loadPage(this.actDetail.infolink);
+          this.pslink = await this.loadPage(this.actDetail.pslink);
         }
       } catch (e) {
         console.log(e);

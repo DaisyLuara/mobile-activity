@@ -7,7 +7,10 @@ const getters = {
   },
   lastBarrageTime: state => {
     return state.lastBarrageTime
+  },
+  wexinUrl: state => {
+    return state.weixinUrl
   }
 }
 
-export default getters 
+export default getters
