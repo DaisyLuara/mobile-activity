@@ -1,6 +1,10 @@
 <template>
-  <div :style="root" class="warp">
-    <img :src="base + 'top.png' + this.$qiniuCompress()" class="top">
+  <div 
+    :style="root" 
+    class="warp">
+    <img 
+      :src="base + 'top.png' + this.$qiniuCompress()" 
+      class="top">
     <img
       :src="base + 'shake_left.png' + this.$qiniuCompress()"
       class="shake left animated linear infinite tada"
@@ -11,50 +15,81 @@
     >
     <!-- 勋章-联动-3个节目 -->
     <div class="one">
-      <img :src="base + '2.png' + this.$qiniuCompress()" class="bg">
+      <img 
+        :src="base + '2.png' + this.$qiniuCompress()" 
+        class="bg">
       <!--多级联动通用版-->
       <div class="programs">
         <ul class="ul-list">
-          <li v-for="(item,index) in projects" :key="index" class="list-li">
-            <img :src="item.img" class="notget">
+          <li 
+            v-for="(item,index) in projects" 
+            :key="index" 
+            class="list-li">
+            <img 
+              :src="item.img" 
+              class="notget">
           </li>
         </ul>
       </div>
-      <button class="map-btn" @click="()=>{mask = true;}">
+      <button 
+        class="map-btn" 
+        @click="()=>{mask = true;}">
         <img :src="base + 'button_2.png' + this.$qiniuCompress()">
       </button>
     </div>
     <!-- 图片，相片展示 -->
     <div class="two">
-      <img :src="base + 'flower.png' + this.$qiniuCompress()" class="flower">
-      <img :src="base + 'tree.png' + this.$qiniuCompress()" class="tree">
-      <img :src="photo + this.$qiniuCompress()" class="photo">
-      <img v-show="Boolean(photo)" :src="base + 'arrow.png' + this.$qiniuCompress()" class="arrow">
+      <img 
+        :src="base + 'flower.png' + this.$qiniuCompress()" 
+        class="flower">
+      <img 
+        :src="base + 'tree.png' + this.$qiniuCompress()" 
+        class="tree">
+      <img 
+        :src="photo + this.$qiniuCompress()" 
+        class="photo">
+      <img 
+        v-show="Boolean(photo)" 
+        :src="base + 'arrow.png' + this.$qiniuCompress()" 
+        class="arrow">
       <img
         v-show="Boolean(photo)"
         :src="base + 'prompt.png' + this.$qiniuCompress()"
         class="prompt"
       >
-      <img :src="base + 'tree_2.png' + this.$qiniuCompress()" class="tree2">
+      <img 
+        :src="base + 'tree_2.png' + this.$qiniuCompress()" 
+        class="tree2">
     </div>
 
     <!-- 链接跳转-停车缴费 -->
     <div class="three">
       <a href="http://papi.xingstation.com/api/s/oVz">
-        <img :src="base + 'button.png' + this.$qiniuCompress()" class="link-btn">
+        <img 
+          :src="base + 'button.png' + this.$qiniuCompress()" 
+          class="link-btn">
       </a>
     </div>
-    <img :src="base + 'bottom.png' + this.$qiniuCompress()" class="bottom">
+    <img 
+      :src="base + 'bottom.png' + this.$qiniuCompress()" 
+      class="bottom">
     <!-- mask 遮罩 -->
-    <div v-show="mask" class="mask" @click.self="()=>{mask = false;}">
-      <img :src="base + 'map_top.png'+ this.$qiniuCompress()" class="map-top">`
+    <div 
+      v-show="mask" 
+      class="mask" 
+      @click.self="()=>{mask = false;}">
+      <img 
+        :src="base + 'map_top.png'+ this.$qiniuCompress()" 
+        class="map-top">`
       <img
         :src="base + 'map_m.png'+ this.$qiniuCompress()"
         class="map"
         @click="()=>{mask = true;}"
       >
     </div>
-    <BottomBar :replaceMenuCode="'9pf8'" :replaceMkey="mkey"/>
+    <BottomBar 
+      :replace-menu-code="'9pf8'" 
+      :replace-mkey="mkey"/>
   </div>
 </template>
 <script>
@@ -73,6 +108,10 @@ export default {
   components: {
     BottomBar
   },
+  components: {
+    BottomBar
+  },
+  mixins: [normalPages],
   mixins: [normalPages],
   props: {
     linkData: {
@@ -80,10 +119,6 @@ export default {
       required: true
     }
   },
-  components: {
-    BottomBar
-  },
-  mixins: [normalPages],
   data() {
     return {
       base: CDNURL + "/fe/image/peter/",

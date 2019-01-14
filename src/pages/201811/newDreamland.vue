@@ -1,13 +1,26 @@
 <template>
-  <div :style="style.root" class="root">
+  <div 
+    :style="style.root" 
+    class="root">
     <!-- 遮罩 -->
-    <div v-show="showImg" class="shade" @click="go">
-      <img :src="baseUrl + 'hua.png'+ this.$qiniuCompress()" class="hua">
-      <img :src="baseUrl + 'tip.png'+ this.$qiniuCompress()" class="tip">
+    <div 
+      v-show="showImg" 
+      class="shade" 
+      @click="go">
+      <img 
+        :src="baseUrl + 'hua.png'+ this.$qiniuCompress()" 
+        class="hua">
+      <img 
+        :src="baseUrl + 'tip.png'+ this.$qiniuCompress()" 
+        class="tip">
     </div>
     <!-- 内容 -->
-    <div v-show="contentShow" class="content">
-      <img :src="baseUrl + 'huaban.png'+ this.$qiniuCompress()" class="huaban">
+    <div 
+      v-show="contentShow" 
+      class="content">
+      <img 
+        :src="baseUrl + 'huaban.png'+ this.$qiniuCompress()" 
+        class="huaban">
       <div id="main"/>
       <img
         id="test"
@@ -16,14 +29,19 @@
         alt
         class="photoImg"
       >
-      <canvas id="canvas" class="photoImg" style="display: none"/>
+      <canvas 
+        id="canvas" 
+        class="photoImg" 
+        style="display: none"/>
       <img
         :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
         :class="{'x-save':iphoneX,'save':!iphoneX}"
         class="save"
       >
     </div>
-    <BottomBar :replaceMenuCode="'9pf8'" :replaceMkey="mkey"/>
+    <BottomBar 
+      :replace-menu-code="'9pf8'" 
+      :replace-mkey="mkey"/>
   </div>
 </template>
 <script>
