@@ -1,13 +1,18 @@
 <template>
   <div class="wallet">
-    <img class="bg" src="https://cdn.exe666.com/fe/image/m/wallet-no-bg.jpeg">
+    <img 
+      class="bg" 
+      src="https://cdn.exe666.com/fe/image/m/wallet-no-bg.jpeg">
     
     <img
       v-if="loginState.gender === '1'"
       class="xo"
       src="https://cdn.exe666.com/fe/image/m/wallet-no-xo.png"
     >
-    <img v-else class="xo" src="https://cdn.exe666.com/fe/image/m/wallet-no-xo-boy.png">
+    <img 
+      v-else 
+      class="xo" 
+      src="https://cdn.exe666.com/fe/image/m/wallet-no-xo-boy.png">
 
     <div class="icon">
       <img :src="currentIcon">
@@ -30,12 +35,6 @@ export default {
       clicked: false
     };
   },
-  created() {
-    this.fetchMyData();
-  },
-  beforeDestroy() {
-    clearInterval(this.itv);
-  },
   computed: {
     ...mapGetters(["z", "loginState"]),
     currentP() {
@@ -51,6 +50,12 @@ export default {
       let n = this.resData[this.currentP].icon;
       return n;
     }
+  },
+  created() {
+    this.fetchMyData();
+  },
+  beforeDestroy() {
+    clearInterval(this.itv);
   },
   methods: {
     handleClick() {

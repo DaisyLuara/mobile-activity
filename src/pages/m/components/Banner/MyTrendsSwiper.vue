@@ -1,5 +1,7 @@
 <template>
-  <div v-if="imgUrls.length > 0" class="mts">
+  <div 
+    v-if="imgUrls.length > 0" 
+    class="mts">
     <!-- fuck  vue-awesome-swiper-->
     <!-- <swiper 
       ref="mySwiper" 
@@ -17,13 +19,18 @@
         slot="pagination" 
         class="swiper-pagination"/>
     </swiper>-->
-    <md-swiper ref="swiper" class="swiper" :is-prevent="false">
+    <md-swiper 
+      ref="swiper" 
+      :is-prevent="false" 
+      class="swiper">
       <md-swiper-item
-        :key="$index"
         v-for="(item, $index) in imgUrls"
+        :key="$index"
         @click.native="handlePhotoClick(item)"
       >
-        <img :src="item.image" class="slide-pic">
+        <img 
+          :src="item.image" 
+          class="slide-pic">
       </md-swiper-item>
     </md-swiper>
   </div>

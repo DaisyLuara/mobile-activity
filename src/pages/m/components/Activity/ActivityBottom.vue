@@ -1,7 +1,12 @@
 <template>
   <div class="activity-bottom">
-    <div class="progress" @click="naviGateToAct">{{ buttonText }}</div>
-    <div v-if="isAllow === '1'" class="award" @click="awardIn">立即报名</div>
+    <div 
+      class="progress" 
+      @click="naviGateToAct">{{ buttonText }}</div>
+    <div 
+      v-if="isAllow === '1'" 
+      class="award" 
+      @click="awardIn">立即报名</div>
   </div>
 </template>
 
@@ -10,6 +15,40 @@ import { Toast } from "mint-ui";
 import { inShopActivityAward } from "services";
 import { mapGetters } from "vuex";
 export default {
+  props: {
+    acid: {
+      type: String,
+      default: "",
+      requried: true
+    },
+    acttype: {
+      type: String,
+      default: "",
+      requried: true
+    },
+    awardkey: {
+      type: String,
+      default: "",
+      requried: true
+    },
+    isAllow: {
+      type: String,
+      default: "0",
+      requried: true
+    },
+    xinfo: {
+      type: Object,
+      default: () => {
+        bid: "";
+      },
+      required: false
+    },
+    tabs: {
+      type: String,
+      default: "",
+      requried: false
+    }
+  },
   data() {
     return {
       nameMap: {
@@ -34,38 +73,6 @@ export default {
       return "查看活动进度";
     }
   },
-  props: {
-    acid: {
-      type: String,
-      default: "",
-      requried: true
-    },
-    acttype: {
-      type: String,
-      default: "",
-      requried: true
-    },
-    awardkey: {
-      type: String,
-      default: "",
-      requried: true
-    },
-    isAllow: {
-      type: String,
-      default: "0",
-      requried: true
-    },
-    xinfo: {
-      type: Object,
-      defualt: null,
-      required: false
-    },
-    tabs: {
-      type: String,
-      defualt: undefined,
-      requried: false
-    }
-  },
   methods: {
     naviGateToAct() {
       console.log(this.nameMap["alltop"]);
@@ -73,7 +80,7 @@ export default {
         return;
       }
       let bid = null;
-      if (this.xinfo !== null) {
+      if (this.xinfo.bid !== "") {
         bid = this.xinfo.bid;
       }
       let query = {
@@ -81,7 +88,7 @@ export default {
         awardkey: this.awardkey,
         bid: bid
       };
-      if (this.tabs !== undefined && this.tabs !== null) {
+      if (this.tabs !== undefined && this.tabs !== null && this.tabs !== "") {
         query.tabs = this.tabs;
       }
       this.$router.push({

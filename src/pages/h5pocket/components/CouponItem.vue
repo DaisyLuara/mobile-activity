@@ -12,13 +12,18 @@
 </template>
 
 <script>
+/* eslint-disable */
 export default {
   props: {
     couponData: {
       type: Object,
       default: {
         id: null,
-        image_url: ""
+        code: "",
+        image_url: "",
+        couponBatch: {
+          image_url: ""
+        }
       },
       required: true
     },
