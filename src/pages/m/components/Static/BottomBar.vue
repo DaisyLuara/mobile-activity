@@ -1,20 +1,23 @@
 // 底部的按钮
 <template>
-  <div 
-    v-if="shouldMenuShow" 
-    class="btb">
+  <div
+    v-if="shouldMenuShow"
+    class="btb"
+  >
     <div
       v-for="(item, index) in menuCode"
       :key="index"
       class="bitem"
       @click="handleMenuClick(routes[item.index])"
     >
-      <img 
-        v-if="currentRoute !== routes[item.index]" 
-        :src="labelImg[item.index]">
-      <img 
-        v-if="currentRoute === routes[item.index]" 
-        :src="labelImgPressed[item.index]">
+      <img
+        v-if="currentRoute !== routes[item.index]"
+        :src="labelImg[item.index]"
+      >
+      <img
+        v-if="currentRoute === routes[item.index]"
+        :src="labelImgPressed[item.index]"
+      >
       <span>{{ labels[item.index] }}</span>
     </div>
   </div>
@@ -74,7 +77,8 @@ export default {
         "new_red",
         "new_yellow",
         "lkf",
-        "newDreamland"
+        "newDreamland",
+        'happy_newYearTwo'
       ],
       labels: ["照片", "活动", "弹幕", "商城", "卡包", "我的"],
       routes: [
@@ -109,7 +113,7 @@ export default {
           });
         }
       });
-      arr.sort(function(a, b) {
+      arr.sort(function (a, b) {
         return a.order - b.order;
       });
 
