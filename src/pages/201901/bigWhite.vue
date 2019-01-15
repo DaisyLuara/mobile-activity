@@ -12,7 +12,7 @@
           :src="base + '1.png'"
           class="note"
         >
-        <div class="time">{{s}}:{{m}}</div>
+        <div class="time">{{ s }}:{{ m }}</div>
       </div>
       <img
         v-show="!have"
@@ -40,7 +40,7 @@
   </div>
 </template>
 <script>
-import { } from 'services'
+import { $wechat, isInWechat, wechatShareTrack } from 'services'
 import { normalPages } from '@/mixins/normalPages'
 const CDN_URL = process.env.CDN_URL
 export default {
