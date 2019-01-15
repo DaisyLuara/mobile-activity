@@ -59,9 +59,9 @@ export default {
       id: this.$route.query.id,
       //微信分享
       wxShareInfoValue: {
-        title: '',
-        desc: '',
-        link: '' + window.location.search,
+        title: '大白兔60周年',
+        desc: '互动有礼，周年庆小礼物',
+        link: 'http://papi.xingstation.com/api/s/w0J' + window.location.search,
         imgUrl: CDN_URL + '/fe/image/bigwhite/icon.png'
       }
     }

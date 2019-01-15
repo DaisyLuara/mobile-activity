@@ -147,7 +147,7 @@ const Date201901 = [
     location: '201901/bigWhite',
     name: 'big_white',
     meta: {
-      title: '大白兔奶糖',
+      title: '大白兔',
       author: 'lipan',
       desc: '大白兔奶糖'
     },
