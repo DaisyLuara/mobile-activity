@@ -67,13 +67,12 @@ export default {
     }
   },
   mounted() {
-    this.drawing()
     console.log(this.base64Data)
   },
   methods: {
     //获取随机数图片
     rnd(n, m) {
-      var random = Math.floor(Math.random() * (m - n + 1) + n);
+      let random = Math.floor(Math.random() * (m - n + 1) + n);
       return random;
     },
     //合成文字
@@ -121,10 +120,8 @@ export default {
       // let url =
       //   'https://cdn.exe666.com/fe/marketing/img/open_pig/666.png'
       let imgUrl = 'https://cdn.exe666.com/fe/marketing/img/open_pig/' + this.fanpaths[this.type]
-      console.log(imgUrl)
       let imgUrl2 = 'https://cdn.exe666.com/fe/marketing/img/open_pig/t.png'
       let imgUrl3 = 'https://cdn.exe666.com/fe/marketing/img/open_pig/' + this.rnd(1, this.paths.length) + '.png'
-      console.log(imgUrl3)
       mc.background('https://cdn.exe666.com/fe/marketing/img/open_pig/bg3.png', {
         left: '0%',
         top: '0%',

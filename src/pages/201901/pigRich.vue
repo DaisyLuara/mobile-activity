@@ -3,6 +3,26 @@
     :style="style.root"
     class="root"
   >
+    <div class="content">
+      <img
+        :src="baseUrl + '1.png'+ this.$qiniuCompress()"
+        class="topImg"
+      >
+      <img
+        :src="baseUrl + '2.png'+ this.$qiniuCompress()"
+        class="frame"
+      >
+      <img
+        v-if="photo !== null"
+        :src="photo + this.$qiniuCompress()"
+        class="photo"
+      >
+    </div>
+
+    <img
+      :src="baseUrl + '3.png'+ this.$qiniuCompress()"
+      class="save"
+    >
   </div>
 </template>
 <script>
@@ -22,7 +42,7 @@ export default {
       wxShareInfoValue: {
         title: "新年发发发，好运带回家！",
         desc: "星视度祝您新年快乐！",
-        link: "http://papi.xingstation.com/api/s/RlL" + window.location.search,
+        link: "http://papi.xingstation.com/api/s/x6J" + window.location.search,
         imgUrl: cdnUrl + "/fe/marketing/img/pig_rich/icon.jpg"
       }
     };
@@ -54,7 +74,7 @@ img {
 .root {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: center;
   position: relative;
   overflow: hidden;
@@ -62,16 +82,35 @@ img {
   background-size: 100% auto;
   background-position: center bottom;
   background-repeat: no-repeat;
-}
-@keyframes arrow {
-  0% {
-    transform: translateY(-5px);
+  .content {
+    position: relative;
+    pointer-events: none;
+    user-select: none;
+    .topImg {
+      width: 90%;
+      margin-top: 2%;
+    }
+    .frame {
+      width: 56%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .photo {
+      width: 54%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: auto;
+      user-select: auto;
+    }
   }
-  50% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(5px);
+  .save {
+    width: 60%;
+    position: relative;
+    margin-top: -7%;
   }
 }
 </style>
