@@ -8,7 +8,7 @@ const getters = {
   lastBarrageTime: state => {
     return state.lastBarrageTime
   },
-  wexinUrl: state => {
+  weixinUrl: state => {
     return state.weixinUrl
   }
 }

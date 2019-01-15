@@ -30,7 +30,7 @@
           :src="item.face" 
           class="avatar">
         <div class="info-more">
-          <span class="yz">{{my.tabs}}: {{ item.value }} 分</span>
+          <span class="yz">{{ my.tabs }}: {{ item.value }} 分</span>
           <span class="date">{{ computedDate(item.clientdate) }}</span>
         </div>
       </div>
