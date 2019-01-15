@@ -72,7 +72,7 @@ export default {
   methods: {
     //获取随机数图片
     rnd(n, m) {
-      var random = Math.floor(Math.random() * (m - n + 1) + n);
+      let random = Math.floor(Math.random() * (m - n + 1) + n);
       return random;
     },
     //合成文字

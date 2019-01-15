@@ -42,7 +42,7 @@ export default {
       wxShareInfoValue: {
         title: "新年发发发，好运带回家！",
         desc: "星视度祝您新年快乐！",
-        link: "http://papi.xingstation.com/api/s/RlL" + window.location.search,
+        link: "http://papi.xingstation.com/api/s/x6J" + window.location.search,
         imgUrl: cdnUrl + "/fe/marketing/img/pig_rich/icon.jpg"
       }
     };
