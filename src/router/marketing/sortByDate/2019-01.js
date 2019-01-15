@@ -174,6 +174,28 @@ const Date201901 = [
       desc: '万达导视(仓山店)'
     },
     isAbandoned: false
+  },
+  {
+    path: 'open_pig',
+    location: '201901/openPig',
+    name: 'open_pig',
+    meta: {
+      title: '金猪送福',
+      author: 'xj1012',
+      desc: '开金猪'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'pig_rich',
+    location: '201901/pigRich',
+    name: 'pig_rich',
+    meta: {
+      title: '星视度',
+      author: 'xj1012',
+      desc: '猪年发大财'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201901
