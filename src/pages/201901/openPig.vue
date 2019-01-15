@@ -44,20 +44,14 @@ export default {
           height: this.$innerHeight() + 'px'
         }
       },
-      showImg: true,
-      contentShow: false,
-      peopleID: null,
+      type: this.$route.query.type,
       iphoneX: false,
       base64Data: null,
       paths: [
-        {
-          scope: 6,
-          paths: ['1.png', '2.png', '3.png', '4.png', '5.png']
-        },
-        {
-          scope: 12,
-          paths: ['fan1.png', 'fan2.png', 'fan3.png', 'fan4.png']
-        }
+        '1.png', '2.png', '3.png', '4.png', '5.png'
+      ],
+      fanpaths: [
+        'fan1.png', 'fan2.png', 'fan3.png', 'fan4.png'
       ],
       wxShareInfoValue: {
         title: '幻境奇缘',
@@ -67,31 +61,21 @@ export default {
       }
     }
   },
-  // watch: {
-  //   parms() {
-  //     this.peopleID = this.parms.peopleID
-  //     this.drawing()
-  //   }
-  // },
+  watch: {
+    parms() {
+      this.type = this.parms.type
+      this.drawing()
+    }
+  },
   mounted() {
-    this.drawing()
+    // this.drawing()
     console.log(this.base64Data)
   },
   methods: {
     //获取随机数图片
-    randomImg(peopleID) {
-      let that = this
-      let path = ''
-      for (let i = 0; i < that.paths.length; i++) {
-        if (peopleID <= that.paths[i].scope) {
-          path =
-            that.paths[i].paths[
-            Math.floor(Math.random() * that.paths[i].paths.length)
-            ]
-          break
-        }
-      }
-      return path
+    rnd(n, m) {
+      var random = Math.floor(Math.random() * (m - n + 1) + n);
+      return random;
     },
     //合成文字
     drawingText() {
@@ -101,14 +85,15 @@ export default {
       let height = this.$innerHeight()
       let width = this.$innerWidth()
       // let text = this.text
-      let text = '450'
+      let text = this.rnd(50, 1000)
+      console.log(text)
       image.src = this.base64Data
       image.onload = function () {
         canvas.width = image.width
         canvas.height = image.height
         ctx.drawImage(image, 0, 0, image.width, image.height)
         let x = image.width * 0.57
-        let y = image.height * 0.23
+        let y = image.height * 0.28
         ctx.font = '400 72px "MatrixCode"'
         ctx.textAlign = 'center'
         ctx.fillStyle = '#000'
@@ -125,7 +110,7 @@ export default {
     //合成图片
     drawing() {
       let width = this.$innerWidth()
-      let height = (this.$innerWidth() / 1080) * 1800
+      let height = (this.$innerWidth() / 1080) * 2000
       let that = this
       let backgroundColor = 'white'
       let mc = new MC({
@@ -133,13 +118,15 @@ export default {
         height,
         backgroundColor
       })
-      //let url = that.photo + that.$qiniuCompress()
-      let url =
-        'https://cdn.exe666.com/fe/marketing/img/open_pig/666.png'
-      let imgUrl = 'https://cdn.exe666.com/fe/marketing/img/open_pig/fan4.png'
+      let url = that.photo + that.$qiniuCompress()
+      // let url =
+      //   'https://cdn.exe666.com/fe/marketing/img/open_pig/666.png'
+      let imgUrl = 'https://cdn.exe666.com/fe/marketing/img/open_pig/' + this.fanpaths[this.type]
+      console.log(imgUrl)
       let imgUrl2 = 'https://cdn.exe666.com/fe/marketing/img/open_pig/t.png'
-      let imgUrl3 = 'https://cdn.exe666.com/fe/marketing/img/open_pig/4.png'
-      mc.background('https://cdn.exe666.com/fe/marketing/img/open_pig/bg.png', {
+      let imgUrl3 = 'https://cdn.exe666.com/fe/marketing/img/open_pig/' + this.rnd(1, this.paths.length) + '.png'
+      console.log(imgUrl3)
+      mc.background('https://cdn.exe666.com/fe/marketing/img/open_pig/bg3.png', {
         left: '0%',
         top: '0%',
         type: 'origin',
@@ -153,35 +140,35 @@ export default {
           width: '50%',
           pos: {
             x: '28%',
-            y: '35%'
+            y: '40%'
           }
         })
         .add(that.baseUrl + 'ka.png', {
           width: '86%',
           pos: {
             x: '7%',
-            y: '2%'
+            y: '5%'
           }
         })
         .add(imgUrl, {
-          width: '50%',
+          width: '55%',
           pos: {
-            x: '25%',
-            y: '10%'
+            x: '22.5%',
+            y: '13%'
           }
         })
         .add(imgUrl2, {
-          width: '50%',
+          width: '48%',
           pos: {
-            x: '25%',
-            y: '20.5%'
+            x: '27%',
+            y: '25.5%'
           }
         })
         .add(imgUrl3, {
           width: '50%',
           pos: {
             x: '25%',
-            y: '25%'
+            y: '31%'
           }
         })
         .draw({
@@ -195,9 +182,6 @@ export default {
           success(b64) {
             that.base64Data = b64
             that.drawingText()
-            // let url = canvas.toDataURL('image/png')
-            // let img = document.getElementById('test')
-            // img.src = url
           },
           // 错误回调；
           error(err) {
@@ -214,7 +198,7 @@ export default {
 /*声明 WebFont*/
 @font-face {
   font-family: "MatrixCode";
-  src: url("http://cdn.exe666.com/fe/marketing/img/open_pig/3.ttf");
+  src: url("http://cdn.exe666.com/fe/marketing/img/open_pig/jinhei.TTF");
   font-weight: normal;
   font-style: normal;
 }
@@ -265,8 +249,8 @@ img {
     .save {
       width: 60%;
       position: relative;
-      margin-top: -65%;
-      // animation: arrow 0.8s linear infinite alternate;
+      margin-top: -45%;
+      animation: arrow 0.8s linear infinite alternate;
     }
   }
 }
