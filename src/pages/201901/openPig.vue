@@ -67,7 +67,7 @@ export default {
     }
   },
   mounted() {
-    // this.drawing()
+    this.drawing()
     console.log(this.base64Data)
   },
   methods: {
