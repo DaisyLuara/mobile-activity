@@ -55,7 +55,7 @@ const $wechat = weixin_url => {
     if (weixin_url && isiOS) {
       params = {
         params: {
-          weixin_url: weixin_url
+          weixin_url: encodeURIComponent(weixin_url.split('#')[0])
         }
       }
     }
