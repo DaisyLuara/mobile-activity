@@ -141,6 +141,17 @@ const Date201901 = [
       desc: '万达导视(仓山店)'
     },
     isAbandoned: false
+  },
+  {
+    path: 'happy_newYearTwo',
+    location: '201901/newYearTwo',
+    name: 'happy_newYearTwo',
+    meta: {
+      title: '过年啦',
+      author: 'xj1012',
+      desc: '新年快乐-通用版(new)'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201901
