@@ -53,9 +53,9 @@ export default {
         'fan1.png', 'fan2.png', 'fan3.png', 'fan4.png'
       ],
       wxShareInfoValue: {
-        title: '幻境奇缘',
-        desc: '揭开你的身世之谜！',
-        link: 'http://papi.xingstation.com/api/s/PZn' + window.location.search,
+        title: '送你一张饭票，祝你诸事顺利',
+        desc: '金猪送福，即刻领取',
+        link: 'http://papi.xingstation.com/api/s/vQV' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/open_pig/icon.png'
       }
     }

@@ -119,6 +119,17 @@ const Date201901 = [
       desc: '开金猪'
     },
     isAbandoned: false
+  },
+  {
+    path: 'pig_rich',
+    location: '201901/pigRich',
+    name: 'pig_rich',
+    meta: {
+      title: '星视度',
+      author: 'xj1012',
+      desc: '猪年发大财'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201901
