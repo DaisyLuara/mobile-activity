@@ -11,7 +11,7 @@
           :src="myData.face" 
           class="avatar">
         <div class="info-more">
-          <span class="yz">{{ computedLabelName }}: {{ myData.value }} 分</span>
+          <span class="yz">{{ my.tabs }}: {{ myData.value }} 分</span>
           <span class="date">{{ computedDate(myData.clientdate) }}</span>
         </div>
       </div>
@@ -64,7 +64,9 @@ export default {
   data() {
     return {
       resData: [],
-      my: {}
+      my: {
+        tabs: "颜值"
+      }
     };
   },
   computed: {
@@ -75,14 +77,6 @@ export default {
       } else {
         return null;
       }
-    },
-    computedLabelName() {
-      let { tabs } = this.$route.query;
-      let name = "颜值";
-      if (tabs !== undefined) {
-        name = tabs;
-      }
-      return name;
     }
   },
   mounted() {
