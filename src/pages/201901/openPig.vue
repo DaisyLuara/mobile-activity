@@ -3,7 +3,6 @@
     :style="style.root"
     class="root"
   >
-    <p>450</p>
     <!-- 内容 -->
     <div class="content">
       <img
