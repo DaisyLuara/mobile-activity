@@ -141,6 +141,17 @@ const Date201901 = [
       desc: '万达导视(仓山店)'
     },
     isAbandoned: false
+  },
+  {
+    path: 'big_white',
+    location: '201901/bigWhite',
+    name: 'big_white',
+    meta: {
+      title: '大白兔奶糖',
+      author: 'lipan',
+      desc: '大白兔奶糖'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201901
