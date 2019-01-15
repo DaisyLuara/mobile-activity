@@ -67,6 +67,9 @@ export default {
     }
   },
   mounted() {
+    if (process.env.NODE_ENV === 'testing') {
+      this.wxShareInfoValue.link = 'http://papi.newgls.cn/api/s/jq5' + window.location.search
+    }
     this.checkLocal()
     this.checkTime()
   },
