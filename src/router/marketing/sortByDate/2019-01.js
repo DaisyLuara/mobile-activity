@@ -176,6 +176,17 @@ const Date201901 = [
     isAbandoned: false
   },
   {
+    path: 'big_white',
+    location: '201901/bigWhite',
+    name: 'big_white',
+    meta: {
+      title: '大白兔',
+      author: 'lipan',
+      desc: '大白兔60周年'
+    },
+    isAbandoned: false
+  },
+  {
     path: 'open_pig',
     location: '201901/openPig',
     name: 'open_pig',
