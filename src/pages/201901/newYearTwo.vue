@@ -50,7 +50,6 @@ export default {
         }
       },
       mkey: "y6541h00",
-      iphoneX: false,
       wxShareInfoValue: {
         title: "亲爱的，新年快乐!",
         desc: "猪年大吉，猪事顺利",
