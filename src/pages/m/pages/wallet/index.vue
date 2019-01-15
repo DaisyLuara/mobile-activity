@@ -19,7 +19,7 @@
         v-if="currentIcon !== ''" 
         :src="currentIcon">
     </div>
-    <div class="fuli">福利</div>
+    <div class="fuli" v-if="resData.length !== 0">福利</div>
   </div>
 </template>
 
