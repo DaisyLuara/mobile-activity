@@ -51,11 +51,16 @@ const $wechat = weixin_url => {
   return new Promise((resolve, reject) => {
     let requestUrl = process.env.WX_API + '/wx/officialAccount/sign'
     // 仅iOS设备需要传入
+    let params = {}
     if (weixin_url && isiOS) {
-      requestUrl = requestUrl + '?weixin_url=' + weixin_url
+      params = {
+        params: {
+          weixin_url: weixin_url
+        }
+      }
     }
     axios
-      .get(requestUrl)
+      .get(requestUrl, params)
       .then(response => {
         // sign返回格式
         let r = response.data.data
