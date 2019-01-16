@@ -43,7 +43,8 @@ export default {
           height: this.$innerHeight() + 'px'
         }
       },
-      type: this.$route.query.type,
+      //type: this.$route.query.type,
+      type: null,
       iphoneX: false,
       base64Data: null,
       paths: [
