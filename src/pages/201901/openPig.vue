@@ -43,7 +43,7 @@ export default {
           height: this.$innerHeight() + 'px'
         }
       },
-      type: this.$route.query.type,
+      type: null,
       iphoneX: false,
       base64Data: null,
       paths: [
@@ -67,6 +67,9 @@ export default {
     }
   },
   mounted() {
+    if (process.env.NODE_ENV === 'testing') {
+      this.type = this.$route.query.type
+    }
     console.log(this.base64Data)
   },
   methods: {
