@@ -70,32 +70,38 @@ export default {
     if (process.env.NODE_ENV === 'testing') {
       this.wxShareInfoValue.link = 'http://papi.newgls.cn/api/s/jq5' + window.location.search
     }
+
     this.checkLocal()
     this.checkTime()
   },
   methods: {
     checkLocal() {
-      let key = 'rabbit' + this.id
-      if (window.localStorage.getItem(key)) {
-        let time = window.localStorage.getItem(key)
-        let s = time.split(':')[0]
-        let m = time.split(':')[1]
-        this.s = s
-        this.m = m
+      if (window.localStorage.getItem(this.id)) {
+        let start = window.localStorage.getItem(this.id)
+        let now = new Date().getTime()
+        if ((now - start) >= 5 * 60 * 1000) {
+          this.have = false
+          this.s = 0
+          this.m = 0
+        } else {
+          let s = 4 - Math.floor((now - start) / (1000 * 60))
+          let m = 60 - Math.floor((now - start) / 1000 % 60)
+          this.s = s < 0 ? 0 : s
+          this.m = m < 0 ? 0 : (m < 10 ? '0' + m : m)
+        }
       } else {
-        window.localStorage.setItem(key, '5:00')
+        let date = new Date().getTime()
+        window.localStorage.setItem(this.id, date)
       }
     },
     checkTime() {
       let that = this
-      let key = 'rabbit' + this.id
       let timer = setInterval(function () {
         if (that.s == 0 && that.m == 0) {
           clearInterval(timer)
           that.have = false
         } else {
           that.startTime(that.s, that.m)
-          window.localStorage.setItem(key, that.s + ':' + that.m)
         }
       }, 1000)
     },
@@ -184,6 +190,8 @@ a {
       border-bottom: solid 9px #0071bf;
       border-left: solid 7px #0071bf;
       border-right: solid 7px #0071bf;
+      pointer-events: auto;
+      user-select: auto;
     }
     .save {
       width: 9%;
