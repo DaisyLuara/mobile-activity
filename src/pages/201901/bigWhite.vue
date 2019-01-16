@@ -5,7 +5,7 @@
   >
     <div class="main">
       <div
-        v-show="have"
+        v-if="have"
         class="one"
       >
         <img
@@ -15,7 +15,7 @@
         <div class="time">{{ s }}:{{ m }}</div>
       </div>
       <img
-        v-show="!have"
+        v-else
         :src="base + '2.png'"
         class="note"
       >
@@ -53,7 +53,7 @@ export default {
           'min-height': this.$innerHeight() + 'px'
         }
       },
-      have: true,
+      have: false,
       s: 5,
       m: '00',
       id: this.$route.query.id,
@@ -66,36 +66,50 @@ export default {
       }
     }
   },
+  created() {
+
+  },
   mounted() {
     if (process.env.NODE_ENV === 'testing') {
       this.wxShareInfoValue.link = 'http://papi.newgls.cn/api/s/jq5' + window.location.search
     }
-    this.checkLocal()
-    this.checkTime()
+    if (window.localStorage.getItem('rabbit' + this.id)) {
+      this.have = window.localStorage.getItem('rabbit' + this.id)
+    } else {
+      let date = new Date().getTime()
+      let r = Math.random()
+      this.have = r > 0.75 ? true : false
+      window.localStorage.setItem('rabbit' + this.id, this.have)
+      window.localStorage.setItem(this.id, date)
+    }
+    if (!this.have) {
+      return
+    } else {
+      this.checkLocal()
+      this.checkTime()
+    }
   },
   methods: {
     checkLocal() {
-      let key = 'rabbit' + this.id
-      if (window.localStorage.getItem(key)) {
-        let time = window.localStorage.getItem(key)
-        let s = time.split(':')[0]
-        let m = time.split(':')[1]
-        this.s = s
-        this.m = m
+      let start = window.localStorage.getItem(this.id)
+      let now = new Date().getTime()
+      if ((now - start) >= 5 * 60 * 1000) {
+        this.s = 0
+        this.m = '00'
       } else {
-        window.localStorage.setItem(key, '5:00')
+        let s = 4 - Math.floor((now - start) / (1000 * 60))
+        let m = 60 - Math.floor((now - start) / 1000 % 60)
+        this.s = s < 0 ? 0 : s
+        this.m = m < 0 ? 0 : (m < 10 ? '0' + m : m)
       }
     },
     checkTime() {
       let that = this
-      let key = 'rabbit' + this.id
       let timer = setInterval(function () {
-        if (that.s == 0 && that.m == 0) {
+        if (that.s == 0 && that.m == '00') {
           clearInterval(timer)
-          that.have = false
         } else {
           that.startTime(that.s, that.m)
-          window.localStorage.setItem(key, that.s + ':' + that.m)
         }
       }, 1000)
     },
@@ -184,6 +198,8 @@ a {
       border-bottom: solid 9px #0071bf;
       border-left: solid 7px #0071bf;
       border-right: solid 7px #0071bf;
+      pointer-events: auto;
+      user-select: auto;
     }
     .save {
       width: 9%;
