@@ -78,7 +78,7 @@ img {
   align-items: center;
   position: relative;
   overflow: hidden;
-  background-image: url("@{imageHost}4.png");
+  background-image: url("@{imageHost}bg.png");
   background-size: 100% auto;
   background-position: center bottom;
   background-repeat: no-repeat;
