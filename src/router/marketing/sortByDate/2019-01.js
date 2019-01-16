@@ -174,6 +174,39 @@ const Date201901 = [
       desc: '猪年发大财'
     },
     isAbandoned: false
+  },
+  {
+    path: 'flavor',
+    location: '201901/flavor',
+    name: 'flavor',
+    meta: {
+      title: '风味上海',
+      author: 'xj1012',
+      desc: '凯德年会-风味上海'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'newYear_kd',
+    location: '201901/newYearKd',
+    name: 'newYear_kd',
+    meta: {
+      title: '过年啦',
+      author: 'xj1012',
+      desc: '凯德年会-过年啦'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'dreamland_kd',
+    location: '201901/dreamlandKd',
+    name: 'dreamland_kd',
+    meta: {
+      title: '幻境',
+      author: 'xj1012',
+      desc: '凯德年会-幻境'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201901
