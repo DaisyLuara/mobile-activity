@@ -67,10 +67,6 @@ export default {
     }
   },
   mounted() {
-    if (process.env.NODE_ENV === 'testing') {
-      this.type = this.$route.query.type
-      this.drawing()
-    }
     console.log(this.base64Data)
   },
   methods: {
