@@ -5,7 +5,7 @@
   >
     <div class="main">
       <div
-        v-if="have"
+        v-show="ishave"
         class="one"
       >
         <img
@@ -15,12 +15,12 @@
         <div class="time">{{ s }}:{{ m }}</div>
       </div>
       <img
-        v-else
+        v-show="!ishave"
         :src="base + '2.png'"
         class="note"
       >
       <img
-        :src="photo"
+        :src="photo + this.$qiniuCompress()"
         class="photo"
       >
       <img
@@ -53,7 +53,8 @@ export default {
           'min-height': this.$innerHeight() + 'px'
         }
       },
-      have: false,
+      ishave: false,
+      arr: [false, false, false, true],
       s: 5,
       m: '00',
       id: this.$route.query.id,
@@ -67,29 +68,40 @@ export default {
     }
   },
   created() {
-
   },
   mounted() {
     if (process.env.NODE_ENV === 'testing') {
       this.wxShareInfoValue.link = 'http://papi.newgls.cn/api/s/jq5' + window.location.search
     }
-    if (window.localStorage.getItem('rabbit' + this.id)) {
-      this.have = window.localStorage.getItem('rabbit' + this.id)
-    } else {
-      let date = new Date().getTime()
-      let r = Math.random()
-      this.have = r > 0.75 ? true : false
-      window.localStorage.setItem('rabbit' + this.id, this.have)
-      window.localStorage.setItem(this.id, date)
-    }
-    if (!this.have) {
-      return
-    } else {
-      this.checkLocal()
-      this.checkTime()
-    }
+    this.getHave()
   },
   methods: {
+    getHave() {
+      let isCheck = 'rabbit' + this.id
+      let that = this
+      let date = new Date().getTime()
+      // let r = Math.round(Math.random() * 3)
+      let r = Math.random()
+      if (window.localStorage.getItem(isCheck)) {
+        that.ishave = window.localStorage.getItem(isCheck) === 'false' ? false : true
+        that.haveOrNot()
+      } else {
+        // that.ishave = that.arr[r]
+        that.ishave = r <= 0.25 ? true : false
+        window.localStorage.setItem(isCheck, this.ishave)
+        window.localStorage.setItem(this.id, date)
+        that.haveOrNot()
+      }
+
+    },
+    haveOrNot() {
+      let con = this.ishave
+      if (con == true) {
+        this.checkLocal()
+        this.checkTime()
+        return
+      }
+    },
     checkLocal() {
       let start = window.localStorage.getItem(this.id)
       let now = new Date().getTime()
