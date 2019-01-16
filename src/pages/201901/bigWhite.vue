@@ -20,7 +20,7 @@
         class="note"
       >
       <img
-        :src="photo"
+        :src="photo + this.$qiniuCompress()"
         class="photo"
       >
       <img
