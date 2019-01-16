@@ -138,7 +138,7 @@ export default {
       let imgUrl = null
       imgUrl = that.baseUrl + that.randomImg(that.peopleID)
       console.log(imgUrl)
-      mc.background(that.baseUrl + 'bg4.png', {
+      mc.background(that.baseUrl + 'bg_kd.png', {
         left: 0,
         top: 0,
         type: 'origin',
@@ -239,7 +239,7 @@ img {
     height: 100%;
     position: relative;
     overflow: hidden;
-    background-image: url("@{imageHost}bg.png");
+    background-image: url("@{imageHost}bgkd.png");
     background-size: 100% auto;
     background-position: center top;
     background-repeat: no-repeat;
