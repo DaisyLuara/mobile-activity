@@ -5,36 +5,36 @@
   >
     <div class="main">
       <div
-        v-if="have"
+        v-show="ishave"
         class="one"
       >
         <img
-          :src="base + '1.png'"
+          :src="base + '11.png' + this.$qiniuCompress()"
           class="note"
         >
         <div class="time">{{ s }}:{{ m }}</div>
       </div>
       <img
-        v-else
-        :src="base + '2.png'"
+        v-show="!ishave"
+        :src="base + '2.png' + this.$qiniuCompress()"
         class="note"
       >
       <img
-        :src="photo"
+        :src="photo + this.$qiniuCompress()"
         class="photo"
       >
       <img
-        :src="base + 'save.png'"
+        :src="base + 'save.png' + this.$qiniuCompress()"
         class="save"
       >
       <img
-        :src="base + 'logo.png'"
+        :src="base + 'logo.png' + this.$qiniuCompress()"
         class="logo"
       >
     </div>
 
     <img
-      :src="base + 'bg.png'"
+      :src="base + 'bg.png' + this.$qiniuCompress()"
       class="bottom"
     >
   </div>
@@ -53,7 +53,8 @@ export default {
           'min-height': this.$innerHeight() + 'px'
         }
       },
-      have: false,
+      ishave: false,
+      arr: [false, false, false, true],
       s: 5,
       m: '00',
       id: this.$route.query.id,
@@ -67,37 +68,51 @@ export default {
     }
   },
   created() {
-
   },
   mounted() {
     if (process.env.NODE_ENV === 'testing') {
       this.wxShareInfoValue.link = 'http://papi.newgls.cn/api/s/jq5' + window.location.search
     }
-    if (window.localStorage.getItem('rabbit' + this.id)) {
-      this.have = window.localStorage.getItem('rabbit' + this.id)
-    } else {
-      let date = new Date().getTime()
-      let r = Math.random()
-      this.have = r > 0.75 ? true : false
-      window.localStorage.setItem('rabbit' + this.id, this.have)
-      window.localStorage.setItem(this.id, date)
-    }
-    if (!this.have) {
-      return
-    } else {
-      this.checkLocal()
-      this.checkTime()
-    }
+    this.getHave()
   },
   methods: {
+    getHave() {
+      let isCheck = 'rabbit' + this.id
+      let that = this
+      let date = new Date().getTime()
+      // let r = Math.round(Math.random() * 3)
+      let r = Math.random()
+      if (window.localStorage.getItem(isCheck)) {
+        that.ishave = window.localStorage.getItem(isCheck) === 'false' ? false : true
+        that.haveOrNot()
+      } else {
+        // that.ishave = that.arr[r]
+        that.ishave = r <= 0.25 ? true : false
+        window.localStorage.setItem(isCheck, this.ishave)
+        window.localStorage.setItem(this.id, date)
+        that.haveOrNot()
+      }
+
+    },
+    haveOrNot() {
+      let con = this.ishave
+      if (con == true) {
+        this.checkLocal()
+        this.checkTime()
+        return
+      }
+    },
     checkLocal() {
       let start = window.localStorage.getItem(this.id)
       let now = new Date().getTime()
       if ((now - start) >= 5 * 60 * 1000) {
         this.s = 0
         this.m = '00'
+      } else if ((now - start) == 0) {
+        this.s = 5
+        this.m = '00'
       } else {
-        let s = 4 - Math.floor((now - start) / (1000 * 60))
+        let s = 5 - Math.ceil((now - start) / (1000 * 60))
         let m = 60 - Math.floor((now - start) / 1000 % 60)
         this.s = s < 0 ? 0 : s
         this.m = m < 0 ? 0 : (m < 10 ? '0' + m : m)
