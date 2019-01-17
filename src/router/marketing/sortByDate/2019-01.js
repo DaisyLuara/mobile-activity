@@ -154,6 +154,73 @@ const Date201901 = [
     isAbandoned: false
   },
   {
+    path: 'happy_newYearTwo',
+    location: '201901/newYearTwo',
+    name: 'happy_newYearTwo',
+    meta: {
+      title: '过年啦',
+      author: 'xj1012',
+      desc: '新年快乐-通用版(new)'
+    },
+    isAbandoned: false
+  },
+
+  {
+    path: 'open_pig',
+    location: '201901/openPig',
+    name: 'open_pig',
+    meta: {
+      title: '金猪送福',
+      author: 'xj1012',
+      desc: '开金猪'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'pig_rich',
+    location: '201901/pigRich',
+    name: 'pig_rich',
+    meta: {
+      title: '星视度',
+      author: 'xj1012',
+      desc: '猪年发大财'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'flavor',
+    location: '201901/flavor',
+    name: 'flavor',
+    meta: {
+      title: '风味上海',
+      author: 'xj1012',
+      desc: '凯德年会-风味上海'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'newYear_kd',
+    location: '201901/newYearKd',
+    name: 'newYear_kd',
+    meta: {
+      title: '过年啦',
+      author: 'xj1012',
+      desc: '凯德年会-过年啦'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'dreamland_kd',
+    location: '201901/dreamlandKd',
+    name: 'dreamland_kd',
+    meta: {
+      title: '幻境',
+      author: 'xj1012',
+      desc: '凯德年会-幻境'
+    },
+    isAbandoned: false
+  },
+  {
     path: 'beauty',
     location: '201901/beauty',
     name: 'beauty',

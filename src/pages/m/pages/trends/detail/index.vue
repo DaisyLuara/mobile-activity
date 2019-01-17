@@ -77,7 +77,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["z"])
+    ...mapGetters(["z", "weixinUrl"])
   },
   mounted() {
     this.fetchTrend();
@@ -116,11 +116,11 @@ export default {
           let wxShareInfoValue = {
             title: this.actDetail.title,
             desc: this.actDetail.aname,
-            link: window.location.href,
+            link: window.location.href.split("#")[0],
             imgUrl: this.actDetail.micon
           };
           if (isInWechat() === true) {
-            $wechat(sessionStorage.getItem("wexinUrl"))
+            $wechat(this.weixinUrl)
               .then(res => {
                 res.share(wxShareInfoValue);
               })
