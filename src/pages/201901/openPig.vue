@@ -63,8 +63,7 @@ export default {
           height: this.$innerHeight() + 'px'
         }
       },
-      //type: null,
-      type: 2,
+      type: null,
       showImg: true,
       contentShow: false,
       base64Data: null,
@@ -94,7 +93,6 @@ export default {
       this.showImg = false
       this.contentShow = true
     }, 3000)
-    this.drawing()
     if (process.env.NODE_ENV === 'testing') {
       this.type = this.$route.query.type,
         this.drawing()
@@ -147,9 +145,9 @@ export default {
         height,
         backgroundColor
       })
-      //let url = that.photo + that.$qiniuCompress()
-      let url =
-        'https://cdn.exe666.com/fe/marketing/img/open_pig/666.png'
+      let url = that.photo + that.$qiniuCompress()
+      // let url =
+      //   'https://cdn.exe666.com/fe/marketing/img/open_pig/666.png'
       let imgUrl = 'https://cdn.exe666.com/fe/marketing/img/open_pig/' + this.fanpaths[this.type]
       let imgUrl2 = 'https://cdn.exe666.com/fe/marketing/img/open_pig/t.png'
       let imgUrl3 = 'https://cdn.exe666.com/fe/marketing/img/open_pig/' + this.rnd(1, this.paths.length) + '.png'
