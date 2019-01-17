@@ -41,10 +41,10 @@
 </template>
 <script>
 import { $wechat, isInWechat, wechatShareTrack } from 'services'
-import { normalPages } from '@/mixins/normalPages'
+import { onlyGetPhoto } from '@/mixins/onlyGetPhoto'
 const CDN_URL = process.env.CDN_URL
 export default {
-  mixins: [normalPages],
+  mixins: [onlyGetPhoto],
   data() {
     return {
       base: CDN_URL + '/fe/image/bigwhite/',
@@ -58,24 +58,25 @@ export default {
       s: 5,
       m: '00',
       id: this.$route.query.id,
-      //微信分享
-      wxShareInfoValue: {
-        title: '大白兔60周年',
-        desc: '互动有礼，周年庆小礼物',
-        link: 'http://papi.xingstation.com/api/s/w0J' + window.location.search,
-        imgUrl: CDN_URL + '/fe/image/bigwhite/icon.png'
-      }
     }
   },
   created() {
   },
   mounted() {
-    if (process.env.NODE_ENV === 'testing') {
-      this.wxShareInfoValue.link = 'http://papi.newgls.cn/api/s/jq5' + window.location.search
-    }
+    this.handleForbiddenShare()
     this.getHave()
   },
   methods: {
+    //禁止微信分享
+    handleForbiddenShare() {
+      $wechat()
+        .then(res => {
+          res.forbidden()
+        })
+        .catch(_ => {
+          console.warn(_.message)
+        })
+    },
     getHave() {
       let isCheck = 'rabbit' + this.id
       let that = this
@@ -173,6 +174,7 @@ a {
   background-size: 100% auto;
   background-position: center top;
   background-repeat: no-repeat;
+  background-color: #fff;
   .main {
     width: 100%;
     position: relative;

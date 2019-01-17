@@ -12,8 +12,19 @@
       class="arrow"
     >
     <div class="main">
+      <div class="list-item">
+        <img
+          :src="base + 'p2/photo.png'"
+          class="bg"
+        >
+        <img
+          :src="photo"
+          class="photo"
+          @click="getHeart"
+        >
+      </div>
       <div
-        v-for="(item ,index) in [photo,photo,photo,photo,photo,photo,photo]"
+        v-for="(item ,index) in list"
         :key="index"
         class="list-item"
       >
@@ -23,7 +34,7 @@
         >
         <!-- :src="item.link" -->
         <img
-          :src="item"
+          :src="item.link"
           class="photo"
           @click="getHeart"
         >
@@ -71,12 +82,20 @@ export default {
       })
     },
     getHeart(e) {
-      let target = e.target
-      console.log(e)
-      console.log(e.offsetX)
-      console.log(e.offsetY)
-      console.log(e.target)
-      console.log(e.target.parent)
+      let [target, x, y] = [e.target, e.offsetX, e.offsetY]
+      let heart = document.createElement("img")
+      heart.src = this.base + 'p2/heart.png'
+      heart.style.width = '18.5vw'
+      heart.style.position = 'absolute'
+      heart.style.left = x + 'px'
+      heart.style.top = y + 'px'
+      heart.style.zIndex = '9999'
+      heart.style.transform = 'translate(-30%,-30%)'
+      target.parentNode.appendChild(heart)
+      let timer = setTimeout(function () {
+        clearTimeout(timer)
+        target.parentNode.removeChild(heart)
+      }, 500)
     }
 
   }
