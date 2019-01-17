@@ -73,8 +73,10 @@ export default {
     getHeart(e) {
       let target = e.target
       console.log(e)
-      console.log(e.originalEvent.touches[0].clientX)
-      console.log(e.originalEvent.touches[0].clientY)
+      console.log(e.offsetX)
+      console.log(e.offsetY)
+      console.log(e.target)
+      console.log(e.target.parent)
     }
 
   }
