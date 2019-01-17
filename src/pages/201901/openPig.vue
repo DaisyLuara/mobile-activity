@@ -169,17 +169,17 @@ export default {
           }
         })
         .add(that.baseUrl + 'frame.png', {
-          width: '86%',
+          width: '93%',
           pos: {
-            x: '7%',
-            y: '10%'
+            x: '3.5%',
+            y: '8%'
           }
         })
         .add(imgUrl, {
           width: '55%',
           pos: {
             x: '22.5%',
-            y: '18%'
+            y: '16%'
           }
         })
         .add(imgUrl2, {
@@ -295,7 +295,7 @@ img {
     .save {
       width: 60%;
       position: relative;
-      margin-top: -30%;
+      margin-top: -20%;
       animation: arrow 0.8s linear infinite alternate;
     }
   }
