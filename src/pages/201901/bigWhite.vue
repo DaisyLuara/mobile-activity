@@ -112,7 +112,7 @@ export default {
         this.s = 5
         this.m = '00'
       } else {
-        let s = 4 - Math.ceil((now - start) / (1000 * 60))
+        let s = 5 - Math.ceil((now - start) / (1000 * 60))
         let m = 60 - Math.floor((now - start) / 1000 % 60)
         this.s = s < 0 ? 0 : s
         this.m = m < 0 ? 0 : (m < 10 ? '0' + m : m)

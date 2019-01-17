@@ -3,6 +3,32 @@
     :style="style.root"
     class="warp"
   >
+    <img
+      :src="base + 'p2/text.png'"
+      class="title"
+    >
+    <img
+      :src="base + 'p2/arrow.png'"
+      class="arrow"
+    >
+    <div class="main">
+      <ul class="ul-list">
+        <li
+          v-for="item in list"
+          :key="item.id"
+          class="list-li"
+        >
+          <img
+            :src="base + 'p2/photo.png'"
+            class="bg"
+          >
+          <img
+            :src="item"
+            class="photo"
+          >
+        </li>
+      </ul>
+    </div>
 
   </div>
 </template>
@@ -20,7 +46,7 @@ export default {
           'min-height': this.$innerHeight() + 'px'
         }
       },
-      toshow: false,
+      arr: [],
       //微信分享
       wxShareInfoValue: {
         title: '',
@@ -33,7 +59,7 @@ export default {
   },
   watch: {
     userinfo() {
-      this.toshow = true
+
     }
   },
   methods: {
@@ -69,7 +95,7 @@ a {
   width: 100%;
   position: relative;
   overflow: hidden;
-  background-image: url("@{url}p1/back.jpg");
+  background-image: url("@{url}p2/back2.png");
   background-repeat: no-repeat;
   background-position: center top;
   background-size: 100% 100%;
