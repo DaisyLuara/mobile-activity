@@ -59,8 +59,8 @@ export default {
       list: [],
       //微信分享
       wxShareInfoValue: {
-        title: '',
-        desc: '',
+        title: '最美瞬间',
+        desc: '最美凯德，醉美上海',
         imgUrl: CDN_URL + '/fe/image/beauty/icon.png'
       }
     }

@@ -40,11 +40,11 @@
   </div>
 </template>
 <script>
-import { $wechat, isInWechat, wechatShareTrack } from 'services'
-import { normalPages } from '@/mixins/normalPages'
+import { $wechat, isInWechat, wechatShareTrack, Cookies } from 'services'
+import { onlyGetPhoto } from '@/mixins/onlyGetPhoto'
 const CDN_URL = process.env.CDN_URL
 export default {
-  mixins: [normalPages],
+  mixins: [onlyGetPhoto],
   data() {
     return {
       base: CDN_URL + '/fe/image/bigwhite/',
@@ -58,22 +58,38 @@ export default {
       s: 5,
       m: '00',
       id: this.$route.query.id,
-      //微信分享
-      // wxShareInfoValue: {
-      //   title: '大白兔60周年',
-      //   desc: '互动有礼，周年庆小礼物',
-      //   link: 'http://papi.xingstation.com/api/s/w0J' + window.location.search,
-      //   imgUrl: CDN_URL + '/fe/image/bigwhite/icon.png'
-      // }
     }
   },
   created() {
   },
   mounted() {
+    //微信授权
+    if (isInWechat() === true) {
+      if (
+        process.env.NODE_ENV === "production" ||
+        process.env.NODE_ENV === "testing"
+      ) {
+        this.handleWechatAuth();
+      }
+    }
     this.handleForbiddenShare()
     this.getHave()
   },
   methods: {
+    //微信静默授权
+    handleWechatAuth() {
+      if (Cookies.get("sign") === null) {
+        let base_url = encodeURIComponent(String(window.location.href));
+        let redirct_url =
+          process.env.WX_API +
+          "/wx/officialAccount/oauth?url=" +
+          base_url +
+          "&scope=snsapi_base";
+        window.location.href = redirct_url;
+      } else {
+        this.userId = Cookies.get("user_id");
+      }
+    },
     //禁止微信分享
     handleForbiddenShare() {
       $wechat()
