@@ -40,7 +40,7 @@
   </div>
 </template>
 <script>
-import { $wechat, isInWechat, wechatShareTrack } from 'services'
+import { $wechat, isInWechat, wechatShareTrack, Cookies } from 'services'
 import { onlyGetPhoto } from '@/mixins/onlyGetPhoto'
 const CDN_URL = process.env.CDN_URL
 export default {
