@@ -12,10 +12,10 @@
       class="arrow"
     >
     <div class="main">
-      <ul class="ul-list">
+      <!-- <ul class="ul-list">
         <li
-          v-for="item in list"
-          :key="item.id"
+          v-for="(item ,index) in [photo,photo,photo,photo,photo]"
+          :key="index"
           class="list-li"
         >
           <img
@@ -27,9 +27,22 @@
             class="photo"
           >
         </li>
-      </ul>
+      </ul> -->
+      <div
+        v-for="(item ,index) in [photo,photo,photo,photo,photo]"
+        :key="index"
+        class="list-item"
+      >
+        <img
+          :src="base + 'p2/photo.png'"
+          class="bg"
+        >
+        <img
+          :src="item"
+          class="photo"
+        >
+      </div>
     </div>
-
   </div>
 </template>
 <script>
@@ -46,7 +59,7 @@ export default {
           'min-height': this.$innerHeight() + 'px'
         }
       },
-      arr: [],
+      // list: [this.photo, this.photo, this.photo, this.photo, this.photo, this.photo],
       //微信分享
       wxShareInfoValue: {
         title: '',
@@ -99,30 +112,49 @@ a {
   background-repeat: no-repeat;
   background-position: center top;
   background-size: 100% 100%;
+  .title {
+    width: 35%;
+    position: relative;
+    z-index: 0;
+    margin-top: 5%;
+  }
+  .arrow {
+    width: 7.5%;
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+  }
   .main {
     position: relative;
-    width: 100%;
-    margin-top: 6%;
-    .frame {
-      width: 84.5%;
+    width: 85%;
+    z-index: 0;
+    display: flex;
+    margin-top: 3%;
+    margin-bottom: 5%;
+    // flex-direction: row;
+    // justify-content: space-brtween;
+    flex-flow: row wrap;
+    text-align: left;
+    .list-item {
       position: relative;
-      z-index: 0;
-      margin-left: 4%;
+      margin: 0;
+      width: 40vw;
+      // flex-grow: 1;
+      margin-top: 5%;
+      .bg {
+        position: relative;
+        z-index: 0;
+      }
+      .photo {
+        width: 38vw;
+        position: absolute;
+        top: -0.5%;
+        left: 4%;
+        z-index: 99;
+      }
     }
-    .photo {
-      position: absolute;
-      top: 3%;
-      left: 13.5%;
-      width: 66.5%;
-      z-index: 99;
-      pointer-events: auto;
-      user-select: auto;
-    }
-  }
-  .tolink {
-    position: relative;
-    width: 43%;
-    margin-top: 5.5%;
   }
 }
 </style>
