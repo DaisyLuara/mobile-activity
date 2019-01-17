@@ -136,7 +136,6 @@ export default {
     },
     //合成图片
     drawing() {
-      alert("1")
       let width = this.$innerWidth()
       let height = (this.$innerWidth() / 1080) * 2000
       let that = this
