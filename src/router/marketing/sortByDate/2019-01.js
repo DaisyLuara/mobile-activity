@@ -143,6 +143,17 @@ const Date201901 = [
     isAbandoned: false
   },
   {
+    path: 'big_white',
+    location: '201901/bigWhite',
+    name: 'big_white',
+    meta: {
+      title: '大白兔',
+      author: 'lipan',
+      desc: '大白兔奶糖'
+    },
+    isAbandoned: false
+  },
+  {
     path: 'happy_newYearTwo',
     location: '201901/newYearTwo',
     name: 'happy_newYearTwo',
@@ -153,6 +164,7 @@ const Date201901 = [
     },
     isAbandoned: false
   },
+
   {
     path: 'open_pig',
     location: '201901/openPig',
@@ -205,6 +217,28 @@ const Date201901 = [
       title: '幻境',
       author: 'xj1012',
       desc: '凯德年会-幻境'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'beauty',
+    location: '201901/beauty',
+    name: 'beauty',
+    meta: {
+      title: '最美瞬间',
+      author: 'lipan',
+      desc: '凯德年会2019'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'beauty_list',
+    location: '201901/beautyList',
+    name: 'beauty_list',
+    meta: {
+      title: '最美瞬间',
+      author: 'lipan',
+      desc: '凯德年会2019-点赞榜'
     },
     isAbandoned: false
   }
