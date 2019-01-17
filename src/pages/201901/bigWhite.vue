@@ -59,23 +59,31 @@ export default {
       m: '00',
       id: this.$route.query.id,
       //微信分享
-      wxShareInfoValue: {
-        title: '大白兔60周年',
-        desc: '互动有礼，周年庆小礼物',
-        link: 'http://papi.xingstation.com/api/s/w0J' + window.location.search,
-        imgUrl: CDN_URL + '/fe/image/bigwhite/icon.png'
-      }
+      // wxShareInfoValue: {
+      //   title: '大白兔60周年',
+      //   desc: '互动有礼，周年庆小礼物',
+      //   link: 'http://papi.xingstation.com/api/s/w0J' + window.location.search,
+      //   imgUrl: CDN_URL + '/fe/image/bigwhite/icon.png'
+      // }
     }
   },
   created() {
   },
   mounted() {
-    if (process.env.NODE_ENV === 'testing') {
-      this.wxShareInfoValue.link = 'http://papi.newgls.cn/api/s/jq5' + window.location.search
-    }
+    this.handleForbiddenShare()
     this.getHave()
   },
   methods: {
+    //禁止微信分享
+    handleForbiddenShare() {
+      $wechat()
+        .then(res => {
+          res.forbidden()
+        })
+        .catch(_ => {
+          console.warn(_.message)
+        })
+    },
     getHave() {
       let isCheck = 'rabbit' + this.id
       let that = this
@@ -112,7 +120,7 @@ export default {
         this.s = 5
         this.m = '00'
       } else {
-        let s = 4 - Math.ceil((now - start) / (1000 * 60))
+        let s = 5 - Math.ceil((now - start) / (1000 * 60))
         let m = 60 - Math.floor((now - start) / 1000 % 60)
         this.s = s < 0 ? 0 : s
         this.m = m < 0 ? 0 : (m < 10 ? '0' + m : m)
@@ -173,6 +181,7 @@ a {
   background-size: 100% auto;
   background-position: center top;
   background-repeat: no-repeat;
+  background-color: #fff;
   .main {
     width: 100%;
     position: relative;

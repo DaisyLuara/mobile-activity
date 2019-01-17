@@ -37,21 +37,16 @@ export default {
         }
       },
       toshow: false,
-      link: 'http://papi.xingstation.com/api/s/DqB',
       //微信分享
       wxShareInfoValue: {
         title: '',
         desc: '',
-        link: 'http://papi.xingstation.com/api/s/Brx' + window.location.search,
         imgUrl: CDN_URL + '/fe/image/beauty/icon.png'
       }
     }
   },
   mounted() {
-    if (process.env.NODE_ENV === 'testing') {
-      this.wxShareInfoValue.link = 'http://papi.newgls.cn/api/s/kZX' + window.location.search
-      this.link = 'http://papi.newgls.cn/api/s/l56'
-    }
+
   },
   watch: {
     userinfo() {
@@ -66,14 +61,18 @@ export default {
       if (this.awardinfo.pass == 0 || this.awardinfo.valuetmp != this.awardinfo.value) {
         gameListNeedCheck(this.awardinfo.auid, this.userinfo.z).then(res => {
           console.log(res)
-          window.location.href = this.link
+          this.$router.push({
+            path: 'beauty_list?' + window.location.search
+          })
         }).catch(err => {
           console.log(err)
         })
       } else {
         newGameList(this.awardinfo.akey).then(res => {
           console.log(res)
-          window.location.href = this.link
+          this.$router.push({
+            path: 'beauty_list?' + window.location.search
+          })
         }).catch(err => {
           console.log(err)
         })

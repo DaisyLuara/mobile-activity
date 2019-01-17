@@ -3,26 +3,36 @@
     :style="style.root"
     class="warp"
   >
-    <div class="main">
-      <img
-        :src="base + 'p1/frame.png'"
-        class="frame"
-      >
-      <img
-        :src="photo + this.$qiniuCompress()"
-        class="photo"
-      >
-    </div>
-    <a
-      class="tolink"
-      @click="toLink"
+    <img
+      :src="base + 'p2/text.png'"
+      class="title"
     >
-      <img :src="base + 'button.png'">
-    </a>
+    <img
+      :src="base + 'p2/arrow.png'"
+      class="arrow"
+    >
+    <div class="main">
+      <div
+        v-for="(item ,index) in [photo,photo,photo,photo,photo,photo,photo]"
+        :key="index"
+        class="list-item"
+      >
+        <img
+          :src="base + 'p2/photo.png'"
+          class="bg"
+        >
+        <!-- :src="item.link" -->
+        <img
+          :src="item"
+          class="photo"
+          @click="getHeart"
+        >
+      </div>
+    </div>
   </div>
 </template>
 <script>
-import { $wechat, isInWechat, wechatShareTrack } from 'services'
+import { $wechat, isInWechat, wechatShareTrack, getGameList } from 'services'
 import { normalPages } from '@/mixins/normalPages'
 const CDN_URL = process.env.CDN_URL
 export default {
@@ -35,24 +45,40 @@ export default {
           'min-height': this.$innerHeight() + 'px'
         }
       },
-      link: '',
+      list: [],
       //微信分享
       wxShareInfoValue: {
         title: '',
         desc: '',
-        link: '' + window.location.search,
         imgUrl: CDN_URL + '/fe/image/beauty/icon.png'
       }
     }
   },
   mounted() {
-    if (process.env.NODE_ENV === 'testing') {
-      this.wxShareInfoValue.link = '' + window.location.search
-      this.link = ''
+  },
+  watch: {
+    userinfo() {
+      getList(this.actinfo.awardkey, this.userinfo.z)
     }
   },
   methods: {
-    toLink() { }
+    getList(awardkey, z) {
+      getGameList(awardkey, z).then(res => {
+        console.log(res)
+        this.list = res.results.data
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    getHeart(e) {
+      let target = e.target
+      console.log(e)
+      console.log(e.offsetX)
+      console.log(e.offsetY)
+      console.log(e.target)
+      console.log(e.target.parent)
+    }
+
   }
 }
 </script>
@@ -83,35 +109,63 @@ a {
 .warp {
   width: 100%;
   position: relative;
-  overflow-x: hidden;
-  background-image: url("@{url}p1/back.jpg");
+  overflow: hidden;
+  background-image: url("@{url}p2/back2.png");
   background-repeat: no-repeat;
   background-position: center top;
-  background-size: 100% auto;
+  background-size: 100% 100%;
+  .title {
+    width: 35%;
+    position: relative;
+    z-index: 0;
+    margin-top: 5%;
+  }
+  .arrow {
+    width: 7.5%;
+    position: fixed;
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+    animation: myarrow linear 0.8s infinite alternate;
+  }
   .main {
     position: relative;
-    width: 100%;
-    .frame {
-      width: 84.5%;
+    width: 83%;
+    z-index: 0;
+    display: flex;
+    margin-top: 3%;
+    margin-bottom: 5%;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    overflow-x: hidden;
+    .list-item {
       position: relative;
-      z-index: 0;
-      margin-left: 2%;
-    }
-    .photo {
-      position: absolute;
-      top: 5%;
-      left: 15%;
-      width: 66%;
-      z-index: 99;
-      pointer-events: auto;
-      user-select: auto;
+      margin: 0;
+      width: 48%;
+      margin-top: 5%;
+      .bg {
+        position: relative;
+        z-index: 0;
+      }
+      .photo {
+        width: 94%;
+        position: absolute;
+        top: 0.2%;
+        left: 3.2%;
+        z-index: 99;
+        pointer-events: auto;
+        user-select: auto;
+      }
     }
   }
-  .tolink {
-    position: relative;
-    width: 43%;
-    margin-top: 5%;
-    margin-bottom: 13%;
+}
+@keyframes myarrow {
+  0% {
+    bottom: 5%;
+  }
+  100% {
+    bottom: 2%;
   }
 }
 </style>
