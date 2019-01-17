@@ -9,14 +9,14 @@
         class="one"
       >
         <img
-          :src="base + '1.png'"
+          :src="base + '11.png' + this.$qiniuCompress()"
           class="note"
         >
         <div class="time">{{ s }}:{{ m }}</div>
       </div>
       <img
         v-show="!ishave"
-        :src="base + '2.png'"
+        :src="base + '2.png' + this.$qiniuCompress()"
         class="note"
       >
       <img
@@ -24,17 +24,17 @@
         class="photo"
       >
       <img
-        :src="base + 'save.png'"
+        :src="base + 'save.png' + this.$qiniuCompress()"
         class="save"
       >
       <img
-        :src="base + 'logo.png'"
+        :src="base + 'logo.png' + this.$qiniuCompress()"
         class="logo"
       >
     </div>
 
     <img
-      :src="base + 'bg.png'"
+      :src="base + 'bg.png' + this.$qiniuCompress()"
       class="bottom"
     >
   </div>
@@ -108,8 +108,11 @@ export default {
       if ((now - start) >= 5 * 60 * 1000) {
         this.s = 0
         this.m = '00'
+      } else if ((now - start) == 0) {
+        this.s = 5
+        this.m = '00'
       } else {
-        let s = 4 - Math.floor((now - start) / (1000 * 60))
+        let s = 4 - Math.ceil((now - start) / (1000 * 60))
         let m = 60 - Math.floor((now - start) / 1000 % 60)
         this.s = s < 0 ? 0 : s
         this.m = m < 0 ? 0 : (m < 10 ? '0' + m : m)
