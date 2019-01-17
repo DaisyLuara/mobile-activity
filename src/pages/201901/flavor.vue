@@ -3,13 +3,13 @@
     :style="style.root"
     class="root"
   >
-    <div class="content">
+    <img
+      :src="baseUrl + 'top.png'+ this.$qiniuCompress()"
+      class="topImg"
+    >
+    <div class="contain">
       <img
-        :src="baseUrl + '1.png'+ this.$qiniuCompress()"
-        class="topImg"
-      >
-      <img
-        :src="baseUrl + '2.png'+ this.$qiniuCompress()"
+        :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
         class="frame"
       >
       <img
@@ -18,9 +18,8 @@
         class="photo"
       >
     </div>
-
     <img
-      :src="baseUrl + '3.png'+ this.$qiniuCompress()"
+      :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
       class="save"
     >
   </div>
@@ -32,7 +31,7 @@ export default {
   mixins: [normalPages],
   data() {
     return {
-      baseUrl: cdnUrl + "/fe/marketing/img/pig_rich/",
+      baseUrl: cdnUrl + "/fe/marketing/img/flavor/",
       style: {
         root: {
           height: this.$innerHeight() + "px"
@@ -40,10 +39,10 @@ export default {
       },
       iphoneX: false,
       wxShareInfoValue: {
-        title: "新年发发发，好运带回家！",
-        desc: "星视度祝您新年快乐！",
-        link: "http://papi.xingstation.com/api/s/x6J" + window.location.search,
-        imgUrl: cdnUrl + "/fe/marketing/img/pig_rich/icon.jpg"
+        title: "风味上海",
+        desc: "最美凯德 醉美上海",
+        link: "http://papi.xingstation.com/api/s/ywV" + window.location.search,
+        imgUrl: cdnUrl + "/fe/marketing/img/flavor/icon.png"
       }
     };
   }
@@ -51,7 +50,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: "http://cdn.exe666.com/fe/marketing/img/pig_rich/";
+@imageHost: "http://cdn.exe666.com/fe/marketing/img/flavor/";
 html,
 body {
   width: 100%;
@@ -78,39 +77,35 @@ img {
   align-items: center;
   position: relative;
   overflow: hidden;
-  background-image: url("@{imageHost}bg.png");
-  background-size: 100% auto;
-  background-position: center bottom;
-  background-repeat: no-repeat;
-  .content {
+  background: #080b3f;
+  .topImg {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  .contain {
     position: relative;
     pointer-events: none;
     user-select: none;
-    .topImg {
-      width: 90%;
-      margin-top: 2%;
-    }
     .frame {
-      width: 56%;
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
+      width: 100%;
+      margin-top: 18%;
     }
     .photo {
-      width: 54%;
+      width: 58%;
       position: absolute;
       left: 50%;
       top: 50%;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%, -41%);
       pointer-events: auto;
       user-select: auto;
     }
   }
   .save {
-    width: 60%;
+    width: 45%;
     position: relative;
-    margin-top: -7%;
+    margin-top: 8%;
   }
 }
 </style>

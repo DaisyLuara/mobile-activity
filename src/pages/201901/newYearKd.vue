@@ -3,13 +3,17 @@
     :style="style.root"
     class="root"
   >
-    <div class="content">
+    <img
+      :src="baseUrl + 'top2.png'+ this.$qiniuCompress()"
+      class="topImg"
+    >
+    <img
+      :src="baseUrl + 'lion.png'+ this.$qiniuCompress()"
+      class="lion"
+    >
+    <div class="contain">
       <img
-        :src="baseUrl + '1.png'+ this.$qiniuCompress()"
-        class="topImg"
-      >
-      <img
-        :src="baseUrl + '2.png'+ this.$qiniuCompress()"
+        :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
         class="frame"
       >
       <img
@@ -17,12 +21,11 @@
         :src="photo + this.$qiniuCompress()"
         class="photo"
       >
+      <img
+        :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
+        class="save"
+      >
     </div>
-
-    <img
-      :src="baseUrl + '3.png'+ this.$qiniuCompress()"
-      class="save"
-    >
   </div>
 </template>
 <script>
@@ -32,7 +35,7 @@ export default {
   mixins: [normalPages],
   data() {
     return {
-      baseUrl: cdnUrl + "/fe/marketing/img/pig_rich/",
+      baseUrl: cdnUrl + "/fe/marketing/img/happy_newYear/",
       style: {
         root: {
           height: this.$innerHeight() + "px"
@@ -40,10 +43,10 @@ export default {
       },
       iphoneX: false,
       wxShareInfoValue: {
-        title: "新年发发发，好运带回家！",
-        desc: "星视度祝您新年快乐！",
-        link: "http://papi.xingstation.com/api/s/x6J" + window.location.search,
-        imgUrl: cdnUrl + "/fe/marketing/img/pig_rich/icon.jpg"
+        title: "过年啦",
+        desc: "最美凯德 醉美上海",
+        link: "http://papi.xingstation.com/api/s/z6r" + window.location.search,
+        imgUrl: cdnUrl + "/fe/marketing/img/happy_newYear/icon.png"
       }
     };
   }
@@ -51,7 +54,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: "http://cdn.exe666.com/fe/marketing/img/pig_rich/";
+@imageHost: "http://cdn.exe666.com/fe/marketing/img/happy_newYear/";
 html,
 body {
   width: 100%;
@@ -74,7 +77,7 @@ img {
 .root {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-around;
   align-items: center;
   position: relative;
   overflow: hidden;
@@ -82,35 +85,50 @@ img {
   background-size: 100% auto;
   background-position: center bottom;
   background-repeat: no-repeat;
-  .content {
+  .topImg {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  .contain {
     position: relative;
     pointer-events: none;
     user-select: none;
-    .topImg {
-      width: 90%;
-      margin-top: 2%;
-    }
     .frame {
-      width: 56%;
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
+      width: 92%;
+    }
+    .save {
+      width: 50%;
+      margin-top: -25%;
+      animation: arrow 0.5s linear infinite alternate;
     }
     .photo {
-      width: 54%;
+      width: 67.55%;
       position: absolute;
       left: 50%;
       top: 50%;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%, -55.8%);
       pointer-events: auto;
       user-select: auto;
     }
   }
-  .save {
-    width: 60%;
-    position: relative;
-    margin-top: -7%;
+  .lion {
+    width: 32%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+  }
+}
+@keyframes arrow {
+  0% {
+    transform: translateY(-5px);
+  }
+  50% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(5px);
   }
 }
 </style>
