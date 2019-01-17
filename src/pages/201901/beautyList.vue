@@ -12,24 +12,8 @@
       class="arrow"
     >
     <div class="main">
-      <!-- <ul class="ul-list">
-        <li
-          v-for="(item ,index) in [photo,photo,photo,photo,photo]"
-          :key="index"
-          class="list-li"
-        >
-          <img
-            :src="base + 'p2/photo.png'"
-            class="bg"
-          >
-          <img
-            :src="item"
-            class="photo"
-          >
-        </li>
-      </ul> -->
       <div
-        v-for="(item ,index) in [photo,photo,photo,photo,photo]"
+        v-for="(item ,index) in [photo,photo,photo,photo,photo,photo,photo]"
         :key="index"
         class="list-item"
       >
@@ -37,16 +21,18 @@
           :src="base + 'p2/photo.png'"
           class="bg"
         >
+        <!-- :src="item.link" -->
         <img
           :src="item"
           class="photo"
+          @click="getHeart"
         >
       </div>
     </div>
   </div>
 </template>
 <script>
-import { $wechat, isInWechat, wechatShareTrack, newGameList, gameListNeedCheck } from 'services'
+import { $wechat, isInWechat, wechatShareTrack, getGameList } from 'services'
 import { normalPages } from '@/mixins/normalPages'
 const CDN_URL = process.env.CDN_URL
 export default {
@@ -59,7 +45,7 @@ export default {
           'min-height': this.$innerHeight() + 'px'
         }
       },
-      // list: [this.photo, this.photo, this.photo, this.photo, this.photo, this.photo],
+      list: [],
       //微信分享
       wxShareInfoValue: {
         title: '',
@@ -72,10 +58,24 @@ export default {
   },
   watch: {
     userinfo() {
-
+      getList(this.actinfo.awardkey, this.userinfo.z)
     }
   },
   methods: {
+    getList(awardkey, z) {
+      getGameList(awardkey, z).then(res => {
+        console.log(res)
+        this.list = res.results.data
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    getHeart(e) {
+      let target = e.target
+      console.log(e)
+      console.log(e.originalEvent.touches[0].clientX)
+      console.log(e.originalEvent.touches[0].clientY)
+    }
 
   }
 }
@@ -120,41 +120,50 @@ a {
   }
   .arrow {
     width: 7.5%;
-    position: absolute;
+    position: fixed;
     bottom: 5%;
     left: 50%;
     transform: translateX(-50%);
     z-index: 999;
+    animation: myarrow linear 0.8s infinite alternate;
   }
   .main {
     position: relative;
-    width: 85%;
+    width: 83%;
     z-index: 0;
     display: flex;
     margin-top: 3%;
     margin-bottom: 5%;
-    // flex-direction: row;
-    // justify-content: space-brtween;
     flex-flow: row wrap;
-    text-align: left;
+    justify-content: space-between;
+    overflow-x: hidden;
     .list-item {
       position: relative;
       margin: 0;
-      width: 40vw;
-      // flex-grow: 1;
+      width: 48%;
       margin-top: 5%;
       .bg {
         position: relative;
         z-index: 0;
       }
       .photo {
-        width: 38vw;
+        width: 94%;
         position: absolute;
-        top: -0.5%;
-        left: 4%;
+        top: 0.2%;
+        left: 3.2%;
         z-index: 99;
+        pointer-events: auto;
+        user-select: auto;
       }
     }
+  }
+}
+@keyframes myarrow {
+  0% {
+    bottom: 5%;
+  }
+  100% {
+    bottom: 2%;
   }
 }
 </style>
