@@ -8,6 +8,7 @@ const NEW_LIST_NEEDCHECK = 'http://exelook.com/client/all/awardpass/?api=json'
 const USER_HONOUR =
   'http://exelook.com/client/h5/userhonour/?cp=1&size=10&api=json'
 const GAME_LIST = 'http://exelook.com/client/all/actresult/?api=json'
+const APPLICATION_COMMON = 'http://exelook.com/client/all/actpi/?api=json'
 const REQ_HEADER = {
   headers: {
     'api-token': apiToken,
@@ -143,6 +144,24 @@ const getGameList = (awardkey, z) => {
   })
 }
 
+//活动报名169---通用版本;http://exelook.com/client/all/actpi/?avrid=4333&z=4fk2d91686b0fcef93b6e594689846cb4631n5&actid=16&api=json
+// params = {
+//   avrid: 4333,
+//   z: '4fk2d91686b0fcef93b6e594689846cb4631n5',
+//   actid: 16
+// }
+const toApplication = params => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(APPLICATION_COMMON, params)
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
 export {
   createGame,
   getGame,
@@ -152,5 +171,6 @@ export {
   newGameList,
   gameListNeedCheck,
   getGameHonour,
-  getGameList
+  getGameList,
+  toApplication
 }

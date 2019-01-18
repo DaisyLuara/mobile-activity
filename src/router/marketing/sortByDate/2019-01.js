@@ -241,6 +241,17 @@ const Date201901 = [
       desc: '凯德年会2019-点赞榜'
     },
     isAbandoned: false
+  },
+  {
+    path: 'fafafa',
+    location: '201901/fafafa',
+    name: 'fafafa',
+    meta: {
+      title: '猪福2019，携手发发发',
+      author: 'lipan',
+      desc: '2019发发发-通用版'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201901
