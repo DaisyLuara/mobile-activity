@@ -58,6 +58,7 @@ export default {
       },
       cookies_z: null,
       list: [],
+      auid: null,
       //微信分享
       wxShareInfoValue: {
         title: '最美瞬间',
@@ -74,6 +75,9 @@ export default {
       this.cookies_z = Cookies.get('z')
       let z = this.cookies_z || this.userinfo.z
       this.getList(this.actinfo.awardkey, z)
+    },
+    awardinfo() {
+      this.auid = this.awardinfo.auid
     }
   },
   methods: {

@@ -63,8 +63,12 @@ export default {
   },
   methods: {
     toLink() {
+      if (this.avrinfo == null) {
+        console.log('avrinfo为空')
+        return
+      }
       let args = {
-        avrid: this.awardinfo.avrid,
+        avrid: this.avrinfo.avrid,
         z: this.cookies_z || this.userinfo.z,
         actid: 22
       }
