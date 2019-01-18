@@ -64,7 +64,7 @@
         <span class="yz-score">{{ score }}</span>
         <a
           class="meishi"
-          href=""
+          href="http://papi.xingstation.com/api/s/E8N"
         >
           <img :src="base + 'btn11.png'+ this.$qiniuCompress()">
         </a>
@@ -150,7 +150,11 @@ export default {
     },
     parms() {
       this.linkimg = this.parms.link
-      this.year = this.parms.year || this.awardinfo.age || this.$route.query.year || this.year
+      if (this.awardinfo) {
+        this.year = this.awardinfo.age
+      } else {
+        this.year = this.parms.year || this.$route.query.year || this.year
+      }
     }
   },
   mounted() {
