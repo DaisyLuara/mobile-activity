@@ -66,6 +66,7 @@ export default {
     }
   },
   mounted() {
+    this.getList(this.actinfo.awardkey, this.userinfo.z)
   },
   watch: {
     userinfo() {
