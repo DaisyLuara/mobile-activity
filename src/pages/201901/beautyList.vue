@@ -69,7 +69,7 @@ export default {
   },
   watch: {
     userinfo() {
-      getList(this.actinfo.awardkey, this.userinfo.z)
+      this.getList(this.actinfo.awardkey, this.userinfo.z)
     }
   },
   methods: {
