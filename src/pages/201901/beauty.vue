@@ -63,7 +63,7 @@ export default {
       toApplication(args).then(res => {
         console.log(res)
         this.$router.push({
-          path: 'beauty_list?' + window.location.search
+          path: 'beauty_list?' + window.location.search + '&z=' + this.userinfo.z
         })
       }).catch(err => {
         console.log(err)
