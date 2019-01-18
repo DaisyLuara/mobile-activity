@@ -7,7 +7,7 @@ const NEW_LIST_NOCHECK = 'http://exelook.com/client/h5/awardlist/?api=json'
 const NEW_LIST_NEEDCHECK = 'http://exelook.com/client/all/awardpass/?api=json'
 const USER_HONOUR =
   'http://exelook.com/client/h5/userhonour/?cp=1&size=10&api=json'
-const GAME_LIST = 'http://exelook.com/client/all/actresult/&api=json'
+const GAME_LIST = 'http://exelook.com/client/all/actresult/?api=json'
 const REQ_HEADER = {
   headers: {
     'api-token': apiToken,
