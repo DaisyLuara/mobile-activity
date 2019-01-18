@@ -92,10 +92,13 @@ export default {
       heart.src = this.base + 'p2/heart.png'
       heart.style.width = '18.5vw'
       heart.style.position = 'absolute'
-      heart.style.left = x + 'px'
-      heart.style.top = y + 'px'
+      heart.style.left = '50%'
+      heart.style.top = '50%'
+      // heart.style.left = x + 'px'
+      // heart.style.top = y + 'px'
       heart.style.zIndex = '9999'
-      heart.style.transform = 'translate(-30%,-30%)'
+      heart.style.transform = 'translate(-50%,-50%)'
+      // heart.style.transform = 'translate(-30%,-30%)'
       target.parentNode.appendChild(heart)
       let timer = setTimeout(function () {
         clearTimeout(timer)
