@@ -23,7 +23,7 @@
   </div>
 </template>
 <script>
-import { $wechat, isInWechat, wechatShareTrack, toApplication } from 'services'
+import { $wechat, isInWechat, wechatShareTrack, toApplication, Cookies } from 'services'
 import { normalPages } from '@/mixins/normalPages'
 const CDN_URL = process.env.CDN_URL
 export default {
@@ -36,6 +36,7 @@ export default {
           'min-height': this.$innerHeight() + 'px'
         }
       },
+      cookies_z: null,
       toshow: false,//false
       //微信分享
       wxShareInfoValue: {
@@ -46,23 +47,30 @@ export default {
     }
   },
   mounted() {
-
+    if (Cookies.get('z')) {
+      this.cookies_z = Cookies.get('z')
+    }
   },
   watch: {
     userinfo() {
       this.toshow = true
+      if (Cookies.get('z')) {
+        this.cookies_z = Cookies.get('z')
+      } else {
+        Cookies.set('z', this.userinfo.z)
+      }
     }
   },
   methods: {
     toLink() {
       let args = {
         avrid: this.awardinfo.avrid,
-        z: this.userinfo.z,
+        z: this.cookies_z || this.userinfo.z,
         actid: 22
       }
       toApplication(args).then(res => {
         this.$router.push({
-          path: 'beauty_list?' + window.location.search + '&z=' + this.userinfo.z
+          path: 'beauty_list?' + window.location.search
         })
       }).catch(err => {
         console.log(err)

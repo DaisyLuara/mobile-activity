@@ -43,7 +43,7 @@
   </div>
 </template>
 <script>
-import { $wechat, isInWechat, wechatShareTrack, getGameList } from 'services'
+import { $wechat, isInWechat, wechatShareTrack, getGameList, Cookies } from 'services'
 import { normalPages } from '@/mixins/normalPages'
 const CDN_URL = process.env.CDN_URL
 export default {
@@ -56,6 +56,7 @@ export default {
           'min-height': this.$innerHeight() + 'px'
         }
       },
+      cookies_z: null,
       list: [],
       //微信分享
       wxShareInfoValue: {
@@ -66,10 +67,13 @@ export default {
     }
   },
   mounted() {
+    this.cookies_z = Cookies.get('z')
   },
   watch: {
-    userinfo() {
-      this.getList(this.actinfo.awardkey, this.userinfo.z)
+    actinfo() {
+      this.cookies_z = Cookies.get('z')
+      let z = this.cookies_z || this.userinfo.z
+      this.getList(this.actinfo.awardkey, z)
     }
   },
   methods: {
