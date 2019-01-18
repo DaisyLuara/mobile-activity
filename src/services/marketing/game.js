@@ -129,7 +129,7 @@ const getGameHonour = (bid, z) => {
       })
   })
 }
-//获取排行榜所有结果
+//获取排行榜所有结果158
 //http://exelook.com/client/all/actresult/?awardkey=0t9021d1upt47350101gy14q&z=4fk2d91686b0fcef93b6e594689846cb4631n5&api=json
 const getGameList = (awardkey, z) => {
   return new Promise((resolve, reject) => {

@@ -14,7 +14,8 @@ export const onlyGetPhoto = {
       coupon_batch_id: null,
       awardinfo: null,
       actinfo: null,
-      userinfo: null
+      userinfo: null,
+      avrinfo: null
     }
   },
   mounted() {
@@ -31,6 +32,7 @@ export const onlyGetPhoto = {
           parms,
           awardinfo,
           actinfo,
+          avrinfo,
           userinfo
         } = await getInfoById(id, code, state)
         this.userinfo = userinfo
@@ -51,6 +53,7 @@ export const onlyGetPhoto = {
         }
         this.awardinfo = awardinfo
         this.actinfo = actinfo
+        this.avrinfo = avrinfo
       } catch (e) {
         console.warn(e.message)
       }

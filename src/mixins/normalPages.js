@@ -17,6 +17,7 @@ export const normalPages = {
       gender: null,
       score: null,
       awardinfo: null,
+      avrinfo: null,
       userinfo: null,
       actinfo: null,
       coupon_batch_id: null,
@@ -59,6 +60,7 @@ export const normalPages = {
           parms,
           awardinfo,
           actinfo,
+          avrinfo,
           userinfo
         } = await getInfoById(id, code, state)
         this.userinfo = userinfo
@@ -79,6 +81,7 @@ export const normalPages = {
         }
         this.awardinfo = awardinfo
         this.actinfo = actinfo
+        this.avrinfo = avrinfo
       } catch (e) {
         console.warn(e.message)
       }
