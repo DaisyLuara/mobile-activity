@@ -23,7 +23,7 @@
   </div>
 </template>
 <script>
-import { $wechat, isInWechat, wechatShareTrack, newGameList, gameListNeedCheck } from 'services'
+import { $wechat, isInWechat, wechatShareTrack, toApplication } from 'services'
 import { normalPages } from '@/mixins/normalPages'
 const CDN_URL = process.env.CDN_URL
 export default {
@@ -55,28 +55,19 @@ export default {
   },
   methods: {
     toLink() {
-      if (!this.awardinfo) {
-        return
+      let args = {
+        avrid: this.awardinfo.avrid,
+        z: this.userinfo.z,
+        actid: 22
       }
-      if (this.awardinfo.pass == 0 || this.awardinfo.valuetmp != this.awardinfo.value) {
-        gameListNeedCheck(this.awardinfo.auid, this.userinfo.z).then(res => {
-          console.log(res)
-          this.$router.push({
-            path: 'beauty_list?' + window.location.search
-          })
-        }).catch(err => {
-          console.log(err)
+      toApplication(args).then(res => {
+        console.log(res)
+        this.$router.push({
+          path: 'beauty_list?' + window.location.search
         })
-      } else {
-        newGameList(this.awardinfo.akey).then(res => {
-          console.log(res)
-          this.$router.push({
-            path: 'beauty_list?' + window.location.search
-          })
-        }).catch(err => {
-          console.log(err)
-        })
-      }
+      }).catch(err => {
+        console.log(err)
+      })
     }
   }
 }
