@@ -153,7 +153,7 @@ const getGameList = (awardkey, z) => {
 const toApplication = params => {
   return new Promise((resolve, reject) => {
     axios
-      .get(APPLICATION_COMMON, params)
+      .get(APPLICATION_COMMON, { params: params })
       .then(response => {
         resolve(response.data)
       })
