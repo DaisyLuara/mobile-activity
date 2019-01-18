@@ -66,7 +66,7 @@
           class="meishi"
           href="http://papi.xingstation.com/api/s/E8N"
         >
-          <img :src="base + 'btn11.png'+ this.$qiniuCompress()">
+          <img :src="base + 'btn13.png'+ this.$qiniuCompress()">
         </a>
         <a
           v-show="pkshow"
