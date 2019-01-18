@@ -163,9 +163,9 @@ export default {
         }
       })
         .add(url, {
-          width: '50%',
+          width: '54%',
           pos: {
-            x: '28%',
+            x: '24%',
             y: '45%'
           }
         })
