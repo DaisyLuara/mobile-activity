@@ -49,6 +49,7 @@ export default {
   mounted() {
     if (Cookies.get('z')) {
       this.cookies_z = Cookies.get('z')
+      this.toshow = true
     }
   },
   watch: {
