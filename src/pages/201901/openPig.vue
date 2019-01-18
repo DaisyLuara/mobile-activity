@@ -3,10 +3,29 @@
     :style="style.root"
     class="root"
   >
+    <div
+      v-show="showImg"
+      class="shade"
+    >
+      <div class="shade-c">
+        <img
+          :src="baseUrl + 'rice.png'+ this.$qiniuCompress()"
+          class="rice animated  linear infinite  tada"
+        >
+        <img
+          :src="baseUrl + 'loadingtext.png'+ this.$qiniuCompress()"
+          class="loading"
+        >
+      </div>
+
+    </div>
     <!-- 内容 -->
-    <div class="content">
+    <div
+      v-show="contentShow"
+      class="content"
+    >
       <img
-        :src="baseUrl + 'bg.png'+ this.$qiniuCompress()"
+        :src="baseUrl + 'bg_two.png'+ this.$qiniuCompress()"
         class="bg"
       >
       <div id="main" />
@@ -22,7 +41,7 @@
         style="display: none"
       />
       <img
-        :src="baseUrl + 'tip.png'+ this.$qiniuCompress()"
+        :src="baseUrl + 'savetitle.png'+ this.$qiniuCompress()"
         class="save"
       >
     </div>
@@ -33,6 +52,7 @@
 import { normalPages } from "@/mixins/normalPages";
 const cdnUrl = process.env.CDN_URL
 import MC from 'mcanvas'
+import 'animate.css'
 export default {
   mixins: [normalPages],
   data() {
@@ -43,9 +63,9 @@ export default {
           height: this.$innerHeight() + 'px'
         }
       },
-      //type: this.$route.query.type,
       type: null,
-      iphoneX: false,
+      showImg: true,
+      contentShow: false,
       base64Data: null,
       paths: [
         '1.png', '2.png', '3.png', '4.png', '5.png'
@@ -69,6 +89,15 @@ export default {
   },
   mounted() {
     console.log(this.base64Data)
+    let timer = setTimeout(() => {
+      this.showImg = false
+      this.contentShow = true
+      clearTimeout(timer);
+    }, 3000)
+    if (process.env.NODE_ENV === 'testing') {
+      this.type = this.$route.query.type,
+        this.drawing()
+    }
   },
   methods: {
     //获取随机数图片
@@ -92,7 +121,7 @@ export default {
         canvas.height = image.height
         ctx.drawImage(image, 0, 0, image.width, image.height)
         let x = image.width * 0.57
-        let y = image.height * 0.28
+        let y = image.height * 0.307
         ctx.font = '400 72px "MatrixCode"'
         ctx.textAlign = 'center'
         ctx.fillStyle = '#000'
@@ -123,7 +152,7 @@ export default {
       let imgUrl = 'https://cdn.exe666.com/fe/marketing/img/open_pig/' + this.fanpaths[this.type]
       let imgUrl2 = 'https://cdn.exe666.com/fe/marketing/img/open_pig/t.png'
       let imgUrl3 = 'https://cdn.exe666.com/fe/marketing/img/open_pig/' + this.rnd(1, this.paths.length) + '.png'
-      mc.background('https://cdn.exe666.com/fe/marketing/img/open_pig/bg3.png', {
+      mc.background('https://cdn.exe666.com/fe/marketing/img/open_pig/bg_two.png', {
         left: '0%',
         top: '0%',
         type: 'origin',
@@ -137,35 +166,35 @@ export default {
           width: '50%',
           pos: {
             x: '28%',
-            y: '40%'
+            y: '45%'
           }
         })
-        .add(that.baseUrl + 'ka.png', {
-          width: '86%',
+        .add(that.baseUrl + 'frame.png', {
+          width: '93%',
           pos: {
-            x: '7%',
-            y: '5%'
+            x: '3.5%',
+            y: '8%'
           }
         })
         .add(imgUrl, {
           width: '55%',
           pos: {
             x: '22.5%',
-            y: '13%'
+            y: '16%'
           }
         })
         .add(imgUrl2, {
           width: '48%',
           pos: {
             x: '27%',
-            y: '25.5%'
+            y: '28.5%'
           }
         })
         .add(imgUrl3, {
           width: '50%',
           pos: {
             x: '25%',
-            y: '31%'
+            y: '33%'
           }
         })
         .draw({
@@ -227,6 +256,27 @@ img {
   overflow-x: hidden;
   font-family: MatrixCode;
   font-size: 72px;
+  .shade {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: #821616;
+
+    .shade-c {
+      width: 50%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -70%);
+      .rice {
+        width: 60%;
+      }
+      .loading {
+        width: 100%;
+        margin: 15% 0 0 5%;
+      }
+    }
+  }
   .content {
     width: 100%;
     height: 100%;
@@ -246,7 +296,7 @@ img {
     .save {
       width: 60%;
       position: relative;
-      margin-top: -45%;
+      margin-top: -20%;
       animation: arrow 0.8s linear infinite alternate;
     }
   }
