@@ -55,9 +55,6 @@ export default {
   },
   methods: {
     toLink() {
-      // this.$router.push({
-      //   path: 'beauty_list?' + window.location.search
-      // })
       if (!this.awardinfo) {
         return
       }
