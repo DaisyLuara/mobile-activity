@@ -99,17 +99,6 @@ const Date201901 = [
     isAbandoned: false
   },
   {
-    path: 'dgm_movie',
-    location: '201901/dgmMovie',
-    name: 'dgm_movie',
-    meta: {
-      title: '大光明影城',
-      author: 'xj1012',
-      desc: '大光明电影院'
-    },
-    isAbandoned: false
-  },
-  {
     path: 'new_yellow',
     location: '201812/newYellow',
     name: 'new_yellow',
@@ -121,17 +110,6 @@ const Date201901 = [
     isAbandoned: false
   },
   {
-    path: 'didi',
-    location: '201901/didi',
-    name: 'didi',
-    meta: {
-      title: '滴滴出行',
-      author: 'lipan',
-      desc: 'didi'
-    },
-    isAbandoned: false
-  },
-  {
     path: 'dgm_movie',
     location: '201901/dgmMovie',
     name: 'dgm_movie',
@@ -139,17 +117,6 @@ const Date201901 = [
       title: '大光明影城',
       author: 'xj1012',
       desc: '大光明电影院'
-    },
-    isAbandoned: false
-  },
-  {
-    path: 'luwan',
-    location: '201901/luwan',
-    name: 'luwan',
-    meta: {
-      title: '时来运转',
-      author: 'lipan',
-      desc: '时来运转-凯德卢湾'
     },
     isAbandoned: false
   },
@@ -182,10 +149,22 @@ const Date201901 = [
     meta: {
       title: '大白兔',
       author: 'lipan',
-      desc: '大白兔60周年'
+      desc: '大白兔奶糖'
     },
     isAbandoned: false
   },
+  {
+    path: 'happy_newYearTwo',
+    location: '201901/newYearTwo',
+    name: 'happy_newYearTwo',
+    meta: {
+      title: '过年啦',
+      author: 'xj1012',
+      desc: '新年快乐-通用版(new)'
+    },
+    isAbandoned: false
+  },
+
   {
     path: 'open_pig',
     location: '201901/openPig',
@@ -260,6 +239,17 @@ const Date201901 = [
       title: '最美瞬间',
       author: 'lipan',
       desc: '凯德年会2019-点赞榜'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'fafafa',
+    location: '201901/fafafa',
+    name: 'fafafa',
+    meta: {
+      title: '猪福2019，携手发发发',
+      author: 'lipan',
+      desc: '2019发发发-通用版'
     },
     isAbandoned: false
   }
