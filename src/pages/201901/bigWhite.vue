@@ -61,6 +61,7 @@ export default {
     }
   },
   created() {
+
   },
   mounted() {
     //微信授权
@@ -111,7 +112,7 @@ export default {
         that.haveOrNot()
       } else {
         // that.ishave = that.arr[r]
-        that.ishave = r <= 0.25 ? true : false
+        that.ishave = r >= 0.9 ? true : false
         window.localStorage.setItem(isCheck, this.ishave)
         window.localStorage.setItem(this.id, date)
         that.haveOrNot()

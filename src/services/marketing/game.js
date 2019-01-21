@@ -7,7 +7,8 @@ const NEW_LIST_NOCHECK = 'http://exelook.com/client/h5/awardlist/?api=json'
 const NEW_LIST_NEEDCHECK = 'http://exelook.com/client/all/awardpass/?api=json'
 const USER_HONOUR =
   'http://exelook.com/client/h5/userhonour/?cp=1&size=10&api=json'
-const GAME_LIST = 'http://exelook.com/client/all/actresult/&api=json'
+const GAME_LIST = 'http://exelook.com/client/all/actresult/?api=json'
+const APPLICATION_COMMON = 'http://exelook.com/client/all/actpi/?api=json'
 const REQ_HEADER = {
   headers: {
     'api-token': apiToken,
@@ -128,7 +129,7 @@ const getGameHonour = (bid, z) => {
       })
   })
 }
-//获取排行榜所有结果
+//获取排行榜所有结果158
 //http://exelook.com/client/all/actresult/?awardkey=0t9021d1upt47350101gy14q&z=4fk2d91686b0fcef93b6e594689846cb4631n5&api=json
 const getGameList = (awardkey, z) => {
   return new Promise((resolve, reject) => {
@@ -143,6 +144,24 @@ const getGameList = (awardkey, z) => {
   })
 }
 
+//活动报名169---通用版本;http://exelook.com/client/all/actpi/?avrid=4333&z=4fk2d91686b0fcef93b6e594689846cb4631n5&actid=16&api=json
+// params = {
+//   avrid: 4333,
+//   z: '4fk2d91686b0fcef93b6e594689846cb4631n5',
+//   actid: 16
+// }
+const toApplication = params => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(APPLICATION_COMMON, { params: params })
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
 export {
   createGame,
   getGame,
@@ -152,5 +171,6 @@ export {
   newGameList,
   gameListNeedCheck,
   getGameHonour,
-  getGameList
+  getGameList,
+  toApplication
 }
