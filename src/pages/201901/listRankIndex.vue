@@ -133,7 +133,7 @@ export default {
 /*声明 WebFont*/
 @font-face {
   font-family: "MatrixCode";
-  src: url("http://cdn.exe666.com/fe/marketing/img/open_pig/hanyicu.TTF");
+  src: url("http://cdn.exe666.com/fe/marketing/img/listRank/hanyicu.TTF");
   font-weight: normal;
   font-style: normal;
 }
