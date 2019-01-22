@@ -56,7 +56,6 @@ export default {
         }
       },
       userId: null,
-      score: null,
       awardinfolist: null,
       cookies_z: null,
       wxShareInfoValue: {
