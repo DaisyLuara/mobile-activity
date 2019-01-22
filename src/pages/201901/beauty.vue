@@ -23,7 +23,7 @@
   </div>
 </template>
 <script>
-import { $wechat, isInWechat, wechatShareTrack, newGameList, gameListNeedCheck } from 'services'
+import { $wechat, isInWechat, wechatShareTrack, toApplication, Cookies } from 'services'
 import { normalPages } from '@/mixins/normalPages'
 const CDN_URL = process.env.CDN_URL
 export default {
@@ -36,47 +36,50 @@ export default {
           'min-height': this.$innerHeight() + 'px'
         }
       },
-      toshow: false,
+      cookies_z: null,
+      toshow: false,//false
       //微信分享
       wxShareInfoValue: {
-        title: '',
-        desc: '',
+        title: '最美瞬间',
+        desc: '最美凯德，醉美上海',
         imgUrl: CDN_URL + '/fe/image/beauty/icon.png'
       }
     }
   },
   mounted() {
-
+    if (Cookies.get('z')) {
+      this.cookies_z = Cookies.get('z')
+      this.toshow = true
+    }
   },
   watch: {
     userinfo() {
       this.toshow = true
+      if (Cookies.get('z')) {
+        this.cookies_z = Cookies.get('z')
+      } else {
+        Cookies.set('z', this.userinfo.z)
+      }
     }
   },
   methods: {
     toLink() {
-      if (!this.awardinfo) {
+      if (this.avrinfo == null) {
+        console.log('avrinfo为空')
         return
       }
-      if (this.awardinfo.pass == 0 || this.awardinfo.valuetmp != this.awardinfo.value) {
-        gameListNeedCheck(this.awardinfo.auid, this.userinfo.z).then(res => {
-          console.log(res)
-          this.$router.push({
-            path: 'beauty_list?' + window.location.search
-          })
-        }).catch(err => {
-          console.log(err)
-        })
-      } else {
-        newGameList(this.awardinfo.akey).then(res => {
-          console.log(res)
-          this.$router.push({
-            path: 'beauty_list?' + window.location.search
-          })
-        }).catch(err => {
-          console.log(err)
-        })
+      let args = {
+        avrid: this.avrinfo.avrid,
+        z: this.cookies_z || this.userinfo.z,
+        actid: 22
       }
+      toApplication(args).then(res => {
+        this.$router.push({
+          path: 'beauty_list?' + window.location.search
+        })
+      }).catch(err => {
+        console.log(err)
+      })
     }
   }
 }
