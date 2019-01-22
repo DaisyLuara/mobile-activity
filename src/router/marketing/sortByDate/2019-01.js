@@ -268,9 +268,9 @@ const Date201901 = [
     location: '201901/smoothly',
     name: 'pig_smoothly',
     meta: {
-      title: '诸事顺利',
+      title: '猪事顺利',
       author: 'xj1012',
-      desc: '哈尔滨凯德-诸事顺利'
+      desc: '哈尔滨凯德-猪事顺利'
     },
     isAbandoned: false
   }
