@@ -126,7 +126,7 @@ export default {
       base: IMG_SERVER + '/fe/image/happyyear/',
       hint: false,
       torun: false,
-      scene: 'money',//'money'
+      scene: null,//'money'
       money_pig: 'money_pig_00000',
       heart_pig: 'heart_pig_00000',
       imgList: [],
@@ -154,9 +154,9 @@ export default {
     if (process.env.NODE_ENV === 'testing') {
       this.wxShareInfoValue.link = 'http://papi.newgls.cn/api/s/oQK' + window.location.search
     }
-    this.hint = true
-    this.doAnim()
-    this.loadPigImage(this.scene, 12)
+    // this.hint = true
+    // this.doAnim()
+    // this.loadPigImage(this.scene, 12)
   },
   methods: {
     doAnim() {
