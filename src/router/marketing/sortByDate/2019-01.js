@@ -252,6 +252,28 @@ const Date201901 = [
       desc: '2019发发发-通用版'
     },
     isAbandoned: false
+  },
+  {
+    path: 'listRank_index',
+    location: '201901/listRankIndex',
+    name: 'listRank_index',
+    meta: {
+      title: '',
+      author: 'xj1012',
+      desc: '星视度年会'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'listRank_result',
+    location: '201901/listRankResult',
+    name: 'listRank_result',
+    meta: {
+      title: '',
+      author: 'xj1012',
+      desc: '星视度年会'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201901
