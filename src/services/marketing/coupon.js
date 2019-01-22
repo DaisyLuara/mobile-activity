@@ -367,12 +367,25 @@ const getCouponQRCodeMini = (code, z) => {
   })
 }
 //V2版本   发券
+//  发优惠券
 
 //获取券的信息（包括判断是否用手机号领过券）
 const checkV2Coupon = params => {
   return new Promise((resolve, reject) => {
     axios
       .post(OPEN_USER_COUPON, params, V2_HEADER)
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+const sendV2Coupon = (params, couponId) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(COUPOUS_URL + couponId, params, V2_HEADER)
       .then(response => {
         resolve(response.data)
       })
