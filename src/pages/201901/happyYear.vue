@@ -138,14 +138,13 @@ export default {
         title: '你是我的掌声名猪',
         desc: '像你这样的人，除了宠着，还是宠着',
         link: 'http://papi.xingstation.com/api/s/GRy' + window.location.search,
-        imgUrl: 'http://cdn.exe666.com/image/happyyear/icon.png'
+        imgUrl: 'http://cdn.exe666.com/fe/image/happyyear/icon.png'
       }
     }
   },
   watch: {
     parms() {
       this.scene = this.parms.scene
-      this.hint = true
       this.doAnim()
       this.loadPigImage(this.scene, 12)
     }
@@ -154,13 +153,13 @@ export default {
     if (process.env.NODE_ENV === 'testing') {
       this.wxShareInfoValue.link = 'http://papi.newgls.cn/api/s/oQK' + window.location.search
     }
-    // this.hint = true
     // this.doAnim()
     // this.loadPigImage(this.scene, 12)
   },
   methods: {
     doAnim() {
       const el = document.getElementById('anim')
+      let that = this
       let anim = lottie.loadAnimation({
         name: 'anim',
         container: el,
@@ -170,6 +169,7 @@ export default {
       })
       this.animation = anim
       anim.addEventListener('DOMLoaded', function () {
+        that.hint = true
         anim.stop()
       })
     },
@@ -272,6 +272,7 @@ img {
 }
 .content {
   width: 100%;
+  position: relative;
   overflow: hidden;
   background-color: #2c0400;
   background-image: url("@{imgUrl}bg.png");

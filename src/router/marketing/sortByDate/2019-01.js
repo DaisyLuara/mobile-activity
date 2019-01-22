@@ -285,6 +285,17 @@ const Date201901 = [
       desc: '哈尔滨凯德-猪事顺利'
     },
     isAbandoned: false
+  },
+  {
+    path: 'nianhui',
+    location: '201901/nianhui',
+    name: 'nianhui',
+    meta: {
+      title: '刮刮乐',
+      author: 'lipan',
+      desc: '年会原力觉醒刮奖h5'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201901
