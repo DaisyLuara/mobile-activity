@@ -3,6 +3,7 @@
     :style="style.root"
     class="warp"
   >
+    <!-- <span class="code-text">{{code}}</span> -->
     <img
       :src="base + 'title.png'"
       class="title"
@@ -13,7 +14,7 @@
         class="bg"
       >
       <div
-        v-show="hasget"
+        :style="{opacity:opacity}"
         class="coupon"
       >
         <img
@@ -61,7 +62,7 @@ export default {
           'min-height': this.$innerHeight() + 'px'
         }
       },
-      hasget: false,
+      opacity: 0,//false
       code: null,
       id: this.$route.query.id,
       userId: null,
@@ -102,11 +103,10 @@ export default {
           process.env.WX_API +
           "/wx/officialAccount/oauth?url=" +
           base_url +
-          "&scope=snsapi_base";
+          "&scope=snsapi_userinfo";
         window.location.href = redirct_url;
       } else {
         this.userId = Cookies.get("user_id");
-
       }
     },
     //禁止微信分享
@@ -137,7 +137,7 @@ export default {
         ctx.closePath()
         if (document.querySelector('.canvas-ele') !== null) {
           this.c = document.querySelector('.canvas-ele').getBoundingClientRect()
-          // console.log(this.c)
+          console.log(this.c)
         }
       }
     },
@@ -165,7 +165,7 @@ export default {
       }
     },
     handleTouchStart(event) {
-      // console.dir(event)
+      console.dir(event)
       let canvas = document.getElementById('canvasDoodle')
       let ctx = canvas.getContext('2d')
       let x = event.touches[0].clientX - this.c.left
@@ -217,7 +217,7 @@ export default {
           } else {
             this.coupon_url = res.couponBatch.image_url
             this.code = res.code
-            this.hasget = true
+            this.opacity = 1
           }
           if (parseInt(res.status) === 1) {
             this.award = false
@@ -250,7 +250,7 @@ export default {
           //发完券
           this.coupon_url = res.couponBatch.image_url
           this.code = res.code
-          this.hasget = true
+          this.opacity = 1
         })
         .catch(err => {
           alert(err.response.data.message);
