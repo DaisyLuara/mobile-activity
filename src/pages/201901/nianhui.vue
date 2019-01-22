@@ -192,6 +192,7 @@ export default {
         .then(res => {
           this.coupon_url = res.image_url;
           // this.checkGetCoupon()
+          console.log('get img')
         })
         .catch(err => {
           alert(err.response.data.message);
@@ -212,6 +213,7 @@ export default {
           //   this.coupon_url = res.image_url;
           //   this.award = false
           // }
+          console.log(res)
           if (parseInt(res.status) === 1) {
             this.award = false
             this.coupon_url = res.couponBatch.image_url
@@ -235,6 +237,7 @@ export default {
       sendCoupon(args, this.coupon_batch_id)
         .then(res => {
           //发完券
+          console.log('send')
         })
         .catch(err => {
           alert(err.response.data.message);
