@@ -86,13 +86,7 @@
 </template>
 <script>
 import { normalPages } from "@/mixins/normalPages";
-import {
-  isInWechat,
-  Cookies,
-  userGame,
-  $wechat,
-  wechatShareTrack
-} from 'services'
+import { $wechat, isInWechat, wechatShareTrack, getGameList, Cookies } from 'services'
 const cdnUrl = process.env.CDN_URL;
 export default {
   mixins: [normalPages],
@@ -134,15 +128,23 @@ export default {
       this.cookies_z = Cookies.get('z')
       let z = this.cookies_z || this.userinfo.z
       this.getList(this.actinfo.awardkey, z)
-    }
+    },
+    // parms() {
+    //   this.linkimg = this.parms.link
+    // },
+    // awardinfo() {
+    //   this.list = this.awardinfo
+    // }
   },
   methods: {
     getList(awardkey, z) {
       getGameList(awardkey, z).then(res => {
-        console.log(res)
         this.list = res.results.data
       }).catch(err => {
-        console.log(err)
+        this.$message({
+          type: 'warning',
+          message: err.response.data.message
+        })
       })
     },
     //微信静默授权
