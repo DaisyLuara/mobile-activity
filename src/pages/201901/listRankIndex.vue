@@ -119,7 +119,10 @@ export default {
     },
     go() {
       //console.log("11111")
-      window.location.href = "http://papi.xingstation.com/api/s/NYL" + window.location.search
+      // window.location.href = "http://papi.xingstation.com/api/s/NYL" + window.location.search
+      this.$router.push({
+        path: 'listRank_result?' + window.location.search
+      })
     }
   }
 };
