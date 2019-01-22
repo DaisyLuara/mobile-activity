@@ -62,7 +62,7 @@ export default {
         }
       },
       hasget: false,
-      code: 'null',
+      code: null,
       id: this.$route.query.id,
       userId: null,
       award: true,
