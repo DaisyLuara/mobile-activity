@@ -246,8 +246,8 @@ img {
           width: 32%;
           position: absolute;
           left: 28%;
-          top: 37%;
-          font-size: 5vw;
+          top: 45%;
+          font-size: 2vw;
           color: #600019;
         }
         .score {
@@ -296,8 +296,8 @@ img {
           width: 32%;
           position: absolute;
           left: 28%;
-          top: 26%;
-          font-size: 5vw;
+          top: 34%;
+          font-size: 2vw;
           color: #fff;
           z-index: 99;
         }
