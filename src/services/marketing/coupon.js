@@ -395,7 +395,8 @@ const sendV2Coupon = (params, couponId) => {
   })
 }
 //  发现金券  年会
-const sendMoneyOnce = (code, params) => {
+const sendMoneyOnce = code => {
+  let params = {}
   params.sign = Cookies.get('sign')
   return new Promise((resolve, reject) => {
     axios
