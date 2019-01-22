@@ -113,6 +113,8 @@ export default {
         { "auid": "1287", "uid": "112348", "avrid": "4387", "avridtmp": "4387", "value": "92", "kid": "6610123", "link": "http://face.exe666.com/1007/face/kiki_174_3651492934175765_513.jpg", "views": "0", "day_num": "1", "user_num": "1", "date": "2019-01-04 15:33:29", "clientdate": "1546587209000", "nickname": "Wending", "gender": "1", "age": "20", "face": "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTLyBXRPx48DjQ3EvfLQuWj6DoBJRJBj2icdDLicbm62dGTicOdnASkUlFTd2SEicNKprrzZZmSZZ5Ts4w/132" },
         { "auid": "1306", "uid": "10086", "avrid": "4414", "avridtmp": "4414", "value": "86", "kid": "5385499", "link": "http://face.exe666.com/1007/face/kiki_881_7881492948246280_1459.jpg", "views": "0", "day_num": "1", "user_num": "1", "date": "2019-01-04 19:28:03", "clientdate": "1546601283000", "nickname": "海阔天空", "gender": "1", "age": "36", "face": "http://thirdwx.qlogo.cn/mmopen/vi_32/DYAIOgq83eoZibp9IsxKYJzG8z1icd9NsREovDUBDUzl9wcGJ1UB9y9b7QcSTXwZQZ4PUsgU15WGQlIedbKMCxww/132" }
       ],
+      listBeforeInfo: [],
+      Behind: [],
       auid: null,
       userId: null,
       ImgUrl: null,
@@ -191,6 +193,12 @@ export default {
 
 <style lang="less" scoped>
 @imageHost: "http://cdn.exe666.com/fe/marketing/img/listRank/";
+@font-face {
+  font-family: "MatrixCode";
+  src: url("http://cdn.exe666.com/fe/marketing/img/open_pig/hanyicu.TTF");
+  font-weight: normal;
+  font-style: normal;
+}
 html,
 body {
   width: 100%;
@@ -271,6 +279,7 @@ img {
           top: 37%;
           font-size: 5vw;
           color: #000;
+          font-family: MatrixCode;
         }
       }
       .rank-list {
@@ -322,6 +331,7 @@ img {
           font-size: 5vw;
           color: #000;
           z-index: 99;
+          font-family: MatrixCode;
         }
         .rankName {
           width: 5%;

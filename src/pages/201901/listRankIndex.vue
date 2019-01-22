@@ -130,6 +130,13 @@ export default {
 
 <style lang="less" scoped>
 @imageHost: "http://cdn.exe666.com/fe/marketing/img/listRank/";
+/*声明 WebFont*/
+@font-face {
+  font-family: "MatrixCode";
+  src: url("http://cdn.exe666.com/fe/marketing/img/open_pig/hanyicu.TTF");
+  font-weight: normal;
+  font-style: normal;
+}
 html,
 body {
   width: 100%;
@@ -185,6 +192,7 @@ img {
       font-size: 5vw;
       z-index: 99;
       color: #000;
+      font-family: MatrixCode;
     }
     .nickname {
       display: inline-block;
