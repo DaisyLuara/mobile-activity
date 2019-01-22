@@ -23,26 +23,27 @@
           <li
             v-for="(item ,index) in list"
             :key="index"
+            v-show="index<=2"
           >
-            <!-- 头像 v-if="index<=2"-->
+            <!-- 头像 -->
             <img
               :src="item.face"
               class="places-head"
             >
             <!-- 昵称 -->
-            <span class="nickname">{{item.nickname}}</span>
+            <span class="nickname">{{item.nickname.length>4?(item.nickname.substring(0,4)+'...'):item.nickname}}</span>
             <!-- 分数 -->
             <span class="score">{{item.value}}</span>
             <img
-              v-if="index===0"
+              v-show="index===0"
               :src="baseUrl + '01.png'"
             >
             <img
-              v-if="index===1"
+              v-show="index===1"
               :src="baseUrl + '02.png'"
             >
             <img
-              v-if="index===2"
+              v-show="index===2"
               :src="baseUrl + '03.png'"
             >
           </li>
@@ -53,6 +54,7 @@
             <li
               v-for="(item ,index) in list"
               :key="index"
+              v-show="index > 2"
             >
               <span class="rankName">{{index+1}}</span>
               <!-- 头像 -->
@@ -61,7 +63,7 @@
                 class="places-head"
               >
               <!-- 昵称 -->
-              <span class="nickname">{{item.nickname}}</span>
+              <span class="nickname">{{item.nickname.length>4?(item.nickname.substring(0,4)+'...'):item.nickname}}</span>
               <!-- 分数 -->
               <span class="score">{{item.value}}</span>
               <img
@@ -103,25 +105,13 @@ export default {
         }
       },
       cookies_z: null,
-      list: [
-        { "auid": "1551", "uid": "88888", "avrid": "4825", "avridtmp": "4825", "value": "95", "kid": "7034930", "link": "http://face.exe666.com/1007/face/kiki_880_3751492945231394_848.jpg", "views": "0", "day_num": "1", "user_num": "1", "date": "2019-01-08 16:55:00", "clientdate": "1546937700000", "nickname": "淡然", "gender": "1", "age": "20", "face": "https://wx.qlogo.cn/mmopen/vi_32/8gy835dKev8fibUhibQ7FVCHYN68jsS9jxj7t5qGia4EIT6hmuNdur2MHp6OicSFMG0hsU4hFnWP7QYgJvCRyhE8Hg/132" },
-        { "auid": "1289", "uid": "10000", "avrid": "5785", "avridtmp": "5785", "value": "93", "kid": "6610123", "link": "http://face.exe666.com/1007/face/kiki_174_1021492987806318_1093.jpg", "views": "0", "day_num": "1", "user_num": "5", "date": "2019-01-22 12:16:22", "clientdate": "1548130582000", "nickname": "黄一", "gender": "1", "age": "25", "face": "http://thirdwx.qlogo.cn/mmopen/vi_32/DYAIOgq83eqbNz7AMxaq6qkWfG8wku43yr6giaIMUw8BtI39Dp12HGhBRrz8cG7rqbTxPogJawXNuYvuj3dmeZw/132" },
-        { "auid": "1287", "uid": "112348", "avrid": "4387", "avridtmp": "4387", "value": "92", "kid": "6610123", "link": "http://face.exe666.com/1007/face/kiki_174_3651492934175765_513.jpg", "views": "0", "day_num": "1", "user_num": "1", "date": "2019-01-04 15:33:29", "clientdate": "1546587209000", "nickname": "Wending", "gender": "1", "age": "20", "face": "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTLyBXRPx48DjQ3EvfLQuWj6DoBJRJBj2icdDLicbm62dGTicOdnASkUlFTd2SEicNKprrzZZmSZZ5Ts4w/132" },
-        { "auid": "1306", "uid": "10086", "avrid": "4414", "avridtmp": "4414", "value": "86", "kid": "5385499", "link": "http://face.exe666.com/1007/face/kiki_881_7881492948246280_1459.jpg", "views": "0", "day_num": "1", "user_num": "1", "date": "2019-01-04 19:28:03", "clientdate": "1546601283000", "nickname": "海阔天空", "gender": "1", "age": "36", "face": "http://thirdwx.qlogo.cn/mmopen/vi_32/DYAIOgq83eoZibp9IsxKYJzG8z1icd9NsREovDUBDUzl9wcGJ1UB9y9b7QcSTXwZQZ4PUsgU15WGQlIedbKMCxww/132" },
-        { "auid": "1551", "uid": "88888", "avrid": "4825", "avridtmp": "4825", "value": "95", "kid": "7034930", "link": "http://face.exe666.com/1007/face/kiki_880_3751492945231394_848.jpg", "views": "0", "day_num": "1", "user_num": "1", "date": "2019-01-08 16:55:00", "clientdate": "1546937700000", "nickname": "淡然", "gender": "1", "age": "20", "face": "https://wx.qlogo.cn/mmopen/vi_32/8gy835dKev8fibUhibQ7FVCHYN68jsS9jxj7t5qGia4EIT6hmuNdur2MHp6OicSFMG0hsU4hFnWP7QYgJvCRyhE8Hg/132" },
-        { "auid": "1289", "uid": "10000", "avrid": "5785", "avridtmp": "5785", "value": "93", "kid": "6610123", "link": "http://face.exe666.com/1007/face/kiki_174_1021492987806318_1093.jpg", "views": "0", "day_num": "1", "user_num": "5", "date": "2019-01-22 12:16:22", "clientdate": "1548130582000", "nickname": "黄一", "gender": "1", "age": "25", "face": "http://thirdwx.qlogo.cn/mmopen/vi_32/DYAIOgq83eqbNz7AMxaq6qkWfG8wku43yr6giaIMUw8BtI39Dp12HGhBRrz8cG7rqbTxPogJawXNuYvuj3dmeZw/132" },
-        { "auid": "1287", "uid": "112348", "avrid": "4387", "avridtmp": "4387", "value": "92", "kid": "6610123", "link": "http://face.exe666.com/1007/face/kiki_174_3651492934175765_513.jpg", "views": "0", "day_num": "1", "user_num": "1", "date": "2019-01-04 15:33:29", "clientdate": "1546587209000", "nickname": "Wending", "gender": "1", "age": "20", "face": "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTLyBXRPx48DjQ3EvfLQuWj6DoBJRJBj2icdDLicbm62dGTicOdnASkUlFTd2SEicNKprrzZZmSZZ5Ts4w/132" },
-        { "auid": "1306", "uid": "10086", "avrid": "4414", "avridtmp": "4414", "value": "86", "kid": "5385499", "link": "http://face.exe666.com/1007/face/kiki_881_7881492948246280_1459.jpg", "views": "0", "day_num": "1", "user_num": "1", "date": "2019-01-04 19:28:03", "clientdate": "1546601283000", "nickname": "海阔天空", "gender": "1", "age": "36", "face": "http://thirdwx.qlogo.cn/mmopen/vi_32/DYAIOgq83eoZibp9IsxKYJzG8z1icd9NsREovDUBDUzl9wcGJ1UB9y9b7QcSTXwZQZ4PUsgU15WGQlIedbKMCxww/132" }
-      ],
-      listBeforeInfo: [],
-      Behind: [],
+      list: [],
       auid: null,
       userId: null,
-      ImgUrl: null,
       wxShareInfoValue: {
         title: "亲爱的，新年快乐!",
         desc: "猪年大吉，猪事顺利",
-        link: "http://papi.xingstation.com/api/s/RlL" + window.location.search,
+        link: "http://papi.xingstation.com/api/s/NYL" + window.location.search,
         imgUrl: cdnUrl + "/fe/marketing/img/listRank/icon.png"
       }
     };
@@ -140,13 +130,6 @@ export default {
     this.handleForbiddenShare();
   },
   watch: {
-    userinfo() {
-      if (Cookies.get('z')) {
-        this.cookies_z = Cookies.get('z')
-      } else {
-        Cookies.set('z', this.userinfo.z)
-      }
-    },
     actinfo() {
       this.cookies_z = Cookies.get('z')
       let z = this.cookies_z || this.userinfo.z
@@ -174,7 +157,6 @@ export default {
         window.location.href = redirct_url;
       } else {
         this.userId = Cookies.get("user_id");
-
       }
     },
     //禁止微信分享
@@ -257,14 +239,15 @@ img {
           position: relative;
         }
         .places-head {
-          width: 22%;
+          width: 17%;
           position: absolute;
-          left: 10%;
-          top: 13%;
+          left: 12%;
+          top: 24%;
+          border-radius: 50%;
         }
         .nickname {
           display: inline-block;
-          width: 30%;
+          width: 32%;
           position: absolute;
           left: 28%;
           top: 37%;
@@ -279,12 +262,11 @@ img {
           top: 37%;
           font-size: 5vw;
           color: #000;
-          font-family: MatrixCode;
+          font-family: " MatrixCode";
         }
       }
       .rank-list {
         width: 100%;
-
         position: relative;
         margin-top: 5%;
         overflow: hidden;
@@ -306,15 +288,16 @@ img {
           top: 0;
         }
         .places-head {
-          width: 22%;
+          width: 17%;
           position: absolute;
-          left: 1%;
-          top: -11%;
+          left: 3%;
+          top: 4%;
           z-index: 99;
+          border-radius: 50%;
         }
         .nickname {
           display: inline-block;
-          width: 30%;
+          width: 32%;
           position: absolute;
           left: 28%;
           top: 26%;
@@ -337,8 +320,8 @@ img {
           width: 5%;
           position: absolute;
           left: 0;
-          top: 8%;
-          font-size: 8vw;
+          top: 27%;
+          font-size: 5vw;
           color: #000;
           z-index: 99;
         }

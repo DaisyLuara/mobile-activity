@@ -258,7 +258,7 @@ const Date201901 = [
     location: '201901/listRankIndex',
     name: 'listRank_index',
     meta: {
-      title: '',
+      title: '风味',
       author: 'xj1012',
       desc: '星视度年会'
     },
@@ -269,7 +269,7 @@ const Date201901 = [
     location: '201901/listRankResult',
     name: 'listRank_result',
     meta: {
-      title: '',
+      title: '风味',
       author: 'xj1012',
       desc: '星视度年会'
     },

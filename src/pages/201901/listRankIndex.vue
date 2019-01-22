@@ -10,15 +10,11 @@
       >
       <!-- 头像 -->
       <img
-        :src="baseUrl + 'ranking.png'+ this.$qiniuCompress()"
-        class="head"
-      >
-      <!-- <img
         :src="userinfo.face"
         class="head"
-      > -->
+      >
       <!-- 分数 -->
-      <span class="nickname">小俊</span>
+      <span class="nickname">{{userinfo.nickname}}</span>
       <span class="score">{{score}}</span>
       <!-- 图片 -->
       <img
@@ -60,12 +56,12 @@ export default {
         }
       },
       userId: null,
-      ImgUrl: null,
       score: null,
+      cookies_z: null,
       wxShareInfoValue: {
         title: "亲爱的，新年快乐!",
         desc: "猪年大吉，猪事顺利",
-        link: "http://papi.xingstation.com/api/s/RlL" + window.location.search,
+        link: "http://papi.xingstation.com/api/s/MJQ" + window.location.search,
         imgUrl: cdnUrl + "/fe/marketing/img/listRank/icon.png"
       }
     };
@@ -83,6 +79,7 @@ export default {
     }
   },
   mounted() {
+    this.cookies_z = Cookies.get('z')
     //微信授权
     if (isInWechat() === true) {
       if (
@@ -121,8 +118,8 @@ export default {
         });
     },
     go() {
-      console.log("11111")
-      //window.location.href = "http://papi.xingstation.com/api/s/NYL"
+      //console.log("11111")
+      window.location.href = "http://papi.xingstation.com/api/s/NYL"
     }
   }
 };
@@ -167,7 +164,6 @@ img {
   background-size: 100% auto;
   background-position: center bottom;
   background-repeat: no-repeat;
-  //background: #f00;
   .contain {
     width: 100%;
     position: relative;
@@ -176,10 +172,10 @@ img {
       width: 75%;
     }
     .head {
-      width: 27%;
+      width: 22%;
       position: absolute;
-      left: 36.7%;
-      top: 2.8%;
+      left: 39%;
+      top: 4.2%;
       border-radius: 50%;
     }
     .score {
@@ -192,7 +188,7 @@ img {
       font-size: 5vw;
       z-index: 99;
       color: #000;
-      font-family: MatrixCode;
+      font-family: " MatrixCode";
     }
     .nickname {
       display: inline-block;
@@ -210,6 +206,8 @@ img {
       position: absolute;
       left: 26.5%;
       top: 44%;
+      pointer-events: auto;
+      user-select: auto;
     }
     .ranking-btn {
       width: 28%;
