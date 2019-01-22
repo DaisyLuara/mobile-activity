@@ -43,7 +43,7 @@
   </div>
 </template>
 <script>
-import { $wechat, isInWechat, wechatShareTrack, getGameList } from 'services'
+import { $wechat, isInWechat, wechatShareTrack, getGameList, Cookies } from 'services'
 import { normalPages } from '@/mixins/normalPages'
 const CDN_URL = process.env.CDN_URL
 export default {
@@ -56,20 +56,25 @@ export default {
           'min-height': this.$innerHeight() + 'px'
         }
       },
+      cookies_z: null,
       list: [],
+      auid: null,
       //微信分享
       wxShareInfoValue: {
-        title: '',
-        desc: '',
+        title: '最美瞬间',
+        desc: '最美凯德，醉美上海',
         imgUrl: CDN_URL + '/fe/image/beauty/icon.png'
       }
     }
   },
   mounted() {
+    this.cookies_z = Cookies.get('z')
   },
   watch: {
-    userinfo() {
-      getList(this.actinfo.awardkey, this.userinfo.z)
+    actinfo() {
+      this.cookies_z = Cookies.get('z')
+      let z = this.cookies_z || this.userinfo.z
+      this.getList(this.actinfo.awardkey, z)
     }
   },
   methods: {
@@ -87,10 +92,13 @@ export default {
       heart.src = this.base + 'p2/heart.png'
       heart.style.width = '18.5vw'
       heart.style.position = 'absolute'
-      heart.style.left = x + 'px'
-      heart.style.top = y + 'px'
+      heart.style.left = '50%'
+      heart.style.top = '50%'
+      // heart.style.left = x + 'px'
+      // heart.style.top = y + 'px'
       heart.style.zIndex = '9999'
-      heart.style.transform = 'translate(-30%,-30%)'
+      heart.style.transform = 'translate(-50%,-50%)'
+      // heart.style.transform = 'translate(-30%,-30%)'
       target.parentNode.appendChild(heart)
       let timer = setTimeout(function () {
         clearTimeout(timer)
