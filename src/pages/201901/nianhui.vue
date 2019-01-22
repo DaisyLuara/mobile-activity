@@ -65,7 +65,7 @@ export default {
   },
   watch: {
     parms() {
-      this.getCouponDetail();
+      this.checkGetCoupon();
     }
   },
   mounted() {
@@ -184,14 +184,14 @@ export default {
       }
       if (iNum >= (allPX * 1) / 4) {
         this.award = false
-        // alert('aaa')
+        this.sendCoupon()
       }
     },
     getCouponDetail() {
       checkCouponNumber(this.coupon_batch_id)
         .then(res => {
           this.coupon_url = res.image_url;
-          this.checkGetCoupon()
+          // this.checkGetCoupon()
         })
         .catch(err => {
           alert(err.response.data.message);
@@ -202,12 +202,22 @@ export default {
       let args = {
         id: this.id,
         coupon_batch_id: this.coupon_batch_id,
-        include: "couponBatch"
+        include: "couponBatch",
       };
       checkGetCoupon(args)
         .then(res => {
-          if (!res) {
-            this.sendCoupon();
+          // if (!res) {
+          //   this.getCouponDetail()
+          // } else {
+          //   this.coupon_url = res.image_url;
+          //   this.award = false
+          // }
+          if (parseInt(res.status) === 1) {
+            this.award = false
+            this.coupon_url = res.couponBatch.image_url
+          } else {
+            this.award = true
+            this.getCouponDetail()
           }
         })
         .catch(err => {

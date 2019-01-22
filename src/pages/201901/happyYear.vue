@@ -126,7 +126,7 @@ export default {
       base: IMG_SERVER + '/fe/image/happyyear/',
       hint: false,
       torun: false,
-      scene: 'flower',//'money'
+      scene: null,//'money'
       money_pig: 'money_pig_00000',
       heart_pig: 'heart_pig_00000',
       imgList: [],
