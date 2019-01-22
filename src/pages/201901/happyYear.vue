@@ -124,7 +124,7 @@ export default {
         }
       },
       base: IMG_SERVER + '/fe/image/happyyear/',
-      hint: true,
+      hint: false,
       torun: false,
       scene: null,//'money'
       money_pig: 'money_pig_00000',
@@ -135,8 +135,8 @@ export default {
       animation: null,
       //分享
       wxShareInfoValue: {
-        title: '新年快乐',
-        desc: '新年快乐',
+        title: '你是我的掌声名猪',
+        desc: '像你这样的人，除了宠着，还是宠着',
         link: 'http://papi.xingstation.com/api/s/GRy' + window.location.search,
         imgUrl: 'http://cdn.exe666.com/image/happyyear/icon.png'
       }
@@ -145,12 +145,18 @@ export default {
   watch: {
     parms() {
       this.scene = this.parms.scene
+      this.hint = true
       this.doAnim()
       this.loadPigImage(this.scene, 12)
     }
   },
   mounted() {
-
+    if (process.env.NODE_ENV === 'testing') {
+      this.wxShareInfoValue.link = 'http://papi.newgls.cn/api/s/oQK' + window.location.search
+    }
+    // this.hint = true
+    // this.doAnim()
+    // this.loadPigImage(this.scene, 12)
   },
   methods: {
     doAnim() {
@@ -343,6 +349,7 @@ img {
   .star11 {
     top: 30.5%;
     left: 77%;
+    z-index: 9999;
   }
   .star12 {
     top: 65%;
@@ -351,10 +358,12 @@ img {
   .star21 {
     top: 25%;
     left: 83%;
+    z-index: 9999;
   }
   .star22 {
     top: 51.5%;
     left: 13%;
+    z-index: 9999;
   }
   .star23 {
     top: 42%;
@@ -367,7 +376,7 @@ img {
     left: 0;
     bottom: 0%;
     right: 0;
-    z-index: 9999;
+    z-index: 999;
     text-align: center;
     .title {
       width: 86%;
