@@ -252,6 +252,50 @@ const Date201901 = [
       desc: '2019发发发-通用版'
     },
     isAbandoned: false
+  },
+  {
+    path: 'happy_year',
+    location: '201901/happyYear',
+    name: 'happy_year',
+    meta: {
+      title: '猪你快乐',
+      author: 'lipan',
+      desc: '猪你快乐'
+    },
+    isAbandoned: false
+  },
+  // {
+  //   path: 'pig_smoothly',
+  //   location: '201901/smoothly',
+  //   name: 'pig_smoothly',
+  //   meta: {
+  //     title: '猪事顺利',
+  //     author: 'xj1012',
+  //     desc: '哈尔滨凯德-猪事顺利'
+  //   },
+  //   isAbandoned: false
+  // },
+  // {
+  //   path: 'oriental_myth',
+  //   location: '201901/orientalMyth',
+  //   name: 'oriental_myth',
+  //   meta: {
+  //     title: '猪事顺利',
+  //     author: 'xj1012',
+  //     desc: '哈尔滨凯德-猪事顺利'
+  //   },
+  //   isAbandoned: false
+  // },
+  {
+    path: 'nianhui',
+    location: '201901/nianhui',
+    name: 'nianhui',
+    meta: {
+      title: '刮刮乐',
+      author: 'lipan',
+      desc: '年会原力觉醒刮奖h5'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201901
