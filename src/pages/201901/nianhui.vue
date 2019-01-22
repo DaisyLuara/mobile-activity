@@ -212,11 +212,12 @@ export default {
       checkGetCoupon(args)
         .then(res => {
           console.log(res)
-          this.coupon_url = res.couponBatch.image_url
-          this.code = res.code
-          this.hasget = true
           if (!res) {
             this.sendCoupon()
+          } else {
+            this.coupon_url = res.couponBatch.image_url
+            this.code = res.code
+            this.hasget = true
           }
           if (parseInt(res.status) === 1) {
             this.award = false
@@ -247,7 +248,9 @@ export default {
       sendCoupon(args, this.coupon_batch_id)
         .then(res => {
           //发完券
-          console.log('send')
+          this.coupon_url = res.couponBatch.image_url
+          this.code = res.code
+          this.hasget = true
         })
         .catch(err => {
           alert(err.response.data.message);
