@@ -254,6 +254,17 @@ const Date201901 = [
     isAbandoned: false
   },
   {
+    path: 'happy_year',
+    location: '201901/happyYear',
+    name: 'happy_year',
+    meta: {
+      title: '猪你快乐',
+      author: 'lipan',
+      desc: '新年快乐'
+    },
+    isAbandoned: false
+  },
+  {
     path: 'pig_smoothly',
     location: '201901/smoothly',
     name: 'pig_smoothly',
