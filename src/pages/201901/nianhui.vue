@@ -12,7 +12,10 @@
         :src="base + 'bg2.png'"
         class="bg"
       >
-      <div class="coupon">
+      <div
+        v-show="hasget"
+        class="coupon"
+      >
         <img
           :src="base + 'bg3.png'"
           class="bg"
@@ -44,7 +47,7 @@
   </div>
 </template>
 <script>
-import { $wechat, isInWechat, wechatShareTrack, Cookies, sendCoupon, checkGetCoupon, checkCouponNumber } from 'services'
+import { $wechat, isInWechat, wechatShareTrack, Cookies, sendCoupon, checkGetCoupon, checkCouponNumber, sendMoneyOnce } from 'services'
 import { normalPages } from '@/mixins/normalPages'
 const CDN_URL = process.env.CDN_URL
 export default {
@@ -57,6 +60,7 @@ export default {
           'min-height': this.$innerHeight() + 'px'
         }
       },
+      hasget: false,
       id: this.$route.query.id,
       userId: null,
       award: true,
@@ -185,19 +189,9 @@ export default {
       }
       if (iNum >= (allPX * 1) / 4) {
         this.award = false
-        this.sendCoupon()
+        // this.sendCoupon()
+        this.sendMoney(this.code)
       }
-    },
-    getCouponDetail() {
-      checkCouponNumber(this.$route.query.coupon_batch_id)
-        .then(res => {
-          this.coupon_url = res.image_url;
-          // this.checkGetCoupon()
-          console.log('get img')
-        })
-        .catch(err => {
-          alert(err.response.data.message);
-        });
     },
     //获取券信息
     checkGetCoupon() {
@@ -206,27 +200,29 @@ export default {
         coupon_batch_id: this.$route.query.coupon_batch_id,
         include: "couponBatch",
       };
-      console.log(this.$route.query.coupon_batch_id)
       checkGetCoupon(args)
         .then(res => {
-          // if (!res) {
-          //   this.getCouponDetail()
-          // } else {
-          //   this.coupon_url = res.image_url;
-          //   this.award = false
-          // }
           console.log(res)
+          this.coupon_url = res.couponBatch.image_url
+          this.code = res.code
+          this.hasget = true
           if (parseInt(res.status) === 1) {
             this.award = false
-            this.coupon_url = res.couponBatch.image_url
           } else {
             this.award = true
-            this.getCouponDetail()
           }
         })
         .catch(err => {
           console.log(err);
         });
+    },
+    //发现金券
+    sendMoney(code) {
+      sendMoneyOnce(code).then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
     },
     //发优惠券
     sendCoupon() {
