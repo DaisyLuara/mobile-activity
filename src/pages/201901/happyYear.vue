@@ -138,7 +138,7 @@ export default {
         title: '你是我的掌声名猪',
         desc: '像你这样的人，除了宠着，还是宠着',
         link: 'http://papi.xingstation.com/api/s/GRy' + window.location.search,
-        imgUrl: 'http://cdn.exe666.com/image/happyyear/icon.png'
+        imgUrl: 'http://cdn.exe666.com/fe/image/happyyear/icon.png'
       }
     }
   },
@@ -272,6 +272,7 @@ img {
 }
 .content {
   width: 100%;
+  position: relative;
   overflow: hidden;
   background-color: #2c0400;
   background-image: url("@{imgUrl}bg.png");

@@ -27,7 +27,7 @@
       href="http://papi.xingstation.com/api/s/E8N"
       class="btn-right"
     >
-      <img :src="base + 'btn1.png'">
+      <img :src="base + 'btn12.png'">
     </a>
     <div
       v-show="mask1"
@@ -62,6 +62,12 @@
         <!-- 年龄，颜值分数-->
         <span class="year">{{ year }}岁颜值</span>
         <span class="yz-score">{{ score }}</span>
+        <a
+          class="meishi"
+          href="http://papi.xingstation.com/api/s/E8N"
+        >
+          <img :src="base + 'btn13.png'+ this.$qiniuCompress()">
+        </a>
         <a
           v-show="pkshow"
           class="topk"
@@ -118,8 +124,9 @@ export default {
       mask1: true,
       mask2: false,
       year: '0',
-      btn: 'btn',
+      btn: 'btn01',
       linkimg: null,
+      cookies_z: null,
       //分享
       wxShareInfoValue: {
         title: '魔镜颜值PK擂台',
@@ -133,49 +140,41 @@ export default {
     photo() {
       this.pkshow = true
     },
+    userinfo() {
+      this.pkshow = true
+      if (Cookies.get('z')) {
+        this.cookies_z = Cookies.get('z')
+      } else {
+        Cookies.set('z', this.userinfo.z)
+      }
+    },
     parms() {
       this.linkimg = this.parms.link
-      this.year = this.parms.year || this.awardinfo.age || this.year
+      if (this.awardinfo) {
+        this.year = this.awardinfo.age
+      } else {
+        this.year = this.parms.year || this.$route.query.year || this.year
+      }
     }
   },
   mounted() {
     if (this.$innerHeight() > 672) {
       this.iphoneX = true
     }
-    //微信授权
-    // if (isInWechat() === true) {
-    //   if (
-    //     process.env.NODE_ENV === 'production' ||
-    //     process.env.NODE_ENV === 'testing'
-    //   ) {
-    //     this.handleWechatAuth()
-    //   }
-    // }
+    if (Cookies.get('z')) {
+      this.cookies_z = Cookies.get('z')
+    }
   },
   methods: {
-    // handleWechatAuth() {
-    //   if (Cookies.get('sign') === null) {
-    //     let base_url = encodeURIComponent(String(window.location.href))
-    //     let redirct_url =
-    //       process.env.WX_API +
-    //       '/wx/officialAccount/oauth?url=' +
-    //       base_url +
-    //       '&scope=snsapi_base'
-    //     window.location.href = redirct_url
-    //     console.log(window.location.href)
-    //   } else {
-    //     this.userId = Cookies.get('user_id')
-    //   }
-    // },
     toPK() {
       if (!this.awardinfo) {
         this.pkshow = false
         return
       }
       this.btn = 'btned'
-      // alert(this.userinfo.z)
       if (this.awardinfo.pass == 0 || this.awardinfo.valuetmp != this.awardinfo.value) {
-        gameListNeedCheck(this.awardinfo.auid, this.userinfo.z).then(res => {
+        let z = this.cookies_z || this.userinfo.z
+        gameListNeedCheck(this.awardinfo.auid, z).then(res => {
           console.log(res)
         }).catch(err => {
           console.log(err)
@@ -327,7 +326,8 @@ img {
         text-align: center;
         font-size: 3.5vw;
         color: #fff;
-        top: 52%;
+        // top: 52%;
+        top: 40%;
         left: 28%;
         font-family: "smallnum";
       }
@@ -336,15 +336,18 @@ img {
         text-align: left;
         font-size: 12vw;
         color: #fff;
-        top: 50%;
+        top: 38%;
+        // top: 50%;
         left: 42%;
         font-family: "boldnum";
       }
       .clip {
-        width: 31vw;
-        height: 31vw;
+        // width: 31vw;
+        // height: 31vw;
+        width: 20vw;
+        height: 20vw;
         position: absolute;
-        top: 20%;
+        top: 19%;
         left: 50%;
         transform: translateX(-50%);
         z-index: 9;
@@ -352,11 +355,20 @@ img {
         overflow: hidden;
       }
       .coverbg {
-        width: 43vw;
+        // width: 43vw;
+        width: 28vw;
         position: absolute;
-        top: 20%;
-        left: 26%;
+        top: 18%;
+        left: 34%;
         z-index: 99;
+      }
+      .meishi {
+        width: 49vw;
+        position: absolute;
+        z-index: 999;
+        top: 50%;
+        left: 50%;
+        animation: mybig 0.6s linear infinite alternate;
       }
       .topk {
         width: 49vw;
@@ -364,7 +376,6 @@ img {
         z-index: 999;
         top: 65%;
         left: 50%;
-        // transform: translateX(-50%);
         animation: mybig 0.6s linear infinite alternate;
       }
     }
