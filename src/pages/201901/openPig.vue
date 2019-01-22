@@ -92,6 +92,7 @@ export default {
     let timer = setTimeout(() => {
       this.showImg = false
       this.contentShow = true
+      clearTimeout(timer)
     }, 3000)
     if (process.env.NODE_ENV === 'testing') {
       this.type = this.$route.query.type,
@@ -162,9 +163,9 @@ export default {
         }
       })
         .add(url, {
-          width: '50%',
+          width: '54%',
           pos: {
-            x: '28%',
+            x: '23.8%',
             y: '45%'
           }
         })
