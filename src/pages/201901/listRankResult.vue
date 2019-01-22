@@ -162,10 +162,7 @@ export default {
           res.forbidden();
         })
         .catch(_ => {
-          this.$message({
-            type: 'warning',
-            message: err.response.data.message
-          })
+          console.warn(_.message);
         });
     },
   }

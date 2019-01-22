@@ -14,12 +14,12 @@
       >
       <!-- 头像 -->
       <img
-        :src="awardinfolist.face"
+        :src="Imgurl"
         class="head"
       >
       <!-- 分数 -->
-      <span class="nickname">{{awardinfolist.nickname}}</span>
-      <span class="score">{{awardinfolist.value}}</span>
+      <span class="nickname">{{nickname}}</span>
+      <span class="score">{{score}}</span>
       <!-- 图片 -->
       <img
         v-if="photo !== null"
@@ -60,7 +60,9 @@ export default {
         }
       },
       // userId: null,
-      awardinfolist: null,
+      nickname: null,
+      Imgurl: null,
+      score: null,
       cookies_z: null,
       wxShareInfoValue: {
         title: "亲爱的，新年快乐!",
@@ -72,7 +74,9 @@ export default {
   },
   watch: {
     awardinfo() {
-      this.awardinfolist = this.awardinfo
+      this.nickname = this.awardinfo.nickname
+      this.Imgurl = this.awardinfo.face
+      this.score = this.awardinfo.value
     },
     userinfo() {
       if (Cookies.get('z')) {
@@ -117,10 +121,7 @@ export default {
           res.forbidden();
         })
         .catch(_ => {
-          this.$message({
-            type: 'warning',
-            message: err.response.data.message
-          })
+          console.warn(_.message);
         });
     },
     go() {
