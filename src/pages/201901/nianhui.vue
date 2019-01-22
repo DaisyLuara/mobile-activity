@@ -60,7 +60,7 @@ export default {
       id: this.$route.query.id,
       userId: null,
       award: true,
-      coupon_url: 'https://cdn.exe666.com/fe/image/nianhui/test.png',//null
+      coupon_url: null,//null 'https://cdn.exe666.com/fe/image/nianhui/test.png'
     }
   },
   // watch: {
