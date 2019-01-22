@@ -3,6 +3,10 @@
     :style="style.root"
     class="root"
   >
+    <img
+      :src="baseUrl + 'bg.png'"
+      class="bg"
+    >
     <div class="contain">
       <img
         :src="baseUrl + 'photo_02.png'+ this.$qiniuCompress()"
@@ -10,12 +14,12 @@
       >
       <!-- 头像 -->
       <img
-        :src="awardinfolist.face"
+        :src="Imgurl"
         class="head"
       >
       <!-- 分数 -->
-      <span class="nickname">{{awardinfolist.nickname}}</span>
-      <span class="score">{{awardinfolist.value}}</span>
+      <span class="nickname">{{nickname}}</span>
+      <span class="score">{{score}}</span>
       <!-- 图片 -->
       <img
         v-if="photo !== null"
@@ -55,8 +59,10 @@ export default {
           height: this.$innerHeight() + "px"
         }
       },
-      userId: null,
-      awardinfolist: null,
+      // userId: null,
+      nickname: null,
+      Imgurl: null,
+      score: null,
       cookies_z: null,
       wxShareInfoValue: {
         title: "亲爱的，新年快乐!",
@@ -68,38 +74,46 @@ export default {
   },
   watch: {
     awardinfo() {
-      this.awardinfolist = this.awardinfo
-    }
+      this.nickname = this.awardinfo.nickname
+      this.Imgurl = this.awardinfo.face
+      this.score = this.awardinfo.value
+    },
+    userinfo() {
+      if (Cookies.get('z')) {
+        this.cookies_z = Cookies.get('z')
+      } else {
+        Cookies.set('z', this.userinfo.z)
+      }
+    },
   },
   mounted() {
     this.cookies_z = Cookies.get('z')
     //微信授权
-    if (isInWechat() === true) {
-      if (
-        process.env.NODE_ENV === "production" ||
-        process.env.NODE_ENV === "testing"
-      ) {
-        this.handleWechatAuth();
-      }
-    }
+    // if (isInWechat() === true) {
+    //   if (
+    //     process.env.NODE_ENV === "production" ||
+    //     process.env.NODE_ENV === "testing"
+    //   ) {
+    //     this.handleWechatAuth();
+    //   }
+    // }
     this.handleForbiddenShare();
   },
   methods: {
     //微信静默授权
-    handleWechatAuth() {
-      if (Cookies.get("sign") === null) {
-        let base_url = encodeURIComponent(String(window.location.href));
-        let redirct_url =
-          process.env.WX_API +
-          "/wx/officialAccount/oauth?url=" +
-          base_url +
-          "&scope=snsapi_base";
-        window.location.href = redirct_url;
-      } else {
-        this.userId = Cookies.get("user_id");
-
-      }
-    },
+    // handleWechatAuth() {
+    //   if (Cookies.get("sign") === null) {
+    //     let base_url = encodeURIComponent(String(window.location.href));
+    //     let redirct_url =
+    //       process.env.WX_API +
+    //       "/wx/officialAccount/oauth?url=" +
+    //       base_url +
+    //       "&scope=snsapi_base";
+    //     window.location.href = redirct_url;
+    //   } else {
+    //     this.userId = Cookies.get("user_id");
+    //   }
+    // },
     //禁止微信分享
     handleForbiddenShare() {
       $wechat()
@@ -111,8 +125,6 @@ export default {
         });
     },
     go() {
-      //console.log("11111")
-      // window.location.href = "http://papi.xingstation.com/api/s/NYL" + window.location.search
       this.$router.push({
         path: 'listRank_result?' + window.location.search
       })
@@ -152,18 +164,20 @@ img {
 .root {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: center;
+  width: 100%;
   position: relative;
-  overflow: hidden;
-  background-image: url("@{imageHost}bg.png");
-  background-size: 100% auto;
-  background-position: center bottom;
-  background-repeat: no-repeat;
+  .bg {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
   .contain {
     width: 100%;
     position: relative;
-    margin-top: -8%;
+    //margin-top: -8%;
     .frame {
       width: 75%;
     }
@@ -193,7 +207,7 @@ img {
       left: 35%;
       top: 20.5%;
       border-radius: 50%;
-      font-size: 3vw;
+      font-size: 3.5vw;
       z-index: 99;
       color: #fff;
     }
@@ -217,6 +231,7 @@ img {
   .logo {
     width: 30%;
     position: relative;
+    margin-top: 15%;
   }
 }
 </style>

@@ -101,7 +101,7 @@ export default {
       cookies_z: null,
       list: [],
       auid: null,
-      userId: null,
+      //userId: null,
       wxShareInfoValue: {
         title: "亲爱的，新年快乐!",
         desc: "猪年大吉，猪事顺利",
@@ -113,14 +113,14 @@ export default {
   mounted() {
     this.cookies_z = Cookies.get('z')
     //微信授权
-    if (isInWechat() === true) {
-      if (
-        process.env.NODE_ENV === "production" ||
-        process.env.NODE_ENV === "testing"
-      ) {
-        this.handleWechatAuth();
-      }
-    }
+    // if (isInWechat() === true) {
+    //   if (
+    //     process.env.NODE_ENV === "production" ||
+    //     process.env.NODE_ENV === "testing"
+    //   ) {
+    //     this.handleWechatAuth();
+    //   }
+    // }
     this.handleForbiddenShare();
   },
   watch: {
@@ -142,19 +142,19 @@ export default {
       })
     },
     //微信静默授权
-    handleWechatAuth() {
-      if (Cookies.get("sign") === null) {
-        let base_url = encodeURIComponent(String(window.location.href));
-        let redirct_url =
-          process.env.WX_API +
-          "/wx/officialAccount/oauth?url=" +
-          base_url +
-          "&scope=snsapi_base";
-        window.location.href = redirct_url;
-      } else {
-        this.userId = Cookies.get("user_id");
-      }
-    },
+    // handleWechatAuth() {
+    //   if (Cookies.get("sign") === null) {
+    //     let base_url = encodeURIComponent(String(window.location.href));
+    //     let redirct_url =
+    //       process.env.WX_API +
+    //       "/wx/officialAccount/oauth?url=" +
+    //       base_url +
+    //       "&scope=snsapi_base";
+    //     window.location.href = redirct_url;
+    //   } else {
+    //     this.userId = Cookies.get("user_id");
+    //   }
+    // },
     //禁止微信分享
     handleForbiddenShare() {
       $wechat()
@@ -247,7 +247,7 @@ img {
           position: absolute;
           left: 28%;
           top: 45%;
-          font-size: 2vw;
+          font-size: 3.5vw;
           color: #600019;
         }
         .score {
@@ -297,7 +297,7 @@ img {
           position: absolute;
           left: 28%;
           top: 34%;
-          font-size: 2vw;
+          font-size: 3.5vw;
           color: #fff;
           z-index: 99;
         }
