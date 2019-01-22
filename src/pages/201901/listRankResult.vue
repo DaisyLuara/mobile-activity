@@ -65,7 +65,7 @@
               <!-- 昵称 -->
               <span class="nickname">{{item.nickname.length>4?(item.nickname.substring(0,4)+'...'):item.nickname}}</span>
               <!-- 分数 -->
-              <span class="score">{{item.y}}</span>
+              <span class="score">{{item.value}}</span>
               <img
                 :src="baseUrl + '04.png'"
                 class="list-tit"
@@ -129,12 +129,6 @@ export default {
       let z = this.cookies_z || this.userinfo.z
       this.getList(this.actinfo.awardkey, z)
     },
-    // parms() {
-    //   this.linkimg = this.parms.link
-    // },
-    // awardinfo() {
-    //   this.list = this.awardinfo
-    // }
   },
   methods: {
     getList(awardkey, z) {
