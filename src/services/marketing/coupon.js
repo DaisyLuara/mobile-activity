@@ -397,6 +397,7 @@ const sendV2Coupon = (params, couponId) => {
 //  发现金券  年会
 const sendMoneyOnce = (code, params) => {
   handleParma(params)
+  delete params.game_attribute_payload
   return new Promise((resolve, reject) => {
     axios
       .post(MONEY_URL + '/' + code, params, REQ_HEADER)
