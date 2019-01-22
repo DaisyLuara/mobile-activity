@@ -126,7 +126,7 @@ export default {
       base: IMG_SERVER + '/fe/image/happyyear/',
       hint: false,
       torun: false,
-      scene: null,//'money'
+      scene: 'flower',//'money'
       money_pig: 'money_pig_00000',
       heart_pig: 'heart_pig_00000',
       imgList: [],
@@ -145,7 +145,6 @@ export default {
   watch: {
     parms() {
       this.scene = this.parms.scene
-      this.hint = true
       this.doAnim()
       this.loadPigImage(this.scene, 12)
     }
@@ -154,13 +153,13 @@ export default {
     if (process.env.NODE_ENV === 'testing') {
       this.wxShareInfoValue.link = 'http://papi.newgls.cn/api/s/oQK' + window.location.search
     }
-    // this.hint = true
     // this.doAnim()
     // this.loadPigImage(this.scene, 12)
   },
   methods: {
     doAnim() {
       const el = document.getElementById('anim')
+      let that = this
       let anim = lottie.loadAnimation({
         name: 'anim',
         container: el,
@@ -170,6 +169,7 @@ export default {
       })
       this.animation = anim
       anim.addEventListener('DOMLoaded', function () {
+        that.hint = true
         anim.stop()
       })
     },
