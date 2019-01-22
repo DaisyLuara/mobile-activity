@@ -63,11 +63,11 @@ export default {
       coupon_url: 'https://cdn.exe666.com/fe/image/nianhui/test.png',//null
     }
   },
-  watch: {
-    parms() {
-      this.checkGetCoupon();
-    }
-  },
+  // watch: {
+  //   parms() {
+  //     this.checkGetCoupon();
+  //   }
+  // },
   mounted() {
     //微信授权
     if (isInWechat() === true) {
@@ -79,6 +79,7 @@ export default {
       }
     }
     this.handleForbiddenShare()
+    this.checkGetCoupon()
     let that = this
     let img = new Image()
     img.src = this.base + 'bg3.png'
@@ -188,7 +189,7 @@ export default {
       }
     },
     getCouponDetail() {
-      checkCouponNumber(this.coupon_batch_id)
+      checkCouponNumber(this.$route.query.coupon_batch_id)
         .then(res => {
           this.coupon_url = res.image_url;
           // this.checkGetCoupon()
@@ -202,7 +203,7 @@ export default {
     checkGetCoupon() {
       let args = {
         id: this.id,
-        coupon_batch_id: this.coupon_batch_id,
+        coupon_batch_id: this.$route.query.coupon_batch_id,
         include: "couponBatch",
       };
       checkGetCoupon(args)
@@ -234,7 +235,7 @@ export default {
         oid: this.oid,
         belong: this.belong
       };
-      sendCoupon(args, this.coupon_batch_id)
+      sendCoupon(args, this.$route.query.coupon_batch_id)
         .then(res => {
           //发完券
           console.log('send')
