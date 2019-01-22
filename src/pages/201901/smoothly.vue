@@ -46,8 +46,8 @@ export default {
         }
       },
       wxShareInfoValue: {
-        title: "亲爱的，新年快乐!",
-        desc: "猪年大吉，猪事顺利",
+        title: "如意，如意，随我心意",
+        desc: "猪年大吉，快快显灵",
         link: "http://papi.xingstation.com/api/s/JND" + window.location.search,
         imgUrl: cdnUrl + "/fe/marketing/img/pig_smoothly/icon.png"
       }
