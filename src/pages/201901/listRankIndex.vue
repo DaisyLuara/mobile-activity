@@ -55,7 +55,7 @@ export default {
           height: this.$innerHeight() + "px"
         }
       },
-      userId: null,
+      // userId: null,
       awardinfolist: null,
       cookies_z: null,
       wxShareInfoValue: {
@@ -81,32 +81,31 @@ export default {
   mounted() {
     this.cookies_z = Cookies.get('z')
     //微信授权
-    if (isInWechat() === true) {
-      if (
-        process.env.NODE_ENV === "production" ||
-        process.env.NODE_ENV === "testing"
-      ) {
-        this.handleWechatAuth();
-      }
-    }
+    // if (isInWechat() === true) {
+    //   if (
+    //     process.env.NODE_ENV === "production" ||
+    //     process.env.NODE_ENV === "testing"
+    //   ) {
+    //     this.handleWechatAuth();
+    //   }
+    // }
     this.handleForbiddenShare();
   },
   methods: {
     //微信静默授权
-    handleWechatAuth() {
-      if (Cookies.get("sign") === null) {
-        let base_url = encodeURIComponent(String(window.location.href));
-        let redirct_url =
-          process.env.WX_API +
-          "/wx/officialAccount/oauth?url=" +
-          base_url +
-          "&scope=snsapi_base";
-        window.location.href = redirct_url;
-      } else {
-        this.userId = Cookies.get("user_id");
-
-      }
-    },
+    // handleWechatAuth() {
+    //   if (Cookies.get("sign") === null) {
+    //     let base_url = encodeURIComponent(String(window.location.href));
+    //     let redirct_url =
+    //       process.env.WX_API +
+    //       "/wx/officialAccount/oauth?url=" +
+    //       base_url +
+    //       "&scope=snsapi_base";
+    //     window.location.href = redirct_url;
+    //   } else {
+    //     this.userId = Cookies.get("user_id");
+    //   }
+    // },
     //禁止微信分享
     handleForbiddenShare() {
       $wechat()
@@ -114,12 +113,13 @@ export default {
           res.forbidden();
         })
         .catch(_ => {
-          console.warn(_.message);
+          this.$message({
+            type: 'warning',
+            message: err.response.data.message
+          })
         });
     },
     go() {
-      //console.log("11111")
-      // window.location.href = "http://papi.xingstation.com/api/s/NYL" + window.location.search
       this.$router.push({
         path: 'listRank_result?' + window.location.search
       })
