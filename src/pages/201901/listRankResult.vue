@@ -173,7 +173,7 @@ export default {
 @imageHost: "http://cdn.exe666.com/fe/marketing/img/listRank/";
 @font-face {
   font-family: "MatrixCode";
-  src: url("http://cdn.exe666.com/fe/marketing/img/open_pig/hanyicu.TTF");
+  src: url("http://cdn.exe666.com/fe/marketing/img/listRank/hanyicu.TTF");
   font-weight: normal;
   font-style: normal;
 }
@@ -248,7 +248,7 @@ img {
           left: 28%;
           top: 37%;
           font-size: 5vw;
-          color: #000;
+          color: #600019;
         }
         .score {
           display: inline-block;
@@ -257,8 +257,8 @@ img {
           right: 1%;
           top: 37%;
           font-size: 5vw;
-          color: #000;
-          font-family: " MatrixCode";
+          color: #600019;
+          font-family: "MatrixCode";
         }
       }
       .rank-list {
@@ -298,7 +298,7 @@ img {
           left: 28%;
           top: 26%;
           font-size: 5vw;
-          color: #000;
+          color: #fff;
           z-index: 99;
         }
         .score {
@@ -308,9 +308,8 @@ img {
           right: 1%;
           top: 26%;
           font-size: 5vw;
-          color: #000;
+          color: #fff;
           z-index: 99;
-          font-family: MatrixCode;
         }
         .rankName {
           width: 5%;
@@ -318,8 +317,9 @@ img {
           left: 0;
           top: 27%;
           font-size: 5vw;
-          color: #000;
+          color: #fff;
           z-index: 99;
+          font-family: "MatrixCode";
         }
         img {
           width: 88%;

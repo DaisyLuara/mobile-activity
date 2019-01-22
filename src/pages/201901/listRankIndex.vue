@@ -119,7 +119,10 @@ export default {
     },
     go() {
       //console.log("11111")
-      window.location.href = "http://papi.xingstation.com/api/s/NYL" + window.location.search
+      // window.location.href = "http://papi.xingstation.com/api/s/NYL" + window.location.search
+      this.$router.push({
+        path: 'listRank_result?' + window.location.search
+      })
     }
   }
 };
@@ -130,7 +133,7 @@ export default {
 /*声明 WebFont*/
 @font-face {
   font-family: "MatrixCode";
-  src: url("http://cdn.exe666.com/fe/marketing/img/open_pig/hanyicu.TTF");
+  src: url("http://cdn.exe666.com/fe/marketing/img/listRank/hanyicu.TTF");
   font-weight: normal;
   font-style: normal;
 }
@@ -187,8 +190,8 @@ img {
       border-radius: 50%;
       font-size: 5vw;
       z-index: 99;
-      color: #000;
-      font-family: " MatrixCode";
+      color: #600019;
+      font-family: "MatrixCode";
     }
     .nickname {
       display: inline-block;
