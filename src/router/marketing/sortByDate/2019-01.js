@@ -252,6 +252,17 @@ const Date201901 = [
       desc: '2019发发发-通用版'
     },
     isAbandoned: false
+  },
+  {
+    path: 'happy_year',
+    location: '201901/happyYear',
+    name: 'happy_year',
+    meta: {
+      title: '新年快乐',
+      author: 'lipan',
+      desc: '新年快乐'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201901
