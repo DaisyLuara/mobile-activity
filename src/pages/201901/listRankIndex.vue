@@ -56,7 +56,7 @@ export default {
         }
       },
       userId: null,
-      score: '8500',
+      score: null,
       cookies_z: null,
       wxShareInfoValue: {
         title: "亲爱的，新年快乐!",
