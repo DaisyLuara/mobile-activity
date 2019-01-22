@@ -44,6 +44,7 @@
       :src="base + 'button.png'"
       class="save"
     >
+    <span class="code-text">{{code}}</span>
   </div>
 </template>
 <script>
@@ -61,10 +62,11 @@ export default {
         }
       },
       hasget: false,
+      code: null,
       id: this.$route.query.id,
       userId: null,
       award: true,
-      coupon_url: null,//null 'https://cdn.exe666.com/fe/image/nianhui/test.png'
+      coupon_url: null,// 'https://cdn.exe666.com/fe/image/nianhui/test.png'
     }
   },
   // watch: {
@@ -223,23 +225,6 @@ export default {
       }).catch(err => {
         console.log(err)
       })
-    },
-    //发优惠券
-    sendCoupon() {
-      let args = {
-        include: "couponBatch",
-        qiniu_id: this.id,
-        oid: this.oid,
-        belong: this.belong
-      };
-      sendCoupon(args, this.$route.query.coupon_batch_id)
-        .then(res => {
-          //发完券
-          console.log('send')
-        })
-        .catch(err => {
-          alert(err.response.data.message);
-        });
     }
   }
 }
@@ -330,6 +315,18 @@ img {
     width: 74%;
     margin-top: 3%;
     margin-bottom: 15%;
+  }
+  .code-text {
+    display: inline-block;
+    font-size: 5vw;
+    color: #fff;
+    opacity: 0.7;
+    font-weight: 500;
+    position: absolute;
+    top: 31%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
   }
 }
 </style>
