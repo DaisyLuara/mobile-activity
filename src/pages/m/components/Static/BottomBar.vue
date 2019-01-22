@@ -2,7 +2,7 @@
 <template>
   <div
     v-if="shouldMenuShow"
-    class="btb"
+    :class="{'btb single': menuCode.length === 1, 'btb': menuCode.length > 1}"
   >
     <div
       v-for="(item, index) in menuCode"
@@ -78,7 +78,7 @@ export default {
         "new_yellow",
         "lkf",
         "newDreamland",
-        'happy_newYearTwo'
+        "happy_newYearTwo"
       ],
       labels: ["照片", "活动", "弹幕", "商城", "卡包", "我的"],
       routes: [
@@ -113,7 +113,7 @@ export default {
           });
         }
       });
-      arr.sort(function (a, b) {
+      arr.sort(function(a, b) {
         return a.order - b.order;
       });
 
@@ -175,6 +175,9 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  &.single {
+    justify-content: center;
+  }
   .bitem {
     height: 100%;
     width: 30px;
