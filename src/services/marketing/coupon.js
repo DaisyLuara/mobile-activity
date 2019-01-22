@@ -13,7 +13,7 @@ const OPEN_COUPON_PROJECT = process.env.AD_API + '/api/open/project'
 const IMAGE_UPLOAD = process.env.AD_API + '/api/images'
 
 const MINI_API = process.env.AD_API + '/api/mini'
-const MONEY_URL = process.env.AD_API + '/api/open/redpack'
+const MONEY_URL = process.env.AD_API + '/api/open/redpack/'
 
 const REQ_HEADER = {
   headers: {
@@ -397,10 +397,10 @@ const sendV2Coupon = (params, couponId) => {
 //  发现金券  年会
 const sendMoneyOnce = code => {
   let params = {}
-  params.sign = Cookies.get('sign')
+  handleParma(params)
   return new Promise((resolve, reject) => {
     axios
-      .post(MONEY_URL + '/' + code, params, REQ_HEADER)
+      .post(MONEY_URL + code, params, REQ_HEADER)
       .then(response => {
         resolve(response.data)
       })
