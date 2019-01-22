@@ -69,7 +69,14 @@ export default {
   watch: {
     awardinfo() {
       this.awardinfolist = this.awardinfo
-    }
+    },
+    userinfo() {
+      if (Cookies.get('z')) {
+        this.cookies_z = Cookies.get('z')
+      } else {
+        Cookies.set('z', this.userinfo.z)
+      }
+    },
   },
   mounted() {
     this.cookies_z = Cookies.get('z')
