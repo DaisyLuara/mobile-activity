@@ -71,9 +71,9 @@ export default {
     };
   },
   watch: {
-    // awardinfo() {
-    //   this.awardinfolist = this.awardinfo
-    // },
+    awardinfo() {
+      this.awardinfolist = this.awardinfo
+    },
     userinfo() {
       if (Cookies.get('z')) {
         this.cookies_z = Cookies.get('z')
