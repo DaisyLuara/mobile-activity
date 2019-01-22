@@ -206,6 +206,7 @@ export default {
         coupon_batch_id: this.$route.query.coupon_batch_id,
         include: "couponBatch",
       };
+      console.log(this.$route.query.coupon_batch_id)
       checkGetCoupon(args)
         .then(res => {
           // if (!res) {
