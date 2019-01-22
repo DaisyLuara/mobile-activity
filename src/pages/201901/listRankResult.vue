@@ -65,7 +65,7 @@
               <!-- 昵称 -->
               <span class="nickname">{{item.nickname.length>4?(item.nickname.substring(0,4)+'...'):item.nickname}}</span>
               <!-- 分数 -->
-              <span class="score">{{item.value}}</span>
+              <span class="score">{{item.y}}</span>
               <img
                 :src="baseUrl + '04.png'"
                 class="list-tit"
