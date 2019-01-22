@@ -262,6 +262,17 @@ const Date201901 = [
       desc: '凯德年会2019-点赞榜'
     },
     isAbandoned: false
+  },
+  {
+    path: 'pig_smoothly',
+    location: '201901/smoothly',
+    name: 'pig_smoothly',
+    meta: {
+      title: '猪事顺利',
+      author: 'xj1012',
+      desc: '哈尔滨凯德-猪事顺利'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201901
