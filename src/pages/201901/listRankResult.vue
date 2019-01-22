@@ -250,7 +250,7 @@ img {
           position: absolute;
           left: 28%;
           top: 45%;
-          font-size: 2vw;
+          font-size: 3.5vw;
           color: #600019;
         }
         .score {
@@ -300,7 +300,7 @@ img {
           position: absolute;
           left: 28%;
           top: 34%;
-          font-size: 2vw;
+          font-size: 3.5vw;
           color: #fff;
           z-index: 99;
         }

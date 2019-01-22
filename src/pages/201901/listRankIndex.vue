@@ -3,6 +3,10 @@
     :style="style.root"
     class="root"
   >
+    <img
+      :src="baseUrl + 'bg.png'"
+      class="bg"
+    >
     <div class="contain">
       <img
         :src="baseUrl + 'photo_02.png'+ this.$qiniuCompress()"
@@ -67,9 +71,9 @@ export default {
     };
   },
   watch: {
-    awardinfo() {
-      this.awardinfolist = this.awardinfo
-    },
+    // awardinfo() {
+    //   this.awardinfolist = this.awardinfo
+    // },
     userinfo() {
       if (Cookies.get('z')) {
         this.cookies_z = Cookies.get('z')
@@ -159,18 +163,20 @@ img {
 .root {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: center;
+  width: 100%;
   position: relative;
-  overflow: hidden;
-  background-image: url("@{imageHost}bg.png");
-  background-size: 100% auto;
-  background-position: center bottom;
-  background-repeat: no-repeat;
+  .bg {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
   .contain {
     width: 100%;
     position: relative;
-    margin-top: -8%;
+    //margin-top: -8%;
     .frame {
       width: 75%;
     }
@@ -200,7 +206,7 @@ img {
       left: 35%;
       top: 20.5%;
       border-radius: 50%;
-      font-size: 3vw;
+      font-size: 3.5vw;
       z-index: 99;
       color: #fff;
     }
@@ -224,6 +230,7 @@ img {
   .logo {
     width: 30%;
     position: relative;
+    margin-top: 15%;
   }
 }
 </style>
