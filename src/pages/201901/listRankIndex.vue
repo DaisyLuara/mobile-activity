@@ -9,12 +9,12 @@
         class="frame"
       >
       <!-- 头像 -->
-      <img
+      <!-- <img
         :src="userinfo.face"
         class="head"
-      >
+      > -->
       <!-- 分数 -->
-      <span class="nickname">{{userinfo.nickname}}</span>
+      <!-- <span class="nickname">{{userinfo.nickname}}</span> -->
       <span class="score">{{score}}</span>
       <!-- 图片 -->
       <img
@@ -56,7 +56,7 @@ export default {
         }
       },
       userId: null,
-      score: null,
+      score: '8500',
       cookies_z: null,
       wxShareInfoValue: {
         title: "亲爱的，新年快乐!",
@@ -67,16 +67,16 @@ export default {
     };
   },
   watch: {
-    userinfo() {
-      if (Cookies.get('z')) {
-        this.cookies_z = Cookies.get('z')
-      } else {
-        Cookies.set('z', this.userinfo.z)
-      }
-    },
-    parms() {
-      this.score = this.parms.score
-    }
+    // userinfo() {
+    //   if (Cookies.get('z')) {
+    //     this.cookies_z = Cookies.get('z')
+    //   } else {
+    //     Cookies.set('z', this.userinfo.z)
+    //   }
+    // },
+    // parms() {
+    //   this.score = this.parms.score
+    // }
   },
   mounted() {
     this.cookies_z = Cookies.get('z')
@@ -190,8 +190,8 @@ img {
       border-radius: 50%;
       font-size: 5vw;
       z-index: 99;
-      color: #000;
-      font-family: " MatrixCode";
+      color: #600019;
+      font-family: "MatrixCode";
     }
     .nickname {
       display: inline-block;
