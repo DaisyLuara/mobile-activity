@@ -48,7 +48,7 @@
   </div>
 </template>
 <script>
-import { $wechat, isInWechat, wechatShareTrack, Cookies, sendCoupon, checkGetCoupon, checkCouponNumber, sendMoneyOnce } from 'services'
+import { $wechat, isInWechat, wechatShareTrack, Cookies, sendCoupon, checkGetCoupon, checkCouponNumber, sendMoneyOnce, dateFormat, formatTimestamp } from 'services'
 import { normalPages } from '@/mixins/normalPages'
 const CDN_URL = process.env.CDN_URL
 export default {
@@ -191,23 +191,33 @@ export default {
       }
       if (iNum >= (allPX * 1) / 4) {
         this.award = false
-        // this.sendCoupon()
         this.sendMoney(this.code)
       }
     },
     //获取券信息
     checkGetCoupon() {
       let args = {
-        id: this.id,
         coupon_batch_id: this.coupon_batch_id,
         include: "couponBatch",
       };
+      let date = new Date()
+      args.start_date = dateFormat(
+        new Date(formatTimestamp(date, true)),
+        'yyyy-MM-dd hh:mm:ss'
+      )
+      args.end_date = dateFormat(
+        new Date(formatTimestamp(date, false) - 1000),
+        'yyyy-MM-dd hh:mm:ss'
+      )
       checkGetCoupon(args)
         .then(res => {
           console.log(res)
           this.coupon_url = res.couponBatch.image_url
           this.code = res.code
           this.hasget = true
+          if (!res) {
+            this.sendCoupon()
+          }
           if (parseInt(res.status) === 1) {
             this.award = false
           } else {
@@ -225,6 +235,23 @@ export default {
       }).catch(err => {
         console.log(err)
       })
+    },
+    //发优惠券
+    sendCoupon() {
+      let args = {
+        include: "couponBatch",
+        qiniu_id: this.id,
+        oid: this.oid,
+        belong: this.belong
+      };
+      sendCoupon(args, this.coupon_batch_id)
+        .then(res => {
+          //发完券
+          console.log('send')
+        })
+        .catch(err => {
+          alert(err.response.data.message);
+        });
     }
   }
 }
