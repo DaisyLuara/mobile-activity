@@ -9,12 +9,12 @@
         class="frame"
       >
       <!-- 头像 -->
-      <!-- <img
+      <img
         :src="userinfo.face"
         class="head"
-      > -->
+      >
       <!-- 分数 -->
-      <!-- <span class="nickname">{{userinfo.nickname}}</span> -->
+      <span class="nickname">{{userinfo.nickname}}</span>
       <span class="score">{{score}}</span>
       <!-- 图片 -->
       <img
@@ -67,16 +67,16 @@ export default {
     };
   },
   watch: {
-    // userinfo() {
-    //   if (Cookies.get('z')) {
-    //     this.cookies_z = Cookies.get('z')
-    //   } else {
-    //     Cookies.set('z', this.userinfo.z)
-    //   }
-    // },
-    // parms() {
-    //   this.score = this.parms.score
-    // }
+    userinfo() {
+      if (Cookies.get('z')) {
+        this.cookies_z = Cookies.get('z')
+      } else {
+        Cookies.set('z', this.userinfo.z)
+      }
+    },
+    parms() {
+      this.score = this.parms.score
+    }
   },
   mounted() {
     this.cookies_z = Cookies.get('z')
