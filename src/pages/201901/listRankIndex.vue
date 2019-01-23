@@ -149,24 +149,17 @@ img {
   background-size: 100% auto;
   background-position: center bottom;
   background-repeat: no-repeat;
-  // .bg {
-  //   width: 100%;
-  //   position: absolute;
-  //   left: 0;
-  //   top: 0;
-  // }
   .contain {
     width: 100%;
     position: relative;
-    //margin-top: -8%;
     .frame {
       width: 65%;
     }
     .head {
-      width: 19.5%;
+      width: 17%;
       position: absolute;
-      left: 40%;
-      top: 4.2%;
+      left: 41.5%;
+      top: 5%;
       border-radius: 50%;
     }
     .score {

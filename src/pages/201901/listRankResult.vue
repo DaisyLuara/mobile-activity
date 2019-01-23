@@ -274,7 +274,7 @@ img {
           position: absolute;
           left: 28%;
           top: 34%;
-          font-size: 3.5vw;
+          font-size: 3vw;
           color: #fff;
           z-index: 99;
         }
