@@ -280,9 +280,9 @@ const Date201901 = [
     location: '201901/orientalMyth',
     name: 'oriental_myth',
     meta: {
-      title: '猪事顺利',
+      title: '东方神话',
       author: 'xj1012',
-      desc: '哈尔滨凯德-猪事顺利'
+      desc: '东方神话'
     },
     isAbandoned: false
   }
