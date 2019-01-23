@@ -3,10 +3,10 @@
     :style="style.root"
     class="root"
   >
-    <img
+    <!-- <img
       :src="baseUrl + 'bg.png'"
       class="bg"
-    >
+    > -->
     <div class="contain">
       <img
         :src="baseUrl + 'photo_02.png'+ this.$qiniuCompress()"
@@ -59,7 +59,6 @@ export default {
           height: this.$innerHeight() + "px"
         }
       },
-      // userId: null,
       nickname: null,
       Imgurl: null,
       score: null,
@@ -88,32 +87,9 @@ export default {
   },
   mounted() {
     this.cookies_z = Cookies.get('z')
-    //微信授权
-    // if (isInWechat() === true) {
-    //   if (
-    //     process.env.NODE_ENV === "production" ||
-    //     process.env.NODE_ENV === "testing"
-    //   ) {
-    //     this.handleWechatAuth();
-    //   }
-    // }
     this.handleForbiddenShare();
   },
   methods: {
-    //微信静默授权
-    // handleWechatAuth() {
-    //   if (Cookies.get("sign") === null) {
-    //     let base_url = encodeURIComponent(String(window.location.href));
-    //     let redirct_url =
-    //       process.env.WX_API +
-    //       "/wx/officialAccount/oauth?url=" +
-    //       base_url +
-    //       "&scope=snsapi_base";
-    //     window.location.href = redirct_url;
-    //   } else {
-    //     this.userId = Cookies.get("user_id");
-    //   }
-    // },
     //禁止微信分享
     handleForbiddenShare() {
       $wechat()
@@ -168,23 +144,28 @@ img {
   align-items: center;
   width: 100%;
   position: relative;
-  .bg {
-    width: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-  }
+  overflow: hidden;
+  background-image: url("@{imageHost}bg.png");
+  background-size: 100% auto;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  // .bg {
+  //   width: 100%;
+  //   position: absolute;
+  //   left: 0;
+  //   top: 0;
+  // }
   .contain {
     width: 100%;
     position: relative;
     //margin-top: -8%;
     .frame {
-      width: 75%;
+      width: 65%;
     }
     .head {
-      width: 22%;
+      width: 19.5%;
       position: absolute;
-      left: 39%;
+      left: 40%;
       top: 4.2%;
       border-radius: 50%;
     }
@@ -212,9 +193,9 @@ img {
       color: #fff;
     }
     .photo {
-      width: 38%;
+      width: 32%;
       position: absolute;
-      left: 26.5%;
+      left: 30%;
       top: 44%;
       pointer-events: auto;
       user-select: auto;
@@ -231,7 +212,7 @@ img {
   .logo {
     width: 30%;
     position: relative;
-    margin-top: 15%;
+    margin-top: 10%;
   }
 }
 </style>
