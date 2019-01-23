@@ -138,10 +138,12 @@ export default {
         };
         let r = await fetchRunPro(payload);
         console.dir(r);
-        if (r.data.state === "40035") {
+        const dataStatus = r.data && r.data.state;
+        if (!dataStatus || r.data.state !== "1") {
           this.$router.push({
             name: "mSite404"
           });
+          return;
         } else if (r.data.state === "0") {
           return;
         } else {

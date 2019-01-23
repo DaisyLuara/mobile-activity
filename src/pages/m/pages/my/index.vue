@@ -217,10 +217,12 @@ export default {
           api: "json"
         };
         let r = await fetchRunPro(payload);
-        if (r.data.state === "40035") {
+        const dataStatus = r.data && r.data.state;
+        if (!dataStatus || r.data.state !== "1") {
           this.$router.push({
             name: "mSite404"
           });
+          return;
         }
         this.resData = r.data.results.data;
         this.itv = setInterval(() => {
