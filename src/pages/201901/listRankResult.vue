@@ -36,15 +36,30 @@
             <span class="score">{{item.value}}</span>
             <img
               v-show="index===0"
-              :src="baseUrl + '01.png'"
+              :src="baseUrl + 'g_01.png'"
             >
             <img
               v-show="index===1"
-              :src="baseUrl + '02.png'"
+              :src="baseUrl + 'g_02.png'"
             >
             <img
               v-show="index===2"
-              :src="baseUrl + '03.png'"
+              :src="baseUrl + 'g_03.png'"
+            >
+            <img
+              v-show="index===0"
+              :src="baseUrl + 'crown1.png'"
+              class="crown"
+            >
+            <img
+              v-show="index===1"
+              :src="baseUrl + 'crown2.png'"
+              class="crown"
+            >
+            <img
+              v-show="index===2"
+              :src="baseUrl + 'crown3.png'"
+              class="crown"
             >
           </li>
         </ul>
@@ -81,7 +96,6 @@
       :src="baseUrl + 'logo.png'"
       class="logo"
     >
-
   </div>
 </template>
 <script>
@@ -101,7 +115,6 @@ export default {
       cookies_z: null,
       list: [],
       auid: null,
-      //userId: null,
       wxShareInfoValue: {
         title: "亲爱的，新年快乐!",
         desc: "猪年大吉，猪事顺利",
@@ -112,15 +125,6 @@ export default {
   },
   mounted() {
     this.cookies_z = Cookies.get('z')
-    //微信授权
-    // if (isInWechat() === true) {
-    //   if (
-    //     process.env.NODE_ENV === "production" ||
-    //     process.env.NODE_ENV === "testing"
-    //   ) {
-    //     this.handleWechatAuth();
-    //   }
-    // }
     this.handleForbiddenShare();
   },
   watch: {
@@ -141,20 +145,6 @@ export default {
         })
       })
     },
-    //微信静默授权
-    // handleWechatAuth() {
-    //   if (Cookies.get("sign") === null) {
-    //     let base_url = encodeURIComponent(String(window.location.href));
-    //     let redirct_url =
-    //       process.env.WX_API +
-    //       "/wx/officialAccount/oauth?url=" +
-    //       base_url +
-    //       "&scope=snsapi_base";
-    //     window.location.href = redirct_url;
-    //   } else {
-    //     this.userId = Cookies.get("user_id");
-    //   }
-    // },
     //禁止微信分享
     handleForbiddenShare() {
       $wechat()
@@ -233,20 +223,28 @@ img {
         li {
           width: 100%;
           position: relative;
+          margin: 1% 0;
         }
         .places-head {
-          width: 17%;
+          width: 15%;
           position: absolute;
-          left: 12%;
-          top: 24%;
+          left: 14%;
+          top: 9.6%;
           border-radius: 50%;
+        }
+        .crown {
+          width: 12%;
+          position: absolute;
+          left: 10%;
+          top: -15.4%;
+          z-index: 9;
         }
         .nickname {
           display: inline-block;
           width: 32%;
           position: absolute;
           left: 28%;
-          top: 45%;
+          top: 35%;
           font-size: 3.5vw;
           color: #600019;
         }
@@ -255,7 +253,7 @@ img {
           width: 30%;
           position: absolute;
           right: 1%;
-          top: 37%;
+          top: 25%;
           font-size: 5vw;
           color: #600019;
           font-family: "MatrixCode";
@@ -269,13 +267,11 @@ img {
         ul {
           width: 100%;
           height: 400px;
-          padding: 2% 0;
           overflow: hidden;
           overflow-y: scroll;
         }
         li {
           position: relative;
-          margin: 2% 0;
           height: 12%;
         }
         .rank-list {
@@ -284,10 +280,10 @@ img {
           top: 0;
         }
         .places-head {
-          width: 17%;
+          width: 15.5%;
           position: absolute;
-          left: 3%;
-          top: 4%;
+          left: 1.4%;
+          top: 8%;
           z-index: 99;
           border-radius: 50%;
         }
@@ -297,7 +293,7 @@ img {
           position: absolute;
           left: 28%;
           top: 34%;
-          font-size: 3.5vw;
+          font-size: 3vw;
           color: #fff;
           z-index: 99;
         }
@@ -310,6 +306,7 @@ img {
           font-size: 5vw;
           color: #fff;
           z-index: 99;
+          font-family: "MatrixCode";
         }
         .rankName {
           width: 5%;
@@ -323,7 +320,7 @@ img {
         }
         img {
           width: 88%;
-          margin-left: 7%;
+          margin-left: 12%;
         }
       }
     }
