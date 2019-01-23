@@ -103,11 +103,10 @@ export default {
           process.env.WX_API +
           "/wx/officialAccount/oauth?url=" +
           base_url +
-          "&scope=snsapi_base";
+          "&scope=snsapi_userinfo";
         window.location.href = redirct_url;
       } else {
         this.userId = Cookies.get("user_id");
-
       }
     },
     //禁止微信分享
@@ -252,6 +251,7 @@ export default {
           this.coupon_url = res.couponBatch.image_url
           this.code = res.code
           this.opacity = 1
+          // this.sendMoney(this.code)
         })
         .catch(err => {
           alert(err.response.data.message);
