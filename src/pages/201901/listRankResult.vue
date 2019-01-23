@@ -223,7 +223,7 @@ img {
         li {
           width: 100%;
           position: relative;
-          margin: 1% 0;
+          margin: 5% 0;
         }
         .places-head {
           width: 15%;
@@ -273,6 +273,7 @@ img {
         li {
           position: relative;
           height: 12%;
+          margin: 0 0 5% 0;
         }
         .rank-list {
           position: absolute;

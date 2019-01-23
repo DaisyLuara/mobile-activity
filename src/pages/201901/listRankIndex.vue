@@ -73,9 +73,9 @@ export default {
   },
   watch: {
     awardinfo() {
-      this.nickname = this.awardinfo.nickname || this.userinfo.nickname
+      this.nickname = this.awardinfo.nickname || this.userinfo.username
       this.Imgurl = this.awardinfo.face || this.userinfo.face
-      this.score = this.awardinfo.value || this.userinfo.value
+      this.score = this.awardinfo.value || this.parms.score
     },
     userinfo() {
       if (Cookies.get('z')) {
@@ -83,9 +83,9 @@ export default {
       } else {
         Cookies.set('z', this.userinfo.z)
       }
-      this.nickname = this.awardinfo.nickname || this.userinfo.nickname
+      this.nickname = this.awardinfo.nickname || this.userinfo.username
       this.Imgurl = this.awardinfo.face || this.userinfo.face
-      this.score = this.awardinfo.value || this.userinfo.value
+      this.score = this.awardinfo.value || this.parms.score
     },
   },
   mounted() {
