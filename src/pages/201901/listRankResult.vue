@@ -98,7 +98,9 @@ export default {
         }
       },
       cookies_z: null,
-      list: [],
+      list: [
+        { "auid": "1551", "uid": "88888", "avrid": "4825", "avridtmp": "4825", "value": "95", "kid": "7034930", "link": "http://face.exe666.com/1007/face/kiki_880_3751492945231394_848.jpg", "views": "0", "day_num": "1", "user_num": "1", "date": "2019-01-08 16:55:00", "clientdate": "1546937700000", "nickname": "淡然", "gender": "1", "age": "20", "face": "https://wx.qlogo.cn/mmopen/vi_32/8gy835dKev8fibUhibQ7FVCHYN68jsS9jxj7t5qGia4EIT6hmuNdur2MHp6OicSFMG0hsU4hFnWP7QYgJvCRyhE8Hg/132" }, { "auid": "1289", "uid": "10000", "avrid": "5785", "avridtmp": "5785", "value": "93", "kid": "6610123", "link": "http://face.exe666.com/1007/face/kiki_174_1021492987806318_1093.jpg", "views": "0", "day_num": "1", "user_num": "5", "date": "2019-01-22 12:16:22", "clientdate": "1548130582000", "nickname": "黄一", "gender": "1", "age": "25", "face": "http://thirdwx.qlogo.cn/mmopen/vi_32/DYAIOgq83eqbNz7AMxaq6qkWfG8wku43yr6giaIMUw8BtI39Dp12HGhBRrz8cG7rqbTxPogJawXNuYvuj3dmeZw/132" }, { "auid": "1287", "uid": "112348", "avrid": "4387", "avridtmp": "4387", "value": "92", "kid": "6610123", "link": "http://face.exe666.com/1007/face/kiki_174_3651492934175765_513.jpg", "views": "0", "day_num": "1", "user_num": "1", "date": "2019-01-04 15:33:29", "clientdate": "1546587209000", "nickname": "Wending", "gender": "1", "age": "24", "face": "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTLyBXRPx48DjQ3EvfLQuWj6DoBJRJBj2icdDLicbm62dGTicOdnASkUlFTd2SEicNKprrzZZmSZZ5Ts4w/132" }, { "auid": "1306", "uid": "10086", "avrid": "4414", "avridtmp": "4414", "value": "86", "kid": "5385499", "link": "http://face.exe666.com/1007/face/kiki_881_7881492948246280_1459.jpg", "views": "0", "day_num": "1", "user_num": "1", "date": "2019-01-04 19:28:03", "clientdate": "1546601283000", "nickname": "海阔天空", "gender": "1", "age": "36", "face": "http://thirdwx.qlogo.cn/mmopen/vi_32/DYAIOgq83eoZibp9IsxKYJzG8z1icd9NsREovDUBDUzl9wcGJ1UB9y9b7QcSTXwZQZ4PUsgU15WGQlIedbKMCxww/132" }
+      ],
       auid: null,
       wxShareInfoValue: {
         title: "亲爱的，新年快乐!",
@@ -210,10 +212,10 @@ img {
           position: relative;
         }
         .places-head {
-          width: 17%;
+          width: 12.5%;
           position: absolute;
-          left: 12%;
-          top: 24%;
+          left: 15%;
+          top: 32%;
           border-radius: 50%;
         }
         .nickname {
@@ -259,10 +261,10 @@ img {
           top: 0;
         }
         .places-head {
-          width: 17%;
+          width: 16.5%;
           position: absolute;
-          left: 3%;
-          top: 4%;
+          left: 1%;
+          top: 5%;
           z-index: 99;
           border-radius: 50%;
         }
@@ -299,7 +301,7 @@ img {
         }
         img {
           width: 88%;
-          margin-left: 7%;
+          margin-left: 12%;
         }
       }
     }
