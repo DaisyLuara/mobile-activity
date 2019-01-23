@@ -64,7 +64,7 @@ export default {
         return "";
       } else {
         let cld = moment(Number(this.resData.sdate) * 1000);
-        return cld.format("YYYY-MM-DD hh:mm");
+        return cld.format("YYYY-MM-DD HH:mm:ss");
       }
     },
     endTime() {
@@ -72,7 +72,7 @@ export default {
         return "";
       } else {
         let cld = moment(Number(this.resData.edate) * 1000);
-        return cld.format("YYYY-MM-DD hh:mm");
+        return cld.format("YYYY-MM-DD HH:mm:ss");
       }
     }
   },
