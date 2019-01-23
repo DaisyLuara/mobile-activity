@@ -191,7 +191,7 @@ export default {
       }
       if (iNum >= (allPX * 1) / 4) {
         this.award = false
-        // this.sendMoney(this.code)
+        this.sendMoney(this.code)
       }
     },
     //获取券信息
@@ -251,7 +251,7 @@ export default {
           this.coupon_url = res.couponBatch.image_url
           this.code = res.code
           this.opacity = 1
-          this.sendMoney(this.code)
+          // this.sendMoney(this.code)
         })
         .catch(err => {
           alert(err.response.data.message);
