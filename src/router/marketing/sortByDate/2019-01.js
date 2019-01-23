@@ -264,28 +264,6 @@ const Date201901 = [
     },
     isAbandoned: false
   },
-  // {
-  //   path: 'pig_smoothly',
-  //   location: '201901/smoothly',
-  //   name: 'pig_smoothly',
-  //   meta: {
-  //     title: '猪事顺利',
-  //     author: 'xj1012',
-  //     desc: '哈尔滨凯德-猪事顺利'
-  //   },
-  //   isAbandoned: false
-  // },
-  // {
-  //   path: 'oriental_myth',
-  //   location: '201901/orientalMyth',
-  //   name: 'oriental_myth',
-  //   meta: {
-  //     title: '猪事顺利',
-  //     author: 'xj1012',
-  //     desc: '哈尔滨凯德-猪事顺利'
-  //   },
-  //   isAbandoned: false
-  // },
   {
     path: 'nianhui',
     location: '201901/nianhui',
@@ -316,6 +294,17 @@ const Date201901 = [
       title: '风味',
       author: 'xj1012',
       desc: '星视度年会'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'pig_smoothly',
+    location: '201901/smoothly',
+    name: 'pig_smoothly',
+    meta: {
+      title: '猪事顺利',
+      author: 'xj1012',
+      desc: '哈尔滨凯德-猪事顺利'
     },
     isAbandoned: false
   }
