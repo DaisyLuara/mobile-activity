@@ -87,13 +87,13 @@ export default {
       type: 2,
       imgList: ['a', 'b', 'c'],
       userId: null,
-      //qrcodeImg: null,
-      qrcodeImg: 'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
+      qrcodeImg: null,
+      //qrcodeImg: 'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
       wxShareInfoValue: {
-        title: "亲爱的，新年快乐!",
-        desc: "猪年大吉，猪事顺利",
-        link: "http://papi.xingstation.com/api/s/RlL" + window.location.search,
-        imgUrl: cdnUrl + "/fe/marketing/img/orientalMyth/icon.png"
+        title: "来东方童画激发潜能",
+        desc: "点击领取",
+        link: "http://papi.xingstation.com/api/s/OPg" + window.location.search,
+        imgUrl: cdnUrl + "/fe/marketing/img/orientalMyth/icon.jpg"
       }
     };
   },
