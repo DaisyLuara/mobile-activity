@@ -32,7 +32,34 @@
       v-show="mask"
       :style="style.root"
       class="group2"
+      @click="playLian"
     >
+      <div
+        id="anim"
+        :style="{opacity:opacity}"
+        class="anim"
+      />
+      <div class="runall">
+        <img
+          :src="base + 'up.png' + this.$qiniuCompress()"
+          class="up"
+        >
+        <div class="center">
+          <img
+            :src="base + 'paper.png' + this.$qiniuCompress()"
+            class="paper"
+          >
+        </div>
+        <img
+          :src="base + 'down.png' + this.$qiniuCompress()"
+          class="down"
+        >
+      </div>
+      <img
+        v-show="!run"
+        :src="base + 'text2.png' + this.$qiniuCompress()"
+        class="continue"
+      >
     </div>
   </div>
 </template>
@@ -53,19 +80,19 @@ export default {
       base: IMG_SERVER + '/fe/image/newchun/',
       animation: null,
       mask: true,
+      run: false,
+      opacity: 0,
       //分享
       wxShareInfoValue: {
-        title: '',
-        desc: '',
+        title: '新春',
+        desc: '新春',
         link: '' + window.location.search,
         imgUrl: 'http://cdn.exe666.com/fe/image/newchun/icon.png'
       }
     }
   },
   mounted() {
-    // document.oncontextmenu = function (e) {
-    //   e.preventDefault()
-    // }
+    this.doAnim()
   },
   methods: {
     doAnim() {
@@ -85,15 +112,34 @@ export default {
     },
     playLottie() {
       let that = this
-      this.hint = false
+      this.opacity = 1
       this.animation.setSpeed(1.5)
       this.animation.play()
       this.animation.loop = false
       this.animation.addEventListener('complete', function () {
-        // that.lastAnim()
+        that.mask = false
       })
     },
-    doPixi() { }
+    playLian() {
+      let that = this
+      let center = document.querySelector('.center')
+      let width = center.innerWidth || center.clientWidth
+      let height = width / 487 * 813
+      let raf = null
+      let h = 15;
+      this.run = true
+      let slider = function () {
+        h = h >= height ? height : h + 5
+        if (h >= height) {
+          window.cancelAnimationFrame(raf)
+          that.playLottie()
+          return
+        }
+        center.style.height = h + 'px'
+        raf = window.requestAnimationFrame(slider)
+      }
+      slider()
+    }
   }
 }
 </script>
@@ -142,6 +188,8 @@ img {
       left: 50%;
       transform: translateX(-50%);
       z-index: 99;
+      pointer-events: auto;
+      user-select: auto;
     }
     .flower {
       position: absolute;
@@ -177,7 +225,49 @@ img {
     z-index: 99;
     width: 100%;
     overflow: hidden;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.9);
+    .anim {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      position: absolute;
+      top: 0%;
+      left: 0;
+      z-index: 99;
+    }
+    .runall {
+      width: 80%;
+      position: absolute;
+      top: 15%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 0;
+      .up,
+      .down {
+        position: relative;
+        z-index: 9;
+      }
+      .center {
+        position: relative;
+        z-index: 0;
+        width: 80%;
+        overflow: hidden;
+        height: 15px;
+        margin-top: -13px;
+        margin-bottom: -13px;
+        .paper {
+          width: 100%;
+        }
+      }
+    }
+    .continue {
+      width: 33%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 99;
+    }
   }
 }
 </style>
