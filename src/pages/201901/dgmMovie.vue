@@ -10,13 +10,17 @@
     >
     <div class="center">
       <img
-        :src="baseUrl + '1.png'+ this.$qiniuCompress()"
+        :src="baseUrl + 'dgm.png'+ this.$qiniuCompress()"
         class="scan"
       >
       <!-- 二维码 -->
       <img
         :src="qrcodeImg+ this.$qiniuCompress()"
         class="ewm"
+      >
+      <img
+        :src="photo+ this.$qiniuCompress()"
+        class="photo"
       >
       <!-- 已使用 -->
       <img
@@ -198,20 +202,29 @@ img {
     user-select: none;
     margin-top: -0.5%;
     .scan {
-      width: 74%;
+      width: 76%;
+      margin-left: -2.2%;
     }
     .ewm {
-      width: 25%;
+      width: 22%;
       position: absolute;
-      left: 20.5%;
-      top: 46%;
+      right: 21%;
+      top: 11%;
+      user-select: auto;
+      pointer-events: auto;
+    }
+    .photo {
+      width: 28.7%;
+      position: absolute;
+      left: 20.7%;
+      top: 8.7%;
       user-select: auto;
       pointer-events: auto;
     }
     .coupon-used {
-      width: 76%;
+      width: 78%;
       position: absolute;
-      left: 12%;
+      left: 10%;
       top: -1.75%;
       z-index: 9;
     }
