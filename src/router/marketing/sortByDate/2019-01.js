@@ -296,6 +296,28 @@ const Date201901 = [
       desc: '年会原力觉醒刮奖h5'
     },
     isAbandoned: false
+  },
+  {
+    path: 'zhufu',
+    location: '201901/zhufu',
+    name: 'zhufu',
+    meta: {
+      title: '希尔顿',
+      author: 'lipan',
+      desc: '猪福贺新年-希尔顿酒店'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'new_chun',
+    location: '201901/newchun',
+    name: 'new_chun',
+    meta: {
+      title: '新春',
+      author: 'lipan',
+      desc: '新春'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201901

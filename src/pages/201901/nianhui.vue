@@ -137,7 +137,6 @@ export default {
         ctx.closePath()
         if (document.querySelector('.canvas-ele') !== null) {
           this.c = document.querySelector('.canvas-ele').getBoundingClientRect()
-          console.log(this.c)
         }
       }
     },
@@ -191,7 +190,9 @@ export default {
       }
       if (iNum >= (allPX * 1) / 4) {
         this.award = false
-        this.sendMoney(this.code)
+        if (this.coupon_batch_id != 242) {
+          this.sendMoney(this.code)
+        }
       }
     },
     //获取券信息
@@ -211,7 +212,6 @@ export default {
       )
       checkGetCoupon(args)
         .then(res => {
-          console.log(res)
           if (!res) {
             this.sendCoupon()
           } else {
@@ -232,7 +232,7 @@ export default {
     //发现金券
     sendMoney(code) {
       sendMoneyOnce(code).then(res => {
-        console.log(res)
+        // console.log(res)
       }).catch(err => {
         console.log(err)
       })
