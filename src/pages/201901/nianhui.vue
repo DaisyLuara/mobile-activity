@@ -3,6 +3,7 @@
     :style="style.root"
     class="warp"
   >
+    <!-- <span class="code-text">{{code}}</span> -->
     <img
       :src="base + 'title.png'"
       class="title"
@@ -12,7 +13,10 @@
         :src="base + 'bg2.png'"
         class="bg"
       >
-      <div class="coupon">
+      <div
+        :style="{opacity:opacity}"
+        class="coupon"
+      >
         <img
           :src="base + 'bg3.png'"
           class="bg"
@@ -41,10 +45,11 @@
       :src="base + 'button.png'"
       class="save"
     >
+    <span class="code-text">{{code}}</span>
   </div>
 </template>
 <script>
-import { $wechat, isInWechat, wechatShareTrack, Cookies, sendCoupon, checkGetCoupon, checkCouponNumber } from 'services'
+import { $wechat, isInWechat, wechatShareTrack, Cookies, sendCoupon, checkGetCoupon, checkCouponNumber, sendMoneyOnce, dateFormat, formatTimestamp } from 'services'
 import { normalPages } from '@/mixins/normalPages'
 const CDN_URL = process.env.CDN_URL
 export default {
@@ -57,17 +62,19 @@ export default {
           'min-height': this.$innerHeight() + 'px'
         }
       },
+      opacity: 0,//false
+      code: null,
       id: this.$route.query.id,
       userId: null,
       award: true,
-      coupon_url: null,//null 'https://cdn.exe666.com/fe/image/nianhui/test.png'
+      coupon_url: null,// 'https://cdn.exe666.com/fe/image/nianhui/test.png'
     }
   },
-  // watch: {
-  //   parms() {
-  //     this.checkGetCoupon();
-  //   }
-  // },
+  watch: {
+    parms() {
+      this.checkGetCoupon();
+    }
+  },
   mounted() {
     //微信授权
     if (isInWechat() === true) {
@@ -79,7 +86,7 @@ export default {
       }
     }
     this.handleForbiddenShare()
-    this.checkGetCoupon()
+    // this.checkGetCoupon()
     let that = this
     let img = new Image()
     img.src = this.base + 'bg3.png'
@@ -96,11 +103,10 @@ export default {
           process.env.WX_API +
           "/wx/officialAccount/oauth?url=" +
           base_url +
-          "&scope=snsapi_base";
+          "&scope=snsapi_userinfo";
         window.location.href = redirct_url;
       } else {
         this.userId = Cookies.get("user_id");
-
       }
     },
     //禁止微信分享
@@ -131,7 +137,6 @@ export default {
         ctx.closePath()
         if (document.querySelector('.canvas-ele') !== null) {
           this.c = document.querySelector('.canvas-ele').getBoundingClientRect()
-          // console.log(this.c)
         }
       }
     },
@@ -159,7 +164,7 @@ export default {
       }
     },
     handleTouchStart(event) {
-      // console.dir(event)
+      console.dir(event)
       let canvas = document.getElementById('canvasDoodle')
       let ctx = canvas.getContext('2d')
       let x = event.touches[0].clientX - this.c.left
@@ -185,48 +190,52 @@ export default {
       }
       if (iNum >= (allPX * 1) / 4) {
         this.award = false
-        this.sendCoupon()
+        if (this.coupon_batch_id != 242) {
+          this.sendMoney(this.code)
+        }
       }
-    },
-    getCouponDetail() {
-      checkCouponNumber(this.$route.query.coupon_batch_id)
-        .then(res => {
-          this.coupon_url = res.image_url;
-          // this.checkGetCoupon()
-          console.log('get img')
-        })
-        .catch(err => {
-          alert(err.response.data.message);
-        });
     },
     //获取券信息
     checkGetCoupon() {
       let args = {
-        id: this.id,
-        coupon_batch_id: this.$route.query.coupon_batch_id,
+        coupon_batch_id: this.coupon_batch_id,
         include: "couponBatch",
       };
-      console.log(this.$route.query.coupon_batch_id)
+      let date = new Date()
+      args.start_date = dateFormat(
+        new Date(formatTimestamp(date, true)),
+        'yyyy-MM-dd hh:mm:ss'
+      )
+      args.end_date = dateFormat(
+        new Date(formatTimestamp(date, false) - 1000),
+        'yyyy-MM-dd hh:mm:ss'
+      )
       checkGetCoupon(args)
         .then(res => {
-          // if (!res) {
-          //   this.getCouponDetail()
-          // } else {
-          //   this.coupon_url = res.image_url;
-          //   this.award = false
-          // }
-          console.log(res)
+          if (!res) {
+            this.sendCoupon()
+          } else {
+            this.coupon_url = res.couponBatch.image_url
+            this.code = res.code
+            this.opacity = 1
+          }
           if (parseInt(res.status) === 1) {
             this.award = false
-            this.coupon_url = res.couponBatch.image_url
           } else {
             this.award = true
-            this.getCouponDetail()
           }
         })
         .catch(err => {
           console.log(err);
         });
+    },
+    //发现金券
+    sendMoney(code) {
+      sendMoneyOnce(code).then(res => {
+        // console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
     },
     //发优惠券
     sendCoupon() {
@@ -236,10 +245,13 @@ export default {
         oid: this.oid,
         belong: this.belong
       };
-      sendCoupon(args, this.$route.query.coupon_batch_id)
+      sendCoupon(args, this.coupon_batch_id)
         .then(res => {
           //发完券
-          console.log('send')
+          this.coupon_url = res.couponBatch.image_url
+          this.code = res.code
+          this.opacity = 1
+          // this.sendMoney(this.code)
         })
         .catch(err => {
           alert(err.response.data.message);
@@ -334,6 +346,18 @@ img {
     width: 74%;
     margin-top: 3%;
     margin-bottom: 15%;
+  }
+  .code-text {
+    display: inline-block;
+    font-size: 5vw;
+    color: #fff;
+    opacity: 0.7;
+    font-weight: 500;
+    position: absolute;
+    top: 31%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
   }
 }
 </style>

@@ -59,27 +59,21 @@
     <img
       v-show="hint"
       :src="base + 'hint.png'"
-      class='hint animated flash infinite'
+      class='hint'
     >
     <img
+      v-for="item in 2"
+      :key="item.id"
       :src="base + 'star1.png'"
-      class='star1 star11 animated rotateIn 1s infinite'
+      :class="'one' + item"
+      class='star1'
     >
     <img
-      :src="base + 'star1.png'"
-      class='star1 star12 animated rotateIn 1.5s infinite'
-    >
-    <img
+      v-for="item in 3"
+      :key="item.id"
       :src="base + 'star2.png'"
-      class='star2 star21 animated rotateOut 1s infinite'
-    >
-    <img
-      :src="base + 'star2.png'"
-      class='star2 star22 animated rotateOut 1.2s infinite'
-    >
-    <img
-      :src="base + 'star2.png'"
-      class='star2 star23 animated rotateOut 1.8s infinite'
+      :class="'two' + item"
+      class='star2 '
     >
     <div
       v-show="last_page"
@@ -109,7 +103,6 @@
   </div>
 </template>
 <script>
-import 'animate.css'
 import lottie from 'lottie-web'
 import { $wechat, isInWechat, wechatShareTrack } from 'services'
 import { normalPages } from '@/mixins/normalPages'
@@ -206,12 +199,9 @@ export default {
         if (count > 6000) {
           count = 0
         }
-
       }
       startPigAnim()
-
     },
-
     toGetOpen() {
       let that = this
       this.hint = false
@@ -232,13 +222,15 @@ export default {
       let top = 105,
         w = 10
       let slider = function () {
-        top = top <= 17 ? 17 : top - 1.5
-        w = w >= 63 ? 63 : w + 1
+        top = top <= 17 ? 17 : top - 2
+        w = w >= 63 ? 63 : w + 1.5
         if (top <= 17) {
           window.cancelAnimationFrame(raf)
           save.style.top = photo.offsetTop + photo.clientHeight + 30 + 'px'
           that.save = true
           last.style.backgroundColor = 'rgba(0,0,0,0.5)'
+          document.querySelectorAll('.star1').style.zIndex = '9999'
+          document.querySelectorAll('.star2').style.zIndex = '9999'
           return
         }
         photo.style.top = top + '%'
@@ -318,7 +310,7 @@ img {
     height: 100%;
     overflow: hidden;
     position: absolute;
-    top: -3%;
+    top: 0%;
     left: 0;
     z-index: 99;
     transform: scale(1.1);
@@ -328,10 +320,10 @@ img {
     display: block;
     width: 20%;
     position: absolute;
-    top: 35%;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 37%;
+    left: 40%;
     z-index: 999;
+    animation: mybig 0.5s linear infinite alternate;
   }
   .star1 {
     width: 9%;
@@ -339,6 +331,7 @@ img {
     top: 0;
     left: 0;
     z-index: 999;
+    animation: myrotate 1s linear infinite;
   }
   .star2 {
     width: 6%;
@@ -346,29 +339,27 @@ img {
     top: 0;
     left: 0;
     z-index: 999;
+    animation: myrotate 1.2s linear infinite;
   }
-  .star11 {
-    top: 30.5%;
-    left: 77%;
-    z-index: 9999;
-  }
-  .star12 {
-    top: 65%;
-    left: 25%;
-  }
-  .star21 {
+  .one1 {
     top: 25%;
-    left: 83%;
-    z-index: 9999;
+    left: 63%;
   }
-  .star22 {
-    top: 51.5%;
-    left: 13%;
-    z-index: 9999;
+  .one2 {
+    top: 52%;
+    left: 27%;
   }
-  .star23 {
-    top: 42%;
-    left: 73%;
+  .two1 {
+    top: 35%;
+    left: 24%;
+  }
+  .two2 {
+    top: 59%;
+    left: 64%;
+  }
+  .two3 {
+    top: 35%;
+    left: 56%;
   }
   .last {
     width: 100%;
@@ -403,6 +394,22 @@ img {
       left: 50%;
       transform: translate(-50%, 0);
     }
+  }
+}
+@keyframes myrotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  0% {
+    transform: rotate(-360deg);
+  }
+}
+@keyframes mybig {
+  0% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1.1);
   }
 }
 </style>

@@ -13,6 +13,7 @@ const OPEN_COUPON_PROJECT = process.env.AD_API + '/api/open/project'
 const IMAGE_UPLOAD = process.env.AD_API + '/api/images'
 
 const MINI_API = process.env.AD_API + '/api/mini'
+const MONEY_URL = process.env.AD_API + '/api/open/redpack/'
 
 const REQ_HEADER = {
   headers: {
@@ -366,6 +367,7 @@ const getCouponQRCodeMini = (code, z) => {
   })
 }
 //V2版本   发券
+//  发优惠券
 
 //获取券的信息（包括判断是否用手机号领过券）
 const checkV2Coupon = params => {
@@ -380,7 +382,6 @@ const checkV2Coupon = params => {
       })
   })
 }
-//  发优惠券
 const sendV2Coupon = (params, couponId) => {
   return new Promise((resolve, reject) => {
     axios
@@ -393,6 +394,22 @@ const sendV2Coupon = (params, couponId) => {
       })
   })
 }
+//  发现金券  年会
+const sendMoneyOnce = code => {
+  let params = {}
+  handleParma(params)
+  return new Promise((resolve, reject) => {
+    axios
+      .post(MONEY_URL + code, params, REQ_HEADER)
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+
 export {
   createCoupon,
   getCoupon,
@@ -415,5 +432,6 @@ export {
   getWalletListMini,
   getCouponQRCodeMini,
   checkV2Coupon,
-  sendV2Coupon
+  sendV2Coupon,
+  sendMoneyOnce
 }
