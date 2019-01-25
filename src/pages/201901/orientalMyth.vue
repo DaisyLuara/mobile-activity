@@ -87,6 +87,7 @@ export default {
       type: this.$route.query.type,
       imgList: ['a', 'b', 'c'],
       userId: null,
+      id: this.$route.query.id,
       qrcodeImg: null,
       //qrcodeImg: 'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
       wxShareInfoValue: {
