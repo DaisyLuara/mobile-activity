@@ -309,6 +309,17 @@ const Date201901 = [
     isAbandoned: false
   },
   {
+    path: 'oriental_myth',
+    location: '201901/orientalMyth',
+    name: 'oriental_myth',
+    meta: {
+      title: '免费试听',
+      author: 'xj1012',
+      desc: '东方神话'
+    },
+    isAbandoned: false
+  },
+  {
     path: 'zhufu',
     location: '201901/zhufu',
     name: 'zhufu',
@@ -327,6 +338,17 @@ const Date201901 = [
       title: '新春',
       author: 'lipan',
       desc: '新春'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'xindong',
+    location: '201901/xindong',
+    name: 'xindong',
+    meta: {
+      title: '心动情人节',
+      author: 'lipan',
+      desc: '心动情人节通用版h5'
     },
     isAbandoned: false
   }
