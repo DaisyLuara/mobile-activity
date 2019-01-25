@@ -106,9 +106,9 @@ img {
       user-select: auto;
     }
     .cloudOne {
-      width: 45%;
+      width: 32%;
       position: absolute;
-      left: -10%;
+      left: -9%;
       top: -3%;
       z-index: 99;
       animation: arrow 0.5s linear infinite alternate;
