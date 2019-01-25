@@ -280,7 +280,7 @@ const Date201901 = [
     location: '201901/orientalMyth',
     name: 'oriental_myth',
     meta: {
-      title: '东方神话',
+      title: '免费试听',
       author: 'xj1012',
       desc: '东方神话'
     },
