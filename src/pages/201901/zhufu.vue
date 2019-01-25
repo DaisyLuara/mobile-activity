@@ -58,6 +58,9 @@ export default {
         this.z = Cookies.set('z', this.userinfo.z)
         this.checkV2Coupon()
       }
+    },
+    coupon_batch_id() {
+      this.checkV2Coupon()
     }
   },
   mounted() {
