@@ -318,6 +318,17 @@ const Date201901 = [
       desc: '新春'
     },
     isAbandoned: false
+  },
+  {
+    path: 'xindong',
+    location: '201901/xindong',
+    name: 'xindong',
+    meta: {
+      title: '心动情人节',
+      author: 'lipan',
+      desc: '心动情人节通用h5'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201901
