@@ -14,7 +14,7 @@
       >
       <div class="center">
         <img
-          :src="baseUrl + 'card_1_'+imgList[type]+'.png'+ this.$qiniuCompress()"
+          :src="img+ this.$qiniuCompress()"
           class="card"
         >
         <img
@@ -84,6 +84,7 @@ export default {
         }
       },
       hasUsed: false,
+      img: null,
       type: this.$route.query.type,
       imgList: ['a', 'b', 'c'],
       userId: null,
@@ -118,6 +119,7 @@ export default {
       this.type = this.$route.query.type
       this.checkCouponIsUse()
     }
+    this.img = this.baseUrl + 'card_1_' + String(this.imgList[this.type]) + '.png'
   },
   methods: {
     //微信静默授权
