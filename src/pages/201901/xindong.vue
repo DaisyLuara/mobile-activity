@@ -39,9 +39,9 @@ export default {
       base: IMG_SERVER + '/fe/image/xindong/',
       //分享
       wxShareInfoValue: {
-        title: '新春',
-        desc: '新春',
-        link: '' + window.location.search,
+        title: '心动情人节',
+        desc: 'I love u',
+        link: 'http://papi.xingstation.com/api/s/RPL' + window.location.search,
         imgUrl: 'http://cdn.exe666.com/fe/image/xindong/icon.png'
       }
     }
