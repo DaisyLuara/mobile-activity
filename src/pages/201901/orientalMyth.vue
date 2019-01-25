@@ -112,6 +112,9 @@ export default {
         this.handleWechatAuth();
       }
     }
+    if (process.env.NODE_ENV === 'testing') {
+      this.checkCouponIsUse()
+    }
   },
   methods: {
     //微信静默授权
