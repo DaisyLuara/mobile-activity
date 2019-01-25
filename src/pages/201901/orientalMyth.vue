@@ -84,7 +84,7 @@ export default {
         }
       },
       hasUsed: false,
-      type: 2,
+      type: this.$route.query.type,
       imgList: ['a', 'b', 'c'],
       userId: null,
       qrcodeImg: null,
@@ -99,6 +99,7 @@ export default {
   },
   watch: {
     parms() {
+      this.type = this.parms.type
       this.checkCouponIsUse();
     }
   },
@@ -113,6 +114,7 @@ export default {
       }
     }
     if (process.env.NODE_ENV === 'testing') {
+      this.type = this.$route.query.type
       this.checkCouponIsUse()
     }
   },
