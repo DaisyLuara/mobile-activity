@@ -309,6 +309,17 @@ const Date201901 = [
     isAbandoned: false
   },
   {
+    path: 'oriental_myth',
+    location: '201901/orientalMyth',
+    name: 'oriental_myth',
+    meta: {
+      title: '免费试听',
+      author: 'xj1012',
+      desc: '东方神话'
+    },
+    isAbandoned: false
+  },
+  {
     path: 'zhufu',
     location: '201901/zhufu',
     name: 'zhufu',
