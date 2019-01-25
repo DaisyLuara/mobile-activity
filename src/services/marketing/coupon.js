@@ -24,7 +24,7 @@ const REQ_HEADER = {
 const V2_HEADER = {
   headers: {
     'api-token': apiToken,
-    Accept: 'application / vdn.xingstation.v2 + json'
+    Accept: 'application/vdn.xingstation.v2+json'
   }
 }
 const handleParma = params => {
