@@ -33,7 +33,7 @@
     </div>
     <div class="center-b">
       <img
-        :src="baseUrl + 'card_2.png'+ this.$qiniuCompress()"
+        :src="baseUrl + 'card_22.png'+ this.$qiniuCompress()"
         class="card"
       >
       <img
@@ -44,10 +44,12 @@
         :src="baseUrl + 'float_4.png'+ this.$qiniuCompress()"
         class="float-four animated  linear infinite  tada"
       >
-      <img
-        :src="qrcodeImg"
-        class="ewm"
-      >
+      <div class="clip">
+        <img
+          :src="qrcodeImg"
+          class="ewm"
+        >
+      </div>
       <img
         :src="baseUrl + 'word.png'+ this.$qiniuCompress()"
         v-show="hasUsed"
@@ -212,6 +214,7 @@ img {
   justify-content: flex-start;
   align-items: center;
   position: relative;
+  overflow-x: hidden;
   .bg {
     width: 100%;
     position: absolute;
@@ -253,10 +256,10 @@ img {
         top: 27%;
       }
       .photo {
-        width: 26%;
+        width: 26.5%;
         position: absolute;
-        right: 20.8%;
-        top: 36.5%;
+        right: 20%;
+        top: 36%;
         pointer-events: auto;
         user-select: auto;
       }
@@ -282,14 +285,25 @@ img {
       right: 0;
       top: 0;
     }
-    .ewm {
-      width: 24%;
+    .clip {
+      width: 25vw;
+      height: 25vw;
+      border-radius: 5px;
       position: absolute;
-      left: 15.8%;
-      bottom: 21.8%;
-      pointer-events: auto;
-      user-select: auto;
+      overflow: hidden;
+      left: 15.3%;
+      top: 56.2%;
+      text-align: center;
+      .ewm {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: auto;
+        user-select: auto;
+      }
     }
+
     .hasUsed {
       width: 13%;
       position: absolute;
