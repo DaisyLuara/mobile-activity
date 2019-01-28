@@ -1,5 +1,6 @@
 import wx from 'weixin-js-sdk'
 import axios from 'axios'
+import { isiOS } from 'services'
 
 const share = shareObject => {
   // utm_term 为分享统计标记
@@ -46,11 +47,20 @@ const qRCode = scanQrCodeObject => {
   wx.scanQRCode(scanQrCodeObject)
 }
 
-const $wechat = () => {
+const $wechat = weixin_url => {
   return new Promise((resolve, reject) => {
     let requestUrl = process.env.WX_API + '/wx/officialAccount/sign'
+    // 仅iOS设备需要传入
+    let params = {}
+    if (weixin_url && isiOS) {
+      params = {
+        params: {
+          weixin_url: encodeURIComponent(weixin_url.split('#')[0])
+        }
+      }
+    }
     axios
-      .get(requestUrl)
+      .get(requestUrl, params)
       .then(response => {
         // sign返回格式
         let r = response.data.data

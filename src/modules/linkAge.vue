@@ -25,33 +25,38 @@
   </div>
 </template>
 <script>
-const imgUrl = process.env.CDN_URL
-import { getGameHonour } from 'services'
+const imgUrl = process.env.CDN_URL;
+import { getGameHonour } from "services";
 export default {
   props: {
     proData: {
       type: Object,
-      require: true
-    },
+      require: true,
+      default: () => {
+        return {};
+      }
+    }
   },
   methods: {
     getGameHonour(bid, z) {
-      getGameHonour(bid, z).then(res => {
-        console.log(res)
-        this.projectStatus(res.results.data)
-      }).catch(err => {
-        console.log(err)
-      })
+      getGameHonour(bid, z)
+        .then(res => {
+          console.log(res);
+          this.projectStatus(res.results.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
     projectStatus(data) {
       data.map(r => {
         if (this.proData.projects[r.xid]) {
-          this.proData.projects[r.xid].state = true
+          this.proData.projects[r.xid].state = true;
         }
-      })
-    },
+      });
+    }
   }
-}
+};
 </script>
 <style lang="less" scoped>
 ul {

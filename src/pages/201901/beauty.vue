@@ -46,12 +46,6 @@ export default {
       }
     }
   },
-  mounted() {
-    if (Cookies.get('z')) {
-      this.cookies_z = Cookies.get('z')
-      this.toshow = true
-    }
-  },
   watch: {
     userinfo() {
       this.toshow = true
@@ -60,6 +54,12 @@ export default {
       } else {
         Cookies.set('z', this.userinfo.z)
       }
+    }
+  },
+  mounted() {
+    if (Cookies.get('z')) {
+      this.cookies_z = Cookies.get('z')
+      this.toshow = true
     }
   },
   methods: {

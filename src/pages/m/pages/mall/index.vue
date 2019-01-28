@@ -1,12 +1,10 @@
 <template>
   <div class="mall">
-    <NoListContentReminder 
-      :show="true" 
-      words="商城还没有开放哦"/>
-<<<<<<< HEAD
-=======
-    <BottomBar/>
->>>>>>> develop
+    <NoListContentReminder
+      :show="true"
+      words="商城还没有开放哦"
+    />
+    <BottomBar />
   </div>
 </template>
 

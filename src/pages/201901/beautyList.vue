@@ -67,15 +67,15 @@ export default {
       }
     }
   },
-  mounted() {
-    this.cookies_z = Cookies.get('z')
-  },
   watch: {
     actinfo() {
       this.cookies_z = Cookies.get('z')
       let z = this.cookies_z || this.userinfo.z
       this.getList(this.actinfo.awardkey, z)
     }
+  },
+  mounted() {
+    this.cookies_z = Cookies.get('z')
   },
   methods: {
     getList(awardkey, z) {

@@ -1,24 +1,22 @@
 <template>
   <div class="trends">
-<<<<<<< HEAD
-    <NoListContentReminder :show="trends.length ===0 && firstFetch" words="暂时还没有活动"/>
-=======
-    <NoListContentReminder 
-      :show="trends.length ===0 && firstFetch" 
-      words="暂时还没有活动"/>
->>>>>>> develop
+    <NoListContentReminder
+      :show="trends.length ===0 && firstFetch"
+      words="暂时还没有活动"
+    />
 
-    <MyTrendsSwiper/>
+    <MyTrendsSwiper />
     <ul
       v-infinite-scroll="loadMore"
       class="trends-wrapper"
       infinite-scroll-disabled="loading"
       infinite-scroll-distance="10"
     >
-      <div 
-        v-for="(item, index) in trends" 
-        :key="index" 
-        class="item-wrapper">
+      <div
+        v-for="(item, index) in trends"
+        :key="index"
+        class="item-wrapper"
+      >
         <TrendPhoto
           :image="item.image"
           :title="item.title"
@@ -28,8 +26,8 @@
         />
       </div>
     </ul>
-    <div class="loadmore-add"/>
-    <div class="loadmore-add"/>
+    <div class="loadmore-add" />
+    <div class="loadmore-add" />
   </div>
 </template>
 
@@ -104,11 +102,14 @@ export default {
       };
       getUserTrends(payload)
         .then(r => {
-          if (r.data.state === "40035") {
+          const dataStatus = r.data && r.data.state;
+          if (!dataStatus || r.data.state !== "1") {
             this.$router.push({
               name: "mSite404"
             });
+            return;
           }
+
           let res = r.data.results.data;
           this.isLoading = false;
           this.trends = this.trends.concat(res);

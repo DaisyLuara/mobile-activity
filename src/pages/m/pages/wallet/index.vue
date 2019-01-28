@@ -1,25 +1,31 @@
 <template>
   <div class="wallet">
-<<<<<<< HEAD
-    <img class="bg" src="https://cdn.exe666.com/fe/image/m/wallet-no-bg.jpeg">
-    
+    <img
+      class="bg"
+      src="https://cdn.exe666.com/fe/image/m/wallet-no-bg.jpeg"
+    >
+
     <img
       v-if="loginState.gender === '1'"
       class="xo"
       src="https://cdn.exe666.com/fe/image/m/wallet-no-xo.png"
     >
-    <img v-else class="xo" src="https://cdn.exe666.com/fe/image/m/wallet-no-xo-boy.png">
+    <img
+      v-else
+      class="xo"
+      src="https://cdn.exe666.com/fe/image/m/wallet-no-xo-boy.png"
+    >
 
     <div class="icon">
-      <img :src="currentIcon">
+      <img
+        v-if="currentIcon !== ''"
+        :src="currentIcon"
+      >
     </div>
-    <div class="fuli">福利</div>
-=======
-    <NoListContentReminder 
-      :show="true" 
-      words="你还没有卡券"/>
-    <BottomBar/>
->>>>>>> develop
+    <div
+      v-if="resData.length !== 0"
+      class="fuli"
+    >福利</div>
   </div>
 </template>
 
@@ -37,12 +43,6 @@ export default {
       clicked: false
     };
   },
-  created() {
-    this.fetchMyData();
-  },
-  beforeDestroy() {
-    clearInterval(this.itv);
-  },
   computed: {
     ...mapGetters(["z", "loginState"]),
     currentP() {
@@ -58,6 +58,12 @@ export default {
       let n = this.resData[this.currentP].icon;
       return n;
     }
+  },
+  created() {
+    this.fetchMyData();
+  },
+  beforeDestroy() {
+    clearInterval(this.itv);
   },
   methods: {
     handleClick() {
@@ -137,17 +143,23 @@ export default {
           api: "json"
         };
         let r = await fetchRunPro(payload);
-        if (r.data.state === "40035") {
+        console.dir(r);
+        const dataStatus = r.data && r.data.state;
+        if (!dataStatus || r.data.state !== "1") {
           this.$router.push({
             name: "mSite404"
           });
-        }
-        this.resData = r.data.results.data;
-        this.handleClick();
-        this.itv = setInterval(() => {
-          this.count++;
+          return;
+        } else if (r.data.state === "0") {
+          return;
+        } else {
+          this.resData = r.data.results.data;
           this.handleClick();
-        }, 5000);
+          this.itv = setInterval(() => {
+            this.count++;
+            this.handleClick();
+          }, 5000);
+        }
       } catch (e) {
         console.log(e);
       }

@@ -72,19 +72,21 @@ export default {
     },
     actDetail: {
       type: Object,
-      default: {
-        infolink: "",
-        pslink: "",
-        type: ""
-      },
-      required: true
+      required: true,
+      default: function () {
+        return {
+          infolink: "",
+          pslink: "",
+          type: ""
+        };
+      }
     }
   },
   data() {
     return {
-      deleteUrl: "https://cdn.exe666.com/fe/image/m/m-menu-delete.svg",
-      saveUrl: "https://cdn.exe666.com/fe/image/m/m-menu-download.svg",
-      shareUrl: "https://cdn.exe666.com/fe/image/m/m-menu-share.svg",
+      deleteUrl: "http://cdn.exe666.com/fe/image/m/m-menu-delete.svg",
+      saveUrl: "http://cdn.exe666.com/fe/image/m/m-menu-download.svg",
+      shareUrl: "http://cdn.exe666.com/fe/image/m/m-menu-share.svg",
       subTitle: "活动倒计时:12:14:33",
       actList: [],
       shoudListShow: false,
@@ -94,9 +96,6 @@ export default {
         honour: "MyAchivement"
       }
     };
-  },
-  mounted() {
-    this.preFetchActList();
   },
   computed: {
     buttonTitle() {
@@ -115,6 +114,9 @@ export default {
       }
     },
     ...mapGetters(["z"])
+  },
+  mounted() {
+    this.preFetchActList();
   },
   methods: {
     naviToShopActivity() {
@@ -173,14 +175,18 @@ export default {
         if (this.actDetail.xinfo !== null) {
           bid = this.actDetail.xinfo.bid;
         }
+        let query = {
+          acid: this.actDetail.acid,
+          awardkey: this.actDetail.awardkey,
+          bid: bid
+        };
+        if (this.actDetail.tabs) {
+          query.tabs = this.actDetail.tabs;
+        }
         this.$router.push({
           name: this.nameMap[this.actDetail.type],
           params: this.$route.params,
-          query: {
-            acid: this.actDetail.acid,
-            awardkey: this.actDetail.awardkey,
-            bid: bid
-          }
+          query: query
         });
       }
     }

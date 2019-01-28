@@ -27,7 +27,7 @@
     </div>
     <div class="bottom">
       <img
-        :src="baseUrl + 'bt.png'+ this.$qiniuCompress()"
+        :src="baseUrl + 'art.png'+ this.$qiniuCompress()"
         class="btImg"
       >
       <!-- 二维码 -->

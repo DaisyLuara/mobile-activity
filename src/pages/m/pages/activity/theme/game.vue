@@ -1,27 +1,21 @@
 <template>
   <div class="game">
-<<<<<<< HEAD
-    <div v-if="myData !== null" class="game-my">
-      <img class="bg" src="https://cdn.exe666.com/fe/image/m/game-my.png">
-=======
-    <div 
-      v-if="myData !== null" 
-      class="game-my">
-      <img 
-        class="bg" 
-        src="https://cdn.exe666.com/fe/image/m/game-my.png">
->>>>>>> develop
+    <div
+      v-if="myData !== null"
+      class="game-my"
+    >
+      <img
+        class="bg"
+        src="https://cdn.exe666.com/fe/image/m/game-my.png"
+      >
       <div class="info">
-        <img 
-          :src="myData.face" 
-          class="avatar">
+        <img
+          :src="myData.face"
+          class="avatar"
+        >
         <div class="info-more">
-          <span class="yz">颜值: {{ myData.value }} 分</span>
-<<<<<<< HEAD
+          <span class="yz">{{ my.tabs }}: {{ myData.value }} 分</span>
           <span class="date">{{ computedDate(myData.clientdate) }}</span>
-=======
-          <span class="date">{{ myData.date.substring(0,10) }}</span>
->>>>>>> develop
         </div>
       </div>
       <div class="my-rank">
@@ -29,51 +23,39 @@
         <div class="label">我的排名</div>
       </div>
     </div>
-<<<<<<< HEAD
     <div
       v-for="(item, index) in resData"
       :class="{'game-item': index !== resData.length - 1, 'game-item last': index === resData.length - 1}"
       :key="index"
     >
-=======
-    <div 
-      v-for="(item, index) in resData" 
-      :key="index" 
-      class="game-item">
->>>>>>> develop
       <div class="info">
-        <img 
-          :src="item.face" 
-          class="avatar">
+        <img
+          :src="item.face"
+          class="avatar"
+        >
         <div class="info-more">
-          <span class="yz">颜值: {{ item.value }} 分</span>
-<<<<<<< HEAD
+          <span class="yz">{{ my.tabs }}: {{ item.value }} 分</span>
           <span class="date">{{ computedDate(item.clientdate) }}</span>
         </div>
       </div>
-      <img v-if="index === 0" class="crown" src="https://cdn.exe666.com/fe/image/m/first.png">
-      <img v-if="index === 1" class="crown" src="https://cdn.exe666.com/fe/image/m/second.png">
-      <img v-if="index === 2" class="crown" src="https://cdn.exe666.com/fe/image/m/third.png">
-=======
-          <span class="date">{{ item.date.substring(0,10) }}</span>
-        </div>
-      </div>
-      <img 
-        v-if="index === 0" 
-        class="crown" 
-        src="https://cdn.exe666.com/fe/image/m/first.png">
-      <img 
-        v-if="index === 1" 
-        class="crown" 
-        src="https://cdn.exe666.com/fe/image/m/second.png">
-      <img 
-        v-if="index === 2" 
-        class="crown" 
-        src="https://cdn.exe666.com/fe/image/m/third.png">
->>>>>>> develop
+      <img
+        v-if="index === 0"
+        class="crown"
+        src="https://cdn.exe666.com/fe/image/m/first.png"
+      >
+      <img
+        v-if="index === 1"
+        class="crown"
+        src="https://cdn.exe666.com/fe/image/m/second.png"
+      >
+      <img
+        v-if="index === 2"
+        class="crown"
+        src="https://cdn.exe666.com/fe/image/m/third.png"
+      >
     </div>
-    <ActivityThemeGameBottom/>
-    <div class="bottom-holder"></div>
+    <ActivityThemeGameBottom />
+    <div class="bottom-holder" />
   </div>
 </template>
 
@@ -89,7 +71,9 @@ export default {
   data() {
     return {
       resData: [],
-      my: {}
+      my: {
+        tabs: "颜值"
+      }
     };
   },
   computed: {

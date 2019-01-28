@@ -1,20 +1,29 @@
 <template>
   <div class="achivement">
-    <div class="title">{{fixedTitle}}</div>
+    <div class="title">{{ fixedTitle }}</div>
     <ul
       v-infinite-scroll="loadMore"
       class="achives"
       infinite-scroll-disabled="loading"
       infinite-scroll-distance="10"
     >
-      <div v-for="(item, index) in trends" :key="index" class="achive">
+      <div 
+        v-for="(item, index) in trends" 
+        :key="index" 
+        class="achive">
         <div class="header">
-          <img :src="item.xicon" v-if="item.hid > 0">
-          <img :src="item.xtabicon" v-if="item.hid <= 0">
+          <img 
+            v-if="item.hid > 0" 
+            :src="item.xicon">
+          <img 
+            v-if="item.hid <= 0" 
+            :src="item.xtabicon">
         </div>
         <div class="text">{{ item.xname }}</div>
       </div>
-      <div v-if="trends.length === 0 && firstFetch" class="no-achive">暂无解锁的成就</div>
+      <div 
+        v-if="trends.length === 0 && firstFetch" 
+        class="no-achive">暂无解锁的成就</div>
     </ul>
   </div>
 </template>

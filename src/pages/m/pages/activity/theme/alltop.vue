@@ -37,7 +37,7 @@
       :list="showImg"
       :has-dots="false"
       :initial-index="viewerIndex"
-    ></md-image-viewer>
+    />
     <ActivityThemeGameBottom :show="!isViewerShow" />
   </div>
 </template>
