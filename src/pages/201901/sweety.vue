@@ -4,23 +4,39 @@
     class="warp"
   >
     <img
-      :src="base + 'flotage1.png'"
-      class="top"
+      :src="base + 'gift_left.png'"
+      class="gift1"
+    >
+    <img
+      :src="base + 'gift_right.png'"
+      class="gift2"
+    >
+    <img
+      :src="base + 'bird.png'"
+      class="bird"
+    >
+    <img
+      :src="base + 'lipstick.png'"
+      class="lipstick"
+    >
+    <img
+      :src="base + 'envelope_bottom.png'"
+      class="envelope"
+    >
+    <img
+      :src="base + 'envelope.png'"
+      class="cover"
     >
     <div class="main">
       <img
-        :src="base + 'frame.png'"
-        class="frame"
+        :src="base + 'word.png'"
+        class="word"
       >
       <img
         :src="photo + this.$qiniuCompress()"
         class="photo"
       >
     </div>
-    <img
-      :src="base + 'button.png'"
-      class="save"
-    >
   </div>
 </template>
 <script>
@@ -74,48 +90,98 @@ img {
   width: 100%;
   position: relative;
   overflow-x: hidden;
-  background-image: url("@{imgUrl}flotage2.png"), url("@{imgUrl}bg.png");
-  background-position: center top, center center;
-  background-size: 100% auto, 100% auto;
-  background-repeat: no-repeat, repeat;
-  padding-top: 15%;
-  .top {
+  background-image: url("@{imgUrl}bg_1.png");
+  background-position: center top;
+  background-size: 100% auto;
+  background-repeat: repeat;
+  .gift1,
+  .gift2,
+  .bird,
+  .lipstick {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
     z-index: 999;
   }
-  .main {
+  .gift1 {
+    width: 24%;
+    top: -5%;
+    left: 0;
+    animation: myup 0.6s linear infinite alternate;
+  }
+  .gift2 {
+    width: 22.5%;
+    top: -3%;
+    right: 0;
+    animation: myup 0.6s 0.2s linear infinite alternate;
+  }
+  .lipstick {
+    width: 24%;
+    top: 69%;
+    left: -8%;
+    animation: myrotate 0.8s linear infinite alternate;
+  }
+  .bird {
+    width: 33%;
+    top: 72%;
+    right: -6%;
+    animation: myrotate 0.4s linear infinite alternate-reverse;
+  }
+  .envelope {
     width: 100%;
-    position: relative;
-    background-image: url("@{imgUrl}flotage3.png");
-    background-position: center 92%;
-    background-size: 100% auto;
-    background-repeat: no-repeat;
+    position: absolute;
+    bottom: 0%;
+    left: 0%;
     z-index: 0;
-    .frame {
+  }
+  .cover {
+    width: 100%;
+    position: absolute;
+    bottom: 0%;
+    left: 0%;
+    z-index: 9999;
+  }
+  .main {
+    width: 74%;
+    height: 100%;
+    position: relative;
+    background-image: url("@{imgUrl}bg_2.png");
+    background-position: center top;
+    background-size: 100% auto;
+    background-repeat: repeat;
+    z-index: 9;
+    .word {
       width: 81%;
       position: relative;
-      z-index: 999;
+      z-index: 0;
+      margin-top: 5%;
+      margin-bottom: 7%;
     }
     .photo {
-      width: 56%;
-      position: absolute;
-      top: 3%;
-      left: 50%;
-      transform: translateX(-50%);
+      width: 82.5%;
+      position: relative;
+      z-index: 0;
       pointer-events: auto;
       user-select: auto;
+      margin-bottom: 15%;
     }
   }
-  .save {
-    width: 60%;
-    position: relative;
-    z-index: 0;
-    margin-bottom: 8%;
+}
+@keyframes myup {
+  0% {
+    transform: translateY(-2%);
+  }
+  100% {
+    transform: translateY(5%);
+  }
+}
+@keyframes myrotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(15deg);
   }
 }
 </style>
+
 
 
