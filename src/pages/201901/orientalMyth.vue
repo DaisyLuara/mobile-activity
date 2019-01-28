@@ -85,12 +85,11 @@ export default {
       },
       hasUsed: false,
       img: null,
-      type: this.$route.query.type,
-      imgList: ['a', 'b', 'c'],
+      // img: 'https://cdn.exe666.com/fe/image/drc_year19_dfth/card_1_b.png',
       userId: null,
       id: this.$route.query.id,
       qrcodeImg: null,
-      //qrcodeImg: 'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
+      // qrcodeImg: 'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
       wxShareInfoValue: {
         title: "来东方童画激发潜能",
         desc: "点击领取",
@@ -101,7 +100,6 @@ export default {
   },
   watch: {
     parms() {
-      this.type = this.parms.type
       this.checkCouponIsUse();
     }
   },
@@ -116,10 +114,8 @@ export default {
       }
     }
     if (process.env.NODE_ENV === 'testing') {
-      this.type = this.$route.query.type
-      this.checkCouponIsUse()
+      this.wxShareInfoValue.link = 'http://papi.newgls.cn/api/s/qYr'
     }
-    this.img = this.baseUrl + 'card_1_' + String(this.imgList[this.type]) + '.png'
   },
   methods: {
     //微信静默授权
@@ -138,7 +134,7 @@ export default {
     },
     //判断是否领过优惠券
     checkCouponIsUse() {
-      let coupon_batch_id = this.$route.query.coupon_batch_id || this.coupon_batch_id
+      let coupon_batch_id = this.coupon_batch_id
       let args = {
         coupon_batch_id: coupon_batch_id,
         include: "couponBatch",
@@ -159,7 +155,7 @@ export default {
     },
     //发优惠券
     sendCoupon() {
-      let coupon_batch_id = this.$route.query.coupon_batch_id || this.coupon_batch_id
+      let coupon_batch_id = this.coupon_batch_id
       let args = {
         include: "couponBatch",
         qiniu_id: this.id,
@@ -178,6 +174,7 @@ export default {
     //处理返回数据
     handleData(res) {
       this.qrcodeImg = res.qrcode_url;
+      this.img = res.couponBatch.image_url
       if (parseInt(res.status) === 1) {
         //已使用
         this.hasUsed = true;
