@@ -86,7 +86,7 @@ export default {
       wxShareInfoValue: {
         title: '新春',
         desc: '新春',
-        link: '' + window.location.search,
+        link: 'http://papi.xingstation.com/api/s/WQW' + window.location.search,
         imgUrl: 'http://cdn.exe666.com/fe/image/newchun/icon.png'
       }
     }
