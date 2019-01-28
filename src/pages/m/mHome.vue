@@ -1,17 +1,11 @@
 <template>
   <div class="mHome">
-    <router-view v-if="wechat === true && z !== ''"/>
-    <div 
-      v-if="wechat !== true" 
-      class="wx-remind">请在微信中打开</div>
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <BottomBar :menucode="computedCode"/>
-=======
->>>>>>> develop
-=======
-    <BottomBar/>
->>>>>>> master
+    <router-view v-if="wechat === true && z !== ''" />
+    <div
+      v-if="wechat !== true"
+      class="wx-remind"
+    >请在微信中打开</div>
+    <BottomBar />
   </div>
 </template>
 

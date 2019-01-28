@@ -1,6 +1,5 @@
 <template>
   <div class="alltop">
-<<<<<<< HEAD
     <NoListContentReminder
       :show="trends.length === 0 && firstFetch"
       words="暂时没有活动内容哦"
@@ -10,33 +9,17 @@
       :src="actData.image"
       class="main-photo"
     >
-=======
-    <NoListContentReminder 
-      :show="trends.length === 0 && firstFetch" 
-      words="暂时没有活动内容哦"/>
-    <img 
-      v-if="actData.image !== ''" 
-      :src="actData.image" 
-      class="main-photo">
->>>>>>> master
     <ul
       v-infinite-scroll="loadMore"
       class="trends-wrapper"
       infinite-scroll-disabled="loading"
       infinite-scroll-distance="10"
     >
-<<<<<<< HEAD
       <div
         v-for="(item, index) in trends"
         :key="index"
         class="item-wrapper"
       >
-=======
-      <div 
-        v-for="(item, index) in trends" 
-        :key="index" 
-        class="item-wrapper">
->>>>>>> master
         <ThemeVoteItem
           :auid="item.auid"
           :photo-url="item.link"
@@ -54,13 +37,8 @@
       :list="showImg"
       :has-dots="false"
       :initial-index="viewerIndex"
-<<<<<<< HEAD
-    ></md-image-viewer>
-    <ActivityThemeGameBottom :show="!isViewerShow" />
-=======
     />
-    <ActivityThemeGameBottom :show="!isViewerShow"/>
->>>>>>> master
+    <ActivityThemeGameBottom :show="!isViewerShow" />
   </div>
 </template>
 

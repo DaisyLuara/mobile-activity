@@ -1,40 +1,31 @@
 <template>
   <div class="wallet">
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <img class="bg" src="https://cdn.exe666.com/fe/image/m/wallet-no-bg.jpeg">
-=======
-    <img 
-      class="bg" 
-      src="https://cdn.exe666.com/fe/image/m/wallet-no-bg.jpeg">
->>>>>>> master
-    
+    <img
+      class="bg"
+      src="https://cdn.exe666.com/fe/image/m/wallet-no-bg.jpeg"
+    >
+
     <img
       v-if="loginState.gender === '1'"
       class="xo"
       src="https://cdn.exe666.com/fe/image/m/wallet-no-xo.png"
     >
-    <img 
-      v-else 
-      class="xo" 
-      src="https://cdn.exe666.com/fe/image/m/wallet-no-xo-boy.png">
+    <img
+      v-else
+      class="xo"
+      src="https://cdn.exe666.com/fe/image/m/wallet-no-xo-boy.png"
+    >
 
     <div class="icon">
-      <img 
-        v-if="currentIcon !== ''" 
-        :src="currentIcon">
+      <img
+        v-if="currentIcon !== ''"
+        :src="currentIcon"
+      >
     </div>
-<<<<<<< HEAD
-    <div class="fuli">福利</div>
-=======
-    <NoListContentReminder 
-      :show="true" 
-      words="你还没有卡券"/>
-    <BottomBar/>
->>>>>>> develop
-=======
-    <div class="fuli" v-if="resData.length !== 0">福利</div>
->>>>>>> master
+    <div
+      class="fuli"
+      v-if="resData.length !== 0"
+    >福利</div>
   </div>
 </template>
 
