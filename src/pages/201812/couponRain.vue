@@ -57,8 +57,8 @@ export default {
       qrcodeImg: null,// 'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
       //微信分享
       wxShareInfoValue: {
-        title: "猪福港味年，红包抢翻天！  ",
-        desc: "点击马上抢【连卡福】新春红包！",
+        title: "高能预警！一大波“红包雨”强势来袭！",
+        desc: "拼手速，抢抢抢抢抢抢连卡福新春红包",
         link: "http://papi.xingstation.com/api/s/K8r" + window.location.search,
         imgUrl: CDNURL + "/fe/image/couponrain/share.jpg",
       }

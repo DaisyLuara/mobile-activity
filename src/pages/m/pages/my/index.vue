@@ -1,16 +1,34 @@
 <template>
   <div class="my">
 <<<<<<< HEAD
+<<<<<<< HEAD
     <NoListContentReminder :show="false" words="你还没有解锁嗨玩屏"/>
     <img :src="bgUrl" class="bg">
+=======
+    <NoListContentReminder 
+      :show="false" 
+      words="你还没有解锁嗨玩屏"/>
+    <img 
+      :src="bgUrl" 
+      class="bg">
+>>>>>>> master
     <div class="reminder">
-      <div v-if="currentName.length <=7" class="text">
-        <img :src="currentIcon" class="icon">
+      <div 
+        v-if="currentName.length <=7" 
+        class="text">
+        <img 
+          :src="currentIcon" 
+          class="icon">
         当前互动“
         <span style="color: #6d1eff;">{{ currentName }}</span>”
       </div>
-      <div style="color: #6d1eff;" v-if="currentName.length >7" class="text">
-        <img :src="currentIcon" class="icon">
+      <div 
+        v-if="currentName.length >7" 
+        style="color: #6d1eff;" 
+        class="text">
+        <img 
+          :src="currentIcon" 
+          class="icon">
         {{ currentName }}
       </div>
     </div>
@@ -18,29 +36,56 @@
       <div class="title">今日互动指数</div>
       <div class="sub">
         <span class="label">人气指数</span>
-        <transition-group name="fade" class="trg">
-          <img v-for="(item, index) in inviteNum" :src="star" :key="index" class="star">
+        <transition-group 
+          name="fade" 
+          class="trg">
+          <img 
+            v-for="(item, index) in inviteNum" 
+            :src="star" 
+            :key="index" 
+            class="star">
         </transition-group>
         <transition name="fade">
-          <img v-if="inviteNumExtra" :src="halfstar" class="star">
+          <img 
+            v-if="inviteNumExtra" 
+            :src="halfstar" 
+            class="star">
         </transition>
       </div>
       <div class="sub">
         <span class="label">幸运指数</span>
-        <transition-group name="fade" class="trg">
-          <img v-for="(item, index) in luckNum" :src="star" :key="index" class="star">
+        <transition-group 
+          name="fade" 
+          class="trg">
+          <img 
+            v-for="(item, index) in luckNum" 
+            :src="star" 
+            :key="index" 
+            class="star">
         </transition-group>
         <transition name="fade">
-          <img v-if="luckNumExtra" :src="halfstar" class="star">
+          <img 
+            v-if="luckNumExtra" 
+            :src="halfstar" 
+            class="star">
         </transition>
       </div>
       <div class="sub">
         <span class="label">推荐指数</span>
-        <transition-group name="fade" class="trg">
-          <img v-for="(item, index) in topNum" :src="star" :key="index" class="star">
+        <transition-group 
+          name="fade" 
+          class="trg">
+          <img 
+            v-for="(item, index) in topNum" 
+            :src="star" 
+            :key="index" 
+            class="star">
         </transition-group>
         <transition name="fade">
-          <img v-if="topNumExtra" :src="halfstar" class="star">
+          <img 
+            v-if="topNumExtra" 
+            :src="halfstar" 
+            class="star">
         </transition>
       </div>
     </div>
@@ -48,16 +93,24 @@
       <img :src="loginState.face">
     </div>
     <div class="nickname">{{ loginState.username }}</div>
-    <div class="barrage" @click="navinagteToBarrage">
-      <img :src="hot" class="hot">
+    <div 
+      class="barrage" 
+      @click="navinagteToBarrage">
+      <img 
+        :src="hot" 
+        class="hot">
       <div class="barrage-icon"/>
       <div>发弹幕</div>
     </div>
-    <div class="achivement" @click="navinagteToAchivement">
+    <div 
+      class="achivement" 
+      @click="navinagteToAchivement">
       <div class="achivement-icon"/>
       <div>成就勋章</div>
     </div>
-    <div class="mygame" @click="navinagteToGamePlayed">
+    <div 
+      class="mygame" 
+      @click="navinagteToGamePlayed">
       <div class="mygame-icon"/>
       <div>参与过的互动</div>
     </div>
@@ -176,10 +229,12 @@ export default {
           api: "json"
         };
         let r = await fetchRunPro(payload);
-        if (r.data.state === "40035") {
+        const dataStatus = r.data && r.data.state;
+        if (!dataStatus || r.data.state !== "1") {
           this.$router.push({
             name: "mSite404"
           });
+          return;
         }
         this.resData = r.data.results.data;
         this.itv = setInterval(() => {

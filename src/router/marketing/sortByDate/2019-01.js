@@ -260,7 +260,40 @@ const Date201901 = [
     meta: {
       title: '猪你快乐',
       author: 'lipan',
-      desc: '新年快乐'
+      desc: '猪你快乐'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'nianhui',
+    location: '201901/nianhui',
+    name: 'nianhui',
+    meta: {
+      title: '刮刮乐',
+      author: 'lipan',
+      desc: '年会原力觉醒刮奖h5'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'listRank_index',
+    location: '201901/listRankIndex',
+    name: 'listRank_index',
+    meta: {
+      title: '风味',
+      author: 'xj1012',
+      desc: '星视度年会'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'listRank_result',
+    location: '201901/listRankResult',
+    name: 'listRank_result',
+    meta: {
+      title: '风味',
+      author: 'xj1012',
+      desc: '星视度年会'
     },
     isAbandoned: false
   },
@@ -283,17 +316,6 @@ const Date201901 = [
       title: '免费试听',
       author: 'xj1012',
       desc: '东方神话'
-    },
-    isAbandoned: false
-  },
-  {
-    path: 'nianhui',
-    location: '201901/nianhui',
-    name: 'nianhui',
-    meta: {
-      title: '刮刮乐',
-      author: 'lipan',
-      desc: '年会原力觉醒刮奖h5'
     },
     isAbandoned: false
   },
@@ -326,7 +348,7 @@ const Date201901 = [
     meta: {
       title: '心动情人节',
       author: 'lipan',
-      desc: '心动情人节通用h5'
+      desc: '心动情人节通用版h5'
     },
     isAbandoned: false
   }

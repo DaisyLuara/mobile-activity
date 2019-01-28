@@ -1,23 +1,33 @@
 <template>
   <div class="game">
 <<<<<<< HEAD
+<<<<<<< HEAD
     <div v-if="myData !== null" class="game-my">
       <img class="bg" src="https://cdn.exe666.com/fe/image/m/game-my.png">
 =======
+=======
+>>>>>>> master
     <div 
       v-if="myData !== null" 
       class="game-my">
       <img 
         class="bg" 
         src="https://cdn.exe666.com/fe/image/m/game-my.png">
+<<<<<<< HEAD
 >>>>>>> develop
+=======
+>>>>>>> master
       <div class="info">
         <img 
           :src="myData.face" 
           class="avatar">
         <div class="info-more">
+<<<<<<< HEAD
           <span class="yz">颜值: {{ myData.value }} 分</span>
 <<<<<<< HEAD
+=======
+          <span class="yz">{{ my.tabs }}: {{ myData.value }} 分</span>
+>>>>>>> master
           <span class="date">{{ computedDate(myData.clientdate) }}</span>
 =======
           <span class="date">{{ myData.date.substring(0,10) }}</span>
@@ -46,6 +56,7 @@
           :src="item.face" 
           class="avatar">
         <div class="info-more">
+<<<<<<< HEAD
           <span class="yz">颜值: {{ item.value }} 分</span>
 <<<<<<< HEAD
           <span class="date">{{ computedDate(item.clientdate) }}</span>
@@ -58,6 +69,12 @@
           <span class="date">{{ item.date.substring(0,10) }}</span>
         </div>
       </div>
+=======
+          <span class="yz">{{ my.tabs }}: {{ item.value }} 分</span>
+          <span class="date">{{ computedDate(item.clientdate) }}</span>
+        </div>
+      </div>
+>>>>>>> master
       <img 
         v-if="index === 0" 
         class="crown" 
@@ -70,10 +87,13 @@
         v-if="index === 2" 
         class="crown" 
         src="https://cdn.exe666.com/fe/image/m/third.png">
+<<<<<<< HEAD
 >>>>>>> develop
+=======
+>>>>>>> master
     </div>
     <ActivityThemeGameBottom/>
-    <div class="bottom-holder"></div>
+    <div class="bottom-holder"/>
   </div>
 </template>
 
@@ -89,7 +109,9 @@ export default {
   data() {
     return {
       resData: [],
-      my: {}
+      my: {
+        tabs: "颜值"
+      }
     };
   },
   computed: {

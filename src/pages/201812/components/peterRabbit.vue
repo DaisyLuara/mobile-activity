@@ -103,18 +103,27 @@
       >
     </div>
     <BottomBar
-      :menucode="'56'"
-      :replaceMkey="mkey"
+      :replace-menu-code="'3o3o'"
+      :replace-mkey="mkey"
     />
   </div>
 </template>
 <script>
-import { $wechat, isInWechat, wechatShareTrack, Cookies, getGameHonour } from "services";
+import {
+  $wechat,
+  isInWechat,
+  wechatShareTrack,
+  Cookies,
+  getGameHonour
+} from "services";
 import { normalPages } from "@/mixins/normalPages";
 import "animate.css";
 import BottomBar from "@/pages/m/components/Static/BottomBar";
 const CDNURL = process.env.CDN_URL;
 export default {
+  components: {
+    BottomBar
+  },
   components: {
     BottomBar
   },
@@ -125,31 +134,27 @@ export default {
       required: true
     }
   },
-  components: {
-    BottomBar,
-  },
-  mixins: [normalPages],
   data() {
     return {
       base: CDNURL + "/fe/image/peter/",
       root: {
-        'min-height': this.$innerHeight() + 'px'
+        "min-height": this.$innerHeight() + "px"
       },
       mask: false,
       userId: null,
-      mkey: 'y6541h00',
+      mkey: "y6541h00",
       projects: {
-        '8': {
-          name: 'ptRabbitRed',
-          img: ''
+        "8": {
+          name: "ptRabbitRed",
+          img: ""
         },
-        '9': {
-          name: 'ptRabbitBlue',
-          img: ''
+        "9": {
+          name: "ptRabbitBlue",
+          img: ""
         },
-        '10': {
-          name: 'ptRabbitYellow',
-          img: ''
+        "10": {
+          name: "ptRabbitYellow",
+          img: ""
         }
       },
       //微信分享
@@ -157,9 +162,9 @@ export default {
         title: "出发，彼得兔",
         desc: "我们一定要去探险！",
         link: this.linkData + window.location.search,
-        imgUrl: CDNURL + "/fe/image/peter/share.png",
+        imgUrl: CDNURL + "/fe/image/peter/share.png"
       }
-    }
+    };
   },
   watch: {
     userinfo() {
@@ -169,28 +174,29 @@ export default {
     //   this.getGameHonour(3, '8b96bc7fba4c1176b3fc0861e94f22465c0f6a');
     // }
   },
-  mounted() {
-  },
+  mounted() { },
   methods: {
     getGameHonour(bid, z) {
-      getGameHonour(bid, z).then(res => {
-        console.log(res)
-        this.projectStatus(res.results.data)
-      }).catch(err => {
-        console.log(err)
-      })
+      getGameHonour(bid, z)
+        .then(res => {
+          console.log(res);
+          this.projectStatus(res.results.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
     projectStatus(data) {
       data.map(r => {
         if (r.hid <= 0) {
-          this.projects[r.xid].img = r.xtabicon
+          this.projects[r.xid].img = r.xtabicon;
         } else {
-          this.projects[r.xid].img = r.xicon
+          this.projects[r.xid].img = r.xicon;
         }
-      })
-    },
+      });
+    }
   }
-}
+};
 </script>
 <style lang="less" scoped>
 @imgurl: "http://cdn.exe666.com/fe/image/peter/";

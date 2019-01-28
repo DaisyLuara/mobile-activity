@@ -420,7 +420,7 @@ const Date201812 = [
     location: '201812/couponRain',
     name: 'coupon_rain',
     meta: {
-      title: '连卡福红包雨',
+      title: '新年红包雨，大额现金免费领',
       author: 'lipan',
       desc: '衡阳连卡福-福猪港味年-红包雨'
     },

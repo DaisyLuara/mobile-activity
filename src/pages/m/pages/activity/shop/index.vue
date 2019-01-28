@@ -115,6 +115,13 @@ export default {
       };
       fetchShopActivityList(this, payload)
         .then(r => {
+          const dataStatus = r.data && r.data.state;
+          if (!dataStatus || r.data.state !== "1") {
+            this.$router.push({
+              name: "mSite404"
+            });
+            return;
+          }
           let res = r.data.results.data;
           this.isLoading = false;
           this.trends = this.trends.concat(res);

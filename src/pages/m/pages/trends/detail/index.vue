@@ -6,40 +6,53 @@
       :mname="resData.mname"
       :clientdate="resData.clientdate"
     />
-    <img 
-      :src="resData.image" 
-      class="photo">
+    <img
+      :src="resData.image"
+      class="photo"
+    >
     <TrendsBottomBar
-<<<<<<< HEAD
-      :act-detail="actDetail"
-=======
->>>>>>> develop
       :acid="Number(resData.acid)"
       @onTrendDelete="handleTrendDeleteModalShow"
       @onTrendShare="handleShareModalShare"
     />
-    <TrendsBottomBlankHolder/>
+    <TrendsBottomBlankHolder />
     <DeletePhotoModal
       :show="shouldDeleteModalShow"
       @onHandleModalHide="handleModalHide"
       @handleDeleteConfirm="handleTrendDeleteConfirm"
     />
-    <SharePhotoModal 
-      :show="shouldShareModalShow" 
-      @onHandleShareModalHide="handleShareModalHide"/>
+    <SharePhotoModal
+      :show="shouldShareModalShow"
+      @onHandleShareModalHide="handleShareModalHide"
+    />
 
-<<<<<<< HEAD
-    <div class="info" v-html="infolink"/>
-    <div class="info" v-html="pslink"/>
-=======
-    <div 
-      class="info" 
-      v-html="infolink"/>
-    <div 
-      class="info" 
-      v-html="pslink"/>
->>>>>>> develop
-    <div class="blank-holder"/>
+    <<<<<<<
+      HEAD
+      <<<<<<<
+      HEAD
+      <div
+      class="info"
+      v-html="infolink"
+    />
+    <div
+      class="info"
+      v-html="pslink"
+    />
+    =======
+    =======
+    >>>>>>> master
+    <div
+      class="info"
+      v-html="infolink"
+    />
+    <div
+      class="info"
+      v-html="pslink"
+    />
+    <<<<<<< HEAD>>>>>>> develop
+      =======
+      >>>>>>> master
+      <div class="blank-holder" />
   </div>
 </template>
 
@@ -53,6 +66,8 @@ import SharePhotoModal from "@/pages/m/components/Reminder/SharePhotoModal";
 import { mapGetters, mapMutations } from "vuex";
 import { getHdInfo, deleteATrend, fetchShopActivityDetail } from "services";
 import { Toast } from "mint-ui";
+import { $wechat, isInWechat } from "services";
+
 export default {
   components: {
     TrendsTopBar,
@@ -83,7 +98,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["z"])
+    ...mapGetters(["z", "weixinUrl"])
   },
   mounted() {
     this.fetchTrend();
@@ -101,7 +116,6 @@ export default {
       };
       try {
         let r = await getHdInfo(payload);
-        console.dir(r);
         if (r.data.state === "40035") {
           this.$router.push({
             name: "mSite404"
@@ -120,6 +134,21 @@ export default {
           );
 
           this.actDetail = ractDetail.data.results;
+          let wxShareInfoValue = {
+            title: this.actDetail.title,
+            desc: this.actDetail.aname,
+            link: window.location.href.split("#")[0],
+            imgUrl: this.actDetail.micon
+          };
+          if (isInWechat() === true) {
+            $wechat(this.weixinUrl)
+              .then(res => {
+                res.share(wxShareInfoValue);
+              })
+              .catch(err => {
+                console.warn(err.message);
+              });
+          }
           document.title = ractDetail.data.results.title;
           this.infolink = await this.loadPage(this.actDetail.infolink);
           this.pslink = await this.loadPage(this.actDetail.pslink);

@@ -1,130 +1,71 @@
 // 底部的按钮
 <template>
   <div
-    v-if="menuCode !== '00000' && showRoutes.includes(this.$route.name)"
-    class="btb"
+    v-if="shouldMenuShow"
+    :class="{'btb single': menuCode.length === 1, 'btb': menuCode.length > 1}"
   >
     <div
-      v-if="menuCode[0] === '1'"
+      v-for="(item, index) in menuCode"
+      :key="index"
       class="bitem"
-      @click="handleMenuClick('TrendsIndex')"
+      @click="handleMenuClick(routes[item.index])"
     >
       <img
-        v-if="currentRoute !== 'TrendsIndex'"
-        :src="photo"
+        v-if="currentRoute !== routes[item.index]"
+        :src="labelImg[item.index]"
       >
       <img
-        v-if="currentRoute === 'TrendsIndex'"
-        :src="photo_p"
+        v-if="currentRoute === routes[item.index]"
+        :src="labelImgPressed[item.index]"
       >
-      <span>照片</span>
-    </div>
-    <div
-      v-if="menuCode[1] === '1'"
-      class="bitem"
-      @click="handleMenuClick('ActivityShop')"
-    >
-      <img
-        v-if="currentRoute !== 'ActivityShop'"
-        :src="act"
-      >
-      <img
-        v-if="currentRoute === 'ActivityShop'"
-        :src="act_p"
-      >
-      <span>活动</span>
-    </div>
-    <div
-      v-if="menuCode[2] === '1'"
-      class="bitem"
-      @click="handleMenuClick('BarrageIndex')"
-    >
-      <img
-        v-if="currentRoute !== 'BarrageIndex'"
-        :src="barrage"
-      >
-      <img
-        v-if="currentRoute === 'BarrageIndex'"
-        :src="barrage_p"
-      >
-      <span>弹幕</span>
-    </div>
-    <div
-      v-if="menuCode[3] === '1'"
-      class="bitem"
-      @click="handleMenuClick('MallIndex')"
-    >
-      <img
-        v-if="currentRoute !== 'MallIndex'"
-        :src="mall"
-      >
-      <img
-        v-if="currentRoute === 'MallIndex'"
-        :src="mall_p"
-      >
-      <span>商城</span>
-    </div>
-    <div
-      v-if="menuCode[4] === '1'"
-      class="bitem"
-      @click="handleMenuClick('CardIndex')"
-    >
-      <img
-        v-if="currentRoute !== 'CardIndex'"
-        :src="card"
-      >
-      <img
-        v-if="currentRoute === 'CardIndex'"
-        :src="card_p"
-      >
-      <span>卡包</span>
-    </div>
-    <div
-      v-if="menuCode[5] === '1'"
-      class="bitem"
-      @click="handleMenuClick('MyIndex')"
-    >
-      <img
-        v-if="currentRoute !== 'MyIndex'"
-        :src="my"
-      >
-      <img
-        v-if="currentRoute === 'MyIndex'"
-        :src="my_p"
-      >
-      <span>我的</span>
+      <span>{{ labels[item.index] }}</span>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  name: "MSiteBottomBar",
   props: {
-    menucode: {
+    // 是否替换默认menucode
+    // 传入 Prop 则自定义菜单
+    replaceMenuCode: {
       type: String,
-      default: "000000",
+      default: "",
       required: false
     },
+    // 在没有mkey的情况下需要传入
     replaceMkey: {
       type: String,
       default: "",
+      required: false
+    },
+    // default 显示默认菜单
+    // replace 则替换
+    replaceMode: {
+      type: String,
+      default: "default",
       required: false
     }
   },
   data() {
     return {
-      photo: "https://cdn.exe666.com/fe/image/m/btn_photo_normal@3x.png",
-      photo_p: "https://cdn.exe666.com/fe/image/m/btn_photo_pressed@3x.png",
-      act: "https://cdn.exe666.com/fe/image/m/btn_sale_normal@3x.png",
-      act_p: "https://cdn.exe666.com/fe/image/m/btn_sale_pressed@3x.png",
-      mall: "https://cdn.exe666.com/fe/image/m/btn_mall_normal@3x.png",
-      mall_p: "https://cdn.exe666.com/fe/image/m/btn_mall_pressed@3x.png",
-      card: "https://cdn.exe666.com/fe/image/m/btn_card_normal@3x.png",
-      card_p: "https://cdn.exe666.com/fe/image/m/btn_card_pressed@3x.png",
-      my: "https://cdn.exe666.com/fe/image/m/btn_my_normal@3x.png",
-      my_p: "https://cdn.exe666.com/fe/image/m/btn_my_pressed@3x.png",
-      barrage: "https://cdn.exe666.com/fe/image/m/barrage.png",
-      barrage_p: "https://cdn.exe666.com/fe/image/m/barrage-p.png",
+      labelImg: [
+        "https://cdn.exe666.com/fe/image/m/btn_photo_normal@3x.png",
+        "https://cdn.exe666.com/fe/image/m/btn_sale_normal@3x.png",
+        "https://cdn.exe666.com/fe/image/m/btn_mall_normal@3x.png",
+        "https://cdn.exe666.com/fe/image/m/btn_card_normal@3x.png",
+        "https://cdn.exe666.com/fe/image/m/btn_my_normal@3x.png",
+        "https://cdn.exe666.com/fe/image/m/barrage.png"
+      ],
+      labelImgPressed: [
+        "https://cdn.exe666.com/fe/image/m/btn_photo_pressed@3x.png",
+        "https://cdn.exe666.com/fe/image/m/btn_sale_pressed@3x.png",
+        "https://cdn.exe666.com/fe/image/m/btn_mall_pressed@3x.png",
+        "https://cdn.exe666.com/fe/image/m/btn_card_pressed@3x.png",
+        "https://cdn.exe666.com/fe/image/m/btn_my_pressed@3x.png",
+        "https://cdn.exe666.com/fe/image/m/barrage-p.png"
+      ],
       showRoutes: [
         "MyIndex",
         "MallIndex",
@@ -136,33 +77,75 @@ export default {
         "new_red",
         "new_yellow",
         "lkf",
-        "newDreamland"
+        "newDreamland",
+        "happy_newYearTwo"
+      ],
+      labels: ["照片", "活动", "弹幕", "商城", "卡包", "我的"],
+      routes: [
+        "TrendsIndex",
+        "ActivityShop",
+        "BarrageIndex",
+        "MallIndex",
+        "CardIndex",
+        "MyIndex"
       ]
     };
   },
   computed: {
     menuCode() {
-      let ten = this.menucode;
-      if (ten === undefined) {
-        return "000000";
-      } else {
-        let bi = parseInt(ten).toString(2) || "000000";
-        return bi;
+      // if mcode should Repalce by Prop
+      let { mcode } = this.$route.params;
+      if (this.replaceMenuCode !== "") {
+        mcode = this.replaceMenuCode;
       }
+
+      // change 32 to 10 and fixed whith 0
+      let ten = parseInt(mcode, 32).toString(10);
+      let padNum = this.padNumber(ten, this.labels.length);
+
+      // loop to return index
+      let arr = [];
+      this.labels.forEach((element, index) => {
+        if (padNum[index] !== "0") {
+          arr.push({
+            index: index,
+            order: Number(padNum[index])
+          });
+        }
+      });
+      arr.sort(function (a, b) {
+        return a.order - b.order;
+      });
+
+      return arr;
     },
     currentRoute() {
       return this.$route.name;
+    },
+    shouldMenuShow() {
+      if (this.replaceMode === "default") {
+        return this.showRoutes.includes(this.$route.name);
+      } else {
+        return true;
+      }
     }
   },
   methods: {
+    padNumber(num, fill) {
+      var len = ("" + num).length;
+      return Array(fill > len ? fill - len + 1 || 0 : 0).join(0) + num;
+    },
     handleMenuClick(routerName) {
       let { mkey, mcode } = this.$route.params;
-      if (mkey === undefined) {
+
+      if (this.replaceMkey !== "") {
         mkey = this.replaceMkey;
       }
-      if (mcode === undefined) {
-        mcode = this.menucode;
+
+      if (this.replaceMenuCode !== "") {
+        mcode = this.replaceMenuCode;
       }
+
       this.$router.push({
         name: routerName,
         params: {
@@ -192,6 +175,9 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  &.single {
+    justify-content: center;
+  }
   .bitem {
     height: 100%;
     width: 30px;

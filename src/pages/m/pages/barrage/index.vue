@@ -1,23 +1,41 @@
 <template>
-  <div class="barrage">
+  <div 
+    :style="bindStyle" 
+    class="barrage">
     <div class="holder">
-      <img :src="loginState.face" class="avatar">
-      <textarea v-model="inputvalue" class="inputarea" placeholder="请输入" maxlength="40"/>
+      <img 
+        :src="loginState.face" 
+        class="avatar">
+      <textarea 
+        v-model="inputvalue" 
+        class="inputarea" 
+        placeholder="请输入" 
+        maxlength="40"/>
       <div class="count">{{ currentWords }}/40</div>
     </div>
     <div
       :class="{'button gray': inputvalue.length === 0, 'button': inputvalue !== 0}"
       @click="handleSendBarrage"
     >发送</div>
-    <div class="xo-combine" @click="getBarrage">
-      <img v-if="loginState.gender === '1'" :src="xoGirl" class="xo-img">
-      <img v-else :src="xoBoy" class="xo-img">
+    <div 
+      class="xo-combine" 
+      @click="getBarrage">
+      <img 
+        v-if="loginState.gender === '1'" 
+        :src="xoGirl" 
+        class="xo-img">
+      <img 
+        v-else 
+        :src="xoBoy" 
+        class="xo-img">
       <div class="text-holder">
         <div class="text">
           <span style="color: #6d1eff;">{{ computedText }}</span>
           <span>点我试试！生成最潮弹幕~</span>
         </div>
-        <img :src="textHolder" class="text-bg">
+        <img 
+          :src="textHolder" 
+          class="text-bg">
       </div>
     </div>
   </div>
@@ -34,7 +52,10 @@ export default {
       xoBoy: "https://cdn.exe666.com/fe/image/m/barrage-xo-boy.png",
       xoGirl: "https://cdn.exe666.com/fe/image/m/barrage-xo-girl.png",
       textHolder: "https://cdn.exe666.com/fe/image/m/barrage-text-holder.svg",
-      sendingLock: false
+      sendingLock: false,
+      bindStyle: {
+        minHeight: this.$innerHeight() + "px"
+      }
     };
   },
   computed: {
@@ -63,8 +84,8 @@ export default {
         return;
       }
       if (this.lastBarrageTime === null) {
-        this.setLastBarrageTime(Date.now());
-      } else if (Date.now() - this.lastBarrageTime < 2000) {
+        this.setLastBarrageTime(new Date().getTime());
+      } else if (new Date().getTime() - this.lastBarrageTime < 2000) {
         Toast("请不要发得太快哦");
         return;
       }
@@ -85,9 +106,11 @@ export default {
           } else {
             Toast(String(r.data.results));
           }
+          this.sendingLock = false;
         })
         .catch(e => {
           Toast("网络错误");
+          this.sendingLock = false;
         })
         .finally(() => {
           this.sendingLock = false;
@@ -103,10 +126,11 @@ export default {
         .then(r => {
           console.dir(r);
           if (r.data.state === "1") {
-            this.inputvalue = r.data.results.parms;
+            this.inputvalue = String(r.data.results.parms);
           }
         })
         .catch(e => {
+          this.inputvalue = "";
           Toast(e.message);
         });
     }
@@ -119,7 +143,6 @@ export default {
 .barrage {
   background: white;
   width: 100%;
-  height: 100vh;
   display: flex;
   justify-content: flex-start;
   align-items: center;

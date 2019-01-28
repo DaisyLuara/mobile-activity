@@ -92,7 +92,7 @@ export default {
     let timer = setTimeout(() => {
       this.showImg = false
       this.contentShow = true
-      clearTimeout(timer)
+      clearTimeout(timer);
     }, 3000)
     if (process.env.NODE_ENV === 'testing') {
       this.type = this.$route.query.type,

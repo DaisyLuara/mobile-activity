@@ -31,7 +31,8 @@ export default {
   props: {
     proData: {
       type: Object,
-      require: true
+      require: true,
+      default: ''
     },
   },
   data() {

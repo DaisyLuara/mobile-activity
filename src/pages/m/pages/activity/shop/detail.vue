@@ -1,6 +1,7 @@
 <template>
   <div class="act-shop-detail">
 <<<<<<< HEAD
+<<<<<<< HEAD
     <img :src="resData.image" class="main-photo">
     <div class="main-text">{{ resData.txt }}</div>
     <div class="start-time">开始时间: {{ startTime }}</div>
@@ -15,6 +16,14 @@
     <div class="main-text">{{ resData.txt }}</div>
     <div class="start-time">开始时间: {{ startTime }}</div>
     <div class="end-time">结束时间: {{ endTime }}</div>
+=======
+    <img 
+      :src="resData.image" 
+      class="main-photo">
+    <div class="main-text">{{ resData.txt }}</div>
+    <div class="start-time">开始时间: {{ startTime }}</div>
+    <div class="end-time">结束时间: {{ endTime }}</div>
+>>>>>>> master
     <div 
       class="info" 
       v-html="infolink"/>
@@ -23,8 +32,12 @@
       v-html="pslink"/>
     <div 
       class="main-button" 
+<<<<<<< HEAD
       @click="handleNaviToActList">查看更多商家活动</div>
 >>>>>>> develop
+=======
+      @click="handleNaviToActList">查看更多热门活动</div>
+>>>>>>> master
     <ActivityBottom
       :acid="resData.acid"
       :acttype="resData.type"
@@ -33,8 +46,12 @@
       :is-allow="resData.allow"
 <<<<<<< HEAD
       :xinfo="resData.xinfo"
+<<<<<<< HEAD
 =======
 >>>>>>> develop
+=======
+      :tabs="resData.tabs"
+>>>>>>> master
     />
   </div>
 </template>
@@ -76,7 +93,7 @@ export default {
         return "";
       } else {
         let cld = moment(Number(this.resData.sdate) * 1000);
-        return cld.format("YYYY-MM-DD hh:mm");
+        return cld.format("YYYY-MM-DD HH:mm:ss");
       }
     },
     endTime() {
@@ -84,7 +101,7 @@ export default {
         return "";
       } else {
         let cld = moment(Number(this.resData.edate) * 1000);
-        return cld.format("YYYY-MM-DD hh:mm");
+        return cld.format("YYYY-MM-DD HH:mm:ss");
       }
     }
   },

@@ -24,11 +24,19 @@ const getWxUserInfo = () => {
   })
 }
 
-const NaviToWechatAuth = (customUrl) => {
+// 当code state 过期时候需要处理
+const NaviToWechatAuth = customUrl => {
   const appid = 'wx63bd0a98ca1b6251'
   const redirect_uri = encodeURIComponent(customUrl || window.location.href)
   const state = 'openid'
-  const url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + appid + '&redirect_uri=' + redirect_uri + '&response_type=code&scope=snsapi_base&state=' + state + '#wechat_redirect'
+  const url =
+    'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' +
+    appid +
+    '&redirect_uri=' +
+    redirect_uri +
+    '&response_type=code&scope=snsapi_base&state=' +
+    state +
+    '#wechat_redirect'
   window.location.href = url
 }
 
@@ -39,17 +47,19 @@ const getUserInfoByCodeAndState = (code, state) => {
     params: {
       code: code,
       state: state,
-      api: 'json',
+      api: 'json'
     }
   }
   return new Promise((resolve, reject) => {
-    axios.get(request_url, request_params).then(r => {
-      resolve(r)
-    }).catch(e => {
-      reject(e)
-    })
+    axios
+      .get(request_url, request_params)
+      .then(r => {
+        resolve(r)
+      })
+      .catch(e => {
+        reject(e)
+      })
   })
-
 }
 
 export { getWxUserInfo, NaviToWechatAuth, getUserInfoByCodeAndState }

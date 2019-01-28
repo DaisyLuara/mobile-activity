@@ -1,12 +1,18 @@
 <template>
   <div class="trends">
 <<<<<<< HEAD
+<<<<<<< HEAD
     <NoListContentReminder :show="trends.length ===0 && firstFetch" words="暂时还没有活动"/>
 =======
     <NoListContentReminder 
       :show="trends.length ===0 && firstFetch" 
       words="暂时还没有活动"/>
 >>>>>>> develop
+=======
+    <NoListContentReminder 
+      :show="trends.length ===0 && firstFetch" 
+      words="暂时还没有活动"/>
+>>>>>>> master
 
     <MyTrendsSwiper/>
     <ul
@@ -104,11 +110,14 @@ export default {
       };
       getUserTrends(payload)
         .then(r => {
-          if (r.data.state === "40035") {
+          const dataStatus = r.data && r.data.state;
+          if (!dataStatus || r.data.state !== "1") {
             this.$router.push({
               name: "mSite404"
             });
+            return;
           }
+
           let res = r.data.results.data;
           this.isLoading = false;
           this.trends = this.trends.concat(res);
