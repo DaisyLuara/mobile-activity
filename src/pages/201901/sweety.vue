@@ -153,7 +153,7 @@ img {
       position: relative;
       z-index: 0;
       margin-top: 5%;
-      margin-bottom: 7%;
+      margin-bottom: 5%;
     }
     .photo {
       width: 82.5%;
