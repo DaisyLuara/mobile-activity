@@ -11,6 +11,7 @@
       class="photo"
     >
     <TrendsBottomBar
+      :act-detail="actDetail"
       :acid="Number(resData.acid)"
       @onTrendDelete="handleTrendDeleteModalShow"
       @onTrendShare="handleShareModalShare"
@@ -26,21 +27,6 @@
       @onHandleShareModalHide="handleShareModalHide"
     />
 
-    <<<<<<<
-      HEAD
-      <<<<<<<
-      HEAD
-      <div
-      class="info"
-      v-html="infolink"
-    />
-    <div
-      class="info"
-      v-html="pslink"
-    />
-    =======
-    =======
-    >>>>>>> master
     <div
       class="info"
       v-html="infolink"
@@ -49,10 +35,7 @@
       class="info"
       v-html="pslink"
     />
-    <<<<<<< HEAD>>>>>>> develop
-      =======
-      >>>>>>> master
-      <div class="blank-holder" />
+    <div class="blank-holder" />
   </div>
 </template>
 
