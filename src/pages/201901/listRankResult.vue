@@ -22,8 +22,8 @@
         <ul class="places">
           <li
             v-for="(item ,index) in list"
-            :key="index"
             v-show="index<=2"
+            :key="index"
           >
             <!-- 头像 -->
             <img
@@ -31,9 +31,9 @@
               class="places-head"
             >
             <!-- 昵称 -->
-            <span class="nickname">{{item.nickname.length>4?(item.nickname.substring(0,4)+'...'):item.nickname}}</span>
+            <span class="nickname">{{ item.nickname.length>4?(item.nickname.substring(0,4)+'...'):item.nickname }}</span>
             <!-- 分数 -->
-            <span class="score">{{item.value}}</span>
+            <span class="score">{{ item.value }}</span>
             <img
               v-show="index===0"
               :src="baseUrl + 'g_01.png'"
@@ -68,19 +68,19 @@
           <ul>
             <li
               v-for="(item ,index) in list"
-              :key="index"
               v-show="index > 2"
+              :key="index"
             >
-              <span class="rankName">{{index+1}}</span>
+              <span class="rankName">{{ index+1 }}</span>
               <!-- 头像 -->
               <img
                 :src="item.face"
                 class="places-head"
               >
               <!-- 昵称 -->
-              <span class="nickname">{{item.nickname.length>4?(item.nickname.substring(0,4)+'...'):item.nickname}}</span>
+              <span class="nickname">{{ item.nickname.length>4?(item.nickname.substring(0,4)+'...'):item.nickname }}</span>
               <!-- 分数 -->
-              <span class="score">{{item.value}}</span>
+              <span class="score">{{ item.value }}</span>
               <img
                 :src="baseUrl + '04.png'"
                 class="list-tit"
@@ -123,16 +123,16 @@ export default {
       }
     };
   },
-  mounted() {
-    this.cookies_z = Cookies.get('z')
-    this.handleForbiddenShare();
-  },
   watch: {
     actinfo() {
       this.cookies_z = Cookies.get('z')
       let z = this.cookies_z || this.userinfo.z
       this.getList(this.actinfo.awardkey, z)
     },
+  },
+  mounted() {
+    this.cookies_z = Cookies.get('z')
+    this.handleForbiddenShare();
   },
   methods: {
     getList(awardkey, z) {

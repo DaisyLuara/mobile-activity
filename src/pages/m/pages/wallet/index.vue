@@ -23,8 +23,8 @@
       >
     </div>
     <div
-      class="fuli"
       v-if="resData.length !== 0"
+      class="fuli"
     >福利</div>
   </div>
 </template>

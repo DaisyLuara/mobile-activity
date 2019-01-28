@@ -59,21 +59,21 @@
     <img
       v-show="hint"
       :src="base + 'hint.png'"
-      class='hint'
+      class="hint"
     >
     <img
       v-for="item in 2"
       :key="item.id"
       :src="base + 'star1.png'"
       :class="'one' + item"
-      class='star1'
+      class="star1"
     >
     <img
       v-for="item in 3"
       :key="item.id"
       :src="base + 'star2.png'"
       :class="'two' + item"
-      class='star2 '
+      class="star2 "
     >
     <div
       v-show="last_page"

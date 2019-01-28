@@ -22,8 +22,8 @@
           class="bg"
         >
         <canvas
-          id="canvasDoodle"
           v-show="award"
+          id="canvasDoodle"
           class="canvas-ele"
           width="200"
           height="90"
@@ -45,7 +45,7 @@
       :src="base + 'button.png'"
       class="save"
     >
-    <span class="code-text">{{code}}</span>
+    <span class="code-text">{{ code }}</span>
   </div>
 </template>
 <script>
