@@ -351,6 +351,17 @@ const Date201901 = [
       desc: '心动情人节通用版h5'
     },
     isAbandoned: false
+  },
+  {
+    path: 'sweety',
+    location: '201901/sweety',
+    name: 'sweety',
+    meta: {
+      title: '甜蜜暴击',
+      author: 'lipan',
+      desc: '情人节-甜蜜暴击'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201901

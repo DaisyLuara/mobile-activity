@@ -84,9 +84,9 @@ export default {
       opacity: 0,
       //分享
       wxShareInfoValue: {
-        title: '新春',
-        desc: '新春',
-        link: '' + window.location.search,
+        title: '新年快乐',
+        desc: '猪年大吉',
+        link: 'http://papi.xingstation.com/api/s/WQW' + window.location.search,
         imgUrl: 'http://cdn.exe666.com/fe/image/newchun/icon.png'
       }
     }

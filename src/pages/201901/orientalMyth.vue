@@ -33,7 +33,7 @@
     </div>
     <div class="center-b">
       <img
-        :src="baseUrl + 'card_2.png'+ this.$qiniuCompress()"
+        :src="baseUrl + 'card_22.png'+ this.$qiniuCompress()"
         class="card"
       >
       <img
@@ -44,10 +44,12 @@
         :src="baseUrl + 'float_4.png'+ this.$qiniuCompress()"
         class="float-four animated  linear infinite  tada"
       >
-      <img
-        :src="qrcodeImg"
-        class="ewm"
-      >
+      <div class="clip">
+        <img
+          :src="qrcodeImg"
+          class="ewm"
+        >
+      </div>
       <img
         v-show="hasUsed"
         :src="baseUrl + 'word.png'+ this.$qiniuCompress()"
@@ -85,12 +87,11 @@ export default {
       },
       hasUsed: false,
       img: null,
-      type: this.$route.query.type,
-      imgList: ['a', 'b', 'c'],
+      // img: 'https://cdn.exe666.com/fe/image/drc_year19_dfth/card_1_b.png',
       userId: null,
       id: this.$route.query.id,
       qrcodeImg: null,
-      //qrcodeImg: 'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
+      // qrcodeImg: 'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
       wxShareInfoValue: {
         title: "来东方童画激发潜能",
         desc: "点击领取",
@@ -101,7 +102,6 @@ export default {
   },
   watch: {
     parms() {
-      this.type = this.parms.type
       this.checkCouponIsUse();
     }
   },
@@ -116,10 +116,8 @@ export default {
       }
     }
     if (process.env.NODE_ENV === 'testing') {
-      this.type = this.$route.query.type
-      this.checkCouponIsUse()
+      this.wxShareInfoValue.link = 'http://papi.newgls.cn/api/s/qYr'
     }
-    this.img = this.baseUrl + 'card_1_' + String(this.imgList[this.type]) + '.png'
   },
   methods: {
     //微信静默授权
@@ -138,7 +136,7 @@ export default {
     },
     //判断是否领过优惠券
     checkCouponIsUse() {
-      let coupon_batch_id = this.$route.query.coupon_batch_id || this.coupon_batch_id
+      let coupon_batch_id = this.coupon_batch_id
       let args = {
         coupon_batch_id: coupon_batch_id,
         include: "couponBatch",
@@ -159,7 +157,7 @@ export default {
     },
     //发优惠券
     sendCoupon() {
-      let coupon_batch_id = this.$route.query.coupon_batch_id || this.coupon_batch_id
+      let coupon_batch_id = this.coupon_batch_id
       let args = {
         include: "couponBatch",
         qiniu_id: this.id,
@@ -178,6 +176,7 @@ export default {
     //处理返回数据
     handleData(res) {
       this.qrcodeImg = res.qrcode_url;
+      this.img = res.couponBatch.image_url
       if (parseInt(res.status) === 1) {
         //已使用
         this.hasUsed = true;
@@ -215,6 +214,7 @@ img {
   justify-content: flex-start;
   align-items: center;
   position: relative;
+  overflow-x: hidden;
   .bg {
     width: 100%;
     position: absolute;
@@ -256,10 +256,10 @@ img {
         top: 27%;
       }
       .photo {
-        width: 26%;
+        width: 26.5%;
         position: absolute;
-        right: 20.8%;
-        top: 36.5%;
+        right: 20%;
+        top: 36%;
         pointer-events: auto;
         user-select: auto;
       }
@@ -285,14 +285,25 @@ img {
       right: 0;
       top: 0;
     }
-    .ewm {
-      width: 24%;
+    .clip {
+      width: 25vw;
+      height: 25vw;
+      border-radius: 5px;
       position: absolute;
-      left: 15.8%;
-      bottom: 21.8%;
-      pointer-events: auto;
-      user-select: auto;
+      overflow: hidden;
+      left: 15.3%;
+      top: 56.2%;
+      text-align: center;
+      .ewm {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: auto;
+        user-select: auto;
+      }
     }
+
     .hasUsed {
       width: 13%;
       position: absolute;
