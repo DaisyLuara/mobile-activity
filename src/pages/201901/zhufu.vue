@@ -103,7 +103,8 @@ export default {
       let args = {
         qiniu_id: this.id,
         z: this.z,
-        belong: this.belong
+        belong: this.belong,
+        oid: this.oid
       }
       sendV2Coupon(args, this.coupon_batch_id)
         .then(res => {
