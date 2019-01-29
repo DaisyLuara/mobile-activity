@@ -73,6 +73,9 @@ body {
   width: 100%;
   height: 100%;
   overflow-x: hidden;
+  background-color: #f6beb9;
+  -webkit-overflow-scrolling: touch;
+  transform: translate3d(0, 0, 0);
 }
 * {
   padding: 0;
@@ -94,6 +97,7 @@ img {
   background-position: center top;
   background-size: 100% auto;
   background-repeat: repeat;
+  background-color: #f6beb9;
   .gift1,
   .gift2,
   .bird,

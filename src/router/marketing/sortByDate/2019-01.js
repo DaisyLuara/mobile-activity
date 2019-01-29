@@ -324,9 +324,20 @@ const Date201901 = [
     location: '201901/zhufu',
     name: 'zhufu',
     meta: {
-      title: '希尔顿',
+      title: '希尔顿新年红包雨，新春福利抢不停！',
       author: 'lipan',
       desc: '猪福贺新年-希尔顿酒店'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'hilton_game',
+    location: '201901/hiltonGame',
+    name: 'hilton_game',
+    meta: {
+      title: '希尔顿新年红包雨，新春福利抢不停！',
+      author: 'lipan',
+      desc: '猪福贺新年-希尔顿酒店-红包雨游戏'
     },
     isAbandoned: false
   },
