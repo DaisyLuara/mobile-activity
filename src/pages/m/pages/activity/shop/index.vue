@@ -55,9 +55,12 @@ export default {
       trends: [],
       coverShadow:
         "https://cdn.exe666.com/fe/image/m/activity-cover-shadow.svg",
-      alltop: "https://cdn.exe666.com/fe/image/m/tag-toupiao.svg",
-      game: "https://cdn.exe666.com/fe/image/m/tag-paihang.svg",
-      honour: "https://cdn.exe666.com/fe/image/m/tag-xunzhang.svg"
+      tags: {
+        alltop: "https://cdn.exe666.com/fe/image/m/tag-toupiao.svg",
+        game: "https://cdn.exe666.com/fe/image/m/tag-paihang.svg",
+        honour: "https://cdn.exe666.com/fe/image/m/tag-xunzhang.svg",
+        options: "https://cdn.exe666.com/fe/image/m/options.svg"
+      }
     };
   },
 
@@ -136,14 +139,8 @@ export default {
         });
     },
     bindType(type) {
-      if (type === "alltop") {
-        return this.alltop;
-      }
-      if (type === "game") {
-        return this.game;
-      }
-      if (type === "honour") {
-        return this.honour;
+      if (this.tags[type]) {
+        return this.tags[type];
       }
       return "";
     }

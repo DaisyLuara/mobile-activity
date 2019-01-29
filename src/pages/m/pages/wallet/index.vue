@@ -34,7 +34,6 @@ import { fetchRunPro } from "services";
 import { mapGetters } from "vuex";
 
 export default {
-  components: {},
   data() {
     return {
       resData: [],
@@ -146,9 +145,10 @@ export default {
         console.dir(r);
         const dataStatus = r.data && r.data.state;
         if (!dataStatus || r.data.state !== "1") {
-          this.$router.push({
-            name: "mSite404"
-          });
+          // no need to change route
+          // this.$router.push({
+          //   name: "mSite404"
+          // });
           return;
         } else if (r.data.state === "0") {
           return;
