@@ -25,66 +25,63 @@
   </div>
 </template>
 <script>
-const imgUrl = process.env.CDN_URL
-import { createGame, getGame } from 'services'
+const imgUrl = process.env.CDN_URL;
+import { createGame, getGame } from "services";
 export default {
   props: {
     proData: {
       type: Object,
       require: true,
-      default: ''
-    },
-  },
-  data() {
-    return {
-
+      default: () => {
+        return {};
+      }
     }
   },
-  created() { },
-  mounted() {
-
+  data() {
+    return {};
   },
+  created() {},
+  mounted() {},
   methods: {
     createGame(belong, userId) {
       let args = {
         belong: belong
-      }
+      };
       createGame(args, userId)
         .then(res => {
           if (res.success) {
-            this.getGame(userId)
+            this.getGame(userId);
           }
         })
         .catch(e => {
-          console.log(e)
-        })
+          console.log(e);
+        });
     },
     getGame(userId) {
       let args = {
         withCredentials: true
-      }
+      };
       getGame(args, userId)
         .then(res => {
-          console.log(res)
-          this.projectStatus(res, userId)
+          console.log(res);
+          this.projectStatus(res, userId);
         })
         .catch(e => {
-          console.log(e)
-        })
+          console.log(e);
+        });
     },
     projectStatus(list, userId) {
-      let data = list
-      console.log(this.proData.projects)
+      let data = list;
+      console.log(this.proData.projects);
       data.map(r => {
         if (this.proData.projects[r.belong]) {
-          this.proData.projects[r.belong].state = true
-          console.log(this.proData.projects[r.belong])
+          this.proData.projects[r.belong].state = true;
+          console.log(this.proData.projects[r.belong]);
         }
-      })
-    },
+      });
+    }
   }
-
-}
+};
 </script>
 <style lang="less" scoped>
 ul {

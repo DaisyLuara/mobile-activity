@@ -18,8 +18,8 @@
         class="head"
       >
       <!-- 分数 -->
-      <span class="nickname">{{nickname}}</span>
-      <span class="score">{{score}}</span>
+      <span class="nickname">{{ nickname }}</span>
+      <span class="score">{{ score }}</span>
       <!-- 图片 -->
       <img
         v-if="photo !== null"

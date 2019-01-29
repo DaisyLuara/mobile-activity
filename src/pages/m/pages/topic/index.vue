@@ -1,28 +1,34 @@
 <template>
-  <div class="trends">
+  <div class="topic">
     <NoListContentReminder
-      :show="trends.length ===0 && firstFetch"
+      :show="topics.length ===0 && firstFetch"
       words="暂时还没有活动"
     />
 
-    <MyTrendsSwiper />
     <ul
       v-infinite-scroll="loadMore"
-      class="trends-wrapper"
+      class="topic-wrapper"
       infinite-scroll-disabled="loading"
       infinite-scroll-distance="10"
     >
       <div
-        v-for="(item, index) in trends"
+        v-for="(item, index) in topics"
         :key="index"
         class="item-wrapper"
       >
-        <TrendPhoto
-          :image="item.image"
+        <TopicItem 
+          :imgUrls="item.image"
+          :avatar="item.face"
+          :userName="item.username"
+          :postTime="item.clientdate"
           :title="item.title"
-          :clientdate="item.clientdate"
+          :othertype1="item.othertype1"
+          :othertype2="item.othertype2"
+          :otherid1="item.otherid1"
+          :otherid2="item.otherid2"
           :avrid="item.avrid"
-          :type="item.ac_type"
+          :other1="item.other1"
+          :other2="item.other2"
         />
       </div>
     </ul>
@@ -33,18 +39,16 @@
 
 <script>
 import Vue from "vue";
-import TrendPhoto from "@/pages/m/components/ListItem/TrendPhoto";
-import MyTrendsSwiper from "@/pages/m/components/Banner/MyTrendsSwiper";
 import { InfiniteScroll } from "mint-ui";
-import { getUserTrends } from "services";
+import { fetchTopics } from "services";
 import { mapGetters } from "vuex";
+import TopicItem from "@/pages/m/components/Topic/TopicItem";
 import NoListContentReminder from "@/pages/m/components/Reminder/NoListContentReminder";
 export default {
-  name: "TrendsIndex",
+  name: "TopicIndex",
   components: {
-    TrendPhoto,
-    MyTrendsSwiper,
-    NoListContentReminder
+    NoListContentReminder,
+    TopicItem
   },
 
   data() {
@@ -55,7 +59,7 @@ export default {
       isLoading: false,
       isAllLoaded: false,
       firstFetch: false,
-      trends: []
+      topics: []
     };
   },
 
@@ -67,7 +71,6 @@ export default {
     if (this.z === "") {
       return;
     }
-    // this.fetchList();
     Vue.use(InfiniteScroll);
     this.fetchList();
   },
@@ -76,7 +79,7 @@ export default {
     this.currentPage = 1;
     this.isLoading = false;
     this.isAllLoaded = false;
-    this.trends = [];
+    this.topics = [];
     this.bindBottomDistance = (this.$parent.screenWidth / 375) * 100 * 0.48;
   },
 
@@ -84,7 +87,7 @@ export default {
     loadMore() {
       this.loading = true;
       setTimeout(() => {
-        if (this.$route.name === "TrendsIndex") {
+        if (this.$route.name === "TopicIndex") {
           this.fetchList();
         }
       }, 2000);
@@ -100,7 +103,12 @@ export default {
         mkey: this.$route.params.mkey,
         z: this.z
       };
-      getUserTrends(payload)
+      const { acid } = this.$route.query;
+      if (acid && acid !== "0") {
+        payload.acid = acid;
+        payload.size = 20;
+      }
+      fetchTopics(payload)
         .then(r => {
           const dataStatus = r.data && r.data.state;
           if (!dataStatus || r.data.state !== "1") {
@@ -112,7 +120,11 @@ export default {
 
           let res = r.data.results.data;
           this.isLoading = false;
-          this.trends = this.trends.concat(res);
+          this.topics = this.topics.concat(res);
+          // if in activity, progress must be cal
+          if (this.$route.name === "ActivityTopic") {
+            this.$emit("onProgressCal", this.topics);
+          }
           if (r.data.results.pageIndex >= r.data.results.totalPage) {
             this.isAllLoaded = true;
           }
@@ -133,20 +145,21 @@ export default {
 .mint-loadmore-bottom {
   font-size: 0.14rem !important;
 }
-.trends {
+.topic {
+  background: rgba(243, 243, 243, 1);
   position: relative;
   width: 100%;
   min-height: 100vh;
-  .trends-wrapper {
+  .topic-wrapper {
     position: relative;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
     justify-content: flex-start;
+    align-items: center;
   }
   .item-wrapper {
-    width: 1.71rem;
-    height: 3.045rem;
+    width: 3.43rem;
+    height: 5.03rem;
     margin: 0.1rem 0.08rem;
   }
   .mint-loadmore-bottom {

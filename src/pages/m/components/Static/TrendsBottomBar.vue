@@ -1,34 +1,41 @@
 <template>
   <div class="tbb">
     <div class="function">
-      <div 
-        class="fitem" 
-        @click="handleFuncClick('delete')">
-        <img 
-          :src="deleteUrl" 
-          class="delete">
+      <div
+        class="fitem"
+        @click="handleFuncClick('delete')"
+      >
+        <img
+          :src="deleteUrl"
+          class="delete"
+        >
       </div>
-      <div 
-        class="fitem" 
-        @click="handleFuncClick('save')">
-        <img 
-          :src="saveUrl" 
-          class="save">
+      <div
+        class="fitem"
+        @click="handleFuncClick('save')"
+      >
+        <img
+          :src="saveUrl"
+          class="save"
+        >
       </div>
-      <div 
-        class="fitem" 
-        @click="handleFuncClick('share')">
-        <img 
-          :src="shareUrl" 
-          class="share">
+      <div
+        class="fitem"
+        @click="handleFuncClick('share')"
+      >
+        <img
+          :src="shareUrl"
+          class="share"
+        >
       </div>
     </div>
 
     <div class="button">
-      <div 
-        v-if="acid >0" 
-        class="title" 
-        @click="naviToShopActivityDetail">{{ buttonTitle }}</div>
+      <div
+        v-if="acid >0"
+        class="title"
+        @click="naviToShopActivityDetail"
+      >{{ buttonTitle }}</div>
       <div
         v-if="acid <=0 && actList.length > 0"
         class="title"
@@ -37,9 +44,10 @@
       <!-- <div class="time">{{subTitle}}</div> -->
     </div>
     <transition name="fade">
-      <div 
-        v-if="shoudListShow" 
-        class="list">
+      <div
+        v-if="shoudListShow"
+        class="list"
+      >
         <div
           v-for="(item, index) in actList"
           :key="index"
@@ -65,7 +73,7 @@ export default {
     actDetail: {
       type: Object,
       required: true,
-      default: function() {
+      default: function () {
         return {
           infolink: "",
           pslink: "",

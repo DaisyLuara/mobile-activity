@@ -1,53 +1,57 @@
 <template>
-  <div 
+  <div
     :style="style.root"
-    class="content">
-    <div 
+    class="content"
+  >
+    <div
       id="main"
-      class="main">
+      class="main"
+    >
       <img
         :src="baseUrl + 'bg.png'"
-        class="bg">
-      <span
-        class="span">{{ num }}</span>
-      <a 
+        class="bg"
+      >
+      <span class="span">{{ num }}</span>
+      <a
         v-show="chick"
         :class="{animated:!mask}"
         class="box infinite tada delay-2s"
-        @click="()=>{mask = true;}">
-        <img 
-          :src="baseUrl + 'he.png'">
+        @click="()=>{mask = true;}"
+      >
+        <img :src="baseUrl + 'he.png'">
       </a>
     </div>
-    <div 
+    <div
       v-show="mask"
-      class="mask">
-      <div 
-        class="container">
+      class="mask"
+    >
+      <div class="container">
         <a
           class="close"
-          @click="()=>{mask = false;}">
-          <img 
-            :src="baseUrl + 'x.png'">
+          @click="()=>{mask = false;}"
+        >
+          <img :src="baseUrl + 'x.png'">
         </a>
-        <img 
-          :src="baseUrl + 'buzhou.png'" 
-          class="tips">
-        <img 
-          :src="baseUrl + 'he.png'" 
+        <img
+          :src="baseUrl + 'buzhou.png'"
+          class="tips"
+        >
+        <img
+          :src="baseUrl + 'he.png'"
           :class="{animated:mask}"
-          class="tu infinite tada delay-2s">
+          class="tu infinite tada delay-2s"
+        >
       </div>
     </div>
   </div>
 </template>
 <script>
 import { $wechat, wechatShareTrack } from 'services'
-import { onlyWechatShare } from '../../mixins/onlyWechatShare'
+import { normalPages } from '@/mixins/normalPages'
 import 'animate.css'
 const IMGURL = process.env.CDN_URL + '/image/'
 export default {
-  mixins: [onlyWechatShare],
+  mixins: [normalPages],
   data() {
     return {
       baseUrl: IMGURL + 'chick/',
@@ -65,21 +69,23 @@ export default {
         desc: '消灭害虫，人人有责',
         link: 'http://papi.xingstation.com/api/s/R6q' + window.location.search,
         imgUrl: IMGURL + 'chick/share.png',
-        success: function() {
-          wechatShareTrack()
-        }
       }
     }
   },
-  created() {},
+  watch: {
+    parms() {
+      this.num = this.parms.num
+    }
+  },
+  created() { },
   mounted() {
     let that = this
     let bg = new Image()
     bg.src = this.baseUrl + 'bg.png'
-    bg.onload = function() {
+    bg.onload = function () {
       let chick = new Image()
       chick.src = this.baseUrl + 'he.png'
-      chick.onload = function() {
+      chick.onload = function () {
         that.chick = true
       }
     }
@@ -164,7 +170,7 @@ img {
       z-index: 0;
     }
     .span {
-      font-family: '黑体';
+      font-family: "黑体";
       font-size: 10vw;
       font-weight: 800;
       font-style: italic;

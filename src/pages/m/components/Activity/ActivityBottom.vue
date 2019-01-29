@@ -1,12 +1,14 @@
 <template>
   <div class="activity-bottom">
-    <div 
-      class="progress" 
-      @click="naviGateToAct">{{ buttonText }}</div>
-    <div 
-      v-if="isAllow === '1'" 
-      class="award" 
-      @click="awardIn">立即报名</div>
+    <div
+      class="progress"
+      @click="naviGateToAct"
+    >{{ buttonText }}</div>
+    <div
+      v-if="isAllow === '1'"
+      class="award"
+      @click="awardIn"
+    >立即报名</div>
   </div>
 </template>
 
@@ -54,7 +56,8 @@ export default {
       nameMap: {
         alltop: "ActivityShopAllTopProgress",
         game: "ActivityShopGameProgress",
-        honour: "MyAchivement"
+        honour: "MyAchivement",
+        options: "ActivityTopic"
       }
     };
   },

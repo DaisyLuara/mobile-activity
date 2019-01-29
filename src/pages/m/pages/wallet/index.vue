@@ -1,25 +1,31 @@
 <template>
   <div class="wallet">
-    <img 
-      class="bg" 
-      src="https://cdn.exe666.com/fe/image/m/wallet-no-bg.jpeg">
-    
+    <img
+      class="bg"
+      src="https://cdn.exe666.com/fe/image/m/wallet-no-bg.jpeg"
+    >
+
     <img
       v-if="loginState.gender === '1'"
       class="xo"
       src="https://cdn.exe666.com/fe/image/m/wallet-no-xo.png"
     >
-    <img 
-      v-else 
-      class="xo" 
-      src="https://cdn.exe666.com/fe/image/m/wallet-no-xo-boy.png">
+    <img
+      v-else
+      class="xo"
+      src="https://cdn.exe666.com/fe/image/m/wallet-no-xo-boy.png"
+    >
 
     <div class="icon">
-      <img 
-        v-if="currentIcon !== ''" 
-        :src="currentIcon">
+      <img
+        v-if="currentIcon !== ''"
+        :src="currentIcon"
+      >
     </div>
-    <div class="fuli" v-if="resData.length !== 0">福利</div>
+    <div
+      v-if="resData.length !== 0"
+      class="fuli"
+    >福利</div>
   </div>
 </template>
 
@@ -28,7 +34,6 @@ import { fetchRunPro } from "services";
 import { mapGetters } from "vuex";
 
 export default {
-  components: {},
   data() {
     return {
       resData: [],
@@ -140,9 +145,10 @@ export default {
         console.dir(r);
         const dataStatus = r.data && r.data.state;
         if (!dataStatus || r.data.state !== "1") {
-          this.$router.push({
-            name: "mSite404"
-          });
+          // no need to change route
+          // this.$router.push({
+          //   name: "mSite404"
+          // });
           return;
         } else if (r.data.state === "0") {
           return;

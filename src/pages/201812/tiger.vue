@@ -51,6 +51,7 @@ import {
   formatTimestamp
 } from 'services'
 const cdnUrl = process.env.CDN_URL
+const dayjs = require('dayjs')
 export default {
   mixins: [onlyGetPhoto],
   data() {
@@ -65,14 +66,15 @@ export default {
         }
       },
       iphoneX: false,
-      coupon_batch_id: this.$route.query.coupon_batch_id,
+      // coupon_batch_id: this.$route.query.coupon_batch_id,
       id: this.$route.query.id,
-      oid: this.$route.query.utm_source,
+      // oid: this.$route.query.utm_source,
       couponImg: null,
       qrcodeImg: null,
       code: null,
       couponID: ['116', '117'],
-      new_coupon_batch_id: this.$route.query.coupon_batch_id,
+      //couponID: ['31', '32'],
+      new_coupon_batch_id: null,
       params: {
         user_id: null
       },
@@ -87,7 +89,11 @@ export default {
       }
     }
   },
-  created() { },
+  watch: {
+    parms() {
+      this.checkCouponIsUse()
+    }
+  },
   mounted() {
     //微信授权
     if (isInWechat() === true) {
@@ -162,14 +168,16 @@ export default {
               coupon_batch_id: this.coupon_batch_id,
               include: 'couponBatch'
             }
-            args.start_date = dateFormat(
-              new Date(formatTimestamp(data, true)),
-              'yyyy-MM-dd hh:mm:ss'
-            )
-            args.end_date = dateFormat(
-              new Date(formatTimestamp(data, false) - 1000),
-              'yyyy-MM-dd hh:mm:ss'
-            )
+            // args.start_date = dateFormat(
+            //   new Date(formatTimestamp(data, true)),
+            //   'yyyy-MM-dd hh:mm:ss'
+            // )
+            // args.end_date = dateFormat(
+            //   new Date(formatTimestamp(data, false) - 1000),
+            //   'yyyy-MM-dd hh:mm:ss'
+            // )
+            args.start_date = dayjs(new Date(formatTimestamp(data, true))).format('YYYY-MM-DD HH:mm:ss')
+            args.end_date = dayjs(new Date(formatTimestamp(data, false) - 1000)).format('YYYY-MM-DD HH:mm:ss')
             checkGetCoupon(args)
               .then(res => {
                 if (res) {
@@ -193,7 +201,7 @@ export default {
         include: 'couponBatch',
         qiniu_id: this.id,
         oid: this.oid,
-        belong: this.$route.query.utm_campaign
+        belong: this.$route.belong
       }
       sendCoupon(args, this.coupon_batch_id)
         .then(res => {

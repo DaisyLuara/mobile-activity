@@ -35,17 +35,12 @@ export default {
         }
       },
       base: IMG_SERVER + '/image/tm/shijihui/',
-      photo: null,
-      score: this.$route.query.score,
       //分享
       wxShareInfoValue: {
         title: '玩转世纪，世纪汇广场邀你嗨翻世纪',
         desc: '世纪汇广场美食节，狂欢就现在',
         link: 'http://papi.xingstation.com/api/s/68n' + window.location.search,
         imgUrl: IMG_SERVER + '/image/tm/shijihui/share.png',
-        success: function () {
-          wechatShareTrack()
-        }
       }
     }
   }

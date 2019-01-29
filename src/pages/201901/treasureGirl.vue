@@ -14,7 +14,6 @@
         class="photo"
       >
     </div>
-
     <img
       :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
       class="save"

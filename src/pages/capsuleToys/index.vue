@@ -1,62 +1,77 @@
 <template>
-  <div 
-    id="content" 
-    class="content">
-    <img  
-      :src="imgServerUrl + '/pages/capsule_toys/1.png'" 
+  <div
+    id="content"
+    :style="style.root"
+    class="content"
+  >
+    <img
+      :src="imgServerUrl + '/pages/capsule_toys/1.png'"
       alt=""
-      class="egg-top">
-    <img  
-      :src="imgServerUrl + '/pages/capsule_toys/2.png'" 
+      class="egg-top"
+    >
+    <img
+      :src="imgServerUrl + '/pages/capsule_toys/2.png'"
       alt=""
-      class="egg-bot">
-    <img  
-      :src="imgServerUrl + '/pages/capsule_toys/light.png'" 
+      class="egg-bot"
+    >
+    <img
+      :src="imgServerUrl + '/pages/capsule_toys/light.png'"
       alt=""
-      class="light">
-    <div 
-      :style="style" 
-      class="copon">
-      <img  
-        v-show="showCoupon.cp1" 
-        :src="imgServerUrl + '/pages/capsule_toys/zhy.png'" 
-        alt="" 
-        class="cp-1" >
-      <img  
-        v-show="showCoupon.cp2" 
-        :src="imgServerUrl + '/pages/capsule_toys/hz.png'" 
-        alt=""  
-        class="cp-2" >
-      <img  
-        v-show="showCoupon.cp3" 
+      class="light"
+    >
+    <div
+      :style="style"
+      class="copon"
+    >
+      <img
+        v-show="showCoupon.cp1"
+        :src="imgServerUrl + '/pages/capsule_toys/zhy.png'"
+        alt=""
+        class="cp-1"
+      >
+      <img
+        v-show="showCoupon.cp2"
+        :src="imgServerUrl + '/pages/capsule_toys/hz.png'"
+        alt=""
+        class="cp-2"
+      >
+      <img
+        v-show="showCoupon.cp3"
         :src="imgServerUrl + '/pages/capsule_toys/sc.png'"
-        alt=""  
-        class="cp-3" >
-      <img  
-        v-show="showCoupon.cp4" 
+        alt=""
+        class="cp-3"
+      >
+      <img
+        v-show="showCoupon.cp4"
         :src="imgServerUrl + '/pages/capsule_toys/yjk.png'"
-        alt=""  
-        class="cp-4" >
+        alt=""
+        class="cp-4"
+      >
     </div>
   </div>
 </template>
 <script>
-import { $wechat, wechatShareTrack, getInfoById } from 'services'
+import { $wechat, wechatShareTrack } from 'services'
 import { parseService } from 'services'
+import { normalPages } from "@/mixins/normalPages";
 const REQ_URL = 'http://120.27.144.62:1337/parse/classes/'
 const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
 export default {
+  mixins: [normalPages],
   data() {
     return {
       imgServerUrl: IMAGE_SERVER,
-      type: this.$route.query.type,
+      type: null,//this.$route.query.type,
       params: {
         typeID: 65,
         typeName: 'A',
         count: 1
       },
       style: {
-        height: Window.innerwidth * 0.8 * 737 / 380 + 'px'
+        height: Window.innerwidth * 0.8 * 737 / 380 + 'px',
+        root: {
+          'min-height': this.$innerHeight() + 'px'
+        }
       },
       showCoupon: {
         cp1: false,
@@ -70,28 +85,23 @@ export default {
         desc: '星视度扭蛋机中大奖',
         imgUrl:
           'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/capsuleToys_share_icon.png',
-        success: function() {
-          wechatShareTrack()
-        }
       }
+    }
+  },
+  watch: {
+    parms() {
+      this.type = this.parms.type
+      this.show()
+      this.drawCanvas(res.image)
+      this.press = true
     }
   },
   beforeCreate() {
     document.title = '扭蛋机'
   },
   created() {
-    this.show()
+    // this.show()
     this.query()
-  },
-  mounted() {
-    let height =
-      window.innerHeight ||
-      document.documentElement.clientHeight ||
-      document.body.clientHeight
-    let content = document.getElementById('content')
-    content.style.minHeight = height + 'px'
-    this.getInfoById()
-    this.handleShare()
   },
   methods: {
     show() {
@@ -112,15 +122,6 @@ export default {
         this.params.typeName = this.type
         this.params.typeID = 68
       }
-    },
-    handleShare() {
-      $wechat()
-        .then(res => {
-          res.share(this.wxShareInfoValue)
-        })
-        .catch(_ => {
-          console.warn(_.message)
-        })
     },
     query() {
       let query = {
@@ -146,29 +147,20 @@ export default {
           REQ_URL + 'capsule_toys/' + data.objectId,
           JSON.stringify({ count: data.count + 1 })
         )
-        .then(res => {})
-        .catch(err => {})
+        .then(res => { })
+        .catch(err => { })
     },
     save() {
       parseService
         .post(REQ_URL + 'capsule_toys', this.params)
-        .then(res => {})
-        .catch(err => {})
-    },
-    getInfoById() {
-      let id = this.$route.query.id
-      getInfoById(id)
-        .then(res => {
-          this.drawCanvas(res.image)
-          this.press = true
-        })
-        .catch(err => {})
+        .then(res => { })
+        .catch(err => { })
     }
   }
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/capsule_toys/';
+@imgUrl: "https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/capsule_toys/";
 html,
 body {
   width: 100%;

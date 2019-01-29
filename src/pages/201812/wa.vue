@@ -1,70 +1,56 @@
 <template>
-  <div
-    :style="style.root"
-    :class="{content:true,iphoneX:iphoneX}"
-  >
+  <div 
+    :style="style.root" 
+    :class="{content:true,iphoneX:iphoneX}">
     <div class="main">
-      <img
-        :src="base + 'smokeY.png'"
-        class="smokeY"
-      >
-      <img
-        :src="coupon + this.$qiniuCompress()"
-        class="coupon"
-      >
+      <img 
+        :src="base + 'smokeY.png'" 
+        class="smokeY">
+      <img 
+        :src="coupon + this.$qiniuCompress()" 
+        class="coupon">
       <div :class="{description:true,toleft:toleft,toright:toright}">
-        <img
-          :src="base + 'explain.png'"
-          class="bg"
-        >
-        <img
-          :src="base + arrow+ '.png'"
-          class="arrow"
-        >
+        <img 
+          :src="base + 'explain.png'" 
+          class="bg">
+        <img 
+          :src="base + arrow+ '.png'" 
+          class="arrow">
         <a
           class="ashow"
           @click="()=>{arrow=arrow=='arrow01'?'arrow02':'arrow01';toleft=!toleft;toright = !toleft}"
         />
         <div class="txt">
-          <ol
-            start="1"
-            type="1"
-          >
-            <li
-              v-for="item in text"
-              :key="item.id"
-            >{{ item }}
-            </li>
+          <ol 
+            start="1" 
+            type="1">
+            <li 
+              v-for="item in text" 
+              :key="item.id">{{ item }}</li>
           </ol>
         </div>
-
       </div>
       <div class="check">
-        <img
-          :src="base + 'checkbg.png'"
-          class="checkbg"
-        >
-        <img
-          :src="ewm"
-          class="er"
-        >
-        <img
-          v-show="used"
-          :src="base + 'used.png'"
-          class="used"
-        >
+        <img 
+          :src="base + 'checkbg.png'" 
+          class="checkbg">
+        <img 
+          :src="ewm" 
+          class="er">
+        <img 
+          v-show="used" 
+          :src="base + 'used.png'" 
+          class="used">
         <span class="code">{{ code }}</span>
       </div>
     </div>
 
-    <img
-      :src="base + 'smokeR.png'"
-      class="smokeR"
-    >
-    <img
-      :src="base + 'huoguo.png'"
-      class="huoguo"
-    >
+    <img 
+      :src="base + 'smokeR.png'" 
+      class="smokeR">
+    <img 
+      :src="base + 'huoguo.png'" 
+      class="huoguo">
   </div>
 </template>
 <script>
@@ -76,47 +62,47 @@ import {
   sendCoupon,
   checkGetCoupon,
   getConponMini
-} from 'services'
-const cdnUrl = process.env.CDN_URL
+} from "services";
+const cdnUrl = process.env.CDN_URL;
 export default {
   data() {
     return {
       style: {
         root: {
-          'min-height': this.$innerHeight() + 'px'
+          "min-height": this.$innerHeight() + "px"
         }
       },
-      base: cdnUrl + '/fe/image/wa/',
+      base: cdnUrl + "/fe/image/wa/",
       ewm: null,
       code: null,
-      coupon: null,//'http://cdn.exe666.com/fe/image/wa/coupon01.png',
+      coupon: null, //'http://cdn.exe666.com/fe/image/wa/coupon01.png',
       description: null,
       iphoneX: false,
       userId: null,
       text: null,
-      arrow: 'arrow01',
+      arrow: "arrow01",
       coupon_batch_id: this.$route.query.coupon_batch_id,
       id: this.$route.query.id,
       used: false,
       toleft: false,
-      toright: false,
-    }
+      toright: false
+    };
   },
   mounted() {
     //微信授权
     if (isInWechat() === true) {
       if (
-        process.env.NODE_ENV === 'production' ||
-        process.env.NODE_ENV === 'testing'
+        process.env.NODE_ENV === "production" ||
+        process.env.NODE_ENV === "testing"
       ) {
-        this.handleWechatAuth()
+        this.handleWechatAuth();
       }
     }
-    this.handleForbiddenShare()
+    this.handleForbiddenShare();
     if (this.$innerHeight() > 672) {
-      this.iphoneX = true
+      this.iphoneX = true;
     } else {
-      this.iphoneX = false
+      this.iphoneX = false;
     }
   },
   // watch: {
@@ -127,77 +113,79 @@ export default {
   methods: {
     //微信静默授权
     handleWechatAuth() {
-      if (Cookies.get('sign') === null) {
-        let base_url = encodeURIComponent(String(window.location.href))
+      if (Cookies.get("sign") === null) {
+        let base_url = encodeURIComponent(String(window.location.href));
         let redirct_url =
           process.env.WX_API +
-          '/wx/officialAccount/oauth?url=' +
+          "/wx/officialAccount/oauth?url=" +
           base_url +
-          '&scope=snsapi_base'
-        window.location.href = redirct_url
+          "&scope=snsapi_base";
+        window.location.href = redirct_url;
       } else {
-        this.userId = Cookies.get('user_id')
-        this.checkGetCoupon()
+        this.userId = Cookies.get("user_id");
+        this.checkGetCoupon();
       }
     },
     //禁止微信分享
     handleForbiddenShare() {
       $wechat()
         .then(res => {
-          res.forbidden()
+          res.forbidden();
         })
         .catch(_ => {
-          console.warn(_.message)
-        })
+          console.warn(_.message);
+        });
     },
     //判断是否领过优惠券
     checkGetCoupon() {
       let args = {
         coupon_batch_id: this.coupon_batch_id,
-        include: 'couponBatch',
+        include: "couponBatch",
         qiniu_id: this.id
-      }
-      checkGetCoupon(args).then(res => {
-        console.log(res)
-        if (res) {
-          this.handleData(res)
-        } else {
-          this.sendCoupon()
-        }
-      }).catch(err => {
-        console.log(err)
-      })
+      };
+      checkGetCoupon(args)
+        .then(res => {
+          console.log(res);
+          if (res) {
+            this.handleData(res);
+          } else {
+            this.sendCoupon();
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
     //发优惠券
     sendCoupon() {
       let args = {
-        include: 'couponBatch',
+        include: "couponBatch",
         qiniu_id: this.id,
         oid: this.$route.query.oid,
         belong: this.$route.query.utm_campaign
-      }
+      };
       sendCoupon(args, this.coupon_batch_id)
         .then(res => {
-          console.log('sendCoupon', res)
-          this.handleData(res)
+          console.log("sendCoupon", res);
+          this.handleData(res);
         })
         .catch(err => {
-          alert(err.response.data.message)
-        })
+          alert(err.response.data.message);
+        });
     },
     //处理返回数据
     handleData(res) {
-      this.ewm = res.qrcode_url
-      this.code = res.code
-      this.coupon = res.couponBatch.image_url
-      this.description = res.couponBatch.description
+      this.ewm = res.qrcode_url;
+      this.code = res.code;
+      this.coupon = res.couponBatch.image_url;
+      this.description = res.couponBatch.description;
       if (parseInt(res.status) === 1) {
-        this.used = true
+        this.used = true;
       }
-      this.text = this.description.split('/n')
+      this.text = this.description.split("/n");
     }
   }
-}
+};
 </script>
 <style lang="less" scoped>
 @img: "https://cdn.exe666.com/fe/image/wa/";

@@ -51,8 +51,8 @@
         >
       </div>
       <img
-        :src="baseUrl + 'word.png'+ this.$qiniuCompress()"
         v-show="hasUsed"
+        :src="baseUrl + 'word.png'+ this.$qiniuCompress()"
         class="hasUsed"
       >
       <img

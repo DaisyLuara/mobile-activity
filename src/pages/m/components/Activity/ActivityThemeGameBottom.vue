@@ -1,8 +1,9 @@
 <template>
-  <div 
-    v-if="show" 
-    class="activity-theme-game-bottom" 
-    @click="naviToActivitys">查看更多热门活动</div>
+  <div
+    v-if="show"
+    class="activity-theme-game-bottom"
+    @click="naviToActivitys"
+  >查看更多热门活动</div>
 </template>
 
 <script>

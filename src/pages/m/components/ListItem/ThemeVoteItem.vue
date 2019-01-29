@@ -2,9 +2,10 @@
   <div class="vote-item">
     <div class="vote-photo">
       <div class="vote-title">
-        <img 
-          :src="face" 
-          class="avatar">
+        <img
+          :src="face"
+          class="avatar"
+        >
         <span class="title">{{ nickname }}</span>
       </div>
       <img
@@ -14,9 +15,10 @@
       >
     </div>
     <div class="vote-title">{{ computedView }} 票</div>
-    <div 
-      class="vote-button" 
-      @click="handleVote">投票</div>
+    <div
+      class="vote-button"
+      @click="handleVote"
+    >投票</div>
   </div>
 </template>
 

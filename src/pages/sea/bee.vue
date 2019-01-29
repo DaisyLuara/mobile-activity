@@ -1,34 +1,38 @@
 <template>
-  <div 
+  <div
     id="content"
     :style="style.root"
-    class="content">
-    <div
-      class="main">
+    class="content"
+  >
+    <div class="main">
       <img
         :src="base + 'frame.png'"
-        class="frame">
+        class="frame"
+      >
       <img
         :src="base + character"
-        class="people">
+        class="people"
+      >
       <span>{{ score }}</span>
       <img
         id="test"
         :src="compoundUrl"
-        class="test">
+        class="test"
+      >
     </div>
-    <canvas 
-      id="canvas" 
-      style="display: none" />
+    <canvas
+      id="canvas"
+      style="display: none"
+    />
   </div>
 </template>
 <script>
 import { $wechat, wechatShareTrack } from 'services'
-import { onlyWechatShare } from '../../mixins/onlyWechatShare'
+import { normalPages } from '../../mixins/normalPages'
 import MC from 'mcanvas'
 const cdnUrl = process.env.CDN_URL
 export default {
-  mixins: [onlyWechatShare],
+  mixins: [normalPages],
   data() {
     return {
       style: {
@@ -37,8 +41,6 @@ export default {
         }
       },
       base: cdnUrl + '/fe/image/bee/',
-      score: this.$route.query.score,
-      sex: this.$route.query.gender,
       num: Math.round(Math.random() * 3),
       character: null,
       people: {
@@ -51,12 +53,14 @@ export default {
       wxShareInfoValue: {
         title: '挑战高分',
         desc: '看看我的高分以及小偶',
-        link: 'http://papi.newgls.cn/api/s/mw0' + window.location.search,
+        link: 'http://papi.xingstation.com/api/s/NOL' + window.location.search,
         imgUrl: 'http://cdn.exe666.com/fe/image/bee/share.png',
-        success: function() {
-          wechatShareTrack()
-        }
       }
+    }
+  },
+  watch: {
+    parms() {
+      this.drawing()
     }
   },
   mounted() {
@@ -64,10 +68,10 @@ export default {
     if (localStorage.getItem('bee' + id)) {
       this.character = localStorage.getItem('bee' + id)
     } else {
-      this.character = this.people[this.sex][this.num]
+      this.character = this.people[this.gender][this.num]
       localStorage.setItem('bee' + id, this.character)
     }
-    this.drawing()
+
   },
   methods: {
     drawing() {
@@ -79,7 +83,7 @@ export default {
         height
       })
       let url = this.base + this.character + this.$qiniuCompress()
-      let score = this.$route.query.score
+      let score = this.parms.score
       let that = this
       mc.background(that.base + 'frame.png', {
         left: 0,
@@ -126,11 +130,11 @@ export default {
       let image = new Image()
       let height = this.$innerHeight()
       let width = this.$innerWidth()
-      let text = this.$route.query.score
+      let text = this.parms.score
       let seal = new Image()
       seal.setAttribute('crossOrigin', 'Anonymous')
       image.src = this.base64Data
-      image.onload = function() {
+      image.onload = function () {
         canvas.width = image.width
         canvas.height = image.height
         ctx.drawImage(image, 0, 0, image.width, image.height)
@@ -154,10 +158,10 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@base: 'http://cdn.exe666.com/fe/image/bee/';
+@base: "http://cdn.exe666.com/fe/image/bee/";
 @font-face {
-  font-family: 'liujiao';
-  src: url('http://cdn.exe666.com/fe/font/liujiao.TTF');
+  font-family: "liujiao";
+  src: url("http://cdn.exe666.com/fe/font/liujiao.TTF");
   font-weight: normal;
   font-style: normal;
 }
@@ -183,7 +187,7 @@ img {
 .content {
   width: 100%;
   overflow: hidden;
-  background-image: url('@{base}bg.jpg');
+  background-image: url("@{base}bg.jpg");
   background-position: center bottom;
   background-size: 100% 100%;
   background-repeat: no-repeat;
@@ -207,7 +211,7 @@ img {
     }
     span {
       font-size: 10vw;
-      font-family: 'liujiao';
+      font-family: "liujiao";
       color: #ffda67;
       z-index: 999;
       position: absolute;

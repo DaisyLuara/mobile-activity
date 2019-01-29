@@ -1,8 +1,9 @@
 <template>
   <div class="mall">
-    <NoListContentReminder 
-      :show="true" 
-      words="商城还没有开放哦"/>
+    <NoListContentReminder
+      :show="true"
+      words="商城还没有开放哦"
+    />
   </div>
 </template>
 
