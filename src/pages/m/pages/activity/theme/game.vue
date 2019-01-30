@@ -59,7 +59,7 @@
         src="https://cdn.exe666.com/fe/image/m/third.png"
       >
     </div>
-    <ActivityThemeGameBottom />
+    <ActivityThemeGameBottom :show="shouldButtonShow"/>
     <div class="bottom-holder" />
   </div>
 </template>
@@ -92,6 +92,12 @@ export default {
       } else {
         return null;
       }
+    },
+    shouldButtonShow() {
+      if (this.$route.name === "ActivityShopGameProgress") {
+        return true;
+      }
+      return false;
     }
   },
   mounted() {

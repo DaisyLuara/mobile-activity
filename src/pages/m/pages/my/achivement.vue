@@ -25,6 +25,7 @@
         v-if="trends.length === 0 && firstFetch" 
         class="no-achive">暂无解锁的成就</div>
     </ul>
+    <ActivityThemeGameBottom :show="shouldButtonShow"/>
   </div>
 </template>
 
@@ -33,6 +34,8 @@ import Vue from "vue";
 import { mapGetters } from "vuex";
 import { InfiniteScroll } from "mint-ui";
 import { fetchMyAchivement } from "services";
+import ActivityThemeGameBottom from "@/pages/m/components/Activity/ActivityThemeGameBottom";
+
 export default {
   name: "MyAchivement",
   data() {
@@ -47,8 +50,18 @@ export default {
       fixedTitle: "我解锁的成就"
     };
   },
+  components: {
+    ActivityThemeGameBottom
+  },
   computed: {
-    ...mapGetters(["z"])
+    ...mapGetters(["z"]),
+    shouldButtonShow() {
+      const { acid } = this.$route.query;
+      if (acid) {
+        return true;
+      }
+      return false;
+    }
   },
   created() {
     if (this.z === "") {
