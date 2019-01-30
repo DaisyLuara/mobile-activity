@@ -122,7 +122,7 @@ export const H5SaaSRouter = {
       path: ':mkey/:mcode/topic/index/',
       name: 'TopicIndex',
       meta: {
-        title: '话题'
+        title: '全民话题'
       },
       component: () => import('@/pages/m/pages/topic/index')
     },
@@ -130,7 +130,7 @@ export const H5SaaSRouter = {
       path: ':mkey/:mcode/activity/shop/topic',
       name: 'ActivityTopic',
       meta: {
-        title: '话题活动'
+        title: '全民话题'
       },
       component: () => import('@/pages/m/pages/activity/theme/topic')
     }

@@ -59,7 +59,7 @@ export default {
         alltop: "https://cdn.exe666.com/fe/image/m/tag-toupiao.svg",
         game: "https://cdn.exe666.com/fe/image/m/tag-paihang.svg",
         honour: "https://cdn.exe666.com/fe/image/m/tag-xunzhang.svg",
-        options: "https://cdn.exe666.com/fe/image/m/options.svg"
+        options: "https://cdn.exe666.com/fe/image/m/tag-options.svg"
       }
     };
   },

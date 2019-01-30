@@ -1,29 +1,39 @@
 <template>
   <div class="activity-topic">
+    <img
+      v-if="actData && actData.image !== ''"
+      :src="actData.image"
+      class="main-photo"
+    >
     <div class="progress">
       <img :src="avatar" class="avatar"/>
       <div class="text">
         答辩: {{computedProgress}}/{{calLenth}}题
       </div>
     </div>
+    
     <TopicModule @onProgressCal="calprogress" @onCalLength="calLenth"/>
   </div>
 </template>
 
 <script>
 import TopicModule from "@/pages/m/pages/topic/index";
+import { fetchActivityDetail } from "services";
 import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-      arr: []
+      arr: [],
+      actData: {
+        image: ""
+      }
     };
   },
   components: {
     TopicModule
   },
   computed: {
-    ...mapGetters(["avatar"]),
+    ...mapGetters(["avatar", "z"]),
     computedProgress() {
       let cal = 0;
       this.arr.map(ele => {
@@ -37,9 +47,29 @@ export default {
       return this.arr.length;
     }
   },
+  mounted() {
+    this.fetchHeader();
+  },
   methods: {
     calprogress(arr) {
       this.arr = arr;
+    },
+    async fetchHeader() {
+      let { acid } = this.$route.query;
+      if (acid !== undefined) {
+        const payload = {
+          actid: acid,
+          z: this.z,
+          api: "json"
+        };
+        try {
+          let r = await fetchActivityDetail(this, payload);
+          this.actData = r.data.results;
+          document.title = this.actData.title;
+        } catch (e) {
+          console.log(e);
+        }
+      }
     }
   }
 };
@@ -49,6 +79,9 @@ export default {
 .activity-topic {
   position: relative;
   width: 100%;
+  .main-photo {
+    width: 100%;
+  }
   .progress {
     width: 3.75rem;
     height: 0.65rem;
