@@ -148,7 +148,7 @@ export default {
         try {
           let r = await fetchActivityDetail(this, payload);
           this.actData = r.data.results;
-          document.title = this.actData.aname;
+          document.title = this.actData.title;
         } catch (e) {
           console.log(e);
         }
