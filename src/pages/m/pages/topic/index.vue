@@ -29,6 +29,7 @@
           :avrid="item.avrid"
           :other1="item.other1"
           :other2="item.other2"
+          :acid="item.acid"
         />
       </div>
     </ul>

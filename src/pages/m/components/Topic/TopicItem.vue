@@ -1,6 +1,7 @@
 <template>
   <div class="topic-item">
     <!-- <TopicSwiper :imgUrls="imgUrls" /> -->
+    <img :src="tagUrl" v-if="!hasAcid" class="tag"/>
     <img class="swipers" :src="imgUrls + cp"> 
     <div class="author">
       <img class="avatar" :src="avatar">
@@ -9,7 +10,7 @@
           {{userName}}
         </div>
         <div class="time">
-          {{postTime}}
+          {{computedDate}}
         </div>
       </div>
       <div class="title">
@@ -41,15 +42,22 @@
 <script>
 import { optionsVote } from "services";
 import { mapGetters } from "vuex";
+import moment from "moment";
 export default {
   data() {
     return {
       cp: "?imageView2/1/w/343/h/343/format/jpg/q/100|imageslim",
+      tagUrl: "https://cdn.exe666.com/fe/image/m/options.svg",
       ownChoosen: null
     };
   },
   props: {
     avrid: {
+      type: String,
+      required: true,
+      default: ""
+    },
+    acid: {
       type: String,
       required: true,
       default: ""
@@ -119,6 +127,29 @@ export default {
         return "B";
       }
       return "";
+    },
+    hasAcid() {
+      const { acid } = this.$route.query;
+      if (acid) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    computedDate() {
+      let now = moment(new Date().getTime());
+      let cld = moment(Number(this.postTime));
+      // console.log(cld);
+      let diffyear = cld.diff(now, "years");
+      let diffday = now.diff(cld, "days");
+      if (diffyear >= 1) {
+        return cld.format("YYYY-MM-DD HH:mm:ss");
+      } else if (moment(now).isSame(cld, "day")) {
+        return cld.format("HH:mm:ss");
+      } else {
+        return cld.format("MM-DD HH:mm:ss");
+      }
+      return "";
     }
   },
   methods: {
@@ -155,6 +186,14 @@ export default {
   background: white;
   border-radius: 15px;
   overflow: hidden;
+  .tag {
+    position: absolute;
+    z-index: 60;
+    top: 0;
+    right: 0;
+    width: 0.44rem;
+    height: 0.44rem;
+  }
 
   .swipers {
     width: 3.43rem;
@@ -185,12 +224,12 @@ export default {
       justify-content: space-around;
       align-items: flex-start;
       .name {
-        font-size: 0.11rem;
+        font-size: 14px;
         color: rgba(102, 102, 102, 1);
       }
       .time {
         color: rgba(153, 153, 153, 1);
-        font-size: 0.08rem;
+        font-size: 12px;
       }
     }
     .title {
@@ -199,8 +238,9 @@ export default {
       left: 0;
       padding: 0 0.15rem;
       height: 0.4rem;
-      font-size: 0.11rem;
+      font-size: 14px;
       font-weight: 400;
+      margin-bottom: 0.1rem;
     }
   }
 
@@ -229,7 +269,7 @@ export default {
       .text {
         width: 1rem;
         height: 0.3rem;
-        font-size: 0.11rem;
+        font-size: 14px;
         color: rgba(255, 255, 255, 1);
         font-weight: 400;
       }
