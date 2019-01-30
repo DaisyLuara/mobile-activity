@@ -1,14 +1,16 @@
 <template>
   <div class="act-shop-detail">
-    <img
-      :src="resData.image"
-      class="main-photo"
-    >
-    <div class="main-text">{{ resData.txt }}</div>
+    <div class="main-photo">
+      <img
+        :src="resData.image"
+      >
+    </div>
+   
+    <!-- <div class="main-text">{{ resData.txt }}</div> -->
     <!-- <div class="start-time">开始时间: {{ startTime }}</div>
     <div class="end-time">结束时间: {{ endTime }}</div> -->
     <div class="time">
-      活动时间:  <span class="red"> {{startTime}}至{{ endTime }}</span>
+      活动时间:  <span class="red"> {{startTime}} 至 {{ endTime }}</span>
     </div>
     <div
       class="info"
@@ -153,33 +155,42 @@ export default {
   min-height: 100vh;
   padding-bottom: 60px;
   .info {
-    padding: 16px 10px;
-    width: 90%;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    width: calc(100% - 20px);
     font-size: 0.14rem;
   }
   .main-photo {
-    width: 90%;
-    margin-top: 20px;
-    border-radius: 10px;
+    margin: 10px 10px;
+
+    width: calc(100% - 20px);
+    img {
+      width: 100%;
+      border-radius: 10px;
+    }
   }
-  .main-text {
-    margin-top: 20px;
-    width: 90%;
-    font-size: 0.18rem;
-    color: rgba(13, 13, 13, 1);
-    line-height: 0.2rem;
-  }
+  // .main-text {
+  //   margin: 10px 10px;
+  //   width: calc(100% - 20px);
+  //   font-size: 0.18rem;
+  //   color: rgba(13, 13, 13, 1);
+  //   line-height: 0.2rem;
+  // }
   .time {
-    width: 90%;
+    width: calc(100% - 20px);
     height: 42px;
     line-height: 42px;
     text-align: left;
-    padding: 0 26px;
     background: white;
     border-radius: 10px;
     color: #222222;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 400;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    padding: 0 26px;
     .red {
       color: #ff0658;
     }
@@ -202,7 +213,7 @@ export default {
     margin-top: 20px;
     width: 3.36rem;
     height: 0.47rem;
-    border: 2px solid rgba(109, 30, 255, 1);
+    border: 1px solid rgba(109, 30, 255, 1);
     opacity: 1;
     border-radius: 0.235rem;
     font-size: 0.14rem;
