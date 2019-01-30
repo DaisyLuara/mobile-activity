@@ -1,7 +1,7 @@
 <template>
   <div class="topic-item">
     <!-- <TopicSwiper :imgUrls="imgUrls" /> -->
-    <img :src="tagUrl" v-if="!hasAcid || (hasAcid && shoudTagShow)" class="tag"/>
+    <img :src="tagUrl" v-if="shoudTagShow" class="tag"/>
     <img class="swipers" :src="imgUrls + cp"> 
     <div class="author">
       <img class="avatar" :src="avatar">
@@ -48,7 +48,7 @@
         v-if="choose !== 'A'"
         @click="handleChooseClick('B')"
         :class="{'choose-item B':choose === '', 'choose-item B show':choose === 'B', 'choose-item B hide':choose === 'A'}" >
-        <div class="text">
+        <div class="text B">
           {{othertype2}}
         </div>
         <div class="label">B</div>
@@ -147,22 +147,19 @@ export default {
       }
       return "";
     },
-    hasAcid() {
-      const { acid } = this.$route.query;
+    shoudTagShow() {
+      let { acid } = this.$route.query;
       if (acid) {
-        return true;
-      } else {
         return false;
       }
-    },
-    shoudTagShow() {
-      if (this.hasAcid) {
-        const { acid } = this.$route.query;
-        if (Number(acid) <= 0) {
-          return false;
-        }
+      if (!this.acid) {
+        return false;
       } else {
-        return true;
+        if (Number(this.acid) <= 0) {
+          return false;
+        } else {
+          return true;
+        }
       }
     },
     computedDate() {
@@ -310,6 +307,9 @@ export default {
         font-size: 14px;
         color: rgba(255, 255, 255, 1);
         font-weight: 400;
+        &.B {
+          text-align: right;
+        }
       }
       &.A {
         background: rgba(243, 56, 83, 1);
