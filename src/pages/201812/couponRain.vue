@@ -94,8 +94,6 @@ export default {
         window.location.href = redirct_url
       } else {
         this.userId = Cookies.get('user_id')
-        // let newid = this.arr[this.num]
-        // this.wxShareInfoValue.link = setParameter('coupon_batch_id', newid, "http://papi.xingstation.com/api/s/K8r")
       }
     },
     doAnimate() {
@@ -344,7 +342,7 @@ export default {
     },
     //判断是否领过优惠券
     checkGetCoupon() {
-      let coupon_batch_id = this.$route.query.coupon_batch_id || this.coupon_batch_id
+      let coupon_batch_id = this.coupon_batch_id
       let args = {
         coupon_batch_id: coupon_batch_id,
         include: 'couponBatch',
@@ -363,7 +361,7 @@ export default {
     },
     //发优惠券
     sendCoupon() {
-      let coupon_batch_id = this.$route.query.coupon_batch_id || this.coupon_batch_id
+      let coupon_batch_id = this.coupon_batch_id
       let args = {
         include: 'couponBatch',
         qiniu_id: this.id,
