@@ -347,7 +347,7 @@ export default {
     },
     //判断是否领过优惠券
     checkGetCoupon() {
-      let coupon_batch_id = this.$route.query.coupon_batch_id || this.coupon_batch_id
+      let coupon_batch_id = this.coupon_batch_id
       let args = {
         coupon_batch_id: coupon_batch_id,
         include: 'couponBatch',
@@ -366,7 +366,7 @@ export default {
     },
     //发优惠券
     sendCoupon() {
-      let coupon_batch_id = this.$route.query.coupon_batch_id || this.coupon_batch_id
+      let coupon_batch_id = this.coupon_batch_id
       let args = {
         include: 'couponBatch',
         qiniu_id: this.id,
