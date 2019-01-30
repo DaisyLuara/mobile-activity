@@ -1,7 +1,7 @@
 <template>
   <div class="topic-item">
     <!-- <TopicSwiper :imgUrls="imgUrls" /> -->
-    <img :src="tagUrl" v-if="!hasAcid" class="tag"/>
+    <img :src="tagUrl" v-if="!hasAcid || (hasAcid && shoudTagShow)" class="tag"/>
     <img class="swipers" :src="imgUrls + cp"> 
     <div class="author">
       <img class="avatar" :src="avatar">
@@ -19,6 +19,7 @@
     </div>
     <div class="chooses">
       <div 
+        v-if="choose !== 'B'"
         @click="handleChooseClick('A')"
         :class="{'choose-item A':choose === '', 'choose-item A show':choose === 'A', 'choose-item A hide':choose === 'B'}" >
         <div class="label">A</div>
@@ -26,13 +27,31 @@
           {{othertype1}}
         </div>
       </div>
+      <div class="choose-item result A" v-if="choose === 'A'">
+        <div class="count">
+          共{{otherid1}}人支持
+        </div>
+        <div class="percent">
+          [{{computedPercentA}}]
+        </div>
+      </div>
+      <div class="choose-item result B" v-if="choose === 'B'">
+        <div class="count">
+          共{{otherid2}}人支持
+        </div>
+        <div class="percent">
+          [{{computedPercentB}}]
+        </div>
+      </div>
+
       <div 
+        v-if="choose !== 'A'"
         @click="handleChooseClick('B')"
         :class="{'choose-item B':choose === '', 'choose-item B show':choose === 'B', 'choose-item B hide':choose === 'A'}" >
-        <div class="label">B</div>
         <div class="text">
           {{othertype2}}
         </div>
+        <div class="label">B</div>
       </div>
     </div>
 
@@ -136,6 +155,16 @@ export default {
         return false;
       }
     },
+    shoudTagShow() {
+      if (this.hasAcid) {
+        const { acid } = this.$route.query;
+        if (Number(acid) <= 0) {
+          return false;
+        }
+      } else {
+        return true;
+      }
+    },
     computedDate() {
       let now = moment(new Date().getTime());
       let cld = moment(Number(this.postTime));
@@ -150,6 +179,16 @@ export default {
         return cld.format("MM-DD HH:mm:ss");
       }
       return "";
+    },
+    computedPercentA() {
+      const A = Number(this.otherid1);
+      const B = Number(this.otherid2);
+      return ((A / (A + B)) * 100).toFixed(2) + "%";
+    },
+    computedPercentB() {
+      const A = Number(this.otherid1);
+      const B = Number(this.otherid2);
+      return ((B / (A + B)) * 100).toFixed(2) + "%";
     }
   },
   methods: {
@@ -221,7 +260,7 @@ export default {
       height: 0.4rem;
       display: flex;
       flex-direction: column;
-      justify-content: space-around;
+      justify-content: center;
       align-items: flex-start;
       .name {
         font-size: 14px;
@@ -268,7 +307,6 @@ export default {
       }
       .text {
         width: 1rem;
-        height: 0.3rem;
         font-size: 14px;
         color: rgba(255, 255, 255, 1);
         font-weight: 400;
@@ -276,21 +314,39 @@ export default {
       &.A {
         background: rgba(243, 56, 83, 1);
         &.show {
-          width: 100%;
+          width: 50%;
         }
         &.hide {
           width: 0;
-          overflow: hidden;
         }
       }
       &.B {
         background: rgba(66, 151, 247, 1);
         &.show {
-          width: 100%;
+          width: 50%;
         }
         &.hide {
           width: 0;
-          overflow: hidden;
+        }
+      }
+      &.result {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: white;
+        justify-content: center;
+        .count {
+          font-size: 12px;
+        }
+        .percent {
+          font-size: 25px;
+        }
+        &.A {
+          background: rgba(243, 56, 83, 1);
+        }
+        &.B {
+          background: rgba(66, 151, 247, 1);
         }
       }
     }

@@ -13,11 +13,13 @@
     </div>
     
     <TopicModule @onProgressCal="calprogress" @onCalLength="calLenth"/>
+    <ActivityThemeGameBottom :show="shouldButtonShow"/>
   </div>
 </template>
 
 <script>
 import TopicModule from "@/pages/m/pages/topic/index";
+import ActivityThemeGameBottom from "@/pages/m/components/Activity/ActivityThemeGameBottom";
 import { fetchActivityDetail } from "services";
 import { mapGetters } from "vuex";
 export default {
@@ -30,7 +32,8 @@ export default {
     };
   },
   components: {
-    TopicModule
+    TopicModule,
+    ActivityThemeGameBottom
   },
   computed: {
     ...mapGetters(["avatar", "z"]),
@@ -45,6 +48,12 @@ export default {
     },
     calLenth() {
       return this.arr.length;
+    },
+    shouldButtonShow() {
+      if (this.$route.name === "TopicIndex") {
+        return false;
+      }
+      return true;
     }
   },
   mounted() {
