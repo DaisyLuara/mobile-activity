@@ -51,20 +51,22 @@ export default {
   data() {
     return {
       labelImg: [
+        "https://cdn.exe666.com/fe/image/m/btn_topic.png",
         "https://cdn.exe666.com/fe/image/m/btn_photo_normal@3x.png",
         "https://cdn.exe666.com/fe/image/m/btn_sale_normal@3x.png",
+        "https://cdn.exe666.com/fe/image/m/barrage.png",
         "https://cdn.exe666.com/fe/image/m/btn_mall_normal@3x.png",
         "https://cdn.exe666.com/fe/image/m/btn_card_normal@3x.png",
-        "https://cdn.exe666.com/fe/image/m/btn_my_normal@3x.png",
-        "https://cdn.exe666.com/fe/image/m/barrage.png"
+        "https://cdn.exe666.com/fe/image/m/btn_my_normal@3x.png"
       ],
       labelImgPressed: [
+        "https://cdn.exe666.com/fe/image/m/btn_topic_pressed.png",
         "https://cdn.exe666.com/fe/image/m/btn_photo_pressed@3x.png",
         "https://cdn.exe666.com/fe/image/m/btn_sale_pressed@3x.png",
+        "https://cdn.exe666.com/fe/image/m/barrage-p.png",
         "https://cdn.exe666.com/fe/image/m/btn_mall_pressed@3x.png",
         "https://cdn.exe666.com/fe/image/m/btn_card_pressed@3x.png",
-        "https://cdn.exe666.com/fe/image/m/btn_my_pressed@3x.png",
-        "https://cdn.exe666.com/fe/image/m/barrage-p.png"
+        "https://cdn.exe666.com/fe/image/m/btn_my_pressed@3x.png"
       ],
       showRoutes: [
         "MyIndex",
@@ -78,10 +80,12 @@ export default {
         "new_yellow",
         "lkf",
         "newDreamland",
-        "happy_newYearTwo"
+        "happy_newYearTwo",
+        "TopicIndex"
       ],
-      labels: ["照片", "活动", "弹幕", "商城", "卡包", "我的"],
+      labels: ["话题", "照片", "活动", "弹幕", "商城", "卡包", "我的"],
       routes: [
+        "TopicIndex",
         "TrendsIndex",
         "ActivityShop",
         "BarrageIndex",
@@ -113,7 +117,7 @@ export default {
           });
         }
       });
-      arr.sort(function (a, b) {
+      arr.sort(function(a, b) {
         return a.order - b.order;
       });
 

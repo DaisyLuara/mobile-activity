@@ -56,7 +56,8 @@ export default {
       nameMap: {
         alltop: "ActivityShopAllTopProgress",
         game: "ActivityShopGameProgress",
-        honour: "MyAchivement"
+        honour: "MyAchivement",
+        options: "ActivityTopic"
       }
     };
   },
@@ -71,6 +72,9 @@ export default {
       }
       if (this.acttype === "honour") {
         return "查看勋章收集进度";
+      }
+      if (this.acttype === "options") {
+        return "查看我的进度";
       }
       return "查看活动进度";
     }

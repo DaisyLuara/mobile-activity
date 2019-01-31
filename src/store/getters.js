@@ -10,6 +10,9 @@ const getters = {
   },
   weixinUrl: state => {
     return state.weixinUrl
+  },
+  avatar: state => {
+    return state.loginState.face
   }
 }
 

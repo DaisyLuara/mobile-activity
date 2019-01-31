@@ -1,5 +1,10 @@
 <template>
   <div class="game">
+    <img
+      v-if="actData.image !== ''"
+      :src="actData.image"
+      class="main-photo"
+    >
     <div
       v-if="myData !== null"
       class="game-my"
@@ -54,14 +59,14 @@
         src="https://cdn.exe666.com/fe/image/m/third.png"
       >
     </div>
-    <ActivityThemeGameBottom />
+    <ActivityThemeGameBottom :show="shouldButtonShow"/>
     <div class="bottom-holder" />
   </div>
 </template>
 
 <script>
 import moment from "moment";
-import { fetchShopActivityProgress } from "services";
+import { fetchShopActivityProgress, fetchActivityDetail } from "services";
 import ActivityThemeGameBottom from "@/pages/m/components/Activity/ActivityThemeGameBottom";
 import { mapGetters } from "vuex";
 export default {
@@ -73,6 +78,9 @@ export default {
       resData: [],
       my: {
         tabs: "颜值"
+      },
+      actData: {
+        image: ""
       }
     };
   },
@@ -84,10 +92,17 @@ export default {
       } else {
         return null;
       }
+    },
+    shouldButtonShow() {
+      if (this.$route.name === "ActivityShopGameProgress") {
+        return true;
+      }
+      return false;
     }
   },
   mounted() {
     this.fetchGameResults();
+    this.fetchHeader();
   },
   methods: {
     computedDate(clientdate) {
@@ -123,6 +138,23 @@ export default {
         .catch(e => {
           console.dir(e);
         });
+    },
+    async fetchHeader() {
+      let { acid } = this.$route.query;
+      if (acid !== undefined) {
+        const payload = {
+          actid: acid,
+          z: this.z,
+          api: "json"
+        };
+        try {
+          let r = await fetchActivityDetail(this, payload);
+          this.actData = r.data.results;
+          document.title = this.actData.title;
+        } catch (e) {
+          console.log(e);
+        }
+      }
     }
   }
 };
@@ -137,8 +169,11 @@ export default {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  padding-top: 20px;
   z-index: 10;
+  .main-photo {
+    width: 100%;
+    margin-bottom: 20px;
+  }
   .bottom-holder {
     width: 100%;
     height: 1.2rem;

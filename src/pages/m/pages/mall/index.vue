@@ -4,7 +4,6 @@
       :show="true"
       words="商城还没有开放哦"
     />
-    <BottomBar />
   </div>
 </template>
 

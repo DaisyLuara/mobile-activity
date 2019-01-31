@@ -117,6 +117,22 @@ export const H5SaaSRouter = {
         title: '我的嗨屏'
       },
       component: () => import('@/pages/m/pages/static/404')
+    },
+    {
+      path: ':mkey/:mcode/topic/index/',
+      name: 'TopicIndex',
+      meta: {
+        title: '全民话题'
+      },
+      component: () => import('@/pages/m/pages/topic/index')
+    },
+    {
+      path: ':mkey/:mcode/activity/shop/topic',
+      name: 'ActivityTopic',
+      meta: {
+        title: '全民话题'
+      },
+      component: () => import('@/pages/m/pages/activity/theme/topic')
     }
   ]
 }

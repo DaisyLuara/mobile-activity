@@ -44,6 +44,7 @@ export default {
   data() {
     return {
       base: CDNURL + "/fe/image/couponrain/",
+      base2: CDNURL + "/fe/image/hiltongame/",
       style: {
         root: {
           height: this.$innerHeight() + 'px'
@@ -57,10 +58,10 @@ export default {
       qrcodeImg: null,// 'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
       //微信分享
       wxShareInfoValue: {
-        title: "高能预警！一大波“红包雨”强势来袭！",
-        desc: "拼手速，抢抢抢抢抢抢连卡福新春红包",
-        link: "http://papi.xingstation.com/api/s/K8r" + window.location.search,
-        imgUrl: CDNURL + "/fe/image/couponrain/share.jpg",
+        title: "希尔顿新年红包雨，新春福利抢不停！",
+        desc: "拼手速，抢希尔顿新春红包",
+        link: "http://papi.xingstation.com/api/s/Yy0" + window.location.search,
+        imgUrl: CDNURL + "/fe/image/hiltongame/icon.jpg",
       }
     };
   },
@@ -113,7 +114,7 @@ export default {
         app.renderer.resize(window.innerWidth, window.innerHeight)
         //通用变量
         let that = this
-        let [url, as_width, as_height, game_start] = [CDNURL + '/fe/image/couponrain/', app.screen.width, app.screen.height, false];
+        let [url, as_width, as_height, game_start] = [CDNURL + '/fe/image/hiltongame/', app.screen.width, app.screen.height, false];
         //容器
         let container1 = null, container2 = null, container3 = null;
         //精灵
@@ -165,8 +166,9 @@ export default {
           .add([
             url + 'Background.png',
             url + 'title.json',
-            url + 'pigbg.png',
+            url + 'pig.png',
             url + 'logo.png',
+            url + 'button.png',
             url + 'down.png',
             url + 'cover.png',
             url + 'red.png',
@@ -185,14 +187,14 @@ export default {
           container2.interactive = true
           container2.buttonMode = true
           //容器一
-          pig = getNewSpriteImage(url + 'pigbg.png', { y: -as_height * 0.04, height: as_width / 750 * 1068 }, container1)//猪年大吉图像
+          pig = getNewSpriteImage(url + 'pig.png', { y: -as_height * 0.04, height: as_width / 750 * 1068 }, container1)//猪年大吉图像
           logo = getNewSpriteImage(url + 'logo.png', { x: as_width * 0.83, y: as_height * 0.02, width: as_width * 0.15, height: as_width * 0.15 / 104 * 87 }, container1)
-          title = getAnimation('title_000', 0, 12, { x: as_width * 0.12, y: as_height * 0.01, width: as_width * 0.76, height: as_width * 0.76 / 584 * 254 }, container1)
+          title = getAnimation('title_000', 0, 14, { x: as_width * 0.12, y: as_height * 0.01, width: as_width * 0.76, height: as_width * 0.76 / 584 * 254 }, container1)
           title.animationSpeed = 0.4
-          button = getNewSpriteImage(url + 'down.png', { x: as_width * 0.1, y: as_height * 0.815, width: as_width * 0.8, height: as_width * 0.8 / 608 * 158 }, container1) //按钮
+          button = getNewSpriteImage(url + 'button.png', { x: as_width * 0.1, y: as_height * 0.815, width: as_width * 0.8, height: as_width * 0.8 / 608 * 158 }, container1) //按钮
           button.interactive = true
           button.buttonMode = true
-          button.on('click', onCheckScene).on('touchend', onCheckScene)
+          button.on('click', onCheckScene).on('touchstart', onchangeImage).on('touchend', onCheckScene)
           //容器二  倒计时
           graphics = new PIXI.Graphics()
           graphics.beginFill(0x000000, 0.5)
@@ -281,6 +283,9 @@ export default {
           }
         }
         //动作
+        function onchangeImage() {
+          button.texture = PIXI.utils.TextureCache[that.base2 + 'down.png'];
+        }
         function onCheckScene() {
           container1.visible = false
           container3.visible = true

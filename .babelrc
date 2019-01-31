@@ -19,9 +19,7 @@
   ],
   "env": {
     "test": {
-      "plugins": [
-        "istanbul"
-      ]
+      "plugins": ["istanbul"]
     },
     "production": {
       "presets": [
@@ -44,14 +42,7 @@
       ]
     },
     "development": {
-      "presets": [
-        [
-          "@babel/preset-env",
-          {
-            "useBuiltIns": "entry"
-          }
-        ]
-      ]
+      "presets": [["@babel/preset-env"]]
     }
   }
 }

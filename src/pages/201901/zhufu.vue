@@ -48,6 +48,13 @@ export default {
       qrcodeImg: null,//'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
       used: false,
       z: null,
+      //微信分享
+      wxShareInfoValue: {
+        title: "希尔顿新年红包雨，新春福利抢不停！",
+        desc: "拼手速，抢希尔顿新春红包",
+        link: "http://papi.xingstation.com/api/s/Yy0?id=" + this.$route.query.id,
+        imgUrl: CDN_URL + "/fe/image/zhufu/icon.jpg",
+      }
     }
   },
   watch: {
@@ -64,7 +71,7 @@ export default {
     }
   },
   mounted() {
-    this.handleForbiddenShare()
+    // this.handleForbiddenShare()
     if (Cookies.get('z')) {
       this.z = Cookies.get('z')
       this.checkV2Coupon()
@@ -103,7 +110,8 @@ export default {
       let args = {
         qiniu_id: this.id,
         z: this.z,
-        belong: this.belong
+        belong: this.belong,
+        oid: this.oid
       }
       sendV2Coupon(args, this.coupon_batch_id)
         .then(res => {

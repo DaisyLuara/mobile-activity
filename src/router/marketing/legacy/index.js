@@ -44,15 +44,7 @@ const lagacyPages = [
     },
     isAbandoned: true
   },
-  {
-    path: 'dog',
-    location: 'dog/index',
-    name: 'dog',
-    meta: {
-      title: '狗年旺情缘'
-    },
-    isAbandoned: true
-  },
+
   {
     path: 'hongyi',
     location: 'hongyi/index',
@@ -162,24 +154,6 @@ const lagacyPages = [
     meta: {
       title: '携程旅行'
     }
-  },
-  {
-    path: 'wc_card',
-    location: 'worldCups/card',
-    meta: {
-      title: '球星卡'
-    },
-    name: 'WorldCupCard',
-    isAbandoned: true
-  },
-  {
-    path: 'wc_shemen',
-    location: 'worldCups/shemen',
-    name: 'WorldCupShemen',
-    meta: {
-      title: '吹气射门'
-    },
-    isAbandoned: true
   },
   {
     path: 'animal',
@@ -326,25 +300,6 @@ const lagacyPages = [
     }
   },
   {
-    path: '51act',
-    location: '51act/index',
-    name: '51act',
-    meta: {
-      title: 'EXE颜镜店',
-      desc: ''
-    },
-    isAbandoned: true
-  },
-  {
-    path: '51actcp',
-    location: '51act/coupon',
-    name: '51actcp',
-    meta: {
-      title: 'EXE颜镜店'
-    },
-    isAbandoned: true
-  },
-  {
     path: 'spring',
     location: 'exeSpring/index',
     meta: {
@@ -400,24 +355,6 @@ const lagacyPages = [
     }
   },
   {
-    path: 'wc_card_pr',
-    location: 'worldCups/cardPre',
-    meta: {
-      title: '球星卡'
-    },
-    name: 'WorldCupCardPhone',
-    isAbandoned: true
-  },
-  {
-    path: 'war',
-    location: 'war/result',
-    meta: {
-      title: '芒果娱乐荣誉出品',
-      desc: '芒果-三宝大战诸葛亮'
-    },
-    isAbandoned: true
-  },
-  {
     path: 'concert',
     location: 'concert/result',
     meta: {
@@ -432,14 +369,6 @@ const lagacyPages = [
     meta: {
       title: '觅作'
     }
-  },
-  {
-    path: 'suning',
-    location: 'suning/result',
-    meta: {
-      title: '苏宁嗨购'
-    },
-    isAbandoned: true
   },
   {
     path: 'mangguo',
@@ -617,16 +546,6 @@ const lagacyPages = [
     }
   },
   {
-    path: 'voice',
-    location: 'voiceGame/test',
-    meta: {
-      title: '',
-      desc: '测试页面'
-    },
-    name: 'vocieTest',
-    isAbandoned: true
-  },
-  {
     path: 'fourShoot',
     location: 'fourShoot/result',
     meta: {
@@ -654,14 +573,6 @@ const lagacyPages = [
     meta: {
       title: '测试你的音撩报告'
     }
-  },
-  {
-    path: 'oh',
-    location: 'suning/oh',
-    meta: {
-      title: 'oh 秀发'
-    },
-    isAbandoned: true
   },
   {
     path: 'yp_worldCup',

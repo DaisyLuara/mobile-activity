@@ -23,47 +23,23 @@
 import "swiper/dist/css/swiper.css";
 import "./swiper.less";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
-import { mapGetters } from "vuex";
-import { fetchMSiteBanners } from "services";
-
 import { Swiper, SwiperItem } from "mand-mobile";
+
 export default {
+  props: {
+    imgUrls: {
+      type: Array,
+      required: true,
+      default: []
+    }
+  },
   components: {
     "md-swiper": Swiper,
     "md-swiper-item": SwiperItem
   },
-  data() {
-    return {
-      imgUrls: []
-    };
-  },
-  computed: {
-    ...mapGetters(["z"])
-  },
-  mounted() {
-    if (this.z === "") {
-      return;
-    }
-    this.fetchTrendsSwiperInfo();
-  },
   methods: {
     handlePhotoClick(item) {
-      // console.log(e);
       window.location.href = item.infolink;
-    },
-    fetchTrendsSwiperInfo() {
-      const payload = {
-        z: this.z,
-        mkey: this.$route.params.mkey,
-        api: "json"
-      };
-      fetchMSiteBanners(this, payload)
-        .then(r => {
-          this.imgUrls = r.data.results.data;
-        })
-        .catch(e => {
-          console.log(e);
-        });
     }
   }
 };
@@ -78,14 +54,14 @@ export default {
 }
 .mts {
   position: relative;
-  width: 3.75rem;
-  height: 1.35rem;
+  width: 3.43rem;
+  height: 3.43rem;
   .swiper {
-    width: 3.75rem;
-    height: 1.35rem;
+    width: 3.43rem;
+    height: 3.43rem;
     position: relative;
     .slide-pic {
-      width: 3.75rem;
+      width: 3.43rem;
     }
     .swiper-pagination {
       position: absolute;
