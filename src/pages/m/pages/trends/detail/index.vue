@@ -10,13 +10,18 @@
       :src="resData.image"
       class="photo"
     >
+
+    <div class="time">
+      活动时间:  <span class="red"> {{startTime}} 至 {{ endTime }}</span>
+    </div>
+
     <TrendsBottomBar
       :act-detail="actDetail"
       :acid="Number(resData.acid)"
       @onTrendDelete="handleTrendDeleteModalShow"
       @onTrendShare="handleShareModalShare"
     />
-    <TrendsBottomBlankHolder />
+    <!-- <TrendsBottomBlankHolder /> -->
     <DeletePhotoModal
       :show="shouldDeleteModalShow"
       @onHandleModalHide="handleModalHide"
@@ -40,6 +45,7 @@
 </template>
 
 <script>
+import moment from "moment";
 import "./extraStyle.less";
 import TrendsTopBar from "@/pages/m/components/Static/TrendsTopBar";
 import TrendsBottomBar from "@/pages/m/components/Static/TrendsBottomBar";
@@ -73,7 +79,9 @@ export default {
       actDetail: {
         infolink: "",
         pslink: "",
-        type: ""
+        type: "",
+        sdate: null,
+        edate: null
       },
       infolink: "",
       pslink: ""
@@ -81,7 +89,24 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["z", "weixinUrl"])
+    ...mapGetters(["z", "weixinUrl"]),
+    startTime() {
+      if (this.actDetail.sdate === null) {
+        return "";
+      } else {
+        let cld = moment(Number(this.actDetail.sdate) * 1000);
+        return cld.format("YYYY-MM-DD");
+        // return cld.format("YYYY-MM-DD HH:mm:ss");
+      }
+    },
+    endTime() {
+      if (this.actDetail.edate === null) {
+        return "";
+      } else {
+        let cld = moment(Number(this.actDetail.edate) * 1000);
+        return cld.format("YYYY-MM-DD");
+      }
+    }
   },
   mounted() {
     this.fetchTrend();
@@ -208,6 +233,25 @@ export default {
   flex-direction: column;
   align-items: center;
   background: #f3f3f3;
+  .time {
+    margin: 20px 0;
+    width: calc(100% - 20px);
+    height: 42px;
+    line-height: 42px;
+    text-align: left;
+    background: white;
+    border-radius: 10px;
+    color: #222222;
+    font-size: 14px;
+    font-weight: 400;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    padding: 0 26px;
+    .red {
+      color: #ff0658;
+    }
+  }
   .photo {
     margin-top: 0.2rem;
     width: 95%;
@@ -218,7 +262,7 @@ export default {
     height: 0.8rem;
   }
   .info {
-    padding: 16px;
+    padding: 0 16px;
     width: 100%;
     font-size: 0.14rem;
   }
