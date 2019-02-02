@@ -59,7 +59,7 @@ export default {
   },
   watch: {
     oid(){
-      this.wxShareInfoValue.link = "http://papi.xingstation.com/api/s/Yy0?id=" + this.$route.query.id + '&oid=' + this.oid,
+      this.wxShareInfoValue.link = "http://papi.xingstation.com/api/s/Yy0?id=" + this.$route.query.id + '&oid=' + this.oid
     },
     userinfo() {
       if (Cookies.get('z')) {
