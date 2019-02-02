@@ -52,12 +52,15 @@ export default {
       wxShareInfoValue: {
         title: "希尔顿新年红包雨，新春福利抢不停！",
         desc: "拼手速，抢希尔顿新春红包",
-        link: "http://papi.xingstation.com/api/s/Yy0?id=" + this.$route.query.id,
+        link: "http://papi.xingstation.com/api/s/Yy0?id=" + this.$route.query.id + '&oid=' + this.oid,
         imgUrl: CDN_URL + "/fe/image/zhufu/icon.jpg",
       }
     }
   },
   watch: {
+    oid(){
+      this.wxShareInfoValue.link = "http://papi.xingstation.com/api/s/Yy0?id=" + this.$route.query.id + '&oid=' + this.oid,
+    },
     userinfo() {
       if (Cookies.get('z')) {
         this.z = Cookies.get('z')
