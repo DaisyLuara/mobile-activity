@@ -19,10 +19,10 @@ export default {
         return this.nums;
       }
       if (this.nums >= 1000 && this.nums < 10000) {
-        return (this.nums / 1000).toFixed(2) + "K";
+        return (this.nums / 1000).toFixed(1) + "K";
       }
       if (this.nums > 10000) {
-        return (this.nums / 10000).toFixed(2) + "W";
+        return (this.nums / 10000).toFixed(1) + "W";
       }
     }
   }
