@@ -13,6 +13,7 @@
         class="item-wrapper"
         @click="handleNaviToTrendDetail(item)"
       >
+        <ActivityNums :nums="Number(item.nums)"/>
         <img 
           v-if="bindType(item.type) !== ''" 
           :src="bindType(item.type)" 
@@ -39,11 +40,13 @@ import { InfiniteScroll } from "mint-ui";
 import { fetchShopActivityList } from "services";
 import { mapGetters } from "vuex";
 import moment from "moment";
+import ActivityNums from "@/pages/m/components/Activity/ActivityNums";
+
 export default {
   name: "TrendsIndex",
-
   components: {
-    MyTrendsSwiper
+    MyTrendsSwiper,
+    ActivityNums
   },
   data() {
     return {
