@@ -58,15 +58,16 @@ export default {
     }
   },
   watch: {
-    oid(){
+    oid() {
       this.wxShareInfoValue.link = "http://papi.xingstation.com/api/s/Yy0?id=" + this.$route.query.id + '&oid=' + this.oid
     },
     userinfo() {
       if (Cookies.get('z')) {
         this.z = Cookies.get('z')
       } else {
-        this.z = Cookies.set('z', this.userinfo.z)
+        this.z = this.userinfo.z
         this.checkV2Coupon()
+        Cookies.set('z', this.userinfo.z)
       }
     },
     coupon_batch_id() {
