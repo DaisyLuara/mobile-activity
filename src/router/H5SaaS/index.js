@@ -133,6 +133,14 @@ export const H5SaaSRouter = {
         title: '全民话题'
       },
       component: () => import('@/pages/m/pages/activity/theme/topic')
+    },
+    {
+      path: ':mkey/:mcode/activity/shop/birthday',
+      name: 'ActivityBirthDay',
+      meta: {
+        title: '公司动态'
+      },
+      component: () => import('@/pages/m/pages/activity/theme/birthday')
     }
   ]
 }
