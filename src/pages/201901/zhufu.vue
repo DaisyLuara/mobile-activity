@@ -5,7 +5,7 @@
   >
     <div class="main">
       <img
-        :src="coupon_img + this.$qiniuCompress()"
+        :src="coupon_img"
         class="coupon"
       >
       <div class="erweima">
@@ -52,29 +52,33 @@ export default {
       wxShareInfoValue: {
         title: "希尔顿新年红包雨，新春福利抢不停！",
         desc: "拼手速，抢希尔顿新春红包",
-        link: "http://papi.xingstation.com/api/s/Yy0?id=" + this.$route.query.id,
-        imgUrl: CDN_URL + "/fe/image/zhufu/icon.jpg",
+        link: "http://papi.xingstation.com/api/s/Yy0?id=" + this.$route.query.id + '&oid=' + this.oid,
+        imgUrl: "https://cdn.exe666.com/fe/image/zhufu/icon.jpg"
       }
     }
   },
   watch: {
+    oid() {
+      this.wxShareInfoValue.link = "http://papi.xingstation.com/api/s/Yy0?id=" + this.$route.query.id + '&oid=' + this.oid
+    },
     userinfo() {
       if (Cookies.get('z')) {
         this.z = Cookies.get('z')
       } else {
-        this.z = Cookies.set('z', this.userinfo.z)
-        this.checkV2Coupon()
+        this.z = this.userinfo.z
+        Cookies.set('z', this.userinfo.z)
+        this.coupon_batch_id ? this.checkV2Coupon() : null
       }
     },
     coupon_batch_id() {
-      this.checkV2Coupon()
+      this.z ? this.checkV2Coupon() : null
     }
   },
   mounted() {
     // this.handleForbiddenShare()
     if (Cookies.get('z')) {
       this.z = Cookies.get('z')
-      this.checkV2Coupon()
+      this.coupon_batch_id ? this.checkV2Coupon() : null
     }
   },
   methods: {
