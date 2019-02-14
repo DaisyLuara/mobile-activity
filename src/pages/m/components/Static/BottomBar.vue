@@ -140,6 +140,9 @@ export default {
       return Array(fill > len ? fill - len + 1 || 0 : 0).join(0) + num;
     },
     handleMenuClick(routerName) {
+      if (this.replaceMode === "preview") {
+        return;
+      }
       let { mkey, mcode } = this.$route.params;
 
       if (this.replaceMkey !== "") {
