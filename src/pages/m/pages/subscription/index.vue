@@ -3,20 +3,20 @@
     <div class="remind">请选择1至5个服务</div>
     <div class="chooses">
       <div 
-        :class="{'sub-item': !itemStatus[index], 'sub-item choosen': itemStatus[index]}" 
+        :class="{'sub-item': !itemStatus[index], 'sub-item choosen': itemStatus[index], 'sub-item none': excludeNames.includes(itemNames[index])}" 
         v-for="(item, index) in itemNames"
         :key="index"
         @click="handleItemClick(index)"
       >
-        <div class="index-label" v-if="itemIndex[index] >0">
-          {{itemIndex[index]}}
-        </div>
-        <div class="item-img">
-          <img :src="baseUrl + itemNames[index] + '-' + (itemStatus[index] ? '0' : '1') +'.svg'">
-        </div>
-        <div :class="{'item-label': !itemStatus[index], 'item-label selected': itemStatus[index]}">
-          {{itemLabels[index]}}
-        </div>
+          <div class="index-label" v-if="itemIndex[index] >0">
+            {{itemIndex[index]}}
+          </div>
+          <div class="item-img">
+            <img :src="baseUrl + itemNames[index] + '-' + (itemStatus[index] ? '0' : '1') +'.svg'">
+          </div>
+          <div :class="{'item-label': !itemStatus[index], 'item-label selected': itemStatus[index]}">
+            {{itemLabels[index]}}
+          </div>
       </div>
     </div>
     <div class="confirm" @click="confirmPreview">预览页面</div>
@@ -40,6 +40,7 @@ export default {
         "card",
         "my"
       ],
+      excludeNames: ["mall"],
       itemLabels: [
         "话题",
         "我的照片",
@@ -47,7 +48,7 @@ export default {
         "弹幕",
         "商城",
         "卡包",
-        "我的"
+        "我的嗨屏"
       ],
       itemStatus: Array(menuLength).fill(false),
       itemIndex: Array(menuLength).fill(0),
@@ -215,6 +216,9 @@ export default {
         &.selected {
           color: white;
         }
+      }
+      &.none {
+        display: none;
       }
     }
   }
