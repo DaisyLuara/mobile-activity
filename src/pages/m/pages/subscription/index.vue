@@ -3,7 +3,7 @@
     <div class="remind">请选择1至5个服务</div>
     <div class="chooses">
       <div 
-        :class="{'sub-item': !item.status, 'sub-item choosen': item.status, 'sub-item none': excludeNames.includes(item.name)}" 
+        :class="{'sub-item': !item.status, 'sub-item choosen': item.status, 'sub-item none': excludeNames.includes(item.name), 'sub-item notf': item.notFinished}" 
         v-for="(item, index) in computedItems"
         :key="index"
         @click="handleItemClick(item)"
@@ -89,6 +89,24 @@ export default {
           status: false,
           order: 7,
           cindex: 0
+        },
+        {
+          name: "birthday",
+          label: "生日祝福",
+          route: "6d7143ab847f2d24c131",
+          status: false,
+          order: 8,
+          cindex: 0,
+          notFinished: true
+        },
+        {
+          name: "company",
+          label: "企业动态",
+          route: "",
+          status: false,
+          order: 9,
+          cindex: 0,
+          notFinished: true
         }
       ],
       excludeNames: ["mall"],
@@ -116,6 +134,9 @@ export default {
   },
   methods: {
     handleItemClick(item) {
+      if (item.notFinished) {
+        return;
+      }
       if (this.currentIndex >= 5) {
         if (!item.cindex) {
           return;
@@ -231,6 +252,9 @@ export default {
       }
       &.choosen {
         background: rgba(109, 30, 255, 1);
+      }
+      &.notf {
+        filter: opacity(0.4);
       }
       .item-img {
         width: 0.4rem;
