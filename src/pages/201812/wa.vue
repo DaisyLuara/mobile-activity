@@ -1,56 +1,68 @@
 <template>
-  <div 
-    :style="style.root" 
-    :class="{content:true,iphoneX:iphoneX}">
+  <div
+    :style="style.root"
+    :class="{content:true,iphoneX:iphoneX}"
+  >
     <div class="main">
-      <img 
-        :src="base + 'smokeY.png'" 
-        class="smokeY">
-      <img 
-        :src="coupon + this.$qiniuCompress()" 
-        class="coupon">
+      <img
+        :src="base + 'smokeY.png'"
+        class="smokeY"
+      >
+      <img
+        :src="coupon + this.$qiniuCompress()"
+        class="coupon"
+      >
       <div :class="{description:true,toleft:toleft,toright:toright}">
-        <img 
-          :src="base + 'explain.png'" 
-          class="bg">
-        <img 
-          :src="base + arrow+ '.png'" 
-          class="arrow">
+        <img
+          :src="base + 'explain.png'"
+          class="bg"
+        >
+        <img
+          :src="base + arrow+ '.png'"
+          class="arrow"
+        >
         <a
           class="ashow"
           @click="()=>{arrow=arrow=='arrow01'?'arrow02':'arrow01';toleft=!toleft;toright = !toleft}"
         />
         <div class="txt">
-          <ol 
-            start="1" 
-            type="1">
-            <li 
-              v-for="item in text" 
-              :key="item.id">{{ item }}</li>
+          <ol
+            start="1"
+            type="1"
+          >
+            <li
+              v-for="item in text"
+              :key="item.id"
+            >{{ item }}</li>
           </ol>
         </div>
       </div>
       <div class="check">
-        <img 
-          :src="base + 'checkbg.png'" 
-          class="checkbg">
-        <img 
-          :src="ewm" 
-          class="er">
-        <img 
-          v-show="used" 
-          :src="base + 'used.png'" 
-          class="used">
+        <img
+          :src="base + 'checkbg.png'"
+          class="checkbg"
+        >
+        <img
+          :src="ewm"
+          class="er"
+        >
+        <img
+          v-show="used"
+          :src="base + 'used.png'"
+          class="used"
+        >
         <span class="code">{{ code }}</span>
       </div>
     </div>
 
-    <img 
-      :src="base + 'smokeR.png'" 
-      class="smokeR">
-    <img 
-      :src="base + 'huoguo.png'" 
-      class="huoguo">
+    <img
+      :src="base + 'smokeR.png'"
+      class="smokeR"
+    >
+    <img
+      :src="base + 'huoguo.png'"
+      class="huoguo"
+    >
   </div>
 </template>
 <script>
@@ -60,8 +72,7 @@ import {
   wechatShareTrack,
   Cookies,
   sendCoupon,
-  checkGetCoupon,
-  getConponMini
+  checkGetCoupon
 } from "services";
 const cdnUrl = process.env.CDN_URL;
 export default {
