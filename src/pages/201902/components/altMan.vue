@@ -132,8 +132,8 @@ export default {
       // },
       //微信分享
       wxShareInfoValue: {
-        title: "奥特曼",
-        desc: "奥特曼",
+        title: "万代TAMASHII NATIONS奥特曼英雄“魂”展首次空降上海",
+        desc: "一起参与现场互动游戏，赢得大量奥特曼系列礼品",
         imgUrl: CDNURL + "/fe/image/altman/icon.png"
       }
     };
