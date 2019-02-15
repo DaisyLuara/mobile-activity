@@ -1,0 +1,256 @@
+<template>
+  <div
+    :style="root"
+    class="warp"
+  >
+    <!-- one top -->
+    <img
+      :src="base + '1.png'"
+      class="top"
+    >
+    <!-- two honour 联动-->
+    <!-- 勋章-联动-3个节目 -->
+    <div class="groups">
+      <img
+        :src="base + '2.png'"
+        class="bg"
+      >
+      <gameHonour
+        :style-data="styleData"
+        :projects="projects"
+        :bid="bid"
+      />
+    </div>
+    <!-- three map -->
+    <div class="map">
+      <img
+        :src="base + '3.png'"
+        class="bg"
+      >
+      <a
+        class="tomap"
+        @click="()=>{mask = true}"
+      >
+        <img :src="base + 'map.png'">
+      </a>
+    </div>
+    <!-- four photo -->
+    <div class="picture">
+      <img
+        :src="photo"
+        class="photo"
+      >
+      <img
+        v-show="Boolean(photo)"
+        :src="base + 'tip.png'"
+        class="tip"
+      >
+    </div>
+  </div>
+</template>
+<script>
+import {
+  Cookies,
+  getGameHonour
+} from "services";
+import { normalPages } from "@/mixins/normalPages";
+import gameHonour from "@/modules/gameHonour";
+const CDNURL = process.env.CDN_URL;
+export default {
+  components: {
+    gameHonour
+  },
+  mixins: [normalPages],
+  data() {
+    return {
+      base: CDNURL + "/fe/image/altman/",
+      root: {
+        "min-height": this.$innerHeight() + "px"
+      },
+      mask: false,
+      bid: 4,
+      projects: {
+        "11": {
+          name: "beiliya",
+          img: ""
+        },
+        "12": {
+          name: "dijia",
+          img: ""
+        },
+        "13": {
+          name: "sailuo",
+          img: ""
+        }
+      },
+      styleData: {
+        ul: {
+          position: 'relative',
+          'z-index': 0,
+          display: 'block',
+          width: '100%',
+          height: '100%',
+        },
+        li: {
+          width: '100%',
+          position: 'absolute',
+          left: ' 0%',
+          top: '0%',
+        }
+      },
+      // projects: {
+      //   "8": {
+      //     name: "beiliya",
+      //     img: ""
+      //   },
+      //   "9": {
+      //     name: "dijia",
+      //     img: ""
+      //   },
+      //   "10": {
+      //     name: "sailuo",
+      //     img: ""
+      //   }
+      // },
+      //微信分享
+      wxShareInfoValue: {
+        title: "奥特曼",
+        desc: "奥特曼",
+        imgUrl: CDNURL + "/fe/image/altman/icon.png"
+      }
+    };
+  },
+  mounted() { },
+  methods: {
+
+  }
+};
+</script>
+<style lang="less" scoped>
+@imgurl: "http://cdn.exe666.com/fe/image/altman/";
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+* {
+  padding: 0;
+  text-align: center;
+  margin: 0 auto;
+  font-size: 0;
+}
+img {
+  max-width: 100%;
+  pointer-events: none;
+  user-select: none;
+}
+a {
+  display: inline-block;
+}
+.warp {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-x: hidden;
+  position: relative;
+  background-color: #1b1b1b;
+  .bg {
+    position: relative;
+    z-index: 0;
+  }
+  .groups {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    .the-honour {
+      position: absolute;
+      top: 0%;
+      left: 0%;
+      width: 100%;
+      height: 100%;
+      z-index: 9;
+      // li {
+      //   position: absolute !important;
+      //   top: 0%;
+      //   left: 0%;
+      // }
+      // .ul-list {
+      //   position: relative;
+      //   z-index: 0;
+      //   display: block;
+      //   width: 100%;
+      //   height: 100%;
+      //   // overflow: hidden;
+      //   .list-li {
+      //     width: 100%;
+      //     position: absolute;
+      //     left: 0%;
+      //     top: 0%;
+      //     img {
+      //       position: relative;
+      //     }
+      //   }
+      // }
+    }
+  }
+  .map {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    .tomap {
+      width: 25%;
+      display: inline-block;
+      position: absolute;
+      top: 58%;
+      right: 11%;
+      z-index: 99;
+      animation: bigger 0.6s linear infinite alternate;
+    }
+  }
+  .picture {
+    width: 100%;
+    padding-top: 8%;
+    padding-bottom: 12%;
+    position: relative;
+    .photo {
+      position: relative;
+      width: 64.1%;
+      border: solid 1px #000;
+      margin-left: -5%;
+    }
+    .tip {
+      width: 9.2%;
+      position: absolute;
+      top: 50%;
+      right: 6%;
+      transform: translateY(-50%);
+    }
+  }
+  .mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.65);
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    z-index: 999;
+  }
+}
+@keyframes bigger {
+  0% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(0.9);
+  }
+}
+</style>
+
+
