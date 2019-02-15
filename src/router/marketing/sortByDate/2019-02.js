@@ -42,6 +42,17 @@ const Date201902 = [
       desc: '贝利亚奥特曼'
     },
     isAbandoned: false
+  },
+  {
+    path: 'drc_daoshi',
+    location: '201902/drcDaoshi',
+    name: 'drc_daoshi',
+    meta: {
+      title: '大融城',
+      author: 'lipan',
+      desc: '大融城春天导视'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201902

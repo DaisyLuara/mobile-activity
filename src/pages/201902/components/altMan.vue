@@ -46,6 +46,24 @@
         class="tip"
       >
     </div>
+    <div
+      v-show="mask"
+      class="mask"
+    >
+      <div class="content">
+        <img
+          :src="base + '5.png'"
+          class="map"
+        >
+        <a
+          class="close"
+          @click="()=>{mask = false}"
+        >
+          <img :src="base + 'close.png'">
+        </a>
+      </div>
+
+    </div>
   </div>
 </template>
 <script>
@@ -220,6 +238,8 @@ a {
       width: 64.1%;
       border: solid 1px #000;
       margin-left: -5%;
+      pointer-events: auto;
+      user-select: auto;
     }
     .tip {
       width: 9.2%;
@@ -235,12 +255,33 @@ a {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.65);
+    background-color: rgba(0, 0, 0, 0.8);
     width: 100%;
     text-align: center;
     margin: 0;
     padding: 0;
     z-index: 999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .content {
+      width: 100%;
+      position: relative;
+      .map {
+        width: 100%;
+        position: relative;
+        z-index: 0;
+      }
+      .close {
+        width: 7.6%;
+        display: inline-block;
+        position: absolute;
+        top: 0%;
+        right: 5%;
+        z-index: 99;
+      }
+    }
   }
 }
 @keyframes bigger {
