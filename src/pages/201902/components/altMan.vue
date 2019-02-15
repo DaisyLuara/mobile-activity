@@ -62,7 +62,6 @@
           <img :src="base + 'close.png'">
         </a>
       </div>
-
     </div>
   </div>
 </template>
@@ -116,20 +115,6 @@ export default {
           top: '0%',
         }
       },
-      // projects: {
-      //   "8": {
-      //     name: "beiliya",
-      //     img: ""
-      //   },
-      //   "9": {
-      //     name: "dijia",
-      //     img: ""
-      //   },
-      //   "10": {
-      //     name: "sailuo",
-      //     img: ""
-      //   }
-      // },
       //微信分享
       wxShareInfoValue: {
         title: "万代TAMASHII NATIONS奥特曼英雄“魂”展首次空降上海",
