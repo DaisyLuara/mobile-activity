@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 const fetchActivityDetail = (_this, payload) => {
   const url = 'http://exelook.com/client/all/actinfo/'
   const params = {
@@ -98,4 +100,21 @@ const inShopActivityAward = (_this, payload) => {
   })
 }
 
-export { fetchShopActivityList, fetchActivityDetail, fetchShopActivityDetail, fetchShopActivityProgress, handleH5SaasVote, inShopActivityAward }
+// 0175.物件列表
+const fetchAllGoodsList = (payload) => {
+  const url = 'http://exelook.com/client/all/goods/'
+  const params = {
+    params: {
+      ...payload
+    }
+  }
+  return new Promise((resolve, reject) => {
+    axios.get(url, params).then(r => {
+      resolve(r)
+    }).catch(e => {
+      reject(e)
+    })
+  })
+}
+
+export { fetchShopActivityList, fetchActivityDetail, fetchShopActivityDetail, fetchShopActivityProgress, handleH5SaasVote, inShopActivityAward, fetchAllGoodsList }

@@ -81,7 +81,8 @@ export default {
         "lkf",
         "newDreamland",
         "happy_newYearTwo",
-        "TopicIndex"
+        "TopicIndex",
+        "ActivityBirthDayIndex"
       ],
       labels: ["话题", "照片", "活动", "弹幕", "商城", "卡包", "我的"],
       routes: [
