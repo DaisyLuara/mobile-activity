@@ -65,8 +65,7 @@ import {
   wechatShareTrack,
   Cookies,
   sendCoupon,
-  checkGetCoupon,
-  getConponMini
+  checkGetCoupon
 } from "services";
 const cdnUrl = process.env.CDN_URL;
 export default {
