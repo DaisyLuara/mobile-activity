@@ -3,19 +3,19 @@
     <div class="remind">请选择1至5个服务</div>
     <div class="chooses">
       <div 
-        :class="{'sub-item': !itemStatus[index], 'sub-item choosen': itemStatus[index], 'sub-item none': excludeNames.includes(itemNames[index])}" 
-        v-for="(item, index) in itemNames"
+        :class="{'sub-item': !item.status, 'sub-item choosen': item.status, 'sub-item none': excludeNames.includes(item.name)}" 
+        v-for="(item, index) in computedItems"
         :key="index"
-        @click="handleItemClick(index)"
+        @click="handleItemClick(item)"
       >
-          <div class="index-label" v-if="itemIndex[index] >0">
-            {{itemIndex[index]}}
+          <div class="index-label" v-if="item.cindex >0">
+            {{item.cindex}}
           </div>
           <div class="item-img">
-            <img :src="baseUrl + itemNames[index] + '-' + (itemStatus[index] ? '0' : '1') +'.svg'">
+            <img :src="baseUrl + item.name + '-' + (item.cindex ? '0' : '1') +'.svg'">
           </div>
-          <div :class="{'item-label': !itemStatus[index], 'item-label selected': itemStatus[index]}">
-            {{itemLabels[index]}}
+          <div :class="{'item-label': !item.status, 'item-label selected': item.status}">
+            {{item.label}}
           </div>
       </div>
     </div>
@@ -31,37 +31,68 @@ export default {
   data() {
     return {
       baseUrl: "https://cdn.exe666.com/fe/image/m/subscription/",
-      itemNames: [
-        "topic",
-        "photo",
-        "activity",
-        "barrage",
-        "mall",
-        "card",
-        "my"
+      // order means order in this page
+      // but not about orders in real menu
+      items: [
+        {
+          name: "topic",
+          label: "话题",
+          route: "TopicIndex",
+          status: false,
+          order: 8,
+          cindex: 0
+        },
+        {
+          name: "photo",
+          label: "我的照片",
+          route: "TrendsIndex",
+          status: false,
+          order: 2,
+          cindex: 0
+        },
+        {
+          name: "activity",
+          label: "热门活动",
+          route: "ActivityShop",
+          status: false,
+          order: 3,
+          cindex: 0
+        },
+        {
+          name: "barrage",
+          label: "弹幕",
+          route: "BarrageIndex",
+          status: false,
+          order: 4,
+          cindex: 0
+        },
+        {
+          name: "mall",
+          label: "商城",
+          route: "MallIndex",
+          status: false,
+          order: 5,
+          cindex: 0
+        },
+        {
+          name: "card",
+          label: "卡包",
+          route: "CardIndex",
+          status: false,
+          order: 6,
+          cindex: 0
+        },
+        {
+          name: "my",
+          label: "我的嗨屏",
+          route: "MyIndex",
+          status: false,
+          order: 7,
+          cindex: 0
+        }
       ],
       excludeNames: ["mall"],
-      itemLabels: [
-        "话题",
-        "我的照片",
-        "热门活动",
-        "弹幕",
-        "商城",
-        "卡包",
-        "我的嗨屏"
-      ],
-      itemStatus: Array(menuLength).fill(false),
-      itemIndex: Array(menuLength).fill(0),
-      currentIndex: 0,
-      routes: [
-        "TopicIndex",
-        "TrendsIndex",
-        "ActivityShop",
-        "BarrageIndex",
-        "MallIndex",
-        "CardIndex",
-        "MyIndex"
-      ]
+      currentIndex: 0
     };
   },
   components: {
@@ -70,63 +101,68 @@ export default {
   computed: {
     computedMenuCode() {
       let currentMenuCode = "";
-      this.itemIndex.map(i => {
-        currentMenuCode = currentMenuCode + i;
+      this.items.map(e => {
+        currentMenuCode = currentMenuCode + e.cindex;
       });
+      console.log(currentMenuCode);
       return parseInt(parseInt(currentMenuCode), 10).toString(32);
+    },
+    computedItems() {
+      let arrCopy = this.items.slice(0);
+      return arrCopy.sort((a, b) => {
+        return a.order - b.order;
+      });
     }
   },
   methods: {
-    handleItemClick(index) {
+    handleItemClick(item) {
       if (this.currentIndex >= 5) {
-        if (!this.itemStatus[index]) {
+        if (!item.cindex) {
           return;
         } else {
         }
       }
-      if (this.itemStatus[index] === false) {
+      if (!item.status) {
         this.currentIndex++;
-        this.itemIndex[index] = this.currentIndex;
-        let newIndex = this.itemIndex;
-        this.itemIndex = [];
+        item.cindex = this.currentIndex;
+        item.status = true;
+        let newIndex = this.items;
+        this.items = [];
         newIndex.map(i => {
-          this.itemIndex.push(i);
-        });
-        let newArr = this.itemStatus;
-        newArr[index] = true;
-        this.itemStatus = [];
-        newArr.map(i => {
-          this.itemStatus.push(i);
+          this.items.push(i);
         });
       } else {
         this.currentIndex--;
-        let flag = this.itemIndex[index];
-        this.itemIndex[index] = 0;
-        let newArr = this.itemStatus;
-        newArr[index] = false;
-        this.itemStatus = [];
+        let flag = item.cindex;
+        item.cindex = 0;
+        item.status = false;
+        let newArr = this.items;
+
+        this.items = [];
         newArr.map(i => {
-          this.itemStatus.push(i);
+          this.items.push(i);
         });
-        let newIndex = this.itemIndex.map((e, index) => {
-          if (e > 0) {
-            if (e > flag) {
-              e--;
+
+        let newIndex = this.items.map((e, index) => {
+          if (e.cindex > 0) {
+            if (e.cindex > flag) {
+              e.cindex--;
             }
           }
           return e;
         });
-        this.itemIndex = [];
+
+        this.items = [];
         newIndex.map(i => {
-          this.itemIndex.push(i);
+          this.items.push(i);
         });
       }
     },
     confirmPreview() {
       let name = "";
-      this.itemIndex.map((e, index) => {
-        if (e === 1) {
-          name = this.routes[index];
+      this.items.map((e, cindex) => {
+        if (e.cindex === 1) {
+          name = e.route;
         }
       });
       this.$router.push({
