@@ -48,8 +48,8 @@ export default {
         }
       },
       wxShareInfoValue: {
-        title: '大融城',
-        desc: '大融城',
+        title: '金猪送福 春暖花开',
+        desc: '点击领取 新年照片',
         link: 'http://papi.xingstation.com/api/s/27J' + window.location.search,
         imgUrl: CDNURL + '/fe/image/drcDaoshi/icon.png'
       }
