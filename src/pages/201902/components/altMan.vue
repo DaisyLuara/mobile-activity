@@ -46,6 +46,23 @@
         class="tip"
       >
     </div>
+    <div
+      v-show="mask"
+      class="mask"
+    >
+      <div class="content">
+        <img
+          :src="base + '5.png'"
+          class="map"
+        >
+        <a
+          class="close"
+          @click="()=>{mask = false}"
+        >
+          <img :src="base + 'close.png'">
+        </a>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -98,24 +115,10 @@ export default {
           top: '0%',
         }
       },
-      // projects: {
-      //   "8": {
-      //     name: "beiliya",
-      //     img: ""
-      //   },
-      //   "9": {
-      //     name: "dijia",
-      //     img: ""
-      //   },
-      //   "10": {
-      //     name: "sailuo",
-      //     img: ""
-      //   }
-      // },
       //微信分享
       wxShareInfoValue: {
-        title: "奥特曼",
-        desc: "奥特曼",
+        title: "万代TAMASHII NATIONS奥特曼英雄“魂”展首次空降上海",
+        desc: "一起参与现场互动游戏，赢得大量奥特曼系列礼品",
         imgUrl: CDNURL + "/fe/image/altman/icon.png"
       }
     };
@@ -220,6 +223,8 @@ a {
       width: 64.1%;
       border: solid 1px #000;
       margin-left: -5%;
+      pointer-events: auto;
+      user-select: auto;
     }
     .tip {
       width: 9.2%;
@@ -235,12 +240,33 @@ a {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.65);
+    background-color: rgba(0, 0, 0, 0.8);
     width: 100%;
     text-align: center;
     margin: 0;
     padding: 0;
     z-index: 999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .content {
+      width: 100%;
+      position: relative;
+      .map {
+        width: 100%;
+        position: relative;
+        z-index: 0;
+      }
+      .close {
+        width: 7.6%;
+        display: inline-block;
+        position: absolute;
+        top: 0%;
+        right: 5%;
+        z-index: 99;
+      }
+    }
   }
 }
 @keyframes bigger {

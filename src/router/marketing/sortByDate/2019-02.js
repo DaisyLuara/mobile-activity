@@ -15,7 +15,7 @@ const Date201902 = [
     location: '201902/sailuo',
     name: 'sailuo',
     meta: {
-      title: '塞罗奥特曼',
+      title: '奥特曼英雄“魂”展',
       author: 'lipan',
       desc: '塞罗奥特曼'
     },
@@ -26,7 +26,7 @@ const Date201902 = [
     location: '201902/dijia',
     name: 'dijia',
     meta: {
-      title: '迪迦奥特曼',
+      title: '奥特曼英雄“魂”展',
       author: 'lipan',
       desc: '迪迦奥特曼'
     },
@@ -37,9 +37,20 @@ const Date201902 = [
     location: '201902/beiliya',
     name: 'beiliya',
     meta: {
-      title: '贝利亚奥特曼',
+      title: '奥特曼英雄“魂”展',
       author: 'lipan',
       desc: '贝利亚奥特曼'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'drc_daoshi',
+    location: '201902/drcDaoshi',
+    name: 'drc_daoshi',
+    meta: {
+      title: '福猪闹春',
+      author: 'lipan',
+      desc: '大融城春天导视'
     },
     isAbandoned: false
   }
