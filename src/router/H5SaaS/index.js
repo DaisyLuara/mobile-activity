@@ -140,7 +140,7 @@ export const H5SaaSRouter = {
       meta: {
         title: '公司动态'
       },
-      component: () => import('@/pages/m/pages/activity/theme/birthday')
+      component: () => import('@/pages/m/pages/activity/theme/birthday/index')
     },
     {
       path: ':mkey/:mcode/activity/shop/birthday/cake',
@@ -148,7 +148,7 @@ export const H5SaaSRouter = {
       meta: {
         title: '发送蛋糕'
       },
-      component: () => import('@/pages/m/pages/activity/theme/cake')
+      component: () => import('@/pages/m/pages/activity/theme/birthday/cake')
     }
   ]
 }

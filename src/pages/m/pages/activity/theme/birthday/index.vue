@@ -90,6 +90,10 @@ export default {
 
 <style lang="less" scoped>
 @import "./mixin.less";
+* {
+  margin: 0;
+  padding: 0;
+}
 
 .birthday {
   .wrapper();
@@ -173,9 +177,6 @@ export default {
             line-height: 0.15rem;
             color: #BCBCBC;
             font-size: 0.11rem;
-            p {
-              margin: 0;
-            }
           }
           .trend-number {
             font-size: 0.11rem;
