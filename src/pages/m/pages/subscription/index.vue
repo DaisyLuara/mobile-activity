@@ -122,6 +122,8 @@ export default {
       this.items.map(e => {
         currentMenuCode = currentMenuCode + e.cindex;
       });
+      currentMenuCode = currentMenuCode.slice(0, -2);
+      // remove this line bellow when new item in menubar is ready
       console.log(currentMenuCode);
       return parseInt(parseInt(currentMenuCode), 10).toString(32);
     },

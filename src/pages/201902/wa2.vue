@@ -67,8 +67,10 @@ import {
   sendCoupon,
   checkGetCoupon
 } from "services";
+import { normalPages } from "@/mixins/normalPages";
 const cdnUrl = process.env.CDN_URL;
 export default {
+  mixins: [normalPages],
   data() {
     return {
       style: {
@@ -103,7 +105,7 @@ export default {
     this.handleForbiddenShare();
   },
   watch: {
-    parms() {
+    coupon_batch_id() {
       this.checkGetCoupon()
     }
   },
@@ -120,7 +122,6 @@ export default {
         window.location.href = redirct_url;
       } else {
         this.userId = Cookies.get("user_id");
-        this.checkGetCoupon();
       }
     },
     //禁止微信分享
