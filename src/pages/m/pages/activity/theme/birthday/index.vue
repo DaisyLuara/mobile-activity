@@ -1,130 +1,210 @@
 <template>
   <div class="birthday">
-    <div class="header">
-      <div class="white-space"></div>
-    </div>
     <div class="trends-wrapper">
-      <div class="item-wrapper">
-        <div class="trend-icon">
-          <p class="day">2</p>
-          <p class="week">Thu</p>
-          <img class="candle" src="https://cdn.exe666.com/m/activity/shop/birthday/candle.png" alt="candle">
-        </div>
-        <router-link :to="{ name: 'ActivityBirthDayCake', query: { acid: '24' } }" class="trend-info">
-          <div class="trend-banner-wrapper">
-            <!-- <img src="" alt=""> -->
-            <div class="trend-title">今天是 韩珂 的生日，祝他生日快乐吧</div>
+      <div class="month">{{ new Date().getMonth() + 1 }}月</div>
+      <md-scroll-view
+        ref="scrollView"
+        :scrolling-x="false"
+        @endReached="loadMore"
+      >
+        <div class="scroll-top"></div>
+        <div
+          class="item-wrapper"
+          v-for="(item, index) in trends"
+          :key="index"
+        >
+          <div class="trend-icon" :class="[item.type === 'birthday' ? 'birthday-icon' : '']">
+            <p class="day">{{ new Date(item.date).getDate() }}</p>
+            <p class="week">{{ weekday[new Date(item.date).getDay()] }}</p>
+            <img
+              class="candle"
+              src="https://cdn.exe666.com/m/activity/shop/birthday/candle.png"
+              v-if="item.type === 'birthday'"
+            >
           </div>
-          <div class="trend-detail">
-            <div class="trend-date">
-              <p>参与时间:</p>
-              <p>2019/1/23~2019/1/24</p>
+          <router-link
+            :to="{
+              name: 'ActivityBirthDayCake',
+              query: {
+                acid: '25'
+              } 
+            }"
+            class="trend-info"
+          >
+            <div class="trend-banner-wrapper">
+              <img :src="item.image">
+              <div class="trend-title">{{ item.title }}</div>
             </div>
-            <div class="trend-number">256人已参与</div>
-          </div>
-        </router-link>
-      </div>
+            <div class="trend-detail">
+              <div class="trend-date">
+                <p>参与时间:</p>
+                <p>{{ getTimeLimt(item.sdate, item.edate) }}</p>
+              </div>
+              <div class="trend-number">{{ item.nums }}人已参与</div>
+            </div>
+          </router-link>
+        </div>
+        <md-scroll-view-more
+          slot="more"
+          :is-finished="isAllLoaded"
+        >
+        </md-scroll-view-more>
+      </md-scroll-view>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import { fetchShopActivityProgress } from "services";
+import { mapGetters } from "vuex"
+import { ScrollView, ScrollViewMore } from 'mand-mobile'
+import { fetchShopActivityList } from "services"
+import moment from 'moment'
 
 export default {
   name: "ActivityBirthDayIndex",
+  components: {
+    [ScrollView.name]: ScrollView,
+    [ScrollViewMore.name]: ScrollViewMore,
+  },
   data() {
     return {
       trends: [],
-      isLoading: false,
       isAllLoaded: false,
       currentPage: 1,
-      firstFetch: false
-    };
+      firstFetch: false,
+      weekday: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+    }
   },
   computed: {
     ...mapGetters(["z"])
   },
   mounted() {
-    this.fetchList();
+    this.fetchList()
   },
   methods: {
-    fetchList() {
-      if (this.isLoading || this.isAllLoaded) {
-        return;
+    // 拉取祝福活动列表
+    fetchList () {
+      if (this.isAllLoaded) {
+        return
       }
       let payload = {
         api: "json",
         cp: this.currentPage,
-        size: 10,
-        awardkey: this.$route.query.awardkey,
-        z: this.z
-      };
-      fetchShopActivityProgress(this, payload)
-        .then(r => {
-          if (r.data.state !== "1") {
-            this.isAllLoaded = true;
-            return;
-          }
-          if (r.data.results.pageIndex >= r.data.results.totalPage) {
-            this.isAllLoaded = true;
-          }
-          let res = r.data.results.data;
-          this.isLoading = false;
-          this.trends = this.trends.concat(res);
-
-          this.currentPage++;
-        })
-        .catch(e => {
-          console.log(e);
-          this.isLoading = false;
-        })
-        .finally(() => {
-          this.firstFetch = true;
-        });
+        size: 5,
+        z: this.z,
+        allt: 'birthday',
+        mkey: this.$route.params.mkey,
+      }
+      const itemData = {
+        "acid": "25",
+        "title": "3.3星视度生日祝福",
+        "txt": "今日话题，等你来辩！",
+        "nums": "3",
+        "image": "http://image.exe666.com/1007/image/939_birthday1.png",
+        "video": null,
+        "awardkey": "9smn38kb9g4529cw1lq49h6h",
+        "infolink": "http://cdn.exe666.com/1007/other/b7065882530f7a720af28d7d70524ba8.html",
+        "pslink": null,
+        "pass": "1",
+        "date": "2019-02-13 18:03:56",
+        "clientdate": "1550052236000",
+        "aname": "3月3生日祝福",
+        "aicon": "http://image.exe666.com/1007/image/775_birthday2.png",
+        "sdate": "1549987201",
+        "edate": "1581609599",
+        "passed": "forever",
+        "type": "birthday",
+        "value_mode": "most",
+        "user_per": "0",
+        "xid": "0"
+      }
+      setTimeout(() => {
+        for (let i = 0;i < 5; i++) {
+          this.trends.push(itemData)
+        }
+        if (this.trends.length > 20) {
+          this.isAllLoaded = true
+        }
+        this.$refs.scrollView.finishLoadMore()
+      }, 1000)
+      // fetchShopActivityList(this, payload)
+      //   .then(r => {
+      //     if (r.data.state !== "1") {
+      //       this.isAllLoaded = true
+      //       return
+      //     }
+      //     if (r.data.results.pageIndex >= r.data.results.totalPage) {
+      //       this.isAllLoaded = true
+      //     }
+      //     let res = r.data.results.data
+      //     this.trends = this.trends.concat(res)
+      //     this.currentPage++;
+      //   })
+      //   .catch(e => {
+      //     console.log(e)
+      //   })
+      //   .finally(() => {
+      //     this.$refs.scrollView.finishLoadMore()
+      //   })
+    },
+    // 加载更多
+    loadMore () {
+      setTimeout(() => {
+        this.fetchList()
+      }, 2000)
+    },
+    // 获取活动起始时间
+    getTimeLimt (s, e) {
+      const start = moment(Number(s)).format('YYYY-M-D')
+      const end = moment(Number(e)).format('YYYY-M-D')
+      return `${start}~${end}`
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>
 @import "./mixin.less";
-* {
-  margin: 0;
-  padding: 0;
-}
 
 .birthday {
   .wrapper();
-  .header {
+  background: #28264E;
+  .trends-wrapper {
     position: absolute;
     top: 0;
+    bottom: 48px;
     width: 100%;
-    background: #28264E;
-    .white-space {
-      width: 100%;
-      height: 0.25rem;
-      background: #F2F2F2;
-      border-radius: 0.25rem 0.25rem 0 0;
+    padding: 0 0.1rem 0 0.03rem;
+    border-radius: 0.25rem 0.25rem 0 0;
+    background: #F2F2F2;
+    overflow: hidden;
+    .month {
+      font-size: 0.58rem;
+      color: #E7E7E7;
+      line-height: 0.52rem;
+      position: absolute;
+      top: 0.44rem;
+      right: 0.1rem;
     }
-  }
-  .trends-wrapper {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    padding: 0.74rem 0.1rem 0 0.03rem;
+    .scroll-top {
+      width: 100%;
+      height: 0.74rem;
+    }
     .item-wrapper {
       width: 100%;
       display: flex;
+      margin-bottom: 0.1rem;
       .trend-icon {
         width: 0.54rem;
         height: 0.68rem;
         margin-right: 0.06rem;
         padding-top: 0.04rem;
-        background: url(https://cdn.exe666.com/m/activity/shop/birthday/red-icon.png) no-repeat;
+        background: url(https://cdn.exe666.com/m/activity/shop/birthday/black-icon.png) no-repeat;
         background-size: 100% 100%;
+        &.birthday-icon {
+          background: url(https://cdn.exe666.com/m/activity/shop/birthday/red-icon.png) no-repeat;
+          background-size: 100% 100%;
+        }
         .day, .week {
           color: #FFF;
           text-align: center;
@@ -154,6 +234,11 @@ export default {
           background-color: #FE556F;
           border-radius: 0.1rem;
           overflow: hidden;
+          img {
+            display: block;
+            width: 100%;
+            height: 100%;
+          }
           .trend-title {
             position: absolute;
             left: 0;
@@ -191,5 +276,11 @@ export default {
       }
     }
   }
+}
+.md-scroll-view {
+  background: transparent;
+}
+.md-scroll-view-more {
+  font-size: 0.15rem;
 }
 </style>

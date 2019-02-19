@@ -117,4 +117,21 @@ const fetchAllGoodsList = (payload) => {
   })
 }
 
-export { fetchShopActivityList, fetchActivityDetail, fetchShopActivityDetail, fetchShopActivityProgress, handleH5SaasVote, inShopActivityAward, fetchAllGoodsList }
+// 0176.H5 发表祝福
+const sendGreetings = (payload) => {
+  const url = 'http://exelook.com/client/h5/birthday/'
+  const params = {
+    params: {
+      ...payload
+    }
+  }
+  return new Promise((resolve, reject) => {
+    axios.get(url, params).then(r => {
+      resolve(r)
+    }).catch(e => {
+      reject(e)
+    })
+  })
+}
+
+export { fetchShopActivityList, fetchActivityDetail, fetchShopActivityDetail, fetchShopActivityProgress, handleH5SaasVote, inShopActivityAward, fetchAllGoodsList, sendGreetings }

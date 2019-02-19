@@ -71,6 +71,9 @@ export default {
         let resp = await fetchAllGoodsList(payload)
         if (resp.data.state === '1') {
           this.cakeList = resp.data.results.data
+          if (this.cakeList.length === 0) {
+            return
+          }
           // 初始化swiper实例
           this.$nextTick(() => {
             this.swiperThumbs = new Swiper('#cakeSwiperThumbs', {

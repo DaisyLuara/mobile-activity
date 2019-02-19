@@ -51,6 +51,7 @@ export default {
   data() {
     return {
       labelImg: [
+        "https://cdn.exe666.com/fe/image/m/btn_sale_normal@3x.png",
         "https://cdn.exe666.com/fe/image/m/btn_topic.png",
         "https://cdn.exe666.com/fe/image/m/btn_photo_normal@3x.png",
         "https://cdn.exe666.com/fe/image/m/btn_sale_normal@3x.png",
@@ -60,6 +61,7 @@ export default {
         "https://cdn.exe666.com/fe/image/m/btn_my_normal@3x.png"
       ],
       labelImgPressed: [
+        "https://cdn.exe666.com/fe/image/m/btn_sale_pressed@3x.png",
         "https://cdn.exe666.com/fe/image/m/btn_topic_pressed.png",
         "https://cdn.exe666.com/fe/image/m/btn_photo_pressed@3x.png",
         "https://cdn.exe666.com/fe/image/m/btn_sale_pressed@3x.png",
@@ -84,8 +86,9 @@ export default {
         "TopicIndex",
         "ActivityBirthDayIndex"
       ],
-      labels: ["话题", "照片", "活动", "弹幕", "商城", "卡包", "我的"],
+      labels: ["祝福", "话题", "照片", "活动", "弹幕", "商城", "卡包", "我的"],
       routes: [
+        "ActivityBirthDayIndex",
         "TopicIndex",
         "TrendsIndex",
         "ActivityShop",

@@ -5,7 +5,7 @@
       <div class="front-word">蛋糕搭配</div>
     </div>
     <!-- 蛋糕样式选择区域 -->
-    <CakeSwiper/>
+    <CakeSwiper ref="cakeSwiper"/>
     <div class="bottom"></div>
     <!-- 生日祝福输入区域 -->
     <div class="greetings-area">
@@ -15,7 +15,7 @@
         v-model="greetings"
         class="greetings-input"
       ></textarea>
-      <div class="submit-btn" @click="sendGreetings">
+      <div class="submit-btn" @click="handleSendGreetings">
         <img src="https://cdn.exe666.com/m/activity/shop/birthday/submit-button.png">
       </div>
     </div>
@@ -24,7 +24,9 @@
 
 <script>
 import CakeSwiper from "@/pages/m/components/Birthday/CakeSwiper"
+import { sendGreetings } from "services"
 import { mapGetters } from "vuex"
+import { Toast } from "mint-ui"
 
 export default {
   name: "ActivityBirthDayCake",
@@ -33,7 +35,8 @@ export default {
   },
   data () {
     return {
-      greetings: ""
+      greetings: "",
+      isSending: false
     }
   },
   computed: {
@@ -43,8 +46,36 @@ export default {
 
   },
   methods: {
-    async sendGreetings () {
-
+    async handleSendGreetings () {
+      const cakeList = this.$refs.cakeSwiper.cakeList
+      const cakeSwiper = this.$refs.cakeSwiper.swiperTop
+      if (!cakeSwiper || !this.greetings || this.isSending) {
+        return
+      }
+      const cakeId = cakeList[cakeSwiper.activeIndex].id
+      let { acid } = this.$route.query
+      const payload = {
+        api: 'json',
+        z: this.z,
+        comment: this.greetings,
+        id: cakeId,
+        actid: acid
+      }
+      this.isSending = true
+      try {
+        let resp = await sendGreetings(payload)
+        if (resp.data.state === "1") {
+          Toast("发送成功")
+          this.greetings = ''
+        } else {
+          Toast(String(r.data.results))
+        }
+      } catch (e) {
+        console.log(e)
+        Toast("网络错误")
+      } finally {
+        this.isSending = false
+      }
     }
   }
 }
