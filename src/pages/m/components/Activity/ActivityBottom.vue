@@ -57,7 +57,8 @@ export default {
         alltop: "ActivityShopAllTopProgress",
         game: "ActivityShopGameProgress",
         honour: "MyAchivement",
-        options: "ActivityTopic"
+        options: "ActivityTopic",
+        birthday: "ActivityBirthDay"
       }
     };
   },

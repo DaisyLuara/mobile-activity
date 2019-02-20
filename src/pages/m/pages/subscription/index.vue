@@ -91,22 +91,20 @@ export default {
           cindex: 0
         },
         {
-          name: "birthday",
-          label: "生日祝福",
-          route: "6d7143ab847f2d24c131",
-          status: false,
-          order: 8,
-          cindex: 0,
-          notFinished: true
-        },
-        {
           name: "company",
           label: "企业动态",
-          route: "",
+          route: "ActivityBirthDayIndex",
+          status: false,
+          order: 8,
+          cindex: 0
+        },
+        {
+          name: "birthday",
+          label: "生日祝福",
+          route: "ActivityBirthDayCake",
           status: false,
           order: 9,
-          cindex: 0,
-          notFinished: true
+          cindex: 0
         }
       ],
       excludeNames: ["mall"],
@@ -122,7 +120,7 @@ export default {
       this.items.map(e => {
         currentMenuCode = currentMenuCode + e.cindex;
       });
-      currentMenuCode = currentMenuCode.slice(0, -2);
+      // currentMenuCode = currentMenuCode.slice(0, -1);
       // remove this line bellow when new item in menubar is ready
       console.log(currentMenuCode);
       return parseInt(parseInt(currentMenuCode), 10).toString(32);
