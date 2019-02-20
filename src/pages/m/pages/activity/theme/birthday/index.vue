@@ -22,13 +22,8 @@
               v-if="item.type === 'birthday'"
             >
           </div>
-          <router-link
-            :to="{
-              name: 'ActivityBirthDayCake',
-              query: {
-                acid: '25'
-              } 
-            }"
+          <div
+            @click="handleNaviToActivity(item)"
             class="trend-info"
           >
             <div class="trend-banner-wrapper">
@@ -43,7 +38,7 @@
               </div>
               <div class="trend-number">{{ item.nums }}人已参与</div>
             </div>
-          </router-link>
+          </div>
         </div>
         <!-- <md-scroll-view-more
           slot="more"
@@ -191,6 +186,19 @@ export default {
       // setTimeout(() => {
       //   this.fetchList()
       // }, 2000)
+    },
+    handleNaviToActivity (item) {
+      if (item.type === 'birthday') {
+        this.$router.push({
+          name: 'ActivityBirthDayCake',
+          params: {
+            mkey: this.$route.params.mkey
+          },
+          query: {
+            acid: item.acid
+          }
+        })
+      }
     },
     // 获取活动起始时间
     getTimeLimt (s, e) {

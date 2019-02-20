@@ -178,7 +178,7 @@ textarea::-ms-input-placeholder {
 .greetings-area {
   width: 3.41rem;
   padding: 0.2rem 0 0.1rem;
-  margin: 0 auto;
+  margin: 0 auto 48px;
   transform: translateY(0.2rem);
   background: #FFF;
   border-radius: 0.2rem;

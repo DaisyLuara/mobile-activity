@@ -58,6 +58,7 @@ export default {
         "https://cdn.exe666.com/fe/image/m/btn_mall_normal@3x.png",
         "https://cdn.exe666.com/fe/image/m/btn_card_normal@3x.png",
         "https://cdn.exe666.com/fe/image/m/btn_my_normal@3x.png",
+        "https://cdn.exe666.com/fe/image/m/btn_company.png",
         "https://cdn.exe666.com/fe/image/m/btn_company.png"
       ],
       labelImgPressed: [
@@ -68,6 +69,7 @@ export default {
         "https://cdn.exe666.com/fe/image/m/btn_mall_pressed@3x.png",
         "https://cdn.exe666.com/fe/image/m/btn_card_pressed@3x.png",
         "https://cdn.exe666.com/fe/image/m/btn_my_pressed@3x.png",
+        "https://cdn.exe666.com/fe/image/m/btn_company_pressed.png",
         "https://cdn.exe666.com/fe/image/m/btn_company_pressed.png"
       ],
       showRoutes: [
@@ -84,9 +86,10 @@ export default {
         "newDreamland",
         "happy_newYearTwo",
         "TopicIndex",
-        "ActivityBirthDayIndex"
+        "ActivityBirthDayIndex",
+        "ActivityBirthDayCake"
       ],
-      labels: ["话题", "照片", "活动", "弹幕", "商城", "卡包", "我的", "祝福"],
+      labels: ["话题", "照片", "活动", "弹幕", "商城", "卡包", "我的", "公司动态", "祝福"],
       routes: [
         "TopicIndex",
         "TrendsIndex",
@@ -95,7 +98,8 @@ export default {
         "MallIndex",
         "CardIndex",
         "MyIndex",
-        "ActivityBirthDayIndex"
+        "ActivityBirthDayIndex",
+        "ActivityBirthDayCake"
       ]
     };
   },
@@ -191,7 +195,7 @@ export default {
   }
   .bitem {
     height: 100%;
-    width: 30px;
+    // width: 30px;
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
