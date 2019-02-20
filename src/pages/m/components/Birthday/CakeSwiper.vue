@@ -57,11 +57,11 @@ export default {
       swiperThumbs: null
     };
   },
-  created() {
-    this.fetchCakeList();
-  },
   computed: {
     ...mapGetters(["z"])
+  },
+  created() {
+    this.fetchCakeList();
   },
   mounted() {},
   methods: {
