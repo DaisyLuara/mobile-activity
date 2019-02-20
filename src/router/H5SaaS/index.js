@@ -135,6 +135,22 @@ export const H5SaaSRouter = {
       component: () => import('@/pages/m/pages/activity/theme/topic')
     },
     {
+      path: ':mkey/:mcode/activity/shop/birthday',
+      name: 'ActivityBirthDayIndex',
+      meta: {
+        title: '公司动态'
+      },
+      component: () => import('@/pages/m/pages/activity/theme/birthday/index')
+    },
+    {
+      path: ':mkey/:mcode/activity/shop/birthday/cake',
+      name: 'ActivityBirthDayCake',
+      meta: {
+        title: '发送蛋糕'
+      },
+      component: () => import('@/pages/m/pages/activity/theme/birthday/cake')
+    },
+    {
       path: ':mkey/6d7143ab847f2d24c131',
       name: '6d7143ab847f2d24c131',
       meta: {

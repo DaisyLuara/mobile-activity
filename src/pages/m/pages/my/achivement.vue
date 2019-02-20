@@ -38,6 +38,9 @@ import ActivityThemeGameBottom from "@/pages/m/components/Activity/ActivityTheme
 
 export default {
   name: "MyAchivement",
+  components: {
+    ActivityThemeGameBottom
+  },
   data() {
     return {
       bindBottomDistance: 0,
@@ -49,9 +52,6 @@ export default {
       trends: [],
       fixedTitle: "我解锁的成就"
     };
-  },
-  components: {
-    ActivityThemeGameBottom
   },
   computed: {
     ...mapGetters(["z"]),

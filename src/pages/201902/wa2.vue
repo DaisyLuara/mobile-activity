@@ -92,6 +92,11 @@ export default {
       toright: false
     };
   },
+  watch: {
+    coupon_batch_id() {
+      this.checkGetCoupon()
+    }
+  },
   mounted() {
     //微信授权
     if (isInWechat() === true) {
@@ -103,11 +108,6 @@ export default {
       }
     }
     this.handleForbiddenShare();
-  },
-  watch: {
-    coupon_batch_id() {
-      this.checkGetCoupon()
-    }
   },
   methods: {
     //微信静默授权
