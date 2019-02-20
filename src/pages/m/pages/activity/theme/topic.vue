@@ -6,13 +6,17 @@
       class="main-photo"
     >
     <div class="progress">
-      <img :src="avatar" class="avatar"/>
+      <img 
+        :src="avatar" 
+        class="avatar">
       <div class="text">
-        答辩: {{computedProgress}}/{{calLenth}}题
+        答辩: {{ computedProgress }}/{{ calLenth }}题
       </div>
     </div>
     
-    <TopicModule @onProgressCal="calprogress" @onCalLength="calLenth"/>
+    <TopicModule 
+      @onProgressCal="calprogress" 
+      @onCalLength="calLenth"/>
     <ActivityThemeGameBottom :show="shouldButtonShow"/>
   </div>
 </template>
@@ -23,6 +27,10 @@ import ActivityThemeGameBottom from "@/pages/m/components/Activity/ActivityTheme
 import { fetchActivityDetail } from "services";
 import { mapGetters } from "vuex";
 export default {
+  components: {
+    TopicModule,
+    ActivityThemeGameBottom
+  },
   data() {
     return {
       arr: [],
@@ -30,10 +38,6 @@ export default {
         image: ""
       }
     };
-  },
-  components: {
-    TopicModule,
-    ActivityThemeGameBottom
   },
   computed: {
     ...mapGetters(["avatar", "z"]),

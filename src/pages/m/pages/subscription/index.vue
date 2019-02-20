@@ -3,24 +3,30 @@
     <div class="remind">请选择1至5个服务</div>
     <div class="chooses">
       <div 
-        :class="{'sub-item': !item.status, 'sub-item choosen': item.status, 'sub-item none': excludeNames.includes(item.name), 'sub-item notf': item.notFinished}" 
-        v-for="(item, index) in computedItems"
+        v-for="(item, index) in computedItems" 
+        :class="{'sub-item': !item.status, 'sub-item choosen': item.status, 'sub-item none': excludeNames.includes(item.name), 'sub-item notf': item.notFinished}"
         :key="index"
         @click="handleItemClick(item)"
       >
-          <div class="index-label" v-if="item.cindex >0">
-            {{item.cindex}}
-          </div>
-          <div class="item-img">
-            <img :src="baseUrl + item.name + '-' + (item.cindex ? '0' : '1') +'.svg'">
-          </div>
-          <div :class="{'item-label': !item.status, 'item-label selected': item.status}">
-            {{item.label}}
-          </div>
+        <div 
+          v-if="item.cindex >0" 
+          class="index-label">
+          {{ item.cindex }}
+        </div>
+        <div class="item-img">
+          <img :src="baseUrl + item.name + '-' + (item.cindex ? '0' : '1') +'.svg'">
+        </div>
+        <div :class="{'item-label': !item.status, 'item-label selected': item.status}">
+          {{ item.label }}
+        </div>
       </div>
     </div>
-    <div class="confirm" @click="confirmPreview">预览页面</div>
-    <BottomBar :replaceMode="'preview'" :replaceMenuCode="computedMenuCode"/>
+    <div 
+      class="confirm" 
+      @click="confirmPreview">预览页面</div>
+    <BottomBar 
+      :replace-mode="'preview'" 
+      :replace-menu-code="computedMenuCode"/>
   </div>
 </template>
 
@@ -28,6 +34,9 @@
 const menuLength = 7;
 import BottomBar from "@/pages/m/components/Static/BottomBar";
 export default {
+  components: {
+    BottomBar
+  },
   data() {
     return {
       baseUrl: "https://cdn.exe666.com/fe/image/m/subscription/",
@@ -110,9 +119,6 @@ export default {
       excludeNames: ["mall"],
       currentIndex: 0
     };
-  },
-  components: {
-    BottomBar
   },
   computed: {
     computedMenuCode() {

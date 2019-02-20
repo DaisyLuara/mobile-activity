@@ -7,24 +7,26 @@
         :scrolling-x="false"
         @endReached="loadMore"
       >
-        <div class="scroll-top"></div>
+        <div class="scroll-top"/>
         <div
-          class="item-wrapper"
           v-for="(item, index) in trends"
           :key="index"
+          class="item-wrapper"
         >
-          <div class="trend-icon" :class="[item.type === 'birthday' ? 'birthday-icon' : '']">
+          <div 
+            :class="[item.type === 'birthday' ? 'birthday-icon' : '']" 
+            class="trend-icon">
             <p class="day">{{ new Date(item.date).getDate() }}</p>
             <p class="week">{{ weekday[new Date(item.date).getDay()] }}.</p>
             <img
+              v-if="item.type === 'birthday'"
               class="candle"
               src="https://cdn.exe666.com/m/activity/shop/birthday/candle.png"
-              v-if="item.type === 'birthday'"
             >
           </div>
           <div
-            @click="handleNaviToActivity(item)"
             class="trend-info"
+            @click="handleNaviToActivity(item)"
           >
             <div class="trend-banner-wrapper">
               <img :src="item.image">
@@ -34,7 +36,7 @@
               <div class="trend-date">
                 <!-- <p>参与时间:</p>
                 <p>{{ getTimeLimt(item.sdate, item.edate) }}</p> -->
-                <p v-html="item.txt"></p>
+                <p v-html="item.txt"/>
               </div>
               <div class="trend-number">{{ item.nums }}人已参与</div>
             </div>

@@ -7,16 +7,18 @@
       </div>
       <!-- 蛋糕样式选择区域 -->
       <CakeSwiper ref="cakeSwiper"/>
-      <div class="bottom"></div>
+      <div class="bottom"/>
       <!-- 生日祝福输入区域 -->
       <div class="greetings-area">
         <textarea
+          v-model="greetings"
           maxlength="14"
           placeholder="输入你对ta的生日祝福..."
-          v-model="greetings"
           class="greetings-input"
-        ></textarea>
-        <div class="submit-btn" @click="handleSendGreetings">
+        />
+        <div 
+          class="submit-btn" 
+          @click="handleSendGreetings">
           <img src="https://cdn.exe666.com/m/activity/shop/birthday/submit-button.png">
         </div>
       </div>
