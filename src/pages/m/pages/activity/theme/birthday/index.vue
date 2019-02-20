@@ -1,7 +1,7 @@
 <template>
   <div class="birthday">
     <div class="trends-wrapper">
-      <div class="month">{{ new Date().getMonth() + 1 }}月</div>
+      <div class="month">{{ month }}月</div>
       <md-scroll-view
         ref="scrollView"
         :scrolling-x="false"
@@ -16,8 +16,8 @@
           <div 
             :class="[item.type === 'birthday' ? 'birthday-icon' : '']" 
             class="trend-icon">
-            <p class="day">{{ new Date(item.date).getDate() }}</p>
-            <p class="week">{{ weekday[new Date(item.date).getDay()] }}.</p>
+            <p class="day">{{ getDay(item.date) }}</p>
+            <p class="week">{{ getWeek(item.date) }}.</p>
             <img
               v-if="item.type === 'birthday'"
               class="candle"
@@ -144,7 +144,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["z"])
+    ...mapGetters(["z"]),
+    month () {
+      return new Date().getMonth() + 1
+    }
   },
   mounted() {
     // this.fetchList()
@@ -207,6 +210,12 @@ export default {
       const start = moment(Number(s + '000')).format('YYYY-M-D')
       const end = moment(Number(e + '000')).format('YYYY-M-D')
       return `${start}~${end}`
+    },
+    getWeek (date) {
+      return this.weekday[new Date(date).getDay()]
+    },
+    getDay (date) {
+      return new Date(date).getDate()
     }
   }
 }
