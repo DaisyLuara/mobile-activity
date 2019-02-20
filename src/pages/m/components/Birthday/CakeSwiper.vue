@@ -1,29 +1,39 @@
 <template>
   <div class="cake-wrapper">
     <div v-if="cakeList.length > 0">
-      <div class="cake-swiper-bg"></div>
-      <div class="swiper-container gallery-top" id="cakeSwiperTop">
+      <div class="cake-swiper-bg"/>
+      <div 
+        id="cakeSwiperTop" 
+        class="swiper-container gallery-top">
         <div class="swiper-wrapper">
-          <div class="swiper-slide"
+          <div 
             v-for="item in cakeList"
             :key="item.id"
+            class="swiper-slide"
           >
             <div class="cake-top-wrapper">
-              <img :src="item.image" class="cake-top-img">
+              <img 
+                :src="item.image" 
+                class="cake-top-img">
             </div>
           </div>
         </div>
-        <div class="swiper-button-next button-next-cake"></div>
-        <div class="swiper-button-prev button-prev-cake"></div>
+        <div class="swiper-button-next button-next-cake"/>
+        <div class="swiper-button-prev button-prev-cake"/>
       </div>
-      <div class="swiper-container gallery-thumbs" id="cakeSwiperThumbs">
+      <div 
+        id="cakeSwiperThumbs" 
+        class="swiper-container gallery-thumbs">
         <div class="swiper-wrapper">
-          <div class="swiper-slide"
+          <div 
             v-for="item in cakeList"
             :key="item.id"
+            class="swiper-slide"
           >
             <div class="cake-thumbs-wrapper">
-              <img :src="item.image" class="cake-thumbs-img">
+              <img 
+                :src="item.image" 
+                class="cake-thumbs-img">
             </div>
           </div>
         </div>
@@ -33,77 +43,74 @@
 </template>
 
 <script>
-import 'swiper/dist/css/swiper.css'
-import Swiper from 'swiper'
-import { mapGetters } from "vuex"
-import { fetchAllGoodsList } from "services"
+import "swiper/dist/css/swiper.css";
+import Swiper from "swiper/dist/js/swiper.js";
+import { mapGetters } from "vuex";
+import { fetchAllGoodsList } from "services";
 
 export default {
-  data () {
+  components: {},
+  data() {
     return {
       cakeList: [],
       swiperTop: null,
       swiperThumbs: null
-    }
+    };
   },
-  components: {},
-  created () {
-    this.fetchCakeList()
+  created() {
+    this.fetchCakeList();
   },
   computed: {
     ...mapGetters(["z"])
   },
-  mounted () {
-    
-  },
+  mounted() {},
   methods: {
     // 拉取蛋糕列表
-    async fetchCakeList () {
+    async fetchCakeList() {
       const payload = {
-        api: 'json',
+        api: "json",
         z: this.z,
         gid: 0,
-        type: 'cake',
+        type: "cake",
         cp: 1,
         size: 5
-      }
+      };
       try {
-        let resp = await fetchAllGoodsList(payload)
-        if (resp.data.state === '1') {
-          this.cakeList = resp.data.results.data
+        let resp = await fetchAllGoodsList(payload);
+        if (resp.data.state === "1") {
+          this.cakeList = resp.data.results.data;
           if (this.cakeList.length === 0) {
-            return
+            return;
           }
           // 初始化swiper实例
           this.$nextTick(() => {
-            this.swiperThumbs = new Swiper('#cakeSwiperThumbs', {
-              spaceBetween: '4.2%',
-              slidesPerView: 'auto',
+            this.swiperThumbs = new Swiper("#cakeSwiperThumbs", {
+              spaceBetween: "4.2%",
+              slidesPerView: "auto",
               freeMode: true,
               watchSlidesVisibility: true,
               watchSlidesProgress: true
-            })
-            this.swiperTop = new Swiper('#cakeSwiperTop', {
+            });
+            this.swiperTop = new Swiper("#cakeSwiperTop", {
               navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev'
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev"
               },
               thumbs: {
                 swiper: this.swiperThumbs
               }
-            })
-          })
+            });
+          });
         }
       } catch (e) {
-        console.log(e)
+        console.log(e);
       }
     }
   }
-}
+};
 </script>
 
 <style scoped lang="less">
-
 .cake-wrapper {
   position: relative;
   min-height: 3.6rem;
@@ -112,7 +119,7 @@ export default {
   width: 2.76rem;
   height: 2.76rem;
   border-radius: 50%;
-  background: #FE556F;
+  background: #fe556f;
   position: absolute;
   top: 0;
   left: 50%;
@@ -131,10 +138,12 @@ export default {
       margin: 0 auto;
     }
   }
-  .button-next-cake, .button-prev-cake {
+  .button-next-cake,
+  .button-prev-cake {
     width: 0.45rem;
     height: 0.51rem;
-    background: url(https://cdn.exe666.com/m/activity/shop/birthday/arrow-2.png) no-repeat;
+    background: url(https://cdn.exe666.com/m/activity/shop/birthday/arrow-2.png)
+      no-repeat;
     background-size: 100% 100%;
     position: absolute;
     top: 50%;
@@ -158,7 +167,7 @@ export default {
       height: 100%;
       padding: 0.11rem 0.11rem 0.12rem 0.11rem;
       border-radius: 50%;
-      background: #E4E4E4;
+      background: #e4e4e4;
       .cake-thumbs-img {
         display: block;
         width: 0.42rem;
@@ -167,10 +176,9 @@ export default {
     }
     &.swiper-slide-thumb-active {
       .cake-thumbs-wrapper {
-        background-color: #FE556F;
+        background-color: #fe556f;
       }
     }
   }
 }
-
 </style>

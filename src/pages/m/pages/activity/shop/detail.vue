@@ -10,7 +10,7 @@
     <!-- <div class="start-time">开始时间: {{ startTime }}</div>
     <div class="end-time">结束时间: {{ endTime }}</div> -->
     <div class="time">
-      活动时间:  <span class="red"> {{startTime}} 至 {{ endTime }}</span>
+      活动时间:  <span class="red"> {{ startTime }} 至 {{ endTime }}</span>
     </div>
     <div
       class="info"

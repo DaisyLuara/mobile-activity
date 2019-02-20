@@ -1,6 +1,6 @@
 <template>
   <div class="activity-nums">
-    参与人数: {{computedNums}}
+    参与人数: {{ computedNums }}
   </div>  
 </template>
 
