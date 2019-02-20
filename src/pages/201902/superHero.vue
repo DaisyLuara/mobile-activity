@@ -30,8 +30,8 @@ export default {
         }
       },
       wxShareInfoValue: {
-        title: '超级英雄',
-        desc: '超级英雄',
+        title: '刷脸测一测，你的隐藏超级英雄属性是？',
+        desc: '拯救地球的重担，今后就交给你了！',
         link: 'http://papi.xingstation.com/api/s/3yr' + window.location.search,
         imgUrl: CDNURL + '/fe/image/superHero/icon.jpg'
       }
