@@ -151,18 +151,9 @@ export default {
   },
   computed: {
     ...mapGetters(["z"]),
-    month() {
-      return new Date().getMonth() + 1;
-    },
-    getDay() {
-      return function(date) {
-        return new Date(date).getDate();
-      };
-    },
-    getWeek() {
-      return function(date) {
-        return this.weekday[new Date(date).getDay()];
-      };
+    month () {
+      // return new Date().getMonth() + 1
+      return moment().month() + 1
     }
   },
   mounted() {
@@ -222,10 +213,18 @@ export default {
       }
     },
     // 获取活动起始时间
-    getTimeLimt(s, e) {
-      const start = moment(Number(s + "000")).format("YYYY-M-D");
-      const end = moment(Number(e + "000")).format("YYYY-M-D");
-      return `${start}~${end}`;
+    getTimeLimt (s, e) {
+      const start = moment(Number(s + '000')).format('YYYY-M-D')
+      const end = moment(Number(e + '000')).format('YYYY-M-D')
+      return `${start}~${end}`
+    },
+    getWeek (date) {
+      // return this.weekday[new Date(date).getDay()]
+      return this.weekday[moment(date).day()]
+    },
+    getDay (date) {
+      // return new Date(date).getDate()
+      return moment(date).date()
     }
     // getWeek(date) {
     //   return this.weekday[new Date(date).getDay()];
