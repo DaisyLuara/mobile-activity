@@ -91,17 +91,17 @@ export default {
           cindex: 0
         },
         {
-          name: "birthday",
-          label: "生日祝福",
+          name: "company",
+          label: "企业动态",
           route: "ActivityBirthDayIndex",
           status: false,
           order: 8,
           cindex: 0
         },
         {
-          name: "company",
-          label: "企业动态",
-          route: "",
+          name: "birthday",
+          label: "生日祝福",
+          route: "ActivityBirthDayCake",
           status: false,
           order: 9,
           cindex: 0
