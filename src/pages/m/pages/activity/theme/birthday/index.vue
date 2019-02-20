@@ -146,7 +146,8 @@ export default {
   computed: {
     ...mapGetters(["z"]),
     month () {
-      return new Date().getMonth() + 1
+      // return new Date().getMonth() + 1
+      return moment().month() + 1
     }
   },
   mounted() {
@@ -212,10 +213,12 @@ export default {
       return `${start}~${end}`
     },
     getWeek (date) {
-      return this.weekday[new Date(date).getDay()]
+      // return this.weekday[new Date(date).getDay()]
+      return this.weekday[moment(date).day()]
     },
     getDay (date) {
-      return new Date(date).getDate()
+      // return new Date(date).getDate()
+      return moment(date).date()
     }
   }
 }
