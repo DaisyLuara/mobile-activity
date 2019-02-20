@@ -1,18 +1,17 @@
 <template>
   <div
     :style="style.root"
-    :class="{content:true,iphoneX:iphoneX}"
+    class="content"
   >
     <div class="main">
-      <img
-        :src="base + 'smokeY.png'"
-        class="smokeY"
-      >
       <img
         :src="coupon + this.$qiniuCompress()"
         class="coupon"
       >
-      <div :class="{description:true,toleft:toleft,toright:toright}">
+      <div
+        v-show="Boolean(coupon)"
+        :class="{description:true,toleft:toleft,toright:toright}"
+      >
         <img
           :src="base + 'explain.png'"
           class="bg"
@@ -37,9 +36,12 @@
           </ol>
         </div>
       </div>
-      <div class="check">
+      <div
+        v-show="Boolean(coupon)"
+        class="check"
+      >
         <img
-          :src="base + 'checkbg.png'"
+          :src="base + 'hexiao.png'"
           class="checkbg"
         >
         <img
@@ -54,15 +56,6 @@
         <span class="code">{{ code }}</span>
       </div>
     </div>
-
-    <img
-      :src="base + 'smokeR.png'"
-      class="smokeR"
-    >
-    <img
-      :src="base + 'huoguo.png'"
-      class="huoguo"
-    >
   </div>
 </template>
 <script>
@@ -74,8 +67,10 @@ import {
   sendCoupon,
   checkGetCoupon
 } from "services";
+import { normalPages } from "@/mixins/normalPages";
 const cdnUrl = process.env.CDN_URL;
 export default {
+  mixins: [normalPages],
   data() {
     return {
       style: {
@@ -83,16 +78,14 @@ export default {
           "min-height": this.$innerHeight() + "px"
         }
       },
-      base: cdnUrl + "/fe/image/wa/",
-      ewm: null,
-      code: null,
-      coupon: null, //'http://cdn.exe666.com/fe/image/wa/coupon01.png',
+      base: cdnUrl + "/fe/image/wa2/",
+      ewm: null,//'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png'
+      code: null,//5c5157930db56
+      coupon: null, //'http://cdn.exe666.com/fe/image/wa2/coupon01.png',
       description: null,
-      iphoneX: false,
       userId: null,
       text: null,
       arrow: "arrow01",
-      coupon_batch_id: this.$route.query.coupon_batch_id,
       id: this.$route.query.id,
       used: false,
       toleft: false,
@@ -110,17 +103,12 @@ export default {
       }
     }
     this.handleForbiddenShare();
-    if (this.$innerHeight() > 672) {
-      this.iphoneX = true;
-    } else {
-      this.iphoneX = false;
+  },
+  watch: {
+    coupon_batch_id() {
+      this.checkGetCoupon()
     }
   },
-  // watch: {
-  //   parms() {
-  //     this.checkGetCoupon()
-  //   }
-  // },
   methods: {
     //微信静默授权
     handleWechatAuth() {
@@ -134,7 +122,6 @@ export default {
         window.location.href = redirct_url;
       } else {
         this.userId = Cookies.get("user_id");
-        this.checkGetCoupon();
       }
     },
     //禁止微信分享
@@ -156,7 +143,6 @@ export default {
       };
       checkGetCoupon(args)
         .then(res => {
-          console.log(res);
           if (res) {
             this.handleData(res);
           } else {
@@ -172,12 +158,11 @@ export default {
       let args = {
         include: "couponBatch",
         qiniu_id: this.id,
-        oid: this.$route.query.oid,
-        belong: this.$route.query.utm_campaign
+        oid: this.oid,
+        belong: this.belong
       };
       sendCoupon(args, this.coupon_batch_id)
         .then(res => {
-          console.log("sendCoupon", res);
           this.handleData(res);
         })
         .catch(err => {
@@ -193,13 +178,13 @@ export default {
       if (parseInt(res.status) === 1) {
         this.used = true;
       }
-      this.text = this.description.split("/n");
+      this.text = this.description ? this.description.split("/n") : this.description;
     }
   }
 };
 </script>
 <style lang="less" scoped>
-@img: "https://cdn.exe666.com/fe/image/wa/";
+@img: "https://cdn.exe666.com/fe/image/wa2/";
 html,
 body {
   width: 100%;
@@ -207,7 +192,6 @@ body {
   overflow: hidden;
   -webkit-overflow-scrolling: touch;
   transform: translate3d(0, 0, 0);
-  background-color: #450102;
 }
 * {
   padding: 0;
@@ -222,38 +206,38 @@ img {
 }
 .content {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   overflow: hidden;
   position: relative;
-  background-color: #450102;
-  background-image: url("@{img}smoke1.png"), url("@{img}smoke2.png");
-  background-position: center top, center bottom;
-  background-size: 100% auto, 100% auto;
-  background-repeat: no-repeat, no-repeat;
+  background-image: url("@{img}top.png"), url("@{img}wood.png"),
+    url("@{img}back.jpg");
+  background-position: center top, center top, center top;
+  background-size: 100% auto, 100% 100%, 100% 100%;
+  background-repeat: no-repeat, no-repeat, no-repeat;
   padding-top: 7%;
   .main {
-    width: 86%;
+    width: 77.5%;
     z-index: 0;
     position: relative;
     img {
       position: relative;
       z-index: 0;
     }
-    .smokeY {
-      position: absolute;
-      left: 0%;
-      top: -5%;
-      width: 23.2%;
-      z-index: 99;
-      animation: myflow 1.2s linear infinite alternate;
+    .coupon {
+      pointer-events: auto;
+      user-select: auto;
     }
     .description {
-      width: 106%;
+      width: 118%;
       overflow: hidden;
       position: absolute;
-      top: 0%;
-      left: 2%;
+      top: -4%;
+      left: -2%;
       z-index: 99;
-      transform: translateX(81%);
+      transform: translateX(80%);
       .bg {
         position: relative;
         z-index: 0;
@@ -302,18 +286,21 @@ img {
     .check {
       margin: 0 auto;
       position: relative;
+      margin-top: 3%;
+      margin-bottom: 5%;
       .checkbg {
         position: relative;
         z-index: 0;
       }
       .er {
         position: absolute;
-        top: 16%;
+        top: 15.5%;
         left: 9%;
         z-index: 99;
-        width: 24.5vw;
+        width: 22vw;
         pointer-events: auto;
         user-select: auto;
+        border-radius: 5px;
       }
       .used {
         position: absolute;
@@ -328,58 +315,22 @@ img {
         display: inline-block;
         position: absolute;
         z-index: 99;
-        top: 50%;
-        left: 42%;
-        width: 42.5vw;
-        height: 10.2vw;
-        font-size: 5vw;
-        line-height: 10.2vw;
+        top: 50.5%;
+        left: 42.5%;
+        width: 38vw;
+        height: 9vw;
+        font-size: 4.5vw;
+        line-height: 9vw;
         color: #000;
+        // color: #fff;
       }
     }
   }
+}
 
-  .smokeR {
-    position: absolute;
-    top: 80%;
-    right: 2%;
-    width: 16.3%;
-    z-index: 99;
-    animation: myflow 1s 0.2s linear infinite alternate-reverse;
-  }
-  .huoguo {
-    position: absolute;
-    right: -1.5%;
-    bottom: -1.5%;
-    width: 28%;
-    z-index: 99;
-  }
-}
-.iphoneX {
-  .main {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -52%);
-  }
-  .smokeY {
-    top: 6%;
-  }
-  .huoguo {
-    width: 35%;
-  }
-}
-@keyframes myflow {
-  0% {
-    transform: translateY(-5px);
-  }
-  100% {
-    transform: translateY(5px);
-  }
-}
 @keyframes myleft {
   0% {
-    transform: translateX(81%);
+    transform: translateX(80%);
   }
   100% {
     transform: translateX(0%);
@@ -390,7 +341,7 @@ img {
     transform: translateX(0%);
   }
   100% {
-    transform: translateX(81%);
+    transform: translateX(80%);
   }
 }
 </style>

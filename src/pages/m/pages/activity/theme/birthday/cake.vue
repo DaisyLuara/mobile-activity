@@ -1,59 +1,72 @@
 <template>
   <div class="cake">
-    <div class="header">
-      <div class="back-word">CAKE</div>
-      <div class="front-word">蛋糕搭配</div>
-    </div>
-    <!-- 蛋糕样式选择区域 -->
-    <CakeSwiper ref="cakeSwiper"/>
-    <div class="bottom"></div>
-    <!-- 生日祝福输入区域 -->
-    <div class="greetings-area">
-      <textarea
-        maxlength="14"
-        placeholder="输入你对ta的生日祝福..."
-        v-model="greetings"
-        class="greetings-input"
-      ></textarea>
-      <div class="submit-btn" @click="handleSendGreetings">
-        <img src="https://cdn.exe666.com/m/activity/shop/birthday/submit-button.png">
+    <div v-if="!isNoList">
+      <div class="header">
+        <div class="back-word">CAKE</div>
+        <div class="front-word">蛋糕搭配</div>
+      </div>
+      <!-- 蛋糕样式选择区域 -->
+      <CakeSwiper ref="cakeSwiper"/>
+      <div class="bottom"></div>
+      <!-- 生日祝福输入区域 -->
+      <div class="greetings-area">
+        <textarea
+          maxlength="14"
+          placeholder="输入你对ta的生日祝福..."
+          v-model="greetings"
+          class="greetings-input"
+        ></textarea>
+        <div class="submit-btn" @click="handleSendGreetings">
+          <img src="https://cdn.exe666.com/m/activity/shop/birthday/submit-button.png">
+        </div>
       </div>
     </div>
+    <NoListContentReminder
+      :show="isNoList"
+      words="当前没有可祝福的活动哦"
+    />
   </div>
 </template>
 
 <script>
 import CakeSwiper from "@/pages/m/components/Birthday/CakeSwiper"
-import { sendGreetings } from "services"
+import NoListContentReminder from "@/pages/m/components/Reminder/NoListContentReminder"
+import { sendGreetings, fetchShopActivityList } from "services"
 import { mapGetters } from "vuex"
 import { Toast } from "mint-ui"
 
 export default {
   name: "ActivityBirthDayCake",
   components: {
-    CakeSwiper
+    CakeSwiper,
+    NoListContentReminder
   },
   data () {
     return {
       greetings: "",
-      isSending: false
+      isSending: false,
+      acid: this.$route.query.acid,
+      isNoList: false
     }
   },
   computed: {
     ...mapGetters(["z"])
   },
   mounted () {
-
+    // 如果没有acid则拉取祝福列表，取列表第一个活动的acid
+    if (!this.acid) {
+      this.getAcid()
+    }
   },
   methods: {
     async handleSendGreetings () {
       const cakeList = this.$refs.cakeSwiper.cakeList
       const cakeSwiper = this.$refs.cakeSwiper.swiperTop
-      if (!cakeSwiper || !this.greetings || this.isSending) {
+      const cakeId = cakeList[cakeSwiper.activeIndex].id
+      const acid = this.acid
+      if (!cakeSwiper || !this.greetings || this.isSending || !acid) {
         return
       }
-      const cakeId = cakeList[cakeSwiper.activeIndex].id
-      let { acid } = this.$route.query
       const payload = {
         api: 'json',
         z: this.z,
@@ -76,6 +89,33 @@ export default {
       } finally {
         this.isSending = false
       }
+    },
+    async getAcid () {
+      let payload = {
+        api: "json",
+        cp: 1,
+        size: 5,
+        z: this.z,
+        allt: 'birthday',
+        mkey: this.$route.params.mkey,
+      }
+      fetchShopActivityList(this, payload)
+        .then(r => {
+          if (r.data.state !== "1") {
+            this.isNoList = true
+            return
+          }
+          const res = r.data.results.data
+          if (res.length === 0) {
+            this.isNoList = true
+            return
+          }
+          this.acid = res[0].acid
+        })
+        .catch(e => {
+          console.log(e)
+          this.isNoList = true
+        })
     }
   }
 }

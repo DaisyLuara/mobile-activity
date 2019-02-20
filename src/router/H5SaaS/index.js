@@ -149,6 +149,14 @@ export const H5SaaSRouter = {
         title: '发送蛋糕'
       },
       component: () => import('@/pages/m/pages/activity/theme/birthday/cake')
+    },
+    {
+      path: ':mkey/6d7143ab847f2d24c131',
+      name: '6d7143ab847f2d24c131',
+      meta: {
+        title: '订阅服务'
+      },
+      component: () => import('@/pages/m/pages/subscription/index')
     }
   ]
 }

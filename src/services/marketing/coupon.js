@@ -385,7 +385,7 @@ const checkV2Coupon = params => {
 const sendV2Coupon = (params, couponId) => {
   return new Promise((resolve, reject) => {
     axios
-      .post(COUPOUS_URL + couponId, params, V2_HEADER)
+      .post(COUPOUS_URL + couponId + '?include=couponBatch', params, V2_HEADER)
       .then(response => {
         resolve(response.data)
       })

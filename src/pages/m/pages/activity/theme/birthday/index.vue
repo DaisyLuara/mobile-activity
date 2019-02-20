@@ -15,7 +15,7 @@
         >
           <div class="trend-icon" :class="[item.type === 'birthday' ? 'birthday-icon' : '']">
             <p class="day">{{ new Date(item.date).getDate() }}</p>
-            <p class="week">{{ weekday[new Date(item.date).getDay()] }}</p>
+            <p class="week">{{ weekday[new Date(item.date).getDay()] }}.</p>
             <img
               class="candle"
               src="https://cdn.exe666.com/m/activity/shop/birthday/candle.png"
@@ -37,18 +37,19 @@
             </div>
             <div class="trend-detail">
               <div class="trend-date">
-                <p>参与时间:</p>
-                <p>{{ getTimeLimt(item.sdate, item.edate) }}</p>
+                <!-- <p>参与时间:</p>
+                <p>{{ getTimeLimt(item.sdate, item.edate) }}</p> -->
+                <p v-html="item.txt"></p>
               </div>
               <div class="trend-number">{{ item.nums }}人已参与</div>
             </div>
           </router-link>
         </div>
-        <md-scroll-view-more
+        <!-- <md-scroll-view-more
           slot="more"
           :is-finished="isAllLoaded"
         >
-        </md-scroll-view-more>
+        </md-scroll-view-more> -->
       </md-scroll-view>
     </div>
   </div>
@@ -68,18 +69,88 @@ export default {
   },
   data() {
     return {
-      trends: [],
+      trends: [
+        {
+          "acid": "25",
+          "title": "祝福:3月2号是韩珂的生日",
+          "txt": "立即点击参与，为他制作蛋糕，送<br/>上你的生日祝福吧~",
+          "nums": "431",
+          "image": "https://cdn.exe666.com/m/activity/shop/birthday/temp_banner_1.png",
+          "video": null,
+          "awardkey": "9smn38kb9g4529cw1lq49h6h",
+          "infolink": "http://cdn.exe666.com/1007/other/b7065882530f7a720af28d7d70524ba8.html",
+          "pslink": null,
+          "pass": "1",
+          "date": "2019-03-02 00:00:00",
+          "clientdate": "1550052236000",
+          "aname": "3月3生日祝福",
+          "aicon": "http://image.exe666.com/1007/image/775_birthday2.png",
+          "sdate": "1549987201",
+          "edate": "1581609599",
+          "passed": "forever",
+          "type": "birthday",
+          "value_mode": "most",
+          "user_per": "0",
+          "xid": "0"
+        },
+        {
+          "acid": "25",
+          "title": "投票:2019动景旅游投票开始了",
+          "txt": "立即参与投票决定旅游线路<br/>2019/3/17-2019/3/27",
+          "nums": "256",
+          "image": "https://cdn.exe666.com/m/activity/shop/birthday/temp_banner_2.png",
+          "video": null,
+          "awardkey": "9smn38kb9g4529cw1lq49h6h",
+          "infolink": "http://cdn.exe666.com/1007/other/b7065882530f7a720af28d7d70524ba8.html",
+          "pslink": null,
+          "pass": "1",
+          "date": "2019-03-03 00:00:00",
+          "clientdate": "1551542400000",
+          "aname": "3月3生日祝福",
+          "aicon": "http://image.exe666.com/1007/image/775_birthday2.png",
+          "sdate": "1549987201",
+          "edate": "1581609599",
+          "passed": "forever",
+          "type": "topic",
+          "value_mode": "most",
+          "user_per": "0",
+          "xid": "0"
+        },
+        {
+          "acid": "25",
+          "title": "通知:即日起每日签到即可抽红包",
+          "txt": "每日最高99元现金红包",
+          "nums": "97",
+          "image": "https://cdn.exe666.com/m/activity/shop/birthday/temp_banner_3.png",
+          "video": null,
+          "awardkey": "9smn38kb9g4529cw1lq49h6h",
+          "infolink": "http://cdn.exe666.com/1007/other/b7065882530f7a720af28d7d70524ba8.html",
+          "pslink": null,
+          "pass": "1",
+          "date": "2019-03-07 00:00:00",
+          "clientdate": "1551888000000",
+          "aname": "3月3生日祝福",
+          "aicon": "http://image.exe666.com/1007/image/775_birthday2.png",
+          "sdate": "1549987201",
+          "edate": "1581609599",
+          "passed": "forever",
+          "type": "check",
+          "value_mode": "most",
+          "user_per": "0",
+          "xid": "0"
+        }
+      ],
       isAllLoaded: false,
       currentPage: 1,
       firstFetch: false,
-      weekday: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+      weekday: ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat']
     }
   },
   computed: {
     ...mapGetters(["z"])
   },
   mounted() {
-    this.fetchList()
+    // this.fetchList()
   },
   methods: {
     // 拉取祝福活动列表
@@ -95,68 +166,36 @@ export default {
         allt: 'birthday',
         mkey: this.$route.params.mkey,
       }
-      const itemData = {
-        "acid": "25",
-        "title": "3.3星视度生日祝福",
-        "txt": "今日话题，等你来辩！",
-        "nums": "3",
-        "image": "http://image.exe666.com/1007/image/939_birthday1.png",
-        "video": null,
-        "awardkey": "9smn38kb9g4529cw1lq49h6h",
-        "infolink": "http://cdn.exe666.com/1007/other/b7065882530f7a720af28d7d70524ba8.html",
-        "pslink": null,
-        "pass": "1",
-        "date": "2019-02-13 18:03:56",
-        "clientdate": "1550052236000",
-        "aname": "3月3生日祝福",
-        "aicon": "http://image.exe666.com/1007/image/775_birthday2.png",
-        "sdate": "1549987201",
-        "edate": "1581609599",
-        "passed": "forever",
-        "type": "birthday",
-        "value_mode": "most",
-        "user_per": "0",
-        "xid": "0"
-      }
-      setTimeout(() => {
-        for (let i = 0;i < 5; i++) {
-          this.trends.push(itemData)
-        }
-        if (this.trends.length > 20) {
-          this.isAllLoaded = true
-        }
-        this.$refs.scrollView.finishLoadMore()
-      }, 1000)
-      // fetchShopActivityList(this, payload)
-      //   .then(r => {
-      //     if (r.data.state !== "1") {
-      //       this.isAllLoaded = true
-      //       return
-      //     }
-      //     if (r.data.results.pageIndex >= r.data.results.totalPage) {
-      //       this.isAllLoaded = true
-      //     }
-      //     let res = r.data.results.data
-      //     this.trends = this.trends.concat(res)
-      //     this.currentPage++;
-      //   })
-      //   .catch(e => {
-      //     console.log(e)
-      //   })
-      //   .finally(() => {
-      //     this.$refs.scrollView.finishLoadMore()
-      //   })
+      fetchShopActivityList(this, payload)
+        .then(r => {
+          if (r.data.state !== "1") {
+            this.isAllLoaded = true
+            return
+          }
+          if (r.data.results.pageIndex >= r.data.results.totalPage) {
+            this.isAllLoaded = true
+          }
+          let res = r.data.results.data
+          this.trends = this.trends.concat(res)
+          this.currentPage++
+        })
+        .catch(e => {
+          console.log(e)
+        })
+        .finally(() => {
+          this.$refs.scrollView.finishLoadMore()
+        })
     },
     // 加载更多
     loadMore () {
-      setTimeout(() => {
-        this.fetchList()
-      }, 2000)
+      // setTimeout(() => {
+      //   this.fetchList()
+      // }, 2000)
     },
     // 获取活动起始时间
     getTimeLimt (s, e) {
-      const start = moment(Number(s)).format('YYYY-M-D')
-      const end = moment(Number(e)).format('YYYY-M-D')
+      const start = moment(Number(s + '000')).format('YYYY-M-D')
+      const end = moment(Number(e + '000')).format('YYYY-M-D')
       return `${start}~${end}`
     }
   }
@@ -254,10 +293,8 @@ export default {
         }
         .trend-detail {
           display: flex;
-          align-items: center;
           justify-content: space-between;
-          height: 0.49rem;
-          padding: 0 0.1rem;
+          padding: 0.1rem;
           .trend-date {
             line-height: 0.15rem;
             color: #BCBCBC;
@@ -271,6 +308,7 @@ export default {
             padding: 0 0.1rem;
             border: 1px solid #46B9C7;
             border-radius: 0.14rem;
+            flex-shrink: 0;
           }
         }
       }

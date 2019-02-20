@@ -124,9 +124,6 @@ export default {
   components: {
     BottomBar
   },
-  components: {
-    BottomBar
-  },
   mixins: [normalPages],
   props: {
     linkData: {
