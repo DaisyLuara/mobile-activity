@@ -53,6 +53,17 @@ const Date201902 = [
       desc: '大融城春天导视'
     },
     isAbandoned: false
+  },
+  {
+    path: 'super_hero',
+    location: '201902/superHero',
+    name: 'super_hero',
+    meta: {
+      title: '超级英雄',
+      author: 'lipan',
+      desc: '超级英雄'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201902
