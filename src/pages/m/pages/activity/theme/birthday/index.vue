@@ -241,14 +241,12 @@ export default {
 
 .birthday {
   .wrapper();
-  background: #28264e;
   .trends-wrapper {
     position: absolute;
     top: 0;
     bottom: 48px;
     width: 100%;
     padding: 0 0.1rem 0 0.03rem;
-    border-radius: 0.25rem 0.25rem 0 0;
     background: #f2f2f2;
     overflow: hidden;
     .month {
