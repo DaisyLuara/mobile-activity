@@ -51,24 +51,24 @@ export default {
   data() {
     return {
       labelImg: [
-        "https://cdn.exe666.com/fe/image/m/btn_company.png",
         "https://cdn.exe666.com/fe/image/m/btn_topic.png",
         "https://cdn.exe666.com/fe/image/m/btn_photo_normal@3x.png",
         "https://cdn.exe666.com/fe/image/m/btn_sale_normal@3x.png",
         "https://cdn.exe666.com/fe/image/m/barrage.png",
         "https://cdn.exe666.com/fe/image/m/btn_mall_normal@3x.png",
         "https://cdn.exe666.com/fe/image/m/btn_card_normal@3x.png",
-        "https://cdn.exe666.com/fe/image/m/btn_my_normal@3x.png"
+        "https://cdn.exe666.com/fe/image/m/btn_my_normal@3x.png",
+        "https://cdn.exe666.com/fe/image/m/btn_company.png"
       ],
       labelImgPressed: [
-        "https://cdn.exe666.com/fe/image/m/btn_company_pressed.png",
         "https://cdn.exe666.com/fe/image/m/btn_topic_pressed.png",
         "https://cdn.exe666.com/fe/image/m/btn_photo_pressed@3x.png",
         "https://cdn.exe666.com/fe/image/m/btn_sale_pressed@3x.png",
         "https://cdn.exe666.com/fe/image/m/barrage-p.png",
         "https://cdn.exe666.com/fe/image/m/btn_mall_pressed@3x.png",
         "https://cdn.exe666.com/fe/image/m/btn_card_pressed@3x.png",
-        "https://cdn.exe666.com/fe/image/m/btn_my_pressed@3x.png"
+        "https://cdn.exe666.com/fe/image/m/btn_my_pressed@3x.png",
+        "https://cdn.exe666.com/fe/image/m/btn_company_pressed.png"
       ],
       showRoutes: [
         "MyIndex",
@@ -86,16 +86,16 @@ export default {
         "TopicIndex",
         "ActivityBirthDayIndex"
       ],
-      labels: ["祝福", "话题", "照片", "活动", "弹幕", "商城", "卡包", "我的"],
+      labels: ["话题", "照片", "活动", "弹幕", "商城", "卡包", "我的", "祝福"],
       routes: [
-        "ActivityBirthDayIndex",
         "TopicIndex",
         "TrendsIndex",
         "ActivityShop",
         "BarrageIndex",
         "MallIndex",
         "CardIndex",
-        "MyIndex"
+        "MyIndex",
+        "ActivityBirthDayIndex"
       ]
     };
   },
