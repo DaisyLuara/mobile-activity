@@ -42,10 +42,12 @@ export default {
   },
   watch: {
     userinfo() {
-      if (!Cookies.get('z')) {
+      if (Cookies.get('z')) {
+        return
+      } else {
         this.z = this.userinfo.z
-        this.getGameHonour(this.bid, this.userinfo.z);
         Cookies.set('z', this.userinfo.z)
+        this.getGameHonour(this.bid, this.userinfo.z);
       }
     }
     // belong() {
