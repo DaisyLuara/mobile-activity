@@ -151,18 +151,9 @@ export default {
   },
   computed: {
     ...mapGetters(["z"]),
-    month() {
-      return new Date().getMonth() + 1;
-    },
-    getDay() {
-      return function(date) {
-        return new Date(date).getDate();
-      };
-    },
-    getWeek() {
-      return function(date) {
-        return this.weekday[new Date(date).getDay()];
-      };
+    month () {
+      // return new Date().getMonth() + 1
+      return moment().month() + 1
     }
   },
   mounted() {
@@ -222,10 +213,18 @@ export default {
       }
     },
     // 获取活动起始时间
-    getTimeLimt(s, e) {
-      const start = moment(Number(s + "000")).format("YYYY-M-D");
-      const end = moment(Number(e + "000")).format("YYYY-M-D");
-      return `${start}~${end}`;
+    getTimeLimt (s, e) {
+      const start = moment(Number(s + '000')).format('YYYY-M-D')
+      const end = moment(Number(e + '000')).format('YYYY-M-D')
+      return `${start}~${end}`
+    },
+    getWeek (date) {
+      // return this.weekday[new Date(date).getDay()]
+      return this.weekday[moment(date).day()]
+    },
+    getDay (date) {
+      // return new Date(date).getDate()
+      return moment(date).date()
     }
     // getWeek(date) {
     //   return this.weekday[new Date(date).getDay()];
@@ -242,14 +241,12 @@ export default {
 
 .birthday {
   .wrapper();
-  background: #28264e;
   .trends-wrapper {
     position: absolute;
     top: 0;
     bottom: 48px;
     width: 100%;
     padding: 0 0.1rem 0 0.03rem;
-    border-radius: 0.25rem 0.25rem 0 0;
     background: #f2f2f2;
     overflow: hidden;
     .month {
