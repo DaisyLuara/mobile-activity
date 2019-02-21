@@ -64,6 +64,17 @@ const Date201902 = [
       desc: '超级英雄'
     },
     isAbandoned: false
+  },
+  {
+    path: 'ciyuan_love',
+    location: '201902/ciyuanLove',
+    name: 'ciyuan_love',
+    meta: {
+      title: '跨次元恋爱',
+      author: 'lipan',
+      desc: '跨次元恋爱'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201902
