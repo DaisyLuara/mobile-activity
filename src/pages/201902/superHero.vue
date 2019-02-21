@@ -9,7 +9,7 @@
         class="bg"
       >
       <img
-        :src="photo + this.$qiniuCompress()"
+        :src="photo"
         class="photo"
       >
     </div>
@@ -81,6 +81,8 @@ img {
       transform: translateX(-50%);
       z-index: 99;
       border-radius: 5px;
+      pointer-events: auto;
+      user-select: auto;
     }
   }
 }
