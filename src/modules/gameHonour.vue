@@ -1,18 +1,16 @@
 <template>
   <!-- 勋章-联动节目 -->
   <div class="the-honour">
-    <ul :style="styleData.ul">
-      <li
-        v-for="(item,index) in projects"
-        :key="index"
-        :style="styleData.li"
+    <div
+      v-for="(item,index) in projects.list"
+      :key="index"
+      :style="styleData.child"
+    >
+      <img
+        v-show="Boolean(item.img)"
+        :src="item.img"
       >
-        <img
-          v-show="Boolean(item.img)"
-          :src="item.img"
-        >
-      </li>
-    </ul>
+    </div>
   </div>
 </template>
 <script>
@@ -50,15 +48,13 @@ export default {
         this.getGameHonour(this.bid, this.userinfo.z);
       }
     }
-    // belong() {
-    //   this.getGameHonour(this.bid, '8b96bc7fba4c1176b3fc0861e94f22465c0f6a');
-    // }
   },
   mounted() {
     if (Cookies.get('z')) {
       this.z = Cookies.get('z')
       this.getGameHonour(this.bid, this.z);
     }
+    // this.getGameHonour(this.bid, '8b96bc7fba4c1176b3fc0861e94f22465c0f6a');
   },
   methods: {
     getGameHonour(bid, z) {
@@ -73,9 +69,10 @@ export default {
     projectStatus(data) {
       data.map(r => {
         if (r.hid <= 0) {
-          this.projects[r.xid].img = r.xtabicon;
+          this.projects.list[r.xid].img = r.xtabicon;
         } else {
-          this.projects[r.xid].img = r.xicon;
+          this.projects.list[r.xid].img = r.xicon;
+          this.projects.total--
         }
       });
     }
@@ -83,6 +80,15 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+img {
+  max-width: 100%;
+  position: relative;
+}
+.the-honour {
+  display: block;
+  width: 100%;
+  position: relative;
+}
 </style>
 
 
