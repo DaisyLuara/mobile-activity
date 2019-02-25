@@ -75,6 +75,39 @@ const Date201902 = [
       desc: '跨次元恋爱'
     },
     isAbandoned: false
+  },
+  {
+    path: 'apply_one',
+    location: '201902/applyStatic',
+    name: 'apply_one',
+    meta: {
+      title: '星视度',
+      author: 'lipan',
+      desc: '春季招聘-静态'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'apply_two',
+    location: '201902/applyDynamic',
+    name: 'apply_two',
+    meta: {
+      title: '星视度',
+      author: 'lipan',
+      desc: '春季招聘-动态'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 's_atm',
+    location: '201902/sAtm',
+    name: 's_atm',
+    meta: {
+      title: '笑容ATM',
+      author: 'lipan',
+      desc: '笑容ATM'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201902
