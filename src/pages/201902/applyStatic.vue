@@ -246,7 +246,7 @@ a {
       position: relative;
     }
     .photo {
-      width: 85%;
+      width: 84%;
       top: 22.3%;
       pointer-events: auto;
       user-select: auto;

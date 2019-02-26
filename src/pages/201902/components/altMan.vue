@@ -127,6 +127,7 @@
 <script>
 import { Cookies, sendV2Coupon, checkV2Coupon, batchV2Coupon } from "services";
 import { normalPages } from "@/mixins/normalPages";
+import moment from "moment";
 import gameHonour from "@/modules/gameHonour";
 const CDNURL = process.env.CDN_URL;
 export default {
@@ -149,7 +150,7 @@ export default {
       used: false,
       passed: false,
       bid: 4,
-      end_date: null,//"2019-01-29 00:00:00"
+      end_date: null,//"2019-02-29 00:00:00"
       diff_time: null,
       projects: {
         list: {
@@ -166,7 +167,7 @@ export default {
             img: "http://cdn.exe666.com/fe/image/altman/p3.png"
           }
         },
-        total: 3
+        total: 0//3
       },
       idz: null,
       get_id: null,
@@ -261,23 +262,27 @@ export default {
       if (parseInt(res.status) === 1) {
         this.diff_time = '0天0小时0分'
         this.used = true
+      } else {
+        this.countTime()
       }
-      this.countTime()
+
     },
-    countTime(end_date) {
-      let now = new Date()//当前时间
-      let end = new Date(this.end_date)//结束时间
+    countTime() {
+      let that = this
+      let now = moment()//当前时间
+      let end = moment(new Date(that.end_date).getTime())//结束时间
       let [d, h, m] = []
-      let diff = end - now
-      if (diff <= 0) {
+      let diff = end.diff(now, 'minutes')
+      let ends = end.diff(now, 'seconds')
+      if (ends <= 0) {
         window.cancelAnimationFrame(timer)
         this.diff_time = '0天0小时0分'
         this.passed = true
 
       } else {
-        m = Math.floor(diff / 1000 / 60 % 60)
-        h = Math.floor(diff / 1000 / 60 / 60 % 24)
-        d = Math.floor(diff / (1000 * 60 * 60 * 24))
+        m = Math.floor(diff % 60)
+        h = Math.floor(diff / 60 % 24)
+        d = Math.floor(diff / (60 * 24))
         m = m < 10 ? '0' + m : m
         h = h < 10 ? '0' + h : h
         d = d < 10 ? '0' + d : d
@@ -332,6 +337,7 @@ a {
   overflow-x: hidden;
   position: relative;
   background-color: #1b1b1b;
+  margin-bottom: -2px;
   .bg {
     position: relative;
     z-index: 0;
