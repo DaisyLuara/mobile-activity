@@ -201,7 +201,6 @@ export default {
     if (Cookies.get('z')) {
       this.idz = Cookies.get('z')
     }
-    this.countTime()
   },
   methods: {
     getCoupon() {
