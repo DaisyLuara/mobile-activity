@@ -135,6 +135,10 @@ export default {
       return this.$route.name;
     },
     shouldMenuShow() {
+      // 若从列表页进入祝福页则不显示底部导航
+      if (this.$route.name === 'ActivityBirthDayCake' && this.$route.query.acid) {
+        return false;
+      }
       if (this.replaceMode === "default") {
         return this.showRoutes.includes(this.$route.name);
       } else {

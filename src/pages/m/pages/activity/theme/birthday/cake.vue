@@ -9,7 +9,7 @@
       <CakeSwiper ref="cakeSwiper"/>
       <div class="bottom"/>
       <!-- 生日祝福输入区域 -->
-      <div class="greetings-area">
+      <div class="greetings-area" :class="{ 'no-bottom': this.$route.query.acid }">
         <textarea
           v-model="greetings"
           maxlength="14"
@@ -185,6 +185,9 @@ textarea::-ms-input-placeholder {
   background: #FFF;
   border-radius: 0.2rem;
   box-shadow: 0px 0px 18px 0px rgba(223,223,223,0.59);
+  &.no-bottom {
+    margin: 0 auto;
+  }
   .greetings-input {
     display: block;
     width: 3.13rem;
