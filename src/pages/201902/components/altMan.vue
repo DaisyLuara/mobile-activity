@@ -140,6 +140,7 @@ export default {
       root: {
         "min-height": this.$innerHeight() + "px"
       },
+      id: this.$route.query.id,
       mask: false,
       todo: false,
       coupon_img: null,//'http://cdn.exe666.com/fe/image/altman/test.png',
