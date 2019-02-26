@@ -17,10 +17,10 @@
         class="item-wrapper"
       >
         <TopicItem 
-          :imgUrls="item.image"
+          :img-urls="item.image"
           :avatar="item.face"
-          :userName="item.username"
-          :postTime="item.clientdate"
+          :user-name="item.username"
+          :post-time="item.clientdate"
           :title="item.title"
           :othertype1="item.othertype1"
           :othertype2="item.othertype2"

@@ -15,6 +15,8 @@ const IMAGE_UPLOAD = process.env.AD_API + '/api/images'
 const MINI_API = process.env.AD_API + '/api/mini'
 const MONEY_URL = process.env.AD_API + '/api/open/redpack/'
 
+const BATCH_URL = process.env.AD_API + '/api/open/coupon/batches'
+
 const REQ_HEADER = {
   headers: {
     'api-token': apiToken,
@@ -394,6 +396,19 @@ const sendV2Coupon = (params, couponId) => {
       })
   })
 }
+//BATCH_URL
+const batchV2Coupon = params => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(BATCH_URL, params, V2_HEADER)
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
 //  发现金券  年会
 const sendMoneyOnce = code => {
   let params = {}
@@ -433,5 +448,6 @@ export {
   getCouponQRCodeMini,
   checkV2Coupon,
   sendV2Coupon,
-  sendMoneyOnce
+  sendMoneyOnce,
+  batchV2Coupon
 }

@@ -140,7 +140,7 @@ const Date201810 = [
       author: 'lipan',
       desc: '超级英雄'
     },
-    isAbandoned: false
+    isAbandoned: true
   },
   {
     path: 'halloween',

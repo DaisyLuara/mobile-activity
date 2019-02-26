@@ -57,7 +57,8 @@ export default {
         alltop: "ActivityShopAllTopProgress",
         game: "ActivityShopGameProgress",
         honour: "MyAchivement",
-        options: "ActivityTopic"
+        options: "ActivityTopic",
+        birthday: "ActivityBirthDayCake"
       }
     };
   },
@@ -75,6 +76,9 @@ export default {
       }
       if (this.acttype === "options") {
         return "查看我的进度";
+      }
+      if (this.acttype === "birthday") {
+        return "参与祝福";
       }
       return "查看活动进度";
     }

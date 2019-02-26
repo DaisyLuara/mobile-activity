@@ -1,55 +1,66 @@
 <template>
   <div class="topic-item">
     <!-- <TopicSwiper :imgUrls="imgUrls" /> -->
-    <img :src="tagUrl" v-if="shoudTagShow" class="tag"/>
-    <img class="swipers" :src="imgUrls + cp"> 
+    <img 
+      v-if="shoudTagShow" 
+      :src="tagUrl" 
+      class="tag">
+    <img 
+      :src="imgUrls + cp" 
+      class="swipers"> 
     <div class="author">
-      <img class="avatar" :src="avatar">
+      <img 
+        :src="avatar" 
+        class="avatar">
       <div class="user">
         <div class="name">
-          {{userName}}
+          {{ userName }}
         </div>
         <div class="time">
-          {{computedDate}}
+          {{ computedDate }}
         </div>
       </div>
       <div class="title">
-        {{title}}
+        {{ title }}
       </div>
     </div>
     <div class="chooses">
       <div 
         v-if="choose !== 'B'"
-        @click="handleChooseClick('A')"
-        :class="{'choose-item A':choose === '', 'choose-item A show':choose === 'A', 'choose-item A hide':choose === 'B'}" >
+        :class="{'choose-item A':choose === '', 'choose-item A show':choose === 'A', 'choose-item A hide':choose === 'B'}"
+        @click="handleChooseClick('A')" >
         <div class="label">A</div>
         <div class="text">
-          {{othertype1}}
+          {{ othertype1 }}
         </div>
       </div>
-      <div class="choose-item result A" v-if="choose === 'A'">
+      <div 
+        v-if="choose === 'A'" 
+        class="choose-item result A">
         <div class="count">
-          共{{otherid1}}人支持
+          共{{ otherid1 }}人支持
         </div>
         <div class="percent">
-          [{{computedPercentA}}]
+          [{{ computedPercentA }}]
         </div>
       </div>
-      <div class="choose-item result B" v-if="choose === 'B'">
+      <div 
+        v-if="choose === 'B'" 
+        class="choose-item result B">
         <div class="count">
-          共{{otherid2}}人支持
+          共{{ otherid2 }}人支持
         </div>
         <div class="percent">
-          [{{computedPercentB}}]
+          [{{ computedPercentB }}]
         </div>
       </div>
 
       <div 
         v-if="choose !== 'A'"
-        @click="handleChooseClick('B')"
-        :class="{'choose-item B':choose === '', 'choose-item B show':choose === 'B', 'choose-item B hide':choose === 'A'}" >
+        :class="{'choose-item B':choose === '', 'choose-item B show':choose === 'B', 'choose-item B hide':choose === 'A'}"
+        @click="handleChooseClick('B')" >
         <div class="text B">
-          {{othertype2}}
+          {{ othertype2 }}
         </div>
         <div class="label">B</div>
       </div>
@@ -63,13 +74,6 @@ import { optionsVote } from "services";
 import { mapGetters } from "vuex";
 import moment from "moment";
 export default {
-  data() {
-    return {
-      cp: "?imageView2/1/w/343/h/343/format/jpg/q/100|imageslim",
-      tagUrl: "https://cdn.exe666.com/fe/image/m/options.svg",
-      ownChoosen: null
-    };
-  },
   props: {
     avrid: {
       type: String,
@@ -136,6 +140,13 @@ export default {
       required: true,
       default: "0"
     }
+  },
+  data() {
+    return {
+      cp: "?imageView2/1/w/343/h/343/format/jpg/q/100|imageslim",
+      tagUrl: "https://cdn.exe666.com/fe/image/m/options.svg",
+      ownChoosen: null
+    };
   },
   computed: {
     ...mapGetters(["z"]),
