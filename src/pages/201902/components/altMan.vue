@@ -189,24 +189,28 @@ export default {
     };
   },
   watch: {
-    userinfo() {
-      if (Cookies.get('z')) {
-        this.z = Cookies.get('z')
-        this.z ? this.$refs.gameHonour.getGameHonour(this.bid, this.z) : null;
-      } else {
-        this.z = this.userinfo.z
-        Cookies.set('z', this.userinfo.z)
-        this.z ? this.$refs.gameHonour.getGameHonour(this.bid, this.z) : null;
-      }
-    }
+    // photo() {
+    //   this.z ? this.$refs.gameHonour.getGameHonour(this.bid, this.z) : null;
+    // },
+    // userinfo() {
+    //   if (Cookies.get('z')) {
+    //     this.z = Cookies.get('z')
+    //     this.z ? this.$refs.gameHonour.getGameHonour(this.bid, this.z) : null;
+    //   }
+    //   if (this.userinfo.z) {
+    //     Cookies.set('z', this.userinfo.z)
+    //     this.z = this.userinfo.z
+    //     this.$refs.gameHonour.getGameHonour(this.bid, this.z)
+    //   }
+    // }
   },
   mounted() {
     // this.$refs.gameHonour.getGameHonour(this.bid, '8b96bc7fba4c1176b3fc0861e94f22465c0f6a');
-    if (Cookies.get('z')) {
-      this.z = Cookies.get('z')
-      this.z ? this.$refs.gameHonour.getGameHonour(this.bid, this.z) : null;
-    }
-    this.z ? this.$refs.gameHonour.getGameHonour(this.bid, this.z) : null;
+    // if (Cookies.get('z')) {
+    //   this.z = Cookies.get('z')
+    //   this.z ? this.$refs.gameHonour.getGameHonour(this.bid, this.z) : null;
+    // }
+    // this.z ? this.$refs.gameHonour.getGameHonour(this.bid, this.z) : null;
   },
   methods: {
     getCoupon() {
