@@ -143,13 +143,13 @@ export default {
       id: this.$route.query.id,
       mask: false,
       todo: false,
-      coupon_img: null,//'http://cdn.exe666.com/fe/image/altman/test.png',
-      qr_img: null,//'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
-      qrcode: null,//null,
+      coupon_img: null, //'http://cdn.exe666.com/fe/image/altman/test.png',
+      qr_img: null, //'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
+      qrcode: null, //null,
       used: false,
       passed: false,
       bid: 4,
-      end_date: null,//"2019-01-29 00:00:00"
+      end_date: null, //"2019-01-29 00:00:00"
       diff_time: null,
       projects: {
         list: {
@@ -172,118 +172,130 @@ export default {
       get_id: null,
       styleData: {
         child: {
-          position: 'relative',
-          width: '35%',
-          'margin-left': '-4%',
-          'overflow': 'hidden'
+          position: "relative",
+          width: "35%",
+          "margin-left": "-4%",
+          overflow: "hidden"
         }
       },
       //微信分享
       wxShareInfoValue: {
         title: "万代TAMASHII NATIONS奥特曼英雄“魂”展首次空降上海",
         desc: "一起参与现场互动游戏，赢得大量奥特曼系列礼品",
-        link: 'http://papi.xingstation.com/api/s/6B7',
+        link: "http://papi.xingstation.com/api/s/6B7",
         imgUrl: CDNURL + "/fe/image/altman/icon.png"
       }
     };
   },
   watch: {
     userinfo() {
-      if (Cookies.get('z')) {
-        return
+      if (Cookies.get("z")) {
+        return;
       } else {
-        this.idz = this.userinfo.z
-        Cookies.set('z', this.userinfo.z)
+        this.idz = this.userinfo.z;
+        Cookies.set("z", this.userinfo.z);
       }
     }
   },
   mounted() {
-    if (Cookies.get('z')) {
-      this.idz = Cookies.get('z')
+    if (Cookies.get("z")) {
+      this.idz = Cookies.get("z");
     }
   },
   methods: {
     getCoupon() {
-      this.todo = true
-      this.checkV2Coupon()
+      this.todo = true;
+      this.checkV2Coupon();
     },
     //判断是否领过优惠券
     checkV2Coupon() {
       let args = {
         z: this.idz,
-        belong: 'ultraman',
-        include: 'couponBatch',
-      }
-      checkV2Coupon(args).then(res => {
-        if (res) {
-          this.handleData(res)
-        } else {
-          this.getCouponBatch()
-        }
-      }).catch(err => {
-        console.log(err)
-      })
+        belong: "ultraman",
+        include: "couponBatch"
+      };
+      checkV2Coupon(args)
+        .then(res => {
+          if (res) {
+            this.handleData(res);
+          } else {
+            this.getCouponBatch();
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
     getCouponBatch() {
       let args = {
         z: this.idz,
-        belong: this.belong,
-      }
-      batchV2Coupon(args).then(res => {
-        this.get_id = res.id
-        this.sendV2Coupon()
-      }).catch(err => {
-        console.log(err)
-      })
+        belong: this.belong
+      };
+      batchV2Coupon(args)
+        .then(res => {
+          this.get_id = res.id;
+          this.sendV2Coupon();
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
     //发优惠券
     sendV2Coupon() {
       let args = {
         qiniu_id: this.id,
         z: this.idz,
-        belong: 'ultraman',
+        belong: "ultraman",
         oid: this.oid
-      }
+      };
       sendV2Coupon(args, this.get_id)
         .then(res => {
-          this.handleData(res)
+          this.handleData(res);
         })
         .catch(err => {
-          alert(err.response.data.message)
-        })
+          alert(err.response.data.message);
+        });
     },
     //处理返回数据
     handleData(res) {
-      this.qr_img = res.qrcode_url
-      this.coupon_img = res.couponBatch.image_url
-      this.qrcode = res.code
-      this.end_date = res.end_date
+      this.qr_img = res.qrcode_url;
+      this.coupon_img = res.couponBatch.image_url;
+      this.qrcode = res.code;
+      this.end_date = res.end_date;
       if (parseInt(res.status) === 1) {
-        this.diff_time = '0天0小时0分'
-        this.used = true
+        this.diff_time = "0天0小时0分";
+        this.used = true;
       }
-      this.countTime()
+      this.countTime();
     },
     countTime(end_date) {
-      let now = new Date()//当前时间
-      let end = new Date(this.end_date)//结束时间
-      let [d, h, m] = []
-      let diff = end - now
-      if (diff <= 0) {
-        window.cancelAnimationFrame(timer)
-        this.diff_time = '0天0小时0分'
-        this.passed = true
-
-      } else {
-        m = Math.floor(diff / 1000 / 60 % 60)
-        h = Math.floor(diff / 1000 / 60 / 60 % 24)
-        d = Math.floor(diff / (1000 * 60 * 60 * 24))
-        m = m < 10 ? '0' + m : m
-        h = h < 10 ? '0' + h : h
-        d = d < 10 ? '0' + d : d
-        this.diff_time = d + '天' + h + '小时' + m + '分'
+      try {
+        let now = new Date(); //当前时间
+        let end = new Date(this.end_date); //结束时间
+        console.log(now);
+        console.log(end);
+        let [d, h, m] = [];
+        let diff = end - now;
+        console.log(diff);
+        if (diff <= 0) {
+          window.cancelAnimationFrame(timer);
+          this.diff_time = "0天0小时0分";
+          this.passed = true;
+        } else {
+          m = Math.floor((diff / 1000 / 60) % 60);
+          console.log(m);
+          h = Math.floor((diff / 1000 / 60 / 60) % 24);
+          d = Math.floor(diff / (1000 * 60 * 60 * 24));
+          m = m < 10 ? "0" + m : m;
+          console.log(m);
+          h = h < 10 ? "0" + h : h;
+          d = d < 10 ? "0" + d : d;
+          this.diff_time = d + "天" + h + "小时" + m + "分";
+        }
+        let timer = window.requestAnimationFrame(this.countTime);
+      } catch (e) {
+        console.log(e);
       }
-      let timer = window.requestAnimationFrame(this.countTime)
     }
   }
 };
