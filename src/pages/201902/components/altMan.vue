@@ -203,6 +203,12 @@ export default {
     //     this.$refs.gameHonour.getGameHonour(this.bid, this.z)
     //   }
     // }
+    photo() {
+      alert(this.photo)
+    },
+    userinfo() {
+      alert(JSON.stringify(this.userinfo))
+    }
   },
   mounted() {
     // this.$refs.gameHonour.getGameHonour(this.bid, '8b96bc7fba4c1176b3fc0861e94f22465c0f6a');
