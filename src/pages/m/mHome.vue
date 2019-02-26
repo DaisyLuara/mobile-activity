@@ -5,7 +5,7 @@
       v-if="wechat !== true"
       class="wx-remind"
     >请在微信中打开</div>
-    <BottomBar/>
+    <BottomBar />
   </div>
 </template>
 
