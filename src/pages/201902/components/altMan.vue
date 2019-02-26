@@ -12,9 +12,9 @@
     <!-- 勋章-联动-3个节目 -->
     <div class="groups">
       <gameHonour
+        ref="gameHonour"
         :style-data="styleData"
         :projects="projects"
-        :bid="bid"
       />
       <a
         class="todo"
@@ -167,9 +167,9 @@ export default {
             img: "http://cdn.exe666.com/fe/image/altman/p3.png"
           }
         },
-        total: 0//3
+        total: 3
       },
-      idz: null,
+      z: null,
       get_id: null,
       styleData: {
         child: {
@@ -193,15 +193,19 @@ export default {
       if (Cookies.get('z')) {
         return
       } else {
-        this.idz = this.userinfo.z
+        this.z = this.userinfo.z
         Cookies.set('z', this.userinfo.z)
+        this.$refs.gameHonour.getGameHonour(this.bid, this.z)
       }
     }
   },
   mounted() {
+    // this.$refs.gameHonour.getGameHonour(this.bid, '8b96bc7fba4c1176b3fc0861e94f22465c0f6a');
     if (Cookies.get('z')) {
-      this.idz = Cookies.get('z')
+      this.z = Cookies.get('z')
+      this.$refs.gameHonour.getGameHonour(this.bid, this.z)
     }
+    this.$refs.gameHonour.getGameHonour(this.bid, this.z);
   },
   methods: {
     getCoupon() {
@@ -211,7 +215,7 @@ export default {
     //判断是否领过优惠券
     checkV2Coupon() {
       let args = {
-        z: this.idz,
+        z: this.z,
         belong: 'ultraman',
         include: 'couponBatch',
       }
@@ -227,7 +231,7 @@ export default {
     },
     getCouponBatch() {
       let args = {
-        z: this.idz,
+        z: this.z,
         belong: this.belong,
       }
       batchV2Coupon(args).then(res => {
@@ -241,7 +245,7 @@ export default {
     sendV2Coupon() {
       let args = {
         qiniu_id: this.id,
-        z: this.idz,
+        z: this.z,
         belong: 'ultraman',
         oid: this.oid
       }
