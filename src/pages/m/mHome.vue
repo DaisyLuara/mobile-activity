@@ -5,7 +5,7 @@
       v-if="wechat !== true"
       class="wx-remind"
     >请在微信中打开</div>
-    <BottomBar :replaceMode="replaceMode" />
+    <BottomBar/>
   </div>
 </template>
 
@@ -33,15 +33,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["z"]),
-    replaceMode () {
-      // 若是从底部导航进入页面则强制显示底部导航，暂时只对祝福页面特殊处理
-      const specialRoutes = ['ActivityBirthDayCake']
-      console.log(this.$route.name)
-      if (specialRoutes.includes(this.$route.name) && !this.$route.query.acid) {
-        return 'show'
-      }
-    }
+    ...mapGetters(["z"])
   },
   created() {
     if (isInWechat() === true) {

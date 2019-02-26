@@ -86,7 +86,8 @@ export default {
         "newDreamland",
         "happy_newYearTwo",
         "TopicIndex",
-        "ActivityBirthDayIndex"
+        "ActivityBirthDayIndex",
+        "ActivityBirthDayCake"
       ],
       labels: ["话题", "照片", "活动", "弹幕", "商城", "卡包", "我的", "公司动态", "祝福"],
       routes: [
@@ -134,6 +135,10 @@ export default {
       return this.$route.name;
     },
     shouldMenuShow() {
+      // 若从列表页进入祝福页则不显示底部导航
+      if (this.$route.name === 'ActivityBirthDayCake' && this.$route.query.acid) {
+        return false;
+      }
       if (this.replaceMode === "default") {
         return this.showRoutes.includes(this.$route.name);
       } else {
