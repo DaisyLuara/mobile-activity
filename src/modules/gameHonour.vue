@@ -39,6 +39,12 @@ export default {
     }
   },
   watch: {
+    belong() {
+      if (Cookies.get('z')) {
+        this.z = Cookies.get('z')
+        this.getGameHonour(this.bid, this.z)
+      }
+    },
     userinfo() {
       if (Cookies.get('z')) {
         return
@@ -50,10 +56,6 @@ export default {
     }
   },
   mounted() {
-    if (Cookies.get('z')) {
-      this.z = Cookies.get('z')
-      this.getGameHonour(this.bid, this.z);
-    }
     // this.getGameHonour(this.bid, '8b96bc7fba4c1176b3fc0861e94f22465c0f6a');
   },
   methods: {
