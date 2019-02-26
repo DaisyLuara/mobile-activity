@@ -149,7 +149,7 @@ export default {
       used: false,
       passed: false,
       bid: 4,
-      end_date: "2019-02-25 00:00:00",//"2019-01-29 00:00:00"
+      end_date: null,//"2019-01-29 00:00:00"
       diff_time: null,
       projects: {
         list: {
