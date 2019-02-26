@@ -12,7 +12,7 @@
     >
 
     <div class="time">
-      活动时间:  <span class="red"> {{startTime}} 至 {{ endTime }}</span>
+      活动时间:  <span class="red"> {{ startTime }} 至 {{ endTime }}</span>
     </div>
 
     <TrendsBottomBar

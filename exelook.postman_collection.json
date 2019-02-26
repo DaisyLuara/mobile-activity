@@ -1,0 +1,988 @@
+{
+	"info": {
+		"_postman_id": "99e7ba21-1567-4087-bef4-2b46b7282d65",
+		"name": "exelook",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "我的足迹",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://exelook.com/client/usertrends/?cp=1&size=10&z=4al80b01d4c528dcd5eb9e094faf86f92cc25g&api=json",
+					"protocol": "http",
+					"host": [
+						"exelook",
+						"com"
+					],
+					"path": [
+						"client",
+						"usertrends",
+						""
+					],
+					"query": [
+						{
+							"key": "cp",
+							"value": "1"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						},
+						{
+							"key": "z",
+							"value": "4al80b01d4c528dcd5eb9e094faf86f92cc25g"
+						},
+						{
+							"key": "api",
+							"value": "json"
+						},
+						{
+							"key": "document",
+							"value": "truxish2114558de",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "66.根据id提取内容",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://exelook.com:8010/goodsxsd/?id=2263&api=json&code=undefined&state=undefined",
+					"protocol": "http",
+					"host": [
+						"exelook",
+						"com"
+					],
+					"port": "8010",
+					"path": [
+						"goodsxsd",
+						""
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "2263"
+						},
+						{
+							"key": "mobile",
+							"value": "test",
+							"disabled": true
+						},
+						{
+							"key": "api",
+							"value": "json"
+						},
+						{
+							"key": "document",
+							"value": "truxish2114558de",
+							"disabled": true
+						},
+						{
+							"key": "code",
+							"value": "undefined"
+						},
+						{
+							"key": "state",
+							"value": "undefined"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "0151.H5 Saas-我的信息",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://exelook.com/client/h5/wxuserinfo/?code=071qpYVk0JSMVq1wF1Yk0S8VVk0qpYV0&state=userinfo&api=json",
+					"protocol": "http",
+					"host": [
+						"exelook",
+						"com"
+					],
+					"path": [
+						"client",
+						"h5",
+						"wxuserinfo",
+						""
+					],
+					"query": [
+						{
+							"key": "code",
+							"value": "071qpYVk0JSMVq1wF1Yk0S8VVk0qpYV0"
+						},
+						{
+							"key": "state",
+							"value": "userinfo"
+						},
+						{
+							"key": "api",
+							"value": "json"
+						},
+						{
+							"key": "document",
+							"value": "truxish2114558de",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "0153.H5 Saas-我的活动",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://exelook.com/client/h5/useractivity/?cp=1&size=10&mkey=y6541h00&z=4fk2d91686b0fcef93b6e594689846cb4631n5&api=json&allt=0",
+					"protocol": "http",
+					"host": [
+						"exelook",
+						"com"
+					],
+					"path": [
+						"client",
+						"h5",
+						"useractivity",
+						""
+					],
+					"query": [
+						{
+							"key": "cp",
+							"value": "1"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						},
+						{
+							"key": "mkey",
+							"value": "y6541h00"
+						},
+						{
+							"key": "z",
+							"value": "4fk2d91686b0fcef93b6e594689846cb4631n5"
+						},
+						{
+							"key": "api",
+							"value": "json"
+						},
+						{
+							"key": "documentallt",
+							"value": "truxish2114558de",
+							"disabled": true
+						},
+						{
+							"key": "allt",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "0154.H5 Saas-推荐Banner",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://exelook.com/client/h5/banner/?mkey=evei1l7ygq9i9430hyh1p12y&z=4al80b01d4c528dcd5eb9e094faf86f92cc25g&api=json",
+					"protocol": "http",
+					"host": [
+						"exelook",
+						"com"
+					],
+					"path": [
+						"client",
+						"h5",
+						"banner",
+						""
+					],
+					"query": [
+						{
+							"key": "cp",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "size",
+							"value": "10",
+							"disabled": true
+						},
+						{
+							"key": "mkey",
+							"value": "evei1l7ygq9i9430hyh1p12y"
+						},
+						{
+							"key": "z",
+							"value": "4al80b01d4c528dcd5eb9e094faf86f92cc25g"
+						},
+						{
+							"key": "api",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "0155.嗨元素删除",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://exelook.com/client/all/hddel/?avrid=2548&z=4al80b01d4c528dcd5eb9e094faf86f92cc25g&api=json",
+					"protocol": "http",
+					"host": [
+						"exelook",
+						"com"
+					],
+					"path": [
+						"client",
+						"all",
+						"hddel",
+						""
+					],
+					"query": [
+						{
+							"key": "avrid",
+							"value": "2548"
+						},
+						{
+							"key": "z",
+							"value": "4al80b01d4c528dcd5eb9e094faf86f92cc25g"
+						},
+						{
+							"key": "api",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "0156.嗨元素详情",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://exelook.com/client/all/hdinfo/?avrid=2506&z=4fk2d91686b0fcef93b6e594689846cb4631n5&api=json",
+					"protocol": "http",
+					"host": [
+						"exelook",
+						"com"
+					],
+					"path": [
+						"client",
+						"all",
+						"hdinfo",
+						""
+					],
+					"query": [
+						{
+							"key": "avrid",
+							"value": "2506"
+						},
+						{
+							"key": "z",
+							"value": "4fk2d91686b0fcef93b6e594689846cb4631n5"
+						},
+						{
+							"key": "api",
+							"value": "json"
+						},
+						{
+							"key": "document",
+							"value": "truxish2114558de",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "0157.活动详情",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://exelook.com/client/all/actinfo/?actid=12&z=4fk2d91686b0fcef93b6e594689846cb4631n5&api=json",
+					"protocol": "http",
+					"host": [
+						"exelook",
+						"com"
+					],
+					"path": [
+						"client",
+						"all",
+						"actinfo",
+						""
+					],
+					"query": [
+						{
+							"key": "actid",
+							"value": "12"
+						},
+						{
+							"key": "z",
+							"value": "4fk2d91686b0fcef93b6e594689846cb4631n5"
+						},
+						{
+							"key": "api",
+							"value": "json"
+						},
+						{
+							"key": "document",
+							"value": "truxish2114558de",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "0158.活动最近一期参与列表",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://exelook.com/client/all/actresult/?awardkey=9smn38kb9g4529cw1lq49h6h&z=4fk2d91686b0fcef93b6e594689846cb4631n5&api=json",
+					"protocol": "http",
+					"host": [
+						"exelook",
+						"com"
+					],
+					"path": [
+						"client",
+						"all",
+						"actresult",
+						""
+					],
+					"query": [
+						{
+							"key": "awardkey",
+							"value": "9smn38kb9g4529cw1lq49h6h"
+						},
+						{
+							"key": "z",
+							"value": "4fk2d91686b0fcef93b6e594689846cb4631n5"
+						},
+						{
+							"key": "api",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "0159. 参与活动确认",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://exelook.com/client/all/awardpass/?auid=442&z=4fk2d91686b0fcef93b6e594689846cb4631n5&api=json&document=truxish2114558de",
+					"protocol": "http",
+					"host": [
+						"exelook",
+						"com"
+					],
+					"path": [
+						"client",
+						"all",
+						"awardpass",
+						""
+					],
+					"query": [
+						{
+							"key": "auid",
+							"value": "442"
+						},
+						{
+							"key": "z",
+							"value": "4fk2d91686b0fcef93b6e594689846cb4631n5"
+						},
+						{
+							"key": "api",
+							"value": "json"
+						},
+						{
+							"key": "document",
+							"value": "truxish2114558de"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "0160.H5 Saas-活动详情",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://exelook.com/client/h5/actinfo/?actid=16&z=4fk2d91686b0fcef93b6e594689846cb4631n5&api=json",
+					"protocol": "http",
+					"host": [
+						"exelook",
+						"com"
+					],
+					"path": [
+						"client",
+						"h5",
+						"actinfo",
+						""
+					],
+					"query": [
+						{
+							"key": "actid",
+							"value": "16"
+						},
+						{
+							"key": "z",
+							"value": "4fk2d91686b0fcef93b6e594689846cb4631n5"
+						},
+						{
+							"key": "api",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "0161.H5 Saas参与投票",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://exelook.com/client/h5/awardview/?auid=1225&z=4fk2d91686b0fcef93b6e594689846cb4631n5&mkey=y6541h00&api=json",
+					"protocol": "http",
+					"host": [
+						"exelook",
+						"com"
+					],
+					"path": [
+						"client",
+						"h5",
+						"awardview",
+						""
+					],
+					"query": [
+						{
+							"key": "auid",
+							"value": "1225"
+						},
+						{
+							"key": "z",
+							"value": "4fk2d91686b0fcef93b6e594689846cb4631n5"
+						},
+						{
+							"key": "mkey",
+							"value": "y6541h00"
+						},
+						{
+							"key": "api",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "0162.H5 Saas活动报名",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://exelook.com/client/h5/actpi/?avrid=4333&z=4fk2d91686b0fcef93b6e594689846cb4631n5&mkey=y6541h00&actid=16&api=json",
+					"protocol": "http",
+					"host": [
+						"exelook",
+						"com"
+					],
+					"path": [
+						"client",
+						"h5",
+						"actpi",
+						""
+					],
+					"query": [
+						{
+							"key": "avrid",
+							"value": "4333"
+						},
+						{
+							"key": "z",
+							"value": "4fk2d91686b0fcef93b6e594689846cb4631n5"
+						},
+						{
+							"key": "mkey",
+							"value": "y6541h00"
+						},
+						{
+							"key": "actid",
+							"value": "16"
+						},
+						{
+							"key": "api",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "0166.H5 Saas-当前互动节目",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://exelook.com/client/h5/runpro/?mkey=y6541h00&z=4fk2d91686b0fcef93b6e594689846cb4631n5&api=json",
+					"protocol": "http",
+					"host": [
+						"exelook",
+						"com"
+					],
+					"path": [
+						"client",
+						"h5",
+						"runpro",
+						""
+					],
+					"query": [
+						{
+							"key": "mkey",
+							"value": "y6541h00"
+						},
+						{
+							"key": "z",
+							"value": "4fk2d91686b0fcef93b6e594689846cb4631n5"
+						},
+						{
+							"key": "api",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "0164.H5 我的成就",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://exelook.com/client/h5/userhonour/?cp=1&size=10&bid=0&z=4fk2d91686b0fcef93b6e594689846cb4631n5&api=json",
+					"protocol": "http",
+					"host": [
+						"exelook",
+						"com"
+					],
+					"path": [
+						"client",
+						"h5",
+						"userhonour",
+						""
+					],
+					"query": [
+						{
+							"key": "cp",
+							"value": "1"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						},
+						{
+							"key": "bid",
+							"value": "0"
+						},
+						{
+							"key": "z",
+							"value": "4fk2d91686b0fcef93b6e594689846cb4631n5"
+						},
+						{
+							"key": "api",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "0163.H5 Saas-我玩过的节目",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://exelook.com/client/h5/userpro/?cp=1&size=10&mkey=y6541h00&z=4fk2d91686b0fcef93b6e594689846cb4631n5&api=json",
+					"protocol": "http",
+					"host": [
+						"exelook",
+						"com"
+					],
+					"path": [
+						"client",
+						"h5",
+						"userpro",
+						""
+					],
+					"query": [
+						{
+							"key": "cp",
+							"value": "1"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						},
+						{
+							"key": "mkey",
+							"value": "y6541h00"
+						},
+						{
+							"key": "z",
+							"value": "4fk2d91686b0fcef93b6e594689846cb4631n5"
+						},
+						{
+							"key": "api",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "0167.H5 Saas-发送弹幕",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://exelook.com/client/h5/barrage/?mkey=y6541h00&z=4fk2d91686b0fcef93b6e594689846cb4631n5&comment=%E6%88%91%E7%88%B1%E4%B8%AD%E5%8D%8E&api=json",
+					"protocol": "http",
+					"host": [
+						"exelook",
+						"com"
+					],
+					"path": [
+						"client",
+						"h5",
+						"barrage",
+						""
+					],
+					"query": [
+						{
+							"key": "mkey",
+							"value": "y6541h00"
+						},
+						{
+							"key": "z",
+							"value": "4fk2d91686b0fcef93b6e594689846cb4631n5"
+						},
+						{
+							"key": "comment",
+							"value": "%E6%88%91%E7%88%B1%E4%B8%AD%E5%8D%8E"
+						},
+						{
+							"key": "api",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "0172.H5 Saas-话题列表",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://exelook.com/client/h5/avoptions/?mkey=y6541h00&z=4fk2d91686b0fcef93b6e594689846cb4631n5&acid=0&cp=1&size=20&api=json",
+					"protocol": "http",
+					"host": [
+						"exelook",
+						"com"
+					],
+					"path": [
+						"client",
+						"h5",
+						"avoptions",
+						""
+					],
+					"query": [
+						{
+							"key": "mkey",
+							"value": "y6541h00"
+						},
+						{
+							"key": "z",
+							"value": "4fk2d91686b0fcef93b6e594689846cb4631n5"
+						},
+						{
+							"key": "acid",
+							"value": "0"
+						},
+						{
+							"key": "cp",
+							"value": "1"
+						},
+						{
+							"key": "size",
+							"value": "20"
+						},
+						{
+							"key": "api",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "0173.H5 Saas-话题投票",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://exelook.com/client/h5/avoptionstate/?mkey=y6541h00&z=4fk2d91686b0fcef93b6e594689846cb4631n5&avrid=375&option=1&api=json",
+					"protocol": "http",
+					"host": [
+						"exelook",
+						"com"
+					],
+					"path": [
+						"client",
+						"h5",
+						"avoptionstate",
+						""
+					],
+					"query": [
+						{
+							"key": "mkey",
+							"value": "y6541h00"
+						},
+						{
+							"key": "z",
+							"value": "4fk2d91686b0fcef93b6e594689846cb4631n5"
+						},
+						{
+							"key": "avrid",
+							"value": "375"
+						},
+						{
+							"key": "option",
+							"value": "1"
+						},
+						{
+							"key": "api",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "0175.物件列表",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://exelook.com/client/all/goods/?z=4fk2d91686b0fcef93b6e594689846cb4631n5&type=cake&gid=0&cp=1&size=100&api=json",
+					"protocol": "http",
+					"host": [
+						"exelook",
+						"com"
+					],
+					"path": [
+						"client",
+						"all",
+						"goods",
+						""
+					],
+					"query": [
+						{
+							"key": "z",
+							"value": "4fk2d91686b0fcef93b6e594689846cb4631n5"
+						},
+						{
+							"key": "type",
+							"value": "cake"
+						},
+						{
+							"key": "gid",
+							"value": "0"
+						},
+						{
+							"key": "cp",
+							"value": "1"
+						},
+						{
+							"key": "size",
+							"value": "100"
+						},
+						{
+							"key": "api",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "0176.H5 发表祝福",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://exelook.com/client/h5/birthday/?z=4fk2d91686b0fcef93b6e594689846cb4631n5&actid=25&id=39&comment=happy&api=json",
+					"protocol": "http",
+					"host": [
+						"exelook",
+						"com"
+					],
+					"path": [
+						"client",
+						"h5",
+						"birthday",
+						""
+					],
+					"query": [
+						{
+							"key": "z",
+							"value": "4fk2d91686b0fcef93b6e594689846cb4631n5"
+						},
+						{
+							"key": "actid",
+							"value": "25"
+						},
+						{
+							"key": "id",
+							"value": "39"
+						},
+						{
+							"key": "comment",
+							"value": "happy"
+						},
+						{
+							"key": "api",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

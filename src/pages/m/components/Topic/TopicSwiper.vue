@@ -26,16 +26,16 @@ import { swiper, swiperSlide } from "vue-awesome-swiper";
 import { Swiper, SwiperItem } from "mand-mobile";
 
 export default {
+  components: {
+    "md-swiper": Swiper,
+    "md-swiper-item": SwiperItem
+  },
   props: {
     imgUrls: {
       type: Array,
       required: true,
       default: []
     }
-  },
-  components: {
-    "md-swiper": Swiper,
-    "md-swiper-item": SwiperItem
   },
   methods: {
     handlePhotoClick(item) {
