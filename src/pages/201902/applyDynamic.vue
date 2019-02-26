@@ -132,16 +132,14 @@ export default {
         },
       },
       sOption2: {
-        autoplay: true,
         loop: true,
         navigation: {
           nextEl: '.swiper-next',
           prevEl: '.swiper-prev',
         },
       },
-      gears: [cdnUrl + '/fe/image/apply/gear01.png', cdnUrl + '/fe/image/apply/gear02.png', cdnUrl + '/fe/image/apply/gear03.png', cdnUrl + '/fe/image/apply/gear04.png', cdnUrl + '/fe/image/apply/gear05.png', cdnUrl + '/fe/image/apply/gear06.png', cdnUrl + '/fe/image/apply/gear07.png', cdnUrl + '/fe/image/apply/gear08.png', cdnUrl + '/fe/image/apply/gear09.png', cdnUrl + '/fe/image/apply/gear10.png', cdnUrl + '/fe/image/apply/gear11.png',],
       usList: [cdnUrl + '/fe/image/apply/picture01.png', cdnUrl + '/fe/image/apply/picture02.png', cdnUrl + '/fe/image/apply/picture03.png', cdnUrl + '/fe/image/apply/picture04.png', cdnUrl + '/fe/image/apply/picture05.png', cdnUrl + '/fe/image/apply/picture06.png',],
-      jobList: [cdnUrl + '/fe/image/apply/01.png', cdnUrl + '/fe/image/apply/02.png', cdnUrl + '/fe/image/apply/03.png', cdnUrl + '/fe/image/apply/04.png', cdnUrl + '/fe/image/apply/05.png'],
+      jobList: [cdnUrl + '/fe/image/apply/01.png?000', cdnUrl + '/fe/image/apply/02.png', cdnUrl + '/fe/image/apply/03.png', cdnUrl + '/fe/image/apply/04.png', cdnUrl + '/fe/image/apply/05.png'],
       //微信分享
       wxShareInfoValue: {
         title: "2019年春季招聘会",
