@@ -167,7 +167,7 @@ export default {
             img: "http://cdn.exe666.com/fe/image/altman/p3.png"
           }
         },
-        total: 0//3
+        total: 3
       },
       z: null,
       get_id: null,
