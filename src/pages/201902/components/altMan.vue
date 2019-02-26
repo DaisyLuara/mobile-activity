@@ -274,7 +274,7 @@ export default {
     countTime() {
       let that = this
       let now = moment()//当前时间
-      let end = moment(new Date(that.end_date).getTime())//结束时间
+      let end = moment(that.end_date).format()//结束时间
       let [d, h, m] = []
       let diff = end.diff(now, 'minutes')
       let ends = end.diff(now, 'seconds')
