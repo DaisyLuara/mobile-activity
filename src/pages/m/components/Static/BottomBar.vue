@@ -86,8 +86,7 @@ export default {
         "newDreamland",
         "happy_newYearTwo",
         "TopicIndex",
-        "ActivityBirthDayIndex",
-        "ActivityBirthDayCake"
+        "ActivityBirthDayIndex"
       ],
       labels: ["话题", "照片", "活动", "弹幕", "商城", "卡包", "我的", "公司动态", "祝福"],
       routes: [
