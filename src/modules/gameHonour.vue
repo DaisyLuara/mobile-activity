@@ -38,7 +38,6 @@ export default {
         });
     },
     projectStatus(data) {
-      this.projects.total = this.projects.total
       data.map(r => {
         if (r.hid <= 0) {
           this.projects.list[r.xid].img = r.xtabicon;
