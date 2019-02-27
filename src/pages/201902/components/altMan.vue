@@ -12,9 +12,9 @@
     <!-- 勋章-联动-3个节目 -->
     <div class="groups">
       <gameHonour
+        ref="gameHonour"
         :style-data="styleData"
         :projects="projects"
-        :bid="bid"
       />
       <a
         class="todo"
@@ -127,6 +127,7 @@
 <script>
 import { Cookies, sendV2Coupon, checkV2Coupon, batchV2Coupon } from "services";
 import { normalPages } from "@/mixins/normalPages";
+import moment from "moment";
 import gameHonour from "@/modules/gameHonour";
 const CDNURL = process.env.CDN_URL;
 export default {
@@ -168,7 +169,7 @@ export default {
         },
         total: 3
       },
-      idz: null,
+      z: null,
       get_id: null,
       styleData: {
         child: {
@@ -190,17 +191,23 @@ export default {
   watch: {
     userinfo() {
       if (Cookies.get('z')) {
-        return
-      } else {
-        this.idz = this.userinfo.z
+        this.z = Cookies.get('z')
+        this.$refs.gameHonour.getGameHonour(this.bid, this.z)
+      }
+      if (this.userinfo.z) {
         Cookies.set('z', this.userinfo.z)
+        this.z = this.userinfo.z
+        this.$refs.gameHonour.getGameHonour(this.bid, this.z)
       }
     }
   },
   mounted() {
+    // this.$refs.gameHonour.getGameHonour(this.bid, '8b96bc7fba4c1176b3fc0861e94f22465c0f6a');
     if (Cookies.get('z')) {
-      this.idz = Cookies.get('z')
+      this.z = Cookies.get('z')
+      this.$refs.gameHonour.getGameHonour(this.bid, this.z)
     }
+    this.z ? this.$refs.gameHonour.getGameHonour(this.bid, this.z) : null;
   },
   methods: {
     getCoupon() {
@@ -210,7 +217,7 @@ export default {
     //判断是否领过优惠券
     checkV2Coupon() {
       let args = {
-        z: this.idz,
+        z: this.z,
         belong: 'ultraman',
         include: 'couponBatch',
       }
@@ -226,7 +233,7 @@ export default {
     },
     getCouponBatch() {
       let args = {
-        z: this.idz,
+        z: this.z,
         belong: this.belong,
       }
       batchV2Coupon(args).then(res => {
@@ -240,7 +247,7 @@ export default {
     sendV2Coupon() {
       let args = {
         qiniu_id: this.id,
-        z: this.idz,
+        z: this.z,
         belong: 'ultraman',
         oid: this.oid
       }
@@ -261,23 +268,26 @@ export default {
       if (parseInt(res.status) === 1) {
         this.diff_time = '0天0小时0分'
         this.used = true
+      } else {
+        this.countTime()
       }
-      this.countTime()
+
     },
-    countTime(end_date) {
-      let now = new Date()//当前时间
-      let end = new Date(this.end_date)//结束时间
+    countTime() {
+      let that = this
+      let now = moment()//当前时间
+      let end = moment(that.end_date)//结束时间
       let [d, h, m] = []
-      let diff = end - now
-      if (diff <= 0) {
+      let diff = end.diff(now, 'minutes')
+      let ends = end.diff(now, 'seconds')
+      if (ends <= 0) {
         window.cancelAnimationFrame(timer)
         this.diff_time = '0天0小时0分'
         this.passed = true
-
       } else {
-        m = Math.floor(diff / 1000 / 60 % 60)
-        h = Math.floor(diff / 1000 / 60 / 60 % 24)
-        d = Math.floor(diff / (1000 * 60 * 60 * 24))
+        m = Math.floor(diff % 60)
+        h = Math.floor(diff / 60 % 24)
+        d = Math.floor(diff / (60 * 24))
         m = m < 10 ? '0' + m : m
         h = h < 10 ? '0' + h : h
         d = d < 10 ? '0' + d : d
@@ -332,6 +342,7 @@ a {
   overflow-x: hidden;
   position: relative;
   background-color: #1b1b1b;
+  margin-bottom: -2px;
   .bg {
     position: relative;
     z-index: 0;

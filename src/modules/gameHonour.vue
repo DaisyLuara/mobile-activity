@@ -15,10 +15,8 @@
 </template>
 <script>
 import { Cookies, getGameHonour } from "services";
-import { normalPages } from "@/mixins/normalPages";
 const CDNURL = process.env.CDN_URL;
 export default {
-  mixins: [normalPages],
   props: {
     styleData: {
       type: Object,
@@ -27,36 +25,7 @@ export default {
     projects: {
       type: Object,
       required: true
-    },
-    bid: {
-      type: Number,
-      required: true
     }
-  },
-  data() {
-    return {
-      z: null,
-    }
-  },
-  watch: {
-    belong() {
-      if (Cookies.get('z')) {
-        this.z = Cookies.get('z')
-        this.getGameHonour(this.bid, this.z)
-      }
-    },
-    userinfo() {
-      if (Cookies.get('z')) {
-        return
-      } else {
-        this.z = this.userinfo.z
-        Cookies.set('z', this.userinfo.z)
-        this.getGameHonour(this.bid, this.userinfo.z);
-      }
-    }
-  },
-  mounted() {
-    // this.getGameHonour(this.bid, '8b96bc7fba4c1176b3fc0861e94f22465c0f6a');
   },
   methods: {
     getGameHonour(bid, z) {

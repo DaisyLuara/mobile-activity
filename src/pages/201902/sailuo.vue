@@ -5,13 +5,11 @@
 </template>
 <script>
 import altMan from '@/pages/201902/components/altMan'
-import { normalPages } from "@/mixins/normalPages";
 const CDNURL = process.env.CDN_URL;
 export default {
   components: {
     altMan
   },
-  mixins: [normalPages],
   data() {
     return {
       //微信分享
