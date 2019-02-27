@@ -32,7 +32,7 @@ export default {
       wxShareInfoValue: {
         title: '快快领取 新年红包',
         desc: '金猪送福 新年大吉',
-        link: '' + window.location.search,
+        link: 'http://papi.xingstation.com/api/s/7pw' + window.location.search,
         imgUrl: CDNURL + '/fe/image/luwan/share.png'
       }
     }
