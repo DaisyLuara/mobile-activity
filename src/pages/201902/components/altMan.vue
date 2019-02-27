@@ -55,7 +55,7 @@
     >
       <div class="content">
         <img
-          :src="base + '5.png'"
+          :src="base + 'map5.png'"
           class="map"
         >
         <a
@@ -191,23 +191,23 @@ export default {
   watch: {
     userinfo() {
       if (Cookies.get('z')) {
-        this.z = Cookies.get('z')
-        this.$refs.gameHonour.getGameHonour(this.bid, this.z)
+        return
       }
       if (this.userinfo.z) {
-        Cookies.set('z', this.userinfo.z)
         this.z = this.userinfo.z
+        Cookies.set('z', this.userinfo.z)
+        this.projects.total = 3
         this.$refs.gameHonour.getGameHonour(this.bid, this.z)
       }
     }
   },
   mounted() {
-    // this.$refs.gameHonour.getGameHonour(this.bid, '8b96bc7fba4c1176b3fc0861e94f22465c0f6a');
+    // this.$refs.gameHonour.getGameHonour(this.bid, '1808ce6f291cc2aa1c33e80d7bbd91128359w5');
     if (Cookies.get('z')) {
-      this.z = Cookies.get('z')
+      this.z = this.z ? this.z : Cookies.get('z')
+      this.projects.total = 3
       this.$refs.gameHonour.getGameHonour(this.bid, this.z)
     }
-    this.z ? this.$refs.gameHonour.getGameHonour(this.bid, this.z) : null;
   },
   methods: {
     getCoupon() {
