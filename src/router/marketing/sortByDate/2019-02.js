@@ -108,6 +108,39 @@ const Date201902 = [
       desc: '笑容ATM'
     },
     isAbandoned: false
+  },
+  {
+    path: 'hanxiang',
+    location: '201902/hanxiang',
+    name: 'hanxiang',
+    meta: {
+      title: '汉翔书法教育',
+      author: 'lipan',
+      desc: '汉翔书法教育'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'aiqiyi',
+    location: '201902/aiqiyi',
+    name: 'aiqiyi',
+    meta: {
+      title: '爱奇艺青春',
+      author: 'lipan',
+      desc: '爱奇艺青春'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'yun',
+    location: '201902/yun',
+    name: 'yun',
+    meta: {
+      title: '时来运转',
+      author: 'lipan',
+      desc: '时来运转_luone（简版）H5'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201902

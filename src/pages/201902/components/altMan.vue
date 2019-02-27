@@ -125,7 +125,7 @@
   </div>
 </template>
 <script>
-import { Cookies, sendV2Coupon, checkV2Coupon, batchV2Coupon } from "services";
+import { Cookies, sendV2Projects, checkV2Coupon, batchV2Coupon } from "services";
 import { normalPages } from "@/mixins/normalPages";
 import moment from "moment";
 import gameHonour from "@/modules/gameHonour";
@@ -251,7 +251,7 @@ export default {
         belong: 'ultraman',
         oid: this.oid
       }
-      sendV2Coupon(args, this.get_id)
+      sendV2Projects(args)
         .then(res => {
           this.handleData(res)
         })

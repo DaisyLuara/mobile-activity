@@ -16,7 +16,7 @@ const MINI_API = process.env.AD_API + '/api/mini'
 const MONEY_URL = process.env.AD_API + '/api/open/redpack/'
 
 const BATCH_URL = process.env.AD_API + '/api/open/coupon/batches'
-
+const PROJECTS_URL = process.env.AD_API + '/api/open/projects/coupons'
 const REQ_HEADER = {
   headers: {
     'api-token': apiToken,
@@ -384,6 +384,7 @@ const checkV2Coupon = params => {
       })
   })
 }
+//发券V2版本
 const sendV2Coupon = (params, couponId) => {
   return new Promise((resolve, reject) => {
     axios
@@ -396,7 +397,21 @@ const sendV2Coupon = (params, couponId) => {
       })
   })
 }
-//BATCH_URL
+
+//多节目发券领券v2版本
+const sendV2Projects = params => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(PROJECTS_URL + '?include=couponBatch', params, V2_HEADER)
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+//BATCH_URL调取策略获取coupon_batch_id  id
 const batchV2Coupon = params => {
   return new Promise((resolve, reject) => {
     axios
@@ -424,7 +439,6 @@ const sendMoneyOnce = code => {
       })
   })
 }
-
 export {
   createCoupon,
   getCoupon,
@@ -449,5 +463,6 @@ export {
   checkV2Coupon,
   sendV2Coupon,
   sendMoneyOnce,
-  batchV2Coupon
+  batchV2Coupon,
+  sendV2Projects
 }

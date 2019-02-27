@@ -3,36 +3,45 @@
     :style="style.root"
     class="warp"
   >
-    <img
-      :src="base + 'top.png'"
-      class="top"
-    >
-    <img
-      :src="coupon_img"
-      class="coupon"
-    >
-
-    <div class="erweima">
+    <div class="main">
       <img
-        :src="base + 'qr.png'"
-        class="erbg"
+        :src="base + 'frame.png'"
+        class="frame"
       >
       <img
-        :src="base + 'logo.png'"
-        class="logo"
+        :src="photo"
+        class="photo"
       >
-      <div class="clip">
+      <img
+        :src="base + 'save.png'"
+        class="save"
+      >
+      <img
+        :src="coupon_img"
+        class="coupon"
+      >
+      <div class="erweima">
         <img
-          :src="qrcodeImg"
-          class="qrcode"
+          :src="base + 'QR.png'"
+          class="erbg"
+        >
+        <div class="clip">
+          <img
+            :src="qrcodeImg"
+            class="qrcode"
+          >
+        </div>
+        <img
+          v-show="used"
+          :src="base + 'used.png'"
+          class="used"
         >
       </div>
-      <img
-        v-show="used"
-        :src="base + 'used.png'"
-        class="used"
-      >
     </div>
+    <img
+      :src="base + 'logo.png'"
+      class="logo"
+    >
 
   </div>
 </template>
@@ -44,22 +53,21 @@ export default {
   mixins: [normalPages],
   data() {
     return {
-      base: CDN_URL + '/fe/image/sAtm/',
+      base: CDN_URL + '/fe/image/hanxiang/',
       style: {
         root: {
           'min-height': this.$innerHeight() + 'px'
         }
       },
       id: this.$route.query.id,
-      coupon_img: null,//'https://cdn.exe666.com/fe/image/sAtm/test.png',
+      coupon_img: null,//'https://cdn.exe666.com/fe/image/hanxiang/coupon.png',
       qrcodeImg: null,//'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
       used: false,//false
       z: null,
       //微信分享
       wxShareInfoValue: {
-        title: "笑容ATM",
-        desc: "笑容ATM",
-        imgUrl: "https://cdn.exe666.com/fe/image/sAtm/icon.jpg"
+        title: "汉翔书法教育",
+        desc: "汉翔书法教育",
       }
     }
   },
@@ -140,7 +148,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@img: "http://cdn.exe666.com/fe/image/sAtm/";
+@img: "http://cdn.exe666.com/fe/image/hanxiang/";
 html,
 body {
   width: 100%;
@@ -163,66 +171,92 @@ img {
 .warp {
   position: relative;
   overflow-x: hidden;
-  background-image: url("@{img}bg.png");
+  background-image: url("@{img}BG.png");
   background-position: center top;
   background-size: 100% auto;
   background-repeat: no-repeat;
-  padding-top: 8%;
-  .top {
+  padding-top: 4%;
+  .main {
     position: relative;
-    width: 87%;
-  }
-  .coupon {
-    width: 92%;
-    position: relative;
-    z-index: 0;
-    margin-top: 6%;
-    margin-bottom: 10%;
-  }
-  .erweima {
-    position: relative;
-    width: 32%;
-    margin-bottom: 10%;
-    .erbg {
+    width: 71%;
+    margin-bottom: 50%;
+    .frame {
       position: relative;
       z-index: 0;
     }
-    .logo {
-      width: 21vw;
+    .photo {
+      width: 98.4%;
       position: absolute;
-      bottom: 0%;
-      right: -83%;
-      z-index: 99;
-    }
-    .clip {
-      width: 25vw;
-      height: 25vw;
-      overflow: hidden;
-      position: absolute;
-      top: 5.5%;
+      top: 0.3%;
       left: 50%;
-      z-index: 9;
       transform: translateX(-50%);
-      text-align: center;
-      border-radius: 20px;
+      z-index: 9;
+      pointer-events: auto;
+      user-select: auto;
+      border-radius: 5px;
     }
-    .qrcode {
-      width: 30vw;
-      max-width: 35vw;
-      margin: 0 auto;
+    .save {
+      width: 10vw;
       position: absolute;
       top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      right: 0%;
+      transform: translate(50%, -50%);
+      z-index: 99;
     }
-    .used {
-      width: 32vw;
+    .coupon {
+      width: 42vw;
       position: absolute;
-      top: 10%;
-      left: 50%;
-      transform: translateX(-50%);
+      top: 81%;
+      left: -5%;
       z-index: 999;
     }
+    .erweima {
+      position: absolute;
+      top: 83%;
+      right: -5%;
+      width: 31vw;
+      z-index: 999;
+      .erbg {
+        position: relative;
+        z-index: 0;
+      }
+      .clip {
+        width: 25vw;
+        height: 25vw;
+        overflow: hidden;
+        position: absolute;
+        top: 5.5%;
+        left: 50%;
+        z-index: 9;
+        transform: translateX(-50%);
+        text-align: center;
+        border-radius: 20px;
+      }
+      .qrcode {
+        width: 32vw;
+        max-width: 35vw;
+        margin: 0 auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .used {
+        width: 30vw;
+        position: absolute;
+        top: 9%;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 999;
+      }
+    }
+  }
+  .logo {
+    width: 47%;
+    position: absolute;
+    top: 92%;
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
 </style>
