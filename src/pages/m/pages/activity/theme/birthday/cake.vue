@@ -1,5 +1,5 @@
 <template>
-  <div class="cake">
+  <div class="cake" :class="{ 'no-bottom': this.$route.query.acid }">
     <div v-if="!isNoList">
       <div class="header">
         <div class="back-word">CAKE</div>
@@ -7,19 +7,23 @@
       </div>
       <!-- 蛋糕样式选择区域 -->
       <CakeSwiper ref="cakeSwiper"/>
-      <div class="bottom"/>
       <!-- 生日祝福输入区域 -->
-      <div class="greetings-area" :class="{ 'no-bottom': this.$route.query.acid }">
-        <textarea
-          v-model="greetings"
-          maxlength="14"
-          placeholder="输入你对ta的生日祝福..."
-          class="greetings-input"
-        />
-        <div 
-          class="submit-btn" 
-          @click="handleSendGreetings">
-          <img src="https://cdn.exe666.com/m/activity/shop/birthday/submit-button.png">
+      <div class="greetings-wrapper">
+        <div class="bottom"/>
+        <div class="greetings-area">
+          <textarea
+            v-model="greetings"
+            maxlength="14"
+            placeholder="输入你对ta的生日祝福..."
+            class="greetings-input"
+            @blur="handleBlur"
+          />
+          <div
+            class="submit-btn"
+            @click="handleSendGreetings"
+          >
+            <img src="https://cdn.exe666.com/m/activity/shop/birthday/submit-button.png">
+          </div>
         </div>
       </div>
     </div>
@@ -118,6 +122,13 @@ export default {
           console.log(e)
           this.isNoList = true
         })
+    },
+    handleBlur () {
+      // 修复ios隐藏软键盘后页面无法回弹的问题
+      setTimeout(() => {
+        var scrollHeight = document.documentElement.scrollTop || document.body.scrollTop || 0;
+        window.scrollTo(0, Math.max(scrollHeight - 1, 0));
+      }, 10)
     }
   }
 }
@@ -128,6 +139,11 @@ export default {
 
 .cake {
   .wrapper();
+  overflow: hidden;
+  padding-bottom: 48px;
+  &.no-bottom {
+    padding-bottom: 0;
+  }
 }
 
 textarea::-webkit-input-placeholder {
@@ -170,45 +186,47 @@ textarea::-ms-input-placeholder {
     font-weight: lighter;
   }
 }
-.bottom {
-  position: absolute;
-  width: 100%;
-  bottom: 0;
-  height: 0.6rem;
-  background: #35BBC4;
-}
-.greetings-area {
-  width: 3.41rem;
-  padding: 0.2rem 0 0.1rem;
-  margin: 0 auto 48px;
-  transform: translateY(0.2rem);
-  background: #FFF;
-  border-radius: 0.2rem;
-  box-shadow: 0px 0px 18px 0px rgba(223,223,223,0.59);
-  &.no-bottom {
-    margin: 0 auto;
+.greetings-wrapper {
+  position: relative;
+  margin-top: 0.2rem;
+  padding-bottom: 0.2rem;
+  .bottom {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    height: 0.6rem;
+    background: #35BBC4;
   }
-  .greetings-input {
-    display: block;
-    width: 3.13rem;
-    height: 0.79rem;
-    line-height: 0.13rem;
-    padding: 0.15rem 0.18rem;
-    margin: 0 auto 0.12rem auto;
-    border-radius: 0.07rem;
-    border: 1px solid #EEEEEE;
-    color: #000;
-    font-size: 0.14rem;
-    resize: none;
-  }
-  .submit-btn {
-    width: 0.65rem;
-    height: 0.65rem;
+  .greetings-area {
+    width: 3.41rem;
+    padding: 0.2rem 0 0.1rem;
     margin: 0 auto;
-    img {
+    transform: translate(0, 0);
+    background: #FFF;
+    border-radius: 0.2rem;
+    box-shadow: 0px 0px 18px 0px rgba(223,223,223,0.59);
+    .greetings-input {
       display: block;
-      width: 100%;
-      height: 100%;
+      width: 3.13rem;
+      height: 0.79rem;
+      line-height: 0.13rem;
+      padding: 0.15rem 0.18rem;
+      margin: 0 auto 0.12rem auto;
+      border-radius: 0.07rem;
+      border: 1px solid #EEEEEE;
+      color: #000;
+      font-size: 0.14rem;
+      resize: none;
+    }
+    .submit-btn {
+      width: 0.65rem;
+      height: 0.65rem;
+      margin: 0 auto;
+      img {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
     }
   }
 }
