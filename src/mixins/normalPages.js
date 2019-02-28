@@ -11,6 +11,7 @@ export const normalPages = {
     return {
       baseUrl: cdnUrl,
       belong: null,
+      sertime: null,
       photo: null,
       oid: null,
       parms: null,
@@ -57,6 +58,7 @@ export const normalPages = {
           belong,
           image,
           oid,
+          sertime,
           parms,
           awardinfo,
           actinfo,
@@ -65,6 +67,7 @@ export const normalPages = {
         } = await getInfoById(id, code, state)
         this.userinfo = userinfo
         this.belong = belong
+        this.sertime = sertime
         this.photo = image
         this.oid = oid
         if (parms !== null && parms !== undefined) {
