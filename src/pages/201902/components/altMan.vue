@@ -189,7 +189,7 @@ export default {
     };
   },
   watch: {
-    belong() {
+    sertime() {
       if (localStorage.getItem('z')) {
         this.z = this.z ? this.z : localStorage.getItem('z')
         this.projects.total = 3
