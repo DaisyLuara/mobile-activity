@@ -211,6 +211,8 @@ export default {
       this.z = this.z ? this.z : Cookies.get('z')
       this.projects.total = 3
       this.$refs.gameHonour.getGameHonour(this.bid, this.z)
+    } else {
+      window.location.href = window.location.href
     }
   },
   methods: {
