@@ -14,7 +14,7 @@
   </div>
 </template>
 <script>
-import { Cookies, getGameHonour } from "services";
+import { getGameHonour } from "services";
 const CDNURL = process.env.CDN_URL;
 export default {
   props: {

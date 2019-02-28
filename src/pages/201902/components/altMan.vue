@@ -125,7 +125,7 @@
   </div>
 </template>
 <script>
-import { $wechat, isInWechat, wechatShareTrack, Cookies, sendV2Projects, checkV2Coupon, batchV2Coupon } from "services";
+import { isiOS, sendV2Projects, checkV2Coupon, batchV2Coupon } from "services";
 import { normalPages } from "@/mixins/normalPages";
 import moment from "moment";
 import gameHonour from "@/modules/gameHonour";
@@ -190,50 +190,32 @@ export default {
   },
   watch: {
     userinfo() {
-      if (Cookies.get('z')) {
+      if (localStorage.getItem('z')) {
         return
       }
       if (this.userinfo.z) {
         this.z = this.userinfo.z
-        Cookies.set('z', this.userinfo.z)
+        localStorage.setItem('z', this.userinfo.z)
         this.projects.total = 3
         this.$refs.gameHonour.getGameHonour(this.bid, this.z)
       }
     }
   },
-  created() {
-    this.handleWechatShare('http://papi.xingstation.com/api/s/6B7')
-    this.wxShareInfoValue.link = 'http://papi.xingstation.com/api/s/6B7'
-  },
   mounted() {
     // this.$refs.gameHonour.getGameHonour(this.bid, '1808ce6f291cc2aa1c33e80d7bbd91128359w5');
-    if (localStorage.getItem('altman' + this.id)) {
+    if (localStorage.getItem('altman' + this.id) && isiOS) {
       return
     } else {
       localStorage.setItem('altman' + this.id, 'share')
       window.location.href = window.location.href
     }
-    if (Cookies.get('z')) {
-      this.z = this.z ? this.z : Cookies.get('z')
+    if (localStorage.getItem('z')) {
+      this.z = this.z ? this.z : localStorage.getItem('z')
       this.projects.total = 3
       this.$refs.gameHonour.getGameHonour(this.bid, this.z)
     }
-
   },
   methods: {
-    handleWechatShare(url) {
-      if (isInWechat() === true) {
-        $wechat(url)
-          .then(res => {
-            res.share(this.wxShareInfoValue)
-          })
-          .catch(err => {
-            console.warn(err.message)
-          })
-      } else {
-        console.warn('you r not in wechat environment')
-      }
-    },
     getCoupon() {
       this.todo = true
       this.checkV2Coupon()
