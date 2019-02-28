@@ -125,7 +125,7 @@
   </div>
 </template>
 <script>
-import { isiOS, sendV2Projects, checkV2Coupon, batchV2Coupon } from "services";
+import { $wechat, isInWechat, wechatShareTrack, isiOS, sendV2Projects, checkV2Coupon, batchV2Coupon } from "services";
 import { normalPages } from "@/mixins/normalPages";
 import moment from "moment";
 import gameHonour from "@/modules/gameHonour";
