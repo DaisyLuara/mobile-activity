@@ -70,9 +70,9 @@ export default {
       name: null,//'张三'
       star: null,//'sunny'
       wxShareInfoValue: {
-        title: '',
-        desc: '',
-        link: '' + window.location.search,
+        title: '爱奇艺',
+        desc: '爱奇艺',
+        link: 'http://papi.xingstation.com/api/s/8Ml' + window.location.search,
         imgUrl: CDN_URL + '/fe/image/aiqiyi/icon.png'
       }
     }
