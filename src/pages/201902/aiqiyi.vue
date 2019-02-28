@@ -154,13 +154,14 @@ img {
   background-size: 7% auto, 37.5% auto, 100% auto;
   background-repeat: no-repeat, no-repeat, no-repeat;
   padding-top: 45%;
+  animation: bgweiyi 0.6s linear infinite alternate-reverse;
   .cover {
     width: 24%;
     position: absolute;
     top: 40%;
     right: 0%;
     z-index: 999;
-    animation: weiyi 0.4s linear infinite alternate;
+    animation: weiyi 0.5s linear infinite alternate;
   }
   .form {
     width: 100%;
@@ -256,7 +257,15 @@ img {
     transform: translateX(0%);
   }
   100% {
-    transform: translateX(5%);
+    transform: translateX(20%);
+  }
+}
+@keyframes bgweiyi {
+  0% {
+    background-position: left 96%, left 95%, center top;
+  }
+  100% {
+    background-position: -5% 96%, -10% 95%, center top;
   }
 }
 </style>
