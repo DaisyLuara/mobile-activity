@@ -8,6 +8,7 @@ export const onlyGetPhoto = {
       belong: null,
       photo: null,
       oid: null,
+      sertime: null,
       parms: null,
       gender: null,
       score: null,
@@ -29,6 +30,7 @@ export const onlyGetPhoto = {
           belong,
           image,
           oid,
+          sertime,
           parms,
           awardinfo,
           actinfo,
@@ -39,6 +41,7 @@ export const onlyGetPhoto = {
         this.belong = belong
         this.photo = image
         this.oid = oid
+        this.sertime = sertime
         if (parms !== null && parms !== undefined) {
           this.parms = splitParms(parms)
           if (this.parms.gender) {
