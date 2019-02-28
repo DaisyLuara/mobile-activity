@@ -201,6 +201,9 @@ export default {
       }
     }
   },
+  created() {
+    window.location.href = window.location.href
+  },
   mounted() {
     // this.$refs.gameHonour.getGameHonour(this.bid, '1808ce6f291cc2aa1c33e80d7bbd91128359w5');
     if (Cookies.get('z')) {

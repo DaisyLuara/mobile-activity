@@ -23,10 +23,11 @@
         <input
           class="name"
           v-model="name"
-          type="text"
-          max-length="5"
+          maxlength="5"
+          placeholder="输入你的名字"
         >
         <a
+          v-show="Boolean(photo)"
           class="abtn"
           @click="toGetImage"
         >
@@ -43,15 +44,12 @@
         :src="photo"
         class="photo"
       >
-      <img
-        src=""
-        class="img"
-      >
     </div>
     <img
       :src="base + 'rights.png'"
       class="tip"
     >
+    <canvas id="canvas"></canvas>
   </div>
 </template>
 <script>import { $wechat, isInWechat, wechatShareTrack, Cookies } from 'services'
@@ -68,28 +66,50 @@ export default {
         }
       },
       id: this.$route.query.id,
-      arr: [],
-      note: null,
-      name: null,
-      star: null,
+      num: null,//'张三'
+      name: null,//'张三'
+      star: null,//'sunny'
       wxShareInfoValue: {
-        title: '',
-        desc: '',
-        link: '' + window.location.search,
+        title: '爱奇艺',
+        desc: '爱奇艺',
+        link: 'http://papi.xingstation.com/api/s/8Ml' + window.location.search,
         imgUrl: CDN_URL + '/fe/image/aiqiyi/icon.png'
       }
     }
   },
   mounted() {
     if (localStorage.getItem(this.id)) {
-      this.note = localStorage.getItem(this.id)
+      this.num = localStorage.getItem(this.id)
     } else {
-      // this.note = this.arr[]
-      // localStorage.setItem(this.id, this.note)
+      this.num = parseInt(Math.random() * 5)
+      localStorage.setItem(this.id, this.num)
     }
   },
   methods: {
-    toGetImage() { }
+    toGetImage() {
+      let [bg, text] = [new Image(), new Image()]
+      let that = this
+      let canvas = document.getElementById('canvas')
+      let ctx = canvas.getContext('2d')
+      bg.setAttribute('crossOrigin', 'Anonymous')
+      text.setAttribute('crossOrigin', 'Anonymous')
+      bg.src = this.photo
+      bg.onload = function () {
+        canvas.width = bg.width
+        canvas.height = bg.height
+        text.onload = function () {
+          ctx.drawImage(bg, 0, 0, canvas.width, canvas.height)
+          ctx.drawImage(text, 0, 0, text.width, text.height, 0, canvas.height * 0.5, canvas.width, canvas.width / 415 * 232)
+          let word = that.star + ' & ' + that.name
+          ctx.fillStyle = "#fff"
+          ctx.textAlign = "center"
+          ctx.font = "bold 110px 微软雅黑"
+          ctx.fillText(word, canvas.width / 2, canvas.height * 0.57)
+          that.photo = canvas.toDataURL('image/png')
+        }
+        text.src = that.base + that.num + '.png'
+      }
+    }
   }
 }
 </script>
@@ -130,7 +150,7 @@ img {
   background-repeat: no-repeat, no-repeat, no-repeat;
   padding-top: 45%;
   .cover {
-    width: 22%;
+    width: 24%;
     position: absolute;
     top: 40%;
     right: 0%;
@@ -144,12 +164,17 @@ img {
       width: 83%;
       position: relative;
       span {
+        overflow: hidden;
         position: absolute;
+        left: 52%;
         width: 20%;
-        height: 100%;
+        height: 8vw;
+        line-height: 8vw;
         z-index: 99;
         color: #040f25;
-        font-size: 3vw;
+        font-size: 4.4vw;
+        font-weight: 700;
+        z-index: 99;
       }
     }
     .input {
@@ -157,14 +182,22 @@ img {
       width: 63%;
       margin-top: 3%;
       .name {
+        width: 85%;
         position: absolute;
         top: 0%;
-        left: 0%;
+        left: 10%;
         background: transparent;
-        border: none;
-        width: 100%;
         height: 100%;
-        z-index: 9;
+        z-index: 99;
+        color: #fff;
+        font-size: 4vw;
+        font-weight: 600;
+        text-align: left;
+        pointer-events: auto;
+        user-select: auto;
+        &::placeholder {
+          color: #67686e;
+        }
       }
       .abtn {
         width: 19vw;
@@ -200,6 +233,15 @@ img {
     position: relative;
     margin-top: 10%;
     margin-bottom: 3%;
+  }
+  #canvas {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    display: none;
+    z-index: 0;
   }
 }
 </style>
