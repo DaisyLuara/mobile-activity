@@ -214,6 +214,7 @@ export default {
       this.projects.total = 3
       this.$refs.gameHonour.getGameHonour(this.bid, this.z)
     }
+
   },
   methods: {
     getCoupon() {
