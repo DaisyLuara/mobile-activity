@@ -125,7 +125,7 @@
   </div>
 </template>
 <script>
-import { Cookies, sendV2Projects, checkV2Coupon, batchV2Coupon } from "services";
+import { $wechat, isInWechat, wechatShareTrack, Cookies, sendV2Projects, checkV2Coupon, batchV2Coupon } from "services";
 import { normalPages } from "@/mixins/normalPages";
 import moment from "moment";
 import gameHonour from "@/modules/gameHonour";
@@ -201,6 +201,10 @@ export default {
       }
     }
   },
+  created() {
+    this.handleWechatShare('http://papi.xingstation.com/api/s/6B7')
+    this.wxShareInfoValue.link = 'http://papi.xingstation.com/api/s/6B7'
+  },
   mounted() {
     // this.$refs.gameHonour.getGameHonour(this.bid, '1808ce6f291cc2aa1c33e80d7bbd91128359w5');
     if (Cookies.get('z')) {
@@ -208,9 +212,21 @@ export default {
       this.projects.total = 3
       this.$refs.gameHonour.getGameHonour(this.bid, this.z)
     }
-
   },
   methods: {
+    handleWechatShare(url) {
+      if (isInWechat() === true) {
+        $wechat(url)
+          .then(res => {
+            res.share(this.wxShareInfoValue)
+          })
+          .catch(err => {
+            console.warn(err.message)
+          })
+      } else {
+        console.warn('you r not in wechat environment')
+      }
+    },
     getCoupon() {
       this.todo = true
       this.checkV2Coupon()
