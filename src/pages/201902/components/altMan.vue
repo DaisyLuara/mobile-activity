@@ -194,7 +194,7 @@ export default {
         this.z = this.z ? this.z : localStorage.getItem('z')
         this.projects.total = 3
         this.$refs.gameHonour.getGameHonour(this.bid, this.z)
-      } else if (this.userinfo.z) {
+      } else if (this.userinfo != null) {
         this.z = this.userinfo.z
         localStorage.setItem('z', this.userinfo.z)
         this.projects.total = 3
