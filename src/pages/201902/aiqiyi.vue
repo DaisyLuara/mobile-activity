@@ -105,7 +105,7 @@ export default {
         text.onload = function () {
           ctx.drawImage(bg, 0, 0, canvas.width, canvas.height)
           ctx.drawImage(text, 0, 0, text.width, text.height, 0, canvas.height * 0.5, canvas.width, canvas.width / 415 * 232)
-          let word = that.star + ' & ' + that.name
+          let word = that.name + ' & ' + that.star
           ctx.fillStyle = "#fff"
           ctx.textAlign = "center"
           ctx.font = "bold 110px 微软雅黑"
@@ -223,7 +223,8 @@ img {
       z-index: 99;
     }
     .photo {
-      width: 61.5vw;
+      // width: 61.5vw;
+      width: 90%;
       position: absolute;
       top: 0.5%;
       left: 50%;
