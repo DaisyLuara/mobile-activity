@@ -125,7 +125,7 @@
   </div>
 </template>
 <script>
-import { isiOS, sendV2Projects, checkV2Coupon, batchV2Coupon } from "services";
+import { $wechat, isInWechat, wechatShareTrack, isiOS, sendV2Projects, checkV2Coupon, batchV2Coupon } from "services";
 import { normalPages } from "@/mixins/normalPages";
 import moment from "moment";
 import gameHonour from "@/modules/gameHonour";
@@ -203,12 +203,14 @@ export default {
   },
   mounted() {
     // this.$refs.gameHonour.getGameHonour(this.bid, '1808ce6f291cc2aa1c33e80d7bbd91128359w5');
-    if (localStorage.getItem('altman' + this.id)) {
-      return
-    } else {
-      localStorage.setItem('altman' + this.id, 'share')
-      window.location.href = window.location.href
-    }
+    // if (isiOS) {
+    //   if (localStorage.getItem('altman' + this.id)) {
+    //     return
+    //   } else {
+    //     localStorage.setItem('altman' + this.id, 'share')
+    //     window.location.href = window.location.href
+    //   }
+    // }
     if (localStorage.getItem('z')) {
       this.z = this.z ? this.z : localStorage.getItem('z')
       this.projects.total = 3
