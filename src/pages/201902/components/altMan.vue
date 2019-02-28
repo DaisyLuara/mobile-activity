@@ -203,7 +203,7 @@ export default {
   },
   mounted() {
     // this.$refs.gameHonour.getGameHonour(this.bid, '1808ce6f291cc2aa1c33e80d7bbd91128359w5');
-    if (localStorage.getItem('altman' + this.id) && isiOS) {
+    if (localStorage.getItem('altman' + this.id)) {
       return
     } else {
       localStorage.setItem('altman' + this.id, 'share')
