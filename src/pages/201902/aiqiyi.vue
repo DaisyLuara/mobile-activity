@@ -160,6 +160,7 @@ img {
     top: 40%;
     right: 0%;
     z-index: 999;
+    animation: weiyi 0.4s linear infinite alternate;
   }
   .form {
     width: 100%;
@@ -248,6 +249,14 @@ img {
     height: 100%;
     display: none;
     z-index: 0;
+  }
+}
+@keyframes weiyi {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(5%);
   }
 }
 </style>

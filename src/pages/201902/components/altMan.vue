@@ -203,14 +203,14 @@ export default {
   },
   mounted() {
     // this.$refs.gameHonour.getGameHonour(this.bid, '1808ce6f291cc2aa1c33e80d7bbd91128359w5');
-    if (isiOS) {
-      if (localStorage.getItem('altman' + this.id)) {
-        return
-      } else {
-        localStorage.setItem('altman' + this.id, 'share')
-        window.location.href = window.location.href
-      }
-    }
+    // if (isiOS) {
+    //   if (localStorage.getItem('altman' + this.id)) {
+    //     return
+    //   } else {
+    //     localStorage.setItem('altman' + this.id, 'share')
+    //     window.location.href = window.location.href
+    //   }
+    // }
     if (localStorage.getItem('z')) {
       this.z = this.z ? this.z : localStorage.getItem('z')
       this.projects.total = 3
