@@ -77,6 +77,11 @@ export default {
       }
     }
   },
+  watch: {
+    parms() {
+      this.star = this.parms.name
+    }
+  },
   mounted() {
     if (localStorage.getItem(this.id)) {
       this.num = localStorage.getItem(this.id)
