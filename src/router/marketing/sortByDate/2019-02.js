@@ -125,7 +125,7 @@ const Date201902 = [
     location: '201902/aiqiyi',
     name: 'aiqiyi',
     meta: {
-      title: '爱奇艺青春',
+      title: '青春有你 官方线下粉丝站',
       author: 'lipan',
       desc: '爱奇艺青春'
     },

@@ -7,6 +7,10 @@
       :src="base + 'dec_1.png'"
       class="cover"
     >
+    <img
+      :src="base + 'dec_2.png'"
+      class="cover2"
+    >
     <div class="form">
       <div class="star-name">
         <img
@@ -27,7 +31,7 @@
           placeholder="输入你的名字"
         >
         <a
-          v-show="Boolean(photo)"
+          v-show="Boolean(photobg)"
           class="abtn"
           @click="toGetImage"
         >
@@ -41,7 +45,7 @@
         class="bg"
       >
       <img
-        :src="photo"
+        :src="photobg"
         class="photo"
       >
     </div>
@@ -49,10 +53,16 @@
       :src="base + 'rights.png'"
       class="tip"
     >
+    <img
+      v-if="oid==728||oid==729"
+      :src="base +'728.png'"
+      class="oid"
+    >
     <canvas id="canvas"></canvas>
   </div>
 </template>
-<script>import { $wechat, isInWechat, wechatShareTrack, Cookies } from 'services'
+<script>
+import { $wechat, isInWechat, wechatShareTrack, Cookies } from 'services'
 import { normalPages } from '@/mixins/normalPages'
 const CDN_URL = process.env.CDN_URL
 export default {
@@ -66,18 +76,22 @@ export default {
         }
       },
       id: this.$route.query.id,
+      photobg: null,
       num: null,//'张三'
       name: null,//'张三'
       star: null,//'sunny'
       wxShareInfoValue: {
-        title: '爱奇艺',
-        desc: '爱奇艺',
+        title: '青春合照馆',
+        desc: '点击领取与训练生的青春留念',
         link: 'http://papi.xingstation.com/api/s/8Ml' + window.location.search,
         imgUrl: CDN_URL + '/fe/image/aiqiyi/icon.png'
       }
     }
   },
   watch: {
+    photo() {
+      this.photobg = this.photo
+    },
     parms() {
       this.star = this.parms.name
     }
@@ -92,12 +106,14 @@ export default {
   },
   methods: {
     toGetImage() {
-      let [bg, text] = [new Image(), new Image()]
+      let [bg, text, word] = [new Image(), new Image(), null]
       let that = this
       let canvas = document.getElementById('canvas')
       let ctx = canvas.getContext('2d')
       bg.setAttribute('crossOrigin', 'Anonymous')
       text.setAttribute('crossOrigin', 'Anonymous')
+      canvas.width = canvas.width
+      canvas.height = canvas.height
       bg.src = this.photo
       bg.onload = function () {
         canvas.width = bg.width
@@ -105,12 +121,12 @@ export default {
         text.onload = function () {
           ctx.drawImage(bg, 0, 0, canvas.width, canvas.height)
           ctx.drawImage(text, 0, 0, text.width, text.height, 0, canvas.height * 0.5, canvas.width, canvas.width / 415 * 232)
-          let word = that.name + ' & ' + that.star
+          word = that.name + ' & ' + that.star
           ctx.fillStyle = "#fff"
           ctx.textAlign = "center"
           ctx.font = "bold 110px 微软雅黑"
           ctx.fillText(word, canvas.width / 2, canvas.height * 0.57)
-          that.photo = canvas.toDataURL('image/png')
+          that.photobg = canvas.toDataURL('image/png')
         }
         text.src = that.base + that.num + '.png'
       }
@@ -148,13 +164,12 @@ img {
   position: relative;
   width: 100%;
   overflow-x: hidden;
-  background-image: url("@{img}dec_2.png"), url("@{img}dec_3.png"),
-    url("@{img}bg.png");
-  background-position: left 96%, left 95%, center top;
-  background-size: 7% auto, 37.5% auto, 100% auto;
-  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-image: url("@{img}dec_3.png"), url("@{img}bg.png");
+  background-position: left 95%, center top;
+  background-size: 37.5% auto, 100% auto;
+  background-repeat: no-repeat, no-repeat;
   padding-top: 45%;
-  animation: bgweiyi 0.6s linear infinite alternate-reverse;
+  animation: bgweiyi 0.9s linear infinite alternate-reverse;
   .cover {
     width: 24%;
     position: absolute;
@@ -162,6 +177,14 @@ img {
     right: 0%;
     z-index: 999;
     animation: weiyi 0.5s linear infinite alternate;
+  }
+  .cover2 {
+    width: 7%;
+    position: absolute;
+    top: 80%;
+    left: 0%;
+    z-index: 999;
+    // animation: weiyi 0.5s linear infinite alternate-reverse;
   }
   .form {
     width: 100%;
@@ -180,7 +203,7 @@ img {
         z-index: 99;
         color: #040f25;
         font-size: 4.4vw;
-        font-weight: 700;
+        font-weight: 900;
         z-index: 99;
       }
     }
@@ -221,6 +244,7 @@ img {
     position: relative;
     z-index: 0;
     margin-top: 3.5%;
+    margin-bottom: 10%;
     .bg {
       z-index: 99;
     }
@@ -228,7 +252,7 @@ img {
       // width: 61.5vw;
       width: 90%;
       position: absolute;
-      top: 0.5%;
+      top: 2.5%;
       left: 50%;
       transform: translateX(-50%);
       z-index: 0;
@@ -236,12 +260,19 @@ img {
       user-select: auto;
     }
   }
+  .oid {
+    position: relative;
+    width: 50%;
+    display: block;
+    margin-bottom: 3%;
+  }
   .tip {
     width: 56%;
     position: relative;
-    margin-top: 10%;
+
     margin-bottom: 3%;
   }
+
   #canvas {
     position: absolute;
     top: 0%;
@@ -257,15 +288,15 @@ img {
     transform: translateX(0%);
   }
   100% {
-    transform: translateX(20%);
+    transform: translateX(40%);
   }
 }
 @keyframes bgweiyi {
   0% {
-    background-position: left 96%, left 95%, center top;
+    background-position: left 85%, center top;
   }
   100% {
-    background-position: -5% 96%, -10% 95%, center top;
+    background-position: -50% 95%, center top;
   }
 }
 </style>
