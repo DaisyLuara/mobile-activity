@@ -9,6 +9,7 @@ import Date201811 from './sortByDate/2018-11'
 import Date201812 from './sortByDate/2018-12'
 import Date201901 from './sortByDate/2019-01'
 import Date201902 from './sortByDate/2019-02'
+import Date201903 from './sortByDate/2019-03'
 let marketingRouter = []
 
 marketingRouter = marketingRouter.concat(lagacyPages)
@@ -21,4 +22,5 @@ marketingRouter = marketingRouter.concat(Date201811)
 marketingRouter = marketingRouter.concat(Date201812)
 marketingRouter = marketingRouter.concat(Date201901)
 marketingRouter = marketingRouter.concat(Date201902)
+marketingRouter = marketingRouter.concat(Date201903)
 export default marketingRouter
