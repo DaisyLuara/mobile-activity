@@ -4,7 +4,7 @@
     class="warp"
   >
     <img
-      :src="base + 'top.png'"
+      :src="base + 'top1.png'"
       class="top"
     >
     <img
@@ -37,7 +37,7 @@
   </div>
 </template>
 <script>
-import { $wechat, isInWechat, wechatShareTrack, Cookies, sendV2Coupon, checkV2Coupon } from 'services'
+import { $wechat, isInWechat, wechatShareTrack, sendV2Coupon, checkV2Coupon } from 'services'
 import { normalPages } from '@/mixins/normalPages'
 const CDN_URL = process.env.CDN_URL
 export default {
@@ -65,11 +65,12 @@ export default {
   },
   watch: {
     userinfo() {
-      if (Cookies.get('z')) {
-        this.z = Cookies.get('z')
+      if (localStorage.getItem('z')) {
+        this.z = localStorage.getItem('z')
+
       } else {
         this.z = this.userinfo.z
-        Cookies.set('z', this.userinfo.z)
+        localStorage.setItem('z', this.userinfo.z)
         this.coupon_batch_id ? this.checkV2Coupon() : null
       }
     },
@@ -79,8 +80,8 @@ export default {
   },
   mounted() {
     this.handleForbiddenShare()
-    if (Cookies.get('z')) {
-      this.z = Cookies.get('z')
+    if (localStorage.getItem('z')) {
+      this.z = localStorage.getItem('z')
       this.coupon_batch_id ? this.checkV2Coupon() : null
     }
   },
@@ -145,9 +146,9 @@ html,
 body {
   width: 100%;
   height: 100%;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
-  transform: translate3d(0, 0, 0);
+  // overflow-x: hidden;
+  // -webkit-overflow-scrolling: touch;
+  // transform: translate3d(0, 0, 0);
 }
 * {
   padding: 0;
@@ -163,11 +164,12 @@ img {
 .warp {
   position: relative;
   overflow-x: hidden;
-  background-image: url("@{img}bg.png");
+  background-image: url("@{img}bg1.png");
   background-position: center top;
-  background-size: 100% auto;
+  background-size: 100% 100%;
   background-repeat: no-repeat;
   padding-top: 8%;
+  margin-bottom: -1px;
   .top {
     position: relative;
     width: 87%;
