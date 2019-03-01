@@ -5,7 +5,6 @@
       :src="base + 'pic_01.jpg'"
       class="tit"
     >
-
     <!-- 照片 -->
     <div class="pictures">
       <img
@@ -26,7 +25,6 @@
         :src="base + 'gear'+(item>9?item:'0'+item)+ '.png'"
         :class="'gear'+item"
       >
-
     </div>
     <!-- 关于我们 -->
     <div class="about">
