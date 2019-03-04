@@ -74,21 +74,19 @@ export default {
     userinfo() {
       if (localStorage.getItem('z')) {
         this.z = localStorage.getItem('z')
-      } else {
-        this.z = this.userinfo ? this.userinfo.z : this.z
+        this.checkV2Coupon()
+      } else if (this.userinfo) {
+        this.z = this.userinfo.z
         localStorage.setItem('z', this.userinfo.z)
-        this.coupon_batch_id ? this.checkV2Coupon() : null
+        this.checkV2Coupon()
       }
     },
-    coupon_batch_id() {
-      this.z ? this.checkV2Coupon() : null
-    }
   },
   mounted() {
-    // this.handleForbiddenShare()
+    this.handleForbiddenShare()
     if (localStorage.getItem('z')) {
       this.z = localStorage.getItem('z')
-      this.coupon_batch_id ? this.checkV2Coupon() : null
+      this.checkV2Coupon()
     }
   },
   methods: {
@@ -106,7 +104,7 @@ export default {
     checkV2Coupon() {
       let args = {
         z: this.z,
-        coupon_batch_id: this.coupon_batch_id,
+        belong: this.belong,
         include: 'couponBatch',
       }
       checkV2Coupon(args).then(res => {
@@ -125,21 +123,21 @@ export default {
         belong: this.belong,
       }
       batchV2Coupon(args).then(res => {
-        this.get_id = res.id
-        this.sendV2Coupon()
+        let coupon_batch_id = res.id
+        this.sendV2Coupon(coupon_batch_id)
       }).catch(err => {
         console.log(err)
       })
     },
     //发优惠券
-    sendV2Coupon() {
+    sendV2Coupon(coupon_batch_id) {
       let args = {
         qiniu_id: this.id,
         z: this.z,
         belong: this.belong,
         oid: this.oid
       }
-      sendV2Coupon(args, this.coupon_batch_id)
+      sendV2Coupon(args, coupon_batch_id)
         .then(res => {
           this.handleData(res)
         })
