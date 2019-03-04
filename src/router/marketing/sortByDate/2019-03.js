@@ -9,6 +9,17 @@ const Date201903 = [
       desc: '恒隆潮流实验室'
     },
     isAbandoned: false
+  },
+  {
+    path: 'jinzhan',
+    location: '201903/jinzhan',
+    name: 'jinzhan',
+    meta: {
+      title: '金展',
+      author: 'lipan',
+      desc: '金展'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201903

@@ -50,13 +50,13 @@
       >
     </div>
     <img
-      :src="base + 'rights.png'"
-      class="tip"
-    >
-    <img
       v-if="oid==728||oid==729"
       :src="base +'728.png'"
       class="oid"
+    >
+    <img
+      :src="base + 'rights.png'"
+      class="tip"
     >
     <canvas id="canvas"></canvas>
   </div>
@@ -120,15 +120,15 @@ export default {
         canvas.height = bg.height
         text.onload = function () {
           ctx.drawImage(bg, 0, 0, canvas.width, canvas.height)
-          ctx.drawImage(text, 0, 0, text.width, text.height, 0, canvas.height * 0.5, canvas.width, canvas.width / 415 * 232)
+          ctx.drawImage(text, 0, 0, text.width, text.height, 0, canvas.height * 0.68, canvas.width, canvas.width / 1080 * 367)
           word = that.name + ' & ' + that.star
           ctx.fillStyle = "#fff"
-          ctx.textAlign = "center"
-          ctx.font = "bold 110px 微软雅黑"
-          ctx.fillText(word, canvas.width / 2, canvas.height * 0.57)
+          // ctx.textAlign = "center"
+          ctx.font = "bold 100px 微软雅黑"
+          ctx.fillText(word, 10, canvas.height * 0.72)
           that.photobg = canvas.toDataURL('image/png')
         }
-        text.src = that.base + that.num + '.png'
+        text.src = that.base + 'a' + that.num + '.png'
       }
     }
   }
@@ -170,6 +170,7 @@ img {
   background-repeat: no-repeat, no-repeat;
   padding-top: 45%;
   animation: bgweiyi 0.9s linear infinite alternate-reverse;
+  background-color: #031746;
   .cover {
     width: 24%;
     position: absolute;
@@ -264,7 +265,8 @@ img {
     position: relative;
     width: 50%;
     display: block;
-    margin-bottom: 3%;
+    margin-top: -5%;
+    margin-bottom: 5%;
   }
   .tip {
     width: 56%;
