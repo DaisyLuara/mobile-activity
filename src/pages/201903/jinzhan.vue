@@ -42,7 +42,7 @@
   </div>
 </template>
 <script>
-import { $wechat, isInWechat, wechatShareTrack, batchV2Coupon, sendV2Coupon, checkV2Coupon } from 'services'
+import { $wechat, isInWechat, wechatShareTrack, getWxUserInfo, batchV2CouponLimit, sendV2Coupon, checkV2Coupon } from 'services'
 import { normalPages } from '@/mixins/normalPages'
 const CDN_URL = process.env.CDN_URL
 export default {
@@ -61,11 +61,13 @@ export default {
       used: false,//false
       name: null,//'大小珠宝全场88折优惠券'
       code: null,
+      nick_name: null,
+      head_img_url: null,
       z: null,
       //微信分享
       wxShareInfoValue: {
-        title: "",
-        desc: "",
+        title: "金展",
+        desc: "金展",
         imgUrl: "https://cdn.exe666.com/fe/image/jinzhan/icon.jpg"
       }
     }
@@ -81,6 +83,9 @@ export default {
         this.checkV2Coupon()
       }
     },
+    belong() {
+      this.getWxUserInfo()
+    }
   },
   mounted() {
     this.handleForbiddenShare()
@@ -104,6 +109,7 @@ export default {
     checkV2Coupon() {
       let args = {
         z: this.z,
+        qiniu_id: this.id,
         belong: this.belong,
         include: 'couponBatch',
       }
@@ -122,24 +128,25 @@ export default {
         z: this.z,
         belong: this.belong,
       }
-      batchV2Coupon(args).then(res => {
+      batchV2CouponLimit(args).then(res => {
         let coupon_batch_id = res.id
-        this.sendV2Coupon(coupon_batch_id)
+        this.sendV2Coupon()
       }).catch(err => {
         console.log(err)
       })
     },
     //发优惠券
-    sendV2Coupon(coupon_batch_id) {
+    sendV2Coupon() {
       let args = {
         qiniu_id: this.id,
         z: this.z,
         belong: this.belong,
         oid: this.oid
       }
-      sendV2Coupon(args, coupon_batch_id)
+      sendV2Coupon(args)
         .then(res => {
           this.handleData(res)
+          this.handlePost()
         })
         .catch(err => {
           alert(err.response.data.message)
@@ -154,7 +161,38 @@ export default {
       if (parseInt(res.status) === 1) {
         this.used = true
       }
-    }
+    },
+    //获取微信数据
+    getWxUserInfo() {
+      getWxUserInfo().then(res => {
+        let data = res.data
+        this.nick_name = data.nickname
+        this.head_img_url = data.headimgurl
+        console.log(res)
+      }).catch(err => {
+        let pageUrl = encodeURIComponent(window.location.href)
+        let wx_auth_url =
+          process.env.WX_API +
+          '/wx/officialAccount/oauth?url=' +
+          pageUrl +
+          '&scope=snsapi_userinfo'
+        window.location.href = wx_auth_url
+        return
+      })
+    },
+    //推送数据
+    handlePost() {
+      let url =
+        'http://exelook.com:8010/pushdiv/?name=' + this.nick_name + '&img=' + this.head_img_url + '&id=' + this.id + '&api=json'
+      this.$http
+        .get(url)
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
   }
 }
 </script>
