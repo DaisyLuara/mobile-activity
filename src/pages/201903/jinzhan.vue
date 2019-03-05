@@ -42,7 +42,7 @@
   </div>
 </template>
 <script>
-import { $wechat, isInWechat, wechatShareTrack, getWxUserInfo, batchV2CouponLimit, sendV2Coupon, checkV2Coupon } from 'services'
+import { $wechat, isInWechat, wechatShareTrack, getWxUserInfo, batchV2CouponLimit, sendV2Projects, checkV2Coupon } from 'services'
 import { normalPages } from '@/mixins/normalPages'
 const CDN_URL = process.env.CDN_URL
 export default {
@@ -147,7 +147,7 @@ export default {
         belong: this.belong,
         oid: this.oid
       }
-      sendV2Coupon(args)
+      sendV2Projects(args)
         .then(res => {
           this.handleData(res)
           this.handlePost()
