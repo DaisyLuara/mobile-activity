@@ -48,8 +48,8 @@ export default {
       picture: null,
       //微信分享
       wxShareInfoValue: {
-        title: "苏宁爱丽狮",
-        desc: "苏宁爱丽狮",
+        title: "爱丽狮物语 ",
+        desc: "专属积分福利兑换",
         link: 'http://papi.xingstation.com/api/s/mYp' + window.location.search,
         imgUrl: "https://cdn.exe666.com/fe/image/ailishi/icon.jpg"
       }
@@ -62,8 +62,19 @@ export default {
   },
   mounted() {
     // this.getImage()
+    this.handleForbiddenShare()
   },
   methods: {
+    //禁止微信分享
+    handleForbiddenShare() {
+      $wechat()
+        .then(res => {
+          res.forbidden()
+        })
+        .catch(_ => {
+          console.warn(_.message)
+        })
+    },
     getImage() {
       let canvas = document.getElementById('canvas')
       let ctx = canvas.getContext('2d')

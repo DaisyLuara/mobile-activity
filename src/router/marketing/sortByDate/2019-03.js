@@ -37,7 +37,7 @@ const Date201903 = [
     location: '201903/ailishi',
     name: 'ailishi',
     meta: {
-      title: '苏宁爱丽狮',
+      title: '积分兑换',
       author: 'lipan',
       desc: '苏宁爱丽狮'
     },
