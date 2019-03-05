@@ -33,6 +33,7 @@
         class="used"
       >
     </div>
+    <div class="code">{{code}}</div>
 
   </div>
 </template>
@@ -54,6 +55,7 @@ export default {
       coupon_img: null,//'https://cdn.exe666.com/fe/image/sAtm/test.png',
       qrcodeImg: null,//'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
       used: false,//false
+      code: null,
       z: null,
       //微信分享
       wxShareInfoValue: {
@@ -133,6 +135,7 @@ export default {
     handleData(res) {
       this.qrcodeImg = res.qrcode_url
       this.coupon_img = res.couponBatch.image_url
+      this.code = res.code
       if (parseInt(res.status) === 1) {
         this.used = true
       }
@@ -146,9 +149,6 @@ html,
 body {
   width: 100%;
   height: 100%;
-  // overflow-x: hidden;
-  // -webkit-overflow-scrolling: touch;
-  // transform: translate3d(0, 0, 0);
 }
 * {
   padding: 0;
@@ -225,6 +225,12 @@ img {
       transform: translateX(-50%);
       z-index: 999;
     }
+  }
+  .code {
+    position: relative;
+    font-size: 4.5vw;
+    color: #fff;
+    letter-spacing: 2px;
   }
 }
 </style>
