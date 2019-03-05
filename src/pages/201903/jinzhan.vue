@@ -119,6 +119,7 @@ export default {
     },
     getCouponBatch() {
       let args = {
+        qiniu_id: this.id,
         z: this.z,
         belong: this.belong,
       }
