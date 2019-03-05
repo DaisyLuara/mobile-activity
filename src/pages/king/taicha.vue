@@ -1,57 +1,71 @@
 <template>
   <div
-    :style="style.root" 
-    class="root">
-    <img 
+    :style="style.root"
+    class="root"
+  >
+    <img
       :src="baseUrl + 'bg.jpg'+ this.$qiniuCompress()"
-      class="bg">
+      class="bg"
+    >
     <div class="top">
-      <img 
+      <img
         :src="baseUrl + 'top.png'+ this.$qiniuCompress()"
-        class="topImg">
+        class="topImg"
+      >
     </div>
     <div class="center">
-      <img 
-        :src="baseUrl + 'button2.png'+ this.$qiniuCompress()"
+      <img
+        :src="baseUrl + 'btn22.png'+ this.$qiniuCompress()"
         class="button"
-        @click="goPark()">
-      <img 
-        :src="baseUrl + 'banner3.png'+ this.$qiniuCompress()"
+        @click="goPark()"
+      >
+      <img
+        :src="baseUrl + 'banner33.png'+ this.$qiniuCompress()"
         class="banner"
-        @click="go()">
-      <img 
+        @click="go()"
+      >
+      <img
         :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
-        class="frame">
-      <img 
-        v-if="photo !== null" 
+        class="frame"
+      >
+      <img
+        v-if="photo !== null"
         :src="photo + this.$qiniuCompress()"
-        class="photo">
-      <img 
-        v-if="photo !== null" 
+        class="photo"
+      >
+      <img
+        v-if="photo !== null"
         :src="photo + this.$qiniuCompress()"
-        class="real-photo">
+        class="real-photo"
+      >
     </div>
     <div class="bt">
-      <img 
+      <img
         :src="baseUrl + 'bottom.png'+ this.$qiniuCompress()"
-        class="btImg">
-      <img 
+        class="btImg"
+      >
+      <img
         :src="baseUrl + 'nav.png'+ this.$qiniuCompress()"
-        class="nav">
-      <img 
+        class="nav"
+      >
+      <img
         :src="baseUrl + 'prompt.png'+ this.$qiniuCompress()"
-        class="prompt">
+        class="prompt"
+      >
     </div>
-    <img 
+    <img
       :src="baseUrl + 'balloon_1.png'+ this.$qiniuCompress()"
-      class="balloon1">
-    <img 
+      class="balloon1"
+    >
+    <img
       :src="baseUrl + 'balloon_2.png'+ this.$qiniuCompress()"
-      class="balloon2">
-    <img 
+      class="balloon2"
+    >
+    <img
       :src="baseUrl + 'balloon_3.png'+ this.$qiniuCompress()"
-      class="balloon3">
-    
+      class="balloon3"
+    >
+
   </div>
 </template>
 <script>
@@ -81,7 +95,7 @@ export default {
       }
     }
   },
-  created() {},
+  created() { },
   mounted() {
     let height = this.$innerHeight()
     if (height > 672) {
@@ -92,18 +106,18 @@ export default {
   },
   methods: {
     go() {
-      window.location.href = 'http://papi.xingstation.com/api/s/E9k'
+      window.location.href = 'http://papi.xingstation.com/api/s/ojz' //旧链接：'http://papi.xingstation.com/api/s/E9k'
     },
     //停车券跳转
     goPark() {
-      window.location.href = 'http://papi.xingstation.com/api/s/D9n'
+      window.location.href = 'http://papi.xingstation.com/api/s/ng4'//旧连接：'http://papi.xingstation.com/api/s/D9n'
     }
   }
 }
 </script>
 
 <style lang="less" scoped>
-@imageHost: 'http://cdn.exe666.com/fe/marketing/img/hiplay_world_taicha/';
+@imageHost: "http://cdn.exe666.com/fe/marketing/img/hiplay_world_taicha/";
 html,
 body {
   width: 100%;

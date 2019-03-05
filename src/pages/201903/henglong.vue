@@ -25,7 +25,7 @@
       href="http://papi.xingstation.com/api/s/l2l"
       class="alink"
     >
-      <img :src="base + '3.png'">
+      <img :src="base + '33.png'">
     </a>
   </div>
 </template>
