@@ -76,22 +76,26 @@ export default {
     userinfo() {
       if (localStorage.getItem('z')) {
         this.z = localStorage.getItem('z')
-        this.checkV2Coupon()
+        this.belong ? this.checkV2Coupon() : null
       } else if (this.userinfo) {
         this.z = this.userinfo.z
         localStorage.setItem('z', this.userinfo.z)
-        this.checkV2Coupon()
+        this.belong ? this.checkV2Coupon() : null
       }
     },
     belong() {
       this.getWxUserInfo()
+      if (localStorage.getItem('z')) {
+        this.z = this.z ? this.z : localStorage.getItem('z')
+        this.z ? this.checkV2Coupon() : null
+      }
     }
   },
   mounted() {
     this.handleForbiddenShare()
     if (localStorage.getItem('z')) {
       this.z = localStorage.getItem('z')
-      this.checkV2Coupon()
+      this.belong ? this.checkV2Coupon() : null
     }
   },
   methods: {
