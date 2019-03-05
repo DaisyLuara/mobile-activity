@@ -22,7 +22,7 @@
       class="save"
     >
     <a
-      href="https://cn.bing.com"
+      href="http://papi.xingstation.com/api/s/l2l"
       class="alink"
     >
       <img :src="base + '3.png'">
