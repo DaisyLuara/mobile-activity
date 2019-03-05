@@ -184,7 +184,7 @@ img {
   .erweima {
     position: relative;
     width: 32%;
-    margin-bottom: 10%;
+    margin-bottom: 2%;
     .erbg {
       position: relative;
       z-index: 0;
@@ -228,9 +228,15 @@ img {
   }
   .code {
     position: relative;
-    font-size: 4.5vw;
-    color: #fff;
-    letter-spacing: 2px;
+    font-size: 4vw;
+    color: #000;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 10%;
+    background-color: #fff;
+    border-radius: 15px;
+    display: inline-block;
+    padding: 5px 10px;
   }
 }
 </style>
