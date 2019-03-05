@@ -424,6 +424,19 @@ const batchV2Coupon = params => {
       })
   })
 }
+//BATCH_URL调取策略获取coupon_batch_id  limit
+const batchV2CouponLimit = params => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(BATCH_URL + '/limit', params, V2_HEADER)
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
 //  发现金券  年会
 const sendMoneyOnce = code => {
   let params = {}
@@ -464,5 +477,6 @@ export {
   sendV2Coupon,
   sendMoneyOnce,
   batchV2Coupon,
-  sendV2Projects
+  sendV2Projects,
+  batchV2CouponLimit
 }
