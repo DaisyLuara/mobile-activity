@@ -73,30 +73,20 @@ export default {
     }
   },
   watch: {
-    userinfo() {
+    sertime() {
+      this.getWxUserInfo()
       if (localStorage.getItem('z')) {
         this.z = localStorage.getItem('z')
-        this.belong ? this.checkV2Coupon() : null
+        this.checkV2Coupon()
       } else if (this.userinfo) {
         this.z = this.userinfo.z
         localStorage.setItem('z', this.userinfo.z)
-        this.belong ? this.checkV2Coupon() : null
-      }
-    },
-    belong() {
-      this.getWxUserInfo()
-      if (localStorage.getItem('z')) {
-        this.z = this.z ? this.z : localStorage.getItem('z')
-        this.z ? this.checkV2Coupon() : null
+        this.checkV2Coupon()
       }
     }
   },
   mounted() {
     this.handleForbiddenShare()
-    if (localStorage.getItem('z')) {
-      this.z = localStorage.getItem('z')
-      this.belong ? this.checkV2Coupon() : null
-    }
   },
   methods: {
     //禁止微信分享
@@ -124,11 +114,12 @@ export default {
           this.getCouponBatch()
         }
       }).catch(err => {
-        console.log(err)
+        alert(err.response.data.message)
       })
     },
     getCouponBatch() {
       let args = {
+        qiniu_id: this.id,
         z: this.z,
         belong: this.belong,
       }
@@ -136,7 +127,7 @@ export default {
         let coupon_batch_id = res.id
         this.sendV2Coupon()
       }).catch(err => {
-        console.log(err)
+        alert(err.response.data.message)
       })
     },
     //发优惠券
@@ -186,8 +177,9 @@ export default {
     },
     //推送数据
     handlePost() {
-      let url =
-        'http://exelook.com:8010/pushdiv/?name=' + this.nick_name + '&img=' + this.head_img_url + '&id=' + this.id + '&api=json'
+      let url ='http://exelook.com:8010/pushdiv/?oid=' + this.oid + '&belong=' + this.belong + '&name=&img=' + this.head_img_url + ',' + this.nick_name + ',' + this.name + '&id=' + this.id + '&api=json'
+      // let url =
+      //   'http://exelook.com:8010/pushdiv/?name=' + this.nick_name + '&img=' + this.head_img_url + '&id=' + this.id + '&api=json'
       this.$http
         .get(url)
         .then(res => {
@@ -265,6 +257,7 @@ img {
     .name {
       width: 61vw;
       height: 13vw;
+      overflow: hidden;
       line-height: 13vw;
       font-size: 4.2vw;
       font-weight: 600;
@@ -274,6 +267,7 @@ img {
       background-position: center top;
       background-size: 100% 100%;
       background-repeat: no-repeat;
+      padding:0% 1%;
     }
     .coupon {
       width: 56%;
