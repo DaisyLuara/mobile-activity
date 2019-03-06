@@ -54,7 +54,7 @@ export default {
         border.onload = function () {
           cover.onload = function () {
             ctx.drawImage(bg, 0, 0, bg.width, bg.height)
-            ctx.drawImage(border, 0, 0, border.width, border.height, canvas.width * 0.19, canvas.height * 0.165, canvas.width * 0.62, canvas.width * 0.62 / border.width * border.height)
+            ctx.drawImage(border, 0, 0, border.width, border.height, canvas.width * 0.19, canvas.height * 0.165, canvas.width * 0.62, canvas.width * 0.618 / border.width * border.height)
             ctx.drawImage(cover, 0, 0, cover.width, cover.height, canvas.width * 0.196, canvas.height * 0.1685, canvas.width * 0.608, canvas.width * 0.608 / cover.width * cover.height)
             that.picture = canvas.toDataURL('image/png')
           }
