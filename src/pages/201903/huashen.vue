@@ -48,6 +48,9 @@ export default {
       let canvas = document.getElementById('canvas')
       let ctx = canvas.getContext('2d')
       let [bg, border, cover, that] = [new Image(), new Image(), new Image(), this]
+      bg.setAttribute('crossOrigin', 'Anonymous')
+      border.setAttribute('crossOrigin', 'Anonymous')
+      cover.setAttribute('crossOrigin', 'Anonymous')
       bg.onload = function () {
         canvas.width = bg.width
         canvas.height = bg.height

@@ -80,6 +80,8 @@ export default {
       let canvas = document.getElementById('canvas')
       let ctx = canvas.getContext('2d')
       let [bg, cover, that] = [new Image(), new Image(), this]
+      bg.setAttribute('crossOrigin', 'Anonymous')
+      cover.setAttribute('crossOrigin', 'Anonymous')
       cover.onload = function () {
         canvas.width = cover.width
         canvas.height = cover.height
