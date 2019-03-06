@@ -45,6 +45,7 @@ export default {
         }
       },
       id: this.$route.query.id,
+      arr: ['p3.png', 'p1.png', 'p4.png', 'p2.png'],
       picture: null,
       //微信分享
       wxShareInfoValue: {
@@ -56,7 +57,7 @@ export default {
     }
   },
   watch: {
-    photo() {
+    sertime() {
       this.getImage()
     }
   },
@@ -76,6 +77,7 @@ export default {
         })
     },
     getImage() {
+      let type = this.parms ? this.parms.img_type : 0
       let canvas = document.getElementById('canvas')
       let ctx = canvas.getContext('2d')
       let [bg, cover, that] = [new Image(), new Image(), this]
@@ -89,7 +91,7 @@ export default {
         }
         bg.src = that.photo //that.base + 'test.png'
       }
-      cover.src = this.base + 'p1.png'
+      cover.src = this.base + this.arr[type]
     }
   }
 }
