@@ -63,7 +63,6 @@ export default {
   },
   mounted() {
     // this.getImage()
-    this.handleForbiddenShare()
   },
   methods: {
     //禁止微信分享

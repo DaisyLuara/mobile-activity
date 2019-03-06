@@ -42,6 +42,17 @@ const Date201903 = [
       desc: '苏宁爱丽狮'
     },
     isAbandoned: false
+  },
+  {
+    path: 'huashen',
+    location: '201903/huashen',
+    name: 'huashen',
+    meta: {
+      title: '最美花神',
+      author: 'lipan',
+      desc: '最美花神'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201903

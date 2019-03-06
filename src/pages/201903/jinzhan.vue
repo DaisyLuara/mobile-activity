@@ -3,6 +3,27 @@
     :style="style.root"
     class="warp"
   >
+    <div
+      v-show="loading"
+      :style="style.root"
+      class="loading"
+    >
+      <img
+        :src="base + 'loading1.jpg'"
+        class="bg"
+      >
+      <img
+        v-show="bgcover"
+        :src="base + 'loading2.jpg'"
+        class="bgcover"
+        @click="()=>{loading=false;}"
+      >
+      <div
+        v-show="!bgcover"
+        id="anim"
+        class="anim"
+      />
+    </div>
     <div class="main">
       <img
         :src="base + 'title.png'"
@@ -16,11 +37,20 @@
         :src="base + 'float_2.png'"
         class="cover2"
       >
-      <div class="name">{{name}}</div>
-      <div class="coupon">
+      <div
+        v-show="Boolean(name)"
+        class="name"
+      >{{name}}</div>
+      <div
+        v-show="Boolean(coupon_img)"
+        class="coupon"
+      >
         <img :src="coupon_img">
       </div>
-      <div class="erweima">
+      <div
+        v-show="Boolean(qrcodeImg)"
+        class="erweima"
+      >
         <div class="clip">
           <img
             :src="qrcodeImg"
@@ -44,6 +74,7 @@
 <script>
 import { $wechat, isInWechat, wechatShareTrack, getWxUserInfo, batchV2CouponLimit, sendV2Projects, checkV2Coupon } from 'services'
 import { normalPages } from '@/mixins/normalPages'
+import lottie from 'lottie-web'
 const CDN_URL = process.env.CDN_URL
 export default {
   mixins: [normalPages],
@@ -56,6 +87,8 @@ export default {
         }
       },
       id: this.$route.query.id,
+      bgcover: false,
+      loading: true,
       coupon_img: null,//'https://cdn.exe666.com/fe/image/jinzhan/test.png',
       qrcodeImg: null,//'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
       used: false,//false
@@ -87,6 +120,7 @@ export default {
   },
   mounted() {
     this.handleForbiddenShare()
+    this.doAnim()
   },
   methods: {
     //禁止微信分享
@@ -98,6 +132,23 @@ export default {
         .catch(_ => {
           console.warn(_.message)
         })
+    },
+    doAnim() {
+      const el = document.getElementById('anim')
+      let that = this
+      let anim = lottie.loadAnimation({
+        name: 'anim',
+        container: el,
+        renderer: 'svg',
+        assetsPath: this.base + 'animate/images/',
+        path: this.base + 'animate/data.json'
+      })
+      anim.addEventListener('DOMLoaded', function () {
+        anim.play()
+      })
+      anim.addEventListener('complete', function () {
+        that.bgcover = true
+      })
     },
     //判断是否领过优惠券
     checkV2Coupon() {
@@ -180,8 +231,6 @@ export default {
     //推送数据
     handlePost() {
       let url = 'http://exelook.com:8010/pushdiv/?oid=' + this.oid + '&belong=' + this.belong + '&name=&img=' + this.head_img_url + ',' + this.nick_name + ',' + this.name + '&id=' + this.id + '&api=json'
-      // let url =
-      //   'http://exelook.com:8010/pushdiv/?name=' + this.nick_name + '&img=' + this.head_img_url + '&id=' + this.id + '&api=json'
       this.$http
         .get(url)
         .then(res => {
@@ -220,9 +269,37 @@ img {
   background-size: 100% 100%;
   background-repeat: no-repeat;
   padding-top: 19%;
+  .loading {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    .bg {
+      position: relative;
+      z-index: 0;
+    }
+    .bgcover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 9;
+      pointer-events: auto;
+    }
+    .anim {
+      width: 100%;
+      overflow: hidden;
+      position: absolute;
+      top: 0%;
+      left: 0;
+      z-index: 999;
+    }
+  }
   .main {
     position: relative;
     width: 100%;
+    min-height: 151vw;
     z-index: 9;
     background-image: url("@{img}bg_2.png");
     background-position: center top;
