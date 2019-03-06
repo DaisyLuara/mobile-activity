@@ -141,7 +141,9 @@ export default {
       sendV2Projects(args)
         .then(res => {
           this.handleData(res)
-          this.handlePost()
+          if (res.couponBatch.type == 2) {
+            this.handlePost()
+          }
         })
         .catch(err => {
           alert(err.response.data.message)
@@ -177,7 +179,7 @@ export default {
     },
     //推送数据
     handlePost() {
-      let url ='http://exelook.com:8010/pushdiv/?oid=' + this.oid + '&belong=' + this.belong + '&name=&img=' + this.head_img_url + ',' + this.nick_name + ',' + this.name + '&id=' + this.id + '&api=json'
+      let url = 'http://exelook.com:8010/pushdiv/?oid=' + this.oid + '&belong=' + this.belong + '&name=&img=' + this.head_img_url + ',' + this.nick_name + ',' + this.name + '&id=' + this.id + '&api=json'
       // let url =
       //   'http://exelook.com:8010/pushdiv/?name=' + this.nick_name + '&img=' + this.head_img_url + '&id=' + this.id + '&api=json'
       this.$http
@@ -267,7 +269,7 @@ img {
       background-position: center top;
       background-size: 100% 100%;
       background-repeat: no-repeat;
-      padding:0% 1%;
+      padding: 0% 1%;
     }
     .coupon {
       width: 56%;
