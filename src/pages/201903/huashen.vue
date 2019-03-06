@@ -31,8 +31,8 @@ export default {
       picture: null,
       //微信分享
       wxShareInfoValue: {
-        title: "最美花神",
-        desc: "最美花神",
+        title: "梦回花朝，你就是古风女神",
+        desc: "前世的你，是哪位花神？",
         link: 'http://papi.xingstation.com/api/s/pk1' + window.location.search,
         imgUrl: "https://cdn.exe666.com/fe/image/huashen/icon.jpg"
       }
