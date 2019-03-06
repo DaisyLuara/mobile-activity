@@ -77,7 +77,7 @@ export default {
         })
     },
     getImage() {
-      let type = this.parms.img_type || 0
+      let type = this.parms ? this.parms.img_type : 0
       let canvas = document.getElementById('canvas')
       let ctx = canvas.getContext('2d')
       let [bg, cover, that] = [new Image(), new Image(), this]
