@@ -13,10 +13,10 @@
     >
 
     <div class="erweima">
-      <img
+      <!-- <img
         :src="base + 'qr.png'"
         class="erbg"
-      >
+      > -->
       <img
         :src="base + 'logo.png'"
         class="logo"
@@ -52,10 +52,10 @@ export default {
         }
       },
       id: this.$route.query.id,
-      coupon_img: null,//'https://cdn.exe666.com/fe/image/sAtm/test.png',
-      qrcodeImg: null,//'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
+      coupon_img: 'https://cdn.exe666.com/fe/image/qpyl/2_2.png',//'https://cdn.exe666.com/fe/image/qpyl/2_2.png',
+      qrcodeImg: 'http://papi.xingstation.com/qrcode/5c7de9583796b.png',//'http://papi.xingstation.com/qrcode/5c7de9583796b.png',
       used: false,//false
-      code: null,
+      code: '5c7de9583796b',//'5c7de9583796b'
       z: null,
       //微信分享
       wxShareInfoValue: {
@@ -185,10 +185,10 @@ img {
     position: relative;
     width: 32%;
     margin-bottom: 2%;
-    .erbg {
-      position: relative;
-      z-index: 0;
-    }
+    // .erbg {
+    //   position: relative;
+    //   z-index: 0;
+    // }
     .logo {
       width: 21vw;
       position: absolute;
@@ -200,11 +200,12 @@ img {
       width: 25vw;
       height: 25vw;
       overflow: hidden;
-      position: absolute;
-      top: 5.5%;
-      left: 50%;
+      position: relative;
+      border: "solid 1px #000";
+      // top: 5.5%;
+      // left: 50%;
       z-index: 9;
-      transform: translateX(-50%);
+      // transform: translateX(-50%);
       text-align: center;
       border-radius: 20px;
     }
