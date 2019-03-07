@@ -100,7 +100,7 @@ export default {
       let args = {
         z: this.z,
         coupon_batch_id: this.coupon_batch_id,
-        "code_type": "barcode",
+        code_type: "barcode",
         include: 'couponBatch',
       }
       checkV2Coupon(args).then(res => {
@@ -119,7 +119,7 @@ export default {
         qiniu_id: this.id,
         z: this.z,
         belong: this.belong,
-        "code_type": "barcode",
+        code_type: "barcode",
         oid: this.oid
       }
       sendV2Coupon(args, this.coupon_batch_id)
