@@ -151,6 +151,14 @@ export const H5SaaSRouter = {
       component: () => import('@/pages/m/pages/activity/theme/birthday/cake')
     },
     {
+      path: ':mkey/:mcode/activity/shop/birthday/card',
+      name: 'ActivityBirthDayCard',
+      meta: {
+        title: '生日贺卡'
+      },
+      component: () => import('@/pages/m/pages/activity/theme/birthday/card')
+    },
+    {
       path: ':mkey/6d7143ab847f2d24c131',
       name: '6d7143ab847f2d24c131',
       meta: {
