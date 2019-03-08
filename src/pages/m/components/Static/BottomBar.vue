@@ -135,6 +135,10 @@ export default {
       return this.$route.name;
     },
     shouldMenuShow() {
+      // 只有一个菜单时不显示导航栏
+      if (this.menuCode.length === 1) {
+        return false
+      }
       // 若从列表页进入祝福页则不显示底部导航
       if (this.$route.name === 'ActivityBirthDayCake' && this.$route.query.acid) {
         return false;

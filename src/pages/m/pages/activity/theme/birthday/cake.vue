@@ -22,10 +22,46 @@
             class="submit-btn"
             @click="handleSendGreetings"
           >
-            <img src="https://cdn.exe666.com/m/activity/shop/birthday/submit-button.png">
+            <img :src="imageHost + 'submit-button.png'">
           </div>
         </div>
       </div>
+    </div>
+    <md-popup
+      v-model="showPopup"
+      :mask-closable="false"
+      @touchmove.native="preventMove"
+    >
+      <div class="popup-wrapper">
+        <div class="popup-banner">
+          <div class="popup-title">发送成功</div>
+          <div class="popup-desc">你可以在大屏查看你的祝福</div>
+          <div class="share-btn btn">分享给好友一起送祝福</div>
+          <div
+            class="back-btn btn"
+            @click="handleNavigate"
+          >
+            返回企业动态
+          </div>
+        </div>
+        <div
+          class="cancel-btn btn"
+          @click="showPopup = false"
+        >
+          关闭弹窗，再发一条
+        </div>
+      </div>
+    </md-popup>
+    <div
+      class="share-tip"
+      v-show="showPopup"
+      @touchmove="preventMove"
+    >
+      <img
+        :src="imageHost + 'arrow_tip.png'"
+        class="share-arrow"
+      >
+      <div class="share-words">快来让朋友一起为Ta祝福吧</div>
     </div>
     <NoListContentReminder
       :show="isNoList"
@@ -40,19 +76,24 @@ import NoListContentReminder from "@/pages/m/components/Reminder/NoListContentRe
 import { sendGreetings, fetchShopActivityList } from "services"
 import { mapGetters } from "vuex"
 import { Toast } from "mint-ui"
+import { Popup } from "mand-mobile"
+import "./mand-reset.less"
 
 export default {
   name: "ActivityBirthDayCake",
   components: {
     CakeSwiper,
-    NoListContentReminder
+    NoListContentReminder,
+    [Popup.name]: Popup
   },
   data () {
     return {
+      imageHost: 'https://cdn.exe666.com/m/activity/shop/birthday/',
       greetings: "",
       isSending: false,
       acid: this.$route.query.acid,
-      isNoList: false
+      isNoList: false,
+      showPopup: false
     }
   },
   computed: {
@@ -84,10 +125,17 @@ export default {
       try {
         let resp = await sendGreetings(payload)
         if (resp.data.state === "1") {
-          Toast("发送成功")
+          Toast({
+            message: '发送成功',
+            position: 'bottom'
+          })
           this.greetings = ''
+          this.showPopup = true
         } else {
-          Toast(String(r.data.results))
+          Toast({
+            message: String(r.data.results),
+            position: 'bottom'
+          })
         }
       } catch (e) {
         console.log(e)
@@ -129,6 +177,15 @@ export default {
         var scrollHeight = document.documentElement.scrollTop || document.body.scrollTop || 0;
         window.scrollTo(0, Math.max(scrollHeight - 1, 0));
       }, 10)
+    },
+    // 屏蔽滑动事件
+    preventMove (e) {
+      e.preventDefault()
+    },
+    handleNavigate () {
+      this.$router.push({
+        name: 'ActivityBirthDayIndex'
+      })
     }
   }
 }
@@ -228,6 +285,72 @@ textarea::-ms-input-placeholder {
         height: 100%;
       }
     }
+  }
+}
+
+.md-popup {
+  .btn {
+    width: 2.08rem;
+    height: 0.4rem;
+    margin: 0 auto;
+    line-height: 0.4rem;
+    text-align: center;
+    font-size: 0.15rem;
+    border-radius: 0.03rem;
+    color: #FFF;
+  }
+  .popup-wrapper {
+    width: 100%;
+    height: 100%;
+    .popup-banner {
+      width: 2.81rem;
+      height: 3.09rem;
+      background: url(https://cdn.exe666.com/m/activity/shop/birthday/popup_bg.png);
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      color: #FFF;
+      text-align: center;
+      padding-top: 0.49rem;
+      margin-bottom: 0.27rem;
+      .popup-title {
+        font-size: 0.36rem;
+        margin-bottom: 0.17rem
+      }
+      .popup-desc {
+        font-size: 0.14rem;
+        margin-bottom: 0.66rem;
+      }
+      .share-btn {
+        background: #35BBC4;
+        margin-bottom: 0.16rem;
+      }
+      .back-btn {
+        background: #2B2B2B;
+      }
+    }
+    .cancel-btn {
+      border: 0.01rem solid #FFF;
+    }
+  }
+}
+
+.share-tip {
+  position: fixed;
+  top: 0.11rem;
+  right: 0.26rem;
+  z-index: 9999;
+  overflow: hidden;
+  padding-top: 0.29rem;
+  .share-arrow {
+    position: absolute;
+    width: 0.35rem;
+    height: 0.29rem;
+    top: 0;
+    right: 0.05rem;
+  }
+  .share-words {
+    font-size: 0.15rem;
+    color: #FFF;
   }
 }
 

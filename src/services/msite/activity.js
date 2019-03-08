@@ -134,4 +134,21 @@ const sendGreetings = (payload) => {
   })
 }
 
-export { fetchShopActivityList, fetchActivityDetail, fetchShopActivityDetail, fetchShopActivityProgress, handleH5SaasVote, inShopActivityAward, fetchAllGoodsList, sendGreetings }
+// H5 获取蛋糕祝福列表
+const fetchGreetingsList = (payload) => {
+  const url = 'https://www.easy-mock.com/mock/5c7f969688e28e3357e28e4f/h5saas/api/greetings'
+  const params = {
+    params: {
+      ...payload
+    }
+  }
+  return new Promise((resolve, reject) => {
+    axios.get(url, params).then(r => {
+      resolve(r)
+    }).catch(e => {
+      reject(e)
+    })
+  })
+}
+
+export { fetchShopActivityList, fetchActivityDetail, fetchShopActivityDetail, fetchShopActivityProgress, handleH5SaasVote, inShopActivityAward, fetchAllGoodsList, sendGreetings, fetchGreetingsList }
