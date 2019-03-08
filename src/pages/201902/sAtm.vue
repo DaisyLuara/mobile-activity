@@ -14,16 +14,12 @@
 
     <div class="erweima">
       <img
-        :src="base + 'qr.png'"
-        class="erbg"
-      >
-      <img
         :src="base + 'logo.png'"
         class="logo"
       >
       <div class="clip">
         <img
-          :src="qrcodeImg"
+          :src="barcode_url"
           class="qrcode"
         >
       </div>
@@ -52,10 +48,11 @@ export default {
         }
       },
       id: this.$route.query.id,
-      coupon_img: null,//'https://cdn.exe666.com/fe/image/sAtm/test.png',
-      qrcodeImg: null,//'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
+      coupon_img: null,//'https://cdn.exe666.com/fe/image/qpyl/2_2.png',
+      qrcodeImg: null,//'http://papi.xingstation.com/qrcode/5c7de9583796b.png',
+      barcode_url: null,//'https://cdn.exe666.com/fe/image/sAtm/tiao.png'
       used: false,//false
-      code: null,
+      code: null,//'5c7de9583796b'
       z: null,
       //微信分享
       wxShareInfoValue: {
@@ -103,6 +100,7 @@ export default {
       let args = {
         z: this.z,
         coupon_batch_id: this.coupon_batch_id,
+        code_type: "barcode",
         include: 'couponBatch',
       }
       checkV2Coupon(args).then(res => {
@@ -121,6 +119,7 @@ export default {
         qiniu_id: this.id,
         z: this.z,
         belong: this.belong,
+        code_type: "barcode",
         oid: this.oid
       }
       sendV2Coupon(args, this.coupon_batch_id)
@@ -134,6 +133,7 @@ export default {
     //处理返回数据
     handleData(res) {
       this.qrcodeImg = res.qrcode_url
+      this.barcode_url = res.barcode_url
       this.coupon_img = res.couponBatch.image_url
       this.code = res.code
       if (parseInt(res.status) === 1) {
@@ -183,44 +183,30 @@ img {
   }
   .erweima {
     position: relative;
-    width: 32%;
+    width: 100%;
     margin-bottom: 2%;
-    .erbg {
-      position: relative;
-      z-index: 0;
-    }
     .logo {
       width: 21vw;
       position: absolute;
       bottom: 0%;
-      right: -83%;
+      right: 6%;
       z-index: 99;
     }
     .clip {
-      width: 25vw;
-      height: 25vw;
+      width: 40vw;
       overflow: hidden;
-      position: absolute;
-      top: 5.5%;
-      left: 50%;
+      position: relative;
+      border: "solid 1px #000";
+      background-color: #fff;
+      padding: 5px 8px;
       z-index: 9;
-      transform: translateX(-50%);
       text-align: center;
-      border-radius: 20px;
-    }
-    .qrcode {
-      width: 30vw;
-      max-width: 35vw;
       margin: 0 auto;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
     }
     .used {
       width: 32vw;
       position: absolute;
-      top: 10%;
+      top: -1%;
       left: 50%;
       transform: translateX(-50%);
       z-index: 999;
