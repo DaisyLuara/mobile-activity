@@ -11,7 +11,6 @@
       :src="coupon_img"
       class="coupon"
     >
-
     <div class="erweima">
       <img
         :src="base + 'logo.png'"
@@ -28,6 +27,11 @@
         :src="base + 'used.png'"
         class="used"
       >
+      <img
+        v-show="passed"
+        :src="base + 'passed.png'"
+        class="used"
+      >
     </div>
     <div class="code">{{code}}</div>
 
@@ -36,6 +40,7 @@
 <script>
 import { $wechat, isInWechat, wechatShareTrack, sendV2Coupon, checkV2Coupon } from 'services'
 import { normalPages } from '@/mixins/normalPages'
+import moment from "moment";
 const CDN_URL = process.env.CDN_URL
 export default {
   mixins: [normalPages],
@@ -51,7 +56,8 @@ export default {
       coupon_img: null,//'https://cdn.exe666.com/fe/image/qpyl/2_2.png',
       qrcodeImg: null,//'http://papi.xingstation.com/qrcode/5c7de9583796b.png',
       barcode_url: null,//'https://cdn.exe666.com/fe/image/sAtm/tiao.png'
-      used: false,//false
+      used: false,//false,
+      passed: false,//false
       code: null,//'5c7de9583796b'
       z: null,
       //微信分享
@@ -136,8 +142,13 @@ export default {
       this.barcode_url = res.barcode_url
       this.coupon_img = res.couponBatch.image_url
       this.code = res.code
+      let now = moment()
+      let end = moment(res.end_date)
+      let diff = end.diff(now)
       if (parseInt(res.status) === 1) {
         this.used = true
+      } else if (diff <= 0) {
+        this.passed = true
       }
     }
   }
