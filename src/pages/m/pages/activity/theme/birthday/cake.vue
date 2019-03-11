@@ -18,10 +18,7 @@
             class="greetings-input"
             @blur="handleBlur"
           />
-          <div
-            class="submit-btn"
-            @click="handleSendGreetings"
-          >
+          <div class="submit-btn" @click="handleSendGreetings">
             <img :src="imageHost + 'submit-button.png'">
           </div>
         </div>
@@ -36,36 +33,27 @@
         <div class="popup-banner">
           <div class="popup-title">发送成功</div>
           <div class="popup-desc">你可以在大屏查看你的祝福</div>
-          <div class="share-btn btn">分享给好友一起送祝福</div>
-          <div
-            class="back-btn btn"
-            @click="handleNavigate"
-          >
+          <div class="share-btn btn" @click="showShareTip = true">
+            分享给好友一起送祝福
+          </div>
+          <div class="back-btn btn" @click="handleNavigate">
             返回企业动态
           </div>
         </div>
-        <div
-          class="cancel-btn btn"
-          @click="showPopup = false"
-        >
+        <div class="cancel-btn btn" @click="handleClickCancel">
           关闭弹窗，再发一条
         </div>
       </div>
     </md-popup>
     <div
       class="share-tip"
-      v-show="showPopup"
+      v-show="showShareTip"
       @touchmove="preventMove"
     >
-      <img
-        :src="imageHost + 'arrow_tip.png'"
-        class="share-arrow"
-      >
+      <img :src="imageHost + 'arrow_tip.png'" class="share-arrow">
       <div class="share-words">快来让朋友一起为Ta祝福吧</div>
     </div>
-    <NoListContentReminder
-      :show="isNoList"
-      words="当前没有可祝福的活动哦"
+    <NoListContentReminder :show="isNoList" words="当前没有可祝福的活动哦"
     />
   </div>
 </template>
@@ -93,7 +81,8 @@ export default {
       isSending: false,
       acid: this.$route.query.acid,
       isNoList: false,
-      showPopup: false
+      showPopup: false,
+      showShareTip: false
     }
   },
   computed: {
@@ -127,14 +116,16 @@ export default {
         if (resp.data.state === "1") {
           Toast({
             message: '发送成功',
-            position: 'bottom'
+            position: 'bottom',
+            duration: 1000
           })
           this.greetings = ''
           this.showPopup = true
         } else {
           Toast({
             message: String(r.data.results),
-            position: 'bottom'
+            position: 'bottom',
+            duration: 1000
           })
         }
       } catch (e) {
@@ -186,6 +177,10 @@ export default {
       this.$router.push({
         name: 'ActivityBirthDayIndex'
       })
+    },
+    handleClickCancel () {
+      this.showPopup = false
+      this.showShareTip = false
     }
   }
 }
