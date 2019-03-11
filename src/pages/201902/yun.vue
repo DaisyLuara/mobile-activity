@@ -3,6 +3,11 @@
     :style="style.root"
     class="warp"
   >
+    <div class="top">
+      <a href="http://papi.xingstation.com/api/s/ql3">
+        <img :src="base + 'egg.png'">
+      </a>
+    </div>
     <div class="main">
       <img
         :src="base +'bg.png'"
@@ -64,6 +69,18 @@ img {
   width: 100%;
   overflow: hidden;
   background-color: #ffde1d;
+  .top {
+    position: relative;
+    z-index: 0;
+    width: 100%;
+    background-color: #bc0206;
+    a {
+      display: inline-block;
+      width: 90%;
+      animation: bigger 0.7s linear infinite alternate;
+      margin: 0 auto;
+    }
+  }
   .main {
     position: relative;
     width: 100%;
@@ -82,6 +99,14 @@ img {
       user-select: auto;
       z-index: 999;
     }
+  }
+}
+@keyframes bigger {
+  0% {
+    transform: scale(0.7);
+  }
+  100% {
+    transform: scale(1);
   }
 }
 </style>
