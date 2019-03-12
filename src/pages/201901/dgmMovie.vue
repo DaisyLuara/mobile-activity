@@ -181,7 +181,7 @@ img {
   position: relative;
   text-align: center;
   overflow: hidden;
-  background-image: url("@{imageHost}bg.png");
+  background-image: url("@{imageHost}bg1.png");
   background-size: 100% 100%;
   background-position: center bottom;
   background-repeat: no-repeat;
