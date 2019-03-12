@@ -53,6 +53,28 @@ const Date201903 = [
       desc: '最美花神'
     },
     isAbandoned: false
+  },
+  {
+    path: 'gaobai',
+    location: '201903/loveGaobai',
+    name: 'gaobai',
+    meta: {
+      title: '爱的告白',
+      author: 'lipan',
+      desc: '爱的告白'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'jinli',
+    location: '201903/jinli',
+    name: 'jinli',
+    meta: {
+      title: '好运来袭',
+      author: 'lipan',
+      desc: '寻找锦鲤'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201903
