@@ -54,7 +54,6 @@ export default {
     }
   },
   mounted() {
-    this.getScore(99)
   },
   methods: {
     getScore(score) {
