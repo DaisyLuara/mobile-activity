@@ -3,9 +3,9 @@
     <!-- 贺卡部分 -->
     <transition name="fade">
       <div
-        class="greeting-card"
+        class="greetings-card"
         v-show="showCard"
-        ref="greetingCard"
+        ref="greetingsCard"
       >
         <img
           :src="imageHost + 'greeting_card.png'"
@@ -19,7 +19,7 @@
     <!-- 蛋糕塔部分 -->
     <transition name="fade">
       <div
-        class="greeting-cake"
+        class="greetings-cake"
         v-show="!showCard"
       >
         <!-- 蛋糕塔scroller -->
@@ -38,17 +38,14 @@
           <!-- 蛋糕和祝福语 -->
           <div class="scroll-content">
             <div
-              v-for="(item, index) in greetingList"
+              v-for="(item, index) in greetingsList"
               :key="index"
-              :class="[
-                'greeting-wrapper',
-                item.animationDelay !== undefined ? 'animated fadeInUp' : ''
-              ]"
+              class="greetings-wrapper animated fadeInUp"
               :style="{
                 zIndex: item.zIndex,
                 animationDelay: item.animationDelay + 'ms'
               }"
-              ref="greeting"
+              ref="greetings"
             >
               <div
                 class="cake-wrapper"
@@ -60,6 +57,8 @@
                 <div
                   :class="[
                     'comment-wrapper',
+                    { 'hide': index >= pageSize },
+                    { 'animated bounceIn': commentShowMap[index] && index >= pageSize },
                     item.offset < 50 ? 'left' : 'right'
                   ]"
                 >
@@ -69,7 +68,7 @@
                       <img :src="defaultAvatar" class="comment-avatar">
                       <div class="avatar-name">{{ item.username }}</div>
                     </div>
-                    <div class="comment">{{ item.comment }}</div>
+                    <div class="comment-word">{{ item.comment }}</div>
                   </div>
                 </div>
               </div>
@@ -106,26 +105,30 @@ export default {
     return {
       imageHost: 'https://cdn.exe666.com/m/activity/shop/birthday/',
       defaultAvatar: 'http://thirdwx.qlogo.cn/mmopen/vi_32/kPmo3eFGlBOPalDZHOpAicFPfQaicU7icJnypiaUxUcFEOE2kdddNsFXPkmiaeBo6LCRau0ibZK72fUtDpo9dSZccXTA/132',
-      greetingList: [],
+      greetingsList: [],
       isAllLoaded: false,
       isFetching: false,
       currentPage: 1,
       pageSize: 5,
-      showCard: true
+      showCard: true,
+      commentShowLimit: 0,
+      commentShowMap: []
     }
   },
   computed: {
     cakeNum () {
-      return this.greetingList.length
+      return this.greetingsList.length
     }
   },
   mounted () {
     this.initialSwipe()
+    this.computedCakeHeight()
+    this.commentShowLimit = document.body.clientHeight
   },
   methods: {
     initialSwipe () {
       // 为贺卡添加上滑事件监听器
-      let manager = new Hammer.Manager(this.$refs.greetingCard)
+      let manager = new Hammer.Manager(this.$refs.greetingsCard)
       let Swipe = new Hammer.Swipe({
         event: 'swipeup',
         threshold: 20,
@@ -135,6 +138,10 @@ export default {
       manager.on('swipeup', () => {
         this.hideCard()
       })
+    },
+    computedCakeHeight () {
+      const screenWidth = document.body.clientWidth
+      this.cakeHeight = 227 * (screenWidth / 375)
     },
     async fetchList (firstFetch) {
       if (this.isAllLoaded || this.isFetching) {
@@ -158,11 +165,11 @@ export default {
           this.isAllLoaded = true
         }
         let list = this.computedZIndex(resp.data.list, resp.data.totalPage)
-        if (firstFetch) {
-          this.computedDelay(list)
-        }
-        console.log(list)
-        this.greetingList = this.greetingList.concat(list)
+        // if (firstFetch) {
+        //   this.computedDelay(list)
+        // }
+        this.computedDelay(list)
+        this.greetingsList = this.greetingsList.concat(list)
         this.currentPage++
       } catch (e) {
         console.log(e)
@@ -193,9 +200,13 @@ export default {
       }, 1000)
     },
     handleScroll ({ scrollTop }) {
-      const greetingList = this.$refs.greeting
-      if (greetingList) {
-        console.log(greetingList[0].offsetTop)
+      const greetingsDomList = this.$refs.greetings
+      if (greetingsDomList) {
+        for (let i = this.pageSize; i < greetingsDomList.length; i++) {
+          if ((greetingsDomList[i].offsetTop + this.cakeHeight - scrollTop) < this.commentShowLimit) {
+            this.commentShowMap.splice(i, 1, true)
+          }
+        }
       }
     },
     preventMove (e) {
@@ -216,7 +227,7 @@ export default {
 
 .card-wrap {
   height: 100vh;
-  .greeting-card {
+  .greetings-card {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -238,7 +249,7 @@ export default {
       }
     }
   }
-  .greeting-cake {
+  .greetings-cake {
     position: relative;
     width: 100%;
     height: 100%;
@@ -271,27 +282,30 @@ export default {
         }
       }
       .scroll-content {
-        .greeting-wrapper {
+        .greetings-wrapper {
           width: 100%;
           height: 0.85rem;
           position: relative;
           .cake-wrapper {
             position: absolute;
             width: 2.17rem;
-            height: auto;
+            height: 2.27rem;
             top: 0;
             left: 50%;
             transform: translateX(-50%);
             .cake-img {
               display: block;
               width: 100%;
-              height: auto;
+              height: 100%;
             }
             .comment-wrapper {
               position: absolute;
               top: 1.6rem;
               width: 1.62rem;
               height: 0.4rem;
+              &.hide {
+                opacity: 0;
+              }
               .comment-bg {
                 position: absolute;
                 top: 0;
@@ -327,7 +341,7 @@ export default {
                     color: #FFF;
                   }
                 }
-                .comment {
+                .comment-word {
                   width: 1rem;
                   font-size: 0.1rem;
                   color: #FFF;
