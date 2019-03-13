@@ -9,6 +9,11 @@
       class="award"
       @click="awardIn"
     >立即报名</div>
+    <div
+      v-if="this.acttype === 'birthday'"
+      class="award"
+      @click="naviToCard"
+    >查看祝福</div>
   </div>
 </template>
 
@@ -141,6 +146,12 @@ export default {
           Toast("网络不太好，请重试");
           console.dir(e);
         });
+    },
+    // 跳转至贺卡页
+    naviToCard () {
+      this.$router.push({
+        name: 'ActivityBirthDayCard'
+      })
     }
   }
 };
