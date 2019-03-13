@@ -75,6 +75,17 @@ const Date201903 = [
       desc: '寻找锦鲤'
     },
     isAbandoned: false
+  },
+  {
+    path: 'lw_vision',
+    location: '201903/luwanVision',
+    name: 'lw_vision',
+    meta: {
+      title: '幻境',
+      author: 'lipan',
+      desc: '幻境-卢湾彩蛋'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201903
