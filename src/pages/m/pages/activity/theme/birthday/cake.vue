@@ -61,7 +61,7 @@
 <script>
 import CakeSwiper from "@/pages/m/components/Birthday/CakeSwiper"
 import NoListContentReminder from "@/pages/m/components/Reminder/NoListContentReminder"
-import { sendGreetings, fetchShopActivityList } from "services"
+import { sendGreetings, fetchShopActivityList, $wechat, isInWechat } from "services"
 import { mapGetters } from "vuex"
 import { Toast } from "mint-ui"
 import { Popup } from "mand-mobile"
@@ -86,15 +86,34 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["z"])
+    ...mapGetters(["z", "weixinUrl"])
   },
   mounted () {
+    this.initWechatShare()
     // 如果没有acid则拉取祝福列表，取列表第一个活动的acid
     if (!this.acid) {
       this.getAcid()
     }
   },
   methods: {
+    // 初始化微信分享
+    initWechatShare () {
+      let wechatShareInfo = {
+        title: '为TA送上祝福吧~',
+        desc: '我们最爱的同事等你来送祝福',
+        link: window.location.href.split("#")[0],
+        imgUrl: ''
+      }
+      if (isInWechat() === true) {
+        $wechat.share(this.weixinUrl)
+          .then(res => {
+            res.share(wechatShareInfo)
+          })
+          .catch(err => {
+            console.warn(err.message)
+          })
+      }
+    },
     async handleSendGreetings () {
       const cakeList = this.$refs.cakeSwiper.cakeList
       const cakeSwiper = this.$refs.cakeSwiper.swiperTop
@@ -142,7 +161,7 @@ export default {
         size: 5,
         z: this.z,
         allt: 'birthday',
-        mkey: this.$route.params.mkey,
+        mkey: this.$route.params.mkey
       }
       fetchShopActivityList(this, payload)
         .then(r => {
@@ -161,6 +180,11 @@ export default {
           console.log(e)
           this.isNoList = true
         })
+    },
+    // 随机生成蛋糕偏移
+    getRandOffset () {
+      const range = [40, 60]
+      return Math.round(Math.random() * (range[1] - range[0])) + range[0]
     },
     handleBlur () {
       // 修复ios隐藏软键盘后页面无法回弹的问题
