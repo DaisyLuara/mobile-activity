@@ -38,8 +38,9 @@
 </template>
 
 <script>
-import { fetchGreetingsList } from "services"
+import { fetchGreetingsList, $wechat, isInWechat } from "services"
 import CakeTower from './components/CakeTower'
+import { mapGetters } from "vuex"
 import Hammer from 'hammerjs'
 
 export default {
@@ -60,14 +61,34 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(["weixinUrl"]),
     cakeNum () {
       return this.greetingsList.length
     }
   },
   mounted () {
+    this.initWechatShare()
     this.initialHammer()
   },
   methods: {
+    // 初始化微信分享
+    initWechatShare () {
+      let wechatShareInfo = {
+        title: '你收到了XXX公司同事以及领导为你送上的生日祝福',
+        desc: '点击查收你的生日贺卡',
+        link: window.location.href.split("#")[0],
+        imgUrl: ''
+      }
+      if (isInWechat() === true) {
+        $wechat.share(this.weixinUrl)
+          .then(res => {
+            res.share(wechatShareInfo)
+          })
+          .catch(err => {
+            console.warn(err.message)
+          })
+      }
+    },
     // 初始化手势事件
     initialHammer () {
       // 为贺卡添加上滑事件监听器
@@ -127,6 +148,7 @@ export default {
       })
       return list
     },
+    // 蛋糕淡入动画延迟
     computedDelay (list) {
       list.forEach((item, index) => {
         item.animationDelay = 400 * index // 单位毫秒

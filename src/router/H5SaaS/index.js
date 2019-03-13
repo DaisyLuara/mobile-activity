@@ -138,7 +138,7 @@ export const H5SaaSRouter = {
       path: ':mkey/:mcode/activity/shop/birthday',
       name: 'ActivityBirthDayIndex',
       meta: {
-        title: '公司动态'
+        title: '企业动态'
       },
       component: () => import('@/pages/m/pages/activity/theme/birthday/index')
     },
@@ -146,7 +146,7 @@ export const H5SaaSRouter = {
       path: ':mkey/:mcode/activity/shop/birthday/cake',
       name: 'ActivityBirthDayCake',
       meta: {
-        title: '发送蛋糕'
+        title: '发送祝福'
       },
       component: () => import('@/pages/m/pages/activity/theme/birthday/cake')
     },
