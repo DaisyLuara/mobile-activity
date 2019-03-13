@@ -99,8 +99,8 @@ export default {
     // 初始化微信分享
     initWechatShare () {
       let wechatShareInfo = {
-        title: '为TA送上祝福吧~',
-        desc: '我们最爱的同事等你来送祝福',
+        title: '这是我今天获得最大的惊喜',
+        desc: '快来看我收到了多少祝福',
         link: window.location.href.split("#")[0],
         imgUrl: ''
       }
