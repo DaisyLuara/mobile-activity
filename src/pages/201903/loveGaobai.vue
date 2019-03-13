@@ -4,6 +4,17 @@
     class="warp"
   >
     <div
+      v-show="loading"
+      :style="style.root"
+      class="page1"
+    >
+      <img
+        :src="base + 'loading.png'"
+        class="loading"
+        @click="()=>{loading=false}"
+      >
+    </div>
+    <div
       id="anim1"
       class="anim1"
     />
@@ -20,27 +31,30 @@
       class="animate2"
     />
     <div
-      v-show="loading"
-      :style="style.root"
-      class="page1"
-    >
-      <img
-        :src="base + 'loading.png'"
-        class="loading"
-        @click="()=>{loading=false}"
-      >
-    </div>
-    <div
       v-show="!loading"
       :style="style.root"
       class="page2"
     >
+      <div
+        v-show="!haslocked"
+        class="photos"
+      >
+        <img
+          :src="base + 'border.png'"
+          class="border"
+        >
+        <img
+          :src="photo"
+          class="photo"
+        >
+      </div>
       <img
-        :src="photo"
-        class="photo"
+        v-show="haslocked"
+        :src="base + 'unlock.png'"
+        class="lockp"
       >
       <img
-        v-show="save"
+        v-show="Boolean(photo)"
         :src="base + 'tip.png'"
         class="save"
       >
@@ -53,12 +67,12 @@
             v-show="all[item-1]"
             :src="base + 'b' + item + '.png'"
             class="unlock"
-            @click="()=>{photo = pimg;save = true}"
+            @click="()=>{photo = imgs[item-1]; haslocked = false ;}"
           >
           <img
             :src="base + 'b' + item + '_lock.png'"
             class="bg"
-            @click="()=>{photo = base + 'unlock.png';save = false}"
+            @click="()=>{haslocked = true;}"
           >
         </div>
       </div>
@@ -77,16 +91,18 @@ export default {
       base: CDN_URL + '/fe/image/gaobai/',
       style: {
         root: {
+          'width': this.$innerWidth() + 'px',
           'height': this.$innerHeight() + 'px'
         }
       },
       id: this.$route.query.id,
       loading: true,
-      save: false,
+      haslocked: false,
       userId: null,
       scene: null,
       pimg: null,
       all: [false, false, false],
+      imgs: [null, null, null],
       unlocks: [],
       //微信分享
       wxShareInfoValue: {
@@ -105,6 +121,12 @@ export default {
       this.userId ? this.userGame() : null
     }
   },
+  created() {
+    let url1 = this.base + '1/butterfly1_000'
+    let url2 = this.base + '2/butterfly2_000'
+    this.getLoadAnim(url1, 0, 24, '.png', '.animate1')
+    this.getLoadAnim(url2, 0, 24, '.png', '.animate2')
+  },
   mounted() {
     //微信授权
     if (isInWechat() === true) {
@@ -117,10 +139,6 @@ export default {
     }
     let anim1 = this.doAnim('anim1', this.base + 'up/images/', this.base + 'up/data1.json', true, true)
     let anim2 = this.doAnim('anim2', this.base + 'down/images/', this.base + 'down/data.json', true, true)
-    let url1 = this.base + '1/butterfly1_000'
-    let url2 = this.base + '2/butterfly2_000'
-    this.getLoadAnim(url1, 0, 24, '.png', '.animate1')
-    this.getLoadAnim(url2, 0, 24, '.png', '.animate2')
     let once = setTimeout(() => {
       this.loading = false
       clearTimeout(once)
@@ -225,12 +243,15 @@ export default {
         if (r.scene != null && r.scene != undefined) {
           if (r.scene == 'blue') {
             that.all[0] = true
+            that.imgs[0] = r.image_url
           }
           if (r.scene == 'red') {
             that.all[1] = true
+            that.imgs[1] = r.image_url
           }
           if (r.scene == 'yellow') {
             that.all[2] = true
+            that.imgs[2] = r.image_url
           }
         }
       })
@@ -302,13 +323,31 @@ img {
     overflow: hidden;
     position: relative;
     z-index: 9;
-    .photo {
-      width: 50.5%;
+    .photos {
+      width: 50.6%;
       position: relative;
       margin-top: 15%;
       z-index: 0;
-      pointer-events: auto;
-      user-select: auto;
+      .border {
+        position: relative;
+        z-index: 0;
+      }
+      .photo {
+        width: 48vw;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 99;
+        pointer-events: auto;
+        user-select: auto;
+      }
+    }
+    .lockp {
+      width: 50.6%;
+      position: relative;
+      margin-top: 15%;
+      z-index: 0;
     }
     .save {
       position: absolute;
