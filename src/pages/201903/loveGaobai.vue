@@ -11,7 +11,7 @@
       <img
         :src="base + 'loading.png'"
         class="loading"
-        @click="()=>{loading=false}"
+        @click="closeLoading"
       >
     </div>
     <div
@@ -67,12 +67,12 @@
             v-show="all[item-1]"
             :src="base + 'b' + item + '.png'"
             class="unlock"
-            @click="()=>{photo = imgs[item-1]; haslocked = false ;}"
+            @click="getNowPhoto(item)"
           >
           <img
             :src="base + 'b' + item + '_lock.png'"
             class="bg"
-            @click="()=>{haslocked = true;}"
+            @click="getLockedPicture"
           >
         </div>
       </div>
@@ -145,6 +145,9 @@ export default {
     }, 3000)
   },
   methods: {
+    closeLoading() {
+      this.loading = false
+    },
     doAnim(id, imageUrl, jsonUrl, autoplay, loop) {
       let el = document.getElementById(id)
       let that = this
@@ -158,6 +161,12 @@ export default {
         path: jsonUrl
       })
       return anim
+    },
+    getNowPhoto(item) {
+      this.photo = this.imgs[item - 1]; this.haslocked = false;
+    },
+    getLockedPicture() {
+      this.haslocked = true;
     },
     getLoadAnim(prename, start, length, type, name) {
       let count = 0
