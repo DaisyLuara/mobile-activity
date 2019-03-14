@@ -30,26 +30,26 @@
         >
           <div
             class="cake-wrapper"
-            :style="{ left: item.offset + '%' }"
+            :style="{ left: item.value + '%' }"
           >
           <!-- 蛋糕 -->
-            <img :src="item.cakeImg" class="cake-img">
+            <img :src="item.link" class="cake-img">
             <!-- 祝福语 -->
             <div
               :class="[
                 'comment-wrapper',
                 { 'hide': index >= pageSize },
                 { 'animated bounceIn': commentShowMap[index] && index >= pageSize },
-                item.offset < 50 ? 'left' : 'right'
+                Number(item.value) < 50 ? 'left' : 'right'
               ]"
             >
               <img :src="imageHost + 'comment_bg.png'" class="comment-bg">
               <div class="comment-info" >
                 <div class="avatar-wrapper">
-                  <img :src="defaultAvatar" class="comment-avatar">
-                  <div class="avatar-name">{{ item.username }}</div>
+                  <img :src="item.face" class="comment-avatar">
+                  <div class="avatar-name">{{ item.nickname }}</div>
                 </div>
-                <div class="comment-word">{{ item.comment }}</div>
+                <div class="comment-word">{{ item.kid }}</div>
               </div>
             </div>
           </div>
@@ -189,7 +189,7 @@ export default {
                 position: relative;
                 width: 0.4rem;
                 height: 0.4rem;
-                img {
+                .comment-avatar {
                   display: block;
                   width: 100%;
                   height: 100%;
@@ -199,11 +199,11 @@ export default {
                 .avatar-name {
                   position: absolute;
                   top: 0.46rem;
-                  left: 0;
-                  right: 0;
-                  text-align: center;
+                  left: 50%;
+                  transform: translate(-50%);
                   font-size: 0.1rem;
                   color: #FFF;
+                  white-space: nowrap;
                 }
               }
               .comment-word {

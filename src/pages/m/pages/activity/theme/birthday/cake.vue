@@ -102,9 +102,8 @@ export default {
         title: '这是我今天获得最大的惊喜',
         desc: '快来看我收到了多少祝福',
         link: window.location.href.split("#")[0],
-        imgUrl: ''
+        imgUrl: 'https://cdn.exe666.com/m/activity/shop/birthday/share_icon.png'
       }
-      console.log(this.weixinUrl)
       if (isInWechat() === true) {
         $wechat(this.weixinUrl)
           .then(res => {

@@ -132,7 +132,7 @@ export default {
           let res = r.data.results.data;
           this.isLoading = false;
           this.trends = this.trends.concat(res);
-          if (r.data.results.pageIndex >= r.data.results.totalPage) {
+          if (Number(r.data.results.pageIndex) >= Number(r.data.results.totalPage)) {
             this.isAllLoaded = true;
           }
           this.currentPage++;
