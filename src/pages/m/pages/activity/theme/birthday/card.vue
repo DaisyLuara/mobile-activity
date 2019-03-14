@@ -27,6 +27,7 @@
         :pageSize="pageSize"
       />
     </transition>
+    <img :src="imageHost + 'header_mask.png'" class="header-mask">
     <!-- 左上角寿星信息 -->
     <div class="recipient">
       <img :src="defaultAvatar" class="recipient-avatar">
@@ -38,7 +39,7 @@
 </template>
 
 <script>
-import { fetchGreetingsList, $wechat, isInWechat } from "services"
+import { $wechat, isInWechat, fetchShopActivityDetail, fetchShopActivityProgress } from "services"
 import CakeTower from './components/CakeTower'
 import { mapGetters } from "vuex"
 import Hammer from 'hammerjs'
@@ -61,25 +62,38 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["weixinUrl"]),
+    ...mapGetters(["weixinUrl", "z"]),
     cakeNum () {
       return this.greetingsList.length
     }
   },
   mounted () {
+    this.fetchUserInfo()
     this.initWechatShare()
     this.initHammer()
   },
   methods: {
+    async fetchUserInfo () {
+      let payload = {
+        api: 'json',
+        z: this.z,
+        actid: this.$route.query.acid
+      }
+      try {
+        let resp = (await fetchShopActivityDetail(this, payload)).data
+        console.log(resp)
+      } catch (e) {
+        console.log(e)
+      }
+    },
     // 初始化微信分享
     initWechatShare () {
       let wxShareInfoValue = {
         title: '你收到了XXX公司同事以及领导为你送上的生日祝福',
         desc: '点击查收你的生日贺卡',
         link: window.location.href.split("#")[0],
-        imgUrl: ''
+        imgUrl: 'https://cdn.exe666.com/m/activity/shop/birthday/share_icon.png'
       }
-      console.log(this.weixinUrl)
       if (isInWechat() === true) {
         $wechat(this.weixinUrl)
           .then(res => {
@@ -101,9 +115,7 @@ export default {
           direction: Hammer.DIRECTION_UP
         })
         cardManager.add(Swipe)
-        console.log('add hammer manager')
         cardManager.on('swipe', () => {
-          console.log('swipe up event')
           this.hideCard()
         })
       }
@@ -117,19 +129,20 @@ export default {
         api: "json",
         cp: this.currentPage,
         size: this.pageSize,
-        z: this.z,
-        allt: "birthday",
-        mkey: this.$route.params.mkey
+        awardkey: this.$route.query.awardkey,
+        z: this.z
       }
       try {
-        let resp = (await fetchGreetingsList(payload)).data
-        if (resp.data.state !== '1') {
+        let resp = (await fetchShopActivityProgress(this, payload)).data
+        console.log(resp)
+        // let resp = (await fetchGreetingsList(payload)).data
+        if (resp.state !== '1') {
           this.isAllLoaded = true
         }
-        if (resp.data.pageIndex >= resp.data.totalPage) {
+        if (Number(resp.results.pageIndex) >= Number(resp.results.totalPage)) {
           this.isAllLoaded = true
         }
-        let list = this.computedZIndex(resp.data.list, resp.data.totalPage)
+        let list = this.computedZIndex(resp.results.data, Number(resp.results.totalPage))
         // if (firstFetch) {
         //   this.computedDelay(list)
         // }
@@ -146,7 +159,7 @@ export default {
     // 计算蛋糕的z-index
     computedZIndex (list, totalPage) {
       // z-index从大到小排列
-      const maxIndex = Number(totalPage) * this.pageSize
+      const maxIndex = totalPage * this.pageSize
       const currentIndex = this.cakeNum
       list.forEach((item, index) => {
         item.zIndex = maxIndex - (currentIndex + index)
@@ -210,6 +223,7 @@ export default {
   width: 1.7rem;
   height: 0.72rem;
   overflow: hidden;
+  pointer-events: none;
   .recipient-avatar {
     display: block;
     width: 0.59rem;
@@ -239,6 +253,14 @@ export default {
     right: 0.09rem;
     top: 0.28rem;
   }
+}
+
+.header-mask {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
 }
 
 .fade-enter-active, .fade-leave-active {

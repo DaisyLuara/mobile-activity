@@ -149,8 +149,14 @@ export default {
     },
     // 跳转至贺卡页
     naviToCard () {
+      let query = {
+        acid: this.acid,
+        awardkey: this.awardkey
+      }
       this.$router.push({
-        name: 'ActivityBirthDayCard'
+        name: 'ActivityBirthDayCard',
+        params: this.$route.params,
+        query
       })
     }
   }
