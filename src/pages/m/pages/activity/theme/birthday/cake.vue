@@ -98,16 +98,17 @@ export default {
   methods: {
     // 初始化微信分享
     initWechatShare () {
-      let wechatShareInfo = {
+      let wxShareInfoValue = {
         title: '这是我今天获得最大的惊喜',
         desc: '快来看我收到了多少祝福',
         link: window.location.href.split("#")[0],
         imgUrl: ''
       }
+      console.log(this.weixinUrl)
       if (isInWechat() === true) {
-        $wechat.share(this.weixinUrl)
+        $wechat(this.weixinUrl)
           .then(res => {
-            res.share(wechatShareInfo)
+            res.share(wxShareInfoValue)
           })
           .catch(err => {
             console.warn(err.message)
