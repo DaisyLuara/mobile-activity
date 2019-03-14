@@ -5,13 +5,13 @@
       <div
         class="greetings-card"
         v-show="showCard"
-        ref="greetingsCard"
       >
         <img
           :src="imageHost + 'greeting_card.png'"
           class="card-img"
           :class="{ hide: !showCard }"
           @click="hideCard"
+          ref="greetingsCard"
         >
       </div>
     </transition>
@@ -68,21 +68,22 @@ export default {
   },
   mounted () {
     this.initWechatShare()
-    this.initialHammer()
+    this.initHammer()
   },
   methods: {
     // 初始化微信分享
     initWechatShare () {
-      let wechatShareInfo = {
+      let wxShareInfoValue = {
         title: '你收到了XXX公司同事以及领导为你送上的生日祝福',
         desc: '点击查收你的生日贺卡',
         link: window.location.href.split("#")[0],
         imgUrl: ''
       }
+      console.log(this.weixinUrl)
       if (isInWechat() === true) {
-        $wechat.share(this.weixinUrl)
+        $wechat(this.weixinUrl)
           .then(res => {
-            res.share(wechatShareInfo)
+            res.share(wxShareInfoValue)
           })
           .catch(err => {
             console.warn(err.message)
@@ -90,18 +91,22 @@ export default {
       }
     },
     // 初始化手势事件
-    initialHammer () {
+    initHammer () {
       // 为贺卡添加上滑事件监听器
-      let cardManager = new Hammer.Manager(this.$refs.greetingsCard)
-      let Swipe = new Hammer.Swipe({
-        event: 'swipeup',
-        threshold: 20,  // 最小滑动距离
-        direction: Hammer.DIRECTION_UP
-      })
-      cardManager.add(Swipe)
-      cardManager.on('swipeup', () => {
-        this.hideCard()
-      })
+      this.$refs.greetingsCard.onload = () => {
+        let cardManager = new Hammer.Manager(this.$refs.greetingsCard)
+        let Swipe = new Hammer.Swipe({
+          event: 'swipe',
+          threshold: 20,  // 最小滑动距离
+          direction: Hammer.DIRECTION_UP
+        })
+        cardManager.add(Swipe)
+        console.log('add hammer manager')
+        cardManager.on('swipe', () => {
+          console.log('swipe up event')
+          this.hideCard()
+        })
+      }
     },
     async fetchList () {
       if (this.isAllLoaded || this.isFetching) {

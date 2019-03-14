@@ -137,7 +137,7 @@ const sendGreetings = (payload) => {
 // H5 获取蛋糕祝福列表
 const fetchGreetingsList = (payload) => {
   const url = process.env.NODE_ENV === 'development' 
-    ? 'http://0.0.0.0:7300/mock/5c875a80bcbd72043d965551/h5saas/api/greetings' 
+    ? 'http://127.0.0.1:7300/mock/5c875a80bcbd72043d965551/h5saas/api/greetings' 
     : 'https://www.easy-mock.com/mock/5c7f969688e28e3357e28e4f/h5saas/api/greetings'
   const params = {
     params: {
