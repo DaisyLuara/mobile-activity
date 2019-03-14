@@ -86,6 +86,17 @@ const Date201903 = [
       desc: '幻境-卢湾彩蛋'
     },
     isAbandoned: false
+  },
+  {
+    path: 'luck_yu',
+    location: '201903/luckyYu',
+    name: 'luck_yu',
+    meta: {
+      title: '幸运锦鲤',
+      author: 'lipan',
+      desc: '幸运锦鲤'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201903
