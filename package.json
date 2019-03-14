@@ -46,6 +46,7 @@
     "dayjs": "^1.7.8",
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^1.1.4",
+    "hammerjs": "^2.0.8",
     "happypack": "^5.0.0",
     "html-webpack-plugin": "^2.30.1",
     "inject-loader": "^3.0.0",
