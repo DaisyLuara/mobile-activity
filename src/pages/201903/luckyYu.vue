@@ -143,9 +143,9 @@ img {
         display: block;
       }
       .hana {
-        width: 12.5%;
-        bottom: -5.6%;
-        left: 33%;
+        width: 20.5%;
+        bottom: -9.4%;
+        left: 28%;
       }
     }
   }
