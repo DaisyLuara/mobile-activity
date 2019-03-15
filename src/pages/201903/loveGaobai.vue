@@ -47,17 +47,18 @@
           :src="photo"
           class="photo"
         >
+        <img
+          v-show="Boolean(photo)"
+          :src="base + 'tip.png'"
+          class="save"
+        >
       </div>
       <img
         v-show="haslocked"
         :src="base + 'unlock.png'"
         class="lockp"
       >
-      <img
-        v-show="Boolean(photo)"
-        :src="base + 'tip.png'"
-        class="save"
-      >
+
       <div class="group">
         <div
           v-for="item in 3"
@@ -332,6 +333,9 @@ img {
     overflow: hidden;
     position: relative;
     z-index: 9;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     .photos {
       width: 50.6%;
       position: relative;
@@ -351,6 +355,14 @@ img {
         pointer-events: auto;
         user-select: auto;
       }
+      .save {
+        position: absolute;
+        width: 9.5vw;
+        top: 50%;
+        right: -23.5%;
+        transform: translateY(-50%);
+        z-index: 9;
+      }
     }
     .lockp {
       width: 50.6%;
@@ -358,13 +370,7 @@ img {
       margin-top: 15%;
       z-index: 0;
     }
-    .save {
-      position: absolute;
-      width: 9.5%;
-      top: 25%;
-      right: 13%;
-      z-index: 9;
-    }
+
     .group {
       position: relative;
       width: 65%;
