@@ -53,8 +53,8 @@ export default {
       id: this.$route.query.id,
       //微信分享
       wxShareInfoValue: {
-        title: "",
-        desc: "",
+        title: "幸运锦鲤",
+        desc: "幸运锦鲤",
         link: 'http://papi.xingstation.com/api/s/j0z' + window.location.search,
         imgUrl: "https://cdn.exe666.com/fe/image/luckyyu/icon.png"
       }
