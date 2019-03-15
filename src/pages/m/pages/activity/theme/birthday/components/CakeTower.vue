@@ -30,7 +30,7 @@
         >
           <div
             class="cake-wrapper"
-            :style="{ left: item.value + '%' }"
+            :style="{ left: item.offset + '%' }"
           >
           <!-- 蛋糕 -->
             <img :src="item.link" class="cake-img">
@@ -40,7 +40,7 @@
                 'comment-wrapper',
                 { 'hide': index >= pageSize },
                 { 'animated bounceIn': commentShowMap[index] && index >= pageSize },
-                Number(item.value) < 50 ? 'left' : 'right'
+                Number(item.offset) < 50 ? 'left' : 'right'
               ]"
             >
               <img :src="imageHost + 'comment_bg.png'" class="comment-bg">
@@ -113,6 +113,11 @@ export default {
 
 <style lang="less" scoped>
 @imageHost: 'https://cdn.exe666.com/m/activity/shop/birthday/';
+
+img {
+  -webkit-user-select: none;
+  user-select: none
+}
 
 .greetings-cake {
   position: relative;

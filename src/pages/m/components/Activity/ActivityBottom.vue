@@ -150,8 +150,7 @@ export default {
     // 跳转至贺卡页
     naviToCard () {
       let query = {
-        acid: this.acid,
-        awardkey: this.awardkey
+        acid: this.acid
       }
       this.$router.push({
         name: 'ActivityBirthDayCard',
