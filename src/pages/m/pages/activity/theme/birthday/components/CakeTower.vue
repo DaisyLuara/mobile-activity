@@ -113,6 +113,7 @@ export default {
 
 <style lang="less" scoped>
 @imageHost: 'https://cdn.exe666.com/m/activity/shop/birthday/';
+@import "../mixin.less";
 
 img {
   -webkit-user-select: none;
@@ -204,11 +205,12 @@ img {
                 .avatar-name {
                   position: absolute;
                   top: 0.46rem;
-                  left: 50%;
-                  transform: translate(-50%);
+                  left: 0;
+                  right: 0;
                   font-size: 0.1rem;
+                  text-align: center;
                   color: #FFF;
-                  white-space: nowrap;
+                  .ellipsis();
                 }
               }
               .comment-word {
@@ -218,7 +220,7 @@ img {
               }
             }
             &.left {
-              right: 45%;
+              right: 44%;
               .comment-bg {
                 right: 0;
                 transform-origin: 50% 50%;
@@ -229,7 +231,7 @@ img {
               }
             }
             &.right {
-              left: 45%;
+              left: 44%;
               .comment-bg {
                 left: 0;
               }

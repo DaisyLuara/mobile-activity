@@ -11,13 +11,16 @@
       <div class="greetings-wrapper">
         <div class="bottom"/>
         <div class="greetings-area">
-          <textarea
-            v-model="greetings"
-            maxlength="14"
-            placeholder="输入你对ta的生日祝福..."
-            class="greetings-input"
-            @blur="handleBlur"
-          />
+          <div class="input-wrapper">
+            <textarea
+              v-model="greetings"
+              maxlength="14"
+              placeholder="输入你对ta的生日祝福..."
+              class="greetings-input"
+              @blur="handleBlur"
+            />
+            <div class="input-counter">{{ wordNum + ' / ' + wordLimit }}</div>
+          </div>
           <div class="submit-btn" @click="handleSendGreetings">
             <img :src="imageHost + 'submit-button.png'">
           </div>
@@ -82,11 +85,15 @@ export default {
       acid: this.$route.query.acid,
       isNoList: false,
       showPopup: false,
-      showShareTip: false
+      showShareTip: false,
+      wordLimit: 14
     }
   },
   computed: {
-    ...mapGetters(["z", "weixinUrl"])
+    ...mapGetters(["z", "weixinUrl"]),
+    wordNum() {
+      return this.greetings ? this.greetings.length : 0
+    }
   },
   mounted () {
     this.initWechatShare()
@@ -281,18 +288,30 @@ textarea::-ms-input-placeholder {
     background: #FFF;
     border-radius: 0.2rem;
     box-shadow: 0px 0px 18px 0px rgba(223,223,223,0.59);
-    .greetings-input {
-      display: block;
-      width: 3.13rem;
-      height: 0.79rem;
-      line-height: 0.13rem;
-      padding: 0.15rem 0.18rem;
-      margin: 0 auto 0.12rem auto;
-      border-radius: 0.07rem;
-      border: 1px solid #EEEEEE;
-      color: #000;
-      font-size: 0.14rem;
-      resize: none;
+    .input-wrapper {
+      position: relative;
+      margin-bottom: 0.12rem;
+      .greetings-input {
+        display: block;
+        width: 3.13rem;
+        height: 0.79rem;
+        line-height: 0.13rem;
+        padding: 0.15rem 0.18rem;
+        margin: 0 auto;
+        border-radius: 0.07rem;
+        border: 1px solid #EEEEEE;
+        color: #000;
+        font-size: 0.14rem;
+        resize: none;
+      }
+      .input-counter {
+        position: absolute;
+        right: 0.2rem;
+        bottom: 0.05rem;
+        font-size: 0.14rem;
+        line-height: 0.15rem;
+        color: #B3B3B3;
+      }
     }
     .submit-btn {
       width: 0.65rem;
