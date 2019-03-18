@@ -10,7 +10,7 @@
       @click="awardIn"
     >立即报名</div>
     <div
-      v-if="this.acttype === 'birthday'"
+      v-if="showBirthdayEntrance"
       class="award"
       @click="naviToCard"
     >查看祝福</div>
@@ -54,6 +54,11 @@ export default {
       type: String,
       default: "",
       requried: false
+    },
+    userUid: {
+      type: String,
+      default: '',
+      required: false
     }
   },
   data() {
@@ -68,7 +73,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["z"]),
+    ...mapGetters(["z", "uid"]),
     buttonText() {
       if (this.acttype === "alltop") {
         return "查看投票榜单";
@@ -86,6 +91,9 @@ export default {
         return "参与祝福";
       }
       return "查看活动进度";
+    },
+    showBirthdayEntrance() {
+      return this.acttype === 'birthday' && this.uid && this.uid === this.userUid
     }
   },
   methods: {
