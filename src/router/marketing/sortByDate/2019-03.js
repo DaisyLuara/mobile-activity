@@ -59,9 +59,9 @@ const Date201903 = [
     location: '201903/loveGaobai',
     name: 'gaobai',
     meta: {
-      title: '爱的告白',
+      title: '爱的表白',
       author: 'lipan',
-      desc: '爱的告白'
+      desc: '爱的表白'
     },
     isAbandoned: false
   },
@@ -84,6 +84,17 @@ const Date201903 = [
       title: '幻境',
       author: 'lipan',
       desc: '幻境-卢湾彩蛋'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'lucky_yu',
+    location: '201903/luckyYu',
+    name: 'lucky_yu',
+    meta: {
+      title: '幸运锦鲤',
+      author: 'lipan',
+      desc: '幸运锦鲤'
     },
     isAbandoned: false
   }
