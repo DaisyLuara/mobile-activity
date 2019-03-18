@@ -88,9 +88,9 @@ const Date201903 = [
     isAbandoned: false
   },
   {
-    path: 'luck_yu',
+    path: 'lucky_yu',
     location: '201903/luckyYu',
-    name: 'luck_yu',
+    name: 'lucky_yu',
     meta: {
       title: '幸运锦鲤',
       author: 'lipan',
