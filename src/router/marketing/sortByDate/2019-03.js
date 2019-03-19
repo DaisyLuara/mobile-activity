@@ -97,6 +97,39 @@ const Date201903 = [
       desc: '幸运锦鲤'
     },
     isAbandoned: false
+  },
+  {
+    path: 'baoshan_xuhui',
+    location: '201903/baoshanXuhui',
+    name: 'baoshan_xuhui',
+    meta: {
+      title: '金猪福照',
+      author: 'lipan',
+      desc: '宝山旭辉'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'mengbao',
+    location: '201903/mengbao',
+    name: 'mengbao',
+    meta: {
+      title: '萌宝学跳舞',
+      author: 'lipan',
+      desc: '萌宝学跳舞-灰姑娘'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'chun_nuan',
+    location: '201903/chunNuan',
+    name: 'chun_nuan',
+    meta: {
+      title: '遇见春天',
+      author: 'lipan',
+      desc: '苏州中心春暖花开'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201903
