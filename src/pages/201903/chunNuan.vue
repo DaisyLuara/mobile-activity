@@ -149,7 +149,7 @@ export default {
       wxShareInfoValue: {
         title: "您的『花花美照』已生成，速来认领！",
         desc: "更有惊喜优惠等你开奖~",
-        link: window.location.href,
+        link: 'http://papi.xingstation.com/api/s/mYA' + window.location.search,
         imgUrl: "https://cdn.exe666.com/fe/image/chun_nuan/icon.png"
       }
     }
