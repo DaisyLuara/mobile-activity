@@ -217,13 +217,12 @@ export default {
         })
     },
     getSceneData() {
-      let url = '?belong=' + this.belong + '&group_by=scene'
+      let url = '?belong=' + 'SZCenterSpring,SZCenterWarm,SZCenterHua,SZCenterKai' + '&group_by=scene'
       let args = {
         withCredentials: true
       }
       getSceneData(this.userId, url, args)
         .then(res => {
-          // this.totalList = res
           this.projectStatus(res)
         })
         .catch(err => {
@@ -339,9 +338,6 @@ img {
     width: 100%;
     overflow: hidden;
     z-index: 0;
-    // display: flex;
-    // flex-direction: column;
-    // justify-content: center;
   }
   .alink {
     display: inline-block;

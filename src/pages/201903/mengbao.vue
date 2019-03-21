@@ -78,26 +78,31 @@ export default {
     }
   },
   watch: {
-    userinfo() {
+    // userinfo() {
+    //   if (localStorage.getItem('z')) {
+    //     this.z = localStorage.getItem('z')
+
+    //   } else {
+    //     this.z = this.userinfo.z
+    //     localStorage.setItem('z', this.userinfo.z)
+    //     this.coupon_batch_id ? this.checkV2Coupon() : null
+    //   }
+    // },
+    // coupon_batch_id() {
+    //   this.z ? this.checkV2Coupon() : null
+    // }
+    sertime() {
       if (localStorage.getItem('z')) {
         this.z = localStorage.getItem('z')
-
       } else {
         this.z = this.userinfo.z
         localStorage.setItem('z', this.userinfo.z)
-        this.coupon_batch_id ? this.checkV2Coupon() : null
       }
-    },
-    coupon_batch_id() {
-      this.z ? this.checkV2Coupon() : null
+      this.checkV2Coupon()
     }
   },
   mounted() {
     this.handleForbiddenShare()
-    if (localStorage.getItem('z')) {
-      this.z = localStorage.getItem('z')
-      this.coupon_batch_id ? this.checkV2Coupon() : null
-    }
   },
   methods: {
     //禁止微信分享
@@ -121,7 +126,11 @@ export default {
         if (res) {
           this.handleData(res)
         } else {
-          this.sendV2Coupon()
+          let timer = setTimeout(() => {
+            this.sendV2Coupon()
+            clearTimeout(timer)
+          }, 1000)
+
         }
       }).catch(err => {
         console.log(err)
