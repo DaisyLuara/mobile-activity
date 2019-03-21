@@ -58,28 +58,18 @@ export default {
     }
   },
   watch: {
-    oid() {
+    sertime() {
       this.wxShareInfoValue.link = "http://papi.xingstation.com/api/s/Yy0?id=" + this.$route.query.id + '&oid=' + this.oid
-    },
-    userinfo() {
-      if (Cookies.get('z')) {
-        this.z = Cookies.get('z')
+      if (localStorage.getItem('z')) {
+        this.z = localStorage.getItem('z')
       } else {
         this.z = this.userinfo.z
-        Cookies.set('z', this.userinfo.z)
-        this.coupon_batch_id ? this.checkV2Coupon() : null
+        localStorage.setItem('z', this.userinfo.z)
       }
-    },
-    coupon_batch_id() {
-      this.z ? this.checkV2Coupon() : null
+      this.checkV2Coupon()
     }
   },
   mounted() {
-    // this.handleForbiddenShare()
-    if (Cookies.get('z')) {
-      this.z = Cookies.get('z')
-      this.coupon_batch_id ? this.checkV2Coupon() : null
-    }
   },
   methods: {
     //禁止微信分享
@@ -103,7 +93,10 @@ export default {
         if (res) {
           this.handleData(res)
         } else {
-          this.sendV2Coupon()
+          let timer = setTimeout(() => {
+            this.sendV2Coupon()
+            clearTimeout(timer)
+          }, 1000)
         }
       }).catch(err => {
         console.log(err)
