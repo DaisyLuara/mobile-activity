@@ -11,7 +11,7 @@
       <img :src="base + 'listen.png'">
     </a>
     <a
-      href="http://papi.xingstation.com/api/s/ql3"
+      href="http://papi.xingstation.com/api/s/r9k"
       class="egg"
     >
       <img :src="base + 'egg.png'">
