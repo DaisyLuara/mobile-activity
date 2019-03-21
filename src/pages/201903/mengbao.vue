@@ -130,7 +130,6 @@ export default {
             this.sendV2Coupon()
             clearTimeout(timer)
           }, 1000)
-
         }
       }).catch(err => {
         console.log(err)

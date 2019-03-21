@@ -225,9 +225,9 @@ export default {
         'player.png'
       ],
       wxShareInfoValue: {
-        title: '声音邮局',
-        desc: '您有封亲密信件，请查收',
-        link: '' + window.location.search,
+        title: '声音邮局·樱花季',
+        desc: '您有一封亲密信件，请查收',
+        link: 'http://papi.xingstation.com/api/s/vZg' + window.location.search,
         imgUrl: cdnUrl + '/fe/image/voice_post/icon.jpg'
       }
     }
