@@ -223,7 +223,6 @@ export default {
       }
       getSceneData(this.userId, url, args)
         .then(res => {
-          // this.totalList = res
           this.projectStatus(res)
         })
         .catch(err => {

@@ -163,6 +163,17 @@ const Date201903 = [
       desc: 'Artspire童绘H5-免费试听课-砸金蛋'
     },
     isAbandoned: false
+  },
+  {
+    path: 'voice_post',
+    location: '201903/voicePost',
+    name: 'voice_post',
+    meta: {
+      title: '声音邮局',
+      author: 'lipan',
+      desc: '声音邮局-昊美_樱花季'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201903
