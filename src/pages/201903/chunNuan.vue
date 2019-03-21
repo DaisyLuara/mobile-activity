@@ -87,7 +87,7 @@
   </div>
 </template>
 <script>
-import { $wechat, isInWechat, wechatShareTrack, Cookies, userGame, getSceneData } from 'services'
+import { $wechat, isInWechat, wechatShareTrack, Cookies, userGame, getSceneData, getWxUserInfo } from 'services'
 import { normalPages } from '@/mixins/normalPages'
 import "swiper/dist/css/swiper.css";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
@@ -106,6 +106,9 @@ export default {
       page3: false,
       totalList: null,
       alink: '',
+      head_img_url: null,
+      nick_name: null,
+      num_total: null,
       container: [//春暖花开
         {
           url: CDN_URL + '/fe/image/chun_nuan/1.png',
@@ -154,6 +157,11 @@ export default {
       }
     }
   },
+  watch: {
+    sertime() {
+
+    }
+  },
   mounted() {
     //微信授权
     if (isInWechat() === true) {
@@ -164,6 +172,7 @@ export default {
         this.handleWechatAuth()
       }
     }
+    this.getWxUserInfo()
     this.doLoading()
   },
   methods: {
@@ -185,6 +194,7 @@ export default {
           '&scope=snsapi_base'
         window.location.href = redirct_url
       } else {
+
         this.userId = Cookies.get('user_id')
         this.scene ? this.userGame() : null
       }
@@ -194,7 +204,7 @@ export default {
         belong: this.belong,
         image_url: this.photo,
         qiniu_id: this.id,
-        scene: this.scene,
+        scene: this.belong,
         score: 100
       }
       userGame(args, this.userId)
@@ -225,17 +235,17 @@ export default {
       let that = this
       data.map(r => {
         if (r.scene != null && r.scene != undefined) {
-          if (r.scene == 'blue') {
-            that.all[0] = true
-            that.imgs[0] = r.image_url
+          if (r.scene == 'SZCenterSpring') {
+            that.container[0].total = r.total
           }
-          if (r.scene == 'red') {
-            that.all[1] = true
-            that.imgs[1] = r.image_url
+          if (r.scene == 'SZCenterWarm') {
+            that.container[1].total = r.total
           }
-          if (r.scene == 'yellow') {
-            that.all[2] = true
-            that.imgs[2] = r.image_url
+          if (r.scene == 'SZCenterHua') {
+            that.container[2].total = r.total
+          }
+          if (r.scene == 'SZCenterKai') {
+            that.container[3].total = r.total
           }
         }
       })
@@ -248,7 +258,37 @@ export default {
         this.page2 = false
         this.page3 = true
       }
-    }
+    },
+    //获取微信数据
+    getWxUserInfo() {
+      getWxUserInfo().then(res => {
+        let data = res.data
+        this.nick_name = data.nickname
+        this.head_img_url = data.headimgurl
+        this.handlePost()
+      }).catch(err => {
+        let pageUrl = encodeURIComponent(window.location.href)
+        let wx_auth_url =
+          process.env.WX_API +
+          '/wx/officialAccount/oauth?url=' +
+          pageUrl +
+          '&scope=snsapi_userinfo'
+        window.location.href = wx_auth_url
+        return
+      })
+    },
+    //推送数据
+    handlePost() {
+      let url = 'http://exelook.com:8010/pushdiv/?oid=' + this.oid + '&belong=' + this.belong + '&name=&img=' + this.head_img_url + ',' + this.nick_name + ',' + this.num_total + '&id=' + this.id + '&api=json'
+      this.$http
+        .get(url)
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
   }
 }
 </script>
