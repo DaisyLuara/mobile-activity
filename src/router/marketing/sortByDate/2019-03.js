@@ -130,6 +130,39 @@ const Date201903 = [
       desc: '苏州中心春暖花开'
     },
     isAbandoned: false
+  },
+  {
+    path: 'zhq_mc',
+    location: 'zhongqiu/threeMc',
+    name: 'zhq_mc',
+    meta: {
+      title: '谁动了我的月饼',
+      author: 'lipan',
+      desc: '谁动了我的月饼-美陈展'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'artspire',
+    location: '201903/artspire1',
+    name: 'artspire',
+    meta: {
+      title: '免费试听课',
+      author: 'lipan',
+      desc: 'Artspire童绘H5-免费试听课'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'artspire_egg',
+    location: '201903/artspire2',
+    name: 'artspire_egg',
+    meta: {
+      title: '免费试听课',
+      author: 'lipan',
+      desc: 'Artspire童绘H5-免费试听课-砸金蛋'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201903
