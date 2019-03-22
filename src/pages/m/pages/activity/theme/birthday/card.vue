@@ -31,7 +31,7 @@
     <!-- 左上角寿星信息 -->
     <div class="recipient">
       <img
-        :src="xoAvatar"
+        :src="userInfo.face"
         class="recipient-avatar"
         v-if="userInfo.idor"
       >
