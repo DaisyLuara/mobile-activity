@@ -381,7 +381,7 @@ export default {
         user_id: this.userId + ''
       }
       parseService
-        .get(REQ_URL + 'vpost?where=' + JSON.stringify(query))
+        .get(REQ_URL + 'zq?where=' + JSON.stringify(query))
         .then(data => {
           console.log(data.results)
           if (data.results.length === 0) {
@@ -400,7 +400,7 @@ export default {
     saveIsAuthorization() {
       let reference = this
       parseService
-        .post(REQ_URL + 'vpost', this.params)
+        .post(REQ_URL + 'zq', this.params)
         .then(res => {
           console.log('首次认证保存成功')
         })
@@ -540,7 +540,7 @@ export default {
       let reference = this
       reference.params.ID = reference.$route.query.id + ''
       parseService
-        .post(REQ_URL + 'vpost', this.params)
+        .post(REQ_URL + 'zq', this.params)
         .then(res => {
           reference.button.buttonTwo = false
           reference.button.buttonThree = true
@@ -560,7 +560,7 @@ export default {
         ID: this.$route.query.id + ''
       }
       parseService
-        .get(REQ_URL + 'vpost?where=' + JSON.stringify(query))
+        .get(REQ_URL + 'zq?where=' + JSON.stringify(query))
         .then(data => {
           if (data.results.length > 0) {
             this.button.buttonOne = false
