@@ -15,7 +15,12 @@ const REQ_HEADER = {
     'Set-Cookie': 'sign=' + Cookies.get('sign')
   }
 }
-
+const V2_HEADER = {
+  headers: {
+    'api-token': apiToken,
+    Accept: 'application/vdn.xingstation.v2+json'
+  }
+}
 const createGame = (params, userId) => {
   if (Cookies.get('game_attribute_payload')) {
     params.game_attribute_payload = Cookies.get('game_attribute_payload')
@@ -67,6 +72,19 @@ const getSceneData = (userId, url, params) => {
   return new Promise((resolve, reject) => {
     axios
       .get(GAME_LIST_URL + userId + '/games' + url, params, REQ_HEADER)
+      .then(response => {
+        resolve(response.data.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+//节目数据，根据场景scene和版本号belong筛选
+const getProjectData = (userId, url, params) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(GAME_LIST_URL + userId + '/games' + url, params, V2_HEADER)
       .then(response => {
         resolve(response.data.data)
       })
@@ -172,5 +190,6 @@ export {
   gameListNeedCheck,
   getGameHonour,
   getGameList,
-  toApplication
+  toApplication,
+  getProjectData
 }

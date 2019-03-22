@@ -71,7 +71,7 @@
               class="bg"
             >
             <img
-              :src="item"
+              :src="item.image_url"
               class="photo"
             >
           </swiper-slide>
@@ -87,7 +87,7 @@
   </div>
 </template>
 <script>
-import { $wechat, isInWechat, wechatShareTrack, Cookies, userGame, getSceneData, getWxUserInfo } from 'services'
+import { $wechat, isInWechat, wechatShareTrack, Cookies, userGame, getProjectData, getWxUserInfo } from 'services'
 import { normalPages } from '@/mixins/normalPages'
 import "swiper/dist/css/swiper.css";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
@@ -119,11 +119,11 @@ export default {
           url: CDN_URL + '/fe/image/chun_nuan/2.png',
           total: 10,
           imgList: [
-            'http://image.exe666.com/1007/image/1492786765568.jpg',
-            'http://image.exe666.com/1007/image/1492786765568.jpg',
-            'http://image.exe666.com/1007/image/1492786765568.jpg',
-            'http://image.exe666.com/1007/image/1492786765568.jpg',
-            'http://image.exe666.com/1007/image/1492786765568.jpg'
+            // 'http://image.exe666.com/1007/image/1492786765568.jpg',
+            // 'http://image.exe666.com/1007/image/1492786765568.jpg',
+            // 'http://image.exe666.com/1007/image/1492786765568.jpg',
+            // 'http://image.exe666.com/1007/image/1492786765568.jpg',
+            // 'http://image.exe666.com/1007/image/1492786765568.jpg'
           ],
         },
         {
@@ -143,6 +143,7 @@ export default {
           'height': this.$innerHeight() + 'px'
         }
       },
+      userId: null,
       id: this.$route.query.id,
       sOption: {
         // autoplay: true,
@@ -159,7 +160,8 @@ export default {
   },
   watch: {
     sertime() {
-
+      this.getWxUserInfo()
+      this.userId ? this.userGame() : null
     }
   },
   mounted() {
@@ -172,7 +174,6 @@ export default {
         this.handleWechatAuth()
       }
     }
-    this.getWxUserInfo()
     this.doLoading()
   },
   methods: {
@@ -196,7 +197,7 @@ export default {
       } else {
 
         this.userId = Cookies.get('user_id')
-        this.scene ? this.userGame() : null
+        this.sertime ? this.userGame() : null
       }
     },
     userGame() {
@@ -204,24 +205,22 @@ export default {
         belong: this.belong,
         image_url: this.photo,
         qiniu_id: this.id,
-        scene: this.belong,
         score: 100
       }
       userGame(args, this.userId)
         .then(res => {
-          console.log(res)
-          this.getSceneData()
+          this.getProjectData()
         })
         .catch(e => {
           console.log(e)
         })
     },
-    getSceneData() {
-      let url = '?belong=' + 'SZCenterSpring,SZCenterWarm,SZCenterHua,SZCenterKai' + '&group_by=scene'
+    getProjectData() {
+      let url = '?belong=SZCenterSpring,SZCenterWarm,SZCenterHua,SZCenterKai&group_by=belong'
       let args = {
         withCredentials: true
       }
-      getSceneData(this.userId, url, args)
+      getProjectData(this.userId, url, args)
         .then(res => {
           this.projectStatus(res)
         })
@@ -232,22 +231,22 @@ export default {
     projectStatus(list) {
       let data = list
       let that = this
-      data.map(r => {
-        if (r.scene != null && r.scene != undefined) {
-          if (r.scene == 'SZCenterSpring') {
-            that.container[0].total = r.total
-          }
-          if (r.scene == 'SZCenterWarm') {
-            that.container[1].total = r.total
-          }
-          if (r.scene == 'SZCenterHua') {
-            that.container[2].total = r.total
-          }
-          if (r.scene == 'SZCenterKai') {
-            that.container[3].total = r.total
-          }
-        }
-      })
+      if (r['SZCenterSpring']) {
+        this.container[0].imgList = [...r['SZCenterSpring']]
+        this.container[0].total = r['SZCenterSpring'].length
+      }
+      if (r['SZCenterWarm']) {
+        this.container[1].imgList = [...r['SZCenterWarm']]
+        this.container[1].total = r['SZCenterWarm'].length
+      }
+      if (r['SZCenterHua']) {
+        this.container[2].imgList = [...r['SZCenterHua']]
+        this.container[2].total = r['SZCenterHua'].length
+      }
+      if (r['SZCenterKai']) {
+        this.container[3].imgList = [...r['SZCenterKai']]
+        this.container[3].total = r['SZCenterKai'].length
+      }
     },
     getTotalPhoto(item) {
       if (item.total == 0) {

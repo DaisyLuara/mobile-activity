@@ -191,7 +191,7 @@ export default {
         titThree: false
       },
       photo: null,
-      loading: false,// loading: true,
+      loading: true,// loading: true,
       startTime: 0,
       recordTimer: null,
       localId: null,
@@ -205,7 +205,6 @@ export default {
         user_id: null
       },
       imgList: [
-        'bg.png',
         'tit1.png',
         'tit2.png',
         'tit3.png',
@@ -246,7 +245,6 @@ export default {
     this.entry(this.imgList, r => {
       console.dir(r)
       this.getInfoById()
-      // do next
     })
   },
   methods: {
@@ -775,10 +773,10 @@ img {
       z-index: 99;
     }
     .photo {
-      width: 64%;
+      width: 63%;
       position: absolute;
       left: 50%;
-      top: 4%;
+      top: 4.2%;
       transform: translate(-50%, 4%);
       border-radius: 5%;
       user-select: auto;
