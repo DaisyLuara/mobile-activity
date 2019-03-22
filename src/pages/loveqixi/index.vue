@@ -107,12 +107,12 @@ export default {
         //灯笼
         let light = PIXI.Sprite.fromImage(base + '/light.png')
         light.anchor.set(0.5, 0)
-        light.position.set(width / 2, height * 0.41)
+        light.position.set(width / 2, height * 0.55)
         light.width = width * 0.85
         light.height = light.width / 659 * 650
         let dark = PIXI.Sprite.fromImage(base + '/dark.png')
         dark.anchor.set(0.5, 0)
-        dark.position.set(width / 2, height * 0.41)
+        dark.position.set(width / 2, height * 0.55)
         dark.width = width * 0.85
         dark.height = dark.width / 659 * 650
         //圆圈

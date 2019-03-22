@@ -191,7 +191,7 @@ export default {
         titThree: false
       },
       photo: null,
-      loading: false,// loading: true,
+      loading: true,// loading: true,
       startTime: 0,
       recordTimer: null,
       localId: null,
@@ -205,7 +205,6 @@ export default {
         user_id: null
       },
       imgList: [
-        'bg.png',
         'tit1.png',
         'tit2.png',
         'tit3.png',
@@ -246,7 +245,6 @@ export default {
     this.entry(this.imgList, r => {
       console.dir(r)
       this.getInfoById()
-      // do next
     })
   },
   methods: {
@@ -383,7 +381,7 @@ export default {
         user_id: this.userId + ''
       }
       parseService
-        .get(REQ_URL + 'vpost?where=' + JSON.stringify(query))
+        .get(REQ_URL + 'zq?where=' + JSON.stringify(query))
         .then(data => {
           console.log(data.results)
           if (data.results.length === 0) {
@@ -402,7 +400,7 @@ export default {
     saveIsAuthorization() {
       let reference = this
       parseService
-        .post(REQ_URL + 'vpost', this.params)
+        .post(REQ_URL + 'zq', this.params)
         .then(res => {
           console.log('首次认证保存成功')
         })
@@ -542,7 +540,7 @@ export default {
       let reference = this
       reference.params.ID = reference.$route.query.id + ''
       parseService
-        .post(REQ_URL + 'vpost', this.params)
+        .post(REQ_URL + 'zq', this.params)
         .then(res => {
           reference.button.buttonTwo = false
           reference.button.buttonThree = true
@@ -562,7 +560,7 @@ export default {
         ID: this.$route.query.id + ''
       }
       parseService
-        .get(REQ_URL + 'vpost?where=' + JSON.stringify(query))
+        .get(REQ_URL + 'zq?where=' + JSON.stringify(query))
         .then(data => {
           if (data.results.length > 0) {
             this.button.buttonOne = false
@@ -775,10 +773,10 @@ img {
       z-index: 99;
     }
     .photo {
-      width: 64%;
+      width: 63%;
       position: absolute;
       left: 50%;
-      top: 4%;
+      top: 4.2%;
       transform: translate(-50%, 4%);
       border-radius: 5%;
       user-select: auto;
