@@ -57,6 +57,7 @@
           class="save"
         >
         <swiper
+          v-show="Boolean(photoList)"
           ref="Swiper"
           :options="sOption"
           class="swiper"
@@ -117,7 +118,7 @@ export default {
         },
         {
           url: CDN_URL + '/fe/image/chun_nuan/2.png',
-          total: 10,
+          total: 0,
           imgList: [
             // 'http://image.exe666.com/1007/image/1492786765568.jpg',
             // 'http://image.exe666.com/1007/image/1492786765568.jpg',

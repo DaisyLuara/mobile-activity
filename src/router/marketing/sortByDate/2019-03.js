@@ -174,6 +174,17 @@ const Date201903 = [
       desc: '声音邮局-昊美_樱花季'
     },
     isAbandoned: false
+  },
+  {
+    path: 'summer_dress',
+    location: '201903/summerDress',
+    name: 'summer_dress',
+    meta: {
+      title: '夏日草群舞',
+      author: 'lipan',
+      desc: '夏日草群舞-美陈展'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201903
