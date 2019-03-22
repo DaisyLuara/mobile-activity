@@ -97,6 +97,94 @@ const Date201903 = [
       desc: '幸运锦鲤'
     },
     isAbandoned: false
+  },
+  {
+    path: 'baoshan_xuhui',
+    location: '201903/baoshanXuhui',
+    name: 'baoshan_xuhui',
+    meta: {
+      title: '金猪福照',
+      author: 'lipan',
+      desc: '宝山旭辉'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'mengbao',
+    location: '201903/mengbao',
+    name: 'mengbao',
+    meta: {
+      title: '萌宝学跳舞',
+      author: 'lipan',
+      desc: '萌宝学跳舞-灰姑娘'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'chun_nuan',
+    location: '201903/chunNuan',
+    name: 'chun_nuan',
+    meta: {
+      title: '遇见春天',
+      author: 'lipan',
+      desc: '苏州中心春暖花开'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'zhq_mc',
+    location: 'zhongqiu/threeMc',
+    name: 'zhq_mc',
+    meta: {
+      title: '谁动了我的月饼',
+      author: 'lipan',
+      desc: '谁动了我的月饼-美陈展'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'artspire',
+    location: '201903/artspire1',
+    name: 'artspire',
+    meta: {
+      title: '免费试听课',
+      author: 'lipan',
+      desc: 'Artspire童绘H5-免费试听课'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'artspire_egg',
+    location: '201903/artspire2',
+    name: 'artspire_egg',
+    meta: {
+      title: '免费试听课',
+      author: 'lipan',
+      desc: 'Artspire童绘H5-免费试听课-砸金蛋'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'voice_post',
+    location: '201903/voicePost',
+    name: 'voice_post',
+    meta: {
+      title: '声音邮局·樱花季',
+      author: 'lipan',
+      desc: '声音邮局-昊美_樱花季'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'summer_dress',
+    location: '201903/summerDress',
+    name: 'summer_dress',
+    meta: {
+      title: '夏日草群舞',
+      author: 'lipan',
+      desc: '夏日草群舞-美陈展'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201903

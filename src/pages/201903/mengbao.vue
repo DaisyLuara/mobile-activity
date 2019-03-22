@@ -3,28 +3,30 @@
     :style="style.root"
     class="warp"
   >
-    <div class="main">
+    <div class="picture">
       <img
-        :src="base + 'frame.png'"
-        class="frame"
+        :src="base + '3.png' + this.$qiniuCompress()"
+        class="border"
       >
       <img
-        :src="photo"
+        :src="photo + this.$qiniuCompress()"
         class="photo"
       >
       <img
-        :src="base + 'save.png'"
-        class="save"
+        :src="base + '1.png' + this.$qiniuCompress()"
+        class="arrow"
       >
       <img
+        :src="base + '4.png' + this.$qiniuCompress()"
+        class="save"
+      >
+    </div>
+    <div class="coupon">
+      <img
         :src="coupon_img"
-        class="coupon"
+        class="coupon-bg"
       >
       <div class="erweima">
-        <img
-          :src="base + 'QR.png'"
-          class="erbg"
-        >
         <div class="clip">
           <img
             :src="qrcodeImg"
@@ -36,42 +38,59 @@
           :src="base + 'used.png'"
           class="used"
         >
+        <img
+          v-show="passed"
+          :src="base + 'passed.png'"
+          class="used"
+        >
       </div>
     </div>
-    <img
-      :src="base + 'logo.png'"
-      class="logo"
-    >
-
   </div>
 </template>
 <script>
-import { $wechat, isInWechat, wechatShareTrack, Cookies, sendV2Coupon, checkV2Coupon } from 'services'
+import { $wechat, isInWechat, wechatShareTrack, sendV2Coupon, checkV2Coupon } from 'services'
 import { normalPages } from '@/mixins/normalPages'
+import moment from "moment";
 const CDN_URL = process.env.CDN_URL
 export default {
   mixins: [normalPages],
   data() {
     return {
-      base: CDN_URL + '/fe/image/hanxiang/',
+      base: CDN_URL + '/fe/image/mengbao/',
       style: {
         root: {
           'min-height': this.$innerHeight() + 'px'
         }
       },
       id: this.$route.query.id,
-      coupon_img: null,//'https://cdn.exe666.com/fe/image/hanxiang/coupon.png',
-      qrcodeImg: null,//'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
-      used: false,//false
+      coupon_img: null,//'https://cdn.exe666.com/fe/image/mengbao/2.png',
+      qrcodeImg: null,//'http://papi.xingstation.com/qrcode/5c7de9583796b.png',
+      used: false,//false,
+      passed: false,//false
+      code: null,//'5c7de9583796b'
       z: null,
       //微信分享
       wxShareInfoValue: {
-        title: "汉翔书法教育",
-        desc: "汉翔书法教育",
+        title: "萌宝学跳舞",
+        desc: "萌宝学跳舞",
+        imgUrl: "https://cdn.exe666.com/fe/image/mengbao/icon.jpg"
       }
     }
   },
   watch: {
+    // userinfo() {
+    //   if (localStorage.getItem('z')) {
+    //     this.z = localStorage.getItem('z')
+
+    //   } else {
+    //     this.z = this.userinfo.z
+    //     localStorage.setItem('z', this.userinfo.z)
+    //     this.coupon_batch_id ? this.checkV2Coupon() : null
+    //   }
+    // },
+    // coupon_batch_id() {
+    //   this.z ? this.checkV2Coupon() : null
+    // }
     sertime() {
       if (localStorage.getItem('z')) {
         this.z = localStorage.getItem('z')
@@ -136,22 +155,25 @@ export default {
     handleData(res) {
       this.qrcodeImg = res.qrcode_url
       this.coupon_img = res.couponBatch.image_url
+      this.code = res.code
+      let now = moment()
+      let end = moment(res.end_date)
+      let diff = end.diff(now)
       if (parseInt(res.status) === 1) {
         this.used = true
+      } else if (diff <= 0) {
+        this.passed = true
       }
     }
   }
 }
 </script>
 <style lang="less" scoped>
-@img: "http://cdn.exe666.com/fe/image/hanxiang/";
+@img: "http://cdn.exe666.com/fe/image/mengbao/";
 html,
 body {
   width: 100%;
   height: 100%;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
-  transform: translate3d(0, 0, 0);
 }
 * {
   padding: 0;
@@ -167,92 +189,93 @@ img {
 .warp {
   position: relative;
   overflow-x: hidden;
-  background-image: url("@{img}BG.png");
-  background-position: center top;
-  background-size: 100% auto;
-  background-repeat: no-repeat;
-  padding-top: 4%;
-  .main {
+  background-color: #19ffff;
+  .picture {
+    width: 100%;
     position: relative;
-    width: 71%;
-    margin-bottom: 50%;
-    .frame {
+    margin-top: 8%;
+    img {
+      display: block;
+    }
+    .border {
       position: relative;
+      width: 60.6%;
       z-index: 0;
     }
     .photo {
-      width: 98.4%;
+      width: 53.5%;
       position: absolute;
-      top: 0.3%;
+      top: 3%;
       left: 50%;
       transform: translateX(-50%);
-      z-index: 9;
+      z-index: 99;
       pointer-events: auto;
       user-select: auto;
-      border-radius: 5px;
+    }
+    .arrow {
+      width: 4%;
+      position: relative;
+      z-index: 0;
+      animation: toarrow linear 0.4s infinite alternate;
+      margin-bottom: 3%;
     }
     .save {
-      width: 10vw;
-      position: absolute;
-      top: 50%;
-      right: 0%;
-      transform: translate(50%, -50%);
-      z-index: 99;
+      width: 43%;
+      position: relative;
+      z-index: 0;
     }
-    .coupon {
-      width: 42vw;
-      position: absolute;
-      top: 81%;
-      left: -5%;
-      z-index: 999;
+  }
+  .coupon {
+    width: 100%;
+    position: relative;
+    margin-top: 3%;
+    margin-bottom: 15%;
+    .coupon-bg {
+      width: 92.5%;
+      position: relative;
+      z-index: 0;
     }
     .erweima {
+      width: 19vw;
+      height: 19vw;
       position: absolute;
-      top: 83%;
-      right: -5%;
-      width: 31vw;
-      z-index: 999;
-      .erbg {
-        position: relative;
-        z-index: 0;
-      }
+      top: 17.3%;
+      right: 11%;
       .clip {
-        width: 25vw;
-        height: 25vw;
+        width: 100%;
+        height: 100%;
         overflow: hidden;
-        position: absolute;
-        top: 5.5%;
-        left: 50%;
+        position: relative;
         z-index: 9;
-        transform: translateX(-50%);
         text-align: center;
-        border-radius: 20px;
-      }
-      .qrcode {
-        width: 32vw;
-        max-width: 35vw;
         margin: 0 auto;
+        img {
+          width: 25vw;
+          max-width: 35vw;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
+      .used {
+        width: 26vw;
+        max-width: 35vw;
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-      }
-      .used {
-        width: 30vw;
-        position: absolute;
-        top: 9%;
-        left: 50%;
-        transform: translateX(-50%);
         z-index: 999;
       }
     }
   }
-  .logo {
-    width: 47%;
-    position: absolute;
-    top: 92%;
-    left: 50%;
-    transform: translateX(-50%);
+}
+@keyframes toarrow {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(50%);
   }
 }
 </style>
