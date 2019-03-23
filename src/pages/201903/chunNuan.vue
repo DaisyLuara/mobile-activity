@@ -114,28 +114,22 @@ export default {
         {
           url: CDN_URL + '/fe/image/chun_nuan/1.png',
           total: 0,
-          imgList: [],
+          imgList: '',
         },
         {
           url: CDN_URL + '/fe/image/chun_nuan/2.png',
           total: 0,
-          imgList: [
-            // 'http://image.exe666.com/1007/image/1492786765568.jpg',
-            // 'http://image.exe666.com/1007/image/1492786765568.jpg',
-            // 'http://image.exe666.com/1007/image/1492786765568.jpg',
-            // 'http://image.exe666.com/1007/image/1492786765568.jpg',
-            // 'http://image.exe666.com/1007/image/1492786765568.jpg'
-          ],
+          imgList: '',
         },
         {
           url: CDN_URL + '/fe/image/chun_nuan/3.png',
           total: 0,
-          imgList: [],
+          imgList: '',
         },
         {
           url: CDN_URL + '/fe/image/chun_nuan/4.png',
           total: 0,
-          imgList: [],
+          imgList: '',
         }
       ],
       photoList: [],
@@ -176,7 +170,6 @@ export default {
       }
     }
     this.doLoading()
-    // this.getProjectData()
   },
   methods: {
     doLoading() {
@@ -230,21 +223,21 @@ export default {
     projectStatus(list) {
       let data = list
       let that = this
-      if (data['SZCenterSpring']) {
-        this.containedata[0].imgList = [...data['SZCenterSpring']]
-        this.containedata[0].total = data['SZCenterSpring'].length
+      if (data.SZCenterSpring) {
+        this.container[0].imgList = data.SZCenterSpring
+        this.container[0].total = data['SZCenterSpring'].length
       }
-      if (data['SZCenterWarm']) {
-        this.containedata[1].imgList = [...data['SZCenterWarm']]
-        this.containedata[1].total = data['SZCenterWarm'].length
+      if (data.SZCenterWarm) {
+        this.container[1].imgList = data.SZCenterWarm
+        this.container[1].total = data['SZCenterWarm'].length
       }
-      if (data['SZCenterHua']) {
-        this.containedata[2].imgList = [...data['SZCenterHua']]
-        this.containedata[2].total = data['SZCenterHua'].length
+      if (data.SZCenterHua) {
+        this.container[2].imgList = data.SZCenterHua
+        this.container[2].total = data['SZCenterHua'].length
       }
-      if (data['SZCenterKai']) {
-        this.containedata[3].imgList = [...data['SZCenterKai']]
-        this.containedata[3].total = data['SZCenterKai'].length
+      if (data.SZCenterKai) {
+        this.container[3].imgList = data.SZCenterKai
+        this.container[3].total = data['SZCenterKai'].length
       }
     },
     getTotalPhoto(item) {
