@@ -132,7 +132,7 @@ export default {
           imgList: '',
         }
       ],
-      photoList: [],
+      photoList: null,
       style: {
         root: {
           'height': this.$innerHeight() + 'px'
