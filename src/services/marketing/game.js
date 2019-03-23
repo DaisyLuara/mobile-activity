@@ -84,7 +84,7 @@ const getSceneData = (userId, url, params) => {
 const getProjectData = (userId, url) => {
   return new Promise((resolve, reject) => {
     axios
-      .get(GAME_LIST_URL + userId + '/games' + url, V2_HEADER)
+      .get(GAME_LIST_URL + userId + '/games' + url, { V2_HEADER })
       .then(response => {
         resolve(response.data.data)
       })
