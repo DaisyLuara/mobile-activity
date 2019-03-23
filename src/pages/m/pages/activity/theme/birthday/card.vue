@@ -5,13 +5,13 @@
       <div
         class="greetings-card"
         v-show="showCard"
-        ref="greetingsCard"
       >
         <img
           :src="imageHost + 'greeting_card.png'"
           class="card-img"
           :class="{ hide: !showCard }"
           @click="hideCard"
+          ref="greetingsCard"
         >
       </div>
     </transition>
@@ -27,18 +27,27 @@
         :pageSize="pageSize"
       />
     </transition>
+    <img :src="imageHost + 'header_mask.png'" class="header-mask">
     <!-- 左上角寿星信息 -->
     <div class="recipient">
-      <img :src="defaultAvatar" class="recipient-avatar">
+      <img
+        :src="userInfo.face"
+        class="recipient-avatar"
+        v-if="userInfo.idor"
+      >
       <img :src="imageHost + 'avatar_frame.png'" class="avatar-frame">
-      <div class="recipient-name">寿星XXX</div>
-      <img class="recipient-gender" :src="imageHost + 'gender_male.png'">
+      <div class="recipient-name">寿星{{ userInfo.username }}</div>
+      <img
+        class="recipient-gender"
+        :src="imageHost + 'gender_male.png'"
+        v-if="userInfo.gender"
+      >
     </div>
   </div>
 </template>
 
 <script>
-import { fetchGreetingsList, $wechat, isInWechat } from "services"
+import { $wechat, isInWechat, fetchShopActivityDetail, fetchShopActivityProgress } from "services"
 import CakeTower from './components/CakeTower'
 import { mapGetters } from "vuex"
 import Hammer from 'hammerjs'
@@ -51,7 +60,13 @@ export default {
   data () {
     return {
       imageHost: 'https://cdn.exe666.com/m/activity/shop/birthday/',
-      defaultAvatar: 'http://thirdwx.qlogo.cn/mmopen/vi_32/kPmo3eFGlBOPalDZHOpAicFPfQaicU7icJnypiaUxUcFEOE2kdddNsFXPkmiaeBo6LCRau0ibZK72fUtDpo9dSZccXTA/132',
+      userInfo: {
+        face: '',
+        username: '',
+        gender: '',
+        idor: ''
+      },
+      awardkey: '',
       greetingsList: [],
       isAllLoaded: false,
       isFetching: false,
@@ -61,28 +76,61 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["weixinUrl"]),
+    ...mapGetters(["weixinUrl", "z"]),
     cakeNum () {
       return this.greetingsList.length
+    },
+    genderImg () {
+      const gender = this.userInfo.gender || '1'
+      if (gender === '1') {
+        return `${this.imageHost}gender_male.png`
+      }
+      return `${this.imageHost}gender_female.png`
+    },
+    xoAvatar () {
+      const prefix = "https://cdn.exe666.com/fe/hidol/img/xiaoou/"
+      const idor = this.userInfo.idor || 'nanA'
+      return `${prefix}${idor}1.png`
     }
   },
-  mounted () {
-    this.initWechatShare()
-    this.initialHammer()
+  async mounted () {
+    await this.fetchUserInfo()
+    this.initHammer()
   },
   methods: {
+    async fetchUserInfo () {
+      let payload = {
+        api: 'json',
+        z: this.z,
+        actid: this.$route.query.acid
+      }
+      try {
+        let resp = (await fetchShopActivityDetail(this, payload)).data
+        if (resp.state === '1') {
+          this.userInfo = resp.results.user
+          this.awardkey = resp.results.awardkey
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    },
     // 初始化微信分享
     initWechatShare () {
-      let wechatShareInfo = {
-        title: '你收到了XXX公司同事以及领导为你送上的生日祝福',
+      let title = '你收到了公司同事以及领导为你送上的生日祝福'
+      const firstCake = this.greetingsList[0]
+      if (firstCake) {
+        title = `同事${firstCake.nickname}对我生日祝福是：${firstCake.kid}`
+      }
+      let wxShareInfoValue = {
+        title,
         desc: '点击查收你的生日贺卡',
         link: window.location.href.split("#")[0],
-        imgUrl: ''
+        imgUrl: 'https://cdn.exe666.com/m/activity/shop/birthday/share_icon.png'
       }
       if (isInWechat() === true) {
-        $wechat.share(this.weixinUrl)
+        $wechat(this.weixinUrl)
           .then(res => {
-            res.share(wechatShareInfo)
+            res.share(wxShareInfoValue)
           })
           .catch(err => {
             console.warn(err.message)
@@ -90,47 +138,26 @@ export default {
       }
     },
     // 初始化手势事件
-    initialHammer () {
+    initHammer () {
       // 为贺卡添加上滑事件监听器
       let cardManager = new Hammer.Manager(this.$refs.greetingsCard)
       let Swipe = new Hammer.Swipe({
-        event: 'swipeup',
+        event: 'swipe',
         threshold: 20,  // 最小滑动距离
         direction: Hammer.DIRECTION_UP
       })
       cardManager.add(Swipe)
-      cardManager.on('swipeup', () => {
+      cardManager.on('swipe', () => {
         this.hideCard()
       })
     },
     async fetchList () {
-      if (this.isAllLoaded || this.isFetching) {
+      if (this.isAllLoaded || this.isFetching || !this.awardkey) {
         return
       }
-      this.isFetching = true
-      let payload = {
-        api: "json",
-        cp: this.currentPage,
-        size: this.pageSize,
-        z: this.z,
-        allt: "birthday",
-        mkey: this.$route.params.mkey
-      }
       try {
-        let resp = (await fetchGreetingsList(payload)).data
-        if (resp.data.state !== '1') {
-          this.isAllLoaded = true
-        }
-        if (resp.data.pageIndex >= resp.data.totalPage) {
-          this.isAllLoaded = true
-        }
-        let list = this.computedZIndex(resp.data.list, resp.data.totalPage)
-        // if (firstFetch) {
-        //   this.computedDelay(list)
-        // }
-        this.computedDelay(list)
-        this.greetingsList = this.greetingsList.concat(list)
-        this.currentPage++
+        const resp = await this.httpGet()
+        this.addList(resp)
       } catch (e) {
         console.log(e)
       } finally {
@@ -138,10 +165,57 @@ export default {
         this.isFetching = false
       }
     },
+    // 首次拉取祝福列表
+    async fetchListFirst () {
+      if (this.isAllLoaded || this.isFetching || !this.awardkey) {
+        return
+      }
+      try {
+        const resp = await this.httpGet()
+        // 首次拉取列表时计算祝福总数
+        this.totalCake = Number(resp.results.totalPage) * this.pageSize
+        this.addList(resp)
+        // 首次拉取列表时初始化微信分享
+        this.initWechatShare()
+      } catch (e) {
+        console.log(e)
+      } finally {
+        this.$refs.cakeTower.finishLoadMore()
+        this.isFetching = false
+      }
+    },
+    async httpGet () {
+      this.isFetching = true
+      let payload = {
+        api: "json",
+        cp: this.currentPage,
+        size: this.pageSize,
+        awardkey: this.awardkey,
+        z: this.z
+      }
+      let resp = (await fetchShopActivityProgress(this, payload)).data
+      if (resp.state !== '1') {
+        throw new Error('request failed')
+      }
+      let totalPage = Number(resp.results.totalPage)
+      let pageIndex = Number(resp.results.pageIndex)
+      if (pageIndex >= totalPage) {
+        this.isAllLoaded = true
+      }
+      return resp
+    },
+    // 处理并增加祝福列表
+    addList (resp) {
+      let list = this.computedZIndex(resp.results.data)
+      this.computedOffset(list)
+      this.computedDelay(list)
+      this.greetingsList = this.greetingsList.concat(list)
+      this.currentPage++
+    },
     // 计算蛋糕的z-index
-    computedZIndex (list, totalPage) {
+    computedZIndex (list) {
       // z-index从大到小排列
-      const maxIndex = Number(totalPage) * this.pageSize
+      const maxIndex = this.totalCake
       const currentIndex = this.cakeNum
       list.forEach((item, index) => {
         item.zIndex = maxIndex - (currentIndex + index)
@@ -154,6 +228,14 @@ export default {
         item.animationDelay = 400 * index // 单位毫秒
       })
     },
+    // 计算蛋糕在x轴的偏移值
+    computedOffset (list) {
+      list.forEach((item, index) => {
+        const clientdate = Number(item.clientdate)
+        const start = 40
+        item.offset = Math.round(start + clientdate / 1000 % 6 * 4)
+      })
+    },
     // 加载更多
     loadMore () {
       setTimeout(() => {
@@ -162,7 +244,7 @@ export default {
     },
     hideCard () {
       this.showCard = false
-      this.fetchList()
+      this.fetchListFirst()
     }
   }
 }
@@ -205,6 +287,7 @@ export default {
   width: 1.7rem;
   height: 0.72rem;
   overflow: hidden;
+  pointer-events: none;
   .recipient-avatar {
     display: block;
     width: 0.59rem;
@@ -234,6 +317,14 @@ export default {
     right: 0.09rem;
     top: 0.28rem;
   }
+}
+
+.header-mask {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
 }
 
 .fade-enter-active, .fade-leave-active {

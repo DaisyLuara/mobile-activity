@@ -179,7 +179,7 @@ export default {
             this.isAllLoaded = true;
             return;
           }
-          if (r.data.results.pageIndex >= r.data.results.totalPage) {
+          if (Number(r.data.results.pageIndex) >= Number(r.data.results.totalPage)) {
             this.isAllLoaded = true;
           }
           let res = r.data.results.data;

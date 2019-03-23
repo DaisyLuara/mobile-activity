@@ -33,23 +33,23 @@
             :style="{ left: item.offset + '%' }"
           >
           <!-- 蛋糕 -->
-            <img :src="item.cakeImg" class="cake-img">
+            <img :src="item.link" class="cake-img">
             <!-- 祝福语 -->
             <div
               :class="[
                 'comment-wrapper',
                 { 'hide': index >= pageSize },
                 { 'animated bounceIn': commentShowMap[index] && index >= pageSize },
-                item.offset < 50 ? 'left' : 'right'
+                Number(item.offset) < 50 ? 'left' : 'right'
               ]"
             >
               <img :src="imageHost + 'comment_bg.png'" class="comment-bg">
               <div class="comment-info" >
                 <div class="avatar-wrapper">
-                  <img :src="defaultAvatar" class="comment-avatar">
-                  <div class="avatar-name">{{ item.username }}</div>
+                  <img :src="item.face" class="comment-avatar">
+                  <div class="avatar-name">{{ item.nickname }}</div>
                 </div>
-                <div class="comment-word">{{ item.comment }}</div>
+                <div class="comment-word">{{ item.kid }}</div>
               </div>
             </div>
           </div>
@@ -113,6 +113,12 @@ export default {
 
 <style lang="less" scoped>
 @imageHost: 'https://cdn.exe666.com/m/activity/shop/birthday/';
+@import "../mixin.less";
+
+img {
+  -webkit-user-select: none;
+  user-select: none
+}
 
 .greetings-cake {
   position: relative;
@@ -189,7 +195,7 @@ export default {
                 position: relative;
                 width: 0.4rem;
                 height: 0.4rem;
-                img {
+                .comment-avatar {
                   display: block;
                   width: 100%;
                   height: 100%;
@@ -201,9 +207,10 @@ export default {
                   top: 0.46rem;
                   left: 0;
                   right: 0;
-                  text-align: center;
                   font-size: 0.1rem;
+                  text-align: center;
                   color: #FFF;
+                  .ellipsis();
                 }
               }
               .comment-word {
@@ -213,7 +220,7 @@ export default {
               }
             }
             &.left {
-              right: 45%;
+              right: 44%;
               .comment-bg {
                 right: 0;
                 transform-origin: 50% 50%;
@@ -224,7 +231,7 @@ export default {
               }
             }
             &.right {
-              left: 45%;
+              left: 44%;
               .comment-bg {
                 left: 0;
               }
