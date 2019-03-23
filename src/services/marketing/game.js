@@ -9,6 +9,7 @@ const USER_HONOUR =
   'http://exelook.com/client/h5/userhonour/?cp=1&size=10&api=json'
 const GAME_LIST = 'http://exelook.com/client/all/actresult/?api=json'
 const APPLICATION_COMMON = 'http://exelook.com/client/all/actpi/?api=json'
+const Accept = 'application/vnd.saas.v2+json'
 const REQ_HEADER = {
   headers: {
     'api-token': apiToken,
@@ -17,8 +18,7 @@ const REQ_HEADER = {
 }
 const V2_HEADER = {
   headers: {
-    'api-token': apiToken,
-    Accept: 'application/vnd.saas.v2+json'
+    Accept: Accept
   }
 }
 const createGame = (params, userId) => {
@@ -71,7 +71,7 @@ const getGame = (params, userId) => {
 const getSceneData = (userId, url, params) => {
   return new Promise((resolve, reject) => {
     axios
-      .get(GAME_LIST_URL + userId + '/games' + url, params, REQ_HEADER)
+      .get(GAME_LIST_URL + userId + '/games' + url, params)
       .then(response => {
         resolve(response.data.data)
       })
@@ -81,10 +81,10 @@ const getSceneData = (userId, url, params) => {
   })
 }
 //节目数据，根据场景scene和版本号belong筛选
-const getProjectData = (userId, url, params) => {
+const getProjectData = (userId, url) => {
   return new Promise((resolve, reject) => {
     axios
-      .get(GAME_LIST_URL + userId + '/games' + url, params, V2_HEADER)
+      .get(GAME_LIST_URL + userId + '/games' + url, V2_HEADER)
       .then(response => {
         resolve(response.data.data)
       })

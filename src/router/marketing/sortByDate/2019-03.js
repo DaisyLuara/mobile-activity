@@ -176,13 +176,57 @@ const Date201903 = [
     isAbandoned: false
   },
   {
-    path: 'summer_dress',
-    location: '201903/summerDress',
-    name: 'summer_dress',
+    path: 'dress_one',
+    location: '201903/dressMC1',
+    name: 'dress_one',
     meta: {
       title: '夏日草群舞',
       author: 'lipan',
-      desc: '夏日草群舞-美陈展'
+      desc: '夏日草群舞-美陈展1'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'dress_two',
+    location: '201903/dressMC2',
+    name: 'dress_two',
+    meta: {
+      title: '夏日草群舞',
+      author: 'lipan',
+      desc: '夏日草群舞-美陈展2'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'warrior_one',
+    location: '201903/warriorOne',
+    name: 'warrior_one',
+    meta: {
+      title: '夺宝奇兵',
+      author: 'lipan',
+      desc: '夺宝奇兵-美陈展1'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'warrior_two',
+    location: '201903/warriorTwo',
+    name: 'warrior_two',
+    meta: {
+      title: '夺宝奇兵',
+      author: 'lipan',
+      desc: '夺宝奇兵-美陈展2'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'warrior_three',
+    location: '201903/warriorThree',
+    name: 'warrior_three',
+    meta: {
+      title: '夺宝奇兵',
+      author: 'lipan',
+      desc: '夺宝奇兵-美陈展3'
     },
     isAbandoned: false
   }
