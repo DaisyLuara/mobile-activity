@@ -144,7 +144,7 @@ export default {
           'height': this.$innerHeight() + 'px'
         }
       },
-      userId: null,
+      userId: null,//'47356'
       id: this.$route.query.id,
       sOption: {
         // autoplay: true,
@@ -176,6 +176,7 @@ export default {
       }
     }
     this.doLoading()
+    // this.getProjectData()
   },
   methods: {
     doLoading() {
