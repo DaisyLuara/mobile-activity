@@ -218,10 +218,7 @@ export default {
     },
     getProjectData() {
       let url = '?belong=SZCenterSpring,SZCenterWarm,SZCenterHua,SZCenterKai&group_by=belong'
-      let args = {
-        withCredentials: true
-      }
-      getProjectData(this.userId, url, args)
+      getProjectData(this.userId, url)
         .then(res => {
           this.projectStatus(res)
         })
@@ -232,21 +229,21 @@ export default {
     projectStatus(list) {
       let data = list
       let that = this
-      if (r['SZCenterSpring']) {
-        this.container[0].imgList = [...r['SZCenterSpring']]
-        this.container[0].total = r['SZCenterSpring'].length
+      if (data['SZCenterSpring']) {
+        this.containedata[0].imgList = [...data['SZCenterSpring']]
+        this.containedata[0].total = data['SZCenterSpring'].length
       }
-      if (r['SZCenterWarm']) {
-        this.container[1].imgList = [...r['SZCenterWarm']]
-        this.container[1].total = r['SZCenterWarm'].length
+      if (data['SZCenterWarm']) {
+        this.containedata[1].imgList = [...data['SZCenterWarm']]
+        this.containedata[1].total = data['SZCenterWarm'].length
       }
-      if (r['SZCenterHua']) {
-        this.container[2].imgList = [...r['SZCenterHua']]
-        this.container[2].total = r['SZCenterHua'].length
+      if (data['SZCenterHua']) {
+        this.containedata[2].imgList = [...data['SZCenterHua']]
+        this.containedata[2].total = data['SZCenterHua'].length
       }
-      if (r['SZCenterKai']) {
-        this.container[3].imgList = [...r['SZCenterKai']]
-        this.container[3].total = r['SZCenterKai'].length
+      if (data['SZCenterKai']) {
+        this.containedata[3].imgList = [...data['SZCenterKai']]
+        this.containedata[3].total = data['SZCenterKai'].length
       }
     },
     getTotalPhoto(item) {
