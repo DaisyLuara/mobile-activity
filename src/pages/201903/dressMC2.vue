@@ -45,9 +45,9 @@ export default {
       base: CDN_URL + '/fe/image/summer_dress/',
       //微信分享
       wxShareInfoValue: {
-        title: "",
-        desc: "",
-        link: '' + window.location.search,
+        title: "狂欢夏日趴，尬舞玩一夏",
+        desc: "星视度邀你嗨玩美陈展。",
+        link: 'http://papi.xingstation.com/api/s/x1n' + window.location.search,
         imgUrl: CDN_URL + "/fe/image/summer_dress/icon.jpg"
       }
     }
