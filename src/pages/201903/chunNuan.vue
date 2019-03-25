@@ -96,9 +96,9 @@
 </template>
 <script>
 import { $wechat, isInWechat, wechatShareTrack, Cookies, userGame, getProjectData, getWxUserInfo } from 'services'
+import { normalPages } from '@/mixins/normalPages'
 import "swiper/dist/css/swiper.css";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
-import { normalPages } from '@/mixins/normalPages'
 const CDN_URL = process.env.CDN_URL
 export default {
   components: {

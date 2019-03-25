@@ -71,6 +71,12 @@
       v-show="mask"
       class="mask"
     >
+      <a
+        class="close"
+        @click="()=>{mask = false}"
+      >
+        <img :src="base + 'close.png'">
+      </a>
       <!-- 未中奖 -->
       <div
         v-show="!award"
@@ -83,13 +89,6 @@
         v-show="award"
         class="ward"
       >
-
-        <a
-          class="close"
-          @click="()=>{todo = false}"
-        >
-          <img :src="base + 'close.png'">
-        </a>
         <img
           :src="base + 'award.png'"
           class="bg"
