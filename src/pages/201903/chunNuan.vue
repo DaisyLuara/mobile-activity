@@ -57,14 +57,14 @@
       v-show="page3"
       class="page3"
     >
-      <img
-        v-show="Boolean(photoList)"
-        :src="base + 'button2.png'"
-        class="save"
-      >
       <div class="pictures">
-        <swiper
+        <img
           v-show="Boolean(photoList)"
+          :src="base + 'button2.png'"
+          class="save"
+        >
+        <swiper
+          v-if="photoList"
           ref="Swiper"
           :options="sOption1"
           class="swiper"
@@ -121,7 +121,7 @@ export default {
         {
           url: CDN_URL + '/fe/image/chun_nuan/1.png',
           total: 0,
-          imgList: ''
+          imgList: '',
         },
         {
           url: CDN_URL + '/fe/image/chun_nuan/2.png',
@@ -149,7 +149,8 @@ export default {
       id: this.$route.query.id,
       sOption1: {
         loop: true,
-        centeredSlides: true
+        slidesPerView: 3,
+        spaceBetween: 18,
       },
       //微信分享
       wxShareInfoValue: {
@@ -402,8 +403,7 @@ img {
       width: 16vw;
       position: absolute;
       top: 50%;
-      // left: -25%;
-      left: 3%;
+      left: -11%;
       transform: translateY(-50%);
       z-index: 99;
     }
@@ -411,18 +411,19 @@ img {
       margin-top: 5%;
     }
     .pictures {
-      width: 78%;
+      // width: 78%;
+      width: 174%;
       margin-left: 22%;
       position: relative;
       .slider {
-        width: 57.5vw !important;
-        margin-right: 5%;
+        // width: 73.7% !important;
+        // margin-right: 5%;
         .bg {
           position: relative;
           z-index: 99;
         }
         .photo {
-          width: 54.5vw;
+          width: 93.5%; //54.5vw;
           position: absolute;
           top: 50%;
           left: 50%;
