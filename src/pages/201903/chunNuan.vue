@@ -18,7 +18,6 @@
       v-show="page2"
       class="page2"
     >
-
       <div class="red-bg">
         <div
           v-for="item in container"
@@ -47,19 +46,27 @@
       </a>
     </div>
     <!-- 图片展示 -->
+    <a
+      v-show="page3"
+      class="gohome"
+      @click="backHome"
+    >
+      <img :src="base + 'home.png'">
+    </a>
     <div
       v-show="page3"
       class="page3"
     >
+      <img
+        v-show="Boolean(photoList)"
+        :src="base + 'button2.png'"
+        class="save"
+      >
       <div class="pictures">
-        <img
-          :src="base + 'button2.png'"
-          class="save"
-        >
         <swiper
           v-show="Boolean(photoList)"
           ref="Swiper"
-          :options="sOption"
+          :options="sOption1"
           class="swiper"
         >
           <swiper-slide
@@ -89,9 +96,9 @@
 </template>
 <script>
 import { $wechat, isInWechat, wechatShareTrack, Cookies, userGame, getProjectData, getWxUserInfo } from 'services'
-import { normalPages } from '@/mixins/normalPages'
 import "swiper/dist/css/swiper.css";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
+import { normalPages } from '@/mixins/normalPages'
 const CDN_URL = process.env.CDN_URL
 export default {
   components: {
@@ -114,7 +121,7 @@ export default {
         {
           url: CDN_URL + '/fe/image/chun_nuan/1.png',
           total: 0,
-          imgList: '',
+          imgList: ''
         },
         {
           url: CDN_URL + '/fe/image/chun_nuan/2.png',
@@ -138,11 +145,11 @@ export default {
           'height': this.$innerHeight() + 'px'
         }
       },
-      userId: null,//'47356'
+      userId: null,
       id: this.$route.query.id,
-      sOption: {
-        // autoplay: true,
-        // loop: true,
+      sOption1: {
+        loop: true,
+        centeredSlides: true
       },
       //微信分享
       wxShareInfoValue: {
@@ -179,6 +186,10 @@ export default {
         clearTimeout(timer)
       }, 3000)
     },
+    backHome() {
+      this.page3 = false
+      this.page2 = true
+    },
     //微信静默授权
     handleWechatAuth() {
       if (Cookies.get('sign') === null) {
@@ -190,7 +201,6 @@ export default {
           '&scope=snsapi_base'
         window.location.href = redirct_url
       } else {
-
         this.userId = Cookies.get('user_id')
         this.sertime ? this.userGame() : null
       }
@@ -330,6 +340,13 @@ img {
     overflow: hidden;
     z-index: 0;
   }
+  .gohome {
+    position: absolute;
+    z-index: 999;
+    top: 2%;
+    left: 3%;
+    width: 13%;
+  }
   .alink {
     display: inline-block;
     width: 52%;
@@ -385,7 +402,8 @@ img {
       width: 16vw;
       position: absolute;
       top: 50%;
-      left: -25%;
+      // left: -25%;
+      left: 3%;
       transform: translateY(-50%);
       z-index: 99;
     }

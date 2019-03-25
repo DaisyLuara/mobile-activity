@@ -194,8 +194,6 @@ export default {
   methods: {
     openBox() {
       this.checkV2Coupon()
-      this.award = true
-      this.mask = true
     },
     //判断是否领过优惠券
     checkV2Coupon() {
@@ -247,9 +245,17 @@ export default {
       this.qr_img = res.qrcode_url
       this.coupon_img = res.couponBatch.image_url
       this.qrcode = res.code
+      let id = res.couponBatch.id
       let now = moment()
       let end = moment(res.end_date)
       let diff = end.diff(now)
+      if (id == 402) {
+        this.award = false
+        this.mask = true
+      } else {
+        this.award = true
+        this.mask = true
+      }
       if (parseInt(res.status) === 1) {
         this.used = true
       } else if (diff <= 0) {
