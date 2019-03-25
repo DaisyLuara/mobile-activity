@@ -1,35 +1,40 @@
 <template>
-  <div 
+  <div
     :style="style.root"
-    class="content">
+    class="content"
+  >
     <img
       :src="base + 'logo.png'"
-      class="logo">
-    <div 
+      class="logo"
+    >
+    <div
       v-show="toImg"
       class="upload"
     >
-      <input 
-        type="file" 
+      <input
+        type="file"
         accept="image/*"
         class="camera"
-        @change="toUpLoad">
-      <img
-        :src="base + icon +'.png'">
+        @change="toUpLoad"
+      >
+      <img :src="base + icon +'.png'">
     </div>
     <img
       v-show="word"
       :src="base + 'font.png'"
-      class="font">
+      class="font"
+    >
     <img
       :src="base + 'pointer.png'"
-      class="pointer">
+      class="pointer"
+    >
     <swiper
       ref="Swiper"
       :options="sOption"
-      class="swiper">
+      class="swiper"
+    >
       <swiper-slide>
-        <div 
+        <div
           id="anim"
           class="page anim"
         />
@@ -37,10 +42,12 @@
       <swiper-slide
         v-for="item in pages"
         :key="item.id"
-        class="pslider">
+        class="pslider"
+      >
         <img
           :src="base + item"
-          class="page">
+          class="page"
+        >
       </swiper-slide>
     </swiper>
   </div>
@@ -86,7 +93,7 @@ export default {
       sOption: {
         effect: 'fade',
         on: {
-          init: () => {},
+          init: () => { },
           slideChange: () => {
             let index = this.$refs.Swiper.swiper.realIndex
             if (index === 0) {
@@ -178,7 +185,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'https://cdn.exe666.com/fe/image/wxc_letter/';
+@imgUrl: "https://cdn.exe666.com/fe/image/wxc_letter/";
 html,
 body {
   width: 100%;

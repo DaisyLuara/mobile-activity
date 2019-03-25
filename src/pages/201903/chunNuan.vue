@@ -64,9 +64,9 @@
           class="save"
         >
         <swiper
-          v-if="photoList"
+          v-if="photoList!=null&&photoList!=''"
           ref="Swiper"
-          :options="sOption1"
+          :options="sOption"
           class="swiper"
         >
           <swiper-slide
@@ -147,9 +147,9 @@ export default {
       },
       userId: null,
       id: this.$route.query.id,
-      sOption1: {
+      sOption: {
         loop: true,
-        slidesPerView: 3,
+        slidesPerView: 2,
         spaceBetween: 18,
       },
       //微信分享
@@ -189,6 +189,7 @@ export default {
     },
     backHome() {
       this.page3 = false
+      this.photoList = null
       this.page2 = true
     },
     //微信静默授权
@@ -280,7 +281,7 @@ export default {
     },
     //推送数据
     handlePost() {
-      let url = 'http://exelook.com:8010/pushdiv/?oid=' + this.oid + '&belong=' + this.belong + '&name=&img=' + this.head_img_url + ',' + this.nick_name + ',' + this.num_total + '&id=' + this.id + '&api=json'
+      let url = 'http://exelook.com:8010/pushdiv/?oid=7,' + this.oid + '&belong=' + this.belong + '&name=&img=' + this.head_img_url + ',' + this.nick_name + ',' + this.num_total + '&id=' + this.id + '&api=json'
       this.$http
         .get(url)
         .then(res => {
@@ -403,7 +404,7 @@ img {
       width: 16vw;
       position: absolute;
       top: 50%;
-      left: -11%;
+      left: -15.5%;
       transform: translateY(-50%);
       z-index: 99;
     }
@@ -412,12 +413,10 @@ img {
     }
     .pictures {
       // width: 78%;
-      width: 174%;
+      width: 116%;
       margin-left: 22%;
       position: relative;
       .slider {
-        // width: 73.7% !important;
-        // margin-right: 5%;
         .bg {
           position: relative;
           z-index: 99;
