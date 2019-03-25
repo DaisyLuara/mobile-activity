@@ -1,10 +1,9 @@
 <template>
   <div>
-    <SummerDress :link-data="link" />
-    <img
-      :src="base + 'coupon2.png'"
-      class="coupon"
-    >
+    <SummerDress
+      :link-data="link"
+      :bg-data="bg"
+    />
   </div>
 </template>
 <script>
@@ -17,7 +16,8 @@ export default {
   data() {
     return {
       base: CDN_URL + '/fe/image/summer_dress/',
-      link: 'http://papi.xingstation.com/api/s/x1n' + window.location.search,
+      bg: CDN_URL + '/fe/image/summer_dress/logobg.png',
+      link: 'http://papi.xingstation.com/api/s/zX7' + window.location.search,
     }
   }
 }
@@ -34,6 +34,3 @@ export default {
   user-select: auto;
 }
 </style>
-
-
-

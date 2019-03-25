@@ -229,6 +229,28 @@ const Date201903 = [
       desc: '夺宝奇兵-美陈展3'
     },
     isAbandoned: false
+  },
+  {
+    path: 'dress_com',
+    location: '201903/dressMC3',
+    name: 'dress_com',
+    meta: {
+      title: '夏日草群舞',
+      author: 'lipan',
+      desc: '夏日草群舞-通用版本'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'dreamland_com',
+    location: '201903/dreamlandCom',
+    name: 'dreamland_com',
+    meta: {
+      title: '幻境',
+      author: 'lipan',
+      desc: '幻境-最初通用版'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201903

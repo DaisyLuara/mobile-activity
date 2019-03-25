@@ -129,6 +129,12 @@ export default {
     gameHonour
   },
   mixins: [normalPages],
+  props: {
+    linkData: {
+      type: String,
+      required: true,
+    }
+  },
   data() {
     return {
       base: CDNURL + "/fe/image/warrior/",
@@ -171,6 +177,13 @@ export default {
           'overflow': 'hidden'
         }
       },
+      //微信分享
+      wxShareInfoValue: {
+        title: "互动赢豪礼",
+        desc: "你有一把钥匙等待【点击领取】",
+        link: this.linkData,
+        imgUrl: CDNURL + "/fe/image/warrior/icon.png"
+      }
     };
   },
   watch: {

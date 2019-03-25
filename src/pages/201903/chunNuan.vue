@@ -147,7 +147,11 @@ export default {
       },
       userId: null,
       id: this.$route.query.id,
-      sOption: {
+      sOption: {},
+      sOption1: {
+        loop: false
+      },
+      sOption2: {
         loop: true,
         slidesPerView: 2,
         spaceBetween: 18,
@@ -256,9 +260,18 @@ export default {
       if (item.total == 0) {
         return
       } else {
+        if (item.total == 1) {
+          this.sOption = this.sOption1
+          let slider = document.querySelector('.pictures')
+          slider.style.width = '68%'
+          slider.style.padding = '0% 5%'
+        } else {
+          this.sOption = this.sOption2
+        }
         this.photoList = item.imgList
         this.page2 = false
         this.page3 = true
+
       }
     },
     //获取微信数据
@@ -281,7 +294,7 @@ export default {
     },
     //推送数据
     handlePost() {
-      let url = 'http://exelook.com:8010/pushdiv/?oid=7,' + this.oid + '&belong=' + this.belong + '&name=&img=' + this.head_img_url + ',' + this.nick_name + ',' + this.num_total + '&id=' + this.id + '&api=json'
+      let url = 'http://exelook.com:8010/pushdiv/?oid=7,' + this.oid + '&belong=SZCenterRank&name=&img=' + this.head_img_url + ',' + this.nick_name + ',' + this.num_total + '&id=' + this.id + '&api=json'
       this.$http
         .get(url)
         .then(res => {
