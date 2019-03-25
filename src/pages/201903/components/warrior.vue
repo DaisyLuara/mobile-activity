@@ -166,7 +166,9 @@ export default {
       styleData: {
         child: {
           position: 'relative',
-          width: '32%',
+          width: '35%',
+          'margin-left': '-2%',
+          'margin-right': '-2%',
           'overflow': 'hidden'
         }
       },
@@ -229,7 +231,7 @@ export default {
       let args = {
         qiniu_id: this.id,
         z: this.z,
-        belong: 'ultraman',
+        belong: 'warrior',
         oid: this.oid
       }
       sendV2Projects(args)
@@ -338,7 +340,7 @@ a {
         }
       }
       .groups {
-        width: 78%;
+        width: 80%;
         overflow: hidden;
         position: relative;
         z-index: 9;
@@ -348,7 +350,7 @@ a {
           z-index: 9;
           display: flex;
           flex-direction: row;
-          justify-content: space-between;
+          justify-content: center; //space-between
           align-items: center;
         }
       }
