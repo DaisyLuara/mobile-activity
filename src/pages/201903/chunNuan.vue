@@ -18,7 +18,6 @@
       v-show="page2"
       class="page2"
     >
-
       <div class="red-bg">
         <div
           v-for="item in container"
@@ -47,19 +46,27 @@
       </a>
     </div>
     <!-- 图片展示 -->
+    <a
+      v-show="page3"
+      class="gohome"
+      @click="backHome"
+    >
+      <img :src="base + 'home.png'">
+    </a>
     <div
       v-show="page3"
       class="page3"
     >
       <div class="pictures">
         <img
+          v-show="Boolean(photoList)"
           :src="base + 'button2.png'"
           class="save"
         >
         <swiper
-          v-show="Boolean(photoList)"
+          v-if="photoList"
           ref="Swiper"
-          :options="sOption"
+          :options="sOption1"
           class="swiper"
         >
           <swiper-slide
@@ -138,11 +145,12 @@ export default {
           'height': this.$innerHeight() + 'px'
         }
       },
-      userId: null,//'47356'
+      userId: null,
       id: this.$route.query.id,
-      sOption: {
-        // autoplay: true,
-        // loop: true,
+      sOption1: {
+        loop: true,
+        slidesPerView: 3,
+        spaceBetween: 18,
       },
       //微信分享
       wxShareInfoValue: {
@@ -179,6 +187,10 @@ export default {
         clearTimeout(timer)
       }, 3000)
     },
+    backHome() {
+      this.page3 = false
+      this.page2 = true
+    },
     //微信静默授权
     handleWechatAuth() {
       if (Cookies.get('sign') === null) {
@@ -190,7 +202,6 @@ export default {
           '&scope=snsapi_base'
         window.location.href = redirct_url
       } else {
-
         this.userId = Cookies.get('user_id')
         this.sertime ? this.userGame() : null
       }
@@ -330,6 +341,13 @@ img {
     overflow: hidden;
     z-index: 0;
   }
+  .gohome {
+    position: absolute;
+    z-index: 999;
+    top: 2%;
+    left: 3%;
+    width: 13%;
+  }
   .alink {
     display: inline-block;
     width: 52%;
@@ -385,7 +403,7 @@ img {
       width: 16vw;
       position: absolute;
       top: 50%;
-      left: -25%;
+      left: -11%;
       transform: translateY(-50%);
       z-index: 99;
     }
@@ -393,18 +411,19 @@ img {
       margin-top: 5%;
     }
     .pictures {
-      width: 78%;
+      // width: 78%;
+      width: 174%;
       margin-left: 22%;
       position: relative;
       .slider {
-        width: 57.5vw !important;
-        margin-right: 5%;
+        // width: 73.7% !important;
+        // margin-right: 5%;
         .bg {
           position: relative;
           z-index: 99;
         }
         .photo {
-          width: 54.5vw;
+          width: 93.5%; //54.5vw;
           position: absolute;
           top: 50%;
           left: 50%;
