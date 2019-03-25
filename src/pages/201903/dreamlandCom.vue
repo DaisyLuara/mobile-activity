@@ -5,7 +5,6 @@
       v-show="showImg"
       :style="style.root"
       class="shade"
-      @click="go"
     >
       <img
         :src="baseUrl + 'hua.png'+ this.$qiniuCompress()"
@@ -21,26 +20,11 @@
       v-show="contentShow"
       class="content"
     >
-      <img
-        :src="baseUrl + 'luwan/bg.png' + this.$qiniuCompress()"
+      <!-- <img
+        :src="baseUrl + 'bg.png' + this.$qiniuCompress()"
         class="cbg"
-      >
+      > -->
       <div class="main">
-        <a
-          href="http://papi.xingstation.com/api/s/ql3"
-          class="tolink"
-        >
-          <div class="toplink">
-            <img
-              :src="baseUrl + 'luwan/link.png'"
-              class="bg"
-            >
-            <div
-              id="anim"
-              class="anim"
-            />
-          </div>
-        </a>
         <img
           id="test"
           :src="base64Data"
@@ -62,7 +46,6 @@
 </template>
 <script>
 import { $wechat, isInWechat, wechatShareTrack, Cookies } from 'services'
-import lottie from "lottie-web";
 import { normalPages } from "@/mixins/normalPages";
 const cdnUrl = process.env.CDN_URL
 import MC from 'mcanvas'
@@ -83,17 +66,17 @@ export default {
       paths: [
         {
           scope: 6,
-          paths: ['w_1.png', 'w_2.png', 'w_3.png', 'w_4.png', 'w_5.png']
+          paths: ['wc_1.png', 'wc_2.png', 'wc_3.png', 'wc_4.png', 'wc_5.png']
         },
         {
           scope: 12,
-          paths: ['m_1.png', 'm_2.png', 'm_3.png', 'm_4.png', 'm_5.png']
+          paths: ['mc_1.png', 'mc_2.png', 'mc_3.png', 'mc_4.png', 'mc_5.png']
         }
       ],
       wxShareInfoValue: {
         title: '幻境奇缘',
         desc: '揭开你的身世之谜！',
-        link: 'http://papi.xingstation.com/api/s/gnl' + window.location.search,
+        link: 'http://papi.xingstation.com/api/s/A11' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/dreamland/icon.png'
       }
     }
@@ -105,25 +88,15 @@ export default {
     }
   },
   mounted() {
-    this.doAnim()
+    this.go()
   },
   methods: {
     go() {
-      this.showImg = false
-      this.contentShow = true
-    },
-    doAnim() {
-      let el = document.getElementById('anim')
-      let that = this
-      let anim = lottie.loadAnimation({
-        name: 'anim',
-        container: el,
-        renderer: 'svg',
-        loop: true,
-        autoplay: true,
-        assetsPath: that.baseUrl + 'luwan/images/',
-        path: that.baseUrl + 'luwan/data.json'
-      })
+      let timer = setTimeout(() => {
+        this.showImg = false
+        this.contentShow = true
+        clearTimeout(timer)
+      }, 3000)
     },
     //获取随机数图片
     randomImg(peopleID) {
@@ -254,43 +227,16 @@ img {
   .content {
     width: 100%;
     position: relative;
-    // background-image: url("@{imageHost}luwan/bg.png");
-    // background-size: 100% auto;
-    // background-position: center top;
-    // background-repeat: no-repeat;
     overflow: hidden;
-    .cbg {
-      position: relative;
-    }
+    background-image: url("@{imageHost}bg.png");
+    background-size: 100% auto;
+    background-position: center top;
+    background-repeat: no-repeat;
     .main {
       width: 100%;
       overflow-x: hidden;
-      position: absolute;
-      top: 0%;
-      left: 0;
-      z-index: 99;
-      .tolink {
-        display: inline-block;
-        margin-top: 15.3%;
-        position: relative;
-        .toplink {
-          width: 90%;
-          position: relative;
-          z-index: 0;
-          .bg {
-            position: relative;
-            z-index: 0;
-          }
-          .anim {
-            position: absolute;
-            width: 76%;
-            z-index: 99;
-            top: 30%;
-            left: 50%;
-            transform: translateX(-50%);
-          }
-        }
-      }
+      position: relative;
+      z-index: 0;
       .photoImg {
         width: 100%;
         position: relative;
