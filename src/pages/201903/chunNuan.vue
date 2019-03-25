@@ -112,11 +112,10 @@ export default {
       page1: true,
       page2: false,
       page3: false,
-      totalList: null,
       alink: 'http://papi.xingstation.com/api/s/wrm',
       head_img_url: null,
       nick_name: null,
-      num_total: null,
+      num_total: 0,
       container: [//春暖花开
         {
           url: CDN_URL + '/fe/image/chun_nuan/1.png',
@@ -242,19 +241,24 @@ export default {
       if (data.SZCenterSpring) {
         this.container[0].imgList = data.SZCenterSpring
         this.container[0].total = data['SZCenterSpring'].length
+        this.num_total += this.container[0].total
       }
       if (data.SZCenterWarm) {
         this.container[1].imgList = data.SZCenterWarm
         this.container[1].total = data['SZCenterWarm'].length
+        this.num_total += this.container[1].total
       }
       if (data.SZCenterHua) {
         this.container[2].imgList = data.SZCenterHua
         this.container[2].total = data['SZCenterHua'].length
+        this.num_total += this.container[2].total
       }
       if (data.SZCenterKai) {
         this.container[3].imgList = data.SZCenterKai
         this.container[3].total = data['SZCenterKai'].length
+        this.num_total += this.container[3].total
       }
+      this.head_img_url ? this.handlePost() : null
     },
     getTotalPhoto(item) {
       if (item.total == 0) {
@@ -280,7 +284,7 @@ export default {
         let data = res.data
         this.nick_name = data.nickname
         this.head_img_url = data.headimgurl
-        this.handlePost()
+        this.num_total ? this.handlePost() : null
       }).catch(err => {
         let pageUrl = encodeURIComponent(window.location.href)
         let wx_auth_url =
