@@ -1,14 +1,17 @@
 import axios from 'axios'
 import { apiToken, Cookies } from 'services'
+const EXE_LOOK = 'http://exelook.com'
 const GAME_URL = process.env.SAAS_API + '/user/'
 const GAME_LIST_URL = process.env.SAAS_API + '/user/'
 const REGISTER_URL = process.env.AD_API + '/api/temp/customer'
-const NEW_LIST_NOCHECK = 'http://exelook.com/client/h5/awardlist/?api=json'
-const NEW_LIST_NEEDCHECK = 'http://exelook.com/client/all/awardpass/?api=json'
-const USER_HONOUR =
-  'http://exelook.com/client/h5/userhonour/?cp=1&size=10&api=json'
-const GAME_LIST = 'http://exelook.com/client/all/actresult/?api=json'
-const APPLICATION_COMMON = 'http://exelook.com/client/all/actpi/?api=json'
+const NEW_LIST_NOCHECK = EXE_LOOK + '/client/h5/awardlist/?api=json'
+const NEW_LIST_NEEDCHECK = EXE_LOOK + '/client/all/awardpass/?api=json'
+const USER_HONOUR = EXE_LOOK + '/client/h5/userhonour/?cp=1&size=10&api=json'
+const GAME_LIST = EXE_LOOK + '/client/all/actresult/?api=json'
+const APPLICATION_COMMON = EXE_LOOK + '/client/all/actpi/?api=json'
+const GAME_DATA_LIST = EXE_LOOK + '/client/h5/userprovn/?api=json'
+const PROJECT_IMAGE_LIST =
+  EXE_LOOK + '/client/h5/userphotovn/?cp=1&size=20&api=json'
 const Accept = 'application/vnd.saas.v2+json'
 const REQ_HEADER = {
   headers: {
@@ -80,7 +83,7 @@ const getSceneData = (userId, url, params) => {
       })
   })
 }
-//节目数据，根据场景scene和版本号belong筛选//
+//节目数据，根据场景scene和版本号belong筛选
 const getProjectData = (userId, url) => {
   return new Promise((resolve, reject) => {
     axios
@@ -180,6 +183,31 @@ const toApplication = params => {
       })
   })
 }
+//用户玩的次数，分版本  春暖花开
+const getGamesNumberData = (pn, z) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(GAME_DATA_LIST + '&pn=' + pn + '&z=' + z)
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+const getProjectImages = (pn, z) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(PROJECT_IMAGE_LIST + '&pn=' + pn + '&z=' + z)
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
 export {
   createGame,
   getGame,
@@ -191,5 +219,7 @@ export {
   getGameHonour,
   getGameList,
   toApplication,
-  getProjectData
+  getProjectData,
+  getGamesNumberData,
+  getProjectImages
 }
