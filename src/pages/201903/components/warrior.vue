@@ -139,24 +139,22 @@ export default {
       id: this.$route.query.id,
       mask: false,
       award: false,
-      qr_img: 'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',//'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
-      qrcode: '12234354365',//null,
+      qr_img: null,//'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
+      qrcode: null,//null,
       used: false,
       passed: false,
-      bid: 3,
-      end_date: null,//"2019-01-29 00:00:00"
-      diff_time: null,
+      bid: 5,
       projects: {
         list: {
-          "8": {
+          "14": {
             name: "key1",
             img: ""
           },
-          "9": {
+          "15": {
             name: "key2",
             img: ""
           },
-          "10": {
+          "16": {
             name: "key3",
             img: ""
           }
@@ -168,7 +166,9 @@ export default {
       styleData: {
         child: {
           position: 'relative',
-          width: '32%',
+          width: '35%',
+          'margin-left': '-2%',
+          'margin-right': '-2%',
           'overflow': 'hidden'
         }
       },
@@ -176,20 +176,20 @@ export default {
   },
   watch: {
     sertime() {
-      // if (localStorage.getItem('z')) {
-      //   this.z = this.z ? this.z : localStorage.getItem('z')
-      //   this.projects.total = 3
-      //   this.$refs.gameHonour.getGameHonour(this.bid, this.z)
-      // } else if (this.userinfo != null) {
-      //   this.z = this.userinfo.z
-      //   localStorage.setItem('z', this.userinfo.z)
-      //   this.projects.total = 3
-      //   this.$refs.gameHonour.getGameHonour(this.bid, this.z)
-      // }
+      if (localStorage.getItem('z')) {
+        this.z = this.z ? this.z : localStorage.getItem('z')
+        this.projects.total = 3
+        this.$refs.gameHonour.getGameHonour(this.bid, this.z)
+      } else if (this.userinfo != null) {
+        this.z = this.userinfo.z
+        localStorage.setItem('z', this.userinfo.z)
+        this.projects.total = 3
+        this.$refs.gameHonour.getGameHonour(this.bid, this.z)
+      }
     }
   },
   mounted() {
-    this.$refs.gameHonour.getGameHonour(this.bid, '1808ce6f291cc2aa1c33e80d7bbd91128359w5');
+    // this.$refs.gameHonour.getGameHonour(this.bid, '1808ce6f291cc2aa1c33e80d7bbd91128359w5');
   },
   methods: {
     openBox() {
@@ -231,7 +231,7 @@ export default {
       let args = {
         qiniu_id: this.id,
         z: this.z,
-        belong: 'ultraman',
+        belong: 'warrior',
         oid: this.oid
       }
       sendV2Projects(args)
@@ -247,36 +247,14 @@ export default {
       this.qr_img = res.qrcode_url
       this.coupon_img = res.couponBatch.image_url
       this.qrcode = res.code
-      this.end_date = res.end_date
+      let now = moment()
+      let end = moment(res.end_date)
+      let diff = end.diff(now)
       if (parseInt(res.status) === 1) {
-        this.diff_time = '0天0小时0分'
         this.used = true
-      } else {
-        this.countTime()
-      }
-
-    },
-    countTime() {
-      let that = this
-      let now = moment()//当前时间
-      let end = moment(that.end_date)//结束时间
-      let [d, h, m] = []
-      let diff = end.diff(now, 'minutes')
-      let ends = end.diff(now, 'seconds')
-      if (ends <= 0) {
-        window.cancelAnimationFrame(timer)
-        this.diff_time = '0天0小时0分'
+      } else if (diff <= 0) {
         this.passed = true
-      } else {
-        m = Math.floor(diff % 60)
-        h = Math.floor(diff / 60 % 24)
-        d = Math.floor(diff / (60 * 24))
-        m = m < 10 ? '0' + m : m
-        h = h < 10 ? '0' + h : h
-        d = d < 10 ? '0' + d : d
-        this.diff_time = d + '天' + h + '小时' + m + '分'
       }
-      let timer = window.requestAnimationFrame(this.countTime)
     }
   }
 };
@@ -362,7 +340,7 @@ a {
         }
       }
       .groups {
-        width: 78%;
+        width: 80%;
         overflow: hidden;
         position: relative;
         z-index: 9;
@@ -372,7 +350,7 @@ a {
           z-index: 9;
           display: flex;
           flex-direction: row;
-          justify-content: space-between;
+          justify-content: center; //space-between
           align-items: center;
         }
       }

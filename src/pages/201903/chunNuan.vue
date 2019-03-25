@@ -106,7 +106,7 @@ export default {
       page2: false,
       page3: false,
       totalList: null,
-      alink: '',
+      alink: 'http://papi.xingstation.com/api/s/wrm',
       head_img_url: null,
       nick_name: null,
       num_total: null,
