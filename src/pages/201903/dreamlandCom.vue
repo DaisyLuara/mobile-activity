@@ -1,7 +1,7 @@
 <template>
   <div>
     <DreamLand
-      :loadingClick="loadingClick"
+      :loading-click="loadingClick"
       :paths="paths"
       :link="link"
     />

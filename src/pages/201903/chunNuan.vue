@@ -34,7 +34,7 @@
               :src="base + 'NumberBox.png'"
               class="bg"
             >
-            <span class="item-num">{{item.total}}</span>
+            <span class="item-num">{{ item.total }}</span>
           </div>
         </div>
       </div>

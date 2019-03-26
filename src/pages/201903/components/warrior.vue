@@ -112,7 +112,7 @@
               class="qrImg"
             >
           </div>
-          <p class="qrcode">{{qrcode}}</p>
+          <p class="qrcode">{{ qrcode }}</p>
         </div>
       </div>
     </div>
