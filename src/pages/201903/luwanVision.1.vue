@@ -1,30 +1,11 @@
 <template>
-  <div
-    :style="bgData"
-    class="root"
-  >
+  <div class="root">
     <!-- 遮罩 -->
     <div
-      v-if="loadingClick"
       v-show="showImg"
       :style="style.root"
       class="shade"
       @click="go"
-    >
-      <img
-        :src="baseUrl + 'hua.png'+ this.$qiniuCompress()"
-        class="hua"
-      >
-      <img
-        :src="baseUrl + 'tip.png'+ this.$qiniuCompress()"
-        class="tip"
-      >
-    </div>
-    <div
-      v-else
-      v-show="showImg"
-      :style="style.root"
-      class="shade"
     >
       <img
         :src="baseUrl + 'hua.png'+ this.$qiniuCompress()"
@@ -40,7 +21,26 @@
       v-show="contentShow"
       class="content"
     >
+      <img
+        :src="baseUrl + 'luwan/bg.png' + this.$qiniuCompress()"
+        class="cbg"
+      >
       <div class="main">
+        <a
+          href="http://papi.xingstation.com/api/s/ql3"
+          class="tolink"
+        >
+          <div class="toplink">
+            <img
+              :src="baseUrl + 'luwan/link.png'"
+              class="bg"
+            >
+            <div
+              id="anim"
+              class="anim"
+            />
+          </div>
+        </a>
         <img
           id="test"
           :src="base64Data"
@@ -62,56 +62,12 @@
 </template>
 <script>
 import { $wechat, isInWechat, wechatShareTrack, Cookies } from 'services'
+import lottie from "lottie-web";
 import { normalPages } from "@/mixins/normalPages";
 const cdnUrl = process.env.CDN_URL
 import MC from 'mcanvas'
 export default {
   mixins: [normalPages],
-  props: {
-    loadingClick: {
-      type: Boolean,
-      required: false,
-      default: true,
-    },
-    title: {
-      type: String,
-      required: false,
-      default: '幻境奇缘'
-    },
-    desc: {
-      type: String,
-      required: false,
-      default: '揭开你的身世之谜！'
-    },
-    link: {
-      type: String,
-      required: true
-    },
-    imgUrl: {
-      type: String,
-      required: false,
-      default: cdnUrl + '/fe/marketing/img/dreamland/icon.png'
-    },
-    paths: {
-      type: Array,
-      required: true,
-      default: [
-        {
-          scope: 6,
-          paths: ['w_1.png', 'w_2.png', 'w_3.png', 'w_4.png', 'w_5.png']
-        },
-        {
-          scope: 12,
-          paths: ['m_1.png', 'm_2.png', 'm_3.png', 'm_4.png', 'm_5.png']
-        }
-      ]
-    },
-    bgData: {
-      type: String,
-      required: false,
-      default: 'background-image: url("' + cdnUrl + '/fe/marketing/img/dreamland/bg.png");'
-    }
-  },
   data() {
     return {
       baseUrl: cdnUrl + '/fe/marketing/img/dreamland/',
@@ -124,11 +80,21 @@ export default {
       contentShow: false,
       peopleID: null,
       base64Data: null,
+      paths: [
+        {
+          scope: 6,
+          paths: ['w_1.png', 'w_2.png', 'w_3.png', 'w_4.png', 'w_5.png']
+        },
+        {
+          scope: 12,
+          paths: ['m_1.png', 'm_2.png', 'm_3.png', 'm_4.png', 'm_5.png']
+        }
+      ],
       wxShareInfoValue: {
-        title: this.title,
-        desc: this.desc,
-        link: this.link,
-        imgUrl: this.imgUrl
+        title: '幻境奇缘',
+        desc: '揭开你的身世之谜！',
+        link: 'http://papi.xingstation.com/api/s/gnl' + window.location.search,
+        imgUrl: cdnUrl + '/fe/marketing/img/dreamland/icon.png'
       }
     }
   },
@@ -139,22 +105,25 @@ export default {
     }
   },
   mounted() {
-    if (!this.loadingClick) {
-      this.go1()
-    }
-
+    this.doAnim()
   },
   methods: {
     go() {
       this.showImg = false
       this.contentShow = true
     },
-    go1() {
-      let timer = setTimeout(() => {
-        this.showImg = false
-        this.contentShow = true
-        clearTimeout(timer)
-      }, 3000)
+    doAnim() {
+      let el = document.getElementById('anim')
+      let that = this
+      let anim = lottie.loadAnimation({
+        name: 'anim',
+        container: el,
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        assetsPath: that.baseUrl + 'luwan/images/',
+        path: that.baseUrl + 'luwan/data.json'
+      })
     },
     //获取随机数图片
     randomImg(peopleID) {
@@ -285,16 +254,43 @@ img {
   .content {
     width: 100%;
     position: relative;
+    // background-image: url("@{imageHost}luwan/bg.png");
+    // background-size: 100% auto;
+    // background-position: center top;
+    // background-repeat: no-repeat;
     overflow: hidden;
-    // background-image: url("@{imageHost}bg.png");
-    background-size: 100% auto;
-    background-position: center top;
-    background-repeat: no-repeat;
+    .cbg {
+      position: relative;
+    }
     .main {
       width: 100%;
       overflow-x: hidden;
-      position: relative;
-      z-index: 0;
+      position: absolute;
+      top: 0%;
+      left: 0;
+      z-index: 99;
+      .tolink {
+        display: inline-block;
+        margin-top: 15.3%;
+        position: relative;
+        .toplink {
+          width: 90%;
+          position: relative;
+          z-index: 0;
+          .bg {
+            position: relative;
+            z-index: 0;
+          }
+          .anim {
+            position: absolute;
+            width: 76%;
+            z-index: 99;
+            top: 30%;
+            left: 50%;
+            transform: translateX(-50%);
+          }
+        }
+      }
       .photoImg {
         width: 100%;
         position: relative;

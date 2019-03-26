@@ -20,10 +20,10 @@
     >
       <div class="red-bg">
         <div
-          v-for="item in container"
+          v-for="(item,index) in container"
           :key="item.id"
           class="red"
-          @click="getTotalPhoto(item)"
+          @click="getTotalPhoto(item,index)"
         >
           <img
             :src="item.url"
@@ -79,7 +79,7 @@
               class="bg"
             >
             <img
-              :src="item.image_url"
+              :src="item.image + this.$qiniuCompress()"
               class="photo"
             >
           </swiper-slide>
@@ -95,7 +95,7 @@
   </div>
 </template>
 <script>
-import { $wechat, isInWechat, wechatShareTrack, Cookies, userGame, getProjectData, getWxUserInfo } from 'services'
+import { $wechat, isInWechat, wechatShareTrack, getGamesNumberData, getProjectImages, getWxUserInfo } from 'services'
 import { normalPages } from '@/mixins/normalPages'
 import "swiper/dist/css/swiper.css";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
@@ -116,23 +116,29 @@ export default {
       head_img_url: null,
       nick_name: null,
       num_total: 0,
+      pn: 'SZCenterSpring,SZCenterWarm,SZCenterHua,SZCenterKai',
+      z: null,//'1808ce6f291cc2aa1c33e80d7bbd91128359w5'
       container: [//春暖花开
         {
+          name: 'SZCenterSpring',
           url: CDN_URL + '/fe/image/chun_nuan/1.png',
           total: 0,
           imgList: '',
         },
         {
+          name: 'SZCenterWarm',
           url: CDN_URL + '/fe/image/chun_nuan/2.png',
           total: 0,
           imgList: '',
         },
         {
+          name: 'SZCenterHua',
           url: CDN_URL + '/fe/image/chun_nuan/3.png',
           total: 0,
           imgList: '',
         },
         {
+          name: 'SZCenterKai',
           url: CDN_URL + '/fe/image/chun_nuan/4.png',
           total: 0,
           imgList: '',
@@ -144,7 +150,6 @@ export default {
           'height': this.$innerHeight() + 'px'
         }
       },
-      userId: null,
       id: this.$route.query.id,
       sOption: {},
       sOption1: {
@@ -167,20 +172,20 @@ export default {
   watch: {
     sertime() {
       this.getWxUserInfo()
-      this.userId ? this.userGame() : null
+      if (window.localStorage.get('z')) {
+        this.z = window.localStorage.get('z')
+        this.getProjectData(this.pn, this.z)
+      } else {
+        this.z = this.userinfo.z
+        window.localStorage.set('z', this.z)
+        this.getProjectData(this.pn, this.z)
+      }
     }
   },
   mounted() {
-    //微信授权
-    if (isInWechat() === true) {
-      if (
-        process.env.NODE_ENV === 'production' ||
-        process.env.NODE_ENV === 'testing'
-      ) {
-        this.handleWechatAuth()
-      }
-    }
     this.doLoading()
+    //h0bf835c97fba77794e81ab708fd7fad1c7smp//1808ce6f291cc2aa1c33e80d7bbd91128359w5
+    // this.getProjectData(this.pn, this.z)
   },
   methods: {
     doLoading() {
@@ -195,72 +200,44 @@ export default {
       this.photoList = null
       this.page2 = true
     },
-    //微信静默授权
-    handleWechatAuth() {
-      if (Cookies.get('sign') === null) {
-        let base_url = encodeURIComponent(String(window.location.href))
-        let redirct_url =
-          process.env.WX_API +
-          '/wx/officialAccount/oauth?url=' +
-          base_url +
-          '&scope=snsapi_base'
-        window.location.href = redirct_url
-      } else {
-        this.userId = Cookies.get('user_id')
-        this.sertime ? this.userGame() : null
-      }
+    getProjectData(pn, z) {
+      getGamesNumberData(pn, z).then(res => {
+      res.results?this.getProjectNumber(res.results.data):''
+      }).catch(err => {
+        console.log(err)
+      })
     },
-    userGame() {
-      let args = {
-        belong: this.belong,
-        image_url: this.photo,
-        qiniu_id: this.id,
-        score: 100
-      }
-      userGame(args, this.userId)
-        .then(res => {
-          this.getProjectData()
-        })
-        .catch(e => {
-          console.log(e)
-        })
+    getProjectNumber(data) {
+      data.map(item => {
+        if (item.versionname == 'SZCenterSpring') {
+          this.container[0].total = item.allnum
+        }
+        if (item.versionname == 'SZCenterWarm') {
+          this.container[1].total = item.allnum
+        }
+        if (item.versionname == 'SZCenterHua') {
+          this.container[2].total = item.allnum
+        }
+        if (item.versionname == 'SZCenterKai') {
+          this.container[3].total = item.allnum
+        }
+        this.num_total += item.allnum
+        this.head_img_url ? this.handlePost() : null
+      })
     },
-    getProjectData() {
-      let url = '?belong=SZCenterSpring,SZCenterWarm,SZCenterHua,SZCenterKai&group_by=belong'
-      getProjectData(this.userId, url)
-        .then(res => {
-          this.projectStatus(res)
-        })
-        .catch(err => {
-          console.log(err)
-        })
+    getProjectImages(index) {
+      let pn = this.container[index].name
+      getProjectImages(pn,this.z).then(res => {
+        this.container[index].imgList = res.results?res.results.data:''
+        this.photoList = res.results?res.results.data:''
+        this.page2 = false
+        this.page3 = true
+      }).catch(err => {
+        console.log(err)
+      })
+
     },
-    projectStatus(list) {
-      let data = list
-      let that = this
-      if (data.SZCenterSpring) {
-        this.container[0].imgList = data.SZCenterSpring
-        this.container[0].total = data['SZCenterSpring'].length
-        this.num_total += this.container[0].total
-      }
-      if (data.SZCenterWarm) {
-        this.container[1].imgList = data.SZCenterWarm
-        this.container[1].total = data['SZCenterWarm'].length
-        this.num_total += this.container[1].total
-      }
-      if (data.SZCenterHua) {
-        this.container[2].imgList = data.SZCenterHua
-        this.container[2].total = data['SZCenterHua'].length
-        this.num_total += this.container[2].total
-      }
-      if (data.SZCenterKai) {
-        this.container[3].imgList = data.SZCenterKai
-        this.container[3].total = data['SZCenterKai'].length
-        this.num_total += this.container[3].total
-      }
-      this.head_img_url ? this.handlePost() : null
-    },
-    getTotalPhoto(item) {
+    getTotalPhoto(item, index) {
       if (item.total == 0) {
         return
       } else {
@@ -272,10 +249,7 @@ export default {
         } else {
           this.sOption = this.sOption2
         }
-        this.photoList = item.imgList
-        this.page2 = false
-        this.page3 = true
-
+        this.getProjectImages(index)
       }
     },
     //获取微信数据
@@ -298,7 +272,9 @@ export default {
     },
     //推送数据
     handlePost() {
-      let url = 'http://exelook.com:8010/pushdiv/?oid=7,' + this.oid + '&belong=SZCenterRank&name=&img=' + this.head_img_url + ',' + this.nick_name + ',' + this.num_total + '&id=' + this.id + '&api=json'
+      const baseUrl = process.env.EXE_API;
+      let url =
+        `${baseUrl}:8010/pushdiv/?oid=7,673,674,675,676,677,678,679` + '&belong=SZCenterRank&name=&img=' + this.head_img_url + ',' + this.nick_name + ',' + this.num_total + '&id=' + this.id + '&api=json'
       this.$http
         .get(url)
         .then(res => {

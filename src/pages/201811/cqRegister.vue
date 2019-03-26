@@ -182,8 +182,9 @@ export default {
     },
     handlePost() {
       let id = this.$route.query.id
+      const baseUrl = process.env.EXE_API;
       let url =
-        'http://exelook.com:8010/pushdiv/?oid=' +
+        `${baseUrl}:8010/pushdiv/?oid=` +
         this.oid +
         '&belong=' +
         this.belong +
