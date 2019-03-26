@@ -250,7 +250,7 @@ export default {
     handlePost() {
       let id = this.$route.query.id
       let url =
-        'http://exelook.com:8010/pushdiv/?oid=562,212,386,230,426,219,534,474,434,386&belong=GroceryShop&id=' +
+        'http://xingstation.cn:8010/pushdiv/?oid=562,212,386,230,426,219,534,474,434,386&belong=GroceryShop&id=' +
         id +
         "&url={'cakeID':0,'cake_type_a':" +
         this.bing.cake_type_a +

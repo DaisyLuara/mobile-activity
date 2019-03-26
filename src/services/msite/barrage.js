@@ -1,7 +1,7 @@
 import axios from 'axios'
 // 0167.H5 Saas-发送弹幕
 const sendBarrage = (payload) => {
-  const url = 'http://exelook.com/client/h5/barrage/'
+  const url = 'http://xingstation.cn/client/h5/barrage/'
   const params = {
     params: {
       ...payload
@@ -17,7 +17,7 @@ const sendBarrage = (payload) => {
 }
 
 const getAcgn = (payload) => {
-  const url = 'http://exelook.com/client/h5/useracgn/'
+  const url = 'http://xingstation.cn/client/h5/useracgn/'
   const params = {
     params: {
       ...payload

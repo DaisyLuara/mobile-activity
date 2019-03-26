@@ -277,7 +277,7 @@ export default {
     },
     handleTrack(mobile) {
       let url =
-        'http://exelook.com/client/goodsxsd/?id=' +
+        'http://xingstation.cn/client/goodsxsd/?id=' +
         String(this.$route.query.id) +
         '&mobile=' +
         String(mobile) +

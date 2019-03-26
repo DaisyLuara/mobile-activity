@@ -67,7 +67,7 @@ export default {
   },
   data() {
     return {
-      goodsxsd: "http://exelook.com:8010/goodsxsd/",
+      goodsxsd: "http://xingstation.cn:8010/goodsxsd/",
       shouldDeleteModalShow: false,
       shouldShareModalShow: false,
       resData: {

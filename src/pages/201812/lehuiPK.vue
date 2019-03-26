@@ -185,7 +185,7 @@ export default {
         })
       let oid = this.$route.query.utm_source
       this.$http.post(
-        'http://exelook.com:8010/pushdiv/?oid=' +
+        'http://xingstation.cn:8010/pushdiv/?oid=' +
         oid +
         '&belong=' +
         this.utmCampaign +

@@ -79,7 +79,7 @@
               class="bg"
             >
             <img
-              :src="item.image_url"
+              :src="item.image + this.$qiniuCompress()"
               class="photo"
             >
           </swiper-slide>
@@ -117,7 +117,7 @@ export default {
       nick_name: null,
       num_total: 0,
       pn: 'SZCenterSpring,SZCenterWarm,SZCenterHua,SZCenterKai',
-      z: '1808ce6f291cc2aa1c33e80d7bbd91128359w5',//null,
+      z: null,//'1808ce6f291cc2aa1c33e80d7bbd91128359w5'
       container: [//春暖花开
         {
           name: 'SZCenterSpring',
@@ -170,22 +170,22 @@ export default {
     }
   },
   watch: {
-    // sertime() {
-    //   this.getWxUserInfo()
-    //   if (window.localStorage.get('z')) {
-    //     this.z = window.localStorage.get('z')
-    //     this.getProjectData(this.pn, this.z)
-    //   } else {
-    //     this.z = this.userinfo.z
-    //     window.localStorage.set('z', this.z)
-    //     this.getProjectData(this.pn, this.z)
-    //   }
-    // }
+    sertime() {
+      this.getWxUserInfo()
+      if (window.localStorage.get('z')) {
+        this.z = window.localStorage.get('z')
+        this.getProjectData(this.pn, this.z)
+      } else {
+        this.z = this.userinfo.z
+        window.localStorage.set('z', this.z)
+        this.getProjectData(this.pn, this.z)
+      }
+    }
   },
   mounted() {
     this.doLoading()
-    //h0bf835c97fba77794e81ab708fd7fad1c7smp
-    this.getProjectData(this.pn, this.z)//1808ce6f291cc2aa1c33e80d7bbd91128359w5
+    //h0bf835c97fba77794e81ab708fd7fad1c7smp//1808ce6f291cc2aa1c33e80d7bbd91128359w5
+    // this.getProjectData(this.pn, this.z)
   },
   methods: {
     doLoading() {
@@ -202,8 +202,7 @@ export default {
     },
     getProjectData(pn, z) {
       getGamesNumberData(pn, z).then(res => {
-        let data = res.results.data
-        this.getProjectNumber(data)
+      res.results?this.getProjectNumber(res.results.data):''
       }).catch(err => {
         console.log(err)
       })
@@ -229,11 +228,10 @@ export default {
     getProjectImages(index) {
       let pn = this.container[index].name
       getProjectImages(pn,this.z).then(res => {
-        console.log(res)
-        this.container[index].imgList=res.results.data
+        this.container[index].imgList = res.results?res.results.data:''
+        this.photoList = res.results?res.results.data:''
         this.page2 = false
         this.page3 = true
-
       }).catch(err => {
         console.log(err)
       })
@@ -274,7 +272,7 @@ export default {
     },
     //推送数据
     handlePost() {
-      let url = 'http://exelook.com:8010/pushdiv/?oid=7,' + this.oid + '&belong=SZCenterRank&name=&img=' + this.head_img_url + ',' + this.nick_name + ',' + this.num_total + '&id=' + this.id + '&api=json'
+      let url = 'http://xingstation.cn:8010/pushdiv/?oid=7,' + this.oid + '&belong=SZCenterRank&name=&img=' + this.head_img_url + ',' + this.nick_name + ',' + this.num_total + '&id=' + this.id + '&api=json'
       this.$http
         .get(url)
         .then(res => {

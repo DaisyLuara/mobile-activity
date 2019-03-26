@@ -1,6 +1,6 @@
 const MARKETING_API = process.env.SAAS_API
 const PLAY_RESULT_API = '/open/play/playResults/'
-const IMAGE_API = 'http://exelook.com:8010/goodsxsd/?api=json&id='
+const IMAGE_API = 'http://xingstation.cn:8010/goodsxsd/?api=json&id='
 import axios from 'axios'
 
 const getPlayResultById = id => {

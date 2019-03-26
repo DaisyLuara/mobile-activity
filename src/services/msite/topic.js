@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const fetchTopics = payload => {
-  const url = 'http://exelook.com/client/h5/avoptions'
+  const url = 'http://xingstation.cn/client/h5/avoptions'
   const params = {
     params: {
       ...payload
@@ -18,7 +18,7 @@ const fetchTopics = payload => {
 }
 
 const optionsVote = payload => {
-  const url = 'http://exelook.com/client/h5/avoptionstate/'
+  const url = 'http://xingstation.cn/client/h5/avoptionstate/'
   const params = {
     params: {
       ...payload

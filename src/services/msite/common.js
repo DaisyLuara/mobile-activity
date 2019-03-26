@@ -1,5 +1,5 @@
 const fetchMSiteBanners = (_this, payload) => {
-  const url = 'http://exelook.com/client/h5/banner/'
+  const url = 'http://xingstation.cn/client/h5/banner/'
   const params = {
     params: {
       ...payload

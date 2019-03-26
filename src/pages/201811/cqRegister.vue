@@ -183,7 +183,7 @@ export default {
     handlePost() {
       let id = this.$route.query.id
       let url =
-        'http://exelook.com:8010/pushdiv/?oid=' +
+        'http://xingstation.cn:8010/pushdiv/?oid=' +
         this.oid +
         '&belong=' +
         this.belong +

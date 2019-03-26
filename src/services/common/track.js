@@ -18,7 +18,7 @@ customTrack.play_result_id = req.recordId ? req.recordId : 0
 // 基本的id和手机号追踪
 const basicTrack = (id, phoneNumber) => {
   let url =
-    'http://exelook.com/client/goodsxsd/?id=' +
+    'http://xingstation.cn/client/goodsxsd/?id=' +
     String(id) +
     '&mobile=' +
     String(phoneNumber) +

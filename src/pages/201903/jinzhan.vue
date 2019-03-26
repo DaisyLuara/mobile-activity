@@ -230,7 +230,7 @@ export default {
     },
     //推送数据
     handlePost() {
-      let url = 'http://exelook.com:8010/pushdiv/?oid=' + this.oid + '&belong=' + this.belong + '&name=&img=' + this.head_img_url + ',' + this.nick_name + ',' + this.name + '&id=' + this.id + '&api=json'
+      let url = 'http://xingstation.cn:8010/pushdiv/?oid=' + this.oid + '&belong=' + this.belong + '&name=&img=' + this.head_img_url + ',' + this.nick_name + ',' + this.name + '&id=' + this.id + '&api=json'
       this.$http
         .get(url)
         .then(res => {

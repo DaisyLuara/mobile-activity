@@ -1,6 +1,6 @@
 import axios from 'axios'
 const getUserTrends = (payload) => {
-  const url = 'http://exelook.com/client/h5/userphoto/'
+  const url = 'http://xingstation.cn/client/h5/userphoto/'
   return new Promise((resolve, reject) => {
     const requestParams = {
       params: {
@@ -16,7 +16,7 @@ const getUserTrends = (payload) => {
 }
 
 const deleteATrend = (payload) => {
-  const url = 'http://exelook.com/client/all/hddel/'
+  const url = 'http://xingstation.cn/client/all/hddel/'
   return new Promise((resolve, reject) => {
     const requestParams = {
       params: {
