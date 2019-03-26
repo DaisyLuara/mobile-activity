@@ -182,8 +182,9 @@ export default {
     },
     //处理接口问题
     handle() {
-      let URL =
-        'http://xingstation.cn:8010/pushdiv/?oid=' +
+      const baseUrl = process.env.EXE_API;
+      let url =
+        `${baseUrl}:8010/pushdiv/?oid=` +
         this.oid +
         '&belong=' +
         this.belong +

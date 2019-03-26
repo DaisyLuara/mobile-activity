@@ -184,13 +184,12 @@ export default {
           console.log(e)
         })
       let oid = this.$route.query.utm_source
-      this.$http.post(
-        'http://xingstation.cn:8010/pushdiv/?oid=' +
-        oid +
-        '&belong=' +
-        this.utmCampaign +
+      const baseUrl = process.env.EXE_API;
+      let url =
+        `${baseUrl}:8010/pushdiv/?oid=` + oid +
+        '&belong=' + this.utmCampaign +
         '&url=&name=&image=&api=json'
-      )
+      this.$http.post(url)
     }
   }
 }

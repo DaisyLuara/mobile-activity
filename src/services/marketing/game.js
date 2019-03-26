@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { apiToken, Cookies } from 'services'
-const EXE_LOOK = 'http://xingstation.cn' //'http://xingstation.cn'
+const EXE_LOOK = process.env.EXE_API 
 const GAME_URL = process.env.SAAS_API + '/user/'
 const GAME_LIST_URL = process.env.SAAS_API + '/user/'
 const REGISTER_URL = process.env.AD_API + '/api/temp/customer'

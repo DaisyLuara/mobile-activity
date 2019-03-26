@@ -272,7 +272,9 @@ export default {
     },
     //推送数据
     handlePost() {
-      let url = 'http://xingstation.cn:8010/pushdiv/?oid=7,' + this.oid + '&belong=SZCenterRank&name=&img=' + this.head_img_url + ',' + this.nick_name + ',' + this.num_total + '&id=' + this.id + '&api=json'
+      const baseUrl = process.env.EXE_API;
+      let url =
+        `${baseUrl}:8010/pushdiv/?oid=7,673,674,675,676,677,678,679` + '&belong=SZCenterRank&name=&img=' + this.head_img_url + ',' + this.nick_name + ',' + this.num_total + '&id=' + this.id + '&api=json'
       this.$http
         .get(url)
         .then(res => {
