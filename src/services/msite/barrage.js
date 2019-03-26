@@ -1,7 +1,9 @@
 import axios from 'axios'
+const baseUrl = process.env.EXE_API
+
 // 0167.H5 Saas-发送弹幕
 const sendBarrage = (payload) => {
-  const url = 'http://exelook.com/client/h5/barrage/'
+  const url = `${baseUrl}/h5/barrage/`
   const params = {
     params: {
       ...payload
@@ -17,7 +19,7 @@ const sendBarrage = (payload) => {
 }
 
 const getAcgn = (payload) => {
-  const url = 'http://exelook.com/client/h5/useracgn/'
+  const url = `${baseUrl}/h5/useracgn/`
   const params = {
     params: {
       ...payload
