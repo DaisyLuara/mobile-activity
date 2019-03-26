@@ -72,7 +72,7 @@
   </div>
 </template>
 <script>
-const IMAGE_SERVER = process.env.CDN_URL
+const IMAGE_SERVER = process.env.CDN_URL;
 import {
   $wechat,
   wechatShareTrack,
@@ -83,18 +83,18 @@ import {
   setParameter,
   getAdCoupon,
   checkCouponNumber
-} from 'services'
-import { normalPages } from '@/mixins/normalPages'
+} from "services";
+import { normalPages } from "@/mixins/normalPages";
 export default {
   mixins: [normalPages],
   data() {
     return {
       style: {
         root: {
-          'min-height': this.$innerHeight() + 'px'
+          "min-height": this.$innerHeight() + "px"
         }
       },
-      base: IMAGE_SERVER + '/image/kaixue/',
+      base: IMAGE_SERVER + "/image/kaixue/",
       score: this.$route.query.score,
       total: 0,
       coupon: 0,
@@ -109,172 +109,174 @@ export default {
       success: false,
       coupon_arr: [3, 4, 5, 6],
       deUrl:
-        'http://wx.qlogo.cn/mmopen/Q3auHgzwzM4VoBYD1YEIq0E3LFM1XLKsd3sG5VXRAvCUqCVXIPTcI0TzqicRWfzB9Zv40GhTR83RhKAugpzOuaJFC11nxmcnnp6ZbOu04UFw/0',
+        "http://wx.qlogo.cn/mmopen/Q3auHgzwzM4VoBYD1YEIq0E3LFM1XLKsd3sG5VXRAvCUqCVXIPTcI0TzqicRWfzB9Zv40GhTR83RhKAugpzOuaJFC11nxmcnnp6ZbOu04UFw/0",
       //微信分享
       wxShareInfoValue: {
-        title: '开学送福利',
-        desc: '亲爱的，礼物准备好了',
-        link: 'http://papi.xingstation.com/api/s/j2R' + window.location.search,
-        imgUrl: 'http://cdn.exe666.com/image/kaixue/icon.jpg',
+        title: "开学送福利",
+        desc: "亲爱的，礼物准备好了",
+        link: "http://papi.xingstation.com/api/s/j2R" + window.location.search,
+        imgUrl: "http://cdn.exe666.com/image/kaixue/icon.jpg",
         success: function() {
-          wechatShareTrack()
+          wechatShareTrack();
         }
       }
-    }
+    };
   },
   mounted() {
     //微信授权
     if (isInWechat() === true) {
       if (
-        process.env.NODE_ENV === 'production' ||
-        process.env.NODE_ENV === 'testing'
+        process.env.NODE_ENV === "production" ||
+        process.env.NODE_ENV === "testing"
       ) {
-        this.handleWechatAuth()
+        this.handleWechatAuth();
       }
     }
     if (this.note) {
-      let that = this
+      let that = this;
       let once = setTimeout(function() {
-        that.note = false
-        that.mask = false
-        clearTimeout(once)
-      }, 5000)
+        that.note = false;
+        that.mask = false;
+        clearTimeout(once);
+      }, 5000);
     }
   },
   methods: {
     handleWechatAuth() {
-      if (Cookies.get('sign') === null) {
-        let base_url = encodeURIComponent(String(window.location.href))
+      if (Cookies.get("sign") === null) {
+        let base_url = encodeURIComponent(String(window.location.href));
         let redirct_url =
           process.env.WX_API +
-          '/wx/officialAccount/oauth?url=' +
+          "/wx/officialAccount/oauth?url=" +
           base_url +
-          '&scope=snsapi_base'
-        window.location.href = redirct_url
+          "&scope=snsapi_base";
+        window.location.href = redirct_url;
       } else {
-        this.userId = Cookies.get('user_id')
-        this.sign = Cookies.get('sign')
-        this.belong = this.$route.query.utm_campaign
-        this.userGame()
+        this.userId = Cookies.get("user_id");
+        this.sign = Cookies.get("sign");
+        this.belong = this.$route.query.utm_campaign;
+        this.userGame();
       }
     },
     handleTrack(mobile) {
+      const baseUrl = process.env.EXE_API;
       let url =
-        'http://xingstation.cn/client/goodsxsd/?id=' +
+        `${baseUrl}/goodsxsd/?id=` +
         String(this.$route.query.id) +
-        '&mobile=' +
+        "&mobile=" +
         String(mobile) +
-        '&api=json'
+        "&api=json";
       this.$http.get(url).then(r => {
-        console.log(r)
-      })
+        console.log(r);
+      });
     },
     userGame() {
-      let id = this.$route.query.id
+      let id = this.$route.query.id;
       let args = {
         belong: this.belong,
         image_url: this.deUrl,
         score: this.score,
         qiniu_id: id
-      }
+      };
       userGame(args, this.userId)
         .then(res => {
-          this.getGame()
+          this.getGame();
         })
         .catch(e => {
-          console.log(e)
-        })
+          console.log(e);
+        });
     },
     getGame() {
       let score1 = 0,
         score2 = 0,
-        score_total = 0
-      let url = process.env.SAAS_API + '/user/' + this.userId + '/games?belong='
+        score_total = 0;
+      let url =
+        process.env.SAAS_API + "/user/" + this.userId + "/games?belong=";
       this.$http
-        .get(url + 'FarmSchool')
+        .get(url + "FarmSchool")
         .then(res => {
-          score1 = parseInt(res.data.data[0].total_score) || 0
+          score1 = parseInt(res.data.data[0].total_score) || 0;
           this.$http
-            .get(url + 'FarmSchoolHigh')
+            .get(url + "FarmSchoolHigh")
             .then(res => {
-              score2 = parseInt(res.data.data[0].total_score) || 0
-              score_total = score1 + score2
-              this.docheckScore(score_total)
+              score2 = parseInt(res.data.data[0].total_score) || 0;
+              score_total = score1 + score2;
+              this.docheckScore(score_total);
             })
             .catch(err => {
-              console.log(err)
-            })
+              console.log(err);
+            });
         })
         .catch(err => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     },
     docheckScore(score_total) {
-      this.total = score_total
+      this.total = score_total;
       if (score_total <= 200) {
-        this.coupon = 0
-        return
+        this.coupon = 0;
+        return;
       }
       if (score_total <= 400) {
-        this.coupon = 1
-        return
+        this.coupon = 1;
+        return;
       }
       if (score_total <= 800) {
-        this.coupon = 2
-        return
+        this.coupon = 2;
+        return;
       }
       if (score_total > 800) {
-        this.coupon = 3
-        return
+        this.coupon = 3;
+        return;
       }
     },
     checkMobile(mobile) {
       if (!/^1[3456789]\d{9}$/.test(mobile)) {
-        alert('您输入的手机号有误')
-        return
+        alert("您输入的手机号有误");
+        return;
       } else {
-        this.handleTrack(mobile)
-        this.sendCoupon()
+        this.handleTrack(mobile);
+        this.sendCoupon();
       }
     },
     getCheck() {
-      let id = this.coupon_arr[this.coupon]
+      let id = this.coupon_arr[this.coupon];
       checkCouponNumber(id)
         .then(res => {
-          console.log(res)
-          this.mask = true
-          this.telform = true
+          console.log(res);
+          this.mask = true;
+          this.telform = true;
         })
         .catch(err => {
-          alert(err.response.data.message)
-        })
+          alert(err.response.data.message);
+        });
     },
     sendCoupon() {
-      let couponId = this.coupon_arr[this.coupon]
+      let couponId = this.coupon_arr[this.coupon];
       let args = {
         mobile: this.mobile
-      }
+      };
       if (this.userId) {
         args = {
           mobile: this.mobile,
           userId: this.userId
-        }
+        };
       }
       getAdCoupon(args, couponId)
         .then(res => {
-          let data = res.data
-          this.success = true
-          this.telform = false
+          let data = res.data;
+          this.success = true;
+          this.telform = false;
         })
         .catch(err => {
-          alert(err.response.data.message)
-        })
+          alert(err.response.data.message);
+        });
     }
   }
-}
+};
 </script>
 <style lang="less" scoped>
-@base: 'http://cdn.exe666.com/image/kaixue/';
+@base: "http://cdn.exe666.com/image/kaixue/";
 html,
 body {
   width: 100%;
@@ -308,7 +310,7 @@ img {
     .scores {
       width: 100%;
       position: relative;
-      background-image: url('@{base}green.png');
+      background-image: url("@{base}green.png");
       background-position: center top;
       background-size: 100% 100%;
       background-repeat: no-repeat;
@@ -343,7 +345,7 @@ img {
         position: absolute;
         top: 2%;
         left: 75%;
-        font-family: '黑体';
+        font-family: "黑体";
         font-size: 13vw;
         z-index: 9;
         color: #fff;

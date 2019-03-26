@@ -1,6 +1,8 @@
 import axios from 'axios'
+const baseUrl = process.env.EXE_API
+
 const getHdInfo = (payload) => {
-  const url = 'http://xingstation.cn/client/all/hdinfo/'
+  const url = `${baseUrl}/all/hdinfo/`
   const params = {
     params: {
       ...payload

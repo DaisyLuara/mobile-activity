@@ -11,5 +11,6 @@ module.exports = merge(devEnv, {
   STORE_API: "'http://store.vookan.com'",
   SAAS_API: "'http://sapi.newgls.cn/api'",
   IMAGE_SERVER: "'http://h5-images.oss-cn-shanghai.aliyuncs.com'",
-  CDN_URL: "'http://cdn.exe666.com'"
+  CDN_URL: "'http://cdn.exe666.com'",
+  EXE_API: "'http://xingstation.cn/client'"
 })

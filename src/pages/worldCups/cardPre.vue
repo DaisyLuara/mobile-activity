@@ -44,18 +44,18 @@
 
 <script>
 /* eslint-disable */
-const wiw = window.innerWidth
-const wih = window.innerHeight
-import { Toast } from 'mint-ui'
-import { normalPages } from '@/mixins/normalPages'
+const wiw = window.innerWidth;
+const wih = window.innerHeight;
+import { Toast } from "mint-ui";
+import { normalPages } from "@/mixins/normalPages";
 export default {
   mixins: [normalPages],
   data() {
     return {
       style: {
         root: {
-          width: '100%',
-          height: wih + 'px'
+          width: "100%",
+          height: wih + "px"
         },
         mid: {}
       },
@@ -63,61 +63,63 @@ export default {
         phone: null
       },
       control: {
-        buttonState: 'end',
+        buttonState: "end",
         focous: 0
       },
       game_id: null,
       baseUrl:
-        'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup/card_pr/'
-    }
+        "https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/world_cup/card_pr/"
+    };
   },
   created() {
-    this.style.mid.height = window.innerWidth * 1124 / 690 + 'px'
+    this.style.mid.height = (window.innerWidth * 1124) / 690 + "px";
   },
   wacth: {
     parms() {
-      this.game_id = this.parms.game_id
+      this.game_id = this.parms.game_id;
     }
   },
   methods: {
     handleTouch(state) {
-      if (state === 'start') {
-        this.control.buttonState = 'start'
-      } else if (state === 'end') {
-        this.control.buttonState = 'end'
-        this.checkPhone()
+      if (state === "start") {
+        this.control.buttonState = "start";
+      } else if (state === "end") {
+        this.control.buttonState = "end";
+        this.checkPhone();
       }
     },
     checkPhone() {
       if (!/^1[345678]\d{9}$/.test(this.bindData.phone)) {
-        Toast('输入的手机号有误')
-        return
+        Toast("输入的手机号有误");
+        return;
       } else {
-        this.goNext()
+        this.goNext();
       }
     },
     handleFocus(state) {
-      this.control.focous = state
+      this.control.focous = state;
     },
     goNext() {
+      const baseUrl = process.env.EXE_API;
+
       let request_url =
-        'http://xingstation.cn/client/goodsxsd/?id=' +
+        `${baseUrl}/goodsxsd/?id=` +
         String(this.$route.query.id) +
-        '&mobile=' +
+        "&mobile=" +
         String(this.bindData.phone) +
-        '&api=json'
+        "&api=json";
       this.$http
         .get(request_url)
         .then(r => {
           let newurl =
             window.location.origin +
-            '/marketing/wc_card?id=' +
+            "/marketing/wc_card?id=" +
             this.$route.query.id +
-            '&game_id=' +
-            this.game_id
+            "&game_id=" +
+            this.game_id;
 
           // console.log('url: ', newurl)
-          window.location.href = newurl
+          window.location.href = newurl;
 
           // this.$router.push({
           //   name: 'WorldCupCard',
@@ -127,11 +129,11 @@ export default {
           // })
         })
         .catch(err => {
-          Toast(err)
-        })
+          Toast(err);
+        });
     }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>

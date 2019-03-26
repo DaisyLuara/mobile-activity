@@ -1,6 +1,8 @@
 import axios from 'axios'
+const baseUrl = process.env.EXE_API
+
 const getUserTrends = (payload) => {
-  const url = 'http://xingstation.cn/client/h5/userphoto/'
+  const url = `${baseUrl}/h5/userphoto/`
   return new Promise((resolve, reject) => {
     const requestParams = {
       params: {
@@ -16,7 +18,7 @@ const getUserTrends = (payload) => {
 }
 
 const deleteATrend = (payload) => {
-  const url = 'http://xingstation.cn/client/all/hddel/'
+  const url = `${baseUrl}/all/hddel/`
   return new Promise((resolve, reject) => {
     const requestParams = {
       params: {

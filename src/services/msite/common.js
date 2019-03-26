@@ -1,5 +1,7 @@
+const baseUrl = process.env.EXE_API
 const fetchMSiteBanners = (_this, payload) => {
-  const url = 'http://xingstation.cn/client/h5/banner/'
+
+  const url = `${baseUrl}/h5/banner/`
   const params = {
     params: {
       ...payload

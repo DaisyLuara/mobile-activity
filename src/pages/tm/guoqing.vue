@@ -119,18 +119,18 @@ import {
   getCouponId,
   getAdCoupon,
   checkCouponNumber
-} from 'services'
-import { normalPages } from '@/mixins/normalPages'
-const REQ_URL = 'http://120.27.144.62:1337/parse/classes/'
-const cdnUrl = process.env.CDN_URL
+} from "services";
+import { normalPages } from "@/mixins/normalPages";
+const REQ_URL = "http://120.27.144.62:1337/parse/classes/";
+const cdnUrl = process.env.CDN_URL;
 export default {
   mixins: [normalPages],
   data() {
     return {
-      base: cdnUrl + '/fe/image/drc/guoqing/',
+      base: cdnUrl + "/fe/image/drc/guoqing/",
       height: this.$innerHeight(),
       deUrl:
-        'http://wx.qlogo.cn/mmopen/Q3auHgzwzM4VoBYD1YEIq0E3LFM1XLKsd3sG5VXRAvCUqCVXIPTcI0TzqicRWfzB9Zv40GhTR83RhKAugpzOuaJFC11nxmcnnp6ZbOu04UFw/0',
+        "http://wx.qlogo.cn/mmopen/Q3auHgzwzM4VoBYD1YEIq0E3LFM1XLKsd3sG5VXRAvCUqCVXIPTcI0TzqicRWfzB9Zv40GhTR83RhKAugpzOuaJFC11nxmcnnp6ZbOu04UFw/0",
       userId: null,
       id: this.$route.query.id,
       coupon: {
@@ -150,36 +150,36 @@ export default {
         projectThree: false,
         projectFour: false,
         num: 0,
-        numArr: ['0', '一', '二', '三', '四']
+        numArr: ["0", "一", "二", "三", "四"]
       },
       //分享
       wxShareInfoValue: {
-        title: '中秋国庆星乐享，1000份好礼“刷脸”大派送！',
-        desc: '大融城-星视度嗨玩节，福利优惠拿不停。',
-        link: 'http://papi.xingstation.com/api/s/nZR' + window.location.search,
+        title: "中秋国庆星乐享，1000份好礼“刷脸”大派送！",
+        desc: "大融城-星视度嗨玩节，福利优惠拿不停。",
+        link: "http://papi.xingstation.com/api/s/nZR" + window.location.search,
         imgUrl:
-          'http://cdn.exe666.com/image/tm/guoqing/share_' +
+          "http://cdn.exe666.com/image/tm/guoqing/share_" +
           this.$route.query.utm_campaign.trim() +
-          '.png',
-        success: function () {
-          wechatShareTrack()
+          ".png",
+        success: function() {
+          wechatShareTrack();
         }
       }
-    }
+    };
   },
   watch: {
     belong() {
-      this.userGame()
+      this.userGame();
     }
   },
   mounted() {
     //微信授权
     if (isInWechat() === true) {
       if (
-        process.env.NODE_ENV === 'production' ||
-        process.env.NODE_ENV === 'testing'
+        process.env.NODE_ENV === "production" ||
+        process.env.NODE_ENV === "testing"
       ) {
-        this.handleWechatAuth()
+        this.handleWechatAuth();
       }
     }
     // if (this.gameData.num == 4) {
@@ -191,17 +191,17 @@ export default {
   },
   methods: {
     handleWechatAuth() {
-      if (Cookies.get('sign') === null) {
-        let base_url = encodeURIComponent(String(window.location.href))
+      if (Cookies.get("sign") === null) {
+        let base_url = encodeURIComponent(String(window.location.href));
         let redirct_url =
           process.env.WX_API +
-          '/wx/officialAccount/oauth?url=' +
+          "/wx/officialAccount/oauth?url=" +
           base_url +
-          '&scope=snsapi_base'
-        window.location.href = redirct_url
+          "&scope=snsapi_base";
+        window.location.href = redirct_url;
       } else {
-        this.userId = Cookies.get('user_id')
-        this.userGame()
+        this.userId = Cookies.get("user_id");
+        this.userGame();
       }
     },
     userGame() {
@@ -210,182 +210,186 @@ export default {
         image_url: this.deUrl,
         qiniu_id: this.id,
         score: 100
-      }
+      };
       userGame(args, this.userId)
         .then(res => {
-          console.log(res)
-          this.getGame()
+          console.log(res);
+          this.getGame();
         })
         .catch(e => {
-          console.log(e)
-        })
+          console.log(e);
+        });
     },
     getGame() {
       let args = {
         withCredentials: true
-      }
-      let userId = this.userId
+      };
+      let userId = this.userId;
       getGame(args, userId)
         .then(res => {
-          console.log(res)
-          this.projectStatus(res, userId)
+          console.log(res);
+          this.projectStatus(res, userId);
         })
         .catch(err => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     },
     projectStatus(list, userId) {
-      let data = list
-      console.log(list)
+      let data = list;
+      console.log(list);
       data.map(r => {
         // 节目1，棒约翰
-        if (r.belong === 'PaPaJohnsPizza') {
-          this.gameData.projectOne = true
-          this.gameData.num++
+        if (r.belong === "PaPaJohnsPizza") {
+          this.gameData.projectOne = true;
+          this.gameData.num++;
         }
         // 节目2，华为周年庆
-        if (r.belong === 'huawei') {
-          this.gameData.projectTwo = true
-          this.gameData.num++
+        if (r.belong === "huawei") {
+          this.gameData.projectTwo = true;
+          this.gameData.num++;
         }
         // 节目3,balabala,小小童星梦
-        if (r.belong === 'childDream') {
-          this.gameData.projectThree = true
-          this.gameData.num++
+        if (r.belong === "childDream") {
+          this.gameData.projectThree = true;
+          this.gameData.num++;
         }
         // 节目4，嘉庭老上海味道
-        if (r.belong === 'jiating') {
-          this.gameData.projectFour = true
-          this.gameData.num++
+        if (r.belong === "jiating") {
+          this.gameData.projectFour = true;
+          this.gameData.num++;
         }
-      })
+      });
       if (this.gameData.num == 4) {
-        this.isfinished = true
-        this.mask = true
-        this.initCanvas()
-        this.getCouponId()
+        this.isfinished = true;
+        this.mask = true;
+        this.initCanvas();
+        this.getCouponId();
       }
     },
     checkMobile(mobile) {
       if (!/^1[3456789]\d{9}$/.test(mobile)) {
-        alert('您输入的手机号有误')
-        return
+        alert("您输入的手机号有误");
+        return;
       } else {
-        this.handleTrack(mobile)
-        this.getCoupon()
+        this.handleTrack(mobile);
+        this.getCoupon();
       }
     },
     handleTrack(mobile) {
+      const baseUrl = process.env.EXE_API;
+
       let url =
-        'http://xingstation.cn/client/goodsxsd/?id=' +
+        `${baseUrl}/goodsxsd/?id=` +
         String(this.$route.query.id) +
-        '&mobile=' +
+        "&mobile=" +
         String(mobile) +
-        '&api=json'
-      this.$http.get(url).then(r => { })
+        "&api=json";
+      this.$http.get(url).then(r => {});
     },
     initCanvas() {
-      let that = this
-      let img = new Image()
-      let canvas = document.getElementById('canvasDoodle')
-      let ctx = canvas.getContext('2d')
-      img.setAttribute('crossOrigin', 'Anonymous')
-      canvas.height = 90
-      canvas.width = 200
+      let that = this;
+      let img = new Image();
+      let canvas = document.getElementById("canvasDoodle");
+      let ctx = canvas.getContext("2d");
+      img.setAttribute("crossOrigin", "Anonymous");
+      canvas.height = 90;
+      canvas.width = 200;
       //获取当前画布的宽高
-      let width = canvas.width
-      let height = canvas.height
-      img.src = that.base + 'award2.png'
+      let width = canvas.width;
+      let height = canvas.height;
+      img.src = that.base + "award2.png";
       img.onload = () => {
-        ctx.beginPath()
-        ctx.drawImage(img, 0, 0, width, height)
-        ctx.closePath()
-        if (document.querySelector('.canvas-ele') !== null) {
-          this.c = document.querySelector('.canvas-ele').getBoundingClientRect()
-          console.log(this.c)
+        ctx.beginPath();
+        ctx.drawImage(img, 0, 0, width, height);
+        ctx.closePath();
+        if (document.querySelector(".canvas-ele") !== null) {
+          this.c = document
+            .querySelector(".canvas-ele")
+            .getBoundingClientRect();
+          console.log(this.c);
         }
-      }
+      };
     },
     handleTouchMove(event) {
       // console.dir(event)
-      let canvas = document.getElementById('canvasDoodle')
-      let ctx = canvas.getContext('2d')
+      let canvas = document.getElementById("canvasDoodle");
+      let ctx = canvas.getContext("2d");
       /* 根据手指移动画线，使之变透明*/
       if (this.c.top > window.innerHeight) {
-        let x = event.touches[0].pageX - this.c.left
-        let y = event.touches[0].pageY - this.c.top
-        ctx.beginPath()
-        ctx.globalCompositeOperation = 'destination-out'
-        ctx.arc(x, y, 20, 0, Math.PI * 2)
-        ctx.fill()
-        ctx.closePath()
+        let x = event.touches[0].pageX - this.c.left;
+        let y = event.touches[0].pageY - this.c.top;
+        ctx.beginPath();
+        ctx.globalCompositeOperation = "destination-out";
+        ctx.arc(x, y, 20, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.closePath();
       } else {
-        let x = event.touches[0].clientX - this.c.left
-        let y = event.touches[0].clientY - this.c.top
-        ctx.beginPath()
-        ctx.globalCompositeOperation = 'destination-out'
-        ctx.arc(x, y, 20, 0, Math.PI * 2)
-        ctx.fill()
-        ctx.closePath()
+        let x = event.touches[0].clientX - this.c.left;
+        let y = event.touches[0].clientY - this.c.top;
+        ctx.beginPath();
+        ctx.globalCompositeOperation = "destination-out";
+        ctx.arc(x, y, 20, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.closePath();
       }
     },
     handleTouchStart(event) {
       // console.dir(event)
-      let canvas = document.getElementById('canvasDoodle')
-      let ctx = canvas.getContext('2d')
-      let x = event.touches[0].clientX - this.c.left
-      let y = event.touches[0].clientY - this.c.top
-      ctx.beginPath()
-      console.log(x)
-      console.log(y)
-      ctx.globalCompositeOperation = 'destination-out'
-      ctx.arc(x, y, 20, 0, Math.PI * 2)
-      ctx.fill()
-      ctx.closePath()
+      let canvas = document.getElementById("canvasDoodle");
+      let ctx = canvas.getContext("2d");
+      let x = event.touches[0].clientX - this.c.left;
+      let y = event.touches[0].clientY - this.c.top;
+      ctx.beginPath();
+      console.log(x);
+      console.log(y);
+      ctx.globalCompositeOperation = "destination-out";
+      ctx.arc(x, y, 20, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.closePath();
     },
     handleTouchEnd(event) {
-      let canvas = document.getElementById('canvasDoodle')
-      let ctx = canvas.getContext('2d')
+      let canvas = document.getElementById("canvasDoodle");
+      let ctx = canvas.getContext("2d");
       /* 获取imageData对象*/
-      let imageDate = ctx.getImageData(0, 0, canvas.width, canvas.height)
+      let imageDate = ctx.getImageData(0, 0, canvas.width, canvas.height);
       /* */
-      let allPX = imageDate.width * imageDate.height
-      let iNum = 0 //记录刮开的像素点个数
+      let allPX = imageDate.width * imageDate.height;
+      let iNum = 0; //记录刮开的像素点个数
       for (let i = 0; i < allPX; i++) {
         if (imageDate.data[i * 4 + 3] == 0) {
-          iNum++
+          iNum++;
         }
       }
       if (iNum >= (allPX * 1) / 4) {
-        this.award = false
+        this.award = false;
       }
     },
     getCoupon() {
       let args = {
         mobile: this.mobile
-      }
+      };
       getAdCoupon(args, this.coupon.couponId)
         .then(res => {
-          console.log(res)
+          console.log(res);
         })
         .catch(err => {
-          alert(err.response.data.message)
-        })
+          alert(err.response.data.message);
+        });
     },
     getCouponId() {
       getCouponId(this.coupon.policyId)
         .then(res => {
-          console.log(res)
-          this.coupon.couponId = res.id
-          this.coupon.url = res.image_url
+          console.log(res);
+          this.coupon.couponId = res.id;
+          this.coupon.url = res.image_url;
         })
         .catch(err => {
-          console.log(err)
+          console.log(err);
           // alert(err.response.data.message)
-        })
+        });
     }
   }
-}
+};
 </script>
 <style lang="less" scoped>
 /*声明 WebFont*/
