@@ -20,7 +20,7 @@
     >
       <div class="red-bg">
         <div
-          v-for="(item,index)in container"
+          v-for="(item,index) in container"
           :key="item.id"
           class="red"
           @click="getTotalPhoto(item,index)"
@@ -117,7 +117,7 @@ export default {
       nick_name: null,
       num_total: 0,
       pn: 'SZCenterSpring,SZCenterWarm,SZCenterHua,SZCenterKai',
-      z: null,
+      z: '1808ce6f291cc2aa1c33e80d7bbd91128359w5',//null,
       container: [//春暖花开
         {
           name: 'SZCenterSpring',
@@ -185,7 +185,7 @@ export default {
   mounted() {
     this.doLoading()
     //h0bf835c97fba77794e81ab708fd7fad1c7smp
-    this.getProjectData(this.pn, '1808ce6f291cc2aa1c33e80d7bbd91128359w5')//1808ce6f291cc2aa1c33e80d7bbd91128359w5
+    this.getProjectData(this.pn, this.z)//1808ce6f291cc2aa1c33e80d7bbd91128359w5
   },
   methods: {
     doLoading() {
@@ -209,7 +209,7 @@ export default {
       })
     },
     getProjectNumber(data) {
-      data.map((item) => {
+      data.map(item => {
         if (item.versionname == 'SZCenterSpring') {
           this.container[0].total = item.allnum
         }
@@ -227,21 +227,10 @@ export default {
       })
     },
     getProjectImages(index) {
-      // if (data.SZCenterSpring) {
-      //   this.container[0].imgList = data.SZCenterSpring
-      // }
-      // if (data.SZCenterWarm) {
-      //   this.container[1].imgList = data.SZCenterWarm
-      // }
-      // if (data.SZCenterHua) {
-      //   this.container[2].imgList = data.SZCenterHua
-      // }
-      // if (data.SZCenterKai) {
-      //   this.container[3].imgList = data.SZCenterKai
-      // }
-      getProjectImages().then(res => {
+      let pn = this.container[index].name
+      getProjectImages(pn,this.z).then(res => {
         console.log(res)
-        this.container[index].imgList
+        this.container[index].imgList=res.results.data
         this.page2 = false
         this.page3 = true
 
@@ -262,10 +251,7 @@ export default {
         } else {
           this.sOption = this.sOption2
         }
-        // this.photoList =  item.imgList
         this.getProjectImages(index)
-
-
       }
     },
     //获取微信数据

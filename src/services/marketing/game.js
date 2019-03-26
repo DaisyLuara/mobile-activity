@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { apiToken, Cookies } from 'services'
-const EXE_LOOK = 'http://exelook.com'
+const EXE_LOOK = 'http://xingstation.cn' //'http://exelook.com'
 const GAME_URL = process.env.SAAS_API + '/user/'
 const GAME_LIST_URL = process.env.SAAS_API + '/user/'
 const REGISTER_URL = process.env.AD_API + '/api/temp/customer'
@@ -12,6 +12,7 @@ const APPLICATION_COMMON = EXE_LOOK + '/client/all/actpi/?api=json'
 const GAME_DATA_LIST = EXE_LOOK + '/client/h5/userprovn/?api=json'
 const PROJECT_IMAGE_LIST =
   EXE_LOOK + '/client/h5/userphotovn/?cp=1&size=20&api=json'
+const POST_URL = EXE_LOOK + ':8010/pushdiv/?'
 const Accept = 'application/vnd.saas.v2+json'
 const REQ_HEADER = {
   headers: {
@@ -208,6 +209,22 @@ const getProjectImages = (pn, z) => {
       })
   })
 }
+
+//向大屏推送数据
+const handlePost = (url) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(POST_URL + url)
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+
+
 export {
   createGame,
   getGame,
@@ -221,5 +238,6 @@ export {
   toApplication,
   getProjectData,
   getGamesNumberData,
-  getProjectImages
+  getProjectImages,
+  handlePost
 }
