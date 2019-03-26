@@ -91,7 +91,7 @@
         >
         <!-- 计时器 -->
         <div class="time">
-          {{diff_time}}
+          {{ diff_time }}
         </div>
         <!-- 券 -->
         <div class="coupon">
@@ -118,7 +118,7 @@
               class="qrImg"
             >
           </div>
-          <p class="qrcode">{{qrcode}}</p>
+          <p class="qrcode">{{ qrcode }}</p>
         </div>
       </div>
     </div>

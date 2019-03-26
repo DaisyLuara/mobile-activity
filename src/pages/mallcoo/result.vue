@@ -28,7 +28,8 @@
   </div>
 </template>
 <script>
-const REQ_URL = "http://120.27.144.62:1337/parse/classes/";
+const parseUrl = process.env.PARSE_SERVER;
+const REQ_URL = `${parseUrl}/parse/classes/`;
 import {
   $wechat,
   getInfoById,

@@ -3,15 +3,15 @@
     <!-- 贺卡部分 -->
     <transition name="fade">
       <div
-        class="greetings-card"
         v-show="showCard"
+        class="greetings-card"
       >
         <img
-          :src="imageHost + 'greeting_card.png'"
-          class="card-img"
-          :class="{ hide: !showCard }"
-          @click="hideCard"
           ref="greetingsCard"
+          :src="imageHost + 'greeting_card.png'"
+          :class="{ hide: !showCard }"
+          class="card-img"
+          @click="hideCard"
         >
       </div>
     </transition>
@@ -20,27 +20,31 @@
     <transition name="fade">
       <CakeTower
         v-show="!showCard"
-        :list="greetingsList"
-        @emitLoadMore="loadMore"
         ref="cakeTower"
-        :isAllLoaded="isAllLoaded"
-        :pageSize="pageSize"
+        :list="greetingsList"
+        :is-all-loaded="isAllLoaded"
+        :page-size="pageSize"
+        @emitLoadMore="loadMore"
       />
     </transition>
-    <img :src="imageHost + 'header_mask.png'" class="header-mask">
+    <img 
+      :src="imageHost + 'header_mask.png'" 
+      class="header-mask">
     <!-- 左上角寿星信息 -->
     <div class="recipient">
       <img
+        v-if="userInfo.idor"
         :src="userInfo.face"
         class="recipient-avatar"
-        v-if="userInfo.idor"
       >
-      <img :src="imageHost + 'avatar_frame.png'" class="avatar-frame">
+      <img 
+        :src="imageHost + 'avatar_frame.png'" 
+        class="avatar-frame">
       <div class="recipient-name">寿星{{ userInfo.username }}</div>
       <img
-        class="recipient-gender"
-        :src="imageHost + 'gender_male.png'"
         v-if="userInfo.gender"
+        :src="imageHost + 'gender_male.png'"
+        class="recipient-gender"
       >
     </div>
   </div>

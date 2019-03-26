@@ -53,10 +53,10 @@ import { onlyWechatShare } from "@/mixins/onlyWechatShare";
 import DreamCanvas from '@/modules/dreamCanvas'
 const cdnUrl = process.env.CDN_URL
 export default {
-  mixins: [onlyWechatShare],
   components: {
     DreamCanvas
   },
+  mixins: [onlyWechatShare],
   data() {
     return {
       baseUrl: cdnUrl + '/fe/marketing/img/dreamland/',

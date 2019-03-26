@@ -5,16 +5,16 @@
   >
     <div class="picture">
       <img
-        :src="base + 'ka.png'  + this.$qiniuCompress()"
+        :src="base + 'ka.png' + this.$qiniuCompress()"
         class="frame"
       >
       <img
-        :src="photo  + this.$qiniuCompress()"
+        :src="photo + this.$qiniuCompress()"
         class="photo"
       >
     </div>
     <img
-      :src="base + 'save.png'  + this.$qiniuCompress()"
+      :src="base + 'save.png' + this.$qiniuCompress()"
       class="save"
     >
   </div>

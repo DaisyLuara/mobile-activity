@@ -168,18 +168,19 @@ import {
   getInfoById,
   getWxUserInfo,
   wechatShareTrack
-} from 'services'
-import { parseService } from 'services'
-const wx = require('weixin-js-sdk')
-const cdnUrl = process.env.CDN_URL
-const REQ_URL = 'http://120.27.144.62:1337/parse/classes/'
+} from "services";
+import { parseService } from "services";
+const wx = require("weixin-js-sdk");
+const cdnUrl = process.env.CDN_URL;
+const parseUrl = process.env.PARSE_SERVER;
+const REQ_URL = `${parseUrl}/parse/classes/`;
 export default {
   data() {
     return {
-      baseUrl: cdnUrl + '/fe/marketing/img/autumnWord/',
+      baseUrl: cdnUrl + "/fe/marketing/img/autumnWord/",
       style: {
         root: {
-          height: this.$innerHeight() + 'px'
+          height: this.$innerHeight() + "px"
         }
       },
       button: {
@@ -212,124 +213,124 @@ export default {
         user_id: null
       },
       imgList: [
-        'bg.jpeg',
-        'tit1.png',
-        'tit2.png',
-        'tit3.png',
-        'arrow.png',
-        'button_1.png',
-        'button_2.png',
-        'button_4.png',
-        'button5.png',
-        'button6.png',
-        'leaf.png',
-        'leaf2.png',
-        'leaf3.png',
-        'leaf4.png',
-        'leaf5.png',
-        'leaf6.png',
-        'prompt_1.png',
-        'prompt_2.png',
-        'prompt_3.png',
-        'section_1.png',
-        'section_2.png',
-        'section_3.png',
-        'title.png',
-        'wifi.gif',
-        'player.png'
+        "bg.jpeg",
+        "tit1.png",
+        "tit2.png",
+        "tit3.png",
+        "arrow.png",
+        "button_1.png",
+        "button_2.png",
+        "button_4.png",
+        "button5.png",
+        "button6.png",
+        "leaf.png",
+        "leaf2.png",
+        "leaf3.png",
+        "leaf4.png",
+        "leaf5.png",
+        "leaf6.png",
+        "prompt_1.png",
+        "prompt_2.png",
+        "prompt_3.png",
+        "section_1.png",
+        "section_2.png",
+        "section_3.png",
+        "title.png",
+        "wifi.gif",
+        "player.png"
       ],
       wxShareInfoValue: {
-        title: '金秋十月，快乐出行 ',
-        desc: '开启你的金秋之旅！',
-        link: 'http://papi.xingstation.com/api/s/Elk' + window.location.search,
-        imgUrl: cdnUrl + '/fe/marketing/img/autumnWord/share.png',
+        title: "金秋十月，快乐出行 ",
+        desc: "开启你的金秋之旅！",
+        link: "http://papi.xingstation.com/api/s/Elk" + window.location.search,
+        imgUrl: cdnUrl + "/fe/marketing/img/autumnWord/share.png",
         success: () => {
-          wechatShareTrack()
+          wechatShareTrack();
         }
       }
-    }
+    };
   },
   created() {},
   mounted() {
     //微信授权
     if (isInWechat() === true) {
       if (
-        process.env.NODE_ENV === 'production' ||
-        process.env.NODE_ENV === 'testing'
+        process.env.NODE_ENV === "production" ||
+        process.env.NODE_ENV === "testing"
       ) {
-        this.handleWechatAuth()
+        this.handleWechatAuth();
       }
     }
     this.entry(this.imgList, r => {
-      console.dir(r)
-      this.getInfoById()
+      console.dir(r);
+      this.getInfoById();
       // do next
-    })
+    });
   },
   methods: {
     //图片预加载
     loadImgs(imgList) {
-      let preList = []
-      let thisRef = this
+      let preList = [];
+      let thisRef = this;
       for (let i = 0; i < imgList.length; i++) {
         let pre = new Promise((resolve, reject) => {
-          let img = new Image()
+          let img = new Image();
           img.onload = function() {
-            resolve(img)
-          }
-          img.src = thisRef.baseUrl + imgList[i]
-        })
-        preList.push(pre)
+            resolve(img);
+          };
+          img.src = thisRef.baseUrl + imgList[i];
+        });
+        preList.push(pre);
       }
       return Promise.all(preList).then(r => {
-        return Promise.resolve(r)
-      })
+        return Promise.resolve(r);
+      });
     },
     async entry(imgList, cb) {
       try {
-        let rs = await this.loadImgs(imgList)
-        cb(rs)
+        let rs = await this.loadImgs(imgList);
+        cb(rs);
       } catch (err) {
-        console.log(err)
-        cb([])
+        console.log(err);
+        cb([]);
       }
     },
     //微信静默授权
     handleWechatAuth() {
-      if (Cookies.get('sign') === null) {
-        let base_url = encodeURIComponent(String(window.location.href))
+      if (Cookies.get("sign") === null) {
+        let base_url = encodeURIComponent(String(window.location.href));
         let redirct_url =
           process.env.WX_API +
-          '/wx/officialAccount/oauth?url=' +
+          "/wx/officialAccount/oauth?url=" +
           base_url +
-          '&scope=snsapi_base'
-        window.location.href = redirct_url
+          "&scope=snsapi_base";
+        window.location.href = redirct_url;
       } else {
-        this.query(false)
-        this.userId = Cookies.get('user_id')
-        this.params.user_id = this.userId
+        this.query(false);
+        this.userId = Cookies.get("user_id");
+        this.params.user_id = this.userId;
       }
     },
     getInfoById() {
-      let id = this.$route.query.id
+      let id = this.$route.query.id;
       getInfoById(id)
         .then(res => {
-          this.photo = res.image
+          this.photo = res.image;
         })
         .catch(err => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     },
     handleWxReady(serverId) {
-      let reference = this
+      let reference = this;
       if (isInWechat() === true) {
         if (
-          process.env.NODE_ENV === 'production' ||
-          process.env.NODE_ENV === 'testing'
+          process.env.NODE_ENV === "production" ||
+          process.env.NODE_ENV === "testing"
         ) {
-          let requestUrl = process.env.WX_API + '/wx/officialAccount/sign'
+          let requestUrl = process.env.WX_API + "/wx/officialAccount/sign";
           this.$http.get(requestUrl).then(response => {
-            let resData = response.data.data
+            let resData = response.data.data;
             let wxConfig = {
               debug: false,
               appId: resData.appId,
@@ -337,251 +338,251 @@ export default {
               nonceStr: resData.nonceStr,
               signature: resData.signature,
               jsApiList: [
-                'onMenuShareAppMessage',
-                'onMenuShareTimeline',
-                'onMenuShareQQ',
-                'onMenuShareWeibo',
-                'onMenuShareQZone',
-                'startRecord',
-                'stopRecord',
-                'onVoiceRecordEnd',
-                'playVoice',
-                'pauseVoice',
-                'stopVoice',
-                'onVoicePlayEnd',
-                'uploadVoice',
-                'downloadVoice'
+                "onMenuShareAppMessage",
+                "onMenuShareTimeline",
+                "onMenuShareQQ",
+                "onMenuShareWeibo",
+                "onMenuShareQZone",
+                "startRecord",
+                "stopRecord",
+                "onVoiceRecordEnd",
+                "playVoice",
+                "pauseVoice",
+                "stopVoice",
+                "onVoicePlayEnd",
+                "uploadVoice",
+                "downloadVoice"
               ]
-            }
-            wx.config(wxConfig)
-          })
+            };
+            wx.config(wxConfig);
+          });
           wx.ready(() => {
-            wx.onMenuShareAppMessage(reference.wxShareInfoValue)
-            wx.onMenuShareTimeline(reference.wxShareInfoValue)
-            wx.onMenuShareQQ(reference.wxShareInfoValue)
-            wx.onMenuShareWeibo(reference.wxShareInfoValue)
-            wx.onMenuShareQZone(reference.wxShareInfoValue)
+            wx.onMenuShareAppMessage(reference.wxShareInfoValue);
+            wx.onMenuShareTimeline(reference.wxShareInfoValue);
+            wx.onMenuShareQQ(reference.wxShareInfoValue);
+            wx.onMenuShareWeibo(reference.wxShareInfoValue);
+            wx.onMenuShareQZone(reference.wxShareInfoValue);
             if (serverId != null && serverId != undefined) {
-              reference.button.buttonOne = false
-              reference.button.buttonThree = true
+              reference.button.buttonOne = false;
+              reference.button.buttonThree = true;
               wx.downloadVoice({
                 serverId: serverId, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
                 isShowProgressTips: 1, // 默认为1，显示进度提示
                 success: function(res) {
-                  console.log('下载语音成功')
-                  reference.localId = res.localId
-                  reference.loading = false
-                  console.log(res)
+                  console.log("下载语音成功");
+                  reference.localId = res.localId;
+                  reference.loading = false;
+                  console.log(res);
                 },
                 fail: function(err) {
-                  console.log('下载语音失败')
+                  console.log("下载语音失败");
                 }
-              })
+              });
             }
             wx.onVoicePlayEnd({
               success: function(res) {
-                reference.localId = res.localId // 返回音频的本地ID
-                reference.player.one = true
-                reference.player.two = false
-                reference.player.three = false
-                console.log('语音播放完毕')
+                reference.localId = res.localId; // 返回音频的本地ID
+                reference.player.one = true;
+                reference.player.two = false;
+                reference.player.three = false;
+                console.log("语音播放完毕");
               }
-            })
-          })
+            });
+          });
         }
       }
     },
     // 校验是否第一次认证
     queryIsAuthorization() {
-      let reference = this
+      let reference = this;
       let query = {
-        user_id: this.userId + ''
-      }
+        user_id: this.userId + ""
+      };
       parseService
-        .get(REQ_URL + 'autumnOctober?where=' + JSON.stringify(query))
+        .get(REQ_URL + "autumnOctober?where=" + JSON.stringify(query))
         .then(data => {
-          console.log(data.results)
+          console.log(data.results);
           if (data.results.length === 0) {
-            reference.saveIsAuthorization()
-            wx.stopRecord()
-            reference.button.buttonOne = true
-            reference.button.buttonTwo = false
+            reference.saveIsAuthorization();
+            wx.stopRecord();
+            reference.button.buttonOne = true;
+            reference.button.buttonTwo = false;
           }
-          console.log(data)
+          console.log(data);
         })
         .catch(err => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     },
     // 保存第一次认证
     saveIsAuthorization() {
-      let reference = this
+      let reference = this;
       parseService
-        .post(REQ_URL + 'autumnOctober', this.params)
+        .post(REQ_URL + "autumnOctober", this.params)
         .then(res => {
-          console.log('首次认证保存成功')
+          console.log("首次认证保存成功");
         })
-        .catch(err => {})
+        .catch(err => {});
     },
     //开始录音
     startRecord(e) {
-      let reference = this
-      reference.button.buttonOne = false
-      reference.button.buttonTwo = true
-      event.preventDefault()
-      reference.startTime = Math.round(new Date())
+      let reference = this;
+      reference.button.buttonOne = false;
+      reference.button.buttonTwo = true;
+      event.preventDefault();
+      reference.startTime = Math.round(new Date());
       // 延时后录音，避免误操作
       reference.recordTimer = setTimeout(function() {
         wx.startRecord({
           success: function() {
-            reference.queryIsAuthorization()
-            console.log('录音成功')
+            reference.queryIsAuthorization();
+            console.log("录音成功");
           },
           cancel: function() {
-            reference.button.buttonOne = true
-            reference.button.buttonTwo = false
-            console.log('用户拒绝授权录音')
+            reference.button.buttonOne = true;
+            reference.button.buttonTwo = false;
+            console.log("用户拒绝授权录音");
           }
-        })
-      }, 300)
+        });
+      }, 300);
     },
     //结束录音
     stopRecord(event) {
-      let reference = this
-      event.preventDefault()
+      let reference = this;
+      event.preventDefault();
       // 间隔太短 小于一秒
       if (Math.round(new Date()) - reference.startTime < 1000) {
         // alert('录音时间过短')
-        this.tit.titTwo = true
-        reference.startTime = 0
+        this.tit.titTwo = true;
+        reference.startTime = 0;
         // 不录音
-        clearTimeout(reference.recordTimer)
-        reference.button.buttonOne = true
-        reference.button.buttonTwo = false
+        clearTimeout(reference.recordTimer);
+        reference.button.buttonOne = true;
+        reference.button.buttonTwo = false;
       } else {
         // 松手结束录音
         wx.stopRecord({
           success: function(res) {
-            reference.localId = res.localId
-            reference.params.localId = res.localId
-            console.log('localId:', reference.localId)
-            console.log('停止录音成功')
+            reference.localId = res.localId;
+            reference.params.localId = res.localId;
+            console.log("localId:", reference.localId);
+            console.log("停止录音成功");
             // 上传到服务器
-            reference.uploadRecord()
+            reference.uploadRecord();
           },
           fail: function(res) {
-            reference.button.buttonOne = true
-            reference.button.buttonTwo = false
-            console.log(JSON.stringify(res))
+            reference.button.buttonOne = true;
+            reference.button.buttonTwo = false;
+            console.log(JSON.stringify(res));
           }
-        })
+        });
       }
     },
     // 上传录音
     uploadRecord() {
-      let reference = this
-      let startTime = Math.round(new Date())
+      let reference = this;
+      let startTime = Math.round(new Date());
       //过期时间3天
-      let timeDifference = 3 * (24 * 60 * 60) * 1000
+      let timeDifference = 3 * (24 * 60 * 60) * 1000;
       wx.uploadVoice({
         localId: reference.localId, // 需要上传的音频的本地ID，由stopRecord接口获得
         isShowProgressTips: 1, // 默认为1，显示进度提示
         success: function(res) {
           //把录音在微信服务器上的id（res.serverId）发送到自己的服务器供下载。
-          let serverId = res.serverId // 返回音频的服务器端ID
-          reference.reloadHandleWxReady(serverId)
-          reference.params.serverId = serverId + ''
-          reference.params.createTime = new Date(startTime + timeDifference)
-          console.log('微信上传录音成功')
-          console.log('serverId:', serverId)
-          reference.save()
+          let serverId = res.serverId; // 返回音频的服务器端ID
+          reference.reloadHandleWxReady(serverId);
+          reference.params.serverId = serverId + "";
+          reference.params.createTime = new Date(startTime + timeDifference);
+          console.log("微信上传录音成功");
+          console.log("serverId:", serverId);
+          reference.save();
         },
         fail: function(res) {
-          reference.button.buttonOne = true
-          reference.button.buttonTwo = false
-          console.log('上传到微信服务器异常', res)
+          reference.button.buttonOne = true;
+          reference.button.buttonTwo = false;
+          console.log("上传到微信服务器异常", res);
         }
-      })
+      });
     },
     //重加载微信
     reloadHandleWxReady(serverId) {
       //重新加载微信分享
-      this.handleWxReady(serverId)
+      this.handleWxReady(serverId);
     },
     // 播放语音
     playVoice() {
-      let reference = this
+      let reference = this;
       wx.playVoice({
         localId: reference.localId,
         success: function(res) {
-          console.log('播放成功')
+          console.log("播放成功");
         },
         fail: function(r) {
-          console.log(dir)
-          console.log('播放异常')
-          console.log(reference.localId)
+          console.log(dir);
+          console.log("播放异常");
+          console.log(reference.localId);
         }
-      })
+      });
     },
     //暂停播放语音
     pauseVoice() {
-      let reference = this
+      let reference = this;
       wx.pauseVoice({
         localId: reference.localId, // 需要暂停的音频的本地ID，由stopRecord接口获得
         success: function(res) {
-          reference.player.one = false
-          reference.player.two = false
-          reference.player.three = true
-          console.log('暂停播放成功')
+          reference.player.one = false;
+          reference.player.two = false;
+          reference.player.three = true;
+          console.log("暂停播放成功");
         },
         fail: function() {
-          console.log('播放暂停异常')
+          console.log("播放暂停异常");
         }
-      })
+      });
     },
     //语音播放完毕
     voicePlayEnd() {
-      let reference = this
+      let reference = this;
       wx.onVoicePlayEnd({
         success: function(res) {
-          reference.localId = res.localId // 返回音频的本地ID
-          reference.player.one = true
-          reference.player.two = false
-          reference.player.three = false
-          console.log('语音播放完毕')
+          reference.localId = res.localId; // 返回音频的本地ID
+          reference.player.one = true;
+          reference.player.two = false;
+          reference.player.three = false;
+          console.log("语音播放完毕");
         }
-      })
+      });
     },
     // 保存到parseService
     save() {
-      let reference = this
-      reference.params.ID = reference.$route.query.id + ''
+      let reference = this;
+      reference.params.ID = reference.$route.query.id + "";
       parseService
-        .post(REQ_URL + 'autumnOctober', this.params)
+        .post(REQ_URL + "autumnOctober", this.params)
         .then(res => {
-          reference.button.buttonTwo = false
-          reference.button.buttonThree = true
+          reference.button.buttonTwo = false;
+          reference.button.buttonThree = true;
           // alert('保存录音成功')
-          this.tit.titThree = true
+          this.tit.titThree = true;
         })
         .catch(err => {
-          reference.button.buttonOne = true
-          reference.button.buttonTwo = false
-          console.log('保存录音失败')
-        })
+          reference.button.buttonOne = true;
+          reference.button.buttonTwo = false;
+          console.log("保存录音失败");
+        });
     },
     // 查询parseService
     query(isPlay) {
-      let reference = this
+      let reference = this;
       let query = {
-        ID: this.$route.query.id + ''
-      }
+        ID: this.$route.query.id + ""
+      };
       parseService
-        .get(REQ_URL + 'autumnOctober?where=' + JSON.stringify(query))
+        .get(REQ_URL + "autumnOctober?where=" + JSON.stringify(query))
         .then(data => {
           if (data.results.length > 0) {
-            this.button.buttonOne = false
-            this.button.buttonThree = true
+            this.button.buttonOne = false;
+            this.button.buttonThree = true;
             //满足过期条件
             if (
               Math.round(new Date(data.results[0].createTime)) -
@@ -590,53 +591,53 @@ export default {
             ) {
               if (reference.clickNumber > 0 && isPlay) {
                 // alert('语音过期')
-                this.tit.titOne = true
+                this.tit.titOne = true;
               }
-              return false
+              return false;
             }
-            reference.clickNumber++
+            reference.clickNumber++;
             //获取
             reference.localId =
               reference.localId === null
                 ? data.results[0].localId
-                : reference.localId
+                : reference.localId;
             if (!isPlay) {
-              reference.reloadHandleWxReady(data.results[0].serverId)
+              reference.reloadHandleWxReady(data.results[0].serverId);
             }
             if (isPlay) {
-              reference.playVoice()
+              reference.playVoice();
             }
           } else {
             let Timer = setTimeout(function() {
-              reference.loading = false
-            }, 2000)
-            reference.handleWxReady(null)
+              reference.loading = false;
+            }, 2000);
+            reference.handleWxReady(null);
           }
-          console.log(data)
+          console.log(data);
         })
         .catch(err => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     },
     playRecord() {
       //控制播放部分
-      this.player.one = false
-      this.player.two = true
-      this.player.three = false
-      this.query(true)
+      this.player.one = false;
+      this.player.two = true;
+      this.player.three = false;
+      this.query(true);
     },
     //取消提示
     cancles() {
-      this.tit.titOne = false
-      this.tit.titTwo = false
-      this.tit.titThree = false
+      this.tit.titOne = false;
+      this.tit.titTwo = false;
+      this.tit.titThree = false;
     }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
-@imageHost: 'http://cdn.exe666.com/fe/marketing/img/autumnWord/';
+@imageHost: "http://cdn.exe666.com/fe/marketing/img/autumnWord/";
 .root {
   width: 100%;
   position: relative;
