@@ -1,7 +1,8 @@
 import axios from 'axios'
+const baseUrl = process.env.EXE_API
 
 const fetchTopics = payload => {
-  const url = 'http://exelook.com/client/h5/avoptions'
+  const url = `${baseUrl}/h5/avoptions`
   const params = {
     params: {
       ...payload
@@ -18,7 +19,7 @@ const fetchTopics = payload => {
 }
 
 const optionsVote = payload => {
-  const url = 'http://exelook.com/client/h5/avoptionstate/'
+  const url = `${baseUrl}/h5/avoptionstate/`
   const params = {
     params: {
       ...payload

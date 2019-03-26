@@ -10,5 +10,6 @@ module.exports = merge(prodEnv, {
   SAAS_API: "'http://sapi.jingfree.top/api'",
   WX_API: "'http://sapi.jingfree.top/api'",
   IMAGE_SERVER: "'http://h5-images.oss-cn-shanghai.aliyuncs.com'",
-  CDN_URL: "'http://cdn.exe666.com'"
+  CDN_URL: "'http://cdn.exe666.com'",
+  EXE_API: "'http://exelook.com:8010'"
 })

@@ -42,7 +42,7 @@ const NaviToWechatAuth = customUrl => {
 
 const getUserInfoByCodeAndState = (code, state) => {
   // 0151.H5通行证-我的信息
-  const request_url = 'http://exelook.com/client/h5/wxuserinfo/'
+  const request_url = `${process.env.EXE_API}/h5/wxuserinfo/`
   const request_params = {
     params: {
       code: code,

@@ -3,12 +3,13 @@ import { apiToken, Cookies } from 'services'
 const GAME_URL = process.env.SAAS_API + '/user/'
 const GAME_LIST_URL = process.env.SAAS_API + '/user/'
 const REGISTER_URL = process.env.AD_API + '/api/temp/customer'
-const NEW_LIST_NOCHECK = 'http://exelook.com/client/h5/awardlist/?api=json'
-const NEW_LIST_NEEDCHECK = 'http://exelook.com/client/all/awardpass/?api=json'
+const baseUrl = process.env.EXE_API
+const NEW_LIST_NOCHECK = `${baseUrl}/h5/awardlist/?api=json`
+const NEW_LIST_NEEDCHECK = `${baseUrl}/all/awardpass/?api=json`
 const USER_HONOUR =
-  'http://exelook.com/client/h5/userhonour/?cp=1&size=10&api=json'
-const GAME_LIST = 'http://exelook.com/client/all/actresult/?api=json'
-const APPLICATION_COMMON = 'http://exelook.com/client/all/actpi/?api=json'
+  `${baseUrl}/h5/userhonour/?cp=1&size=10&api=json`
+const GAME_LIST = `${baseUrl}/all/actresult/?api=json`
+const APPLICATION_COMMON = `${baseUrl}/all/actpi/?api=json`
 const Accept = 'application/vnd.saas.v2+json'
 const REQ_HEADER = {
   headers: {
