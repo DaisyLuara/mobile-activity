@@ -167,7 +167,7 @@ export default {
       let oid = this.$route.query.utm_source
       const baseUrl = process.env.EXE_API;
       let url =
-        `${baseUrl}:8010/pushdiv/?oid=` + oid + '&belong=' + this.utmCampaign + '&url=&name=&image=&api=json'
+        `${baseUrl}/pushdiv/?oid=` + oid + '&belong=' + this.utmCampaign + '&url=&name=&image=&api=json'
       this.$http.post(url)
         .then(res => {})
         .catch(err => {})
