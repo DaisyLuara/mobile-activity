@@ -119,7 +119,8 @@ import {
   getAdCoupon
 } from "services";
 import { normalPages } from "@/mixins/normalPages";
-const REQ_URL = "http://120.27.144.62:1337/parse/classes/";
+const parseUrl = process.env.PARSE_SERVER;
+const REQ_URL = `${parseUrl}/parse/classes/`;
 const cdnUrl = process.env.CDN_URL;
 export default {
   mixins: [normalPages],

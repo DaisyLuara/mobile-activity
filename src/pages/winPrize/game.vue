@@ -121,39 +121,40 @@
 </template>
 <script>
 /* eslint-disable */
-const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
-import Question from './question0129'
-import $ from 'jquery'
-import { getWxUserInfo, parseService, createCoupon, getCoupon } from 'services'
+const parseUrl = process.env.PARSE_SERVER;
+const IMAGE_SERVER = process.env.IMAGE_SERVER + "/xingshidu_h5/marketing";
+import Question from "./question0129";
+import $ from "jquery";
+import { getWxUserInfo, parseService, createCoupon, getCoupon } from "services";
 export default {
   components: {
     WxShare
   },
   data() {
     return {
-      mobile: '',
+      mobile: "",
       showPage: true,
       showCover: false,
       imgServerUrl: IMAGE_SERVER,
-      reqUrl: 'http://120.27.144.62:1337/parse/classes/',
+      reqUrl: `${parseUrl}/parse/classes/`,
       wxShareInfo: {
-        title: '我在勇闯三关答题得到了218元红包，你也来试试',
-        desc: '勇闯三关，每5分钟刷新轮次。只要答对3道题，丰厚大奖等你赢取。',
+        title: "我在勇闯三关答题得到了218元红包，你也来试试",
+        desc: "勇闯三关，每5分钟刷新轮次。只要答对3道题，丰厚大奖等你赢取。",
         imgUrl:
-          'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/prize_share_icon.png',
+          "http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/prize_share_icon.png",
         success: function() {
-          customTrack.shareWeChat()
+          customTrack.shareWeChat();
         }
       },
       clockOpts: {
-        text: '10',
+        text: "10",
         sumSecs: 10,
         n: -360 / 10, //每秒转的圆心角度
         curOffset: 0, //当前弧长
         endOldClock: false
       },
       competitionClockOpts: {
-        text: '',
+        text: "",
         sumSecs: 300,
         competitionStartText: false
       },
@@ -164,11 +165,11 @@ export default {
       showPrize: false, //显示奖励领取浮层
       messageBox: {
         // show: false,
-        text: ''
+        text: ""
       },
       mobileError: {
         show: false,
-        text: ''
+        text: ""
       },
       gameStatus: 0, //未参赛
       userInfo: {},
@@ -176,8 +177,8 @@ export default {
       curQuestion: {
         //当前题目信息和状态
         begin: false,
-        qid: '',
-        name: '',
+        qid: "",
+        name: "",
         choices: [], //问题选项
         status: 0, //问题结果0未答题1答对2答错
         number: 0, //题目序号
@@ -189,46 +190,46 @@ export default {
       gotPrizeUserRecord: {}, //此类礼包，用户的领取答题记录
       forPrizeUserRecord: {}, // 待领取红包的用户答题记录
       userCompetitionRecord: {} // 用户的当前答题记录
-    }
+    };
   },
   created() {
     getWxUserInfo()
       .then(result => {
-        let data = result.data
-        this.userInfo.nick_name = data.nickname
-        this.userInfo.head_img_url = data.headimgurl
-        this.userInfo.wx_openid = data.openid
-        this.initCompetition()
+        let data = result.data;
+        this.userInfo.nick_name = data.nickname;
+        this.userInfo.head_img_url = data.headimgurl;
+        this.userInfo.wx_openid = data.openid;
+        this.initCompetition();
       })
       .catch(err => {
-        let pageUrl = encodeURIComponent(window.location.href)
+        let pageUrl = encodeURIComponent(window.location.href);
         let wx_auth_url =
           process.env.WX_API +
-          '/wx/officialAccount/oauth?url=' +
+          "/wx/officialAccount/oauth?url=" +
           pageUrl +
-          '&scope=snsapi_userinfo'
-        window.location.href = wx_auth_url
-        return
-      })
+          "&scope=snsapi_userinfo";
+        window.location.href = wx_auth_url;
+        return;
+      });
   },
   mounted() {
-    document.getElementsByClassName('game-wrap')[0].style.height =
-      window.innerHeight + 'px'
+    document.getElementsByClassName("game-wrap")[0].style.height =
+      window.innerHeight + "px";
   },
   computed: {
     answerPercent() {
-      let sum = 0
-      let answerPercent = []
+      let sum = 0;
+      let answerPercent = [];
       for (
         let i = 0, length = this.curQuestion.answer_num.length;
         i < length;
         i++
       ) {
-        sum = sum + this.curQuestion.answer_num[i]
+        sum = sum + this.curQuestion.answer_num[i];
       }
 
       if (sum == 0) {
-        answerPercent = ['0px', '0px', '0px']
+        answerPercent = ["0px", "0px", "0px"];
       } else {
         for (
           let i = 0, length = this.curQuestion.answer_num.length;
@@ -236,12 +237,14 @@ export default {
           i++
         ) {
           answerPercent.push(
-            this.curQuestion.answer_num[i] / sum * $('.choice').width() * 1.1 +
-              'px'
-          )
+            (this.curQuestion.answer_num[i] / sum) *
+              $(".choice").width() *
+              1.1 +
+              "px"
+          );
         }
       }
-      return answerPercent
+      return answerPercent;
     }
   },
   methods: {
@@ -251,118 +254,118 @@ export default {
         .get(
           this,
           this.reqUrl +
-            'h5_competition_records?where=' +
-            JSON.stringify({ status: '1' }) +
-            '&order=-begin_time&limit=1'
+            "h5_competition_records?where=" +
+            JSON.stringify({ status: "1" }) +
+            "&order=-begin_time&limit=1"
         )
         .then(data => {
           if (data.results && data.results.length) {
-            this.curCompetition = data.results[0]
+            this.curCompetition = data.results[0];
             // 获取优惠券信息
-            this.getPrizeInfo()
+            this.getPrizeInfo();
             let timeDiffer =
               (new Date().getTime() -
                 parseInt(this.curCompetition.begin_time)) /
-              1000
+              1000;
             // 最新竞赛已经超时
             if (timeDiffer > 300) {
-              alert('竞赛超时，请刷新页面获取最新竞赛')
-              return
+              alert("竞赛超时，请刷新页面获取最新竞赛");
+              return;
             }
             // 1、题目都需要先初始化好，但不开始游戏
-            this.nextQuestion()
+            this.nextQuestion();
             // 2、检查用户是否有相同类型优惠券，但未领取的记录
             let prizeSearchParams = {
               prize_type: this.curCompetition.prize_type,
               prize_id: { $all: this.curCompetition.prize_id },
-              result: '1',
+              result: "1",
               wx_open_id: this.userInfo.wx_openid
-            }
+            };
             parseService
               .get(
                 this,
                 this.reqUrl +
-                  'h5_competition_user_records?where=' +
+                  "h5_competition_user_records?where=" +
                   JSON.stringify(prizeSearchParams)
               )
               .then(data => {
                 if (data.results && data.results.length) {
                   // 3、有则走领红包流程、领完走获取用户对当前答题的记录，然后开始游戏
-                  let flag = false //用户是否已领取过此类礼包
+                  let flag = false; //用户是否已领取过此类礼包
                   for (
                     let i = 0, length = data.results.length;
                     i < length;
                     i++
                   ) {
-                    if (data.results[i].prize_status == '1') {
-                      flag = true //标记用户已领取过此类礼包
-                      this.gotPrizeUserRecord = data.results[i]
-                      break
+                    if (data.results[i].prize_status == "1") {
+                      flag = true; //标记用户已领取过此类礼包
+                      this.gotPrizeUserRecord = data.results[i];
+                      break;
                     }
                   }
                   if (!flag) {
-                    this.forPrizeUserRecord = data.results[0]
-                    this.startPrize()
+                    this.forPrizeUserRecord = data.results[0];
+                    this.startPrize();
                   } else {
-                    this.checkUserCompetitionStatus()
+                    this.checkUserCompetitionStatus();
                   }
                 } else {
                   // 4、无则开始走获取用户对当前答题的记录，然后开始游戏
-                  this.checkUserCompetitionStatus()
+                  this.checkUserCompetitionStatus();
                 }
               })
               .catch(err => {
-                console.log(err)
-              })
+                console.log(err);
+              });
           } else {
             // 当前无竞赛
             // this.creatCompetition()
-            alert('无竞赛')
+            alert("无竞赛");
           }
         })
         .catch(err => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     },
     checkUserCompetitionStatus() {
       // 查询用户是否参与过本轮比赛
       let searchParams = {
         wx_open_id: this.userInfo.wx_openid,
         cid: this.curCompetition.objectId
-      }
+      };
       parseService
         .get(
           this,
           this.reqUrl +
-            'h5_competition_user_records?where=' +
+            "h5_competition_user_records?where=" +
             JSON.stringify(searchParams)
         )
         .then(data => {
           if (data.results && data.results.length) {
-            this.userCompetitionRecord = data.results[0]
-            this.userCompetitionRecord.answers = []
-            this.userCompetitionRecord.result = ''
+            this.userCompetitionRecord = data.results[0];
+            this.userCompetitionRecord.answers = [];
+            this.userCompetitionRecord.result = "";
             // todo用户参加并答题完本轮比赛，进行提示下一场次开始时间
-            if (data.results[0].status == '0') {
-              this.nextQuestion()
-              this.gameStatus = 1
-              this.initCompetitionClock()
-              return
+            if (data.results[0].status == "0") {
+              this.nextQuestion();
+              this.gameStatus = 1;
+              this.initCompetitionClock();
+              return;
             }
             //重新答题
-            this.beginGame()
+            this.beginGame();
           } else {
             //参与答题
-            this.beginGame()
+            this.beginGame();
           }
         })
         .catch(err => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     },
     beginGame() {
-      let that = this
-      this.showPage = true
+      let that = this;
+      this.showPage = true;
 
       // 保存用户当前参赛信息,完成后开始游戏
       if (!this.userCompetitionRecord.objectId) {
@@ -371,119 +374,119 @@ export default {
           cid: this.curCompetition.objectId,
           qids: this.curCompetition.qids,
           begin_time: new Date().getTime().toString(),
-          status: '1',
-          result: '',
+          status: "1",
+          result: "",
           answers: [],
           prize_type: this.curCompetition.prize_type,
           prize_id: this.curCompetition.prize_id,
-          prize_status: '0', //未领取优惠券,
+          prize_status: "0", //未领取优惠券,
           head_img_url: this.userInfo.head_img_url,
           nick_name: this.userInfo.nick_name
-        }
+        };
         parseService
           .post(
             this,
-            this.reqUrl + 'h5_competition_user_records',
+            this.reqUrl + "h5_competition_user_records",
             this.userCompetitionRecord
           )
           .then(res => {
             // $("#beginMusic")[0].play()
-            this.playMusic('beginMusic')
-            this.showCover = true
-            this.curQuestion.begin = true
-            this.userCompetitionRecord.objectId = res.data.objectId
+            this.playMusic("beginMusic");
+            this.showCover = true;
+            this.curQuestion.begin = true;
+            this.userCompetitionRecord.objectId = res.data.objectId;
             // todo 可以更新参与人数，也可以不更新从用户表统计，这里先不更新了，涉及到锁死问题.
           })
           .catch(err => {
-            console.log(err)
-          })
+            console.log(err);
+          });
       } else {
         // $("#beginMusic")[0].play()
-        this.playMusic('beginMusic')
-        this.showCover = true
-        this.curQuestion.begin = true
+        this.playMusic("beginMusic");
+        this.showCover = true;
+        this.curQuestion.begin = true;
       }
       // 4.5秒后开始游戏
       setTimeout(function() {
-        that.stopMusic('beginMusic')
+        that.stopMusic("beginMusic");
         // $("#beginMusic")[0].pause();
         // $("#beginMusic")[0].currentTime = 0;
 
-        that.showCover = false
-        that.initClock()
-      }, 6000)
+        that.showCover = false;
+        that.initClock();
+      }, 6000);
     },
     nextQuestion() {
-      this.curQuestion.number = this.curQuestion.number + 1
-      let curQuestionNum = this.curQuestion.number - 1
-      this.curQuestion.qid = this.curCompetition.qids[curQuestionNum]
+      this.curQuestion.number = this.curQuestion.number + 1;
+      let curQuestionNum = this.curQuestion.number - 1;
+      this.curQuestion.qid = this.curCompetition.qids[curQuestionNum];
 
       this.curQuestion.name =
-        Question[this.curCompetition.qids[curQuestionNum]].name + '?'
+        Question[this.curCompetition.qids[curQuestionNum]].name + "?";
       this.curQuestion.choices =
-        Question[this.curCompetition.qids[curQuestionNum]].choices
+        Question[this.curCompetition.qids[curQuestionNum]].choices;
       this.curQuestion.answer =
-        Question[this.curCompetition.qids[curQuestionNum]].answer
-      this.curQuestion.status = 0
-      this.curQuestion.end = false
-      this.curQuestion.answer_num = [0, 0, 0]
+        Question[this.curCompetition.qids[curQuestionNum]].answer;
+      this.curQuestion.status = 0;
+      this.curQuestion.end = false;
+      this.curQuestion.answer_num = [0, 0, 0];
     },
     answerQuestion(index) {
       // step1 更新用户的答题记录
       // index = -1表明用户未作答
       if (this.curQuestion.end || !this.curQuestion.begin) {
-        return
+        return;
       }
       this.userCompetitionRecord.answers[this.curQuestion.number - 1] =
-        index + 1
+        index + 1;
       parseService
         .put(
           this,
           this.reqUrl +
-            'h5_competition_user_records/' +
+            "h5_competition_user_records/" +
             this.userCompetitionRecord.objectId,
           JSON.stringify({ answers: this.userCompetitionRecord.answers })
         )
         .then(res => {})
-        .catch(err => {})
+        .catch(err => {});
 
       // step2 更新当前问题的状态，区分作答与未作答
       if (index == -1) {
-        this.curQuestion.status = 0 //未作答
+        this.curQuestion.status = 0; //未作答
       } else if (
         index + 1 ==
         Question[this.curCompetition.qids[this.curQuestion.number - 1]].answer
       ) {
-        this.curQuestion.status = 1 //答对
+        this.curQuestion.status = 1; //答对
       } else {
-        this.curQuestion.status = 2 //答错
+        this.curQuestion.status = 2; //答错
       }
 
       // step3 更新当前轮次的每个答案的人数，并计算每个答案的选择人数
       parseService
         .get(
           this,
-          this.reqUrl + 'h5_competition_records/' + this.curCompetition.objectId
+          this.reqUrl + "h5_competition_records/" + this.curCompetition.objectId
         )
         .then(data => {
-          this.curCompetition = data
-          let curCompetitionAnswerNum = 1
+          this.curCompetition = data;
+          let curCompetitionAnswerNum = 1;
 
           if (index != -1) {
             this.curCompetition.answer_num[this.curQuestion.number - 1][index] =
               this.curCompetition.answer_num[this.curQuestion.number - 1][
                 index
-              ] + 1
+              ] + 1;
             parseService
               .put(
                 this,
                 this.reqUrl +
-                  'h5_competition_records/' +
+                  "h5_competition_records/" +
                   this.curCompetition.objectId,
                 JSON.stringify({ answer_num: this.curCompetition.answer_num })
               )
               .then(res => {})
-              .catch(err => {})
+              .catch(err => {});
           }
 
           // 显示当前问题最新的各选项人数，结束当前的问题
@@ -491,10 +494,10 @@ export default {
             this.curQuestion.number - 1
           ]
             ? this.curCompetition.answer_num[this.curQuestion.number - 1]
-            : [0, 0, 0]
-          this.curQuestion.end = true
-          this.clockOpts.endOldClock = true
-          this.stopMusic('answerMusic')
+            : [0, 0, 0];
+          this.curQuestion.end = true;
+          this.clockOpts.endOldClock = true;
+          this.stopMusic("answerMusic");
           // $("#answerMusic")[0].pause();
           // $("#answerMusic")[0].currentTime = 0;
           if (
@@ -503,281 +506,281 @@ export default {
             this.curQuestion.status == 2
           ) {
             // 答题结束
-            this.endCompetition()
-            return
+            this.endCompetition();
+            return;
           }
 
-          let that = this
+          let that = this;
           let interval = setInterval(function() {
             if (that.nextQuestionMessage == 0) {
-              that.nextQuestion()
-              that.clockOpts.endOldClock = false
-              that.initClock()
-              that.nextQuestionMessage = 2
-              clearInterval(interval)
-              return
+              that.nextQuestion();
+              that.clockOpts.endOldClock = false;
+              that.initClock();
+              that.nextQuestionMessage = 2;
+              clearInterval(interval);
+              return;
             }
-            that.nextQuestionMessage = that.nextQuestionMessage - 1
-          }, 1000)
+            that.nextQuestionMessage = that.nextQuestionMessage - 1;
+          }, 1000);
         })
         .catch(err => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     },
     endCompetition() {
-      let that = this
-      this.showQuestionMessage = false
+      let that = this;
+      this.showQuestionMessage = false;
       // 更新用户答题状态、status、result
-      this.userCompetitionRecord.status = '0'
+      this.userCompetitionRecord.status = "0";
       if (
         JSON.stringify(this.userCompetitionRecord.answers) ==
         JSON.stringify(this.curCompetition.answers)
       ) {
-        this.userCompetitionRecord.result = '1' //闯关成功
+        this.userCompetitionRecord.result = "1"; //闯关成功
       } else {
-        this.userCompetitionRecord.result = '0' //闯关失败
+        this.userCompetitionRecord.result = "0"; //闯关失败
       }
       let params = {
         status: this.userCompetitionRecord.status,
         result: this.userCompetitionRecord.result
-      }
+      };
 
       parseService
         .put(
           this,
           this.reqUrl +
-            'h5_competition_user_records/' +
+            "h5_competition_user_records/" +
             this.userCompetitionRecord.objectId,
           JSON.stringify(params)
         )
         .then(res => {})
-        .catch(err => {})
+        .catch(err => {});
 
-      if (this.userCompetitionRecord.result == '1') {
-        this.startPrize()
+      if (this.userCompetitionRecord.result == "1") {
+        this.startPrize();
       } else {
         setTimeout(function() {
-          that.initCompetitionClock()
-          that.showFailedCover = true
-        }, 3000)
+          that.initCompetitionClock();
+          that.showFailedCover = true;
+        }, 3000);
       }
     },
     startPrize() {
-      this.showPrize = true
+      this.showPrize = true;
     },
     openPrize() {
       // 判断用户是否已领取过优惠券
-      this.mobileError.show = false
+      this.mobileError.show = false;
       if (
-        this.forPrizeUserRecord.prize_status == '1' ||
-        this.gotPrizeUserRecord.prize_status == '1'
+        this.forPrizeUserRecord.prize_status == "1" ||
+        this.gotPrizeUserRecord.prize_status == "1"
       ) {
         this.mobile =
-          this.forPrizeUserRecord.mobile || this.gotPrizeUserRecord.mobile
-        this.showPrizeResult = true
+          this.forPrizeUserRecord.mobile || this.gotPrizeUserRecord.mobile;
+        this.showPrizeResult = true;
       }
-      $('.red-package').addClass('hide')
-      $('.prize-get-wrap').addClass('show')
+      $(".red-package").addClass("hide");
+      $(".prize-get-wrap").addClass("show");
     },
     getPrize() {
       // 领礼包前先查询用户是否已领过此大礼包
-      let that = this
+      let that = this;
       if (
-        this.forPrizeUserRecord.prize_status == '0' ||
-        this.userCompetitionRecord.prize_status == '0'
+        this.forPrizeUserRecord.prize_status == "0" ||
+        this.userCompetitionRecord.prize_status == "0"
       ) {
         // 已经有待领取的红包，那么是等领取结束后，要继续本轮游戏
-        let continueGompetition = false
-        let prizeUserRecord = {} //领取红包的用户记录
+        let continueGompetition = false;
+        let prizeUserRecord = {}; //领取红包的用户记录
         if (this.forPrizeUserRecord.objectId) {
-          continueGompetition = true
-          prizeUserRecord = this.forPrizeUserRecord
+          continueGompetition = true;
+          prizeUserRecord = this.forPrizeUserRecord;
         } else {
-          prizeUserRecord = this.userCompetitionRecord
+          prizeUserRecord = this.userCompetitionRecord;
         }
 
         if (!/^1[34578]\d{9}$/.test(this.mobile)) {
-          this.mobileError.show = true
-          this.mobileError.text = '请输入正确的手机号'
-          return
+          this.mobileError.show = true;
+          this.mobileError.text = "请输入正确的手机号";
+          return;
         }
         // 领礼包成功后，更新用户领礼包信息，检查用户是否需要继续比赛还是结束比赛
         let params = {
           mobile: this.mobile,
           coupon_batch_id: this.curCompetition.prize_id,
-          sms_template: 'SEND_MARKETING_COUPONS'
-        }
+          sms_template: "SEND_MARKETING_COUPONS"
+        };
         createCoupon(params)
           .then(data => {
             let params = {
-              prize_status: '1',
+              prize_status: "1",
               mobile: this.mobile
-            }
+            };
             parseService
               .put(
                 this,
                 this.reqUrl +
-                  'h5_competition_user_records/' +
+                  "h5_competition_user_records/" +
                   prizeUserRecord.objectId,
                 JSON.stringify(params)
               )
               .then(res => {
-                this.userCompetitionRecord.prize_status = '1'
-                this.userCompetitionRecord.mobile = this.mobile
-                this.forPrizeUserRecord.prize_status = '1'
-                this.forPrizeUserRecord.mobile = this.mobile
-                this.showPrizeResult = true
+                this.userCompetitionRecord.prize_status = "1";
+                this.userCompetitionRecord.mobile = this.mobile;
+                this.forPrizeUserRecord.prize_status = "1";
+                this.forPrizeUserRecord.mobile = this.mobile;
+                this.showPrizeResult = true;
                 if (continueGompetition) {
-                  this.messageBox.text = '红包领取成功，请继续答题'
-                  $('.message-alert').fadeIn(500)
+                  this.messageBox.text = "红包领取成功，请继续答题";
+                  $(".message-alert").fadeIn(500);
                   setTimeout(function() {
-                    $('.message-alert').fadeOut(500)
-                  }, 1000)
+                    $(".message-alert").fadeOut(500);
+                  }, 1000);
                   setTimeout(function() {
-                    that.showPrize = false
-                    that.resetGetPrize()
-                    that.checkUserCompetitionStatus()
-                  }, 2000)
+                    that.showPrize = false;
+                    that.resetGetPrize();
+                    that.checkUserCompetitionStatus();
+                  }, 2000);
                 }
               })
               .catch(err => {
-                console.log(err)
-              })
+                console.log(err);
+              });
           })
           .catch(err => {
-            console.log(err)
-          })
+            console.log(err);
+          });
       } else {
-        this.showPrizeResult = true
+        this.showPrizeResult = true;
       }
     },
     resetGetPrize() {
-      $('.red-package').removeClass('hide')
-      $('.prize-get-wrap').removeClass('show')
-      this.mobile = ''
-      this.mobileError.show = false
-      this.mobileError.text = ''
+      $(".red-package").removeClass("hide");
+      $(".prize-get-wrap").removeClass("show");
+      this.mobile = "";
+      this.mobileError.show = false;
+      this.mobileError.text = "";
     },
     getPrizeInfo() {
       getCoupon(this.curCompetition.prize_id)
         .then(res => {
           if (res.data && res.data.length) {
-            this.prizeInfo = res.data
+            this.prizeInfo = res.data;
           }
         })
         .catch(err => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     },
     initClock() {
-      let that = this
+      let that = this;
       // 设置半径
-      let c = $('svg').width() * 0.4 * Math.PI * 2
-      $('#progress1')
-        .css('stroke-dasharray', c)
-        .css('stroke-dashoffset', '0px')
-      $('#progress2')
-        .css('stroke-dasharray', c)
-        .css('stroke-dashoffset', '0px')
-      this.clockOpts.text = '10'
-      this.playMusic('answerMusic')
+      let c = $("svg").width() * 0.4 * Math.PI * 2;
+      $("#progress1")
+        .css("stroke-dasharray", c)
+        .css("stroke-dashoffset", "0px");
+      $("#progress2")
+        .css("stroke-dasharray", c)
+        .css("stroke-dashoffset", "0px");
+      this.clockOpts.text = "10";
+      this.playMusic("answerMusic");
       // $("#answerMusic")[0].play();
-      this.clock(0)
+      this.clock(0);
     },
     clock(sec) {
-      let that = this
+      let that = this;
 
       if (this.clockOpts.endOldClock) {
-        this.clockOpts.endOldClock = false
-        return
+        this.clockOpts.endOldClock = false;
+        return;
       }
 
-      let c = $('svg').width() * 0.4 * Math.PI * 2
+      let c = $("svg").width() * 0.4 * Math.PI * 2;
       if (sec > this.clockOpts.sumSecs) {
         // 倒计时结束
         if (!this.curQuestion.end) {
-          this.answerQuestion(-1) //传入选项-1代表未选择
+          this.answerQuestion(-1); //传入选项-1代表未选择
         }
-        return
+        return;
       }
 
       // 设置时间
-      let nowTime = 10 - sec
-      this.clockOpts.text = nowTime
+      let nowTime = 10 - sec;
+      this.clockOpts.text = nowTime;
 
       // 设置时间进度条
       if (sec == 0) {
-        this.clockOpts.n = 0
+        this.clockOpts.n = 0;
       } else {
-        this.clockOpts.n = this.clockOpts.n - 360 / 10
+        this.clockOpts.n = this.clockOpts.n - 360 / 10;
       }
       let offset =
         this.clockOpts.curOffset +
-        this.clockOpts.n * Math.PI * $('svg').width() * 0.4 / 180
-      $('#progress2').css('stroke-dashoffset', offset)
+        (this.clockOpts.n * Math.PI * $("svg").width() * 0.4) / 180;
+      $("#progress2").css("stroke-dashoffset", offset);
 
-      sec++
+      sec++;
       setTimeout(function() {
-        that.clock(sec)
-      }, 1000)
+        that.clock(sec);
+      }, 1000);
     },
     initCompetitionClock() {
       let secDiffer =
-        new Date().getTime() - parseInt(this.curCompetition.begin_time)
-      secDiffer = Math.floor(secDiffer / 1000)
-      this.competitionClock(secDiffer)
+        new Date().getTime() - parseInt(this.curCompetition.begin_time);
+      secDiffer = Math.floor(secDiffer / 1000);
+      this.competitionClock(secDiffer);
     },
     competitionClock(secDiffer) {
       if (secDiffer > this.competitionClockOpts.sumSecs) {
-        this.competitionClockOpts.competitionStartText = true
-        return
+        this.competitionClockOpts.competitionStartText = true;
+        return;
       }
-      let that = this
-      let timeRemain = this.competitionClockOpts.sumSecs - secDiffer
-      let minRemain = Math.floor(timeRemain / 60)
-      let secRemain = timeRemain % 60
+      let that = this;
+      let timeRemain = this.competitionClockOpts.sumSecs - secDiffer;
+      let minRemain = Math.floor(timeRemain / 60);
+      let secRemain = timeRemain % 60;
 
       if (secRemain < 10) {
-        secRemain = '0' + secRemain
+        secRemain = "0" + secRemain;
       }
 
-      this.competitionClockOpts.text = '0' + minRemain + ':' + secRemain
+      this.competitionClockOpts.text = "0" + minRemain + ":" + secRemain;
 
-      secDiffer++
+      secDiffer++;
       setTimeout(function() {
-        that.competitionClock(secDiffer)
-      }, 1000)
+        that.competitionClock(secDiffer);
+      }, 1000);
     },
     playMusic(elemId) {
       if (
-        typeof WeixinJSBridge == 'object' &&
-        typeof WeixinJSBridge.invoke == 'function'
+        typeof WeixinJSBridge == "object" &&
+        typeof WeixinJSBridge.invoke == "function"
       ) {
-        WeixinJSBridge.invoke('getNetworkType', {}, function(e) {
-          document.getElementById(elemId).play()
-        })
+        WeixinJSBridge.invoke("getNetworkType", {}, function(e) {
+          document.getElementById(elemId).play();
+        });
       }
     },
     stopMusic(elemId) {
       if (
-        typeof WeixinJSBridge == 'object' &&
-        typeof WeixinJSBridge.invoke == 'function'
+        typeof WeixinJSBridge == "object" &&
+        typeof WeixinJSBridge.invoke == "function"
       ) {
-        WeixinJSBridge.invoke('getNetworkType', {}, function(e) {
-          document.getElementById(elemId).pause()
-          document.getElementById(elemId).currentTime = 0
-        })
+        WeixinJSBridge.invoke("getNetworkType", {}, function(e) {
+          document.getElementById(elemId).pause();
+          document.getElementById(elemId).currentTime = 0;
+        });
       }
     }
   }
-}
+};
 </script>
 <style lang="less" scoped>
-@IMAGE_SERVER: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing';
+@IMAGE_SERVER: "http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing";
 .game-wrap {
   position: relative;
   height: 100%;
-  background-image: url('@{IMAGE_SERVER}/pages/win_prize/h5_bg.png');
+  background-image: url("@{IMAGE_SERVER}/pages/win_prize/h5_bg.png");
   background-size: 100% 100%;
   background-repeat: no-repeat;
   text-align: center;

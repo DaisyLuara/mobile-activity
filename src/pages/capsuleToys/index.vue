@@ -51,26 +51,27 @@
   </div>
 </template>
 <script>
-import { $wechat, wechatShareTrack } from 'services'
-import { parseService } from 'services'
+import { $wechat, wechatShareTrack } from "services";
+import { parseService } from "services";
 import { normalPages } from "@/mixins/normalPages";
-const REQ_URL = 'http://120.27.144.62:1337/parse/classes/'
-const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
+const parseUrl = process.env.PARSE_SERVER;
+const REQ_URL = `${parseUrl}/parse/classes/`;
+const IMAGE_SERVER = process.env.IMAGE_SERVER + "/xingshidu_h5/marketing";
 export default {
   mixins: [normalPages],
   data() {
     return {
       imgServerUrl: IMAGE_SERVER,
-      type: null,//this.$route.query.type,
+      type: null, //this.$route.query.type,
       params: {
         typeID: 65,
-        typeName: 'A',
+        typeName: "A",
         count: 1
       },
       style: {
-        height: Window.innerwidth * 0.8 * 737 / 380 + 'px',
+        height: (Window.innerwidth * 0.8 * 737) / 380 + "px",
         root: {
-          'min-height': this.$innerHeight() + 'px'
+          "min-height": this.$innerHeight() + "px"
         }
       },
       showCoupon: {
@@ -81,83 +82,83 @@ export default {
       },
       //微信分享
       wxShareInfoValue: {
-        title: '我中奖啦',
-        desc: '星视度扭蛋机中大奖',
+        title: "我中奖啦",
+        desc: "星视度扭蛋机中大奖",
         imgUrl:
-          'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/capsuleToys_share_icon.png',
+          "http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/capsuleToys_share_icon.png"
       }
-    }
+    };
   },
   watch: {
     parms() {
-      this.type = this.parms.type
-      this.show()
-      this.drawCanvas(res.image)
-      this.press = true
+      this.type = this.parms.type;
+      this.show();
+      this.drawCanvas(res.image);
+      this.press = true;
     }
   },
   beforeCreate() {
-    document.title = '扭蛋机'
+    document.title = "扭蛋机";
   },
   created() {
     // this.show()
-    this.query()
+    this.query();
   },
   methods: {
     show() {
-      if (this.type === 'A') {
-        this.showCoupon.cp1 = true
-        this.params.typeName = this.type
-        this.params.typeID = 65
-      } else if (this.type === 'B') {
-        this.showCoupon.cp2 = true
-        this.params.typeName = this.type
-        this.params.typeID = 66
-      } else if (this.type === 'C') {
-        this.showCoupon.cp3 = true
-        this.params.typeName = this.type
-        this.params.typeID = 67
+      if (this.type === "A") {
+        this.showCoupon.cp1 = true;
+        this.params.typeName = this.type;
+        this.params.typeID = 65;
+      } else if (this.type === "B") {
+        this.showCoupon.cp2 = true;
+        this.params.typeName = this.type;
+        this.params.typeID = 66;
+      } else if (this.type === "C") {
+        this.showCoupon.cp3 = true;
+        this.params.typeName = this.type;
+        this.params.typeID = 67;
       } else {
-        this.showCoupon.cp4 = true
-        this.params.typeName = this.type
-        this.params.typeID = 68
+        this.showCoupon.cp4 = true;
+        this.params.typeName = this.type;
+        this.params.typeID = 68;
       }
     },
     query() {
       let query = {
         typeID: this.params.typeID
-      }
+      };
       parseService
-        .get(REQ_URL + 'capsule_toys?where=' + JSON.stringify(query))
+        .get(REQ_URL + "capsule_toys?where=" + JSON.stringify(query))
         .then(data => {
           if (data.results.length > 0) {
-            this.update(data.results[0])
+            this.update(data.results[0]);
           } else {
-            this.save()
+            this.save();
           }
-          console.log(data)
+          console.log(data);
         })
         .catch(err => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     },
     update(data) {
       parseService
         .put(
-          REQ_URL + 'capsule_toys/' + data.objectId,
+          REQ_URL + "capsule_toys/" + data.objectId,
           JSON.stringify({ count: data.count + 1 })
         )
-        .then(res => { })
-        .catch(err => { })
+        .then(res => {})
+        .catch(err => {});
     },
     save() {
       parseService
-        .post(REQ_URL + 'capsule_toys', this.params)
-        .then(res => { })
-        .catch(err => { })
+        .post(REQ_URL + "capsule_toys", this.params)
+        .then(res => {})
+        .catch(err => {});
     }
   }
-}
+};
 </script>
 <style lang="less" scoped>
 @imgUrl: "https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/capsule_toys/";

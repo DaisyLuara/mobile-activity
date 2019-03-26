@@ -37,124 +37,129 @@
 </template>
 <script>
 /* eslint-disable */
+const parseUrl = process.env.PARSE_SERVER;
 export default {
   data() {
     return {
-      mobileNum: '',
+      mobileNum: "",
       phoneError: true,
-      errorText: '',
-      reqUrl: 'http://120.27.144.62:1337/parse/classes/',
+      errorText: "",
+      reqUrl: `${parseUrl}/parse/classes/`,
       wxShareInfoValue: {
-        title: '寻宝箱 开好礼',
-        desc: '新年至 小星在各大商圈准备了海量神秘宝箱！找到小星 发现好礼！！',
+        title: "寻宝箱 开好礼",
+        desc: "新年至 小星在各大商圈准备了海量神秘宝箱！找到小星 发现好礼！！",
         imgUrl:
-          'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/openBox_share_icon.png',
+          "http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/openBox_share_icon.png",
         success: () => {
-          wechatShareTrack()
+          wechatShareTrack();
         }
       },
       userInfo: {}
-    }
+    };
   },
   beforeCreate() {
-    document.title = '开箱子'
+    document.title = "开箱子";
   },
   mounted() {
-    $('.phone-content').css('height', $(window).height())
-    this.handleShare()
+    $(".phone-content").css("height", $(window).height());
+    this.handleShare();
   },
   created() {
-    getWxUserInfo()
+    getWxUserInfo();
   },
   methods: {
     handleShare() {
       $wechat()
         .then(res => {
-          res.share(this.wxShareInfoValue)
+          res.share(this.wxShareInfoValue);
         })
         .catch(_ => {
-          console.warn(_.message)
-        })
+          console.warn(_.message);
+        });
     },
     saveWxInfo() {
-      this.userInfo.gifType = this.$route.query.type
+      this.userInfo.gifType = this.$route.query.type;
       parseService
-        .post(this.reqUrl + 'open_the_box', this.userInfo)
+        .post(this.reqUrl + "open_the_box", this.userInfo)
         .then(res => {
-          console.log('保存成功')
+          console.log("保存成功");
         })
         .catch(err => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     },
     redirectToPhoto() {
       if (!/^1[34578]\d{9}$/.test(this.mobileNum)) {
-        this.phoneError = true
-        this.errorText = '手机号码格式不正确'
+        this.phoneError = true;
+        this.errorText = "手机号码格式不正确";
       } else {
-        this.getCoupon()
+        this.getCoupon();
       }
     },
     getCoupon() {
-      let adId = this.$route.query.adId
+      let adId = this.$route.query.adId;
       if (!adId) {
-        adId = 20012
+        adId = 20012;
       }
       let params = {
         mobile: this.mobileNum,
-        sms_template: 'SEND_MARKETING_COUPONS',
+        sms_template: "SEND_MARKETING_COUPONS",
         adId: parseInt(adId)
-      }
+      };
       CouponService.createCoupon(this, params)
         .then(data => {
-          let res = data.data
-          if (JSON.stringify(res) === '{}') {
-            this.saveWxInfo()
-            customTrack.sendMobile(this.mobileNum)
-            this.linkToPhoto()
+          let res = data.data;
+          if (JSON.stringify(res) === "{}") {
+            this.saveWxInfo();
+            customTrack.sendMobile(this.mobileNum);
+            this.linkToPhoto();
           } else {
-            alert(res.error.msg)
-            this.linkToPhoto()
+            alert(res.error.msg);
+            this.linkToPhoto();
           }
         })
         .catch(err => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     },
     getWxUserInfo() {
       getWxUserInfo()
         .then(result => {
-          let data = result.data
-          this.userInfo.name = data.nickname
-          this.userInfo.headImgUrl = data.headimgurl
+          let data = result.data;
+          this.userInfo.name = data.nickname;
+          this.userInfo.headImgUrl = data.headimgurl;
         })
         .catch(err => {
-          let pageUrl = encodeURIComponent(window.location.href)
+          let pageUrl = encodeURIComponent(window.location.href);
           let wxAuthUrl =
             process.env.WX_API +
-            '/wx/officialAccount/oauth?url=' +
+            "/wx/officialAccount/oauth?url=" +
             pageUrl +
-            '&scope=snsapi_userinfo'
-          window.location.href = wxAuthUrl
-        })
+            "&scope=snsapi_userinfo";
+          window.location.href = wxAuthUrl;
+        });
     },
     linkToPhoto() {
       let redirectUrl =
-        window.location.origin + '/#' + this.$route.path + '/result'
+        window.location.origin + "/#" + this.$route.path + "/result";
       for (let param in this.$route.query) {
-        redirectUrl = setParameter(param, this.$route.query[param], redirectUrl)
+        redirectUrl = setParameter(
+          param,
+          this.$route.query[param],
+          redirectUrl
+        );
       }
-      window.location.href = redirectUrl
+      window.location.href = redirectUrl;
     }
   }
-}
+};
 </script>
 <style lang="less" scoped>
-@imageHost: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/open_box';
+@imageHost: "http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/open_box";
 .phone-content {
   height: 100%;
   background-repeat: no-repeat;
-  background-image: url('@{imageHost}/bg.png');
+  background-image: url("@{imageHost}/bg.png");
   background-size: cover;
   position: relative;
   .title {
@@ -209,7 +214,7 @@ export default {
   .mobile::-webkit-input-placeholder {
     color: transparent;
     text-indent: -9999px;
-    background-image: url('@{imageHost}/input_placeholder.png');
+    background-image: url("@{imageHost}/input_placeholder.png");
     background-position: 0% 50%;
     background-size: cover;
     background-repeat: no-repeat;
@@ -218,7 +223,7 @@ export default {
     /* Firefox 19+ */
     color: transparent;
     text-indent: -9999px;
-    background-image: url('@{imageHost}/input_placeholder.png');
+    background-image: url("@{imageHost}/input_placeholder.png");
     background-position: 0 50%;
     background-size: cover;
     background-repeat: no-repeat;
@@ -227,7 +232,7 @@ export default {
     /* Firefox 18- */
     color: transparent;
     text-indent: -9999px;
-    background-image: url('@{imageHost}/input_placeholder.png');
+    background-image: url("@{imageHost}/input_placeholder.png");
     background-position: 0 50%;
     background-size: cover;
     background-repeat: no-repeat;
@@ -236,7 +241,7 @@ export default {
     /* IE 10- */
     color: transparent;
     text-indent: -9999px;
-    background-image: url('@{imageHost}/input_placeholder.png');
+    background-image: url("@{imageHost}/input_placeholder.png");
     background-position: 0 50%;
     background-size: cover;
     background-repeat: no-repeat;
