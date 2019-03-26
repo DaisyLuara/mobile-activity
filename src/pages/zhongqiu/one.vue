@@ -251,7 +251,7 @@ export default {
       let id = this.$route.query.id
       const baseUrl = process.env.EXE_API;
       let url =
-        `${baseUrl}:8010/pushdiv/?oid=562,212,386,230,426,219,534,474,434,386&belong=GroceryShop&id=` +
+        `${baseUrl}/pushdiv/?oid=562,212,386,230,426,219,534,474,434,386&belong=GroceryShop&id=` +
         id +
         "&url={'cakeID':0,'cake_type_a':" +
         this.bing.cake_type_a +

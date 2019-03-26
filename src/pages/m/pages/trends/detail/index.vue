@@ -67,7 +67,7 @@ export default {
   },
   data() {
     return {
-      goodsxsd: baseUrl + ":8010/goodsxsd/",
+      goodsxsd: baseUrl + "/goodsxsd/",
       shouldDeleteModalShow: false,
       shouldShareModalShow: false,
       resData: {

@@ -184,7 +184,7 @@ export default {
       let id = this.$route.query.id
       const baseUrl = process.env.EXE_API;
       let url =
-        `${baseUrl}:8010/pushdiv/?oid=` +
+        `${baseUrl}/pushdiv/?oid=` +
         this.oid +
         '&belong=' +
         this.belong +
