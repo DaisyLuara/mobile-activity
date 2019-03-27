@@ -16,7 +16,7 @@ export default {
   data() {
     return {
       base: CDN_URL + '/fe/image/summer_dress/',
-      bg: CDN_URL + '/fe/image/summer_dress/logobg.png',
+      bg: CDN_URL + '/fe/image/summer_dress/logo.jpg',
       link: 'http://papi.xingstation.com/api/s/zX7' + window.location.search,
     }
   }
