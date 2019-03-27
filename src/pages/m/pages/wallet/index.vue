@@ -1,20 +1,40 @@
 <template>
   <div class="wallet">
-    <img class="header-bg" :src="imageHost + 'bg_blue_2x.png'">
+    <img 
+      :src="imageHost + 'bg_blue_2x.png'" 
+      class="header-bg">
     <div class="header">
-      <img class="coin-bg" :src="imageHost + 'coin_2x.png'">
-      <img class="title-big" :src="imageHost + 'sixsix_2x.png'">
-      <img class="title-small" :src="imageHost + 'title_2x.png'">
+      <img 
+        :src="imageHost + 'coin_2x.png'" 
+        class="coin-bg">
+      <img 
+        :src="imageHost + 'sixsix_2x.png'" 
+        class="title-big">
+      <img 
+        :src="imageHost + 'title_2x.png'" 
+        class="title-small">
     </div>
     <div class="wallet-area">
-      <img class="wallet-bg" :src="imageHost + 'wallet_2x.png'">
-      <img class="wallet-title" :src="imageHost + 'wallet_title_2x.png'">
+      <img 
+        :src="imageHost + 'wallet_2x.png'" 
+        class="wallet-bg">
+      <img 
+        :src="imageHost + 'wallet_title_2x.png'" 
+        class="wallet-title">
       <div class="coupon-list">
-        <img class="coupon-item" :src="imageHost + 'coupon1_2x.png'">
-        <img class="coupon-item" :src="imageHost + 'coupon2_2x.png'">
-        <img class="coupon-item" :src="imageHost + 'coupon2_2x.png'">
+        <img 
+          :src="imageHost + 'coupon1_2x.png'" 
+          class="coupon-item">
+        <img 
+          :src="imageHost + 'coupon2_2x.png'" 
+          class="coupon-item">
+        <img 
+          :src="imageHost + 'coupon2_2x.png'" 
+          class="coupon-item">
       </div>
-      <img class="brand" :src="imageHost + 'actiview_2x.png'">
+      <img 
+        :src="imageHost + 'actiview_2x.png'" 
+        class="brand">
     </div>
   </div>
 </template>
