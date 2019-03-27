@@ -1,14 +1,17 @@
 import axios from 'axios'
 import { apiToken, Cookies } from 'services'
+const EXE_LOOK = process.env.EXE_API 
 const GAME_URL = process.env.SAAS_API + '/user/'
 const GAME_LIST_URL = process.env.SAAS_API + '/user/'
 const REGISTER_URL = process.env.AD_API + '/api/temp/customer'
-const NEW_LIST_NOCHECK = 'http://exelook.com/client/h5/awardlist/?api=json'
-const NEW_LIST_NEEDCHECK = 'http://exelook.com/client/all/awardpass/?api=json'
+const baseUrl = process.env.EXE_API
+const NEW_LIST_NOCHECK = `${baseUrl}/h5/awardlist/?api=json`
+const NEW_LIST_NEEDCHECK = `${baseUrl}/all/awardpass/?api=json`
 const USER_HONOUR =
-  'http://exelook.com/client/h5/userhonour/?cp=1&size=10&api=json'
-const GAME_LIST = 'http://exelook.com/client/all/actresult/?api=json'
-const APPLICATION_COMMON = 'http://exelook.com/client/all/actpi/?api=json'
+  `${baseUrl}/h5/userhonour/?cp=1&size=10&api=json`
+const GAME_LIST = `${baseUrl}/all/actresult/?api=json`
+const APPLICATION_COMMON = `${baseUrl}/all/actpi/?api=json`
+const Accept = 'application/vnd.saas.v2+json'
 const REQ_HEADER = {
   headers: {
     'api-token': apiToken,
@@ -17,8 +20,7 @@ const REQ_HEADER = {
 }
 const V2_HEADER = {
   headers: {
-    'api-token': apiToken,
-    'Accept': 'application/vnd.saas.v2+json'
+    Accept: Accept
   }
 }
 const createGame = (params, userId) => {
@@ -71,7 +73,7 @@ const getGame = (params, userId) => {
 const getSceneData = (userId, url, params) => {
   return new Promise((resolve, reject) => {
     axios
-      .get(GAME_LIST_URL + userId + '/games' + url, params, REQ_HEADER)
+      .get(GAME_LIST_URL + userId + '/games' + url, params)
       .then(response => {
         resolve(response.data.data)
       })
@@ -81,10 +83,10 @@ const getSceneData = (userId, url, params) => {
   })
 }
 //节目数据，根据场景scene和版本号belong筛选
-const getProjectData = (userId, url, params) => {
+const getProjectData = (userId, url) => {
   return new Promise((resolve, reject) => {
     axios
-      .get(GAME_LIST_URL + userId + '/games' + url, params, V2_HEADER)
+      .get(GAME_LIST_URL + userId + '/games' + url, V2_HEADER)
       .then(response => {
         resolve(response.data.data)
       })
@@ -107,7 +109,7 @@ const userData = params => {
       })
   })
 }
-//排行榜新接口 akey  http://exelook.com/client/h5/awardlist/?akey=2043162232&cp=1&size=100&api=json  不需要用户确定，自动排行
+//排行榜新接口 akey  http://xingstation.cn/client/h5/awardlist/?akey=2043162232&cp=1&size=100&api=json  不需要用户确定，自动排行
 const newGameList = akey => {
   return new Promise((resolve, reject) => {
     axios
@@ -120,7 +122,7 @@ const newGameList = akey => {
       })
   })
 }
-//排行榜新接口 awardinfo结构体中，pass==0或者valuetmp!=value的时候，则代表需要参与者点击确认 http://exelook.com/client/all/awardpass/?auid=442&z=4fk2d91686b0fcef93b6e594689846cb4631n5&api=json
+//排行榜新接口 awardinfo结构体中，pass==0或者valuetmp!=value的时候，则代表需要参与者点击确认 http://xingstation.cn/client/all/awardpass/?auid=442&z=4fk2d91686b0fcef93b6e594689846cb4631n5&api=json
 const gameListNeedCheck = (auid, z) => {
   return new Promise((resolve, reject) => {
     axios
@@ -134,7 +136,7 @@ const gameListNeedCheck = (auid, z) => {
   })
 }
 //联动，荣耀honour
-//http://exelook.com/client/h5/userhonour/?cp=1&size=10&bid=0&z=4fk2d91686b0fcef93b6e594689846cb4631n5&api=json&document=truxish2114558de 联动，获取勋章
+//http://xingstation.cn/client/h5/userhonour/?cp=1&size=10&bid=0&z=4fk2d91686b0fcef93b6e594689846cb4631n5&api=json&document=truxish2114558de 联动，获取勋章
 const getGameHonour = (bid, z) => {
   return new Promise((resolve, reject) => {
     axios
@@ -148,7 +150,7 @@ const getGameHonour = (bid, z) => {
   })
 }
 //获取排行榜所有结果158
-//http://exelook.com/client/all/actresult/?awardkey=0t9021d1upt47350101gy14q&z=4fk2d91686b0fcef93b6e594689846cb4631n5&api=json
+//http://xingstation.cn/client/all/actresult/?awardkey=0t9021d1upt47350101gy14q&z=4fk2d91686b0fcef93b6e594689846cb4631n5&api=json
 const getGameList = (awardkey, z) => {
   return new Promise((resolve, reject) => {
     axios
@@ -162,7 +164,7 @@ const getGameList = (awardkey, z) => {
   })
 }
 
-//活动报名169---通用版本;http://exelook.com/client/all/actpi/?avrid=4333&z=4fk2d91686b0fcef93b6e594689846cb4631n5&actid=16&api=json
+//活动报名169---通用版本;http://xingstation.cn/client/all/actpi/?avrid=4333&z=4fk2d91686b0fcef93b6e594689846cb4631n5&actid=16&api=json
 // params = {
 //   avrid: 4333,
 //   z: '4fk2d91686b0fcef93b6e594689846cb4631n5',
@@ -180,6 +182,47 @@ const toApplication = params => {
       })
   })
 }
+//用户玩的次数，分版本  春暖花开
+const getGamesNumberData = (pn, z) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(GAME_DATA_LIST + '&pn=' + pn + '&z=' + z)
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+const getProjectImages = (pn, z) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(PROJECT_IMAGE_LIST + '&pn=' + pn + '&z=' + z)
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+
+//向大屏推送数据
+const handlePost = (url) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(POST_URL + url)
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+
+
 export {
   createGame,
   getGame,
@@ -191,5 +234,8 @@ export {
   getGameHonour,
   getGameList,
   toApplication,
-  getProjectData
+  getProjectData,
+  getGamesNumberData,
+  getProjectImages,
+  handlePost
 }

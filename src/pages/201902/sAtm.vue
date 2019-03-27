@@ -33,7 +33,7 @@
         class="used"
       >
     </div>
-    <div class="code">{{code}}</div>
+    <div class="code">{{ code }}</div>
 
   </div>
 </template>

@@ -305,24 +305,25 @@
 </template>
 
 <script>
+const parseUrl = process.env.PARSE_SERVER;
 const serverUrl =
-  'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/weixun/gameindex/'
-const wiw = window.innerWidth
-const wih = window.innerHeight
-import shareCover from './components/shareCover'
-import suoha from './components/suoha'
-import { generate, randomNum } from './random/index.js'
+  "https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/weixun/gameindex/";
+const wiw = window.innerWidth;
+const wih = window.innerHeight;
+import shareCover from "./components/shareCover";
+import suoha from "./components/suoha";
+import { generate, randomNum } from "./random/index.js";
 import {
   getWxUserInfo,
   $wechat,
   isInWechat,
   Cookies,
   getInfoById
-} from 'services'
+} from "services";
 
 export default {
   components: {
-    'share-cover': shareCover,
+    "share-cover": shareCover,
     suoha: suoha
   },
   data() {
@@ -330,18 +331,18 @@ export default {
       style: {
         root: {},
         game: {
-          height: wiw * 1275 / 716 * 620 / 667 + 'px',
-          width: '100%',
-          top: '43%'
+          height: (((wiw * 1275) / 716) * 620) / 667 + "px",
+          width: "100%",
+          top: "43%"
         },
         line: {
-          width: '0%'
+          width: "0%"
         },
         recording: {
-          height: wiw * 0.41 + 'px'
+          height: wiw * 0.41 + "px"
         },
         box: {
-          height: window.innerWidth * 0.36 + 'px'
+          height: window.innerWidth * 0.36 + "px"
         }
       },
       serverUrl: serverUrl,
@@ -378,54 +379,54 @@ export default {
         teji: new Array(6)
       },
       parseServerSetting: {
-        rq_url: 'http://120.27.144.62:1337/parse/classes/record',
+        rq_url: `${parseUrl}/parse/classes/record`,
         rq_head: {
           headers: {
-            'X-Parse-Application-Id': 'jingfree_android',
-            'X-Parse-Master-Key': 'aa9YOWvTxxCY2RXT',
-            'Content-Type': 'application/json',
-            Accept: 'application/json'
+            "X-Parse-Application-Id": "jingfree_android",
+            "X-Parse-Master-Key": "aa9YOWvTxxCY2RXT",
+            "Content-Type": "application/json",
+            Accept: "application/json"
           }
         }
       },
       wxShareInfoValue: {
-        title: '音撩指数',
-        desc: '用最撩人的歌词，测试你声音的撩人指数，让声音成为你撩人的武器',
-        imgUrl: serverUrl + 'share.png',
-        link: window.location.origin + '/marketing/weiindex?sid=-1'
+        title: "音撩指数",
+        desc: "用最撩人的歌词，测试你声音的撩人指数，让声音成为你撩人的武器",
+        imgUrl: serverUrl + "share.png",
+        link: window.location.origin + "/marketing/weiindex?sid=-1"
       },
       currentUserData: {
-        headimgurl: '',
-        nickname: ''
+        headimgurl: "",
+        nickname: ""
       },
       random4: randomNum(1, 4),
       concertUrl:
-        'https://m.damai.cn/damai/perform/item.html?projectId=150060&spm=a2o6e.search.0.0.6c286acelZQlgc'
-    }
+        "https://m.damai.cn/damai/perform/item.html?projectId=150060&spm=a2o6e.search.0.0.6c286acelZQlgc"
+    };
   },
   created() {
-    this.handleWechatShare()
-    this.init()
+    this.handleWechatShare();
+    this.init();
     if (isInWechat() === true) {
-      this.handleWechatAuth()
-      this.status.isInWechat = true
+      this.handleWechatAuth();
+      this.status.isInWechat = true;
     }
   },
   beforeDestroy() {
-    document.body.style.overflow = ''
+    document.body.style.overflow = "";
   },
   methods: {
     handleWechatShare() {
       if (isInWechat() === true) {
         $wechat()
           .then(res => {
-            res.share(this.wxShareInfoValue)
+            res.share(this.wxShareInfoValue);
           })
           .catch(err => {
-            console.warn(err.message)
-          })
+            console.warn(err.message);
+          });
       } else {
-        console.warn('you r not in wechat environment')
+        console.warn("you r not in wechat environment");
       }
     },
     saveDataToServer() {
@@ -435,7 +436,7 @@ export default {
           nickname: this.userInfo.nickname,
           randomInfo: this.randomInfo
         }
-      }
+      };
       this.$http
         .post(
           this.parseServerSetting.rq_url,
@@ -443,176 +444,175 @@ export default {
           this.parseServerSetting.rq_head
         )
         .then(response => {
-          this.serverDataId = response.data.objectId
+          this.serverDataId = response.data.objectId;
           this.wxShareInfoValue.link =
             window.location.origin +
-            '/marketing/weiindex?sid=' +
-            this.serverDataId
-          this.handleWechatShare()
+            "/marketing/weiindex?sid=" +
+            this.serverDataId;
+          this.handleWechatShare();
         })
         .catch(err => {
-          console.warn(err.message)
-        })
+          console.warn(err.message);
+        });
     },
     getDataBySid() {
       let obj = {
         objectId: this.$route.query.sid
-      }
+      };
       let rq_url =
-        'http://120.27.144.62:1337/parse/classes/record?where=' +
-        JSON.stringify(obj)
+        `${parseUrl}/parse/classes/record?where=` + JSON.stringify(obj);
       this.$http
         .get(rq_url, this.parseServerSetting.rq_head)
         .then(response => {
-          let res = response.data.results[0].userData
-          this.userInfo.headimgurl = res.headimgurl
-          this.userInfo.nickname = res.nickname
-          this.randomInfo = res.randomInfo
-          this.status.shouldResultShow = true
+          let res = response.data.results[0].userData;
+          this.userInfo.headimgurl = res.headimgurl;
+          this.userInfo.nickname = res.nickname;
+          this.randomInfo = res.randomInfo;
+          this.status.shouldResultShow = true;
         })
         .catch(err => {
-          console.warn(err.message)
-        })
+          console.warn(err.message);
+        });
     },
     init() {
-      document.title = '测试你的音撩报告'
+      document.title = "测试你的音撩报告";
       // 设置Rem
-      this.setUpRem()
+      this.setUpRem();
       // 处理分享数据
-      this.processPath()
+      this.processPath();
       // if (localStorage.getItem('hasSuoha') === 'false') {
       //   this.control.shouldBoxShow = false
       // }
     },
     processPath() {
       // sid 作为判断本页是否为分享之后的页面
-      if (this.$route.query.hasOwnProperty('sid')) {
-        this.style.root.marginTop = '-156%'
+      if (this.$route.query.hasOwnProperty("sid")) {
+        this.style.root.marginTop = "-156%";
         // -1代表没有分享内容，否则获取已经保存的数据
-        if (this.$route.query.sid !== '-1') {
-          this.getDataBySid()
-          this.control.isInSharePage = true
+        if (this.$route.query.sid !== "-1") {
+          this.getDataBySid();
+          this.control.isInSharePage = true;
         }
       }
-      if (this.$route.query.hasOwnProperty('id')) {
-        this.getPhotoById()
+      if (this.$route.query.hasOwnProperty("id")) {
+        this.getPhotoById();
       }
     },
     setUpRem() {
-      document.getElementsByTagName('html')[0].style.fontSize =
-        window.innerWidth / 37.5 + 'px'
+      document.getElementsByTagName("html")[0].style.fontSize =
+        window.innerWidth / 37.5 + "px";
     },
     handleButtonTouch() {
       if (this.status.hasPresseed) {
-        return
+        return;
       } else {
-        this.status.isTimeButtonClick = true
+        this.status.isTimeButtonClick = true;
         this.control.intervalCount = setInterval(() => {
-          this.control.time += 1
-          let preprocess = this.control.time >= 5 ? 5 : this.control.time
+          this.control.time += 1;
+          let preprocess = this.control.time >= 5 ? 5 : this.control.time;
           this.style.line.width =
-            parseInt(preprocess / 5 * 100).toString() + '%'
-        }, 1000)
+            parseInt((preprocess / 5) * 100).toString() + "%";
+        }, 1000);
       }
     },
     handleButtonTouchEnd() {
-      this.status.hasPresseed = true
-      this.status.isTimeButtonClick = false
-      this.status.isAnalyzing = true
-      clearInterval(this.control.intervalCount)
+      this.status.hasPresseed = true;
+      this.status.isTimeButtonClick = false;
+      this.status.isAnalyzing = true;
+      clearInterval(this.control.intervalCount);
       this.control.commaInterval = setInterval(() => {
-        this.control.commaCount += 1
-      }, 500)
-      this.handleHtmlToImage()
+        this.control.commaCount += 1;
+      }, 500);
+      this.handleHtmlToImage();
     },
     handleHtmlToImage() {
-      this.handleRandomGenerate()
+      this.handleRandomGenerate();
       setTimeout(() => {
-        this.status.isAnalyzing = false
-        this.status.shouldResultShow = true
-        clearInterval(this.control.commaInterval)
-      }, 2000)
+        this.status.isAnalyzing = false;
+        this.status.shouldResultShow = true;
+        clearInterval(this.control.commaInterval);
+      }, 2000);
     },
     handleRandomGenerate() {
-      let teji = generate('teji')
-      let chenghao = generate('chenghao')
-      this.randomInfo.teji = teji
-      this.randomInfo.chenghao = chenghao
-      this.randomInfo.zhishu = randomNum(60, 100)
-      this.randomInfo.xindongzhi = randomNum(0, 9) + randomNum(0, 9) / 10
-      this.randomInfo.chenggonglv = String(randomNum(0, 100)) + '%'
-      this.randomInfo.yinse = randomNum(3, 5)
+      let teji = generate("teji");
+      let chenghao = generate("chenghao");
+      this.randomInfo.teji = teji;
+      this.randomInfo.chenghao = chenghao;
+      this.randomInfo.zhishu = randomNum(60, 100);
+      this.randomInfo.xindongzhi = randomNum(0, 9) + randomNum(0, 9) / 10;
+      this.randomInfo.chenggonglv = String(randomNum(0, 100)) + "%";
+      this.randomInfo.yinse = randomNum(3, 5);
       getWxUserInfo().then(r => {
-        this.userInfo.headimgurl = r.data.headimgurl
-        this.userInfo.nickname = r.data.nickname
-      })
-      this.saveDataToServer()
+        this.userInfo.headimgurl = r.data.headimgurl;
+        this.userInfo.nickname = r.data.nickname;
+      });
+      this.saveDataToServer();
     },
     handleConcertButtonTouch() {
-      this.status.isConcertButtonClick = true
+      this.status.isConcertButtonClick = true;
     },
     handleConcertButtonTouchEnd() {
-      this.status.isConcertButtonClick = false
-      window.location.href = this.concertUrl
+      this.status.isConcertButtonClick = false;
+      window.location.href = this.concertUrl;
     },
 
     handleCoverClose() {
-      this.status.shouldShareShow = false
+      this.status.shouldShareShow = false;
     },
     handleGameReset() {
-      this.status.isTimeButtonClick = false
-      this.status.isAnalyzing = false
-      this.status.hasPresseed = false
-      this.control.time = 0
-      this.control.intervalCount = null
-      this.control.commaInterval = null
-      this.control.commaCount = 0
-      this.status.shouldResultShow = false
-      this.style.line.width = '0%'
+      this.status.isTimeButtonClick = false;
+      this.status.isAnalyzing = false;
+      this.status.hasPresseed = false;
+      this.control.time = 0;
+      this.control.intervalCount = null;
+      this.control.commaInterval = null;
+      this.control.commaCount = 0;
+      this.status.shouldResultShow = false;
+      this.style.line.width = "0%";
     },
     getPhotoById() {
-      if (this.$route.query.hasOwnProperty('id')) {
+      if (this.$route.query.hasOwnProperty("id")) {
         getInfoById(this.$route.query.id)
           .then(res => {
             if (res.code !== null) {
-              this.imgUrl = res.code
+              this.imgUrl = res.code;
             } else {
-              this.imgUrl = res.image
+              this.imgUrl = res.image;
             }
           })
           .catch(err => {
-            console.warn(err.message)
-          })
+            console.warn(err.message);
+          });
       }
     },
     handleAgainButtonTouch() {
-      this.status.isAgainButtonTouch = true
+      this.status.isAgainButtonTouch = true;
     },
     handleAgainButtonTouchEnd() {
-      this.status.isAgainButtonTouch = false
-      this.handleGameReset()
+      this.status.isAgainButtonTouch = false;
+      this.handleGameReset();
     },
     handleShareButtonTouch() {
-      this.status.isShareButtonTouch = true
+      this.status.isShareButtonTouch = true;
     },
     handleShareButtonTouchEnd() {
-      this.status.isShareButtonTouch = false
-      this.status.shouldShareShow = true
-      document.body.style.overflow = 'hidden'
+      this.status.isShareButtonTouch = false;
+      this.status.shouldShareShow = true;
+      document.body.style.overflow = "hidden";
     },
     handleSuoHaClose() {
-      this.status.shouldSuoHaShow = false
+      this.status.shouldSuoHaShow = false;
     },
     handleSuoHaOpen() {
-      this.status.shouldSuoHaShow = true
-      document.body.style.overflow = 'hidden'
-      this.$refs.suoha.checkCoupon()
+      this.status.shouldSuoHaShow = true;
+      document.body.style.overflow = "hidden";
+      this.$refs.suoha.checkCoupon();
     },
     handleWechatAuth() {
-      if (Cookies.get('sign') === null) {
-        this.handleFirstAuth()
+      if (Cookies.get("sign") === null) {
+        this.handleFirstAuth();
       } else {
-        this.getuserData()
+        this.getuserData();
       }
     },
     getuserData() {
@@ -620,41 +620,41 @@ export default {
         // 如果是扫码（‘-1’代表网页入口,没有sid代表大屏）进入
         // 则直接获取本用户信息
         if (
-          this.$route.query.sid === '-1' ||
-          !this.$route.query.hasOwnProperty('sid')
+          this.$route.query.sid === "-1" ||
+          !this.$route.query.hasOwnProperty("sid")
         ) {
-          this.userInfo.headimgurl = r.data.headimgurl
-          this.userInfo.nickname = r.data.nickname
+          this.userInfo.headimgurl = r.data.headimgurl;
+          this.userInfo.nickname = r.data.nickname;
         }
-        this.status.hasFetchUserData = true
-      })
+        this.status.hasFetchUserData = true;
+      });
     },
     handleFirstAuth() {
-      let storeData = {}
-      let now_url = encodeURIComponent(String(window.location.href))
+      let storeData = {};
+      let now_url = encodeURIComponent(String(window.location.href));
       // console.dir(now_url)
       let redirct_url =
         process.env.WX_API +
-        '/wx/officialAccount/oauth?url=' +
+        "/wx/officialAccount/oauth?url=" +
         now_url +
-        '&scope=snsapi_userinfo'
+        "&scope=snsapi_userinfo";
       // console.dir(redirct_url)
-      window.location.href = redirct_url
+      window.location.href = redirct_url;
     },
     handleIamGoPlayButtonTouch() {
-      this.status.isIamGoingToPlayClick = true
+      this.status.isIamGoingToPlayClick = true;
     },
     handleIamGoPlayButtonTouchEnd() {
-      this.handleGameReset()
-      this.status.isIamGoingToPlayClick = false
-      this.control.isInSharePage = false
+      this.handleGameReset();
+      this.status.isIamGoingToPlayClick = false;
+      this.control.isInSharePage = false;
     }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
-@imgServerUrl: 'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/weixun/gameindex';
+@imgServerUrl: "https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/weixun/gameindex";
 .root {
   width: 100%;
   display: flex;

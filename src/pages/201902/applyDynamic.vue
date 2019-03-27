@@ -57,14 +57,14 @@
           </swiper-slide>
         </swiper>
         <div
-          class="swiper-button-prev"
           slot="button-prev"
-        ></div>
+          class="swiper-button-prev"
+        />
         <!--左箭头-->
         <div
-          class="swiper-button-next"
           slot="button-next"
-        ></div>
+          class="swiper-button-next"
+        />
         <!--右箭头-->
       </div>
       <img
@@ -91,14 +91,14 @@
         </swiper-slide>
       </swiper>
       <div
-        class="swiper-button-prev swiper-prev"
         slot="prev"
-      ></div>
+        class="swiper-button-prev swiper-prev"
+      />
       <!--左箭头-->
       <div
-        class="swiper-button-next swiper-next"
         slot="next"
-      ></div>
+        class="swiper-button-next swiper-next"
+      />
       <!--右箭头-->
     </div>
     <img

@@ -40,7 +40,7 @@
       <div
         v-show="Boolean(name)"
         class="name"
-      >{{name}}</div>
+      >{{ name }}</div>
       <div
         v-show="Boolean(coupon_img)"
         class="coupon"
@@ -63,7 +63,7 @@
           class="used"
         >
       </div>
-      <div class="code">{{code}}</div>
+      <div class="code">{{ code }}</div>
     </div>
     <img
       :src="base + 'bottom.png'"
@@ -230,7 +230,9 @@ export default {
     },
     //推送数据
     handlePost() {
-      let url = 'http://exelook.com:8010/pushdiv/?oid=' + this.oid + '&belong=' + this.belong + '&name=&img=' + this.head_img_url + ',' + this.nick_name + ',' + this.name + '&id=' + this.id + '&api=json'
+      const baseUrl = process.env.EXE_API;
+      let url =
+        `${baseUrl}/pushdiv/?oid=` + this.oid + '&belong=' + this.belong + '&name=&img=' + this.head_img_url + ',' + this.nick_name + ',' + this.name + '&id=' + this.id + '&api=json'
       this.$http
         .get(url)
         .then(res => {

@@ -1,6 +1,6 @@
 import axios from 'axios'
 const getQRcodeUrl = id => {
-  let requestUrl = 'http://exelook.com:8010/wxqrcode/?id=' + id + '&api=json'
+  let requestUrl = process.env.EXE_API + '/wxqrcode/?id=' + id + '&api=json'
   return new Promise((resolve, reject) => {
     axios
       .get(requestUrl)

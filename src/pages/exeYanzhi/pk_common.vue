@@ -165,13 +165,12 @@ export default {
           console.log(e)
         })
       let oid = this.$route.query.utm_source
-      this.$http.post(
-        'http://exelook.com:8010/pushdiv/?oid=' +
-          oid +
-          '&belong=' +
-          this.utmCampaign +
-          '&url=&name=&image=&api=json'
-      )
+      const baseUrl = process.env.EXE_API;
+      let url =
+        `${baseUrl}/pushdiv/?oid=` + oid + '&belong=' + this.utmCampaign + '&url=&name=&image=&api=json'
+      this.$http.post(url)
+        .then(res => {})
+        .catch(err => {})
     }
   }
 }

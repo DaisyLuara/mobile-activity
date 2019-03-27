@@ -17,8 +17,9 @@ customTrack.play_result_id = req.recordId ? req.recordId : 0
 
 // 基本的id和手机号追踪
 const basicTrack = (id, phoneNumber) => {
+  const baseUrl = process.env.EXE_API;
   let url =
-    'http://exelook.com/client/goodsxsd/?id=' +
+    `${baseUrl}/goodsxsd/?id=` +
     String(id) +
     '&mobile=' +
     String(phoneNumber) +

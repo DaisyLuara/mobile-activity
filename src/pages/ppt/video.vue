@@ -83,13 +83,14 @@
 </template>
 
 <script>
-const REQ_URL = 'http://120.27.144.62:1337/parse/classes/'
-const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
-import { $wechat, wechatShareTrack, isInWechat } from 'services'
-import { parseService } from 'services'
-import 'swiper/dist/css/swiper.css'
-import { swiper, swiperSlide } from 'vue-awesome-swiper'
-import $ from 'jquery'
+const parseUrl = process.env.PARSE_SERVER;
+const REQ_URL = `${parseUrl}/parse/classes/`;
+const IMAGE_SERVER = process.env.IMAGE_SERVER + "/xingshidu_h5/marketing";
+import { $wechat, wechatShareTrack, isInWechat } from "services";
+import { parseService } from "services";
+import "swiper/dist/css/swiper.css";
+import { swiper, swiperSlide } from "vue-awesome-swiper";
+import $ from "jquery";
 
 export default {
   components: {
@@ -98,7 +99,7 @@ export default {
   },
   data() {
     return {
-      IMGURL: IMAGE_SERVER + '/pages/promotion/',
+      IMGURL: IMAGE_SERVER + "/pages/promotion/",
       videoData: null,
       vType: this.$route.query.vtype,
       playNow: null,
@@ -111,28 +112,28 @@ export default {
         preventLinksPropagation: true,
         paginationClickable: true,
         pagination: {
-          el: '.swiper-pagination',
-          type: 'bullets',
+          el: ".swiper-pagination",
+          type: "bullets",
           clickable: true,
-          renderBullet: function (index, className) {
+          renderBullet: function(index, className) {
             return (
               '<span style="background:#fff;margin:0px 5px;" class="' +
               className +
               '">' +
-              '' +
-              '</span>'
-            )
+              "" +
+              "</span>"
+            );
           }
         },
         on: {
-          init: () => { },
+          init: () => {},
           slideChange: () => {
             this.playNow = document.getElementById(
-              'video' + this.$refs.Swiper1.swiper.previousIndex
-            )
-            this.playNow.pause()
-            this.playNow.currentTime = 0
-            scrollTo(0, 0)
+              "video" + this.$refs.Swiper1.swiper.previousIndex
+            );
+            this.playNow.pause();
+            this.playNow.currentTime = 0;
+            scrollTo(0, 0);
           }
         }
       },
@@ -141,111 +142,111 @@ export default {
         slidesPerView: 3,
         slideToClickedSlide: true,
         on: {
-          init: () => { },
+          init: () => {},
           slideChange: () => {
-            scrollTo(0, 0)
-            this.toPointer()
+            scrollTo(0, 0);
+            this.toPointer();
           }
         }
       },
       //微信分享
       wxShareInfo: {
-        title: '星视度',
-        desc: '星视度 创想新视界',
-        imgUrl: IMAGE_SERVER + '/pages/promotion/icon.jpg',
-        success: function () {
-          wechatShareTrack()
+        title: "星视度",
+        desc: "星视度 创想新视界",
+        imgUrl: IMAGE_SERVER + "/pages/promotion/icon.jpg",
+        success: function() {
+          wechatShareTrack();
         }
       }
-    }
+    };
   },
   created() {
-    this.getDataByType()
+    this.getDataByType();
   },
   mounted() {
-    this.handleWechatShare()
+    this.handleWechatShare();
     let height =
       window.innerHeight ||
       document.documentElement.clientHeight ||
-      document.body.clientHeight
-    let content = document.getElementById('content')
-    content.style.minHeight = height + 'px'
-    this.$refs.Swiper1.swiper.controller.control = this.$refs.Swiper2.swiper
-    this.$refs.Swiper2.swiper.controller.control = this.$refs.Swiper1.swiper
-    let w = document.documentElement
-    let a = w.getBoundingClientRect().width
+      document.body.clientHeight;
+    let content = document.getElementById("content");
+    content.style.minHeight = height + "px";
+    this.$refs.Swiper1.swiper.controller.control = this.$refs.Swiper2.swiper;
+    this.$refs.Swiper2.swiper.controller.control = this.$refs.Swiper1.swiper;
+    let w = document.documentElement;
+    let a = w.getBoundingClientRect().width;
     if (a > 750) {
-      a = 750
+      a = 750;
     }
-    let rem = a / 7.5
-    w.style.fontSize = rem + 'px'
-    this.getDataByType()
+    let rem = a / 7.5;
+    w.style.fontSize = rem + "px";
+    this.getDataByType();
   },
   methods: {
     handleWechatShare() {
       if (isInWechat() === true) {
         $wechat()
           .then(res => {
-            res.share(this.wxShareInfoValue)
+            res.share(this.wxShareInfoValue);
           })
           .catch(err => {
-            console.warn(err.message)
-          })
+            console.warn(err.message);
+          });
       } else {
-        console.warn('you r not in wechat environment')
+        console.warn("you r not in wechat environment");
       }
     },
     returnMenu() {
       // window.location.href =
       //   window.location.origin + '/marketing/ppt_index?utm_source=20'
       this.$router.push({
-        path: 'ppt_index?utm_source=20'
-      })
+        path: "ppt_index?utm_source=20"
+      });
     },
     vPlay(index) {
-      let that = this
-      this.playNow = document.getElementById('video' + index)
-      this.playNow.play()
-      this.bgshow = false
-      this.playNow.onplay = function () {
-        that.playNow.currentTime = 0
-      }
-      this.playNow.onended = function () {
-        that.bgshow = true
-      }
-      this.playNow.onpause = function () {
-        that.bgshow = true
-      }
+      let that = this;
+      this.playNow = document.getElementById("video" + index);
+      this.playNow.play();
+      this.bgshow = false;
+      this.playNow.onplay = function() {
+        that.playNow.currentTime = 0;
+      };
+      this.playNow.onended = function() {
+        that.bgshow = true;
+      };
+      this.playNow.onpause = function() {
+        that.bgshow = true;
+      };
     },
     getDataByType() {
       let query = {
         vType: this.vType
-      }
+      };
       parseService
-        .get(REQ_URL + 'promotion?where=' + JSON.stringify(query))
+        .get(REQ_URL + "promotion?where=" + JSON.stringify(query))
         .then(data => {
-          this.videoData = data.results
-          this.toPointer()
+          this.videoData = data.results;
+          this.toPointer();
         })
         .catch(err => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     },
     toPointer() {
-      let index = this.$refs.Swiper2.swiper.activeIndex
-      index = Number(index)
-      let all = $('.slider2')
-      let active = $('.slider2:eq(' + index + ')')
+      let index = this.$refs.Swiper2.swiper.activeIndex;
+      index = Number(index);
+      let all = $(".slider2");
+      let active = $(".slider2:eq(" + index + ")");
       index < this.videoData.length - 1
-        ? all.removeClass('slider2-right') && active.addClass('slider2-right')
-        : all.removeClass('slider2-right')
+        ? all.removeClass("slider2-right") && active.addClass("slider2-right")
+        : all.removeClass("slider2-right");
       index > 0
-        ? all.removeClass('slider2-left') && active.addClass('slider2-left')
-        : all.removeClass('slider2-left')
-      active = null
+        ? all.removeClass("slider2-left") && active.addClass("slider2-left")
+        : all.removeClass("slider2-left");
+      active = null;
     }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
