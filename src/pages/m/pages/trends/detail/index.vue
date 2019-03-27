@@ -56,7 +56,7 @@ import { mapGetters, mapMutations } from "vuex";
 import { getHdInfo, deleteATrend, fetchShopActivityDetail } from "services";
 import { Toast } from "mint-ui";
 import { $wechat, isInWechat } from "services";
-
+const baseUrl = process.env.EXE_API;
 export default {
   components: {
     TrendsTopBar,
@@ -67,7 +67,7 @@ export default {
   },
   data() {
     return {
-      goodsxsd: "http://exelook.com:8010/goodsxsd/",
+      goodsxsd: baseUrl + "/goodsxsd/",
       shouldDeleteModalShow: false,
       shouldShareModalShow: false,
       resData: {

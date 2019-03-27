@@ -1,39 +1,45 @@
 <template>
   <div
-    class="greetings-cake"
     ref="greetingsCake"
+    class="greetings-cake"
   >
     <!-- 蛋糕塔scroller -->
     <md-scroll-view
       ref="scrollView"
       :scrolling-x="false"
+      :auto-reflow="true"
+      class="cake-tower"
       @endReached="handleEndReached"
       @scroll="handleScroll"
-      class="cake-tower"
-      :autoReflow="true"
     >
       <div class="scroll-top">
-        <img :src="imageHost + 'chat_box.png'" class="chatbox">
-        <img :src="imageHost + 'avatar_big.png'" class="full-avatar">
+        <img 
+          :src="imageHost + 'chat_box.png'" 
+          class="chatbox">
+        <img 
+          :src="imageHost + 'avatar_big.png'" 
+          class="full-avatar">
       </div>
       <!-- 蛋糕和祝福语 -->
       <div class="scroll-content">
         <div
           v-for="(item, index) in list"
+          ref="greetings"
           :key="index"
-          class="greetings-wrapper animated fadeInUp"
           :style="{
             zIndex: item.zIndex,
             animationDelay: item.animationDelay + 'ms'
           }"
-          ref="greetings"
+          class="greetings-wrapper animated fadeInUp"
         >
           <div
-            class="cake-wrapper"
             :style="{ left: item.offset + '%' }"
+            class="cake-wrapper"
           >
-          <!-- 蛋糕 -->
-            <img :src="item.link" class="cake-img">
+            <!-- 蛋糕 -->
+            <img 
+              :src="item.link" 
+              class="cake-img">
             <!-- 祝福语 -->
             <div
               :class="[
@@ -43,10 +49,14 @@
                 Number(item.offset) < 50 ? 'left' : 'right'
               ]"
             >
-              <img :src="imageHost + 'comment_bg.png'" class="comment-bg">
+              <img 
+                :src="imageHost + 'comment_bg.png'" 
+                class="comment-bg">
               <div class="comment-info" >
                 <div class="avatar-wrapper">
-                  <img :src="item.face" class="comment-avatar">
+                  <img 
+                    :src="item.face" 
+                    class="comment-avatar">
                   <div class="avatar-name">{{ item.nickname }}</div>
                 </div>
                 <div class="comment-word">{{ item.kid }}</div>
@@ -55,8 +65,12 @@
           </div>
         </div>
       </div>
-      <div class="scroll-filler" v-show="isAllLoaded === true">
-        <img class="cake-plate" :src="imageHost + 'cake_table.png'">
+      <div 
+        v-show="isAllLoaded === true" 
+        class="scroll-filler">
+        <img 
+          :src="imageHost + 'cake_table.png'" 
+          class="cake-plate">
       </div>
     </md-scroll-view>
   </div>
@@ -69,10 +83,10 @@ import "animate.css"
 
 export default {
   name: "CakeTower",
-  props: ['list', 'isAllLoaded', 'pageSize'],
   components: {
     [ScrollView.name]: ScrollView
   },
+  props: ['list', 'isAllLoaded', 'pageSize'],
   data () {
     return {
       imageHost: 'https://cdn.exe666.com/m/activity/shop/birthday/',

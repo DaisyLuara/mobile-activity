@@ -17,7 +17,7 @@
           :src="base + 'name.png'"
           class="bg"
         >
-        <span>{{star}}</span>
+        <span>{{ star }}</span>
       </div>
       <div class="input">
         <img
@@ -25,8 +25,8 @@
           class="bg"
         >
         <input
-          class="name"
           v-model="name"
+          class="name"
           maxlength="5"
           placeholder="输入你的名字"
         >
@@ -58,7 +58,7 @@
       :src="base + 'rights.png'"
       class="tip"
     >
-    <canvas id="canvas"></canvas>
+    <canvas id="canvas"/>
   </div>
 </template>
 <script>

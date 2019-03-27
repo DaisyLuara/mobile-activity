@@ -25,11 +25,11 @@
     <img
       src=""
       class="animate1"
-    />
+    >
     <img
       src=""
       class="animate2"
-    />
+    >
     <div
       v-show="!loading"
       :style="style.root"

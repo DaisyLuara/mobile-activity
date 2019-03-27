@@ -209,9 +209,10 @@
   </div>
 </template>
 <script>
-const IMAGE_SERVER = process.env.IMAGE_SERVER + '/xingshidu_h5/marketing'
-const REQ_URL = 'http://120.27.144.62:1337/parse/classes/'
-import $ from 'jquery'
+const IMAGE_SERVER = process.env.IMAGE_SERVER + "/xingshidu_h5/marketing";
+const parseUrl = process.env.PARSE_SERVER;
+const REQ_URL = `${parseUrl}/parse/classes/`;
+import $ from "jquery";
 import {
   getInfoById,
   $wechat,
@@ -219,87 +220,87 @@ import {
   basicTrack,
   wechatShareTrack,
   parseService
-} from 'services'
+} from "services";
 export default {
   data() {
     return {
-      IMAGE_SERVER: IMAGE_SERVER + '/pages/angel/',
+      IMAGE_SERVER: IMAGE_SERVER + "/pages/angel/",
       img_type: this.$route.query.img_type,
       img_id: this.$route.query.id,
-      img_url: '',
+      img_url: "",
       num: this.$route.query.num,
       sex: this.$route.query.sex.toLowerCase(), //用户性别
-      open_id: '',
+      open_id: "",
       animate: false,
       show_btn: false,
       showPage: false,
       user_info: {
-        nick_name: '',
-        head_img_url: '',
-        wx_openid: ''
+        nick_name: "",
+        head_img_url: "",
+        wx_openid: ""
       },
-      join_img_url: '',
+      join_img_url: "",
       join_rule: [
-        ['86', '92'],
-        ['86', '84'],
-        ['92', '84'],
-        ['63', '75'],
-        ['63', '58'],
-        ['75', '58'],
-        ['46', '32'],
-        ['46', '38'],
-        ['32', '38']
+        ["86", "92"],
+        ["86", "84"],
+        ["92", "84"],
+        ["63", "75"],
+        ["63", "58"],
+        ["75", "58"],
+        ["46", "32"],
+        ["46", "38"],
+        ["32", "38"]
       ],
       user_result: [{}, {}],
       wxShareInfo: {
-        title: '浦商百货 致惠女神节',
-        desc: '黑白天使 成就致惠女神 真皙美白 唤醒青春美颜',
+        title: "浦商百货 致惠女神节",
+        desc: "黑白天使 成就致惠女神 真皙美白 唤醒青春美颜",
         imgUrl:
-          'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/angel_share_icon.png',
+          "http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/angel_share_icon.png",
         success: function() {
-          wechatShareTrack()
+          wechatShareTrack();
         }
       }
-    }
+    };
   },
   beforeCreate() {
-    document.title = '致惠女神节'
+    document.title = "致惠女神节";
   },
   mounted() {
-    $('.angel-wrap').css('min-height', $(window).height())
-    this.handleShare()
+    $(".angel-wrap").css("min-height", $(window).height());
+    this.handleShare();
   },
   created() {
     if (!this.img_id) {
-      alert('没有找到您的图片哦，请重新和大屏进行互动拍照~')
-      return
+      alert("没有找到您的图片哦，请重新和大屏进行互动拍照~");
+      return;
     }
     if (!this.img_type) {
-      alert('没有找到本次活动的类型，请到指定的黑白天使屏幕进行拍摄哦~')
-      return
+      alert("没有找到本次活动的类型，请到指定的黑白天使屏幕进行拍摄哦~");
+      return;
     }
     if (!this.num) {
-      alert('咦，没有找到您的钻石颗数哦，请重新和大屏进行互动拍照~')
+      alert("咦，没有找到您的钻石颗数哦，请重新和大屏进行互动拍照~");
     }
     getWxUserInfo()
       .then(result => {
-        let data = result.data
-        this.user_info.nick_name = data.nickname
-        this.user_info.head_img_url = data.headimgurl
-        this.user_info.wx_openid = data.openid
-        this.showPage = true
-        this.checkCurStatus()
+        let data = result.data;
+        this.user_info.nick_name = data.nickname;
+        this.user_info.head_img_url = data.headimgurl;
+        this.user_info.wx_openid = data.openid;
+        this.showPage = true;
+        this.checkCurStatus();
       })
       .catch(err => {
-        let pageUrl = encodeURIComponent(window.location.href)
+        let pageUrl = encodeURIComponent(window.location.href);
         let wx_auth_url =
           process.env.WX_API +
-          '/wx/officialAccount/oauth?url=' +
+          "/wx/officialAccount/oauth?url=" +
           pageUrl +
-          '&scope=snsapi_userinfo'
-        window.location.href = wx_auth_url
-        return
-      })
+          "&scope=snsapi_userinfo";
+        window.location.href = wx_auth_url;
+        return;
+      });
     // this.showPage = true;
     // this.checkCurStatus();
   },
@@ -307,108 +308,108 @@ export default {
     handleShare() {
       $wechat()
         .then(res => {
-          res.share(this.wxShareInfo)
+          res.share(this.wxShareInfo);
         })
         .catch(_ => {
-          console.warn(_.message)
-        })
+          console.warn(_.message);
+        });
     },
     loadImg() {
-      let that = this
-      let targetTop = $('.slogan').offset().top
+      let that = this;
+      let targetTop = $(".slogan").offset().top;
       if ($(window).scrollTop() >= targetTop) {
-        this.animate = true
+        this.animate = true;
       }
       window.onscroll = function(e) {
-        let windowScrollTop = $(window).scrollTop()
+        let windowScrollTop = $(window).scrollTop();
         if (windowScrollTop >= targetTop) {
-          that.animate = true
+          that.animate = true;
         }
-      }
+      };
     },
     getImgUrl() {
       getInfoById(this.img_id)
         .then(result => {
-          this.img_url = result.image
+          this.img_url = result.image;
         })
         .catch(err => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     },
     getWxUserResult() {
       let query = {
         open_id: this.user_info.wx_openid
-      }
+      };
       parseService
-        .get(REQ_URL + 'angel?where=' + JSON.stringify(query))
+        .get(REQ_URL + "angel?where=" + JSON.stringify(query))
         .then(data => {
-          this.user_result = data.results || [{}, {}]
+          this.user_result = data.results || [{}, {}];
           if (this.user_result.length == 1) {
-            this.user_result.push({})
-            if (this.user_result[0].img_type == 'white') {
-              this.user_result[1].img_type = 'black'
+            this.user_result.push({});
+            if (this.user_result[0].img_type == "white") {
+              this.user_result[1].img_type = "black";
             } else {
-              this.user_result[1].img_type = 'white'
+              this.user_result[1].img_type = "white";
             }
           }
-          this.creatJoinImgUrl()
+          this.creatJoinImgUrl();
         })
-        .catch(err => {})
+        .catch(err => {});
     },
     checkCurStatus() {
       let query = {
         img_id: this.img_id
-      }
+      };
       parseService
-        .get(REQ_URL + 'angel?where=' + JSON.stringify(query))
+        .get(REQ_URL + "angel?where=" + JSON.stringify(query))
         .then(data => {
           if (data.results && data.results.length) {
             // 找到相同img_id判断是否为当前用户的图片
             if (data.results[0].open_id != this.user_info.wx_openid) {
-              this.user_info.wx_openid = data.results[0].open_id
-              this.getWxUserResult()
+              this.user_info.wx_openid = data.results[0].open_id;
+              this.getWxUserResult();
             } else {
-              this.show_btn = true
-              this.checkCurTypeImg()
+              this.show_btn = true;
+              this.checkCurTypeImg();
             }
           } else {
-            this.show_btn = true
-            this.checkCurTypeImg()
+            this.show_btn = true;
+            this.checkCurTypeImg();
           }
-        })
+        });
     },
     checkCurTypeImg() {
       let query = {
         img_type: this.img_type,
         open_id: this.user_info.wx_openid
-      }
+      };
       parseService
-        .get(REQ_URL + 'angel?where=' + JSON.stringify(query) + '&limit=1')
+        .get(REQ_URL + "angel?where=" + JSON.stringify(query) + "&limit=1")
         .then(data => {
           if (!data.results) {
-            return
+            return;
           }
           if (data.results.length) {
             // 不同的图片，则更新
             if (data.results[0].img_id != this.img_id) {
-              this.updateCurTypeImg(data.results[0])
+              this.updateCurTypeImg(data.results[0]);
             } else {
-              this.getWxUserResult()
+              this.getWxUserResult();
             }
-            return
+            return;
           } else {
-            this.addCurTypeImg()
+            this.addCurTypeImg();
           }
         })
         .catch(err => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     },
     addCurTypeImg() {
       // 获取图片url存入数据库
       getInfoById(this.img_id)
         .then(result => {
-          this.img_url = result.image
+          this.img_url = result.image;
           let params = {
             img_id: this.img_id,
             open_id: this.user_info.wx_openid,
@@ -416,119 +417,119 @@ export default {
             num: this.num,
             img_url: this.img_url,
             sex: this.sex
-          }
+          };
 
           parseService
-            .post(REQ_URL + 'angel', params)
+            .post(REQ_URL + "angel", params)
             .then(res => {
               // 获取最新数据进行展示
-              this.getWxUserResult()
+              this.getWxUserResult();
             })
             .catch(err => {
-              console.log(err)
-            })
+              console.log(err);
+            });
         })
         .catch(err => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     },
     updateCurTypeImg(data) {
       getInfoById(this.img_id)
         .then(result => {
-          this.img_url = result.image
+          this.img_url = result.image;
           // 更新类型图片
           let params = {
             img_url: this.img_url,
             sex: this.sex,
             num: this.num,
             img_id: this.img_id
-          }
+          };
           parseService
-            .put(REQ_URL + 'angel/' + data.objectId, JSON.stringify(params))
+            .put(REQ_URL + "angel/" + data.objectId, JSON.stringify(params))
             .then(res => {
               // 获取最新数据进行展示
-              this.getWxUserResult()
+              this.getWxUserResult();
             })
-            .catch(err => {})
+            .catch(err => {});
         })
         .catch(err => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     },
     creatJoinImgUrl() {
       if (!this.user_result[0].img_id || !this.user_result[1].img_id) {
         this.wxShareInfo.success = () => {
-          wechatShareTrack('share_pagewechat_angel_with_one_photo')
-        }
-        return
+          wechatShareTrack("share_pagewechat_angel_with_one_photo");
+        };
+        return;
       }
 
       if (
-        this.user_result[0].sex == 'male' ||
-        this.user_result[1].sex == 'male'
+        this.user_result[0].sex == "male" ||
+        this.user_result[1].sex == "male"
       ) {
-        this.join_img_url = this.IMAGE_SERVER + 'unknow.png'
-        return
+        this.join_img_url = this.IMAGE_SERVER + "unknow.png";
+        return;
       }
 
-      if (this.sex == 'male') {
-        this.join_img_url = this.IMAGE_SERVER + 'unknow.png'
-        return
+      if (this.sex == "male") {
+        this.join_img_url = this.IMAGE_SERVER + "unknow.png";
+        return;
       }
 
-      let w_num = '',
-        b_num = ''
+      let w_num = "",
+        b_num = "";
 
       for (let i = 0, length = this.user_result.length; i < length; i++) {
-        if (this.user_result[i].img_type == 'white') {
-          w_num = this.user_result[i].num
+        if (this.user_result[i].img_type == "white") {
+          w_num = this.user_result[i].num;
         }
-        if (this.user_result[i].img_type == 'black') {
-          b_num = this.user_result[i].num
+        if (this.user_result[i].img_type == "black") {
+          b_num = this.user_result[i].num;
         }
       }
 
       if (b_num == w_num) {
-        this.join_img_url = this.IMAGE_SERVER + 'baibian.png'
-        return
+        this.join_img_url = this.IMAGE_SERVER + "baibian.png";
+        return;
       }
 
       let rule = this.join_rule.find(i => {
         if (i[0] == b_num && i[1] == w_num) {
-          return true
+          return true;
         }
-      })
+      });
 
       if (rule) {
-        this.join_img_url = this.IMAGE_SERVER + 'baibian.png'
-        return
+        this.join_img_url = this.IMAGE_SERVER + "baibian.png";
+        return;
       }
 
       if (b_num > w_num) {
-        this.join_img_url = this.IMAGE_SERVER + 'gugao.png'
-        return
+        this.join_img_url = this.IMAGE_SERVER + "gugao.png";
+        return;
       }
 
       if (b_num < w_num) {
-        this.join_img_url = this.IMAGE_SERVER + 'gaogui.png'
-        return
+        this.join_img_url = this.IMAGE_SERVER + "gaogui.png";
+        return;
       }
     },
     join() {
       if (!this.user_result[0].img_id || !this.user_result[1].img_id) {
-        alert('还差一个照片即可合成女神哦~')
-        return
+        alert("还差一个照片即可合成女神哦~");
+        return;
       }
-      this.show_btn = false
+      this.show_btn = false;
     }
   }
-}
+};
 </script>
 <style lang="less" scoped>
 img {
   width: 100%;
 }
-@IMAGE_SERVER: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/angel';
+@IMAGE_SERVER: "http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/angel";
 @keyframes fall1 {
   0% {
     top: 0%;
@@ -655,7 +656,7 @@ img {
 
 .angel-container {
   position: relative;
-  background-image: url('@{IMAGE_SERVER}/bg.jpg');
+  background-image: url("@{IMAGE_SERVER}/bg.jpg");
   background-repeat: no-repeat;
   background-size: 100% 100%;
   text-align: center;
