@@ -180,6 +180,14 @@ export default {
         localStorage.setItem('z', this.z)
         this.getProjectData(this.pn, this.z)
       }
+    },
+    head_img_url() {
+      this.num_total > 0 ? this.handlePost() : null
+    },
+    num_total() {
+      if (this.num_total > 0) {
+        this.head_img_url ? this.handlePost() : null
+      }
     }
   },
   mounted() {
@@ -221,7 +229,6 @@ export default {
           this.container[3].total = item.allnum
         }
         this.num_total += item.allnum
-        this.head_img_url ? this.handlePost() : null
       })
     },
     getProjectImages(index) {
@@ -258,7 +265,6 @@ export default {
         let data = res.data
         this.nick_name = data.nickname
         this.head_img_url = data.headimgurl
-        this.num_total ? this.handlePost() : null
       }).catch(err => {
         let pageUrl = encodeURIComponent(window.location.href)
         let wx_auth_url =
@@ -273,19 +279,12 @@ export default {
     //推送数据
     handlePost() {
       let url =
-        `oid=7,673,674,675,676,677,678,679` + '&belong=SZCenterRank&name=&img=' + this.head_img_url + ',' + this.nick_name + ',' + this.num_total + '&id=' + this.id + '&api=json'
+        `oid=7,678,679` + '&belong=SZCenterRank&name=&img=' + this.head_img_url + ',' + this.nick_name + ',' + this.num_total + '&id=' + this.id + '&api=json'
       handleDataPost(url).then(res => {
         console.log(res)
       }).catch(err => {
         console.log(err)
       })
-      //  this.$http.get(url)
-      // .then(res => {
-      //   console.log(res)
-      // })
-      // .catch(err => {
-      //   console.log(err)
-      // })
     },
   }
 }
