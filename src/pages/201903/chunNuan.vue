@@ -228,7 +228,7 @@ export default {
         if (item.versionname == 'SZCenterKai') {
           this.container[3].total = item.allnum
         }
-        this.num_total += item.allnum
+        this.num_total += item.allnum * 1
       })
     },
     getProjectImages(index) {
@@ -279,7 +279,7 @@ export default {
     //推送数据
     handlePost() {
       let url =
-        `oid=7,678,679` + '&belong=SZCenterRank&name=&img=' + this.head_img_url + ',' + this.nick_name + ',' + this.num_total + '&id=' + this.id + '&api=json'
+        'oid=7,678,679' + '&belong=SZCenterRank&name=&img=' + this.head_img_url + ',' + this.nick_name + ',' + this.num_total + '&id=' + this.id + '&api=json'
       handleDataPost(url).then(res => {
         console.log(res)
       }).catch(err => {
