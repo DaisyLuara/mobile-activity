@@ -7,6 +7,14 @@ export const H5SaaSRouter = {
   component: () => import('@/pages/m/mHome'),
   children: [
     {
+      path: 'navi',
+      name: 'mSiteNavi',
+      meta: {
+        title: '跳转中'
+      },
+      component: () => import('@/pages/m/pages/navi/naviHome')
+    },
+    {
       path: ':mkey/:mcode/trends/index',
       name: 'TrendsIndex',
       meta: {
