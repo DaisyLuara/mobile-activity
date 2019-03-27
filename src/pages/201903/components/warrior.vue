@@ -122,10 +122,11 @@
         </div>
       </div>
     </div>
+    <canvas id="canvas"></canvas>
   </div>
 </template>
 <script>
-import { $wechat, isInWechat, wechatShareTrack, isiOS, sendV2Projects, checkV2Coupon, batchV2Coupon } from "services";
+import { $wechat, isInWechat, wechatShareTrack, isiOS, sendV2Projects, checkV2Coupon, batchV2CouponLimit } from "services";
 import { normalPages } from "@/mixins/normalPages";
 import moment from "moment";
 import gameHonour from "@/modules/gameHonour";
@@ -213,7 +214,6 @@ export default {
     }
   },
   mounted() {
-    // this.$refs.gameHonour.getGameHonour(this.bid, '1808ce6f291cc2aa1c33e80d7bbd91128359w5');
   },
   methods: {
     openBox() {
@@ -221,12 +221,32 @@ export default {
     },
     getPhotoMerge() {
       //图片合成
+      let canvas = document.getElementById('canvas')
+      let ctx = canvas.getContext('2d')
+      let [bg, cover] = [new Image(), new Image()]
+      bg.setAttribute('crossOrigin', 'Anonymous')
+      cover.setAttribute('crossOrigin', 'Anonymous')
+      bg.onload = () => {
+        canvas.width = bg.width;
+        canvas.height = bg.height
+        cover.onload = () => {
+          let [bw, bh, cw, ch] = [bg.width, bg.height, cover.width, cover.height]
+          ctx.drawImage(bg, 0, 0)
+          ctx.drawImage(cover, 0, 0, cw, ch, bw * 0.13, bh * 0.08, bw * 0.74, bw * 0.76 / cw * ch)
+          this.merge = canvas.toDataURL('image/png')
+        }
+        cover.src = this.photo
+      }
+      bg.src = this.base + 'pbg.jpg'
+
+
     },
     //判断是否领过优惠券
     checkV2Coupon() {
       let args = {
         z: this.z,
         belong: 'warrior',
+        qiniu_id: this.id,
         include: 'couponBatch',
       }
       checkV2Coupon(args).then(res => {
@@ -242,9 +262,10 @@ export default {
     getCouponBatch() {
       let args = {
         z: this.z,
-        belong: this.belong,
+        qiniu_id: this.id,
+        belong: 'warrior',
       }
-      batchV2Coupon(args).then(res => {
+      batchV2CouponLimit(args).then(res => {
         this.get_id = res.id
         this.sendV2Coupon()
       }).catch(err => {
@@ -330,7 +351,15 @@ a {
     position: relative;
     z-index: 0;
   }
-
+  #canvas {
+    display: none;
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
   .top {
     width: 86%;
     position: relative;

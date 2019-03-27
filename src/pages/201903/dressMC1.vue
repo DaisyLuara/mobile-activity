@@ -1,6 +1,9 @@
 <template>
   <div>
-    <SummerDress :link-data="link" />
+    <SummerDress
+      :link-data="link"
+      :bg-data="bg"
+    />
     <img
       :src="base + 'coupon1.png'"
       class="coupon"
@@ -17,6 +20,7 @@ export default {
   data() {
     return {
       base: CDN_URL + '/fe/image/summer_dress/',
+      bg: CDN_URL + '/fe/image/summer_dress/back.jpg',
       link: 'http://papi.xingstation.com/api/s/yXw' + window.location.search
     }
   }

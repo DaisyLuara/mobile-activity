@@ -100,7 +100,7 @@ img {
       position: relative;
       width: 56.8%;
       z-index: 0;
-      margin-top: 11%;
+      margin-top: 11.4%;
       .c1 {
         width: 22vw;
         position: absolute;
@@ -121,7 +121,7 @@ img {
         z-index: 0;
         pointer-events: auto;
         user-select: auto;
-        border-radius: 20px;
+        // border-radius: 20px;
       }
     }
     .c3 {
