@@ -172,20 +172,20 @@ export default {
   watch: {
     sertime() {
       this.getWxUserInfo()
-      if (window.localStorage.get('z')) {
-        this.z = window.localStorage.get('z')
+      if (localStorage.getItem('z')) {
+        this.z = localStorage.getItem('z')
         this.getProjectData(this.pn, this.z)
       } else {
         this.z = this.userinfo.z
-        window.localStorage.set('z', this.z)
+        localStorage.setItem('z', this.z)
         this.getProjectData(this.pn, this.z)
       }
     }
   },
   mounted() {
     this.doLoading()
-    //h0bf835c97fba77794e81ab708fd7fad1c7smp//1808ce6f291cc2aa1c33e80d7bbd91128359w5
     // this.getProjectData(this.pn, this.z)
+
   },
   methods: {
     doLoading() {
@@ -202,7 +202,7 @@ export default {
     },
     getProjectData(pn, z) {
       getGamesNumberData(pn, z).then(res => {
-      res.results?this.getProjectNumber(res.results.data):''
+        res.results ? this.getProjectNumber(res.results.data) : ''
       }).catch(err => {
         console.log(err)
       })
@@ -227,9 +227,9 @@ export default {
     },
     getProjectImages(index) {
       let pn = this.container[index].name
-      getProjectImages(pn,this.z).then(res => {
-        this.container[index].imgList = res.results?res.results.data:''
-        this.photoList = res.results?res.results.data:''
+      getProjectImages(pn, this.z).then(res => {
+        this.container[index].imgList = res.results ? res.results.data : ''
+        this.photoList = res.results ? res.results.data : ''
         this.page2 = false
         this.page3 = true
       }).catch(err => {
