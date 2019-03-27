@@ -122,7 +122,7 @@
         </div>
       </div>
     </div>
-    <canvas id="canvas"></canvas>
+    <canvas id="canvas"/>
   </div>
 </template>
 <script>
