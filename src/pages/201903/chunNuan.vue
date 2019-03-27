@@ -79,7 +79,7 @@
               class="bg"
             >
             <img
-              :src="item.image + this.$qiniuCompress()"
+              :src="item.image"
               class="photo"
             >
           </swiper-slide>
@@ -95,7 +95,7 @@
   </div>
 </template>
 <script>
-import { $wechat, isInWechat, wechatShareTrack, getGamesNumberData, getProjectImages, getWxUserInfo } from 'services'
+import { $wechat, isInWechat, wechatShareTrack, getGamesNumberData, getProjectImages, getWxUserInfo, handleDataPost } from 'services'
 import { normalPages } from '@/mixins/normalPages'
 import "swiper/dist/css/swiper.css";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
@@ -171,7 +171,7 @@ export default {
   },
   watch: {
     sertime() {
-      // this.getWxUserInfo()
+      this.getWxUserInfo()
       if (localStorage.getItem('z')) {
         this.z = localStorage.getItem('z')
         this.getProjectData(this.pn, this.z)
@@ -184,8 +184,6 @@ export default {
   },
   mounted() {
     this.doLoading()
-    // this.getProjectData(this.pn, this.z)
-
   },
   methods: {
     doLoading() {
@@ -197,6 +195,7 @@ export default {
     },
     backHome() {
       this.page3 = false
+      this.sOption = null
       this.photoList = null
       this.page2 = true
     },
@@ -235,19 +234,20 @@ export default {
       }).catch(err => {
         console.log(err)
       })
-
     },
     getTotalPhoto(item, index) {
       if (item.total == 0) {
         return
       } else {
+        let slider = document.querySelector('.pictures')
         if (item.total == 1) {
           this.sOption = this.sOption1
-          let slider = document.querySelector('.pictures')
           slider.style.width = '68%'
           slider.style.padding = '0% 5%'
         } else {
           this.sOption = this.sOption2
+          slider.style.width = '116%'
+          slider.style.padding = '0% 0%'
         }
         this.getProjectImages(index)
       }
@@ -272,17 +272,20 @@ export default {
     },
     //推送数据
     handlePost() {
-      const baseUrl = process.env.EXE_API;
       let url =
-        `${baseUrl}/pushdiv/?oid=7,673,674,675,676,677,678,679` + '&belong=SZCenterRank&name=&img=' + this.head_img_url + ',' + this.nick_name + ',' + this.num_total + '&id=' + this.id + '&api=json'
-      this.$http
-        .get(url)
-        .then(res => {
-          console.log(res)
-        })
-        .catch(err => {
-          console.log(err)
-        })
+        `oid=7,673,674,675,676,677,678,679` + '&belong=SZCenterRank&name=&img=' + this.head_img_url + ',' + this.nick_name + ',' + this.num_total + '&id=' + this.id + '&api=json'
+      handleDataPost(url).then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
+      //  this.$http.get(url)
+      // .then(res => {
+      //   console.log(res)
+      // })
+      // .catch(err => {
+      //   console.log(err)
+      // })
     },
   }
 }

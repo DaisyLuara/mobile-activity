@@ -185,11 +185,12 @@ export default {
         })
       let oid = this.$route.query.utm_source
       const baseUrl = process.env.EXE_API;
-      let url =
-        `${baseUrl}/pushdiv/?oid=` + oid +
-        '&belong=' + this.utmCampaign +
-        '&url=&name=&image=&api=json'
-      this.$http.post(url)
+      let url = 'oid=' + oid + '&belong=' + this.utmCampaign + '&url=&name=&image=&api=json'
+      handleDataPost(url).then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
     }
   }
 }

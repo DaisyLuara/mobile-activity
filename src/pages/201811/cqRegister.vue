@@ -75,7 +75,8 @@ import {
   wechatShareTrack,
   isInWechat,
   Cookies,
-  userData
+  userData,
+  handleDataPost
 } from 'services'
 import { normalPages } from '@/mixins/normalPages'
 const BASE_URL = process.env.CDN_URL
@@ -182,23 +183,12 @@ export default {
     },
     handlePost() {
       let id = this.$route.query.id
-      const baseUrl = process.env.EXE_API;
-      let url =
-        `${baseUrl}/pushdiv/?oid=` +
-        this.oid +
-        '&belong=' +
-        this.belong +
-        '&id=' +
-        id +
-        '&api=json'
-      this.$http
-        .get(url)
-        .then(res => {
-          console.log(res)
-        })
-        .catch(err => {
-          console.log(err)
-        })
+      let url = 'oid=' + this.oid + '&belong=' + this.belong + '&id=' + id + '&api=json'
+      handleDataPost(url).then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
     }
   }
 }

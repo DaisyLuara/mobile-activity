@@ -1,54 +1,65 @@
 <template>
   <div
-    :style="style.root" 
-    class="root">
-    <div 
-      v-show="shade" 
-      class="shade" 
-      @click="cancle"/> 
-    <div 
-      v-show="shade" 
-      class="ct" 
-      @click="cancle">
-      <img 
+    :style="style.root"
+    class="root"
+  >
+    <div
+      v-show="shade"
+      class="shade"
+      @click="cancle"
+    />
+    <div
+      v-show="shade"
+      class="ct"
+      @click="cancle"
+    >
+      <img
         :src="baseUrl + 'shade.png'+ this.$qiniuCompress()"
-        class="shade-bg">
-      <p 
-        v-show="font1" 
-        class="font">发送成功</p>
+        class="shade-bg"
+      >
+      <p
+        v-show="font1"
+        class="font"
+      >发送成功</p>
     </div>
     <!-- 合成图片 -->
     <img
-      id="test" 
+      id="test"
       :src="compoundUrl"
-      alt="" 
-      class="photo photo-real" >
-    <canvas 
-      id="canvas" 
+      alt=""
+      class="photo photo-real"
+    >
+    <canvas
+      id="canvas"
       class="photo"
-      style="display: none" />
+      style="display: none"
+    />
 
     <div class="bottom">
-      <img 
+      <img
         :src="baseUrl + '1.png'+ this.$qiniuCompress()"
-        class="bt" >
-      <img 
+        class="bt"
+      >
+      <img
         :src="baseUrl + '2.png'+ this.$qiniuCompress()"
-        class="letter" >
+        class="letter"
+      >
       <!-- 输入框 -->
       <input
-        v-if="wechat" 
-        v-model="text2" 
-        maxlength="10" 
+        v-if="wechat"
+        v-model="text2"
+        maxlength="10"
         placeholder="写下你的心愿(请在10分钟内发送祝福)"
         class="text"
-        style="font-size:12px;">
+        style="font-size:12px;"
+      >
       <!-- 保存 -->
-      <img 
-        v-if="wechat" 
+      <img
+        v-if="wechat"
         :src="baseUrl + 'button.png'+ this.$qiniuCompress()"
-        class="save" 
-        @click="send()">   
+        class="save"
+        @click="send()"
+      >
     </div>
   </div>
 </template>
@@ -105,7 +116,7 @@ export default {
       imgList: ['1.png', '2.png', 'bg.png', 'button.png', 'white.png']
     }
   },
-  created() {},
+  created() { },
   mounted() {
     if (this.$route.query.type != null && this.$route.query.type != undefined) {
       this.wechat = false
@@ -125,7 +136,7 @@ export default {
       for (let i = 0; i < this.imgList.length; i++) {
         let pre = new Promise((resolve, reject) => {
           let img = new Image()
-          img.onload = function() {
+          img.onload = function () {
             resolve(img)
           }
           img.src = thisRef.baseUrl + this.imgList[i]
@@ -183,34 +194,25 @@ export default {
     //处理接口问题
     handle() {
       const baseUrl = process.env.EXE_API;
-      let url =
-        `${baseUrl}/pushdiv/?oid=` +
-        this.oid +
-        '&belong=' +
-        this.belong +
-        '&url=&img=' +
-        this.text2 +
-        '&image=&api=json'
-      this.$http
-        .get(URL)
-        .then(res => {
-          this.shade = true
-          console.log(res)
-          let link = this.wxShareInfoValue.link
-          this.wxShareInfoValue.link = link.replace(
-            link.substring(link.indexOf('name='), link.length),
-            'name=' + this.text2
-          )
-          console.log(this.wxShareInfoValue)
-          //重新加载微信分享
-          this.handleWechatShare()
-          this.text = this.text2
-          this.drawing()
-          this.text2 = ''
-        })
-        .catch(err => {
-          console.log(err)
-        })
+      let url = 'oid=' + this.oid + '&belong=' + this.belong + '&url=&img=' + this.text2 + '&image=&api=json'
+      handleDataPost(url).then(res => {
+        this.shade = true
+        console.log(res)
+        let link = this.wxShareInfoValue.link
+        this.wxShareInfoValue.link = link.replace(
+          link.substring(link.indexOf('name='), link.length),
+          'name=' + this.text2
+        )
+        console.log(this.wxShareInfoValue)
+        //重新加载微信分享
+        this.handleWechatShare()
+        this.text = this.text2
+        this.drawing()
+        this.text2 = ''
+      }).catch(err => {
+        console.log(err)
+      })
+
     },
     drawing() {
       let width = this.$innerWidth()
@@ -279,7 +281,7 @@ export default {
       let width = this.$innerWidth()
       let text = this.text
       image.src = this.base64Data
-      image.onload = function() {
+      image.onload = function () {
         canvas.width = image.width
         canvas.height = image.height
         ctx.drawImage(image, 0, 0, image.width, image.height)
@@ -304,12 +306,12 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: 'http://cdn.exe666.com/fe/marketing/img/midAutumn/';
+@imageHost: "http://cdn.exe666.com/fe/marketing/img/midAutumn/";
 .root {
   width: 100%;
   position: relative;
   text-align: center;
-  background-image: url('@{imageHost}bg.png');
+  background-image: url("@{imageHost}bg.png");
   background-size: 100% auto;
   background-repeat: no-repeat;
   overflow: hidden;
