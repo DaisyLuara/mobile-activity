@@ -4,7 +4,7 @@ const GAME_URL = process.env.SAAS_API + '/user/'
 const GAME_LIST_URL = process.env.SAAS_API + '/user/'
 const REGISTER_URL = process.env.AD_API + '/api/temp/customer'
 const baseUrl = process.env.EXE_API
-const EXE_URL = 'http://xingstation.cn/'
+const EXE_URL = 'http://xingstation.cn'
 const NEW_LIST_NOCHECK = `${baseUrl}/h5/awardlist/?api=json`
 const NEW_LIST_NEEDCHECK = `${baseUrl}/all/awardpass/?api=json`
 const USER_HONOUR = `${baseUrl}/h5/userhonour/?cp=1&size=10&api=json`
