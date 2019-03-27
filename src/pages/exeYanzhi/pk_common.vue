@@ -1,57 +1,58 @@
 <template>
-  <div 
+  <div
     :style="style.root"
-    class="content">
+    class="content"
+  >
     <img
       :src="base+'title.png'"
-      class="title">
-    <div 
-      class="main">
+      class="title"
+    >
+    <div class="main">
       <!-- 卡片背景 -->
       <img
         :src="base+'ka.png'+ this.$qiniuCompress()"
-        class="kabg">
+        class="kabg"
+      >
       <!-- 头像 -->
-      <div 
-        id="clip" 
-        class="clip">
-        <img 
-          :src="photo + this.$qiniuCompress()">
+      <div
+        id="clip"
+        class="clip"
+      >
+        <img :src="photo + this.$qiniuCompress()">
       </div>
       <!-- 年龄，颜值分数-->
-      <span
-        class="year">{{ year }}岁</span>
-      <span
-        class="yz-score">{{ score }}</span>
+      <span class="year">{{ year }}岁</span>
+      <span class="yz-score">{{ score }}</span>
       <!-- 排名 -->
-      <div 
-        class="rank">
+      <div class="rank">
         你击败了{{ rank }}%玩家
       </div>
       <!-- 文字 -->
-      <img 
+      <img
         :src="origin + word + '.png'"
-        class="word">
+        class="word"
+      >
     </div>
-    <div
-      class="todo">
+    <div class="todo">
       <!-- 女生显示按钮 -->
-      <a 
+      <a
         v-show="Boolean(sex)"
         class="btn"
-        @click="toPK">
-        <img
-          :src="base + btn + '.png'">
+        @click="toPK"
+      >
+        <img :src="base + btn + '.png'">
       </a>
       <img
         v-show="Boolean(sex)"
         :src="base + note + '.png'"
-        class="note">
+        class="note"
+      >
       <!-- 男生显示 -->
       <img
         v-show="!Boolean(sex)"
         :src="base+'boy.png'"
-        class="boy">
+        class="boy"
+      >
     </div>
   </div>
 </template>
@@ -94,7 +95,7 @@ export default {
         desc: 'Mirror魔镜PK擂台等你来战',
         link: 'http://papi.xingstation.com/api/s/lO5' + window.location.search,
         imgUrl: 'http://cdn.exe666.com/image/pk/common/share.png',
-        success: function() {
+        success: function () {
           wechatShareTrack()
         }
       }
@@ -167,16 +168,18 @@ export default {
       let oid = this.$route.query.utm_source
       const baseUrl = process.env.EXE_API;
       let url =
-        `${baseUrl}/pushdiv/?oid=` + oid + '&belong=' + this.utmCampaign + '&url=&name=&image=&api=json'
-      this.$http.post(url)
-        .then(res => {})
-        .catch(err => {})
+        `oid=` + oid + '&belong=' + this.utmCampaign + '&url=&name=&image=&api=json'
+      handleDataPost(url).then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
     }
   }
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://cdn.exe666.com/image/yanzhi/pk/common/';
+@imgUrl: "http://cdn.exe666.com/image/yanzhi/pk/common/";
 html,
 body {
   width: 100%;
@@ -200,7 +203,7 @@ img {
 .content {
   width: 100%;
   overflow-x: hidden;
-  background-image: url('@{imgUrl}tippng.png'), url('@{imgUrl}bg.png');
+  background-image: url("@{imgUrl}tippng.png"), url("@{imgUrl}bg.png");
   background-size: 60% auto, 100% 100%;
   background-position: center 98%, center top;
   background-repeat: no-repeat, no-repeat;

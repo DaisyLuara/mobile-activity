@@ -58,6 +58,12 @@
         class="frame"
       >
       <img
+        v-if="belong == 'MCPhoneBooth'"
+        :src="merge"
+        class="photo"
+      >
+      <img
+        v-else
         :src="photo"
         class="photo"
       >
@@ -148,6 +154,7 @@ export default {
       qrcode: null,//null,
       used: false,
       passed: false,
+      merge: null,
       bid: 5,
       projects: {
         list: {
@@ -198,6 +205,11 @@ export default {
         this.projects.total = 3
         this.$refs.gameHonour.getGameHonour(this.bid, this.z)
       }
+    },
+    belong() {
+      if (this.belong == 'MCPhoneBooth') {
+        this.getPhotoMerge(this.photo)
+      }
     }
   },
   mounted() {
@@ -206,6 +218,9 @@ export default {
   methods: {
     openBox() {
       this.checkV2Coupon()
+    },
+    getPhotoMerge() {
+      //图片合成
     },
     //判断是否领过优惠券
     checkV2Coupon() {

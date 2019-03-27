@@ -230,17 +230,13 @@ export default {
     },
     //推送数据
     handlePost() {
-      const baseUrl = process.env.EXE_API;
       let url =
-        `${baseUrl}/pushdiv/?oid=` + this.oid + '&belong=' + this.belong + '&name=&img=' + this.head_img_url + ',' + this.nick_name + ',' + this.name + '&id=' + this.id + '&api=json'
-      this.$http
-        .get(url)
-        .then(res => {
-          console.log(res)
-        })
-        .catch(err => {
-          console.log(err)
-        })
+        'oid=' + this.oid + '&belong=' + this.belong + '&name=&img=' + this.head_img_url + ',' + this.nick_name + ',' + this.name + '&id=' + this.id + '&api=json'
+      handleDataPost(url).then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
     },
   }
 }

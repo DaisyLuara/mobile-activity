@@ -249,9 +249,8 @@ export default {
     },
     handlePost() {
       let id = this.$route.query.id
-      const baseUrl = process.env.EXE_API;
       let url =
-        `${baseUrl}/pushdiv/?oid=562,212,386,230,426,219,534,474,434,386&belong=GroceryShop&id=` +
+        `oid=562,212,386,230,426,219,534,474,434,386&belong=GroceryShop&id=` +
         id +
         "&url={'cakeID':0,'cake_type_a':" +
         this.bing.cake_type_a +
@@ -260,14 +259,11 @@ export default {
         ",'people_type':" +
         this.bing.people +
         '}&name&image&api=json'
-      this.$http
-        .get(url)
-        .then(res => {
-          console.log(res)
-        })
-        .catch(err => {
-          console.log(err)
-        })
+      handleDataPost(url).then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
     }
   }
 }
