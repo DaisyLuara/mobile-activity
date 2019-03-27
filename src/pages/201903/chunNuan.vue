@@ -171,7 +171,7 @@ export default {
   },
   watch: {
     sertime() {
-      this.getWxUserInfo()
+      // this.getWxUserInfo()
       if (localStorage.getItem('z')) {
         this.z = localStorage.getItem('z')
         this.getProjectData(this.pn, this.z)

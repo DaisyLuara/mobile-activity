@@ -1,16 +1,17 @@
 import axios from 'axios'
 import { apiToken, Cookies } from 'services'
-const EXE_LOOK = process.env.EXE_API 
 const GAME_URL = process.env.SAAS_API + '/user/'
 const GAME_LIST_URL = process.env.SAAS_API + '/user/'
 const REGISTER_URL = process.env.AD_API + '/api/temp/customer'
 const baseUrl = process.env.EXE_API
 const NEW_LIST_NOCHECK = `${baseUrl}/h5/awardlist/?api=json`
 const NEW_LIST_NEEDCHECK = `${baseUrl}/all/awardpass/?api=json`
-const USER_HONOUR =
-  `${baseUrl}/h5/userhonour/?cp=1&size=10&api=json`
+const USER_HONOUR = `${baseUrl}/h5/userhonour/?cp=1&size=10&api=json`
 const GAME_LIST = `${baseUrl}/all/actresult/?api=json`
 const APPLICATION_COMMON = `${baseUrl}/all/actpi/?api=json`
+const GAME_DATA_LIST = `${baseUrl}/client/h5/userprovn/?api=json`
+const PROJECT_IMAGE_LIST = `${baseUrl}/client/h5/userphotovn/?cp=1&size=20&api=json`
+const POST_URL = `${baseUrl}/pushdiv/?`
 const Accept = 'application/vnd.saas.v2+json'
 const REQ_HEADER = {
   headers: {
@@ -209,7 +210,7 @@ const getProjectImages = (pn, z) => {
 }
 
 //向大屏推送数据
-const handlePost = (url) => {
+const handlePost = url => {
   return new Promise((resolve, reject) => {
     axios
       .get(POST_URL + url)
@@ -221,7 +222,6 @@ const handlePost = (url) => {
       })
   })
 }
-
 
 export {
   createGame,
