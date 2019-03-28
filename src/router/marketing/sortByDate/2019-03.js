@@ -262,5 +262,16 @@ const Date201903 = [
       desc: '跳转用链接'
     },
   },
+  {
+    path: 'butter_fly',
+    location: '201903/butterfly',
+    name: 'butter_fly',
+    meta: {
+      title: '蝶嬉春光',
+      author: 'lipan',
+      desc: '蝶嬉春光'
+    },
+    isAbandoned: false
+  }
 ]
 export default Date201903

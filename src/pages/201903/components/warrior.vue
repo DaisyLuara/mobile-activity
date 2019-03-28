@@ -267,7 +267,11 @@ export default {
       }
       batchV2CouponLimit(args).then(res => {
         this.get_id = res.id
-        this.sendV2Coupon()
+        let timer = setTimeout(() => {
+          this.sendV2Coupon()
+          clearTimeout(timer)
+        }, 1000)
+
       }).catch(err => {
         console.log(err)
       })
