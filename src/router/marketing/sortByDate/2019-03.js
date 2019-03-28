@@ -251,6 +251,16 @@ const Date201903 = [
       desc: '幻境-最初通用版'
     },
     isAbandoned: false
-  }
+  },
+  {
+    path: 'navi',
+    name: 'mSiteNavi',
+    location: 'navi/index',
+    meta: {
+      title: '跳转中',
+      author: 'Anluis',
+      desc: '跳转用链接'
+    },
+  },
 ]
 export default Date201903
