@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { getInfoById } from "services";
+import { getInfoById, splitParms } from "services";
 export default {
   created() {
     const { id } = this.$route.query;
