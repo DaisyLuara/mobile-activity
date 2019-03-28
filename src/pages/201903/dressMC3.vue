@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="root">
     <SummerDress
       ref="summer"
       :link-data="link"
@@ -28,14 +28,9 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-.coupon {
-  width: 81%;
-  position: absolute;
-  bottom: -10%;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 999;
-  pointer-events: auto;
-  user-select: auto;
+.root {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
 }
 </style>
