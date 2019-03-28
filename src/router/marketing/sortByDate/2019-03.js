@@ -253,6 +253,16 @@ const Date201903 = [
     isAbandoned: false
   },
   {
+    path: 'navi',
+    name: 'mSiteNavi',
+    location: 'navi/index',
+    meta: {
+      title: '跳转中',
+      author: 'Anluis',
+      desc: '跳转用链接'
+    },
+  },
+  {
     path: 'butter_fly',
     location: '201903/butterfly',
     name: 'butter_fly',

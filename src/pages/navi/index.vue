@@ -13,7 +13,9 @@ export default {
       getInfoById(id).then(r => {
         if (r.parms) {
           const params = splitParms(r.parms);
-          if (params.rp) {
+          console.log(params);
+          if (params.hasOwnProperty("rp")) {
+            console.log("ok");
             window.location.href =
               "http://h5.xingstation.com/m/d7mz317i/6498/wallet";
           }
