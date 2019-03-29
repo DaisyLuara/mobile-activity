@@ -78,13 +78,13 @@
     >
       <a
         class="close"
-        @click="()=>{mask = false}"
+        @click="getClose"
       >
         <img :src="base + 'close.png'">
       </a>
       <!-- 未中奖 -->
       <div
-        v-show="!award"
+        v-show="noward"
         class="no-ward"
       >
         <img :src="base + 'thank.png'">
@@ -149,6 +149,7 @@ export default {
       },
       id: this.$route.query.id,
       mask: false,
+      noward: false,
       award: false,
       qr_img: null,//'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
       qrcode: null,//null,
@@ -218,8 +219,10 @@ export default {
   },
   methods: {
     openBox() {
-      // this.checkV2Coupon()
       this.mask = true
+    },
+    getClose() {
+      this.mask = false
     },
     getPhotoMerge() {
       //图片合成
@@ -240,8 +243,6 @@ export default {
         cover.src = this.photo
       }
       bg.src = this.base + 'pbg.jpg'
-
-
     },
     //判断是否领过优惠券
     checkV2Coupon() {
@@ -258,7 +259,7 @@ export default {
           this.getCouponBatch()
         }
       }).catch(err => {
-        alert(err.response.data.message)
+        console.log(err)
       })
     },
     getCouponBatch() {
@@ -269,11 +270,9 @@ export default {
       }
       batchV2CouponLimit(args).then(res => {
         this.get_id = res.id
-        let timer = setTimeout(() => {
-          this.sendV2Coupon()
-          clearTimeout(timer)
-        }, 1000)
+        this.sendV2Coupon()
       }).catch(err => {
+        this.noward = true
         alert(err.response.data.message)
       })
     },
@@ -290,6 +289,7 @@ export default {
           this.handleData(res)
         })
         .catch(err => {
+          this.noward = true
           alert(err.response.data.message)
         })
     },
@@ -303,8 +303,10 @@ export default {
       let end = moment(res.end_date)
       let diff = end.diff(now)
       if (id == 402) {
+        this.noward = true
         this.award = false
       } else {
+        this.noward = false
         this.award = true
       }
       if (parseInt(res.status) === 1) {
