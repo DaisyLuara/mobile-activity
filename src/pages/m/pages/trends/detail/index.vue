@@ -11,7 +11,9 @@
       class="photo"
     >
 
-    <div class="time" v-if="actDetail.sdate">
+    <div 
+      v-if="actDetail.sdate" 
+      class="time">
       活动时间:  <span class="red"> {{ startTime }} 至 {{ endTime }}</span>
     </div>
 
