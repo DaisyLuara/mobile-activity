@@ -38,18 +38,17 @@
         >
         <!-- 开宝箱 -->
         <a
+          v-if="projects.total<3"
           class="open-box"
           @click="openBox"
         >
-          <img
-            v-if="projects.total<3"
-            :src="base + 'btn1.png'"
-          >
-          <img
-            v-else
-            :src="base + 'btn2.png'"
-          >
+          <img :src="base + 'btn1.png'">
         </a>
+        <img
+          v-else
+          :src="base + 'btn2.png'"
+          class="open-box"
+        >
       </div>
     </div>
     <div class="picture">
@@ -200,24 +199,27 @@ export default {
         this.z = this.z ? this.z : localStorage.getItem('z')
         this.projects.total = 3
         this.$refs.gameHonour.getGameHonour(this.bid, this.z)
+        this.checkV2Coupon()
       } else if (this.userinfo != null) {
         this.z = this.userinfo.z
         localStorage.setItem('z', this.userinfo.z)
         this.projects.total = 3
         this.$refs.gameHonour.getGameHonour(this.bid, this.z)
+        this.checkV2Coupon()
       }
     },
     belong() {
       if (this.belong == 'MCPhoneBooth') {
         this.getPhotoMerge(this.photo)
       }
-    }
+    },
   },
   mounted() {
   },
   methods: {
     openBox() {
-      this.checkV2Coupon()
+      // this.checkV2Coupon()
+      this.mask = true
     },
     getPhotoMerge() {
       //图片合成
@@ -303,10 +305,8 @@ export default {
       let diff = end.diff(now)
       if (id == 402) {
         this.award = false
-        this.mask = true
       } else {
         this.award = true
-        this.mask = true
       }
       if (parseInt(res.status) === 1) {
         this.used = true
