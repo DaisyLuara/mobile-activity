@@ -73,7 +73,7 @@ export default {
     actDetail: {
       type: Object,
       required: true,
-      default: function () {
+      default: function() {
         return {
           infolink: "",
           pslink: "",
@@ -142,7 +142,7 @@ export default {
         mkey: this.$route.params.mkey,
         z: this.z,
         api: "json",
-        allt: "1"
+        allt: "altop"
       };
       fetchShopActivityList(this, payload).then(r => {
         this.actList = r.data.results.data;
