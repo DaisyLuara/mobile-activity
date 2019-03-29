@@ -17,11 +17,11 @@ export default {
           if (params.hasOwnProperty("rp")) {
             console.log("ok");
             window.location.href =
-              "http://h5.xingstation.com/m/d7mz317i/6498/wallet";
+              "http://h5.xingstation.com/m/d7mz317i/vs/wallet";
           }
         } else {
           window.location.href =
-            "http://h5.xingstation.com/m/d7mz317i/6498/barrage/index";
+            "http://h5.xingstation.com/m/d7mz317i/vs/barrage/index";
         }
       });
     }
