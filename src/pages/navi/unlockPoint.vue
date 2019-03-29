@@ -37,7 +37,7 @@ export default {
         }
         const jumpUrl = `http://h5.xingstation.com/m/${mkey}/${mcode}/${jumpRoute}`;
         console.log(jumpUrl);
-        // window.location.href = jumpUrl
+        window.location.href = jumpUrl;
       } catch (err) {
         console.log(err);
         Indicator.close();
