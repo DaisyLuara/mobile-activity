@@ -11,7 +11,7 @@
       class="photo"
     >
 
-    <div class="time">
+    <div class="time" v-if="actDetail.sdate">
       活动时间:  <span class="red"> {{ startTime }} 至 {{ endTime }}</span>
     </div>
 
@@ -233,6 +233,7 @@ export default {
   flex-direction: column;
   align-items: center;
   background: #f3f3f3;
+  min-height: 100vh;
   .time {
     margin: 20px 0;
     width: calc(100% - 20px);
