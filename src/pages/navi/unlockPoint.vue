@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <div/>
 </template>
 
 <script>
@@ -23,26 +23,22 @@ export default {
         const padNum = this.padNumber(ten, routes.length);
         console.log(padNum);
         let jumpRoute = "";
-        String(padNum)
+        const jumpIndex = String(padNum)
           .split("")
-          .map((item, index) => {
-            if (item === "1") {
-              jumpRoute = routes[index];
-            }
-          });
-        if (jumpRoute === "") {
-          jumpRoute = "trends/index";
+          .indexOf("1");
+        if (jumpIndex === -1) {
+          jumpRoute = "TrendsIndex";
+        } else {
+          jumpRoute = routes[jumpIndex];
         }
-        this.$router.push({
-          name: "TrendsIndex",
-          params: {
-            mkey: mkey,
-            mcode: mcode
-          }
-        });
-        // const jumpUrl = `http://h5.xingstation.com/m/${mkey}/${mcode}/${jumpRoute}`;
-        // console.log(jumpUrl);
-        // window.location.href = jumpUrl;
+        console.log(jumpRoute);
+        // this.$router.push({
+        //   name: jumpRoute,
+        //   params: {
+        //     mkey: mkey,
+        //     mcode: mcode
+        //   }
+        // });
       } catch (err) {
         console.log(err);
       }
