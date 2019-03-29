@@ -87,7 +87,7 @@
         v-show="!award"
         class="no-ward"
       >
-        <img :src="base + 'thanks.png'">
+        <img :src="base + 'thank.png'">
       </div>
       <!-- 已中奖 -->
       <div
@@ -95,7 +95,7 @@
         class="ward"
       >
         <img
-          :src="base + 'award.png'"
+          :src="base + 'ward.png'"
           class="bg"
         >
         <div class="awarded">
