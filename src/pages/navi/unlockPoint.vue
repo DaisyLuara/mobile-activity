@@ -21,6 +21,7 @@ export default {
         const r = getInfoById(id, code, state);
         const ten = parseInt(mcode, 32).toString(10);
         const padNum = this.padNumber(ten, routes.length);
+        console.log(padNum);
         let jumpRoute = "";
         const jumpIndex = String(padNum)
           .split("")
@@ -30,13 +31,14 @@ export default {
         } else {
           jumpRoute = routes[jumpIndex];
         }
-        this.$router.push({
-          name: jumpRoute,
-          params: {
-            mkey: mkey,
-            mcode: mcode
-          }
-        });
+        console.log(jumpRoute);
+        // this.$router.push({
+        //   name: jumpRoute,
+        //   params: {
+        //     mkey: mkey,
+        //     mcode: mcode
+        //   }
+        // });
       } catch (err) {
         console.log(err);
       }
