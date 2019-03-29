@@ -3,7 +3,6 @@
 </template>
 
 <script>
-import { Indicator } from "mint-ui";
 import { getInfoById } from "services";
 import { routes } from "@/pages/m/config/menuRoutes";
 
@@ -18,7 +17,6 @@ export default {
     },
     async handleUnlock() {
       try {
-        Indicator.open();
         const { id, code, state, mkey, mcode } = this.$route.query;
         const r = getInfoById(id, code, state);
         const ten = parseInt(mcode, 32).toString(10);
@@ -35,12 +33,18 @@ export default {
         if (jumpRoute === "") {
           jumpRoute = "trends/index";
         }
-        const jumpUrl = `http://h5.xingstation.com/m/${mkey}/${mcode}/${jumpRoute}`;
-        console.log(jumpUrl);
-        window.location.href = jumpUrl;
+        this.$router.push({
+          name: "TrendsIndex",
+          params: {
+            mkey: mkey,
+            mcode: mcode
+          }
+        });
+        // const jumpUrl = `http://h5.xingstation.com/m/${mkey}/${mcode}/${jumpRoute}`;
+        // console.log(jumpUrl);
+        // window.location.href = jumpUrl;
       } catch (err) {
         console.log(err);
-        Indicator.close();
       }
     }
   }
