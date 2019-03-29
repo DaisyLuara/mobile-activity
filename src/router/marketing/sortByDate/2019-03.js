@@ -272,6 +272,16 @@ const Date201903 = [
       desc: '蝶嬉春光'
     },
     isAbandoned: false
-  }
+  },
+  {
+    path: 'unlocksaas',
+    name: 'unlockSaas',
+    location: 'navi/unlockPoint',
+    meta: {
+      title: '正在解锁',
+      author: 'Anluis',
+      desc: '解锁点位专用'
+    },
+  },
 ]
 export default Date201903
