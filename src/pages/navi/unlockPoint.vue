@@ -31,14 +31,13 @@ export default {
         } else {
           jumpRoute = routes[jumpIndex];
         }
-        console.log(jumpRoute);
-        // this.$router.push({
-        //   name: jumpRoute,
-        //   params: {
-        //     mkey: mkey,
-        //     mcode: mcode
-        //   }
-        // });
+        this.$router.push({
+          name: jumpRoute,
+          params: {
+            mkey: mkey,
+            mcode: mcode
+          }
+        });
       } catch (err) {
         console.log(err);
       }
