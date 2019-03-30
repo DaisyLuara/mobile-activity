@@ -56,7 +56,7 @@ export default {
         title: "幸运锦鲤",
         desc: "开启你的锦鲤之旅",
         link: 'http://papi.xingstation.com/api/s/j0z' + window.location.search,
-        imgUrl: "https://cdn.exe666.com/fe/image/luckyyu/icon.png"
+        imgUrl: "https://cdn.xingstation.com/fe/image/luckyyu/icon.png"
       }
     }
   },
@@ -65,7 +65,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@img: "http://cdn.exe666.com/fe/image/luckyyu/";
+@img: "http://cdn.xingstation.com/fe/image/luckyyu/";
 html,
 body {
   width: 100%;

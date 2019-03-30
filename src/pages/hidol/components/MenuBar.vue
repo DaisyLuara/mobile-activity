@@ -6,7 +6,7 @@
         @click="handleRefesh">
         <img 
           class="item-img" 
-          src="http://cdn.exe666.com/fe/hidol/img/newthings.png" >
+          src="http://cdn.xingstation.com/fe/hidol/img/newthings.png" >
         <div class="item-text">新鲜事</div>
       </div>
       <div 
@@ -14,14 +14,14 @@
         @click="handleNewPost">
         <img 
           class="add-img" 
-          src="http://cdn.exe666.com/fe/hidol/img/plus.svg" >
+          src="http://cdn.xingstation.com/fe/hidol/img/plus.svg" >
       </div>
       <div 
         class="menu-item" 
         @click="handleMy">
         <img 
           class="item-img" 
-          src="http://cdn.exe666.com/fe/hidol/img/my.png" >
+          src="http://cdn.xingstation.com/fe/hidol/img/my.png" >
         <div class="item-text">我的</div>
       </div>
     </div>

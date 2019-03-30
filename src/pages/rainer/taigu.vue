@@ -34,7 +34,7 @@ export default {
         title: '秘密花园 尽显美颜',
         desc: '快来寻找秘密花园，施展你的小小控雨魔法',
         link: 'http://papi.xingstation.com/api/s/BgJ' + window.location.search,
-        imgUrl: 'https://cdn.exe666.com/fe/image/rainer/share.jpg',
+        imgUrl: 'https://cdn.xingstation.com/fe/image/rainer/share.jpg',
         success: function() {
           wechatShareTrack()
         }
@@ -115,7 +115,7 @@ export default {
         app.view.style.position = 'relative'
         app.view.style.zIndex = '9999'
 
-        let base = 'http://cdn.exe666.com/image/rainer/'
+        let base = 'http://cdn.xingstation.com/image/rainer/'
         let width = app.screen.width
         let height = app.screen.height
         let bottom = PIXI.Sprite.fromImage(base + 'bottom.png')
@@ -171,7 +171,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@baseUrl: 'http://cdn.exe666.com/image/rainer/';
+@baseUrl: 'http://cdn.xingstation.com/image/rainer/';
 
 html,
 body {

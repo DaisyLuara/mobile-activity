@@ -167,7 +167,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@url: "https://cdn.exe666.com/fe/image/bigwhite/";
+@url: "https://cdn.xingstation.com/fe/image/bigwhite/";
 html,
 body {
   width: 100%;

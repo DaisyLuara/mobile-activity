@@ -68,7 +68,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: 'http://cdn.exe666.com/fe/marketing/img/autumn_bxj';
+@imageHost: 'http://cdn.xingstation.com/fe/marketing/img/autumn_bxj';
 .root {
   width: 100%;
   text-align: center;

@@ -137,8 +137,8 @@ export default {
         renderer: 'svg',
         loop: true,
         autoplay: true,
-        assetsPath: 'http://cdn.exe666.com/fe/marketing/jqsjb/img/',
-        path: 'http://cdn.exe666.com/fe/marketing/jqsjb/json/data.json' // the path to the animation json
+        assetsPath: 'http://cdn.xingstation.com/fe/marketing/jqsjb/img/',
+        path: 'http://cdn.xingstation.com/fe/marketing/jqsjb/json/data.json' // the path to the animation json
       })
     },
     fetchNumberData() {

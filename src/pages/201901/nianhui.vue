@@ -67,7 +67,7 @@ export default {
       id: this.$route.query.id,
       userId: null,
       award: true,
-      coupon_url: null,// 'https://cdn.exe666.com/fe/image/nianhui/test.png'
+      coupon_url: null,// 'https://cdn.xingstation.com/fe/image/nianhui/test.png'
     }
   },
   watch: {
@@ -261,7 +261,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@base: "https://cdn.exe666.com/fe/image/nianhui/";
+@base: "https://cdn.xingstation.com/fe/image/nianhui/";
 html,
 body {
   width: 100%;

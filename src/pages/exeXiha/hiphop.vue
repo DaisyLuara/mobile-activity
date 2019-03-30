@@ -151,7 +151,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://cdn.exe666.com/image';
+@imgUrl: 'http://cdn.xingstation.com/image';
 html,
 body {
   width: 100%;

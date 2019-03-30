@@ -70,7 +70,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: "http://cdn.exe666.com/fe/marketing/img/credits_exchange/";
+@imageHost: "http://cdn.xingstation.com/fe/marketing/img/credits_exchange/";
 html,
 body {
   width: 100%;

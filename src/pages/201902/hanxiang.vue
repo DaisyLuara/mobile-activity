@@ -60,8 +60,8 @@ export default {
         }
       },
       id: this.$route.query.id,
-      coupon_img: null,//'https://cdn.exe666.com/fe/image/hanxiang/coupon.png',
-      qrcodeImg: null,//'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
+      coupon_img: null,//'https://cdn.xingstation.com/fe/image/hanxiang/coupon.png',
+      qrcodeImg: null,//'https://cdn.xingstation.com/fe/image/couponrain/5c22f3d46c008.png',
       used: false,//false
       z: null,
       //微信分享
@@ -144,7 +144,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@img: "http://cdn.exe666.com/fe/image/hanxiang/";
+@img: "http://cdn.xingstation.com/fe/image/hanxiang/";
 html,
 body {
   width: 100%;

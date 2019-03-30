@@ -58,7 +58,7 @@ export default {
         title: '你一笑，世界都变甜了',
         desc: '叮~您有一份甜蜜暴击等待签收！',
         link: 'http://papi.xingstation.com/api/s/Xrk' + window.location.search,
-        imgUrl: 'http://cdn.exe666.com/fe/image/sweety/icon.jpg'
+        imgUrl: 'http://cdn.xingstation.com/fe/image/sweety/icon.jpg'
       }
     }
   },
@@ -67,7 +67,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: "http://cdn.exe666.com/fe/image/sweety/";
+@imgUrl: "http://cdn.xingstation.com/fe/image/sweety/";
 html,
 body {
   width: 100%;

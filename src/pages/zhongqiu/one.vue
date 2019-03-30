@@ -115,7 +115,7 @@ export default {
         ],
         name: null,
         headImgUrl: null,
-        // 'http://cdn.exe666.com/image/zhongqiu/1/share.png', //null,
+        // 'http://cdn.xingstation.com/image/zhongqiu/1/share.png', //null,
         people: null,
         cake_type_a: null,
         cake_type_b: null,
@@ -136,7 +136,7 @@ export default {
         title: '中秋快乐',
         desc: '我亲手做的月饼,你敢吃么？',
         link: 'http://papi.xingstation.com/api/s/YEK' + window.location.search,
-        imgUrl: 'http://cdn.exe666.com/image/zhongqiu/1/share.png',
+        imgUrl: 'http://cdn.xingstation.com/image/zhongqiu/1/share.png',
       }
     }
   },
@@ -269,15 +269,15 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@base: "http://cdn.exe666.com/image/zhongqiu/1/";
+@base: "http://cdn.xingstation.com/image/zhongqiu/1/";
 /*声明 WebFont*/
 @font-face {
   font-family: "hanyi";
-  src: url("http://cdn.exe666.com/image/zhongqiu/font/hanyi.ttf");
-  src: url("http://cdn.exe666.com/image/zhongqiu/font/hanyi.eot"),
-    url("http://cdn.exe666.com/image/zhongqiu/font/hanyi.woff"),
-    url("http://cdn.exe666.com/image/zhongqiu/font/hanyi.ttf"),
-    url("http://cdn.exe666.com/image/zhongqiu/font/hanyi.svg");
+  src: url("http://cdn.xingstation.com/image/zhongqiu/font/hanyi.ttf");
+  src: url("http://cdn.xingstation.com/image/zhongqiu/font/hanyi.eot"),
+    url("http://cdn.xingstation.com/image/zhongqiu/font/hanyi.woff"),
+    url("http://cdn.xingstation.com/image/zhongqiu/font/hanyi.ttf"),
+    url("http://cdn.xingstation.com/image/zhongqiu/font/hanyi.svg");
   font-weight: normal;
   font-style: normal;
 }

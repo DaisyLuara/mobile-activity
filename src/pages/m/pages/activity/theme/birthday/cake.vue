@@ -99,7 +99,7 @@ export default {
   },
   data () {
     return {
-      imageHost: 'https://cdn.exe666.com/m/activity/shop/birthday/',
+      imageHost: 'https://cdn.xingstation.com/m/activity/shop/birthday/',
       greetings: "",
       isSending: false,
       acid: this.$route.query.acid,
@@ -130,7 +130,7 @@ export default {
         title: '为TA送上祝福吧~',
         desc: '我们最爱的同事等你来送祝福',
         link: window.location.href.split("#")[0],
-        imgUrl: 'https://cdn.exe666.com/m/activity/shop/birthday/share_icon.png'
+        imgUrl: 'https://cdn.xingstation.com/m/activity/shop/birthday/share_icon.png'
       }
       if (isInWechat() === true) {
         $wechat(this.weixinUrl)
@@ -369,7 +369,7 @@ textarea::-ms-input-placeholder {
     .popup-banner {
       width: 2.81rem;
       height: 3.09rem;
-      background: url(https://cdn.exe666.com/m/activity/shop/birthday/popup_bg.png);
+      background: url(https://cdn.xingstation.com/m/activity/shop/birthday/popup_bg.png);
       background-repeat: no-repeat;
       background-size: 100% 100%;
       color: #FFF;

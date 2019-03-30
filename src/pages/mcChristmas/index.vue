@@ -175,8 +175,8 @@ export default {
         renderer: 'svg',
         loop: true,
         autoplay: true,
-        assetsPath: 'http://cdn.exe666.com/fe/marketing/christmas/img/',
-        path: 'http://cdn.exe666.com/fe/marketing/christmas/json/h5xuehua.json' // the path to the animation json
+        assetsPath: 'http://cdn.xingstation.com/fe/marketing/christmas/img/',
+        path: 'http://cdn.xingstation.com/fe/marketing/christmas/json/h5xuehua.json' // the path to the animation json
       })
     },
     //图片预加载处理
@@ -195,7 +195,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: 'http://cdn.exe666.com/fe/marketing/img/mc_Christmas';
+@imageHost: 'http://cdn.xingstation.com/fe/marketing/img/mc_Christmas';
 .root {
   width: 100%;
   background-repeat: no-repeat;

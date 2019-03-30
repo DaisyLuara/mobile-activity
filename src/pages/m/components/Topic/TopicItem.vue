@@ -144,7 +144,7 @@ export default {
   data() {
     return {
       cp: "?imageView2/1/w/343/h/343/format/jpg/q/100|imageslim",
-      tagUrl: "https://cdn.exe666.com/fe/image/m/options.svg",
+      tagUrl: "https://cdn.xingstation.com/fe/image/m/options.svg",
       ownChoosen: null
     };
   },

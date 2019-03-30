@@ -52,7 +52,7 @@
 </template>
 <script>
 import { $wechat, getInfoById, wechatShareTrack, isInWechat } from 'services'
-const BASE_URL = 'http://cdn.exe666.com/'
+const BASE_URL = 'http://cdn.xingstation.com/'
 export default {
   data() {
     return {
@@ -109,7 +109,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://cdn.exe666.com/fe/image/tmall/yanzhi/';
+@imgUrl: 'http://cdn.xingstation.com/fe/image/tmall/yanzhi/';
 .yanzhi-result {
   width: 100%;
   text-align: center;
