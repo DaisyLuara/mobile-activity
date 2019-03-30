@@ -191,7 +191,7 @@ const Date201903 = [
     location: '201903/dressMC2',
     name: 'dress_two',
     meta: {
-      title: '夏日草群舞',
+      title: '冰爽嘉年华',
       author: 'lipan',
       desc: '夏日草群舞-美陈展2'
     },
@@ -260,7 +260,7 @@ const Date201903 = [
       title: '跳转中',
       author: 'Anluis',
       desc: '跳转用链接'
-    },
+    }
   },
   {
     path: 'butter_fly',
@@ -281,7 +281,7 @@ const Date201903 = [
       title: '正在解锁',
       author: 'Anluis',
       desc: '解锁点位专用'
-    },
-  },
+    }
+  }
 ]
 export default Date201903
