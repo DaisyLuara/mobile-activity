@@ -152,7 +152,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@baseurl : "http://cdn.xingstation.com/fe/marketing/img/damai/guoqing/";
+@baseurl : "http://cdn.exe666.com/fe/marketing/img/damai/guoqing/";
 .damai {
   width: 100%;
   text-align: center;

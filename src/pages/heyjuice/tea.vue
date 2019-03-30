@@ -49,7 +49,7 @@ export default {
       wxShareInfoValue: {
         title: 'HEYJUICE等待着与你相遇',
         desc: '健康时尚  美味畅享，好在天然，妙在鲜榨',
-        imgUrl: 'https://cdn.xingstation.com/image/heyjuice/icon.png',
+        imgUrl: 'https://cdn.exe666.com/image/heyjuice/icon.png',
         success: function() {
           wechatShareTrack()
         }

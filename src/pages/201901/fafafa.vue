@@ -54,7 +54,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@url: "http://cdn.xingstation.com/fe/image/fafafa/";
+@url: "http://cdn.exe666.com/fe/image/fafafa/";
 html,
 body {
   width: 100%;

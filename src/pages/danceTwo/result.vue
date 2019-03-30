@@ -201,10 +201,10 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: "http://cdn.xingstation.com/fe/marketing/img/xsd_ad/";
+@imageHost: "http://cdn.exe666.com/fe/marketing/img/xsd_ad/";
 @font-face {
   font-family: "jingzhuan";
-  src: url("http://cdn.xingstation.com/fe/marketing/img/xsd_ad/jinzhuan2.TTF");
+  src: url("http://cdn.exe666.com/fe/marketing/img/xsd_ad/jinzhuan2.TTF");
   font-weight: normal;
   font-style: normal;
 }

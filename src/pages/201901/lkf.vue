@@ -53,8 +53,8 @@ export default {
       },
       id: this.$route.query.id,
       userId: null,
-      coupon_img: null,//'https://cdn.xingstation.com/fe/image/couponrain/lkf/Lee.png',
-      qrcodeImg: null,//'https://cdn.xingstation.com/fe/image/couponrain/5c22f3d46c008.png',
+      coupon_img: null,//'https://cdn.exe666.com/fe/image/couponrain/lkf/Lee.png',
+      qrcodeImg: null,//'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
       used: false,
       arr: [190, 193, 194, 195, 196],
       num: parseInt(Math.random() * 4),
@@ -147,7 +147,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@img: "http://cdn.xingstation.com/fe/image/couponrain/lkf/";
+@img: "http://cdn.exe666.com/fe/image/couponrain/lkf/";
 html,
 body {
   width: 100%;

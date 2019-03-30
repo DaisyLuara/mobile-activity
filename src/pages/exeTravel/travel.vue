@@ -230,7 +230,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://cdn.xingstation.com/image/travel';
+@imgUrl: 'http://cdn.exe666.com/image/travel';
 @imgServerUrl: 'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/psbh_travel';
 .travel-content {
   width: 100%;

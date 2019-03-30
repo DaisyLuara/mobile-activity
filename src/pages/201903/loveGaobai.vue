@@ -110,7 +110,7 @@ export default {
         title: "爱的表白@——相册集",
         desc: "@生活中美好的小场景，记录下美好瞬间",
         link: 'http://papi.xingstation.com/api/s/rmw' + window.location.search,
-        imgUrl: "https://cdn.xingstation.com/fe/image/gaobai/icon.jpg"
+        imgUrl: "https://cdn.exe666.com/fe/image/gaobai/icon.jpg"
       }
     }
   },
@@ -270,7 +270,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@img: "http://cdn.xingstation.com/fe/image/gaobai/";
+@img: "http://cdn.exe666.com/fe/image/gaobai/";
 html,
 body {
   width: 100%;

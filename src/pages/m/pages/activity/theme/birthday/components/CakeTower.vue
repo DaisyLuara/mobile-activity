@@ -89,7 +89,7 @@ export default {
   props: ['list', 'isAllLoaded', 'pageSize'],
   data () {
     return {
-      imageHost: 'https://cdn.xingstation.com/m/activity/shop/birthday/',
+      imageHost: 'https://cdn.exe666.com/m/activity/shop/birthday/',
       defaultAvatar: 'http://thirdwx.qlogo.cn/mmopen/vi_32/kPmo3eFGlBOPalDZHOpAicFPfQaicU7icJnypiaUxUcFEOE2kdddNsFXPkmiaeBo6LCRau0ibZK72fUtDpo9dSZccXTA/132',
       commentShowLimit: 0,
       commentShowMap: []
@@ -126,7 +126,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: 'https://cdn.xingstation.com/m/activity/shop/birthday/';
+@imageHost: 'https://cdn.exe666.com/m/activity/shop/birthday/';
 @import "../mixin.less";
 
 img {

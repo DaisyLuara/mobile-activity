@@ -63,7 +63,7 @@ export default {
         }
       },
       id: this.$route.query.id,
-      coupon_img: null,//'https://cdn.xingstation.com/fe/image/mengbao/2.png',
+      coupon_img: null,//'https://cdn.exe666.com/fe/image/mengbao/2.png',
       qrcodeImg: null,//'http://papi.xingstation.com/qrcode/5c7de9583796b.png',
       used: false,//false,
       passed: false,//false
@@ -73,7 +73,7 @@ export default {
       wxShareInfoValue: {
         title: "萌宝学跳舞",
         desc: "萌宝学跳舞",
-        imgUrl: "https://cdn.xingstation.com/fe/image/mengbao/icon.jpg"
+        imgUrl: "https://cdn.exe666.com/fe/image/mengbao/icon.jpg"
       }
     }
   },
@@ -169,7 +169,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@img: "http://cdn.xingstation.com/fe/image/mengbao/";
+@img: "http://cdn.exe666.com/fe/image/mengbao/";
 html,
 body {
   width: 100%;

@@ -88,7 +88,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: 'http://cdn.xingstation.com/image/king';
+@imageHost: 'http://cdn.exe666.com/image/king';
 .root {
   width: 100%;
   position: relative;

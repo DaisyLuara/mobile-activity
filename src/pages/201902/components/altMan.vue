@@ -144,8 +144,8 @@ export default {
       id: this.$route.query.id,
       mask: false,
       todo: false,
-      coupon_img: null,//'http://cdn.xingstation.com/fe/image/altman/test.png',
-      qr_img: null,//'https://cdn.xingstation.com/fe/image/couponrain/5c22f3d46c008.png',
+      coupon_img: null,//'http://cdn.exe666.com/fe/image/altman/test.png',
+      qr_img: null,//'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
       qrcode: null,//null,
       used: false,
       passed: false,
@@ -156,15 +156,15 @@ export default {
         list: {
           "11": {
             name: "beiliya",
-            img: "http://cdn.xingstation.com/fe/image/altman/p1.png"
+            img: "http://cdn.exe666.com/fe/image/altman/p1.png"
           },
           "12": {
             name: "dijia",
-            img: "http://cdn.xingstation.com/fe/image/altman/p2.png"
+            img: "http://cdn.exe666.com/fe/image/altman/p2.png"
           },
           "13": {
             name: "sailuo",
-            img: "http://cdn.xingstation.com/fe/image/altman/p3.png"
+            img: "http://cdn.exe666.com/fe/image/altman/p3.png"
           }
         },
         total: 3
@@ -295,7 +295,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-@imgurl: "http://cdn.xingstation.com/fe/image/altman/";
+@imgurl: "http://cdn.exe666.com/fe/image/altman/";
 /*声明 WebFont*/
 @font-face {
   font-family: "heavy";

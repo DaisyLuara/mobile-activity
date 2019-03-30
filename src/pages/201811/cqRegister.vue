@@ -194,7 +194,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@base: "http://cdn.xingstation.com/fe/image/cangqian/";
+@base: "http://cdn.exe666.com/fe/image/cangqian/";
 /*声明 WebFont*/
 @font-face {
   font-family: "zhehei";

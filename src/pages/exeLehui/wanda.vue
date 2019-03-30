@@ -117,7 +117,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: "http://cdn.xingstation.com/image";
+@imgUrl: "http://cdn.exe666.com/image";
 html,
 body {
   overflow-x: hidden;

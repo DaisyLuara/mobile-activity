@@ -80,7 +80,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-@imgUrl: "https://cdn.xingstation.com/fe/image/facing/";
+@imgUrl: "https://cdn.exe666.com/fe/image/facing/";
 html,
 body {
   width: 100%;

@@ -65,7 +65,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@base: "http://cdn.xingstation.com/fe/image/tmall/play_gift/";
+@base: "http://cdn.exe666.com/fe/image/tmall/play_gift/";
 .gift-root {
   display: flex;
   flex-direction: column;

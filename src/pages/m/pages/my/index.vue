@@ -144,10 +144,10 @@ export default {
     return {
       hasFetched: false,
       hasResults: true,
-      dbg: "https://cdn.xingstation.com/fe/image/m/my-text-bg.png",
-      star: "https://cdn.xingstation.com/fe/image/m/my-star.svg",
-      halfstar: "https://cdn.xingstation.com/fe/image/m/my-star-half.svg",
-      hot: "https://cdn.xingstation.com/fe/image/m/my-hot.svg",
+      dbg: "https://cdn.exe666.com/fe/image/m/my-text-bg.png",
+      star: "https://cdn.exe666.com/fe/image/m/my-star.svg",
+      halfstar: "https://cdn.exe666.com/fe/image/m/my-star-half.svg",
+      hot: "https://cdn.exe666.com/fe/image/m/my-hot.svg",
       resData: [],
       itv: null,
       count: 0
@@ -157,9 +157,9 @@ export default {
     ...mapGetters(["loginState", "z"]),
     bgUrl() {
       if (this.loginState.gender === "1") {
-        return "https://cdn.xingstation.com/fe/image/m/my-bg-girl.jpg";
+        return "https://cdn.exe666.com/fe/image/m/my-bg-girl.jpg";
       } else {
-        return "https://cdn.xingstation.com/fe/image/m/my-bg-boy.jpg";
+        return "https://cdn.exe666.com/fe/image/m/my-bg-boy.jpg";
       }
     },
     currentP() {
@@ -390,7 +390,7 @@ export default {
       color: black;
       z-index: 60;
       padding-left: 0.2rem;
-      background-image: url("https://cdn.xingstation.com/fe/image/m/my-text-bg.png");
+      background-image: url("https://cdn.exe666.com/fe/image/m/my-text-bg.png");
       background-size: 100% 100%;
       display: flex;
       flex-direction: row;
@@ -427,7 +427,7 @@ export default {
     .barrage-icon {
       width: 0.64rem;
       height: 0.64rem;
-      background-image: url("https://cdn.xingstation.com/fe/image/m/my-barrage.svg");
+      background-image: url("https://cdn.exe666.com/fe/image/m/my-barrage.svg");
       background-size: 100% 100%;
       margin-bottom: 0.12rem;
     }
@@ -462,7 +462,7 @@ export default {
       width: 0.41rem;
       height: 0.41rem;
       background-size: 100% 100%;
-      background-image: url("https://cdn.xingstation.com/fe/image/m/my-medal.svg");
+      background-image: url("https://cdn.exe666.com/fe/image/m/my-medal.svg");
       margin: 0 0.08rem;
     }
   }
@@ -489,7 +489,7 @@ export default {
       width: 0.41rem;
       height: 0.41rem;
       background-size: 100% 100%;
-      background-image: url("https://cdn.xingstation.com/fe/image/m/my-achive.svg");
+      background-image: url("https://cdn.exe666.com/fe/image/m/my-achive.svg");
       margin: 0 0.08rem;
     }
   }

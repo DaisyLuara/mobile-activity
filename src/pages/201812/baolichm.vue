@@ -56,7 +56,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-@imgUrl: "https://cdn.xingstation.com/fe/image/baolichm/";
+@imgUrl: "https://cdn.exe666.com/fe/image/baolichm/";
 html,
 body {
   width: 100%;

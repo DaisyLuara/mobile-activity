@@ -82,7 +82,7 @@ export default {
           "min-height": this.$innerHeight() + "px"
         }
       },
-      imgUrl: null,//'https://cdn.xingstation.com/fe/image/longhu/120.png'
+      imgUrl: null,//'https://cdn.exe666.com/fe/image/longhu/120.png'
       id: this.$route.query.id,
       open_user_id: null,
       hasgeted: false,
@@ -199,7 +199,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-@img: "https://cdn.xingstation.com/fe/image/lhvision/";
+@img: "https://cdn.exe666.com/fe/image/lhvision/";
 html,
 body {
   width: 100%;

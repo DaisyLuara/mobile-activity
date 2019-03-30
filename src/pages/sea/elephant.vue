@@ -59,7 +59,7 @@ export default {
         title: '微笑雨花',
         desc: 'Smile 一周年 ',
         link: 'http://papi.xingstation.com/api/s/QWl' + window.location.search,
-        imgUrl: 'http://cdn.xingstation.com/image/elephant/icon.png',
+        imgUrl: 'http://cdn.exe666.com/image/elephant/icon.png',
         success: () => {
           wechatShareTrack()
         }
@@ -93,7 +93,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://cdn.xingstation.com/image/elephant/';
+@imgUrl: 'http://cdn.exe666.com/image/elephant/';
 html,
 body {
   width: 100%;

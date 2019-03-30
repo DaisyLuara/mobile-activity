@@ -55,7 +55,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: "http://cdn.xingstation.com/fe/marketing/img/synthetic/";
+@imageHost: "http://cdn.exe666.com/fe/marketing/img/synthetic/";
 html,
 body {
   width: 100%;

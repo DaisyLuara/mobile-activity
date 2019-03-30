@@ -231,7 +231,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@img: "https://cdn.xingstation.com/fe/image/star/";
+@img: "https://cdn.exe666.com/fe/image/star/";
 html,
 body {
   width: 100%;

@@ -48,9 +48,9 @@ export default {
         }
       },
       imgUrls: [
-        'http://cdn.xingstation.com/fe/hidol/img/sample/1.jpg',
-        'http://cdn.xingstation.com/fe/hidol/img/sample/2.jpg',
-        'http://cdn.xingstation.com/fe/hidol/img/sample/3.jpg'
+        'http://cdn.exe666.com/fe/hidol/img/sample/1.jpg',
+        'http://cdn.exe666.com/fe/hidol/img/sample/2.jpg',
+        'http://cdn.exe666.com/fe/hidol/img/sample/3.jpg'
       ]
     }
   },

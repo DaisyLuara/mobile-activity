@@ -83,7 +83,7 @@ export default {
       })
       let url = that.photo + that.$qiniuCompress()
       // let url =
-      //   'https://cdn.xingstation.com/fe/marketing/img/christmas/666.jpg'
+      //   'https://cdn.exe666.com/fe/marketing/img/christmas/666.jpg'
       mc.background(that.baseUrl + 'frame3.png', {
         left: 0,
         top: 0,
@@ -134,7 +134,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: "http://cdn.xingstation.com/fe/marketing/img/christmas/";
+@imageHost: "http://cdn.exe666.com/fe/marketing/img/christmas/";
 html,
 body {
   width: 100%;

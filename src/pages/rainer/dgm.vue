@@ -41,7 +41,7 @@ export default {
         title: '相约大光明',
         desc: '你就是今日之星',
         link: 'http://papi.xingstation.com/api/s/Mj3' + window.location.search,
-        imgUrl: 'http://cdn.xingstation.com/fe/image/dgm/icon.png',
+        imgUrl: 'http://cdn.exe666.com/fe/image/dgm/icon.png',
         success: () => {
           wechatShareTrack()
         }
@@ -67,7 +67,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@base: 'http://cdn.xingstation.com/fe/image/dgm/';
+@base: 'http://cdn.exe666.com/fe/image/dgm/';
 html,
 body {
   width: 100%;
