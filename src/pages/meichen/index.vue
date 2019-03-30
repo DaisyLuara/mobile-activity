@@ -110,7 +110,7 @@
             >
             <!-- <img
               class="qr-code" 
-              src="http://cdn.exe666.com/fe/marketing/meichen/page5-qr.png" /> -->
+              src="http://cdn.xingstation.cn/fe/marketing/meichen/page5-qr.png" /> -->
             <img
               :src="serverUrl + 'bottom-qr.png'" 
               class="bottom"
@@ -134,7 +134,7 @@ import {
   GetParamsFromUrl
 } from 'services'
 import Swiper from 'swiper/dist/js/swiper.js'
-const serverUrl = 'http://cdn.exe666.com/fe/marketing/meichen/'
+const serverUrl = 'http://cdn.xingstation.cn/fe/marketing/meichen/'
 export default {
   data() {
     return {
@@ -287,7 +287,7 @@ export default {
           height: 100%;
           overflow: hidden;
           background-size: cover;
-          background-image: url('http://cdn.exe666.com/fe/marketing/meichen/page1-2.png?imageView2/0/q/30');
+          background-image: url('http://cdn.xingstation.cn/fe/marketing/meichen/page1-2.png?imageView2/0/q/30');
         }
         .page1-footer {
           width: 100%;

@@ -44,7 +44,7 @@
 export default {
   data() {
     return {
-      imageHost: 'https://cdn.exe666.com/m/wallet/'
+      imageHost: 'https://cdn.xingstation.cn/m/wallet/'
     };
   }
 };

@@ -34,7 +34,7 @@ export default {
         title: "梦回花朝，你就是古风女神",
         desc: "前世的你，是哪位花神？",
         link: 'http://papi.xingstation.com/api/s/pk1' + window.location.search,
-        imgUrl: "https://cdn.exe666.com/fe/image/huashen/icon.jpg"
+        imgUrl: "https://cdn.xingstation.cn/fe/image/huashen/icon.jpg"
       }
     }
   },
@@ -71,7 +71,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@img: "http://cdn.exe666.com/fe/image/huashen/";
+@img: "http://cdn.xingstation.cn/fe/image/huashen/";
 html,
 body {
   width: 100%;

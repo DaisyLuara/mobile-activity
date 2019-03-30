@@ -33,10 +33,10 @@
 export default {
   data() {
     return {
-      wallet: "https://cdn.exe666.com/fe/hidol/img/card.png",
-      walletSelected: "https://cdn.exe666.com/fe/hidol/img/card-selected.png",
-      mall: "https://cdn.exe666.com/fe/hidol/img/shop.png",
-      mallSelected: "https://cdn.exe666.com/fe/hidol/img/shop-selected.png"
+      wallet: "https://cdn.xingstation.cn/fe/hidol/img/card.png",
+      walletSelected: "https://cdn.xingstation.cn/fe/hidol/img/card-selected.png",
+      mall: "https://cdn.xingstation.cn/fe/hidol/img/shop.png",
+      mallSelected: "https://cdn.xingstation.cn/fe/hidol/img/shop-selected.png"
     };
   },
   computed: {

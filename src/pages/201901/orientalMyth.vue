@@ -87,11 +87,11 @@ export default {
       },
       hasUsed: false,
       img: null,
-      // img: 'https://cdn.exe666.com/fe/image/drc_year19_dfth/card_1_b.png',
+      // img: 'https://cdn.xingstation.cn/fe/image/drc_year19_dfth/card_1_b.png',
       userId: null,
       id: this.$route.query.id,
       qrcodeImg: null,
-      // qrcodeImg: 'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
+      // qrcodeImg: 'https://cdn.xingstation.cn/fe/image/couponrain/5c22f3d46c008.png',
       wxShareInfoValue: {
         title: "来东方童画激发潜能",
         desc: "点击领取",
@@ -188,7 +188,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: "http://cdn.exe666.com/fe/marketing/img/orientalMyth/";
+@imageHost: "http://cdn.xingstation.cn/fe/marketing/img/orientalMyth/";
 html,
 body {
   width: 100%;

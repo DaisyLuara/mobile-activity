@@ -6,7 +6,7 @@
     <div class="xk">
       <img
         class="frame"
-        src="http://cdn.exe666.com/fe/image/tmall/redpack/frame.png"
+        src="http://cdn.xingstation.cn/fe/image/tmall/redpack/frame.png"
       >
       <img
         :src="photo + this.$qiniuCompress()"
@@ -15,12 +15,12 @@
     </div>
     <!-- <div class="rp">
       <img 
-        :src="'http://cdn.exe666.com/fe/image/tmall/redpack/' + String(redpackType) + '.png'" 
+        :src="'http://cdn.xingstation.cn/fe/image/tmall/redpack/' + String(redpackType) + '.png'" 
         class="inner" >
     </div> -->
     <!-- <img 
       class="bottom" 
-      src="http://cdn.exe666.com/fe/image/tmall/redpack/bottom.png"> -->
+      src="http://cdn.xingstation.cn/fe/image/tmall/redpack/bottom.png"> -->
 
   </div>
 </template>
@@ -43,7 +43,7 @@ export default {
         desc: '你的微笑，让人脸红心跳',
         link: 'http://papi.xingstation.com/api/s/mQ0' + window.location.search,
         imgUrl:
-          'https://cdn.exe666.com/fe/marketing/img/tm/rpnormal/shareicon.png',
+          'https://cdn.xingstation.cn/fe/marketing/img/tm/rpnormal/shareicon.png',
       }
     }
   },

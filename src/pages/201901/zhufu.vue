@@ -44,8 +44,8 @@ export default {
       },
       id: this.$route.query.id,
       userId: null,
-      coupon_img: null,//'https://cdn.exe666.com/fe/image/zhufu/test.png',
-      qrcodeImg: null,//'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
+      coupon_img: null,//'https://cdn.xingstation.cn/fe/image/zhufu/test.png',
+      qrcodeImg: null,//'https://cdn.xingstation.cn/fe/image/couponrain/5c22f3d46c008.png',
       used: false,
       z: null,
       //微信分享
@@ -53,7 +53,7 @@ export default {
         title: "希尔顿新年红包雨，新春福利抢不停！",
         desc: "拼手速，抢希尔顿新春红包",
         link: "http://papi.xingstation.com/api/s/Yy0?id=" + this.$route.query.id + '&oid=' + this.oid,
-        imgUrl: "https://cdn.exe666.com/fe/image/zhufu/icon.jpg"
+        imgUrl: "https://cdn.xingstation.cn/fe/image/zhufu/icon.jpg"
       }
     }
   },
@@ -130,7 +130,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@img: "http://cdn.exe666.com/fe/image/zhufu/";
+@img: "http://cdn.xingstation.cn/fe/image/zhufu/";
 html,
 body {
   width: 100%;

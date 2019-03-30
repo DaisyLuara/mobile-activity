@@ -124,7 +124,7 @@ export default {
         title: '超级英雄',
         desc: '超级英雄',
         link: 'http://papi.xingstation.com/api/s/X6m' + window.location.search,
-        imgUrl: 'http://cdn.exe666.com/fe/image/super_hero/icon.jpg',
+        imgUrl: 'http://cdn.xingstation.cn/fe/image/super_hero/icon.jpg',
         success: () => {
           wechatShareTrack()
         }
@@ -498,7 +498,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@base: 'http://cdn.exe666.com/fe/image/super_hero/';
+@base: 'http://cdn.xingstation.cn/fe/image/super_hero/';
 html,
 body {
   width: 100%;

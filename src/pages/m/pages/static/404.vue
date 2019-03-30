@@ -1,6 +1,6 @@
 <template>
   <div class="four-o-four">
-    <img src="https://cdn.exe666.com/fe/image/m/404.png">
+    <img src="https://cdn.xingstation.cn/fe/image/m/404.png">
   </div>
 </template>
 

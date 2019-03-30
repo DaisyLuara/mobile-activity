@@ -196,8 +196,8 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: "http://cdn.exe666.com/image/yanzhi/pk/common/";
-@url: "http://cdn.exe666.com/fe/image/pk/lehui/";
+@imgUrl: "http://cdn.xingstation.cn/image/yanzhi/pk/common/";
+@url: "http://cdn.xingstation.cn/fe/image/pk/lehui/";
 html,
 body {
   width: 100%;

@@ -165,7 +165,7 @@ export default {
         title: "您的『花花美照』已生成，速来认领！",
         desc: "更有惊喜优惠等你开奖~",
         link: 'http://papi.xingstation.com/api/s/mYA' + window.location.search,
-        imgUrl: "https://cdn.exe666.com/fe/image/chun_nuan/icon.png"
+        imgUrl: "https://cdn.xingstation.cn/fe/image/chun_nuan/icon.png"
       }
     }
   },
@@ -290,7 +290,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@img: "http://cdn.exe666.com/fe/image/chun_nuan/";
+@img: "http://cdn.xingstation.cn/fe/image/chun_nuan/";
 /*声明 WebFont*/
 @font-face {
   font-family: "cu";

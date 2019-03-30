@@ -71,9 +71,9 @@ export default {
 <style lang="less" scoped>
 @font-face {
   font-family: "mianhuatang";
-  src: url("https://cdn.exe666.com/fe/font/mianhuatang.ttf");
+  src: url("https://cdn.xingstation.cn/fe/font/mianhuatang.ttf");
 }
-@base: "https://cdn.exe666.com/fe/image/dino/";
+@base: "https://cdn.xingstation.cn/fe/image/dino/";
 html,
 body {
   width: 100%;

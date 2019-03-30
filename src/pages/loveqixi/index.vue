@@ -212,7 +212,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: "http://cdn.exe666.com/image/loveqixi";
+@imgUrl: "http://cdn.xingstation.cn/image/loveqixi";
 html,
 body {
   width: 100%;

@@ -2,18 +2,18 @@
   <div class="wallet">
     <img
       class="bg"
-      src="https://cdn.exe666.com/fe/image/m/wallet-no-bg.jpeg"
+      src="https://cdn.xingstation.cn/fe/image/m/wallet-no-bg.jpeg"
     >
 
     <img
       v-if="loginState.gender === '1'"
       class="xo"
-      src="https://cdn.exe666.com/fe/image/m/wallet-no-xo.png"
+      src="https://cdn.xingstation.cn/fe/image/m/wallet-no-xo.png"
     >
     <img
       v-else
       class="xo"
-      src="https://cdn.exe666.com/fe/image/m/wallet-no-xo-boy.png"
+      src="https://cdn.xingstation.cn/fe/image/m/wallet-no-xo-boy.png"
     >
 
     <div class="icon">

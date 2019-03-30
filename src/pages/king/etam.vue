@@ -16,7 +16,7 @@
       :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
       :class="{'x-frame':iphoneX,'frame':!iphoneX}"
       class="frame">
-    <!-- :src="'http://cdn.exe666.com/fe/marketing/img/sz/666.jpeg'+ this.$qiniuCompress()" -->
+    <!-- :src="'http://cdn.xingstation.cn/fe/marketing/img/sz/666.jpeg'+ this.$qiniuCompress()" -->
     <img 
       v-if="photo !== null" 
       :src="photo + this.$qiniuCompress()"
@@ -67,7 +67,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: 'http://cdn.exe666.com/fe/marketing/img/etam/';
+@imageHost: 'http://cdn.xingstation.cn/fe/marketing/img/etam/';
 .root {
   width: 100%;
   text-align: center;

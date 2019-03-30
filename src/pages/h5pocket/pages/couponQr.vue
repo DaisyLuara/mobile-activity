@@ -13,10 +13,10 @@
     </div>
     <div class="bottom-stupid-remind">
       <div class="xo">
-        <img src="https://cdn.exe666.com/fe/hidol/img/h5/h5-xo-remind.svg">
+        <img src="https://cdn.xingstation.cn/fe/hidol/img/h5/h5-xo-remind.svg">
       </div>
       <div class="remind">
-        <img src="https://cdn.exe666.com/fe/hidol/img/h5/h5-xo-remind-qr.svg">
+        <img src="https://cdn.xingstation.cn/fe/hidol/img/h5/h5-xo-remind-qr.svg">
       </div>
     </div>
   </div>

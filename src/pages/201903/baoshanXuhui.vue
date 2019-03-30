@@ -39,7 +39,7 @@ export default {
         title: "您有一张金猪福照待认领~",
         desc: "点击领取专属照片>>>",
         link: 'http://papi.xingstation.com/api/s/l2J' + window.location.search,
-        imgUrl: "https://cdn.exe666.com/fe/image/baoshan_xuhui/icon.png"
+        imgUrl: "https://cdn.xingstation.cn/fe/image/baoshan_xuhui/icon.png"
       }
     }
   },
@@ -48,7 +48,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@img: "http://cdn.exe666.com/fe/image/baoshan_xuhui/";
+@img: "http://cdn.xingstation.cn/fe/image/baoshan_xuhui/";
 html,
 body {
   width: 100%;
