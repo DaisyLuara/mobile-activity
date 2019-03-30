@@ -11,7 +11,7 @@
       @click="handleGoComment">
       <img 
         class="msg" 
-        src="http://cdn.xingstation.com/fe/hidol/img/messenger.png" >
+        src="http://cdn.exe666.com/fe/hidol/img/messenger.png" >
       <div class="count">999</div>
     </div>
   </div>

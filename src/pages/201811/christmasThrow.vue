@@ -112,7 +112,7 @@ export default {
           transparent: true
         })
         document.getElementById('main').appendChild(app.view)
-        let base = 'http://cdn.xingstation.com/fe/marketing/img/christmas_throw/'
+        let base = 'http://cdn.exe666.com/fe/marketing/img/christmas_throw/'
         app.view.style.position = 'absolute'
         app.view.style.top = '0%'
         app.view.style.left = '50%'
@@ -148,7 +148,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: "http://cdn.xingstation.com/fe/marketing/img/christmas_throw/";
+@imageHost: "http://cdn.exe666.com/fe/marketing/img/christmas_throw/";
 html,
 body {
   width: 100%;

@@ -51,7 +51,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: "http://cdn.xingstation.com/fe/marketing/img/pig_rich/";
+@imageHost: "http://cdn.exe666.com/fe/marketing/img/pig_rich/";
 html,
 body {
   width: 100%;

@@ -57,13 +57,13 @@ export default {
       isAllLoaded: false,
       trends: [],
       coverShadow:
-        "https://cdn.xingstation.com/fe/image/m/activity-cover-shadow.svg",
+        "https://cdn.exe666.com/fe/image/m/activity-cover-shadow.svg",
       tags: {
-        alltop: "https://cdn.xingstation.com/fe/image/m/tag-toupiao.svg",
-        game: "https://cdn.xingstation.com/fe/image/m/tag-paihang.svg",
-        honour: "https://cdn.xingstation.com/fe/image/m/tag-xunzhang.svg",
-        options: "https://cdn.xingstation.com/fe/image/m/tag-options.svg",
-        birthday: "https://cdn.xingstation.com/fe/image/m/tag-brithday.svg"
+        alltop: "https://cdn.exe666.com/fe/image/m/tag-toupiao.svg",
+        game: "https://cdn.exe666.com/fe/image/m/tag-paihang.svg",
+        honour: "https://cdn.exe666.com/fe/image/m/tag-xunzhang.svg",
+        options: "https://cdn.exe666.com/fe/image/m/tag-options.svg",
+        birthday: "https://cdn.exe666.com/fe/image/m/tag-brithday.svg"
       }
     };
   },

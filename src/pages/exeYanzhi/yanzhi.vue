@@ -86,7 +86,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://cdn.xingstation.com/image/yanzhi/';
+@imgUrl: 'http://cdn.exe666.com/image/yanzhi/';
 .yanzhi-result {
   width: 100%;
   text-align: center;

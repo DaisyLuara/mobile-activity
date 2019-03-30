@@ -67,8 +67,8 @@ export default {
         renderer: 'svg',
         loop: true,
         autoplay: true,
-        assetsPath: 'http://cdn.xingstation.com/fe/marketing/pacific/img/',
-        path: 'http://cdn.xingstation.com/fe/marketing/pacific/json/pacific.json' // the path to the animation json
+        assetsPath: 'http://cdn.exe666.com/fe/marketing/pacific/img/',
+        path: 'http://cdn.exe666.com/fe/marketing/pacific/json/pacific.json' // the path to the animation json
       })
     },
     getInfoById() {

@@ -49,9 +49,9 @@ export default {
   data() {
     return {
       inputvalue: "",
-      xoBoy: "https://cdn.xingstation.com/fe/image/m/barrage-xo-boy.png",
-      xoGirl: "https://cdn.xingstation.com/fe/image/m/barrage-xo-girl.png",
-      textHolder: "https://cdn.xingstation.com/fe/image/m/barrage-text-holder.svg",
+      xoBoy: "https://cdn.exe666.com/fe/image/m/barrage-xo-boy.png",
+      xoGirl: "https://cdn.exe666.com/fe/image/m/barrage-xo-girl.png",
+      textHolder: "https://cdn.exe666.com/fe/image/m/barrage-text-holder.svg",
       sendingLock: false,
       bindStyle: {
         minHeight: this.$innerHeight() + "px"

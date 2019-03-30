@@ -135,7 +135,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@base: "https://cdn.xingstation.com/fe/image/sfmoon/";
+@base: "https://cdn.exe666.com/fe/image/sfmoon/";
 html,
 body {
   width: 100%;

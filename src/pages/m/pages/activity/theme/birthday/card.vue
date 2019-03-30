@@ -63,7 +63,7 @@ export default {
   },
   data () {
     return {
-      imageHost: 'https://cdn.xingstation.com/m/activity/shop/birthday/',
+      imageHost: 'https://cdn.exe666.com/m/activity/shop/birthday/',
       userInfo: {
         face: '',
         username: '',
@@ -92,7 +92,7 @@ export default {
       return `${this.imageHost}gender_female.png`
     },
     xoAvatar () {
-      const prefix = "https://cdn.xingstation.com/fe/hidol/img/xiaoou/"
+      const prefix = "https://cdn.exe666.com/fe/hidol/img/xiaoou/"
       const idor = this.userInfo.idor || 'nanA'
       return `${prefix}${idor}1.png`
     }
@@ -129,7 +129,7 @@ export default {
         title,
         desc: '点击查收你的生日贺卡',
         link: window.location.href.split("#")[0],
-        imgUrl: 'https://cdn.xingstation.com/m/activity/shop/birthday/share_icon.png'
+        imgUrl: 'https://cdn.exe666.com/m/activity/shop/birthday/share_icon.png'
       }
       if (isInWechat() === true) {
         $wechat(this.weixinUrl)
@@ -255,7 +255,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: 'https://cdn.xingstation.com/m/activity/shop/birthday/';
+@imageHost: 'https://cdn.exe666.com/m/activity/shop/birthday/';
 
 .card-wrap {
   height: 100vh;

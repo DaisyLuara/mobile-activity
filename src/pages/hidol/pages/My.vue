@@ -10,7 +10,7 @@
         <div class="author-name">
           今晚打老虎
           <img
-            src="http://cdn.xingstation.com/fe/hidol/img/male.png" 
+            src="http://cdn.exe666.com/fe/hidol/img/male.png" 
             alt="gender">
         </div>
         <div class="author-address">

@@ -95,7 +95,7 @@ export default {
           transparent: true
         })
         document.getElementById('main').appendChild(app.view)
-        let base = 'http://cdn.xingstation.com/image/rabbit/'
+        let base = 'http://cdn.exe666.com/image/rabbit/'
         app.view.style.position = 'absolute'
         app.view.style.top = '10%'
         app.view.style.left = '50%'

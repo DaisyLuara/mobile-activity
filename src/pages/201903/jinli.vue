@@ -44,7 +44,7 @@ export default {
         title: "寻找锦鲤，集万千宠爱于你",
         desc: "转运红鲤 发财金鲤 王者黑鲤",
         link: 'http://papi.xingstation.com/api/s/v8V' + window.location.search,
-        imgUrl: "https://cdn.xingstation.com/fe/image/jinli/icon.jpg"
+        imgUrl: "https://cdn.exe666.com/fe/image/jinli/icon.jpg"
       }
     }
   },
@@ -97,7 +97,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@img: "http://cdn.xingstation.com/fe/image/jinli/";
+@img: "http://cdn.exe666.com/fe/image/jinli/";
 html,
 body {
   width: 100%;

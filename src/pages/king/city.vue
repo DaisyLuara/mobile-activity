@@ -277,7 +277,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: "http://cdn.xingstation.com/fe/marketing/img/orchid_city/";
+@imageHost: "http://cdn.exe666.com/fe/marketing/img/orchid_city/";
 html,
 body {
   width: 100%;

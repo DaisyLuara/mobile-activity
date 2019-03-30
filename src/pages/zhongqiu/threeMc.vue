@@ -85,14 +85,14 @@ export default {
       v_status: 'play',
       video: null,
       belong: null,
-      //'http://cdn.xingstation.com/1007/video/WhoTakeMoonCake_235_96_1492926959345.mp4',
+      //'http://cdn.exe666.com/1007/video/WhoTakeMoonCake_235_96_1492926959345.mp4',
       bgshow: true,
       //微信分享
       wxShareInfoValue: {
         title: '中秋快乐 ',
         desc: '月饼被谁吃了',
         link: 'http://papi.xingstation.com/api/s/ngD' + window.location.search,
-        imgUrl: 'http://cdn.xingstation.com/image/zhongqiu/3/share.png',
+        imgUrl: 'http://cdn.exe666.com/image/zhongqiu/3/share.png',
       }
     }
   },
@@ -234,7 +234,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@base: "http://cdn.xingstation.com/image/zhongqiu/3/";
+@base: "http://cdn.exe666.com/image/zhongqiu/3/";
 html,
 body {
   width: 100%;

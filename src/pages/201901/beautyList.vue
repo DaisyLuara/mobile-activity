@@ -110,7 +110,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@url: "https://cdn.xingstation.com/fe/image/beauty/";
+@url: "https://cdn.exe666.com/fe/image/beauty/";
 html,
 body {
   width: 100%;

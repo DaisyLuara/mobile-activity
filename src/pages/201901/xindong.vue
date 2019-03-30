@@ -42,7 +42,7 @@ export default {
         title: '心动时刻，遇见爱情',
         desc: '亲，你有一条亲密简讯',
         link: 'http://papi.xingstation.com/api/s/RPL' + window.location.search,
-        imgUrl: 'http://cdn.xingstation.com/fe/image/xindong/icon.png'
+        imgUrl: 'http://cdn.exe666.com/fe/image/xindong/icon.png'
       }
     }
   },
@@ -51,7 +51,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: "http://cdn.xingstation.com/fe/image/xindong/";
+@imgUrl: "http://cdn.exe666.com/fe/image/xindong/";
 html,
 body {
   width: 100%;

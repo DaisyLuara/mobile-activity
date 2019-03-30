@@ -269,7 +269,7 @@ export default {
 };
 </script>
 <style lang="less">
-@img: "https://cdn.xingstation.com/fe/image/jinying";
+@img: "https://cdn.exe666.com/fe/image/jinying";
 .star-wrap {
   position: relative;
   img {

@@ -39,7 +39,7 @@ export default {
   },
   data() {
     return {
-      baseUrl: "https://cdn.xingstation.com/fe/image/m/subscription/",
+      baseUrl: "https://cdn.exe666.com/fe/image/m/subscription/",
       // order means order in this page
       // but not about orders in real menu
       items: [

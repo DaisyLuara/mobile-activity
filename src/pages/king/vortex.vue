@@ -77,7 +77,7 @@ export default {
           transparent: true
         })
         document.getElementById('main').appendChild(app.view)
-        let base = 'http://cdn.xingstation.com/fe/marketing/img/spacetime_vortex/'
+        let base = 'http://cdn.exe666.com/fe/marketing/img/spacetime_vortex/'
         app.view.style.position = 'absolute'
         app.view.style.top = '15%'
         app.view.style.left = '50%'
@@ -113,7 +113,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: 'http://cdn.xingstation.com/fe/marketing/img/spacetime_vortex/';
+@imageHost: 'http://cdn.exe666.com/fe/marketing/img/spacetime_vortex/';
 html,
 body {
   width: 100%;

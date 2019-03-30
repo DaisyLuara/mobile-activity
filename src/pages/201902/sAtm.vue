@@ -53,9 +53,9 @@ export default {
         }
       },
       id: this.$route.query.id,
-      coupon_img: null,//'https://cdn.xingstation.com/fe/image/qpyl/2_2.png',
+      coupon_img: null,//'https://cdn.exe666.com/fe/image/qpyl/2_2.png',
       qrcodeImg: null,//'http://papi.xingstation.com/qrcode/5c7de9583796b.png',
-      barcode_url: null,//'https://cdn.xingstation.com/fe/image/sAtm/tiao.png'
+      barcode_url: null,//'https://cdn.exe666.com/fe/image/sAtm/tiao.png'
       used: false,//false,
       passed: false,//false
       code: null,//'5c7de9583796b'
@@ -64,7 +64,7 @@ export default {
       wxShareInfoValue: {
         title: "笑容ATM",
         desc: "笑容ATM",
-        imgUrl: "https://cdn.xingstation.com/fe/image/sAtm/icon.jpg"
+        imgUrl: "https://cdn.exe666.com/fe/image/sAtm/icon.jpg"
       }
     }
   },
@@ -150,7 +150,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@img: "http://cdn.xingstation.com/fe/image/sAtm/";
+@img: "http://cdn.exe666.com/fe/image/sAtm/";
 html,
 body {
   width: 100%;

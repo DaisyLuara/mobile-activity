@@ -131,7 +131,7 @@ export default {
         title: '你是我的掌声名猪',
         desc: '像你这样的人，除了宠着，还是宠着',
         link: 'http://papi.xingstation.com/api/s/GRy' + window.location.search,
-        imgUrl: 'http://cdn.xingstation.com/fe/image/happyyear/icon.png'
+        imgUrl: 'http://cdn.exe666.com/fe/image/happyyear/icon.png'
       }
     }
   },
@@ -243,7 +243,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: "http://cdn.xingstation.com/fe/image/happyyear/";
+@imgUrl: "http://cdn.exe666.com/fe/image/happyyear/";
 html,
 body {
   width: 100%;

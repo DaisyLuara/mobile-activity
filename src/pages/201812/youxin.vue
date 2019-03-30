@@ -69,15 +69,15 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@img: "https://cdn.xingstation.com/fe/image/youxin/";
+@img: "https://cdn.exe666.com/fe/image/youxin/";
 /*声明 WebFont*/
 @font-face {
   font-family: "zhehei";
-  src: url("http://cdn.xingstation.com/fe/image/cangqian/zhehei.ttf");
-  src: url("http://cdn.xingstation.com/fe/image/cangqian/zhehei.eot"),
-    url("http://cdn.xingstation.com/fe/image/cangqian/zhehei.woff"),
-    url("http://cdn.xingstation.com/fe/image/cangqian/zhehei.ttf"),
-    url("http://cdn.xingstation.com/fe/image/cangqian/zhehei.svg");
+  src: url("http://cdn.exe666.com/fe/image/cangqian/zhehei.ttf");
+  src: url("http://cdn.exe666.com/fe/image/cangqian/zhehei.eot"),
+    url("http://cdn.exe666.com/fe/image/cangqian/zhehei.woff"),
+    url("http://cdn.exe666.com/fe/image/cangqian/zhehei.ttf"),
+    url("http://cdn.exe666.com/fe/image/cangqian/zhehei.svg");
   font-weight: normal;
   font-style: normal;
 }

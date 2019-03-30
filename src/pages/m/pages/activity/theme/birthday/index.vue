@@ -21,7 +21,7 @@
             <img
               v-if="item.type === 'birthday'"
               class="candle"
-              src="https://cdn.xingstation.com/m/activity/shop/birthday/candle.png"
+              src="https://cdn.exe666.com/m/activity/shop/birthday/candle.png"
             >
           </div>
           <div
@@ -73,17 +73,17 @@ export default {
           txt: "立即点击参与，为他制作蛋糕，送<br/>上你的生日祝福吧~",
           nums: "431",
           image:
-            "https://cdn.xingstation.com/m/activity/shop/birthday/temp_banner_1.png",
+            "https://cdn.exe666.com/m/activity/shop/birthday/temp_banner_1.png",
           video: null,
           awardkey: "9smn38kb9g4529cw1lq49h6h",
           infolink:
-            "http://cdn.xingstation.com/1007/other/b7065882530f7a720af28d7d70524ba8.html",
+            "http://cdn.exe666.com/1007/other/b7065882530f7a720af28d7d70524ba8.html",
           pslink: null,
           pass: "1",
           date: "2019-03-02 00:00:00",
           clientdate: "1550052236000",
           aname: "3月3生日祝福",
-          aicon: "http://image.xingstation.com/1007/image/775_birthday2.png",
+          aicon: "http://image.exe666.com/1007/image/775_birthday2.png",
           sdate: "1549987201",
           edate: "1581609599",
           passed: "forever",
@@ -98,17 +98,17 @@ export default {
           txt: "立即参与投票决定旅游线路<br/>2019/3/17-2019/3/27",
           nums: "256",
           image:
-            "https://cdn.xingstation.com/m/activity/shop/birthday/temp_banner_2.png",
+            "https://cdn.exe666.com/m/activity/shop/birthday/temp_banner_2.png",
           video: null,
           awardkey: "9smn38kb9g4529cw1lq49h6h",
           infolink:
-            "http://cdn.xingstation.com/1007/other/b7065882530f7a720af28d7d70524ba8.html",
+            "http://cdn.exe666.com/1007/other/b7065882530f7a720af28d7d70524ba8.html",
           pslink: null,
           pass: "1",
           date: "2019-03-03 00:00:00",
           clientdate: "1551542400000",
           aname: "3月3生日祝福",
-          aicon: "http://image.xingstation.com/1007/image/775_birthday2.png",
+          aicon: "http://image.exe666.com/1007/image/775_birthday2.png",
           sdate: "1549987201",
           edate: "1581609599",
           passed: "forever",
@@ -123,17 +123,17 @@ export default {
           txt: "每日最高99元现金红包",
           nums: "97",
           image:
-            "https://cdn.xingstation.com/m/activity/shop/birthday/temp_banner_3.png",
+            "https://cdn.exe666.com/m/activity/shop/birthday/temp_banner_3.png",
           video: null,
           awardkey: "9smn38kb9g4529cw1lq49h6h",
           infolink:
-            "http://cdn.xingstation.com/1007/other/b7065882530f7a720af28d7d70524ba8.html",
+            "http://cdn.exe666.com/1007/other/b7065882530f7a720af28d7d70524ba8.html",
           pslink: null,
           pass: "1",
           date: "2019-03-07 00:00:00",
           clientdate: "1551888000000",
           aname: "3月3生日祝福",
-          aicon: "http://image.xingstation.com/1007/image/775_birthday2.png",
+          aicon: "http://image.exe666.com/1007/image/775_birthday2.png",
           sdate: "1549987201",
           edate: "1581609599",
           passed: "forever",
@@ -270,11 +270,11 @@ export default {
         height: 0.68rem;
         margin-right: 0.06rem;
         padding-top: 0.04rem;
-        background: url(https://cdn.xingstation.com/m/activity/shop/birthday/black-icon.png)
+        background: url(https://cdn.exe666.com/m/activity/shop/birthday/black-icon.png)
           no-repeat;
         background-size: 100% 100%;
         &.birthday-icon {
-          background: url(https://cdn.xingstation.com/m/activity/shop/birthday/red-icon.png)
+          background: url(https://cdn.exe666.com/m/activity/shop/birthday/red-icon.png)
             no-repeat;
           background-size: 100% 100%;
         }

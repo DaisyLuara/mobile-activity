@@ -48,7 +48,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-@url: "http://cdn.xingstation.com/fe/image/luwan/";
+@url: "http://cdn.exe666.com/fe/image/luwan/";
 html,
 body {
   width: 100%;

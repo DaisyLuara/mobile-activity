@@ -14,7 +14,7 @@
       :class="{'photo': !iphoneX, 'x-photo': iphoneX}"
       alt=""
     >
-    <!-- <img  src="http://image.xingstation.com/1007/image/GuideJDBigCityGift_519_432_1492928440995.jpg" alt="" :class="{'photo': !iphoneX, 'x-photo': iphoneX}" /> -->
+    <!-- <img  src="http://image.exe666.com/1007/image/GuideJDBigCityGift_519_432_1492928440995.jpg" alt="" :class="{'photo': !iphoneX, 'x-photo': iphoneX}" /> -->
     <img
       :src="imgServerUrl + '/pages/drc_ty/blue.png'"
       class="blue"

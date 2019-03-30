@@ -94,7 +94,7 @@ export default {
         title: 'Mirror魔镜PK擂台等你来战',
         desc: 'Mirror魔镜PK擂台等你来战',
         link: 'http://papi.xingstation.com/api/s/lO5' + window.location.search,
-        imgUrl: 'http://cdn.xingstation.com/image/pk/common/share.png',
+        imgUrl: 'http://cdn.exe666.com/image/pk/common/share.png',
         success: function () {
           wechatShareTrack()
         }
@@ -179,7 +179,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: "http://cdn.xingstation.com/image/yanzhi/pk/common/";
+@imgUrl: "http://cdn.exe666.com/image/yanzhi/pk/common/";
 html,
 body {
   width: 100%;

@@ -2,10 +2,10 @@
   <div class="article-more">
     <img 
       class="more-img" 
-      src="http://cdn.xingstation.com/fe/hidol/img/like-heart@3x.png" >
+      src="http://cdn.exe666.com/fe/hidol/img/like-heart@3x.png" >
     <img 
       class="more-img" 
-      src="http://cdn.xingstation.com/fe/hidol/img/link-2@3x.png" >
+      src="http://cdn.exe666.com/fe/hidol/img/link-2@3x.png" >
   </div>
 </template>
 

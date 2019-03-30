@@ -74,7 +74,7 @@ export default {
           "min-height": this.$innerHeight() + "px"
         }
       },
-      imgUrl: null,//'https://cdn.xingstation.com//fe/image/zpld_chr/7winter.png'
+      imgUrl: null,//'https://cdn.exe666.com//fe/image/zpld_chr/7winter.png'
       id: this.$route.query.id,
       userId: null,
       coupon_date: null,
@@ -195,7 +195,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-@img: "https://cdn.xingstation.com/fe/image/greenchm/";
+@img: "https://cdn.exe666.com/fe/image/greenchm/";
 html,
 body {
   width: 100%;

@@ -96,7 +96,7 @@ export default {
         policyId: 4,
         couponId: null,
         url: null
-        //'http://cdn.xingstation.com/fe/image/drc/guoqing/1.png'
+        //'http://cdn.exe666.com/fe/image/drc/guoqing/1.png'
       },
       mobile: null,
       award: true,
@@ -108,7 +108,7 @@ export default {
         desc: '大融城-星视度嗨玩节，福利优惠拿不停。',
         link: 'http://papi.xingstation.com/api/s/mw0' + window.location.search,
         imgUrl:
-          'http://cdn.xingstation.com/image/tm/guoqing/share_childDream.png',
+          'http://cdn.exe666.com/image/tm/guoqing/share_childDream.png',
         success: function () {
           wechatShareTrack()
         }
@@ -300,15 +300,15 @@ export default {
 /*声明 WebFont*/
 @font-face {
   font-family: "haibao";
-  src: url("http://cdn.xingstation.com/font/haibao.ttf");
-  src: url("http://cdn.xingstation.com/font/haibao.eot"),
-    url("http://cdn.xingstation.com/font/haibao.woff"),
-    url("http://cdn.xingstation.com/font/haibao.ttf"),
-    url("http://cdn.xingstation.com/font/haibao.svg");
+  src: url("http://cdn.exe666.com/font/haibao.ttf");
+  src: url("http://cdn.exe666.com/font/haibao.eot"),
+    url("http://cdn.exe666.com/font/haibao.woff"),
+    url("http://cdn.exe666.com/font/haibao.ttf"),
+    url("http://cdn.exe666.com/font/haibao.svg");
   font-weight: normal;
   font-style: normal;
 }
-@base: "http://cdn.xingstation.com/fe/image/drc/guoqing/";
+@base: "http://cdn.exe666.com/fe/image/drc/guoqing/";
 html,
 body {
   width: 100%;

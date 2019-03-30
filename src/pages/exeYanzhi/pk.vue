@@ -97,7 +97,7 @@ export default {
         title: '魔镜，谁是油城最美女神？',
         desc: '是你，抚媚热烈是你，盛世美颜还是你',
         link: 'http://papi.xingstation.com/api/s/G67' + window.location.search,
-        imgUrl: 'http://cdn.xingstation.com/image/yanzhi/pk/share.png',
+        imgUrl: 'http://cdn.exe666.com/image/yanzhi/pk/share.png',
         success: function () {
           wechatShareTrack()
         }
@@ -200,7 +200,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: "http://cdn.xingstation.com/image/yanzhi/pk/";
+@imgUrl: "http://cdn.exe666.com/image/yanzhi/pk/";
 html,
 body {
   width: 100%;

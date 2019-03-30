@@ -54,8 +54,8 @@ export default {
       used: false,
       userId: null,
       cshow: false,//true
-      coupon_img: null,//'https://cdn.xingstation.com/fe/image/couponrain/Lee.png',
-      qrcodeImg: null,// 'https://cdn.xingstation.com/fe/image/couponrain/5c22f3d46c008.png',
+      coupon_img: null,//'https://cdn.exe666.com/fe/image/couponrain/Lee.png',
+      qrcodeImg: null,// 'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
       //微信分享
       wxShareInfoValue: {
         title: "希尔顿新年红包雨，新春福利抢不停！",
@@ -394,7 +394,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-@imgUrl: "https://cdn.xingstation.com/fe/image/couponrain/";
+@imgUrl: "https://cdn.exe666.com/fe/image/couponrain/";
 html,
 body {
   width: 100%;
