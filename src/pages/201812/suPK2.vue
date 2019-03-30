@@ -138,8 +138,8 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@url: "http://cdn.exe666.com/fe/image/supk/";
-@font: "http://cdn.exe666.com/fe/font/";
+@url: "http://cdn.xingstation.cn/fe/image/supk/";
+@font: "http://cdn.xingstation.cn/fe/font/";
 /*声明 WebFont*/
 @font-face {
   font-family: "smallnum";

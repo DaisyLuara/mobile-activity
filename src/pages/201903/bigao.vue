@@ -48,14 +48,14 @@ export default {
         title: '比高电影城欢迎您',
         desc: '点击可获取您的照片',
         link: 'http://papi.xingstation.com/api/s/j0W' + window.location.search,
-        imgUrl: 'http://cdn.exe666.com/fe/image/dgm/bigao.png'
+        imgUrl: 'http://cdn.xingstation.cn/fe/image/dgm/bigao.png'
       }
     }
   }
 }
 </script>
 <style lang="less" scoped>
-@base: "http://cdn.exe666.com/fe/image/dgm/";
+@base: "http://cdn.xingstation.cn/fe/image/dgm/";
 html,
 body {
   width: 100%;

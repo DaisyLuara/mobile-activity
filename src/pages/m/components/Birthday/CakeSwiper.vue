@@ -142,7 +142,7 @@ export default {
   .button-prev-cake {
     width: 0.45rem;
     height: 0.51rem;
-    background: url(https://cdn.exe666.com/m/activity/shop/birthday/arrow-2.png)
+    background: url(https://cdn.xingstation.cn/m/activity/shop/birthday/arrow-2.png)
       no-repeat;
     background-size: 100% 100%;
     position: absolute;

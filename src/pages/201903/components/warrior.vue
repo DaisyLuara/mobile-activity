@@ -151,7 +151,7 @@ export default {
       mask: false,
       noward: false,
       award: false,
-      qr_img: null,//'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
+      qr_img: null,//'https://cdn.xingstation.cn/fe/image/couponrain/5c22f3d46c008.png',
       qrcode: null,//null,
       used: false,
       passed: false,
@@ -319,7 +319,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-@imgurl: "http://cdn.exe666.com/fe/image/warrior/";
+@imgurl: "http://cdn.xingstation.cn/fe/image/warrior/";
 html,
 body {
   width: 100%;

@@ -204,7 +204,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: "http://cdn.exe666.com/fe/marketing/img/lion/";
+@imageHost: "http://cdn.xingstation.cn/fe/marketing/img/lion/";
 html,
 body {
   width: 100%;

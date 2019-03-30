@@ -96,8 +96,8 @@ export default {
         renderer: 'svg',
         loop: true,
         autoplay: true,
-        assetsPath: 'http://cdn.exe666.com/fe/marketing/img/wc/lottie/',
-        path: 'http://cdn.exe666.com/fe/marketing/img/wc/lottie/h5-2.json' // the path to the animation json
+        assetsPath: 'http://cdn.xingstation.cn/fe/marketing/img/wc/lottie/',
+        path: 'http://cdn.xingstation.cn/fe/marketing/img/wc/lottie/h5-2.json' // the path to the animation json
       })
     },
     fetchNumberData() {
@@ -129,7 +129,7 @@ export default {
     handleEvent(e) {
       if (
         e.toElement.href.baseVal ===
-        'http://cdn.exe666.com/fe/marketing/img/wc/lottie/img_0.png'
+        'http://cdn.xingstation.cn/fe/marketing/img/wc/lottie/img_0.png'
       ) {
         this.$router.push({
           name: 'WorldCupsCardWithPeople'

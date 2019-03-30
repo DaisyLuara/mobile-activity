@@ -210,7 +210,7 @@ export default {
 };
 </script>
 <style  lang="less" scoped>
-@imgUrl: "https://cdn.exe666.com/image/mallcoo";
+@imgUrl: "https://cdn.xingstation.cn/image/mallcoo";
 html,
 body {
   overflow-x: hidden;

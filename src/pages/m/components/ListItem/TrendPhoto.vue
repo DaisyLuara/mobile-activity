@@ -67,9 +67,9 @@ export default {
   },
   data() {
     return {
-      alltop: "https://cdn.exe666.com/fe/image/m/tag-toupiao.svg",
-      game: "https://cdn.exe666.com/fe/image/m/tag-paihang.svg",
-      honour: "https://cdn.exe666.com/fe/image/m/tag-xunzhang.svg"
+      alltop: "https://cdn.xingstation.cn/fe/image/m/tag-toupiao.svg",
+      game: "https://cdn.xingstation.cn/fe/image/m/tag-paihang.svg",
+      honour: "https://cdn.xingstation.cn/fe/image/m/tag-xunzhang.svg"
     };
   },
   computed: {

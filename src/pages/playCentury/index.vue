@@ -78,7 +78,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: 'http://cdn.exe666.com/fe/marketing/img/play_century/';
+@imageHost: 'http://cdn.xingstation.cn/fe/marketing/img/play_century/';
 .root {
   width: 100%;
   text-align: center;

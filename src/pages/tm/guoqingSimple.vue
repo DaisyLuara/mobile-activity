@@ -156,7 +156,7 @@ export default {
         desc: "大融城-星视度嗨玩节，福利优惠拿不停。",
         link: "http://papi.xingstation.com/api/s/qj2" + window.location.search,
         imgUrl:
-          "http://cdn.exe666.com/image/tm/guoqing/share_" +
+          "http://cdn.xingstation.cn/image/tm/guoqing/share_" +
           this.$route.query.utm_campaign.trim() +
           ".png",
         success: function() {
@@ -394,15 +394,15 @@ export default {
 /*声明 WebFont*/
 @font-face {
   font-family: "haibao";
-  src: url("http://cdn.exe666.com/font/haibao.ttf");
-  src: url("http://cdn.exe666.com/font/haibao.eot"),
-    url("http://cdn.exe666.com/font/haibao.woff"),
-    url("http://cdn.exe666.com/font/haibao.ttf"),
-    url("http://cdn.exe666.com/font/haibao.svg");
+  src: url("http://cdn.xingstation.cn/font/haibao.ttf");
+  src: url("http://cdn.xingstation.cn/font/haibao.eot"),
+    url("http://cdn.xingstation.cn/font/haibao.woff"),
+    url("http://cdn.xingstation.cn/font/haibao.ttf"),
+    url("http://cdn.xingstation.cn/font/haibao.svg");
   font-weight: normal;
   font-style: normal;
 }
-@base: "http://cdn.exe666.com/image/tm/guoqing/";
+@base: "http://cdn.xingstation.cn/image/tm/guoqing/";
 html,
 body {
   width: 100%;

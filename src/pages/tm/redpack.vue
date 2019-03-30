@@ -6,7 +6,7 @@
     <div class="xk">
       <img
         class="frame"
-        src="http://cdn.exe666.com/fe/image/tmall/redpack/frame.png"
+        src="http://cdn.xingstation.cn/fe/image/tmall/redpack/frame.png"
       >
       <img
         :src="photo + this.$qiniuCompress()"
@@ -15,13 +15,13 @@
     </div>
     <div class="rp">
       <img
-        :src="'http://cdn.exe666.com/fe/image/tmall/redpack/' + String(redpackType) + '.png'"
+        :src="'http://cdn.xingstation.cn/fe/image/tmall/redpack/' + String(redpackType) + '.png'"
         class="inner"
       >
     </div>
     <img
       class="bottom"
-      src="http://cdn.exe666.com/fe/image/tmall/redpack/bottom.png"
+      src="http://cdn.xingstation.cn/fe/image/tmall/redpack/bottom.png"
     >
 
   </div>

@@ -89,8 +89,8 @@ export default {
       id: this.$route.query.id,
       bgcover: false,
       loading: true,
-      coupon_img: null,//'https://cdn.exe666.com/fe/image/jinzhan/test.png',
-      qrcodeImg: null,//'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
+      coupon_img: null,//'https://cdn.xingstation.cn/fe/image/jinzhan/test.png',
+      qrcodeImg: null,//'https://cdn.xingstation.cn/fe/image/couponrain/5c22f3d46c008.png',
       used: false,//false
       name: null,//'大小珠宝全场88折优惠券'
       code: null,
@@ -101,7 +101,7 @@ export default {
       wxShareInfoValue: {
         title: "金展",
         desc: "金展",
-        imgUrl: "https://cdn.exe666.com/fe/image/jinzhan/icon.jpg"
+        imgUrl: "https://cdn.xingstation.cn/fe/image/jinzhan/icon.jpg"
       }
     }
   },
@@ -242,7 +242,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@img: "http://cdn.exe666.com/fe/image/jinzhan/";
+@img: "http://cdn.xingstation.cn/fe/image/jinzhan/";
 html,
 body {
   width: 100%;

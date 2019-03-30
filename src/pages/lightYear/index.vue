@@ -270,7 +270,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: 'http://cdn.exe666.com/fe/marketing/img/lightYear/';
+@imageHost: 'http://cdn.xingstation.cn/fe/marketing/img/lightYear/';
 @font-face {
   font-family: 'MyNewFont'; /*字体名称*/
   src: url('@{imageHost}ht2.ttf'); /*字体源文件*/

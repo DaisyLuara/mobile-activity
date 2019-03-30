@@ -76,9 +76,9 @@ export default {
   },
   data() {
     return {
-      deleteUrl: "http://cdn.exe666.com/fe/image/m/m-menu-delete.svg",
-      saveUrl: "http://cdn.exe666.com/fe/image/m/m-menu-download.svg",
-      shareUrl: "http://cdn.exe666.com/fe/image/m/m-menu-share.svg",
+      deleteUrl: "http://cdn.xingstation.cn/fe/image/m/m-menu-delete.svg",
+      saveUrl: "http://cdn.xingstation.cn/fe/image/m/m-menu-download.svg",
+      shareUrl: "http://cdn.xingstation.cn/fe/image/m/m-menu-share.svg",
       subTitle: "活动倒计时:12:14:33",
       actList: [],
       shoudListShow: false,

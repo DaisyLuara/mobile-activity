@@ -113,11 +113,11 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: "http://cdn.exe666.com/fe/marketing/img/listRank/";
+@imageHost: "http://cdn.xingstation.cn/fe/marketing/img/listRank/";
 /*声明 WebFont*/
 @font-face {
   font-family: "MatrixCode";
-  src: url("http://cdn.exe666.com/fe/marketing/img/listRank/hanyicu.TTF");
+  src: url("http://cdn.xingstation.cn/fe/marketing/img/listRank/hanyicu.TTF");
   font-weight: normal;
   font-style: normal;
 }

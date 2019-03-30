@@ -52,7 +52,7 @@ export default {
         title: "爱丽狮物语 ",
         desc: "专属积分福利兑换",
         link: 'http://papi.xingstation.com/api/s/mYp' + window.location.search,
-        imgUrl: "https://cdn.exe666.com/fe/image/ailishi/icon.jpg"
+        imgUrl: "https://cdn.xingstation.cn/fe/image/ailishi/icon.jpg"
       }
     }
   },
@@ -98,7 +98,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@img: "http://cdn.exe666.com/fe/image/ailishi/";
+@img: "http://cdn.xingstation.cn/fe/image/ailishi/";
 html,
 body {
   width: 100%;

@@ -115,7 +115,7 @@ export default {
         title: '贵客齐聚，共赴好宴│11.23厦门万象城正式揭幕',
         desc: '敬致：永新豪觅。用心好物',
         link: 'http://papi.xingstation.com/api/s/qYr' + window.location.search,
-        imgUrl: 'https://cdn.exe666.com/fe/image/wxc_letter/icon.png',
+        imgUrl: 'https://cdn.xingstation.cn/fe/image/wxc_letter/icon.png',
         success: () => {
           wechatShareTrack()
         }
@@ -185,7 +185,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: "https://cdn.exe666.com/fe/image/wxc_letter/";
+@imgUrl: "https://cdn.xingstation.cn/fe/image/wxc_letter/";
 html,
 body {
   width: 100%;

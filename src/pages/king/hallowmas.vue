@@ -122,7 +122,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: 'http://cdn.exe666.com/fe/marketing/img/hallowmas/';
+@imageHost: 'http://cdn.xingstation.cn/fe/marketing/img/hallowmas/';
 html,
 body {
   width: 100%;

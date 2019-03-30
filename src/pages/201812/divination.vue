@@ -112,7 +112,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-@imgUrl: "https://cdn.exe666.com/fe/image/divination/";
+@imgUrl: "https://cdn.xingstation.cn/fe/image/divination/";
 html,
 body {
   width: 100%;

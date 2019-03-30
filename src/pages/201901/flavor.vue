@@ -50,7 +50,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: "http://cdn.exe666.com/fe/marketing/img/flavor/";
+@imageHost: "http://cdn.xingstation.cn/fe/marketing/img/flavor/";
 html,
 body {
   width: 100%;
