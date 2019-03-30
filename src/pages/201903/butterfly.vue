@@ -60,7 +60,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@url: "https://cdn.exe666.com/fe/image/butterfly/";
+@url: "https://cdn.xingstation.com/fe/image/butterfly/";
 html,
 body {
   width: 100%;

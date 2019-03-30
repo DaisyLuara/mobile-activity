@@ -64,7 +64,7 @@ export default {
         title: '美食PK',
         desc: '发光的美食，你见过吗',
         link: 'http://papi.xingstation.com/api/s/2kK' + window.location.search,
-        imgUrl: 'http://cdn.exe666.com/image/meishi/share.png',
+        imgUrl: 'http://cdn.xingstation.com/image/meishi/share.png',
         success: function() {
           wechatShareTrack()
         }
@@ -95,7 +95,7 @@ export default {
           transparent: true
         })
         document.getElementById('main').appendChild(app.view)
-        let base = 'http://cdn.exe666.com/image/'
+        let base = 'http://cdn.xingstation.com/image/'
         app.view.style.position = 'absolute'
         app.view.style.top = '11%'
         app.view.style.left = '50%'

@@ -74,7 +74,7 @@
         preload="auto"
         width="100%" 
         height="100%">
-        <!--  src="http://cdn.exe666.com/1007/video/MidautumnSkyLight_112_411_1492921319755.mp4s" -->
+        <!--  src="http://cdn.xingstation.com/1007/video/MidautumnSkyLight_112_411_1492921319755.mp4s" -->
         <source 
           v-if="photo !== null" 
           :src="photo" 
@@ -316,7 +316,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: 'http://cdn.exe666.com/fe/marketing/img/save_moonCake/';
+@imageHost: 'http://cdn.xingstation.com/fe/marketing/img/save_moonCake/';
 .root {
   width: 100%;
   text-align: center;

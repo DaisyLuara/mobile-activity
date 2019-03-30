@@ -31,7 +31,7 @@
       <img 
         :src="baseUrl + 'grounding.png'+ this.$qiniuCompress()"
         class="grounding">
-      <!-- http://cdn.exe666.com/1007/video/MidautumnSkyLight_112_411_1492921319755.mp4 -->
+      <!-- http://cdn.xingstation.com/1007/video/MidautumnSkyLight_112_411_1492921319755.mp4 -->
       <video 
         id="video"
         class="photo-real"
@@ -157,7 +157,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: 'http://cdn.exe666.com/fe/marketing/img/mid_autumn';
+@imageHost: 'http://cdn.xingstation.com/fe/marketing/img/mid_autumn';
 .root {
   width: 100%;
   text-align: center;

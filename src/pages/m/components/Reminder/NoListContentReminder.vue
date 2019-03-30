@@ -5,12 +5,12 @@
     <div class="word">
       <img 
         class="bg" 
-        src="https://cdn.exe666.com/fe/image/m/xo-remind-text.svg">
+        src="https://cdn.xingstation.com/fe/image/m/xo-remind-text.svg">
       <span class="text">{{ words }}</span>
     </div>
     <img 
       class="img" 
-      src="https://cdn.exe666.com/fe/image/m/xo-no-content.png">
+      src="https://cdn.xingstation.com/fe/image/m/xo-no-content.png">
   </div>
 </template>
 

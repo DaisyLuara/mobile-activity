@@ -12,7 +12,7 @@
     <div class="more">
       <img 
         class="more-inner"
-        src="http://cdn.exe666.com/fe/hidol/img/more.svg" 
+        src="http://cdn.xingstation.com/fe/hidol/img/more.svg" 
         @click="handlePannelShow">
       <ArticleMore 
         v-if="shouldPannelShow"

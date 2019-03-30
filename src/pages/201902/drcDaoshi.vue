@@ -58,7 +58,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@img: "http://cdn.exe666.com/fe/image/drcDaoshi/";
+@img: "http://cdn.xingstation.com/fe/image/drcDaoshi/";
 html,
 body {
   width: 100%;

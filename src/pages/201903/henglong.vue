@@ -49,14 +49,14 @@ export default {
         title: "今天，就是恒隆【全场最靓】的崽！",
         desc: "恒隆潮流实验室，等你来搞事儿！",
         link: 'http://papi.xingstation.com/api/s/9DP' + window.location.search,
-        imgUrl: "https://cdn.exe666.com/fe/image/henglong/icon.jpg"
+        imgUrl: "https://cdn.xingstation.com/fe/image/henglong/icon.jpg"
       }
     }
   }
 }
 </script>
 <style lang="less" scoped>
-@img: "http://cdn.exe666.com/fe/image/henglong/";
+@img: "http://cdn.xingstation.com/fe/image/henglong/";
 html,
 body {
   width: 100%;

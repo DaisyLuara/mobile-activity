@@ -48,14 +48,14 @@ export default {
         title: "artspire 童绘 免费试听课",
         desc: "让儿童在耳濡目染中体验艺术",
         link: 'http://papi.xingstation.com/api/s/pkr' + window.location.search,
-        imgUrl: "https://cdn.exe666.com/fe/image/artspire/icon.png"
+        imgUrl: "https://cdn.xingstation.com/fe/image/artspire/icon.png"
       }
     }
   }
 }
 </script>
 <style lang="less" scoped>
-@img: "http://cdn.exe666.com/fe/image/artspire/";
+@img: "http://cdn.xingstation.com/fe/image/artspire/";
 html,
 body {
   width: 100%;

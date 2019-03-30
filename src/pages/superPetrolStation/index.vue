@@ -66,7 +66,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: "http://cdn.exe666.com/fe/marketing/img/superPetrolStation";
+@imageHost: "http://cdn.xingstation.com/fe/marketing/img/superPetrolStation";
 .root {
   width: 100%;
   background-repeat: no-repeat;

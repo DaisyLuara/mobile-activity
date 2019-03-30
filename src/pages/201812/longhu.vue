@@ -260,7 +260,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-@img: "https://cdn.exe666.com/fe/image/longhu/";
+@img: "https://cdn.xingstation.com/fe/image/longhu/";
 html,
 body {
   width: 100%;

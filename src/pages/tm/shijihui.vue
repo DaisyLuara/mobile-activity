@@ -50,11 +50,11 @@ export default {
 /*声明 WebFont*/
 @font-face {
   font-family: "mutouren";
-  src: url("https://cdn.exe666.com/fe/font/mutouren.ttf");
-  src: url("https://cdn.exe666.com/fe/font/mutouren.eot"),
-    url("https://cdn.exe666.com/fe/font/mutouren.woff"),
-    url("https://cdn.exe666.com/fe/font/mutouren.ttf"),
-    url("https://cdn.exe666.com/fe/font/mutouren.svg");
+  src: url("https://cdn.xingstation.com/fe/font/mutouren.ttf");
+  src: url("https://cdn.xingstation.com/fe/font/mutouren.eot"),
+    url("https://cdn.xingstation.com/fe/font/mutouren.woff"),
+    url("https://cdn.xingstation.com/fe/font/mutouren.ttf"),
+    url("https://cdn.xingstation.com/fe/font/mutouren.svg");
   font-weight: normal;
   font-style: normal;
 }

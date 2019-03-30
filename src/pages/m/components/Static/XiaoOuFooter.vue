@@ -21,8 +21,8 @@
 export default {
   data() {
     return {
-      xoImgUrl: "https://cdn.exe666.com/fe/image/m/xo-remind.svg",
-      xoReminder: "https://cdn.exe666.com/fe/image/m/xo-remind-text.svg"
+      xoImgUrl: "https://cdn.xingstation.com/fe/image/m/xo-remind.svg",
+      xoReminder: "https://cdn.xingstation.com/fe/image/m/xo-remind-text.svg"
     };
   }
 };

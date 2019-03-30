@@ -66,7 +66,7 @@ export default {
         title: '剪刀手熊猫',
         desc: '它，归隐许久，重回江湖',
         link: 'http://papi.xingstation.com/api/s/ERv' + window.location.search,
-        imgUrl: 'http://cdn.exe666.com/image/panda/share.png',
+        imgUrl: 'http://cdn.xingstation.com/image/panda/share.png',
         success: function() {
           wechatShareTrack()
         }
@@ -106,7 +106,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://cdn.exe666.com/image/panda/';
+@imgUrl: 'http://cdn.xingstation.com/image/panda/';
 html,
 body {
   width: 100%;

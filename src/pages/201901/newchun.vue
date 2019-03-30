@@ -87,7 +87,7 @@ export default {
         title: '新年快乐',
         desc: '猪年大吉',
         link: 'http://papi.xingstation.com/api/s/WQW' + window.location.search,
-        imgUrl: 'http://cdn.exe666.com/fe/image/newchun/icon.png'
+        imgUrl: 'http://cdn.xingstation.com/fe/image/newchun/icon.png'
       }
     }
   },
@@ -144,7 +144,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: "http://cdn.exe666.com/fe/image/newchun/";
+@imgUrl: "http://cdn.xingstation.com/fe/image/newchun/";
 html,
 body {
   width: 100%;

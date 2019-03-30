@@ -196,7 +196,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-@imgurl: "http://cdn.exe666.com/fe/image/peter/";
+@imgurl: "http://cdn.xingstation.com/fe/image/peter/";
 html,
 body {
   width: 100%;

@@ -183,7 +183,7 @@ export default {
         title: '中秋快乐',
         desc: '采购中秋月饼,送吃送祝福',
         link: 'http://papi.xingstation.com/api/s/Z6J' + window.location.search,
-        imgUrl: 'http://cdn.exe666.com/image/zhongqiu/2/share.png',
+        imgUrl: 'http://cdn.xingstation.com/image/zhongqiu/2/share.png',
       }
     }
   },
@@ -411,15 +411,15 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@base: "http://cdn.exe666.com/image/zhongqiu/2/";
+@base: "http://cdn.xingstation.com/image/zhongqiu/2/";
 /*声明 WebFont*/
 @font-face {
   font-family: "huakang";
-  src: url("http://cdn.exe666.com/image/zhongqiu/font/huakang.ttf");
-  src: url("http://cdn.exe666.com/image/zhongqiu/font/huakang.eot"),
-    url("http://cdn.exe666.com/image/zhongqiu/font/huakang.woff"),
-    url("http://cdn.exe666.com/image/zhongqiu/font/huakang.ttf"),
-    url("http://cdn.exe666.com/image/zhongqiu/font/huakang.svg");
+  src: url("http://cdn.xingstation.com/image/zhongqiu/font/huakang.ttf");
+  src: url("http://cdn.xingstation.com/image/zhongqiu/font/huakang.eot"),
+    url("http://cdn.xingstation.com/image/zhongqiu/font/huakang.woff"),
+    url("http://cdn.xingstation.com/image/zhongqiu/font/huakang.ttf"),
+    url("http://cdn.xingstation.com/image/zhongqiu/font/huakang.svg");
   font-weight: normal;
   font-style: normal;
 }

@@ -11,7 +11,7 @@
     >
       <img
         class="bg"
-        src="https://cdn.exe666.com/fe/image/m/game-my.png"
+        src="https://cdn.xingstation.com/fe/image/m/game-my.png"
       >
       <div class="info">
         <img
@@ -46,17 +46,17 @@
       <img
         v-if="index === 0"
         class="crown"
-        src="https://cdn.exe666.com/fe/image/m/first.png"
+        src="https://cdn.xingstation.com/fe/image/m/first.png"
       >
       <img
         v-if="index === 1"
         class="crown"
-        src="https://cdn.exe666.com/fe/image/m/second.png"
+        src="https://cdn.xingstation.com/fe/image/m/second.png"
       >
       <img
         v-if="index === 2"
         class="crown"
-        src="https://cdn.exe666.com/fe/image/m/third.png"
+        src="https://cdn.xingstation.com/fe/image/m/third.png"
       >
     </div>
     <ActivityThemeGameBottom :show="shouldButtonShow"/>

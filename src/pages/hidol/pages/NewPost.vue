@@ -4,7 +4,7 @@
       <div class="main-img">
         <img
           class="img-icon" 
-          src="http://cdn.exe666.com/fe/hidol/img/picture@3x.png" 
+          src="http://cdn.xingstation.com/fe/hidol/img/picture@3x.png" 
           alt="uploadImageHere" >
         <div
           class="img-text"
@@ -34,7 +34,7 @@
       <img
         v-show="isAddPhoto"
         class="add-img" 
-        src="http://cdn.exe666.com/fe/hidol/img/ok@3x.png" 
+        src="http://cdn.xingstation.com/fe/hidol/img/ok@3x.png" 
       >
       <input 
         id="isaddphoto"
@@ -51,10 +51,10 @@
     </div>
     <div class="ABimage">
       <div class="image-inner">
-        <img src="http://cdn.exe666.com/fe/hidol/img/A+.svg" >
+        <img src="http://cdn.xingstation.com/fe/hidol/img/A+.svg" >
       </div>
       <div class="image-inner">
-        <img src="http://cdn.exe666.com/fe/hidol/img/B+.svg" >
+        <img src="http://cdn.xingstation.com/fe/hidol/img/B+.svg" >
       </div>
     </div>
     <PublishButton @onHandlePublish="handlePublish" />

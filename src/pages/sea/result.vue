@@ -61,7 +61,7 @@ export default {
       wxShareInfoValue: {
         title: '来自海洋的问候',
         desc: '更多海洋知识小课堂',
-        imgUrl: 'http://cdn.exe666.com/image/sea/share.jpg',
+        imgUrl: 'http://cdn.xingstation.com/image/sea/share.jpg',
         success: () => {
           wechatShareTrack()
         }
@@ -97,7 +97,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://cdn.exe666.com/image/sea/';
+@imgUrl: 'http://cdn.xingstation.com/image/sea/';
 html,
 body {
   width: 100%;

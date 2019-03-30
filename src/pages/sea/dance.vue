@@ -119,7 +119,7 @@ export default {
         title: '一起尬舞吗？朋友',
         desc: '金秋十月！来旭辉mall吃喝玩乐',
         link: 'http://papi.xingstation.com/api/s/pg6' + window.location.search,
-        imgUrl: 'http://cdn.exe666.com/fe/image/xh_dance/icon.png',
+        imgUrl: 'http://cdn.xingstation.com/fe/image/xh_dance/icon.png',
         success: function () {
           wechatShareTrack()
         }
@@ -344,10 +344,10 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@base: "http://cdn.exe666.com/fe/image/xh_dance/";
+@base: "http://cdn.xingstation.com/fe/image/xh_dance/";
 @font-face {
   font-family: "jingzhuan";
-  src: url("http://cdn.exe666.com/fe/marketing/img/xsd_ad/jinzhuan2.TTF");
+  src: url("http://cdn.xingstation.com/fe/marketing/img/xsd_ad/jinzhuan2.TTF");
   font-weight: normal;
   font-style: normal;
 }

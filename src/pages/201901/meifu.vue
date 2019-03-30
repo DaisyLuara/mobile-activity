@@ -165,7 +165,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: "http://cdn.exe666.com/fe/marketing/img/drc_meifu/";
+@imageHost: "http://cdn.xingstation.com/fe/marketing/img/drc_meifu/";
 html,
 body {
   width: 100%;

@@ -79,9 +79,9 @@ export default {
         }
       },
       base: cdnUrl + "/fe/image/wa2/",
-      ewm: null,//'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png'
+      ewm: null,//'https://cdn.xingstation.com/fe/image/couponrain/5c22f3d46c008.png'
       code: null,//5c5157930db56
-      coupon: null, //'http://cdn.exe666.com/fe/image/wa2/coupon01.png',
+      coupon: null, //'http://cdn.xingstation.com/fe/image/wa2/coupon01.png',
       description: null,
       userId: null,
       text: null,
@@ -184,7 +184,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-@img: "https://cdn.exe666.com/fe/image/wa2/";
+@img: "https://cdn.xingstation.com/fe/image/wa2/";
 html,
 body {
   width: 100%;
