@@ -5,11 +5,6 @@
         "istanbul"
       ]
     },
-    "gulp": {
-      "presets": [
-        "es2015"
-      ]
-    },
     "production": {
       "presets": [
         "@babel/preset-env",
