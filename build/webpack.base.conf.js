@@ -56,7 +56,7 @@ module.exports = {
         loader: 'vue-loader',
         options: vueLoaderConfig,
         include: [resolve('src')],
-        exclude: /node_modules\/(?!(autotrack|dom-utils))|vendor\.dll\.js/
+        exclude: ['/node_modules\/(?!(autotrack|dom-utils))|vendor\.dll\.js/', resolve('old')]
       },
       {
         test: /\.js[x]?$/,
