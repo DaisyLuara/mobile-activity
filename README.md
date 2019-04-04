@@ -9,7 +9,13 @@
 ```
 yarn clean
 ```
-将会把路由中 isAbandoned 的文件移到 ./old/ 里去
+将会把路由中 isAbandoned 的文件移到 ./old/ 里去, 如果提示没有安装 gulp就
+先跑yarn 依然没有的话
+
+```
+yarn add -D gulp gulp-cli
+```
+来安装一下
 
 ### 环境变量
 
