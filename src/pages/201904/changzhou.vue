@@ -50,11 +50,11 @@ export default {
       base: CDN_URL + '/fe/image/changzhou/',
       //share
       wxShareInfoValue: {
-        title: '',
-        desc: '',
+        title: '您的吃货海报已生成！',
+        desc: '点击领取专属照~',
+        link: 'http://papi.xingstation.com/api/s/ExK' + window.location.search,
         imageUrl: CDN_URL + '/fe/image/changzhou/icon.png'
       }
-
     }
   },
   mounted() { }
