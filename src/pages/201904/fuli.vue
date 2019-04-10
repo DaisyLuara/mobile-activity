@@ -74,10 +74,12 @@
         <div class="boss">
           <div class="people">
             <img
+              :style="'transform:scale(' + scale + ');'"
               :src="base + '6.png'"
               class="bg"
             >
             <img
+              v-show="pimg"
               :src="people.boss"
               class="pimg"
             >
@@ -121,7 +123,6 @@
           v-model="value"
           maxlength="40"
           class="write"
-          @change="wordNumber"
         ></textarea>
         <div class="num">{{count + '/40'}}</div>
       </div>
@@ -155,6 +156,8 @@ export default {
       },
       tips: '发弹幕,回复福礼红包',
       count: 0,
+      scale: 0,
+      pimg: false,
       people: {
         own1: CDN_URL + '/fe/image/today_fuli/hidol1.png',
         own2: CDN_URL + '/fe/image/today_fuli/hidol1.png',
@@ -178,6 +181,11 @@ export default {
         imageUrl: CDN_URL + '/fe/image/today_fuli/icon.png'
       }
 
+    }
+  },
+  watch: {
+    value() {
+      this.count = this.value.length
     }
   },
   mounted() {
@@ -204,15 +212,35 @@ export default {
       this.divShow.scene2 = true
       let that = this
       let anim = this.doAnim('anim2', this.base + '2/images/', this.base + '2/', true, false)
-      anim.addEventListener('complete', function () {
-        that.divShow.money = true
-      })
+      anim.addEventListener('enterFrame', () => {
+        // console.log(anim.currentFrame)
+        if (anim.currentFrame >= 15) {
+          that.divShow.money = true
+        }
+      });
+      that.getBigger()
+    },
+    getBigger() {
+      this.scale = 0
+      this.pimg = false
+      let big = 0
+      let playBg = () => {
+        if (big >= 1) {
+          cancelAnimationFrame(timer)
+          this.scale = 1
+          this.pimg = true
+        } else {
+          big = big * 1 + 0.05
+          this.scale = big
+        }
+        let timer = requestAnimationFrame(playBg)
+      }
+      playBg()
     },
     //获取微信数据
     getWxUserInfo() {
       getWxUserInfo().then(res => {
         this.wxUser = res.data
-        console.log(res)
       }).catch(err => {
         let pageUrl = encodeURIComponent(window.location.href)
         let wx_auth_url =
@@ -230,10 +258,8 @@ export default {
     },
     goBack() {
       this.divShow.chuang = false
-    },
-    wordNumber() {
-      this.count = this.value.length
-      console.log(this.value.length)
+      this.divShow.scene2 = true
+      this.getBigger()
     },
     toPut() {
       console.log('发送')
@@ -316,12 +342,14 @@ a {
         top: 5%;
         right: 0%;
         z-index: 9;
+        animation: toup 0.8s linear infinite alternate;
         .tip {
           width: 8.4vw;
           position: absolute;
           top: -2%;
           left: -8%;
           z-index: 99;
+          animation: tobig 1s linear infinite alternate;
         }
       }
       .anim {
@@ -380,6 +408,7 @@ a {
           top: -18%;
           left: 20%;
           z-index: 99;
+          animation: toup 0.6s linear infinite alternate;
         }
       }
     }
@@ -530,10 +559,10 @@ a {
       color: rgba(0, 0, 0, 1);
       box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.16);
       .back {
-        width: 20px;
+        width: 30px;
         position: absolute;
         top: 50%;
-        left: 10%;
+        left: 0%;
         transform: translateY(-50%);
         z-index: 99;
       }
@@ -542,11 +571,13 @@ a {
       width: 95%;
       margin: 0 auto;
       position: relative;
+      margin-top: 10px;
       .write {
         position: relative;
         width: 100%;
         height: 100%;
         padding: 5px;
+        border: none;
         border-radius: 15px;
         background-color: #f5f5f5;
         font-size: 14px;
@@ -594,6 +625,32 @@ a {
     transform: rotate(0deg);
   }
 }
+@keyframes toup {
+  0% {
+    transform: translateY(15px);
+  }
+  100% {
+    transform: rotate(-5px);
+  }
+}
+@keyframes tobig {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.2);
+  }
+}
+
+@keyframes tobig2 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 @keyframes shake {
   0% {
     opacity: 1;
