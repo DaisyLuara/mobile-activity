@@ -196,6 +196,8 @@ body {
         margin: 0 auto;
         padding: 2px;
         z-index: 2;
+        margin-top: -2px;
+        margin-left: -1px;
       }
       .hint {
         width: 43vw;

@@ -20,6 +20,10 @@
         :src="base + '4.png' + this.$qiniuCompress()"
         class="save"
       >
+      <a
+        class="register"
+        @click="toRegister"
+      >注册领券</a>
     </div>
     <div class="coupon">
       <img
@@ -71,8 +75,8 @@ export default {
       z: null,
       //微信分享
       wxShareInfoValue: {
-        title: "萌宝学跳舞",
-        desc: "萌宝学跳舞",
+        title: "领券注册测试",
+        desc: "领券注册测试",
         imgUrl: "https://cdn.xingstation.cn/fe/image/mengbao/icon.jpg"
       }
     }
@@ -82,10 +86,9 @@ export default {
       if (localStorage.getItem('z')) {
         this.z = localStorage.getItem('z')
       } else {
-        this.z = this.userinfo.z
-        localStorage.setItem('z', this.userinfo.z)
+        this.userinfo ? this.z = this.userinfo.z && localStorage.setItem('z', this.userinfo.z) : null
       }
-      this.checkV2Coupon()
+      // this.checkV2Coupon()
     }
   },
   mounted() {
@@ -101,6 +104,9 @@ export default {
         .catch(_ => {
           console.warn(_.message)
         })
+    },
+    toRegister() {
+      this.checkV2Coupon()
     },
     //判断是否领过优惠券
     checkV2Coupon() {
@@ -210,6 +216,16 @@ img {
       width: 43%;
       position: relative;
       z-index: 0;
+    }
+    .register {
+      display: block;
+      width: 40%;
+      position: relative;
+      border: solid 1px #ccc;
+      font-size: 5vw;
+      color: #fff;
+      padding: 5px 10px;
+      margin-top: 20px;
     }
   }
   .coupon {
