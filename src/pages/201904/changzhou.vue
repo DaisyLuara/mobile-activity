@@ -53,7 +53,7 @@ export default {
         title: '您的吃货海报已生成！',
         desc: '点击领取专属照~',
         link: 'http://papi.xingstation.com/api/s/ExK' + window.location.search,
-        imageUrl: CDN_URL + '/fe/image/changzhou/icon.png'
+        imgUrl: CDN_URL + '/fe/image/changzhou/icon.png'
       }
     }
   },

@@ -112,27 +112,23 @@
           class="back"
           @click="goBack"
         >
-          <i
-            class="fa fa-chevron-left"
-            aria-hidden="true"
-          > f053</i>
+          <img :src="base + 'back.png'">
         </a>
         发送弹幕
       </div>
       <div class="message">
         <textarea
           v-model="value"
+          maxlength="40"
           class="write"
           @change="wordNumber"
         ></textarea>
-        <div class="num">{{count}}</div>
-
+        <div class="num">{{count + '/40'}}</div>
       </div>
       <a
         class="toput"
         @click="toPut"
       >发送</a>
-
     </div>
   </div>
 </template>
@@ -158,7 +154,7 @@ export default {
         }
       },
       tips: '发弹幕,回复福礼红包',
-      count: '0/40',
+      count: 0,
       people: {
         own1: CDN_URL + '/fe/image/today_fuli/hidol1.png',
         own2: CDN_URL + '/fe/image/today_fuli/hidol1.png',
@@ -236,6 +232,7 @@ export default {
       this.divShow.chuang = false
     },
     wordNumber() {
+      this.count = this.value.length
       console.log(this.value.length)
     },
     toPut() {
@@ -435,8 +432,8 @@ a {
           .pimg {
             width: 90%;
             position: absolute;
-            top: 5%;
-            left: 3%;
+            top: 7%;
+            left: 2%;
             z-index: 99;
           }
         }
@@ -552,23 +549,25 @@ a {
         padding: 5px;
         border-radius: 15px;
         background-color: #f5f5f5;
-        font-size: 28px;
+        font-size: 14px;
         font-family: PingFang SC;
         font-weight: 500;
-        line-height: 40px;
+        line-height: 20px;
         color: rgba(34, 34, 34, 1);
         z-index: 0;
+        min-height: 26vw;
+        text-align: left;
       }
       .num {
         position: absolute;
         bottom: 5px;
         right: 5px;
         z-index: 9;
-        height: 40px;
-        font-size: 28px;
+        height: 20px;
+        font-size: 14px;
         font-family: PingFang SC;
         font-weight: 500;
-        line-height: 40px;
+        line-height: 20px;
         color: rgba(174, 174, 174, 1);
       }
     }
