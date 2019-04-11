@@ -17,6 +17,7 @@ const MONEY_URL = process.env.AD_API + '/api/open/redpack/'
 
 const BATCH_URL = process.env.AD_API + '/api/open/coupon/batches'
 const PROJECTS_URL = process.env.AD_API + '/api/open/projects/coupons'
+const MALLCOO_URL = process.env.AD_API + '/api/mallcoo'
 const REQ_HEADER = {
   headers: {
     'api-token': apiToken,
@@ -452,6 +453,47 @@ const sendMoneyOnce = code => {
       })
   })
 }
+//猫酷注册发券测试
+//商场会员信息( 查询是否是商场会员)params={z,oid}
+const checkMallMember = params => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(MALLCOO_URL + '/user', { params })
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+
+//发送短信验证码
+const sendMessageCode = phone => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(MALLCOO_URL + '/verificationCodes', phone)
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+//手机号开卡接口
+const getCardByPhone = params => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(MALLCOO_URL + '/users', params)
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
 export {
   createCoupon,
   getCoupon,
@@ -478,5 +520,8 @@ export {
   sendMoneyOnce,
   batchV2Coupon,
   sendV2Projects,
-  batchV2CouponLimit
+  batchV2CouponLimit,
+  checkMallMember,
+  sendMessageCode,
+  getCardByPhone
 }
