@@ -3,47 +3,58 @@
     :style="style.root"
     class="warp"
   >
-    <div class="picture">
-      <img
-        :src="base + '3.png' + this.$qiniuCompress()"
-        class="border"
+
+    <div
+      v-show="eshow.register"
+      class="getphone"
+    >
+      <input
+        type="number"
+        v-model="arr.phone"
+        @input="maxLength(11,arr,'phone')"
+        placeholder="请输入手机号码"
+        class="phone"
       >
-      <img
-        :src="photo + this.$qiniuCompress()"
-        class="photo"
-      >
-      <img
-        :src="base + '1.png' + this.$qiniuCompress()"
-        class="arrow"
-      >
-      <img
-        :src="base + '4.png' + this.$qiniuCompress()"
-        class="save"
-      >
+      <div class="message-code">
+        <input
+          type="number"
+          v-model="arr.vertify"
+          @input="maxLength(4,arr,'vertify')"
+          placeholder="验证码"
+          class="vertify"
+        >
+        <a
+          class="getvertify"
+          @click="getVertify"
+        >获取验证码</a>
+      </div>
       <a
         class="register"
         @click="toRegister"
       >注册领券</a>
     </div>
-    <div class="coupon">
+    <div
+      v-show="eshow.coupon"
+      class="coupon"
+    >
       <img
-        :src="coupon_img"
+        :src="imgs.coupon_img"
         class="coupon-bg"
       >
       <div class="erweima">
         <div class="clip">
           <img
-            :src="qrcodeImg"
+            :src="imgs.qrcodeImg"
             class="qrcode"
           >
         </div>
         <img
-          v-show="used"
+          v-show="eshow.used"
           :src="base + 'used.png'"
           class="used"
         >
         <img
-          v-show="passed"
+          v-show="eshow.passed"
           :src="base + 'passed.png'"
           class="used"
         >
@@ -52,7 +63,7 @@
   </div>
 </template>
 <script>
-import { $wechat, isInWechat, wechatShareTrack, sendV2Coupon, checkV2Coupon } from 'services'
+import { $wechat, isInWechat, wechatShareTrack, checkV2Coupon, sendV2Coupon, checkMallMember, sendMessageCode, getCardByPhone } from 'services'
 import { normalPages } from '@/mixins/normalPages'
 import moment from "moment";
 const CDN_URL = process.env.CDN_URL
@@ -67,12 +78,26 @@ export default {
         }
       },
       id: this.$route.query.id,
-      coupon_img: null,//'https://cdn.xingstation.cn/fe/image/mengbao/2.png',
-      qrcodeImg: null,//'http://papi.xingstation.com/qrcode/5c7de9583796b.png',
-      used: false,//false,
-      passed: false,//false
-      code: null,//'5c7de9583796b'
       z: null,
+      eshow: {
+        register: false,//false
+        coupon: false,
+        used: false,//false,
+        passed: false,//false
+      },
+      arr: {
+        phone: null,
+        vertify: null,
+        vkey: null,
+        vcode: null,
+        open_user_id: null,
+
+      },
+      imgs: {
+        coupon_img: 'https://cdn.xingstation.cn/fe/image/mengbao/2.png',//'https://cdn.xingstation.cn/fe/image/mengbao/2.png',
+        qrcodeImg: 'http://papi.xingstation.com/qrcode/5c7de9583796b.png',//'http://papi.xingstation.com/qrcode/5c7de9583796b.png',
+      },
+      code: null,//'5c7de9583796b
       //微信分享
       wxShareInfoValue: {
         title: "领券注册测试",
@@ -88,7 +113,7 @@ export default {
       } else {
         this.userinfo ? this.z = this.userinfo.z && localStorage.setItem('z', this.userinfo.z) : null
       }
-      // this.checkV2Coupon()
+      this.checkMallMember()
     }
   },
   mounted() {
@@ -105,8 +130,77 @@ export default {
           console.warn(_.message)
         })
     },
+    maxLength(max, arr, name) {
+      if (Number(arr[name].length) > Number(max)) {
+        arr[name] = arr[name].slice(0, Number(max))
+      }
+    },
     toRegister() {
-      this.checkV2Coupon()
+      this.getCardByPhone()
+    },
+    checkMallMember() {
+      let args = {
+        z: this.z,
+        oid: this.oid
+      }
+      checkMallMember(args).then(res => {
+        if (res) {
+          this.arr.open_user_id = res.mallcoo_open_user_id
+          //查券
+          this.checkV2Coupon()
+        } else {
+          this.eshow.register = true
+        }
+      }).catch(err => {
+        alert(err.response.data.message)
+      })
+    },
+    getVertify() {
+      let reg = /^1[3|4|5|6|7|8][0-9]{9}$/
+      let that = this
+      if (!reg.test(this.arr.phone)) {
+        alert('请输入11位有效的手机号码')
+        return
+      }
+      this.sendMessageCode()
+    },
+    sendMessageCode() {
+      sendMessageCode(this.arr.phone).then(res => {
+        this.arr.vertify = res.key
+      }).catch(err => {
+        alert(err.response.data.message)
+      })
+    },
+    getCardByPhone() {
+      let args = {
+        "verification_key": this.arr.vkey,
+        "verification_code": this.arr.vcode,
+        "oid": this.oid,
+        "z": this.z
+      }
+      getCardByPhone(args).then(res => {
+        this.arr.open_user_id = res.mallcoo_open_user_id
+        this.eshow.register = false
+        this.sendV2Coupon()
+      }).catch(err => {
+        alert(err.response.data.message)
+      })
+    },
+    //发优惠券
+    sendV2Coupon() {
+      let args = {
+        qiniu_id: this.id,
+        z: this.z,
+        belong: this.belong,
+        oid: this.oid
+      }
+      sendV2Coupon(args, this.coupon_batch_id)
+        .then(res => {
+          this.handleData(res)
+        })
+        .catch(err => {
+          alert(err.response.data.message)
+        })
     },
     //判断是否领过优惠券
     checkV2Coupon() {
@@ -128,34 +222,19 @@ export default {
         console.log(err)
       })
     },
-    //发优惠券
-    sendV2Coupon() {
-      let args = {
-        qiniu_id: this.id,
-        z: this.z,
-        belong: this.belong,
-        oid: this.oid
-      }
-      sendV2Coupon(args, this.coupon_batch_id)
-        .then(res => {
-          this.handleData(res)
-        })
-        .catch(err => {
-          alert(err.response.data.message)
-        })
-    },
     //处理返回数据
     handleData(res) {
-      this.qrcodeImg = res.qrcode_url
-      this.coupon_img = res.couponBatch.image_url
+      this.eshow.coupon = true
+      this.imgs.qrcodeImg = res.qrcode_url
+      this.imgs.coupon_img = res.couponBatch.image_url
       this.code = res.code
       let now = moment()
       let end = moment(res.end_date)
       let diff = end.diff(now)
       if (parseInt(res.status) === 1) {
-        this.used = true
+        this.eshow.used = true
       } else if (diff <= 0) {
-        this.passed = true
+        this.eshow.passed = true
       }
     }
   }
@@ -182,50 +261,58 @@ img {
 .warp {
   position: relative;
   overflow-x: hidden;
-  background-color: #19ffff;
-  .picture {
+  background-color: #434343;
+  .register {
+    display: block;
     width: 100%;
     position: relative;
-    margin-top: 8%;
-    img {
-      display: block;
-    }
-    .border {
-      position: relative;
-      width: 60.6%;
-      z-index: 0;
-    }
-    .photo {
-      width: 53.5%;
-      position: absolute;
-      top: 3%;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 99;
-      pointer-events: auto;
-      user-select: auto;
-    }
-    .arrow {
-      width: 4%;
-      position: relative;
-      z-index: 0;
-      animation: toarrow linear 0.4s infinite alternate;
-      margin-bottom: 3%;
-    }
-    .save {
-      width: 43%;
-      position: relative;
-      z-index: 0;
-    }
-    .register {
-      display: block;
-      width: 40%;
-      position: relative;
-      border: solid 1px #ccc;
-      font-size: 5vw;
+    border: solid 1px #ccc;
+    font-size: 5vw;
+    color: #fff;
+    padding: 5px 10px;
+    margin-top: 20px;
+  }
+  .getphone {
+    width: 50%;
+    position: relative;
+    z-index: 0;
+    margin-top: 30%;
+    input {
+      border: solid 1px #fff;
       color: #fff;
-      padding: 5px 10px;
-      margin-top: 20px;
+      font-size: 3vw;
+      height: 30px;
+      line-height: 30px;
+      background: transparent;
+      text-align: left;
+    }
+    .phone {
+      width: 100%;
+      min-width: 120px;
+      margin-top: 10px;
+      padding-left: 10px;
+    }
+    .message-code {
+      position: relative;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+    .vertify {
+      width: 25%;
+      min-width: 80px;
+      font-size: 3vw;
+      line-height: 30px;
+      float: left;
+      text-align: center;
+    }
+    .getvertify {
+      display: inline-block;
+      width: 45%;
+      float: right;
+      font-size: 3vw;
+      height: 30px;
+      line-height: 30px;
+      color: #fff;
     }
   }
   .coupon {
@@ -241,9 +328,11 @@ img {
     .erweima {
       width: 19vw;
       height: 19vw;
-      position: absolute;
-      top: 17.3%;
-      right: 11%;
+      // position: absolute;
+      // top: 17.3%;
+      // right: 11%;
+      position: relative;
+
       .clip {
         width: 100%;
         height: 100%;
