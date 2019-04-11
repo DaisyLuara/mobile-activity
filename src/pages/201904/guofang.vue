@@ -84,7 +84,7 @@ export default {
     }
   },
   mounted() {
-    this.handleForbiddenShare()
+    // this.handleForbiddenShare()
   },
   methods: {
     //禁止微信分享
