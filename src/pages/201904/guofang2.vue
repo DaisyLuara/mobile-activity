@@ -85,19 +85,6 @@ export default {
   computed: {
     ...mapGetters(["z"])
   },
-  // watch: {
-  //   sertime() {
-  //     if (localStorage.getItem("z")) {
-  //       this.z = localStorage.getItem("z");
-  //     } else {
-  //       this.userinfo
-  //         ? (this.z =
-  //             this.userinfo.z && localStorage.setItem("z", this.userinfo.z))
-  //         : null;
-  //     }
-  //     this.checkV2Coupon();
-  //   }
-  // },
   mounted() {
     this.init();
   },
@@ -108,52 +95,44 @@ export default {
     async init() {
       try {
         let { id, code, state } = this.$route.query;
-        if (this.z === "") {
-          if (code && state) {
-            const getUserInfoResult = getUserInfoByCodeAndState(code, state);
-            let savedLoginState = getUserInfoResult.data.results;
-            this.setLoginState(savedLoginState);
-          } else {
-            NaviToWechatAuth();
-          }
+        let { parms, userinfo, belong, oid } = await getInfoById(
+          id,
+          code,
+          state
+        );
+        this.setLoginState(userinfo);
+        this.userinfo = userinfo;
+        // await this.checkZ();
+        const checkV2CouponArgs = {
+          z: this.z,
+          qiniu_id: this.id,
+          belong: belong,
+          include: "couponBatch"
+        };
+        const getCouponBatchArgs = {
+          qiniu_id: this.id,
+          z: this.z,
+          belong: belong
+        };
+        const sendV2ProjectsArgs = {
+          qiniu_id: this.id,
+          z: this.z,
+          belong: belong,
+          oid: oid
+        };
+        console.log(checkV2CouponArgs);
+        const checkCouponResult = await checkV2Coupon(checkV2CouponArgs);
+        if (checkCouponResult) {
+          this.handleData();
         } else {
-          let { sertime, parms, userinfo, belong, oid } = await getInfoById(
-            id,
-            code,
-            state
+          const getCouponBatchResult = await batchV2CouponLimit(
+            getCouponBatchArgs
           );
-          this.userinfo = userinfo;
-          // await this.checkZ();
-          const checkV2CouponArgs = {
-            z: this.z,
-            qiniu_id: this.id,
-            belong: belong,
-            include: "couponBatch"
-          };
-          const getCouponBatchArgs = {
-            qiniu_id: this.id,
-            z: this.z,
-            belong: belong
-          };
-          const sendV2ProjectsArgs = {
-            qiniu_id: this.id,
-            z: this.z,
-            belong: belong,
-            oid: oid
-          };
-          console.log(checkV2CouponArgs);
-          const checkCouponResult = await checkV2Coupon(checkV2CouponArgs);
-          if (checkCouponResult) {
-            this.handleData();
-          } else {
-            const getCouponBatchResult = await batchV2CouponLimit(
-              getCouponBatchArgs
-            );
-            const sendV2ProjectsResult = await sendV2Projects(sendV2CouponArgs);
-            this.handleData(sendV2ProjectsResult);
-          }
+          const sendV2ProjectsResult = await sendV2Projects(sendV2CouponArgs);
+          this.handleData(sendV2ProjectsResult);
         }
       } catch (err) {
+        console.log(err);
         alert(err.message);
       } finally {
         this.handleForbiddenShare();
