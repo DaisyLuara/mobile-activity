@@ -132,8 +132,9 @@ export default {
           this.handleData(sendV2ProjectsResult);
         }
       } catch (err) {
-        console.log(err);
-        alert(err.message);
+        alert(err.response.data.message);
+        // console.log(err);
+        // alert(err.message);
       } finally {
         this.handleForbiddenShare();
       }
