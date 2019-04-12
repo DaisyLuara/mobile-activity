@@ -50,15 +50,11 @@ import {
   wechatShareTrack,
   checkV2Coupon,
   sendV2Projects,
-  batchV2CouponLimit,
-  getInfoById,
-  splitParms
+  batchV2CouponLimit
 } from "services";
-import { onlyWechatShare } from "@/mixins/onlyWechatShare";
+import { normalPages } from "@/mixins/normalPages";
 import moment from "moment";
 const CDN_URL = process.env.CDN_URL;
-const saasUnlockUrl =
-  "http://h5.xingstation.com/marketing/unlockguofang?mkey=c241sa7m&mcode=v8";
 export default {
   mixins: [onlyWechatShare],
   data() {
@@ -81,8 +77,7 @@ export default {
         title: "前方高能！国芳百货【全城发红包啦】！",
         desc: "小伙伴们赶紧的，去现场抢红包啦！",
         imgUrl: CDN_URL + "/fe/image/guofang/icon.png"
-      },
-      sertime: null
+      }
     };
   },
   watch: {
@@ -94,12 +89,11 @@ export default {
           ? (this.z =
               this.userinfo.z && localStorage.setItem("z", this.userinfo.z))
           : null;
-        this.handleCheckRoute();
       }
+      this.checkV2Coupon();
     }
   },
   mounted() {
-    this.handleCheckRoute();
     this.handleForbiddenShare();
   },
   methods: {
