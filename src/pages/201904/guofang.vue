@@ -87,7 +87,7 @@ export default {
       } else {
         this.userinfo
           ? (this.z =
-              this.userinfo.z && localStorage.setItem("z", this.userinfo.z))
+            this.userinfo.z && localStorage.setItem("z", this.userinfo.z))
           : null;
       }
       this.checkV2Coupon();
@@ -136,10 +136,7 @@ export default {
       };
       batchV2CouponLimit(args)
         .then(res => {
-          let timer = setTimeout(() => {
-            this.sendV2Coupon();
-            clearTimeout(timer);
-          }, 1000);
+          this.sendV2Coupon();
         })
         .catch(err => {
           alert(err.response.data.message);
