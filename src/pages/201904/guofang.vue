@@ -53,13 +53,13 @@ import {
   batchV2CouponLimit,
   getInfoById
 } from "services";
-import { normalPages } from "@/mixins/normalPages";
+import { onlyWechatShare } from "@/mixins/onlyWechatShare";
 import moment from "moment";
 const CDN_URL = process.env.CDN_URL;
 const saasUnlockUrl =
   "http://h5.xingstation.com/marketing/unlockguofang?mkey=c241sa7m&mcode=v8";
 export default {
-  mixins: [normalPages],
+  mixins: [onlyWechatShare],
   data() {
     return {
       base: CDN_URL + "/fe/image/guofang/",
@@ -80,7 +80,8 @@ export default {
         title: "前方高能！国芳百货【全城发红包啦】！",
         desc: "小伙伴们赶紧的，去现场抢红包啦！",
         imgUrl: CDN_URL + "/fe/image/guofang/icon.png"
-      }
+      },
+      sertime: null
     };
   },
   watch: {
@@ -93,16 +94,17 @@ export default {
               this.userinfo.z && localStorage.setItem("z", this.userinfo.z))
           : null;
       }
-      this.handleCheckRoute();
     }
   },
   mounted() {
-    this.handleForbiddenShare()
+    this.handleCheckRoute();
+    this.handleForbiddenShare();
   },
   methods: {
     // 跳转判断
     handleCheckRoute() {
-      getInfoById(id).then(r => {
+      getInfoById(this.id).then(r => {
+        this.sertime = r.sertime;
         if (r.parms) {
           const params = splitParms(r.parms);
           // console.log(params);
