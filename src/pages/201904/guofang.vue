@@ -98,7 +98,7 @@ export default {
   },
   mounted() {
     this.handleCheckRoute();
-    // this.handleForbiddenShare()
+    this.handleForbiddenShare();
   },
   methods: {
     // 跳转判断
