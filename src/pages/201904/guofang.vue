@@ -44,7 +44,7 @@
   </div>
 </template>
 <script>
-import { $wechat, isInWechat, wechatShareTrack, sendV2Coupon, checkV2Coupon } from 'services'
+import { $wechat, isInWechat, wechatShareTrack, checkV2Coupon, sendV2Coupon, batchV2CouponLimit } from 'services'
 import { normalPages } from '@/mixins/normalPages'
 import moment from "moment";
 const CDN_URL = process.env.CDN_URL
@@ -108,13 +108,26 @@ export default {
         if (res) {
           this.handleData(res)
         } else {
-          let timer = setTimeout(() => {
-            this.sendV2Coupon()
-            clearTimeout(timer)
-          }, 1000)
+          this.getCouponBatch()
         }
       }).catch(err => {
-        console.log(err)
+        alert(err.response.data.message)
+      })
+    },
+    //策略
+    getCouponBatch() {
+      let args = {
+        qiniu_id: this.id,
+        z: this.z,
+        belong: this.belong,
+      }
+      batchV2CouponLimit(args).then(res => {
+        let timer = setTimeout(() => {
+          this.sendV2Coupon()
+          clearTimeout(timer)
+        }, 1000)
+      }).catch(err => {
+        alert(err.response.data.message)
       })
     },
     //发优惠券
