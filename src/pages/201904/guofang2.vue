@@ -123,7 +123,7 @@ export default {
         console.log(checkV2CouponArgs);
         const checkCouponResult = await checkV2Coupon(checkV2CouponArgs);
         if (checkCouponResult) {
-          this.handleData();
+          this.handleData(checkCouponResult);
         } else {
           const getCouponBatchResult = await batchV2CouponLimit(
             getCouponBatchArgs
