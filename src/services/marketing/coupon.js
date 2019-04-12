@@ -469,10 +469,10 @@ const checkMallMember = params => {
 }
 
 //发送短信验证码
-const sendMessageCode = phone => {
+const sendMessageCode = params => {
   return new Promise((resolve, reject) => {
     axios
-      .post(MALLCOO_URL + '/verificationCodes', phone)
+      .post(MALLCOO_URL + '/verificationCodes', params)
       .then(response => {
         resolve(response.data)
       })
