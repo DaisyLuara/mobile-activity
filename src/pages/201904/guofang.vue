@@ -93,6 +93,7 @@ export default {
           ? (this.z =
               this.userinfo.z && localStorage.setItem("z", this.userinfo.z))
           : null;
+        this.handleCheckRoute();
       }
     }
   },
