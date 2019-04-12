@@ -110,14 +110,13 @@ export default {
     sertime() {
       if (localStorage.getItem('z')) {
         this.z = localStorage.getItem('z')
+        this.checkV2Coupon()
       } else {
-        this.userinfo ? (this.z = this.userinfo.z && localStorage.setItem('z', this.userinfo.z)) : null
+        this.z = this.userinfo.z
+        localStorage.setItem('z', this.userinfo.z)
+        this.checkV2Coupon()
       }
-      this.checkV2Coupon()
     },
-    // z() {
-    //   this.z ? this.checkMallMember() : null
-    // }
   },
   mounted() {
     this.handleForbiddenShare()
