@@ -75,6 +75,28 @@ const Date201904 = [
       desc: '皮卡丘'
     },
     isAbandoned: false
+  },
+  {
+    path: 'unlockguofang',
+    location: '201904/unlockguofang',
+    name: 'unlockGuoFang',
+    meta: {
+      title: '解锁中',
+      author: 'Anluis',
+      desc: '解锁链接'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'naviguofang',
+    location: '201904/naviguofang',
+    name: 'naviGuoFang',
+    meta: {
+      title: '跳转中',
+      author: 'Anluis',
+      desc: '跳转链接'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201904
