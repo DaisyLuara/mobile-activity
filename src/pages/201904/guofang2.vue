@@ -128,7 +128,7 @@ export default {
           const getCouponBatchResult = await batchV2CouponLimit(
             getCouponBatchArgs
           );
-          const sendV2ProjectsResult = await sendV2Projects(sendV2CouponArgs);
+          const sendV2ProjectsResult = await sendV2Projects(sendV2ProjectsArgs);
           this.handleData(sendV2ProjectsResult);
         }
       } catch (err) {
@@ -138,20 +138,20 @@ export default {
         this.handleForbiddenShare();
       }
     },
-    checkZ() {
-      return new Promise(resolve => {
-        let localZ = localStorage.getItem("z");
-        if (localZ) {
-          this.z = localZ;
-        } else {
-          if (this.userInfo) {
-            this.z = this.userinfo.z;
-            localStorage.setItem("z", this.userInfo);
-          }
-        }
-        resolve();
-      });
-    },
+    // checkZ() {
+    //   return new Promise(resolve => {
+    //     let localZ = localStorage.getItem("z");
+    //     if (localZ) {
+    //       this.z = localZ;
+    //     } else {
+    //       if (this.userInfo) {
+    //         this.z = this.userinfo.z;
+    //         localStorage.setItem("z", this.userInfo);
+    //       }
+    //     }
+    //     resolve();
+    //   });
+    // },
     //禁止微信分享
     handleForbiddenShare() {
       $wechat().then(res => {
