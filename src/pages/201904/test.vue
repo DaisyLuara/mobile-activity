@@ -111,9 +111,11 @@ export default {
       if (localStorage.getItem('z')) {
         this.z = localStorage.getItem('z')
       } else {
-        this.userinfo ? this.z = this.userinfo.z && localStorage.setItem('z', this.userinfo.z) : null
+        this.userinfo ? (this.z = this.userinfo.z && localStorage.setItem('z', this.userinfo.z)) : null
       }
-      this.checkMallMember()
+    },
+    z() {
+      this.z ? this.checkMallMember() : null
     }
   },
   mounted() {
@@ -166,7 +168,7 @@ export default {
     },
     sendMessageCode() {
       let args = {
-        phone:this.arr.phone
+        phone: this.arr.phone
       }
       sendMessageCode(args).then(res => {
         this.arr.vertify = res.key
