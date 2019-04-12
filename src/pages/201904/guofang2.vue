@@ -51,9 +51,12 @@ import {
   checkV2Coupon,
   sendV2Projects,
   batchV2CouponLimit,
-  getInfoById
+  getInfoById,
+  NaviToWechatAuth,
+  getUserInfoByCodeAndState
 } from "services";
 import moment from "moment";
+import { mapGetters, mapMutations } from "vuex";
 const CDN_URL = process.env.CDN_URL;
 export default {
   data() {
@@ -71,7 +74,6 @@ export default {
       passed: false, //false
       code: null, //'5c7de9583796b'
       userinfo: null,
-      z: null,
       //微信分享
       wxShareInfoValue: {
         title: "前方高能！国芳百货【全城发红包啦】！",
@@ -79,6 +81,9 @@ export default {
         imgUrl: CDN_URL + "/fe/image/guofang/icon.png"
       }
     };
+  },
+  computed: {
+    ...mapGetters(["z"])
   },
   // watch: {
   //   sertime() {
@@ -97,16 +102,33 @@ export default {
     this.init();
   },
   methods: {
+    ...mapMutations({
+      setLoginState: "SET_LOGIN_STATE"
+    }),
     async init() {
       try {
         let { id, code, state } = this.$route.query;
+        if (code !== undefined && state !== undefined) {
+          if (this.z !== "") {
+            return;
+          }
+          const getUserInfoResult = getUserInfoByCodeAndState(code, state);
+          if (typeof r.data.results === "object") {
+            let savedLoginState = r.data.results;
+            this.setLoginState(savedLoginState);
+          }
+        } else {
+          if (this.z === "") {
+            NaviToWechatAuth();
+          }
+        }
         let { sertime, parms, userinfo, belong, oid } = await getInfoById(
           id,
           code,
           state
         );
         this.userinfo = userinfo;
-        await this.checkZ();
+        // await this.checkZ();
         const checkV2CouponArgs = {
           z: this.z,
           qiniu_id: this.id,
