@@ -132,7 +132,9 @@ export default {
           this.handleData(sendV2ProjectsResult);
         }
       } catch (err) {
-        alert(err.response.data.message);
+        if (err.response.data.message) {
+          alert(err.response.data.message);
+        }
         // console.log(err);
         // alert(err.message);
       } finally {
