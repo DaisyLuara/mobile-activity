@@ -56,7 +56,7 @@ import { normalPages } from "@/mixins/normalPages";
 import moment from "moment";
 const CDN_URL = process.env.CDN_URL;
 export default {
-  mixins: [onlyWechatShare],
+  mixins: [normalPages],
   data() {
     return {
       base: CDN_URL + "/fe/image/guofang/",
@@ -98,24 +98,24 @@ export default {
   },
   methods: {
     // 跳转判断
-    handleCheckRoute() {
-      getInfoById(this.id).then(r => {
-        this.sertime = r.sertime;
-        if (r.parms) {
-          const params = splitParms(r.parms);
-          // console.log(params);
-          if (params.hasOwnProperty("rp")) {
-            // 如果是去红包
-            this.checkV2Coupon();
-          } else {
-            // 解锁然后去saas
-            window.location.href = saasUnlockUrl;
-          }
-        } else {
-          window.location.href = saasUnlockUrl;
-        }
-      });
-    },
+    // handleCheckRoute() {
+    //   getInfoById(this.id).then(r => {
+    //     this.sertime = r.sertime;
+    //     if (r.parms) {
+    //       const params = splitParms(r.parms);
+    //       // console.log(params);
+    //       if (params.hasOwnProperty("rp")) {
+    //         // 如果是去红包
+    //         this.checkV2Coupon();
+    //       } else {
+    //         // 解锁然后去saas
+    //         window.location.href = saasUnlockUrl;
+    //       }
+    //     } else {
+    //       window.location.href = saasUnlockUrl;
+    //     }
+    //   });
+    // },
     //禁止微信分享
     handleForbiddenShare() {
       $wechat()
