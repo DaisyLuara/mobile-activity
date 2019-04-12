@@ -64,6 +64,17 @@ const Date201904 = [
       desc: '国芳百货'
     },
     isAbandoned: false
+  },
+  {
+    path: 'pika',
+    location: '201904/pika',
+    name: 'pika',
+    meta: {
+      title: '皮卡丘',
+      author: 'lipan',
+      desc: '皮卡丘'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201904
