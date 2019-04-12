@@ -113,8 +113,8 @@ export default {
             return;
           }
           const getUserInfoResult = getUserInfoByCodeAndState(code, state);
-          if (typeof r.data.results === "object") {
-            let savedLoginState = r.data.results;
+          if (typeof getUserInfoResult.data.results === "object") {
+            let savedLoginState = getUserInfoResult.data.results;
             this.setLoginState(savedLoginState);
           }
         } else {
