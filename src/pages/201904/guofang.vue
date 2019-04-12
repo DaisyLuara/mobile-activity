@@ -44,7 +44,7 @@
   </div>
 </template>
 <script>
-import { $wechat, isInWechat, wechatShareTrack, checkV2Coupon, sendV2Coupon, batchV2CouponLimit } from 'services'
+import { $wechat, isInWechat, wechatShareTrack, checkV2Coupon, sendV2Projects, batchV2CouponLimit } from 'services'
 import { normalPages } from '@/mixins/normalPages'
 import moment from "moment";
 const CDN_URL = process.env.CDN_URL
@@ -101,7 +101,8 @@ export default {
     checkV2Coupon() {
       let args = {
         z: this.z,
-        coupon_batch_id: this.coupon_batch_id,
+        qiniu_id: this.id,
+        belong: this.belong,
         include: 'couponBatch',
       }
       checkV2Coupon(args).then(res => {
@@ -138,7 +139,7 @@ export default {
         belong: this.belong,
         oid: this.oid
       }
-      sendV2Coupon(args, this.coupon_batch_id)
+      sendV2Projects(args)
         .then(res => {
           this.handleData(res)
         })
