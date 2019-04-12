@@ -97,6 +97,17 @@ const Date201904 = [
       desc: '跳转链接'
     },
     isAbandoned: false
-  }
+  },
+  {
+    path: 'guofang2',
+    location: '201904/guofang2',
+    name: 'guofang2',
+    meta: {
+      title: '前方高能！国芳百货【全城发红包啦】！',
+      author: 'lipan',
+      desc: '国芳百货'
+    },
+    isAbandoned: false
+  },
 ]
 export default Date201904
