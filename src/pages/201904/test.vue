@@ -113,10 +113,11 @@ export default {
       } else {
         this.userinfo ? (this.z = this.userinfo.z && localStorage.setItem('z', this.userinfo.z)) : null
       }
+      this.checkV2Coupon()
     },
-    z() {
-      this.z ? this.checkMallMember() : null
-    }
+    // z() {
+    //   this.z ? this.checkMallMember() : null
+    // }
   },
   mounted() {
     this.handleForbiddenShare()
@@ -149,7 +150,8 @@ export default {
         if (res) {
           this.arr.open_user_id = res.mallcoo_open_user_id
           //查券
-          this.checkV2Coupon()
+          // this.checkV2Coupon()
+          this.sendV2Coupon()
         } else {
           this.eshow.register = true
         }
@@ -218,10 +220,8 @@ export default {
         if (res) {
           this.handleData(res)
         } else {
-          let timer = setTimeout(() => {
-            this.sendV2Coupon()
-            clearTimeout(timer)
-          }, 1000)
+          this.checkMallMember()
+          // this.sendV2Coupon()
         }
       }).catch(err => {
         console.log(err)
