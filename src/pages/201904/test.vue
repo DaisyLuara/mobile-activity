@@ -165,7 +165,10 @@ export default {
       this.sendMessageCode()
     },
     sendMessageCode() {
-      sendMessageCode(this.arr.phone).then(res => {
+      let args = {
+        phone:this.arr.phone
+      }
+      sendMessageCode(args).then(res => {
         this.arr.vertify = res.key
       }).catch(err => {
         alert(err.response.data.message)
