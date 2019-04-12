@@ -7,6 +7,11 @@
       :src="base + 'bg.png'"
       class="cut-bg"
     >
+    <img
+      v-show="!Boolean(coupon_img)"
+      :src="base + 'loading.png'"
+      class="loading"
+    >
     <div
       v-show="Boolean(coupon_img)"
       class="coupon"
@@ -212,6 +217,14 @@ img {
   .bg {
     position: relative;
     z-index: 0;
+  }
+  .loading {
+    width: 52%;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
   }
   .coupon {
     width: 100%;
