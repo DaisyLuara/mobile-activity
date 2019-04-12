@@ -97,25 +97,6 @@ export default {
     this.handleForbiddenShare();
   },
   methods: {
-    // 跳转判断
-    // handleCheckRoute() {
-    //   getInfoById(this.id).then(r => {
-    //     this.sertime = r.sertime;
-    //     if (r.parms) {
-    //       const params = splitParms(r.parms);
-    //       // console.log(params);
-    //       if (params.hasOwnProperty("rp")) {
-    //         // 如果是去红包
-    //         this.checkV2Coupon();
-    //       } else {
-    //         // 解锁然后去saas
-    //         window.location.href = saasUnlockUrl;
-    //       }
-    //     } else {
-    //       window.location.href = saasUnlockUrl;
-    //     }
-    //   });
-    // },
     //禁止微信分享
     handleForbiddenShare() {
       $wechat()
@@ -282,5 +263,3 @@ img {
   }
 }
 </style>
-
-
