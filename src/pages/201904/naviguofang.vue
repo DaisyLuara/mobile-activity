@@ -3,6 +3,8 @@
 </template>
 
 <script>
+const saasUnlockUrl =
+  "http://h5.xingstation.com/marketing/unlockguofang?mkey=05083kl6&mcode=6498";
 import { getInfoById, splitParms } from "services";
 export default {
   created() {
@@ -19,12 +21,10 @@ export default {
             window.location.href =
               "http://h5.xingstation.com/marketing/guofang";
           } else {
-            window.location.href =
-              "http://h5.xingstation.com/m/c241sa7m/v8/barrage/index";
+            window.location.href = saasUnlockUrl;
           }
         } else {
-          window.location.href =
-            "http://h5.xingstation.com/m/c241sa7m/v8/barrage/index";
+          window.location.href = saasUnlockUrl;
         }
       });
     }
