@@ -89,7 +89,6 @@ export default {
         phone: null,
         vertify: null,
         vkey: null,
-        vcode: null,
         open_user_id: null,
 
       },
@@ -148,8 +147,6 @@ export default {
       checkMallMember(args).then(res => {
         if (res) {
           this.arr.open_user_id = res.mallcoo_open_user_id
-          //查券
-          // this.checkV2Coupon()
           this.sendV2Coupon()
         } else {
           this.eshow.register = true
@@ -172,7 +169,7 @@ export default {
         phone: this.arr.phone
       }
       sendMessageCode(args).then(res => {
-        this.arr.vertify = res.key
+        this.arr.vkey = res.key
       }).catch(err => {
         alert(err.response.data.message)
       })
@@ -180,7 +177,7 @@ export default {
     getCardByPhone() {
       let args = {
         "verification_key": this.arr.vkey,
-        "verification_code": this.arr.vcode,
+        "verification_code": this.arr.vertify,
         "oid": this.oid,
         "z": this.z
       }
@@ -220,7 +217,6 @@ export default {
           this.handleData(res)
         } else {
           this.checkMallMember()
-          // this.sendV2Coupon()
         }
       }).catch(err => {
         console.log(err)
