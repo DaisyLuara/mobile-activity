@@ -18,8 +18,8 @@ export default {
           console.log(params);
           if (params.hasOwnProperty("rp")) {
             console.log("ok");
-            window.location.href =
-              "http://h5.xingstation.com/marketing/guofang";
+            const { id } = this.$route.query;
+            window.location.href = `http://h5.xingstation.com/marketing/guofang?id=${id}`;
           } else {
             window.location.href = saasUnlockUrl;
           }
