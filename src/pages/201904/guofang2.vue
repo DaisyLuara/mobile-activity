@@ -105,9 +105,10 @@ export default {
           code,
           state
         );
-        this.setLoginState(userinfo);
-        this.userinfo = userinfo;
-        // await this.checkZ();
+        if (this.z === '') {
+          this.setLoginState(userinfo);
+          this.userinfo = userinfo;
+        }
         const checkV2CouponArgs = {
           z: this.z,
           qiniu_id: this.id,
@@ -125,7 +126,6 @@ export default {
           belong: belong,
           oid: oid
         };
-        console.log(checkV2CouponArgs);
         const checkCouponResult = await checkV2Coupon(checkV2CouponArgs);
         if (checkCouponResult) {
           this.handleData(checkCouponResult);
@@ -140,26 +140,10 @@ export default {
         if (err.response.data.message) {
           alert(err.response.data.message);
         }
-        // console.log(err);
-        // alert(err.message);
       } finally {
         this.handleForbiddenShare();
       }
     },
-    // checkZ() {
-    //   return new Promise(resolve => {
-    //     let localZ = localStorage.getItem("z");
-    //     if (localZ) {
-    //       this.z = localZ;
-    //     } else {
-    //       if (this.userInfo) {
-    //         this.z = this.userinfo.z;
-    //         localStorage.setItem("z", this.userInfo);
-    //       }
-    //     }
-    //     resolve();
-    //   });
-    // },
     //禁止微信分享
     handleForbiddenShare() {
       $wechat().then(res => {
