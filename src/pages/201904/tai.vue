@@ -36,9 +36,9 @@ export default {
       id: this.$route.query.id,
       //微信分享
       wxShareInfoValue: {
-        title: "纯粹泰国",
-        desc: "纯粹泰国",
-        link: '' + window.location.search,
+        title: "萨瓦迪卡，拍照打卡",
+        desc: "速戳查看，保存美照 ",
+        link: 'http://papi.xingstation.com/api/s/JQl' + window.location.search,
         imgUrl: CDN_URL + "/fe/image/tai/icon.png"
       }
     }
@@ -60,8 +60,8 @@ body {
 }
 img {
   max-width: 100%;
-  pointer-events: none;
-  user-select: none;
+  pointer-events: auto;
+  user-select: auto;
 }
 .warp {
   position: relative;
@@ -83,8 +83,6 @@ img {
       left: 50%;
       transform: translateX(-50%);
       z-index: 99;
-      pointer-events: auto;
-      user-select: auto;
     }
   }
 }

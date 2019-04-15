@@ -114,7 +114,7 @@ const Date201904 = [
     location: '201904/tai',
     name: 'tai',
     meta: {
-      title: '纯萃泰国',
+      title: '你“泰好看”啦',
       author: 'lipan',
       desc: '纯萃泰国'
     },
