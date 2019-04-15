@@ -38,7 +38,7 @@ export default {
       wxShareInfoValue: {
         title: "纯粹泰国",
         desc: "纯粹泰国",
-        link: '' + window.location.search,
+        link: 'http://papi.xingstation.com/api/s/JQl' + window.location.search,
         imgUrl: CDN_URL + "/fe/image/tai/icon.png"
       }
     }
