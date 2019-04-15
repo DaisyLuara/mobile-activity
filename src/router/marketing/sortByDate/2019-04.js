@@ -109,5 +109,16 @@ const Date201904 = [
     },
     isAbandoned: false
   },
+  {
+    path: 'tai',
+    location: '201904/tai',
+    name: 'tai',
+    meta: {
+      title: '纯萃泰国',
+      author: 'lipan',
+      desc: '纯萃泰国'
+    },
+    isAbandoned: false
+  }
 ]
 export default Date201904
