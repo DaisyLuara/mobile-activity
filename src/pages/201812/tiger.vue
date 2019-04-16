@@ -83,8 +83,8 @@ export default {
       wxShareInfoValue: {
         title: '四云奶盖贡茶请你喝奶茶了！',
         desc: '点击即可领福利',
-        link: 'http://papi.xingstation.com/api/s/913' + window.location.search,
-        //link: 'http://papi.xingstation.net/api/s/Lg4' + window.location.search,
+        link: process.env.AD_API+'/api/s/913' + window.location.search,
+        //link: process.env.AD_API+'/api/s/Lg4' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/tiger/icon.png'
       }
     }

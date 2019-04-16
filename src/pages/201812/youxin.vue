@@ -52,7 +52,7 @@ export default {
       wxShareInfoValue: {
         title: '参与互动 马上领取',
         desc: '由心咖啡 买一赠一',
-        link: 'http://papi.xingstation.com/api/s/xnJ' + window.location.search,
+        link: process.env.AD_API+'/api/s/xnJ' + window.location.search,
         imgUrl: cdnUrl + '/fe/image/youxin/icon.png',
       }
     }
@@ -62,7 +62,7 @@ export default {
       this.mask = true
       let timer = setTimeout(() => {
         clearTimeout(timer)
-        window.location.href = 'http://papi.xingstation.com/api/s/wVJ'
+        window.location.href = process.env.AD_API+'/api/s/wVJ'
       }, 3000)
     },
   }

@@ -47,7 +47,7 @@ export default {
       wxShareInfoValue: {
         title: '爱秀才会赢',
         desc: '秀出最美的“我”！',
-        link: 'http://papi.xingstation.com/api/s/6R9' + window.location.search,
+        link: process.env.AD_API+'/api/s/6R9' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/etam/icon.png',
         success: () => {
           wechatShareTrack()

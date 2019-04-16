@@ -43,7 +43,7 @@ export default {
       wxShareInfoValue: {
         title: '甜蜜冬日',
         desc: '不给糖就捣蛋',
-        link: 'http://papi.xingstation.com/api/s/Q1Y' + window.location.search,
+        link: process.env.AD_API+'/api/s/Q1Y' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/drc_snow/share.png',
         success: () => {
           wechatShareTrack()

@@ -47,7 +47,7 @@ export default {
         desc: '可在屋顶花园免费领取棉花糖一个',
         imgUrl:
           'http://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/wx_share_icon/hiplay-share-icon.jpg',
-        link: 'http://papi.xingstation.com/api/s/9rx' + window.location.search,
+        link: process.env.AD_API+'/api/s/9rx' + window.location.search,
         success: function() {
           wechatShareTrack()
         }

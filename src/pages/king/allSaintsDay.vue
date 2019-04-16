@@ -40,7 +40,7 @@ export default {
       wxShareInfoValue: {
         title: '点击领取你的餐饮券',
         desc: '终于等到你了，还不快行动',
-        link: 'http://papi.xingstation.com/api/s/vm' + window.location.search,
+        link: process.env.AD_API+'/api/s/vm' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/baoli/icon.png',
         success: () => {
           wechatShareTrack()

@@ -44,7 +44,7 @@ export default {
       wxShareInfoValue: {
         title: '为祖国庆生',
         desc: '我爱你，中国！',
-        link: 'http://papi.xingstation.com/api/s/vgr' + window.location.search,
+        link: process.env.AD_API+'/api/s/vgr' + window.location.search,
         imgUrl: baseUrl + '/fe/marketing/img/nationday/lihaiguo/icon.jpg',
         success: () => {
           wechatShareTrack()

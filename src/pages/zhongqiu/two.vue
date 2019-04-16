@@ -182,7 +182,7 @@ export default {
       wxShareInfoValue: {
         title: '中秋快乐',
         desc: '采购中秋月饼,送吃送祝福',
-        link: 'http://papi.xingstation.com/api/s/Z6J' + window.location.search,
+        link: process.env.AD_API+'/api/s/Z6J' + window.location.search,
         imgUrl: 'http://cdn.exe666.com/image/zhongqiu/2/share.png',
       }
     }

@@ -33,7 +33,7 @@ export default {
       wxShareInfoValue: {
         title: '秘密花园 尽显美颜',
         desc: '快来寻找秘密花园，施展你的小小控雨魔法',
-        link: 'http://papi.xingstation.com/api/s/BgJ' + window.location.search,
+        link: process.env.AD_API+'/api/s/BgJ' + window.location.search,
         imgUrl: 'https://cdn.exe666.com/fe/image/rainer/share.jpg',
         success: function() {
           wechatShareTrack()

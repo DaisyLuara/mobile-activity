@@ -56,7 +56,7 @@ export default {
       wxShareInfoValue: {
         title: '电玩！来福士！',
         desc: '嗨玩就现在，come on',
-        link: 'http://papi.xingstation.com/api/s/k55' + window.location.search,
+        link: process.env.AD_API+'/api/s/k55' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/videoGame/icon.jpg',
       }
     }

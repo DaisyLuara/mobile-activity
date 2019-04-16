@@ -41,7 +41,7 @@ export default {
       wxShareInfoValue: {
         title: '狂欢万圣节，测测你是什么鬼？',
         desc: '星视度万圣节全城刷脸变“鬼”。',
-        link: 'http://papi.xingstation.com/api/s/0VX' + window.location.search,
+        link: process.env.AD_API+'/api/s/0VX' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/wsj_identity/icon.jpg',
         success: () => {
           wechatShareTrack()

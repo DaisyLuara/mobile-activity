@@ -56,7 +56,7 @@ export default {
       wxShareInfoValue: {
         title: '玩转世纪，世纪汇广场邀你嗨翻世纪',
         desc: '世纪汇广场美食节，狂欢就现在',
-        link: 'http://papi.xingstation.com/api/s/73j' + window.location.search,
+        link: process.env.AD_API+'/api/s/73j' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/play_century/icon.png',
         success: () => {
           wechatShareTrack()

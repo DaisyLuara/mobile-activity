@@ -63,7 +63,7 @@ export default {
       wxShareInfoValue: {
         title: '美食PK',
         desc: '发光的美食，你见过吗',
-        link: 'http://papi.xingstation.com/api/s/2kK' + window.location.search,
+        link: process.env.AD_API+'/api/s/2kK' + window.location.search,
         imgUrl: 'http://cdn.exe666.com/image/meishi/share.png',
         success: function() {
           wechatShareTrack()

@@ -14,7 +14,7 @@ export default {
   },
   data() {
     return {
-      link: 'http://papi.xingstation.com/api/s/k8x'
+      link: process.env.AD_API+'/api/s/k8x'
     }
   },
   mounted() {

@@ -78,7 +78,7 @@ export default {
       wxShareInfoValue: {
         title: '旱獭直播间',
         desc: '主播已上线，合影马上生成',
-        link: 'http://papi.xingstation.com/api/s/g5Y' + window.location.search,
+        link: process.env.AD_API+'/api/s/g5Y' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/dryLazy/icon.png'
       }
     }

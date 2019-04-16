@@ -58,7 +58,7 @@ export default {
       wxShareInfoValue: {
         title: '微笑雨花',
         desc: 'Smile 一周年 ',
-        link: 'http://papi.xingstation.com/api/s/QWl' + window.location.search,
+        link: process.env.AD_API+'/api/s/QWl' + window.location.search,
         imgUrl: 'http://cdn.exe666.com/image/elephant/icon.png',
         success: () => {
           wechatShareTrack()

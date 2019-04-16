@@ -135,7 +135,7 @@ export default {
       wxShareInfoValue: {
         title: '中秋快乐',
         desc: '我亲手做的月饼,你敢吃么？',
-        link: 'http://papi.xingstation.com/api/s/YEK' + window.location.search,
+        link: process.env.AD_API+'/api/s/YEK' + window.location.search,
         imgUrl: 'http://cdn.exe666.com/image/zhongqiu/1/share.png',
       }
     }

@@ -80,7 +80,7 @@ export default {
       wxShareInfoValue: {
         title: 'Super toy cars',
         desc: '最强漂移就在国贸赛道',
-        link: 'http://papi.xingstation.com/api/s/KrR' + window.location.search,
+        link: process.env.AD_API+'/api/s/KrR' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/internationalTrade/share.png',
         success: () => {
           wechatShareTrack()

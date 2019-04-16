@@ -130,7 +130,7 @@ export default {
       wxShareInfoValue: {
         title: '你是我的掌声名猪',
         desc: '像你这样的人，除了宠着，还是宠着',
-        link: 'http://papi.xingstation.com/api/s/GRy' + window.location.search,
+        link: process.env.AD_API+'/api/s/GRy' + window.location.search,
         imgUrl: 'http://cdn.exe666.com/fe/image/happyyear/icon.png'
       }
     }
@@ -144,7 +144,7 @@ export default {
   },
   mounted() {
     if (process.env.NODE_ENV === 'testing') {
-      this.wxShareInfoValue.link = 'http://papi.xingstation.net/api/s/oQK' + window.location.search
+      this.wxShareInfoValue.link = process.env.AD_API + '/api/s/oQK' + window.location.search
     }
     // this.doAnim()
     // this.loadPigImage(this.scene, 12)

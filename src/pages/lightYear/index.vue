@@ -131,7 +131,7 @@ export default {
       wxShareInfoValue: {
         title: ' Rocket go',
         desc: '穿越光年 探索宇宙 一锤搞定',
-        link: 'http://papi.xingstation.com/api/s/PNw' + window.location.search,
+        link: process.env.AD_API+'/api/s/PNw' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/lightYear/icon.jpg',
         success: () => {
           wechatShareTrack()

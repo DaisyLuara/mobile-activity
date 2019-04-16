@@ -82,7 +82,7 @@ export default {
       wxShareInfoValue: {
         title: '鬼马万圣节',
         desc: '我们一起扮鬼脸！',
-        link: 'http://papi.xingstation.com/api/s/RgR' + window.location.search,
+        link: process.env.AD_API+'/api/s/RgR' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/hallowmas/icon.png',
         success: () => {
           wechatShareTrack()

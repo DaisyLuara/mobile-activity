@@ -40,7 +40,7 @@ export default {
       wxShareInfoValue: {
         title: '相约大光明',
         desc: '你就是今日之星',
-        link: 'http://papi.xingstation.com/api/s/Mj3' + window.location.search,
+        link: process.env.AD_API+'/api/s/Mj3' + window.location.search,
         imgUrl: 'http://cdn.exe666.com/fe/image/dgm/icon.png',
         success: () => {
           wechatShareTrack()

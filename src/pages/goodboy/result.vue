@@ -40,7 +40,7 @@ export default {
       wxShareInfoValue: {
         title: '限时活动丨转发靓照集赞赢大奖！',
         desc: '点击领取你的高颜值靓照',
-        link: 'http://papi.xingstation.com/api/s/3M' + window.location.search,
+        link: process.env.AD_API+'/api/s/3M' + window.location.search,
         imgUrl: IMAGE_SERVER + '/pages/goodboy/share.png',
       }
     }

@@ -81,7 +81,7 @@ export default {
       wxShareInfoValue: {
         title: '幻境',
         desc: '最美凯德 醉美上海',
-        link: 'http://papi.xingstation.com/api/s/A6B' + window.location.search,
+        link: process.env.AD_API+'/api/s/A6B' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/dreamland/icon.png'
       }
     }

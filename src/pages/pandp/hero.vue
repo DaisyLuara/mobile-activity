@@ -123,7 +123,7 @@ export default {
       wxShareInfoValue: {
         title: '超级英雄',
         desc: '超级英雄',
-        link: 'http://papi.xingstation.com/api/s/X6m' + window.location.search,
+        link: process.env.AD_API+'/api/s/X6m' + window.location.search,
         imgUrl: 'http://cdn.exe666.com/fe/image/super_hero/icon.jpg',
         success: () => {
           wechatShareTrack()

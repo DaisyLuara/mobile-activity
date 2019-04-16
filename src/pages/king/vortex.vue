@@ -51,7 +51,7 @@ export default {
       wxShareInfoValue: {
         title: '历史的时空漩涡',
         desc: '名人穿越，即刻出发',
-        link: 'http://papi.xingstation.com/api/s/oQK' + window.location.search,
+        link: process.env.AD_API+'/api/s/oQK' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/spacetime_vortex/icon.png'
       }
     }

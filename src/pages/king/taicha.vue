@@ -73,7 +73,7 @@ export default {
       wxShareInfoValue: {
         title: '快快领取 泰茶兑换券',
         desc: 'High玩全世界，即刻出发',
-        link: 'http://papi.xingstation.com/api/s/wmw' + window.location.search,
+        link: process.env.AD_API+'/api/s/wmw' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/hiplay_world_taicha/icon.png',
         success: () => {
           wechatShareTrack()
@@ -92,11 +92,11 @@ export default {
   },
   methods: {
     go() {
-      window.location.href = 'http://papi.xingstation.com/api/s/E9k'
+      window.location.href = process.env.AD_API+'/api/s/E9k'
     },
     //停车券跳转
     goPark() {
-      window.location.href = 'http://papi.xingstation.com/api/s/D9n'
+      window.location.href = process.env.AD_API+'/api/s/D9n'
     }
   }
 }
