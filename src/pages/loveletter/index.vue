@@ -56,7 +56,7 @@ export default {
       wxShareInfoValue: {
         title: '一纸情书',
         desc: '只愿君心似我心 定当不负相思意',
-        link: 'http://papi.xingstation.com/api/s/zpY' + window.location.search,
+        link: process.env.AD_API+'/api/s/zpY' + window.location.search,
         imgUrl: 'http://cdn.exe666.com/image/loveletter/icon.jpg',
         success: function() {
           wechatShareTrack()

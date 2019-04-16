@@ -39,7 +39,7 @@ export default {
       wxShareInfoValue: {
         title: '玩转吾悦坊街坊',
         desc: '吾悦坊街坊派对月5折起，狂欢就现在',
-        link: 'http://papi.xingstation.com/api/s/81o' + window.location.search,
+        link: process.env.AD_API+'/api/s/81o' + window.location.search,
         imgUrl: IMG_SERVER + '/image/tm/shijihui/icon_wyf.png',
       }
     }

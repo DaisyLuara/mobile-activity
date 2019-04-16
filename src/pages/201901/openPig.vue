@@ -76,7 +76,7 @@ export default {
       wxShareInfoValue: {
         title: '送你一张饭票，祝你诸事顺利',
         desc: '金猪送福，即刻领取',
-        link: 'http://papi.xingstation.com/api/s/vQV' + window.location.search,
+        link: process.env.AD_API+'/api/s/vQV' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/open_pig/icon.png'
       }
     }

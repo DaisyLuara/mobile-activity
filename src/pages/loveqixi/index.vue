@@ -38,7 +38,7 @@ export default {
       wxShareInfoValue: {
         title: '才子佳人 爱在七夕',
         desc: '牛郎织女测出你的CP属性',
-        link: 'http://papi.xingstation.com/api/s/yP7' + window.location.search,
+        link: process.env.AD_API+'/api/s/yP7' + window.location.search,
         imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/loveqixi/share.png',
         success: function() {
           wechatShareTrack()

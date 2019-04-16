@@ -14,7 +14,7 @@ export default {
   },
   data() {
     return {
-      link: 'http://papi.xingstation.com/api/s/lxl'
+      link: process.env.AD_API+'/api/s/lxl'
     }
   },
   mounted() {

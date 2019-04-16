@@ -169,7 +169,7 @@ export default {
       wxShareInfoValue: {
         title: '厦门万象城', //暂无
         desc: '厦门万象城', //暂无
-        link: 'http://papi.xingstation.com/api/s/xvr' + window.location.search,
+        link: process.env.AD_API+'/api/s/xvr' + window.location.search,
         imgUrl: 'https://cdn.exe666.com/fe/image/wxc_map/icon.png',
         success: () => {
           wechatShareTrack()
@@ -188,7 +188,7 @@ export default {
       this.jian = false
       if (num === 1) {
         // 跳转公众号
-        window.location.href = 'http://papi.xingstation.com/api/s/APz'
+        window.location.href = process.env.AD_API+'/api/s/APz'
         return
       }
       if (num === 2) {

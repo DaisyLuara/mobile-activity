@@ -241,7 +241,7 @@ export default {
       wxShareInfoValue: {
         title: '声音邮局 ',
         desc: '你有封亲密信件 请查收',
-        link: 'http://papi.xingstation.com/api/s/VOM' + window.location.search,
+        link: process.env.AD_API+'/api/s/VOM' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/autumnWord/icon.png',
         success: () => {
           wechatShareTrack()

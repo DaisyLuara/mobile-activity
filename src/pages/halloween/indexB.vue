@@ -51,7 +51,7 @@ export default {
       wxShareInfoValue: {
         title: 'HALLOWEEN万圣节',
         desc: '快来陪我玩吧，嘿嘿嘿~',
-        link: 'http://papi.xingstation.com/api/s/2vv' + window.location.search,
+        link: process.env.AD_API+'/api/s/2vv' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/halloween/icon.png',
         success: () => {
           wechatShareTrack()

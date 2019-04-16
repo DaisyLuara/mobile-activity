@@ -53,7 +53,7 @@ export default {
       wxShareInfoValue: {
         title: '挑战高分',
         desc: '看看我的高分以及小偶',
-        link: 'http://papi.xingstation.com/api/s/NOL' + window.location.search,
+        link: process.env.AD_API+'/api/s/NOL' + window.location.search,
         imgUrl: 'http://cdn.exe666.com/fe/image/bee/share.png',
       }
     }

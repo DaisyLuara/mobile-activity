@@ -116,7 +116,7 @@ export default {
       }
     }
     if (process.env.NODE_ENV === 'testing') {
-      this.wxShareInfoValue.link = 'http://papi.newgls.cn/api/s/qYr'
+      this.wxShareInfoValue.link = process.env.AD_API + '/api/s/qYr'
     }
   },
   methods: {

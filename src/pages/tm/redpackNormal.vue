@@ -41,7 +41,7 @@ export default {
       wxShareInfoValue: {
         title: '刷脸测一测，你的笑容魅力有多大',
         desc: '你的微笑，让人脸红心跳',
-        link: 'http://papi.xingstation.com/api/s/mQ0' + window.location.search,
+        link: process.env.AD_API+'/api/s/mQ0' + window.location.search,
         imgUrl:
           'https://cdn.exe666.com/fe/marketing/img/tm/rpnormal/shareicon.png',
       }

@@ -73,7 +73,7 @@ export default {
       wxShareInfoValue: {
         title: '刷脸测一测，你是哪种“潮流偶像”！',
         desc: '星视度潮流制造局，等你来变身。',
-        link: 'http://papi.xingstation.com/api/s/KZn' + window.location.search,
+        link: process.env.AD_API+'/api/s/KZn' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/fashion_manufacturing/icon.jpg'
       }
     }

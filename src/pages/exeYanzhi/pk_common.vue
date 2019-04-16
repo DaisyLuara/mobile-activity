@@ -92,7 +92,7 @@ export default {
       wxShareInfoValue: {
         title: 'Mirror魔镜PK擂台等你来战',
         desc: 'Mirror魔镜PK擂台等你来战',
-        link: 'http://papi.xingstation.com/api/s/lO5' + window.location.search,
+        link: process.env.AD_API+'/api/s/lO5' + window.location.search,
         imgUrl: 'http://cdn.exe666.com/image/pk/common/share.png',
         success: function() {
           wechatShareTrack()

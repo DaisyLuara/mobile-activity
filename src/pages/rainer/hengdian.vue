@@ -50,7 +50,7 @@ export default {
       wxShareInfoValue: {
         title: '横店APP',
         desc: '19.9会员购票',
-        link: 'http://papi.xingstation.com/api/s/rR6' + window.location.search,
+        link: process.env.AD_API+'/api/s/rR6' + window.location.search,
         imgUrl: 'http://cdn.exe666.com/fe/image/hengdian/icon.png',
         success: () => {
           wechatShareTrack()
@@ -103,7 +103,7 @@ export default {
     myToBuy() {
       // cancelAnimationFrame(this.timer)
       // this.btn = 'hengdian/press.png'
-      window.location.href = 'http://papi.xingstation.com/api/s/yrW'
+      window.location.href = process.env.AD_API+'/api/s/yrW'
     }
   }
 }

@@ -34,7 +34,7 @@ export default {
       wxShareInfoValue: {
         title: '天降美食',
         desc: '欲罢不能 吞食天下',
-        link: 'http://papi.xingstation.com/api/s/DRn' + window.location.search,
+        link: process.env.AD_API+'/api/s/DRn' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/sjh/icon.jpeg',
       }
     }

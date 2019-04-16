@@ -39,7 +39,7 @@ export default {
       wxShareInfo: {
         title: '生日快乐',
         desc: '总有惊喜在发生',
-        link: 'http://papi.xingstation.com/api/s/lY5' + window.location.search,
+        link: process.env.AD_API+'/api/s/lY5' + window.location.search,
         imgUrl: imgUrl + '/fe/marketing/img/pacific/pacific_icon.png',
         success: function() {
           wechatShareTrack()

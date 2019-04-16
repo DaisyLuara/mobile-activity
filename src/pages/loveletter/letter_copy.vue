@@ -107,7 +107,7 @@ export default {
       wxShareInfoValue: {
         title: '贵客齐聚，共赴好宴│11.23厦门万象城正式揭幕',
         desc: '敬致：永新豪觅。用心好物',
-        link: 'http://papi.xingstation.com/api/s/qYr' + window.location.search,
+        link: process.env.AD_API+'/api/s/qYr' + window.location.search,
         imgUrl: 'https://cdn.exe666.com/fe/image/wxc_letter/icon.png',
         success: () => {
           wechatShareTrack()

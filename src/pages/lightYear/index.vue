@@ -127,11 +127,11 @@ export default {
       score: this.$route.query.score,
       headImgUrl: null,
       rank_url: process.env.SAAS_API + '/game/rank',
-      rank_urlTwo: 'http://sapi.newgls.cn/api' + '/game/rank',
+      rank_urlTwo: 'http://sapi.xingstation.net/api' + '/game/rank',
       wxShareInfoValue: {
         title: ' Rocket go',
         desc: '穿越光年 探索宇宙 一锤搞定',
-        link: 'http://papi.xingstation.com/api/s/PNw' + window.location.search,
+        link: process.env.AD_API+'/api/s/PNw' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/lightYear/icon.jpg',
         success: () => {
           wechatShareTrack()

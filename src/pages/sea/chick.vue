@@ -67,7 +67,7 @@ export default {
       wxShareInfoValue: {
         title: '小鸡捉虫',
         desc: '消灭害虫，人人有责',
-        link: 'http://papi.xingstation.com/api/s/R6q' + window.location.search,
+        link: process.env.AD_API+'/api/s/R6q' + window.location.search,
         imgUrl: IMGURL + 'chick/share.png',
       }
     }

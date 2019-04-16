@@ -70,7 +70,7 @@ export default {
       wxShareInfoValue: {
         title: '我的异想记',
         desc: 'get哆啦A梦同款任意门',
-        link: 'http://papi.xingstation.com/api/s/XDW' + window.location.search,
+        link: process.env.AD_API+'/api/s/XDW' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/stone_age/icon.jpeg',
         success: () => {
           wechatShareTrack()

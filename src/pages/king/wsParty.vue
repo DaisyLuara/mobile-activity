@@ -42,7 +42,7 @@ export default {
       wxShareInfoValue: {
         title: 'Happy Halloween ',
         desc: '万圣狂欢 等你来Halloween',
-        link: 'http://papi.xingstation.com/api/s/Yvp' + window.location.search,
+        link: process.env.AD_API+'/api/s/Yvp' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/ws_party/share.png',
         success: () => {
           wechatShareTrack()

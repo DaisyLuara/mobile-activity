@@ -41,7 +41,7 @@ export default {
       wxShareInfoValue: {
         title: '心动时刻，遇见爱情',
         desc: '亲，你有一条亲密简讯',
-        link: 'http://papi.xingstation.com/api/s/RPL' + window.location.search,
+        link: process.env.AD_API+'/api/s/RPL' + window.location.search,
         imgUrl: 'http://cdn.exe666.com/fe/image/xindong/icon.png'
       }
     }

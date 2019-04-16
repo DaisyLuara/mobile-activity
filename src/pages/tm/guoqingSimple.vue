@@ -153,7 +153,7 @@ export default {
       wxShareInfoValue: {
         title: '中秋国庆星乐享，1000份好礼“刷脸”大派送！',
         desc: '大融城-星视度嗨玩节，福利优惠拿不停。',
-        link: 'http://papi.xingstation.com/api/s/qj2' + window.location.search,
+        link: process.env.AD_API+'/api/s/qj2' + window.location.search,
         imgUrl:
           'http://cdn.exe666.com/image/tm/guoqing/share_' +
           this.$route.query.utm_campaign.trim() +

@@ -67,7 +67,7 @@ export default {
       wxShareInfoValue: {
         title: '嗨玩全世界',
         desc: '即刻旅行，就现在',
-        link: 'http://papi.xingstation.com/api/s/Lg4' + window.location.search,
+        link: process.env.AD_API+'/api/s/Lg4' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/hiplay_world/icon.jpeg',
         success: () => {
           wechatShareTrack()

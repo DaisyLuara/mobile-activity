@@ -63,7 +63,7 @@ export default {
       wxShareInfoValue: {
         title: '兔兔这么可爱当然要吃萝卜',
         desc: '内有萌兔，请小心点开',
-        link: 'http://papi.xingstation.com/api/s/L9w' + window.location.search,
+        link: process.env.AD_API+'/api/s/L9w' + window.location.search,
         imgUrl: IMGURL + 'rabbit/share.jpg',
         success: function() {
           wechatShareTrack()

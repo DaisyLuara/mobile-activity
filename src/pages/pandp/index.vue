@@ -40,7 +40,7 @@ export default {
       wxShareInfoValue: {
         title: '天哪！我穿越了！',
         desc: '快来看看我穿越成了谁？',
-        link: 'http://papi.xingstation.com/api/s/rE' + window.location.search,
+        link: process.env.AD_API+'/api/s/rE' + window.location.search,
         imgUrl:
           'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/pandp/share.jpg'
       }

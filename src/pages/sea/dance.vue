@@ -112,13 +112,13 @@ export default {
       userId: null,
       base64Data: null,
       compoundUrl: null,
-      link: 'http://papi.xingstation.com/api/s/oYK',
+      link: process.env.AD_API+'/api/s/oYK',
       //http://xuhui.xiaooo.club/app/index.php?i=40&c=my&a=point&do=exchange
       //微信分享
       wxShareInfoValue: {
         title: '一起尬舞吗？朋友',
         desc: '金秋十月！来旭辉mall吃喝玩乐',
-        link: 'http://papi.xingstation.com/api/s/pg6' + window.location.search,
+        link: process.env.AD_API+'/api/s/pg6' + window.location.search,
         imgUrl: 'http://cdn.exe666.com/fe/image/xh_dance/icon.png',
         success: function () {
           wechatShareTrack()

@@ -41,7 +41,7 @@ export default {
       wxShareInfoValue: {
         title: '猪福2019，携手发发发',
         desc: '点击一起发',
-        link: 'http://papi.xingstation.com/api/s/EqN' + window.location.search,
+        link: process.env.AD_API+'/api/s/EqN' + window.location.search,
         imgUrl: CDN_URL + '/fe/image/fafafa/share.jpg'
       }
     }

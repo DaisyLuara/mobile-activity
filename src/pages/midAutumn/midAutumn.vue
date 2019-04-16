@@ -91,7 +91,7 @@ export default {
       wxShareInfoValue: {
         title: '中秋天灯',
         desc: '嫦娥：天灯已收到，感谢',
-        link: 'http://papi.xingstation.com/api/s/31M' + window.location.search,
+        link: process.env.AD_API+'/api/s/31M' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/mid_autumn/icon.jpeg',
         success: () => {
           wechatShareTrack()

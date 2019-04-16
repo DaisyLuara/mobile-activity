@@ -10,10 +10,10 @@ export default {
   data() {
     return {
       link: [
-        'http://papi.xingstation.com/api/s/o2j',
-        'http://papi.xingstation.com/api/s/0v',
-        'http://papi.xingstation.com/api/s/ERv',
-        'http://papi.xingstation.com/api/s/8m'
+        process.env.AD_API+'/api/s/o2j',
+        process.env.AD_API+'/api/s/0v',
+        process.env.AD_API+'/api/s/ERv',
+        process.env.AD_API+'/api/s/8m'
       ]
       // '1'冰川世界'2'水族馆'3'熊猫'4'动物在哪
     }

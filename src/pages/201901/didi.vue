@@ -32,14 +32,14 @@ export default {
       wxShareInfoValue: {
         title: '滴滴司机，不平凡，更温暖',
         desc: '早办证早稳定早赚钱~',
-        link: 'http://papi.xingstation.com/api/s/WPW' + window.location.search,
+        link: process.env.AD_API+'/api/s/WPW' + window.location.search,
         imgUrl: CDN_URL + '/fe/image/didi/share.png'
       }
     }
   },
   mounted() {
     if (process.env.NODE_ENV === 'testing') {
-      this.wxShareInfoValue.link = 'http://papi.newgls.cn/api/s/7LA' + window.location.search
+      this.wxShareInfoValue.link = process.env.AD_API + '/api/s/7LA' + window.location.search
     }
   }
 }
