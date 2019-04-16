@@ -41,7 +41,7 @@
         :src="imgs.coupon_img"
         class="coupon-bg"
       >
-      <div class="erweima">
+      <!-- <div class="erweima">
         <div class="clip">
           <img
             :src="imgs.qrcodeImg"
@@ -58,7 +58,7 @@
           :src="base + 'passed.png'"
           class="used"
         >
-      </div>
+      </div> -->
       <a
         class="alink"
         href="https://m.mallcoo.cn/a/coupon/10658"
