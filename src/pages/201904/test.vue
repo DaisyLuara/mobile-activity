@@ -59,6 +59,10 @@
           class="used"
         >
       </div>
+      <a
+        class="alink"
+        href="https://m.mallcoo.cn/a/coupon/10658"
+      >卡包查看券</a>
     </div>
   </div>
 </template>
@@ -81,7 +85,7 @@ export default {
       z: null,
       eshow: {
         register: false,//false
-        coupon: false,
+        coupon: false,//false
         used: false,//false,
         passed: false,//false
       },
@@ -93,8 +97,8 @@ export default {
 
       },
       imgs: {
-        coupon_img: 'https://cdn.xingstation.cn/fe/image/mengbao/2.png',//'https://cdn.xingstation.cn/fe/image/mengbao/2.png',
-        qrcodeImg: 'http://papi.xingstation.com/qrcode/5c7de9583796b.png',//'http://papi.xingstation.com/qrcode/5c7de9583796b.png',
+        coupon_img: null,//'https://cdn.xingstation.cn/fe/image/mengbao/2.png',
+        qrcodeImg: null,//'http://papi.xingstation.com/qrcode/5c7de9583796b.png',
       },
       code: null,//'5c7de9583796b
       //微信分享
@@ -271,6 +275,19 @@ img {
     color: #fff;
     padding: 5px 10px;
     margin-top: 20px;
+  }
+  .alink {
+    display: block;
+    position: relative;
+    width: 35%;
+    height: 7vw;
+    line-height: 7vw;
+    font-size: 3.5vw;
+    border: solid 1px #fff;
+    letter-spacing: 2px;
+    color: #fff;
+    margin-top: 5%;
+    margin-bottom: 10%;
   }
   .getphone {
     width: 50%;
