@@ -85,7 +85,7 @@ export default {
       z: null,
       eshow: {
         register: false,//false
-        coupon: true,//false
+        coupon: false,//false
         used: false,//false,
         passed: false,//false
       },
@@ -97,8 +97,8 @@ export default {
 
       },
       imgs: {
-        coupon_img: 'https://cdn.xingstation.cn/fe/image/mengbao/2.png',//'https://cdn.xingstation.cn/fe/image/mengbao/2.png',
-        qrcodeImg: 'http://papi.xingstation.com/qrcode/5c7de9583796b.png',//'http://papi.xingstation.com/qrcode/5c7de9583796b.png',
+        coupon_img: null,//'https://cdn.xingstation.cn/fe/image/mengbao/2.png',
+        qrcodeImg: null,//'http://papi.xingstation.com/qrcode/5c7de9583796b.png',
       },
       code: null,//'5c7de9583796b
       //微信分享
