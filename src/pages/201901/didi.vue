@@ -39,7 +39,7 @@ export default {
   },
   mounted() {
     if (process.env.NODE_ENV === 'testing') {
-      this.wxShareInfoValue.link = 'http://papi.newgls.cn/api/s/7LA' + window.location.search
+      this.wxShareInfoValue.link = 'http://papi.xingstation.net/api/s/7LA' + window.location.search
     }
   }
 }

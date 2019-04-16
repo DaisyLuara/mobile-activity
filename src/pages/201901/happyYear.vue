@@ -144,7 +144,7 @@ export default {
   },
   mounted() {
     if (process.env.NODE_ENV === 'testing') {
-      this.wxShareInfoValue.link = 'http://papi.newgls.cn/api/s/oQK' + window.location.search
+      this.wxShareInfoValue.link = 'http://papi.xingstation.net/api/s/oQK' + window.location.search
     }
     // this.doAnim()
     // this.loadPigImage(this.scene, 12)

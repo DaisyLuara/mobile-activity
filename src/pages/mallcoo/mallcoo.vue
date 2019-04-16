@@ -49,8 +49,8 @@ export default {
       noZero: true,
       isZero: false,
       //授权链接
-      //http://sapi.newgls.cn/api/mallcoo/user/oauth?redirect_url=
-      //http://sapi.newgls.cn/api/mallcoo/coupon
+      //http://sapi.xingstation.net/api/mallcoo/user/oauth?redirect_url=
+      //http://sapi.xingstation.net/api/mallcoo/coupon
       authorize_url: process.env.SAAS_API + "/mallcoo/user/oauth?redirect_url=",
       coupon_url: process.env.SAAS_API + "/mallcoo/coupon",
       open_user_id: null,

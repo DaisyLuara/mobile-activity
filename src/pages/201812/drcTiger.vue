@@ -1,7 +1,8 @@
 <template>
-  <div 
-    :style="style.root" 
-    class="root">
+  <div
+    :style="style.root"
+    class="root"
+  >
     <!-- 券图 -->
     <!-- <img
       :src="baseUrl + 'H5_1.png'+ this.$qiniuCompress()"
@@ -13,9 +14,10 @@
       :class="{'x-couponImg':iphoneX,'couponImg':!iphoneX}"
       class="couponImg"
     >
-    <div 
-      :class="{'x-contain':iphoneX,'contain':!iphoneX}" 
-      class="contain">
+    <div
+      :class="{'x-contain':iphoneX,'contain':!iphoneX}"
+      class="contain"
+    >
       <!-- <img
         :src="baseUrl + 'er.jpeg'+ this.$qiniuCompress()"
         class="ewm"
@@ -25,12 +27,14 @@
         class="code"
       >1234567</span>
       </div>-->
-      <img 
-        :src="qrcodeImg+ this.$qiniuCompress()" 
-        class="ewm">
-      <span 
-        :style="style.code" 
-        class="code">{{ code }}</span>
+      <img
+        :src="qrcodeImg+ this.$qiniuCompress()"
+        class="ewm"
+      >
+      <span
+        :style="style.code"
+        class="code"
+      >{{ code }}</span>
     </div>
   </div>
 </template>
@@ -77,7 +81,7 @@ export default {
         title: "大融城美食券免费领！",
         desc: "点击即可领福利",
         link: "http://papi.xingstation.com/api/s/LZg" + window.location.search,
-        //link: 'http://papi.newgls.cn/api/s/2vv' + window.location.search,
+        //link: 'http://papi.xingstation.net/api/s/2vv' + window.location.search,
         imgUrl: cdnUrl + "/fe/marketing/img/drc_tiger/icon.png"
       }
     };
@@ -144,8 +148,8 @@ export default {
       return url.match(pattern)
         ? url.replace(eval("/(" + arg + "=)([^&]*)/gi"), replaceText)
         : url.match("[?]")
-        ? url + "&" + replaceText
-        : url + "?" + replaceText;
+          ? url + "&" + replaceText
+          : url + "?" + replaceText;
     },
     //随机出randomCouponID
     randomCouponID() {
