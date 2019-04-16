@@ -334,7 +334,7 @@ export default {
       window.location.href =
         process.env.NODE_ENV === "production"
           ? "http://papi.xingstation.com/api/s/pyX"
-          : "http://papi.newgls.cn/api/s/vm";
+          : "http://papi.xingstation.net/api/s/vm";
     }
   }
 };

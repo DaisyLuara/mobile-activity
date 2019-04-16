@@ -77,7 +77,7 @@ export default {
         title: "大融城美食券免费领！",
         desc: "点击即可领福利",
         link: "http://papi.xingstation.com/api/s/LZg" + window.location.search,
-        //link: 'http://papi.newgls.cn/api/s/2vv' + window.location.search,
+        //link: 'http://papi.xingstation.net/api/s/2vv' + window.location.search,
         imgUrl: cdnUrl + "/fe/marketing/img/drc_tiger/icon.png"
       }
     };
