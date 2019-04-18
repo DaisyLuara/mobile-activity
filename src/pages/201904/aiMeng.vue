@@ -190,7 +190,6 @@ img {
   .main {
     width: 100%;
     top: 2%;
-    left: 0%;
     z-index: 9;
     margin-bottom: 10%;
     .bg {
