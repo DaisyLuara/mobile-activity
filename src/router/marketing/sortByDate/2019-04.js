@@ -119,6 +119,17 @@ const Date201904 = [
       desc: '纯萃泰国'
     },
     isAbandoned: false
+  },
+  {
+    path: 'ai_meng',
+    location: '201904/aiMeng',
+    name: 'ai_meng',
+    meta: {
+      title: 'AI测萌值，谁还不是个小可爱鸭',
+      author: 'lipan',
+      desc: 'AI测萌值'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201904
