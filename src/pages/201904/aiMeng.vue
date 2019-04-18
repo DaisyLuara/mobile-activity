@@ -3,10 +3,6 @@
     :style="style.root"
     class="warp"
   >
-    <!-- <img
-      :src="base + 'bg.png'"
-      class="bg"
-    > -->
     <div class="center main">
       <img
         :src="base + 'under.png'"
@@ -80,8 +76,9 @@ export default {
   },
   watch: {
     parms() {
-      this.imgList.tab.src = this.base + 'tab' + this.parms.index + '.png'
-      this.imgList.info.src = this.base + 'info' + this.parms.index + '.png'
+      let index = this.parms.index * 1 + 1
+      this.imgList.tab.src = this.base + 'tab' + index + '.png'
+      this.imgList.info.src = this.base + 'info' + index + '.png'
       this.imgList.photo.src = this.photo
       this.imgList.star.src = this.parms.imgUrl
       this.value = this.parms.value
@@ -164,7 +161,7 @@ img {
 }
 .warp {
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
   background-image: url("@{imgurl}back.png");
   background-repeat: no-repeat;
   background-position: center top;
@@ -193,7 +190,9 @@ img {
   .main {
     width: 100%;
     top: 2%;
+    left: 0%;
     z-index: 9;
+    margin-bottom: 10%;
     .bg {
       width: 77%;
     }
