@@ -45,6 +45,7 @@
           class="used"
         >
       </div>
+      <span class="code">{{code}}</span>
     </div>
   </div>
 </template>
@@ -224,9 +225,10 @@ img {
     .erweima {
       width: 41.3%;
       position: absolute;
-      top: 53%;
+      top: 50%;
       left: 50%;
       transform: translateX(-50%);
+      z-index: 9;
       .clip {
         width: 20.5vw;
         height: 20.5vw;
@@ -257,6 +259,16 @@ img {
         z-index: 999;
       }
     }
+  }
+  .code {
+    position: absolute;
+    top: 84%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+    color: #000;
+    font-weight: bold;
+    font-size: 5vw;
   }
 }
 </style>
