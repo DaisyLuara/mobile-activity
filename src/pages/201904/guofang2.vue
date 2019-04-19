@@ -129,6 +129,7 @@ export default {
         };
         const checkCouponResult = await checkV2Coupon(checkV2CouponArgs);
         if (checkCouponResult) {
+          alert('该券您已经领取过啦！')
           this.handleData(checkCouponResult);
         } else {
           const getCouponBatchResult = await batchV2CouponLimit(
