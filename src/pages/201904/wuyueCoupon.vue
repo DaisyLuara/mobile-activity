@@ -94,7 +94,8 @@ import {
   checkMallMember,
   receiveCoupon,
   sendMessageCode,
-  getCardByPhone
+	getCardByPhone,
+	validatePhone
 } from "services";
 import { normalPages } from "@/mixins/normalPages";
 import moment from "moment";
@@ -201,7 +202,7 @@ export default {
     },
 
     onGetErrorTips() {
-      if (!this.phone || !/^1\d{10}$/.test(this.phone)) {
+      if (!this.phone || !validatePhone(this.phone)) {
         return "手机格式不正确，请重新输入";
       }
       if (!this.vcode || !/^\d{4}(\d{2})?$/.test(this.vcode)) {
@@ -211,7 +212,7 @@ export default {
     },
 
     onGetVcode() {
-      if (!this.phone || !/^1\d{10}$/.test(this.phone)) {
+      if (!this.phone || !validatePhone(this.phone)) {
         Toast("手机格式不正确，请重新输入");
         return;
       }
