@@ -36,7 +36,7 @@
 				<img :src="`${cdnUrl}/fe/wuyue-coupon-item_1.png`" class="couponItem" />
 				<img :src="`${cdnUrl}/fe/wuyue-coupon-item_2.png`" class="couponItem" />
 				<img :src="`${cdnUrl}/fe/wuyue-coupon-item_3.png`" class="couponItem" />
-				<img v-if="!isUpdate" :src="`${cdnUrl}/fe/wuyue-coupon-item_4.png`" class="couponItem" />
+				<img v-if="isBefore" :src="`${cdnUrl}/fe/wuyue-coupon-item_4.png`" class="couponItem" />
 				<img v-else :src="`${cdnUrl}/fe/wuyue-coupon-item_5.png`" class="couponItem" />
 			</div>
 			<a href="https://m.mallcoo.cn/a/coupon/10658">
@@ -64,7 +64,7 @@ export default {
       time: 60,
 			vcodeText: '',
 			verification_key: '',
-			isUpdate: !moment(new Date()).isBefore('2019-05-06')
+			isBefore: moment(new Date()).isBefore('2019-05-06')
     }
   },
   watch: {
@@ -161,11 +161,11 @@ export default {
         phone: this.phone
       }
       sendMessageCode(params).then(res => {
-        this.verification_key = res.key
+				this.verification_key = res.key
+				this.onCountDown()
       }).catch(err => {
         alert(err.response.data.message)
-      })
-			this.onCountDown()
+      })	
 		},
 
 		onLogin() {
@@ -179,7 +179,7 @@ export default {
 					sign: this.sign
       	}
 				getCardByPhone(params).then(res => {
-					this.receiveCoupon()
+					this.onReceiveCoupon()
 				}).catch(err => {
 					alert(err.response.data.message)
 				})	
