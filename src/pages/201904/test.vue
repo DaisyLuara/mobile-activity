@@ -9,19 +9,19 @@
       class="getphone"
     >
       <input
-        type="number"
         v-model="arr.phone"
-        @input="maxLength(11,arr,'phone')"
+        type="number"
         placeholder="请输入手机号码"
         class="phone"
+        @input="maxLength(11,arr,'phone')"
       >
       <div class="message-code">
         <input
-          type="number"
           v-model="arr.vertify"
-          @input="maxLength(4,arr,'vertify')"
+          type="number"
           placeholder="验证码"
           class="vertify"
+          @input="maxLength(4,arr,'vertify')"
         >
         <a
           class="getvertify"

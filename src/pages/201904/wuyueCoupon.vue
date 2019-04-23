@@ -1,49 +1,91 @@
 <template>
   <div class="container"> 
-		<div v-if="type==='receive'" class="couponBgBox">
-			<img :src="`${cdnUrl}/fe/wuyue-receive-coupon.png`" class="couponBg" />
-			<img :src="`${cdnUrl}/fe/wuyue-receive-btn.png`" class="couponBtn" @click="onClickReceiveBtn" />
-		</div>
+    <div 
+      v-if="type==='receive'" 
+      class="couponBgBox">
+      <img 
+        :src="`${cdnUrl}/fe/wuyue-receive-coupon.png`" 
+        class="couponBg" >
+      <img 
+        :src="`${cdnUrl}/fe/wuyue-receive-btn.png`" 
+        class="couponBtn" 
+        @click="onClickReceiveBtn" >
+    </div>
 
-		<div v-else-if="type==='login'" class="loginBgBox">
-			<img :src="`${cdnUrl}/fe/wuyue-login-bg.png`" class="loginBg" />
-			<div class="phoneBox">
-				<img :src="`${cdnUrl}/fe/wuyue-login-phone-bg.png`" class="phoneBg" />
-				<input type="text" class="phoneInput" v-model="phone" />
-			</div>
-			<div class="validateBox">
-				<img :src="`${cdnUrl}/fe/wuyue-login-validate-bg.png`" class="validateBg" />
-				<input type="number" class="validateInput" v-model="vcode" />		
-					<div v-if="vcodeText" class="validateBtn">
-						<img
-							:src="`${cdnUrl}/fe/wuyue-count-down-box.png`"	 
-							class="countDownBg" 
-						/>
-						<span class="vcodeText">{{vcodeText}}</span>  
-					</div>			
-					<img
-						v-else
-						:src="`${cdnUrl}/fe/wuyue-get-validate-box.png`"					 
-						class="validateBtn" 
-						@click="onGetVcode"
-					/>		
-			</div>
-			<img :src="`${cdnUrl}/fe/wuyue-login-btn.png`" class="loginBtn" @click="onLogin" />
-		</div>
+    <div 
+      v-else-if="type==='login'" 
+      class="loginBgBox">
+      <img 
+        :src="`${cdnUrl}/fe/wuyue-login-bg.png`" 
+        class="loginBg" >
+      <div class="phoneBox">
+        <img 
+          :src="`${cdnUrl}/fe/wuyue-login-phone-bg.png`" 
+          class="phoneBg" >
+        <input 
+          v-model="phone" 
+          type="text" 
+          class="phoneInput" >
+      </div>
+      <div class="validateBox">
+        <img 
+          :src="`${cdnUrl}/fe/wuyue-login-validate-bg.png`" 
+          class="validateBg" >
+        <input 
+          v-model="vcode" 
+          type="number" 
+          class="validateInput" >		
+        <div 
+          v-if="vcodeText" 
+          class="validateBtn">
+          <img
+            :src="`${cdnUrl}/fe/wuyue-count-down-box.png`"	 
+            class="countDownBg" 
+          >
+          <span class="vcodeText">{{ vcodeText }}</span>  
+        </div>			
+        <img
+          v-else
+          :src="`${cdnUrl}/fe/wuyue-get-validate-box.png`"					 
+          class="validateBtn" 
+          @click="onGetVcode"
+        >		
+      </div>
+      <img 
+        :src="`${cdnUrl}/fe/wuyue-login-btn.png`" 
+        class="loginBtn" 
+        @click="onLogin" >
+    </div>
 
-		<div v-else class="couponListBox">
-			<div class="couponBox">
-				<img :src="`${cdnUrl}/fe/wuyue-coupon-item_1.png`" class="couponItem" />
-				<img :src="`${cdnUrl}/fe/wuyue-coupon-item_2.png`" class="couponItem" />
-				<img :src="`${cdnUrl}/fe/wuyue-coupon-item_3.png`" class="couponItem" />
-				<img v-if="isBefore" :src="`${cdnUrl}/fe/wuyue-coupon-item_4.png`" class="couponItem" />
-				<img v-else :src="`${cdnUrl}/fe/wuyue-coupon-item_5.png`" class="couponItem" />
-			</div>
-			<a href="https://m.mallcoo.cn/a/coupon/10658">
-				<img :src="`${cdnUrl}/fe/wuyue-my-coupon-text.png`" class="myCouponText" />
-			</a>
-		</div>
-	</div>
+    <div 
+      v-else 
+      class="couponListBox">
+      <div class="couponBox">
+        <img 
+          :src="`${cdnUrl}/fe/wuyue-coupon-item_1.png`" 
+          class="couponItem" >
+        <img 
+          :src="`${cdnUrl}/fe/wuyue-coupon-item_2.png`" 
+          class="couponItem" >
+        <img 
+          :src="`${cdnUrl}/fe/wuyue-coupon-item_3.png`" 
+          class="couponItem" >
+        <img 
+          v-if="isBefore" 
+          :src="`${cdnUrl}/fe/wuyue-coupon-item_4.png`" 
+          class="couponItem" >
+        <img 
+          v-else 
+          :src="`${cdnUrl}/fe/wuyue-coupon-item_5.png`" 
+          class="couponItem" >
+      </div>
+      <a href="https://m.mallcoo.cn/a/coupon/10658">
+        <img 
+          :src="`${cdnUrl}/fe/wuyue-my-coupon-text.png`" 
+          class="myCouponText" >
+      </a>
+    </div>
+  </div>
 </template>
 <script>
 import { Toast } from 'mint-ui'
