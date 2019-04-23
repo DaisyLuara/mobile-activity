@@ -88,147 +88,167 @@
   </div>
 </template>
 <script>
-import { Toast } from 'mint-ui'
-import { getMallcooCouponInfo, checkMallMember, receiveCoupon, sendMessageCode, getCardByPhone } from 'services'
-import { normalPages } from '@/mixins/normalPages'
+import { Toast } from "mint-ui";
+import {
+  getMallcooCouponInfo,
+  checkMallMember,
+  receiveCoupon,
+  sendMessageCode,
+  getCardByPhone
+} from "services";
+import { normalPages } from "@/mixins/normalPages";
 import moment from "moment";
-const CDN_URL = process.env.CDN_URL
+const CDN_URL = process.env.CDN_URL;
 export default {
   mixins: [normalPages],
   data() {
     return {
-			cdnUrl: process.env.CDN_URL,
-			sign: '',
-			qiniu_id: this.$route.query.id,
-			type: '',
-			phone: '',
-      vcode: '',
+      cdnUrl: process.env.CDN_URL,
+      sign: "",
+      qiniu_id: this.$route.query.id,
+      type: "",
+      phone: "",
+      vcode: "",
       time: 60,
-			vcodeText: '',
-			verification_key: '',
-			isBefore: moment(new Date()).isBefore('2019-05-06')
-    }
+      vcodeText: "",
+      verification_key: "",
+      isBefore: moment(new Date()).isBefore("2019-05-06")
+    };
   },
   watch: {
-		sertime() {
-      if (localStorage.getItem('z')) {
-        this.sign = localStorage.getItem('z')
-        this.onGetMallcooCouponInfo()
+    sertime() {
+      if (localStorage.getItem("z")) {
+        this.sign = localStorage.getItem("z");
+        this.onGetMallcooCouponInfo();
       } else {
-        this.sign = this.userinfo.z
-        localStorage.setItem('z', this.userinfo.z)
-        this.onGetMallcooCouponInfo()
+        this.sign = this.userinfo.z;
+        localStorage.setItem("z", this.userinfo.z);
+        this.onGetMallcooCouponInfo();
       }
     }
-	},
-  mounted() { },
-	methods: {
-		onGetMallcooCouponInfo() {
-			let params = {
+  },
+  mounted() {},
+  methods: {
+    onGetMallcooCouponInfo() {
+      let params = {
         sign: this.sign,
         qiniu_id: this.qiniu_id,
-				oid: this.oid,
-				belong: "star"
-      }
-			getMallcooCouponInfo(params).then(res => {
-        if (res) {
-          this.type = 'couponList'
-        } else {
-					this.type = 'receive'
-        }
-      }).catch(err => {
-        alert(err.response.data.message)
-      })
-		},
+        oid: this.oid,
+        belong: "star"
+      };
+      getMallcooCouponInfo(params)
+        .then(res => {
+          if (res) {
+            this.type = "couponList";
+          } else {
+            this.type = "receive";
+          }
+        })
+        .catch(err => {
+          alert(err.response.data.message);
+        });
+    },
 
-		onGetMallcooUserInfo() {
-			let params = {
+    onGetMallcooUserInfo() {
+      let params = {
         sign: this.sign,
         oid: this.oid
-      }
-			checkMallMember(params).then(res => {
-        if (res) {
-          this.onReceiveCoupon()
-        } else {
-          this.type = 'login'
-        }
-      }).catch(err => {
-        alert(err.response.data.message)
-      })
-		},
+      };
+      checkMallMember(params)
+        .then(res => {
+          if (res) {
+            this.onReceiveCoupon();
+          } else {
+            this.type = "login";
+          }
+        })
+        .catch(err => {
+          alert(err.response.data.message);
+        });
+    },
 
-		onReceiveCoupon() {
-			let params = {
+    onReceiveCoupon() {
+      let params = {
         qiniu_id: this.qiniu_id,
         sign: this.sign,
-        belong: 'star',
+        belong: "star",
         oid: this.oid
+      };
+      receiveCoupon(params)
+        .then(res => {
+          this.type = "couponList";
+        })
+        .catch(err => {
+          alert(err.response.data.message);
+        });
+    },
+
+    onClickReceiveBtn() {
+      this.onGetMallcooUserInfo();
+    },
+
+    onCountDown() {
+      let timer = setInterval(() => {
+        if (this.time === 0) {
+          clearInterval(timer);
+          this.vcodeText = "";
+          this.time = 60;
+        } else {
+          this.vcodeText = `${this.time}s`;
+          this.time--;
+        }
+      }, 1000);
+    },
+
+    onGetErrorTips() {
+      if (!this.phone || !/^1\d{10}$/.test(this.phone)) {
+        return "手机格式不正确，请重新输入";
       }
-      receiveCoupon(params).then(res => {
-        this.type = 'couponList'
-			}).catch(err => {
-				alert(err.response.data.message)
-			})
-		},
+      if (!this.vcode || !/^\d{4}(\d{2})?$/.test(this.vcode)) {
+        return "验证码格式错误，请重新输入";
+      }
+      return "";
+    },
 
-		onClickReceiveBtn() {
-			this.onGetMallcooUserInfo()
-		},
-
-		onCountDown() {
-			let timer = setInterval(() => {
-				if (this.time === 0) {
-					clearInterval(timer)
-					this.vcodeText = '' 
-					this.time = 60
-				} else {
-					this.vcodeText = `${this.time}s`
-					this.time--
-				}
-			}, 1000)
-		},
-
-		onGetErrorTips() {
-			if (!this.phone || !/^1\d{10}$/.test(this.phone)) { return '手机格式不正确，请重新输入' } 
-			if (!this.vcode || !/^\d{4}(\d{2})?$/.test(this.vcode)) { return '验证码格式错误，请重新输入' } 
-			return ''
-		},
-
-		onGetVcode() {
-			if (!this.phone || !/^1\d{10}$/.test(this.phone)) {
-				Toast('手机格式不正确，请重新输入')
-				return
-			} 
-			let params = {
+    onGetVcode() {
+      if (!this.phone || !/^1\d{10}$/.test(this.phone)) {
+        Toast("手机格式不正确，请重新输入");
+        return;
+      }
+      let params = {
         phone: this.phone
-      }
-      sendMessageCode(params).then(res => {
-				this.verification_key = res.key
-				this.onCountDown()
-      }).catch(err => {
-        alert(err.response.data.message)
-      })	
-		},
+      };
+      sendMessageCode(params)
+        .then(res => {
+          this.verification_key = res.key;
+          this.onCountDown();
+        })
+        .catch(err => {
+          alert(err.response.data.message);
+        });
+    },
 
-		onLogin() {
-			if (this.onGetErrorTips()) {
-				Toast(this.onGetErrorTips())
-			} else {
-				let params = {
-					verification_key: this.verification_key,
-					verification_code: this.vcode,
-					oid: this.oid,
-					sign: this.sign
-      	}
-				getCardByPhone(params).then(res => {
-					this.onReceiveCoupon()
-				}).catch(err => {
-					alert(err.response.data.message)
-				})	
-			}
-		}
-	}
-}
+    onLogin() {
+      if (this.onGetErrorTips()) {
+        Toast(this.onGetErrorTips());
+      } else {
+        let params = {
+          verification_key: this.verification_key,
+          verification_code: this.vcode,
+          oid: this.oid,
+          sign: this.sign
+        };
+        getCardByPhone(params)
+          .then(res => {
+            this.onReceiveCoupon();
+          })
+          .catch(err => {
+            alert(err.response.data.message);
+          });
+      }
+    }
+  }
+};
 </script>
 <style lang="less" scoped>
 html,
@@ -246,9 +266,9 @@ img {
   max-width: 100%;
   user-select: none;
 }
-a {  
-	text-decoration: none; 
-	outline: none; 
+a {
+  text-decoration: none;
+  outline: none;
 }
 
 .container {
@@ -257,7 +277,7 @@ a {
   align-items: center;
   width: 100%;
   height: 100vh;
-  background-image: url('https://cdn.xingstation.cn/fe/wuyue-coupon-bg.png');
+  background-image: url("https://cdn.xingstation.cn/fe/wuyue-coupon-bg.png");
   background-size: 100% 100%;
   background-repeat: no-repeat;
   background-position: center center;
@@ -268,7 +288,7 @@ a {
     position: relative;
     width: 61.3vw;
     height: 94.7vw;
-  
+
     .couponBg {
       width: 100%;
       height: 100%;
@@ -285,115 +305,114 @@ a {
   }
 
   .loginBgBox {
-		position: relative;
-		width: 66.9vw;
-		height: 102vw;
+    position: relative;
+    width: 66.9vw;
+    height: 102vw;
 
-		.loginBg {
-			width: 100%;
-			height: 100%;
-		}
+    .loginBg {
+      width: 100%;
+      height: 100%;
+    }
 
-		.phoneBox {
-			position: absolute;
-			top: 37.7%;
-			left: 50%;
-			width: 78.1%;
-			height: 9.94%;
-			transform: translate(-50%, 0);
+    .phoneBox {
+      position: absolute;
+      top: 37.7%;
+      left: 50%;
+      width: 78.1%;
+      height: 9.94%;
+      transform: translate(-50%, 0);
 
-			.phoneBg {
-				position: absolute;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 100%;
-			}	
-			
-			.phoneInput {
-				position: absolute;
-				top: 50%;
-				right: 8.5%;
-				width: 53%;
-				height: 80%;
-				transform: translate(0, -50%);
-				border: 0px;
-				outline: none;  
-				font-size: 14px;
-				box-sizing: border-box;
-			}
-		}
+      .phoneBg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
 
-		.validateBox {
-			position: absolute;
-			top: 51.6%;
-			left: 50%;
-			width: 78.1%;
-			height: 9.94%;
-			transform: translate(-50%, 0);
+      .phoneInput {
+        position: absolute;
+        top: 50%;
+        right: 8.5%;
+        width: 53%;
+        height: 80%;
+        transform: translate(0, -50%);
+        border: 0px;
+        outline: none;
+        font-size: 14px;
+        box-sizing: border-box;
+      }
+    }
 
-			.validateBg {
-				position: absolute;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 100%;
-			}
-			
+    .validateBox {
+      position: absolute;
+      top: 51.6%;
+      left: 50%;
+      width: 78.1%;
+      height: 9.94%;
+      transform: translate(-50%, 0);
 
-			.validateBtn {
-				position: absolute;
-				top: 50%;
-				right: 10px;
-				width: 30.1%;
-				height: 20px;
-				transform: translate(0, -50%);
-				font-size: 14px;
+      .validateBg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
 
-				.countDownBg {
-					position: absolute;
-					top: 0;
-					left: 0;
-					width: 100%;
-					height: 100%;
-					z-index: 1;
-				}
+      .validateBtn {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        width: 30.1%;
+        height: 20px;
+        transform: translate(0, -50%);
+        font-size: 14px;
 
-				.vcodeText {
-					position: absolute;
-					top: 50%;
-					left: 50%;
-					transform: translate(-50%, -50%);
-					font-size: 12px;
-					color: #fff;
-					z-index: 999;
-				}
-			}
+        .countDownBg {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: 1;
+        }
 
-			.validateInput {
-				position: absolute;
-				top: 50%;
-				right: 38.3%;
-				width: 30%;
-				height: 80%;
-				transform: translate(0, -50%);
-				border: 0px;
-				outline: none;  
-				font-size: 14px;
-				box-sizing: border-box;
-			}
-		}
+        .vcodeText {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          font-size: 12px;
+          color: #fff;
+          z-index: 999;
+        }
+      }
 
-		.loginBtn {
-			position: absolute;
-			top: 79.8%;
-			left: 50%;
-			width: 78.1%;
-			height: 9.94%;
-			transform: translate(-50%, 0);
-		}
+      .validateInput {
+        position: absolute;
+        top: 50%;
+        right: 38.3%;
+        width: 30%;
+        height: 80%;
+        transform: translate(0, -50%);
+        border: 0px;
+        outline: none;
+        font-size: 14px;
+        box-sizing: border-box;
+      }
+    }
+
+    .loginBtn {
+      position: absolute;
+      top: 79.8%;
+      left: 50%;
+      width: 78.1%;
+      height: 9.94%;
+      transform: translate(-50%, 0);
+    }
   }
-  
+
   .couponListBox {
     display: flex;
     flex-direction: column;
@@ -407,14 +426,14 @@ a {
     .couponBox {
       width: 53.3vw;
       margin-top: 35vw;
-  
+
       .couponItem {
         width: 100%;
-				height: auto;
-				margin-bottom: 10px;
+        height: auto;
+        margin-bottom: 10px;
       }
     }
-  
+
     .myCouponText {
       width: 44.5vw;
       margin-top: 20px;
