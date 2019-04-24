@@ -1,5 +1,18 @@
 <template>
   <div class="container">
+		<div v-show="type==='couponList' && showModal" class="modalBox">
+			<div class="modalSpace" @click="onCloseModal"></div>
+			<img
+        :src="CDNURL+'/fe/wuyue-share-bg.png'"
+        class="modalImg"
+      >
+		</div>
+		<div v-show="showLoading" class="loadingBox">
+			<img 
+				:src="CDNURL+'/fe/wuyue-loading-icon.png'" 
+				class="loadingIcon"
+			>
+		</div>
     <div
       v-show="type==='receive'"
       class="couponBgBox"
@@ -127,7 +140,9 @@ export default {
   mixins: [onlyWechatShare],
   data() {
     return {
-      CDNURL: CDNURL,
+			CDNURL: CDNURL,
+			showModal: true,
+			showLoading: false,
       sign: "",
       qiniu_id: this.$route.query.id,
       oid: null,
@@ -137,7 +152,8 @@ export default {
       vcode: "",
       time: 60,
       vcodeText: "",
-      verification_key: "",
+			verification_key: "",
+			
       isBefore: moment(new Date()).isBefore("2019-05-06"),
       wxShareInfoValue: {
         title: "前方高能！一大波吾悦广场红包等你疯抢！",
@@ -236,10 +252,12 @@ export default {
       };
       receiveMallcooCoupon(params)
         .then(res => {
+					this.showLoading = false;
           this.type = "couponList";
         })
         .catch(err => {
-          alert(err.response.data.message);
+					alert(err.response.data.message);
+					this.showLoading = false;
         });
     },
 
@@ -297,17 +315,23 @@ export default {
           verification_code: this.vcode,
           oid: this.oid,
           sign: this.sign
-        };
+				};
+				this.showLoading = true;
         openMallcooMemberByPhone(params)
           .then(res => {
             this.onReceiveCoupon();
           })
           .catch(err => {
-            alert(err.response.data.message);
+						alert(err.response.data.message);
+						this.showLoading = false;
           });
       }
-    }
-  }
+		},
+		
+		onCloseModal() {
+			this.showModal = false
+		}
+	}
 };
 </script>
 <style lang="less" scoped>
@@ -342,7 +366,47 @@ a {
   background-repeat: no-repeat;
   background-position: center top;
   background-attachment: fixed;
-  overflow: hidden;
+	overflow: hidden;
+	
+	.modalBox {
+		display: flex;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 999;
+
+		.modalSpace {
+			flex: 1
+		}
+		.modalImg {
+			position: absolute;
+			top: 3%;
+			left: 50%;
+			width: 85%;
+			transform: translate(-50%, 0);
+		}
+	}
+
+	.loadingBox {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 999;
+		background: rgba(0,0,0,0.7);
+
+		.loadingIcon {
+			width: 50px;
+			height: 50px;
+			animation: loading 2s linear infinite;
+		}
+	}
 
   .couponBgBox {
     position: relative;
@@ -398,7 +462,8 @@ a {
         height: 80%;
         transform: translate(0, -50%);
         border: 0px;
-        outline: none;
+				outline: none;
+				text-align: left;
         font-size: 14px;
         box-sizing: border-box;
       }
@@ -457,7 +522,8 @@ a {
         height: 80%;
         transform: translate(0, -50%);
         border: 0px;
-        outline: none;
+				outline: none;
+				text-align: left;
         font-size: 14px;
         box-sizing: border-box;
       }
@@ -481,7 +547,8 @@ a {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+		height: 100%;
+		z-index: 1;
 
     .couponBox {
       width: 53.3vw;
@@ -499,6 +566,17 @@ a {
       margin-top: 20px;
     }
   }
+}
+
+@keyframes loading {
+	0% {
+			transform: rotate(0deg);
+	}
+
+	100% {
+			transform: rotate(360deg);
+	}
+
 }
 </style>
 
