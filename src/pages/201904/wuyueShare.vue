@@ -11,7 +11,7 @@
         @listenGameEnd="listenGameEnd"
       />
       <div
-        v-if="end&&type==='receive'"
+        v-show="end"
         class="no-getCoupon"
       >
         <img
@@ -165,9 +165,9 @@ export default {
       sign: "",
       qiniu_id: this.$route.query.id,
       hidden: false,
-      type: 'receive',
+      type: 'receive',//'receive'
       register: true,
-      needregister: true,
+      needregister: true,//true
       phone: "",
       vcode: "",
       time: 60,
@@ -389,7 +389,7 @@ img {
       position: relative;
       width: 66.9vw;
       height: 102vw;
-
+      margin-top: 10%;
       .loginBg {
         width: 100%;
         height: 100%;
