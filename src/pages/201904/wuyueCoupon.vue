@@ -5,7 +5,7 @@
       class="couponBgBox"
     >
       <img
-        :src="CDNURL+'/fe/wuyue-receive-coupon.png'"
+        :src="CDNURL+'/fe/wuyue-receive-coupons.png'"
         class="couponBg"
       >
       <img
