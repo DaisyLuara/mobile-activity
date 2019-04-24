@@ -10,22 +10,21 @@
         :spritesData="sprites"
         @listenGameEnd="listenGameEnd"
       />
-    </div>
-    <div
-      v-show="!hidden"
-      v-if="end&&type==='receive'"
-      class="no-getCoupon"
-    >
-      <img
-        :src="base + '4.png'"
-        class="bg"
+      <div
+        v-if="end&&type==='receive'"
+        class="no-getCoupon"
       >
-      <a
-        class="couponBtn"
-        @click="onClickReceiveBtn"
-      >
-        <img :src="base + 'click.png'">
-      </a>
+        <img
+          :src="base + '4.png'"
+          class="bg"
+        >
+        <a
+          class="couponBtn"
+          @click="onClickReceiveBtn"
+        >
+          <img :src="base + 'click.png'">
+        </a>
+      </div>
     </div>
     <div
       v-show="hidden"
@@ -220,7 +219,10 @@ export default {
           return
         }
         const getMallcooUserResult = await checkMallMember(getMallcooUserArgs)
-        getMallcooUserResult ? this.needregister = false && this.sendMallcooCoupon() : this.needregister = true
+        if (getMallcooUserResult) {
+          this.needregister = false
+          this.sendMallcooCoupon()
+        }
       } catch (err) {
         if (err.response) {
           alert(err.response.data.message);
@@ -244,7 +246,7 @@ export default {
     },
     onClickReceiveBtn() {
       this.hidden = true
-      this.register = this.needregister ? true : false
+      this.register = this.needregister
     },
     sendMallcooCoupon() {
       const sendCouponArgs = {
@@ -256,7 +258,6 @@ export default {
       receiveMallcooCoupon(sendCouponArgs).then(res => {
         res ? this.type = "couponList" : null
       }).catch(err => {
-
         alert(err.response.data.message);
       })
     },
@@ -267,7 +268,7 @@ export default {
           this.vcodeText = "";
           this.time = 60;
         } else {
-          this.vcodeText = '${this.time}s';
+          this.vcodeText = this.time + 's';
           this.time--;
         }
       }, 1000);
@@ -281,7 +282,6 @@ export default {
       }
       return "";
     },
-
     onGetVcode() {
       console.log(this.phone)
       if (!this.phone || !validatePhone(this.phone)) {
@@ -300,9 +300,7 @@ export default {
           alert(err.response.data.message);
         });
     },
-
     doRegister() {
-      console.log('register')
       if (this.onGetErrorTips()) {
         Toast(this.onGetErrorTips());
       } else {
@@ -314,7 +312,7 @@ export default {
         };
         openMallcooMemberByPhone(params)
           .then(res => {
-            this.doRegister();
+            this.sendMallcooCoupon();
           })
           .catch(err => {
             alert(err.response.data.message);
@@ -338,8 +336,6 @@ body {
   margin: 0 auto;
 }
 img {
-  // pointer-events: none;
-  // user-select: none;
   max-width: 100%;
 }
 .bg {
@@ -386,7 +382,7 @@ img {
     background-image: url("https://cdn.xingstation.cn/fe/wuyue-coupon-bg.png");
     background-size: 100% auto;
     background-repeat: no-repeat;
-    background-position: center center;
+    background-position: center top;
     background-attachment: fixed;
     overflow: hidden;
     .loginBgBox {
