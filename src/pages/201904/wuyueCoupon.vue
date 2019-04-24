@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div
-      v-if="type==='receive'"
+      v-show="type==='receive'"
       class="couponBgBox"
     >
       <img
@@ -16,7 +16,7 @@
     </div>
 
     <div
-      v-else-if="type==='login'"
+      v-show="type==='login'"
       class="loginBgBox"
     >
       <img
@@ -69,7 +69,7 @@
     </div>
 
     <div
-      v-else
+      v-show="type==='couponList'"
       class="couponListBox"
     >
       <div class="couponBox">
@@ -148,7 +148,6 @@ export default {
     };
   },
   mounted() {
-    console.log(this.wxShareInfoValue.link)
     //微信授权
     if (isInWechat() === true) {
       if (
@@ -161,7 +160,6 @@ export default {
   },
   methods: {
     async init() {
-      this.sign = Cookies.get('sign')
       try {
         let { id, code, state } = this.$route.query
         let { belong, oid } = await getInfoById(id, code, state)
@@ -255,7 +253,7 @@ export default {
           this.vcodeText = "";
           this.time = 60;
         } else {
-          this.vcodeText = this.time + 's';
+          this.vcodeText = this.time+'s';
           this.time--;
         }
       }, 1000);
