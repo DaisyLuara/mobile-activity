@@ -118,7 +118,9 @@ import {
   validatePhone
 } from "services";
 import moment from "moment";
+import { onlyWechatShare } from "@/mixins/onlyWechatShare";
 export default {
+  mixins: [onlyWechatShare],
   data() {
     return {
       cdnUrl: process.env.CDN_URL,
@@ -132,7 +134,13 @@ export default {
       time: 60,
       vcodeText: "",
       verification_key: "",
-      isBefore: moment(new Date()).isBefore("2019-05-06")
+      isBefore: moment(new Date()).isBefore("2019-05-06"),
+      wxShareInfoValue: {
+        title: "前方高能！一大波吾悦广场红包等你疯抢！",
+        desc: "拼手速，抢吾悦广场惊喜好礼",
+        link: process.env.M_URL + '/marketing/wuyue_share' + window.location.search,
+        imgUrl: CDNURL + "/fe/image/wuyueShare/icon.jpg"
+      }
     };
   },
   mounted() {
@@ -146,6 +154,7 @@ export default {
         let { belong, oid } = await getInfoById(id, code, state)
         this.oid = oid
         this.belong = belong
+        this.wxShareInfoValue.link = window.location.href + '&qiniu_id=' + this.qiniu_id + '&oid=' + this.oid + '&belong=' + this.belong
         this.onGetMallcooCouponInfo()
       } catch (err) {
         if (err.response.data.message) {

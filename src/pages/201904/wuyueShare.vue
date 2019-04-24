@@ -1,7 +1,10 @@
 <template>
   <div class="warp">
     <!-- 游戏 -->
-    <div class="game-group">
+    <div
+      v-show="!hidden"
+      class="game-group"
+    >
       <CouponRain
         ref="game"
         :spritesData="sprites"
@@ -9,38 +12,38 @@
       />
     </div>
     <div
-      v-if="end"
+      v-show="!hidden"
+      v-if="end&&type==='receive'"
+      class="no-getCoupon"
+    >
+      <img
+        :src="base + '4.png'"
+        class="bg"
+      >
+      <a
+        class="couponBtn"
+        @click="onClickReceiveBtn"
+      >
+        <img :src="base + 'click.png'">
+      </a>
+    </div>
+    <div
+      v-show="hidden"
       class="game-end"
     >
-      <div
-        class="couponBgBox"
-      >
-        <img
-          :src="base + '4.png'"
-          class="couponBg"
-        >
-        <img
-          :src="`CDNURL/fe/wuyue-receive-btn.png`"
-          class="couponBtn"
-          @click="onClickReceiveBtn"
-        >
-      </div>
       <!-- 发券 -->
-      <div
-        v-show="false"
-        class="container"
-      >
+      <div class="container">
         <div
-          v-if="type==='login'"
+          v-show="register"
           class="loginBgBox"
         >
           <img
-            :src="`CDNURL/fe/wuyue-login-bg.png`"
+            :src="CDNURL+'/fe/wuyue-login-bg.png'"
             class="loginBg"
           >
           <div class="phoneBox">
             <img
-              :src="`CDNURL/fe/wuyue-login-phone-bg.png`"
+              :src="CDNURL+'/fe/wuyue-login-phone-bg.png'"
               class="phoneBg"
             >
             <input
@@ -51,7 +54,7 @@
           </div>
           <div class="validateBox">
             <img
-              :src="`CDNURL/fe/wuyue-login-validate-bg.png`"
+              :src="CDNURL+'/fe/wuyue-login-validate-bg.png'"
               class="validateBg"
             >
             <input
@@ -64,55 +67,55 @@
               class="validateBtn"
             >
               <img
-                :src="`CDNURL/fe/wuyue-count-down-box.png`"
+                :src="CDNURL+'/fe/wuyue-count-down-box.png'"
                 class="countDownBg"
               >
               <span class="vcodeText">{{ vcodeText }}</span>
             </div>
             <img
               v-else
-              :src="`CDNURL/fe/wuyue-get-validate-box.png`"
+              :src="CDNURL+'/fe/wuyue-get-validate-box.png'"
               class="validateBtn"
               @click="onGetVcode"
             >
           </div>
           <img
-            :src="`CDNURL/fe/wuyue-login-btn.png`"
+            :src="CDNURL+'/fe/wuyue-login-btn.png'"
             class="loginBtn"
-            @click="onLogin"
+            @click="doRegister"
           >
         </div>
         <div
-          v-else
+          v-if="type==='couponList'&&!needregister"
           class="couponListBox"
         >
           <div class="couponBox">
             <img
-              :src="`CDNURL/fe/wuyue-coupon-item_1.png`"
+              :src="CDNURL+'/fe/wuyue-coupon-item_1.png'"
               class="couponItem"
             >
             <img
-              :src="`CDNURL/fe/wuyue-coupon-item_2.png`"
+              :src="CDNURL+'/fe/wuyue-coupon-item_2.png'"
               class="couponItem"
             >
             <img
-              :src="`CDNURL/fe/wuyue-coupon-item_3.png`"
+              :src="CDNURL+'/fe/wuyue-coupon-item_3.png'"
               class="couponItem"
             >
             <img
               v-if="isBefore"
-              :src="`CDNURL/fe/wuyue-coupon-item_4.png`"
+              :src="CDNURL+'/fe/wuyue-coupon-item_4.png'"
               class="couponItem"
             >
             <img
               v-else
-              :src="`CDNURL/fe/wuyue-coupon-item_5.png`"
+              :src="CDNURL+'/fe/wuyue-coupon-item_5.png'"
               class="couponItem"
             >
           </div>
           <a href="https://m.mallcoo.cn/a/coupon/10658">
             <img
-              :src="`CDNURL/fe/wuyue-my-coupon-text.png`"
+              :src="CDNURL+'/fe/wuyue-my-coupon-text.png'"
               class="myCouponText"
             >
           </a>
@@ -144,6 +147,7 @@ export default {
   },
   data() {
     return {
+      CDNURL: CDNURL,
       base: CDNURL + "/fe/image/wuyueShare/",
       sprites: {
         bg: CDNURL + '/fe/game/couponrain/Background.png',
@@ -155,10 +159,13 @@ export default {
         cover: CDNURL + '/fe/game/couponrain/cover.png',
         red: CDNURL + '/fe/game/couponrain/red.png',
       },
-      end: true,
+      end: false,
       sign: "",
       qiniu_id: this.$route.query.id,
+      hidden: false,
       type: 'receive',
+      register: true,
+      needregister: true,
       phone: "",
       vcode: "",
       time: 60,
@@ -174,85 +181,60 @@ export default {
     }
   },
   mounted() {
-    this.sign = Cookies.get('sign')
+    this.init()
   },
   methods: {
     listenGameEnd(end) {
       this.end = end
     },
     async init() {
-      this.sign = Cookies.get('sign')
       try {
         let { id, code, state } = this.$route.query
         let { belong, oid } = await getInfoById(id, code, state)
         this.oid = oid
         this.belong = belong
-        this.onGetMallcooCouponInfo()
+        this.sign = Cookies.get('sign')
+        const getCouponListArgs = {
+          sign: this.sign,
+          qiniu_id: this.qiniu_id,
+          oid: this.oid,
+          belong: this.belong
+        }
+        const getMallcooUserArgs = {
+          sign: this.sign,
+          oid: this.oid
+        }
+        const getCouponListResult = await getMallcooCouponInfo(getCouponListArgs)
+        if (getCouponListResult) {
+          this.type = "couponList";
+          return
+        }
+        const getMallcooUserResult = await checkMallMember(getMallcooUserArgs)
+        getMallcooUserResult ? this.needregister = false && this.sendMallcooCoupon() : this.needregister = true
       } catch (err) {
         if (err.response.data.message) {
           alert(err.response.data.message);
         }
       }
     },
-
-    onGetMallcooCouponInfo() {
-      let params = {
-        sign: this.sign,
-        qiniu_id: this.qiniu_id,
-        oid: this.oid,
-        belong: this.belong
-      }
-      getMallcooCouponInfo(params)
-        .then(res => {
-          if (res) {
-            this.type = "couponList";
-          } else {
-            this.type = "receive";
-          }
-        })
-        .catch(err => {
-          alert(err.response.data.message);
-        });
+    onClickReceiveBtn() {
+      this.hidden = true
+      this.register = this.needregister ? true : false
     },
-
-    onGetMallcooUserInfo() {
-      let params = {
-        sign: this.sign,
-        oid: this.oid
-      };
-      checkMallMember(params)
-        .then(res => {
-          if (res) {
-            this.onReceiveCoupon();
-          } else {
-            this.type = "login";
-          }
-        })
-        .catch(err => {
-          alert(err.response.data.message);
-        });
-    },
-
-    onReceiveCoupon() {
-      let params = {
+    sendMallcooCoupon() {
+      const sendCouponArgs = {
         qiniu_id: this.qiniu_id,
         sign: this.sign,
         belong: this.belong,
         oid: this.oid
-      };
-      receiveMallcooCoupon(params)
-        .then(res => {
-          this.type = "couponList";
-        })
-        .catch(err => {
-          alert(err.response.data.message);
-        });
-    },
+      }
+      receiveMallcooCoupon(sendCouponArgs).then(res => {
+        res ? this.type = "couponList" : null
+      }).catch(err => {
 
-    onClickReceiveBtn() {
-      this.onGetMallcooUserInfo();
+        alert(err.response.data.message);
+      })
     },
-
     onCountDown() {
       let timer = setInterval(() => {
         if (this.time === 0) {
@@ -260,12 +242,11 @@ export default {
           this.vcodeText = "";
           this.time = 60;
         } else {
-          this.vcodeText = `${this.time}s`;
+          this.vcodeText = '${this.time}s';
           this.time--;
         }
       }, 1000);
     },
-
     onGetErrorTips() {
       if (!validatePhone(this.phone)) {
         return "手机格式不正确，请重新输入";
@@ -277,6 +258,7 @@ export default {
     },
 
     onGetVcode() {
+      console.log(this.phone)
       if (!this.phone || !validatePhone(this.phone)) {
         Toast("手机格式不正确，请重新输入");
         return;
@@ -294,7 +276,8 @@ export default {
         });
     },
 
-    onLogin() {
+    doRegister() {
+      console.log('register')
       if (this.onGetErrorTips()) {
         Toast(this.onGetErrorTips());
       } else {
@@ -306,7 +289,7 @@ export default {
         };
         openMallcooMemberByPhone(params)
           .then(res => {
-            this.onReceiveCoupon();
+            this.doRegister();
           })
           .catch(err => {
             alert(err.response.data.message);
@@ -330,9 +313,13 @@ body {
   margin: 0 auto;
 }
 img {
-  pointer-events: none;
-  user-select: none;
+  // pointer-events: none;
+  // user-select: none;
   max-width: 100%;
+}
+.bg {
+  position: relative;
+  z-index: 0;
 }
 .warp {
   width: 100%;
@@ -344,13 +331,23 @@ img {
     position: relative;
     z-index: 0;
   }
-  // .coupons-show {
-  //   position: absolute;
-  //   top: 50%;
-  //   left: 50%;
-  //   transform: translate(-50%, -50%);
-  //   z-index: 99;
-  // }
+  .no-getCoupon {
+    width: 61.3%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 99;
+    .couponBtn {
+      width: 71.3%;
+      display: block;
+      position: absolute;
+      bottom: 9.2%;
+      left: 50%;
+      transform: translate(-50%, 0);
+      z-index: 99;
+    }
+  }
   .game-end {
     position: relative;
     z-index: 99;
@@ -367,27 +364,6 @@ img {
     background-position: center center;
     background-attachment: fixed;
     overflow: hidden;
-
-    .couponBgBox {
-      position: relative;
-      width: 61.3vw;
-      height: 94.7vw;
-
-      .couponBg {
-        width: 100%;
-        height: 100%;
-      }
-
-      .couponBtn {
-        position: absolute;
-        bottom: 9.2%;
-        left: 50%;
-        transform: translate(-50%, 0);
-        width: 71.3%;
-        height: auto;
-      }
-    }
-
     .loginBgBox {
       position: relative;
       width: 66.9vw;
