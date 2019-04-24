@@ -169,7 +169,7 @@ export default {
         this.wxShareInfoValue.link = window.location.href + '&qiniu_id=' + this.qiniu_id + '&oid=' + this.oid + '&belong=' + this.belong
         this.onGetMallcooCouponInfo()
       } catch (err) {
-        if (err.response.data.message) {
+        if (err.response.data) {
           alert(err.response.data.message);
         }
       }

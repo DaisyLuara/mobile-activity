@@ -222,7 +222,7 @@ export default {
         const getMallcooUserResult = await checkMallMember(getMallcooUserArgs)
         getMallcooUserResult ? this.needregister = false && this.sendMallcooCoupon() : this.needregister = true
       } catch (err) {
-        if (err.response.data.message) {
+        if (err.response) {
           alert(err.response.data.message);
         }
       }
