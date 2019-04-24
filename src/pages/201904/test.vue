@@ -67,7 +67,7 @@
   </div>
 </template>
 <script>
-import { $wechat, isInWechat, wechatShareTrack, checkV2Coupon, sendV2Coupon, checkMallMember, sendMessageCode, getCardByPhone } from 'services'
+import { $wechat, isInWechat, wechatShareTrack, checkV2Coupon, sendV2Coupon, checkMallMember, sendMessageCode, openMallcooMemberByPhone } from 'services'
 import { normalPages } from '@/mixins/normalPages'
 import moment from "moment";
 const CDN_URL = process.env.CDN_URL
@@ -185,7 +185,7 @@ export default {
         "oid": this.oid,
         "z": this.z
       }
-      getCardByPhone(args).then(res => {
+      openMallcooMemberByPhone(args).then(res => {
         this.arr.open_user_id = res.mallcoo_open_user_id
         this.eshow.register = false
         this.sendV2Coupon()

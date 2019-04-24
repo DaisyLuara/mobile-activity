@@ -90,23 +90,24 @@
 <script>
 import { Toast } from "mint-ui";
 import {
+	Cookies,
+	getInfoById,
   getMallcooCouponInfo,
   checkMallMember,
-  receiveCoupon,
+  receiveMallcooCoupon,
   sendMessageCode,
-	getCardByPhone,
+	openMallcooMemberByPhone,
 	validatePhone
 } from "services";
-import { normalPages } from "@/mixins/normalPages";
 import moment from "moment";
-const CDN_URL = process.env.CDN_URL;
 export default {
-  mixins: [normalPages],
   data() {
     return {
       cdnUrl: process.env.CDN_URL,
       sign: "",
-      qiniu_id: this.$route.query.id,
+			qiniu_id: this.$route.query.id,
+			oid: null,
+			belong: "",
       type: "",
       phone: "",
       vcode: "",
@@ -116,27 +117,32 @@ export default {
       isBefore: moment(new Date()).isBefore("2019-05-06")
     };
   },
-  watch: {
-    sertime() {
-      if (localStorage.getItem("z")) {
-        this.sign = localStorage.getItem("z");
-        this.onGetMallcooCouponInfo();
-      } else {
-        this.sign = this.userinfo.z;
-        localStorage.setItem("z", this.userinfo.z);
-        this.onGetMallcooCouponInfo();
-      }
-    }
-  },
-  mounted() {},
+  mounted() {
+		this.init()
+	},
   methods: {
+		async init() {
+			this.sign = Cookies.get('sign')
+      try {
+				let { id, code, state } = this.$route.query
+				let { belong, oid } = await getInfoById(id, code, state)
+				this.oid = oid
+				this.belong = belong
+				this.onGetMallcooCouponInfo()
+      } catch (err) {
+        if (err.response.data.message) {
+          alert(err.response.data.message);
+        }
+      }
+		},
+		
     onGetMallcooCouponInfo() {
       let params = {
         sign: this.sign,
         qiniu_id: this.qiniu_id,
         oid: this.oid,
-        belong: "star"
-      };
+        belong: this.belong
+      }
       getMallcooCouponInfo(params)
         .then(res => {
           if (res) {
@@ -172,10 +178,10 @@ export default {
       let params = {
         qiniu_id: this.qiniu_id,
         sign: this.sign,
-        belong: "star",
+        belong: this.belong,
         oid: this.oid
       };
-      receiveCoupon(params)
+      receiveMallcooCoupon(params)
         .then(res => {
           this.type = "couponList";
         })
@@ -202,7 +208,7 @@ export default {
     },
 
     onGetErrorTips() {
-      if (!this.phone || !validatePhone(this.phone)) {
+      if (!validatePhone(this.phone)) {
         return "手机格式不正确，请重新输入";
       }
       if (!this.vcode || !/^\d{4}(\d{2})?$/.test(this.vcode)) {
@@ -239,7 +245,7 @@ export default {
           oid: this.oid,
           sign: this.sign
         };
-        getCardByPhone(params)
+        openMallcooMemberByPhone(params)
           .then(res => {
             this.onReceiveCoupon();
           })
