@@ -121,6 +121,12 @@
         </div>
       </div>
     </div>
+    <div v-show="showLoading" class="loadingBox">
+			<img 
+				:src="CDNURL+'/fe/wuyue-loading-icon.png'" 
+				class="loadingIcon"
+			>
+		</div>
   </div>
 </template>
 <script>
@@ -162,6 +168,7 @@ export default {
         red: CDNURL + '/fe/game/couponrain/red.png',
       },
       end: false,
+      showLoading: true,
       sign: "",
       qiniu_id: this.$route.query.id,
       hidden: false,
@@ -258,8 +265,10 @@ export default {
       }
       receiveMallcooCoupon(sendCouponArgs).then(res => {
         res ? this.type = "couponList" : null
+        this.showLoading = false;
       }).catch(err => {
         alert(err.response.data.message);
+        this.showLoading = false;
       })
     },
     onCountDown() {
@@ -311,12 +320,14 @@ export default {
           oid: this.oid,
           sign: this.sign
         };
+        this.showLoading = true;
         openMallcooMemberByPhone(params)
           .then(res => {
             this.sendMallcooCoupon();
           })
           .catch(err => {
             alert(err.response.data.message);
+            this.showLoading = false;
           });
       }
     }
@@ -349,6 +360,24 @@ img {
   position: relative;
   text-align: center;
   max-width: 750px;
+  .loadingBox {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 999;
+		background: rgba(0,0,0,0.7);
+
+		.loadingIcon {
+			width: 50px;
+			height: 50px;
+			animation: loading 2s linear infinite;
+		}
+	}
   .game-group {
     position: relative;
     z-index: 0;
@@ -522,6 +551,16 @@ img {
       }
     }
   }
+}
+@keyframes loading {
+	0% {
+			transform: rotate(0deg);
+	}
+
+	100% {
+			transform: rotate(360deg);
+	}
+
 }
 </style>
 
