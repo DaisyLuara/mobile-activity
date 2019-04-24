@@ -482,10 +482,38 @@ const sendMessageCode = params => {
   })
 }
 //手机号开卡接口
-const getCardByPhone = params => {
+const openMallcooMemberByPhone = params => {
   return new Promise((resolve, reject) => {
     axios
       .post(MALLCOO_URL + '/users', params)
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+
+// 猫酷查询优惠券包
+const getMallcooCouponInfo = params => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(`${MALLCOO_URL}/couponPacks`, { params })
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+
+// 猫酷-领取优惠券包
+const receiveMallcooCoupon = params => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(MALLCOO_URL + '/couponPacks', params, { headers: { 'api-token': apiToken } })
       .then(response => {
         resolve(response.data)
       })
@@ -523,5 +551,7 @@ export {
   batchV2CouponLimit,
   checkMallMember,
   sendMessageCode,
-  getCardByPhone
+  openMallcooMemberByPhone,
+  getMallcooCouponInfo,
+  receiveMallcooCoupon
 }

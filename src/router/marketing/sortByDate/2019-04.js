@@ -130,6 +130,17 @@ const Date201904 = [
       desc: 'AI测萌值'
     },
     isAbandoned: false
+  },
+  {
+    path: 'wuyueCoupon',
+    location: '201904/wuyueCoupon',
+    name: 'wuyueCoupon',
+    meta: {
+      title: '吾悦广场优惠券',
+      author: 'ykk',
+      desc: '吾悦广场优惠券'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201904

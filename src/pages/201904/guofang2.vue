@@ -45,7 +45,7 @@
           class="used"
         >
       </div>
-      <span class="code">{{code}}</span>
+      <span class="code">{{ code }}</span>
     </div>
   </div>
 </template>

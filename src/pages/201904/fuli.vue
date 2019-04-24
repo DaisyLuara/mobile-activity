@@ -38,7 +38,7 @@
       </div>
       <div class="foot">
         <div class="word">
-          <div class="name">{{wxUser.nickname}}</div>
+          <div class="name">{{ wxUser.nickname }}</div>
           <p class="text">哇哦,收到福礼了！赶紧打开吧~</p>
         </div>
         <div class="people">
@@ -63,7 +63,7 @@
           v-show="divShow.money"
           class="money"
         >
-          {{money}}
+          {{ money }}
         </div>
         <div
           id="anim2"
@@ -85,8 +85,8 @@
             >
           </div>
           <div class="word">
-            <p class="name">{{boss.name}}</p>
-            <p class="text">{{boss.word}}</p>
+            <p class="name">{{ boss.name }}</p>
+            <p class="text">{{ boss.word }}</p>
           </div>
         </div>
         <div class="own">
@@ -94,8 +94,8 @@
             class="word"
             @click="openWrite"
           >
-            <p class="name">{{wxUser.nickname}}</p>
-            <p class="text">{{tips}}</p>
+            <p class="name">{{ wxUser.nickname }}</p>
+            <p class="text">{{ tips }}</p>
           </div>
           <div class="people">
             <img :src="people.own2">
@@ -123,8 +123,8 @@
           v-model="value"
           maxlength="40"
           class="write"
-        ></textarea>
-        <div class="num">{{count + '/40'}}</div>
+        />
+        <div class="num">{{ count + '/40' }}</div>
       </div>
       <a
         class="toput"
