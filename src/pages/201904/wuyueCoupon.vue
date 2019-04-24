@@ -1,88 +1,106 @@
 <template>
-  <div class="container"> 
-    <div 
-      v-if="type==='receive'" 
-      class="couponBgBox">
-      <img 
-        :src="`${cdnUrl}/fe/wuyue-receive-coupon.png`" 
-        class="couponBg" >
-      <img 
-        :src="`${cdnUrl}/fe/wuyue-receive-btn.png`" 
-        class="couponBtn" 
-        @click="onClickReceiveBtn" >
+  <div class="container">
+    <div
+      v-if="type==='receive'"
+      class="couponBgBox"
+    >
+      <img
+        :src="`${cdnUrl}/fe/wuyue-receive-coupon.png`"
+        class="couponBg"
+      >
+      <img
+        :src="`${cdnUrl}/fe/wuyue-receive-btn.png`"
+        class="couponBtn"
+        @click="onClickReceiveBtn"
+      >
     </div>
 
-    <div 
-      v-else-if="type==='login'" 
-      class="loginBgBox">
-      <img 
-        :src="`${cdnUrl}/fe/wuyue-login-bg.png`" 
-        class="loginBg" >
+    <div
+      v-else-if="type==='login'"
+      class="loginBgBox"
+    >
+      <img
+        :src="`${cdnUrl}/fe/wuyue-login-bg.png`"
+        class="loginBg"
+      >
       <div class="phoneBox">
-        <img 
-          :src="`${cdnUrl}/fe/wuyue-login-phone-bg.png`" 
-          class="phoneBg" >
-        <input 
-          v-model="phone" 
-          type="text" 
-          class="phoneInput" >
+        <img
+          :src="`${cdnUrl}/fe/wuyue-login-phone-bg.png`"
+          class="phoneBg"
+        >
+        <input
+          v-model="phone"
+          type="text"
+          class="phoneInput"
+        >
       </div>
       <div class="validateBox">
-        <img 
-          :src="`${cdnUrl}/fe/wuyue-login-validate-bg.png`" 
-          class="validateBg" >
-        <input 
-          v-model="vcode" 
-          type="number" 
-          class="validateInput" >		
-        <div 
-          v-if="vcodeText" 
-          class="validateBtn">
+        <img
+          :src="`${cdnUrl}/fe/wuyue-login-validate-bg.png`"
+          class="validateBg"
+        >
+        <input
+          v-model="vcode"
+          type="number"
+          class="validateInput"
+        >
+        <div
+          v-if="vcodeText"
+          class="validateBtn"
+        >
           <img
-            :src="`${cdnUrl}/fe/wuyue-count-down-box.png`"	 
-            class="countDownBg" 
+            :src="`${cdnUrl}/fe/wuyue-count-down-box.png`"
+            class="countDownBg"
           >
-          <span class="vcodeText">{{ vcodeText }}</span>  
-        </div>			
+          <span class="vcodeText">{{ vcodeText }}</span>
+        </div>
         <img
           v-else
-          :src="`${cdnUrl}/fe/wuyue-get-validate-box.png`"					 
-          class="validateBtn" 
+          :src="`${cdnUrl}/fe/wuyue-get-validate-box.png`"
+          class="validateBtn"
           @click="onGetVcode"
-        >		
+        >
       </div>
-      <img 
-        :src="`${cdnUrl}/fe/wuyue-login-btn.png`" 
-        class="loginBtn" 
-        @click="onLogin" >
+      <img
+        :src="`${cdnUrl}/fe/wuyue-login-btn.png`"
+        class="loginBtn"
+        @click="onLogin"
+      >
     </div>
 
-    <div 
-      v-else 
-      class="couponListBox">
+    <div
+      v-else
+      class="couponListBox"
+    >
       <div class="couponBox">
-        <img 
-          :src="`${cdnUrl}/fe/wuyue-coupon-item_1.png`" 
-          class="couponItem" >
-        <img 
-          :src="`${cdnUrl}/fe/wuyue-coupon-item_2.png`" 
-          class="couponItem" >
-        <img 
-          :src="`${cdnUrl}/fe/wuyue-coupon-item_3.png`" 
-          class="couponItem" >
-        <img 
-          v-if="isBefore" 
-          :src="`${cdnUrl}/fe/wuyue-coupon-item_4.png`" 
-          class="couponItem" >
-        <img 
-          v-else 
-          :src="`${cdnUrl}/fe/wuyue-coupon-item_5.png`" 
-          class="couponItem" >
+        <img
+          :src="`${cdnUrl}/fe/wuyue-coupon-item_1.png`"
+          class="couponItem"
+        >
+        <img
+          :src="`${cdnUrl}/fe/wuyue-coupon-item_2.png`"
+          class="couponItem"
+        >
+        <img
+          :src="`${cdnUrl}/fe/wuyue-coupon-item_3.png`"
+          class="couponItem"
+        >
+        <img
+          v-if="isBefore"
+          :src="`${cdnUrl}/fe/wuyue-coupon-item_4.png`"
+          class="couponItem"
+        >
+        <img
+          v-else
+          :src="`${cdnUrl}/fe/wuyue-coupon-item_5.png`"
+          class="couponItem"
+        >
       </div>
       <a href="https://m.mallcoo.cn/a/coupon/10658">
-        <img 
-          :src="`${cdnUrl}/fe/wuyue-my-coupon-text.png`" 
-          class="myCouponText" >
+        <img
+          :src="`${cdnUrl}/fe/wuyue-my-coupon-text.png`"
+          class="myCouponText"
+        >
       </a>
     </div>
   </div>
@@ -90,52 +108,61 @@
 <script>
 import { Toast } from "mint-ui";
 import {
-	Cookies,
-	getInfoById,
+  Cookies,
+  getInfoById,
   getMallcooCouponInfo,
   checkMallMember,
   receiveMallcooCoupon,
   sendMessageCode,
-	openMallcooMemberByPhone,
-	validatePhone
+  openMallcooMemberByPhone,
+  validatePhone
 } from "services";
 import moment from "moment";
+import { onlyWechatShare } from "@/mixins/onlyWechatShare";
 export default {
+  mixins: [onlyWechatShare],
   data() {
     return {
       cdnUrl: process.env.CDN_URL,
       sign: "",
-			qiniu_id: this.$route.query.id,
-			oid: null,
-			belong: "",
+      qiniu_id: this.$route.query.id,
+      oid: null,
+      belong: "",
       type: "",
       phone: "",
       vcode: "",
       time: 60,
       vcodeText: "",
       verification_key: "",
-      isBefore: moment(new Date()).isBefore("2019-05-06")
+      isBefore: moment(new Date()).isBefore("2019-05-06"),
+      wxShareInfoValue: {
+        title: "前方高能！一大波吾悦广场红包等你疯抢！",
+        desc: "拼手速，抢吾悦广场惊喜好礼",
+        link: process.env.M_URL + '/marketing/wuyue_share' + window.location.search,
+        imgUrl: CDNURL + "/fe/image/wuyueShare/icon.jpg"
+      }
     };
   },
   mounted() {
-		this.init()
-	},
+    this.init()
+  },
   methods: {
-		async init() {
-			this.sign = Cookies.get('sign')
+    async init() {
+      this.sign = Cookies.get('sign')
       try {
-				let { id, code, state } = this.$route.query
-				let { belong, oid } = await getInfoById(id, code, state)
-				this.oid = oid
-				this.belong = belong
-				this.onGetMallcooCouponInfo()
+        let { id, code, state } = this.$route.query
+        let { belong, oid } = await getInfoById(id, code, state)
+        this.oid = oid
+        this.belong = belong
+        this.wxShareInfoValue.link = window.location.href + '&qiniu_id=' + this.qiniu_id + '&oid=' + this.oid + '&belong=' + this.belong
+        this.onGetMallcooCouponInfo()
       } catch (err) {
         if (err.response.data.message) {
           alert(err.response.data.message);
         }
       }
-		},
-		
+    },
+
     onGetMallcooCouponInfo() {
       let params = {
         sign: this.sign,

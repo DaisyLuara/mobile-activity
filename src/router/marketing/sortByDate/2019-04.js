@@ -55,17 +55,6 @@ const Date201904 = [
     isAbandoned: false
   },
   {
-    path: 'guofang',
-    location: '201904/guofang',
-    name: 'guofang',
-    meta: {
-      title: '前方高能！国芳百货【全城发红包啦】！',
-      author: 'lipan',
-      desc: '国芳百货'
-    },
-    isAbandoned: false
-  },
-  {
     path: 'pika',
     location: '201904/pika',
     name: 'pika',
@@ -139,6 +128,18 @@ const Date201904 = [
       title: '吾悦广场优惠券',
       author: 'ykk',
       desc: '吾悦广场优惠券'
+    },
+    isAbandoned: false
+  },
+  //猫酷发券，吾悦广场红包雨-通用版
+  {
+    path: 'wuyue_share', //分享页
+    location: '201904/wuyueShare',
+    name: 'wuyue_share',
+    meta: {
+      title: '吾悦天降红包',
+      author: 'lipan',
+      desc: '吾悦天降红包-分享页-玩游戏'
     },
     isAbandoned: false
   }

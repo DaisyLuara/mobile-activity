@@ -513,7 +513,9 @@ const getMallcooCouponInfo = params => {
 const receiveMallcooCoupon = params => {
   return new Promise((resolve, reject) => {
     axios
-      .post(MALLCOO_URL + '/couponPacks', params, { headers: { 'api-token': apiToken } })
+      .post(MALLCOO_URL + '/couponPacks', params, {
+        headers: { 'api-token': apiToken }
+      })
       .then(response => {
         resolve(response.data)
       })
