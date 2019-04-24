@@ -215,6 +215,7 @@ export default {
         }
         const getCouponListResult = await getMallcooCouponInfo(getCouponListArgs)
         if (getCouponListResult) {
+          this.needregister = false
           this.type = "couponList";
           return
         }
