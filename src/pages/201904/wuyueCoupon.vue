@@ -148,6 +148,7 @@ export default {
     };
   },
   mounted() {
+    this.init()
     //微信授权
     if (isInWechat() === true) {
       if (
@@ -165,7 +166,7 @@ export default {
         let { belong, oid } = await getInfoById(id, code, state)
         this.oid = oid
         this.belong = belong
-        this.wxShareInfoValue.link = window.location.href + '&qiniu_id=' + this.qiniu_id + '&oid=' + this.oid + '&belong=' + this.belong
+        this.wxShareInfoValue.link += '&qiniu_id=' + this.qiniu_id + '&oid=' + this.oid + '&belong=' + this.belong
         this.onGetMallcooCouponInfo()
       } catch (err) {
         if (err.response.data) {
@@ -253,7 +254,7 @@ export default {
           this.vcodeText = "";
           this.time = 60;
         } else {
-          this.vcodeText = this.time+'s';
+          this.vcodeText = this.time + 's';
           this.time--;
         }
       }, 1000);
