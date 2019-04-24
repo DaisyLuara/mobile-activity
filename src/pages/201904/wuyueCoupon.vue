@@ -108,6 +108,7 @@
 <script>
 import { Toast } from "mint-ui";
 import {
+<<<<<<< HEAD
   getMallcooCouponInfo,
   checkMallMember,
   receiveCoupon,
@@ -120,11 +121,30 @@ import moment from "moment";
 const CDN_URL = process.env.CDN_URL;
 export default {
   mixins: [normalPages],
+=======
+	Cookies,
+	getInfoById,
+  getMallcooCouponInfo,
+  checkMallMember,
+  receiveMallcooCoupon,
+  sendMessageCode,
+	openMallcooMemberByPhone,
+	validatePhone
+} from "services";
+import moment from "moment";
+export default {
+>>>>>>> master
   data() {
     return {
       cdnUrl: process.env.CDN_URL,
       sign: "",
+<<<<<<< HEAD
       qiniu_id: this.$route.query.id,
+=======
+			qiniu_id: this.$route.query.id,
+			oid: null,
+			belong: "",
+>>>>>>> master
       type: "",
       phone: "",
       vcode: "",
@@ -134,6 +154,7 @@ export default {
       isBefore: moment(new Date()).isBefore("2019-05-06")
     };
   },
+<<<<<<< HEAD
   // watch: {
   //   sertime() {
   //     if (localStorage.getItem("z")) {
@@ -148,13 +169,39 @@ export default {
   // },
   mounted() { },
   methods: {
+=======
+  mounted() {
+		this.init()
+	},
+  methods: {
+		async init() {
+			this.sign = Cookies.get('sign')
+      try {
+				let { id, code, state } = this.$route.query
+				let { belong, oid } = await getInfoById(id, code, state)
+				this.oid = oid
+				this.belong = belong
+				this.onGetMallcooCouponInfo()
+      } catch (err) {
+        if (err.response.data.message) {
+          alert(err.response.data.message);
+        }
+      }
+		},
+
+>>>>>>> master
     onGetMallcooCouponInfo() {
       let params = {
         sign: this.sign,
         qiniu_id: this.qiniu_id,
         oid: this.oid,
+<<<<<<< HEAD
         belong: "star"
       };
+=======
+        belong: this.belong
+      }
+>>>>>>> master
       getMallcooCouponInfo(params)
         .then(res => {
           if (res) {
@@ -190,10 +237,17 @@ export default {
       let params = {
         qiniu_id: this.qiniu_id,
         sign: this.sign,
+<<<<<<< HEAD
         belong: "star",
         oid: this.oid
       };
       receiveCoupon(params)
+=======
+        belong: this.belong,
+        oid: this.oid
+      };
+      receiveMallcooCoupon(params)
+>>>>>>> master
         .then(res => {
           this.type = "couponList";
         })
@@ -220,7 +274,11 @@ export default {
     },
 
     onGetErrorTips() {
+<<<<<<< HEAD
       if (!this.phone || !validatePhone(this.phone)) {
+=======
+      if (!validatePhone(this.phone)) {
+>>>>>>> master
         return "手机格式不正确，请重新输入";
       }
       if (!this.vcode || !/^\d{4}(\d{2})?$/.test(this.vcode)) {
@@ -257,7 +315,11 @@ export default {
           oid: this.oid,
           sign: this.sign
         };
+<<<<<<< HEAD
         getCardByPhone(params)
+=======
+        openMallcooMemberByPhone(params)
+>>>>>>> master
           .then(res => {
             this.onReceiveCoupon();
           })
