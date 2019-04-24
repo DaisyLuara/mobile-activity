@@ -5,11 +5,11 @@
       class="couponBgBox"
     >
       <img
-        :src="`${cdnUrl}/fe/wuyue-receive-coupon.png`"
+        :src="CDNURL+'/fe/wuyue-receive-coupon.png'"
         class="couponBg"
       >
       <img
-        :src="`${cdnUrl}/fe/wuyue-receive-btn.png`"
+        :src="CDNURL+'/fe/wuyue-receive-btn.png'"
         class="couponBtn"
         @click="onClickReceiveBtn"
       >
@@ -20,12 +20,12 @@
       class="loginBgBox"
     >
       <img
-        :src="`${cdnUrl}/fe/wuyue-login-bg.png`"
+        :src="CDNURL+'/fe/wuyue-login-bg.png'"
         class="loginBg"
       >
       <div class="phoneBox">
         <img
-          :src="`${cdnUrl}/fe/wuyue-login-phone-bg.png`"
+          :src="CDNURL+'/fe/wuyue-login-phone-bg.png'"
           class="phoneBg"
         >
         <input
@@ -36,7 +36,7 @@
       </div>
       <div class="validateBox">
         <img
-          :src="`${cdnUrl}/fe/wuyue-login-validate-bg.png`"
+          :src="CDNURL+'/fe/wuyue-login-validate-bg.png'"
           class="validateBg"
         >
         <input
@@ -49,20 +49,20 @@
           class="validateBtn"
         >
           <img
-            :src="`${cdnUrl}/fe/wuyue-count-down-box.png`"
+            :src="CDNURL+'/fe/wuyue-count-down-box.png'"
             class="countDownBg"
           >
           <span class="vcodeText">{{ vcodeText }}</span>
         </div>
         <img
           v-else
-          :src="`${cdnUrl}/fe/wuyue-get-validate-box.png`"
+          :src="CDNURL+'/fe/wuyue-get-validate-box.png'"
           class="validateBtn"
           @click="onGetVcode"
         >
       </div>
       <img
-        :src="`${cdnUrl}/fe/wuyue-login-btn.png`"
+        :src="CDNURL+'/fe/wuyue-login-btn.png'"
         class="loginBtn"
         @click="onLogin"
       >
@@ -74,31 +74,31 @@
     >
       <div class="couponBox">
         <img
-          :src="`${cdnUrl}/fe/wuyue-coupon-item_1.png`"
+          :src="CDNURL+'/fe/wuyue-coupon-item_1.png'"
           class="couponItem"
         >
         <img
-          :src="`${cdnUrl}/fe/wuyue-coupon-item_2.png`"
+          :src="CDNURL+'/fe/wuyue-coupon-item_2.png'"
           class="couponItem"
         >
         <img
-          :src="`${cdnUrl}/fe/wuyue-coupon-item_3.png`"
+          :src="CDNURL+'/fe/wuyue-coupon-item_3.png'"
           class="couponItem"
         >
         <img
           v-if="isBefore"
-          :src="`${cdnUrl}/fe/wuyue-coupon-item_4.png`"
+          :src="CDNURL+'/fe/wuyue-coupon-item_4.png'"
           class="couponItem"
         >
         <img
           v-else
-          :src="`${cdnUrl}/fe/wuyue-coupon-item_5.png`"
+          :src="CDNURL+'/fe/wuyue-coupon-item_5.png'"
           class="couponItem"
         >
       </div>
       <a href="https://m.mallcoo.cn/a/coupon/10658">
         <img
-          :src="`${cdnUrl}/fe/wuyue-my-coupon-text.png`"
+          :src="CDNURL+'/fe/wuyue-my-coupon-text.png'"
           class="myCouponText"
         >
       </a>
@@ -122,11 +122,12 @@ import {
 } from "services";
 import moment from "moment";
 import { onlyWechatShare } from "@/mixins/onlyWechatShare";
+const CDNURL = process.env.CDN_URL;
 export default {
   mixins: [onlyWechatShare],
   data() {
     return {
-      cdnUrl: process.env.CDN_URL,
+      CDNURL: CDNURL,
       sign: "",
       qiniu_id: this.$route.query.id,
       oid: null,
@@ -147,6 +148,7 @@ export default {
     };
   },
   mounted() {
+    console.log(this.wxShareInfoValue.link)
     //微信授权
     if (isInWechat() === true) {
       if (
@@ -253,7 +255,7 @@ export default {
           this.vcodeText = "";
           this.time = 60;
         } else {
-          this.vcodeText = `${this.time}s`;
+          this.vcodeText = this.time + 's';
           this.time--;
         }
       }, 1000);
@@ -339,7 +341,7 @@ a {
   background-image: url("https://cdn.xingstation.cn/fe/wuyue-coupon-bg.png");
   background-size: 100% auto;
   background-repeat: no-repeat;
-  background-position: center center;
+  background-position: center top;
   background-attachment: fixed;
   overflow: hidden;
 
