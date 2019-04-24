@@ -1,19 +1,18 @@
 <template>
   <div class="warp">
     <!-- 游戏 -->
-    <!-- <div class="game-group">
+    <div class="game-group">
       <CouponRain
         ref="game"
         :spritesData="sprites"
         @listenGameEnd="listenGameEnd"
       />
-    </div> -->
+    </div>
     <div
       v-if="end"
       class="game-end"
     >
       <div
-        v-if="type==='receive'"
         class="couponBgBox"
       >
         <img
@@ -28,7 +27,7 @@
       </div>
       <!-- 发券 -->
       <div
-        v-else
+        v-show="false"
         class="container"
       >
         <div
@@ -125,13 +124,14 @@
 <script>
 import { Toast } from "mint-ui";
 import {
+  Cookies,
+  getInfoById,
   getMallcooCouponInfo,
   checkMallMember,
-  receiveCoupon,
+  receiveMallcooCoupon,
   sendMessageCode,
-  getCardByPhone,
-  validatePhone,
-  Cookies
+  openMallcooMemberByPhone,
+  validatePhone
 } from "services";
 import moment from "moment";
 import { onlyWechatShare } from "@/mixins/onlyWechatShare";
@@ -180,13 +180,28 @@ export default {
     listenGameEnd(end) {
       this.end = end
     },
+    async init() {
+      this.sign = Cookies.get('sign')
+      try {
+        let { id, code, state } = this.$route.query
+        let { belong, oid } = await getInfoById(id, code, state)
+        this.oid = oid
+        this.belong = belong
+        this.onGetMallcooCouponInfo()
+      } catch (err) {
+        if (err.response.data.message) {
+          alert(err.response.data.message);
+        }
+      }
+    },
+
     onGetMallcooCouponInfo() {
       let params = {
         sign: this.sign,
         qiniu_id: this.qiniu_id,
         oid: this.oid,
-        belong: "star"
-      };
+        belong: this.belong
+      }
       getMallcooCouponInfo(params)
         .then(res => {
           if (res) {
@@ -222,10 +237,10 @@ export default {
       let params = {
         qiniu_id: this.qiniu_id,
         sign: this.sign,
-        belong: "star",
+        belong: this.belong,
         oid: this.oid
       };
-      receiveCoupon(params)
+      receiveMallcooCoupon(params)
         .then(res => {
           this.type = "couponList";
         })
@@ -252,7 +267,7 @@ export default {
     },
 
     onGetErrorTips() {
-      if (!this.phone || !validatePhone(this.phone)) {
+      if (!validatePhone(this.phone)) {
         return "手机格式不正确，请重新输入";
       }
       if (!this.vcode || !/^\d{4}(\d{2})?$/.test(this.vcode)) {
@@ -289,7 +304,7 @@ export default {
           oid: this.oid,
           sign: this.sign
         };
-        getCardByPhone(params)
+        openMallcooMemberByPhone(params)
           .then(res => {
             this.onReceiveCoupon();
           })
@@ -340,26 +355,6 @@ img {
     position: relative;
     z-index: 99;
   }
-  .couponBgBox {
-    position: relative;
-    width: 61.3vw;
-    height: 94.7vw;
-
-    .couponBg {
-      width: 100%;
-      height: 100%;
-    }
-
-    .couponBtn {
-      position: absolute;
-      bottom: 9.2%;
-      left: 50%;
-      transform: translate(-50%, 0);
-      width: 71.3%;
-      height: auto;
-    }
-  }
-
   .container {
     display: flex;
     justify-content: center;
@@ -372,6 +367,26 @@ img {
     background-position: center center;
     background-attachment: fixed;
     overflow: hidden;
+
+    .couponBgBox {
+      position: relative;
+      width: 61.3vw;
+      height: 94.7vw;
+
+      .couponBg {
+        width: 100%;
+        height: 100%;
+      }
+
+      .couponBtn {
+        position: absolute;
+        bottom: 9.2%;
+        left: 50%;
+        transform: translate(-50%, 0);
+        width: 71.3%;
+        height: auto;
+      }
+    }
 
     .loginBgBox {
       position: relative;
