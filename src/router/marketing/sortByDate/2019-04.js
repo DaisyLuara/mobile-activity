@@ -120,6 +120,17 @@ const Date201904 = [
     },
     isAbandoned: false
   },
+  {
+    path: 'wuyueCoupon',
+    location: '201904/wuyueCoupon',
+    name: 'wuyueCoupon',
+    meta: {
+      title: '吾悦广场优惠券',
+      author: 'ykk',
+      desc: '吾悦广场优惠券'
+    },
+    isAbandoned: false
+  },
   //猫酷发券，吾悦广场红包雨-通用版
   {
     path: 'wuyue_share', //分享页

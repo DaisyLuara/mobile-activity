@@ -494,6 +494,39 @@ const getCardByPhone = params => {
       })
   })
 }
+// 猫酷查询优惠券包
+const getMallcooCouponInfo = params => {
+  const query = `?sign=${params.sign}&oid=${params.oid}&qiniu_id=${
+    params.qiniu_id
+  }&belong=${params.belong}`
+  return new Promise((resolve, reject) => {
+    axios
+      .get(`${MALLCOO_URL}/couponPacks${query}`)
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+
+// 猫酷-领取优惠券包
+const receiveCoupon = params => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(MALLCOO_URL + '/couponPacks', params, {
+        headers: { 'api-token': apiToken }
+      })
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+
 export {
   createCoupon,
   getCoupon,
@@ -523,5 +556,7 @@ export {
   batchV2CouponLimit,
   checkMallMember,
   sendMessageCode,
-  getCardByPhone
+  getCardByPhone,
+  getMallcooCouponInfo,
+  receiveCoupon
 }
