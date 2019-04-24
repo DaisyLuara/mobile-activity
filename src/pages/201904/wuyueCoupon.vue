@@ -107,8 +107,12 @@
 </template>
 <script>
 import { Toast } from "mint-ui";
+import { } from 'services'
 import {
   Cookies,
+  $wechat,
+  isInWechat,
+  wechatShareTrack,
   getInfoById,
   getMallcooCouponInfo,
   checkMallMember,
@@ -144,7 +148,15 @@ export default {
     };
   },
   mounted() {
-    this.init()
+    //微信授权
+    if (isInWechat() === true) {
+      if (
+        process.env.NODE_ENV === 'production' ||
+        process.env.NODE_ENV === 'testing'
+      ) {
+        this.handleWechatAuth()
+      }
+    }
   },
   methods: {
     async init() {
@@ -162,7 +174,21 @@ export default {
         }
       }
     },
-
+    //微信静默授权
+    handleWechatAuth() {
+      if (Cookies.get('sign') === null) {
+        let base_url = encodeURIComponent(String(window.location.href))
+        let redirct_url =
+          process.env.WX_API +
+          '/wx/officialAccount/oauth?url=' +
+          base_url +
+          '&scope=snsapi_base'
+        window.location.href = redirct_url
+      } else {
+        this.sign = Cookies.get('sign')
+        this.init()
+      }
+    },
     onGetMallcooCouponInfo() {
       let params = {
         sign: this.sign,
@@ -312,7 +338,7 @@ a {
   width: 100%;
   height: 100vh;
   background-image: url("https://cdn.xingstation.cn/fe/wuyue-coupon-bg.png");
-  background-size: 100% 100%;
+  background-size: 100% auto;
   background-repeat: no-repeat;
   background-position: center center;
   background-attachment: fixed;
