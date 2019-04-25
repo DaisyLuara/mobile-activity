@@ -168,7 +168,7 @@ export default {
         red: CDNURL + '/fe/game/couponrain/red.png',
       },
       end: false,
-      showLoading: true,
+      showLoading: false,
       sign: "",
       qiniu_id: this.$route.query.id,
       hidden: false,
