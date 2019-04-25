@@ -86,21 +86,21 @@ import {
   userGame,
   $wechat,
   wechatShareTrack
-} from 'services'
-import { normalPages } from '@/mixins/normalPages'
-const cdnUrl = process.env.CDN_URL
+} from "services";
+import { normalPages } from "@/mixins/normalPages";
+const cdnUrl = process.env.CDN_URL;
 export default {
   mixins: [normalPages],
   data() {
     return {
       style: {
         root: {
-          height: this.$innerHeight() + 'px'
+          height: this.$innerHeight() + "px"
         }
       },
-      base: cdnUrl + '/fe/image/super_hero/',
-      locked: ['', false, false, false, false],
-      sex_group: ['', ['1', '2'], ['3', '4']],
+      base: cdnUrl + "/fe/image/super_hero/",
+      locked: ["", false, false, false, false],
+      sex_group: ["", ["1", "2"], ["3", "4"]],
       gender: this.$route.query.gender, //性别
       role: this.$route.query.role, //角色
       score: this.$route.query.score, //分数
@@ -114,81 +114,76 @@ export default {
         id: this.$route.query.id,
         belong: this.$route.query.utm_campaign
       },
-      rank_url: process.env.SAAS_API + '/game/rank',
-      user_rank: process.env.SAAS_API + '/user/',
+      rank_url: process.env.SAAS_API + "/game/rank",
+      user_rank: process.env.SAAS_API + "/user/",
       sign: null,
       data: null,
       num: null,
       //微信分享
       wxShareInfoValue: {
-        title: '超级英雄',
-        desc: '超级英雄',
-<<<<<<< HEAD:src/pages/pandp/hero.vue
-        link: process.env.AD_API+'/api/s/X6m' + window.location.search,
-        imgUrl: 'http://cdn.exe666.com/fe/image/super_hero/icon.jpg',
-=======
-        link: 'http://papi.xingstation.com/api/s/X6m' + window.location.search,
-        imgUrl: 'http://cdn.xingstation.cn/fe/image/super_hero/icon.jpg',
->>>>>>> feature-master-to-dev:old/src/pages/pandp/hero.vue
+        title: "超级英雄",
+        desc: "超级英雄",
+        link: process.env.AD_API + "/api/s/X6m" + window.location.search,
+        imgUrl: "http://cdn.exe666.com/fe/image/super_hero/icon.jpg",
         success: () => {
-          wechatShareTrack()
+          wechatShareTrack();
         }
       }
-    }
+    };
   },
   mounted() {
     //微信授权
     if (isInWechat() === true) {
       if (
-        process.env.NODE_ENV === 'production' ||
-        process.env.NODE_ENV === 'testing'
+        process.env.NODE_ENV === "production" ||
+        process.env.NODE_ENV === "testing"
       ) {
-        this.handleWechatAuth()
+        this.handleWechatAuth();
       }
     }
-    this.checkLocked()
-    this.playAnim()
+    this.checkLocked();
+    this.playAnim();
   },
   methods: {
     handleWechatAuth() {
-      if (Cookies.get('sign') === null) {
-        let base_url = encodeURIComponent(String(window.location.href))
+      if (Cookies.get("sign") === null) {
+        let base_url = encodeURIComponent(String(window.location.href));
         let redirct_url =
           process.env.WX_API +
-          '/wx/officialAccount/oauth?url=' +
+          "/wx/officialAccount/oauth?url=" +
           base_url +
-          '&scope=snsapi_userinfo'
-        window.location.href = redirct_url
+          "&scope=snsapi_userinfo";
+        window.location.href = redirct_url;
       } else {
-        this.sign = Cookies.get('sign')
-        this.params.userId = Cookies.get('user_id')
-        this.isGetPhoto()
+        this.sign = Cookies.get("sign");
+        this.params.userId = Cookies.get("user_id");
+        this.isGetPhoto();
       }
     },
     checkLocked() {
-      let that = this
-      if (localStorage.getItem('shero_role1')) {
-        this.locked[1] = true
+      let that = this;
+      if (localStorage.getItem("shero_role1")) {
+        this.locked[1] = true;
       }
-      if (localStorage.getItem('shero_role2')) {
-        this.locked[2] = true
+      if (localStorage.getItem("shero_role2")) {
+        this.locked[2] = true;
       }
-      if (localStorage.getItem('shero_role3')) {
-        this.locked[3] = true
+      if (localStorage.getItem("shero_role3")) {
+        this.locked[3] = true;
       }
-      if (localStorage.getItem('shero_role4')) {
-        this.locked[4] = true
+      if (localStorage.getItem("shero_role4")) {
+        this.locked[4] = true;
       }
-      this.locked[this.role] = true
-      localStorage.setItem('shero_role' + that.role, that.role)
+      this.locked[this.role] = true;
+      localStorage.setItem("shero_role" + that.role, that.role);
     },
     isGetPhoto() {
       if (this.photo) {
-        cancelAnimationFrame(timer)
-        this.userGame()
-        this.icon[3] = this.photo
+        cancelAnimationFrame(timer);
+        this.userGame();
+        this.icon[3] = this.photo;
       }
-      let timer = requestAnimationFrame(this.isGetPhoto)
+      let timer = requestAnimationFrame(this.isGetPhoto);
     },
     userGame() {
       let args = {
@@ -197,245 +192,253 @@ export default {
         image_url: this.photo,
         score: this.score,
         qiniu_id: this.params.id
-      }
+      };
       userGame(args, this.params.userId)
         .then(res => {
-          this.getGradeList()
+          this.getGradeList();
         })
         .catch(e => {
-          console.log(e)
-        })
+          console.log(e);
+        });
     },
     getGradeList() {
-      let query = '?belong=' + this.params.belong
+      let query = "?belong=" + this.params.belong;
       this.$http
         .get(this.rank_url + query)
         .then(res => {
-          console.log(res)
-          this.data = res.data.data.slice(0, 3)
-          this.rank_score[0] = this.data[0].score
-          this.rank_score[1] = this.data[1].score
-          this.rank_score[2] = this.data[2].score
-          this.con[0] = this.data[0].imgUrl
-          this.con[1] = this.data[1].imgUrl
-          this.con[2] = this.data[2].imgUrl
-          console.log(this.data)
-          this.getRank(this.params.userId)
+          console.log(res);
+          this.data = res.data.data.slice(0, 3);
+          this.rank_score[0] = this.data[0].score;
+          this.rank_score[1] = this.data[1].score;
+          this.rank_score[2] = this.data[2].score;
+          this.con[0] = this.data[0].imgUrl;
+          this.con[1] = this.data[1].imgUrl;
+          this.con[2] = this.data[2].imgUrl;
+          console.log(this.data);
+          this.getRank(this.params.userId);
         })
         .catch(err => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     },
     getRank(userId) {
-      let query = '?belong=' + this.params.belong + '&score=' + this.score
+      let query = "?belong=" + this.params.belong + "&score=" + this.score;
       this.$http
-        .get(this.user_rank + userId + '/rank' + query)
+        .get(this.user_rank + userId + "/rank" + query)
         .then(res => {
-          console.log('res.data.data')
-          console.log(res.data)
-          console.log(res.data.data)
+          console.log("res.data.data");
+          console.log(res.data);
+          console.log(res.data.data);
         })
         .catch(err => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     },
     playAnim() {
-      import('pixi.js').then(PIXI => {
-        let type = 'WebGL'
+      import("pixi.js").then(PIXI => {
+        let type = "WebGL";
         if (!PIXI.utils.isWebGLSupported()) {
-          type = 'canvas'
+          type = "canvas";
         }
-        PIXI.utils.sayHello(type)
-        let that = this
-        let play_div = document.getElementById('play')
-        let width = play_div.clientWidth
-        let height = play_div.clientHeight
+        PIXI.utils.sayHello(type);
+        let that = this;
+        let play_div = document.getElementById("play");
+        let width = play_div.clientWidth;
+        let height = play_div.clientHeight;
         let app = new PIXI.Application(width, height, {
           antialias: true,
           transparent: true
-        })
-        play_div.appendChild(app.view)
-        app.renderer.autoResize = true
-        app.renderer.resize(width, height)
-        let bg = imageSprite(that.base + 'test1/bg.png', 0, 0, width, height)
+        });
+        play_div.appendChild(app.view);
+        app.renderer.autoResize = true;
+        app.renderer.resize(width, height);
+        let bg = imageSprite(that.base + "test1/bg.png", 0, 0, width, height);
 
         if (this.role == 1) {
-          playRole1()
-          return
+          playRole1();
+          return;
         }
         if (this.role == 2) {
-          playRole2()
-          return
+          playRole2();
+          return;
         }
         if (this.role == 3) {
-          playRole3()
-          return
+          playRole3();
+          return;
         }
         if (this.role == 4) {
-          playRole4()
-          return
+          playRole4();
+          return;
         }
 
         // 动画
         function doAnimate(number, name, x, y, width, height, speed, start) {
-          let frames = []
+          let frames = [];
           for (let i = 0; i < number; i++) {
-            let val = i < 10 ? '0' + i : i
+            let val = i < 10 ? "0" + i : i;
             start === 1 && i === 0
               ? null
-              : frames.push(PIXI.Texture.fromFrame(name + val + '.png'))
+              : frames.push(PIXI.Texture.fromFrame(name + val + ".png"));
           }
-          let anim = new PIXI.extras.AnimatedSprite(frames)
-          anim.x = x
-          anim.y = y
-          anim.width = width
-          anim.height = height
-          anim.animationSpeed = speed
-          anim.play()
-          app.stage.addChild(anim)
-          return anim
+          let anim = new PIXI.extras.AnimatedSprite(frames);
+          anim.x = x;
+          anim.y = y;
+          anim.width = width;
+          anim.height = height;
+          anim.animationSpeed = speed;
+          anim.play();
+          app.stage.addChild(anim);
+          return anim;
         }
         //设置样式
         function setAttribute(sprite, width, height, x, y) {
-          sprite.width = width
-          sprite.height = height
-          ;(sprite.x = x), (sprite.y = y)
+          sprite.width = width;
+          sprite.height = height;
+          (sprite.x = x), (sprite.y = y);
         }
         //循环获取帧
         function getFrames(number, name, type) {
-          let frames = []
+          let frames = [];
           for (let i = 0; i < number; i++) {
-            let val = i < 10 ? '0' + i : i
-            frames.push(PIXI.Texture.fromFrame(name + val + type))
+            let val = i < 10 ? "0" + i : i;
+            frames.push(PIXI.Texture.fromFrame(name + val + type));
           }
-          return frames
+          return frames;
         }
         //图片精灵
         function imageSprite(url, x, y, width, height) {
-          let sprite = PIXI.Sprite.fromImage(url)
-          sprite.x = x
-          sprite.y = y
-          sprite.width = width
-          sprite.height = height
-          app.stage.addChild(sprite)
-          return sprite
+          let sprite = PIXI.Sprite.fromImage(url);
+          sprite.x = x;
+          sprite.y = y;
+          sprite.width = width;
+          sprite.height = height;
+          app.stage.addChild(sprite);
+          return sprite;
         }
         //角色1，女机甲
         function playRole1() {
           PIXI.loader
-            .add(that.base + 'test1/1/lightning1.json')
-            .add(that.base + 'test1/1/lightning2.json')
-            .add(that.base + 'test1/1/pifeng.json')
+            .add(that.base + "test1/1/lightning1.json")
+            .add(that.base + "test1/1/lightning2.json")
+            .add(that.base + "test1/1/pifeng.json")
             .load(function(loader, res) {
               //披风
               let pifeng = doAnimate(
                 21,
-                'pifeng_00052_000',
+                "pifeng_00052_000",
                 width * 0.1,
                 height * 0.2,
                 width * 0.8,
                 (450 / 336) * width * 0.8,
                 0.2
-              )
+              );
               let lightning2 = doAnimate(
                 36,
-                'thunder2_2_000',
+                "thunder2_2_000",
                 0,
                 0,
                 width,
                 height,
                 0.5
-              )
+              );
               //人
               let people = imageSprite(
-                that.base + 'test1/1/people.png',
+                that.base + "test1/1/people.png",
                 0,
                 0,
                 width,
                 height
-              )
+              );
               //头部
               let kui = imageSprite(
-                that.base + 'test1/1/toukui.png',
+                that.base + "test1/1/toukui.png",
                 width * 0.3,
                 0,
                 width * 0.4,
                 (163 / 354) * width * 0.4
-              )
+              );
               let head = imageSprite(
-                that.base + 'test1/1/head.png',
+                that.base + "test1/1/head.png",
                 width * 0.41,
                 height * 0.075,
                 width * 0.2,
                 (136 / 235) * width * 0.2
-              )
+              );
               let pa = imageSprite(
-                that.base + 'test1/1/pa.png',
+                that.base + "test1/1/pa.png",
                 width * 0.42,
                 height * 0.13,
                 width * 0.18,
                 (138 / 190) * width * 0.18
-              )
-              let lightning1 = doAnimate(36, '34_000', 0, 0, width, height, 0.5)
+              );
+              let lightning1 = doAnimate(
+                36,
+                "34_000",
+                0,
+                0,
+                width,
+                height,
+                0.5
+              );
               app.ticker.add(function() {
-                head.y > height * 0.05 ? (head.y -= 0.08) : height * 0.05
-                pa.y < height * 0.2 ? (pa.y += 0.2) : height * 0.2
-              })
-            })
+                head.y > height * 0.05 ? (head.y -= 0.08) : height * 0.05;
+                pa.y < height * 0.2 ? (pa.y += 0.2) : height * 0.2;
+              });
+            });
         }
         //角色2  雅典娜
         function playRole2() {
           PIXI.loader
-            .add(that.base + 'test1/2/Athena.json')
-            .add(that.base + 'test1/2/fires.json')
+            .add(that.base + "test1/2/Athena.json")
+            .add(that.base + "test1/2/fires.json")
             .load(function(loader, res) {
               //人
               let people = imageSprite(
-                that.base + 'test1/2/people.png',
+                that.base + "test1/2/people.png",
                 0,
                 0,
                 width,
                 height
-              )
+              );
               let fires = doAnimate(
                 24,
-                'FIRE_0',
+                "FIRE_0",
                 -width * 0.35,
                 -height * 0.35,
                 width,
                 height,
                 0.5
-              )
+              );
               let Athena = doAnimate(
                 24,
-                'Athena_016_000',
+                "Athena_016_000",
                 width * 0.35,
                 -height * 0.02,
                 width * 0.3,
                 (215 / 121) * width * 0.3,
                 0.4,
                 1
-              )
-              Athena.loop = false
-            })
+              );
+              Athena.loop = false;
+            });
         }
         //角色3  钢铁侠
         function playRole3() {
           PIXI.loader
-            .add(that.base + 'test1/3/body1.json')
-            .add(that.base + 'test1/3/head.json')
+            .add(that.base + "test1/3/body1.json")
+            .add(that.base + "test1/3/head.json")
             .load(function(loader, res) {
               //人
               let people = doAnimate(
                 46,
-                'black 2_000',
+                "black 2_000",
                 0,
                 0,
                 width,
                 height,
                 0.1,
                 1
-              )
+              );
               // let head1 = doAnimate(
               //   13,
               //   'maozi_00168_000',
@@ -447,40 +450,40 @@ export default {
               // )
               let head2 = doAnimate(
                 20,
-                'man_053_00002_000',
+                "man_053_00002_000",
                 width * 0.41,
                 height * 0.02,
                 width * 0.2,
                 (113 / 100) * width * 0.2,
                 0.2
-              )
-              head2.loop = false
-              people.loop = false
+              );
+              head2.loop = false;
+              people.loop = false;
               // head1.loop = false
-            })
+            });
         }
         //角色4  超人
         function playRole4() {
           PIXI.loader
-            .add(that.base + 'test1/4/piao.json')
+            .add(that.base + "test1/4/piao.json")
             .load(function(loader, res) {
               let pao = doAnimate(
                 32,
-                'piao_000',
+                "piao_000",
                 0,
                 height * 0.12,
                 width,
                 (293 / 226) * width,
                 0.5
-              )
+              );
               //人
               let people = imageSprite(
-                that.base + 'test1/4/people.png',
+                that.base + "test1/4/people.png",
                 (width - (284 / 846) * height) / 2,
                 0,
                 (284 / 846) * height,
                 height
-              )
+              );
               // let sao = imageSprite(
               //   that.base+'test1/4/sao.png',
               //   0,
@@ -489,21 +492,21 @@ export default {
               //   height
               // )
               let light = imageSprite(
-                that.base + 'test1/4/light.png',
+                that.base + "test1/4/light.png",
                 0,
                 0,
                 width,
                 height
-              )
-            })
+              );
+            });
         }
-      })
+      });
     }
   }
-}
+};
 </script>
 <style lang="less" scoped>
-@base: 'http://cdn.xingstation.cn/fe/image/super_hero/';
+@base: "http://cdn.xingstation.cn/fe/image/super_hero/";
 html,
 body {
   width: 100%;
