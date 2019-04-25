@@ -454,6 +454,7 @@ img {
           transform: translate(0, -50%);
           border: 0px;
           outline: none;
+          text-align: left;
           font-size: 14px;
           box-sizing: border-box;
         }
@@ -513,6 +514,7 @@ img {
           transform: translate(0, -50%);
           border: 0px;
           outline: none;
+          text-align: left;
           font-size: 14px;
           box-sizing: border-box;
         }
