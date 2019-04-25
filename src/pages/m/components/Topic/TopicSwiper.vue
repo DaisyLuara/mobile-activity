@@ -20,6 +20,8 @@
 </template>
 
 <script>
+/* eslint-disable */
+
 import "swiper/dist/css/swiper.css";
 import "./swiper.less";
 import { swiper, swiperSlide } from "vue-awesome-swiper";

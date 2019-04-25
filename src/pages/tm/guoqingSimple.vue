@@ -152,15 +152,9 @@ export default {
       },
       //分享
       wxShareInfoValue: {
-<<<<<<< HEAD
         title: '中秋国庆星乐享，1000份好礼“刷脸”大派送！',
         desc: '大融城-星视度嗨玩节，福利优惠拿不停。',
         link: process.env.AD_API+'/api/s/qj2' + window.location.search,
-=======
-        title: "中秋国庆星乐享，1000份好礼“刷脸”大派送！",
-        desc: "大融城-星视度嗨玩节，福利优惠拿不停。",
-        link: "http://papi.xingstation.com/api/s/qj2" + window.location.search,
->>>>>>> feature-master-to-dev
         imgUrl:
           "http://cdn.xingstation.cn/image/tm/guoqing/share_" +
           this.$route.query.utm_campaign.trim() +

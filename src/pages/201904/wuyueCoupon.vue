@@ -1,18 +1,24 @@
 <template>
   <div class="container">
-		<div v-show="type==='couponList' && showModal" class="modalBox">
-			<div class="modalSpace" @click="onCloseModal"></div>
-			<img
+    <div 
+      v-show="type==='couponList' && showModal" 
+      class="modalBox">
+      <div 
+        class="modalSpace" 
+        @click="onCloseModal"/>
+      <img
         :src="CDNURL+'/fe/wuyue-share-bg.png'"
         class="modalImg"
       >
-		</div>
-		<div v-show="showLoading" class="loadingBox">
-			<img 
-				:src="CDNURL+'/fe/wuyue-loading-icon.png'" 
-				class="loadingIcon"
-			>
-		</div>
+    </div>
+    <div 
+      v-show="showLoading" 
+      class="loadingBox">
+      <img 
+        :src="CDNURL+'/fe/wuyue-loading-icon.png'" 
+        class="loadingIcon"
+      >
+    </div>
     <div
       v-show="type==='receive'"
       class="couponBgBox"

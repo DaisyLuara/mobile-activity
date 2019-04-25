@@ -7,7 +7,7 @@
     >
       <CouponRain
         ref="game"
-        :spritesData="sprites"
+        :sprites-data="sprites"
         @listenGameEnd="listenGameEnd"
       />
       <div
@@ -152,10 +152,10 @@ import { onlyWechatShare } from "@/mixins/onlyWechatShare";
 import CouponRain from "@/modules/couponRain"
 const CDNURL = process.env.CDN_URL;
 export default {
-  mixins: [onlyWechatShare],
   components: {
     CouponRain
   },
+  mixins: [onlyWechatShare],
   data() {
     return {
       CDNURL: CDNURL,

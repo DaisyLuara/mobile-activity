@@ -112,17 +112,10 @@ export default {
         "http://wx.qlogo.cn/mmopen/Q3auHgzwzM4VoBYD1YEIq0E3LFM1XLKsd3sG5VXRAvCUqCVXIPTcI0TzqicRWfzB9Zv40GhTR83RhKAugpzOuaJFC11nxmcnnp6ZbOu04UFw/0",
       //微信分享
       wxShareInfoValue: {
-<<<<<<< HEAD
-        title: '开学送福利',
-        desc: '亲爱的，礼物准备好了',
-        link: process.env.AD_API+'/api/s/j2R' + window.location.search,
-        imgUrl: 'http://cdn.exe666.com/image/kaixue/icon.jpg',
-=======
         title: "开学送福利",
         desc: "亲爱的，礼物准备好了",
-        link: "http://papi.xingstation.com/api/s/j2R" + window.location.search,
-        imgUrl: "http://cdn.xingstation.cn/image/kaixue/icon.jpg",
->>>>>>> feature-master-to-dev
+        link: process.env.AD_API + "/api/s/j2R" + window.location.search,
+        imgUrl: "http://cdn.exe666.com/image/kaixue/icon.jpg",
         success: function() {
           wechatShareTrack();
         }

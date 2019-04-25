@@ -53,18 +53,18 @@
   </div>
 </template>
 <script>
-import lottie from 'lottie-web'
+import lottie from "lottie-web";
 import {
   $wechat,
   isInWechat,
   wechatShareTrack,
   Cookies,
   getImage
-} from 'services'
-import { onlyWechatShare } from '../../mixins/onlyWechatShare'
-import 'swiper/dist/css/swiper.css'
-import { swiper, swiperSlide } from 'vue-awesome-swiper'
-const cdnUrl = process.env.CDN_URL
+} from "services";
+import { onlyWechatShare } from "../../mixins/onlyWechatShare";
+import "swiper/dist/css/swiper.css";
+import { swiper, swiperSlide } from "vue-awesome-swiper";
+const cdnUrl = process.env.CDN_URL;
 export default {
   components: {
     swiper,
@@ -75,119 +75,114 @@ export default {
     return {
       style: {
         root: {
-          height: this.$innerHeight() + 'px'
+          height: this.$innerHeight() + "px"
         }
       },
-      base: cdnUrl + '/fe/image/wxc_letter/',
+      base: cdnUrl + "/fe/image/wxc_letter/",
       pages: [
-        'page2.png',
-        'page3.png',
-        'page4.png',
-        'page5.png',
-        'page6.png',
-        'page7.png'
+        "page2.png",
+        "page3.png",
+        "page4.png",
+        "page5.png",
+        "page6.png",
+        "page7.png"
       ],
       userId: null,
       toImg: false,
       word: true,
       sOption: {
-        effect: 'fade',
+        effect: "fade",
         on: {
-          init: () => { },
+          init: () => {},
           slideChange: () => {
-            let index = this.$refs.Swiper.swiper.realIndex
+            let index = this.$refs.Swiper.swiper.realIndex;
             if (index === 0) {
-              this.toImg = false
-              this.word = true
+              this.toImg = false;
+              this.word = true;
             } else if (index === 6) {
-              this.toImg = true
-              this.word = false
+              this.toImg = true;
+              this.word = false;
             } else {
-              this.toImg = true
-              this.word = true
+              this.toImg = true;
+              this.word = true;
             }
           }
         }
       },
-      icon: 'icon1',
+      icon: "icon1",
       //分享
       wxShareInfoValue: {
-        title: '贵客齐聚，共赴好宴│11.23厦门万象城正式揭幕',
-        desc: '敬致：永新豪觅。用心好物',
-<<<<<<< HEAD
-        link: process.env.AD_API+'/api/s/qYr' + window.location.search,
-        imgUrl: 'https://cdn.exe666.com/fe/image/wxc_letter/icon.png',
-=======
-        link: 'http://papi.xingstation.com/api/s/qYr' + window.location.search,
-        imgUrl: 'https://cdn.xingstation.cn/fe/image/wxc_letter/icon.png',
->>>>>>> feature-master-to-dev
+        title: "贵客齐聚，共赴好宴│11.23厦门万象城正式揭幕",
+        desc: "敬致：永新豪觅。用心好物",
+        link: process.env.AD_API + "/api/s/qYr" + window.location.search,
+        imgUrl: "https://cdn.exe666.com/fe/image/wxc_letter/icon.png",
         success: () => {
-          wechatShareTrack()
+          wechatShareTrack();
         }
       }
-    }
+    };
   },
   mounted() {
     if (this.$innerHeight() > 672) {
-      document.querySelector('.anim').style.marginTop = '0%'
+      document.querySelector(".anim").style.marginTop = "0%";
     }
-    this.doAnim()
+    this.doAnim();
     //微信授权
     if (isInWechat() === true) {
       if (
-        process.env.NODE_ENV === 'production' ||
-        process.env.NODE_ENV === 'testing'
+        process.env.NODE_ENV === "production" ||
+        process.env.NODE_ENV === "testing"
       ) {
-        this.handleWechatAuth()
+        this.handleWechatAuth();
       }
     }
   },
   methods: {
     doAnim() {
-      const el = document.getElementById('anim')
-      let that = this
+      const el = document.getElementById("anim");
+      let that = this;
       let anim = lottie.loadAnimation({
-        name: 'anim',
+        name: "anim",
         container: el,
-        renderer: 'svg',
+        renderer: "svg",
         loop: false,
-        assetsPath: that.base + '/images/',
-        path: that.base + 'data.json'
-      })
-      this.animation = anim
+        assetsPath: that.base + "/images/",
+        path: that.base + "data.json"
+      });
+      this.animation = anim;
     },
     //微信静默授权
     handleWechatAuth() {
-      if (Cookies.get('sign') === null) {
-        let base_url = encodeURIComponent(String(window.location.href))
+      if (Cookies.get("sign") === null) {
+        let base_url = encodeURIComponent(String(window.location.href));
         let redirct_url =
           process.env.WX_API +
-          '/wx/officialAccount/oauth?url=' +
+          "/wx/officialAccount/oauth?url=" +
           base_url +
-          '&scope=snsapi_base'
-        window.location.href = redirct_url
+          "&scope=snsapi_base";
+        window.location.href = redirct_url;
       } else {
-        this.userId = Cookies.get('user_id')
+        this.userId = Cookies.get("user_id");
       }
     },
     toUpLoad(event) {
-      let file = event.target.files[0]
-      let path = file.path
-      let formData = new FormData()
-      formData.append('image', path)
-      formData.append('type', 'avatar')
+      let file = event.target.files[0];
+      let path = file.path;
+      let formData = new FormData();
+      formData.append("image", path);
+      formData.append("type", "avatar");
       getImage(formData)
         .then(res => {
-          console.log(res)
-          this.icon = 'icon2'
+          console.log(res);
+          this.icon = "icon2";
         })
         .catch(err => {
-          alert('图像上传错误！请重新上传，只支持jpg,png格式')
-          console.log(err)
-        })
+          alert("图像上传错误！请重新上传，只支持jpg,png格式");
+          console.log(err);
+        });
     }
   }
-}
+};
 </script>
 <style lang="less" scoped>
 @imgUrl: "https://cdn.xingstation.cn/fe/image/wxc_letter/";

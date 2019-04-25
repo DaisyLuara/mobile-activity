@@ -20,59 +20,54 @@
   </div>
 </template>
 <script>
-const cdnUrl = process.env.CDN_URL
-import { wechatShareTrack } from 'services'
-import { normalPages } from '@/mixins/normalPages'
+const cdnUrl = process.env.CDN_URL;
+import { wechatShareTrack } from "services";
+import { normalPages } from "@/mixins/normalPages";
 export default {
   mixins: [normalPages],
   data() {
     return {
       style: {
         root: {
-          height: this.$innerHeight() + 'px'
+          height: this.$innerHeight() + "px"
         }
       },
-      base: cdnUrl + '/fe/image/dgm/',
+      base: cdnUrl + "/fe/image/dgm/",
       photo: null,
       iphoneX: false,
       absolute: false,
       //微信分享
       wxShareInfoValue: {
-        title: '相约大光明',
-        desc: '你就是今日之星',
-<<<<<<< HEAD
-        link: process.env.AD_API+'/api/s/Mj3' + window.location.search,
-        imgUrl: 'http://cdn.exe666.com/fe/image/dgm/icon.png',
-=======
-        link: 'http://papi.xingstation.com/api/s/Mj3' + window.location.search,
-        imgUrl: 'http://cdn.xingstation.cn/fe/image/dgm/icon.png',
->>>>>>> feature-master-to-dev
+        title: "相约大光明",
+        desc: "你就是今日之星",
+        link: process.env.AD_API + "/api/s/Mj3" + window.location.search,
+        imgUrl: "http://cdn.exe666.com/fe/image/dgm/icon.png",
         success: () => {
-          wechatShareTrack()
+          wechatShareTrack();
         }
       }
-    }
+    };
   },
   mounted() {
-    let height = this.$innerHeight()
-    let width = this.$innerWidth()
+    let height = this.$innerHeight();
+    let width = this.$innerWidth();
     if (height > 630) {
-      this.absolute = true
+      this.absolute = true;
     } else {
-      this.absolute = false
+      this.absolute = false;
     }
     if (height > 672) {
-      this.iphoneX = true
+      this.iphoneX = true;
     } else {
-      this.iphoneX = false
+      this.iphoneX = false;
     }
     // let light = document.querySelector('.light')
     // light.style.marginTop = height - (width * 1.2) / 314
   }
-}
+};
 </script>
 <style lang="less" scoped>
-@base: 'http://cdn.xingstation.cn/fe/image/dgm/';
+@base: "http://cdn.xingstation.cn/fe/image/dgm/";
 html,
 body {
   width: 100%;

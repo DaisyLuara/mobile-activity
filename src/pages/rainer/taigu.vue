@@ -15,168 +15,163 @@
 
 </template>
 <script>
-import { $wechat, getInfoById, wechatShareTrack } from 'services'
-import { onlyWechatShare } from '../../mixins/onlyWechatShare'
-const IMG_SERVER = process.env.CDN_URL
+import { $wechat, getInfoById, wechatShareTrack } from "services";
+import { onlyWechatShare } from "../../mixins/onlyWechatShare";
+const IMG_SERVER = process.env.CDN_URL;
 export default {
   mixins: [onlyWechatShare],
   data() {
     return {
-      base_url: IMG_SERVER + '/image/rainer/',
+      base_url: IMG_SERVER + "/image/rainer/",
       style: {
         root: {
-          'min-height': this.$innerHeight() + 'px'
+          "min-height": this.$innerHeight() + "px"
         }
       },
       photo: null,
       //分享
       wxShareInfoValue: {
-        title: '秘密花园 尽显美颜',
-        desc: '快来寻找秘密花园，施展你的小小控雨魔法',
-<<<<<<< HEAD
-        link: process.env.AD_API+'/api/s/BgJ' + window.location.search,
-        imgUrl: 'https://cdn.exe666.com/fe/image/rainer/share.jpg',
-=======
-        link: 'http://papi.xingstation.com/api/s/BgJ' + window.location.search,
-        imgUrl: 'https://cdn.xingstation.cn/fe/image/rainer/share.jpg',
->>>>>>> feature-master-to-dev
+        title: "秘密花园 尽显美颜",
+        desc: "快来寻找秘密花园，施展你的小小控雨魔法",
+        link: process.env.AD_API + "/api/s/BgJ" + window.location.search,
+        imgUrl: "https://cdn.exe666.com/fe/image/rainer/share.jpg",
         success: function() {
-          wechatShareTrack()
+          wechatShareTrack();
         }
       },
       imgList: []
-    }
+    };
   },
   mounted() {
-    let base = this.base_url
+    let base = this.base_url;
     for (let i = 0; i < 12; i++) {
-      i = i < 10 ? '0' + i : i
-      let texture = base + 'frame/frame_000' + i + '.png'
-      this.imgList.push(texture)
+      i = i < 10 ? "0" + i : i;
+      let texture = base + "frame/frame_000" + i + ".png";
+      this.imgList.push(texture);
     }
     this.entry(this.imgList, r => {
-      console.dir(r)
-      this.getInfoById()
+      console.dir(r);
+      this.getInfoById();
       // do next
-    })
+    });
   },
   methods: {
     loadImgs(imgList) {
-      let preList = []
+      let preList = [];
       for (let i = 0; i < this.imgList.length; i++) {
         let pre = new Promise((resolve, reject) => {
-          let img = new Image()
+          let img = new Image();
           img.onload = function() {
-            resolve(img)
-          }
-          img.src = this.imgList[i]
-        })
-        preList.push(pre)
+            resolve(img);
+          };
+          img.src = this.imgList[i];
+        });
+        preList.push(pre);
       }
       return Promise.all(preList).then(r => {
-        return Promise.resolve(r)
-      })
+        return Promise.resolve(r);
+      });
     },
     async entry(imgList, cb) {
       try {
-        let rs = await this.loadImgs(imgList)
-        cb(rs)
+        let rs = await this.loadImgs(imgList);
+        cb(rs);
       } catch (err) {
-        console.log(err)
-        cb([])
+        console.log(err);
+        cb([]);
       }
     },
     getInfoById() {
-      let id = this.$route.query.id
+      let id = this.$route.query.id;
       getInfoById(id)
         .then(res => {
-          this.photo = res.image
-          this.doFrame(this.photo)
+          this.photo = res.image;
+          this.doFrame(this.photo);
         })
         .catch(err => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     },
     doFrame(image) {
-      import('pixi.js').then(PIXI => {
-        let type = 'WebGL'
+      import("pixi.js").then(PIXI => {
+        let type = "WebGL";
         if (!PIXI.utils.isWebGLSupported()) {
-          type = 'canvas'
+          type = "canvas";
         }
-        PIXI.utils.sayHello(type)
-        let that = this
+        PIXI.utils.sayHello(type);
+        let that = this;
         let app_height =
           window.innerHeight > 667
             ? window.innerHeight
-            : window.innerHeight + 30
+            : window.innerHeight + 30;
         let app = new PIXI.Application({
           width: window.innerWidth,
           height: app_height,
           transparent: true
-        })
-        document.querySelector('.main').appendChild(app.view)
-        app.renderer.autoResize = true
-        app.renderer.resize(window.innerWidth, app_height)
-        app.view.style.position = 'relative'
-        app.view.style.zIndex = '9999'
+        });
+        document.querySelector(".main").appendChild(app.view);
+        app.renderer.autoResize = true;
+        app.renderer.resize(window.innerWidth, app_height);
+        app.view.style.position = "relative";
+        app.view.style.zIndex = "9999";
 
-        let base = 'http://cdn.xingstation.cn/image/rainer/'
-        let width = app.screen.width
-        let height = app.screen.height
-        let bottom = PIXI.Sprite.fromImage(base + 'bottom.png')
-        bottom.anchor.set(0.5, 0)
-        bottom.width = width * 0.81
-        bottom.height = ((width * 0.81) / 630) * 1016
-        bottom.position.set(width / 2, height * 0.05)
-        app.stage.addChild(bottom)
+        let base = "http://cdn.xingstation.cn/image/rainer/";
+        let width = app.screen.width;
+        let height = app.screen.height;
+        let bottom = PIXI.Sprite.fromImage(base + "bottom.png");
+        bottom.anchor.set(0.5, 0);
+        bottom.width = width * 0.81;
+        bottom.height = ((width * 0.81) / 630) * 1016;
+        bottom.position.set(width / 2, height * 0.05);
+        app.stage.addChild(bottom);
 
-        let photo = PIXI.Sprite.fromImage(image, true)
-        photo.anchor.set(0.5, 0)
-        photo.width = width * 0.675
-        photo.height = ((width * 0.675) / 1080) * 1920
-        app.stage.addChild(photo)
+        let photo = PIXI.Sprite.fromImage(image, true);
+        photo.anchor.set(0.5, 0);
+        photo.width = width * 0.675;
+        photo.height = ((width * 0.675) / 1080) * 1920;
+        app.stage.addChild(photo);
 
-        let textureArray = []
+        let textureArray = [];
         for (let i = 0; i < 12; i++) {
-          i = i < 10 ? '0' + i : i
+          i = i < 10 ? "0" + i : i;
           let texture = PIXI.Texture.fromImage(
-            base + 'frame/frame_000' + i + '.png'
-          )
-          textureArray.push(texture)
+            base + "frame/frame_000" + i + ".png"
+          );
+          textureArray.push(texture);
         }
-        let end = PIXI.Texture.fromImage(base + '/frame/frame_00011.png')
+        let end = PIXI.Texture.fromImage(base + "/frame/frame_00011.png");
         for (let i = 0; i < 4; i++) {
-          textureArray.push(end)
+          textureArray.push(end);
         }
-        let animatedSprite = new PIXI.extras.AnimatedSprite(textureArray)
-        animatedSprite.anchor.set(0.5, 0)
-        animatedSprite.position.set(width / 2, 10)
-        animatedSprite.width = width * 0.91
-        animatedSprite.height = ((width * 0.91) / 685) * 1096
-        animatedSprite.animationSpeed = 0.1
-        animatedSprite.gotoAndPlay(0)
-        app.stage.addChild(animatedSprite)
-        app.start()
+        let animatedSprite = new PIXI.extras.AnimatedSprite(textureArray);
+        animatedSprite.anchor.set(0.5, 0);
+        animatedSprite.position.set(width / 2, 10);
+        animatedSprite.width = width * 0.91;
+        animatedSprite.height = ((width * 0.91) / 685) * 1096;
+        animatedSprite.animationSpeed = 0.1;
+        animatedSprite.gotoAndPlay(0);
+        app.stage.addChild(animatedSprite);
+        app.start();
         photo.position.set(
           width / 2,
           animatedSprite.y + animatedSprite.height * 0.13
-        )
-        let save = PIXI.Sprite.fromImage(base + 'save.png')
-        save.anchor.set(0.5, 0)
-        save.width = width * 0.56
-        save.height = ((width * 0.56) / 412) * 82
+        );
+        let save = PIXI.Sprite.fromImage(base + "save.png");
+        save.anchor.set(0.5, 0);
+        save.width = width * 0.56;
+        save.height = ((width * 0.56) / 412) * 82;
         save.position.set(
           width / 2,
           animatedSprite.height + animatedSprite.y + 5
-        )
-        app.stage.addChild(save)
-      })
+        );
+        app.stage.addChild(save);
+      });
     }
   }
-}
+};
 </script>
 <style lang="less" scoped>
-@baseUrl: 'http://cdn.xingstation.cn/image/rainer/';
+@baseUrl: "http://cdn.xingstation.cn/image/rainer/";
 
 html,
 body {
@@ -201,7 +196,7 @@ img {
   width: 100%;
   overflow-x: hidden;
   position: relative;
-  background-image: url('@{baseUrl}/bg.jpg');
+  background-image: url("@{baseUrl}/bg.jpg");
   background-position: center top;
   background-size: 100% 100%;
   background-repeat: no-repeat;

@@ -69,59 +69,51 @@
   </div>
 </template>
 <script>
-import { wechatShareTrack } from 'services'
-import { normalPages } from '@/mixins/normalPages'
-const cdnUrl = process.env.CDN_URL
+import { wechatShareTrack } from "services";
+import { normalPages } from "@/mixins/normalPages";
+const cdnUrl = process.env.CDN_URL;
 export default {
   mixins: [normalPages],
   data() {
     return {
-      baseUrl: cdnUrl + '/fe/marketing/img/hiplay_world_taicha/',
+      baseUrl: cdnUrl + "/fe/marketing/img/hiplay_world_taicha/",
       style: {
         root: {
-          height: this.$innerHeight() + 'px'
+          height: this.$innerHeight() + "px"
         }
       },
       iphoneX: false,
       photo: null,
       wxShareInfoValue: {
-        title: '快快领取 泰茶兑换券',
-        desc: 'High玩全世界，即刻出发',
-        link: process.env.AD_API+'/api/s/wmw' + window.location.search,
-        imgUrl: cdnUrl + '/fe/marketing/img/hiplay_world_taicha/icon.png',
+        title: "快快领取 泰茶兑换券",
+        desc: "High玩全世界，即刻出发",
+        link: process.env.AD_API + "/api/s/wmw" + window.location.search,
+        imgUrl: cdnUrl + "/fe/marketing/img/hiplay_world_taicha/icon.png",
         success: () => {
-          wechatShareTrack()
+          wechatShareTrack();
         }
       }
-    }
+    };
   },
-  created() { },
+  created() {},
   mounted() {
-    let height = this.$innerHeight()
+    let height = this.$innerHeight();
     if (height > 672) {
-      this.iphoneX = true
+      this.iphoneX = true;
     } else {
-      this.iphoneX = false
+      this.iphoneX = false;
     }
   },
   methods: {
     go() {
-<<<<<<< HEAD
-      window.location.href = process.env.AD_API+'/api/s/E9k'
+      window.location.href = process.env.AD_API + "/api/s/E9k";
     },
     //停车券跳转
     goPark() {
-      window.location.href = process.env.AD_API+'/api/s/D9n'
-=======
-      window.location.href = 'http://papi.xingstation.com/api/s/ojz' //旧链接：'http://papi.xingstation.com/api/s/E9k'
-    },
-    //停车券跳转
-    goPark() {
-      window.location.href = 'http://papi.xingstation.com/api/s/ng4'//旧连接：'http://papi.xingstation.com/api/s/D9n'
->>>>>>> feature-master-to-dev
+      window.location.href = process.env.AD_API + "/api/s/D9n";
     }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>

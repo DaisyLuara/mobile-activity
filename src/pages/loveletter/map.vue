@@ -125,12 +125,12 @@
   </div>
 </template>
 <script>
-import lottie from 'lottie-web'
-import { onlyWechatShare } from '../../mixins/onlyWechatShare'
-import 'swiper/dist/css/swiper.css'
-import { swiper, swiperSlide } from 'vue-awesome-swiper'
-import $ from 'jquery'
-const cdnUrl = process.env.CDN_URL
+import lottie from "lottie-web";
+import { onlyWechatShare } from "../../mixins/onlyWechatShare";
+import "swiper/dist/css/swiper.css";
+import { swiper, swiperSlide } from "vue-awesome-swiper";
+import $ from "jquery";
+const cdnUrl = process.env.CDN_URL;
 export default {
   components: {
     swiper,
@@ -141,228 +141,223 @@ export default {
     return {
       style: {
         root: {
-          height: this.$innerHeight() + 'px'
+          height: this.$innerHeight() + "px"
         }
       },
-      base: cdnUrl + '/fe/image/wxc_map/',
+      base: cdnUrl + "/fe/image/wxc_map/",
       sOptions: {
         on: {
           slideChange: () => {
-            let index = this.$refs.Swiper.swiper.realIndex
+            let index = this.$refs.Swiper.swiper.realIndex;
             if (index === 1) {
-              this.doAnim()
+              this.doAnim();
             }
           }
         }
       },
-      pro: 'wc.png',
+      pro: "wc.png",
       mask: false,
       alert1: false,
       alert2: false,
       jian: false,
-      timg: 't1.png',
-      ttext: 'text1.png',
+      timg: "t1.png",
+      ttext: "text1.png",
       pro_img: false,
       iphoneX: false,
       lpointer: false,
       //分享
       wxShareInfoValue: {
-        title: '厦门万象城', //暂无
-        desc: '厦门万象城', //暂无
-<<<<<<< HEAD
-        link: process.env.AD_API+'/api/s/xvr' + window.location.search,
-        imgUrl: 'https://cdn.exe666.com/fe/image/wxc_map/icon.png',
-=======
-        link: 'http://papi.xingstation.com/api/s/xvr' + window.location.search,
-        imgUrl: 'https://cdn.xingstation.cn/fe/image/wxc_map/icon.png',
->>>>>>> feature-master-to-dev
+        title: "厦门万象城", //暂无
+        desc: "厦门万象城", //暂无
+        link: process.env.AD_API + "/api/s/xvr" + window.location.search,
+        imgUrl: "https://cdn.exe666.com/fe/image/wxc_map/icon.png",
         success: () => {
-          wechatShareTrack()
+          wechatShareTrack();
         }
       }
-    }
+    };
   },
   mounted() {
     if (this.$innerHeight() > 672) {
-      this.iphoneX = true
+      this.iphoneX = true;
     }
-    this.playAudio()
+    this.playAudio();
   },
   methods: {
     toLink(num) {
-      this.jian = false
+      this.jian = false;
       if (num === 1) {
         // 跳转公众号
-        window.location.href = process.env.AD_API+'/api/s/APz'
-        return
+        window.location.href = process.env.AD_API + "/api/s/APz";
+        return;
       }
       if (num === 2) {
-        this.pro_img = false
-        this.mask = true
-        this.alert1 = true
-        this.pro = '8.png' //暂无
-        return
+        this.pro_img = false;
+        this.mask = true;
+        this.alert1 = true;
+        this.pro = "8.png"; //暂无
+        return;
       }
       if (num === 3) {
-        this.pro_img = false
-        this.mask = true
-        this.alert1 = true
-        this.pro = '7.png'
-        return
+        this.pro_img = false;
+        this.mask = true;
+        this.alert1 = true;
+        this.pro = "7.png";
+        return;
       }
       if (num === 4) {
-        this.pro_img = false
-        this.mask = true
-        this.alert1 = false
-        this.jian = true
-        return
+        this.pro_img = false;
+        this.mask = true;
+        this.alert1 = false;
+        this.jian = true;
+        return;
       }
     },
     toAlert(item) {
-      this.mask = true
-      this.pro_img = false
-      this.jian = false
+      this.mask = true;
+      this.pro_img = false;
+      this.jian = false;
       if (item === 1) {
-        this.alert2 = true
-        this.timg = 'tt1.png'
-        this.ttext = 'text1.png'
-        return
+        this.alert2 = true;
+        this.timg = "tt1.png";
+        this.ttext = "text1.png";
+        return;
       }
       if (item === 2) {
-        this.alert2 = true
-        this.timg = 'tt3.png'
-        this.ttext = '3_2.png'
-        return
+        this.alert2 = true;
+        this.timg = "tt3.png";
+        this.ttext = "3_2.png";
+        return;
       }
       //1
       if (item === 3) {
-        this.alert1 = true
-        this.pro = '9_1.png'
-        return
+        this.alert1 = true;
+        this.pro = "9_1.png";
+        return;
       }
       if (item === 4) {
-        this.alert2 = true
-        this.timg = 'tt2.png'
-        this.ttext = '2_2.png'
-        return
+        this.alert2 = true;
+        this.timg = "tt2.png";
+        this.ttext = "2_2.png";
+        return;
       }
       //2
       if (item === 5) {
-        this.alert1 = true
-        this.pro_img = true
-        this.pro = '6_1.png'
-        return
+        this.alert1 = true;
+        this.pro_img = true;
+        this.pro = "6_1.png";
+        return;
       }
       //3
       if (item === 6) {
-        this.alert1 = true
-        this.pro_img = true
-        this.pro = '5.png'
-        return
+        this.alert1 = true;
+        this.pro_img = true;
+        this.pro = "5.png";
+        return;
       }
       //4
       if (item === 7) {
-        this.alert1 = true
-        this.pro = '4.png'
-        return
+        this.alert1 = true;
+        this.pro = "4.png";
+        return;
       }
     },
     toNext() {
-      this.$refs.Swiper.swiper.slideNext()
+      this.$refs.Swiper.swiper.slideNext();
     },
     doAnim() {
-      const el = document.getElementById('anim')
-      let that = this
+      const el = document.getElementById("anim");
+      let that = this;
       let anim = lottie.loadAnimation({
-        name: 'anim',
+        name: "anim",
         container: el,
-        renderer: 'svg',
+        renderer: "svg",
         loop: false,
-        assetsPath: that.base + 'data/img/',
-        path: that.base + 'data/data.json'
-      })
-      this.animation = anim
-      anim.addEventListener('DOMLoaded', function() {
+        assetsPath: that.base + "data/img/",
+        path: that.base + "data/data.json"
+      });
+      this.animation = anim;
+      anim.addEventListener("DOMLoaded", function() {
         // 播放0-125帧动画,第一屏动画
-        anim.playSegments([0, 125], true)
-      })
-      anim.addEventListener('complete', function() {
-        anim.loop = true
-        anim.playSegments([126, 250], false)
-        that.lpointer = true
-      })
+        anim.playSegments([0, 125], true);
+      });
+      anim.addEventListener("complete", function() {
+        anim.loop = true;
+        anim.playSegments([126, 250], false);
+        that.lpointer = true;
+      });
     },
     playAudio() {
-      var voice = document.getElementById('voice')
-      var mbtn = document.getElementById('mbtn')
+      var voice = document.getElementById("voice");
+      var mbtn = document.getElementById("mbtn");
       if (!voice) {
-        return
+        return;
       }
       //调用 <audio> 元素提供的方法 play()
-      voice.play()
+      voice.play();
       if (voice.paused) {
-        mbtn.setAttribute('class', ' ')
+        mbtn.setAttribute("class", " ");
       }
       //判斷 WeixinJSBridge 是否存在
       if (
-        typeof WeixinJSBridge == 'object' &&
-        typeof WeixinJSBridge.invoke == 'function'
+        typeof WeixinJSBridge == "object" &&
+        typeof WeixinJSBridge.invoke == "function"
       ) {
-        voice.play()
+        voice.play();
       } else {
         //監聽客户端抛出事件"WeixinJSBridgeReady"
         if (document.addEventListener) {
           document.addEventListener(
-            'WeixinJSBridgeReady',
+            "WeixinJSBridgeReady",
             function() {
-              voice.play()
+              voice.play();
             },
             false
-          )
+          );
         } else if (document.attachEvent) {
-          document.attachEvent('WeixinJSBridgeReady', function() {
-            voice.play()
-          })
-          document.attachEvent('onWeixinJSBridgeReady', function() {
-            voice.play()
-          })
+          document.attachEvent("WeixinJSBridgeReady", function() {
+            voice.play();
+          });
+          document.attachEvent("onWeixinJSBridgeReady", function() {
+            voice.play();
+          });
         }
       }
 
       //voiceStatu用來記録狀態,使 touchstart 事件只能觸發一次有效,避免與 click 事件衝突
-      var voiceStatu = true
+      var voiceStatu = true;
       //监听 touchstart 事件进而调用 <audio> 元素提供的 play() 方法播放音频
       document.addEventListener(
-        'touchstart',
+        "touchstart",
         function(e) {
           if (voiceStatu) {
-            voice.play()
-            voiceStatu = false
+            voice.play();
+            voiceStatu = false;
           }
         },
         false
-      )
+      );
       voice.onplay = function() {
-        mbtn.setAttribute('class', 'mplay')
-      }
+        mbtn.setAttribute("class", "mplay");
+      };
       voice.onpause = function() {
-        mbtn.setAttribute('class', ' ')
-      }
+        mbtn.setAttribute("class", " ");
+      };
     },
     playOrNot() {
       // 依據 audio 的 paused 属性返回音频是否已暂停來判斷播放還是暫停音频。
-      var voice = document.getElementById('voice')
+      var voice = document.getElementById("voice");
       if (voice.paused) {
-        voice.play()
+        voice.play();
       } else {
-        voice.pause()
+        voice.pause();
       }
     }
   }
-}
+};
 </script>
 <style lang="less" scoped>
-@img: 'https://cdn.xingstation.cn/fe/image/wxc_map/';
+@img: "https://cdn.xingstation.cn/fe/image/wxc_map/";
 html,
 body {
   width: 100%;
@@ -526,7 +521,7 @@ img {
       position: relative;
       top: 50%;
       transform: translateY(-50%);
-      background-image: url('@{img}probg.png');
+      background-image: url("@{img}probg.png");
       background-position: center top;
       background-size: 100% auto;
       background-repeat: no-repeat;

@@ -332,15 +332,9 @@ export default {
     },
     jumpToLink() {
       window.location.href =
-<<<<<<< HEAD
-        process.env.NODE_ENV === 'production'
-          ? process.env.AD_API+'/api/s/pyX'
-          : process.env.AD_API+'/api/s/vm'
-=======
         process.env.NODE_ENV === "production"
-          ? "http://papi.xingstation.com/api/s/pyX"
-          : "http://papi.xingstation.net/api/s/vm";
->>>>>>> feature-master-to-dev
+          ? process.env.AD_API + "/api/s/pyX"
+          : process.env.AD_API + "/api/s/vm";
     }
   }
 };

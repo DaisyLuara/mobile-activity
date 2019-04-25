@@ -61,27 +61,29 @@
   </div>
 </template>
 <script>
-import { $wechat, isInWechat, wechatShareTrack, Cookies } from 'services'
+/* eslint-disable */
+
+import { $wechat, isInWechat, wechatShareTrack, Cookies } from "services";
 import { normalPages } from "@/mixins/normalPages";
-const cdnUrl = process.env.CDN_URL
-import MC from 'mcanvas'
+const cdnUrl = process.env.CDN_URL;
+import MC from "mcanvas";
 export default {
   mixins: [normalPages],
   props: {
     loadingClick: {
       type: Boolean,
       required: false,
-      default: true,
+      default: true
     },
     title: {
       type: String,
       required: false,
-      default: '幻境奇缘'
+      default: "幻境奇缘"
     },
     desc: {
       type: String,
       required: false,
-      default: '揭开你的身世之谜！'
+      default: "揭开你的身世之谜！"
     },
     link: {
       type: String,
@@ -90,7 +92,7 @@ export default {
     imgUrl: {
       type: String,
       required: false,
-      default: cdnUrl + '/fe/marketing/img/dreamland/icon.png'
+      default: cdnUrl + "/fe/marketing/img/dreamland/icon.png"
     },
     paths: {
       type: Array,
@@ -98,26 +100,29 @@ export default {
       default: [
         {
           scope: 6,
-          paths: ['w_1.png', 'w_2.png', 'w_3.png', 'w_4.png', 'w_5.png']
+          paths: ["w_1.png", "w_2.png", "w_3.png", "w_4.png", "w_5.png"]
         },
         {
           scope: 12,
-          paths: ['m_1.png', 'm_2.png', 'm_3.png', 'm_4.png', 'm_5.png']
+          paths: ["m_1.png", "m_2.png", "m_3.png", "m_4.png", "m_5.png"]
         }
       ]
     },
     bgData: {
       type: String,
       required: false,
-      default: 'background-image: url("' + cdnUrl + '/fe/marketing/img/dreamland/bg.png");'
+      default:
+        'background-image: url("' +
+        cdnUrl +
+        '/fe/marketing/img/dreamland/bg.png");'
     }
   },
   data() {
     return {
-      baseUrl: cdnUrl + '/fe/marketing/img/dreamland/',
+      baseUrl: cdnUrl + "/fe/marketing/img/dreamland/",
       style: {
         root: {
-          height: this.$innerHeight() + 'px'
+          height: this.$innerHeight() + "px"
         }
       },
       showImg: true,
@@ -130,109 +135,108 @@ export default {
         link: this.link,
         imgUrl: this.imgUrl
       }
-    }
+    };
   },
   watch: {
     parms() {
-      this.peopleID = this.parms.peopleID
-      this.drawing()
+      this.peopleID = this.parms.peopleID;
+      this.drawing();
     }
   },
   mounted() {
     if (!this.loadingClick) {
-      this.go1()
+      this.go1();
     }
-
   },
   methods: {
     go() {
-      this.showImg = false
-      this.contentShow = true
+      this.showImg = false;
+      this.contentShow = true;
     },
     go1() {
       let timer = setTimeout(() => {
-        this.showImg = false
-        this.contentShow = true
-        clearTimeout(timer)
-      }, 3000)
+        this.showImg = false;
+        this.contentShow = true;
+        clearTimeout(timer);
+      }, 3000);
     },
     //获取随机数图片
     randomImg(peopleID) {
-      let that = this
-      let path = ''
+      let that = this;
+      let path = "";
       for (let i = 0; i < that.paths.length; i++) {
         if (peopleID <= that.paths[i].scope) {
           path =
             that.paths[i].paths[
-            Math.floor(Math.random() * that.paths[i].paths.length)
-            ]
-          break
+              Math.floor(Math.random() * that.paths[i].paths.length)
+            ];
+          break;
         }
       }
-      return path
+      return path;
     },
     //合成图片
     drawing() {
-      let width = this.$innerWidth()
-      let height = (this.$innerWidth() / 1080) * 1800
-      let that = this
-      let backgroundColor = 'white'
+      let width = this.$innerWidth();
+      let height = (this.$innerWidth() / 1080) * 1800;
+      let that = this;
+      let backgroundColor = "white";
       let mc = new MC({
         width,
         height,
         backgroundColor
-      })
-      let url = that.photo + that.$qiniuCompress()
-      let imgUrl = null
-      imgUrl = that.baseUrl + that.randomImg(that.peopleID)
-      console.log(imgUrl)
-      mc.background(that.baseUrl + 'bg4.png', {
+      });
+      let url = that.photo + that.$qiniuCompress();
+      let imgUrl = null;
+      imgUrl = that.baseUrl + that.randomImg(that.peopleID);
+      console.log(imgUrl);
+      mc.background(that.baseUrl + "bg4.png", {
         left: 0,
         top: 0,
-        type: 'origin',
+        type: "origin",
         width: that.$innerWidth() * 0.9,
         pos: {
-          x: '0%',
-          y: '10%'
+          x: "0%",
+          y: "10%"
         }
       })
         .add(url, {
-          width: '78%',
+          width: "78%",
           pos: {
-            x: '15%',
-            y: '15%'
+            x: "15%",
+            y: "15%"
           }
         })
         .add(imgUrl, {
-          width: '100%',
-          color: '#000000',
+          width: "100%",
+          color: "#000000",
           pos: {
-            x: '0%',
-            y: '0%'
+            x: "0%",
+            y: "0%"
           }
         })
         .draw({
           // 导出图片格式： png/jpg/jpeg/webp;
           // default : png;
-          type: 'png',
+          type: "png",
           //  图片质量，对 png 格式无效； 0~1；
           // default: .9;
           quality: 1,
           // 成功回调；
           success(b64) {
-            that.base64Data = b64
-            let url = canvas.toDataURL('image/png')
-            let img = document.getElementById('test')
-            img.src = url
+            that.base64Data = b64;
+            let url = canvas.toDataURL("image/png");
+            let img = document.getElementById("test");
+            img.src = url;
           },
           // 错误回调；
           error(err) {
-            console.log(err)
+            console.log(err);
           }
-        })
+        });
     }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
