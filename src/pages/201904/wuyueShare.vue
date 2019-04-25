@@ -269,10 +269,8 @@ export default {
       }
       receiveMallcooCoupon(sendCouponArgs).then(res => {
         res ? this.type = "couponList" : null
-        this.showLoading = false;
       }).catch(err => {
-        alert(err.response.data.message);
-        this.showLoading = false;
+        // alert(err.response.data.message);
       })
     },
     onCountDown() {
@@ -325,9 +323,15 @@ export default {
           sign: this.sign
         };
         this.showLoading = true;
+        let timer = setTimeout(() => {
+          this.showLoading = false;
+          clearTimeout(timer)
+        }, 1000)
         openMallcooMemberByPhone(params)
           .then(res => {
             this.sendMallcooCoupon();
+            this.showLoading = false;
+            this.register = this.needregister = false
           })
           .catch(err => {
             alert(err.response.data.message);
@@ -457,6 +461,7 @@ img {
           text-align: left;
           font-size: 14px;
           box-sizing: border-box;
+          text-align: left;
         }
       }
 
