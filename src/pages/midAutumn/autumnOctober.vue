@@ -242,7 +242,7 @@ export default {
       wxShareInfoValue: {
         title: "金秋十月，快乐出行 ",
         desc: "开启你的金秋之旅！",
-        link: "http://papi.xingstation.com/api/s/Elk" + window.location.search,
+        link: process.env.AD_API + "/api/s/Elk" + window.location.search,
         imgUrl: cdnUrl + "/fe/marketing/img/autumnWord/share.png",
         success: () => {
           wechatShareTrack();

@@ -104,7 +104,7 @@ export default {
       wxShareInfoValue: {
         title: '乐荟豪礼 等你来领',
         desc: '即可领取 嗨翻全场',
-        link: 'http://papi.xingstation.com/api/s/5QR' + window.location.search,
+        link: process.env.AD_API+'/api/s/5QR' + window.location.search,
         imgUrl: IMGSERVER + '/image/pk/common/share.png'
       }
     }

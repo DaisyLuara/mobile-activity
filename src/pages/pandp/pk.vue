@@ -46,8 +46,8 @@ export default {
       wxShareInfoValue: {
         title: '狗狗大作战',
         desc: '指挥你的狗狗PK，进击王者不是梦！',
-        link: 'http://papi.xingstation.com/api/s/OYp' + window.location.search,
-        imgUrl: 'http://cdn.xingstation.cn/image/pandp/pk/share.jpg',
+        link: process.env.AD_API+'/api/s/OYp' + window.location.search,
+        imgUrl: 'http://cdn.exe666.com/image/pandp/pk/share.jpg',
         success: function() {
           wechatShareTrack()
         }

@@ -41,7 +41,7 @@ export default {
       photo: null,
       border: false,
       isShow: false,
-      menuUrl: 'http://papi.xingstation.com/api/point_configs/',
+      menuUrl: process.env.AD_API+'/api/point_configs/',
       menu: null,
       slider: false,
       source: this.$route.query.utm_source,

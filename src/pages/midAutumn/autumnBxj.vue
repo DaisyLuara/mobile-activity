@@ -46,7 +46,7 @@ export default {
       wxShareInfoValue: {
         title: '中秋变“仙”记 测测你的前世上神是哪位~',
         desc: '喜迎中秋，与星视度一起快乐“变身”吧',
-        link: 'http://papi.xingstation.com/api/s/4x1' + window.location.search,
+        link: process.env.AD_API+'/api/s/4x1' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/autumn_bxj/icon.jpg',
         success: () => {
           wechatShareTrack()

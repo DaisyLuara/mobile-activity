@@ -1,7 +1,8 @@
 <template>
-  <div 
-    :style="style.root" 
-    class="root">
+  <div
+    :style="style.root"
+    class="root"
+  >
     <!-- 券图 -->
     <!-- <img
       :src="baseUrl + 'H5_1.png'+ this.$qiniuCompress()"
@@ -13,9 +14,10 @@
       :class="{'x-couponImg':iphoneX,'couponImg':!iphoneX}"
       class="couponImg"
     >
-    <div 
-      :class="{'x-contain':iphoneX,'contain':!iphoneX}" 
-      class="contain">
+    <div
+      :class="{'x-contain':iphoneX,'contain':!iphoneX}"
+      class="contain"
+    >
       <!-- <img
         :src="baseUrl + 'er.jpeg'+ this.$qiniuCompress()"
         class="ewm"
@@ -25,12 +27,14 @@
         class="code"
       >1234567</span>
       </div>-->
-      <img 
-        :src="qrcodeImg+ this.$qiniuCompress()" 
-        class="ewm">
-      <span 
-        :style="style.code" 
-        class="code">{{ code }}</span>
+      <img
+        :src="qrcodeImg+ this.$qiniuCompress()"
+        class="ewm"
+      >
+      <span
+        :style="style.code"
+        class="code"
+      >{{ code }}</span>
     </div>
   </div>
 </template>

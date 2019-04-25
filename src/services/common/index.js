@@ -4,5 +4,3 @@
 export * from './track'
 export * from './parseServer'
 export * from './devices'
-
-// export * from './oldMethods'

@@ -104,7 +104,7 @@ export default {
         title: '月满中秋 心愿祈福',
         desc: '家人有爱口难开？让星视度帮你把祝福送给你爱的人吧',
         link:
-          'http://papi.xingstation.com/api/s/J62' +
+          process.env.AD_API+'/api/s/J62' +
           window.location.search +
           '&type=WeChat&name=' +
           '祝家人健健康康',

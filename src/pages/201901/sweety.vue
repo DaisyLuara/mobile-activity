@@ -40,31 +40,31 @@
   </div>
 </template>
 <script>
-import { $wechat, isInWechat, wechatShareTrack } from 'services'
-import { normalPages } from '@/mixins/normalPages'
-const IMG_SERVER = process.env.CDN_URL
+import { $wechat, isInWechat, wechatShareTrack } from "services";
+import { normalPages } from "@/mixins/normalPages";
+const IMG_SERVER = process.env.CDN_URL;
 export default {
   mixins: [normalPages],
   data() {
     return {
       style: {
         root: {
-          'min-height': this.$innerHeight() + 'px'
+          "min-height": this.$innerHeight() + "px"
         }
       },
-      base: IMG_SERVER + '/fe/image/sweety/',
+      base: IMG_SERVER + "/fe/image/sweety/",
       //分享
       wxShareInfoValue: {
-        title: '你一笑，世界都变甜了',
-        desc: '叮~您有一份甜蜜暴击等待签收！',
-        link: 'http://papi.xingstation.com/api/s/Xrk' + window.location.search,
-        imgUrl: 'http://cdn.xingstation.cn/fe/image/sweety/icon.jpg'
+        title: "你一笑，世界都变甜了",
+        desc: "叮~您有一份甜蜜暴击等待签收！",
+        link: "http://papi.xingstation.com/api/s/Xrk" + window.location.search,
+        imgUrl: "http://cdn.xingstation.cn/fe/image/sweety/icon.jpg"
       }
-    }
+    };
   },
-  mounted() { },
+  mounted() {},
   methods: {}
-}
+};
 </script>
 <style lang="less" scoped>
 @imgUrl: "http://cdn.xingstation.cn/fe/image/sweety/";

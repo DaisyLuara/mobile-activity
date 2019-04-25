@@ -41,7 +41,7 @@ export default {
       wxShareInfoValue: {
         title: '惊喜~看看和我合照的是谁？',
         desc: '快来星海生活广场和神秘人物合拍圣诞照片~',
-        link: 'http://papi.xingstation.com/api/s/1Wj' + window.location.search,
+        link: process.env.AD_API+'/api/s/1Wj' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/christmas/icon_h5.png',
         success: () => {
           wechatShareTrack()

@@ -61,7 +61,7 @@ export default {
       wxShareInfoValue: {
         title: '这个七夕，我们一起领“证”吧！',
         desc: '星视度-七夕办证中心限时开放中',
-        link: 'http://papi.xingstation.com/api/s/ADO' + window.location.search,
+        link: process.env.AD_API+'/api/s/ADO' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/loveCard/icon.jpg',
         success: () => {
           wechatShareTrack()

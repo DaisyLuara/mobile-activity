@@ -77,7 +77,7 @@
   </div>
 </template>
 <script>
-const cdnUrl = process.env.CDN_URL
+const cdnUrl = process.env.CDN_URL;
 import {
   $wechat,
   wechatShareTrack,
@@ -88,19 +88,19 @@ import {
   setParameter,
   getAdCoupon,
   checkCouponNumber
-} from 'services'
-import { normalPages } from '@/mixins/normalPages'
-import MC from 'mcanvas'
+} from "services";
+import { normalPages } from "@/mixins/normalPages";
+import MC from "mcanvas";
 export default {
   mixins: [normalPages],
   data() {
     return {
       style: {
         root: {
-          height: this.$innerHeight() + 'px'
+          height: this.$innerHeight() + "px"
         }
       },
-      base: cdnUrl + '/fe/image/xh_dance/',
+      base: cdnUrl + "/fe/image/xh_dance/",
       iphoneX: false,
       score: this.$route.query.score,
       coupon: 3,
@@ -112,149 +112,149 @@ export default {
       userId: null,
       base64Data: null,
       compoundUrl: null,
-      link: 'http://papi.xingstation.com/api/s/oYK',
+      link: process.env.AD_API + "/api/s/oYK",
       //http://xuhui.xiaooo.club/app/index.php?i=40&c=my&a=point&do=exchange
       //微信分享
       wxShareInfoValue: {
-        title: '一起尬舞吗？朋友',
-        desc: '金秋十月！来旭辉mall吃喝玩乐',
-        link: 'http://papi.xingstation.com/api/s/pg6' + window.location.search,
-        imgUrl: 'http://cdn.xingstation.cn/fe/image/xh_dance/icon.png',
-        success: function () {
-          wechatShareTrack()
+        title: "一起尬舞吗？朋友",
+        desc: "金秋十月！来旭辉mall吃喝玩乐",
+        link: process.env.AD_API + "/api/s/pg6" + window.location.search,
+        imgUrl: "http://cdn.exe666.com/fe/image/xh_dance/icon.png",
+        success: function() {
+          wechatShareTrack();
         }
       }
-    }
+    };
   },
   mounted() {
-    let height = this.$innerHeight()
+    let height = this.$innerHeight();
     if (height > 672) {
-      this.iphoneX = true
+      this.iphoneX = true;
     } else {
-      this.iphoneX = false
+      this.iphoneX = false;
     }
     //微信授权
     if (isInWechat() === true) {
       if (
-        process.env.NODE_ENV === 'production' ||
-        process.env.NODE_ENV === 'testing'
+        process.env.NODE_ENV === "production" ||
+        process.env.NODE_ENV === "testing"
       ) {
-        this.handleWechatAuth()
+        this.handleWechatAuth();
       }
     }
     // this.getAnim()
   },
   methods: {
     handleWechatAuth() {
-      if (Cookies.get('sign') === null) {
-        let base_url = encodeURIComponent(String(window.location.href))
+      if (Cookies.get("sign") === null) {
+        let base_url = encodeURIComponent(String(window.location.href));
         let redirct_url =
           process.env.WX_API +
-          '/wx/officialAccount/oauth?url=' +
+          "/wx/officialAccount/oauth?url=" +
           base_url +
-          '&scope=snsapi_base'
-        window.location.href = redirct_url
+          "&scope=snsapi_base";
+        window.location.href = redirct_url;
       } else {
-        this.userId = Cookies.get('user_id')
-        this.belong = this.$route.query.utm_campaign
-        this.getAnim()
+        this.userId = Cookies.get("user_id");
+        this.belong = this.$route.query.utm_campaign;
+        this.getAnim();
       }
     },
     drawing() {
-      let width = this.$innerWidth()
-      let height = this.$innerHeight()
-      let backgroundColor = 'white'
+      let width = this.$innerWidth();
+      let height = this.$innerHeight();
+      let backgroundColor = "white";
       let mc = new MC({
         width,
         height,
         backgroundColor
-      })
-      let url = this.photo + this.$qiniuCompress()
-      let score = parseInt(this.$route.query.score)
-      let ImgUrl = null
+      });
+      let url = this.photo + this.$qiniuCompress();
+      let score = parseInt(this.$route.query.score);
+      let ImgUrl = null;
       if (score >= 282 && score <= 300) {
-        ImgUrl = this.base + 'photo01.png'
+        ImgUrl = this.base + "photo01.png";
       }
       if (score >= 263 && score <= 281) {
-        ImgUrl = this.base + 'photo02.png'
+        ImgUrl = this.base + "photo02.png";
       }
       if (score <= 262) {
-        ImgUrl = this.base + 'photo03.png'
+        ImgUrl = this.base + "photo03.png";
       }
-      let that = this
-      mc.background(that.base + 'frame.png', {
+      let that = this;
+      mc.background(that.base + "frame.png", {
         left: 0,
         top: 0,
-        type: 'origin',
+        type: "origin",
         width: this.$innerWidth() * 0.1,
         height: this.$innerHeight(),
         pos: {
-          x: '0%',
-          y: '0%'
+          x: "0%",
+          y: "0%"
         }
       })
         .add(url, {
-          width: '180%',
-          color: '#000000',
+          width: "180%",
+          color: "#000000",
           pos: {
-            x: '-25%',
-            y: '7%',
+            x: "-25%",
+            y: "7%",
             rotate: 90
           }
         })
         .add(ImgUrl, {
-          width: '100%',
-          color: '#000000',
+          width: "100%",
+          color: "#000000",
           pos: {
-            x: '0%',
-            y: '0%'
+            x: "0%",
+            y: "0%"
           }
         })
         .draw({
           // 导出图片格式： png/jpg/jpeg/webp;
           // default : png;
-          type: 'jpg',
+          type: "jpg",
           //  图片质量，对 png 格式无效； 0~1；
           // default: .9;
           quality: 1,
           // 成功回调；
           success(b64) {
-            that.base64Data = b64
-            that.drawingText()
+            that.base64Data = b64;
+            that.drawingText();
           },
           // 错误回调；
           error(err) {
-            console.log(err)
+            console.log(err);
           }
-        })
+        });
     },
     //文字的合成及章
     drawingText() {
-      var thisRef = this
-      let canvas = document.getElementById('canvas')
-      let ctx = canvas.getContext('2d')
-      let image = new Image()
-      let height = this.$innerHeight()
-      let width = this.$innerWidth()
-      let text = this.$route.query.score
-      let seal = new Image()
-      seal.setAttribute('crossOrigin', 'Anonymous')
-      image.src = this.base64Data
-      image.onload = function () {
-        canvas.width = image.width
-        canvas.height = image.height
-        ctx.drawImage(image, 0, 0, image.width, image.height)
-        let x = image.width * 1.2 * 0.53
-        let y = image.height * 0.14
-        ctx.font = '400 100px jingzhuan'
-        ctx.textAlign = 'center'
-        ctx.fillStyle = '#fff'
-        ctx.fillText('', x, y)
-        ctx.save()
-        ctx.translate(x, y)
-        ctx.fillText(text, 0, 0)
-        ctx.restore()
-        seal.onload = function () {
+      var thisRef = this;
+      let canvas = document.getElementById("canvas");
+      let ctx = canvas.getContext("2d");
+      let image = new Image();
+      let height = this.$innerHeight();
+      let width = this.$innerWidth();
+      let text = this.$route.query.score;
+      let seal = new Image();
+      seal.setAttribute("crossOrigin", "Anonymous");
+      image.src = this.base64Data;
+      image.onload = function() {
+        canvas.width = image.width;
+        canvas.height = image.height;
+        ctx.drawImage(image, 0, 0, image.width, image.height);
+        let x = image.width * 1.2 * 0.53;
+        let y = image.height * 0.14;
+        ctx.font = "400 100px jingzhuan";
+        ctx.textAlign = "center";
+        ctx.fillStyle = "#fff";
+        ctx.fillText("", x, y);
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.fillText(text, 0, 0);
+        ctx.restore();
+        seal.onload = function() {
           ctx.drawImage(
             seal,
             0,
@@ -265,83 +265,84 @@ export default {
             image.height * 0.08,
             image.width * 0.35,
             image.width * 0.32
-          )
-          let url = canvas.toDataURL('image/png')
-          let img = document.getElementById('test')
-          img.src = url
-          thisRef.compoundUrl = url
-        }
-        seal.src = thisRef.base + '/passed.png'
-      }
+          );
+          let url = canvas.toDataURL("image/png");
+          let img = document.getElementById("test");
+          img.src = url;
+          thisRef.compoundUrl = url;
+        };
+        seal.src = thisRef.base + "/passed.png";
+      };
     },
     userGame() {
-      let id = this.$route.query.id
+      let id = this.$route.query.id;
       let args = {
         belong: this.belong,
         image_url: this.photo,
         qiniu_id: id
-      }
+      };
       userGame(args, this.userId)
         .then(res => {
-          this.getGame()
+          this.getGame();
         })
         .catch(e => {
-          console.log(e)
-        })
+          console.log(e);
+        });
     },
     getGame() {
-      let url = process.env.SAAS_API + '/user/' + this.userId + '/games?belong='
+      let url =
+        process.env.SAAS_API + "/user/" + this.userId + "/games?belong=";
       this.$http
         .get(url + this.belong)
         .then(res => {
           this.score = parseInt(res.data.data[0].total_score)
             ? parseInt(res.data.data[0].total_score)
-            : this.score
-          this.docheckScore(this.score)
+            : this.score;
+          this.docheckScore(this.score);
         })
         .catch(err => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     },
     getAnim() {
-      let timer = requestAnimationFrame(this.getAnim)
+      let timer = requestAnimationFrame(this.getAnim);
       if (this.photo) {
-        cancelAnimationFrame(timer)
-        this.userGame()
-        this.drawing()
-        console.log('photo')
-        return
+        cancelAnimationFrame(timer);
+        this.userGame();
+        this.drawing();
+        console.log("photo");
+        return;
       }
-      console.log(this.photo)
+      console.log(this.photo);
     },
     docheckScore(score_total) {
       if (score_total <= 400) {
-        this.coupon = 1
-        return
+        this.coupon = 1;
+        return;
       }
       if (score_total <= 700) {
-        this.coupon = 2
-        return
+        this.coupon = 2;
+        return;
       }
       if (score_total <= 1000) {
-        this.coupon = 3
-        return
+        this.coupon = 3;
+        return;
       }
       if (score_total > 1000) {
-        this.coupon = 4
-        return
+        this.coupon = 4;
+        return;
       }
     },
     toOtherLink() {
-      this.mask = true
-      this.explain2 = true
-      let that = this
-      let timer = setTimeout(function () {
-        window.location.href = that.link
-      }, 3000)
+      this.mask = true;
+      this.explain2 = true;
+      let that = this;
+      let timer = setTimeout(function() {
+        window.location.href = that.link;
+      }, 3000);
     }
   }
-}
+};
 </script>
 <style lang="less" scoped>
 @base: "http://cdn.xingstation.cn/fe/image/xh_dance/";

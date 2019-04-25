@@ -114,8 +114,8 @@ export default {
       wxShareInfoValue: {
         title: "开学送福利",
         desc: "亲爱的，礼物准备好了",
-        link: "http://papi.xingstation.com/api/s/j2R" + window.location.search,
-        imgUrl: "http://cdn.xingstation.cn/image/kaixue/icon.jpg",
+        link: process.env.AD_API + "/api/s/j2R" + window.location.search,
+        imgUrl: "http://cdn.exe666.com/image/kaixue/icon.jpg",
         success: function() {
           wechatShareTrack();
         }

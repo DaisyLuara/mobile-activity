@@ -93,7 +93,7 @@ export default {
       wxShareInfoValue: {
         title: '萌狮表情大作战',
         desc: '天降福利，身骑白马闯三关',
-        link: 'http://papi.xingstation.com/api/s/pQ6' + window.location.search,
+        link: process.env.AD_API+'/api/s/pQ6' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/lion/icon.jpeg'
       }
     }

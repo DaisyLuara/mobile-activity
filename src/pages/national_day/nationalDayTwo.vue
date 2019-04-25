@@ -40,7 +40,7 @@ export default {
       wxShareInfoValue: {
         title: '欢度国庆',
         desc: '团结一心，为祖国庆生',
-        link: 'http://papi.xingstation.com/api/s/j25' + window.location.search,
+        link: process.env.AD_API+'/api/s/j25' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/national_day_two/icon.png',
         success: () => {
           wechatShareTrack()

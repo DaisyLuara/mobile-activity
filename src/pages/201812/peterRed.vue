@@ -14,7 +14,7 @@ export default {
   },
   data() {
     return {
-      link: 'http://papi.xingstation.com/api/s/q73'
+      link: process.env.AD_API+'/api/s/q73'
     }
   },
   mounted() {

@@ -50,7 +50,7 @@ export default {
       wxShareInfoValue: {
         title: '舞王battle',
         desc: '不舞不型 全民街舞',
-        link: 'http://papi.xingstation.com/api/s/pg2' + window.location.search,
+        link: process.env.AD_API+'/api/s/pg2' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/xsd_ad/icon.png',
         success: () => {
           wechatShareTrack()

@@ -167,7 +167,7 @@ export default {
       sendCoupon(args, this.coupon_batch_id)
         .then(res => {
           this.textShow = false;
-          window.location.href = 'http://papi.xingstation.com/api/s/gZ9'
+          window.location.href = process.env.AD_API+'/api/s/gZ9'
         })
         .catch(err => {
           alert(err.response.data.message);

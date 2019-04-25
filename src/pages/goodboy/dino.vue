@@ -46,7 +46,7 @@ export default {
       wxShareInfoValue: {
         title: '限时活动丨PK游戏之王赢大奖',
         desc: '点击领取你的游戏结果',
-        link: 'http://papi.xingstation.com/api/s/0Rv' + window.location.search,
+        link: process.env.AD_API+'/api/s/0Rv' + window.location.search,
         imgUrl: IMAGE_SERVER + 'share.png',
         success: () => {
           wechatShareTrack();

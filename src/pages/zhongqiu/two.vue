@@ -137,22 +137,22 @@ import {
   getParamsMap,
   getParameter,
   setParameter
-} from 'services'
-import { normalPages } from '@/mixins/normalPages'
-const IMG_SERVER = process.env.CDN_URL
+} from "services";
+import { normalPages } from "@/mixins/normalPages";
+const IMG_SERVER = process.env.CDN_URL;
 export default {
   mixins: [normalPages],
   data() {
     return {
       style: {
         root: {
-          'min-height': this.$innerHeight() + 'px'
+          "min-height": this.$innerHeight() + "px"
         }
       },
-      origin: IMG_SERVER + '/image/zhongqiu/',
-      base: IMG_SERVER + '/image/zhongqiu/2/',
+      origin: IMG_SERVER + "/image/zhongqiu/",
+      base: IMG_SERVER + "/image/zhongqiu/2/",
       deUrl:
-        'http://wx.qlogo.cn/mmopen/Q3auHgzwzM4VoBYD1YEIq0E3LFM1XLKsd3sG5VXRAvCUqCVXIPTcI0TzqicRWfzB9Zv40GhTR83RhKAugpzOuaJFC11nxmcnnp6ZbOu04UFw/0',
+        "http://wx.qlogo.cn/mmopen/Q3auHgzwzM4VoBYD1YEIq0E3LFM1XLKsd3sG5VXRAvCUqCVXIPTcI0TzqicRWfzB9Zv40GhTR83RhKAugpzOuaJFC11nxmcnnp6ZbOu04UFw/0",
       userId: null,
       headImgUrl: null,
       mask: false,
@@ -167,79 +167,78 @@ export default {
       audioUrl: null,
       shareNote: false,
       popUp: false,
-      music: 'music_open',
+      music: "music_open",
       audio: {
-        text: ['', '萝莉', '大叔', '搞怪', '龟速', '', '机器'],
-        url: ['', 'shaonv', 'dashu', 'gaoguai', 'guisu', '', 'jiqiqi']
+        text: ["", "萝莉", "大叔", "搞怪", "龟速", "", "机器"],
+        url: ["", "shaonv", "dashu", "gaoguai", "guisu", "", "jiqiqi"]
       },
       task: {
-        left: '11',
-        right: '33'
+        left: "11",
+        right: "33"
       },
       photo: null,
-      tobtn: 'btn1',
+      tobtn: "btn1",
       //微信分享
       wxShareInfoValue: {
-        title: '中秋快乐',
-        desc: '采购中秋月饼,送吃送祝福',
-        link: 'http://papi.xingstation.com/api/s/Z6J' + window.location.search,
-        imgUrl: 'http://cdn.xingstation.cn/image/zhongqiu/2/share.png',
+        title: "中秋快乐",
+        desc: "采购中秋月饼,送吃送祝福",
+        link: "http://papi.xingstation.com/api/s/Z6J" + window.location.search,
+        imgUrl: "http://cdn.xingstation.cn/image/zhongqiu/2/share.png"
       }
-    }
+    };
   },
   watch: {
     parms() {
-      this.people_type = this.parms.people_type
-      this.text = this.parms.cake_name
-      this.share_audio = this.parms.share_audio
-      this.cake_type_a = this.parms.cake_type_a
-      this.cake_type_b = this.parms.cake_type_b
-      this.playAudio()
-      this.handlePost()
-      this.createGame(this.belong, this.userId)
-      this.userGame()
+      this.people_type = this.parms.people_type;
+      this.text = this.parms.cake_name;
+      this.share_audio = this.parms.share_audio;
+      this.cake_type_a = this.parms.cake_type_a;
+      this.cake_type_b = this.parms.cake_type_b;
+      this.playAudio();
+      this.handlePost();
+      this.createGame(this.belong, this.userId);
+      this.userGame();
     }
   },
   mounted() {
     //微信授权
     if (isInWechat() === true) {
       if (
-        process.env.NODE_ENV === 'production' ||
-        process.env.NODE_ENV === 'testing'
+        process.env.NODE_ENV === "production" ||
+        process.env.NODE_ENV === "testing"
       ) {
-        this.handleWechatAuth()
+        this.handleWechatAuth();
       }
     }
-
   },
   methods: {
     handleWechatAuth() {
-      if (Cookies.get('sign') === null) {
-        let base_url = encodeURIComponent(String(window.location.href))
+      if (Cookies.get("sign") === null) {
+        let base_url = encodeURIComponent(String(window.location.href));
         let redirct_url =
           process.env.WX_API +
-          '/wx/officialAccount/oauth?url=' +
+          "/wx/officialAccount/oauth?url=" +
           base_url +
-          '&scope=snsapi_base'
-        window.location.href = redirct_url
+          "&scope=snsapi_base";
+        window.location.href = redirct_url;
       } else {
-        this.userId = Cookies.get('user_id')
-        this.createGame(this.belong, this.userId)
-        this.userGame()
+        this.userId = Cookies.get("user_id");
+        this.createGame(this.belong, this.userId);
+        this.userGame();
         // this.handlePost()
       }
     },
     createGame(belong, userId) {
       let args = {
         belong: belong
-      }
+      };
       createGame(args, userId)
         .then(res => {
-          this.getGame(userId)
+          this.getGame(userId);
         })
         .catch(err => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     },
     userGame() {
       let args = {
@@ -247,49 +246,49 @@ export default {
         image_url: this.deUrl,
         qiniu_id: this.$route.query.id,
         score: 100
-      }
+      };
       userGame(args, this.userId)
         .then(res => {
-          console.log(res)
+          console.log(res);
         })
         .catch(e => {
-          console.log(e)
-        })
+          console.log(e);
+        });
     },
     getGame(userId) {
-      let that = this
+      let that = this;
       let args = {
         withCredentials: true
-      }
+      };
       getGame(args, userId)
         .then(res => {
-          console.log(res)
-          this.projectStatus(res, userId)
+          console.log(res);
+          this.projectStatus(res, userId);
         })
         .catch(err => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     },
     projectStatus(list, userId) {
-      let data = list
+      let data = list;
       data.map(r => {
-        if (r.belong === 'MoonCakeFactory') {
-          this.task.left = '1'
+        if (r.belong === "MoonCakeFactory") {
+          this.task.left = "1";
         }
-        if (r.belong === 'WhoTakeMoonCake') {
-          this.task.right = '3'
+        if (r.belong === "WhoTakeMoonCake") {
+          this.task.right = "3";
         }
-      })
+      });
     },
     checkPop() {
-      if (this.tobtn == 'share_btn') {
-        this.shareNote = true
-        return
+      if (this.tobtn == "share_btn") {
+        this.shareNote = true;
+        return;
       }
-      this.popUp = true
+      this.popUp = true;
     },
     handlePost() {
-      let id = this.$route.query.id
+      let id = this.$route.query.id;
       let url =
         `oid=563,213,387,229,427,220,544,475,435&belong=WhoTakeMoonCake&id=` +
         id +
@@ -299,116 +298,118 @@ export default {
         this.cake_type_b +
         ",'people_type':" +
         this.people_type +
-        '}&name&image&api=json'
-      handleDataPost(url).then(res => {
-        console.log(res)
-      }).catch(err => {
-        console.log(err)
-      })
+        "}&name&image&api=json";
+      handleDataPost(url)
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
     playAudio() {
-      let vshare = document.getElementById('vshare')
-      let voice = document.getElementById('voice')
-      let that = this
+      let vshare = document.getElementById("vshare");
+      let voice = document.getElementById("voice");
+      let that = this;
       if (!vshare) {
-        return
+        return;
       }
       //调用 <audio> 元素提供的方法 play()
-      vshare.play()
+      vshare.play();
       if (vshare.paused) {
-        that.music = 'music_close'
-        that.circle = false
+        that.music = "music_close";
+        that.circle = false;
       }
       //判斷 WeixinJSBridge 是否存在
       if (
-        typeof WeixinJSBridge == 'object' &&
-        typeof WeixinJSBridge.invoke == 'function'
+        typeof WeixinJSBridge == "object" &&
+        typeof WeixinJSBridge.invoke == "function"
       ) {
-        vshare.play()
+        vshare.play();
       } else {
         //監聽客户端抛出事件"WeixinJSBridgeReady"
         if (document.addEventListener) {
           document.addEventListener(
-            'WeixinJSBridgeReady',
-            function () {
-              vshare.play()
+            "WeixinJSBridgeReady",
+            function() {
+              vshare.play();
             },
             false
-          )
+          );
         } else if (document.attachEvent) {
-          document.attachEvent('WeixinJSBridgeReady', function () {
-            vshare.play()
-          })
-          document.attachEvent('onWeixinJSBridgeReady', function () {
-            vshare.play()
-          })
+          document.attachEvent("WeixinJSBridgeReady", function() {
+            vshare.play();
+          });
+          document.attachEvent("onWeixinJSBridgeReady", function() {
+            vshare.play();
+          });
         }
       }
 
       //voiceStatu用來記録狀態,使 touchstart 事件只能觸發一次有效,避免與 click 事件衝突
-      var voiceStatu = true
+      var voiceStatu = true;
       //监听 touchstart 事件进而调用 <audio> 元素提供的 play() 方法播放音频
       document.addEventListener(
-        'touchstart',
-        function (e) {
+        "touchstart",
+        function(e) {
           if (voiceStatu) {
-            vshare.play()
-            voiceStatu = false
+            vshare.play();
+            voiceStatu = false;
           }
         },
         false
-      )
-      vshare.onplay = function () {
-        that.music = 'music_open'
-        that.circle = true
-        that.voice.pause()
-      }
-      vshare.onpause = function () {
-        that.music = 'music_close'
-        that.circle = false
-      }
+      );
+      vshare.onplay = function() {
+        that.music = "music_open";
+        that.circle = true;
+        that.voice.pause();
+      };
+      vshare.onpause = function() {
+        that.music = "music_close";
+        that.circle = false;
+      };
     },
     playOrNot() {
       // 依據 audio 的 paused 属性返回音频是否已暂停來判斷播放還是暫停音频。
-      let vshare = document.getElementById('vshare')
+      let vshare = document.getElementById("vshare");
       if (vshare.paused) {
-        vshare.play()
+        vshare.play();
       } else {
-        vshare.pause()
+        vshare.pause();
       }
     },
     playVoice(item) {
-      this.ins = item
-      let that = this
-      this.audioUrl = this.audio.url[item]
+      this.ins = item;
+      let that = this;
+      this.audioUrl = this.audio.url[item];
       // 依據 audio 的 paused 属性返回音频是否已暂停來判斷播放還是暫停音频。
-      let vshare = document.getElementById('vshare')
-      vshare.pause()
-      let voice = document.getElementById('voice')
-      voice.src = this.origin + 'mp3/' + this.audio.url[item] + '.mp3'
-      voice.currentTime = 0
-      voice.play()
-      voice.onplay = function () {
-        that.startvoice = true
-      }
-      voice.onpause = function () {
-        that.startvoice = false
-      }
-      voice.onended = function () {
-        that.startvoice = false
-      }
+      let vshare = document.getElementById("vshare");
+      vshare.pause();
+      let voice = document.getElementById("voice");
+      voice.src = this.origin + "mp3/" + this.audio.url[item] + ".mp3";
+      voice.currentTime = 0;
+      voice.play();
+      voice.onplay = function() {
+        that.startvoice = true;
+      };
+      voice.onpause = function() {
+        that.startvoice = false;
+      };
+      voice.onended = function() {
+        that.startvoice = false;
+      };
     },
     toSub() {
-      this.popUp = false
-      this.tobtn = 'share_btn'
+      this.popUp = false;
+      this.tobtn = "share_btn";
       this.wxShareInfoValue.link = setParameter(
-        'share_voice',
+        "share_voice",
         encodeURIComponent(this.audioUrl)
-      )
-      let voice = document.getElementById('voice')
+      );
+      let voice = document.getElementById("voice");
     }
   }
-}
+};
 </script>
 <style lang="less" scoped>
 @base: "http://cdn.xingstation.cn/image/zhongqiu/2/";

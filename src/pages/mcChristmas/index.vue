@@ -166,7 +166,7 @@ export default {
     },
     //跳转
     goH5() {
-      window.location.href = 'http://papi.xingstation.com/api/s/gJY'
+      window.location.href = process.env.AD_API+'/api/s/gJY'
     },
     initAnimation() {
       const el = document.getElementById('animation')

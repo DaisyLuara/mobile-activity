@@ -333,8 +333,8 @@ export default {
     jumpToLink() {
       window.location.href =
         process.env.NODE_ENV === "production"
-          ? "http://papi.xingstation.com/api/s/pyX"
-          : "http://papi.xingstation.net/api/s/vm";
+          ? process.env.AD_API + "/api/s/pyX"
+          : process.env.AD_API + "/api/s/vm";
     }
   }
 };

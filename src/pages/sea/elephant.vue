@@ -39,61 +39,61 @@
   </div>
 </template>
 <script>
-import { $wechat, wechatShareTrack } from 'services'
-import { normalPages } from '@/mixins/normalPages'
-const IMG_SERVER = process.env.CDN_URL
+import { $wechat, wechatShareTrack } from "services";
+import { normalPages } from "@/mixins/normalPages";
+const IMG_SERVER = process.env.CDN_URL;
 export default {
   mixins: [normalPages],
   data() {
     return {
       style: {
         root: {
-          'min-height': this.$innerHeight() + 'px'
+          "min-height": this.$innerHeight() + "px"
         }
       },
-      base: IMG_SERVER + '/image/elephant/',
+      base: IMG_SERVER + "/image/elephant/",
       photo: null,
       animated: false,
       //微信分享
       wxShareInfoValue: {
-        title: '微笑雨花',
-        desc: 'Smile 一周年 ',
-        link: 'http://papi.xingstation.com/api/s/QWl' + window.location.search,
-        imgUrl: 'http://cdn.xingstation.cn/image/elephant/icon.png',
+        title: "微笑雨花",
+        desc: "Smile 一周年 ",
+        link: process.env.AD_API + "/api/s/QWl" + window.location.search,
+        imgUrl: "http://cdn.exe666.com/image/elephant/icon.png",
         success: () => {
-          wechatShareTrack()
+          wechatShareTrack();
         }
       }
-    }
+    };
   },
   mounted() {
-    this.animateStart()
+    this.animateStart();
   },
   methods: {
     animateStart() {
-      let that = this
+      let that = this;
       let img_list = [
-        that.base + 'bg.png',
-        that.base + 'cove.png',
-        that.base + 'el1.png',
-        that.base + 'el2.png',
-        that.base + 'el3.png'
-      ]
-      let count = 0
+        that.base + "bg.png",
+        that.base + "cove.png",
+        that.base + "el1.png",
+        that.base + "el2.png",
+        that.base + "el3.png"
+      ];
+      let count = 0;
       img_list.forEach(ele => {
-        let img = new Image()
-        img.src = ele
+        let img = new Image();
+        img.src = ele;
         img.onload = function() {
-          count++
-          count == img_list.length ? (that.animated = true) : null
-        }
-      })
+          count++;
+          count == img_list.length ? (that.animated = true) : null;
+        };
+      });
     }
   }
-}
+};
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://cdn.xingstation.cn/image/elephant/';
+@imgUrl: "http://cdn.xingstation.cn/image/elephant/";
 html,
 body {
   width: 100%;
@@ -116,7 +116,7 @@ img {
   width: 100%;
   overflow-x: hidden;
   background-color: #1e0a6a;
-  background-image: url('@{imgUrl}bg.png');
+  background-image: url("@{imgUrl}bg.png");
   background-position: center top;
   background-repeat: no-repeat;
   background-size: 100% 100%;

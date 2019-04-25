@@ -145,7 +145,7 @@ export default {
       }, 300)
     },
     handleNavi() {
-      window.location.href = 'http://papi.xingstation.com/api/s/zm8'
+      window.location.href = process.env.AD_API+'/api/s/zm8'
     }
   }
 }

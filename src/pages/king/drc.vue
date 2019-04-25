@@ -46,7 +46,7 @@ export default {
       wxShareInfoValue: {
         title: '愿你三冬暖 愿你春不寒',
         desc: '融城陪你一起温暖过冬',
-        link: 'http://papi.xingstation.com/api/s/GZ0' + window.location.search,
+        link: process.env.AD_API+'/api/s/GZ0' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/drc_snow/share.png',
         success: () => {
           wechatShareTrack()

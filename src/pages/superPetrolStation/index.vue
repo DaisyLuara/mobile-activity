@@ -47,7 +47,7 @@ export default {
       wxShareInfoValue: {
         title: '刷脸为自己加油打call，让健康生活不只是口号！',
         desc: '星视度超级加油站',
-        link: 'http://papi.xingstation.com/api/s/Dkx' + window.location.search,
+        link: process.env.AD_API+'/api/s/Dkx' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/superPetrolStation/icon.jpg',
       }
     }

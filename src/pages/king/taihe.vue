@@ -82,7 +82,7 @@ export default {
       // wxShareInfoValue: {
       //   title: '刷脸享优惠，畅快看大片！',
       //   desc: '太禾影城等你来嗨玩！',
-      //   link: 'http://papi.xingstation.com/api/s/zK8' + window.location.search,
+      //   link: process.env.AD_API+'/api/s/zK8' + window.location.search,
       //   imgUrl: cdnUrl + '/fe/marketing/img/taihe/icon.jpg'
       // }
     }

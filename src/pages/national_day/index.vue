@@ -50,7 +50,7 @@ export default {
       wxShareInfoValue: {
         title: '国庆快乐',
         desc: '我为祖国打call！！！',
-        link: 'http://papi.xingstation.com/api/s/oYj' + window.location.search,
+        link: process.env.AD_API+'/api/s/oYj' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/national_day/icon.png'
       }
     }

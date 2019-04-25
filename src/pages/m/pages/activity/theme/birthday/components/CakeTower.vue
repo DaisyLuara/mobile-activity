@@ -77,61 +77,67 @@
 </template>
 
 <script>
-import { ScrollView, ScrollViewMore } from "mand-mobile"
-import "../mand-reset.less"
-import "animate.css"
+/* eslint-disable */
+
+import { ScrollView, ScrollViewMore } from "mand-mobile";
+import "../mand-reset.less";
+import "animate.css";
 
 export default {
   name: "CakeTower",
   components: {
     [ScrollView.name]: ScrollView
   },
-  props: ['list', 'isAllLoaded', 'pageSize'],
-  data () {
+  props: ["list", "isAllLoaded", "pageSize"],
+  data() {
     return {
-      imageHost: 'https://cdn.xingstation.cn/m/activity/shop/birthday/',
-      defaultAvatar: 'http://thirdwx.qlogo.cn/mmopen/vi_32/kPmo3eFGlBOPalDZHOpAicFPfQaicU7icJnypiaUxUcFEOE2kdddNsFXPkmiaeBo6LCRau0ibZK72fUtDpo9dSZccXTA/132',
+      imageHost: "https://cdn.xingstation.cn/m/activity/shop/birthday/",
+      defaultAvatar:
+        "http://thirdwx.qlogo.cn/mmopen/vi_32/kPmo3eFGlBOPalDZHOpAicFPfQaicU7icJnypiaUxUcFEOE2kdddNsFXPkmiaeBo6LCRau0ibZK72fUtDpo9dSZccXTA/132",
       commentShowLimit: 0,
       commentShowMap: []
-    }
+    };
   },
-  mounted () {
-    this.computedCakeHeight()
-    this.commentShowLimit = document.body.clientHeight
+  mounted() {
+    this.computedCakeHeight();
+    this.commentShowLimit = document.body.clientHeight;
   },
   methods: {
-    computedCakeHeight () {
-      const screenWidth = document.body.clientWidth
-      this.cakeHeight = 227 * (screenWidth / 375)
+    computedCakeHeight() {
+      const screenWidth = document.body.clientWidth;
+      this.cakeHeight = 227 * (screenWidth / 375);
     },
     // scrollview回调事件，滚动时遍历每个蛋糕dom，判断是否显示在可视区域，若是则给标签加上动画
-    handleScroll ({ scrollTop }) {
-      const greetingsDomList = this.$refs.greetings
+    handleScroll({ scrollTop }) {
+      const greetingsDomList = this.$refs.greetings;
       if (greetingsDomList) {
         for (let i = this.pageSize; i < greetingsDomList.length; i++) {
-          if ((greetingsDomList[i].offsetTop + this.cakeHeight - scrollTop) < this.commentShowLimit) {
-            this.commentShowMap.splice(i, 1, true)
+          if (
+            greetingsDomList[i].offsetTop + this.cakeHeight - scrollTop <
+            this.commentShowLimit
+          ) {
+            this.commentShowMap.splice(i, 1, true);
           }
         }
       }
     },
-    handleEndReached () {
-      this.$emit('emitLoadMore')
+    handleEndReached() {
+      this.$emit("emitLoadMore");
     },
-    finishLoadMore () {
-      this.$refs.scrollView.finishLoadMore()
+    finishLoadMore() {
+      this.$refs.scrollView.finishLoadMore();
     }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
-@imageHost: 'https://cdn.xingstation.cn/m/activity/shop/birthday/';
+@imageHost: "https://cdn.xingstation.cn/m/activity/shop/birthday/";
 @import "../mixin.less";
 
 img {
   -webkit-user-select: none;
-  user-select: none
+  user-select: none;
 }
 
 .greetings-cake {
@@ -214,7 +220,7 @@ img {
                   width: 100%;
                   height: 100%;
                   border-radius: 50%;
-                  border: 0.015rem solid #FFF;
+                  border: 0.015rem solid #fff;
                 }
                 .avatar-name {
                   position: absolute;
@@ -223,14 +229,14 @@ img {
                   right: 0;
                   font-size: 0.1rem;
                   text-align: center;
-                  color: #FFF;
+                  color: #fff;
                   .ellipsis();
                 }
               }
               .comment-word {
                 width: 1rem;
                 font-size: 0.1rem;
-                color: #FFF;
+                color: #fff;
               }
             }
             &.left {

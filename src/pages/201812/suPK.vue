@@ -131,7 +131,7 @@ export default {
       wxShareInfoValue: {
         title: '魔镜颜值PK擂台',
         desc: '互动扫码 赢取好礼',
-        link: 'http://papi.xingstation.com/api/s/Gvy' + window.location.search,
+        link: process.env.AD_API+'/api/s/Gvy' + window.location.search,
         imgUrl: IMGSERVER + '/fe/image/supk/share.png',
       }
     }

@@ -38,7 +38,7 @@ export default {
       wxShareInfoValue: {
         title: '恭喜你，喜提“二次元”小情人一枚！',
         desc: '从今以后，再也不用吃狗粮了~',
-        link: 'http://papi.xingstation.com/api/s/4z2' + window.location.search,
+        link: process.env.AD_API+'/api/s/4z2' + window.location.search,
         imgUrl: CDNURL + '/fe/image/ciyuanLove/icon.jpg'
       }
     }

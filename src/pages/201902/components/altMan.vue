@@ -183,7 +183,7 @@ export default {
       wxShareInfoValue: {
         title: "万代TAMASHII NATIONS奥特曼英雄“魂”展首次空降上海",
         desc: "一起参与现场互动游戏，赢得大量奥特曼系列礼品",
-        link: 'http://papi.xingstation.com/api/s/6B7',
+        link: process.env.AD_API+'/api/s/6B7',
         imgUrl: CDNURL + "/fe/image/altman/icon.png"
       }
     };

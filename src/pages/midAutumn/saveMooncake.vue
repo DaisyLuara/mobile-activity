@@ -151,7 +151,7 @@ export default {
       wxShareInfoValue: {
         title: '拯救月饼',
         desc: '月满中秋.jpg',
-        link: 'http://papi.xingstation.com/api/s/82m' + window.location.search,
+        link: process.env.AD_API+'/api/s/82m' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/save_moonCake/icon.png',
         success: () => {
           wechatShareTrack()

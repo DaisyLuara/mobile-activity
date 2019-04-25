@@ -69,15 +69,15 @@ export default {
       // score: Number(this.$route.query.score),
       userId: null,
       link: {
-        link1: 'http://papi.xingstation.com/api/s/5yB', //新人注册-券
+        link1: process.env.AD_API+'/api/s/5yB', //新人注册-券
         //短链'http://sfreg.oramage.com'
-        link2: 'http://papi.xingstation.com/api/s/mwO' //20减3券
+        link2: process.env.AD_API+'/api/s/mwO' //20减3券
       },
       //分享
       wxShareInfoValue: {
         title: '中秋豪礼 味你而来',
         desc: '中秋豪礼 味你而来',
-        link: 'http://papi.xingstation.com/api/s/W6J' + window.location.search,
+        link: process.env.AD_API+'/api/s/W6J' + window.location.search,
         imgUrl: IMG_SERVER + '/fe/image/sfmoon/share.jpg',
       }
     }

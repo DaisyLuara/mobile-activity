@@ -86,7 +86,7 @@ export default {
       wxShareInfo: {
         title: '七夕，我们谈个恋爱吧！',
         desc: '用一生说我爱你',
-        link: 'http://papi.xingstation.com/api/s/rkE' + window.location.search,
+        link: process.env.AD_API+'/api/s/rkE' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/tanabataFestival/share.png',
         success: () => {
           wechatShareTrack()

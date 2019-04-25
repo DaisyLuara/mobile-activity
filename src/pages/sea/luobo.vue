@@ -52,8 +52,8 @@ export default {
       wxShareInfoValue: {
         title: '萝卜sos',
         desc: '不要一直吸我~',
-        link: 'http://papi.xingstation.com/api/s/Nk6' + window.location.search,
-        imgUrl: 'http://cdn.xingstation.cn/image/luobo/share.png',
+        link: process.env.AD_API+'/api/s/Nk6' + window.location.search,
+        imgUrl: 'http://cdn.exe666.com/image/luobo/share.png',
         success: function() {
           wechatShareTrack()
         }

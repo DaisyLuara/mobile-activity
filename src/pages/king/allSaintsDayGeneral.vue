@@ -45,7 +45,7 @@ export default {
       wxShareInfoValue: {
         title: '万圣之夜',
         desc: '让我们一起搞鬼',
-        link: 'http://papi.xingstation.com/api/s/P1n' + window.location.search,
+        link: process.env.AD_API+'/api/s/P1n' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/baoli_general/icon.png',
         success: () => {
           wechatShareTrack()

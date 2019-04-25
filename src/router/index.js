@@ -2,13 +2,11 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import marketingHome from 'pages/marketingHome'
 import bindHome from 'pages/bindHome'
-import hidolHome from 'pages/hidolHome'
 import PageNotFound from 'pages/404'
 
 // 被分割的子路由信息
 import marketingRouter from './marketing/index'
 import wxBindRouter from './wxbind/index'
-import hidolRouter from './hidol/index'
 import { H5PocketRouter } from './legacy/h5pocket'
 import { H5SaaSRouter } from './H5SaaS/index'
 

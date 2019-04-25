@@ -27,89 +27,89 @@
   </div>
 </template>
 <script>
-const cdnUrl = process.env.CDN_URL
-import { wechatShareTrack } from 'services'
-import { normalPages } from '@/mixins/normalPages'
+const cdnUrl = process.env.CDN_URL;
+import { wechatShareTrack } from "services";
+import { normalPages } from "@/mixins/normalPages";
 export default {
   mixins: [normalPages],
   data() {
     return {
       style: {
         root: {
-          height: this.$innerHeight() + 'px'
+          height: this.$innerHeight() + "px"
         }
       },
-      base: cdnUrl + '/fe/image/',
+      base: cdnUrl + "/fe/image/",
       photo: null,
       iphoneX: false,
       absolute: false,
-      btn: 'hengdian/btn1.png',
+      btn: "hengdian/btn1.png",
       count: 0,
       timer: null,
       //微信分享
       wxShareInfoValue: {
-        title: '横店APP',
-        desc: '19.9会员购票',
-        link: 'http://papi.xingstation.com/api/s/rR6' + window.location.search,
-        imgUrl: 'http://cdn.xingstation.cn/fe/image/hengdian/icon.png',
+        title: "横店APP",
+        desc: "19.9会员购票",
+        link: process.env.AD_API + "/api/s/rR6" + window.location.search,
+        imgUrl: "http://cdn.exe666.com/fe/image/hengdian/icon.png",
         success: () => {
-          wechatShareTrack()
+          wechatShareTrack();
         }
       }
-    }
+    };
   },
   mounted() {
-    let height = this.$innerHeight()
-    let width = this.$innerWidth()
+    let height = this.$innerHeight();
+    let width = this.$innerWidth();
     if (height > 630) {
-      this.absolute = true
+      this.absolute = true;
     } else {
-      this.absolute = false
+      this.absolute = false;
     }
     if (height > 672) {
-      this.iphoneX = true
+      this.iphoneX = true;
     } else {
-      this.iphoneX = false
+      this.iphoneX = false;
     }
     // this.btnOnLoad()
   },
   methods: {
     btnOnLoad() {
-      let btn1 = new Image()
-      btn1.src = this.base + 'hengdian/btn1.png'
-      let btn2 = new Image()
-      btn2.src = this.base + 'hengdian/btn2.png'
-      let that = this
+      let btn1 = new Image();
+      btn1.src = this.base + "hengdian/btn1.png";
+      let btn2 = new Image();
+      btn2.src = this.base + "hengdian/btn2.png";
+      let that = this;
       btn1.onload = function() {
         btn2.onload = function() {
-          that.setAnim()
-        }
-      }
+          that.setAnim();
+        };
+      };
     },
     setAnim() {
       if (this.count % 10 == 0) {
         this.btn =
-          this.btn == 'hengdian/btn1.png'
-            ? 'hengdian/btn2.png'
-            : 'hengdian/btn1.png'
+          this.btn == "hengdian/btn1.png"
+            ? "hengdian/btn2.png"
+            : "hengdian/btn1.png";
       }
-      this.count++
-      this.timer = requestAnimationFrame(this.setAnim)
+      this.count++;
+      this.timer = requestAnimationFrame(this.setAnim);
       if (this.count > 600) {
-        this.count = 0
-        return
+        this.count = 0;
+        return;
       }
     },
     myToBuy() {
       // cancelAnimationFrame(this.timer)
       // this.btn = 'hengdian/press.png'
-      window.location.href = 'http://papi.xingstation.com/api/s/yrW'
+      window.location.href = process.env.AD_API + "/api/s/yrW";
     }
   }
-}
+};
 </script>
 <style lang="less" scoped>
-@base: 'http://cdn.xingstation.cn/fe/image/hengdian/';
+@base: "http://cdn.xingstation.cn/fe/image/hengdian/";
 html,
 body {
   width: 100%;
@@ -167,7 +167,7 @@ img {
       background-size: 100% auto;
       animation: myShake 2s linear infinite;
       &:active {
-        background-image: url('@{base}press.png');
+        background-image: url("@{base}press.png");
         animation: none;
       }
     }
@@ -201,13 +201,13 @@ img {
 }
 @keyframes myShake {
   0% {
-    background-image: url('@{base}btn1.png');
+    background-image: url("@{base}btn1.png");
   }
   50% {
-    background-image: url('@{base}btn2.png');
+    background-image: url("@{base}btn2.png");
   }
   100% {
-    background-image: url('@{base}btn1.png');
+    background-image: url("@{base}btn1.png");
   }
 }
 </style>

@@ -104,7 +104,7 @@ export default {
       wxShareInfoValue: {
         title: '仓前街道市民客厅',
         desc: '微笑转递',
-        link: 'http://papi.xingstation.com/api/s/MQ3' + window.location.search,
+        link: process.env.AD_API+'/api/s/MQ3' + window.location.search,
         imgUrl: BASE_URL + '/fe/image/cangqian/icon.png',
       }
     }

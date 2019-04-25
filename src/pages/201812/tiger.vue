@@ -39,7 +39,7 @@
   </div>
 </template>
 <script>
-import { onlyGetPhoto } from '../../mixins/onlyGetPhoto'
+import { onlyGetPhoto } from "../../mixins/onlyGetPhoto";
 import {
   $wechat,
   isInWechat,
@@ -49,20 +49,20 @@ import {
   checkGetCoupon,
   dateFormat,
   formatTimestamp
-} from 'services'
-const cdnUrl = process.env.CDN_URL
-const dayjs = require('dayjs')
+} from "services";
+const cdnUrl = process.env.CDN_URL;
+const dayjs = require("dayjs");
 export default {
   mixins: [onlyGetPhoto],
   data() {
     return {
-      baseUrl: cdnUrl + '/fe/marketing/img/tiger/',
+      baseUrl: cdnUrl + "/fe/marketing/img/tiger/",
       style: {
         root: {
-          height: this.$innerHeight() + 'px'
+          height: this.$innerHeight() + "px"
         },
         code: {
-          bottom: (this.$innerWidth() * 65) / 750 + 'px'
+          bottom: (this.$innerWidth() * 65) / 750 + "px"
         }
       },
       iphoneX: false,
@@ -72,7 +72,7 @@ export default {
       couponImg: null,
       qrcodeImg: null,
       code: null,
-      couponID: ['116', '117'],
+      couponID: ["116", "117"],
       //couponID: ['31', '32'],
       new_coupon_batch_id: null,
       params: {
@@ -81,93 +81,102 @@ export default {
       hasUsed: false,
       hasPost: false,
       wxShareInfoValue: {
-        title: '四云奶盖贡茶请你喝奶茶了！',
-        desc: '点击即可领福利',
-        link: 'http://papi.xingstation.com/api/s/913' + window.location.search,
-        //link: 'http://papi.xingstation.net/api/s/Lg4' + window.location.search,
-        imgUrl: cdnUrl + '/fe/marketing/img/tiger/icon.png'
+        title: "四云奶盖贡茶请你喝奶茶了！",
+        desc: "点击即可领福利",
+        link: process.env.AD_API + "/api/s/913" + window.location.search,
+        //link: process.env.AD_API+'/api/s/Lg4' + window.location.search,
+        imgUrl: cdnUrl + "/fe/marketing/img/tiger/icon.png"
       }
-    }
+    };
   },
   watch: {
     parms() {
-      this.checkCouponIsUse()
+      this.checkCouponIsUse();
     }
   },
   mounted() {
     //微信授权
     if (isInWechat() === true) {
       if (
-        process.env.NODE_ENV === 'production' ||
-        process.env.NODE_ENV === 'testing'
+        process.env.NODE_ENV === "production" ||
+        process.env.NODE_ENV === "testing"
       ) {
-        this.handleWechatAuth()
+        this.handleWechatAuth();
       }
     }
     if (this.$innerHeight() > 672) {
-      this.iphoneX = true
+      this.iphoneX = true;
     } else {
-      this.iphoneX = false
+      this.iphoneX = false;
     }
   },
   methods: {
     //微信静默授权
     handleWechatAuth() {
-      if (Cookies.get('sign') === null) {
-        let base_url = encodeURIComponent(String(window.location.href))
+      if (Cookies.get("sign") === null) {
+        let base_url = encodeURIComponent(String(window.location.href));
         let redirct_url =
           process.env.WX_API +
-          '/wx/officialAccount/oauth?url=' +
+          "/wx/officialAccount/oauth?url=" +
           base_url +
-          '&scope=snsapi_base'
-        window.location.href = redirct_url
+          "&scope=snsapi_base";
+        window.location.href = redirct_url;
       } else {
-        this.randomCouponID()
-        this.wxShareInfoValue.link = this.changeUrlArg(this.wxShareInfoValue.link, 'coupon_batch_id', this.new_coupon_batch_id)
-        this.handleShare()
-        this.userId = Cookies.get('user_id')
-        this.params.user_id = this.userId
-        this.checkCouponIsUse()
+        this.randomCouponID();
+        this.wxShareInfoValue.link = this.changeUrlArg(
+          this.wxShareInfoValue.link,
+          "coupon_batch_id",
+          this.new_coupon_batch_id
+        );
+        this.handleShare();
+        this.userId = Cookies.get("user_id");
+        this.params.user_id = this.userId;
+        this.checkCouponIsUse();
       }
     },
     //分享
     handleShare() {
       $wechat()
         .then(res => {
-          res.share(this.wxShareInfoValue)
+          res.share(this.wxShareInfoValue);
         })
         .catch(_ => {
-          console.warn(_.message)
-        })
+          console.warn(_.message);
+        });
     },
     //分享的链接处理函数
     changeUrlArg(url, arg, val) {
-      let pattern = arg + '=([^&]*)';
-      let replaceText = arg + '=' + val;
-      return url.match(pattern) ? url.replace(eval('/(' + arg + '=)([^&]*)/gi'), replaceText) : (url.match('[\?]') ? url + '&' + replaceText : url + '?' + replaceText);
+      let pattern = arg + "=([^&]*)";
+      let replaceText = arg + "=" + val;
+      return url.match(pattern)
+        ? url.replace(eval("/(" + arg + "=)([^&]*)/gi"), replaceText)
+        : url.match("[?]")
+        ? url + "&" + replaceText
+        : url + "?" + replaceText;
     },
     //随机出randomCouponID
     randomCouponID() {
-      let that = this
-      that.new_coupon_batch_id = that.couponID[Math.floor(Math.random() * that.couponID.length)]
+      let that = this;
+      that.new_coupon_batch_id =
+        that.couponID[Math.floor(Math.random() * that.couponID.length)];
     },
     //判断是否领过优惠券
     checkCouponIsUse() {
       let args = {
         coupon_batch_id: this.coupon_batch_id,
-        include: 'couponBatch',
+        include: "couponBatch",
         qiniu_id: this.id
-      }
+      };
       checkGetCoupon(args)
         .then(res => {
           if (res) {
-            this.handleData(res)
+            this.handleData(res);
           } else {
-            let data = new Date()
+            let data = new Date();
             args = {
               coupon_batch_id: this.coupon_batch_id,
-              include: 'couponBatch'
-            }
+              include: "couponBatch"
+            };
             // args.start_date = dateFormat(
             //   new Date(formatTimestamp(data, true)),
             //   'yyyy-MM-dd hh:mm:ss'
@@ -176,50 +185,54 @@ export default {
             //   new Date(formatTimestamp(data, false) - 1000),
             //   'yyyy-MM-dd hh:mm:ss'
             // )
-            args.start_date = dayjs(new Date(formatTimestamp(data, true))).format('YYYY-MM-DD HH:mm:ss')
-            args.end_date = dayjs(new Date(formatTimestamp(data, false) - 1000)).format('YYYY-MM-DD HH:mm:ss')
+            args.start_date = dayjs(
+              new Date(formatTimestamp(data, true))
+            ).format("YYYY-MM-DD HH:mm:ss");
+            args.end_date = dayjs(
+              new Date(formatTimestamp(data, false) - 1000)
+            ).format("YYYY-MM-DD HH:mm:ss");
             checkGetCoupon(args)
               .then(res => {
                 if (res) {
-                  this.handleData(res)
+                  this.handleData(res);
                 } else {
-                  this.sendCoupon()
+                  this.sendCoupon();
                 }
               })
               .catch(err => {
-                console.log(err)
-              })
+                console.log(err);
+              });
           }
         })
         .catch(err => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     },
     //发优惠券
     sendCoupon() {
       let args = {
-        include: 'couponBatch',
+        include: "couponBatch",
         qiniu_id: this.id,
         oid: this.oid,
         belong: this.$route.belong
-      }
+      };
       sendCoupon(args, this.coupon_batch_id)
         .then(res => {
-          console.log('sendCoupon', res)
-          this.handleData(res)
+          console.log("sendCoupon", res);
+          this.handleData(res);
         })
         .catch(err => {
-          alert(err.response.data.message)
-        })
+          alert(err.response.data.message);
+        });
     },
     //处理返回数据
     handleData(res) {
-      this.qrcodeImg = res.qrcode_url
-      this.couponImg = res.couponBatch.image_url
-      this.code = res.code
-    },
+      this.qrcodeImg = res.qrcode_url;
+      this.couponImg = res.couponBatch.image_url;
+      this.code = res.code;
+    }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>

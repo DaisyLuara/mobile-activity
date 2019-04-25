@@ -41,7 +41,7 @@ export default {
       wxShareInfoValue: {
         title: 'Fun肆玩尽情GO',
         desc: '王福井ONE岁生日快乐！',
-        link: 'http://papi.xingstation.com/api/s/wjR' + window.location.search,
+        link: process.env.AD_API+'/api/s/wjR' + window.location.search,
         imgUrl: IMG_SERVER + '/fe/image/tm/wfj/icon.jpg',
       }
     }

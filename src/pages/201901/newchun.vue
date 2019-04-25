@@ -64,84 +64,84 @@
   </div>
 </template>
 <script>
-import lottie from 'lottie-web'
-import { $wechat, isInWechat, wechatShareTrack } from 'services'
-import { normalPages } from '@/mixins/normalPages'
-const IMG_SERVER = process.env.CDN_URL
+import lottie from "lottie-web";
+import { $wechat, isInWechat, wechatShareTrack } from "services";
+import { normalPages } from "@/mixins/normalPages";
+const IMG_SERVER = process.env.CDN_URL;
 export default {
   mixins: [normalPages],
   data() {
     return {
       style: {
         root: {
-          'height': this.$innerHeight() + 'px'
+          height: this.$innerHeight() + "px"
         }
       },
-      base: IMG_SERVER + '/fe/image/newchun/',
+      base: IMG_SERVER + "/fe/image/newchun/",
       animation: null,
       mask: true,
       run: false,
       opacity: 0,
       //分享
       wxShareInfoValue: {
-        title: '新年快乐',
-        desc: '猪年大吉',
-        link: 'http://papi.xingstation.com/api/s/WQW' + window.location.search,
-        imgUrl: 'http://cdn.xingstation.cn/fe/image/newchun/icon.png'
+        title: "新年快乐",
+        desc: "猪年大吉",
+        link: "http://papi.xingstation.com/api/s/WQW" + window.location.search,
+        imgUrl: "http://cdn.xingstation.cn/fe/image/newchun/icon.png"
       }
-    }
+    };
   },
   mounted() {
-    this.doAnim()
+    this.doAnim();
   },
   methods: {
     doAnim() {
-      const el = document.getElementById('anim')
-      let that = this
+      const el = document.getElementById("anim");
+      let that = this;
       let anim = lottie.loadAnimation({
-        name: 'anim',
+        name: "anim",
         container: el,
-        renderer: 'svg',
-        assetsPath: this.base + 'animate/',
-        path: this.base + 'data.json'
-      })
-      this.animation = anim
-      anim.addEventListener('DOMLoaded', function () {
-        anim.stop()
-      })
+        renderer: "svg",
+        assetsPath: this.base + "animate/",
+        path: this.base + "data.json"
+      });
+      this.animation = anim;
+      anim.addEventListener("DOMLoaded", function() {
+        anim.stop();
+      });
     },
     playLottie() {
-      let that = this
-      this.opacity = 1
-      this.animation.setSpeed(1.5)
-      this.animation.play()
-      this.animation.loop = false
-      this.animation.addEventListener('complete', function () {
-        that.mask = false
-      })
+      let that = this;
+      this.opacity = 1;
+      this.animation.setSpeed(1.5);
+      this.animation.play();
+      this.animation.loop = false;
+      this.animation.addEventListener("complete", function() {
+        that.mask = false;
+      });
     },
     playLian() {
-      let that = this
-      let center = document.querySelector('.center')
-      let width = center.innerWidth || center.clientWidth
-      let height = width / 487 * 813
-      let raf = null
+      let that = this;
+      let center = document.querySelector(".center");
+      let width = center.innerWidth || center.clientWidth;
+      let height = (width / 487) * 813;
+      let raf = null;
       let h = 15;
-      this.run = true
-      let slider = function () {
-        h = h >= height ? height : h + 5
+      this.run = true;
+      let slider = function() {
+        h = h >= height ? height : h + 5;
         if (h >= height) {
-          window.cancelAnimationFrame(raf)
-          that.playLottie()
-          return
+          window.cancelAnimationFrame(raf);
+          that.playLottie();
+          return;
         }
-        center.style.height = h + 'px'
-        raf = window.requestAnimationFrame(slider)
-      }
-      slider()
+        center.style.height = h + "px";
+        raf = window.requestAnimationFrame(slider);
+      };
+      slider();
     }
   }
-}
+};
 </script>
 <style lang="less" scoped>
 @imgUrl: "http://cdn.xingstation.cn/fe/image/newchun/";
