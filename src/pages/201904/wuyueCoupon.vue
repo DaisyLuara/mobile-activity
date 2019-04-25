@@ -166,34 +166,29 @@ export default {
   mounted() {
     this.init()
     //微信授权
-    // if (isInWechat() === true) {
-    //   if (
-    //     process.env.NODE_ENV === 'production' ||
-    //     process.env.NODE_ENV === 'testing'
-    //   ) {
-    //     this.handleWechatAuth()
-    //   }
-    // }
+    if (isInWechat() === true) {
+      if (
+        process.env.NODE_ENV === 'production' ||
+        process.env.NODE_ENV === 'testing'
+      ) {
+        this.handleWechatAuth()
+      }
+    }
   },
   methods: {
     async init() {
-			this.sign = "eyJpdiI6IlwvbEU0T0pqZ2tcL1FxNTZieTZQWHkrdz09IiwidmFsdWUiOiJWWHNpNE5OSXhzNkFcLzNrVEpDbk9YQT09IiwibWFjIjoiN2I2YjQ2Nzk0YjdkOWM2NWFjOTdjNjFjMDY1OTUxNzFhY2E3YWY5NzJhZjhmZmY4Nzk4MTlkMDA2MjBjMWY4MCJ9";
-			this.qiniu_id = 10643754;
-      this.oid = 774;
-			this.belong = "star";
-			this.onGetMallcooCouponInfo();
-      // try {
-      //   let { id, code, state } = this.$route.query
-      //   let { belong, oid } = await getInfoById(id, code, state)
-      //   this.oid = oid
-      //   this.belong = belong
-      //   this.wxShareInfoValue.link += '&qiniu_id=' + this.qiniu_id + '&oid=' + this.oid + '&belong=' + this.belong
-      //   this.onGetMallcooCouponInfo()
-      // } catch (err) {
-      //   if (err.response.data) {
-      //     alert(err.response.data.message);
-      //   }
-      // }
+      try {
+        let { id, code, state } = this.$route.query
+        let { belong, oid } = await getInfoById(id, code, state)
+        this.oid = oid
+        this.belong = belong
+        this.wxShareInfoValue.link += '&qiniu_id=' + this.qiniu_id + '&oid=' + this.oid + '&belong=' + this.belong
+        this.onGetMallcooCouponInfo()
+      } catch (err) {
+        if (err.response.data) {
+          alert(err.response.data.message);
+        }
+      }
     },
     //微信静默授权
     handleWechatAuth() {
@@ -266,7 +261,7 @@ export default {
 						this.type = "couponList";
 						return;
 					}
-					alert(err.response.data.message);		
+					alert(err.response.data.message);
         });
     },
 
