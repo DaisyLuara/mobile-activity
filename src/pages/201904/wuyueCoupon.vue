@@ -292,14 +292,14 @@ export default {
       if (!this.phone || !validatePhone(this.phone)) {
         Toast("手机格式不正确，请重新输入");
         return;
-      }
+			}
+			this.onCountDown();
       let params = {
         phone: this.phone
       };
       sendMessageCode(params)
         .then(res => {
           this.verification_key = res.key;
-          this.onCountDown();
         })
         .catch(err => {
           alert(err.response.data.message);
