@@ -24,34 +24,34 @@
   </div>
 </template>
 <script>
-import { $wechat, isInWechat, wechatShareTrack } from 'services'
-import { normalPages } from '@/mixins/normalPages'
-const IMG_SERVER = process.env.CDN_URL
+import { $wechat, isInWechat, wechatShareTrack } from "services";
+import { normalPages } from "@/mixins/normalPages";
+const IMG_SERVER = process.env.CDN_URL;
 export default {
   mixins: [normalPages],
   data() {
     return {
       style: {
         root: {
-          'min-height': this.$innerHeight() + 'px'
+          "min-height": this.$innerHeight() + "px"
         }
       },
-      base: IMG_SERVER + '/fe/image/xindong/',
+      base: IMG_SERVER + "/fe/image/xindong/",
       //分享
       wxShareInfoValue: {
-        title: '心动时刻，遇见爱情',
-        desc: '亲，你有一条亲密简讯',
-        link: process.env.AD_API+'/api/s/RPL' + window.location.search,
-        imgUrl: 'http://cdn.exe666.com/fe/image/xindong/icon.png'
+        title: "心动时刻，遇见爱情",
+        desc: "亲，你有一条亲密简讯",
+        link: "http://papi.xingstation.com/api/s/RPL" + window.location.search,
+        imgUrl: "http://cdn.xingstation.cn/fe/image/xindong/icon.png"
       }
-    }
+    };
   },
-  mounted() { },
+  mounted() {},
   methods: {}
-}
+};
 </script>
 <style lang="less" scoped>
-@imgUrl: "http://cdn.exe666.com/fe/image/xindong/";
+@imgUrl: "http://cdn.xingstation.cn/fe/image/xindong/";
 html,
 body {
   width: 100%;

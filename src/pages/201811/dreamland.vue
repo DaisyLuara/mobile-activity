@@ -134,7 +134,7 @@ export default {
       })
       let url = that.photo + that.$qiniuCompress()
       // let url =
-      //   'http://image.exe666.com/1007/image/DreamLand_148_384_1492925384922.jpg'
+      //   'http://image.xingstation.cn/1007/image/DreamLand_148_384_1492925384922.jpg'
       let imgUrl = null
       imgUrl = that.baseUrl + that.randomImg(that.peopleID)
       console.log(imgUrl)
@@ -188,7 +188,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: "http://cdn.exe666.com/fe/marketing/img/dreamland/";
+@imageHost: "http://cdn.xingstation.cn/fe/marketing/img/dreamland/";
 html,
 body {
   width: 100%;

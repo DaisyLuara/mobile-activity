@@ -1,57 +1,58 @@
 <template>
-  <div 
+  <div
     :style="style.root"
-    class="content">
+    class="content"
+  >
     <img
       :src="base+'title.png'"
-      class="title">
-    <div 
-      class="main">
+      class="title"
+    >
+    <div class="main">
       <!-- 卡片背景 -->
       <img
         :src="base+'ka.png'+ this.$qiniuCompress()"
-        class="kabg">
+        class="kabg"
+      >
       <!-- 头像 -->
-      <div 
-        id="clip" 
-        class="clip">
-        <img 
-          :src="photo + this.$qiniuCompress()">
+      <div
+        id="clip"
+        class="clip"
+      >
+        <img :src="photo + this.$qiniuCompress()">
       </div>
       <!-- 年龄，颜值分数-->
-      <span
-        class="year">{{ year }}岁</span>
-      <span
-        class="yz-score">{{ score }}</span>
+      <span class="year">{{ year }}岁</span>
+      <span class="yz-score">{{ score }}</span>
       <!-- 排名 -->
-      <div 
-        class="rank">
+      <div class="rank">
         你击败了{{ rank }}%玩家
       </div>
       <!-- 文字 -->
-      <img 
+      <img
         :src="origin + word + '.png'"
-        class="word">
+        class="word"
+      >
     </div>
-    <div
-      class="todo">
+    <div class="todo">
       <!-- 女生显示按钮 -->
-      <a 
+      <a
         v-show="Boolean(sex)"
         class="btn"
-        @click="toPK">
-        <img
-          :src="base + btn + '.png'">
+        @click="toPK"
+      >
+        <img :src="base + btn + '.png'">
       </a>
       <img
         v-show="Boolean(sex)"
         :src="base + note + '.png'"
-        class="note">
+        class="note"
+      >
       <!-- 男生显示 -->
       <img
         v-show="!Boolean(sex)"
         :src="base+'boy.png'"
-        class="boy">
+        class="boy"
+      >
     </div>
   </div>
 </template>
@@ -62,24 +63,24 @@ import {
   userGame,
   $wechat,
   wechatShareTrack
-} from 'services'
-import { normalPages } from '@/mixins/normalPages'
-const IMGSERVER = process.env.CDN_URL
+} from "services";
+import { normalPages } from "@/mixins/normalPages";
+const IMGSERVER = process.env.CDN_URL;
 export default {
   mixins: [normalPages],
   data() {
     return {
-      origin: IMGSERVER + '/image/yanzhi/pk/',
-      base: IMGSERVER + '/image/yanzhi/pk/common/',
+      origin: IMGSERVER + "/image/yanzhi/pk/",
+      base: IMGSERVER + "/image/yanzhi/pk/common/",
       style: {
         root: {
-          'min-height': this.$innerHeight() + 'px'
+          "min-height": this.$innerHeight() + "px"
         }
       },
       photo: null,
-      btn: 'btn1',
+      btn: "btn1",
       word: null,
-      note: 'note',
+      note: "note",
       utmCampaign: null,
       userId: null,
       year: this.$route.query.year,
@@ -87,97 +88,104 @@ export default {
       rank: 0,
       nan: false,
       sex: parseInt(this.$route.query.sex),
-      rank_url: process.env.SAAS_API + '/user/',
+      rank_url: process.env.SAAS_API + "/user/",
       //分享
       wxShareInfoValue: {
-        title: 'Mirror魔镜PK擂台等你来战',
-        desc: 'Mirror魔镜PK擂台等你来战',
-        link: process.env.AD_API+'/api/s/lO5' + window.location.search,
-        imgUrl: 'http://cdn.exe666.com/image/pk/common/share.png',
+        title: "Mirror魔镜PK擂台等你来战",
+        desc: "Mirror魔镜PK擂台等你来战",
+        link: "http://papi.xingstation.com/api/s/lO5" + window.location.search,
+        imgUrl: "http://cdn.xingstation.cn/image/pk/common/share.png",
         success: function() {
-          wechatShareTrack()
+          wechatShareTrack();
         }
       }
-    }
+    };
   },
   mounted() {
     if (this.$innerHeight() > 672) {
-      document.querySelector('.main').style.marginTop = '10%'
+      document.querySelector(".main").style.marginTop = "10%";
     }
     //微信授权
     if (isInWechat() === true) {
       if (
-        process.env.NODE_ENV === 'production' ||
-        process.env.NODE_ENV === 'testing'
+        process.env.NODE_ENV === "production" ||
+        process.env.NODE_ENV === "testing"
       ) {
-        this.handleWechatAuth()
+        this.handleWechatAuth();
       }
     }
-    let clip = document.getElementById('clip')
-    clip.style.width = this.$innerWidth() * 0.265 + 'px'
-    clip.style.height = this.$innerWidth() * 0.265 + 'px'
-    this.word = this.score < 91 || this.score > 100 ? 'code' : this.score
-    this.nan = this.$route.query.sex == 0 ? true : false
+    let clip = document.getElementById("clip");
+    clip.style.width = this.$innerWidth() * 0.265 + "px";
+    clip.style.height = this.$innerWidth() * 0.265 + "px";
+    this.word = this.score < 91 || this.score > 100 ? "code" : this.score;
+    this.nan = this.$route.query.sex == 0 ? true : false;
   },
   methods: {
     handleWechatAuth() {
-      if (Cookies.get('sign') === null) {
-        let base_url = encodeURIComponent(String(window.location.href))
+      if (Cookies.get("sign") === null) {
+        let base_url = encodeURIComponent(String(window.location.href));
         let redirct_url =
           process.env.WX_API +
-          '/wx/officialAccount/oauth?url=' +
+          "/wx/officialAccount/oauth?url=" +
           base_url +
-          '&scope=snsapi_base'
-        window.location.href = redirct_url
+          "&scope=snsapi_base";
+        window.location.href = redirct_url;
       } else {
-        this.utmCampaign = this.$route.query.utm_campaign
-        this.userId = Cookies.get('user_id')
-        this.getRank(this.userId)
+        this.utmCampaign = this.$route.query.utm_campaign;
+        this.userId = Cookies.get("user_id");
+        this.getRank(this.userId);
       }
     },
     getRank(userId) {
-      let query = '?belong=' + this.utmCampaign + '&score=' + this.score
+      let query = "?belong=" + this.utmCampaign + "&score=" + this.score;
       this.$http
-        .get(this.rank_url + userId + '/rank' + query)
+        .get(this.rank_url + userId + "/rank" + query)
         .then(res => {
-          this.rank = (parseFloat(res.data.data.rank) * 100).toFixed(2)
+          this.rank = (parseFloat(res.data.data.rank) * 100).toFixed(2);
         })
         .catch(err => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     },
     toPK() {
-      this.btn = 'btn2'
+      this.btn = "btn2";
       let args = {
         belong: this.utmCampaign,
         image_url: this.photo,
         score: this.score,
         qiniu_id: this.$route.query.id,
         gender: this.$route.query.sex
-      }
+      };
       userGame(args, this.userId)
         .then(res => {
           if (res.success) {
-            this.note = 'success'
+            this.note = "success";
           }
         })
         .catch(e => {
-          console.log(e)
+          console.log(e);
+        });
+      let oid = this.$route.query.utm_source;
+      const baseUrl = process.env.EXE_API;
+      let url =
+        `oid=` +
+        oid +
+        "&belong=" +
+        this.utmCampaign +
+        "&url=&name=&image=&api=json";
+      handleDataPost(url)
+        .then(res => {
+          console.log(res);
         })
-      let oid = this.$route.query.utm_source
-      this.$http.post(
-        'http://exelook.com:8010/pushdiv/?oid=' +
-          oid +
-          '&belong=' +
-          this.utmCampaign +
-          '&url=&name=&image=&api=json'
-      )
+        .catch(err => {
+          console.log(err);
+        });
     }
   }
-}
+};
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://cdn.exe666.com/image/yanzhi/pk/common/';
+@imgUrl: "http://cdn.xingstation.cn/image/yanzhi/pk/common/";
 html,
 body {
   width: 100%;
@@ -201,7 +209,7 @@ img {
 .content {
   width: 100%;
   overflow-x: hidden;
-  background-image: url('@{imgUrl}tippng.png'), url('@{imgUrl}bg.png');
+  background-image: url("@{imgUrl}tippng.png"), url("@{imgUrl}bg.png");
   background-size: 60% auto, 100% 100%;
   background-position: center 98%, center top;
   background-repeat: no-repeat, no-repeat;

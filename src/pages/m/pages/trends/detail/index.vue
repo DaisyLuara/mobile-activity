@@ -11,7 +11,9 @@
       class="photo"
     >
 
-    <div class="time">
+    <div 
+      v-if="actDetail.sdate" 
+      class="time">
       活动时间:  <span class="red"> {{ startTime }} 至 {{ endTime }}</span>
     </div>
 
@@ -56,7 +58,7 @@ import { mapGetters, mapMutations } from "vuex";
 import { getHdInfo, deleteATrend, fetchShopActivityDetail } from "services";
 import { Toast } from "mint-ui";
 import { $wechat, isInWechat } from "services";
-
+const baseUrl = process.env.EXE_API;
 export default {
   components: {
     TrendsTopBar,
@@ -67,7 +69,7 @@ export default {
   },
   data() {
     return {
-      goodsxsd: "http://exelook.com:8010/goodsxsd/",
+      goodsxsd: baseUrl + "/goodsxsd/",
       shouldDeleteModalShow: false,
       shouldShareModalShow: false,
       resData: {
@@ -233,6 +235,7 @@ export default {
   flex-direction: column;
   align-items: center;
   background: #f3f3f3;
+  min-height: 100vh;
   .time {
     margin: 20px 0;
     width: calc(100% - 20px);

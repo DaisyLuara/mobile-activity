@@ -1,48 +1,83 @@
 {
-  "plugins": [
-    "@babel/plugin-syntax-dynamic-import",
-    "@babel/transform-runtime",
-    [
-      "component",
-      {
-        "libraryName": "mint-ui",
-        "style": true
-      }
-    ],
-    [
-      "import",
-      {
-        "libraryName": "mand-mobile",
-        "libraryDirectory": "lib"
-      }
-    ]
-  ],
   "env": {
     "test": {
-      "plugins": ["istanbul"]
+      "plugins": [
+        "istanbul"
+      ]
+    },
+    "gulp": {
+      "presets": [
+        "es2015"
+      ]
     },
     "production": {
       "presets": [
+        "@babel/preset-env",
+      ],
+      "plugins": [
+        "@babel/plugin-syntax-dynamic-import",
+        "@babel/transform-runtime",
         [
-          "@babel/preset-env",
+          "component",
           {
-            "useBuiltIns": "usage"
+            "libraryName": "mint-ui",
+            "style": true
+          }
+        ],
+        [
+          "import",
+          {
+            "libraryName": "mand-mobile",
+            "libraryDirectory": "lib"
           }
         ]
       ]
     },
     "testing": {
       "presets": [
+        "@babel/preset-env"
+      ],
+      "plugins": [
+        "@babel/plugin-syntax-dynamic-import",
+        "@babel/transform-runtime",
         [
-          "@babel/preset-env",
+          "component",
           {
-            "useBuiltIns": "entry"
+            "libraryName": "mint-ui",
+            "style": true
+          }
+        ],
+        [
+          "import",
+          {
+            "libraryName": "mand-mobile",
+            "libraryDirectory": "lib"
           }
         ]
       ]
     },
     "development": {
-      "presets": [["@babel/preset-env"]]
+      "presets": [
+        "@babel/preset-env",
+      ],
+      "plugins": [
+        "@babel/plugin-syntax-dynamic-import",
+        "@babel/transform-runtime",
+        [
+          "component",
+          {
+            "libraryName": "mint-ui",
+            "style": true
+          }
+        ],
+        [
+          "import",
+          {
+            "libraryName": "mand-mobile",
+            "libraryDirectory": "lib"
+          }
+        ]
+      ]
     }
   }
 }

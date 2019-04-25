@@ -39,16 +39,32 @@ export default {
   },
   data() {
     return {
-      baseUrl: "https://cdn.exe666.com/fe/image/m/subscription/",
+      baseUrl: "https://cdn.xingstation.cn/fe/image/m/subscription/",
       // order means order in this page
       // but not about orders in real menu
       items: [
+        {
+          name: "birthday",
+          label: "生日祝福",
+          route: "ActivityBirthDayCake",
+          status: false,
+          order: 9,
+          cindex: 0
+        },
+        {
+          name: "company",
+          label: "企业动态",
+          route: "ActivityBirthDayIndex",
+          status: false,
+          order: 8,
+          cindex: 0
+        },
         {
           name: "topic",
           label: "话题",
           route: "TopicIndex",
           status: false,
-          order: 8,
+          order: 7,
           cindex: 0
         },
         {
@@ -96,23 +112,7 @@ export default {
           label: "我的嗨屏",
           route: "MyIndex",
           status: false,
-          order: 7,
-          cindex: 0
-        },
-        {
-          name: "company",
-          label: "企业动态",
-          route: "ActivityBirthDayIndex",
-          status: false,
-          order: 8,
-          cindex: 0
-        },
-        {
-          name: "birthday",
-          label: "生日祝福",
-          route: "ActivityBirthDayCake",
-          status: false,
-          order: 9,
+          order: 1,
           cindex: 0
         }
       ],

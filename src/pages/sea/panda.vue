@@ -65,8 +65,13 @@ export default {
       wxShareInfoValue: {
         title: '剪刀手熊猫',
         desc: '它，归隐许久，重回江湖',
+<<<<<<< HEAD
         link: process.env.AD_API+'/api/s/ERv' + window.location.search,
         imgUrl: 'http://cdn.exe666.com/image/panda/share.png',
+=======
+        link: 'http://papi.xingstation.com/api/s/ERv' + window.location.search,
+        imgUrl: 'http://cdn.xingstation.cn/image/panda/share.png',
+>>>>>>> feature-master-to-dev
         success: function() {
           wechatShareTrack()
         }
@@ -106,7 +111,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://cdn.exe666.com/image/panda/';
+@imgUrl: 'http://cdn.xingstation.cn/image/panda/';
 html,
 body {
   width: 100%;

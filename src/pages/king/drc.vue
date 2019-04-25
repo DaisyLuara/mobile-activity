@@ -68,7 +68,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: 'http://cdn.exe666.com/fe/marketing/img/drc_snow/';
+@imageHost: 'http://cdn.xingstation.cn/fe/marketing/img/drc_snow/';
 .root {
   width: 100%;
   text-align: center;

@@ -51,26 +51,26 @@ export default {
   data() {
     return {
       labelImg: [
-        "https://cdn.exe666.com/fe/image/m/btn_topic.png",
-        "https://cdn.exe666.com/fe/image/m/btn_photo_normal@3x.png",
-        "https://cdn.exe666.com/fe/image/m/btn_sale_normal@3x.png",
-        "https://cdn.exe666.com/fe/image/m/barrage.png",
-        "https://cdn.exe666.com/fe/image/m/btn_mall_normal@3x.png",
-        "https://cdn.exe666.com/fe/image/m/btn_card_normal@3x.png",
-        "https://cdn.exe666.com/fe/image/m/btn_my_normal@3x.png",
-        "https://cdn.exe666.com/fe/image/m/btn_company.png",
-        "https://cdn.exe666.com/fe/image/m/btn_cake.png"
+        "https://cdn.xingstation.cn/fe/image/m/btn_cake.png",
+        "https://cdn.xingstation.cn/fe/image/m/btn_company.png",
+        "https://cdn.xingstation.cn/fe/image/m/btn_topic.png",
+        "https://cdn.xingstation.cn/fe/image/m/btn_photo_normal@3x.png",
+        "https://cdn.xingstation.cn/fe/image/m/btn_sale_normal@3x.png",
+        "https://cdn.xingstation.cn/fe/image/m/barrage.png",
+        "https://cdn.xingstation.cn/fe/image/m/btn_mall_normal@3x.png",
+        "https://cdn.xingstation.cn/fe/image/m/btn_card_normal@3x.png",
+        "https://cdn.xingstation.cn/fe/image/m/btn_my_normal@3x.png"
       ],
       labelImgPressed: [
-        "https://cdn.exe666.com/fe/image/m/btn_topic_pressed.png",
-        "https://cdn.exe666.com/fe/image/m/btn_photo_pressed@3x.png",
-        "https://cdn.exe666.com/fe/image/m/btn_sale_pressed@3x.png",
-        "https://cdn.exe666.com/fe/image/m/barrage-p.png",
-        "https://cdn.exe666.com/fe/image/m/btn_mall_pressed@3x.png",
-        "https://cdn.exe666.com/fe/image/m/btn_card_pressed@3x.png",
-        "https://cdn.exe666.com/fe/image/m/btn_my_pressed@3x.png",
-        "https://cdn.exe666.com/fe/image/m/btn_company_pressed.png",
-        "https://cdn.exe666.com/fe/image/m/btn_cake_pressed.png"
+        "https://cdn.xingstation.cn/fe/image/m/btn_cake_pressed.png",
+        "https://cdn.xingstation.cn/fe/image/m/btn_company_pressed.png",
+        "https://cdn.xingstation.cn/fe/image/m/btn_topic_pressed.png",
+        "https://cdn.xingstation.cn/fe/image/m/btn_photo_pressed@3x.png",
+        "https://cdn.xingstation.cn/fe/image/m/btn_sale_pressed@3x.png",
+        "https://cdn.xingstation.cn/fe/image/m/barrage-p.png",
+        "https://cdn.xingstation.cn/fe/image/m/btn_mall_pressed@3x.png",
+        "https://cdn.xingstation.cn/fe/image/m/btn_card_pressed@3x.png",
+        "https://cdn.xingstation.cn/fe/image/m/btn_my_pressed@3x.png"
       ],
       showRoutes: [
         "MyIndex",
@@ -89,17 +89,17 @@ export default {
         "ActivityBirthDayIndex",
         "ActivityBirthDayCake"
       ],
-      labels: ["话题", "照片", "活动", "弹幕", "商城", "卡包", "我的", "公司动态", "祝福"],
+      labels: ["祝福", "公司动态", "话题", "照片", "活动", "弹幕", "商城", "卡包", "我的"],
       routes: [
+        "ActivityBirthDayCake",
+        "ActivityBirthDayIndex",
         "TopicIndex",
         "TrendsIndex",
         "ActivityShop",
         "BarrageIndex",
         "MallIndex",
         "CardIndex",
-        "MyIndex",
-        "ActivityBirthDayIndex",
-        "ActivityBirthDayCake"
+        "MyIndex"
       ]
     };
   },
@@ -135,6 +135,14 @@ export default {
       return this.$route.name;
     },
     shouldMenuShow() {
+      // 只有一个菜单时不显示导航栏
+      if (this.menuCode.length === 1) {
+        return false
+      }
+      // 若从列表页进入祝福页则不显示底部导航
+      if (this.$route.name === 'ActivityBirthDayCake' && this.$route.query.acid) {
+        return false;
+      }
       if (this.replaceMode === "default") {
         return this.showRoutes.includes(this.$route.name);
       } else {

@@ -57,7 +57,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: "http://cdn.exe666.com/fe/marketing/img/dry_warehouse/";
+@imageHost: "http://cdn.xingstation.cn/fe/marketing/img/dry_warehouse/";
 html,
 body {
   width: 100%;

@@ -123,8 +123,13 @@ export default {
       wxShareInfoValue: {
         title: '超级英雄',
         desc: '超级英雄',
+<<<<<<< HEAD:src/pages/pandp/hero.vue
         link: process.env.AD_API+'/api/s/X6m' + window.location.search,
         imgUrl: 'http://cdn.exe666.com/fe/image/super_hero/icon.jpg',
+=======
+        link: 'http://papi.xingstation.com/api/s/X6m' + window.location.search,
+        imgUrl: 'http://cdn.xingstation.cn/fe/image/super_hero/icon.jpg',
+>>>>>>> feature-master-to-dev:old/src/pages/pandp/hero.vue
         success: () => {
           wechatShareTrack()
         }
@@ -498,7 +503,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@base: 'http://cdn.exe666.com/fe/image/super_hero/';
+@base: 'http://cdn.xingstation.cn/fe/image/super_hero/';
 html,
 body {
   width: 100%;

@@ -148,11 +148,11 @@ export default {
       })
       let url = that.photo + that.$qiniuCompress()
       // let url =
-      //   'https://cdn.exe666.com/fe/marketing/img/open_pig/666.png'
-      let imgUrl = 'https://cdn.exe666.com/fe/marketing/img/open_pig/' + this.fanpaths[this.type]
-      let imgUrl2 = 'https://cdn.exe666.com/fe/marketing/img/open_pig/t.png'
-      let imgUrl3 = 'https://cdn.exe666.com/fe/marketing/img/open_pig/' + this.rnd(1, this.paths.length) + '.png'
-      mc.background('https://cdn.exe666.com/fe/marketing/img/open_pig/bg_two.png', {
+      //   'https://cdn.xingstation.cn/fe/marketing/img/open_pig/666.png'
+      let imgUrl = 'https://cdn.xingstation.cn/fe/marketing/img/open_pig/' + this.fanpaths[this.type]
+      let imgUrl2 = 'https://cdn.xingstation.cn/fe/marketing/img/open_pig/t.png'
+      let imgUrl3 = 'https://cdn.xingstation.cn/fe/marketing/img/open_pig/' + this.rnd(1, this.paths.length) + '.png'
+      mc.background('https://cdn.xingstation.cn/fe/marketing/img/open_pig/bg_two.png', {
         left: '0%',
         top: '0%',
         type: 'origin',
@@ -220,11 +220,11 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: "http://cdn.exe666.com/fe/marketing/img/open_pig/";
+@imageHost: "http://cdn.xingstation.cn/fe/marketing/img/open_pig/";
 /*声明 WebFont*/
 @font-face {
   font-family: "MatrixCode";
-  src: url("http://cdn.exe666.com/fe/marketing/img/open_pig/jinhei.TTF");
+  src: url("http://cdn.xingstation.cn/fe/marketing/img/open_pig/jinhei.TTF");
   font-weight: normal;
   font-style: normal;
 }

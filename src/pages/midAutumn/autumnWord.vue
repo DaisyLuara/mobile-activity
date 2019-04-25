@@ -172,7 +172,7 @@ import {
 import { parseService } from 'services'
 const wx = require('weixin-js-sdk')
 const cdnUrl = process.env.CDN_URL
-const REQ_URL = 'http://120.27.144.62:1337/parse/classes/'
+const REQ_URL = 'http://120.27.138.242:1337/parse/classes/'
 export default {
   data() {
     return {
@@ -638,7 +638,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: 'http://cdn.exe666.com/fe/marketing/img/autumnWord/';
+@imageHost: 'http://cdn.xingstation.cn/fe/marketing/img/autumnWord/';
 .root {
   width: 100%;
   position: relative;

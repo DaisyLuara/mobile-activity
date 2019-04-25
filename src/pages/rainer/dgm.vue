@@ -40,8 +40,13 @@ export default {
       wxShareInfoValue: {
         title: '相约大光明',
         desc: '你就是今日之星',
+<<<<<<< HEAD
         link: process.env.AD_API+'/api/s/Mj3' + window.location.search,
         imgUrl: 'http://cdn.exe666.com/fe/image/dgm/icon.png',
+=======
+        link: 'http://papi.xingstation.com/api/s/Mj3' + window.location.search,
+        imgUrl: 'http://cdn.xingstation.cn/fe/image/dgm/icon.png',
+>>>>>>> feature-master-to-dev
         success: () => {
           wechatShareTrack()
         }
@@ -67,7 +72,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@base: 'http://cdn.exe666.com/fe/image/dgm/';
+@base: 'http://cdn.xingstation.cn/fe/image/dgm/';
 html,
 body {
   width: 100%;

@@ -29,7 +29,7 @@
           </video>
           <img 
             v-show="buttonshow"
-            src="https://cdn.exe666.com/fe/marketing/img/save_moonCake/play2.png"
+            src="https://cdn.xingstation.cn/fe/marketing/img/save_moonCake/play2.png"
             class="play"
             @click="playVideo()">
         </li>   
@@ -118,7 +118,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imageHost: 'http://cdn.exe666.com/fe/marketing/img/halloween/';
+@imageHost: 'http://cdn.xingstation.cn/fe/marketing/img/halloween/';
 html,
 body {
   width: 100%;

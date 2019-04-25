@@ -52,8 +52,13 @@ export default {
       wxShareInfoValue: {
         title: '萝卜sos',
         desc: '不要一直吸我~',
+<<<<<<< HEAD
         link: process.env.AD_API+'/api/s/Nk6' + window.location.search,
         imgUrl: 'http://cdn.exe666.com/image/luobo/share.png',
+=======
+        link: 'http://papi.xingstation.com/api/s/Nk6' + window.location.search,
+        imgUrl: 'http://cdn.xingstation.cn/image/luobo/share.png',
+>>>>>>> feature-master-to-dev
         success: function() {
           wechatShareTrack()
         }
@@ -68,7 +73,7 @@ export default {
     playAnim() {
       import('pixi.js').then(PIXI => {
         import('pixi-spine').then(Spine => {
-          let base = 'http://cdn.exe666.com/image/luobo/assets/'
+          let base = 'http://cdn.xingstation.cn/image/luobo/assets/'
           let app = new PIXI.Application({
             width: window.innerWidth,
             height: window.innerHeight,
@@ -121,7 +126,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://cdn.exe666.com/image/luobo/';
+@imgUrl: 'http://cdn.xingstation.cn/image/luobo/';
 html,
 body {
   width: 100%;

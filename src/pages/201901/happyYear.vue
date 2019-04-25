@@ -103,147 +103,148 @@
   </div>
 </template>
 <script>
-import lottie from 'lottie-web'
-import { $wechat, isInWechat, wechatShareTrack } from 'services'
-import { normalPages } from '@/mixins/normalPages'
-const IMG_SERVER = process.env.CDN_URL
+import lottie from "lottie-web";
+import { $wechat, isInWechat, wechatShareTrack } from "services";
+import { normalPages } from "@/mixins/normalPages";
+const IMG_SERVER = process.env.CDN_URL;
 export default {
   mixins: [normalPages],
   data() {
     return {
       style: {
         root: {
-          'height': this.$innerHeight() + 'px'
+          height: this.$innerHeight() + "px"
         }
       },
-      base: IMG_SERVER + '/fe/image/happyyear/',
+      base: IMG_SERVER + "/fe/image/happyyear/",
       hint: false,
       torun: false,
-      scene: null,//'money'
-      money_pig: 'money_pig_00000',
-      heart_pig: 'heart_pig_00000',
+      scene: null, //'money'
+      money_pig: "money_pig_00000",
+      heart_pig: "heart_pig_00000",
       imgList: [],
       last_page: false,
       save: false,
       animation: null,
       //分享
       wxShareInfoValue: {
-        title: '你是我的掌声名猪',
-        desc: '像你这样的人，除了宠着，还是宠着',
-        link: process.env.AD_API+'/api/s/GRy' + window.location.search,
-        imgUrl: 'http://cdn.exe666.com/fe/image/happyyear/icon.png'
+        title: "你是我的掌声名猪",
+        desc: "像你这样的人，除了宠着，还是宠着",
+        link: "http://papi.xingstation.com/api/s/GRy" + window.location.search,
+        imgUrl: "http://cdn.xingstation.cn/fe/image/happyyear/icon.png"
       }
-    }
+    };
   },
   watch: {
     parms() {
-      this.scene = this.parms.scene
-      this.doAnim()
-      this.loadPigImage(this.scene, 12)
+      this.scene = this.parms.scene;
+      this.doAnim();
+      this.loadPigImage(this.scene, 12);
     }
   },
   mounted() {
-    if (process.env.NODE_ENV === 'testing') {
-      this.wxShareInfoValue.link = process.env.AD_API + '/api/s/oQK' + window.location.search
+    if (process.env.NODE_ENV === "testing") {
+      this.wxShareInfoValue.link =
+        "http://papi.xingstation.net/api/s/oQK" + window.location.search;
     }
     // this.doAnim()
     // this.loadPigImage(this.scene, 12)
   },
   methods: {
     doAnim() {
-      const el = document.getElementById('anim')
-      let that = this
+      const el = document.getElementById("anim");
+      let that = this;
       let anim = lottie.loadAnimation({
-        name: 'anim',
+        name: "anim",
         container: el,
-        renderer: 'svg',
-        assetsPath: this.base + 'animate/',
-        path: this.base + 'data.json'
-      })
-      this.animation = anim
-      anim.addEventListener('DOMLoaded', function () {
-        that.hint = true
-        anim.stop()
-      })
+        renderer: "svg",
+        assetsPath: this.base + "animate/",
+        path: this.base + "data.json"
+      });
+      this.animation = anim;
+      anim.addEventListener("DOMLoaded", function() {
+        that.hint = true;
+        anim.stop();
+      });
     },
     loadPigImage(scene, length) {
-      let name = scene == 'flower' ? 'heart_pig' : 'money_pig'
-      let count = 0
-      let that = this
+      let name = scene == "flower" ? "heart_pig" : "money_pig";
+      let count = 0;
+      let that = this;
       for (let i = 0; i < length; i++) {
-        i = i < 10 ? '0' + i : i
-        let texture = this.base + name + '/' + name + '_000' + i + '.png'
-        this.imgList.push(texture)
-        let img = new Image()
-        img.src = texture
-        img.onload = function () {
-          count++
+        i = i < 10 ? "0" + i : i;
+        let texture = this.base + name + "/" + name + "_000" + i + ".png";
+        this.imgList.push(texture);
+        let img = new Image();
+        img.src = texture;
+        img.onload = function() {
+          count++;
           if (count == 12) {
-            that.playPigAnim()
+            that.playPigAnim();
           }
-        }
+        };
       }
     },
     playPigAnim() {
-      let that = this
+      let that = this;
       let num = 0;
-      let count = 0
-      let pig = document.querySelector('.pig_img')
+      let count = 0;
+      let pig = document.querySelector(".pig_img");
       let startPigAnim = () => {
-        let timer = window.requestAnimationFrame(startPigAnim)
+        let timer = window.requestAnimationFrame(startPigAnim);
         if (count % 5 == 0) {
-          pig.src = this.imgList[num]
-          num = num < 11 ? num + 1 : 0
+          pig.src = this.imgList[num];
+          num = num < 11 ? num + 1 : 0;
         }
-        count++
+        count++;
         if (count > 6000) {
-          count = 0
+          count = 0;
         }
-      }
-      startPigAnim()
+      };
+      startPigAnim();
     },
     toGetOpen() {
-      let that = this
-      this.hint = false
-      this.animation.setSpeed(1.5)
-      this.animation.play()
-      this.animation.loop = false
-      this.animation.addEventListener('complete', function () {
-        that.lastAnim()
-      })
+      let that = this;
+      this.hint = false;
+      this.animation.setSpeed(1.5);
+      this.animation.play();
+      this.animation.loop = false;
+      this.animation.addEventListener("complete", function() {
+        that.lastAnim();
+      });
     },
     lastAnim() {
-      let last = document.querySelector('.last')
-      let photo = document.querySelector('.photo')
-      let save = document.querySelector('.save')
-      let that = this
-      this.last_page = true
-      let raf = null
+      let last = document.querySelector(".last");
+      let photo = document.querySelector(".photo");
+      let save = document.querySelector(".save");
+      let that = this;
+      this.last_page = true;
+      let raf = null;
       let top = 105,
-        w = 10
-      let slider = function () {
-        top = top <= 17 ? 17 : top - 2
-        w = w >= 63 ? 63 : w + 1.5
+        w = 10;
+      let slider = function() {
+        top = top <= 17 ? 17 : top - 2;
+        w = w >= 63 ? 63 : w + 1.5;
         if (top <= 17) {
-          window.cancelAnimationFrame(raf)
-          save.style.top = photo.offsetTop + photo.clientHeight + 30 + 'px'
-          that.save = true
-          last.style.backgroundColor = 'rgba(0,0,0,0.5)'
-          document.querySelectorAll('.star1').style.zIndex = '9999'
-          document.querySelectorAll('.star2').style.zIndex = '9999'
-          return
+          window.cancelAnimationFrame(raf);
+          save.style.top = photo.offsetTop + photo.clientHeight + 30 + "px";
+          that.save = true;
+          last.style.backgroundColor = "rgba(0,0,0,0.5)";
+          document.querySelectorAll(".star1").style.zIndex = "9999";
+          document.querySelectorAll(".star2").style.zIndex = "9999";
+          return;
         }
-        photo.style.top = top + '%'
-        photo.style.width = w + '%'
-        raf = window.requestAnimationFrame(slider)
-      }
-      slider()
+        photo.style.top = top + "%";
+        photo.style.width = w + "%";
+        raf = window.requestAnimationFrame(slider);
+      };
+      slider();
     }
   }
-}
+};
 </script>
 <style lang="less" scoped>
-@imgUrl: "http://cdn.exe666.com/fe/image/happyyear/";
+@imgUrl: "http://cdn.xingstation.cn/fe/image/happyyear/";
 html,
 body {
   width: 100%;

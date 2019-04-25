@@ -1,0 +1,78 @@
+{
+  "env": {
+    "test": {
+      "plugins": [
+        "istanbul"
+      ]
+    },
+    "production": {
+      "presets": [
+        "@babel/preset-env",
+      ],
+      "plugins": [
+        "@babel/plugin-syntax-dynamic-import",
+        "@babel/transform-runtime",
+        [
+          "component",
+          {
+            "libraryName": "mint-ui",
+            "style": true
+          }
+        ],
+        [
+          "import",
+          {
+            "libraryName": "mand-mobile",
+            "libraryDirectory": "lib"
+          }
+        ]
+      ]
+    },
+    "testing": {
+      "presets": [
+        "@babel/preset-env"
+      ],
+      "plugins": [
+        "@babel/plugin-syntax-dynamic-import",
+        "@babel/transform-runtime",
+        [
+          "component",
+          {
+            "libraryName": "mint-ui",
+            "style": true
+          }
+        ],
+        [
+          "import",
+          {
+            "libraryName": "mand-mobile",
+            "libraryDirectory": "lib"
+          }
+        ]
+      ]
+    },
+    "development": {
+      "presets": [
+        "@babel/preset-env",
+      ],
+      "plugins": [
+        "@babel/plugin-syntax-dynamic-import",
+        "@babel/transform-runtime",
+        [
+          "component",
+          {
+            "libraryName": "mint-ui",
+            "style": true
+          }
+        ],
+        [
+          "import",
+          {
+            "libraryName": "mand-mobile",
+            "libraryDirectory": "lib"
+          }
+        ]
+      ]
+    }
+  }
+}

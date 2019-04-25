@@ -118,8 +118,13 @@ export default {
       wxShareInfoValue: {
         title: '一起尬舞吗？朋友',
         desc: '金秋十月！来旭辉mall吃喝玩乐',
+<<<<<<< HEAD
         link: process.env.AD_API+'/api/s/pg6' + window.location.search,
         imgUrl: 'http://cdn.exe666.com/fe/image/xh_dance/icon.png',
+=======
+        link: 'http://papi.xingstation.com/api/s/pg6' + window.location.search,
+        imgUrl: 'http://cdn.xingstation.cn/fe/image/xh_dance/icon.png',
+>>>>>>> feature-master-to-dev
         success: function () {
           wechatShareTrack()
         }
@@ -344,10 +349,10 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@base: "http://cdn.exe666.com/fe/image/xh_dance/";
+@base: "http://cdn.xingstation.cn/fe/image/xh_dance/";
 @font-face {
   font-family: "jingzhuan";
-  src: url("http://cdn.exe666.com/fe/marketing/img/xsd_ad/jinzhuan2.TTF");
+  src: url("http://cdn.xingstation.cn/fe/marketing/img/xsd_ad/jinzhuan2.TTF");
   font-weight: normal;
   font-style: normal;
 }

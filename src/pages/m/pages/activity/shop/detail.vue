@@ -32,6 +32,7 @@
       :is-allow="resData.allow"
       :xinfo="resData.xinfo"
       :tabs="resData.tabs"
+      :user-uid="resData.user ? resData.user.uid : 'null'"
     />
   </div>
 </template>

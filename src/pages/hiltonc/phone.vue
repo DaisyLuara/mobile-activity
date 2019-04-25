@@ -167,7 +167,7 @@ export default {
 .root {
   position: relative;
   width: 100%;
-  background-image: url('http://cdn.exe666.com/fe/marketing/hiltonc/input-bg.png');
+  background-image: url('http://cdn.xingstation.cn/fe/marketing/hiltonc/input-bg.png');
   background-size: cover;
   display: flex;
   flex-direction: column;

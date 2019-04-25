@@ -13,6 +13,9 @@ const getters = {
   },
   avatar: state => {
     return state.loginState.face
+  },
+  uid: state => {
+    return state.loginState.uid
   }
 }
 

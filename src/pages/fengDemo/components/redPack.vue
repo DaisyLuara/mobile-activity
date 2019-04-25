@@ -38,7 +38,7 @@ export default {
       $('.couten').append(
         "<li style='position:absolute' class='li" +
           this.num +
-          "'><a href='javascript:;'><img src='http://cdn.exe666.com/fe/img/wxmini/hb.png'></a></li>"
+          "'><a href='javascript:;'><img src='http://cdn.xingstation.cn/fe/img/wxmini/hb.png'></a></li>"
       )
       $('.li' + this.num).css({
         left: Left

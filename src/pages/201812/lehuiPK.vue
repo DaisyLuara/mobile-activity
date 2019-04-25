@@ -184,20 +184,20 @@ export default {
           console.log(e)
         })
       let oid = this.$route.query.utm_source
-      this.$http.post(
-        'http://exelook.com:8010/pushdiv/?oid=' +
-        oid +
-        '&belong=' +
-        this.utmCampaign +
-        '&url=&name=&image=&api=json'
-      )
+      const baseUrl = process.env.EXE_API;
+      let url = 'oid=' + oid + '&belong=' + this.utmCampaign + '&url=&name=&image=&api=json'
+      handleDataPost(url).then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
     }
   }
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: "http://cdn.exe666.com/image/yanzhi/pk/common/";
-@url: "http://cdn.exe666.com/fe/image/pk/lehui/";
+@imgUrl: "http://cdn.xingstation.cn/image/yanzhi/pk/common/";
+@url: "http://cdn.xingstation.cn/fe/image/pk/lehui/";
 html,
 body {
   width: 100%;

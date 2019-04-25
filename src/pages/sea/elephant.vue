@@ -58,8 +58,13 @@ export default {
       wxShareInfoValue: {
         title: '微笑雨花',
         desc: 'Smile 一周年 ',
+<<<<<<< HEAD
         link: process.env.AD_API+'/api/s/QWl' + window.location.search,
         imgUrl: 'http://cdn.exe666.com/image/elephant/icon.png',
+=======
+        link: 'http://papi.xingstation.com/api/s/QWl' + window.location.search,
+        imgUrl: 'http://cdn.xingstation.cn/image/elephant/icon.png',
+>>>>>>> feature-master-to-dev
         success: () => {
           wechatShareTrack()
         }
@@ -93,7 +98,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://cdn.exe666.com/image/elephant/';
+@imgUrl: 'http://cdn.xingstation.cn/image/elephant/';
 html,
 body {
   width: 100%;

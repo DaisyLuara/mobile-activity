@@ -84,7 +84,7 @@ import "swiper/dist/css/swiper.css";
 import { onlyWechatShare } from "@/mixins/onlyWechatShare";
 import { getInfoById } from "services";
 const cdnUrl = process.env.CDN_URL;
-
+const parseUrl = process.env.PARSE_SERVER;
 export default {
   components: {
     swiper,
@@ -104,7 +104,7 @@ export default {
         "/fe/image/jinying/big_star/" +
         this.$route.query.star_id +
         ".png",
-      reqUrl: "http://120.27.144.62:1337/parse/classes/star",
+      reqUrl: `${parseUrl}/parse/classes/star`,
       reqHeader: {
         headers: {
           "X-Parse-Application-Id": "jingfree_android",
@@ -265,11 +265,11 @@ export default {
         }
       }
     }
-  },
+  }
 };
 </script>
 <style lang="less">
-@img: "https://cdn.exe666.com/fe/image/jinying";
+@img: "https://cdn.xingstation.cn/fe/image/jinying";
 .star-wrap {
   position: relative;
   img {

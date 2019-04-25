@@ -12,9 +12,9 @@
     <!-- 勋章-联动-3个节目 -->
     <div class="groups">
       <gameHonour
+        ref="gameHonour"
         :style-data="styleData"
         :projects="projects"
-        :bid="bid"
       />
       <a
         class="todo"
@@ -55,7 +55,7 @@
     >
       <div class="content">
         <img
-          :src="base + '5.png'"
+          :src="base + 'map5.png'"
           class="map"
         >
         <a
@@ -91,7 +91,7 @@
         >
         <!-- 计时器 -->
         <div class="time">
-          {{diff_time}}
+          {{ diff_time }}
         </div>
         <!-- 券 -->
         <div class="coupon">
@@ -118,15 +118,16 @@
               class="qrImg"
             >
           </div>
-          <p class="qrcode">{{qrcode}}</p>
+          <p class="qrcode">{{ qrcode }}</p>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-import { Cookies, sendV2Coupon, checkV2Coupon, batchV2Coupon } from "services";
+import { $wechat, isInWechat, wechatShareTrack, isiOS, sendV2Projects, checkV2Coupon, batchV2Coupon } from "services";
 import { normalPages } from "@/mixins/normalPages";
+import moment from "moment";
 import gameHonour from "@/modules/gameHonour";
 const CDNURL = process.env.CDN_URL;
 export default {
@@ -143,8 +144,8 @@ export default {
       id: this.$route.query.id,
       mask: false,
       todo: false,
-      coupon_img: null,//'http://cdn.exe666.com/fe/image/altman/test.png',
-      qr_img: null,//'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
+      coupon_img: null,//'http://cdn.xingstation.cn/fe/image/altman/test.png',
+      qr_img: null,//'https://cdn.xingstation.cn/fe/image/couponrain/5c22f3d46c008.png',
       qrcode: null,//null,
       used: false,
       passed: false,
@@ -155,20 +156,20 @@ export default {
         list: {
           "11": {
             name: "beiliya",
-            img: "http://cdn.exe666.com/fe/image/altman/p1.png"
+            img: "http://cdn.xingstation.cn/fe/image/altman/p1.png"
           },
           "12": {
             name: "dijia",
-            img: "http://cdn.exe666.com/fe/image/altman/p2.png"
+            img: "http://cdn.xingstation.cn/fe/image/altman/p2.png"
           },
           "13": {
             name: "sailuo",
-            img: "http://cdn.exe666.com/fe/image/altman/p3.png"
+            img: "http://cdn.xingstation.cn/fe/image/altman/p3.png"
           }
         },
         total: 3
       },
-      idz: null,
+      z: null,
       get_id: null,
       styleData: {
         child: {
@@ -188,19 +189,21 @@ export default {
     };
   },
   watch: {
-    userinfo() {
-      if (Cookies.get('z')) {
-        return
-      } else {
-        this.idz = this.userinfo.z
-        Cookies.set('z', this.userinfo.z)
+    sertime() {
+      if (localStorage.getItem('z')) {
+        this.z = this.z ? this.z : localStorage.getItem('z')
+        this.projects.total = 3
+        this.$refs.gameHonour.getGameHonour(this.bid, this.z)
+      } else if (this.userinfo != null) {
+        this.z = this.userinfo.z
+        localStorage.setItem('z', this.userinfo.z)
+        this.projects.total = 3
+        this.$refs.gameHonour.getGameHonour(this.bid, this.z)
       }
     }
   },
   mounted() {
-    if (Cookies.get('z')) {
-      this.idz = Cookies.get('z')
-    }
+    // this.$refs.gameHonour.getGameHonour(this.bid, '1808ce6f291cc2aa1c33e80d7bbd91128359w5');
   },
   methods: {
     getCoupon() {
@@ -210,7 +213,7 @@ export default {
     //判断是否领过优惠券
     checkV2Coupon() {
       let args = {
-        z: this.idz,
+        z: this.z,
         belong: 'ultraman',
         include: 'couponBatch',
       }
@@ -226,7 +229,7 @@ export default {
     },
     getCouponBatch() {
       let args = {
-        z: this.idz,
+        z: this.z,
         belong: this.belong,
       }
       batchV2Coupon(args).then(res => {
@@ -240,11 +243,11 @@ export default {
     sendV2Coupon() {
       let args = {
         qiniu_id: this.id,
-        z: this.idz,
+        z: this.z,
         belong: 'ultraman',
         oid: this.oid
       }
-      sendV2Coupon(args, this.get_id)
+      sendV2Projects(args)
         .then(res => {
           this.handleData(res)
         })
@@ -261,23 +264,26 @@ export default {
       if (parseInt(res.status) === 1) {
         this.diff_time = '0天0小时0分'
         this.used = true
+      } else {
+        this.countTime()
       }
-      this.countTime()
+
     },
-    countTime(end_date) {
-      let now = new Date()//当前时间
-      let end = new Date(this.end_date)//结束时间
+    countTime() {
+      let that = this
+      let now = moment()//当前时间
+      let end = moment(that.end_date)//结束时间
       let [d, h, m] = []
-      let diff = end - now
-      if (diff <= 0) {
+      let diff = end.diff(now, 'minutes')
+      let ends = end.diff(now, 'seconds')
+      if (ends <= 0) {
         window.cancelAnimationFrame(timer)
         this.diff_time = '0天0小时0分'
         this.passed = true
-
       } else {
-        m = Math.floor(diff / 1000 / 60 % 60)
-        h = Math.floor(diff / 1000 / 60 / 60 % 24)
-        d = Math.floor(diff / (1000 * 60 * 60 * 24))
+        m = Math.floor(diff % 60)
+        h = Math.floor(diff / 60 % 24)
+        d = Math.floor(diff / (60 * 24))
         m = m < 10 ? '0' + m : m
         h = h < 10 ? '0' + h : h
         d = d < 10 ? '0' + d : d
@@ -289,7 +295,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-@imgurl: "http://cdn.exe666.com/fe/image/altman/";
+@imgurl: "http://cdn.xingstation.cn/fe/image/altman/";
 /*声明 WebFont*/
 @font-face {
   font-family: "heavy";
@@ -332,6 +338,7 @@ a {
   overflow-x: hidden;
   position: relative;
   background-color: #1b1b1b;
+  margin-bottom: -2px;
   .bg {
     position: relative;
     z-index: 0;

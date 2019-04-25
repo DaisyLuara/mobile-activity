@@ -1,35 +1,40 @@
 <template>
-  <div 
+  <div
     :style="style.root"
-    class="content">
+    class="content"
+  >
     <img
       :src="base + 'logo.png'"
-      class="logo">
-    <div 
+      class="logo"
+    >
+    <div
       v-show="toImg"
       class="upload"
     >
-      <input 
-        type="file" 
+      <input
+        type="file"
         accept="image/*"
         class="camera"
-        @change="toUpLoad">
-      <img
-        :src="base + icon +'.png'">
+        @change="toUpLoad"
+      >
+      <img :src="base + icon +'.png'">
     </div>
     <img
       v-show="word"
       :src="base + 'font.png'"
-      class="font">
+      class="font"
+    >
     <img
       :src="base + 'pointer.png'"
-      class="pointer">
+      class="pointer"
+    >
     <swiper
       ref="Swiper"
       :options="sOption"
-      class="swiper">
+      class="swiper"
+    >
       <swiper-slide>
-        <div 
+        <div
           id="anim"
           class="page anim"
         />
@@ -37,10 +42,12 @@
       <swiper-slide
         v-for="item in pages"
         :key="item.id"
-        class="pslider">
+        class="pslider"
+      >
         <img
           :src="base + item"
-          class="page">
+          class="page"
+        >
       </swiper-slide>
     </swiper>
   </div>
@@ -86,7 +93,7 @@ export default {
       sOption: {
         effect: 'fade',
         on: {
-          init: () => {},
+          init: () => { },
           slideChange: () => {
             let index = this.$refs.Swiper.swiper.realIndex
             if (index === 0) {
@@ -107,8 +114,13 @@ export default {
       wxShareInfoValue: {
         title: '贵客齐聚，共赴好宴│11.23厦门万象城正式揭幕',
         desc: '敬致：永新豪觅。用心好物',
+<<<<<<< HEAD
         link: process.env.AD_API+'/api/s/qYr' + window.location.search,
         imgUrl: 'https://cdn.exe666.com/fe/image/wxc_letter/icon.png',
+=======
+        link: 'http://papi.xingstation.com/api/s/qYr' + window.location.search,
+        imgUrl: 'https://cdn.xingstation.cn/fe/image/wxc_letter/icon.png',
+>>>>>>> feature-master-to-dev
         success: () => {
           wechatShareTrack()
         }
@@ -178,7 +190,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'https://cdn.exe666.com/fe/image/wxc_letter/';
+@imgUrl: "https://cdn.xingstation.cn/fe/image/wxc_letter/";
 html,
 body {
   width: 100%;

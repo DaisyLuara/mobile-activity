@@ -61,7 +61,7 @@ export default {
   data() {
     return {
       base: CDNURL + "/fe/image/snowman/",
-      video: null,//http://cdn.exe666.com/1007/video/WhoTakeMoonCake_235_96_1492926959345.mp4
+      video: null,//http://cdn.xingstation.cn/1007/video/WhoTakeMoonCake_235_96_1492926959345.mp4
       style: {
         root: {
           'min-height': this.$innerHeight() + 'px'
@@ -125,7 +125,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-@imgUrl: "https://cdn.exe666.com/fe/image/snowman/";
+@imgUrl: "https://cdn.xingstation.cn/fe/image/snowman/";
 html,
 body {
   width: 100%;

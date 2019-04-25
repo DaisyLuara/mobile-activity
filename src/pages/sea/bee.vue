@@ -53,8 +53,13 @@ export default {
       wxShareInfoValue: {
         title: '挑战高分',
         desc: '看看我的高分以及小偶',
+<<<<<<< HEAD
         link: process.env.AD_API+'/api/s/NOL' + window.location.search,
         imgUrl: 'http://cdn.exe666.com/fe/image/bee/share.png',
+=======
+        link: 'http://papi.xingstation.com/api/s/NOL' + window.location.search,
+        imgUrl: 'http://cdn.xingstation.cn/fe/image/bee/share.png',
+>>>>>>> feature-master-to-dev
       }
     }
   },
@@ -158,10 +163,10 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@base: "http://cdn.exe666.com/fe/image/bee/";
+@base: "http://cdn.xingstation.cn/fe/image/bee/";
 @font-face {
   font-family: "liujiao";
-  src: url("http://cdn.exe666.com/fe/font/liujiao.TTF");
+  src: url("http://cdn.xingstation.cn/fe/font/liujiao.TTF");
   font-weight: normal;
   font-style: normal;
 }

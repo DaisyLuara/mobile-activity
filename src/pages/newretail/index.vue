@@ -1,7 +1,7 @@
 <template>
   <div class="root">
     <img 
-      src="http://cdn.exe666.com/fe/marketing/new/bg-new.jpg"
+      src="http://cdn.xingstation.cn/fe/marketing/new/bg-new.jpg"
     >
   </div>
 </template>
@@ -14,7 +14,7 @@ export default {
       wxShareInfoValue: {
         title: '场景新媒体 赋能新零售',
         desc: '掌握全球领先智能科技  突破线下体验四大难点',
-        imgUrl: 'http://cdn.exe666.com/fe/marketing/new/share.png',
+        imgUrl: 'http://cdn.xingstation.cn/fe/marketing/new/share.png',
         success: function() {
           wechatShareTrack()
         }

@@ -74,7 +74,7 @@ import {
   checkGetCoupon
 } from "services";
 const cdnUrl = process.env.CDN_URL;
-import 'animate.css'
+import "animate.css";
 export default {
   mixins: [normalPages],
   data() {
@@ -87,11 +87,11 @@ export default {
       },
       hasUsed: false,
       img: null,
-      // img: 'https://cdn.exe666.com/fe/image/drc_year19_dfth/card_1_b.png',
+      // img: 'https://cdn.xingstation.cn/fe/image/drc_year19_dfth/card_1_b.png',
       userId: null,
       id: this.$route.query.id,
       qrcodeImg: null,
-      // qrcodeImg: 'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
+      // qrcodeImg: 'https://cdn.xingstation.cn/fe/image/couponrain/5c22f3d46c008.png',
       wxShareInfoValue: {
         title: "来东方童画激发潜能",
         desc: "点击领取",
@@ -115,8 +115,8 @@ export default {
         this.handleWechatAuth();
       }
     }
-    if (process.env.NODE_ENV === 'testing') {
-      this.wxShareInfoValue.link = process.env.AD_API + '/api/s/qYr'
+    if (process.env.NODE_ENV === "testing") {
+      this.wxShareInfoValue.link = "http://papi.xingstation.net/api/s/qYr";
     }
   },
   methods: {
@@ -136,7 +136,7 @@ export default {
     },
     //判断是否领过优惠券
     checkCouponIsUse() {
-      let coupon_batch_id = this.coupon_batch_id
+      let coupon_batch_id = this.coupon_batch_id;
       let args = {
         coupon_batch_id: coupon_batch_id,
         include: "couponBatch",
@@ -157,7 +157,7 @@ export default {
     },
     //发优惠券
     sendCoupon() {
-      let coupon_batch_id = this.coupon_batch_id
+      let coupon_batch_id = this.coupon_batch_id;
       let args = {
         include: "couponBatch",
         qiniu_id: this.id,
@@ -176,19 +176,18 @@ export default {
     //处理返回数据
     handleData(res) {
       this.qrcodeImg = res.qrcode_url;
-      this.img = res.couponBatch.image_url
+      this.img = res.couponBatch.image_url;
       if (parseInt(res.status) === 1) {
         //已使用
         this.hasUsed = true;
       }
     }
-  },
-
+  }
 };
 </script>
 
 <style lang="less" scoped>
-@imageHost: "http://cdn.exe666.com/fe/marketing/img/orientalMyth/";
+@imageHost: "http://cdn.xingstation.cn/fe/marketing/img/orientalMyth/";
 html,
 body {
   width: 100%;

@@ -81,7 +81,7 @@ export default {
         title: "大融城美食券免费领！",
         desc: "点击即可领福利",
         link: "http://papi.xingstation.com/api/s/LZg" + window.location.search,
-        //link: process.env.AD_API+'/api/s/2vv' + window.location.search,
+        //link: 'http://papi.xingstation.net/api/s/2vv' + window.location.search,
         imgUrl: cdnUrl + "/fe/marketing/img/drc_tiger/icon.png"
       }
     };
@@ -148,8 +148,8 @@ export default {
       return url.match(pattern)
         ? url.replace(eval("/(" + arg + "=)([^&]*)/gi"), replaceText)
         : url.match("[?]")
-          ? url + "&" + replaceText
-          : url + "?" + replaceText;
+        ? url + "&" + replaceText
+        : url + "?" + replaceText;
     },
     //随机出randomCouponID
     randomCouponID() {
@@ -227,7 +227,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: "http://cdn.exe666.com/fe/marketing/img/drc_tiger/";
+@imageHost: "http://cdn.xingstation.cn/fe/marketing/img/drc_tiger/";
 html,
 body {
   width: 100%;

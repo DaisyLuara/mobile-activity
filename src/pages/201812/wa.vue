@@ -86,7 +86,7 @@ export default {
       base: cdnUrl + "/fe/image/wa/",
       ewm: null,
       code: null,
-      coupon: null, //'http://cdn.exe666.com/fe/image/wa/coupon01.png',
+      coupon: null, //'http://cdn.xingstation.cn/fe/image/wa/coupon01.png',
       description: null,
       iphoneX: false,
       userId: null,
@@ -199,7 +199,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-@img: "https://cdn.exe666.com/fe/image/wa/";
+@img: "https://cdn.xingstation.cn/fe/image/wa/";
 html,
 body {
   width: 100%;

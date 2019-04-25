@@ -50,8 +50,13 @@ export default {
       wxShareInfoValue: {
         title: '横店APP',
         desc: '19.9会员购票',
+<<<<<<< HEAD
         link: process.env.AD_API+'/api/s/rR6' + window.location.search,
         imgUrl: 'http://cdn.exe666.com/fe/image/hengdian/icon.png',
+=======
+        link: 'http://papi.xingstation.com/api/s/rR6' + window.location.search,
+        imgUrl: 'http://cdn.xingstation.cn/fe/image/hengdian/icon.png',
+>>>>>>> feature-master-to-dev
         success: () => {
           wechatShareTrack()
         }
@@ -109,7 +114,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@base: 'http://cdn.exe666.com/fe/image/hengdian/';
+@base: 'http://cdn.xingstation.cn/fe/image/hengdian/';
 html,
 body {
   width: 100%;

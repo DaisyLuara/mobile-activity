@@ -56,8 +56,13 @@ export default {
       wxShareInfoValue: {
         title: '一纸情书',
         desc: '只愿君心似我心 定当不负相思意',
+<<<<<<< HEAD
         link: process.env.AD_API+'/api/s/zpY' + window.location.search,
         imgUrl: 'http://cdn.exe666.com/image/loveletter/icon.jpg',
+=======
+        link: 'http://papi.xingstation.com/api/s/zpY' + window.location.search,
+        imgUrl: 'http://cdn.xingstation.cn/image/loveletter/icon.jpg',
+>>>>>>> feature-master-to-dev
         success: function() {
           wechatShareTrack()
         }
@@ -152,7 +157,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://cdn.exe666.com/image/loveletter/';
+@imgUrl: 'http://cdn.xingstation.cn/image/loveletter/';
 html,
 body {
   width: 100%;

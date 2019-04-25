@@ -310,7 +310,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imgServerUrl: 'http://cdn.exe666.com//fe/marketing/img/sndy';
+@imgServerUrl: 'http://cdn.xingstation.cn//fe/marketing/img/sndy';
 .root {
   width: 100%;
   height: 100%;

@@ -40,7 +40,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@img: "http://cdn.exe666.com/fe/image/superHero/";
+@img: "http://cdn.xingstation.cn/fe/image/superHero/";
 html,
 body {
   width: 100%;

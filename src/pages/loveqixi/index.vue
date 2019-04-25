@@ -1,20 +1,21 @@
 <template>
-  <div 
+  <div
     :style="style.root"
-    class="content">
-    <div 
-      class="main">
-      <img 
+    class="content"
+  >
+    <div class="main">
+      <img
         v-show="toshow"
         :src="photo"
-        class="photo">
+        class="photo"
+      >
     </div>
   </div>
 </template>
 <script>
 import { $wechat, getInfoById, wechatShareTrack } from 'services'
 import { onlyWechatShare } from '../../mixins/onlyWechatShare'
-const IMG_SERVER = 'http://p22vy0aug.bkt.clouddn.com/'
+const IMG_SERVER = process.env.CDN_URL + '/'
 export default {
   mixins: [onlyWechatShare],
   data() {
@@ -28,21 +29,26 @@ export default {
       photo: null,
       toshow: false,
       img_list: [
-        'http://p22vy0aug.bkt.clouddn.com/image/loveqixi/word.png',
-        'http://p22vy0aug.bkt.clouddn.com/image/loveqixi/light.png',
-        'http://p22vy0aug.bkt.clouddn.com/image/loveqixi/dark.png',
-        'http://p22vy0aug.bkt.clouddn.com/image/loveqixi/circle.png',
-        'http://p22vy0aug.bkt.clouddn.com/image/loveqixi/save.png'
+        IMG_SERVER + 'image/loveqixi/word.png',
+        IMG_SERVER + 'image/loveqixi/light.png',
+        IMG_SERVER + 'image/loveqixi/dark.png',
+        IMG_SERVER + 'image/loveqixi/circle.png',
+        IMG_SERVER + 'image/loveqixi/save.png'
       ],
       //分享
       wxShareInfoValue: {
         title: '才子佳人 爱在七夕',
         desc: '牛郎织女测出你的CP属性',
+<<<<<<< HEAD
         link: process.env.AD_API+'/api/s/yP7' + window.location.search,
         imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/loveqixi/share.png',
         success: function() {
           wechatShareTrack()
         }
+=======
+        link: 'http://papi.xingstation.com/api/s/yP7' + window.location.search,
+        imgUrl: IMG_SERVER + 'image/loveqixi/share.png',
+>>>>>>> feature-master-to-dev
       }
     }
   },
@@ -68,7 +74,7 @@ export default {
       for (let i = 0; i < arr.length; i++) {
         let img = new Image()
         img.src = arr[i]
-        img.onload = function() {
+        img.onload = function () {
           count++
           if (count == arr.length) {
             that.showCanvas(that.photo)
@@ -81,7 +87,7 @@ export default {
         let that = this
         let content = document.querySelector('.content')
         let main = document.querySelector('.main')
-        let base = 'http://p22vy0aug.bkt.clouddn.com/image/loveqixi'
+        let base = IMG_SERVER + 'image/loveqixi'
         let app = new PIXI.Application({
           width: window.innerWidth,
           height: window.innerHeight,
@@ -109,12 +115,12 @@ export default {
         //灯笼
         let light = PIXI.Sprite.fromImage(base + '/light.png')
         light.anchor.set(0.5, 0)
-        light.position.set(width / 2, height * 0.41)
+        light.position.set(width / 2, height * 0.55)
         light.width = width * 0.85
         light.height = light.width / 659 * 650
         let dark = PIXI.Sprite.fromImage(base + '/dark.png')
         dark.anchor.set(0.5, 0)
-        dark.position.set(width / 2, height * 0.41)
+        dark.position.set(width / 2, height * 0.55)
         dark.width = width * 0.85
         dark.height = dark.width / 659 * 650
         //圆圈
@@ -163,7 +169,7 @@ export default {
         container.on('pointerdown', onClick)
         let total_height = img.height + light.height / 6
 
-        app.ticker.add(function() {
+        app.ticker.add(function () {
           if (container.alpha < 1) {
             container.alpha += 0.01
             return
@@ -214,7 +220,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: 'http://p22vy0aug.bkt.clouddn.com/image/loveqixi';
+@imgUrl: "http://cdn.xingstation.cn/image/loveqixi";
 html,
 body {
   width: 100%;
@@ -236,7 +242,7 @@ img {
 .content {
   width: 100%;
   overflow-x: hidden;
-  background-image: url('@{imgUrl}/bg.png');
+  background-image: url("@{imgUrl}/bg.png");
   background-position: center bottom;
   background-repeat: no-repeat;
   background-size: 100% auto;

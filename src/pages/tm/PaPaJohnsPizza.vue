@@ -96,7 +96,7 @@ export default {
         policyId: 4,
         couponId: null,
         url: null
-        //'http://cdn.exe666.com/fe/image/drc/guoqing/1.png'
+        //'http://cdn.xingstation.cn/fe/image/drc/guoqing/1.png'
       },
       mobile: null,
       award: true,
@@ -108,7 +108,7 @@ export default {
         desc: '大融城-星视度嗨玩节，福利优惠拿不停。',
         link: process.env.AD_API+'/api/s/k5X' + window.location.search,
         imgUrl:
-          'http://cdn.exe666.com/image/tm/guoqing/share_PaPaJohnsPizza.png',
+          'http://cdn.xingstation.cn/image/tm/guoqing/share_PaPaJohnsPizza.png',
       }
     }
   },
@@ -294,15 +294,15 @@ export default {
 /*声明 WebFont*/
 @font-face {
   font-family: "haibao";
-  src: url("http://cdn.exe666.com/font/haibao.ttf");
-  src: url("http://cdn.exe666.com/font/haibao.eot"),
-    url("http://cdn.exe666.com/font/haibao.woff"),
-    url("http://cdn.exe666.com/font/haibao.ttf"),
-    url("http://cdn.exe666.com/font/haibao.svg");
+  src: url("http://cdn.xingstation.cn/font/haibao.ttf");
+  src: url("http://cdn.xingstation.cn/font/haibao.eot"),
+    url("http://cdn.xingstation.cn/font/haibao.woff"),
+    url("http://cdn.xingstation.cn/font/haibao.ttf"),
+    url("http://cdn.xingstation.cn/font/haibao.svg");
   font-weight: normal;
   font-style: normal;
 }
-@base: "http://cdn.exe666.com/fe/image/drc/guoqing/";
+@base: "http://cdn.xingstation.cn/fe/image/drc/guoqing/";
 html,
 body {
   width: 100%;

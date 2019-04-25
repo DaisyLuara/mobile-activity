@@ -169,8 +169,13 @@ export default {
       wxShareInfoValue: {
         title: '厦门万象城', //暂无
         desc: '厦门万象城', //暂无
+<<<<<<< HEAD
         link: process.env.AD_API+'/api/s/xvr' + window.location.search,
         imgUrl: 'https://cdn.exe666.com/fe/image/wxc_map/icon.png',
+=======
+        link: 'http://papi.xingstation.com/api/s/xvr' + window.location.search,
+        imgUrl: 'https://cdn.xingstation.cn/fe/image/wxc_map/icon.png',
+>>>>>>> feature-master-to-dev
         success: () => {
           wechatShareTrack()
         }
@@ -357,7 +362,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@img: 'https://cdn.exe666.com/fe/image/wxc_map/';
+@img: 'https://cdn.xingstation.cn/fe/image/wxc_map/';
 html,
 body {
   width: 100%;

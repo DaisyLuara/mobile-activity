@@ -46,8 +46,13 @@ export default {
       wxShareInfoValue: {
         title: '狗狗大作战',
         desc: '指挥你的狗狗PK，进击王者不是梦！',
+<<<<<<< HEAD
         link: process.env.AD_API+'/api/s/OYp' + window.location.search,
         imgUrl: 'http://cdn.exe666.com/image/pandp/pk/share.jpg',
+=======
+        link: 'http://papi.xingstation.com/api/s/OYp' + window.location.search,
+        imgUrl: 'http://cdn.xingstation.cn/image/pandp/pk/share.jpg',
+>>>>>>> feature-master-to-dev
         success: function() {
           wechatShareTrack()
         }
@@ -143,7 +148,7 @@ export default {
           that.img = canvas.toDataURL('image/png')
         }
         cover.src =
-          'http://cdn.exe666.com/image/pandp/pk/star' + that.star + '.png'
+          'http://cdn.xingstation.cn/image/pandp/pk/star' + that.star + '.png'
       }
       cphoto.src = this.photo
     }

@@ -82,98 +82,97 @@ import {
   userGame,
   getInfoById,
   getGame
-} from 'services'
-import { onlyWechatShare } from '@/mixins/onlyWechatShare'
-const IMG_SERVER = process.env.CDN_URL
+} from "services";
+import { onlyWechatShare } from "@/mixins/onlyWechatShare";
+const IMG_SERVER = process.env.CDN_URL;
 export default {
   mixins: [onlyWechatShare],
   data() {
     return {
       style: {
         root: {
-          'min-height': this.$innerHeight() + 'px'
+          "min-height": this.$innerHeight() + "px"
         }
       },
-      origin: IMG_SERVER + '/image/zhongqiu/',
-      base: IMG_SERVER + '/image/zhongqiu/3/',
+      origin: IMG_SERVER + "/image/zhongqiu/",
+      base: IMG_SERVER + "/image/zhongqiu/3/",
       deUrl:
-        'http://wx.qlogo.cn/mmopen/Q3auHgzwzM4VoBYD1YEIq0E3LFM1XLKsd3sG5VXRAvCUqCVXIPTcI0TzqicRWfzB9Zv40GhTR83RhKAugpzOuaJFC11nxmcnnp6ZbOu04UFw/0',
+        "http://wx.qlogo.cn/mmopen/Q3auHgzwzM4VoBYD1YEIq0E3LFM1XLKsd3sG5VXRAvCUqCVXIPTcI0TzqicRWfzB9Zv40GhTR83RhKAugpzOuaJFC11nxmcnnp6ZbOu04UFw/0",
       userId: null,
       task: {
-        left: '11',
-        right: '22'
+        left: "11",
+        right: "22"
       },
       m_num: Math.round(Math.random() * 4),
-      m_name: ['shaonv', 'dashu', 'gaoguai', 'guisu', 'jiqiqi'],
-      music: 'music_open',
+      m_name: ["shaonv", "dashu", "gaoguai", "guisu", "jiqiqi"],
+      music: "music_open",
       circle: true,
       vshow: false,
-      v_status: 'play',
+      v_status: "play",
       video: null,
       belong: null,
-      //'http://cdn.exe666.com/1007/video/WhoTakeMoonCake_235_96_1492926959345.mp4',
+      //'http://cdn.xingstation.cn/1007/video/WhoTakeMoonCake_235_96_1492926959345.mp4',
       bgshow: true,
       //微信分享
       wxShareInfoValue: {
-        title: '中秋快乐 ',
-        desc: '月饼被谁吃了',
-        link: process.env.AD_API+'/api/s/1wR' + window.location.search,
-        imgUrl: 'http://cdn.exe666.com/image/zhongqiu/3/share.png',
+        title: "中秋快乐 ",
+        desc: "月饼被谁吃了",
+        link: "http://papi.xingstation.com/api/s/1wR" + window.location.search,
+        imgUrl: "http://cdn.xingstation.cn/image/zhongqiu/3/share.png"
       }
-    }
+    };
   },
   mounted() {
     //微信授权
     if (isInWechat() === true) {
       if (
-        process.env.NODE_ENV === 'production' ||
-        process.env.NODE_ENV === 'testing'
+        process.env.NODE_ENV === "production" ||
+        process.env.NODE_ENV === "testing"
       ) {
-        this.handleWechatAuth()
+        this.handleWechatAuth();
       }
     }
-    this.playAudio()
-
+    this.playAudio();
   },
   methods: {
     handleWechatAuth() {
-      if (Cookies.get('sign') === null) {
-        let base_url = encodeURIComponent(String(window.location.href))
+      if (Cookies.get("sign") === null) {
+        let base_url = encodeURIComponent(String(window.location.href));
         let redirct_url =
           process.env.WX_API +
-          '/wx/officialAccount/oauth?url=' +
+          "/wx/officialAccount/oauth?url=" +
           base_url +
-          '&scope=snsapi_base'
-        window.location.href = redirct_url
+          "&scope=snsapi_base";
+        window.location.href = redirct_url;
       } else {
-        this.userId = Cookies.get('user_id')
-        this.getInfoById()
+        this.userId = Cookies.get("user_id");
+        this.getInfoById();
       }
     },
     getInfoById() {
-      let id = this.$route.query.id
+      let id = this.$route.query.id;
       getInfoById(id)
         .then(res => {
-          this.video = res.url
-          this.belong = res.belong
-          this.createGame(this.belong, this.userId)
-          this.userGame()
+          this.video = res.url;
+          this.belong = res.belong;
+          this.createGame(this.belong, this.userId);
+          this.userGame();
         })
         .catch(err => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     },
     createGame(belong, userId) {
       let args = {
         belong: belong
-      }
+      };
       createGame(args, userId)
         .then(res => {
-          this.getGame(userId)
+          this.getGame(userId);
         })
         .catch(err => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     },
     userGame() {
       let args = {
@@ -181,142 +180,142 @@ export default {
         image_url: this.deUrl,
         qiniu_id: this.$route.query.id,
         score: 100
-      }
+      };
       userGame(args, this.userId)
         .then(res => {
-          console.log(res)
+          console.log(res);
         })
         .catch(e => {
-          console.log(e)
-        })
+          console.log(e);
+        });
     },
     getGame(userId) {
-      let that = this
+      let that = this;
       let args = {
         withCredentials: true
-      }
+      };
       getGame(args, userId)
         .then(res => {
-          console.log(res)
-          this.projectStatus(res, userId)
+          console.log(res);
+          this.projectStatus(res, userId);
         })
         .catch(err => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     },
     projectStatus(list, userId) {
-      let data = list
+      let data = list;
       data.map(r => {
-        if (r.belong === 'MoonCakeFactory') {
-          this.task.left = '1'
+        if (r.belong === "MoonCakeFactory") {
+          this.task.left = "1";
         }
-        if (r.belong === 'GroceryShop') {
-          this.task.right = '2'
+        if (r.belong === "GroceryShop") {
+          this.task.right = "2";
         }
-      })
+      });
     },
     playVideo() {
-      this.vshow = true
-      let video = document.getElementById('video')
-      let that = this
-      that.bgshow = false
-      video.load()
-      video.play()
+      this.vshow = true;
+      let video = document.getElementById("video");
+      let that = this;
+      that.bgshow = false;
+      video.load();
+      video.play();
 
-      video.onplay = function () {
-        video.currentTime = 0
-        that.vshow = true
-        that.v_status = 'pause'
-      }
-      video.onpause = function () {
-        that.bgshow = true
-        that.vshow = false
-        that.v_status = 'play'
-      }
-      video.onended = function () {
-        that.bgshow = true
-        that.vshow = false
-        that.v_status = 'play'
-      }
-      if (that.v_status == 'pause') {
-        video.pause()
-        return
+      video.onplay = function() {
+        video.currentTime = 0;
+        that.vshow = true;
+        that.v_status = "pause";
+      };
+      video.onpause = function() {
+        that.bgshow = true;
+        that.vshow = false;
+        that.v_status = "play";
+      };
+      video.onended = function() {
+        that.bgshow = true;
+        that.vshow = false;
+        that.v_status = "play";
+      };
+      if (that.v_status == "pause") {
+        video.pause();
+        return;
       }
     },
     playAudio() {
-      let voice = document.getElementById('voice')
-      let that = this
+      let voice = document.getElementById("voice");
+      let that = this;
       if (!voice) {
-        return
+        return;
       }
       //调用 <audio> 元素提供的方法 play()
-      voice.play()
+      voice.play();
       if (voice.paused) {
-        that.music = 'music_close'
-        that.circle = false
+        that.music = "music_close";
+        that.circle = false;
       }
       //判斷 WeixinJSBridge 是否存在
       if (
-        typeof WeixinJSBridge == 'object' &&
-        typeof WeixinJSBridge.invoke == 'function'
+        typeof WeixinJSBridge == "object" &&
+        typeof WeixinJSBridge.invoke == "function"
       ) {
-        voice.play()
+        voice.play();
       } else {
         //監聽客户端抛出事件"WeixinJSBridgeReady"
         if (document.addEventListener) {
           document.addEventListener(
-            'WeixinJSBridgeReady',
-            function () {
-              voice.play()
+            "WeixinJSBridgeReady",
+            function() {
+              voice.play();
             },
             false
-          )
+          );
         } else if (document.attachEvent) {
-          document.attachEvent('WeixinJSBridgeReady', function () {
-            voice.play()
-          })
-          document.attachEvent('onWeixinJSBridgeReady', function () {
-            voice.play()
-          })
+          document.attachEvent("WeixinJSBridgeReady", function() {
+            voice.play();
+          });
+          document.attachEvent("onWeixinJSBridgeReady", function() {
+            voice.play();
+          });
         }
       }
 
       //voiceStatu用來記録狀態,使 touchstart 事件只能觸發一次有效,避免與 click 事件衝突
-      var voiceStatu = true
+      var voiceStatu = true;
       //监听 touchstart 事件进而调用 <audio> 元素提供的 play() 方法播放音频
       document.addEventListener(
-        'touchstart',
-        function (e) {
+        "touchstart",
+        function(e) {
           if (voiceStatu) {
-            voice.play()
-            voiceStatu = false
+            voice.play();
+            voiceStatu = false;
           }
         },
         false
-      )
-      voice.onplay = function () {
-        that.music = 'music_open'
-        that.circle = true
-      }
-      voice.onpause = function () {
-        that.music = 'music_close'
-        that.circle = false
-      }
+      );
+      voice.onplay = function() {
+        that.music = "music_open";
+        that.circle = true;
+      };
+      voice.onpause = function() {
+        that.music = "music_close";
+        that.circle = false;
+      };
     },
     playOrNot() {
       // 依據 audio 的 paused 属性返回音频是否已暂停來判斷播放還是暫停音频。
-      let voice = document.getElementById('voice')
+      let voice = document.getElementById("voice");
       if (voice.paused) {
-        voice.play()
+        voice.play();
       } else {
-        voice.pause()
+        voice.pause();
       }
     }
   }
-}
+};
 </script>
 <style lang="less" scoped>
-@base: "http://cdn.exe666.com/image/zhongqiu/3/";
+@base: "http://cdn.xingstation.cn/image/zhongqiu/3/";
 html,
 body {
   width: 100%;

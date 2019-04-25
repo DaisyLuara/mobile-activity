@@ -16,36 +16,37 @@
   </div>
 </template>
 <script>
-import { normalPages } from '@/mixins/normalPages'
-const CDN_URL = process.env.CDN_URL
+import { normalPages } from "@/mixins/normalPages";
+const CDN_URL = process.env.CDN_URL;
 export default {
   mixins: [normalPages],
   data() {
     return {
-      base: CDN_URL + '/fe/image/didi/',
+      base: CDN_URL + "/fe/image/didi/",
       style: {
         root: {
-          'min-height': this.$innerHeight() + 'px'
+          "min-height": this.$innerHeight() + "px"
         }
       },
       //微信分享
       wxShareInfoValue: {
-        title: '滴滴司机，不平凡，更温暖',
-        desc: '早办证早稳定早赚钱~',
-        link: process.env.AD_API+'/api/s/WPW' + window.location.search,
-        imgUrl: CDN_URL + '/fe/image/didi/share.png'
+        title: "滴滴司机，不平凡，更温暖",
+        desc: "早办证早稳定早赚钱~",
+        link: process.env.AD_API + "/api/s/WPW" + window.location.search,
+        imgUrl: CDN_URL + "/fe/image/didi/share.png"
       }
-    }
+    };
   },
   mounted() {
-    if (process.env.NODE_ENV === 'testing') {
-      this.wxShareInfoValue.link = process.env.AD_API + '/api/s/7LA' + window.location.search
+    if (process.env.NODE_ENV === "testing") {
+      this.wxShareInfoValue.link =
+        process.env.AD_API + "/api/s/7LA" + window.location.search;
     }
   }
-}
+};
 </script>
 <style lang="less" scoped>
-@url: "http://cdn.exe666.com/fe/image/didi/";
+@url: "http://cdn.xingstation.cn/fe/image/didi/";
 html,
 body {
   width: 100%;

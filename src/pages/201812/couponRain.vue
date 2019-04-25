@@ -53,8 +53,8 @@ export default {
       used: false,
       userId: null,
       cshow: false,//true
-      coupon_img: null,//'https://cdn.exe666.com/fe/image/couponrain/Lee.png',
-      qrcodeImg: null,// 'https://cdn.exe666.com/fe/image/couponrain/5c22f3d46c008.png',
+      coupon_img: null,//'https://cdn.xingstation.cn/fe/image/couponrain/Lee.png',
+      qrcodeImg: null,// 'https://cdn.xingstation.cn/fe/image/couponrain/5c22f3d46c008.png',
       //微信分享
       wxShareInfoValue: {
         title: "高能预警！一大波“红包雨”强势来袭！",
@@ -389,7 +389,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-@imgUrl: "https://cdn.exe666.com/fe/image/couponrain/";
+@imgUrl: "https://cdn.xingstation.cn/fe/image/couponrain/";
 html,
 body {
   width: 100%;

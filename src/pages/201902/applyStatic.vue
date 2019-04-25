@@ -59,14 +59,14 @@
           </swiper-slide>
         </swiper>
         <div
-          class="swiper-button-prev"
           slot="button-prev"
-        ></div>
+          class="swiper-button-prev"
+        />
         <!--左箭头-->
         <div
-          class="swiper-button-next"
           slot="button-next"
-        ></div>
+          class="swiper-button-next"
+        />
         <!--右箭头-->
       </div>
       <img
@@ -93,14 +93,14 @@
         </swiper-slide>
       </swiper>
       <div
-        class="swiper-button-prev swiper-prev"
         slot="prev"
-      ></div>
+        class="swiper-button-prev swiper-prev"
+      />
       <!--左箭头-->
       <div
-        class="swiper-button-next swiper-next"
         slot="next"
-      ></div>
+        class="swiper-button-next swiper-next"
+      />
       <!--右箭头-->
     </div>
     <img
@@ -200,7 +200,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@img: "http://cdn.exe666.com/fe/image/apply/";
+@img: "http://cdn.xingstation.cn/fe/image/apply/";
 html,
 body {
   width: 100%;
@@ -246,7 +246,7 @@ a {
       position: relative;
     }
     .photo {
-      width: 85%;
+      width: 84%;
       top: 22.3%;
       pointer-events: auto;
       user-select: auto;

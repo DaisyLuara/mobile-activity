@@ -56,7 +56,7 @@ export default {
         title: '我在携程未来旅行空间站，高清硬照求围观！',
         desc: '4月5日-7日，苏州站邀你体验',
         imgUrl:
-          'https://cdn.exe666.com/image/xiecheng/travelicon.png',
+          'https://cdn.xingstation.cn/image/xiecheng/travelicon.png',
         success: () => {
           wechatShareTrack()
         }

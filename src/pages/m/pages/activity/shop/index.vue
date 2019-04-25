@@ -57,13 +57,13 @@ export default {
       isAllLoaded: false,
       trends: [],
       coverShadow:
-        "https://cdn.exe666.com/fe/image/m/activity-cover-shadow.svg",
+        "https://cdn.xingstation.cn/fe/image/m/activity-cover-shadow.svg",
       tags: {
-        alltop: "https://cdn.exe666.com/fe/image/m/tag-toupiao.svg",
-        game: "https://cdn.exe666.com/fe/image/m/tag-paihang.svg",
-        honour: "https://cdn.exe666.com/fe/image/m/tag-xunzhang.svg",
-        options: "https://cdn.exe666.com/fe/image/m/tag-options.svg",
-        birthday: "https://cdn.exe666.com/fe/image/m/tag-brithday.svg"
+        alltop: "https://cdn.xingstation.cn/fe/image/m/tag-toupiao.svg",
+        game: "https://cdn.xingstation.cn/fe/image/m/tag-paihang.svg",
+        honour: "https://cdn.xingstation.cn/fe/image/m/tag-xunzhang.svg",
+        options: "https://cdn.xingstation.cn/fe/image/m/tag-options.svg",
+        birthday: "https://cdn.xingstation.cn/fe/image/m/tag-brithday.svg"
       }
     };
   },
@@ -132,7 +132,7 @@ export default {
           let res = r.data.results.data;
           this.isLoading = false;
           this.trends = this.trends.concat(res);
-          if (r.data.results.pageIndex >= r.data.results.totalPage) {
+          if (Number(r.data.results.pageIndex) >= Number(r.data.results.totalPage)) {
             this.isAllLoaded = true;
           }
           this.currentPage++;

@@ -94,7 +94,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@imgUrl: "http://cdn.exe666.com/fe/image/yanzhi/meilai";
+@imgUrl: "http://cdn.xingstation.cn/fe/image/yanzhi/meilai";
 html,
 body {
   width: 100%;

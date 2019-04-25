@@ -75,11 +75,11 @@ import {
   userGame,
   getGame,
   setParameter
-} from 'services'
-import { normalPages } from '@/mixins/normalPages'
-import 'swiper/dist/css/swiper.css'
-import { swiper, swiperSlide } from 'vue-awesome-swiper'
-const IMG_SERVER = process.env.CDN_URL
+} from "services";
+import { normalPages } from "@/mixins/normalPages";
+import "swiper/dist/css/swiper.css";
+import { swiper, swiperSlide } from "vue-awesome-swiper";
+const IMG_SERVER = process.env.CDN_URL;
 export default {
   components: {
     swiper,
@@ -90,121 +90,121 @@ export default {
     return {
       style: {
         root: {
-          'min-height': this.$innerHeight() + 'px'
+          "min-height": this.$innerHeight() + "px"
         }
       },
-      origin: IMG_SERVER + '/image/zhongqiu/',
-      base: IMG_SERVER + '/image/zhongqiu/1/',
+      origin: IMG_SERVER + "/image/zhongqiu/",
+      base: IMG_SERVER + "/image/zhongqiu/1/",
       deUrl:
-        'http://wx.qlogo.cn/mmopen/Q3auHgzwzM4VoBYD1YEIq0E3LFM1XLKsd3sG5VXRAvCUqCVXIPTcI0TzqicRWfzB9Zv40GhTR83RhKAugpzOuaJFC11nxmcnnp6ZbOu04UFw/0',
+        "http://wx.qlogo.cn/mmopen/Q3auHgzwzM4VoBYD1YEIq0E3LFM1XLKsd3sG5VXRAvCUqCVXIPTcI0TzqicRWfzB9Zv40GhTR83RhKAugpzOuaJFC11nxmcnnp6ZbOu04UFw/0",
       userId: null,
       bing: {
         left: [
-          'bingpi_left.png',
-          'danhuang_left.png',
-          'lianhau_left.png',
-          'mocha_left.png',
-          'wuren_left.png'
+          "bingpi_left.png",
+          "danhuang_left.png",
+          "lianhau_left.png",
+          "mocha_left.png",
+          "wuren_left.png"
         ],
         right: [
-          'bingpi_right.png',
-          'danhuang_right.png',
-          'lianhau_right.png',
-          'mocha_right.png',
-          'wuren_right.png'
+          "bingpi_right.png",
+          "danhuang_right.png",
+          "lianhau_right.png",
+          "mocha_right.png",
+          "wuren_right.png"
         ],
         name: null,
         headImgUrl: null,
-        // 'http://cdn.exe666.com/image/zhongqiu/1/share.png', //null,
+        // 'http://cdn.xingstation.cn/image/zhongqiu/1/share.png', //null,
         people: null,
         cake_type_a: null,
-        cake_type_b: null,
+        cake_type_b: null
       },
       task: {
-        left: '22',
-        right: '33'
+        left: "22",
+        right: "33"
       },
       swiperOption: {
         initialSlide: 1,
         slidesPerView: 3,
-        slidesPerView: 'auto',
+        slidesPerView: "auto",
         centeredSlides: true,
         spaceBetween: 10
       },
       //微信分享
       wxShareInfoValue: {
-        title: '中秋快乐',
-        desc: '我亲手做的月饼,你敢吃么？',
-        link: process.env.AD_API+'/api/s/YEK' + window.location.search,
-        imgUrl: 'http://cdn.exe666.com/image/zhongqiu/1/share.png',
+        title: "中秋快乐",
+        desc: "我亲手做的月饼,你敢吃么？",
+        link: "http://papi.xingstation.com/api/s/YEK" + window.location.search,
+        imgUrl: "http://cdn.xingstation.cn/image/zhongqiu/1/share.png"
       }
-    }
+    };
   },
   watch: {
     parms() {
-      this.bing.name = this.parms.cake_name
-      this.bing.people = this.parms.people_type
-      this.bing.cake_type_a = this.parms.cake_type_a
-      this.bing.cake_type_b = this.parms.cake_type_b
-      this.handlePost()
-      this.createGame(this.belong, this.userId)
-      this.userGame()
+      this.bing.name = this.parms.cake_name;
+      this.bing.people = this.parms.people_type;
+      this.bing.cake_type_a = this.parms.cake_type_a;
+      this.bing.cake_type_b = this.parms.cake_type_b;
+      this.handlePost();
+      this.createGame(this.belong, this.userId);
+      this.userGame();
     }
   },
   mounted() {
     //微信授权
     if (isInWechat() === true) {
       if (
-        process.env.NODE_ENV === 'production' ||
-        process.env.NODE_ENV === 'testing'
+        process.env.NODE_ENV === "production" ||
+        process.env.NODE_ENV === "testing"
       ) {
-        this.handleWechatAuth()
+        this.handleWechatAuth();
       }
     }
   },
   methods: {
     handleWechatAuth() {
-      if (Cookies.get('sign') === null) {
-        let base_url = encodeURIComponent(String(window.location.href))
+      if (Cookies.get("sign") === null) {
+        let base_url = encodeURIComponent(String(window.location.href));
         let redirct_url =
           process.env.WX_API +
-          '/wx/officialAccount/oauth?url=' +
+          "/wx/officialAccount/oauth?url=" +
           base_url +
-          '&scope=snsapi_base'
-        window.location.href = redirct_url
+          "&scope=snsapi_base";
+        window.location.href = redirct_url;
       } else {
-        this.userId = Cookies.get('user_id')
-        this.createGame(this.belong, this.userId)
-        this.userGame()
+        this.userId = Cookies.get("user_id");
+        this.createGame(this.belong, this.userId);
+        this.userGame();
         //获取微信头像
         if (this.$route.query.utm_term) {
-          this.bing.headImgUrl = this.$route.query.headImgUrl
+          this.bing.headImgUrl = this.$route.query.headImgUrl;
         } else {
           getWxUserInfo()
             .then(r => {
-              this.bing.headImgUrl = r.data.headimgurl
+              this.bing.headImgUrl = r.data.headimgurl;
               this.wxShareInfoValue.link = setParameter(
-                'headImgUrl',
+                "headImgUrl",
                 encodeURIComponent(r.data.headimgurl)
-              )
+              );
             })
             .catch(err => {
-              console.log(err)
-            })
+              console.log(err);
+            });
         }
       }
     },
     createGame(belong, userId) {
       let args = {
         belong: belong
-      }
+      };
       createGame(args, userId)
         .then(res => {
-          this.getGame(userId)
+          this.getGame(userId);
         })
         .catch(err => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     },
     userGame() {
       let args = {
@@ -212,45 +212,45 @@ export default {
         image_url: this.deUrl,
         qiniu_id: this.$route.query.id,
         score: 100
-      }
+      };
       userGame(args, this.userId)
         .then(res => {
-          console.log(res)
+          console.log(res);
         })
         .catch(e => {
-          console.log(e)
-        })
+          console.log(e);
+        });
     },
     getGame(userId) {
-      let that = this
+      let that = this;
       let args = {
         withCredentials: true
-      }
+      };
       getGame(args, userId)
         .then(res => {
-          console.log(res)
-          this.projectStatus(res, userId)
+          console.log(res);
+          this.projectStatus(res, userId);
         })
         .catch(err => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     },
     projectStatus(list, userId) {
-      let data = list
-      console.log(list)
+      let data = list;
+      console.log(list);
       data.map(r => {
-        if (r.belong === 'GroceryShop') {
-          this.task.left = '2'
+        if (r.belong === "GroceryShop") {
+          this.task.left = "2";
         }
-        if (r.belong === 'WhoTakeMoonCake') {
-          this.task.right = '3'
+        if (r.belong === "WhoTakeMoonCake") {
+          this.task.right = "3";
         }
-      })
+      });
     },
     handlePost() {
-      let id = this.$route.query.id
+      let id = this.$route.query.id;
       let url =
-        'http://exelook.com:8010/pushdiv/?oid=562,212,386,230,426,219,534,474,434,386&belong=GroceryShop&id=' +
+        `oid=562,212,386,230,426,219,534,474,434,386&belong=GroceryShop&id=` +
         id +
         "&url={'cakeID':0,'cake_type_a':" +
         this.bing.cake_type_a +
@@ -258,30 +258,28 @@ export default {
         this.bing.cake_type_b +
         ",'people_type':" +
         this.bing.people +
-        '}&name&image&api=json'
-      console.log(url)
-      this.$http
-        .get(url)
+        "}&name&image&api=json";
+      handleDataPost(url)
         .then(res => {
-          console.log(res)
+          console.log(res);
         })
         .catch(err => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     }
   }
-}
+};
 </script>
 <style lang="less" scoped>
-@base: "http://cdn.exe666.com/image/zhongqiu/1/";
+@base: "http://cdn.xingstation.cn/image/zhongqiu/1/";
 /*声明 WebFont*/
 @font-face {
   font-family: "hanyi";
-  src: url("http://cdn.exe666.com/image/zhongqiu/font/hanyi.ttf");
-  src: url("http://cdn.exe666.com/image/zhongqiu/font/hanyi.eot"),
-    url("http://cdn.exe666.com/image/zhongqiu/font/hanyi.woff"),
-    url("http://cdn.exe666.com/image/zhongqiu/font/hanyi.ttf"),
-    url("http://cdn.exe666.com/image/zhongqiu/font/hanyi.svg");
+  src: url("http://cdn.xingstation.cn/image/zhongqiu/font/hanyi.ttf");
+  src: url("http://cdn.xingstation.cn/image/zhongqiu/font/hanyi.eot"),
+    url("http://cdn.xingstation.cn/image/zhongqiu/font/hanyi.woff"),
+    url("http://cdn.xingstation.cn/image/zhongqiu/font/hanyi.ttf"),
+    url("http://cdn.xingstation.cn/image/zhongqiu/font/hanyi.svg");
   font-weight: normal;
   font-style: normal;
 }

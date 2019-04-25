@@ -60,7 +60,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@base: "http://cdn.exe666.com/fe/image/cangqian/";
+@base: "http://cdn.xingstation.cn/fe/image/cangqian/";
 html,
 body {
   width: 100%;

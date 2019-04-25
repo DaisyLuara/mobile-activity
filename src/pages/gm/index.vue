@@ -194,7 +194,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: 'http://cdn.exe666.com/fe/marketing/img/internationalTrade/';
+@imageHost: 'http://cdn.xingstation.cn/fe/marketing/img/internationalTrade/';
 img {
   pointer-events: none;
   user-select: none;

@@ -55,12 +55,12 @@
   </div>
 </template>
 <script>
-const wih = window.innerHeight
-const wiw = window.innerWidth
+const wih = window.innerHeight;
+const wiw = window.innerWidth;
 const baseUrl =
-  'https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/zoo/'
-import { $wechat, wechatShareTrack, isInWechat } from 'services'
-import { normalPages } from '@/mixins/normalPages'
+  "https://h5-images.oss-cn-shanghai.aliyuncs.com/xingshidu_h5/marketing/pages/zoo/";
+import { $wechat, wechatShareTrack, isInWechat } from "services";
+import { normalPages } from "@/mixins/normalPages";
 export default {
   mixins: [normalPages],
   data() {
@@ -68,81 +68,82 @@ export default {
       baseUrl: baseUrl,
       style: {
         root: {
-          height: wih + 'px'
+          height: wih + "px"
         }
       },
       isMovebg: false,
       isMove: false,
       phoneValue: null,
-      mobile: 'mobile',
+      mobile: "mobile",
       status: {
         isPhoneError: false,
         shouldInputRemindShow: true,
-        step: 'input'
+        step: "input"
       },
       wxShareInfoValue: {
-        title: '动物去哪了',
-        desc: '让我们去动物园吧',
-        imgUrl: baseUrl + 'share.png',
+        title: "动物去哪了",
+        desc: "让我们去动物园吧",
+        imgUrl: baseUrl + "share.png"
       }
-    }
+    };
   },
   created() {
-    this.getInfo()
+    this.getInfo();
   },
-  mounted() { },
+  mounted() {},
   methods: {
     handleTrack() {
+      const baseUrl = process.env.EXE_API;
       let url =
-        'http://exelook.com/client/goodsxsd/?id=' +
+        `${baseUrl}/goodsxsd/?id=` +
         String(this.$route.query.id) +
-        '&mobile=' +
+        "&mobile=" +
         String(this.phoneValue) +
-        '&api=json'
-      this.$http.get(url).then(r => { })
+        "&api=json";
+      this.$http.get(url).then(r => {});
     },
     getInfo() {
       if (localStorage.getItem(this.mobile) != null) {
-        this.redirct()
+        this.redirct();
       }
     },
     //清空数据
     clearError() {
-      this.status.isPhoneError = false
-      this.status.shouldInputRemindShow = false
-      this.$refs.inputreal.focus()
+      this.status.isPhoneError = false;
+      this.status.shouldInputRemindShow = false;
+      this.$refs.inputreal.focus();
     },
     //跳转操作
     redirct() {
-      let id = this.$route.query.id
-      this.isMove = true
-      this.isMovebg = true
-      this.phoneValue = ''
-      this.status.shouldInputRemindShow = true
+      let id = this.$route.query.id;
+      this.isMove = true;
+      this.isMovebg = true;
+      this.phoneValue = "";
+      this.status.shouldInputRemindShow = true;
       setTimeout(() => {
         window.location.href =
           window.location.origin +
-          '/marketing/zoo_result?id=' +
+          "/marketing/zoo_result?id=" +
           id +
-          '&mobileNum=' +
-          localStorage.getItem(this.mobile)
-      }, 1000)
+          "&mobileNum=" +
+          localStorage.getItem(this.mobile);
+      }, 1000);
     },
     //校验手机号
     checkPhoneValue() {
       if (!/^1[345678]\d{9}$/.test(this.phoneValue)) {
-        this.status.isPhoneError = true
-        this.status.shouldInputRemindShow = false
-        this.phoneValue = ''
-        return
+        this.status.isPhoneError = true;
+        this.status.shouldInputRemindShow = false;
+        this.phoneValue = "";
+        return;
       } else {
-        localStorage.setItem(this.mobile, this.phoneValue)
-        this.handleTrack()
-        this.redirct()
+        localStorage.setItem(this.mobile, this.phoneValue);
+        this.handleTrack();
+        this.redirct();
       }
     }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>

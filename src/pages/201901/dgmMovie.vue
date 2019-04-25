@@ -153,7 +153,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: "http://cdn.exe666.com/fe/marketing/img/dgm_movie/";
+@imageHost: "http://cdn.xingstation.cn/fe/marketing/img/dgm_movie/";
 html,
 body {
   width: 100%;
@@ -181,7 +181,7 @@ img {
   position: relative;
   text-align: center;
   overflow: hidden;
-  background-image: url("@{imageHost}bg.png");
+  background-image: url("@{imageHost}bg1.png");
   background-size: 100% 100%;
   background-position: center bottom;
   background-repeat: no-repeat;
