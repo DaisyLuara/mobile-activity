@@ -256,8 +256,12 @@ export default {
           this.type = "couponList";
         })
         .catch(err => {
-					alert(err.response.data.message);
 					this.showLoading = false;
+					if (err.response.data.status_code === 429) {
+						this.type = "couponList";
+						return;
+					}
+					alert(err.response.data.message);
         });
     },
 
