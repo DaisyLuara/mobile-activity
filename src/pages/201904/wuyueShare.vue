@@ -121,12 +121,15 @@
         </div>
       </div>
     </div>
-    <div v-show="showLoading" class="loadingBox">
-			<img 
-				:src="CDNURL+'/fe/wuyue-loading-icon.png'" 
-				class="loadingIcon"
-			>
-		</div>
+    <div
+      v-show="showLoading"
+      class="loadingBox"
+    >
+      <img
+        :src="CDNURL+'/fe/wuyue-loading-icon.png'"
+        class="loadingIcon"
+      >
+    </div>
   </div>
 </template>
 <script>
@@ -213,6 +216,7 @@ export default {
         const getCouponListArgs = {
           sign: this.sign,
           qiniu_id: this.qiniu_id,
+          type: 'share',
           oid: this.oid,
           belong: this.belong
         }
@@ -361,23 +365,23 @@ img {
   text-align: center;
   max-width: 750px;
   .loadingBox {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		z-index: 999;
-		background: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    background: rgba(0, 0, 0, 0.7);
 
-		.loadingIcon {
-			width: 50px;
-			height: 50px;
-			animation: loading 2s linear infinite;
-		}
-	}
+    .loadingIcon {
+      width: 50px;
+      height: 50px;
+      animation: loading 2s linear infinite;
+    }
+  }
   .game-group {
     position: relative;
     z-index: 0;
@@ -553,14 +557,13 @@ img {
   }
 }
 @keyframes loading {
-	0% {
-			transform: rotate(0deg);
-	}
+  0% {
+    transform: rotate(0deg);
+  }
 
-	100% {
-			transform: rotate(360deg);
-	}
-
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>
 
