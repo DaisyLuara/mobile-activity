@@ -131,6 +131,17 @@ const Date201904 = [
     },
     isAbandoned: false
   },
+  {
+    path: 'wuyueAnniversary',
+    location: '201904/wuyueAnniversary',
+    name: 'wuyueAnniversary',
+    meta: {
+      title: '我爱你五月，I ♡ may',
+      author: 'ykk',
+      desc: '还有额外小惊喜可领，先到先得'
+    },
+    isAbandoned: false
+  },
   //猫酷发券，吾悦广场红包雨-通用版
   {
     path: 'wuyue_share', //分享页
