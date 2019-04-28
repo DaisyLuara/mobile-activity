@@ -153,6 +153,17 @@ const Date201904 = [
       desc: '永恒盛世'
     },
     isAbandoned: false
+  },
+  {
+    path: 'jiading_drc',
+    location: '201904/jiading_drc',
+    name: 'jiading_drc',
+    meta: {
+      title: '来萌托邦乐园，享大融城五一好礼！',
+      author: 'lipan',
+      desc: '嘉定大融城-大融城萌托邦乐园'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201904
