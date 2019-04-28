@@ -1,13 +1,13 @@
 <template>
   <div class="container">
     <img 
-			:src="CDNURL+'/fe/wuyue-anniversary-bg.png'"
-			class="bigBg"
-		>
-		<img 
-			:src="CDNURL+'/fe/wuyue-anniversary-layer.png'"
-			class="playerBg"
-		>
+      :src="CDNURL+'/fe/wuyue-anniversary-bg.png'"
+      class="bigBg"
+    >
+    <img 
+      :src="CDNURL+'/fe/wuyue-anniversary-layer.png'"
+      class="playerBg"
+    >
     <div 
       v-show="showLoading" 
       class="loadingBox">
@@ -22,151 +22,153 @@
       class="desc" 
     >
 
-    <div 
-     v-show="type==='receive'"
-     class="receiveWrapper"
-    >
-      <div class="couponBgBox">
-        <img
-          :src="CDNURL+'/fe/wuyue-anniversary-coupon.png'"
-          class="couponBg"
-        >
-        <img
-          :src="CDNURL+'/fe/wuyue-anniversary-receive-btn.png'"
-          class="couponBtn"
-          @click="onClickReceiveBtn"
-        >
-      </div>
-      <div class="photoWrapper">
-        <div class="photoBox">
-          <img 
-            :src="CDNURL+'/fe/wuyue-anniversary-photo-box.png'"
-            class="photoBg"
-          >
-          <img 
-            :src="userImg"
-            class="photo"
-          >
-        </div>
-        <img 
-          :src="CDNURL+'/fe/wuyue-anniversary-save-btn.png'" 
-          class="savePhoto"
-        >
-      </div>
-    </div>
-
-    <div
-      v-show="type==='login'"
-      class="loginWrapper"
-    >
-      <div class="loginBgBox">
-        <img
-          :src="CDNURL+'/fe/wuyue-anniversary-login-bg.png'"
-          class="loginBg"
-        >
-        <div class="phoneBox">
-          <img
-            :src="CDNURL+'/fe/wuyue-anniversary-phone-box.png'"
-            class="phoneBg"
-          >
-          <input
-            v-model="phone"
-            type="text"
-            class="phoneInput"
-            @input="onChangePhone"
-          >
-        </div>
-        <div class="validateBox">
-          <img
-            :src="CDNURL+'/fe/wuyue-anniversary-vcode-box.png'"
-            class="validateBg"
-          >
-          <input
-            v-model="vcode"
-            type="number"
-            class="validateInput"
-            @input="onChangeVcode"
-          >
-          <div class="validateBtn"  @click="onClickGetVcode">
-            <img
-              v-if="disabledGetVcode"
-              :src="CDNURL+'/fe/wuyue-anniversary-count-down-gray.png'"
-              class="countDownBg"
-            >
-            <img
-              v-else
-              :src="CDNURL+'/fe/wuyue-anniversary-count-down-bg.png'"
-              class="countDownBg"
-            >         
-            <span class="vcodeText">{{ vcodeText }}</span>
-          </div>
-        </div>
-        <img
-          v-if="disabledLogin"
-          :src="CDNURL+'/fe/wuyue-anniversary-login-gray.png'"
-          class="loginBtn"
-        >
-        <img
-          v-else
-          :src="CDNURL+'/fe/wuyue-anniversary-login-btn.png'"
-          class="loginBtn"
-          @click="onLogin"
-        >
-      </div>
-    </div>
-
-    <div
-      v-show="type==='couponList'"
-      class="couponWrapper"
-    >
-      <div class="couponBox">
-        <img
-          :src="CDNURL+'/fe/wuyue-anniversary-coupon-map.png'"
-          class="couponItem"
-        >
-        <img
-          :src="CDNURL+'/fe/wuyue-anniversary-music.png'"
-          class="couponItem marginLeft"
-        >
-        <img
-          :src="CDNURL+'/fe/wuyue-anniversary-kisscat.png'"
-          class="couponItem"
-        >
-        <img
-          :src="CDNURL+'/fe/wuyue-anniversary-mkct.png'"
-          class="couponItem marginLeft"
-        >
-        <img
-          :src="CDNURL+'/fe/wuyue-anniversary-zyhx.png'"
-          class="couponItem"
-        >
-        <img
-          :src="CDNURL+'/fe/wuyue-anniversary-vr.png'"
-          class="couponItem marginLeft"
-        >
-      </div>
-      <img
-        :src="CDNURL+'/fe/wuyue-anniversary-my-couponPacks.png'"
-        class="myCouponText"
-        @click="onNavToCouponPacks"
+    <div class="content">
+      <div 
+        v-show="type==='receive'"
+        class="receiveWrapper"
       >
-    </div>
+        <div class="couponBgBox">
+          <img
+            :src="CDNURL+'/fe/wuyue-anniversary-coupon.png'"
+            class="couponBg"
+          >
+          <img
+            :src="CDNURL+'/fe/wuyue-anniversary-receive-btn.png'"
+            class="couponBtn"
+            @click="onClickReceiveBtn"
+          >
+        </div>
+        <div class="photoWrapper">
+          <div class="photoBox">
+            <img 
+              :src="CDNURL+'/fe/wuyue-anniversary-photo-box.png'"
+              class="photoBg"
+            >
+            <img 
+              :src="userImg"
+              class="photo"
+            >
+          </div>
+          <img 
+            :src="CDNURL+'/fe/wuyue-anniversary-save-btn.png'" 
+            class="savePhoto"
+          >
+        </div>
+      </div>
 
-    <div 
-      v-show="type === 'transition'"
-      class="transitionAnimation"
-    >
-      <div class="transitionBox">
-        <img 
-          :src="CDNURL+'/fe/wuyue-anniversary-loading-bg.png'"
-          class="transitionBg"
-        >
-        <img 
-          :src="CDNURL+'/fe/wuyue-anniversary-loading-icon.png'"
-          class="loadingIcon"
+      <div
+        v-show="type==='login'"
+        class="loginWrapper"
+      >
+        <div class="loginBgBox">
+          <img
+            :src="CDNURL+'/fe/wuyue-anniversary-login-bg.png'"
+            class="loginBg"
+          >
+          <div class="phoneBox">
+            <img
+              :src="CDNURL+'/fe/wuyue-anniversary-phone-box.png'"
+              class="phoneBg"
+            >
+            <input
+              v-model="phone"
+              type="text"
+              class="phoneInput"
+              @input="onChangePhone"
+            >
+          </div>
+          <div class="validateBox">
+            <img
+              :src="CDNURL+'/fe/wuyue-anniversary-vcode-box.png'"
+              class="validateBg"
+            >
+            <input
+              v-model="vcode"
+              type="number"
+              class="validateInput"
+              @input="onChangeVcode"
+            >
+            <div 
+              class="validateBtn" 
+              @click="onClickGetVcode">
+              <img
+                v-if="disabledGetVcode"
+                :src="CDNURL+'/fe/wuyue-anniversary-count-down-gray.png'"
+                class="countDownBg"
+              >
+              <img
+                v-else
+                :src="CDNURL+'/fe/wuyue-anniversary-count-down-bg.png'"
+                class="countDownBg"
+              >         
+              <span class="vcodeText">{{ vcodeText }}</span>
+            </div>
+          </div>
+          <img
+            v-if="disabledLogin"
+            :src="CDNURL+'/fe/wuyue-anniversary-login-gray.png'"
+            class="loginBtn"
+          >
+          <img
+            v-else
+            :src="CDNURL+'/fe/wuyue-anniversary-login-btn.png'"
+            class="loginBtn"
+            @click="onLogin"
+          >
+        </div>
+      </div>
+
+      <div
+        v-show="type==='couponList'"
+        class="couponWrapper"
+      >
+        <div class="couponBox">
+          <img
+            :src="CDNURL+'/fe/wuyue-anniversary-coupon-map.png'"
+            class="couponItem"
+          >
+          <img
+            :src="CDNURL+'/fe/wuyue-anniversary-music.png'"
+            class="couponItem marginLeft"
+          >
+          <img
+            :src="CDNURL+'/fe/wuyue-anniversary-kisscat.png'"
+            class="couponItem"
+          >
+          <img
+            :src="CDNURL+'/fe/wuyue-anniversary-mkct.png'"
+            class="couponItem marginLeft"
+          >
+          <img
+            :src="CDNURL+'/fe/wuyue-anniversary-zyhx.png'"
+            class="couponItem"
+          >
+          <img
+            :src="CDNURL+'/fe/wuyue-anniversary-vr.png'"
+            class="couponItem marginLeft"
+          >
+        </div>
+        <img
+          :src="CDNURL+'/fe/wuyue-anniversary-my-couponPacks.png'"
+          class="myCouponText"
+          @click="onNavToCouponPacks"
         >
       </div>
+
+      <div 
+        v-show="type === 'transition'"
+        class="transitionAnimation"
+      >
+        <div class="transitionBox">
+          <img 
+            :src="CDNURL+'/fe/wuyue-anniversary-loading-bg.png'"
+            class="transitionBg"
+          >
+          <div id="lottie"/>
+        </div>
+      </div>
     </div>
+
     <img 
       :src="CDNURL+'/fe/wuyue-anniversary-logo.png'"
       class="logo"
@@ -189,10 +191,10 @@ import {
   validatePhone
 } from "services";
 import moment from "moment";
-import { onlyWechatShare } from "@/mixins/onlyWechatShare";
+import lottie from "lottie-web";
 const CDNURL = process.env.CDN_URL;
+
 export default {
-  mixins: [onlyWechatShare],
   data() {
     return {
 			CDNURL: CDNURL,
@@ -206,13 +208,14 @@ export default {
       phone: "",
       vcode: "",
       verification_key: "",
-      time: 5,
+      time: 60,
       vcodeText: "获取验证码",
       disabledGetVcode: true,
       disabledLogin: true
     };
   },
   mounted() {
+    this.initAnimation()
     this.handleForbiddenShare()
     this.init()
     //微信授权
@@ -239,7 +242,12 @@ export default {
           oid: this.oid,
           belong: this.belong
         }
-        this.onGetMallcooCouponInfo(params);
+        const mallcooCouponInfoRes = await getMallcooCouponInfo(params)
+        if (mallcooCouponInfoRes) {
+          this.type = "couponList";
+        } else {
+          this.type = "receive";
+        }
       } catch (err) {
         if (err.response.data) {
           alert(err.response.data.message);
@@ -270,20 +278,16 @@ export default {
       });
     },
 
-    // 猫酷查询优惠券包
-    async onGetMallcooCouponInfo(params) {
-      try {  
-        const mallcooCouponInfoRes = await getMallcooCouponInfo(params)
-        if (mallcooCouponInfoRes) {
-          this.type = "couponList";
-        } else {
-          this.type = "receive";
-        }
-      } catch (err) {
-        if (err.response.data) {
-          alert(err.response.data.message);
-        }
-      }
+    initAnimation() {
+      const el = document.getElementById('lottie')
+      lottie.loadAnimation({
+        container: el,
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        assetsPath: 'https://cdn.xingstation.cn/fe/wuyue-anniversary-loading-icon.png',
+        path: 'https://cdn.xingstation.cn/fe/wuyue-loading-data.json'
+      })
     },
 
     // 商场会员信息
@@ -337,8 +341,8 @@ export default {
         }
       } catch (err) {
         if (err.response.data) {
-          alert(err.response.data.message);
           this.showLoading = false;
+          alert(err.response.data.message);
         }
       }
     },
@@ -399,7 +403,7 @@ export default {
         if (this.time === 0) {
           clearInterval(timer);
           this.vcodeText = "获取验证码";
-          this.time = 5;
+          this.time = 60;
           this.disabledGetVcode = false;
         } else {
           this.vcodeText = this.time + 's';
@@ -431,7 +435,6 @@ export default {
     onNavToCouponPacks() {
       this.type = "transition";
       setTimeout(() => {
-        this.type = "";
         window.location.href = 'https://m.mallcoo.cn/a/coupon/10658';
       }, 1000)
     }
@@ -471,7 +474,7 @@ img {
 		left: 0;
 		width: 100%;
     height: auto;
-    z-index: -1;
+    z-index: -2;
   }
 
 	.playerBg {
@@ -479,7 +482,8 @@ img {
 		top: 0;
 		left: 0;
 		width: 100%;
-		height: auto;
+    height: auto;
+    z-index: -1;
 	}
 
 	.loadingBox {
@@ -504,6 +508,11 @@ img {
   .desc {
     width: 71.85vw;
     height: auto;
+  }
+
+  .content {
+    flex: 1;
+    display: flex;
   }
 
   .receiveWrapper {
@@ -730,13 +739,17 @@ img {
         height: 100%;
       }
 
-      .loadingIcon {
+      #lottie {
         position: absolute;
         top: 12.2%;
         left: 50%;
         width: 36.6%;
-        height: auto;
+        height: 35.56%;
+        transform: translate3d(0, 0, 0);
         transform: translate(-50%, 0);
+        overflow: hidden;
+        opacity: 1;
+        background: transparent;
       }
     }
   }
