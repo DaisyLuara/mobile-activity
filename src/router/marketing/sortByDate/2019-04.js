@@ -131,6 +131,17 @@ const Date201904 = [
     },
     isAbandoned: false
   },
+  {
+    path: 'wuyueFireBall',
+    location: '201904/wuyueFireBall',
+    name: 'wuyueFireBall',
+    meta: {
+      title: '吃喝购在吾悦',
+      author: 'ykk',
+      desc: '还有额外小惊喜可领，先到先得'
+    },
+    isAbandoned: false
+  },
   //猫酷发券，吾悦广场红包雨-通用版
   {
     path: 'wuyue_share', //分享页
