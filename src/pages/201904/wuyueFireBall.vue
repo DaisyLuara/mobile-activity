@@ -207,7 +207,7 @@ export default {
       qiniu_id: this.$route.query.id,
       oid: null,
       belong: "",
-      type: "",
+      type: "couponList",
       userImg: "",
       phone: "",
       vcode: "",
@@ -221,7 +221,7 @@ export default {
   mounted() {
     this.initAnimation()
     this.handleForbiddenShare()
-    this.init()
+    // this.init()
     //微信授权
     if (isInWechat() === true) {
       if (
@@ -289,8 +289,8 @@ export default {
         renderer: 'svg',
         loop: true,
         autoplay: true,
-        assetsPath: 'https://cdn.xingstation.cn/fe/wuyue-anniversary-loading-icon.png',
-        path: 'https://cdn.xingstation.cn/fe/wuyue-loading-data.json'
+        assetsPath: this.CDNURL + '/fe/wuyue-anniversary-loading-icon.png',
+        path: this.CDNURL + '/fe/wuyue-loading-data.json'
       })
     },
 
