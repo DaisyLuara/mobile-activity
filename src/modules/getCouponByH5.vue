@@ -88,7 +88,7 @@ export default {
     ...mapGetters(["z"])
   },
   mounted() {
-    // this.init();
+    this.init();
   },
   methods: {
     ...mapMutations({
