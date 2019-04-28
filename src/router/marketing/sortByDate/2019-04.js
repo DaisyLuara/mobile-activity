@@ -132,6 +132,16 @@ const Date201904 = [
     isAbandoned: false
   },
   {
+    path: 'wuyueAnniversary',
+    location: '201904/wuyueAnniversary',
+    name: 'wuyueAnniversary',
+    meta: {
+      title: '我爱你五月，I ♡ may',
+      author: 'ykk',
+    },
+    isAbandoned: false
+  },
+  {
     path: 'wuyueFireBall',
     location: '201904/wuyueFireBall',
     name: 'wuyueFireBall',
