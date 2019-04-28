@@ -285,8 +285,8 @@ export default {
         renderer: 'svg',
         loop: true,
         autoplay: true,
-        assetsPath: 'https://cdn.xingstation.cn/fe/wuyue-anniversary-loading-icon.png',
-        path: 'https://cdn.xingstation.cn/fe/wuyue-loading-data.json'
+        assetsPath: this.CDNURL + '/fe/wuyue-anniversary-loading-icon.png',
+        path: this.CDNURL + '/fe/wuyue-loading-data.json'
       })
     },
 
