@@ -199,9 +199,6 @@ import lottie from "lottie-web";
 const CDNURL = process.env.CDN_URL;
 
 export default {
-  components: {
-    'lottie': lottie
-  },
   data() {
     return {
 			CDNURL: CDNURL,
@@ -443,7 +440,6 @@ export default {
       this.type = "transition";
       setTimeout(() => {
         window.location.href = 'https://m.mallcoo.cn/a/coupon/10658';
-        this.type = "couponList";
       }, 1000)
     }
 	}
