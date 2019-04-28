@@ -142,6 +142,17 @@ const Date201904 = [
       desc: '吾悦天降红包-分享页-玩游戏'
     },
     isAbandoned: false
+  },
+  {
+    path: 'yhss',
+    location: '201904/yongheng',
+    name: 'yhss',
+    meta: {
+      title: '前方高能！【全城发红包啦】！',
+      author: 'lipan',
+      desc: '永恒盛世'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201904
