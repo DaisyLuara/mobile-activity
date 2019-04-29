@@ -26,7 +26,7 @@
         </div>
         <img
           v-show="Boolean(coupon_img)"
-          :src="base + 'coupon.png'"
+          :src="coupon_img"
           class="coupon"
         >
       </div>
@@ -39,11 +39,9 @@ import {
   isInWechat,
   wechatShareTrack,
   checkV2Coupon,
-  sendV2Projects,
-  batchV2CouponLimit,
+  sendV2Coupon,
   getInfoById,
-  NaviToWechatAuth,
-  getUserInfoByCodeAndState
+  splitParms
 } from "services";
 import moment from "moment";
 import { mapGetters, mapMutations } from "vuex";
@@ -86,25 +84,18 @@ export default {
           state
         );
         this.photo = image
-        if (!parms.score || parms.score < 100) {
-          return
-        }
+        parms = splitParms(parms)
+        let coupon_batch_id = parms.coupon_batch_id
         if (this.z === '') {
           this.setLoginState(userinfo);
           this.userinfo = userinfo;
         }
         const checkV2CouponArgs = {
           z: this.z,
-          qiniu_id: this.id,
-          belong: belong,
+          coupon_batch_id: coupon_batch_id,
           include: "couponBatch"
         };
-        const getCouponBatchArgs = {
-          qiniu_id: this.id,
-          z: this.z,
-          belong: belong
-        };
-        const sendV2ProjectsArgs = {
+        const sendV2CouponArgs = {
           qiniu_id: this.id,
           z: this.z,
           belong: belong,
@@ -115,11 +106,8 @@ export default {
           alert('该券您已经领取过啦！')
           this.handleData(checkCouponResult);
         } else {
-          const getCouponBatchResult = await batchV2CouponLimit(
-            getCouponBatchArgs
-          );
-          const sendV2ProjectsResult = await sendV2Projects(sendV2ProjectsArgs);
-          this.handleData(sendV2ProjectsResult);
+          const sendV2CouponResult = await sendV2Coupon(sendV2CouponArgs);
+          this.handleData(sendV2CouponResult);
         }
       } catch (err) {
         if (err.response.data.message) {
