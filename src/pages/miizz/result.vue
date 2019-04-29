@@ -1,12 +1,15 @@
 <template>
   <div 
-    class="report-wrap">
+    class="report-wrap"
+  >
     <div 
-      class="coupon-wrap">
+      class="coupon-wrap"
+    >
       <img 
         :src="ImgUrl"
         alt="" 
-        class="photo">
+        class="photo"
+      >
       <img  
         :src="ImgUrl" 
         alt=""
@@ -24,43 +27,53 @@
       >
     </div>
     <div
-      class="miizz-wrap">
+      class="miizz-wrap"
+    >
       <img 
         v-lazy="baseUrl + 'bg_2.png?v=1'" 
         alt="" 
-        class="report_bg_2">
+        class="report_bg_2"
+      >
       <img 
         :src="jewelrySingle" 
         alt="" 
-        class="jewelry_single">
+        class="jewelry_single"
+      >
       <img 
         :src="jewelryText" 
         alt="" 
-        class="jewelry_text">
+        class="jewelry_text"
+      >
       <img 
         :src="jewelryMulti" 
         alt="" 
-        class="jewelry_multi">
+        class="jewelry_multi"
+      >
       <img 
         :src="jewelryTextOne" 
         alt="" 
-        class="jewelry_text1">
+        class="jewelry_text1"
+      >
       <img 
         :src="jewelryImgOne" 
         alt="" 
-        class="jewelry1">
+        class="jewelry1"
+      >
       <img 
         :src="jewelryTextTwo" 
         alt="" 
-        class="jewelry_text2">
+        class="jewelry_text2"
+      >
       <img 
         :src="jewelryImgTwo" 
         alt="" 
-        class="jewelry2"> 
+        class="jewelry2"
+      > 
       <img 
         :src="baseUrl + 'logo.png'" 
         alt="" 
-        class="qrcode"> 
+        class="qrcode"
+      > 
     </div>
   </div>
 </template>

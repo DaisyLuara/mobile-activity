@@ -25,7 +25,9 @@
     <div
       v-if="resData.length !== 0"
       class="fuli"
-    >福利</div>
+    >
+      福利
+    </div>
   </div>
 </template>
 

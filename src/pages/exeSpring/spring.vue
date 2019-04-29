@@ -1,47 +1,56 @@
 <template>
   <div 
     id="warp" 
-    class="spring-content">
+    class="spring-content"
+  >
     <audio 
       id="voice" 
       autobuffer 
       autoloop 
       loop 
       autoplay 
-      hidden>
+      hidden
+    >
       <source :src="audioUrl + '/xiha.mp3'">
     </audio>
     <img 
       id="mbtn" 
       :src="imgUrl + 'kaide/yinyue.png'" 
       class="mplay" 
-      @click="playOrNot">
+      @click="playOrNot"
+    >
     <div class="frame">
       <img 
         :src="imgUrl + 'spring/frame.png'" 
-        class="border">
+        class="border"
+      >
       <img 
         id="mImg" 
         :src="mImg" 
-        class="photo">
+        class="photo"
+      >
       <img 
-        v-show = "isShow" 
+        v-show="isShow" 
         :src="imgUrl + 'spring/text.png'" 
-        class="text">
+        class="text"
+      >
       <img 
-        v-show = "isShow" 
+        v-show="isShow" 
         :src="imgUrl + 'spring/' + word + '.png'" 
-        class="words">
+        class="words"
+      >
       <img 
         v-for="(item, index) in qian" 
         v-show="isShow" 
         :key="index"
         :class="item" 
-        :src="imgUrl + 'spring/qian.gif'">
+        :src="imgUrl + 'spring/qian.gif'"
+      >
       <img 
-        v-show = "isShow" 
+        v-show="isShow" 
         :src="imgUrl + 'spring/cloud.png'" 
-        class="cloud">
+        class="cloud"
+      >
     </div>
   </div>
 </template>

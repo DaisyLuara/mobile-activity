@@ -1,32 +1,39 @@
 <template>
   <div 
     id="content" 
-    class="tel-content">
+    class="tel-content"
+  >
     <audio 
       id="voice" 
       autobuffer 
       autoloop 
       loop 
       autoplay 
-      hidden>
+      hidden
+    >
       <source :src="audioUrl+'/spring.mp3'">
     </audio>
     <img 
       id="mbtn" 
       :src="imgUrl+'kaide/yinyue.png'" 
       class="mplay" 
-      @click="playOrNot">
+      @click="playOrNot"
+    >
     <div class="telform">
-      <p class="msg">{{ errMsg }}</p>
+      <p class="msg">
+        {{ errMsg }}
+      </p>
       <input 
         id="tel" 
         type="tel" 
         maxlength="11" 
-        placeholder="请输入手机号" >
+        placeholder="请输入手机号"
+      >
       <input 
         id="button" 
         type="button" 
-        @click="redirectToPhoto">
+        @click="redirectToPhoto"
+      >
     </div>
   </div>
 </template>

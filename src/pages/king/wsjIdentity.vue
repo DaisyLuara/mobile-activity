@@ -1,25 +1,30 @@
 <template>
   <div
     :style="style.root" 
-    class="root">
+    class="root"
+  >
     <img 
       :style="style.root" 
       :src="baseUrl + 'frame2.png'+ this.$qiniuCompress()"
-      class="frame"> 
+      class="frame"
+    > 
     <img 
       :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
       :class="{'x-frame':iphoneX,'photo-frame':!iphoneX}"
-      class="photo-frame">
+      class="photo-frame"
+    >
     <!-- :src="baseUrl + '666.jpeg'+ this.$qiniuCompress()"  -->
     <img 
       v-if="photo !== null" 
       :src="photo + this.$qiniuCompress()"
       :class="{'x-photo':iphoneX,'photo':!iphoneX}"
-      class="photo">
+      class="photo"
+    >
     <img 
       :src="baseUrl + 'copy.png'+ this.$qiniuCompress()"
       :class="{'x-save':iphoneX,'save':!iphoneX}"
-      class="save">
+      class="save"
+    >
   </div>
 </template>
 <script>

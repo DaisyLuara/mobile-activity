@@ -4,7 +4,8 @@
     class="content"
     @touchstart="handleTouchStart"
     @touchmove="handleTouchMove"
-    @touchend="handleTouchEnd">
+    @touchend="handleTouchEnd"
+  >
     <div 
       id="anim"
       class="anim"
@@ -15,14 +16,17 @@
     />
     <div 
       v-show="last_page"
-      class="last">
+      class="last"
+    >
       <img
         :src="photo"
-        :class="{photo:true,torun:torun}">
+        :class="{photo:true,torun:torun}"
+      >
       <img
         v-show="save"
         :src="base + 'save.png'"
-        class="save">
+        class="save"
+      >
     </div>
   </div>
 </template>

@@ -1,10 +1,13 @@
 <template>
   <div 
     id="mallcoo" 
-    class="mallcoo-content">
+    class="mallcoo-content"
+  >
     <div class="coupList">
       <ul class="ul_list">
-        <li class="q_name">{{ quanMsg.MallName }}</li>
+        <li class="q_name">
+          {{ quanMsg.MallName }}
+        </li>
         <li class="q_price">
           <label>
             {{ quanMsg.price }}
@@ -14,15 +17,22 @@
         </li>
         <li 
           v-show="noZero" 
-          class="q_number">
+          class="q_number"
+        >
           <span>{{ quanMsg.Vcode }}</span>
         </li>
         <li 
           v-show="noZero" 
-          class="q_time">有效期至：{{ quanMsg.EndTime }}</li>
+          class="q_time"
+        >
+          有效期至：{{ quanMsg.EndTime }}
+        </li>
         <li 
           v-show="isZero" 
-          class="num_err">该券已经发完了</li>
+          class="num_err"
+        >
+          该券已经发完了
+        </li>
       </ul>
     </div>
   </div>

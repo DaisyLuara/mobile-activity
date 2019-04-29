@@ -1,58 +1,70 @@
 <template>
   <div 
     id="warp" 
-    class="spring-content">
+    class="spring-content"
+  >
     <audio 
       id="voice" 
       autobuffer 
       autoloop 
       loop 
       autoplay 
-      hidden> 			
+      hidden
+    > 			
       <source :src="audioUrl + '/xiha.mp3'">
     </audio>
     <img 
       id="mbtn" 
       :src="imgUrl + 'kaide/yinyue.png'" 
       class="mplay" 
-      @click="playOrNot">
+      @click="playOrNot"
+    >
     <img 
       :src="imgUrl + 'springnew/top.png'" 
-      class="top">
+      class="top"
+    >
     <div class="slider">
       <div class="one">
         <img 
           id="photo" 
           :src="mImg" 
-          class="photo">
+          class="photo"
+        >
         <img 
           id="word" 
           :src="imgUrl + 'springnew/' + word + '.png'" 
-          class="word">
+          class="word"
+        >
       </div>
       <img 
         :src="imgUrl + 'springnew/pull.png'" 
-        class="two">
+        class="two"
+      >
       <img 
         :src="imgUrl + 'springnew/cloud.png'" 
-        class="cloud1">
+        class="cloud1"
+      >
       <img 
         :src="imgUrl + 'springnew/cloud2.png'" 
-        class="cloud2">
+        class="cloud2"
+      >
       <img 
         :src="imgUrl + 'springnew/cloud3.png'" 
-        class="cloud3">
+        class="cloud3"
+      >
       <!-- 掉落的钱币 -->
       <div 
         v-for="(item, index) in money_group" 
         :key="index"
         :class="'group'+item" 
-        class="group">
+        class="group"
+      >
         <img 
           v-for="(item, index) in money_num" 
           :key="index"
           :src="imgUrl+'springnew/qian.gif'" 
-          class="money">
+          class="money"
+        >
       </div>
     </div>
   </div>

@@ -1,48 +1,61 @@
 <template>
   <div 
     id="content" 
-    class="content">
+    class="content"
+  >
     <div class="main">
       <img 
         :src="imgUrl + 'title.png'" 
-        class="ceng5 relative title" > 
+        class="ceng5 relative title"
+      > 
       <div class="ceng2 relative center">
         <img 
           :src="imgUrl + 'printer.png'" 
-          class="ceng1 relative printer">
+          class="ceng1 relative printer"
+        >
         <img 
           :src="imgUrl + 'support.png'" 
-          class="ceng3 relative support">
+          class="ceng3 relative support"
+        >
         <img 
           :src="imgUrl + 'frame.png'" 
-          class="ceng4 absolute frame">
+          class="ceng4 absolute frame"
+        >
         <div 
-          :class="{ceng2: true, border: true}"/>
+          :class="{ceng2: true, border: true}"
+        />
         <img 
           :style="mImgStyle"
           :class="{mImg: true}" 
-          :src="mImg">
+          :src="mImg"
+        >
       </div>
       <img 
         :src="imgUrl + 'lines.png'" 
-        class="ceng1 relative lines">
+        class="ceng1 relative lines"
+      >
       <img 
         :src="imgUrl + explain + '.png'" 
-        class="ceng1 relative explain">
+        class="ceng1 relative explain"
+      >
       <img 
         :src="imgUrl + 'logo.png'" 
-        class="ceng5 absolute logo">
+        class="ceng5 absolute logo"
+      >
       <img 
         v-show="stopShake" 
         :src="imgUrl + 'arrow.png'" 
-        class="ceng5 absolute arrow">
+        class="ceng5 absolute arrow"
+      >
       <img 
         v-show="stopShake" 
         :src="imgUrl + 'lightL.png'" 
-        class="ceng5 absolute lightL">
+        class="ceng5 absolute lightL"
+      >
       <img 
         :src="imgUrl + 'lightR.png'" 
-        class="ceng5 absolute lightR">
+        class="ceng5 absolute lightR"
+      >
     </div>
   </div>
 </template>

@@ -28,7 +28,9 @@
     <div
       :style="styleData.code?styleData.code:null"
       class="code"
-    >{{ code }}</div>
+    >
+      {{ code }}
+    </div>
   </div>
 </template>
 <script>
@@ -51,12 +53,12 @@ export default {
       required: false,
       default: () => ({ clip: '', used: '', code: '' })
     },
-    coupon_img: {
+    couponImg: {
       type: String,
       required: true,
       default: null
     },
-    qrcode_img: {
+    qrcodeImg: {
       type: String,
       required: true,
       default: null

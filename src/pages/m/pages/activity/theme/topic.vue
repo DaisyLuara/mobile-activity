@@ -8,7 +8,8 @@
     <div class="progress">
       <img 
         :src="avatar" 
-        class="avatar">
+        class="avatar"
+      >
       <div class="text">
         答辩: {{ computedProgress }}/{{ calLenth }}题
       </div>
@@ -16,8 +17,9 @@
     
     <TopicModule 
       @onProgressCal="calprogress" 
-      @onCalLength="calLenth"/>
-    <ActivityThemeGameBottom :show="shouldButtonShow"/>
+      @onCalLength="calLenth"
+    />
+    <ActivityThemeGameBottom :show="shouldButtonShow" />
   </div>
 </template>
 

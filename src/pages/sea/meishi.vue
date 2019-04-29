@@ -1,42 +1,54 @@
 <template>
   <div 
     :style="style.root"
-    class="content">
+    class="content"
+  >
     <div 
       id="main"
-      class="main">
+      class="main"
+    >
       <img
         :src="baseUrl + 'meishi/bg.png'+this.$qiniuCompress()"
-        class="bg">
+        class="bg"
+      >
       <span
-        class="span">{{ score }}</span>
+        class="span"
+      >{{ score }}</span>
       <a 
         v-show="meishi"
         :class="{animated:!mask}"
         class="box infinite tada delay-2s"
-        @click="()=>{mask = true;meishi=false;}">
+        @click="()=>{mask = true;meishi=false;}"
+      >
         <img 
-          :src="baseUrl + 'meishi/rabbit.png'">
+          :src="baseUrl + 'meishi/rabbit.png'"
+        >
       </a>
     </div>
     <div 
       v-show="mask"
-      class="mask">
+      class="mask"
+    >
       <div 
-        class="container">
+        class="container"
+      >
         <a
           class="close"
-          @click="()=>{mask = false;meishi=true;}">
+          @click="()=>{mask = false;meishi=true;}"
+        >
           <img 
-            :src="baseUrl + 'chick/x.png'">
+            :src="baseUrl + 'chick/x.png'"
+          >
         </a>
         <img 
           :src="baseUrl + 'meishi/pop.png'" 
-          class="tips">
+          class="tips"
+        >
         <img 
           :src="baseUrl + 'meishi/rabbit.png'" 
           :class="{animated:mask}"
-          class="tu infinite tada delay-2s">
+          class="tu infinite tada delay-2s"
+        >
       </div>
     </div>
   </div>

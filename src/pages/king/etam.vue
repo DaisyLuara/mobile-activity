@@ -1,31 +1,38 @@
 <template>
   <div
     :style="style.root" 
-    class="root">
+    class="root"
+  >
     <img 
       :src="baseUrl + 'top.png'+ this.$qiniuCompress()"
-      class="topImg">
+      class="topImg"
+    >
     <img 
       :src="baseUrl + 'bottom.png'+ this.$qiniuCompress()"
       :class="{'x-btImg':iphoneX,'btImg':!iphoneX}"
-      class="btImg">
+      class="btImg"
+    >
     <img 
       :src="baseUrl + 'T .png'+ this.$qiniuCompress()"
-      class="title">
+      class="title"
+    >
     <img 
       :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
       :class="{'x-frame':iphoneX,'frame':!iphoneX}"
-      class="frame">
+      class="frame"
+    >
     <!-- :src="'http://cdn.xingstation.cn/fe/marketing/img/sz/666.jpeg'+ this.$qiniuCompress()" -->
     <img 
       v-if="photo !== null" 
       :src="photo + this.$qiniuCompress()"
       :class="{'x-photo':iphoneX,'photo':!iphoneX}"
-      class="photo">
+      class="photo"
+    >
     <img 
       :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
       :class="{'x-save':iphoneX,'save':!iphoneX}"
-      class="save">
+      class="save"
+    >
   </div>
 </template>
 <script>

@@ -1,25 +1,29 @@
 <template>
   <div
     :style="style.root" 
-    class="root">
+    class="root"
+  >
     <img 
       :src="baseUrl + 'top.png'+ this.$qiniuCompress()"
-      class="top">
+      class="top"
+    >
     <img 
       :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
       :class="{'x-frame':iphoneX,'frame':!iphoneX}" 
-      class="frame">
+      class="frame"
+    >
     <img 
       v-if="photo !== null" 
       :src="photo + this.$qiniuCompress()"
       :class="{'x-photo':iphoneX,'photo':!iphoneX}"
-      class="photo">
+      class="photo"
+    >
     <img 
       :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
       :class="{'x-save':iphoneX,'save':!iphoneX}"
-      class="save">
+      class="save"
+    >
   </div>
-
 </template>
 <script>
 import { Cookies, getInfoById, getWxUserInfo, wechatShareTrack } from 'services'

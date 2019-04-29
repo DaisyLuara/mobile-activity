@@ -1,41 +1,53 @@
 <template>
   <div 
     :style="style.root"
-    class="content">
+    class="content"
+  >
     <div 
-      class="picture">
+      class="picture"
+    >
       <img
         :src="base+'frame.png'"
-        class="frame">
+        class="frame"
+      >
       <img
         :src="photo+ this.$qiniuCompress()"
-        class="photo">
+        class="photo"
+      >
       <img
         v-show="Boolean(photo)"
         :src="base+'save.png'"
-        class="save">
+        class="save"
+      >
     </div>
     <div 
-      :class="{els:true,animate:animated}">
+      :class="{els:true,animate:animated}"
+    >
       <img
         :src="base+'cove.png'"
-        class="left">
+        class="left"
+      >
       <img
         :src="base+'cove.png'"
-        class="right">
+        class="right"
+      >
       <img
         :src="base+'el1.png'"
-        class="el1 ">
+        class="el1 "
+      >
       <img
         :src="base+'el2.png'"
-        class="el2">
+        class="el2"
+      >
       <img
         :src="base+'el3.png'"
-        class="el3">
+        class="el3"
+      >
     </div>
     <img
       :src="photo+ this.$qiniuCompress()"
-      class="top">
+      class="top"
+    >
   </div>
 </template>
 <script>

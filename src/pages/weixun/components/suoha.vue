@@ -7,7 +7,8 @@
   >
     <div
       v-show="!hasButtonClicked && isGetCoupon"
-      class="phone-input">
+      class="phone-input"
+    >
       <img 
         :src="serverUrl + 'card.png'"
       >
@@ -18,7 +19,8 @@
       <div class="input-area">
         <div 
           v-show="isPhoneError"
-          class="input-error">
+          class="input-error"
+        >
           手机号有误
         </div>
         <input 
@@ -36,20 +38,24 @@
         </div>
       </div>
       <div
-        class="w-1">
+        class="w-1"
+      >
         可凭手机号至现场领取
       </div>
       <div
-        class="w-2">
+        class="w-2"
+      >
         (需购票入场)
       </div>
     </div>
 
 
     <div 
-      class="result">
+      class="result"
+    >
       <div
-        v-show="isGetCoupon && hasButtonClicked">
+        v-show="isGetCoupon && hasButtonClicked"
+      >
         <img 
           :src="serverUrl + 'prompt_bg.png'" 
           class="bg"
@@ -68,7 +74,8 @@
         </div>
       </div>
       <div
-        v-show="!isGetCoupon">
+        v-show="!isGetCoupon"
+      >
         <img 
           :src="serverUrl + 'card_2.png'" 
           class="not-bg"

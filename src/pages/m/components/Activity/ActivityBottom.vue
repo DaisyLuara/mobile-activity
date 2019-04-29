@@ -3,17 +3,23 @@
     <div
       class="progress"
       @click="naviGateToAct"
-    >{{ buttonText }}</div>
+    >
+      {{ buttonText }}
+    </div>
     <div
       v-if="isAllow === '1'"
       class="award"
       @click="awardIn"
-    >立即报名</div>
+    >
+      立即报名
+    </div>
     <div
       v-if="showBirthdayEntrance"
       class="award"
       @click="naviToCard"
-    >查看祝福</div>
+    >
+      查看祝福
+    </div>
   </div>
 </template>
 

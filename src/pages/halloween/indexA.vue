@@ -1,17 +1,22 @@
 <template>
   <div 
     :style="style.root" 
-    class="root">
+    class="root"
+  >
     <div 
-      class="group">
+      class="group"
+    >
       <ul
         :class="{'x-list':iphoneX,'list':!iphoneX}" 
-        class="list">
+        class="list"
+      >
         <li  
-          class="one" >
+          class="one"
+        >
           <img 
             :src="baseUrl + 'card01.png'+ this.$qiniuCompress()"
-            class="card01">
+            class="card01"
+          >
           <video  
             id="video"
             class="photo"
@@ -20,25 +25,29 @@
             x-webkit-airplay="true" 
             preload="auto"
             width="100%" 
-            height="100%">
+            height="100%"
+          >
             <source 
               v-if="photo !== null" 
               :src="photo" 
-              type="video/mp4">
+              type="video/mp4"
+            >
             您的浏览器不支持video标签.
           </video>
           <img 
             v-show="buttonshow"
             src="https://cdn.xingstation.cn/fe/marketing/img/save_moonCake/play2.png"
             class="play"
-            @click="playVideo()">
+            @click="playVideo()"
+          >
         </li>   
       </ul>
     </div> 
     <img 
       :src="baseUrl + 'tips02.png'+ this.$qiniuCompress()"
       :class="{'x-save':iphoneX,'save':!iphoneX}" 
-      class="save">
+      class="save"
+    >
   </div>
 </template>
 <script>

@@ -1,24 +1,30 @@
 <template>
   <div
     :style="style.root" 
-    class="root">
+    class="root"
+  >
     <img 
       :src="baseUrl + 'bg.png'+ this.$qiniuCompress()"
-      class="bg">
+      class="bg"
+    >
     <img 
       :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
-      class="frame">
+      class="frame"
+    >
     <!-- :src="baseUrl + '666.png'+ this.$qiniuCompress()" -->
     <img 
       v-if="photo !== null" 
       :src="photo + this.$qiniuCompress()"
-      class="photo">
+      class="photo"
+    >
     <img 
       :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
-      class="save">
+      class="save"
+    >
     <img 
       :src="baseUrl + 'coupon.png'+ this.$qiniuCompress()"
-      class="coupon02">
+      class="coupon02"
+    >
   </div>
 </template>
 <script>

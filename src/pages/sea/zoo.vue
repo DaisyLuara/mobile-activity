@@ -1,5 +1,5 @@
 <template>
-  <div/>
+  <div />
 </template>
 <script>
 const cdnUrl = process.env.CDN_URL

@@ -4,37 +4,42 @@
       <div class="verify-qrcode_input">
         <img 
           :src="img_url+'qrcode.png?v='+version" 
-          @click="wxQrCode">
+          @click="wxQrCode"
+        >
         <input 
           v-model="verifyForm.coupon" 
           type="text" 
           placeholder="请输入优惠券码" 
-          maxlength="11" >
+          maxlength="11"
+        >
       </div>
     </div>
     <div class="verify-camera">
       <div class="verify-camera_input">
-        <img :src="img_url+'camera.png?v='+version" >
+        <img :src="img_url+'camera.png?v='+version">
         <input 
           id="image" 
           type="file" 
           accept="image/*" 
-          class="camera-input">
+          class="camera-input"
+        >
         <input 
           v-model="verifyForm.order" 
           type="type" 
           placeholder="请输入订单号" 
-          maxlength="8" >
+          maxlength="8"
+        >
       </div>
     </div>
     <div class="verify-money">
       <div class="verify-money_input">
-        <img :src="img_url+'money.png?v='+version" >
+        <img :src="img_url+'money.png?v='+version">
         <input 
           v-model="verifyForm.money" 
           type="type" 
           placeholder="请输入订单金额" 
-          maxlength="4">
+          maxlength="4"
+        >
       </div>
     </div>
     <div class="verify-button">

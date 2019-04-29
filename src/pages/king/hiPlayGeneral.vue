@@ -1,51 +1,64 @@
 <template>
   <div
     :style="style.root" 
-    class="root">
+    class="root"
+  >
     <img 
       :src="baseUrl + 'top.png'+ this.$qiniuCompress()"
-      class="topImg">
+      class="topImg"
+    >
     <img 
       :src="baseUrl + 'logo2.png'+ this.$qiniuCompress()"
       :class="{'x-logo':iphoneX,'logo':!iphoneX}"
-      class="logo">
+      class="logo"
+    >
     <img 
       :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
       :class="{'x-frame':iphoneX,'frame':!iphoneX}"
-      class="frame">
+      class="frame"
+    >
     <!-- :src="baseUrl + '666.jpg'+ this.$qiniuCompress()" -->
     <img 
       v-if="photo !== null" 
       :src="photo + this.$qiniuCompress()"
       :class="{'x-photo':iphoneX,'photo':!iphoneX}"
-      class="photo">
+      class="photo"
+    >
     <img 
       v-if="photo !== null" 
       :src="photo + this.$qiniuCompress()"
       :class="{'x-real-photo':iphoneX,'real-photo':!iphoneX}"
-      class="real-photo">
+      class="real-photo"
+    >
     <img 
       :src="baseUrl + 'balloon_1.png'+ this.$qiniuCompress()"
-      class="balloon1">
+      class="balloon1"
+    >
     <img 
       :src="baseUrl + 'balloon_2.png'+ this.$qiniuCompress()"
-      class="balloon2">
+      class="balloon2"
+    >
     <img 
       :src="baseUrl + 'balloon_3.png'+ this.$qiniuCompress()"
-      class="balloon3">
+      class="balloon3"
+    >
     <div 
       :class="{'x-bt':iphoneX,'bt':!iphoneX}"
-      class="bt">
+      class="bt"
+    >
       <img 
         :src="baseUrl + 'nav.png'+ this.$qiniuCompress()"
-        class="nav">
+        class="nav"
+      >
       <img 
         :src="baseUrl + 'prompt.png'+ this.$qiniuCompress()"
-        class="prompt">
+        class="prompt"
+      >
     </div>
     <img 
       :src="baseUrl + 'bottom.png'+ this.$qiniuCompress()"
-      class="btImg">
+      class="btImg"
+    >
   </div>
 </template>
 <script>

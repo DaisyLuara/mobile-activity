@@ -1,11 +1,13 @@
 <template>
   <div 
     :style="style.root"
-    class="fourShoot-content">
+    class="fourShoot-content"
+  >
     <img  
       :src="resultImgUrl" 
       alt=""
-      class="photo" >
+      class="photo"
+    >
     <!-- 
       <img  
         :src="imgServerUrl + '/pages/fourShoot/1111.png'" 
@@ -13,18 +15,21 @@
         class="photo">
     -->
     <div 
-      class="button">
+      class="button"
+    >
       <div> 
         <img  
           :src="imgServerUrl + '/pages/fourShoot/nav.png'"
           alt=""
-          class="jiantou" > 
+          class="jiantou"
+        > 
       </div>
       <div> 
         <img 
           :src="imgServerUrl + '/pages/fourShoot/title.png'" 
           alt=""
-          class="title" > 
+          class="title"
+        > 
       </div>
     </div> 
     <!-- <wx-share :WxShareInfo="wxShareInfo"></wx-share> -->

@@ -71,7 +71,6 @@
       class="zs1"
       @click="goTicket()"
     >
-
   </div>
 </template>
 <script>

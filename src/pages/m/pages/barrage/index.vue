@@ -1,33 +1,43 @@
 <template>
   <div 
     :style="bindStyle" 
-    class="barrage">
+    class="barrage"
+  >
     <div class="holder">
       <img 
         :src="loginState.face" 
-        class="avatar">
+        class="avatar"
+      >
       <textarea 
         v-model="inputvalue" 
         class="inputarea" 
         placeholder="请输入" 
-        maxlength="40"/>
-      <div class="count">{{ currentWords }}/40</div>
+        maxlength="40"
+      />
+      <div class="count">
+        {{ currentWords }}/40
+      </div>
     </div>
     <div
       :class="{'button gray': inputvalue.length === 0, 'button': inputvalue !== 0}"
       @click="handleSendBarrage"
-    >发送</div>
+    >
+      发送
+    </div>
     <div 
       class="xo-combine" 
-      @click="getBarrage">
+      @click="getBarrage"
+    >
       <img 
         v-if="loginState.gender === '1'" 
         :src="xoGirl" 
-        class="xo-img">
+        class="xo-img"
+      >
       <img 
         v-else 
         :src="xoBoy" 
-        class="xo-img">
+        class="xo-img"
+      >
       <div class="text-holder">
         <div class="text">
           <span style="color: #6d1eff;">{{ computedText }}</span>
@@ -35,7 +45,8 @@
         </div>
         <img 
           :src="textHolder" 
-          class="text-bg">
+          class="text-bg"
+        >
       </div>
     </div>
   </div>

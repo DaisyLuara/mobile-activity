@@ -1,43 +1,52 @@
 <template>
   <div
     :style="style.root" 
-    class="root">
+    class="root"
+  >
     <img 
       :src="baseUrl + 'BG.png'+ this.$qiniuCompress()"
-      class="bg" >
+      class="bg"
+    >
     <div class="top">
       <img 
         :src="baseUrl + 'Front.png'+ this.$qiniuCompress()"
-        class="door" >
+        class="door"
+      >
       <img 
         :src="baseUrl + 'cloud1.png'+ this.$qiniuCompress()"
-        class="cloud1" >
+        class="cloud1"
+      >
       <img 
         :src="baseUrl + 'cloud2.png'+ this.$qiniuCompress()"
-        class="cloud2" >
+        class="cloud2"
+      >
       <div class="photo">
         <img 
           v-if="photo !== null" 
           :src="photo + this.$qiniuCompress()"
-          class="potto-inner">
+          class="potto-inner"
+        >
       </div>
     </div>
     <img 
       v-if="photo !== null" 
       :src="photo + this.$qiniuCompress()"
-      class="potto-real">
+      class="potto-real"
+    >
 
     <div 
       :class="{'x-bottom':iphoneX}"
-      class="bottom">
+      class="bottom"
+    >
       <img 
         :src="baseUrl + 'A.gif'"
-        class="jiantou" >
+        class="jiantou"
+      >
       <img 
         :src="baseUrl + 'Save.png'+ this.$qiniuCompress()"
-        class="save" >
+        class="save"
+      >
     </div>
-      
   </div>
 </template>
 

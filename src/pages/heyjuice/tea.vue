@@ -1,31 +1,39 @@
 <template>
   <div 
     id="tea" 
-    class="tea-main">
-    <div class="tea-content" >
+    class="tea-main"
+  >
+    <div class="tea-content">
       <img 
         :src="imgPath + 'bg.png'" 
-        class="bg">
+        class="bg"
+      >
       <img 
         :src="imgPath + 'cover.png'" 
-        class="cover">
+        class="cover"
+      >
       <img 
         :src="imgPath + 'shadow.png'" 
-        class="shadow">
+        class="shadow"
+      >
       <div class="picture">
         <img 
           :src="photo" 
-          :class="{pImg:true,slider:slider}">
+          :class="{pImg:true,slider:slider}"
+        >
         <img 
           :src="imgPath + 'border.png'" 
-          :class="{border:true,afterShow:isShow}">
+          :class="{border:true,afterShow:isShow}"
+        >
       </div>
       <img 
         :src="imgPath + 'press.png'" 
-        :class="{note:true,afterShow:isShow}">
+        :class="{note:true,afterShow:isShow}"
+      >
       <a 
         :href="menu" 
-        class="abtn"/>
+        class="abtn"
+      />
     </div>
   </div>
 </template>

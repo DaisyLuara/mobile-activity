@@ -1,11 +1,13 @@
 <template>
   <div 
     id="content" 
-    class="video-content" >
+    class="video-content"
+  >
     <div 
       class="navDiv" 
-      @click="returnMenu"/>
-    <div class="vDiv" >
+      @click="returnMenu"
+    />
+    <div class="vDiv">
       <video 
         id="video" 
         webkit-playsinline="true" 
@@ -13,21 +15,25 @@
         x-webkit-airplay="true" 
         controls 
         width="100%" 
-        height="100%">
+        height="100%"
+      >
         <source 
           :src="IMGURL + 'video/' + vNum +'.mp4'" 
-          type="video/mp4">
+          type="video/mp4"
+        >
         您的浏览器不支持video标签.
       </video>
     </div>
     <img 
       v-show="bgshow" 
       :src="IMGURL + 'video/bg' + vNum +'.jpg'" 
-      class="vbg">
+      class="vbg"
+    >
     <a 
       v-show="bgshow" 
       class="vplay" 
-      @click="vPlay"><img :src="IMGURL + 'video/play'+vNum+'.png'"></a>
+      @click="vPlay"
+    ><img :src="IMGURL + 'video/play'+vNum+'.png'"></a>
   </div>
 </template>
 

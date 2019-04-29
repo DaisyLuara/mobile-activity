@@ -29,7 +29,8 @@
     </transition>
     <img 
       :src="imageHost + 'header_mask.png'" 
-      class="header-mask">
+      class="header-mask"
+    >
     <!-- 左上角寿星信息 -->
     <div class="recipient">
       <img
@@ -39,8 +40,11 @@
       >
       <img 
         :src="imageHost + 'avatar_frame.png'" 
-        class="avatar-frame">
-      <div class="recipient-name">寿星{{ userInfo.username }}</div>
+        class="avatar-frame"
+      >
+      <div class="recipient-name">
+        寿星{{ userInfo.username }}
+      </div>
       <img
         v-if="userInfo.gender"
         :src="imageHost + 'gender_male.png'"

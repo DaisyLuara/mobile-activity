@@ -23,7 +23,9 @@
     <div
       class="main-button"
       @click="handleNaviToActList"
-    >查看更多热门活动</div>
+    >
+      查看更多热门活动
+    </div>
     <ActivityBottom
       :acid="resData.acid"
       :acttype="resData.type"

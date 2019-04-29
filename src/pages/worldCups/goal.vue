@@ -1,10 +1,12 @@
 <template>
   <div
     :style="style.root"
-    class="hj-root">
+    class="hj-root"
+  >
     <div
       :style="style.photoOuter" 
-      class="root-photo">
+      class="root-photo"
+    >
       <img 
         :style="style.logo"
         :src="baseUrl + 'logo.png'"

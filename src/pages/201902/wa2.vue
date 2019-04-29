@@ -32,7 +32,9 @@
             <li
               v-for="item in text"
               :key="item.id"
-            >{{ item }}</li>
+            >
+              {{ item }}
+            </li>
           </ol>
         </div>
       </div>

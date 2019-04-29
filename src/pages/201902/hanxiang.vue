@@ -42,7 +42,6 @@
       :src="base + 'logo.png'"
       class="logo"
     >
-
   </div>
 </template>
 <script>

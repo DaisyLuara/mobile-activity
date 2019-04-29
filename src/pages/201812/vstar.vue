@@ -1,70 +1,83 @@
 <template>
   <div 
     :style="bindStyle" 
-    class="star-wrap">
+    class="star-wrap"
+  >
     <img 
       :src="base + 'title.png'" 
       class="title abs" 
-      alt>
+      alt
+    >
     <img 
       :src="base + 'bg.jpg'" 
       class="bg" 
-      alt>
+      alt
+    >
     <div class="photo-wrap abs">
       <img 
         :src="currSelectedStar" 
         class="big-star abs" 
-        alt>
+        alt
+      >
       <img 
         :src="base + 'white_frame.png'" 
         class="white-frame" 
-        alt>
+        alt
+      >
       <swiper 
         ref="mySwiper" 
         :options="swiperOption" 
-        class="photo-swiper abs">
+        class="photo-swiper abs"
+      >
         <template v-for="star in stars">
           <swiper-slide 
             :key="star.star_id" 
-            class="swiper-item">
+            class="swiper-item"
+          >
             <img 
               :src="base + 'frame.png'" 
               class="photo-frame" 
-              alt>
+              alt
+            >
             <img 
               :src="star.photo_url" 
               class="photo-img abs" 
-              alt>
+              alt
+            >
           </swiper-slide>
         </template>
       </swiper>
       <div class="swiper-nav abs">
-        <div class="swiper-button-prev"/>
-        <div class="swiper-button-next"/>
+        <div class="swiper-button-prev" />
+        <div class="swiper-button-next" />
       </div>
       <img 
         :src="base + 'arrow_d.png'" 
         class="arrow-down abs" 
-        alt>
+        alt
+      >
       <img 
         :src="base + 'text.png'" 
         class="text abs" 
-        alt>
+        alt
+      >
       <div class="star-plate abs">
         <img 
           :src="base + 'unlight.png'" 
           class="unlight-star" 
-          alt>
+          alt
+        >
         <img 
           v-show="stars.length >= 12" 
           :src="base + 'center.png'" 
           class="center abs" 
-          alt>
+          alt
+        >
         <template v-for="star in stars">
           <img
+            :key="star.star_id"
             :class="'star-' + star.star_id"
             :src="base + 'light_star/'+ star.star_id + '.png'"
-            :key="star.star_id"
             class="light-star abs"
             alt
           >
@@ -74,8 +87,11 @@
     <img 
       :src="base + '/logo.png'" 
       class="logo abs" 
-      alt>
-    <div class="auth abs">本活动由星视度科技提供技术支持</div>
+      alt
+    >
+    <div class="auth abs">
+      本活动由星视度科技提供技术支持
+    </div>
   </div>
 </template>
 <script>

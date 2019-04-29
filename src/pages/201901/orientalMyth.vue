@@ -60,7 +60,6 @@
         class="bottom-one"
       >
     </div>
-
   </div>
 </template>
 <script>

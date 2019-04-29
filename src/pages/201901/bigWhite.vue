@@ -12,7 +12,9 @@
           :src="base + '11.png' + this.$qiniuCompress()"
           class="note"
         >
-        <div class="time">{{ s }}:{{ m }}</div>
+        <div class="time">
+          {{ s }}:{{ m }}
+        </div>
       </div>
       <img
         v-show="!ishave"

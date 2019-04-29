@@ -1,36 +1,45 @@
 <template>
   <div
     :style="style.root" 
-    class="root">
+    class="root"
+  >
     <div 
       v-show="shade" 
-      class="shade-contain">
-      <div class="shade"/>
+      class="shade-contain"
+    >
+      <div class="shade" />
       <img 
         v-show="title.title1"
         :src="baseUrl + '1.png'+ this.$qiniuCompress()"
-        class="title1">
+        class="title1"
+      >
       <img 
         v-show="title.title2"
         :src="baseUrl + '2.png'+ this.$qiniuCompress()"
-        class="title2 ">
+        class="title2 "
+      >
       <img 
         v-show="title.title3"
         :src="baseUrl + '3.png'+ this.$qiniuCompress()"
-        class="title3">
+        class="title3"
+      >
       <img 
         :src="baseUrl + 'light.png'+ this.$qiniuCompress()"
-        class="light">
+        class="light"
+      >
       <img 
         id="animation"
         :src="baseUrl + 'moon.png'+ this.$qiniuCompress()"
-        class="moon">
+        class="moon"
+      >
     </div>
     <div 
-      class="photo">
+      class="photo"
+    >
       <img 
         :src="baseUrl + 'grounding.png'+ this.$qiniuCompress()"
-        class="grounding">
+        class="grounding"
+      >
       <!-- http://cdn.xingstation.cn/1007/video/MidautumnSkyLight_112_411_1492921319755.mp4 -->
       <video 
         id="video"
@@ -40,24 +49,27 @@
         x-webkit-airplay="true" 
         preload="auto"
         width="100%" 
-        height="100%">
+        height="100%"
+      >
         <source 
           v-if="photo !== null" 
           :src="photo" 
-          type="video/mp4">
+          type="video/mp4"
+        >
         您的浏览器不支持video标签.
       </video>
       <img 
         v-show="buttonshow"
         :src="baseUrl + 'play2.png'+ this.$qiniuCompress()"
         class="play"
-        @click="playVideo()">
-
+        @click="playVideo()"
+      >
     </div>
     <div class="bottom">
       <img 
         :src="baseUrl + 'tip2.png'+ this.$qiniuCompress()"
-        class="tip">
+        class="tip"
+      >
     </div>
   </div>
 </template>

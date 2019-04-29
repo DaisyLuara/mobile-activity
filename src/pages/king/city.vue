@@ -90,7 +90,6 @@
         :src="qrcodeImg"
         class="ewm"
       >
-
     </div>
   </div>
 </template>

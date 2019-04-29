@@ -2,10 +2,12 @@
   <div class="container">
     <div 
       v-show="type==='couponList' && showModal" 
-      class="modalBox">
+      class="modalBox"
+    >
       <div 
         class="modalSpace" 
-        @click="onCloseModal"/>
+        @click="onCloseModal"
+      />
       <img
         :src="CDNURL+'/fe/wuyue-share-bg.png'"
         class="modalImg"
@@ -13,7 +15,8 @@
     </div>
     <div 
       v-show="showLoading" 
-      class="loadingBox">
+      class="loadingBox"
+    >
       <img 
         :src="CDNURL+'/fe/wuyue-loading-icon.png'" 
         class="loadingIcon"

@@ -2,34 +2,42 @@
   <div
     v-show="showImg" 
     :style="style.root"
-    class="root">
+    class="root"
+  >
     <div 
       id="main" 
-      class="top">
+      class="top"
+    >
       <img 
         v-show="showImg"
         :src="baseUrl + 'frame.png'+ this.$qiniuCompress()"
-        class="frame"> 
+        class="frame"
+      > 
       <img 
         v-show="showImg"
         v-if="photo !== null" 
         :src="photo + this.$qiniuCompress()"
-        class="photo"> 
+        class="photo"
+      > 
       <img 
         v-show="showImg"
         v-if="photo !== null" 
         :src="photo + this.$qiniuCompress()"
-        class="photo-real"> 
+        class="photo-real"
+      > 
     </div>
     <div 
       v-show="showImg" 
-      class="bt">
+      class="bt"
+    >
       <img 
         :src="baseUrl + 'arrow.png'+ this.$qiniuCompress()"
-        class="arrow"> 
+        class="arrow"
+      > 
       <img 
         :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
-        class="save"> 
+        class="save"
+      > 
     </div>
   </div>
 </template>

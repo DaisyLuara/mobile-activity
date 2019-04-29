@@ -1,40 +1,49 @@
 <template>
   <div
     :style="style.root" 
-    class="root">
+    class="root"
+  >
     <div class="top">
       <img 
         :src="baseUrl + 'top.png'+ this.$qiniuCompress()"
-        class="topImg">
+        class="topImg"
+      >
     </div>
     <div class="photo">
       <img 
         :src="baseUrl + 'frame2.png'+ this.$qiniuCompress()"
-        class="frame">
+        class="frame"
+      >
       <!-- :src="baseUrl + '666.png'+ this.$qiniuCompress()" -->
       <img 
         v-if="photo !== null" 
         :src="photo + this.$qiniuCompress()"
-        class="photoImg">
+        class="photoImg"
+      >
     </div>
     <div 
       :class="{'x-bottom':iphoneX,'bottom':!iphoneX}" 
-      class="bottom">
+      class="bottom"
+    >
       <div class="bt">
         <img 
           :src="baseUrl + 'nav.png'+ this.$qiniuCompress()"
-          class="nav">
+          class="nav"
+        >
         <img 
           :src="baseUrl + '1.png'+ this.$qiniuCompress()"
-          class="tip">
+          class="tip"
+        >
       </div>
       <img 
         :src="baseUrl + '2.png'+ this.$qiniuCompress()"
-        class="tip2">
+        class="tip2"
+      >
     </div>
     <img 
       :src="baseUrl + 'bottom.png'+ this.$qiniuCompress()"
-      class="bottomImg">
+      class="bottomImg"
+    >
   </div>
 </template>
 <script>

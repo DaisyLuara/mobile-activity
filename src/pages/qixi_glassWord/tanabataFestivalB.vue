@@ -1,51 +1,67 @@
 <template>
   <div
     :style="style.root" 
-    class="root">
+    class="root"
+  >
     <div  
-      class="bg">
+      class="bg"
+    >
       <img 
-        :src="baseUrl + 'bg.png?v=111'">
+        :src="baseUrl + 'bg.png?v=111'"
+      >
     </div>
     <div 
-      class="photo">
+      class="photo"
+    >
       <img  
         v-if="photoUrl !== null" 
         :src="photoUrl+ this.$qiniuCompress()" 
-        alt="">
+        alt=""
+      >
     </div>  
     <div 
-      class="real-photo">
+      class="real-photo"
+    >
       <img 
         v-if="photoUrl !== null" 
         :src="photoUrl+ this.$qiniuCompress()" 
-        alt="">
+        alt=""
+      >
     </div>  
     <img 
       :src="baseUrl + 'fu_17.png'+this.$qiniuCompress()"
-      class="fu-17">
+      class="fu-17"
+    >
     <img 
       :src="baseUrl + 'fu_2.png'+this.$qiniuCompress()"
-      class="fu-2">
+      class="fu-2"
+    >
     <img 
       :src="baseUrl + 'fu_3.png'+this.$qiniuCompress()"
-      class="fu-3">
+      class="fu-3"
+    >
     <img 
       :src="baseUrl + 'fu_7.png'+this.$qiniuCompress()"
-      class="fu-7">
+      class="fu-7"
+    >
     <img 
       :src="baseUrl + 'fu_16.png'+this.$qiniuCompress()"
-      class="fu-16">
+      class="fu-16"
+    >
     <div 
-      class="arrow">
+      class="arrow"
+    >
       <img  
-        :src="baseUrl + 'img_0.png'+this.$qiniuCompress()"> 
+        :src="baseUrl + 'img_0.png'+this.$qiniuCompress()"
+      > 
     </div>
     <div 
-      class="bottom">
+      class="bottom"
+    >
       <img 
         :src="baseUrl + 'img_1.png'+this.$qiniuCompress()"
-        class="title" > 
+        class="title"
+      > 
     </div>
   </div>
 </template>

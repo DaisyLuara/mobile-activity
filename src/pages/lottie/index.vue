@@ -1,11 +1,13 @@
 <template>
   <div
     :style="style.root"
-    class="root">
+    class="root"
+  >
     <img 
       :src="serverUrl + 'lottie-bg.png'"
       class="root-bg"
-      @touchstart="handleStopBubble">
+      @touchstart="handleStopBubble"
+    >
     <div
       id="animation"
       class="animation"
@@ -17,7 +19,8 @@
     >
     <div
       :style="style.score" 
-      class="score">
+      class="score"
+    >
       <span>{{ score.portugal }}</span>
       <span>{{ score.argentina }}</span>
       <span>{{ score.germany }}</span>

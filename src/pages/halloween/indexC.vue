@@ -1,28 +1,35 @@
 <template>
   <div 
     :style="style.root" 
-    class="root">
+    class="root"
+  >
     <div 
-      class="group">
+      class="group"
+    >
       <ul
         :class="{'x-list':iphoneX,'list':!iphoneX}" 
-        class="list">
+        class="list"
+      >
         <li  
-          class="one" >
+          class="one"
+        >
           <img 
             :src="baseUrl + 'card03.png'+ this.$qiniuCompress()"
-            class="card03">
+            class="card03"
+          >
           <img 
             v-if="photo !== null" 
             :src="photo + this.$qiniuCompress()"
-            class="photo">
+            class="photo"
+          >
         </li>   
       </ul>
     </div> 
     <img 
       :src="baseUrl + 'tips01.png'+ this.$qiniuCompress()"
       :class="{'x-save':iphoneX,'save':!iphoneX}" 
-      class="save">
+      class="save"
+    >
   </div>
 </template>
 <script>

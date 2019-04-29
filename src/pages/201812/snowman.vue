@@ -31,7 +31,6 @@
       >
         <img :src="base + 'play.png'">
       </a>
-
     </div>
     <video
       v-show="!bgshow"
