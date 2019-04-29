@@ -1,81 +1,90 @@
 <template>
   <div class="wrap">
     <img
-      class="back-top"
       :src="`${CDNURL}/dimond520/photo_back_top.png`"
-    />
+      class="back-top"
+    >
     <div class="content-wrap">
       <div class="photo-area">
-        <img class="" src="">
+        <img 
+          class="" 
+          src="">
       </div>
       <div class="phone-verify-group">
         <input
+          :value="phone"
           type="text"
           placeholder="输入手机号"
           class="input phone-input"
           maxlength="11"
-          :value="phone"
           @input="handleInput($event, 'phone')"
-        />
+        >
         <div class="code-input-wrap">
           <input
+            :value="code"
             type="text"
             placeholder="输入验证码"
             class="input code-input"
             maxlength="4"
-            :value="code"
             @input="handleInput($event, 'code')"
-          />
+          >
+          <div
+            v-if="timer"
+            class="countdown"
+          >{{ time }}s</div>
           <img
+            v-else
             :src="`${CDNURL}/dimond520/req_code_btn.png`"
             class="code-button"
-            @click="handleReqCodeClick"
-          />
+            @click="time === 0 && handleReqCodeClick()"
+          >
         </div>
       </div>
       <div class="submit-btn-group">
         <img
           v-show="submitBtnClickable"
-          @click="submitBtnClickable && handleSubmit()"
           :src="`${CDNURL}/dimond520/submit_btn.png`"
-        />
+          @click="submitBtnClickable && handleSubmit()"
+        >
         <img
           v-show="!submitBtnClickable"
           :src="`${CDNURL}/dimond520/submit_btn_disable.png`"
-        />
+        >
       </div>
       <img
-        class="activity-rule"
         :src="`${CDNURL}/dimond520/activity_rule.png`"
-      />
+        class="activity-rule"
+      >
       <img
-        class="activity-sponsor"
         :src="`${CDNURL}/dimond520/activity_sponsor.png`"
-      />
+        class="activity-sponsor"
+      >
       <p class="activity-company">本活动最终解释权归星视度所有</p>
     </div>
   </div>
 </template>
 
 <script>
-import { onlyGetPhoto } from '@/mixins/onlyGetPhoto'
+import { normalPages } from '@/mixins/normalPages'
 import { reCalculateRem } from '@/mixins/reCalculateRem'
-import { filterNumber, validatePhone } from 'services'
+import { filterNumber, validatePhone, getVerificationCodes } from 'services'
 import { Toast } from 'mand-mobile'
 import "../../assets/less/reset-mand.less"
 const CDNURL = process.env.CDN_URL
 
 export default {
-  name: "diamond520",
+  name: "Diamond520",
   components: {
 
   },
-  mixins: [onlyGetPhoto, reCalculateRem],
+  mixins: [normalPages, reCalculateRem],
   data () {
     return {
       CDNURL: CDNURL,
       phone: '',
-      code: ''
+      code: '',
+      timer: null,
+      time: 0
     }
   },
   computed: {
@@ -99,6 +108,8 @@ export default {
       if (!this.isValidPhone()) {
         return
       }
+      this.setCountdown()
+      getVerificationCodes()
     },
     isValidCode() {
       const valid = /^\d{4}$/.test(this.code)
@@ -109,6 +120,18 @@ export default {
       if (!this.isValidPhone() || !this.isValidCode()) {
         return
       }
+    },
+    // 点击获取验证码后设置60秒等待时间
+    setCountdown() {
+      this.time = 60
+      this.timer = setInterval(() => {
+        if (this.time === 0) {
+          clearInterval(this.timer)
+          this.timer = null
+        } else {
+          this.time--
+        }
+      }, 1000)
     }
   }
 }
@@ -146,6 +169,9 @@ p {
   background-size: 100% auto;
   background-repeat: repeat;
 }
+img {
+  display: block;
+}
 .back-top {
   position: absolute;
   width: 100%;
@@ -172,7 +198,6 @@ p {
     width: 2.65rem;
     margin: 0 auto 0.03rem;
     .input {
-      display: block;
       line-height: 0.35rem;
       height: 0.35rem;
       padding-left: 0.09rem;
@@ -184,6 +209,7 @@ p {
     }
     .phone-input {
       width: 100%;
+      display: block;
     }
     .code-input-wrap {
       width: 100%;
@@ -192,10 +218,17 @@ p {
         width: 1.63rem;
         margin-right: 0.08rem;
       }
-      .code-button {
-        display: block;
+      .code-button, .countdown {
         width: 0.95rem;
         height: 0.35rem;
+      }
+      .countdown {
+        color: #FFF;
+        line-height: 0.35rem;
+        background: #FBA6C6;
+        text-align: center;
+        font-size: 0.15rem;
+        border-radius: 0.1rem;
       }
     }
   }
@@ -204,18 +237,15 @@ p {
     height: 0.59rem;
     margin: 0 auto 0.11rem;
     img {
-      display: block;
       width: 100%;
       height: 100%;
     }
   }
   .activity-rule {
-    display: block;
     width: 3.3rem;
     margin: 0 auto 0.14rem;
   }
   .activity-sponsor {
-    display: block;
     margin: 0 auto;
     width: 1.48rem;
   }

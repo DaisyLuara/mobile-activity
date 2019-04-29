@@ -12,5 +12,7 @@ module.exports = merge(prodEnv, {
   IMAGE_SERVER: "'http://h5-images.oss-cn-shanghai.aliyuncs.com'",
   CDN_URL: "'http://cdn.xingstation.cn'",
   EXE_API: "'http://xingstation.cn/client'",
-  PARSE_SERVER: "'http://120.27.138.242:1337'"
+  PARSE_SERVER: "'http://120.27.138.242:1337'",
+  ADX_API: "'http://api.ad.xingstation.test/api'",
+  DIAMOND_API: "'http://papi.xingstation.net/api'",
 })

@@ -29,7 +29,7 @@
             ref="coupons"
             :style-data="style.qr"
             :coupon_img="coupon_img"
-            :qrcodeImg="qrcodeImg"
+            :qrcode-img="qrcodeImg"
             :used="used"
             :passed="passed"
             :code="code"
