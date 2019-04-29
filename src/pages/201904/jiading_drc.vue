@@ -1,34 +1,36 @@
 <template>
-  <!-- 静止微信分享，从h5页面查券，发券，领券 调取券策略-->
-  <div>
-    <div class="ma">
-      <div
-        :style="styleData.clip ? styleData.clip:null"
-        class="clip"
+  <div class="container">
+    <img
+      :src="base + 'bg.png'"
+      class="bg"
+    >
+    <div class="main">
+      <img
+        :src="base+'logo.png'"
+        class="title"
       >
+      <div class="content">
         <img
-          :style="styleData.clip ? styleData.clip.img:null"
-          :src="qrcode_img"
-          class="qrcode"
+          :src="base+'cover.png'"
+          class="bg"
+        >
+        <div class="picture">
+          <img
+            :src="base+'frame.png'"
+            class="bg"
+          >
+          <img
+            :src="photo"
+            class="photo"
+          >
+        </div>
+        <img
+          v-show="Boolean(coupon_img)"
+          :src="base + 'coupon.png'"
+          class="coupon"
         >
       </div>
-      <img
-        v-show="used"
-        :style="styleData.used ? styleData.used:null"
-        :src="common_url + 'used.png'"
-        class="used"
-      >
-      <img
-        v-show="passed"
-        :style="styleData.used?styleData.used:null"
-        :src="common_url + 'passed.png'"
-        class="used"
-      >
     </div>
-    <div
-      :style="styleData.code?styleData.code:null"
-      class="code"
-    >{{ code }}</div>
   </div>
 </template>
 <script>
@@ -40,48 +42,29 @@ import {
   sendV2Projects,
   batchV2CouponLimit,
   getInfoById,
+  NaviToWechatAuth,
+  getUserInfoByCodeAndState
 } from "services";
 import moment from "moment";
 import { mapGetters, mapMutations } from "vuex";
 const CDN_URL = process.env.CDN_URL;
 export default {
-  props: {
-    styleData: {
-      type: Object,
-      required: false,
-      default: () => ({ clip: '', used: '', code: '' })
-    },
-    coupon_img: {
-      type: String,
-      required: true,
-      default: null
-    },
-    qrcode_img: {
-      type: String,
-      required: true,
-      default: null
-    },
-    used: {
-      type: Boolean,
-      required: true,
-      default: false
-    },
-    passed: {
-      type: Boolean,
-      required: true,
-      default: false
-    },
-    code: {
-      type: String,
-      required: true,
-      default: null
-    },
-  },
   data() {
     return {
-      common_url: CDN_URL + "/common/",
+      base: CDN_URL + "/fe/image/jiading_drc/",
+      style: {
+        root: {
+          "min-height": this.$innerHeight() + "px"
+        }
+      },
       id: this.$route.query.id,
-      userinfo: null
+      photo: null,
+      coupon_img: null,
+      qrcode_img: null,
+      used: false,
+      passed: false,
+      code: null,
+      userinfo: null,
     };
   },
   computed: {
@@ -97,11 +80,15 @@ export default {
     async init() {
       try {
         let { id, code, state } = this.$route.query;
-        let { parms, userinfo, belong, oid } = await getInfoById(
+        let { parms, image, userinfo, belong, oid } = await getInfoById(
           id,
           code,
           state
         );
+        this.photo = image
+        if (!parms.score || parms.score < 100) {
+          return
+        }
         if (this.z === '') {
           this.setLoginState(userinfo);
           this.userinfo = userinfo;
@@ -166,44 +153,80 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.ma {
-  position: relative;
-  .clip {
-    width: 20.5vw;
-    height: 20.5vw;
-    overflow: hidden;
-    position: relative;
-    z-index: 9;
-    text-align: center;
-    margin: 0 auto;
-    img {
-      width: 27vw;
-      max-width: 35vw;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-  }
-  .used {
-    width: 28vw;
-    max-width: 35vw;
-    position: absolute;
-    top: 48%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 999;
-  }
+html,
+body {
+  width: 100%;
+  height: 100%;
 }
-.code {
+* {
+  padding: 0;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 0;
+}
+img {
+  max-width: 100%;
+  pointer-events: none;
+  user-select: none;
+}
+.container {
   position: relative;
   width: 100%;
-  text-align: center;
-  z-index: 999;
-  color: #000;
-  font-weight: bold;
-  font-size: 5vw;
-  margin-top: 15px;
+  overflow: hidden;
+  .bg {
+    position: relative;
+    z-index: 0;
+    margin: 0 auto;
+  }
+  .main {
+    width: 100%;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    overflow: hidden;
+    z-index: 9;
+    .title {
+      width: 94%;
+      margin-left: 2%;
+      margin-top: 8%;
+      margin-bottom: 8%;
+      z-index: 0;
+    }
+    .content {
+      width: 100%;
+      position: relative;
+      z-index: 0;
+      overflow: hidden;
+      & > .bg {
+        width: 90%;
+        margin-left: 3%;
+        margin-top: 15%;
+      }
+      .picture {
+        width: 51%;
+        position: absolute;
+        top: 0%;
+        left: 4%;
+        overflow: hidden;
+        .photo {
+          width: 91.6%;
+          position: absolute;
+          top: 49.5%;
+          left: 49.5%;
+          transform: translate(-50%, -50%);
+          z-index: 99;
+          pointer-events: auto;
+          user-select: auto;
+        }
+      }
+      .coupon {
+        width: 40%;
+        position: absolute;
+        top: 0%;
+        right: 2%;
+        z-index: 999;
+      }
+    }
+  }
 }
 </style>
-

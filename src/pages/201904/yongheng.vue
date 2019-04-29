@@ -21,7 +21,7 @@
         class="coupon-bg"
       >
       <div
-        v-show="Boolean(qrcodeImg)"
+        v-show="Boolean(qrcode_img)"
         class="erweima"
       >
         <div class="qr-code">
@@ -29,7 +29,7 @@
             ref="coupons"
             :style-data="style.qr"
             :coupon_img="coupon_img"
-            :qrcodeImg="qrcodeImg"
+            :qrcode_img="qrcode_img"
             :used="used"
             :passed="passed"
             :code="code"
@@ -60,7 +60,7 @@ export default {
         }
       },
       coupon_img: null, //'https://cdn.xingstation.cn/fe/image/guofang/test.png',
-      qrcodeImg: null, //'http://papi.xingstation.com/qrcode/5c7de9583796b.png',
+      qrcode_img: null, //'http://papi.xingstation.com/qrcode/5c7de9583796b.png',
       used: false, //false,
       passed: false, //false
       code: null, //'5c7de9583796b'
