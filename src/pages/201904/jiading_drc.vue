@@ -106,7 +106,7 @@ export default {
           alert('该券您已经领取过啦！')
           this.handleData(checkCouponResult);
         } else {
-          const sendV2CouponResult = await sendV2Coupon(sendV2CouponArgs);
+          const sendV2CouponResult = await sendV2Coupon(sendV2CouponArgs, coupon_batch_id);
           this.handleData(sendV2CouponResult);
         }
       } catch (err) {
