@@ -47,11 +47,12 @@
           class="score-rank1"
         >
           <li 
+         
             v-for="(item,index) in data"
-            v-if="index<3"
+             v-if="index<3"
             :key="index"
           >
-            <div class="header">
+            <div  class="header">
               <img 
                 v-if="item.backgroundImg !== null"
                 :src="item.backgroundImg"
