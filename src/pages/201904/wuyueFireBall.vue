@@ -209,7 +209,7 @@ export default {
       qiniu_id: this.$route.query.id,
       oid: null,
       belong: "",
-      type: "couponList",
+      type: "",
       userImg: "",
       phone: "",
       vcode: "",
