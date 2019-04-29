@@ -309,10 +309,12 @@ export default {
           };
           this.onReceiveCoupon(params);
         } else {
+          this.showLoading = false;
           this.type = "login";
         }
       } catch (err) {
         if (err.response.data) {
+          this.showLoading = false;
           alert(err.response.data.message);
         }
       }
@@ -374,6 +376,7 @@ export default {
         sign: this.sign,
         oid: this.oid
       };
+      this.showLoading = true;
       this.onGetMallcooUserInfo(params);
     },
 
