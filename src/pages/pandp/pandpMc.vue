@@ -1,26 +1,32 @@
 <template>
   <div 
     id="content" 
-    class="content">
+    class="content"
+  >
     <div 
       v-show="loadingPage" 
       id="loading" 
-      class="loading"/>
-    <canvas id="canvas"/>
+      class="loading"
+    />
+    <canvas id="canvas" />
     <img 
       id="border" 
-      src="/static/pandp/border.png">
+      src="/static/pandp/border.png"
+    >
     <img 
       id="mImg" 
-      src="">
+      src=""
+    >
     <img 
-      v-show ="note" 
+      v-show="note" 
       :src="IMG_URL + 'note.png'" 
-      class="note">
+      class="note"
+    >
     <!-- 弹出层 -->
     <GameShow 
       ref="gameShow" 
-      :style-data="style"/>
+      :style-data="style"
+    />
   </div>
 </template>
 <script>

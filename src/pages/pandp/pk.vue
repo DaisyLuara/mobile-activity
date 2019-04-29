@@ -2,18 +2,22 @@
   <div 
     id="content"
     :style="style.root"
-    class="content">
+    class="content"
+  >
     <canvas 
-      id="canvas">
+      id="canvas"
+    >
       浏览器不支持canvas画布
     </canvas>
     <img 
       :src="img"
-      class="img">
+      class="img"
+    >
     <img 
       v-show="Boolean(img)"
       :src="base+'save.png'"
-      class="save">
+      class="save"
+    >
   </div>
 </template>
 <script>

@@ -1,32 +1,40 @@
 <template>
   <div 
     id="tmall"
-    class="tmall-content" >
+    class="tmall-content"
+  >
     <img 
       :src="imgServerUrl + '/pages/tmall/bg.jpg'" 
       alt="" 
-      class="bg" >
+      class="bg"
+    >
     <img  
       :src="resultImgUrl" 
       alt="" 
-      class="photo">
+      class="photo"
+    >
     <img  
       :src="imgServerUrl + '/pages/tmall/cat.png'"
       alt=""
-      class="paw">
+      class="paw"
+    >
     <div 
-      class="jiantou">
+      class="jiantou"
+    >
       <img 
         :src="imgServerUrl + '/pages/tmall/arrow.gif'"
-        alt="" >
+        alt=""
+      >
     </div>
     <div 
       v-show="!shareFlag"
-      class="win-wrap" >
+      class="win-wrap"
+    >
       <img 
         :src="imgServerUrl + '/pages/tmall/ticket.png'"
         alt=""
-        class="ticket">
+        class="ticket"
+      >
       <img 
         v-if="winFlag"
         :src="imgUrl"
@@ -37,7 +45,8 @@
         v-if="!winFlag"
         :src="imgUrl"
         alt=""
-        class="no-win" >
+        class="no-win"
+      >
       <canvas 
         v-if="award"
         id="canvasDoodle" 
@@ -51,11 +60,13 @@
     </div>
     <div 
       v-if="shareFlag"
-      class="share-wrap">
+      class="share-wrap"
+    >
       <img 
         :src="imgServerUrl + '/pages/tmall/advert.png'"
         alt=""
-        class="share">
+        class="share"
+      >
     </div>
   </div>
 </template>

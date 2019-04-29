@@ -1,13 +1,15 @@
 <template>
   <div class="birthday">
     <div class="trends-wrapper">
-      <div class="month">{{ month }}月</div>
+      <div class="month">
+        {{ month }}月
+      </div>
       <md-scroll-view
         ref="scrollView"
         :scrolling-x="false"
         @endReached="loadMore"
       >
-        <div class="scroll-top"/>
+        <div class="scroll-top" />
         <div
           v-for="(item, index) in trends"
           :key="index"
@@ -15,9 +17,14 @@
         >
           <div 
             :class="[item.type === 'birthday' ? 'birthday-icon' : '']" 
-            class="trend-icon">
-            <p class="day">{{ getDay(item.date) }}</p>
-            <p class="week">{{ getWeek(item.date) }}.</p>
+            class="trend-icon"
+          >
+            <p class="day">
+              {{ getDay(item.date) }}
+            </p>
+            <p class="week">
+              {{ getWeek(item.date) }}.
+            </p>
             <img
               v-if="item.type === 'birthday'"
               class="candle"
@@ -30,15 +37,19 @@
           >
             <div class="trend-banner-wrapper">
               <img :src="item.image">
-              <div class="trend-title">{{ item.title }}</div>
+              <div class="trend-title">
+                {{ item.title }}
+              </div>
             </div>
             <div class="trend-detail">
               <div class="trend-date">
                 <!-- <p>参与时间:</p>
                 <p>{{ getTimeLimt(item.sdate, item.edate) }}</p> -->
-                <p v-html="item.txt"/>
+                <p v-html="item.txt" />
               </div>
-              <div class="trend-number">{{ item.nums }}人已参与</div>
+              <div class="trend-number">
+                {{ item.nums }}人已参与
+              </div>
             </div>
           </div>
         </div>

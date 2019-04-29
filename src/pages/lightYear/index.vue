@@ -1,85 +1,106 @@
 <template>
   <div
     :style="style.root" 
-    class="root">
+    class="root"
+  >
     <div class="start">
-      <div id="stars"/>
-      <div id="stars2"/>
-      <div id="stars3"/> 
+      <div id="stars" />
+      <div id="stars2" />
+      <div id="stars3" /> 
     </div>
     
     <img 
       :src="baseUrl + 'center.png'+ this.$qiniuCompress()"
-      class="center" >
+      class="center"
+    >
     <div 
       :style="style.rank" 
-      class="rank">
+      class="rank"
+    >
       <div 
-        class="top">
+        class="top"
+      >
         <div 
-          class="head-portrait">
+          class="head-portrait"
+        >
           <!-- :src="headImgUrl" -->
           <img 
             :src="headImgUrl"
-            class="wx-head" >
+            class="wx-head"
+          >
         </div>
         <p 
-          class="num">
+          class="num"
+        >
           {{ handleScore((score+'').length > 8 ? (score+'').substring(0,8) : (score+''),3) }}
         </p>
         <p 
-          class="light-year">
+          class="light-year"
+        >
           光年
         </p>
       </div>
       <div 
-        class="bottom">
+        class="bottom"
+      >
         <ul 
-          class="score-rank1">
+          class="score-rank1"
+        >
           <li 
             v-for="(item,index) in data"
             v-if="index<3"
-            :key="index">
+            :key="index"
+          >
             <div class="header">
               <img 
                 v-if="item.backgroundImg !== null"
                 :src="item.backgroundImg"
-                class="wx-head" >
+                class="wx-head"
+              >
               <img 
                 :src="item.headimgurl"
-                class="wx"> 
+                class="wx"
+              > 
             </div>
             <span 
-              class="score-num">
+              class="score-num"
+            >
               {{ item.score }}
             </span>
             <span 
-              class="score-tit">
+              class="score-tit"
+            >
               光年
             </span>
           </li>
         </ul>
         <ul 
-          class="score-rank2">
+          class="score-rank2"
+        >
           <li 
             v-for="(item,index) in data"
             v-if="index>=3"
-            :key="index">
+            :key="index"
+          >
             <div 
-              class="header">
+              class="header"
+            >
               <span 
-                class="ranking">
+                class="ranking"
+              >
                 {{ index+1 }}
               </span>
             </div>
             <span 
               :class="{'active':item.user_id===userId?true:false}" 
-              class="score-num">
+              class="score-num"
+            >
               {{ item.score }}
             </span>
             <span 
               :class="{'active':item.user_id===userId?true:false}"
-              class="score-tit">
+              class="score-tit"
+            >
               光年
             </span>
           </li>
@@ -88,14 +109,17 @@
     </div>
     <img 
       :src="baseUrl + 'per.png'+ this.$qiniuCompress()"
-      class="per" >
+      class="per"
+    >
     <img 
       :src="baseUrl + 'rocket.png'+ this.$qiniuCompress()"
-      class="rocket" >
+      class="rocket"
+    >
   </div>
 </template>
 
 <script>
+// @eslint-ignore
 import {
   isInWechat,
   Cookies,

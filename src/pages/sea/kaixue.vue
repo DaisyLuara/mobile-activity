@@ -1,72 +1,92 @@
 <template>
   <div
     :style="style.root"
-    class="content">
+    class="content"
+  >
     <div 
-      class="main">
+      class="main"
+    >
       <img
-        :src="base+'bunny.png'">
+        :src="base+'bunny.png'"
+      >
       <div 
-        class="scores">
+        class="scores"
+      >
         <img
           :src="base + 'tittle.png'"
-          class="title">
+          class="title"
+        >
         <span>{{ total }}</span>
         <img
           :src="base + 'frame.png'"
-          class="frame">
+          class="frame"
+        >
         <img
           :src="base + coupon + '.png?111'"
-          class="coupon">
+          class="coupon"
+        >
         <a
           class="button"
-          @click="getCheck">
+          @click="getCheck"
+        >
           <img
             :src="base+'button.png'"
-            class="button">
+            class="button"
+          >
         </a>
       </div>
     </div>
     <div
       v-show="mask"
       class="mask"
-      @click.self="mask = false;telform = false;note = false;success = false;">
+      @click.self="mask = false;telform = false;note = false;success = false;"
+    >
       <div 
         v-show="note"
         class="note"
-        @click="()=>{note = false;mask=false;}">
+        @click="()=>{note = false;mask=false;}"
+      >
         <img
-          :src="base + 'note3.png'">
+          :src="base + 'note3.png'"
+        >
       </div>
       <div 
         v-show="telform"
-        class="tel">
+        class="tel"
+      >
         <img
           :src="base+'tel.png'"
-          class="telbg">
+          class="telbg"
+        >
         <div 
           class="form"
-          @click.stop="()=>{}">
+          @click.stop="()=>{}"
+        >
           <input 
             v-model="mobile"
             placeholder="输入手机号" 
             maxlength="11" 
             class="input"
-            @change="mask = true;telform = true;">
+            @change="mask = true;telform = true;"
+          >
           <button
             class="check"
-            @click.stop="checkMobile(mobile)">
+            @click.stop="checkMobile(mobile)"
+          >
             <img
-              :src="base+'check.png'">
+              :src="base+'check.png'"
+            >
           </button>
         </div>
       </div>
       <div 
         v-show="success"
-        class="success tel">
+        class="success tel"
+      >
         <img
           :src="base+'success.png'"
-          class="telbg">
+          class="telbg"
+        >
       </div>
     </div>
   </div>

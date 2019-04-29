@@ -1,17 +1,20 @@
 <template>
   <div 
     :style="style.root" 
-    class="content">
+    class="content"
+  >
     <div class="forms">
       <input 
         ref="input" 
         class="tel" 
         type="text" 
         maxlength="11"
-        placeholder="请输入手机号">
+        placeholder="请输入手机号"
+      >
       <a 
         class="btn" 
-        @click="toPhoto"><img :src="baseUrl + 'submit.png'"></a>
+        @click="toPhoto"
+      ><img :src="baseUrl + 'submit.png'"></a>
     </div>
   </div>
 </template>

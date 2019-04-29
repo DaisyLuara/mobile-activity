@@ -1,8 +1,8 @@
 <template>
   <div
     :style="style.root" 
-    class="root">
-
+    class="root"
+  >
     <!-- 背景 -->
     <img
       :src="IMAGE_URL + 'bg.png'" 
@@ -28,7 +28,6 @@
       :src="IMAGE_URL + 'remind.png'" 
       class="remind"
     >
-      
   </div>  
 </template>
 

@@ -1,18 +1,22 @@
 <template>
   <div 
     :style="style.root"
-    class="content">
+    class="content"
+  >
     <!-- 音乐icon -->
     <div 
       class="music" 
-      @click="playOrNot()">
+      @click="playOrNot()"
+    >
       <img
         :src="base +'bg.png'"
-        class="img1">
+        class="img1"
+      >
       <img
         id="mbtn"
         :src="base +'music.png'"
-        class="img2">
+        class="img2"
+      >
     </div>
     <!-- audio -->
     <audio 
@@ -21,24 +25,29 @@
       autoloop 
       loop 
       autoplay 
-      hidden>
+      hidden
+    >
       <source :src="base+'gonglue.mp3'">
     </audio>
     <!-- audio -->
     <swiper
       ref="Swiper"
       :options="sOptions"
-      class="swiper">
+      class="swiper"
+    >
       <swiper-slide>
         <img
           :src="base + 'page1.png'"
-          class="page">
+          class="page"
+        >
         <a
           class="toclicks"
-          @click="toNext"/>
+          @click="toNext"
+        />
         <img
           :src="base + 'nav.png'"
-          class="pointer">
+          class="pointer"
+        >
       </swiper-slide>
       <swiper-slide>
         <!-- 动画 -->
@@ -48,76 +57,96 @@
         />
         <div 
           v-show="lpointer"
-          class="alinks">
+          class="alinks"
+        >
           <ul  
-            class="ul-icon">
+            class="ul-icon"
+          >
             <li 
               v-for="item in 4"
               :key="item.id"
-              @click="toLink(item)">
+              @click="toLink(item)"
+            >
               <img 
-                :src="base + 'icon' + item + '.png'">
+                :src="base + 'icon' + item + '.png'"
+              >
             </li>
           </ul>
           <!-- 厦门爱乐乐团 -->
           <a
             class="local-link local1"
-            @click="toAlert(1)"/>
+            @click="toAlert(1)"
+          />
           <!-- 高参 -->
           <a
             class="local-link local2"
-            @click="toAlert(2)"/>
+            @click="toAlert(2)"
+          />
           <!-- 揭幕流程 -->
           <a
             class="local-link local3"
-            @click="toAlert(3)"/>
+            @click="toAlert(3)"
+          />
           <!-- 夏国璋龙狮团 -->
           <a
             class="local-link local4"
-            @click="toAlert(4)"/>
+            @click="toAlert(4)"
+          />
           <!-- 豪觅邮局 -->
           <a
             class="local-link local5"
-            @click="toAlert(5)"/>
+            @click="toAlert(5)"
+          />
           <!-- 永新早食 -->
           <a
             class="local-link local6"
-            @click="toAlert(6)"/>
+            @click="toAlert(6)"
+          />
           <!-- 华润80年，润物耕心 -->
           <a
             class="local-link local7"
-            @click="toAlert(7)"/>
+            @click="toAlert(7)"
+          />
         </div>
       </swiper-slide>
     </swiper>
     <img 
       v-show="jian"
       :src="base + 'jian.png'"
-      :class="{jian:true,iphoneX:iphoneX}">
+      :class="{jian:true,iphoneX:iphoneX}"
+    >
     <div 
       v-show="mask"
       class="mask"
-      @click.self="()=>{mask = false; alert1 = false;alert2 = false;jian=false;}">
+      @click.self="()=>{mask = false; alert1 = false;alert2 = false;jian=false;}"
+    >
       <div 
         v-show="alert1"
-        class="center alert1">
+        class="center alert1"
+      >
         <img 
           :src="base + pro"
-          :class="{pro:pro_img}">
+          :class="{pro:pro_img}"
+        >
       </div>
       <div
         v-show="alert2"
-        class="center alert2">
+        class="center alert2"
+      >
         <img 
           :src="base + timg"
-          class="timg">
+          class="timg"
+        >
         <div
-          class="text">
+          class="text"
+        >
           <div 
-            class="scroll-text">
+            class="scroll-text"
+          >
             <img 
               :src="base + ttext"
-              class="ttext">
+              class="ttext"
+            >
           </div>
         </div>
       </div>

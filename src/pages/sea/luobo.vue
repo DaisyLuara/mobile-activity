@@ -2,34 +2,44 @@
   <div 
     id="content"
     :style="style.root"
-    class="content">
+    class="content"
+  >
     <div
-      class="frame">
+      class="frame"
+    >
       <img
         :src="base+'frame.png'"
-        class="fbg">
+        class="fbg"
+      >
       <img
         :src="base+'luobo'+num+'.gif'"
-        class="gif">
+        class="gif"
+      >
       <img
         :src="base+num+'.png'"
-        class="png">
+        class="png"
+      >
       <img
         :src="base+'luobo'+num+'.gif'"
-        class="top">
+        class="top"
+      >
     </div>
     <img
       :src="base+'save.png'"
-      class="save">
+      class="save"
+    >
     <img
       :src="base+'cloud.png'"
-      class="animated bounceInLeft cloud1" >
+      class="animated bounceInLeft cloud1"
+    >
     <img
       :src="base+'cloud.png'"
-      class="animated bounceInLeft cloud2" >
+      class="animated bounceInLeft cloud2"
+    >
     <img
       :src="base+'cloud.png'"
-      class="animated bounceInRight cloud3" >
+      class="animated bounceInRight cloud3"
+    >
   </div>
 </template>
 <script>

@@ -38,7 +38,6 @@
         :src="photo + this.$qiniuCompress()"
         class="real-photo"
       >
-
     </div>
     <div class="bt">
       <img

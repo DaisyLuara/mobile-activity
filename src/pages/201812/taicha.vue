@@ -65,7 +65,6 @@
       :src="baseUrl + 'balloon_3.png'+ this.$qiniuCompress()"
       class="balloon3"
     >
-
   </div>
 </template>
 <script>

@@ -19,7 +19,7 @@
       >
     </div>
 
-    <canvas id="canvas"/>
+    <canvas id="canvas" />
   </div>
 </template>
 <script>

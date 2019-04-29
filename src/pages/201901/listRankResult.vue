@@ -87,10 +87,8 @@
               >
             </li>
           </ul>
-
         </div>
       </div>
-
     </div>
     <img
       :src="baseUrl + 'logo.png'"

@@ -1,17 +1,22 @@
 <template>
   <div 
     :class="{ 'no-bottom': this.$route.query.acid }" 
-    class="cake">
+    class="cake"
+  >
     <div v-if="!isNoList">
       <div class="header">
-        <div class="back-word">CAKE</div>
-        <div class="front-word">蛋糕搭配</div>
+        <div class="back-word">
+          CAKE
+        </div>
+        <div class="front-word">
+          蛋糕搭配
+        </div>
       </div>
       <!-- 蛋糕样式选择区域 -->
-      <CakeSwiper ref="cakeSwiper"/>
+      <CakeSwiper ref="cakeSwiper" />
       <!-- 生日祝福输入区域 -->
       <div class="greetings-wrapper">
-        <div class="bottom"/>
+        <div class="bottom" />
         <div class="greetings-area">
           <div class="input-wrapper">
             <textarea
@@ -23,14 +28,17 @@
             />
           </div>
           <div class="visible-control">
-            <div class="left-cell">是否公开祝福内容</div>
+            <div class="left-cell">
+              是否公开祝福内容
+            </div>
             <md-switch
               v-model="isVisible"
             />
           </div>
           <div 
             class="submit-btn" 
-            @click="handleSendGreetings">
+            @click="handleSendGreetings"
+          >
             <img :src="imageHost + 'submit-button.png'">
           </div>
         </div>
@@ -43,22 +51,29 @@
     >
       <div class="popup-wrapper">
         <div class="popup-banner">
-          <div class="popup-title">发送成功</div>
-          <div class="popup-desc">你可以在大屏查看你的祝福</div>
+          <div class="popup-title">
+            发送成功
+          </div>
+          <div class="popup-desc">
+            你可以在大屏查看你的祝福
+          </div>
           <div 
             class="share-btn btn" 
-            @click="showShareTip = true">
+            @click="showShareTip = true"
+          >
             分享给好友一起送祝福
           </div>
           <div 
             class="back-btn btn" 
-            @click="handleNavigate">
+            @click="handleNavigate"
+          >
             返回企业动态
           </div>
         </div>
         <div 
           class="cancel-btn btn" 
-          @click="handleClickCancel">
+          @click="handleClickCancel"
+        >
           关闭弹窗，再发一条
         </div>
       </div>
@@ -70,8 +85,11 @@
     >
       <img 
         :src="imageHost + 'arrow_tip.png'" 
-        class="share-arrow">
-      <div class="share-words">快来让朋友一起为Ta祝福吧</div>
+        class="share-arrow"
+      >
+      <div class="share-words">
+        快来让朋友一起为Ta祝福吧
+      </div>
     </div>
     <NoListContentReminder 
       :show="isNoList" 

@@ -3,9 +3,7 @@
     :style="style.root"
     class="root"
   >
-
     <div class="pt">
-
       <img
         :src="baseUrl + 'photo.png' + this.$qiniuCompress()"
         class="pt-inner"
@@ -15,7 +13,6 @@
         :src="photo"
         class="pt-photo"
       >
-
     </div>
 
     <div class="xk">
@@ -57,7 +54,6 @@
       :src="baseUrl + 'bottom1.png' + this.$qiniuCompress()"
       class="bottom"
     >
-
   </div>
 </template>
 

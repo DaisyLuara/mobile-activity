@@ -13,13 +13,16 @@
       <!-- end special process -->
       <div 
         v-if="chartdata.length - index === 2" 
-        :style="childStyles[0]"/>
+        :style="childStyles[0]"
+      />
       <div 
         v-if="chartdata.length - index === 1" 
-        :style="childStyles[1]"/>
+        :style="childStyles[1]"
+      />
       <div 
         :style="innerTextStyles[index]" 
-        class="text-inner">
+        class="text-inner"
+      >
         <span :class="{'add-top': chartdata.length - index === 1 }">
           {{ dataName[index] }}
         </span>
@@ -31,17 +34,20 @@
       <!-- circles -->
       <div
         v-show="index > 1" 
-        :style="circleArea[index]">
+        :style="circleArea[index]"
+      >
         <div :style="innerCircle[index]">
           <div :style="lineStyle[index]">
-            <div :style="circlePoint[index]"/>
+            <div :style="circlePoint[index]" />
           </div>
           <div
-            :style="whiteCirlce[index]">
+            :style="whiteCirlce[index]"
+          >
             <div
               v-if="index > 0"
               :style="smallCirlce[index]" 
-              class="percent">
+              class="percent"
+            >
               <span>{{ computedRate[index - 1] }} %</span>
               <span>{{ rateName[index - 2] }}</span>
             </div>

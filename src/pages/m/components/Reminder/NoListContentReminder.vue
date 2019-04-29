@@ -1,16 +1,19 @@
 <template>
   <div 
     v-if="show" 
-    class="nct">
+    class="nct"
+  >
     <div class="word">
       <img 
         class="bg" 
-        src="https://cdn.xingstation.cn/fe/image/m/xo-remind-text.svg">
+        src="https://cdn.xingstation.cn/fe/image/m/xo-remind-text.svg"
+      >
       <span class="text">{{ words }}</span>
     </div>
     <img 
       class="img" 
-      src="https://cdn.xingstation.cn/fe/image/m/xo-no-content.png">
+      src="https://cdn.xingstation.cn/fe/image/m/xo-no-content.png"
+    >
   </div>
 </template>
 

@@ -40,7 +40,9 @@
       <div
         v-show="Boolean(name)"
         class="name"
-      >{{ name }}</div>
+      >
+        {{ name }}
+      </div>
       <div
         v-show="Boolean(coupon_img)"
         class="coupon"
@@ -63,7 +65,9 @@
           class="used"
         >
       </div>
-      <div class="code">{{ code }}</div>
+      <div class="code">
+        {{ code }}
+      </div>
     </div>
     <img
       :src="base + 'bottom.png'"

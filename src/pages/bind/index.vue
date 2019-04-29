@@ -1,33 +1,45 @@
 <template>
   <div
     id="bind"
-    class="bind-wrap" >
+    class="bind-wrap"
+  >
     <div
-      class="phone-wrap">
+      class="phone-wrap"
+    >
       <!-- 手机号 -->
       <div 
-        class="form-block">
+        class="form-block"
+      >
         <div 
-          class="phone-lable">手机号</div>
+          class="phone-lable"
+        >
+          手机号
+        </div>
         <input
           v-model="bindPhoneNumber"
           maxlength="11"
           placeholder="请输入手机号" 
           class="phone"
           @click="phoneError=false"
-          @keyup="phoneSuccessHandle">
+          @keyup="phoneSuccessHandle"
+        >
         <div
           v-show="phoneError"
-          class="error">
+          class="error"
+        >
           手机号有误，请重新输入
         </div>
       </div>
       <!-- 图形验证码 -->
       <div 
         v-if="showImageCaptcha"
-        class="form-block">
+        class="form-block"
+      >
         <div
-          class="phone-code">图片验证码</div>
+          class="phone-code"
+        >
+          图片验证码
+        </div>
         <input
           v-model="imageCaptcha.value"
           maxlength="5"
@@ -36,7 +48,8 @@
           @click="imageCaptchaError=false"
         >
         <div
-          class="send-code">
+          class="send-code"
+        >
           <img 
             :src="image_url"
             class="image-code"
@@ -46,7 +59,8 @@
         </div>
         <div
           v-show="imageCaptchaError"
-          class="error">
+          class="error"
+        >
           图片验证码长度不对
         </div>
       </div>
@@ -56,27 +70,40 @@
         class="form-block"
       >
         <div
-          class="phone-code">短信验证码</div>
+          class="phone-code"
+        >
+          短信验证码
+        </div>
         <input
           v-model="verificationCode"
           maxlength="6"
           placeholder="请输入短信验证码"
-          class="code">
+          class="code"
+        >
         <div
           v-show="!sendingSmsCaptcha"
           class="send-verification-code"
-          @click="sendSmsCaptcha">发送验证码</div>
+          @click="sendSmsCaptcha"
+        >
+          发送验证码
+        </div>
         <div
           v-show="sendingSmsCaptcha"
           class="send-verification-code"
-        >重新获取({{ sendingSmsCaptchaTimer }}s)</div>
+        >
+          重新获取({{ sendingSmsCaptchaTimer }}s)
+        </div>
       </div>
       <!-- 提交 -->
       <div
-        class="form-block">
+        class="form-block"
+      >
         <div
           class="btn"
-          @click="submit">绑定</div>
+          @click="submit"
+        >
+          绑定
+        </div>
       </div>      
     </div>
   </div>

@@ -55,7 +55,6 @@
         class="text"
       >
     </div>
-
   </div>
 </template>
 

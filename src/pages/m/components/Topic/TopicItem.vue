@@ -4,14 +4,17 @@
     <img 
       v-if="shoudTagShow" 
       :src="tagUrl" 
-      class="tag">
+      class="tag"
+    >
     <img 
       :src="imgUrls + cp" 
-      class="swipers"> 
+      class="swipers"
+    > 
     <div class="author">
       <img 
         :src="avatar" 
-        class="avatar">
+        class="avatar"
+      >
       <div class="user">
         <div class="name">
           {{ userName }}
@@ -28,15 +31,19 @@
       <div 
         v-if="choose !== 'B'"
         :class="{'choose-item A':choose === '', 'choose-item A show':choose === 'A', 'choose-item A hide':choose === 'B'}"
-        @click="handleChooseClick('A')" >
-        <div class="label">A</div>
+        @click="handleChooseClick('A')"
+      >
+        <div class="label">
+          A
+        </div>
         <div class="text">
           {{ othertype1 }}
         </div>
       </div>
       <div 
         v-if="choose === 'A'" 
-        class="choose-item result A">
+        class="choose-item result A"
+      >
         <div class="count">
           共{{ otherid1 }}人支持
         </div>
@@ -46,7 +53,8 @@
       </div>
       <div 
         v-if="choose === 'B'" 
-        class="choose-item result B">
+        class="choose-item result B"
+      >
         <div class="count">
           共{{ otherid2 }}人支持
         </div>
@@ -58,14 +66,16 @@
       <div 
         v-if="choose !== 'A'"
         :class="{'choose-item B':choose === '', 'choose-item B show':choose === 'B', 'choose-item B hide':choose === 'A'}"
-        @click="handleChooseClick('B')" >
+        @click="handleChooseClick('B')"
+      >
         <div class="text B">
           {{ othertype2 }}
         </div>
-        <div class="label">B</div>
+        <div class="label">
+          B
+        </div>
       </div>
     </div>
-
   </div>
 </template>
 

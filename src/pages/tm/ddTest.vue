@@ -12,7 +12,8 @@
         v-show="page1"  
         :style="style.root" 
         class="page1" 
-        @click.stop.prevent="()=>{ pull_sex=false;pull_year=false;}">
+        @click.stop.prevent="()=>{ pull_sex=false;pull_year=false;}"
+      >
         <img 
           :src="IMGURL + 'title.png'"
           class="title" 
@@ -42,7 +43,8 @@
               <a 
                 v-for="(item,index) in years_range" 
                 :key="item.id" 
-                @click="getYear(index,item)">
+                @click="getYear(index,item)"
+              >
                 <li class="list-li">
                   {{ item }}
                 </li>
@@ -112,10 +114,10 @@
           >
           <ul class="click_ul">
             <li class="left">
-              <a @click.once="getScore('A',index)"/>
+              <a @click.once="getScore('A',index)" />
             </li>
             <li class="right">
-              <a @click.once="getScore('B',index)"/>
+              <a @click.once="getScore('B',index)" />
             </li>
           </ul>
         </div>
@@ -131,7 +133,7 @@
       :style="style.root"
       class="page3" 
     >
-      <canvas id="canvas"/>
+      <canvas id="canvas" />
       <img 
         src=""
         class="result"  
@@ -140,7 +142,8 @@
       <!-- 显示剪切后的图像 -->
       <canvas 
         id="canvas2" 
-        style="display:none"/>
+        style="display:none"
+      />
       <img 
         id="mImg" 
         src="base64Data" 

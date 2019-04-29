@@ -1,15 +1,19 @@
 <template>
   <div
-    class="war-content">
+    class="war-content"
+  >
     <img  
       :src="resultImgUrl" 
       class="photo"
-      alt="">
+      alt=""
+    >
     <div 
-      class="jiantou">
+      class="jiantou"
+    >
       <img 
         :src="imgServerUrl + '/pages/hiplay/arrow.gif'"
-        alt="" >
+        alt=""
+      >
     </div>
   </div>
 </template>

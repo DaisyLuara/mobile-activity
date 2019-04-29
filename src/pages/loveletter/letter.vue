@@ -1,37 +1,46 @@
 <template>
   <div 
     :style="style.root"
-    class="content">
+    class="content"
+  >
     <div 
       v-show="uploadImgYellow"
-      class="upload">
+      class="upload"
+    >
       <input 
         type="file" 
         accept="image/*"
         class="camera"
-        @change="toUpLoad">
+        @change="toUpLoad"
+      >
       <img
         v-show="uploadImgYellow"
-        :src="base +'icon_n.png'">
+        :src="base +'icon_n.png'"
+      >
     </div>
     <div 
       v-show="gonglueImg"
       class="gonglue"
-      @click="go()">
+      @click="go()"
+    >
       <img
-        :src="base +'gonglue2.png'">
+        :src="base +'gonglue2.png'"
+      >
     </div>
     <!-- 音乐icon -->
     <div 
       class="music" 
-      @click="playOrNot()">
+      @click="playOrNot()"
+    >
       <img
         :src="base +'bg.png'"
-        class="img1">
+        class="img1"
+      >
       <img
         id="mbtn"
         :src="base +'music.png'"
-        class="img2">
+        class="img2"
+      >
     </div>
     <!-- audio -->
     <audio 
@@ -40,31 +49,37 @@
       autoloop 
       loop 
       autoplay 
-      hidden>
+      hidden
+    >
       <source :src="base+'yqh.mp3'">
     </audio>
     <!-- 箭头图片 -->
     <div 
       v-show="jiantou1"
       class="tab"
-      @click="tab()"/>
+      @click="tab()"
+    />
     <div 
       v-show="jiantou2"
       class="tab2"
-      @click="tab2()"/>
+      @click="tab2()"
+    />
     <img
       v-show="jiantou1"
       :src="base + 'arrow1.png'"
-      class="pointer">
+      class="pointer"
+    >
     <img
       v-show="jiantou2"
       :src="base + 'arrow2.png'"
-      class="pointer2"> 
+      class="pointer2"
+    > 
     <!-- 底部文字 -->
     <img
       v-show="word"
       :src="base + 'font.png'"
-      class="font">
+      class="font"
+    >
     <!-- 动画 -->
     <div 
       id="anim"
@@ -73,6 +88,7 @@
   </div>
 </template>
 <script>
+// @eslint-ignore
 import lottie from "lottie-web";
 import {
   $wechat,
@@ -84,13 +100,8 @@ import {
 import $ from "jquery";
 import { onlyWechatShare } from "../../mixins/onlyWechatShare";
 import "swiper/dist/css/swiper.css";
-import { swiper, swiperSlide } from "vue-awesome-swiper";
 const cdnUrl = process.env.CDN_URL;
 export default {
-  components: {
-    swiper,
-    swiperSlide
-  },
   mixins: [onlyWechatShare],
   data() {
     return {

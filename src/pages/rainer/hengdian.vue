@@ -1,18 +1,23 @@
 <template>
   <div
     :style="style.root"
-    :class="{content:true,iphoneX:iphoneX}">
+    :class="{content:true,iphoneX:iphoneX}"
+  >
     <div
-      class="picture">
+      class="picture"
+    >
       <img 
         :src="base + 'dgm/kuang.png' + this.$qiniuCompress()"
-        class="frame">
+        class="frame"
+      >
       <img
         :src="photo + this.$qiniuCompress()"
-        class="photo">
+        class="photo"
+      >
       <a 
         href="http://papi.xingstation.com/api/s/yrW"
-        class="alink">
+        class="alink"
+      >
         <!-- @click="myToBuy"
         <img
           :src="base + btn + this.$qiniuCompress()"> -->
@@ -20,10 +25,12 @@
     </div>
     <img
       :src="base + 'dgm/save.png' + this.$qiniuCompress()"
-      class="note">
+      class="note"
+    >
     <img
       :src="base + 'dgm/di.png' + this.$qiniuCompress()"
-      :class="{light:!absolute,absolute:absolute}">
+      :class="{light:!absolute,absolute:absolute}"
+    >
   </div>
 </template>
 <script>

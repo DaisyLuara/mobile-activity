@@ -10,7 +10,8 @@
     >
     <div 
       v-show="showLoading" 
-      class="loadingBox">
+      class="loadingBox"
+    >
       <img 
         :src="CDNURL+'/fe/wuyue-loading-icon.png'" 
         class="loadingIcon"
@@ -90,7 +91,8 @@
             >
             <div 
               class="validateBtn" 
-              @click="onClickGetVcode">
+              @click="onClickGetVcode"
+            >
               <img
                 v-if="disabledGetVcode"
                 :src="CDNURL+'/fe/wuyue-anniversary-count-down-gray.png'"
@@ -164,7 +166,7 @@
             :src="CDNURL+'/fe/wuyue-anniversary-loading-bg.png'"
             class="transitionBg"
           >
-          <div id="lottie"/>
+          <div id="lottie" />
         </div>
       </div>
     </div>

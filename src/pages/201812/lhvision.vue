@@ -21,7 +21,8 @@
           <img 
             :src="base
               + 'click.png'+
-            this.$qiniuCompress()">
+              this.$qiniuCompress()"
+          >
         </a>
       </div>
       <a
@@ -34,7 +35,6 @@
       </a>
     </div>
     <div class="two">
-
       <img
         :src="base + 'frame.png' + this.$qiniuCompress()"
         class="frame"

@@ -1,34 +1,40 @@
 <template>
   <div 
     id="warp" 
-    class="retro-content">
+    class="retro-content"
+  >
     <audio 
       id="voice" 
       autobuffer 
       autoloop 
       loop 
       autoplay 
-      hidden>
+      hidden
+    >
       <source :src="audioUrl+'oldbgm.mp3'">
     </audio>
     <img 
       id="mbtn" 
       :src="imgUrl+'kaide/yinyue.png'" 
       class="mplay" 
-      @click="playOrNot" >
+      @click="playOrNot"
+    >
     <img 
       id="mImg" 
       :class="shake?noshake:hasshake" 
       :src="mImg" 
-      class="photo">
+      class="photo"
+    >
     <img 
       v-show="noteShow" 
       :src="imgUrl+'retro/note.png'" 
-      class="note">
+      class="note"
+    >
     <img 
       v-show="isshow" 
       :src="imgUrl+'retro/save.png'" 
-      class="press">
+      class="press"
+    >
   </div>
 </template>
 <script>

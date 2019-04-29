@@ -27,7 +27,6 @@
         class="photo"
       >
     </div>
-
   </div>
 </template>
 <script>

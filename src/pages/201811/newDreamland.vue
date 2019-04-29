@@ -1,27 +1,33 @@
 <template>
   <div 
     :style="style.root" 
-    class="root">
+    class="root"
+  >
     <!-- 遮罩 -->
     <div 
       v-show="showImg" 
       class="shade" 
-      @click="go">
+      @click="go"
+    >
       <img 
         :src="baseUrl + 'hua.png'+ this.$qiniuCompress()" 
-        class="hua">
+        class="hua"
+      >
       <img 
         :src="baseUrl + 'tip.png'+ this.$qiniuCompress()" 
-        class="tip">
+        class="tip"
+      >
     </div>
     <!-- 内容 -->
     <div 
       v-show="contentShow" 
-      class="content">
+      class="content"
+    >
       <img 
         :src="baseUrl + 'huaban.png'+ this.$qiniuCompress()" 
-        class="huaban">
-      <div id="main"/>
+        class="huaban"
+      >
+      <div id="main" />
       <img
         id="test"
         :class="{'x-photoImg':iphoneX,'photoImg':!iphoneX}"
@@ -32,7 +38,8 @@
       <canvas 
         id="canvas" 
         class="photoImg" 
-        style="display: none"/>
+        style="display: none"
+      />
       <img
         :class="{'x-save':iphoneX,'save':!iphoneX}"
         :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
@@ -41,7 +48,8 @@
     </div>
     <BottomBar 
       :replace-menu-code="'3o3o'" 
-      :replace-mkey="mkey"/>
+      :replace-mkey="mkey"
+    />
   </div>
 </template>
 <script>

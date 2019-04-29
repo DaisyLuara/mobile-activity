@@ -1,7 +1,8 @@
 <template>
   <div
     :style="style.root" 
-    class="root">
+    class="root"
+  >
     <!-- 背景 -->
     <img 
       :src="baseUrl + 'bg.png'"
@@ -34,14 +35,14 @@
           ref="inputreal"
           v-model="phoneValue"
           maxlength="11"
-          class="input-value" >
+          class="input-value"
+        >
         
         <img
           v-if="status.shouldInputRemindShow" 
           :src="baseUrl + 'remind.png'"
           class="input-remind"
         >
-
       </div>
 
       <img
@@ -66,8 +67,8 @@
 
     <div
       v-show="status.step === 'coupon'"
-      class="coupon-wrapper">
-
+      class="coupon-wrapper"
+    >
       <!-- 背景 -->
       <img
         :src="baseUrl + 'coupon-bg.png'" 
@@ -90,7 +91,8 @@
           <div
             v-for="(item, index) of String(coupon_code)"
             :key="index" 
-            class="number-inner">
+            class="number-inner"
+          >
             <img 
               :src="baseUrl + item + '.png'" 
             >
@@ -106,7 +108,6 @@
             style="pointer-events: none; "
           >
         </div>
-        
       </div>
 
       <img
@@ -120,10 +121,9 @@
         :src="baseUrl + 'time.png'" 
         class="wrapper-time"
       >
-        
     </div>
     
-    <Remind v-show="status.shouldRemindShow"/>
+    <Remind v-show="status.shouldRemindShow" />
 
     <!-- 宝箱 -->
     <img 
@@ -135,7 +135,8 @@
     <!-- 弹出层 -->
     <GameShow 
       ref="gameShow" 
-      :style-data="style"/>
+      :style-data="style"
+    />
   </div>
 </template>
 

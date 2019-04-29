@@ -1,24 +1,29 @@
 <template>
   <div 
     id="pcontent" 
-    class="p-content">
+    class="p-content"
+  >
     <a :href="giftUrl"><img 
       :src="giftImg" 
-      class="redbg"></a>
+      class="redbg"
+    ></a>
     <div class="glink">
       <a 
         :href="dingdang" 
-        class="againlink"><img :src="imgUrl+'link3.png'"></a> 
+        class="againlink"
+      ><img :src="imgUrl+'link3.png'"></a> 
     </div>
     <div class="glink">
       <a 
         :href="bankLink" 
-        class="againlink"><img :src="imgUrl+'link2.png'"></a>
+        class="againlink"
+      ><img :src="imgUrl+'link2.png'"></a>
     </div>
     <div class="glink">
       <a 
         :href="jietiap360" 
-        class="againlink"><img :src="imgUrl+'link1.png'"></a>
+        class="againlink"
+      ><img :src="imgUrl+'link1.png'"></a>
     </div>
   </div>
 </template>

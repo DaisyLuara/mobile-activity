@@ -19,7 +19,6 @@
       :class="{'x-save':iphoneX,'save':!iphoneX}"
       class="save"
     >
-
   </div>
 </template>
 <script>

@@ -4,7 +4,8 @@
     class="remind-root"
   >
     <div 
-      class="title">
+      class="title"
+    >
       <img
         :src="baseUrl + 'remind-title.png'" 
         class="title-word" 

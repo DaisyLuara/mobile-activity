@@ -1,70 +1,87 @@
 <template>
   <div
     :style="style.root" 
-    class="root">
+    class="root"
+  >
     <!-- 遮罩层 -->
     <div 
       v-show="shade" 
-      class="shade-contain">
-      <div class="shade"/>
+      class="shade-contain"
+    >
+      <div class="shade" />
       <img 
         :src="baseUrl + 'moon.png'+ this.$qiniuCompress()"
-        class="moon">
+        class="moon"
+      >
       <img 
         :src="baseUrl + 'yuebing.png'+ this.$qiniuCompress()"
-        class="yuebing">
+        class="yuebing"
+      >
       <img 
         :src="baseUrl + 'cloud01.png'+ this.$qiniuCompress()"
-        class="clound1">
+        class="clound1"
+      >
       <img 
         :src="baseUrl + 'cloud02.png'+ this.$qiniuCompress()"
-        class="clound2">
+        class="clound2"
+      >
     </div>
     <!-- 页面 -->
     <img 
       v-show="title.title0"
       :src="baseUrl + 'tag01.png'+ this.$qiniuCompress()"
-      class="tag01">
+      class="tag01"
+    >
     <img 
       v-show="title.title1"
       :src="baseUrl + 'tag02.png'+ this.$qiniuCompress()"
-      class="tag02">
+      class="tag02"
+    >
     <img 
       v-show="title.title2"
       :src="baseUrl + 'tag03.png'+ this.$qiniuCompress()"
-      class="tag03">
+      class="tag03"
+    >
     <img 
       v-show="title.title3"
       :src="baseUrl + 'tag04.png'+ this.$qiniuCompress()"
-      class="tag04">
+      class="tag04"
+    >
     <img 
       v-show="title.title4"
       :src="baseUrl + 'tag05.png'+ this.$qiniuCompress()"
-      class="tag05">
+      class="tag05"
+    >
     <img 
       v-show="title.title5"
       :src="baseUrl + 'tag06.png'+ this.$qiniuCompress()"
-      class="tag06">
+      class="tag06"
+    >
     <img 
       v-show="title.title6"
       :src="baseUrl + 'tag07.png'+ this.$qiniuCompress()"
-      class="tag07">
+      class="tag07"
+    >
     <img 
       v-show="title.title7"
       :src="baseUrl + 'tag08.png'+ this.$qiniuCompress()"
-      class="tag08">
+      class="tag08"
+    >
     <img 
       v-show="title.title8"
       :src="baseUrl + 'tag09.png'+ this.$qiniuCompress()"
-      class="tag09">
+      class="tag09"
+    >
     <img 
       v-show="title.title9"
       :src="baseUrl + 'tag010.png'+ this.$qiniuCompress()"
-      class="tag10">
+      class="tag10"
+    >
     <div class="photo">
       <img 
         :src="baseUrl + 'frame2.png'+ this.$qiniuCompress()"
-        class="frame">
+        class="frame"
+      >
       <video 
         id="video"
         class="photo-real"
@@ -73,26 +90,31 @@
         x-webkit-airplay="true" 
         preload="auto"
         width="100%" 
-        height="100%">
+        height="100%"
+      >
         <!--  src="http://cdn.xingstation.cn/1007/video/MidautumnSkyLight_112_411_1492921319755.mp4s" -->
         <source 
           v-if="photo !== null" 
           :src="photo" 
-          type="video/mp4">
+          type="video/mp4"
+        >
         您的浏览器不支持video标签.
       </video>
       <img 
         v-show="buttonshow"
         :src="baseUrl + 'play2.png'+ this.$qiniuCompress()"
         class="play"
-        @click="playVideo()">
+        @click="playVideo()"
+      >
     </div>
     <img 
       :src="baseUrl + 'qiantong.png'+ this.$qiniuCompress()"
-      class="qiantong">
+      class="qiantong"
+    >
     <img 
       :src="baseUrl + 'text.png'+ this.$qiniuCompress()"
-      class="text">
+      class="text"
+    >
   </div>
 </template>
 

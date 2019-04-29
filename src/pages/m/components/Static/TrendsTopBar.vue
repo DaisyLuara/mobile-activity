@@ -5,14 +5,23 @@
         <img :src="loginState.face">
       </div>
       <div class="location">
-        <div class="place">{{ title }}</div>
-        <div class="mname">{{ mname }}</div>
-        <div class="time">{{ computedDate }}</div>
+        <div class="place">
+          {{ title }}
+        </div>
+        <div class="mname">
+          {{ mname }}
+        </div>
+        <div class="time">
+          {{ computedDate }}
+        </div>
       </div>
     </div>
     <div 
       class="button" 
-      @click="handleNaviToMoreTrends">更多照片</div>
+      @click="handleNaviToMoreTrends"
+    >
+      更多照片
+    </div>
   </div>
 </template>
 

@@ -1,51 +1,64 @@
 <template>
   <div
-    class="ad-wrap">
+    class="ad-wrap"
+  >
     <img
       v-lazy="imgServerUrl + '/xing1.png'"
       class="img"
-      alt="">
+      alt=""
+    >
     <div
-      class="ad_02">
+      class="ad_02"
+    >
       <img
         v-lazy="imgServerUrl + '/xing2.png'"
         alt=""
-        class="ad_02_img">
+        class="ad_02_img"
+      >
       <img 
         v-lazy="imgServerUrl + '/num1.png'"
         alt=""
-        class="num1">
+        class="num1"
+      >
       <img 
         v-lazy="imgServerUrl + '/one.gif'"
         alt=""
-        class="gif_1">
+        class="gif_1"
+      >
       <img 
         v-lazy="imgServerUrl + '/num2.png'"
         alt=""
-        class="num2">
+        class="num2"
+      >
       <img 
         v-lazy="imgServerUrl + '/two.gif'"
         alt=""
-        class="gif_2">
+        class="gif_2"
+      >
       <img 
         v-lazy="imgServerUrl + '/num3.png'"
         alt=""
-        class="num3">
+        class="num3"
+      >
       <img 
         v-lazy="imgServerUrl + '/three.gif'"
         alt=""
-        class="gif_3">
+        class="gif_3"
+      >
     </div>
     <img
       v-lazy="imgServerUrl + '/xing3.png'"
       alt=""
-      class="img">
+      class="img"
+    >
     <div
-      class="ad_04">
+      class="ad_04"
+    >
       <img
         v-lazy="imgServerUrl + '/xing4.png'"
         alt=""
-        class="img">
+        class="img"
+      >
       <video
         v-show="!bgshow"
         id="vedio"
@@ -54,20 +67,24 @@
         x-webkit-airplay="true" 
         controls
         width="100%"
-        class="vedio">
+        class="vedio"
+      >
         <source
           :src="imgServerUrl+'/vedio.mp4'" 
-          type="video/mp4">
+          type="video/mp4"
+        >
         您的浏览器不支持video标签.
       </video>
       <img  
-        v-lazy="imgServerUrl+'/vedio_bg.png'"
         v-show="bgshow"
-        class="bg">
+        v-lazy="imgServerUrl+'/vedio_bg.png'"
+        class="bg"
+      >
       <a
         v-show="bgshow"
         class="vplay"
-        @click="vPlay" >
+        @click="vPlay"
+      >
         <img :src="imgServerUrl + '/btn.png'">
       </a>
     </div>
@@ -75,20 +92,24 @@
       <img 
         v-lazy="imgServerUrl + '/xing5.png'" 
         alt="" 
-        class="img">
+        class="img"
+      >
       <img 
         v-lazy="imgServerUrl + '/four.gif'" 
         alt="" 
-        class="gif_4">
+        class="gif_4"
+      >
     </div>
     <img
       v-lazy="imgServerUrl + '/xing6.png'"
       alt=""
-      class="img">
+      class="img"
+    >
     <img
       v-lazy="imgServerUrl + '/xing7.png'"
       alt=""
-      class="img">
+      class="img"
+    >
   </div>
 </template>
 <script>

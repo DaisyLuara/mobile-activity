@@ -2,30 +2,38 @@
   <div
     v-show="show" 
     :style="style.root" 
-    class="root">
+    class="root"
+  >
     <!-- 遮罩 -->
     <div 
       v-show="loading" 
-      class="loading">
+      class="loading"
+    >
       <img 
         :src="baseUrl + 'xueren.png'+ this.$qiniuCompress()"
-        class="xueren">
+        class="xueren"
+      >
       <img 
         :src="baseUrl + 'z.png'+ this.$qiniuCompress()"
-        class="z">
+        class="z"
+      >
     </div>
     <div 
       v-show="!loading" 
-      class="content">
+      class="content"
+    >
       <div 
-        class="top"/>
+        class="top"
+      />
       <div 
-        class="center">
+        class="center"
+      >
         <img 
           v-if="photoUrl !== null" 
           :src="photoUrl+ this.$qiniuCompress()" 
           alt=""
-          class="photo">
+          class="photo"
+        >
       <!-- 
       <img  
         :src="baseUrl + '111.png'"
@@ -34,19 +42,24 @@
       </div>
       <img 
         :src="baseUrl + 'save2.png'+ this.$qiniuCompress()"
-        class="save">
+        class="save"
+      >
       <img 
         :src="baseUrl + 'btn.png?v=112'+ this.$qiniuCompress()" 
         :class="{'button': !btnAndior, 'andior-btn': btnAndior,'iphoneX-btn':iphoneX}"
-        @click="goH5">
+        @click="goH5"
+      >
       <img 
         :src="baseUrl + 'logo.png'+ this.$qiniuCompress()"
-        class="logo" >
+        class="logo"
+      >
       <div 
-        class="bottom">
+        class="bottom"
+      >
         <img  
           :src="baseUrl + 'xuehua2.png?v=111'+ this.$qiniuCompress()"
-          class="xuehua-bg">
+          class="xuehua-bg"
+        >
         <!-- 雪花动画部分 -->
         <div
           id="animation"

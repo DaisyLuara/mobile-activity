@@ -1,17 +1,21 @@
 <template>
   <div 
     id="mgPage" 
-    class="mgPage">
+    class="mgPage"
+  >
     <div class="main">
       <img 
         :src="IMAGE_URL + 'bg2.jpg'" 
-        class="bg">
+        class="bg"
+      >
       <img 
         :src="photo + this.$qiniuCompress()" 
-        class="photo">
+        class="photo"
+      >
       <img 
         :src="IMAGE_URL + 'point.gif'" 
-        class="point">
+        class="point"
+      >
       <a :href="alink"><img :src="IMAGE_URL + 'alink.png'"></a>
     </div>
   </div>

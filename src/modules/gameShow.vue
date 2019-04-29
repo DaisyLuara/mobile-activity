@@ -3,39 +3,48 @@
   <div 
     v-show="styleData.show" 
     :style="styleData.popups" 
-    class="popups-wrapper">
+    class="popups-wrapper"
+  >
     <div class="popups-content">
       <div 
         :style="styleData.popupsContent" 
-        class="main-content">
+        class="main-content"
+      >
         <div 
           :style="styleData.top" 
           class="popups-close" 
-          @click="closePopups">
+          @click="closePopups"
+        >
           <img 
             :src="imgUrl+'close.png'+ this.$qiniuCompress()" 
-            alt="" >
+            alt=""
+          >
         </div>
         <div class="img-wrap">
           <img 
             :src="imgUrl+'bg.png?v=1'+ this.$qiniuCompress()"
-            class="bg" >
+            class="bg"
+          >
           <img 
             v-show="gameData.projectOne"
             :src="imgUrl+'a.png'+ this.$qiniuCompress()" 
-            class="done1">
+            class="done1"
+          >
           <img 
             v-show="gameData.projectTwo"
             :src="imgUrl+'b.png'+ this.$qiniuCompress()" 
-            class="done2">
+            class="done2"
+          >
           <img 
             v-show="gameData.projectThree"
             :src="imgUrl+'c.png'+ this.$qiniuCompress()" 
-            class="done3">
+            class="done3"
+          >
           <img 
             v-show="gameData.projectFour"
             :src="imgUrl+'d.png'+ this.$qiniuCompress()" 
-            class="done4">
+            class="done4"
+          >
           <div class="text">
             {{ gameData.randomNum }}
           </div>

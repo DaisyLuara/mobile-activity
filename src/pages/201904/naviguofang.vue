@@ -1,5 +1,5 @@
 <template>
-  <div class="navi-root"/>
+  <div class="navi-root" />
 </template>
 
 <script>

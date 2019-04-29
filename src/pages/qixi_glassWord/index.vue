@@ -1,29 +1,36 @@
 <template>
   <div 
-    class="glass-wrap" >
+    class="glass-wrap"
+  >
     <div 
       class="shade-wrap" 
-      @click="getPhoto()">
+      @click="getPhoto()"
+    >
       <img 
         v-if="showShade" 
         :src="imgServerUrl + '/pages/glassword/heart.png'"  
         alt=""
-        class="heart">
+        class="heart"
+      >
     </div>
     <div 
       v-if="showImg"
-      class="get-photo">
+      class="get-photo"
+    >
       <div 
-        class="photo">
+        class="photo"
+      >
         <img  
           :src="photo" 
           alt=""
-          class="photo-2"> 
+          class="photo-2"
+        > 
       </div>
       <img 
         :src="imgServerUrl + '/pages/glassword/button.png'" 
         alt=""
-        class="save"> 
+        class="save"
+      > 
     </div>
   </div>
 </template>

@@ -1,185 +1,226 @@
 <template>
   <div 
     v-if="showPage" 
-    class="angel-wrap">
+    class="angel-wrap"
+  >
     <img 
       :src="IMAGE_SERVER + 'wuliao1.jpg'" 
       class="wuliao" 
-      alt="">
+      alt=""
+    >
     <div class="angel-container">
       <!-- <img class="bg" :src="IMAGE_SERVER + 'bg.jpg'" alt=""> -->
       <img 
         :src="IMAGE_SERVER + 'slogan.png'" 
         class="slogan" 
         alt="" 
-        @load="loadImg">
+        @load="loadImg"
+      >
       <div class="img-wrap clearfix">
         <div 
           v-for="angel in user_result" 
-          :class="{'white': angel.img_type == 'white', 'black': angel.img_type == 'black'}" 
           :key="angel.img_id" 
-          class="angel-container">
+          :class="{'white': angel.img_type == 'white', 'black': angel.img_type == 'black'}" 
+          class="angel-container"
+        >
           <img 
             v-if="angel.img_type =='white'" 
             :src="IMAGE_SERVER + 'frame_on.png'" 
             class="frame frame-on" 
-            alt="">
+            alt=""
+          >
           <img 
             v-if="angel.img_type == 'black'" 
             :src="IMAGE_SERVER + 'frame_off.png'" 
             class="frame frame-off" 
-            alt="">
+            alt=""
+          >
 
           <img 
             v-if="angel.img_type =='white' && !angel.img_id" 
             :src="IMAGE_SERVER + 'lock_white.png'" 
             class="lock abs" 
-            alt="">
+            alt=""
+          >
           <img 
             v-if="angel.img_type =='black' && !angel.img_id" 
             :src="IMAGE_SERVER + 'lock_black.png'" 
             class="lock abs" 
-            alt="">
+            alt=""
+          >
           <div 
             v-if="!angel.img_id" 
-            class="cover abs"/>
+            class="cover abs"
+          />
           <div 
             v-show="angel.img_id && angel.img_type == 'white'" 
             :class="{'animate': animate}" 
-            class="diamond-wrap abs">
+            class="diamond-wrap abs"
+          >
             <img 
               :src="IMAGE_SERVER + 'white.png'" 
               class="diamond d1" 
-              alt="">
+              alt=""
+            >
             <img 
               :src="IMAGE_SERVER + 'white.png'" 
               class="diamond d2" 
-              alt="">
+              alt=""
+            >
             <img 
               :src="IMAGE_SERVER + 'white.png'" 
               class="diamond d3" 
-              alt="">
+              alt=""
+            >
             <img 
               :src="IMAGE_SERVER + 'white.png'" 
               class="diamond d4" 
-              alt="">
+              alt=""
+            >
             <img 
               :src="IMAGE_SERVER + 'white.png'" 
               class="diamond d5" 
-              alt="">
+              alt=""
+            >
             <img 
               :src="IMAGE_SERVER + 'white.png'" 
               class="diamond d6" 
-              alt="">
+              alt=""
+            >
             <img 
               :src="IMAGE_SERVER + 'white.png'" 
               class="diamond d7" 
-              alt="">
+              alt=""
+            >
             <img 
               :src="IMAGE_SERVER + 'white.png'" 
               class="diamond d8" 
-              alt="">
+              alt=""
+            >
             <img 
               :src="IMAGE_SERVER + 'white.png'" 
               class="diamond d9" 
-              alt="">
+              alt=""
+            >
             <img 
               :src="IMAGE_SERVER + 'white.png'" 
               class="diamond d10" 
-              alt="">
+              alt=""
+            >
             <img 
               :src="IMAGE_SERVER + 'white.png'" 
               class="diamond d11" 
-              alt="">
+              alt=""
+            >
           </div>
           <div 
             v-show="angel.img_id && angel.img_type == 'black'" 
             :class="{'animate': animate}" 
-            class="diamond-wrap abs">
+            class="diamond-wrap abs"
+          >
             <img 
               :src="IMAGE_SERVER + 'blue.png'" 
               class="diamond d1" 
-              alt="">
+              alt=""
+            >
             <img 
               :src="IMAGE_SERVER + 'blue.png'" 
               class="diamond d2" 
-              alt="">
+              alt=""
+            >
             <img 
               :src="IMAGE_SERVER + 'blue.png'" 
               class="diamond d3" 
-              alt="">
+              alt=""
+            >
             <img 
               :src="IMAGE_SERVER + 'blue.png'" 
               class="diamond d4" 
-              alt="">
+              alt=""
+            >
             <img 
               :src="IMAGE_SERVER + 'blue.png'" 
               class="diamond d5" 
-              alt="">
+              alt=""
+            >
             <img 
               :src="IMAGE_SERVER + 'blue.png'" 
               class="diamond d6" 
-              alt="">
+              alt=""
+            >
             <img 
               :src="IMAGE_SERVER + 'blue.png'" 
               class="diamond d7" 
-              alt="">
+              alt=""
+            >
             <img 
               :src="IMAGE_SERVER + 'blue.png'" 
               class="diamond d8" 
-              alt="">
+              alt=""
+            >
             <img 
               :src="IMAGE_SERVER + 'blue.png'" 
               class="diamond d9" 
-              alt="">
+              alt=""
+            >
             <img 
               :src="IMAGE_SERVER + 'blue.png'" 
               class="diamond d10" 
-              alt="">
+              alt=""
+            >
             <img 
               :src="IMAGE_SERVER + 'blue.png'" 
               class="diamond d11" 
-              alt="">
+              alt=""
+            >
           </div>
           <img 
             :src="angel.img_url" 
             class="img-download abs" 
-            alt="">
+            alt=""
+          >
           <div class="img-container abs">
             <img 
               v-if="!angel.img_id && angel.img_type == 'black'" 
               :src="IMAGE_SERVER + 'b_angel.png'" 
               class="img-example" 
-              alt="">
+              alt=""
+            >
             <img 
               v-if="!angel.img_id && angel.img_type == 'white'" 
               :src="IMAGE_SERVER + 'w_angel.png'" 
               class="img-example" 
-              alt="">
+              alt=""
+            >
             <img 
               :src="angel.img_url" 
               class="img" 
-              alt="">
+              alt=""
+            >
           </div>
         </div>
       </div>
       <div class="num-wrap clearfix">
         <div 
           v-for="angel in user_result" 
-          :class="{'white': angel.img_type == 'white', 'black': angel.img_type == 'black'}" 
           :key="angel.img_id" 
-          class="num-container">
+          :class="{'white': angel.img_type == 'white', 'black': angel.img_type == 'black'}" 
+          class="num-container"
+        >
           <img 
             v-if="angel.img_type == 'white'" 
             :src="IMAGE_SERVER + 'tianmei.png'" 
-            alt="">
+            alt=""
+          >
           <img 
             v-if="angel.img_type == 'black'" 
             :src="IMAGE_SERVER + 'gaoleng.png'" 
-            alt="">
+            alt=""
+          >
           <span 
             :class="{'white': angel.img_type =='white', 'black': angel.img_type == 'black'}" 
-            class="abs num">{{ angel.num ? angel.num : '0' }}</span>
+            class="abs num"
+          >{{ angel.num ? angel.num : '0' }}</span>
         </div>
       </div>
       <img 
@@ -187,25 +228,30 @@
         :src="IMAGE_SERVER + 'btn.png'" 
         class="btn-join" 
         alt="" 
-        @click="join">
+        @click="join"
+      >
       <img 
         v-if="!show_btn" 
         :src="join_img_url" 
         class="result-join" 
-        alt="">
+        alt=""
+      >
       <img 
         :src="IMAGE_SERVER + 'za.png'" 
         class="img-za" 
-        alt="">
+        alt=""
+      >
     </div>
     <img 
       :src="IMAGE_SERVER + 'wuliao2.jpg'" 
       class="wuliao" 
-      alt="">
+      alt=""
+    >
     <img 
       :src="IMAGE_SERVER + 'wuliao3.png'" 
       class="wuliao" 
-      alt="">
+      alt=""
+    >
   </div>
 </template>
 <script>

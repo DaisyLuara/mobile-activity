@@ -1,8 +1,9 @@
 <template>
   <div
     :style="style.root" 
-    class="root">
-    <div class="top" >
+    class="root"
+  >
+    <div class="top">
       <img 
         :src="baseUrl + 'up.png'+ this.$qiniuCompress()"
       >
@@ -11,35 +12,42 @@
         <img 
           v-if="photo !== null" 
           :src="photo + this.$qiniuCompress()"
-          class="photo-img">
+          class="photo-img"
+        >
       </div>
     </div>
     <div 
       :style="style.screenHei" 
       :class="{'x-center':iphoneX}"
-      class="center" >
+      class="center"
+    >
       <img 
         :src="baseUrl + 'ABC.png'+ this.$qiniuCompress()"
-        class=" pass">
+        class=" pass"
+      >
       <img 
         v-show="pass.firstPass"
         :src="baseUrl + 'A.png'+ this.$qiniuCompress()"
-        class="firstPass">
+        class="firstPass"
+      >
       <img 
         v-show="pass.secondPass"
         :src="baseUrl + 'B.png'+ this.$qiniuCompress()"
-        class=" secondPass">
+        class=" secondPass"
+      >
       <img 
         v-show="pass.thirdPass"
         :src="baseUrl + 'C.png'+ this.$qiniuCompress()"
-        class=" thirdPass">
+        class=" thirdPass"
+      >
       <img 
         :src="baseUrl + 'xia2.png?v=1111'+ this.$qiniuCompress()"
         class="clound"
       >
     </div>
     <div 
-      class="bottom">
+      class="bottom"
+    >
       <img 
         :src="baseUrl + 'bt.png?v=1111'+ this.$qiniuCompress()"
       >

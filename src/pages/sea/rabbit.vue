@@ -1,42 +1,54 @@
 <template>
   <div 
     :style="style.root"
-    class="content">
+    class="content"
+  >
     <div 
       id="main"
-      class="main">
+      class="main"
+    >
       <img
         :src="baseUrl + 'bg.jpg'"
-        class="bg">
+        class="bg"
+      >
       <span
-        class="span">{{ num }}</span>
+        class="span"
+      >{{ num }}</span>
       <a 
         v-show="bunny"
         :class="{animated:!mask}"
         class="box infinite tada delay-2s"
-        @click="()=>{mask = true;}">
+        @click="()=>{mask = true;}"
+      >
         <img 
-          :src="baseUrl + 'bunny.png'">
+          :src="baseUrl + 'bunny.png'"
+        >
       </a>
     </div>
     <div 
       v-show="mask"
-      class="mask">
+      class="mask"
+    >
       <div 
-        class="container">
+        class="container"
+      >
         <a
           class="close"
-          @click="()=>{mask = false;}">
+          @click="()=>{mask = false;}"
+        >
           <img 
-            :src="baseUrl + 'x.png'">
+            :src="baseUrl + 'x.png'"
+          >
         </a>
         <img 
           :src="baseUrl + 'tips.png'" 
-          class="tips">
+          class="tips"
+        >
         <img 
           :src="baseUrl + 'tu.png'" 
           :class="{animated:mask}"
-          class="tu infinite tada delay-2s">
+          class="tu infinite tada delay-2s"
+        >
       </div>
     </div>
   </div>

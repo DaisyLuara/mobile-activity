@@ -27,7 +27,6 @@
         <img :src="baseUrl+'coupon.png?v=1'">
       </div>
     </div>
-
   </div>
 </template>
 

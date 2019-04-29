@@ -33,7 +33,9 @@
       </div>
     </div>
     <div class="board">
-      <div class="title">今日互动指数</div>
+      <div class="title">
+        今日互动指数
+      </div>
       <div class="sub">
         <span class="label">人气指数</span>
         <transition-group
@@ -42,8 +44,8 @@
         >
           <img
             v-for="(item, index) in inviteNum"
-            :src="star"
             :key="index"
+            :src="star"
             class="star"
           >
         </transition-group>
@@ -63,8 +65,8 @@
         >
           <img
             v-for="(item, index) in luckNum"
-            :src="star"
             :key="index"
+            :src="star"
             class="star"
           >
         </transition-group>
@@ -84,8 +86,8 @@
         >
           <img
             v-for="(item, index) in topNum"
-            :src="star"
             :key="index"
+            :src="star"
             class="star"
           >
         </transition-group>
@@ -101,7 +103,9 @@
     <div class="avatar">
       <img :src="loginState.face">
     </div>
-    <div class="nickname">{{ loginState.username }}</div>
+    <div class="nickname">
+      {{ loginState.username }}
+    </div>
     <div
       class="barrage"
       @click="navinagteToBarrage"

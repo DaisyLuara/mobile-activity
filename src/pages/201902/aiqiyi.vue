@@ -58,7 +58,7 @@
       :src="base + 'rights.png'"
       class="tip"
     >
-    <canvas id="canvas"/>
+    <canvas id="canvas" />
   </div>
 </template>
 <script>

@@ -1,25 +1,31 @@
 <template>
   <div
     :style="style.root"
-    class="war-content">
+    class="war-content"
+  >
     <img 
       :src="imgServerUrl + '/pages/hiplay/bg_century.jpg'"
-      class="bg">
+      class="bg"
+    >
     <div class="center">
       <img 
         :src="imgServerUrl + '/pages/hiplay/frame.png'"
-        class="kuang">
+        class="kuang"
+      >
     </div>
     <img 
       v-if="photo !== null"  
       :src="photo + this.$qiniuCompress()" 
       class="photo"
-      alt="">
+      alt=""
+    >
     <div 
-      :class="{'jiantou-x':iphoneX,'jiantou':!iphoneX}">
+      :class="{'jiantou-x':iphoneX,'jiantou':!iphoneX}"
+    >
       <img 
         :src="imgServerUrl + '/pages/hiplay/arrow.gif'"
-        alt="" >
+        alt=""
+      >
     </div>
   </div>
 </template>
