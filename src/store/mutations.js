@@ -1,6 +1,7 @@
 import * as types from './mutation-types'
 const mutations = {
   [types.SET_LOGIN_STATE](state, v) {
+    alert(6)
     state.loginState = v
   },
   [types.SET_LAST_BARRAGE_TIME](state, v) {
