@@ -125,6 +125,7 @@ export default {
           belong: belong,
           oid: oid
         };
+        alert(1)
         const checkCouponResult = await checkV2Coupon(checkV2CouponArgs);
         if (checkCouponResult) {
           alert('该券您已经领取过啦！')
@@ -137,7 +138,7 @@ export default {
           this.handleData(sendV2ProjectsResult);
         }
       } catch (err) {
-        alert(err)
+        alert(3)
         alert(JSON.stringify(err.response))
         // if(!err){
         //   return
