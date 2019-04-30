@@ -4,7 +4,7 @@
     class="warp"
   >
     <img
-      :src="base + 'yh_bg.jpg'"
+      :src="base + 'yhss_bg.jpg'"
       class="cut-bg"
     >
     <img
