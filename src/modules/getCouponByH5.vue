@@ -137,9 +137,11 @@ export default {
           this.handleData(sendV2ProjectsResult);
         }
       } catch (err) {
-        if(!err){
-          return
-        }
+        alert(err)
+        alert(JSON.stringify(err.response))
+        // if(!err){
+        //   return
+        // }
         if (err.response) {
           alert(err.response.data.message);
         }
