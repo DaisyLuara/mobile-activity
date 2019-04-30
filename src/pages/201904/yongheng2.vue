@@ -266,7 +266,7 @@ img {
     z-index: 999;
     color: #000;
     font-weight: bold;
-    font-size: 5vw;
+    font-size: 3vw;
   }
 }
 </style>
