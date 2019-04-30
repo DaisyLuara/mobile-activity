@@ -3,30 +3,30 @@
   <div>
     <div class="ma">
       <div
-        :style="styleData.clip ? styleData.clip:null"
+        :style="style_data.clip ? style_data.clip:null"
         class="clip"
       >
         <img
-          :style="styleData.clip ? styleData.clip.img:null"
+          :style="style_data.clip ? style_data.clip.img:null"
           :src="qrcode_img"
           class="qrcode"
         >
       </div>
       <img
         v-show="used"
-        :style="styleData.used ? styleData.used:null"
+        :style="style_data.used ? style_data.used:null"
         :src="common_url + 'used.png'"
         class="used"
       >
       <img
         v-show="passed"
-        :style="styleData.used?styleData.used:null"
+        :style="style_data.used?style_data.used:null"
         :src="common_url + 'passed.png'"
         class="used"
       >
     </div>
     <div
-      :style="styleData.code?styleData.code:null"
+      :style="style_data.code?style_data.code:null"
       class="code"
     >
       {{ code }}
@@ -48,20 +48,20 @@ import { mapGetters, mapMutations } from "vuex";
 const CDN_URL = process.env.CDN_URL;
 export default {
   props: {
-    styleData: {
+    style_data: {
       type: Object,
       required: false,
       default: () => ({ clip: '', used: '', code: '' })
     },
-    couponImg: {
+    coupon_img: {
       type: String,
       required: true,
-      default: null
+      default: ''
     },
-    qrcodeImg: {
+    qrcode_img: {
       type: String,
       required: true,
-      default: null
+      default: ''
     },
     used: {
       type: Boolean,
@@ -76,7 +76,7 @@ export default {
     code: {
       type: String,
       required: true,
-      default: null
+      default: ''
     },
   },
   data() {
@@ -137,7 +137,10 @@ export default {
           this.handleData(sendV2ProjectsResult);
         }
       } catch (err) {
-        if (err.response.data.message) {
+        if(!err){
+          return
+        }
+        if (err.response) {
           alert(err.response.data.message);
         }
       } finally {
