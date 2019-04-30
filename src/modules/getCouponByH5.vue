@@ -51,7 +51,9 @@ export default {
     style_data: {
       type: Object,
       required: false,
-      default: () => ({ clip: '', used: '', code: '' })
+      default: ()=>{
+        return {clip: '', used: '', code: ''}
+      }
     },
     coupon_img: {
       type: String,
@@ -125,7 +127,6 @@ export default {
           belong: belong,
           oid: oid
         };
-        alert(1)
         const checkCouponResult = await checkV2Coupon(checkV2CouponArgs);
         if (checkCouponResult) {
           alert('该券您已经领取过啦！')
@@ -138,11 +139,6 @@ export default {
           this.handleData(sendV2ProjectsResult);
         }
       } catch (err) {
-        alert(3)
-        alert(JSON.stringify(err.response))
-        // if(!err){
-        //   return
-        // }
         if (err.response) {
           alert(err.response.data.message);
         }
