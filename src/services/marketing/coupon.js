@@ -381,7 +381,6 @@ const checkV2Coupon = params => {
         resolve(response.data)
       })
       .catch(err => {
-        alert(4)
         reject(err)
       })
   })

@@ -166,7 +166,7 @@ const Date201904 = [
   },
   {
     path: 'yhss',
-    location: '201904/yongheng2',
+    location: '201904/yongheng',
     name: 'yhss',
     meta: {
       title: '前方高能！【全城发红包啦】！',
