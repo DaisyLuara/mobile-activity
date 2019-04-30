@@ -213,7 +213,7 @@ img {
     width: 100%;
     position: relative;
     z-index: 99;
-    margin-top: 34%;
+    margin-top: 45%;
     margin-bottom: 40%;
     .coupon-bg {
       width: 91%;
