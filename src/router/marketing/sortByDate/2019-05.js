@@ -11,6 +11,17 @@ const Date201905 = [
     isAbandoned: false
   },
   {
+    path: 'diamond520_lottery',
+    location: '201905/diamond520_lottery',
+    name: 'diamond520Lottery',
+    meta: {
+      title: '星视度',
+      author: 'chuxiaochen',
+      desc: '星视度'
+    },
+    isAbandoned: false
+  },
+  {
     path: 'love520',
     location: '201905/love520',
     name: 'love520',

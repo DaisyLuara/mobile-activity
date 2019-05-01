@@ -7,10 +7,11 @@ const MOCK_API = 'http://0.0.0.0:7300/mock/5cc58e9caaa16bb98099478d/diamond520'
 
 // 建立请求拦截器
 const fetchWithToken = axios.create({
-  baseURL: config[process.env.NODE_ENV].DIAMOND_API
+  baseURL: process.env.DIAMOND_API
 })
 
 fetchWithToken.interceptors.request.use(config => {
+  config.headers['Content-Type'] = 'application/json'
   config.headers['api-token'] = apiToken
   config.headers['Accept'] = 'application/vdn.xingstation.v3+json'
   return config
@@ -22,20 +23,19 @@ fetchWithToken.interceptors.request.use(config => {
 fetchWithToken.interceptors.response.use(
   response => {
     const status = response.status
-    if (status === 200) {
-      return {
-        code: 0,
-        data: response.data
-      }
-    } else if(status === 204) {
+    if(status === 204) {
       return {
         code: 404
       }
     } else {
-      Promise.reject('error: ' + status)
+      return {
+        code: 0,
+        data: response.data
+      }
     }
   },
   error => {
+    console.log(error.response)
     return Promise.reject(error)
   }
 )
@@ -115,4 +115,40 @@ const getVerificationCodes = (args) => {
   })
 }
 
-export { qiniuToken, uploadImgToQiniu, postActivityMedia, getLoveInfo, getVerificationCodes }
+// 发送手机验证信息
+const bindUserPhone = (args) => {
+  return fetchWithToken({
+    url: '/user',
+    method: 'patch',
+    data: args
+  })
+}
+
+// 查询用户是否有优惠券
+const queryUserCoupon = (args) => {
+  return fetchWithToken({
+    url: '/open/user/coupon?include=couponBatch',
+    method: 'post',
+    data: args
+  })
+}
+
+// h5抽奖
+const h5Batches = (args) => {
+  return fetchWithToken({
+    url: '/open/coupon/batches',
+    method: 'get',
+    params: args
+  })
+}
+
+// 领取优惠券
+const bindUserCoupon = (args) => {
+  return fetchWithToken({
+    url: '/open/coupons?include=couponBatch',
+    method: 'post',
+    data: args
+  })
+}
+
+export { qiniuToken, uploadImgToQiniu, postActivityMedia, getLoveInfo, getVerificationCodes, bindUserPhone, queryUserCoupon, h5Batches, bindUserCoupon }

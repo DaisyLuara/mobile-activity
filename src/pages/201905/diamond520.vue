@@ -6,9 +6,7 @@
     >
     <div class="content-wrap">
       <div class="photo-area">
-        <img 
-          class="" 
-          src="">
+        <img :src="photo">
       </div>
       <div class="phone-verify-group">
         <input
@@ -29,14 +27,14 @@
             @input="handleInput($event, 'code')"
           >
           <div
-            v-if="timer"
+            v-if="waitTimer"
             class="countdown"
-          >{{ time }}s</div>
+          >{{ waitTime }}s</div>
           <img
             v-else
             :src="`${CDNURL}/dimond520/req_code_btn.png`"
             class="code-button"
-            @click="time === 0 && handleReqCodeClick()"
+            @click="waitTime === 0 && handleReqCodeClick()"
           >
         </div>
       </div>
@@ -65,9 +63,15 @@
 </template>
 
 <script>
-import { normalPages } from '@/mixins/normalPages'
 import { reCalculateRem } from '@/mixins/reCalculateRem'
-import { filterNumber, validatePhone, getVerificationCodes } from 'services'
+import {
+  filterNumber,
+  validatePhone,
+  getVerificationCodes,
+  getInfoById,
+  bindUserPhone
+} from 'services'
+import { mapGetters, mapMutations } from "vuex"
 import { Toast } from 'mand-mobile'
 import "../../assets/less/reset-mand.less"
 const CDNURL = process.env.CDN_URL
@@ -77,22 +81,69 @@ export default {
   components: {
 
   },
-  mixins: [normalPages, reCalculateRem],
+  mixins: [reCalculateRem],
   data () {
     return {
       CDNURL: CDNURL,
+      photo: null,
       phone: '',
       code: '',
-      timer: null,
-      time: 0
+      waitTimer: null,
+      waitTime: 0,
+      verifyKey: ''
     }
   },
   computed: {
+    ...mapGetters(["z"]),
+    // 提交按钮是否可点击
     submitBtnClickable() {
       return this.phone && this.code
     }
   },
+  mounted() {
+    if (process.env.NODE_ENV !== 'development') {
+      this.initState()
+    }
+  },
   methods: {
+    ...mapMutations({
+      setLoginState: "SET_LOGIN_STATE"
+    }),
+    // 根据id获取用户z值,照片等信息
+    async initState() {
+      Toast.loading('页面加载中')
+      let { id, code, state } = this.$route.query
+      try {
+        let {
+          parms,
+          userinfo,
+          belong,
+          oid,
+          image
+        } = await getInfoById(id, code, state)
+        if (!userinfo) {
+          Toast.failed('获取用户信息失败', 0, true)
+          return
+        } else {
+          this.setLoginState(userinfo)
+        }
+        if (userinfo.mobile) {
+          this.$router.push({
+            name: 'diamond520Lottery',
+            query: this.$route.query
+          })
+          return
+        }
+        // this.$router.push({
+        //   name: 'diamond520Lottery',
+        //   query: this.$route.query
+        // })
+        this.photo = image
+        Toast.hide()
+      } catch(e) {
+        Toast.failed('获取用户信息失败', 0, true)
+      }
+    },
     handleInput(event, type) {
       const number = filterNumber(event.target.value)
       this[type] = number
@@ -104,32 +155,68 @@ export default {
       !valid && Toast.info('手机号输入错误，请重新输入')
       return valid
     },
-    handleReqCodeClick() {
+    async handleReqCodeClick() {
       if (!this.isValidPhone()) {
         return
       }
       this.setCountdown()
-      getVerificationCodes()
+      let params = {
+        phone: this.phone
+      }
+      try {
+        Toast.loading('验证码发送中')
+        let res = await getVerificationCodes(params)
+        if (res.code === 0) {
+          Toast.succeed('验证码发送成功')
+          this.verifyKey = res.data.key
+        } else {
+          Toast.failed('未知错误')
+        }
+      } catch(e) {
+        console.log(e)
+        Toast.failed('验证码发送失败')
+      }
     },
     isValidCode() {
       const valid = /^\d{4}$/.test(this.code)
       !valid && Toast.info('验证码错误，请重新输入')
       return valid
     },
-    handleSubmit() {
+    async handleSubmit() {
       if (!this.isValidPhone() || !this.isValidCode()) {
         return
+      }
+      let params = {
+        z: this.z,
+        verification_key: this.verifyKey,
+        verification_code: this.code
+      }
+      Toast.loading('验证中')
+      try {
+        let res = await bindUserPhone(params)
+        if (res.code === 0) {
+          Toast.succeed('验证成功')
+          this.$router.push({
+            name: 'diamond520Lottery',
+            query: this.$route.query
+          })
+        } else {
+          Toast.failed('验证失败', 2000, true)
+        }
+      } catch(e) {
+        console.log(e)
+        Toast.failed('验证失败', 2000, true)
       }
     },
     // 点击获取验证码后设置60秒等待时间
     setCountdown() {
-      this.time = 60
-      this.timer = setInterval(() => {
-        if (this.time === 0) {
-          clearInterval(this.timer)
-          this.timer = null
+      this.waitTime = 60
+      this.waitTimer = setInterval(() => {
+        if (this.waitTime === 0) {
+          clearInterval(this.waitTimer)
+          this.waitTimer = null
         } else {
-          this.time--
+          this.waitTime--
         }
       }, 1000)
     }
@@ -193,6 +280,10 @@ img {
     background-image: url("@{cdnUrl}/dimond520/photo_border.png");
     background-size: 100% 100%;
     background-repeat: no-repeat;
+    img {
+      width: 100%;
+      height: 100%;
+    }
   }
   .phone-verify-group {
     width: 2.65rem;

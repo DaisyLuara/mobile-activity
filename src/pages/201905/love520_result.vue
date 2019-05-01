@@ -16,17 +16,6 @@
       class="success-img"
     >
     <div class="love-rule"/>
-    <div class="sponsor-area">
-      <img
-        :src="`${CDNURL}/dimond520/activity_sponsor.png`"
-        class="sponsor-img"
-      >
-      <p class="activity-company">本活动最终解释权归星视度所有</p>
-      <img
-        :src="`${CDNURL}/dimond520/leaf2.png`"
-        class="leaf-img-2"
-      >
-    </div>
   </div>
 </template>
 
@@ -212,30 +201,6 @@ img {
     background-image: url("@{cdnUrl}/dimond520/love_rule_2.png");
     background-size: 100% 100%;
     margin: 0 auto 0.2rem;
-  }
-  .sponsor-area {
-    position: relative;
-    padding-top: 0.16rem;
-    background-image: url("@{cdnUrl}/dimond520/sponsor_back.png");
-    background-size: 100% 100%;
-    .sponsor-img {
-      width: 1.48rem;
-      margin: 0 auto 0.04rem;
-    }
-    .activity-company {
-      font-size: 0.09rem;
-      line-height: 0.43rem;
-      color: #000;
-      text-align: center;
-      margin: 0;
-    }
-    .leaf-img-2 {
-      position: absolute;
-      top: -0.2rem;
-      left: -0.01rem;
-      width: 0.77rem;
-      height: 0.88rem;
-    }
   }
 }
 </style>
