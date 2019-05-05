@@ -90,7 +90,8 @@ export default {
       code: '',
       waitTimer: null,
       waitTime: 0,
-      verifyKey: ''
+      verifyKey: '',
+      userinfo: null
     }
   },
   computed: {
@@ -122,6 +123,7 @@ export default {
         } else {
           userinfo = this.loginState
         }
+        this.userinfo = userinfo
         if (userinfo.mobile) {
           this.$router.push({
             name: 'diamond520Lottery',
@@ -192,8 +194,11 @@ export default {
       try {
         let res = await bindUserPhone(params)
         if (res.code === 0) {
-          Toast.succeed('验证成功')
-          this.$router.push({
+          Toast.succeed('验证成功', 0, true)
+          // 更新用户手机号信息
+          this.userinfo.mobile = this.phone
+          this.setLoginState(this.userinfo)
+          this.$router.replace({
             name: 'diamond520Lottery',
             query: this.$route.query
           })
