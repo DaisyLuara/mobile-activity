@@ -60,7 +60,7 @@ export default {
   },
   async mounted() {
     if (process.env.NODE_ENV === 'development') {
-      this.sign = 'eyJpdiI6IllFWDU3QWxVdklFXC9kVFArQ2VCS3dRPT0iLCJ2YWx1ZSI6InJpa3I5a0c2dmVZdGVEZHhQa1g4N2c9PSIsIm1hYyI6IjBmMjNhNGIwNzljNWU1Y2ZjOTI3ZmQzNGQxNWQ3OTc1OTIzNzA5ZDkzYzkwNjY5NjZlY2QwODdlZmE5ZmRjNTcifQ=='
+      this.sign = 'eyJpdiI6InZIUnlFc2xVZ05DVm9KXC90eXhLV0R3PT0iLCJ2YWx1ZSI6IkU1eTR5K2JZQ3ErNW9oZ2pzYTVuR2c9PSIsIm1hYyI6ImE1NDg1OGU3YTMxMDU0ZTllNjIzYTM5NGY0NjUyNDJlNDZhMTgwNDBhNWFkM2ZjZDUxYjAzZDc2ZjY2ZTdiNzQifQ=='
     } else {
       this.handleWechatAuth()
     }
@@ -105,7 +105,7 @@ export default {
       if (Cookies.get('sign') === null) {
         let base_url = encodeURIComponent(String(window.location.href))
         let redirct_url =
-          process.env.DIAMOND_API +
+          process.env.WX_API +
           '/wx/officialAccount/oauth?url=' +
           base_url +
           '&scope=snsapi_base'

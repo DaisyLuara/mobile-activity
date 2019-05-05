@@ -15,7 +15,9 @@
       :src="`${CDNURL}/dimond520/upload_success.png`"
       class="success-img"
     >
-    <div class="love-rule"/>
+    <div class="love-rule">
+      <div class="point-list"/>
+    </div>
   </div>
 </template>
 
@@ -201,11 +203,21 @@ img {
     margin: 0 auto 0.3rem;
   }
   .love-rule {
+    position: relative;
     width: 3.28rem;
     height: 5.04rem;
     background-image: url("@{cdnUrl}/dimond520/love_rule_2.png");
     background-size: 100% 100%;
     margin: 0 auto 0.2rem;
+    .point-list {
+      position: absolute;
+      width: 2.64rem;
+      height: 3.25rem;
+      top: 1.4rem;
+      left: 0.32rem;
+      background: #FFF;
+      overflow-y: scroll;
+    }
   }
 }
 </style>
