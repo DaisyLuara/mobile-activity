@@ -200,8 +200,8 @@ img {
     }
     .maowang-code {
       position: absolute;
-      top: 1.15rem;
-      left: 1.96rem;
+      top: 0.925rem;
+      left: 1.71rem;
       width: 0.725rem;
       line-height: 0.19rem;
       color: #FFF;
