@@ -94,7 +94,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["z"]),
+    ...mapGetters(["z", "loginState"]),
     // 提交按钮是否可点击
     submitBtnClickable() {
       return this.phone && this.code
@@ -116,18 +116,11 @@ export default {
       Toast.loading('页面加载中')
       let { id, code, state } = this.$route.query
       try {
-        let {
-          parms,
-          userinfo,
-          belong,
-          oid,
-          image
-        } = await getInfoById(id, code, state)
-        if (!userinfo) {
-          Toast.failed('获取用户信息失败', 0, true)
-          return
-        } else {
+        let { userinfo, image } = await getInfoById(id, code, state)
+        if (userinfo) {
           this.setLoginState(userinfo)
+        } else {
+          userinfo = loginState
         }
         if (userinfo.mobile) {
           this.$router.push({
