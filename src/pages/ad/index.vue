@@ -76,8 +76,8 @@
         您的浏览器不支持video标签.
       </video>
       <img  
-        v-lazy="imgServerUrl+'/vedio_bg.png'"
         v-show="bgshow"
+        v-lazy="imgServerUrl+'/vedio_bg.png'"
         class="bg"
       >
       <a

@@ -1,8 +1,8 @@
 <template>
   <div class="mHome">
-    <router-view v-if="wechat === true && z !== ''" />
+    <router-view v-if="(wechat === true && z !== '') | isPC" />
     <div
-      v-if="wechat !== true"
+      v-if="wechat !== true | !isPC"
       class="wx-remind"
     >
       请在微信中打开
@@ -19,7 +19,8 @@ import BottomBar from "@/pages/m/components/Static/BottomBar";
 import {
   isInWechat,
   NaviToWechatAuth,
-  getUserInfoByCodeAndState
+  getUserInfoByCodeAndState,
+  isPC
 } from "services";
 
 export default {
@@ -35,9 +36,24 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["z"])
+    ...mapGetters(["z"]),
+    // excludeCases: function() {
+    //   if (this.$route.name === "6d7143ab847f2d24c131") {
+    //     return true;
+    //   }
+    //   return false;
+    // },
+    isPC() {
+      return isPC();
+    }
   },
   created() {
+    if (isPC()) {
+      this.setLoginState({
+        z: "c1le63f9b1e98ff02aa40d159b8e6cb25d4fuy"
+      });
+      return;
+    }
     if (isInWechat() === true) {
       this.wechat = true;
       if (this.$route.name === "mSite404") {

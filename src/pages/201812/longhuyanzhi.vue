@@ -42,7 +42,7 @@
           <img 
             :src="base
               + 'click.png'+
-            this.$qiniuCompress()"
+              this.$qiniuCompress()"
           >
         </a>
       </div>
