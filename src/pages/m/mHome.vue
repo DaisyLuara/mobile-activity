@@ -48,19 +48,19 @@ export default {
     }
   },
   created() {
+    if (isInWechat() === true) {
+      this.wechat = true;
+    }
     if (isPC()) {
       this.setLoginState({
         z: "c1le63f9b1e98ff02aa40d159b8e6cb25d4fuy"
       });
       return;
     }
-    if (isInWechat() === true) {
-      this.wechat = true;
-      if (this.$route.name === "mSite404") {
-        return;
-      }
-      this.handleLogin();
+    if (this.$route.name === "mSite404") {
+      return;
     }
+    this.handleLogin();
   },
   methods: {
     ...mapMutations({
