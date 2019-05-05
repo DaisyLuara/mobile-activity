@@ -22,7 +22,9 @@
           :key="index"
           class="area-item"
         >
-          <div class="point-area">{{ item.area }}</div>
+          <div class="point-area-wrap">
+            <div class="point-area">{{ item.area }}</div>
+          </div>
           <div
             v-for="(point, index) in item.points"
             :key="index"
@@ -473,12 +475,25 @@ img {
       .area-item {
         border-bottom: 1px dashed #000;
         margin-bottom: 0.15rem;
-        .point-area {
-          padding: 0 0.07rem;
-          line-height: 0.26rem;
-          font-size: 0.15rem;
-          border: 1px solid #010101;
-          margin-bottom: 0.1rem;
+        .point-area-wrap {
+          overflow: hidden;
+          .point-area {
+            float: left;
+            padding: 0 0.07rem;
+            line-height: 0.26rem;
+            font-size: 0.15rem;
+            border: 1px solid #010101;
+            margin-bottom: 0.1rem;
+          }
+        }
+        .point-item {
+          margin-bottom: 0.18rem;
+          font-size: 0.1rem;
+          color: #010101;
+          .point-name {
+            margin-bottom: 0.06rem;
+            font-weight: bold;
+          }
         }
       }
     }
