@@ -48,19 +48,19 @@ import { mapGetters, mapMutations } from "vuex";
 const CDN_URL = process.env.CDN_URL;
 export default {
   props: {
-    style_data: {
+    styleData: {
       type: Object,
       required: false,
       default: ()=>{
         return {clip: '', used: '', code: ''}
       }
     },
-    coupon_img: {
+    couponImg: {
       type: String,
       required: true,
       default: ''
     },
-    qrcode_img: {
+    qrcodeImg: {
       type: String,
       required: true,
       default: ''
