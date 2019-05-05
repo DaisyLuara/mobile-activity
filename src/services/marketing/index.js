@@ -8,3 +8,6 @@ export * from './coupon'
 
 // 游戏信息
 export * from './game'
+
+// 520钻石相关接口
+export * from './diamond'

@@ -52,6 +52,10 @@ const formatTimestamp = (data, flag) => {
   return todayStartTime
 }
 
+// 过滤输入 只保留数字
+const filterNumber = (str) => {
+  return str.match(/\d*/g).join('')
+}
 
 const isPC = () => { //是否为PC端
   const userAgentInfo = navigator.userAgent;
@@ -68,4 +72,4 @@ const isPC = () => { //是否为PC端
   return flag;
 }
 
-export { isInWechat, randomIntNum, validatePhone, dateFormat, formatTimestamp, isPC }
+export { isInWechat, randomIntNum, validatePhone, dateFormat, formatTimestamp, filterNumber, isPC }
