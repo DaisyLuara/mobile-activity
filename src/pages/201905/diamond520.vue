@@ -120,7 +120,7 @@ export default {
         if (userinfo) {
           this.setLoginState(userinfo)
         } else {
-          userinfo = loginState
+          userinfo = this.loginState
         }
         if (userinfo.mobile) {
           this.$router.push({
@@ -137,6 +137,7 @@ export default {
         this.photo = image
         Toast.hide()
       } catch(e) {
+        console.log(e)
         Toast.failed('获取用户信息失败', 0, true)
       }
     },
