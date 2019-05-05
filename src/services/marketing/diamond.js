@@ -29,7 +29,7 @@ fetchWithToken.interceptors.response.use(
       }
     } else {
       return {
-        code: 0,
+        code: 0,  
         data: response.data
       }
     }
@@ -118,7 +118,7 @@ const getLoveInfo = (args) => {
 // 请求手机验证码
 const getVerificationCodes = (args) => {
   return fetchWithToken({
-    url: '/verificationCodes',
+    url: '/arMember/verificationCodes',
     method: 'post',
     data: args
   })

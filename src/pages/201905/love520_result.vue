@@ -16,7 +16,23 @@
       class="success-img"
     >
     <div class="love-rule">
-      <div class="point-list"/>
+      <div class="point-list">
+        <div
+          v-for="(item, index) in pointList"
+          :key="index"
+          class="area-item"
+        >
+          <div class="point-area">{{ item.area }}</div>
+          <div
+            v-for="(point, index) in item.points"
+            :key="index"
+            class="point-item"
+          >
+            <div class="point-name">{{ point.name }}</div>
+            <div class="point-location">{{ point.location }}</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -52,7 +68,241 @@ export default {
       fullWidth: 254,
       fullHeight: 530,
       photoWidth: 198,
-      photoHeight: 353
+      photoHeight: 353,
+      pointList: [
+        {
+          area: '长宁',
+          points: [
+            {
+              name: '长宁来福士',
+              location: '长宁路1123号'
+            },
+            {
+              name: '金石盟门店（中山公园龙之梦店）',
+              location: '长宁区长宁路1018号龙之梦购物广场1楼1022号'
+            }
+          ]
+        },
+        {
+          area: '杨浦',
+          points: [
+            {
+              name: '控江旭辉',
+              location: '控江路2028号'
+            }
+          ]
+        },
+        {
+          area: '徐汇',
+          points: [
+            {
+              name: '上海优幕星天地影城',
+              location: '上海市徐汇区上中西路280号4楼403室'
+            },
+            {
+              name: '巨影国际影城',
+              location: '上海市徐汇区吴中路52号7楼'
+            },
+            {
+              name: '太禾松江店',
+              location: '上海市松江区九峰路118号平高广场四层'
+            },
+            {
+              name: '佰伽乐大光明新南店',
+              location: '上海市松江区新南路1号绿地金御广场4楼'
+            },
+            {
+              name: 'DFC影院',
+              location: '上海市松江区新松江路1277号4楼'
+            },
+            {
+              name: '松江左岸影城',
+              location: '松江区松汇中路568号鹿都国际购物广场F4'
+            },
+            {
+              name: '松江五龙商业广场',
+              location: '上海市松江区光星路1399号'
+            },
+            {
+              name: 'DFC影院',
+              location: '上海市松江区光星路1399号3楼'
+            },
+            {
+              name: '金石盟门店（松江旗舰店）',
+              location: '松江区中山中路193~197号'
+            }
+          ]
+        },
+        {
+          area: '青浦',
+          points: [
+            {
+              name: '上影青浦影城',
+              location: '上海市青浦区公园东路1289弄富绅商业中心西4栋2楼'
+            },
+            {
+              name: '青浦永乐1店',
+              location: '上海市青浦区青松路37号'
+            },
+            {
+              name: '青浦永乐2店',
+              location: '上海市青浦区青湖东路900号3楼'
+            },
+            {
+              name: '金石盟门店（青浦吾悦店）',
+              location: '青浦区淀山湖大道218号1号门1F-006-1'
+            },
+            {
+              name: '金石盟门店（青浦青安路店）',
+              location: '青浦区青安路19-23号'
+            }
+          ]
+        },
+        {
+          area: '普陀',
+          points: [
+            {
+              name: '德信影城巴黎春天店',
+              location: '上海市普陀区金沙江路1685号5楼'
+            },
+            {
+              name: '上海星逸国际影城',
+              location: '上海市普陀区武威路1118号（白丽广场4楼）'
+            }
+          ]
+        },
+        {
+          area: '浦东新区',
+          points: [
+            {
+              name: '红石影院',
+              location: '浦东新区惠南镇东门大街200号浦商百货4楼'
+            },
+            {
+              name: '翰金影城',
+              location: '上海市浦东新区浦建路15号1层-b区'
+            },
+            {
+              name: '金石盟门店（惠南店）',
+              location: '浦东新区惠南镇东门大街291号'
+            }
+          ]
+        },
+        {
+          area: '闵行',
+          points: [
+            {
+              name: '上影国际影城东川店',
+              location: '上海市闵行区东川路2088号3层-31商铺'
+            },
+            {
+              name: '华彩弘歌鑫都影城',
+              location: '上海市闵行区鑫都路2538弄1号楼3层'
+            },
+            {
+              name: '7+影城',
+              location: '上海市闵行区繁兴路399弄1号华漕生活馆3楼 影院正门'
+            },
+            {
+              name: '太禾浦江店',
+              location: '上海市闵行区陈行公路2688号OMALL华侨城商业中心F4'
+            },
+            {
+              name: '太禾江园店',
+              location: '上海市闵行区浦锦路309弄6号B1层06-B'
+            },
+            {
+              name: '颛桥万达',
+              location: '颛兴东路1559号'
+            },
+            {
+              name: '七宝万科',
+              location: '闵行区漕宝路3366号L七宝万科广场'
+            },
+            {
+              name: 'CGV影城',
+              location: '闵行区漕宝路3366号L七宝万科广场5层'
+            },
+            {
+              name: '金石盟门店（涟泉大江户店）',
+              location: '闵行区莘福路288号2#濂泉大江户'
+            },
+            {
+              name: '金石盟门店（七宝万科店）',
+              location: '闵行区漕宝路3366号L七宝万科广场1层L148号'
+            }
+          ]
+        },
+        {
+          area: '嘉定',
+          points: [
+            {
+              name: '中影嘉定影城',
+              location: '上海市嘉定区胜竹路2050号三楼'
+            },
+            {
+              name: '嘉定大地影院',
+              location: '嘉定区清河路罗宾森广场四楼'
+            },
+            {
+              name: '金石盟门店（嘉定店）',
+              location: '嘉定区清河路100弄1号'
+            }
+          ]
+        },
+        {
+          area: '黄浦',
+          points: [
+            {
+              name: '凯德晶萃',
+              location: '徐家汇路268号'
+            },
+            {
+              name: '兜约',
+              location: '马当路388号复兴Soho一层D108'
+            }
+          ]
+        },
+        {
+          area: '虹口',
+          points: [
+            {
+              name: '虹口龙之梦',
+              location: '西江湾路388号'
+            }
+          ]
+        },
+        {
+          area: '崇明',
+          points: [
+            {
+              name: '崇明环球国际影城',
+              location: '崇明区堡镇中路193号'
+            },
+            {
+              name: '金石盟门店（崇明堡镇店）',
+              location: '崇明区堡镇中路79号'
+            },
+            {
+              name: '金石盟门店（崇明南门店）',
+              location: '崇明区城桥镇八一路199号'
+            }
+          ]
+        },
+        {
+          area: '宝山',
+          points: [
+            {
+              name: 'SFC影城-淞南店',
+              location: '宝山区长江西路380号1楼 影院票台左右两侧'
+            },
+            {
+              name: '	宝山U天地',
+              location: '美健路829号'
+            }
+          ]
+        }
+      ]
     }
   },
   async mounted() {
@@ -216,7 +466,21 @@ img {
       top: 1.4rem;
       left: 0.32rem;
       background: #FFF;
+      color: #000;
       overflow-y: scroll;
+      padding: 0.07rem 0.22rem 0.07rem 0.07rem;
+      box-sizing: border-box;
+      .area-item {
+        border-bottom: 1px dashed #000;
+        margin-bottom: 0.15rem;
+        .point-area {
+          padding: 0 0.07rem;
+          line-height: 0.26rem;
+          font-size: 0.15rem;
+          border: 1px solid #010101;
+          margin-bottom: 0.1rem;
+        }
+      }
     }
   }
 }
