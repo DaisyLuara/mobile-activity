@@ -82,7 +82,7 @@
         </div>
       </div>
       <img
-        :src="`${CDNURL}/dimond520/love_rule.png`"
+        :src="`${CDNURL}/dimond520/love_rule_new.png`"
         class="love-rule"
       >
     </div>
