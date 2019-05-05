@@ -2,18 +2,20 @@
   <div class="theme">
     <img 
       :src="themeImageUrl" 
-      class="main-img">
+      class="main-img"
+    >
     <div 
       v-for="(item, index) in themeActItems" 
       :key="index" 
-      class="theme-item-wrapper">
-      <ThemeVoteItem/>
+      class="theme-item-wrapper"
+    >
+      <ThemeVoteItem />
     </div>
     <div class="activity">
-      <div class="title"/>
-      <div class="desc"/>
+      <div class="title" />
+      <div class="desc" />
     </div>
-    <ActivityThemeGameBottom/>
+    <ActivityThemeGameBottom />
   </div>
 </template>
 

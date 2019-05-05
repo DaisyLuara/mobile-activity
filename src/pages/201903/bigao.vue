@@ -21,7 +21,6 @@
           class="note"
         >
       </div>
-
     </div>
     <img
       :src="base + 'di.png'"

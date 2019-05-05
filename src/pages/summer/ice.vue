@@ -1,61 +1,76 @@
 <template>
   <div 
     id="phoneContent" 
-    class="phone-content">
+    class="phone-content"
+  >
     <canvas 
       id="canvas" 
-      class="canvas"/>
+      class="canvas"
+    />
     <img 
       id="photo" 
       class="photo" 
-      src="">
+      src=""
+    >
     <div 
       v-show="mask" 
-      class="mask">
+      class="mask"
+    >
       <div 
         id="ice" 
-        class="ice_all">
+        class="ice_all"
+      >
         <div class="ice-drop">
           <div 
             v-for="(item,index) in 30" 
             :key="item.id" 
             :style="'left:'+ (index%5*27-20) +'%;top:'+ (Math.floor(index/5)*20-300) +'%'" 
-            class="run1">
+            class="run1"
+          >
             <img 
               :src="IMGURL + '/ice' + item%3 + '.png'" 
-              :style="'transform:rotate(' + Math.ceil(Math.random()*360) + 'deg)'">
+              :style="'transform:rotate(' + Math.ceil(Math.random()*360) + 'deg)'"
+            >
           </div>
           <div 
             v-for="(item,index) in 30" 
             :key="item.id" 
             :style="'left:'+ (index%5*27) +'%;top:'+ (Math.floor(index/5)*20-350) +'%'" 
-            class="run2">
+            class="run2"
+          >
             <img 
               :src="IMGURL + '/ice' + item%3 + '.png'" 
-              :style="'transform:rotate(-' + Math.ceil(Math.random()*360) + 'deg)'">
+              :style="'transform:rotate(-' + Math.ceil(Math.random()*360) + 'deg)'"
+            >
           </div>
         </div>
-        <div class="over-ice"/>
+        <div class="over-ice" />
         <a 
           v-show="text" 
-          class="slide"><img :src="IMGURL + '/note.png'"></a>
+          class="slide"
+        ><img :src="IMGURL + '/note.png'"></a>
       </div>
       <div class="water">
         <img 
           :src="IMGURL + '/water_ice1.png'" 
-          class="ice1">
+          class="ice1"
+        >
         <img 
           :src="IMGURL + '/water_ice2.png'" 
-          class="ice2">
+          class="ice2"
+        >
         <img 
           :src="IMGURL + '/ice_juice.png'" 
-          class="juice">
+          class="juice"
+        >
         <img 
           :src="IMGURL + '/fruit_bottom.png'" 
-          class="fruit">
+          class="fruit"
+        >
         <img 
           :src="IMGURL + '/water_cover.png'" 
-          class="cover">
+          class="cover"
+        >
       </div>
     </div>
   </div>

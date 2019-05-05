@@ -1,34 +1,42 @@
 <template>
   <div 
     id="tea" 
-    class="tea-main">
-    <div class="tea-content" >
+    class="tea-main"
+  >
+    <div class="tea-content">
       <img 
         :src="imgPath + 'bg.png'" 
-        class="bg">
+        class="bg"
+      >
       <img 
         :src="imgPath + 'cover.png'" 
-        class="cover">
+        class="cover"
+      >
       <img 
         :src="imgPath + 'shadow.png'" 
-        class="shadow">
+        class="shadow"
+      >
       <div class="picture">
         <img 
           :src="photo" 
-          :class="{pImg:true,slider:slider}">
+          :class="{pImg:true,slider:slider}"
+        >
         <img 
           v-show="border" 
           :src="imgPath + 'border.png'" 
-          class="border">
+          class="border"
+        >
       </div>
       <img 
         v-show="border" 
         :src="imgPath + 'look.png'" 
-        class="look">
+        class="look"
+      >
       <img 
         v-show="border" 
         :src="imgPath + 'note.png'" 
-        class="note">
+        class="note"
+      >
     </div>
   </div>
 </template>

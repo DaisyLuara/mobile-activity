@@ -21,7 +21,6 @@
       class="logo"
     >
     <div class="main">
-
       <div class="picture">
         <img
           :src="base + 'frame.png'"

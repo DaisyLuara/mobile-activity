@@ -47,7 +47,6 @@
       :src="baseUrl + 'bottom1.png' + this.$qiniuCompress()"
       class="bottom"
     >
-
   </div>
 </template>
 

@@ -2,39 +2,49 @@
   <div class="wallet">
     <img 
       :src="imageHost + 'bg_blue_2x.png'" 
-      class="header-bg">
+      class="header-bg"
+    >
     <div class="header">
       <img 
         :src="imageHost + 'coin_2x.png'" 
-        class="coin-bg">
+        class="coin-bg"
+      >
       <img 
         :src="imageHost + 'sixsix_2x.png'" 
-        class="title-big">
+        class="title-big"
+      >
       <img 
         :src="imageHost + 'title_2x.png'" 
-        class="title-small">
+        class="title-small"
+      >
     </div>
     <div class="wallet-area">
       <img 
         :src="imageHost + 'wallet_2x.png'" 
-        class="wallet-bg">
+        class="wallet-bg"
+      >
       <img 
         :src="imageHost + 'wallet_title_2x.png'" 
-        class="wallet-title">
+        class="wallet-title"
+      >
       <div class="coupon-list">
         <img 
           :src="imageHost + 'coupon1_2x.png'" 
-          class="coupon-item">
+          class="coupon-item"
+        >
         <img 
           :src="imageHost + 'coupon2_2x.png'" 
-          class="coupon-item">
+          class="coupon-item"
+        >
         <img 
           :src="imageHost + 'coupon2_2x.png'" 
-          class="coupon-item">
+          class="coupon-item"
+        >
       </div>
       <img 
         :src="imageHost + 'actiview_2x.png'" 
-        class="brand">
+        class="brand"
+      >
     </div>
   </div>
 </template>

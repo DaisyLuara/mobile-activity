@@ -2,46 +2,56 @@
   <div
     id="feng-root" 
     :style="style.root" 
-    class="feng-wrap">
+    class="feng-wrap"
+  >
     <div 
       id="mapContainer" 
-      class="container"/>
+      class="container"
+    />
     <div 
       class="viewmode-group btn-group" 
-      data-toggle="buttons"/>
+      data-toggle="buttons"
+    />
     <div 
       ref="detail"
       class="detail-wrap" 
       @touchstart="handleTouchStart"
       @touchmove="handleTouchMove"
-      @touchend="handleTouchEnd">
+      @touchend="handleTouchEnd"
+    >
       <img 
         v-if="liandongStatus === true" 
         :src="imgUrl + 'info.png'" 
         class="detail-button" 
-        @click="ldWindowOpen()">
+        @click="ldWindowOpen()"
+      >
       <div 
         class="detail-arrow" 
-        @click="handleArrow">
+        @click="handleArrow"
+      >
         <img 
           v-show="detailScrollToTop === false" 
           :src="imgUrl + 'arrow-up.png'" 
-          class="arrow-inner" >
+          class="arrow-inner"
+        >
         <img 
           v-show="detailScrollToTop === true" 
           :src="imgUrl + 'arrow-down.png'" 
-          class="arrow-inner" >
+          class="arrow-inner"
+        >
       </div>
       <div class="detail-title">
         <span class="title-text">{{ displayTitle }}</span>
         <img 
           v-if="currentAct === 0" 
           :src="imgUrl + 'redpack-list.png'" 
-          class="title-img" >
+          class="title-img"
+        >
         <img 
           v-if="currentAct === 1" 
           :src="imgUrl + 'air-list.png'" 
-          class="title-img" >
+          class="title-img"
+        >
       </div>
       <div class="detail-next">
         <span class="next-inner">
@@ -54,28 +64,34 @@
       <div class="detail-into">
         {{ displayContext }}
       </div>
-      <div class="detail-div"/>
+      <div class="detail-div" />
       <div class="detail-img"> 
         <img 
           :src="act[currentAct].img" 
-          class="inner-img">
+          class="inner-img"
+        >
       </div>
     </div>
     <img 
       :src="imgUrl + 'list-button.png'" 
       class="list-change" 
-      @click="handleNaviToMini">
+      @click="handleNaviToMini"
+    >
     <div 
       v-if="rpShow === true" 
       class="rp" 
-      @click="handleRpClose">
+      @click="handleRpClose"
+    >
       <RedPackRain />
     </div>
     <div 
       v-if="ldWindow === true" 
-      class="liandong-wrap">
+      class="liandong-wrap"
+    >
       <div class="ld-context">
-        <div class="ld-title">联动说明</div>
+        <div class="ld-title">
+          联动说明
+        </div>
         <div class="ld-content">
           恭喜找到
           <span class="floor-name">
@@ -91,7 +107,8 @@
       <img 
         :src="imgUrl + 'close.png'" 
         class="ld-close" 
-        @click="ldWindowClose" >
+        @click="ldWindowClose"
+      >
     </div>
   </div>
 </template>
@@ -208,6 +225,7 @@ export default {
       if (this.address[this.currentMarker].hasOwnProperty('nextActIndex')) {
         return this.address[this.address[this.currentMarker].nextActIndex].name
       }
+      return ''
     }
   },
   mounted() {

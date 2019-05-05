@@ -1,21 +1,26 @@
 <template>
   <div 
     :style="style.root"
-    class="hero-content" >
+    class="hero-content"
+  >
     <img
       :src="imgServerUrl + '/pages/hero/bg.jpg'"
       class="bg"
-      alt="">
+      alt=""
+    >
     <img  
       v-if="resultImgUrl !== null"
       :src="resultImgUrl + this.$qiniuCompress()" 
       class="photo"
-      alt="">
+      alt=""
+    >
     <div 
-      class="jiantou">
+      class="jiantou"
+    >
       <img 
         :src="imgServerUrl + '/pages/hero/arrow.gif'"
-        alt="" >
+        alt=""
+      >
     </div>
   </div>
 </template>

@@ -1,22 +1,28 @@
 <template>
   <div
     :style="style.root"
-    :class="{content:true,iphoneX:iphoneX}">
+    :class="{content:true,iphoneX:iphoneX}"
+  >
     <div
-      class="picture">
+      class="picture"
+    >
       <img 
         :src="base + 'kuang.png'"
-        class="frame">
+        class="frame"
+      >
       <img
         :src="photo + this.$qiniuCompress()"
-        class="photo">
+        class="photo"
+      >
     </div>
     <img
       :src="base + 'save.png'"
-      class="note">
+      class="note"
+    >
     <img
       :src="base + 'di.png'"
-      :class="{light:!absolute,absolute:absolute}">
+      :class="{light:!absolute,absolute:absolute}"
+    >
   </div>
 </template>
 <script>

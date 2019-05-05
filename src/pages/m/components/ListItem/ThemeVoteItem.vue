@@ -14,11 +14,15 @@
         @click="handlePhotoPrivew"
       >
     </div>
-    <div class="vote-title">{{ computedView }} 票</div>
+    <div class="vote-title">
+      {{ computedView }} 票
+    </div>
     <div
       class="vote-button"
       @click="handleVote"
-    >投票</div>
+    >
+      投票
+    </div>
   </div>
 </template>
 

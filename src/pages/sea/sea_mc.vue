@@ -1,35 +1,44 @@
 <template>
   <div 
     :class="{content:true,addbg:Boolean(photo)}" 
-    :style="style.root">
+    :style="style.root"
+  >
     <div class="one">
       <img 
         :src="photo" 
-        class="mImg">
+        class="mImg"
+      >
       <img 
         v-show="Boolean(photo)" 
         :src="baseUrl + 'save.png'" 
-        class="save">
+        class="save"
+      >
     </div>
     <div 
       v-show="Boolean(photo)" 
-      class="two">
+      class="two"
+    >
       <img 
         :src="baseUrl + 'titte.png'" 
-        class="title">
+        class="title"
+      >
       <div class="tabs">
         <div class="tab">
           <a 
             v-for="(item,index) in Object.keys(tabs)" 
             :key="item.id" 
             class="atab" 
-            @click.prevent="tabClick(item)"><img :src="baseUrl + (index+1) +'.png'"></a>
+            @click.prevent="tabClick(item)"
+          ><img :src="baseUrl + (index+1) +'.png'"></a>
         </div>
         <div 
           v-for="(item,index) in tabs" 
           v-show="tabs[index]" 
           :key="item.id" 
-          class="tab_content"><img :src="baseUrl + index + '.png'"></div>
+          class="tab_content"
+        >
+          <img :src="baseUrl + index + '.png'">
+        </div>
       </div>
     </div>
   </div>

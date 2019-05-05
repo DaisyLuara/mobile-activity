@@ -1,24 +1,30 @@
 <template>
   <div
     :style="style.root" 
-    class="root">
+    class="root"
+  >
     <img 
       :src="baseUrl + 'ktv_bg.jpg?v=111'"
-      class="bg" >
+      class="bg"
+    >
     <div 
-      class="top">
+      class="top"
+    >
       <img  
         :src="baseUrl + 'top.png'"
-        class="light" >
+        class="light"
+      >
     </div>
     <div 
       :style="style.photeHei"
-      class="photo">
+      class="photo"
+    >
       <img 
         v-if="photoUrl !== null" 
         :src="photoUrl + this.$qiniuCompress()" 
-        alt="">
-        <!-- 
+        alt=""
+      >
+      <!-- 
         <img 
           :src="baseUrl + 'gif.png'" > 
       -->

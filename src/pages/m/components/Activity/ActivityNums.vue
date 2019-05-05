@@ -24,6 +24,7 @@ export default {
       if (this.nums > 10000) {
         return (this.nums / 10000).toFixed(1) + "W";
       }
+      return 0;
     }
   }
 };

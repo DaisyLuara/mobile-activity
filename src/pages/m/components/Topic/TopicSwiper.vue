@@ -1,11 +1,13 @@
 <template>
   <div 
     v-if="imgUrls.length > 0" 
-    class="mts">
+    class="mts"
+  >
     <md-swiper 
       ref="swiper" 
       :is-prevent="false" 
-      class="swiper">
+      class="swiper"
+    >
       <md-swiper-item
         v-for="(item, $index) in imgUrls"
         :key="$index"
@@ -13,7 +15,8 @@
       >
         <img 
           :src="item.image" 
-          class="slide-pic">
+          class="slide-pic"
+        >
       </md-swiper-item>
     </md-swiper>
   </div>

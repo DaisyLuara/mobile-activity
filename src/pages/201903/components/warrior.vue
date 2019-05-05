@@ -13,7 +13,6 @@
         class="bg"
       >
       <div class="box-group">
-
         <div class="boxs">
           <img
             :src="base + 'box.png'"
@@ -117,11 +116,13 @@
               class="qrImg"
             >
           </div>
-          <p class="qrcode">{{ qrcode }}</p>
+          <p class="qrcode">
+            {{ qrcode }}
+          </p>
         </div>
       </div>
     </div>
-    <canvas id="canvas"/>
+    <canvas id="canvas" />
   </div>
 </template>
 <script>

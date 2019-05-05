@@ -1,7 +1,8 @@
 <template>
   <div 
     v-if="show" 
-    class="ptp">
+    class="ptp"
+  >
     <img :src="imgUrl">
   </div>
 </template>

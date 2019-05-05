@@ -1,51 +1,62 @@
 <template>
   <div 
     id="warp" 
-    class="warp">
+    class="warp"
+  >
     <audio 
       id="voice" 
       autobuffer 
       autoloop 
       loop 
       autoplay 
-      hidden>
+      hidden
+    >
       <source :src="audioUrl+'xiha.mp3'">
     </audio>
     <img 
       id="mbtn" 
       :src="imgUrl+'kaide/yinyue.png'" 
       class="mplay" 
-      @click="playOrNot">
+      @click="playOrNot"
+    >
     <div class="top">
       <img 
         :src="imgUrl+'hiphop/title.png'" 
-        class="title1">
+        class="title1"
+      >
       <img 
         :src="imgUrl+'hiphop/title2.png'" 
-        class="title2">
+        class="title2"
+      >
     </div>
     <div class="main">
       <img 
         :src="imgUrl+'hiphop/cloud.png'" 
-        class="cloud">
+        class="cloud"
+      >
       <img 
         :src="imgUrl+'hiphop/jian.png'" 
-        class="jian">
+        class="jian"
+      >
       <img 
         :src="imgUrl+'hiphop/guang.png'" 
-        class="guang">
+        class="guang"
+      >
       <img 
         :src="imgUrl+'hiphop/jpgbg.png'" 
-        class="jpgbg">
+        class="jpgbg"
+      >
       <img 
         id="mImg" 
         :src="photo" 
-        class="photo">
+        class="photo"
+      >
     </div>
     <img 
       v-show="Boolean(photo)" 
       :src="imgUrl+'hiphop/save.png'" 
-      class="press">
+      class="press"
+    >
   </div>
 </template>
 <script>

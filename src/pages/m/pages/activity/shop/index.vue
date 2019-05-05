@@ -1,6 +1,6 @@
 <template>
   <div class="shop-act">
-    <MyTrendsSwiper/>
+    <MyTrendsSwiper />
     <ul
       v-infinite-scroll="loadMore"
       class="activity-wrapper"
@@ -13,23 +13,30 @@
         class="item-wrapper"
         @click="handleNaviToTrendDetail(item)"
       >
-        <ActivityNums :nums="Number(item.nums)"/>
+        <ActivityNums :nums="Number(item.nums)" />
         <img 
           v-if="bindType(item.type) !== ''" 
           :src="bindType(item.type)" 
-          class="type">
+          class="type"
+        >
         <img 
           :src="item.image" 
-          class="main">
-        <div class="title">{{ item.title }}</div>
-        <div class="time">{{ computedDate(item.sdate) }} 至 {{ computedDate(item.edate) }}</div>
+          class="main"
+        >
+        <div class="title">
+          {{ item.title }}
+        </div>
+        <div class="time">
+          {{ computedDate(item.sdate) }} 至 {{ computedDate(item.edate) }}
+        </div>
         <img 
           :src="coverShadow" 
-          class="time-shadow">
+          class="time-shadow"
+        >
       </div>
     </ul>
-    <div class="loadmore-add"/>
-    <div class="loadmore-add"/>
+    <div class="loadmore-add" />
+    <div class="loadmore-add" />
   </div>
 </template>
 

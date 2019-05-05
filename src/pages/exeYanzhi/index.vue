@@ -11,7 +11,9 @@
     <h4
       class="h4"
       data-v-index
-    >输入手机号<br>领取我的颜民币</h4>
+    >
+      输入手机号<br>领取我的颜民币
+    </h4>
     <div class="form">
       <input
         id="tel"

@@ -1,7 +1,7 @@
 <template>
   <div class="mall">
     <p>{{ errorMessage }}</p>
-    <TabBar/>
+    <TabBar />
     <mt-loadmore
       ref="loadmore"
       :bottom-distance="bindBottomDistance"
@@ -13,30 +13,36 @@
       <div 
         v-for="(item, index) in list" 
         :key="index" 
-        class="coupon-wrapper">
+        class="coupon-wrapper"
+      >
         <CouponItem 
           :coupon-type="couponType" 
-          :coupon-data="item"/>
+          :coupon-data="item"
+        />
       </div>
       <div 
         slot="top" 
-        class="mint-loadmore-top">
+        class="mint-loadmore-top"
+      >
         <span 
           v-show="topStatus !== 'loading'" 
-          :class="{ 'rotate': topStatus === 'drop' }">↓</span>
+          :class="{ 'rotate': topStatus === 'drop' }"
+        >↓</span>
         <span v-show="topStatus === 'loading'">Loading...</span>
       </div>
       <div 
         slot="bottom" 
-        class="mint-loadmore-bottom">
+        class="mint-loadmore-bottom"
+      >
         <span 
           v-show="bottomStatus !== 'loading'" 
-          :class="{ 'rotate': topStatus === 'drop' }">释放加载更多</span>
+          :class="{ 'rotate': topStatus === 'drop' }"
+        >释放加载更多</span>
         <span v-show="bottomStatus === 'loading'">Loading...</span>
       </div>
     </mt-loadmore>
-    <div class="loadmore-add"/>
-    <div class="loadmore-add"/>
+    <div class="loadmore-add" />
+    <div class="loadmore-add" />
   </div>
 </template>
 

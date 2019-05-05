@@ -1,20 +1,25 @@
 <template>
   <div 
     :style="style.root" 
-    class="warp">
+    class="warp"
+  >
     <img 
       :src="base + 'bg.png?v=1' + this.$qiniuCompress()" 
-      class="bg">
+      class="bg"
+    >
     <a 
       href="http://papi.xingstation.com/api/s/Y70" 
-      class="tolink"/>
+      class="tolink"
+    />
     <div class="main">
       <img 
         :src="base + 'tu.png' + this.$qiniuCompress()" 
-        class="frame">
+        class="frame"
+      >
       <img 
         :src="photo" 
-        class="photo">
+        class="photo"
+      >
     </div>
   </div>
 </template>

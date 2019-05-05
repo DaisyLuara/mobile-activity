@@ -20,7 +20,9 @@
       <p
         v-show="font1"
         class="font"
-      >发送成功</p>
+      >
+        发送成功
+      </p>
     </div>
     <!-- 合成图片 -->
     <img

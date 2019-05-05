@@ -3,41 +3,50 @@
     <img 
       :src="imgServerUrl + '/ad_0731.jpeg'" 
       class="psbh-img" 
-      alt="">
+      alt=""
+    >
     <div class="photo-content">
       <div class="boots-wrap">
         <div class="slide-wrap pos-common">
           <img 
             :src="imgServerUrl + '/boot-line.png'" 
-            class="boot-line pos-common">
+            class="boot-line pos-common"
+          >
           <img 
             :src="imgServerUrl + '/boot-text.png'" 
-            class="boot-text pos-common">
+            class="boot-text pos-common"
+          >
           <img 
             :src="imgServerUrl + '/gesture-img.png'" 
-            class="gesture-img pos-common">
-          <div class="boot-img"/>
+            class="gesture-img pos-common"
+          >
+          <div class="boot-img" />
         </div>
       </div>
       <div class="photo-wrap">
         <img 
           :src="imgServerUrl + '/photo_frame.png'" 
-          class="envelope-bg">
+          class="envelope-bg"
+        >
         <img 
           :src="photo" 
-          class="photo-img">
+          class="photo-img"
+        >
         <div class="photo-cover">
           <img 
             :src="imgServerUrl + '/photo-cover2.png'" 
-            class="cover-img">
+            class="cover-img"
+          >
         </div>
         <img 
           :src="imgServerUrl + '/save-img3.png'" 
-          class="save-img">
+          class="save-img"
+        >
       </div>
       <img 
         :src="imgServerUrl + '/slogan.png'" 
-        class="slogan">
+        class="slogan"
+      >
     </div>
     <!-- <img class="psbh-img" :src="imgServerUrl + '/ad_0622_3.jpg'" alt="">
     <img class="psbh-img" :src="imgServerUrl + '/ad_0622_4.jpg'" alt=""> -->
@@ -53,7 +62,6 @@
     <!-- <img class="psbh-img" :src="imgServerUrl + '/ad_0526_3.jpg'" alt="">
     <img class="psbh-img" :src="imgServerUrl + '/ad_0526_4.jpg'" alt="">
     <img class="psbh-img" :src="imgServerUrl + '/ad_0526_5.jpg'" alt=""> -->
-
   </div>
 </template>
 <script>

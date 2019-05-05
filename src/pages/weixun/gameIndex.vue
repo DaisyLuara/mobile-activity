@@ -44,7 +44,8 @@
     <!-- game -->
     <div
       :style="style.game" 
-      class="game-div">
+      class="game-div"
+    >
       <img
         :src="serverUrl + 'bottom_2.png'" 
         class="game-bg"
@@ -53,7 +54,8 @@
       <!-- 录音 -->
       <div 
         v-show="!status.shouldResultShow"
-        class="bg-contianer">
+        class="bg-contianer"
+      >
         <div class="logo">
           <img :src="serverUrl + 'logo.png'">
         </div>
@@ -96,7 +98,9 @@
             class="innerBg"
           >
           <div class="innerText">
-            <div class="textline1">撩人的声音</div>
+            <div class="textline1">
+              撩人的声音
+            </div>
             <div class="textline2">
               <span v-show="control.commaCount % 3 === 0">正在分析中.</span>
               <span v-show="control.commaCount % 3 === 1">正在分析中..</span>
@@ -137,7 +141,8 @@
       <div
         v-show="status.shouldResultShow"
         id="resultcard"
-        class="result-contianer">
+        class="result-contianer"
+      >
         <div class="card">
           <img
             :src="serverUrl + 'card_background.png'" 
@@ -160,23 +165,41 @@
           <!-- 卡片信息 -->
           <div class="card-info"> 
             <div class="info-line">
-              <div class="line-label">音撩称号：</div>
-              <div class="line-value-1">{{ randomInfo.chenghao }}</div>
+              <div class="line-label">
+                音撩称号：
+              </div>
+              <div class="line-value-1">
+                {{ randomInfo.chenghao }}
+              </div>
             </div>
             <div class="info-line">
-              <div class="line-label">音撩特技：</div>
-              <div class="line-value-1">{{ randomInfo.teji[0] }}</div>
-              <div class="line-value-2">{{ randomInfo.teji[3] }}%</div>
+              <div class="line-label">
+                音撩特技：
+              </div>
+              <div class="line-value-1">
+                {{ randomInfo.teji[0] }}
+              </div>
+              <div class="line-value-2">
+                {{ randomInfo.teji[3] }}%
+              </div>
             </div>
             <div class="info-line">
-              <div class="line-label"/>
-              <div class="line-value-1">{{ randomInfo.teji[1] }}</div>
-              <div class="line-value-2">{{ randomInfo.teji[4] }}%</div>
+              <div class="line-label" />
+              <div class="line-value-1">
+                {{ randomInfo.teji[1] }}
+              </div>
+              <div class="line-value-2">
+                {{ randomInfo.teji[4] }}%
+              </div>
             </div>
             <div class="info-line">
-              <div class="line-label"/>
-              <div class="line-value-1">{{ randomInfo.teji[2] }}</div>
-              <div class="line-value-2">{{ randomInfo.teji[5] }}%</div>
+              <div class="line-label" />
+              <div class="line-value-1">
+                {{ randomInfo.teji[2] }}
+              </div>
+              <div class="line-value-2">
+                {{ randomInfo.teji[5] }}%
+              </div>
             </div>
             <div class="info-line">
               <div class="line-label-l">
@@ -195,10 +218,14 @@
             <div class="info-line-2">
               <div 
                 class="line-label" 
-                style="width: 28% ">音色评价:</div>
+                style="width: 28% "
+              >
+                音色评价:
+              </div>
               <div 
                 class="line-value" 
-                style="width: 70% ">
+                style="width: 70% "
+              >
                 <img 
                   v-for="(item,index) in randomInfo.yinse" 
                   :key="index" 
@@ -216,7 +243,8 @@
                 class="logo-img" 
               >
               <div
-                class="remind-word"> 
+                class="remind-word"
+              > 
                 扫一扫，生成你的音撩报告
               </div>
             </div>
@@ -231,7 +259,8 @@
             v-if="control.isInSharePage === false"
             class="button-contianer" 
             @touchstart="handleAgainButtonTouch" 
-            @touchend="handleAgainButtonTouchEnd">
+            @touchend="handleAgainButtonTouchEnd"
+          >
             <img
               v-show="!status.isAgainButtonTouch" 
               :src="serverUrl + 'button_1.png'" 
@@ -245,7 +274,8 @@
             v-if="control.isInSharePage === false"
             class="button-contianer" 
             @touchstart="handleShareButtonTouch"  
-            @touchend.prevent="handleShareButtonTouchEnd">
+            @touchend.prevent="handleShareButtonTouchEnd"
+          >
             <img
               v-show="!status.isShareButtonTouch" 
               :src="serverUrl + 'button_2.png'" 
@@ -259,7 +289,8 @@
             v-if="control.isInSharePage === true"
             class="button-contianer-middle" 
             @touchstart="handleIamGoPlayButtonTouch" 
-            @touchend="handleIamGoPlayButtonTouchEnd">
+            @touchend="handleIamGoPlayButtonTouchEnd"
+          >
             <img
               v-show="!status.isIamGoingToPlayClick" 
               :src="serverUrl + 'button_3.png'" 
@@ -276,12 +307,14 @@
     <!-- concert -->
     <img
       :src="serverUrl + 'concert.png'"
-      class="concert" >
+      class="concert"
+    >
     
     <div
       class="concert-button"
       @touchstart="handleConcertButtonTouch"
-      @touchend="handleConcertButtonTouchEnd">
+      @touchend="handleConcertButtonTouchEnd"
+    >
       <img
         v-show="!status.isConcertButtonClick" 
         :src="serverUrl + 'concert_button.png'" 
@@ -291,16 +324,16 @@
         v-show="status.isConcertButtonClick" 
         :src="serverUrl + 'concert_button_press.png'" 
       >
-
     </div>
 
     <!-- cover -->
-    <share-cover :should-show="status.shouldShareShow"/>
+    <share-cover :should-show="status.shouldShareShow" />
 
     <!-- suoha -->
     <suoha 
       ref="suoha" 
-      :should-show="status.shouldSuoHaShow"/>
+      :should-show="status.shouldSuoHaShow"
+    />
   </div>
 </template>
 

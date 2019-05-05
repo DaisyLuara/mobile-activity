@@ -2,16 +2,27 @@
   <div 
     v-if="show" 
     class="del-remind" 
-    @click.self="handleModalHide">
+    @click.self="handleModalHide"
+  >
     <div class="modal">
-      <div class="title">{{ title }}</div>
-      <div class="sub-title">{{ subTitile }}</div>
+      <div class="title">
+        {{ title }}
+      </div>
+      <div class="sub-title">
+        {{ subTitile }}
+      </div>
       <div 
         class="main-button" 
-        @click="handleDeleteConfirm">{{ mainButtonText }}</div>
+        @click="handleDeleteConfirm"
+      >
+        {{ mainButtonText }}
+      </div>
       <div 
         class="sub-button" 
-        @click="handleModalHide">{{ subButtonText }}</div>
+        @click="handleModalHide"
+      >
+        {{ subButtonText }}
+      </div>
     </div>
   </div>
 </template>

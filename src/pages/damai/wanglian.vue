@@ -52,7 +52,6 @@
       :src="baseUrl + '1.png' + this.$qiniuCompress()"
       class="bottom"
     >
-
   </div>
 </template>
 

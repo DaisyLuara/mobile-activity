@@ -15,10 +15,12 @@
       <div class="scroll-top">
         <img 
           :src="imageHost + 'chat_box.png'" 
-          class="chatbox">
+          class="chatbox"
+        >
         <img 
           :src="imageHost + 'avatar_big.png'" 
-          class="full-avatar">
+          class="full-avatar"
+        >
       </div>
       <!-- 蛋糕和祝福语 -->
       <div class="scroll-content">
@@ -39,7 +41,8 @@
             <!-- 蛋糕 -->
             <img 
               :src="item.link" 
-              class="cake-img">
+              class="cake-img"
+            >
             <!-- 祝福语 -->
             <div
               :class="[
@@ -51,15 +54,21 @@
             >
               <img 
                 :src="imageHost + 'comment_bg.png'" 
-                class="comment-bg">
-              <div class="comment-info" >
+                class="comment-bg"
+              >
+              <div class="comment-info">
                 <div class="avatar-wrapper">
                   <img 
                     :src="item.face" 
-                    class="comment-avatar">
-                  <div class="avatar-name">{{ item.nickname }}</div>
+                    class="comment-avatar"
+                  >
+                  <div class="avatar-name">
+                    {{ item.nickname }}
+                  </div>
                 </div>
-                <div class="comment-word">{{ item.kid }}</div>
+                <div class="comment-word">
+                  {{ item.kid }}
+                </div>
               </div>
             </div>
           </div>
@@ -67,10 +76,12 @@
       </div>
       <div 
         v-show="isAllLoaded === true" 
-        class="scroll-filler">
+        class="scroll-filler"
+      >
         <img 
           :src="imageHost + 'cake_table.png'" 
-          class="cake-plate">
+          class="cake-plate"
+        >
       </div>
     </md-scroll-view>
   </div>

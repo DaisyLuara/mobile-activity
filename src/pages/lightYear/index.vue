@@ -1,101 +1,101 @@
 <template>
   <div
-    :style="style.root" 
-    class="root">
+    :style="style.root"
+    class="root"
+  >
     <div class="start">
-      <div id="stars"/>
-      <div id="stars2"/>
-      <div id="stars3"/> 
+      <div id="stars" />
+      <div id="stars2" />
+      <div id="stars3" />
     </div>
-    
-    <img 
+
+    <img
       :src="baseUrl + 'center.png'+ this.$qiniuCompress()"
-      class="center" >
-    <div 
-      :style="style.rank" 
-      class="rank">
-      <div 
-        class="top">
-        <div 
-          class="head-portrait">
+      class="center"
+    >
+    <div
+      :style="style.rank"
+      class="rank"
+    >
+      <div class="top">
+        <div class="head-portrait">
           <!-- :src="headImgUrl" -->
-          <img 
+          <img
             :src="headImgUrl"
-            class="wx-head" >
+            class="wx-head"
+          >
         </div>
-        <p 
-          class="num">
+        <p class="num">
           {{ handleScore((score+'').length > 8 ? (score+'').substring(0,8) : (score+''),3) }}
         </p>
-        <p 
-          class="light-year">
+        <p class="light-year">
           光年
         </p>
       </div>
-      <div 
-        class="bottom">
-        <ul 
-          class="score-rank1">
-          <li 
-            v-for="(item,index) in data"
-            v-if="index<3"
-            :key="index">
+      <div class="bottom">
+        <ul class="score-rank1">
+          <li
+            v-for="(item,index) in data1"
+            :key="index"
+          >
             <div class="header">
-              <img 
+              <img
                 v-if="item.backgroundImg !== null"
                 :src="item.backgroundImg"
-                class="wx-head" >
-              <img 
+                class="wx-head"
+              >
+              <img
                 :src="item.headimgurl"
-                class="wx"> 
+                class="wx"
+              >
             </div>
-            <span 
-              class="score-num">
+            <span class="score-num">
               {{ item.score }}
             </span>
-            <span 
-              class="score-tit">
+            <span class="score-tit">
               光年
             </span>
           </li>
         </ul>
-        <ul 
-          class="score-rank2">
-          <li 
-            v-for="(item,index) in data"
-            v-if="index>=3"
-            :key="index">
-            <div 
-              class="header">
-              <span 
-                class="ranking">
+        <ul class="score-rank2">
+          <li
+            v-for="(item,index) in data2"
+            :key="index"
+          >
+            <div class="header">
+              <span class="ranking">
                 {{ index+1 }}
               </span>
             </div>
-            <span 
-              :class="{'active':item.user_id===userId?true:false}" 
-              class="score-num">
+            <span
+              :class="{'active':item.user_id===userId?true:false}"
+              class="score-num"
+            >
               {{ item.score }}
             </span>
-            <span 
+            <span
               :class="{'active':item.user_id===userId?true:false}"
-              class="score-tit">
+              class="score-tit"
+            >
               光年
             </span>
           </li>
         </ul>
       </div>
     </div>
-    <img 
+    <img
       :src="baseUrl + 'per.png'+ this.$qiniuCompress()"
-      class="per" >
-    <img 
+      class="per"
+    >
+    <img
       :src="baseUrl + 'rocket.png'+ this.$qiniuCompress()"
-      class="rocket" >
+      class="rocket"
+    >
   </div>
 </template>
 
 <script>
+// @eslint-ignore
 import {
   isInWechat,
   Cookies,
@@ -131,7 +131,7 @@ export default {
       wxShareInfoValue: {
         title: ' Rocket go',
         desc: '穿越光年 探索宇宙 一锤搞定',
-        link: process.env.AD_API+'/api/s/PNw' + window.location.search,
+        link: process.env.AD_API + '/api/s/PNw' + window.location.search,
         imgUrl: cdnUrl + '/fe/marketing/img/lightYear/icon.jpg',
         success: () => {
           wechatShareTrack()
@@ -140,7 +140,15 @@ export default {
       data: []
     }
   },
-  created() {},
+  computed: {
+    data1() {
+      return this.data.slice(0, 3)
+    },
+    data2() {
+      return this.data.slice(3)
+    }
+  },
+  created() { },
   mounted() {
     //微信授权
     if (isInWechat() === true) {
@@ -270,16 +278,16 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@imageHost: 'http://cdn.xingstation.cn/fe/marketing/img/lightYear/';
+@imageHost: "http://cdn.xingstation.cn/fe/marketing/img/lightYear/";
 @font-face {
-  font-family: 'MyNewFont'; /*字体名称*/
-  src: url('@{imageHost}ht2.ttf'); /*字体源文件*/
+  font-family: "MyNewFont"; /*字体名称*/
+  src: url("@{imageHost}ht2.ttf"); /*字体源文件*/
 }
 .root {
   width: 100%;
   position: relative;
   text-align: center;
-  background-image: url('@{imageHost}bg.jpg');
+  background-image: url("@{imageHost}bg.jpg");
   background-size: 100% auto;
   background-repeat: no-repeat;
   overflow: hidden;
@@ -316,7 +324,7 @@ export default {
   }
   .rank {
     width: 80%;
-    background-image: url('@{imageHost}kuang.png');
+    background-image: url("@{imageHost}kuang.png");
     background-size: 100% 100%;
     background-repeat: no-repeat;
     position: absolute;
@@ -328,7 +336,7 @@ export default {
       width: 100%;
       height: 40%;
       position: relative;
-      font-family: 'MyNewFont';
+      font-family: "MyNewFont";
       .head-portrait {
         width: 28%;
         position: absolute;
@@ -369,7 +377,7 @@ export default {
       width: 100%;
       height: 60%;
       position: relative;
-      font-family: 'MyNewFont';
+      font-family: "MyNewFont";
       font-size: 3.5vw;
       .score-rank1 {
         width: 100%;
@@ -650,7 +658,7 @@ export default {
     animation: animStar 50s linear infinite;
   }
   #stars:after {
-    content: ' ';
+    content: " ";
     position: absolute;
     z-index: 2;
     top: 2000px;
@@ -915,7 +923,7 @@ export default {
     animation: animStar 100s linear infinite;
   }
   #stars2:after {
-    content: ' ';
+    content: " ";
     position: absolute;
     z-index: 2;
     top: 2000px;
@@ -1015,7 +1023,7 @@ export default {
     animation: animStar 150s linear infinite;
   }
   #stars3:after {
-    content: ' ';
+    content: " ";
     position: absolute;
     z-index: 2;
     top: 2000px;

@@ -13,7 +13,8 @@
 
     <div 
       v-if="actDetail.sdate" 
-      class="time">
+      class="time"
+    >
       活动时间:  <span class="red"> {{ startTime }} 至 {{ endTime }}</span>
     </div>
 
@@ -51,7 +52,7 @@ import moment from "moment";
 import "./extraStyle.less";
 import TrendsTopBar from "@/pages/m/components/Static/TrendsTopBar";
 import TrendsBottomBar from "@/pages/m/components/Static/TrendsBottomBar";
-import TrendsBottomBlankHolder from "@/pages/m/components/Static/TrendsBottomBlankHolder";
+// import TrendsBottomBlankHolder from "@/pages/m/components/Static/TrendsBottomBlankHolder";
 import DeletePhotoModal from "@/pages/m/components/Reminder/DeletePhotoModal";
 import SharePhotoModal from "@/pages/m/components/Reminder/SharePhotoModal";
 import { mapGetters, mapMutations } from "vuex";
@@ -63,7 +64,7 @@ export default {
   components: {
     TrendsTopBar,
     TrendsBottomBar,
-    TrendsBottomBlankHolder,
+    // TrendsBottomBlankHolder,
     DeletePhotoModal,
     SharePhotoModal
   },
