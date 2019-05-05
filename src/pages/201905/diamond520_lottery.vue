@@ -32,6 +32,12 @@
         :status="status"
       />
       <img
+        v-if="showJumpBtn"
+        :src="`${CDNURL}/dimond520/jump_btn.png`"
+        class="jump-button"
+        @click="handleJump"
+      >
+      <img
         :src="`${CDNURL}/dimond520/activity_sponsor.png`"
         class="activity-sponsor"
       >
@@ -74,11 +80,16 @@ export default {
       coupon: null,
       status: 'beforeRolling',
       noAnime: false,
-      awardList: ['猫王', '滴滴', '兜约春季新品尝鲜', '兜约消费满100元立减50元', '爆米花', '谢谢参与', '金石盟定制情侣对戒']
+      awardList: ['猫王·原子唱机B612', '滴滴出行优惠券', '兜约春季新品尝鲜', '兜约消费满100元立减50元', '5元换购爆米花(巨影)', '谢谢参与', '金石盟定制情侣对戒'],
+      marketid: '',
+      jumpMarketList: ['14', '220', '8']
     }
   },
   computed: {
     ...mapGetters(["z"]),
+    showJumpBtn() {
+      return this.marketid && (this.jumpMarketList.indexOf(this.marketid) !== -1)
+    },
     rotateStyle() {
       return {
         transform: `rotate(${this.rotateDeg}deg)`
@@ -131,22 +142,23 @@ export default {
       this.qiniuId = Number(this.$route.query.id)
       let { id, code, state } = this.$route.query
       try {
-        let { belong, oid } = await getInfoById(id, code, state)
+        let { belong, oid, marketid } = await getInfoById(id, code, state)
         this.belong = belong
         this.oid = Number(oid)
-        // let params = {
-        //   z: this.z,
-        //   qiniu_id: this.qiniuId,
-        //   oid: this.oid,
-        //   belong: this.belong
-        // }
-        // debug
+        this.marketid = marketid
         let params = {
           z: this.z,
           qiniu_id: this.qiniuId,
-          oid: 683,
-          belong: 'Love520Market'
+          oid: this.oid,
+          belong: this.belong
         }
+        // // debug
+        // let params = {
+        //   z: this.z,
+        //   qiniu_id: this.qiniuId,
+        //   oid: 683,
+        //   belong: 'Love520Market'
+        // }
         // 查询用户是否有券，若有则直接显示
         let res = await queryUserCoupon(params)
         if (res.code === 0) {
@@ -166,19 +178,19 @@ export default {
       this.status = 'rolling'
       this.rotateDeg = 0
       Toast.loading('请求中')
-      // let params = {
-      //   z: this.z,
-      //   qiniu_id: this.qiniuId,
-      //   belong: this.belong,
-      //   oid: this.oid
-      // }
-      // debug
       let params = {
         z: this.z,
         qiniu_id: this.qiniuId,
-        belong: 'Love520Market',
-        oid: 683
+        belong: this.belong,
+        oid: this.oid
       }
+      // // debug
+      // let params = {
+      //   z: this.z,
+      //   qiniu_id: this.qiniuId,
+      //   belong: 'Love520Market',
+      //   oid: 683
+      // }
       try {
         let res = await h5Batches(params)
         if (res.code === 0) {
@@ -194,9 +206,10 @@ export default {
             this.status = 'showCoupon'
           } else {
             Toast.failed('抽奖失败', 2000, true)
+            this.status = 'beforeRolling'
             this.clickable = true
           }
-          // debug
+          // // debug
           // this.coupon = res.data
           // let awardIndex = this.getAwardIndex(this.coupon.name)
           // // 轮盘动画
@@ -247,6 +260,23 @@ export default {
         $wechat().then(res => {
           res.forbidden()
         })
+      }
+    },
+    handleJump() {
+      let jumpUrl = ''
+      switch(this.marketid) {
+        case '14':
+          jumpUrl = 'https://mall.capitaland.com.cn/integral_mall/integral_index?mall_id=68'
+          break
+        case '220':
+          jumpUrl = 'https://mall.capitaland.com.cn/LUONE/lottery/egg?id=FF85CA42773DFE92'
+          break
+        case '8':
+          jumpUrl = 'https://mall.capitaland.com.cn/hongkoulongzhimeng/lottery/shake_new?id=A181FB8888BD1D9D'
+          break
+      }
+      if (jumpUrl) {
+        location.href = jumpUrl
       }
     }
   }
@@ -323,6 +353,11 @@ p {
         height: 100%;
       }
     }
+  }
+  .jump-button {
+    width: 2.04rem;
+    height: 0.59rem;
+    margin: 0 auto 0.2rem;
   }
   .activity-sponsor {
     margin: 0 auto;

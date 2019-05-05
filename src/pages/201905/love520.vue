@@ -4,15 +4,18 @@
       :src="`${CDNURL}/dimond520/leaf1.png`"
       class="leaf-img-1"
     >
-    <LoveSubmit
-      v-if="isVerified && !loveInfo"
-    />
-    <LovePhoto
-      v-if="isVerified && loveInfo"
-      :image="loveInfo.image"
-      :msg="loveInfo.msg"
-      :name="loveInfo.name"
-    />
+    <div class="content-wrap">
+      <LoveSubmit
+        v-if="isVerified && !loveInfo"
+        @submitLoveMsg="handleSubmit"
+      />
+      <LovePhoto
+        v-if="isVerified && loveInfo"
+        :image="loveInfo.url + this.$qiniuCompress()"
+        :msg="loveInfo.message"
+        :name="loveInfo.name"
+      />
+    </div>
     <div class="sponsor-area">
       <img
         :src="`${CDNURL}/dimond520/activity_sponsor.png`"
@@ -30,7 +33,7 @@
 <script>
 import { reCalculateRem } from '@/mixins/reCalculateRem'
 import { mapGetters, mapMutations } from "vuex"
-import { getLoveInfo, getInfoById } from 'services'
+import { postLoveInfo, getLoveInfo, getInfoById, Cookies } from 'services'
 import LoveSubmit from './love520_submit'
 import LovePhoto from './love520_result'
 import { Toast } from 'mand-mobile'
@@ -48,46 +51,88 @@ export default {
     return {
       CDNURL: CDNURL,
       isVerified: false,
-      loveInfo: null
+      loveInfo: null,
+      sign: ''
     }
   },
   computed: {
-    ...mapGetters(["z"])
+
   },
   async mounted() {
-    Toast.loading('页面加载中')
-    let { id, code, state } = this.$route.query
-    try {
-      // let { userinfo } = await getInfoById(id, code, state)
-      // if (!userinfo) {
-      //   Toast.failed('获取用户信息失败', 0, true)
-      //   return
-      // } else {
-      //   this.setLoginState(userinfo)
-      // }
-      // let params = {
-      //   z: this.z
-      // }
-      // 查询用户是否提交过信息
-      // debug
-      let params = {
-        z: 'p5qd7da707e816e83aa9c9c3ca5fd4edf4cgpv'
-      }
-      let res = await getLoveInfo(params)
-      if (res.data) {
-        this.loveInfo = res.data
-      }
-      this.isVerified = true
-      Toast.hide()
-    } catch(e) {
-      console.log(e)
-      Toast.failed('获取用户信息失败', 0, true)
+    if (process.env.NODE_ENV === 'development') {
+      this.sign = 'eyJpdiI6IllFWDU3QWxVdklFXC9kVFArQ2VCS3dRPT0iLCJ2YWx1ZSI6InJpa3I5a0c2dmVZdGVEZHhQa1g4N2c9PSIsIm1hYyI6IjBmMjNhNGIwNzljNWU1Y2ZjOTI3ZmQzNGQxNWQ3OTc1OTIzNzA5ZDkzYzkwNjY5NjZlY2QwODdlZmE5ZmRjNTcifQ=='
+    } else {
+      this.handleWechatAuth()
+    }
+    if (this.sign) {
+      this.init()
     }
   },
   methods: {
     ...mapMutations({
       setLoginState: "SET_LOGIN_STATE"
-    })
+    }),
+    async init() {
+      Toast.loading('页面加载中')
+      try {
+        // let { userinfo } = await getInfoById(id, code, state)
+        // if (!userinfo) {
+        //   Toast.failed('获取用户信息失败', 0, true)
+        //   return
+        // } else {
+        //   this.setLoginState(userinfo)
+        // }
+        // let params = {
+        //   z: this.z
+        // }
+        // 查询用户是否提交过信息
+        let params = {
+          sign: this.sign
+        }
+        let res = await getLoveInfo(params)
+        if (res.code === 0) {
+          this.loveInfo = res.data
+        }
+        this.isVerified = true
+        Toast.hide()
+      } catch(e) {
+        console.log(e)
+        Toast.failed('获取用户信息失败', 0, true)
+      }
+    },
+    //微信静默授权
+    handleWechatAuth() {
+      if (Cookies.get('sign') === null) {
+        let base_url = encodeURIComponent(String(window.location.href))
+        let redirct_url =
+          process.env.DIAMOND_API +
+          '/wx/officialAccount/oauth?url=' +
+          base_url +
+          '&scope=snsapi_base'
+        window.location.href = redirct_url
+      } else {
+        this.sign = Cookies.get('sign')
+      }
+    },
+    async handleSubmit(data) {
+      let params = {
+        sign: this.sign,
+        ...data
+      }
+      Toast.loading('上传中')
+      try {
+        let res = await postLoveInfo(params)
+        if (res.code === 0) {
+          Toast.succeed('上传成功', 0, true)
+          window.location.reload()
+        } else {
+          Toast.failed('上传失败', 2000)
+        }
+      } catch(e) {
+        console.log(e)
+        Toast.failed('上传失败', 2000)
+      }
+    }
   }
 }
 </script>
@@ -114,7 +159,9 @@ img {
   width: 1.14rem;
   height: 1.12rem;
 }
-
+.content-wrap {
+  min-height: 83vh;
+}
 .sponsor-area {
   position: relative;
   padding-top: 0.16rem;

@@ -101,9 +101,11 @@ export default {
     }
   },
   mounted() {
-    if (process.env.NODE_ENV !== 'development') {
-      this.initState()
-    }
+    // // debug
+    // if (process.env.NODE_ENV !== 'development') {
+    //   this.initState()
+    // }
+    this.initState()
   },
   methods: {
     ...mapMutations({
@@ -134,6 +136,7 @@ export default {
           })
           return
         }
+        // debug
         // this.$router.push({
         //   name: 'diamond520Lottery',
         //   query: this.$route.query

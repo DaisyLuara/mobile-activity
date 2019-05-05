@@ -36,6 +36,11 @@
             {{ coupon.code }}
           </div>
         </div>
+        <img
+          v-if="couponStyle !== 'didi' && coupon.status === 1"
+          :src="`${CDNURL}/dimond520/coupon_used.png`"
+          class="coupon-used"
+        >
       </div>
     </div>
   </div>
@@ -43,6 +48,7 @@
 
 <script>
 import { Icon } from 'mand-mobile'
+const CDNURL = process.env.CDN_URL
 
 export default {
   name: 'DiamondCoupon',
@@ -61,6 +67,7 @@ export default {
   },
   data () {
     return {
+      CDNURL: CDNURL,
       couponList: [
         {
           name: '猫王',
@@ -163,6 +170,14 @@ img {
   height: 0.74rem;
   top: 0.1rem;
   right: 0.2rem;
+}
+
+.coupon-used {
+  position: absolute;
+  top: 0.27rem;
+  right: 0.22rem;
+  width: 1.22rem;
+  height: 0.82rem;
 }
 
 .container, .ticket {

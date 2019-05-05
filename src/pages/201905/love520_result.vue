@@ -21,6 +21,8 @@
 
 <script>
 import MC from 'mcanvas'
+import { Toast } from 'mand-mobile'
+import "../../assets/less/reset-mand.less"
 const CDNURL = process.env.CDN_URL
 
 export default {
@@ -52,6 +54,7 @@ export default {
     }
   },
   async mounted() {
+    Toast.loading('照片加载中')
     let r = await this.loadImage()
     this.drawing()
   },
@@ -120,6 +123,7 @@ export default {
           // 错误回调；
           error(err) {
             console.log(err)
+            Toast.failed('照片加载失败')
           }
         })
     },
@@ -160,6 +164,7 @@ export default {
         ctx.restore()
         let url = canvas.toDataURL('image/png')
         this.mergedUrl = url
+        Toast.hide()
       }
     }
   }

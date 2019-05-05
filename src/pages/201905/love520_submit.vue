@@ -111,6 +111,7 @@ export default {
       lovePhone: '',
       loveMsg: '',
       imageUrl: '',
+      mediaId: ''
     }
   },
   computed: {
@@ -136,11 +137,15 @@ export default {
     async handleUpload(event) {
       const file = event.target.files[0]
       const size = file.size
-      if (size / 1024 / 1024 > 4) {
-        Toast.info('图片大小不能超过4MB!')
+      const name = file.name
+      if (size / 1024 / 1024 > 8) {
+        Toast.info('图片大小不能超过8MB!')
         return
       }
-      let name = file.name
+      if (!/\.(jpg|jpeg|png|JPG|PNG)$/.test(name)) {
+        Toast.info('图片类型必须是jpeg,jpg,png中的一种')
+				return
+			}
       let time = new Date().getTime()
       let random = parseInt(String(Math.random() * 10 + 1), 10)
       let suffix = time + '_' + random + '_' + name
@@ -159,8 +164,9 @@ export default {
           size,
           activity_id: 1 // 活动标识
         }
-        let { url } = await postActivityMedia(callbackArgs)
+        let { url, id } = await postActivityMedia(callbackArgs)
         this.imageUrl = url
+        this.mediaId = String(id)
         Toast.hide()
       } catch(e) {
         Toast.info('上传失败')
@@ -181,6 +187,14 @@ export default {
     handleSubmit() {
       if (!this.isValidPhone()) {
         return
+      } else {
+        let data = {
+          name: this.loveName,
+          phone: this.lovePhone,
+          media_id: this.mediaId,
+          message: this.loveMsg
+        }
+        this.$emit('submitLoveMsg', data)
       }
     }
   }

@@ -1,9 +1,9 @@
 import axios from 'axios'
 import { apiToken } from 'services'
-const QINIU_TOKEN_URL = process.env.ADX_API + '/qiniu_token'
+const QINIU_TOKEN_URL = process.env.DIAMOND_API + '/qiniu_token'
 const QINIU_UPLOAD_URL = 'http://upload.qiniu.com'
-const UPLOAD_CALLBACK_URL = process.env.ADX_API + '/activity_media'
-const MOCK_API = 'http://0.0.0.0:7300/mock/5cc58e9caaa16bb98099478d/diamond520'
+const UPLOAD_CALLBACK_URL = process.env.DIAMOND_API + '/activity_media'
+// const MOCK_API = 'http://0.0.0.0:7300/mock/5cc58e9caaa16bb98099478d/diamond520'
 
 // 建立请求拦截器
 const fetchWithToken = axios.create({
@@ -36,7 +36,13 @@ fetchWithToken.interceptors.response.use(
   },
   error => {
     console.log(error.response)
-    return Promise.reject(error)
+    if (error.response.status_code === 404) {
+      return {
+        code: 404
+      }
+    } else {
+      return Promise.reject(error)
+    }
   }
 )
 
@@ -92,17 +98,20 @@ const postActivityMedia = (args) => {
   })
 }
 
+// 发送用户的告白信息
+const postLoveInfo = (args) => {
+  return fetchWithToken({
+    url: '/confessions',
+    method: 'post',
+    data: args
+  })
+}
+
  // 查询用户的告白信息
-const getLoveInfo = () => {
-  return new Promise((resolve, reject) => {
-    axios
-      .get(MOCK_API + '/lovemsg')
-      .then((res) => {
-        resolve(res.data)
-      })
-      .catch((err) => {
-        reject(err)
-      })
+const getLoveInfo = (args) => {
+  return fetchWithToken({
+    url: '/user/confession',
+    params: args
   })
 }
 
@@ -151,4 +160,4 @@ const bindUserCoupon = (args) => {
   })
 }
 
-export { qiniuToken, uploadImgToQiniu, postActivityMedia, getLoveInfo, getVerificationCodes, bindUserPhone, queryUserCoupon, h5Batches, bindUserCoupon }
+export { qiniuToken, uploadImgToQiniu, postActivityMedia, postLoveInfo, getLoveInfo, getVerificationCodes, bindUserPhone, queryUserCoupon, h5Batches, bindUserCoupon }
