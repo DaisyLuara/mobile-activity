@@ -310,9 +310,23 @@ export default {
   async mounted() {
     Toast.loading('照片加载中')
     let r = await this.loadImage()
-    this.drawing()
+    let photoSize = await this.loadPhoto()
+    this.drawing(photoSize)
   },
   methods: {
+    loadPhoto() {
+      const photo = this.image
+      return new Promise((resolve, reject) => {
+        let img = new Image()
+        img.onload = () => {
+          resolve({
+            width: img.width,
+            height: img.height
+          })
+        }
+        img.src = photo
+      })
+    },
     loadImage() {
       let preList = []
       for (let i = 0; i < this.imgList.length; i++) {
@@ -327,12 +341,15 @@ export default {
       }
       return Promise.all(preList)
     },
-    drawing() {
+    // ResolutionX, ResolutionY为图片实际分辨率
+    drawing({ width: ResolutionX, height: ResolutionY }) {
       const that = this
       const width = this.fullWidth * 4
       const height = this.fullHeight * 4
       const photoWidth = this.photoWidth * 4
       const photoHeight = this.photoHeight * 4
+      const scaleHeight = 353 / 198 * ResolutionX
+      const cropHeight = scaleHeight > ResolutionY ? '100%' : scaleHeight // 图片裁剪高度
       let backgroundColor = 'transparent'
       let mc = new MC({
         width,
@@ -340,6 +357,7 @@ export default {
         backgroundColor
       })
       let photo = this.image
+      console.log(photo)
       mc
         .background(this.baseUrl + 'mphoto_frame.png', {
           left: 0,
@@ -349,7 +367,12 @@ export default {
         })
         .add(photo, {
           width: photoWidth,
-          height: photoHeight,
+          crop:{
+            x:0,
+            y:0,
+            width: photoWidth,
+            height: cropHeight
+          },
           pos: {
             x: 27.5 * 4,
             y: 117 * 4
