@@ -12,6 +12,7 @@
     <!-- 领取页 -->
     <div
       v-if="index"
+      :style="style.root"
       class="index-div"
     >
       <div class="title">
@@ -51,7 +52,7 @@
     </div>
     <!-- 注册页 -->
     <div
-      v-show="register"
+      v-if="register&&!index"
       class="register-div"
     >
       <img
@@ -117,6 +118,30 @@
         <img :src="base + 'confirm.png'">
       </a>
     </div>
+    <!-- 券列表 -->
+    <div
+      v-if="couponList&&!index"
+      class="coupon-list"
+      @click="gotoLink"
+    >
+      <img
+        :src="base + '3.png'"
+        class="list"
+      >
+    </div>
+    <div
+      v-show="loading"
+      class="loading"
+    >
+      <img
+        :src="base + 'bg4.png'"
+        class="bg"
+      >
+      <div
+        id="anim"
+        class="anim"
+      />
+    </div>
     <div
       v-show="!index"
       class="logo-div"
@@ -140,6 +165,7 @@ import {
   validatePhone
 } from "services";
 import { onlyWechatShare } from "@/mixins/onlyWechatShare";
+import lottie from 'lottie-web'
 const CDNURL = process.env.CDN_URL;
 export default {
   mixins: [onlyWechatShare],
@@ -155,20 +181,21 @@ export default {
       sign: "",
       qiniu_id: this.$route.query.id,
       photo: null,
-      index: false,//true
+      index: true,//true
       couponList: false,
-      register: true,//false
-      disabled: false,
+      register: true,//true
+      disabled: false,//false
+      loading: false,//false
       phone: "",
       vcode: "",
       time: 60,
-      vcodeText: "",
+      vcodeText: "60s后重发",
       verification_key: "",
       wxShareInfoValue: {
-        title: "",
-        desc: "",
+        title: "免费领“吃喝购”优惠礼包",
+        desc: "还有额外小惊喜可领，先到先得",
         link: window.location.href,
-        imgUrl: CDNURL + "/fe/image/wuyueOpenBox/icon.jpg"
+        imgUrl: CDNURL + "/fe/image/wuyueOpenBox/icon.png"
       }
     }
   },
@@ -182,7 +209,6 @@ export default {
         this.handleWechatAuth()
       }
     }
-    // this.init()
   },
   methods: {
     async init() {
@@ -213,6 +239,7 @@ export default {
           this.register = false
           this.sendMallcooCoupon()
         }
+
       } catch (err) {
         if (err.response) {
           alert(err.response.data.message);
@@ -240,7 +267,6 @@ export default {
     checkPhone() {
       if (!this.phone || !validatePhone(this.phone)) {
         alert("手机格式不正确，请重新输入");
-        return;
       }
     },
     sendMallcooCoupon() {
@@ -261,7 +287,7 @@ export default {
         if (this.time === 0) {
           clearInterval(timer);
           this.disabled = false
-          this.vcodeText = "";
+          this.vcodeText = "60s后重发";
           this.time = 60;
         } else {
           this.vcodeText = this.time + 's后重发';
@@ -288,6 +314,14 @@ export default {
         });
     },
     doRegister() {
+      if (!this.phone || !validatePhone(this.phone)) {
+        alert("手机格式不正确，请重新输入");
+        return;
+      }
+      if (!this.vcode) {
+        alert("请输入验证码");
+        return;
+      }
       let params = {
         verification_key: this.verification_key,
         verification_code: this.vcode,
@@ -301,6 +335,22 @@ export default {
         .catch(err => {
           alert(err.response.data.message);
         });
+    },
+    playLoading() {
+      const el = document.getElementById('anim')
+      lottie.loadAnimation({
+        container: el,
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: this.base + 'data.json'
+      })
+    },
+    gotoLink() {
+      this.couponList = false
+      this.loading = true
+      this.playLoading()
+      window.location.href = 'https://m.mallcoo.cn/a/coupon/10658'
     }
   }
 }
@@ -446,12 +496,48 @@ a {
         top: 50%;
         right: 5%;
         transform: translateY(-50%);
+        .vcode-text {
+          width: 100%;
+          font-family: PingFang-SC-Regular;
+          font-weight: 400;
+          color: rgba(255, 255, 255, 1);
+          opacity: 0.6;
+          font-size: 3vw;
+          text-align: center;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          z-index: 99;
+        }
       }
     }
     .register-btn {
       width: 73.8%;
       position: relative;
       margin-top: 8%;
+    }
+  }
+  .coupon-list {
+    position: relative;
+    width: 100%;
+    margin-bottom: 25%;
+    .list {
+      width: 91.76%;
+      position: relative;
+      margin-top: 3%;
+    }
+  }
+  .loading {
+    width: 64.3%;
+    position: relative;
+    .anim {
+      width: 40%;
+      position: absolute;
+      top: 12%;
+      left: 50%;
+      z-index: 99;
+      transform: translateX(-50%);
     }
   }
   .logo {

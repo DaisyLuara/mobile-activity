@@ -48,9 +48,31 @@ const Date201905 = [
     location: '201905/openShare',
     name: 'openbox_share',
     meta: {
-      title: '吃喝购在吾悦',
+      title: '常州武进吾悦广场发福利啦！',
       author: 'lipan',
       desc: '吾悦-开宝箱-分享'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'bing',
+    location: '201905/bing',
+    name: 'bing',
+    meta: {
+      title: '冰爽嘉年华',
+      author: 'lipan',
+      desc: '冰爽嘉年华'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'henglong2',
+    location: '201905/henglong2',
+    name: 'henglong2',
+    meta: {
+      title: '潮流向上，吸睛由我！',
+      author: 'lipan',
+      desc: '济南恒隆广场'
     },
     isAbandoned: false
   }
