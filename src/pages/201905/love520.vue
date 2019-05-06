@@ -11,7 +11,7 @@
       />
       <LovePhoto
         v-if="isVerified && loveInfo"
-        :image="loveInfo.url + this.$qiniuCompress()"
+        :image="loveInfo.url + this.$qiniuCompress(60)"
         :msg="loveInfo.message"
         :name="loveInfo.name"
       />
@@ -60,7 +60,7 @@ export default {
   },
   async mounted() {
     if (process.env.NODE_ENV === 'development') {
-      this.sign = 'eyJpdiI6InZIUnlFc2xVZ05DVm9KXC90eXhLV0R3PT0iLCJ2YWx1ZSI6IkU1eTR5K2JZQ3ErNW9oZ2pzYTVuR2c9PSIsIm1hYyI6ImE1NDg1OGU3YTMxMDU0ZTllNjIzYTM5NGY0NjUyNDJlNDZhMTgwNDBhNWFkM2ZjZDUxYjAzZDc2ZjY2ZTdiNzQifQ=='
+      this.sign = 'eyJpdiI6IlwvbEU0T0pqZ2tcL1FxNTZieTZQWHkrdz09IiwidmFsdWUiOiJWWHNpNE5OSXhzNkFcLzNrVEpDbk9YQT09IiwibWFjIjoiN2I2YjQ2Nzk0YjdkOWM2NWFjOTdjNjFjMDY1OTUxNzFhY2E3YWY5NzJhZjhmZmY4Nzk4MTlkMDA2MjBjMWY4MCJ9'
     } else {
       this.handleWechatAuth()
     }
@@ -144,7 +144,7 @@ export default {
   width: 100%;
   min-height: 100vh;
   position: relative;
-  background-image: url("@{cdnUrl}/dimond520/photo_back.png");
+  background-image: url("@{cdnUrl}/dimond520/photo_back_new.png");
   background-size: 100% auto;
   background-repeat: repeat;
   overflow-x: hidden;

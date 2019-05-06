@@ -125,7 +125,7 @@ export default {
         }
         this.userinfo = userinfo
         if (userinfo.mobile) {
-          this.$router.push({
+          this.$router.replace({
             name: 'diamond520Lottery',
             query: this.$route.query
           })
