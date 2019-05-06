@@ -355,7 +355,7 @@ export default {
       const photoWidth = this.photoWidth * 4
       const photoHeight = this.photoHeight * 4
       const scaleHeight = 353 / 198 * ResolutionX
-      const cropHeight = scaleHeight > ResolutionY ? '100%' : scaleHeight // 图片裁剪高度
+      const cropHeight = scaleHeight > ResolutionY ? '100%' : (Math.round(scaleHeight / ResolutionY * 100) + '%') // 图片裁剪高度
       let backgroundColor = 'transparent'
       let mc = new MC({
         width,
@@ -363,7 +363,6 @@ export default {
         backgroundColor
       })
       let photo = this.image
-      console.log(photo)
       mc
         .background(this.baseUrl + 'mphoto_frame.png', {
           left: 0,
@@ -376,7 +375,7 @@ export default {
           crop:{
             x:0,
             y:0,
-            width: photoWidth,
+            width: '100%',
             height: cropHeight
           },
           pos: {
