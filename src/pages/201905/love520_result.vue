@@ -28,8 +28,8 @@
             </div>
           </div>
           <div
-            v-for="(point, index) in item.points"
-            :key="index"
+            v-for="(point, pindex) in item.points"
+            :key="pindex"
             class="point-item"
           >
             <div class="point-name">
