@@ -80,6 +80,7 @@ export default {
       passed: false, //false
       code: null, //'5c7de9583796b'
       userinfo: null,
+      ser_timestamp: this.$route.query.ser,
       //微信分享
       wxShareInfoValue: {
         title: "前方高能！国芳百货【全城发红包啦】！",
@@ -114,16 +115,19 @@ export default {
           z: this.z,
           qiniu_id: this.id,
           belong: belong,
+          ser_timestamp: this.ser_timestamp,
           include: "couponBatch"
         };
         const getCouponBatchArgs = {
           qiniu_id: this.id,
           z: this.z,
+          ser_timestamp: this.ser_timestamp,
           belong: belong
         };
         const sendV2ProjectsArgs = {
           qiniu_id: this.id,
           z: this.z,
+          ser_timestamp: this.ser_timestamp,
           belong: belong,
           oid: oid
         };
@@ -213,8 +217,8 @@ img {
     width: 100%;
     position: relative;
     z-index: 99;
-    margin-top: 45%;
-    margin-bottom: 40%;
+    margin-top: 42%;
+    margin-bottom: 9%;
     .coupon-bg {
       width: 91%;
       position: relative;
@@ -223,7 +227,7 @@ img {
     .erweima {
       width: 42%;
       position: absolute;
-      top: 50%;
+      top: 46%;
       left: 50%;
       transform: translateX(-50%);
       z-index: 9;
@@ -260,13 +264,13 @@ img {
   }
   .code {
     position: absolute;
-    top: 84%;
+    top: 79%;
     left: 50%;
     transform: translateX(-50%);
     z-index: 999;
     color: #000;
     font-weight: bold;
-    font-size: 3vw;
+    font-size: 4vw;
   }
 }
 </style>

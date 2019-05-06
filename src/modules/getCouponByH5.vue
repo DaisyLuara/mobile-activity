@@ -55,37 +55,17 @@ export default {
         return {clip: '', used: '', code: ''}
       }
     },
-    couponImg: {
-      type: String,
-      required: true,
-      default: ''
-    },
-    qrcodeImg: {
-      type: String,
-      required: true,
-      default: ''
-    },
-    used: {
-      type: Boolean,
-      required: true,
-      default: false
-    },
-    passed: {
-      type: Boolean,
-      required: true,
-      default: false
-    },
-    code: {
-      type: String,
-      required: true,
-      default: ''
-    },
   },
   data() {
     return {
       common_url: CDN_URL + "/common/",
       id: this.$route.query.id,
-      userinfo: null
+      userinfo: null,
+      couponImg:'',
+      qrcodeImg:'',
+      used:false,
+      passed:false,
+      code:null
     };
   },
   computed: {
