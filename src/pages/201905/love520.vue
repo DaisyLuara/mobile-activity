@@ -35,7 +35,7 @@
 <script>
 import { reCalculateRem } from '@/mixins/reCalculateRem'
 import { mapGetters, mapMutations } from "vuex"
-import { postLoveInfo, getLoveInfo, getInfoById, Cookies } from 'services'
+import { postLoveInfo, getLoveInfo, getInfoById, Cookies, $wechat, isInWechat } from 'services'
 import LoveSubmit from './love520_submit'
 import LovePhoto from './love520_result'
 import { Toast } from 'mand-mobile'
@@ -68,6 +68,9 @@ export default {
     }
     if (this.sign) {
       this.init()
+    }
+    if (isInWechat() === true) {
+      this.handleWechatShare()
     }
   },
   methods: {
@@ -134,6 +137,21 @@ export default {
         console.log(e)
         Toast.failed('上传失败', 2000)
       }
+    },
+    handleWechatShare() {
+      let wxShareInfoValue = {
+        title: '打造惊喜神秘告白',
+        desc: '点击开启定制专属告白',
+        link: location.href,
+        imgUrl: 'https://cdn.xingstation.cn/dimond520/share_icon.png'
+      }
+      $wechat()
+        .then(res => {
+          res.share(wxShareInfoValue)
+        })
+        .catch(e => {
+          console.warn(e)
+        })
     }
   }
 }

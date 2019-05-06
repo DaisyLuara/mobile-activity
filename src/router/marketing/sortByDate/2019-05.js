@@ -26,7 +26,7 @@ const Date201905 = [
     location: '201905/love520',
     name: 'love520',
     meta: {
-      title: '星视度',
+      title: '星视度 全城告白·钻石屏证',
       author: 'chuxiaochen',
       desc: '星视度'
     },
