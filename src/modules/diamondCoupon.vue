@@ -32,7 +32,8 @@
           >
           <div
             v-if="couponStyle === 'maowang'"
-            :class="`${couponStyle}-code`">
+            :class="`${couponStyle}-code`"
+          >
             {{ coupon.code }}
           </div>
         </div>

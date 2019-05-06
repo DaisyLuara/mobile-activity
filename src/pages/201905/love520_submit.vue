@@ -61,7 +61,9 @@
               maxlength="4"
               class="love-input"
             >
-            <div class="text-counter">{{ loveName.length }}/4</div>
+            <div class="text-counter">
+              {{ loveName.length }}/4
+            </div>
           </div>
           <div class="input-group">
             <input
@@ -77,7 +79,9 @@
               maxlength="15"
               class="love-input message"
             />
-            <div class="text-counter">{{ loveMsg.length }}/15</div>
+            <div class="text-counter">
+              {{ loveMsg.length }}/15
+            </div>
           </div>
         </div>
       </div>

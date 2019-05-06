@@ -29,7 +29,9 @@
           <div
             v-if="waitTimer"
             class="countdown"
-          >{{ waitTime }}s</div>
+          >
+            {{ waitTime }}s
+          </div>
           <img
             v-else
             :src="`${CDNURL}/dimond520/req_code_btn.png`"
@@ -57,7 +59,9 @@
         :src="`${CDNURL}/dimond520/activity_sponsor.png`"
         class="activity-sponsor"
       >
-      <p class="activity-company">本活动最终解释权归星视度所有</p>
+      <p class="activity-company">
+        本活动最终解释权归星视度所有
+      </p>
     </div>
   </div>
 </template>
