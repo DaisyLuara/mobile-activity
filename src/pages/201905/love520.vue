@@ -21,7 +21,9 @@
         :src="`${CDNURL}/dimond520/activity_sponsor.png`"
         class="sponsor-img"
       >
-      <p class="activity-company">本活动最终解释权归星视度所有</p>
+      <p class="activity-company">
+        本活动最终解释权归星视度所有
+      </p>
       <img
         :src="`${CDNURL}/dimond520/leaf2.png`"
         class="leaf-img-2"
@@ -60,7 +62,7 @@ export default {
   },
   async mounted() {
     if (process.env.NODE_ENV === 'development') {
-      this.sign = 'eyJpdiI6IlwvbEU0T0pqZ2tcL1FxNTZieTZQWHkrdz09IiwidmFsdWUiOiJWWHNpNE5OSXhzNkFcLzNrVEpDbk9YQT09IiwibWFjIjoiN2I2YjQ2Nzk0YjdkOWM2NWFjOTdjNjFjMDY1OTUxNzFhY2E3YWY5NzJhZjhmZmY4Nzk4MTlkMDA2MjBjMWY4MCJ9'
+      this.sign = 'eyJpdiI6ImJINWM1ZjF0YWVrXC9uWW1IZUl0Z2pBPT0iLCJ2YWx1ZSI6IlRlc2VXcHc4NWozcjJFNVNQcmdjUHc9PSIsIm1hYyI6ImQ0OWJhZTBlZTE2YzIxOGRjMzQzOTU0ZDRlYjk0YzBmZTUwMzY5MWU0YWFhNmE0OTJhZjk3MTg4MjRlODAxNzIifQ=='
     } else {
       this.handleWechatAuth()
     }
