@@ -23,15 +23,21 @@
           class="area-item"
         >
           <div class="point-area-wrap">
-            <div class="point-area">{{ item.area }}</div>
+            <div class="point-area">
+              {{ item.area }}
+            </div>
           </div>
           <div
             v-for="(point, index) in item.points"
             :key="index"
             class="point-item"
           >
-            <div class="point-name">{{ point.name }}</div>
-            <div class="point-location">{{ point.location }}</div>
+            <div class="point-name">
+              {{ point.name }}
+            </div>
+            <div class="point-location">
+              {{ point.location }}
+            </div>
           </div>
         </div>
       </div>

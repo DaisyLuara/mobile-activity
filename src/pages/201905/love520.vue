@@ -21,7 +21,9 @@
         :src="`${CDNURL}/dimond520/activity_sponsor.png`"
         class="sponsor-img"
       >
-      <p class="activity-company">本活动最终解释权归星视度所有</p>
+      <p class="activity-company">
+        本活动最终解释权归星视度所有
+      </p>
       <img
         :src="`${CDNURL}/dimond520/leaf2.png`"
         class="leaf-img-2"
