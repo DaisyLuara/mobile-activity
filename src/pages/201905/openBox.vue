@@ -231,6 +231,7 @@ export default {
         const getCouponListResult = await getMallcooCouponInfo(getCouponListArgs)
         if (getCouponListResult) {
           this.couponList = true
+          this.register = false
           this.index = false
           return
         }
@@ -330,6 +331,7 @@ export default {
       };
       openMallcooMemberByPhone(params)
         .then(res => {
+          this.register = false
           this.sendMallcooCoupon();
         })
         .catch(err => {
