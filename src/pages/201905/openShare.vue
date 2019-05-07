@@ -215,6 +215,7 @@ export default {
         }
         const getCouponListResult = await getMallcooCouponInfo(getCouponListArgs)
         if (getCouponListResult) {
+          this.register = false
           this.couponList = true
           this.index = false
           return
@@ -224,7 +225,6 @@ export default {
           this.register = false
           this.sendMallcooCoupon()
         }
-
       } catch (err) {
         if (err.response) {
           alert(err.response.data.message);
@@ -315,6 +315,7 @@ export default {
       };
       openMallcooMemberByPhone(params)
         .then(res => {
+          this.register = false
           this.sendMallcooCoupon();
         })
         .catch(err => {
@@ -391,7 +392,7 @@ a {
     text-align: center;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    // justify-content: center;
     align-items: center;
     z-index: 0;
 
