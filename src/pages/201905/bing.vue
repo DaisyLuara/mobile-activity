@@ -1,5 +1,8 @@
 <template>
-  <div class="warp">
+  <div
+    :style="style.root"
+    class="warp"
+  >
     <img
       :src="base + 'bg1.png'"
       class="bg"
@@ -31,9 +34,14 @@ export default {
   data() {
     return {
       base: CDN_URL + '/fe/image/bing/',
+      style: {
+        root: {
+          'min-height': this.$innerHeight() + 'px'
+        }
+      },
       //微信分享
       wxShareInfoValue: {
-        title: "冰爽假年华，等你来挑战",
+        title: "冰爽嘉年华，等你来挑战",
         desc: "快来看看好友的萌照！",
         link: 'http://papi.xingstation.com/api/s/Z0E' + window.location.search,
         imgUrl: CDN_URL + "/fe/image/bing/icon.jpg"
@@ -64,6 +72,7 @@ img {
   width: 100%;
   overflow: hidden;
   position: relative;
+  background-color: #20b4e5;
   .bg {
     position: relative;
     z-index: 0;

@@ -194,7 +194,7 @@ export default {
       wxShareInfoValue: {
         title: "免费领“吃喝购”优惠礼包",
         desc: "还有额外小惊喜可领，先到先得",
-        link: window.location.href,
+        link: process.env.M_URL + '/marketing/openbox_share' + window.location.search,
         imgUrl: CDNURL + "/fe/image/wuyueOpenBox/icon.png"
       }
     }
@@ -231,6 +231,7 @@ export default {
         const getCouponListResult = await getMallcooCouponInfo(getCouponListArgs)
         if (getCouponListResult) {
           this.couponList = true
+          this.register = false
           this.index = false
           return
         }
@@ -330,6 +331,7 @@ export default {
       };
       openMallcooMemberByPhone(params)
         .then(res => {
+          this.register = false
           this.sendMallcooCoupon();
         })
         .catch(err => {
