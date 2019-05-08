@@ -3,7 +3,7 @@ import { apiToken } from 'services'
 const QINIU_TOKEN_URL = process.env.DIAMOND_API + '/qiniu_token'
 const QINIU_UPLOAD_URL = 'http://upload.qiniu.com'
 const UPLOAD_CALLBACK_URL = process.env.DIAMOND_API + '/activity_media'
-// const MOCK_API = 'http://0.0.0.0:7300/mock/5cc58e9caaa16bb98099478d/diamond520'
+const MOCK_API = 'http://0.0.0.0:7300/mock/5cc58e9caaa16bb98099478d/diamond520'
 
 // 建立请求拦截器
 const fetchWithToken = axios.create({
@@ -160,4 +160,12 @@ const bindUserCoupon = (args) => {
   })
 }
 
-export { qiniuToken, uploadImgToQiniu, postActivityMedia, postLoveInfo, getLoveInfo, getVerificationCodes, bindUserPhone, queryUserCoupon, h5Batches, bindUserCoupon }
+// 获取照片投票榜单
+const getVoteList = (args) => {
+  return axios({
+    url: `${MOCK_API}/toplist`,
+    params: args
+  })
+}
+
+export { qiniuToken, uploadImgToQiniu, postActivityMedia, postLoveInfo, getLoveInfo, getVerificationCodes, bindUserPhone, queryUserCoupon, h5Batches, bindUserCoupon, getVoteList }

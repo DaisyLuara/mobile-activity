@@ -33,6 +33,17 @@ const Date201905 = [
     isAbandoned: false
   },
   {
+    path: 'diamond520_top',
+    location: '201905/diamond520_top',
+    name: 'diamond520Top',
+    meta: {
+      title: '星视度',
+      author: 'chuxiaochen',
+      desc: '星视度'
+    },
+    isAbandoned: false
+  },
+  {
     path: 'open_box',
     location: '201905/openBox',
     name: 'open_box',
