@@ -28,11 +28,6 @@
           <GetCoupon
             ref="coupons"
             :style-data="style.qr"
-            :coupon_img="coupon_img"
-            :qrcode_img="qrcode_img"
-            :used="used"
-            :passed="passed"
-            :code="code"
           />
         </div>
       </div>
@@ -59,11 +54,8 @@ export default {
           }
         }
       },
-      coupon_img: null, //'https://cdn.xingstation.cn/fe/image/guofang/test.png',
-      qrcode_img: null, //'http://papi.xingstation.com/qrcode/5c7de9583796b.png',
-      used: false, //false,
-      passed: false, //false
-      code: null, //'5c7de9583796b'
+      coupon_img: this.$refs.coupons.coupon_img, //'https://cdn.xingstation.cn/fe/image/guofang/test.png',
+      qrcode_img: this.$refs.coupons.qrcode_img, //'http://papi.xingstation.com/qrcode/5c7de9583796b.png',
     };
   }
 };
