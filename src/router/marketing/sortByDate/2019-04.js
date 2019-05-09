@@ -131,6 +131,27 @@ const Date201904 = [
     },
     isAbandoned: false
   },
+  {
+    path: 'wuyueAnniversary',
+    location: '201904/wuyueAnniversary',
+    name: 'wuyueAnniversary',
+    meta: {
+      title: '我爱你五月，I ♡ may',
+      author: 'ykk',
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'wuyueFireBall',
+    location: '201904/wuyueFireBall',
+    name: 'wuyueFireBall',
+    meta: {
+      title: '吃喝购在吾悦',
+      author: 'ykk',
+      desc: '还有额外小惊喜可领，先到先得'
+    },
+    isAbandoned: false
+  },
   //猫酷发券，吾悦广场红包雨-通用版
   {
     path: 'wuyue_share', //分享页
@@ -140,6 +161,28 @@ const Date201904 = [
       title: '吾悦天降红包',
       author: 'lipan',
       desc: '吾悦天降红包-分享页-玩游戏'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'yhss',
+    location: '201904/yongheng2',
+    name: 'yhss',
+    meta: {
+      title: '前方高能！【全城发红包啦】！',
+      author: 'lipan',
+      desc: '永恒盛世'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'jiading_drc',
+    location: '201904/jiading_drc',
+    name: 'jiading_drc',
+    meta: {
+      title: '来萌托邦乐园，享大融城五一好礼！',
+      author: 'lipan',
+      desc: '嘉定大融城-大融城萌托邦乐园'
     },
     isAbandoned: false
   }

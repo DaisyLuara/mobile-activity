@@ -24,14 +24,18 @@
         </div>
       </div>
       <div class="my-rank">
-        <div class="rank">{{ myData.topnum }}</div>
-        <div class="label">我的排名</div>
+        <div class="rank">
+          {{ myData.topnum }}
+        </div>
+        <div class="label">
+          我的排名
+        </div>
       </div>
     </div>
     <div
       v-for="(item, index) in resData"
-      :class="{'game-item': index !== resData.length - 1, 'game-item last': index === resData.length - 1}"
       :key="index"
+      :class="{'game-item': index !== resData.length - 1, 'game-item last': index === resData.length - 1}"
     >
       <div class="info">
         <img
@@ -59,7 +63,7 @@
         src="https://cdn.xingstation.cn/fe/image/m/third.png"
       >
     </div>
-    <ActivityThemeGameBottom :show="shouldButtonShow"/>
+    <ActivityThemeGameBottom :show="shouldButtonShow" />
     <div class="bottom-holder" />
   </div>
 </template>

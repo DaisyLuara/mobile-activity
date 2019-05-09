@@ -27,7 +27,9 @@
             :src="IMGURL + 'left.png'"
             class="toleft"
           >
-          <p class="label-text">{{ item.labelText }}</p>
+          <p class="label-text">
+            {{ item.labelText }}
+          </p>
           <img
             :src="IMGURL + 'right.png'"
             class="toright"

@@ -1,50 +1,61 @@
 <template>
   <div 
     :style="style.root" 
-    class="content">
+    class="content"
+  >
     <div 
       v-show="pshow" 
       :style="style.root" 
-      class="main">
+      class="main"
+    >
       <!-- <img class="bg" :src="IMGURL + 'page1_bg.jpg'"/> -->
       <div class="forms">
         <!-- <h1>输入您的姓名,参加本次诊疗</h1> -->
         <img 
           :src="IMGURL + 'result_tit.png'" 
-          class="title">
+          class="title"
+        >
         <input 
           ref="input" 
           class="name" 
           type="text" 
           placeholder="输入姓名" 
           maxlength="5" 
-          required>
+          required
+        >
         <a 
           class="start" 
-          @click="getStart">获得诊断</a>
+          @click="getStart"
+        >获得诊断</a>
         <img 
           :src="IMGURL + 'page1_t.png?677677'" 
-          class="paget">
+          class="paget"
+        >
       </div>
       <img 
         :src="IMGURL + 'icebg.png?33'" 
-        class="ices">
+        class="ices"
+      >
     </div>
     <div 
       v-show="!pshow" 
-      class="photo">
-      <canvas id="canvas"/>
+      class="photo"
+    >
+      <canvas id="canvas" />
       <img 
         class="result" 
-        src="">
+        src=""
+      >
       <!-- 显示剪切后的图像 -->
       <canvas 
         id="canvas2" 
-        style="display:none"/>
+        style="display:none"
+      />
       <img 
         id="Img" 
         src="base64Data" 
-        alt="病假单">
+        alt="病假单"
+      >
     </div>
   </div>
 </template>

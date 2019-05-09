@@ -3,24 +3,30 @@
     <div class="function">
       <div 
         class="fitem" 
-        @click="handleFuncClick('delete')">
+        @click="handleFuncClick('delete')"
+      >
         <img 
           :src="deleteUrl" 
-          class="delete">
+          class="delete"
+        >
       </div>
       <div 
         class="fitem" 
-        @click="handleFuncClick('save')">
+        @click="handleFuncClick('save')"
+      >
         <img 
           :src="saveUrl" 
-          class="save">
+          class="save"
+        >
       </div>
       <div 
         class="fitem" 
-        @click="handleFuncClick('share')">
+        @click="handleFuncClick('share')"
+      >
         <img 
           :src="shareUrl" 
-          class="share">
+          class="share"
+        >
       </div>
     </div>
 
@@ -28,24 +34,32 @@
       <div 
         v-if="acid >0" 
         class="title" 
-        @click="naviToShopActivityDetail">{{ buttonTitle }}</div>
+        @click="naviToShopActivityDetail"
+      >
+        {{ buttonTitle }}
+      </div>
       <div
         v-if="acid <=0 && actList.length > 0"
         class="title"
         @click="showActsCanJoin"
-      >{{ buttonTitle }}</div>
+      >
+        {{ buttonTitle }}
+      </div>
       <!-- <div class="time">{{subTitle}}</div> -->
     </div>
     <transition name="fade">
       <div 
         v-if="shoudListShow" 
-        class="list">
+        class="list"
+      >
         <div
           v-for="(item, index) in actList"
           :key="index"
           class="list-item"
           @click="naviGateToActDetail(item)"
-        >{{ item.title }}</div>
+        >
+          {{ item.title }}
+        </div>
       </div>
     </transition>
   </div>

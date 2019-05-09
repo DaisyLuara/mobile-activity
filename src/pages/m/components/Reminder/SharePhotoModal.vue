@@ -2,8 +2,11 @@
   <div 
     v-if="show" 
     class="spd" 
-    @click.self="handleModalHide">
-    <div class="remind">请点击右上角分享</div>
+    @click.self="handleModalHide"
+  >
+    <div class="remind">
+      请点击右上角分享
+    </div>
   </div>
 </template>
 

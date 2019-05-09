@@ -1,55 +1,67 @@
 <template>
   <div
     :style="style.root" 
-    class="root">
+    class="root"
+  >
     <img 
       :src="baseUrl + 'top.png'+ this.$qiniuCompress()"
-      class="topImg">
+      class="topImg"
+    >
     <div class="center">
       <!-- 左边南瓜 -->
       <img 
         v-show="control.nangualeft.one" 
         :src="baseUrl + 'nangua_left_1.png'+ this.$qiniuCompress()"
-        class="left">
+        class="left"
+      >
       <img 
         v-show="control.nangualeft.two" 
         :src="baseUrl + 'nangua_left_2.png'+ this.$qiniuCompress()"
-        class="left">
+        class="left"
+      >
       <!-- 右边南瓜 -->
       <img 
         v-show="control.nanguaRight.one" 
         :src="baseUrl + 'nangua_right_1.png'+ this.$qiniuCompress()"
-        class="right">
+        class="right"
+      >
       <img 
         v-show="control.nanguaRight.two" 
         :src="baseUrl + 'nangua_right_2.png'+ this.$qiniuCompress()"
-        class="right">
+        class="right"
+      >
       <img 
         :src="baseUrl + 'nvwu.png'+ this.$qiniuCompress()"
-        class="people">
+        class="people"
+      >
       <img 
         :src="baseUrl + 'mid.png'+ this.$qiniuCompress()"
         :class="{'x-mid':iphoneX,'mid':!iphoneX}"
-        class="mid">
+        class="mid"
+      >
       <!-- :src="baseUrl + '666.jpg'+ this.$qiniuCompress()" -->
       <img 
         v-if="photo !== null" 
         :src="photo + this.$qiniuCompress()"
         :class="{'x-photo':iphoneX,'photo':!iphoneX}"
-        class="photo">
+        class="photo"
+      >
       <img 
         :src="baseUrl + 'arrow.png'+ this.$qiniuCompress()"
         :class="{'x-arrow':iphoneX,'arrow':!iphoneX}"
-        class="arrow">
+        class="arrow"
+      >
       <img 
         :src="baseUrl + 'title.png'+ this.$qiniuCompress()"
         :class="{'x-tit':iphoneX,'tit':!iphoneX}"
-        class="tit">
+        class="tit"
+      >
     </div>
     <img 
       :src="baseUrl + 'bottom.png'+ this.$qiniuCompress()"
       :class="{'x-btImg':iphoneX,'btImg':!iphoneX}"
-      class="btImg">
+      class="btImg"
+    >
   </div>
 </template>
 <script>

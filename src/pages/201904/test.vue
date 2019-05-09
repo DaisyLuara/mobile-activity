@@ -3,7 +3,6 @@
     :style="style.root"
     class="warp"
   >
-
     <div
       v-show="eshow.register"
       class="getphone"

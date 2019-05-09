@@ -3,7 +3,8 @@
     <Chart 
       :chartdata="chartdata" 
       :data-options="dataOptions" 
-      :width="width"/>
+      :width="width"
+    />
   </div>
 </template>
 

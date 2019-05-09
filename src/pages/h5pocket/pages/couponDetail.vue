@@ -1,15 +1,23 @@
 <template>
   <div class="cdt">
-    <p v-if="errorMessage !== ''">{{ errorMessage }}</p>
+    <p v-if="errorMessage !== ''">
+      {{ errorMessage }}
+    </p>
     <div class="coupon-img">
       <img 
         v-if="resData.image_url !== null" 
-        :src="resData.image_url">
+        :src="resData.image_url"
+      >
     </div>
-    <div class="explain-text">{{ resData.description }}</div>
+    <div class="explain-text">
+      {{ resData.description }}
+    </div>
     <div 
       class="btn" 
-      @click="handleCouponButtonClick">{{ computedBtnText }}</div>
+      @click="handleCouponButtonClick"
+    >
+      {{ computedBtnText }}
+    </div>
   </div>
 </template>
 

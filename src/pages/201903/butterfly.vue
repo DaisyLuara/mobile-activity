@@ -9,7 +9,6 @@
         class="slogan"
       >
       <div class="picture">
-
         <img
           :src="base + 'frame.png'"
           class="cover"

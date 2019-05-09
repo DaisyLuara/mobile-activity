@@ -1,16 +1,19 @@
 <template>
   <div class="subscription">
-    <div class="remind">请选择1至5个服务</div>
+    <div class="remind">
+      请选择1至5个服务
+    </div>
     <div class="chooses">
       <div 
         v-for="(item, index) in computedItems" 
-        :class="{'sub-item': !item.status, 'sub-item choosen': item.status, 'sub-item none': excludeNames.includes(item.name), 'sub-item notf': item.notFinished}"
         :key="index"
+        :class="{'sub-item': !item.status, 'sub-item choosen': item.status, 'sub-item none': excludeNames.includes(item.name), 'sub-item notf': item.notFinished}"
         @click="handleItemClick(item)"
       >
         <div 
           v-if="item.cindex >0" 
-          class="index-label">
+          class="index-label"
+        >
           {{ item.cindex }}
         </div>
         <div class="item-img">
@@ -23,10 +26,14 @@
     </div>
     <div 
       class="confirm" 
-      @click="confirmPreview">预览页面</div>
+      @click="confirmPreview"
+    >
+      预览页面
+    </div>
     <BottomBar 
       :replace-mode="'preview'" 
-      :replace-menu-code="computedMenuCode"/>
+      :replace-menu-code="computedMenuCode"
+    />
   </div>
 </template>
 
@@ -299,6 +306,7 @@ export default {
     opacity: 1;
     border-radius: 11px;
     margin-top: 20px;
+    margin-bottom: 5%;
   }
 }
 </style>

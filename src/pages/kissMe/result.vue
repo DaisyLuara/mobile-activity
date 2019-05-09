@@ -1,29 +1,36 @@
 <template>
   <div 
     :style="style.root"
-    class="kissme-content">
+    class="kissme-content"
+  >
     <img   
       :src="resultImgUrl" 
       alt=""
-      class="photo">
+      class="photo"
+    >
     <!--<img  class="photo" :src="imgServerUrl + '/pages/popcorn/Bronze.jpg'" alt=""/>-->
     <img  
       :src="imgServerUrl + '/pages/popcorn/Kissme/1.png'" 
       alt=""
-      class="kissme-one">
+      class="kissme-one"
+    >
     <img  
       :src="imgServerUrl + '/pages/popcorn/Kissme/2.png'" 
       alt=""
-      class="kissme-two">
+      class="kissme-two"
+    >
     <img  
       :src="imgServerUrl + '/pages/popcorn/Kissme/3.png'" 
       alt=""
-      class="kissme-three">
+      class="kissme-three"
+    >
     <div 
-      class="jiantou">
+      class="jiantou"
+    >
       <img 
         :src="imgServerUrl + '/pages/popcorn/Kissme/A.gif'" 
-        alt="" >
+        alt=""
+      >
     </div>
   </div>
 </template>

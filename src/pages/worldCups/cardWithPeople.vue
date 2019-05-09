@@ -6,11 +6,13 @@
     <div
       v-if="isLoading || isDrawing"
       :style="style.root" 
-      class="loading"/>
+      class="loading"
+    />
     <div
       v-if="!isDrawing"
       :style="style.root" 
-      class="card">
+      class="card"
+    >
       <img
         :src="base64Data" 
         class="result" 

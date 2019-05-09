@@ -2,12 +2,14 @@
   <!-- isAbandoned -->
   <div 
     id="content"
-    class="content" >
+    class="content"
+  >
     <canvas 
       id="canvas"
     />
     <div
-      :class="{ photo:true, toslider: toslider}">
+      :class="{ photo:true, toslider: toslider}"
+    >
       <img
         id="mImg"
         src="" 

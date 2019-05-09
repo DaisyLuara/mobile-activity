@@ -10,7 +10,7 @@
     <div class="picture">
       <img :src="picture">
     </div>
-    <canvas id="canvas"/>
+    <canvas id="canvas" />
   </div>
 </template>
 <script>

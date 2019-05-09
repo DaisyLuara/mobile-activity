@@ -1,46 +1,59 @@
 <template>
   <div 
     :style="style.root"
-    class="content">
+    class="content"
+  >
     <div 
-      class="main">
+      class="main"
+    >
       <img 
         :src="base+'title.png'"
-        class="title">
+        class="title"
+      >
       <img 
         :src="base+'light.png'"
-        class="light">
+        class="light"
+      >
       <img
         :src="base+'frame.png'"
-        class="frame">
+        class="frame"
+      >
       <img 
         :src="photo + this.$qiniuCompress()"
-        class="photo">
+        class="photo"
+      >
       <img 
         :src="photo + this.$qiniuCompress()"
-        class="photo top">
+        class="photo top"
+      >
       <!-- 熊猫 -->
       <img
         v-lazy="base+'panda1.png'"
-        class="panda1">
+        class="panda1"
+      >
       <img
         v-lazy="base+'panda2.png'"
-        class="panda2">
+        class="panda2"
+      >
       <img
         v-lazy="base+'panda3.png'"
-        class="panda3">
+        class="panda3"
+      >
       <img
         v-lazy="base+'panda4.png'"
-        class="panda4">
+        class="panda4"
+      >
     </div>
     <img 
       v-show="Boolean(photo)"
       :src="base+'press.png'"
-      class="press">
+      class="press"
+    >
     <img 
       v-show="Boolean(photo)"
       :src="base+'shadow.png'"
-      class="shadow">
+      class="shadow"
+    >
   </div>
 </template>
 <script>

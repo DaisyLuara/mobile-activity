@@ -1,24 +1,30 @@
 <template>
   <div
     :style="style.root"
-    class="root">
+    class="root"
+  >
     <img 
       :style="style.bg"
       :src="imgUrl + 'bg.png' + this.$qiniuCompress()"
-      class="root-bg">
+      class="root-bg"
+    >
     <div
       id="animation"
       :style="style.bg"
-      class="animation"/>
+      class="animation"
+    />
     <img 
       :src="photo + this.$qiniuCompress()"
-      class="photo">
+      class="photo"
+    >
     <img 
       :src="photo + this.$qiniuCompress()"
-      class="opacity-photo">
+      class="opacity-photo"
+    >
     <img 
       :src="imgUrl + 'logo.png' + this.$qiniuCompress()"
-      class="logo">
+      class="logo"
+    >
   </div>
 </template>
 

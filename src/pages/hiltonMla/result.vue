@@ -1,40 +1,51 @@
 <template>
   <div 
-    class="hilton-content">
+    class="hilton-content"
+  >
     <img 
       :src="imgServerUrl + '/pages/hiltonMla/bg.jpg'"
       alt="" 
-      class="bg">
+      class="bg"
+    >
     <img 
       :src="imgServerUrl + '/pages/hiltonMla/pingzi.png'" 
       alt="" 
-      class="pingzi">
+      class="pingzi"
+    >
     <img 
       :src="imgServerUrl + '/pages/hiltonMla/light.png'" 
       alt=""
-      class="light">
+      class="light"
+    >
     <div 
-      class="coupon">
+      class="coupon"
+    >
       <img 
         :src="imgServerUrl + '/pages/hiltonMla/' + oid + '_' + type + '.png'"
-        class="cp-1">
+        class="cp-1"
+      >
     </div>
     <div 
-      class="save">
+      class="save"
+    >
       <img 
         :src="imgServerUrl + '/pages/hiltonMla/jiantou.png'" 
         alt=""
-        class="jiantou" >
+        class="jiantou"
+      >
       <img 
         :src="imgServerUrl + '/pages/hiltonMla/title.png'" 
         alt=""
-        class="title" >
+        class="title"
+      >
     </div>
     <div 
-      class="bg2">
+      class="bg2"
+    >
       <img 
         :src="imgServerUrl + '/pages/hiltonMla/bg2.png'" 
-        alt="">
+        alt=""
+      >
     </div>
   </div>
 </template>

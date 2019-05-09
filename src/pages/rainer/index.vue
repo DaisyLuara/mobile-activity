@@ -5,14 +5,14 @@
   >
     <div
       :style="style.root"
-      class="main">
+      class="main"
+    >
       <img 
         :src="photo" 
         class="photo top"
       >
     </div>
   </div>
-
 </template>
 <script>
 import { $wechat, getInfoById, wechatShareTrack } from "services";

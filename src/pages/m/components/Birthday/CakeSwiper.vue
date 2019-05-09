@@ -1,10 +1,11 @@
 <template>
   <div class="cake-wrapper">
     <div v-if="cakeList.length > 0">
-      <div class="cake-swiper-bg"/>
+      <div class="cake-swiper-bg" />
       <div 
         id="cakeSwiperTop" 
-        class="swiper-container gallery-top">
+        class="swiper-container gallery-top"
+      >
         <div class="swiper-wrapper">
           <div 
             v-for="item in cakeList"
@@ -14,16 +15,18 @@
             <div class="cake-top-wrapper">
               <img 
                 :src="item.image" 
-                class="cake-top-img">
+                class="cake-top-img"
+              >
             </div>
           </div>
         </div>
-        <div class="swiper-button-next button-next-cake"/>
-        <div class="swiper-button-prev button-prev-cake"/>
+        <div class="swiper-button-next button-next-cake" />
+        <div class="swiper-button-prev button-prev-cake" />
       </div>
       <div 
         id="cakeSwiperThumbs" 
-        class="swiper-container gallery-thumbs">
+        class="swiper-container gallery-thumbs"
+      >
         <div class="swiper-wrapper">
           <div 
             v-for="item in cakeList"
@@ -33,7 +36,8 @@
             <div class="cake-thumbs-wrapper">
               <img 
                 :src="item.image" 
-                class="cake-thumbs-img">
+                class="cake-thumbs-img"
+              >
             </div>
           </div>
         </div>

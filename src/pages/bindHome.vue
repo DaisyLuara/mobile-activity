@@ -1,6 +1,6 @@
 <template>
   <div id="bindHome">
-    <router-view/>
+    <router-view />
   </div>
 </template>
 <script>

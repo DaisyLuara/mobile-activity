@@ -52,4 +52,24 @@ const formatTimestamp = (data, flag) => {
   return todayStartTime
 }
 
-export { isInWechat, randomIntNum, validatePhone, dateFormat, formatTimestamp }
+// 过滤输入 只保留数字
+const filterNumber = (str) => {
+  return str.match(/\d*/g).join('')
+}
+
+const isPC = () => { //是否为PC端
+  const userAgentInfo = navigator.userAgent;
+  const Agents = ["Android", "iPhone",
+    "SymbianOS", "Windows Phone",
+    "iPad", "iPod"];
+  let flag = true;
+  for (let v = 0; v < Agents.length; v++) {
+    if (userAgentInfo.indexOf(Agents[v]) > 0) {
+      flag = false;
+      break;
+    }
+  }
+  return flag;
+}
+
+export { isInWechat, randomIntNum, validatePhone, dateFormat, formatTimestamp, filterNumber, isPC }

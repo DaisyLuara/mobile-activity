@@ -26,7 +26,6 @@
       :src="baseUrl + 'G.gif'+ this.$qiniuCompress()"
       class="jiantou"
     >
-
   </div>
 </template>
 <script>

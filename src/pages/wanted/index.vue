@@ -10,7 +10,8 @@
     <div
       v-show="shouldRemindShow"
       :style="style.remind" 
-      class="input-remind">
+      class="input-remind"
+    >
       请输入手机号码
     </div>
     <input 

@@ -36,7 +36,6 @@
       :src="baseUrl + 'logo.png'+ this.$qiniuCompress()"
       class="logo"
     >
-
   </div>
 </template>
 <script>

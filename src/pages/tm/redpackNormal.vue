@@ -21,7 +21,6 @@
     <!-- <img 
       class="bottom" 
       src="http://cdn.xingstation.cn/fe/image/tmall/redpack/bottom.png"> -->
-
   </div>
 </template>
 

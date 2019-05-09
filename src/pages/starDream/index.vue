@@ -1,11 +1,13 @@
 <template>
   <div 
     id="starDream"
-    class="star-dream-content" >
+    class="star-dream-content"
+  >
     <img 
       :src="resultImgUrl"
       alt=""
-      class="photo">
+      class="photo"
+    >
     <img 
       :src="imgServerUrl + '/pages/starDream/light_1_bright.png'"
       :class="{'one-bright': shortFlag, 'lang-one-bright': !shortFlag}"
@@ -32,16 +34,20 @@
       alt="" 
     >
     <div 
-      class="jiantou">
+      class="jiantou"
+    >
       <img
         :src="imgServerUrl + '/pages/starDream/arrow.png'"
-        alt="" >
+        alt=""
+      >
     </div>
     <div 
-      class="text">
+      class="text"
+    >
       <img 
         :src="imgServerUrl + '/pages/starDream/prompt.png'" 
-        alt="" >
+        alt=""
+      >
     </div>
   </div>
 </template>

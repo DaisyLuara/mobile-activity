@@ -35,7 +35,6 @@
         class="code"
       >{{ code }}</span>
     </div>
-
   </div>
 </template>
 <script>

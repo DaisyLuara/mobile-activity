@@ -34,11 +34,13 @@
           <div class="slide-page2">
             <img
               v-lazy="serverUrl + 'page2.png' + this.$qiniuCompress()"
-              class="page2" >
+              class="page2"
+            >
             <img
               v-lazy="serverUrl + 'arrow-black.png' + this.$qiniuCompress()"
               class="arrow"
-              @click="handlePageToNext()" >
+              @click="handlePageToNext()"
+            >
           </div>
         </div>
         <div class="swiper-slide">
@@ -58,21 +60,24 @@
           <div class="slide-page4 exp">
             <img
               :src="serverUrl + 'page4-title-1.png' + this.$qiniuCompress()" 
-              class="page4-1" >
+              class="page4-1"
+            >
             <div class="page4">
               <!-- <img class="number-icon" :src="serverUrl + 'tip-white.png' + this.$qiniuCompress()" /> -->
-              <img v-lazy="serverUrl + 'new-1.png' + this.$qiniuCompress()" >
+              <img v-lazy="serverUrl + 'new-1.png' + this.$qiniuCompress()">
             </div>
             <div class="page4">
               <img 
                 :src="serverUrl + 'tip-white.png' + this.$qiniuCompress()" 
-                class="number-icon" >
+                class="number-icon"
+              >
               <img v-lazy="serverUrl + 'new-2.png' + this.$qiniuCompress()">
             </div>
             <img
               :src="serverUrl + 'arrow-black.png' + this.$qiniuCompress()"
               class="arrow"
-              @click="handlePageToNext()" >
+              @click="handlePageToNext()"
+            >
           </div>
         </div>
         <div class="swiper-slide">

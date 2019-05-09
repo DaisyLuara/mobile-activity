@@ -1,22 +1,26 @@
 <template>
   <div 
     id="content" 
-    class="content">
+    class="content"
+  >
     <div class="main">
       <img 
         :src="IMGURL + 'bg1.jpg'" 
-        class="bg">
+        class="bg"
+      >
       <ul class="btn-group">
         <!-- <img :src="IMGURL + item + '.png'" /> -->
         <!-- <a v-for = "item in 4" :key="item.id"  :href="ahref + item"><li></li></a> -->
         <a 
-          v-for = "item in 4" 
+          v-for="item in 4" 
           :key="item.id" 
-          @click="linkPage(item)"><li/></a>
+          @click="linkPage(item)"
+        ><li /></a>
       </ul>
       <img 
         :src="IMGURL + 'click.png'" 
-        class="text">
+        class="text"
+      >
     </div>
   </div>
 </template>

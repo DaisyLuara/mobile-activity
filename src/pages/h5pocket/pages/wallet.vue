@@ -1,17 +1,19 @@
 <template>
   <div class="wallet">
     <p>{{ errorMessage }}</p>
-    <TabBar/>
+    <TabBar />
     <div 
       v-for="(item, index) in list" 
       :key="index" 
-      class="coupon-wrapper">
+      class="coupon-wrapper"
+    >
       <CouponItem 
         :coupon-type="couponType" 
-        :coupon-data="item"/>
+        :coupon-data="item"
+      />
     </div>
-    <div class="loadmore-add"/>
-    <div class="loadmore-add"/>
+    <div class="loadmore-add" />
+    <div class="loadmore-add" />
   </div>
 </template>
 

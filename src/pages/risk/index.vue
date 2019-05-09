@@ -1,20 +1,25 @@
 <template>
   <div 
     id="risk" 
-    class="risk-content">
+    class="risk-content"
+  >
     <img 
       :src="resultImgUrl"
       alt=""
-      class="photo" >
+      class="photo"
+    >
     <img 
       :src="imgServerUrl + '/pages/risk/paw.png'" 
       alt=""
-      class="paw" >
+      class="paw"
+    >
     <div 
-      class="jiantou">
+      class="jiantou"
+    >
       <img 
         :src="imgServerUrl + '/pages/risk/arrow.gif'" 
-        alt="" >
+        alt=""
+      >
     </div>
   </div>
 </template>

@@ -1,39 +1,50 @@
 <template>
   <div
-    class="psbh-travel-wrap">
+    class="psbh-travel-wrap"
+  >
     <div
       :style="style.root"
       class="photo-content"
     >
       <div
-        class="boots-wrap">
+        class="boots-wrap"
+      >
         <div
-          class="slide-wrap pos-common">
+          class="slide-wrap pos-common"
+        >
           <img 
             :src="imgServerUrl + '/line.png'" 
-            class="boot-line pos-common" >
+            class="boot-line pos-common"
+          >
           <img
             :src="imgServerUrl + '/text.png'"
-            class="boot-text pos-common">
+            class="boot-text pos-common"
+          >
           <img 
             :src="imgServerUrl + '/hand.png'"
-            class="gesture-img pos-common" >
+            class="gesture-img pos-common"
+          >
           <div 
-            class="boot-img" />
+            class="boot-img"
+          />
         </div>
       </div>
       <div 
-        class="photo-wrap">
+        class="photo-wrap"
+      >
         <canvas 
           id="myCanvas" 
           class="canvas-content" 
-          style="display: none" />
+          style="display: none"
+        />
         <img 
           id="test"
           class="envelope-bg"
-          src="">
+          src=""
+        >
         <div
-          class="photo-cover">
+          class="photo-cover"
+        >
           <img 
             :src="imgServerUrl + '/photo-cover2.png'"
             class="cover-img"
@@ -41,13 +52,16 @@
         </div>
       </div>
       <div
-        class="save-arrow-wrap">
+        class="save-arrow-wrap"
+      >
         <img
           :src="imgServerUrl + '/arrow.png'"
-          class="arrow">
+          class="arrow"
+        >
         <img 
           :src="imgServerUrl + '/share.png'"
-          class="save-img">
+          class="save-img"
+        >
       </div>
     </div>
   </div>

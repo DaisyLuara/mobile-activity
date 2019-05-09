@@ -1,83 +1,104 @@
 <template>
   <div
     :style="style.root"
-    class="root">
+    class="root"
+  >
     <!-- 加载中 -->
     <div 
       v-if="loading" 
-      class="shade"/>
+      class="shade"
+    />
     <img 
       v-if="loading"
       :src="baseUrl + 'leaf3.png'+ this.$qiniuCompress()"
-      class="leaf">
+      class="leaf"
+    >
     <!-- 加载中 -->
     <img 
       :src="baseUrl + 'bg.jpeg'+ this.$qiniuCompress()"
-      class="bg">
+      class="bg"
+    >
     <div
       v-show="tit.titOne" 
       class="tit1"
-      @click.stop="cancles">
+      @click.stop="cancles"
+    >
       <img 
-        :src="baseUrl + 'tit1.png'+ this.$qiniuCompress()">
+        :src="baseUrl + 'tit1.png'+ this.$qiniuCompress()"
+      >
     </div>
     <div
       v-show="tit.titTwo"
       class="tit2"
-      @click.stop="cancles">
+      @click.stop="cancles"
+    >
       <img  
-        :src="baseUrl + 'tit2.png'+ this.$qiniuCompress()">
+        :src="baseUrl + 'tit2.png'+ this.$qiniuCompress()"
+      >
     </div>
     <div
       v-show="tit.titThree" 
       class="tit3"
-      @click.stop="cancles">
+      @click.stop="cancles"
+    >
       <img 
-        :src="baseUrl + 'tit3.png'+ this.$qiniuCompress()">
+        :src="baseUrl + 'tit3.png'+ this.$qiniuCompress()"
+      >
     </div>
     <div class="t-1">
       <img 
         :src="baseUrl + 'title.png'+ this.$qiniuCompress()"
-        class="t1">
+        class="t1"
+      >
     </div>
     <div class="t-2">
       <img 
         :src="baseUrl + 'section_3.png'+ this.$qiniuCompress()"
-        class="t2-1">
+        class="t2-1"
+      >
       <img 
         :src="baseUrl + 'leaf.png'+ this.$qiniuCompress()"
-        class="leaf-1">
+        class="leaf-1"
+      >
       <img 
         :src="baseUrl + 'leaf2.png'+ this.$qiniuCompress()"
-        class="leaf-2">
+        class="leaf-2"
+      >
       <!-- 录音  -->
       <div 
         v-show="button.buttonOne" 
         class="button-1"
         @touchstart="startRecord"
-        @touchend="stopRecord">
+        @touchend="stopRecord"
+      >
         <img 
           v-show="button.buttonOne"
           :src="baseUrl + 'prompt_1.png'+ this.$qiniuCompress()"
-          class="p-1">
+          class="p-1"
+        >
         <img 
           :src="baseUrl + 'button_1.png'+ this.$qiniuCompress()" 
-          class="b-1">
+          class="b-1"
+        >
       </div>
       <!-- 正在录音 -->
       <div 
         v-show="button.buttonTwo" 
-        class="button-2">
+        class="button-2"
+      >
         <img 
           v-show="button.buttonTwo"
           :src="baseUrl + 'prompt_1.png'+ this.$qiniuCompress()"
-          class="p-1">
+          class="p-1"
+        >
         <img 
           :src="baseUrl + 'wifi.gif'+ this.$qiniuCompress()"
-          class="wifi">
+          class="wifi"
+        >
         <img 
           :src="baseUrl + 'button_2.png'+ this.$qiniuCompress()"
-          class="b-1">
+          class="b-1"
+        >
       </div>
       <!-- 播放录音 -->
       <div 
@@ -87,73 +108,92 @@
         <!-- 播放 -->
         <div 
           v-show="player.one" 
-          @click="playRecord()">
+          @click="playRecord()"
+        >
           <img 
             v-show="button.buttonThree"
             :src="baseUrl + 'prompt_2.png'+ this.$qiniuCompress()"
-            class="p-1">
+            class="p-1"
+          >
           <img 
             :src="baseUrl + 'button5.png'+ this.$qiniuCompress()"
-            class="b-1">
+            class="b-1"
+          >
         </div>
         <!-- 正在播放 -->
         <div 
           v-show="player.two" 
-          @click="pauseVoice()">
+          @click="pauseVoice()"
+        >
           <img 
             v-show="button.buttonThree"
             :src="baseUrl + 'prompt_2.png'+ this.$qiniuCompress()"
-            class="p-1">
+            class="p-1"
+          >
           <img 
             :src="baseUrl + 'wifi.gif'+ this.$qiniuCompress()"
-            class="wifi">
+            class="wifi"
+          >
           <img 
             :src="baseUrl + 'button_4.png'+ this.$qiniuCompress()"
-            class="b-1">
+            class="b-1"
+          >
         </div>
         <!-- 暂停 -->
         <div 
           v-show="player.three" 
-          @click="playRecord()">
+          @click="playRecord()"
+        >
           <img 
             v-show="button.buttonThree"
             :src="baseUrl + 'prompt_2.png'+ this.$qiniuCompress()"
-            class="p-1">
+            class="p-1"
+          >
           <img 
             :src="baseUrl + 'button6.png'+ this.$qiniuCompress()"
-            class="b-1">
+            class="b-1"
+          >
         </div>
       </div>
     </div>
     <div 
-      class="t-3">
+      class="t-3"
+    >
       <img 
         :src="baseUrl + 'section_2.png'+ this.$qiniuCompress()"
-        class="t3-1">
+        class="t3-1"
+      >
       <!-- :src="baseUrl + '777.png'+ this.$qiniuCompress()" -->
       <img 
         v-if="photo !== null" 
         :src="photo + this.$qiniuCompress()" 
-        class="photo">
+        class="photo"
+      >
       <img 
         :src="baseUrl + 'leaf3.png'+ this.$qiniuCompress()"
-        class="leaf-3">
+        class="leaf-3"
+      >
       <img 
         :src="baseUrl + 'leaf4.png'+ this.$qiniuCompress()"
-        class="leaf-4">
+        class="leaf-4"
+      >
       <img 
         :src="baseUrl + 'leaf5.png'+ this.$qiniuCompress()"
-        class="leaf-5">
+        class="leaf-5"
+      >
       <img 
         :src="baseUrl + 'leaf6.png'+ this.$qiniuCompress()"
-        class="leaf-6">
+        class="leaf-6"
+      >
       <div class="jiantou">
         <img 
           :src="baseUrl + 'arrow.png'+ this.$qiniuCompress()"
-          class="arrow">
+          class="arrow"
+        >
         <img 
           :src="baseUrl + 'prompt_3.png'+ this.$qiniuCompress()"
-          class="prompt">
+          class="prompt"
+        >
       </div>
     </div>
   </div>

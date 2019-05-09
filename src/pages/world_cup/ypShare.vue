@@ -2,61 +2,78 @@
   <!-- isAbandoned -->
   <div 
     :style="style.root"
-    class="content">
+    class="content"
+  >
     <audio 
       id="voice" 
       autobuffer 
       autoloop 
       loop 
       autoplay 
-      hidden>
+      hidden
+    >
       <source :src="audioUrl">
     </audio>
     <div 
-      class="main">
+      class="main"
+    >
       <img 
         :src="imgServerUrl + '/pages/yp/bg4.png'"
-        class="bg">
+        class="bg"
+      >
       <div 
-        class="title">
+        class="title"
+      >
         <img 
           :src="imgServerUrl + '/pages/yp/tit1.png'"
-          class="tit1">
+          class="tit1"
+        >
         <img 
           :src="imgServerUrl + '/pages/yp/tit2.png'"
-          class="tit2">
+          class="tit2"
+        >
         <img 
           :src="imgServerUrl + '/pages/yp/tit4.png'"
-          class="tit3">
+          class="tit3"
+        >
       </div>
       <img 
         id="mbtn" 
         :src="imgServerUrl + '/pages/yp/music.png'" 
         class="mplay"  
-        @click="playOrNot()">
+        @click="playOrNot()"
+      >
       <img 
         :src="imgServerUrl + '/pages/yp/ball.png'"
-        class="ball1" >
+        class="ball1"
+      >
       <img 
         :src="imgServerUrl + '/pages/yp/ball.png'"
-        class="ball2">
+        class="ball2"
+      >
       <div 
-        class="photo-area">
+        class="photo-area"
+      >
         <img 
           :src="imgServerUrl + '/pages/yp/kuang3.png'"
-          class="kuang" >
+          class="kuang"
+        >
         <img 
           :src="imgServerUrl + '/pages/yp/save.png'"
-          class="save" >
+          class="save"
+        >
         <img 
           :src="resultImgUrl"
           alt=""
-          class="photo">
+          class="photo"
+        >
       </div>
       <div 
-        class="ad">
+        class="ad"
+      >
         <img 
-          :src="imgServerUrl + '/pages/yp/ad.png'">
+          :src="imgServerUrl + '/pages/yp/ad.png'"
+        >
       </div>
     </div>
   </div>

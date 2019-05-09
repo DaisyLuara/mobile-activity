@@ -7,46 +7,55 @@
         autoloop 
         loop 
         autoplay 
-        hidden>
+        hidden
+      >
         <source :src="audioUrl+'travelBGM.mp3'">
       </audio>
       <img 
         id="mbtn" 
         :src="imgPath+'kaide/yinyue.png'" 
         class="mplay" 
-        @click="playOrNot">
+        @click="playOrNot"
+      >
       <div class="boots-wrap">
         <div class="slide-wrap pos-common">
           <img 
             :src="imgPath+'travel/line.png'" 
-            class="boot-line"> 
+            class="boot-line"
+          > 
           <img 
             :src="imgServerUrl+'/boot-text.png'" 
-            class="boot-text pos-common">
+            class="boot-text pos-common"
+          >
           <img 
             :src="imgServerUrl+'/gesture-img.png'" 
-            class="gesture-img"> 
-          <div class="boot-img"/>
+            class="gesture-img"
+          > 
+          <div class="boot-img" />
         </div>
       </div>
       <div class="photo-wrap">
         <img 
           :src="imgServerUrl+'/photo_frame.png'" 
-          class="envelope-bg">
+          class="envelope-bg"
+        >
         <img 
           :src="photo" 
-          class="photo-img">
+          class="photo-img"
+        >
       </div>
       <div class="photo-cover">
         <img 
           :src="imgServerUrl+'/photo-cover2.png'" 
-          class="cover-img">
+          class="cover-img"
+        >
       </div>
     </div>
     <div class="save-img">
       <img 
         :src="imgServerUrl+'/save-img3.png'" 
-        class="hint">
+        class="hint"
+      >
     </div>
   </div>
 </template>

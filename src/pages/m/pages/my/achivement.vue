@@ -1,6 +1,8 @@
 <template>
   <div class="achivement">
-    <div class="title">{{ fixedTitle }}</div>
+    <div class="title">
+      {{ fixedTitle }}
+    </div>
     <ul
       v-infinite-scroll="loadMore"
       class="achives"
@@ -10,22 +12,30 @@
       <div 
         v-for="(item, index) in trends" 
         :key="index" 
-        class="achive">
+        class="achive"
+      >
         <div class="header">
           <img 
             v-if="item.hid > 0" 
-            :src="item.xicon">
+            :src="item.xicon"
+          >
           <img 
             v-if="item.hid <= 0" 
-            :src="item.xtabicon">
+            :src="item.xtabicon"
+          >
         </div>
-        <div class="text">{{ item.xname }}</div>
+        <div class="text">
+          {{ item.xname }}
+        </div>
       </div>
       <div 
         v-if="trends.length === 0 && firstFetch" 
-        class="no-achive">暂无解锁的成就</div>
+        class="no-achive"
+      >
+        暂无解锁的成就
+      </div>
     </ul>
-    <ActivityThemeGameBottom :show="shouldButtonShow"/>
+    <ActivityThemeGameBottom :show="shouldButtonShow" />
   </div>
 </template>
 

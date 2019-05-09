@@ -69,7 +69,6 @@
         class="bottom"
       >
     </div>
-
   </div>
 </template>
 <script>

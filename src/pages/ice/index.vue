@@ -1,52 +1,65 @@
 <template>
   <div
     :style="style.root" 
-    class="root">
+    class="root"
+  >
     <div 
       v-show="shade"
-      class="shade">
+      class="shade"
+    >
       <img 
         :src="baseUrl + 'fake.png'+ this.$qiniuCompress()"
         :class="{'X-photoHide':iphoneX}"
-        class="photo-hide" >
+        class="photo-hide"
+      >
       <div 
-        class="hint">
+        class="hint"
+      >
         <img 
           :src="baseUrl + 'hint2.png'+ this.$qiniuCompress()"
-          class="hint2" > 
+          class="hint2"
+        > 
         <img 
           v-if="hint1"
           :src="baseUrl + 'hint1.png'+ this.$qiniuCompress()"
-          class="hint1" > 
+          class="hint1"
+        > 
         <img 
           v-if="hint3"
           :src="baseUrl + 'hint3.png'+ this.$qiniuCompress()"
-          class="hint3" > 
+          class="hint3"
+        > 
       </div>
       <img 
         v-if="iceShow.iceOne"
         :src="baseUrl + '1.png'+ this.$qiniuCompress()"
-        class="ice-01" >
+        class="ice-01"
+      >
       <img 
         v-if="iceShow.iceTwo"
         :src="baseUrl + '2.png'+ this.$qiniuCompress()"
-        class="ice-02" >
+        class="ice-02"
+      >
       <img 
         v-if="iceShow.iceThree"
         :src="baseUrl + '3.png'+ this.$qiniuCompress()"
-        class="ice-02" >
+        class="ice-02"
+      >
     </div>
     <div 
       v-show="realContent"
-      class="real-content">
+      class="real-content"
+    >
       <img 
         :src="baseUrl + 'save.png'+ this.$qiniuCompress()"
-        class="save" >
+        class="save"
+      >
       <img 
         v-if="photo !== null" 
         :src="photo + this.$qiniuCompress()"
         :class="{'X-photo':iphoneX}"
-        class="photo" >
+        class="photo"
+      >
     </div>
   </div>
 </template>
