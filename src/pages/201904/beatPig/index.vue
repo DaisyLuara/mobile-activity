@@ -121,7 +121,7 @@ export default {
     return {
       CDNURL: CDNURL,
       countDown: 4, // 广告位倒计时
-      times: 0, // 剩余游戏次数
+      gameStatus: 'game_enable', // 游戏状态
       showAdvertisement: true,
 			topAnim: null,
 			bottomAnim: null,
@@ -163,9 +163,8 @@ export default {
         const init = await initUserGame({})
         if (init) {
           const config = await userGameConfig({})
-          if (config) {
-            const { play_times } = config.data
-            this.times = play_times
+          if (config && config.data && config.data.game_status) {   
+            this.gameStatus = game_status      
           }
           this.onShowAdvertisement()
         }
@@ -189,9 +188,8 @@ export default {
               imgUrl: CDNURL + "/fe/wuyue-beatPig-shareIcon.png",
               success: async function() {
                 const gameShare = await userGameShare({})
-                if (gameShare) {
-                  const { play_times } = gameShare.data
-                  that.times = play_times
+                if (gameShare && gameShare.data && gameShare.data.game_status) {   
+                  this.gameStatus = game_status      
                 }
               }
             })
@@ -287,15 +285,24 @@ export default {
 
 		onStartGame() {
       this.onMusicPlay('clickSound')
-      if (this.times > 3) {
-        this.showStartModal = true
-        this.pigAnim.destroy()
-        this.pigAnim = null
-      } else if (this.times > 0) {
-        Toast('将游戏分享给好友，再次获得游戏机会')
-      }	else {
-        Toast('今日游戏机会已用尽，请明日再来')
-      }	
+      this.showStartModal = true
+      this.pigAnim.destroy()
+      this.pigAnim = null
+      
+      // switch(this.gameStatus) {
+      //   case 'game_enable':
+      //     this.showStartModal = true
+      //     this.pigAnim.destroy()
+      //     this.pigAnim = null
+      //     break
+      //   case 'game_share':
+      //     Toast('将游戏分享给好友，再次获得游戏机会')
+      //     break
+      //   case 'game_disable':
+      //     Toast('今日游戏机会已用尽，请明日再来')
+      //     break
+      //   default: break
+      // }
 		},
 
 		onCloseStartModal() {
