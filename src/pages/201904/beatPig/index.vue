@@ -170,6 +170,7 @@ export default {
 
     // 微信静默授权
     handleWechatAuth() {
+      alert('Cookies.sign:', Cookies.get('sign'))
       if (Cookies.get('sign') === null) {
         let base_url = encodeURIComponent(String(window.location.href))
         let redirct_url =
@@ -179,13 +180,16 @@ export default {
           '&scope=snsapi_base'
         window.location.href = redirct_url
       } else {
+        alert('else--->>>Cookies.sign:', Cookies.get('sign'))
         this.init()
       }
     },
 
     async init() {
+      alert('init')
       try {
         const init = await initUserGame()
+        alert('initUserGame', init)
         if (init) {
           const config = await userGameConfig()
           if (config) {
