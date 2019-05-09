@@ -36,7 +36,7 @@
         @click="onCloseResult"
       >
       <img 
-        :src="CDNURL+ (times > 3 ? '/fe/wuyue-beatPig-againBtn.png' : times > 0 ? '/fe/wuyue-beatPig-shareBtn.png' : '/fe/wuyue-beatPig-notPlayBtn.png')"
+        :src="CDNURL+operationBtnDict[gameStatus]"
         class="againBtn"
         @click="onClickResultBtn"
       >
@@ -111,7 +111,8 @@ import {
 	$wechat,
   isInWechat, 
 	userGameRank, 
-	userGameConfig 
+  userGameConfig,
+  userGameShare
 } from "services";
 
 const CDNURL = process.env.CDN_URL;
@@ -120,14 +121,19 @@ export default {
   data() {
     return {
 			CDNURL: CDNURL,
-			times: 0, // 剩余游戏次数
+			gameStatus: 'game_enable',
 			showMask: false,
 			currentScore: 0,
 			totalScore: 0,
 			rank: 0,
 			pigNum: 0,
 			goldPigNum: 0,
-			bombNum: 0
+      bombNum: 0,
+      operationBtnDict: {
+        game_enable: '/fe/wuyue-beatPig-againBtn.png',
+        game_share: '/fe/wuyue-beatPig-shareBtn.png',
+        game_disable: '/fe/wuyue-beatPig-notPlayBtn.png'
+      }
     };
   },
   mounted() {
@@ -152,9 +158,8 @@ export default {
               imgUrl: CDNURL + "/fe/wuyue-beatPig-shareIcon.png",
               success: async function() {
                 const gameShare = await userGameShare()
-                if (gameShare) {
-                  const { play_times } = gameShare.data
-                  that.times = play_times
+                if (gameShare && gameShare.data && gameShare.data.game_status) {   
+                  this.gameStatus = game_status      
                 }
               }
             })
@@ -173,10 +178,9 @@ export default {
 					this.totalScore = score
 					this.rank = rowNo
 				}
-				const config = await userGameConfig({})
-        if (config) {
-          const { play_times } = config.data
-          this.times = play_times
+        const config = await userGameConfig({})
+        if (config && config.data && config.data.game_status) {   
+          this.gameStatus = game_status      
         }
       } catch (err) {
         if (err.response && err.response.data) {
@@ -242,12 +246,15 @@ export default {
 		},
 
 		onClickResultBtn() {
-			if (this.times <= 0) return
-			if (this.times > 3) {
-				this.$router.push({ name: 'beatPig/index' })
-			} else {
-				this.showMask = true
-			}
+      switch(this.gameStatus) {
+        case 'game_enable':
+          this.$router.push({ name: 'beatPig/index' })
+          break
+        case 'game_share':
+          this.showMask = true
+          break
+        default: break
+      }
 		}
 	}
 };
