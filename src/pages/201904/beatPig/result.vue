@@ -157,7 +157,7 @@ export default {
               link: window.location.href,
               imgUrl: CDNURL + "/fe/wuyue-beatPig-shareIcon.png",
               success: async function() {
-                const gameShare = await userGameShare()
+                const gameShare = await userGameShare({})
                 if (gameShare && gameShare.data && gameShare.data.game_status) {   
                   this.gameStatus = game_status      
                 }
