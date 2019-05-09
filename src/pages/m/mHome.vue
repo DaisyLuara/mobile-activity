@@ -2,7 +2,7 @@
   <div class="mHome">
     <router-view v-if="(wechat === true && z !== '') | isPC" />
     <div
-      v-if="wechat !== true | !isPC"
+      v-if="wechat !== true && !isPC"
       class="wx-remind"
     >
       请在微信中打开
