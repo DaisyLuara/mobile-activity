@@ -168,4 +168,12 @@ const getVoteList = (args) => {
   })
 }
 
-export { qiniuToken, uploadImgToQiniu, postActivityMedia, postLoveInfo, getLoveInfo, getVerificationCodes, bindUserPhone, queryUserCoupon, h5Batches, bindUserCoupon, getVoteList }
+// 获取榜单照片详情
+const getVoteDetail = (args) => {
+  return axios({
+    url: `${MOCK_API}/topdetail`,
+    params: args
+  })
+}
+
+export { qiniuToken, uploadImgToQiniu, postActivityMedia, postLoveInfo, getLoveInfo, getVerificationCodes, bindUserPhone, queryUserCoupon, h5Batches, bindUserCoupon, getVoteList, getVoteDetail }

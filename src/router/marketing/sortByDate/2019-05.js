@@ -6,7 +6,7 @@ const Date201905 = [
     meta: {
       title: '星视度',
       author: 'chuxiaochen',
-      desc: '星视度'
+      desc: '520钻石活动大屏扫码落地页-先行版'
     },
     isAbandoned: false
   },
@@ -17,7 +17,7 @@ const Date201905 = [
     meta: {
       title: '星视度',
       author: 'chuxiaochen',
-      desc: '星视度'
+      desc: '520钻石活动抽奖-先行版'
     },
     isAbandoned: false
   },
@@ -34,12 +34,56 @@ const Date201905 = [
   },
   {
     path: 'diamond520_top',
-    location: '201905/diamond520_top',
+    location: '201905/Diamond520/diamond520_top',
     name: 'diamond520Top',
     meta: {
       title: '星视度',
       author: 'chuxiaochen',
-      desc: '星视度'
+      desc: '520钻石活动榜单'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'diamond520_vote',
+    location: '201905/Diamond520/diamond520_vote',
+    name: 'diamond520Vote',
+    meta: {
+      title: '星视度',
+      author: 'chuxiaochen',
+      desc: '520钻石活动投票页'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'diamond520_fetch',
+    location: '201905/Diamond520/diamond520_fetch',
+    name: 'diamond520Fetch',
+    meta: {
+      title: '星视度',
+      author: 'chuxiaochen',
+      desc: '520钻石活动告白提取页'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'Diamond520/diamond520',
+    location: '201905/Diamond520/diamond520',
+    name: 'diamond520Full',
+    meta: {
+      title: '星视度',
+      author: 'chuxiaochen',
+      desc: '520钻石活动扫码落地页-正式版'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'Diamond520/diamond520_c',
+    location: '201905/Diamond520/diamond520',
+    name: 'diamond520Full',
+    meta: {
+      title: '星视度',
+      author: 'chuxiaochen',
+      desc: '520钻石活动扫码落地页-正式版'
     },
     isAbandoned: false
   },

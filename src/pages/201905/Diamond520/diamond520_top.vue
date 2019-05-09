@@ -4,36 +4,41 @@
       :src="`${CDNURL}/dimond520/photo_back_top.png`"
       class="back-top"
     >
-    <div class="content-wrap">
-      <md-scroll-view>
-        
-      </md-scroll-view>
-      <img
-        :src="`${CDNURL}/dimond520/diamond_top_title.png`"
-        class="top-title"
-      >
-      <div class="couple-list">
-        <div
-          v-for="(item, index) in list"
-          :key="item.id"
-          class="couple-item"
+    <md-scroll-view
+      ref="scrollView"
+      :scrolling-x="false"
+      class="content-scroll"
+      @endReached="getVoteList"
+    >
+      <div class="content-wrap">
+        <img
+          :src="`${CDNURL}/dimond520/diamond_top_title.png`"
+          class="top-title"
         >
-          <img
-            :src="item.image"
-            class="couple-photo"
+        <div class="couple-list">
+          <div
+            v-for="(item, index) in list"
+            :key="item.id"
+            class="couple-item"
+            @click="handleNavToVote(item.id)"
           >
-          <img
-            v-if="index < 3"
-            :src="`${CDNURL}/dimond520/photo_top${index + 1}.png`"
-            class="rank-tip"
-          >
-          <div class="rank-status">
-            <p>排名：{{ index | formatRank }}</p>
-            <p>人气：{{ item.votes }}</p>
+            <img
+              :src="item.image"
+              class="couple-photo"
+            >
+            <img
+              v-if="index < 3"
+              :src="`${CDNURL}/dimond520/photo_top${index + 1}.png`"
+              class="rank-tip"
+            >
+            <div class="rank-status">
+              <p>排名：{{ index | formatRank }}</p>
+              <p>人气：{{ item.votes }}</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </md-scroll-view>
   </div>
 </template>
 
@@ -67,22 +72,44 @@ export default {
   },
   methods: {
     async getVoteList() {
-      let res = await getVoteList()
-      this.list = this.list.concat(res.data.data)
+      try {
+        let res = await getVoteList()
+        this.list = this.list.concat(res.data.data)
+      } catch(e) {
+        console.log(e)
+      } finally {
+        this.$refs.scrollView.finishLoadMore()
+      }
+    },
+    handleNavToVote(id) {
+      this.$router.push({
+        name: 'diamond520Vote',
+        query: {
+          pid: id
+        }
+      })
     }
   }
 }
 </script>
 
 <style lang="less" scoped>
-@import "../../assets/less/diamond.less";
 @import "../../assets/less/cdnUrl.less";
+@import "../../assets/less/diamond.less";
 
 .back-top {
   position: absolute;
   width: 100%;
   top: 0;
   left: 0;
+}
+.content-scroll {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: transparent;
 }
 .content-wrap {
   position: relative;

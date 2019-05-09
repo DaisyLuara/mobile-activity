@@ -12,14 +12,10 @@
     <div class="time">
       活动时间:  <span class="red"> {{ startTime }} 至 {{ endTime }}</span>
     </div>
-    <div
-      class="info"
-      v-html="infolink"
-    />
-    <div
-      class="info"
-      v-html="pslink"
-    />
+    <!-- eslint-disable-next-line -->
+    <div class="info" v-html="infolink" />
+    <!-- eslint-disable-next-line -->
+    <div class="info" v-html="pslink" />
     <div
       class="main-button"
       @click="handleNaviToActList"
