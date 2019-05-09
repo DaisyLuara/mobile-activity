@@ -170,7 +170,7 @@ export default {
 
     // 微信静默授权
     handleWechatAuth() {
-      console.log('Cookies.sign:', Cookies.get('sign'))
+      console.log('handleWechatAuth-173')
       if (Cookies.get('sign') === null) {
         let base_url = encodeURIComponent(String(window.location.href))
         let redirct_url =
@@ -180,13 +180,13 @@ export default {
           '&scope=snsapi_base'
         window.location.href = redirct_url
       } else {
-        console.log('else--->>>Cookies.sign:', Cookies.get('sign'))
+        console.log('handleWechatAuth-183')
         this.init()
       }
     },
 
     async init() {
-      console.log('init')
+      console.log('init-189')
       try {
         const init = await initUserGame()
         console.log('initUserGame', init)
@@ -199,10 +199,11 @@ export default {
           this.onShowAdvertisement()
         }
       } catch (err) {
-        console.log('err--->>>', err)
+        console.log('init-202')
         if (err.response.data) {
           alert(err.response.data.message)
         }
+        console.log('init-206')
       }
     },
 
