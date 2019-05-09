@@ -8,3 +8,6 @@ export * from './coupon'
 
 // 游戏信息
 export * from './game'
+
+// h5打猪游戏
+export * from './h5Game'
