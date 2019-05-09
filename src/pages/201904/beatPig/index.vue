@@ -132,7 +132,6 @@ export default {
     };
   },
   mounted() {
-    this.handleWeChatShare()
     if (isInWechat() === true) {
       if (
         process.env.NODE_ENV === 'production' ||
@@ -143,6 +142,41 @@ export default {
     }
   },
   methods: {
+    // 微信静默授权
+    handleWechatAuth() {
+      if (Cookies.get('sign') === null) {
+        let base_url = encodeURIComponent(String(window.location.href))
+        let redirct_url =
+          process.env.WX_API +
+          '/wx/officialAccount/oauth?url=' +
+          base_url +
+          '&scope=snsapi_base'
+        window.location.href = redirct_url
+      } else {
+        this.init()
+        this.handleWeChatShare()
+      }
+    },
+
+    async init() {
+      try {
+        const init = await initUserGame({})
+        if (init) {
+          const config = await userGameConfig({})
+          if (config) {
+            const { play_times } = config.data
+            this.times = play_times
+          }
+          this.onShowAdvertisement()
+        }
+      } catch (err) {
+        console.log(err)
+        if (err.response && err.response.data) {
+          alert(err.response.data.message)
+        }
+      }
+    },
+
     handleWeChatShare() {
       if (isInWechat() === true) {
         $wechat()
@@ -168,39 +202,6 @@ export default {
       }
     },
 
-    // 微信静默授权
-    handleWechatAuth() {
-      if (Cookies.get('sign') === null) {
-        let base_url = encodeURIComponent(String(window.location.href))
-        let redirct_url =
-          process.env.WX_API +
-          '/wx/officialAccount/oauth?url=' +
-          base_url +
-          '&scope=snsapi_base'
-        window.location.href = redirct_url
-      } else {
-        this.init()
-      }
-    },
-
-    async init() {
-      try {
-        const init = await initUserGame({})
-        if (init) {
-          const config = await userGameConfig({})
-          if (config) {
-            const { play_times } = config.data
-            this.times = play_times
-          }
-          this.onShowAdvertisement()
-        }
-      } catch (err) {
-        console.log(err)
-        if (err.response && err.response.data) {
-          alert(err.response.data.message)
-        }
-      }
-    },
 
     onShowAdvertisement() {
       let timer = setInterval(() => {
