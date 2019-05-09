@@ -154,7 +154,7 @@ export default {
               link: window.location.href,
               imgUrl: CDNURL + "/fe/wuyue-beatPig-shareIcon.png",
               success: async function() {
-                const gameShare = await userGameShare()
+                const gameShare = await userGameShare({})
                 if (gameShare) {
                   const { play_times } = gameShare.data
                   that.times = play_times
@@ -170,7 +170,6 @@ export default {
 
     // 微信静默授权
     handleWechatAuth() {
-      console.log('handleWechatAuth-173')
       if (Cookies.get('sign') === null) {
         let base_url = encodeURIComponent(String(window.location.href))
         let redirct_url =
@@ -180,18 +179,15 @@ export default {
           '&scope=snsapi_base'
         window.location.href = redirct_url
       } else {
-        console.log('handleWechatAuth-183')
         this.init()
       }
     },
 
     async init() {
-      console.log('init-189')
       try {
-        const init = await initUserGame()
-        console.log('initUserGame', init)
+        const init = await initUserGame({})
         if (init) {
-          const config = await userGameConfig()
+          const config = await userGameConfig({})
           if (config) {
             const { play_times } = config.data
             this.times = play_times
@@ -199,11 +195,10 @@ export default {
           this.onShowAdvertisement()
         }
       } catch (err) {
-        console.log('init-202')
-        if (err.response.data) {
+        console.log(err)
+        if (err.response && err.response.data) {
           alert(err.response.data.message)
         }
-        console.log('init-206')
       }
     },
 
