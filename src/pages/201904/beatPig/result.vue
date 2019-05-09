@@ -167,19 +167,19 @@ export default {
 		
 		async getUserGameRank() {
 			try {
-				const gameRank = await userGameRank()
+				const gameRank = await userGameRank({})
 				if (gameRank) {
 					const { score, rowNo } = gameRank.data
 					this.totalScore = score
 					this.rank = rowNo
 				}
-				const config = await userGameConfig()
+				const config = await userGameConfig({})
         if (config) {
           const { play_times } = config.data
           this.times = play_times
         }
       } catch (err) {
-        if (err.response.data) {
+        if (err.response && err.response.data) {
           alert(err.response.data.message)
         }
       }
