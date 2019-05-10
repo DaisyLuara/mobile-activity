@@ -7,7 +7,7 @@
     <div class="content-wrap">
       <div class="photo-wrap">
         <img
-          :src="detail.image"
+          :src="detail.image_url"
           class="photo"
         >
         <div class="photo-rank-detail">
@@ -15,7 +15,7 @@
             {{ detail.rank }}
           </p>
           <p class="photo-votes">
-            {{ detail.votes }}
+            {{ detail.count }}
           </p>
         </div>
         <div class="vote-area">
@@ -38,6 +38,7 @@
         <img
           :src="`${CDNURL}/dimond520/navi_top_btn.png`"
           class="button"
+          @click="handleNaviTop"
         >
       </div>
       <img
@@ -50,7 +51,9 @@
 
 <script>
 import { reCalculateRem } from '@/mixins/reCalculateRem'
-import { getVoteDetail } from 'services'
+import { Cookies, getVoteDetail, vote } from 'services'
+import { Toast } from 'mand-mobile'
+import "../../../assets/less/reset-mand.less"
 const CDNURL = process.env.CDN_URL
 
 export default {
@@ -59,6 +62,7 @@ export default {
   data () {
     return {
       CDNURL: CDNURL,
+      sign: '',
       detail: {
         image: null,
         votes: '',
@@ -69,21 +73,70 @@ export default {
     }
   },
   mounted() {
-    this.fetchDetail()
+    if (process.env.NODE_ENV === 'development') {
+      this.sign = 'eyJpdiI6IlJ4Wk4yTDlsaHViRys0eURNZmVWQnc9PSIsInZhbHVlIjoiOTNcL3FPN3kzc2FzNWxTT3VnT2VmVUE9PSIsIm1hYyI6IjI5ZDFiNzNjOTg0M2Y3MWNiYWYyOTcyOGJiYzAwODBlNGU2MjRkZTNkOThmMDNlNjgzYWQwNTkyOGJjMTcwNmQifQ=='
+    }
+    if (this.sign) {
+      this.fetchDetail()
+    } else {
+      this.handleWechatAuth()
+    }
   },
   methods: {
     async fetchDetail() {
+      Toast.loading('加载中')
+      const id = this.$route.params.pid
       try {
-        let res = await getVoteDetail()
-        this.detail = res.data.data
+        let res = await getVoteDetail(id)
+        this.detail = res.data
+        Toast.hide()
       } catch(e) {
         console.log(e)
+        Toast.failed('加载失败')
+      }
+    },
+    //微信静默授权
+    handleWechatAuth() {
+      if (Cookies.get('sign') === null) {
+        let base_url = encodeURIComponent(String(window.location.href))
+        let redirct_url =
+          process.env.WX_API +
+          '/wx/officialAccount/oauth?url=' +
+          base_url +
+          '&scope=snsapi_base'
+        window.location.href = redirct_url
+      } else {
+        this.sign = Cookies.get('sign')
       }
     },
     async handleVote() {
       this.clickable = false
-      await this.voteAnimation()
-      this.clickable = true
+      Toast.loading('投票中')
+      let params = {
+        sign: this.sign,
+        board_id: this.$route.params.pid,
+        campaign: '520Diamonds'
+      }
+      try {
+        let res = await vote(params)
+        if (res.code === 0) {
+          Toast.succeed('投票成功')
+          await this.voteAnimation()
+          window.location.reload()
+        } else {
+          Toast.failed('投票失败', 2000, true)
+          this.clickable = true
+        }
+      } catch(e) {
+        console.log(e)
+        Toast.failed(e.response.data.message, 2000, true)
+        this.clickable = true
+      }
+    },
+    handleNaviTop() {
+      this.$router.push({
+        name: 'diamond520Top'
+      })
     },
     voteAnimation() {
       this.playAnimation = true
@@ -99,8 +152,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../../assets/less/cdnUrl.less";
-@import "../../assets/less/diamond.less";
+@import "../../../assets/less/cdnUrl.less";
+@import "../../../assets/less/diamond.less";
 
 .back-top {
   position: absolute;

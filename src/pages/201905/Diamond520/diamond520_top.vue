@@ -8,7 +8,7 @@
       ref="scrollView"
       :scrolling-x="false"
       class="content-scroll"
-      @endReached="getVoteList"
+      @endReached="fetchList"
     >
       <div class="content-wrap">
         <img
@@ -23,7 +23,7 @@
             @click="handleNavToVote(item.id)"
           >
             <img
-              :src="item.image"
+              :src="item.image_url"
               class="couple-photo"
             >
             <img
@@ -33,7 +33,7 @@
             >
             <div class="rank-status">
               <p>排名：{{ index | formatRank }}</p>
-              <p>人气：{{ item.votes }}</p>
+              <p>人气：{{ item.count }}</p>
             </div>
           </div>
         </div>
@@ -44,8 +44,9 @@
 
 <script>
 import { reCalculateRem } from '@/mixins/reCalculateRem'
-import { getVoteList } from 'services'
-import { ScrollView, ScrollViewMore } from "mand-mobile"
+import { getPhotoBoard } from 'services'
+import { ScrollView, ScrollViewMore, Toast } from "mand-mobile"
+import "../../../assets/less/reset-mand.less"
 const CDNURL = process.env.CDN_URL
 
 export default {
@@ -64,19 +65,39 @@ export default {
   data () {
     return {
       CDNURL: CDNURL,
-      list: []
+      list: [],
+      isAllLoaded: false,
+      currentPage: 1
     }
   },
   mounted() {
-    this.getVoteList()
+    this.fetchList()
   },
   methods: {
-    async getVoteList() {
+    async fetchList() {
+      if (this.isAllLoaded) {
+        return
+      }
+      let params = {
+        page: this.currentPage,
+        campaign: '520Diamonds'
+      }
       try {
-        let res = await getVoteList()
-        this.list = this.list.concat(res.data.data)
+        let res = await getPhotoBoard(params)
+        if (res.code === 0) {
+          const listData = res.data.data
+          const metaData = res.data.meta
+          if (metaData.pagination.current_page >= metaData.pagination.total_pages) {
+            this.isAllLoaded = true
+          }
+          this.list = this.list.concat(listData)
+          this.currentPage++
+        } else {
+          Toast.failed('获取榜单失败')
+        }
       } catch(e) {
         console.log(e)
+        Toast.failed('获取榜单失败')
       } finally {
         this.$refs.scrollView.finishLoadMore()
       }
@@ -84,7 +105,7 @@ export default {
     handleNavToVote(id) {
       this.$router.push({
         name: 'diamond520Vote',
-        query: {
+        params: {
           pid: id
         }
       })
@@ -94,8 +115,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../../assets/less/cdnUrl.less";
-@import "../../assets/less/diamond.less";
+@import "../../../assets/less/cdnUrl.less";
+@import "../../../assets/less/diamond.less";
 
 .back-top {
   position: absolute;

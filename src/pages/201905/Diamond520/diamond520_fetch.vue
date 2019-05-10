@@ -47,7 +47,7 @@ import {
   validatePhone
 } from 'services'
 import { Toast } from 'mand-mobile'
-import "../../assets/less/reset-mand.less"
+import "../../../assets/less/reset-mand.less"
 const CDNURL = process.env.CDN_URL
 
 export default {
@@ -91,8 +91,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../../assets/less/cdnUrl.less";
-@import "../../assets/less/diamond.less";
+@import "../../../assets/less/cdnUrl.less";
+@import "../../../assets/less/diamond.less";
 
 
 ::-webkit-input-placeholder {
