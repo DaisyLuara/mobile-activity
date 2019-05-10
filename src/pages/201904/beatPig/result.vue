@@ -1,11 +1,5 @@
 <template>
   <div class="container">
-    <audio 
-      id="clickSound" 
-      hidden>
-      <source :src="CDNURL + '/audio/wuyue-click-sound.mp3'">
-    </audio> 
-
     <div 
       v-if="showMask" 
       class="mask"
@@ -248,12 +242,20 @@ export default {
 		},
 
 		onCloseResult() {
-			this.$router.replace({ name: 'beatPigIndex' })
+      this.$router.replace({ name: 'beatPigIndex' })
+      let music = document.getElementById('music')
+      if (music) {
+        music.pause()
+      }
 		},
 
 		onClickResultBtn() {
       switch(this.gameStatus) {
         case 'game_enable':
+          let music = document.getElementById('music')
+          if (music) {
+            music.pause()
+          }
           this.$router.replace({ name: 'beatPigIndex' })
           break
         case 'game_share':
