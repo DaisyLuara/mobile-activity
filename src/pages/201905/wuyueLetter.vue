@@ -1,0 +1,847 @@
+<template>
+  <div
+    :style="style.root"
+    class="warp"
+  >
+    <div
+      v-show="page1"
+      class="page1"
+    >
+      <div class="top">
+        <swiper
+          ref="Swiper"
+          :options="sOption"
+          class="swiper"
+        >
+          <swiper-slide
+            v-for="item in topList"
+            :key="item.key"
+          >
+            <img :src="item">
+          </swiper-slide>
+          <div
+            class="swiper-pagination swiper-pagination-white"
+            slot="pagination"
+          ></div>
+        </swiper>
+      </div>
+      <div class="main">
+        <a
+          class="aclick"
+          @click="toStart"
+        >
+          <img :src="base + 'btn1.png'">
+        </a>
+      </div>
+    </div>
+    <div
+      v-show="page2"
+      class="page2"
+    >
+      <div class="step-edit">
+        <div class="div-cover">
+          <img
+            :src="base + 'cover.png'"
+            class="bg"
+          >
+          <img
+            :src="base + 'bg2.png'"
+            class="bottom"
+          >
+        </div>
+        <img
+          v-show="Boolean(ownList.choose)"
+          :src="ownList.choose"
+          class="photo1"
+        >
+        <div
+          v-show="!Boolean(ownList.choose)"
+          class="get-picture"
+        >
+          <img
+            :src="base + 'icon1.png'"
+            class="note"
+          >
+          <input
+            type="file"
+            id="choose"
+            accept="image/*"
+            class="choose"
+            @change="choosePhoto"
+          >
+        </div>
+
+        <div class="text-voice">
+          <img
+            :src="base + 'gugu.png'"
+            class="bg"
+          >
+          <div
+            class="text"
+            @click="editText"
+          >
+            <img
+              v-show="tip"
+              :src="base + 'tip.png'"
+              class="tips"
+            >
+            <textarea
+              v-show="!tip"
+              v-model="ownList.text"
+              class="word"
+              maxlength="20"
+            ></textarea>
+          </div>
+          <div class="voice">
+            <a
+              v-if="status==='start'||status==='recording'"
+              class="v-start"
+              @touchstart="startRecord"
+              @touchend="stopRecord"
+            >
+              <img
+                v-if="status==='start'"
+                :src="base + 'v_start.png'"
+              >
+              <img
+                v-if="status==='recording'"
+                :src="base + 'recording.gif'"
+              >
+            </a>
+            <a
+              v-if="status==='play'||status==='playing'"
+              class="v-start"
+              @click="playVoice"
+            >
+              <img
+                v-if="status==='play'"
+                :src="base + 'play.png'"
+              >
+              <img
+                v-if="status==='playing'"
+                :src="base + 'playing.png'"
+              >
+            </a>
+          </div>
+        </div>
+        <div
+          v-show="Boolean(ownList.choose)"
+          class="note-post"
+        >
+          <img
+            :src="base + 'tip2.png'"
+            class="up-tip"
+          >
+          <a
+            class="sub"
+            @click="msgPost"
+          >
+            <img :src="base + 'submit.png'">
+          </a>
+        </div>
+      </div>
+    </div>
+    <div
+      v-show="page3"
+      class="page3"
+    >
+      <img
+        :src="mergebg"
+        class="bg"
+      >
+      <div
+        v-if="ownList.voice"
+        class="div-voice"
+        @click="playVoice"
+      >
+        <img
+          v-if="status==='play'"
+          :src="base + 'play.png'"
+        >
+        <img
+          v-if="status==='playing'"
+          :src="base + 'playing.png'"
+        >
+      </div>
+      <img
+        v-else
+        :src="base + 'beer.png'"
+        class="bear"
+      >
+      <div class="btn-group">
+        <ul class="ul-btn">
+          <li @click="savePhoto"><img :src="base + 'save.png'"></li>
+          <li @click="doAgain"><img :src="base + 'again.png'"></li>
+        </ul>
+      </div>
+      <div
+        v-show="mask"
+        class="mask"
+        @click.self="closeMask"
+      >
+        <img
+          :src="ownList.photo"
+          class="photo"
+        >
+        <img
+          :src="base + 'press.png'"
+          class="press"
+        >
+      </div>
+    </div>
+    <canvas id="canvas"></canvas>
+  </div>
+</template>
+<script>
+import {
+  Cookies,
+  $wechat,
+  isInWechat,
+  wechatShareTrack,
+  uploadLetter,
+  updateLetter,
+  getLetter,
+  uploadLetterImage,
+  qiniuToken,
+  uploadImgToQiniu,
+  postActivityMedia
+} from "services";
+import { Toast } from 'mand-mobile'
+import "swiper/dist/css/swiper.css";
+import { swiper, swiperSlide } from "vue-awesome-swiper";
+import { onlyWechatShare } from "@/mixins/onlyWechatShare";
+const wx = require('weixin-js-sdk')
+const CDNURL = process.env.CDN_URL;
+export default {
+  mixins: [onlyWechatShare],
+  components: {
+    swiper,
+    swiperSlide
+  },
+  data() {
+    return {
+      base: CDNURL + "/fe/image/wuyueLetter/",
+      style: {
+        root: {
+          'min-height': this.$innerHeight() + 'px'
+        }
+      },
+      page1: true,//true
+      page2: false,//false
+      page3: false,//false
+      token: null,
+      mediaId: '',
+      sOption: {
+        autoplay: true,
+        loop: true,
+        pagination: {
+          el: '.swiper-pagination',
+        },
+      },
+      topList: [
+        CDNURL + "/fe/image/wuyueLetter/top1.png",
+        CDNURL + "/fe/image/wuyueLetter/top2.png",
+        CDNURL + "/fe/image/wuyueLetter/top3.png",
+        CDNURL + "/fe/image/wuyueLetter/top4.png",
+        CDNURL + "/fe/image/wuyueLetter/top5.png",
+      ],
+      mergebg: null,//CDNURL + "/fe/image/wuyueLetter/cover1.png",
+      ownList: {
+        choose: null,
+        photo: null,//CDNURL + "/fe/image/wuyueLetter/default.png",
+        text: null,
+        voice: null,
+      },
+      tip: true,
+      status: 'start',
+      mask: false,
+      id: this.$route.query.id,
+      newid: null,
+      userId: null,
+      record: {
+        startTime: 0,
+        recordTimer: null
+      },
+      params: {
+        serverId: null,
+        createTime: null,
+        localId: null,
+        userId: null
+      },
+      imageUrl: null,
+      wxShareInfoValue: {
+        title: "我爱你五月，I love may",
+        desc: "我爱你五月暨武进吾悦广场七周年庆",
+        link: window.location.origin + window.location.pathname + '?id=' + this.newid,
+        imgUrl: CDNURL + "/fe/image/wuyueLetter/icon.png"
+      }
+    }
+  },
+  created() {
+    this.init()
+  },
+  mounted() {
+    if (isInWechat() === true) {
+      if (
+        process.env.NODE_ENV === 'production' ||
+        process.env.NODE_ENV === 'testing'
+      ) {
+        this.handleWechatAuth()
+      }
+    }
+    this.getQiniuToken()
+  },
+  methods: {
+    //微信静默授权
+    handleWechatAuth() {
+      if (Cookies.get('sign') === null) {
+        let base_url = encodeURIComponent(String(window.location.href))
+        let redirct_url =
+          process.env.WX_API +
+          '/wx/officialAccount/oauth?url=' +
+          base_url +
+          '&scope=snsapi_base'
+        window.location.href = redirct_url
+      } else {
+        this.userId = Cookies.get('user_id')
+        this.params.userId = this.userId
+        this.initVoice()
+        this.queryUserLetter()
+      }
+    },
+    // 七牛云上传图片
+    async getQiniuToken() {
+      try {
+        let res = await qiniuToken()
+        if (res) {
+          this.token = res
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    async handleUpload(file) {
+      let time = new Date().getTime()
+      let random = parseInt(String(Math.random() * 10 + 1), 10)
+      let suffix = time + '_' + random + '_' + name
+      let key = encodeURI(`${suffix}`)
+      let args = new FormData()
+      let img = new Image()
+      img.src = file
+      args.append('file', file)
+      args.append('token', this.token)
+      args.append('key', key)
+      // 上传
+      Toast.loading('上传中')
+      try {
+        let { key } = await uploadImgToQiniu(args)
+        let callbackArgs = {
+          name: time.toString(),
+          key,
+          size: 500,
+          activity_id: 1, // 活动标识
+          utm_campaign: "wuyue_invitation"
+        }
+        let { url, id } = await postActivityMedia(callbackArgs)
+        this.imageUrl = url
+        this.mediaId = String(id)
+        this.uploadImage(name, key)
+        Toast.hide()
+      } catch (e) {
+        Toast.info('上传失败')
+        console.log(e)
+      }
+    },
+    init() {
+      if (this.id) {
+        // 获取信息的方法
+        this.getData()
+        //获取完信息后
+        this.page1 = false
+        this.page3 = true
+      }
+    },
+    getData() {
+      console.log('data message')
+      //成功获取到信息以后
+      this.status = 'play'
+    },
+    //查询邀请函
+    queryUserLetter() {
+      let args = {
+        utm_campaign: "wuyue_invitation",
+        utm_source_id: this.id
+      }
+      getLetter(args).then(res => {
+        res ? this.handleData(res) : null
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    //修改邀请函
+    updateUserLetter() {
+      let args = {
+        media_id: this.media_id,
+        record_id: this.record_id,
+        message: this.ownList.text,
+        utm_campaign: "wuyue_invitation",
+        utm_source_id: this.id
+      }
+      updateLetter(args).then(res => {
+        // this.newid = res.id
+        this.handleData(res)
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    // 上传邀请函
+    uploadUserLetter() {
+      let args = {
+        media_id: this.media_id,
+        record_id: this.record_id,
+        message: this.ownList.text,
+        utm_campaign: "wuyue_invitation",
+      }
+      uploadLetter(args).then(res => {
+        // this.newid = res.id
+        this.handleData(res)
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    uploadImage(name, key) {
+      let args = {
+        name,
+        key,
+        size: 500,
+        activity_id: 1,
+        utm_campaign: "wuyue_invitation"
+      }
+      uploadLetterImage().then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    handleData(res) {
+      this.newid = res.id
+      this.ownList.photo = res.url
+      this.params.serverId = res.record_id
+      this.downloadVoice(res.record_id)
+    },
+    toStart() {
+      this.page1 = !this.page1
+      this.page2 = true
+    },
+    choosePhoto(e) {
+      let files = e.target.files || e.srcElement.files || e.dataTransfer.files
+      if (!files.length) return
+      let file = files[0]
+      if (!file.type.match('image.*')) {
+        alert('不支持其他类型文件，请选择.png或.jpg或.jpeg文件')
+        return
+      }
+      let that = this
+      let reader = new FileReader();
+      reader.onload = (theFile => {
+        return e => {
+          let image = new Image();
+          image.onload = function () {
+            that.ownList.choose = e.target.result;
+          }
+          image.src = e.target.result;
+        };
+      })(file);
+      reader.readAsDataURL(file);
+    },
+    editText() {
+      if (!this.ownList.choose) {
+        alert('请先选择图片！')
+        return
+      }
+      this.tip = false
+      document.querySelector('.word').focus()
+
+    },
+    //录音相关接口
+    initVoice() {
+      $wechat().then(res => {
+
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    //开始录音
+    startRecord() {
+      if (!this.ownList.choose) {
+        alert('请先选择图片！')
+        return
+      }
+      this.record.starTime = Math.round(new Date())
+      let timer = setTimeout(() => {
+        wx.startRecord({
+          success: () => (this.status = 'recording'),
+          cancel: () => alert('开始录音失败')
+        })
+        clearTimeout(timer)
+      }, 300)
+      wx.onVoiceRecordEnd({
+        // 录音时间超过一分钟没有停止的时候会执行 complete 回调
+        complete: function (res) {
+          let localId = res.localId;
+        }
+      });
+    },
+    //停止录音
+    stopRecord() {
+      if (Math.round(new Date()) - this.record.startTime < 1000) {
+        alert('录音时间过短')
+        record.startTime = 0
+        return
+      }
+      wx.stopRecord({
+        success: res => {
+          this.params.localId = res.localId
+          this.status = 'play'
+          this.ownList.voice = true
+        },
+        fail: err => console.log(err)
+      })
+    },
+    //播放录音
+    playVoice() {
+      wx.playVoice({
+        localId: this.params.localId,
+        success: () => (this.status = 'playing'),
+        fail: err => console.log('播放异常')
+      });
+      wx.onVoicePlayEnd({
+        success: res => this.status = 'play'
+      });
+    },
+    //上传录音
+    uploadVoice() {
+      wx.uploadVoice({
+        localId: this.params.localId,
+        isShowProgressTips: 1,
+        success: res => (this.params.serverId = res.serverId),
+        fail: err => alert('上传录音失败')
+      });
+    },
+    //下载语音
+    downloadVoice(serverId) {
+      wx.downloadVoice({
+        serverId: serverId,
+        isShowProgressTips: 1,
+        success: res => (this.params.localId = res.localId),
+        fail: err => alert('下载语音失败')
+      });
+    },
+    msgPost() {
+      this.mergeImage()
+      if (this.ownList.voice) this.uploadVoice()
+    },
+    mergeImage() {
+      let canvas = document.getElementById('canvas');
+      let ctx = canvas.getContext('2d')
+      let [bg, photo, bear] = [new Image(), new Image(), new Image()]
+      this.arrSetAttribute('crossOrigin', 'Anonymous', bg, photo, bear)
+      bg.src = this.ownList.text ? this.base + 'cover1.png' : this.base + 'default.png'
+      bg.onload = async () => {
+        let [w, h] = [bg.width, bg.height]
+        canvas.width = w
+        canvas.height = h
+        photo.onload = () => {
+          ctx.drawImage(photo, 0, 0, photo.width, photo.height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
+          ctx.drawImage(bg, 0, 0)
+          ctx.font = 'bold 40px 微软雅黑'
+          ctx.textAlign = 'left'
+          ctx.fillStyle = '#333'
+          if (this.ownList.text && this.ownList.text.length > 11) {
+            let [text1, text2] = []
+            text1 = this.ownList.text.slice(0, 11)
+            text2 = this.ownList.text.slice(11)
+            ctx.fillText(text1, w * 0.28, h * 0.65)
+            ctx.fillText(text2 + '...', w * 0.28, h * 0.65 + 55)
+          }
+          if (this.ownList.text && this.ownList.text.length <= 11) {
+            ctx.fillText(this.ownList.text, w * 0.28, h * 0.66)
+          }
+          this.mergebg = canvas.toDataURL('image/png')
+          bear.onload = () => {
+            ctx.drawImage(bear, 0, 0, bear.width, bear.height, w * 0.3, h * 0.84, w * 0.4, (w * 0.4 / bear.width) * bear.height)
+            this.ownList.photo = canvas.toDataURL('image/png')
+            this.handleUpload(this.ownList.photo)
+            this.page2 = false
+            this.page3 = true
+          }
+          bear.src = this.base + 'beer.png'
+        }
+        photo.src = this.ownList.choose
+      }
+    },
+    arrSetAttribute(key, value, ...args) {
+      args.map(item => item.setAttribute(key, value))
+    },
+    savePhoto() {
+      this.mask = true
+      window.scroll(0, 0)
+    },
+    doAgain() {
+      this.page3 = false
+      this.page2 = true
+      this.tip = true
+      for (let item in this.ownList)
+        this.ownList[item] = null
+    },
+    closeMask() {
+      this.mask = false
+    },
+  }
+}
+</script>
+<style lang="less" scoped>
+@img: "https://cdn.xingstation.cn/fe/image/wuyueLetter/";
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+* {
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  font-size: 0;
+  margin: 0 auto;
+}
+img {
+  max-width: 100%;
+}
+.bg {
+  position: relative;
+  z-index: 0;
+}
+a {
+  display: inline-block;
+}
+.center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.cover {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  right: 0%;
+  bottom: 0%;
+}
+.warp {
+  width: 100%;
+  position: relative;
+  overflow-x: hidden;
+  .page1 {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    z-index: 0;
+    .top {
+      width: 100%;
+      position: relative;
+    }
+    .main {
+      width: 100%;
+      height: 100vh;
+      position: relative;
+      background-image: url("@{img}bg1.png");
+      background-position: center top;
+      background-size: 100% auto;
+      background-repeat: repeat;
+      .aclick {
+        width: 48.61%;
+        position: absolute;
+        top: 6vh;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+  }
+  .page2 {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background: rgba(133, 133, 133, 1);
+    .step-edit {
+      position: relative;
+      width: 100%;
+      .div-cover {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+        z-index: 99;
+        .bottom {
+          width: 100%;
+          position: absolute;
+          bottom: 0%;
+          left: 0%;
+        }
+      }
+      .photo1 {
+        width: 76.5%;
+        .center;
+        top: 16.5%;
+        z-index: 0;
+      }
+      .get-picture {
+        width: 76.5%;
+        height: 70.5%;
+        overflow: hidden;
+        .center;
+        top: 16.5%;
+        border-radius: 15px;
+        z-index: 999;
+        .note {
+          width: 31.67vw;
+          .center;
+          top: 20%;
+          z-index: 0;
+        }
+        .choose {
+          .cover;
+          z-index: 99;
+          opacity: 0;
+        }
+      }
+      .text-voice {
+        width: 79.63%;
+        .center;
+        bottom: 0%;
+        z-index: 999;
+        .text {
+          width: 66%;
+          position: absolute;
+          top: 15%;
+          left: 18%;
+          height: 22%;
+          z-index: 9;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          .tips {
+            width: 60%;
+            position: relative;
+          }
+          .word {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            padding: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 20px;
+            color: #333;
+            border: none;
+            background: none;
+            text-align: left;
+          }
+        }
+        .voice {
+          width: 22.33%;
+          .center;
+          bottom: 6%;
+          z-index: 9;
+          .v-start {
+            display: block;
+            width: 100%;
+          }
+        }
+      }
+      .note-post {
+        width: 100%;
+        position: absolute;
+        top: 48%;
+        left: 0%;
+        z-index: 999;
+        .up-tip {
+          width: 44.17%;
+          position: relative;
+        }
+        .sub {
+          width: 17.7%;
+          position: relative;
+        }
+      }
+    }
+  }
+  .page3 {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    .div-voice {
+      width: 17.5%;
+      .center;
+      bottom: 3%;
+      z-index: 99;
+    }
+    .bear {
+      width: 42%;
+      .center;
+      bottom: 0%;
+      z-index: 99;
+    }
+    .btn-group {
+      width: 23.4%;
+      position: absolute;
+      top: 22%;
+      right: 0%;
+      z-index: 999;
+      .ul-btn {
+        display: inline-block;
+        width: 100%;
+        li {
+          width: 100%;
+          display: inline-block;
+          margin-bottom: 10px;
+        }
+      }
+    }
+    .mask {
+      position: absolute;
+      .cover;
+      z-index: 9999;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .photo {
+        width: 70.4%;
+        position: relative;
+        pointer-events: auto;
+        user-select: auto;
+      }
+      .press {
+        width: 40.65%;
+        position: relative;
+      }
+    }
+  }
+  #canvas {
+    .cover;
+    z-index: 0;
+    display: none;
+    letter-spacing: 5px;
+  }
+}
+</style>
+
+
+
+
+
