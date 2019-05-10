@@ -45,6 +45,7 @@
               <div class="trend-date">
                 <!-- <p>参与时间:</p>
                 <p>{{ getTimeLimt(item.sdate, item.edate) }}</p> -->
+                <!-- eslint-disable-next-line -->
                 <p v-html="item.txt" />
               </div>
               <div class="trend-number">
