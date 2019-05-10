@@ -1,11 +1,11 @@
 <template>
   <div>
-    <Diamond520Couple
-      v-if="peopleNum === '2'"
+    <Diamond520Single
+      v-if="peopleNum === 1"
       :photo="photo"
     />
-    <Diamond520Single
-      v-else
+    <Diamond520Couple
+      v-if="peopleNum > 1"
       :photo="photo"
     />
   </div>
@@ -14,7 +14,7 @@
 <script>
 import { reCalculateRem } from '@/mixins/reCalculateRem'
 import { mapGetters, mapMutations } from "vuex"
-import { getInfoById } from 'services'
+import { getInfoById, splitParms } from 'services'
 import Diamond520Single from './diamond520_single'
 import Diamond520Couple from './diamond520_couple'
 import { Toast } from 'mand-mobile'
@@ -30,7 +30,7 @@ export default {
   mixins: [reCalculateRem],
   data () {
     return {
-      peopleNum: '2',
+      peopleNum: 0,
       CDNURL: CDNURL,
       photo: null
     }
@@ -39,8 +39,6 @@ export default {
     ...mapGetters(["z", "loginState"])
   },
   mounted() {
-    const { peopleNum } = this.$route.query
-    this.peopleNum = peopleNum
     // // debug
     // if (process.env.NODE_ENV !== 'development') {
     //   this.initState()
@@ -56,7 +54,11 @@ export default {
       Toast.loading('页面加载中')
       let { id, code, state } = this.$route.query
       try {
-        let { userinfo, image } = await getInfoById(id, code, state)
+        let { userinfo, image, parms } = await getInfoById(id, code, state)
+        if (parms) {
+          let params = splitParms(parms)
+          this.peopleNum = params.peopleNum ? Number(params.peopleNum) : 0
+        }
         if (userinfo) {
           this.setLoginState(userinfo)
         } else {
