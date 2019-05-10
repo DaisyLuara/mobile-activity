@@ -231,6 +231,7 @@ export default {
       page3: false,//false
       token: null,
       mediaId: '',
+      again: false,
       sOption: {
         autoplay: true,
         loop: true,
@@ -345,7 +346,9 @@ export default {
         let { url, id } = await postActivityMedia(callbackArgs)
         this.imageUrl = url
         this.mediaId = String(id)
+        this.media_id && this.params.serverId ? this.uploadOnceLetter() : console.log('no serverId')
         this.uploadImage(name, key)
+
         Toast.hide()
       } catch (e) {
         Toast.info('上传失败')
@@ -382,7 +385,7 @@ export default {
     updateUserLetter() {
       let args = {
         media_id: this.media_id,
-        record_id: this.record_id,
+        record_id: this.params.serverId,
         message: this.ownList.text,
         utm_campaign: "wuyue_invitation",
         utm_source_id: this.id
@@ -398,7 +401,7 @@ export default {
     uploadUserLetter() {
       let args = {
         media_id: this.media_id,
-        record_id: this.record_id,
+        record_id: this.params.serverId,
         message: this.ownList.text,
         utm_campaign: "wuyue_invitation",
       }
@@ -422,6 +425,9 @@ export default {
       }).catch(err => {
         console.log(err)
       })
+    },
+    uploadOnceLetter() {
+      this.again ? this.updateUserLetter() : this.uploadUserLetter()
     },
     handleData(res) {
       this.newid = res.id
@@ -504,6 +510,7 @@ export default {
           this.params.localId = res.localId
           this.status = 'play'
           this.ownList.voice = true
+          this.uploadVoice()
         },
         fail: err => console.log(err)
       })
@@ -524,7 +531,11 @@ export default {
       wx.uploadVoice({
         localId: this.params.localId,
         isShowProgressTips: 1,
-        success: res => (this.params.serverId = res.serverId),
+        success: res => {
+          this.params.serverId = res.serverId
+          this.params.createTime = new Date().getTime()
+          this.media_id && this.params.serverId ? this.uploadOnceLetter() : console.log('no mediaId')
+        },
         fail: err => alert('上传录音失败')
       });
     },
@@ -539,7 +550,7 @@ export default {
     },
     msgPost() {
       this.mergeImage()
-      if (this.ownList.voice) this.uploadVoice()
+
     },
     mergeImage() {
       let canvas = document.getElementById('canvas');
@@ -588,6 +599,7 @@ export default {
       window.scroll(0, 0)
     },
     doAgain() {
+      this.again = true
       this.page3 = false
       this.page2 = true
       this.tip = true
