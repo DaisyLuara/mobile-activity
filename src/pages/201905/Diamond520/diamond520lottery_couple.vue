@@ -10,7 +10,6 @@
         :src="`${CDNURL}/dimond520/lottery_c_rule.png`"
         class="rule"
       >
-<<<<<<< HEAD
       <img
         :src="`${CDNURL}/dimond520/activity_sponsor.png`"
         class="activity-sponsor"
@@ -18,8 +17,6 @@
       <p class="activity-company">
         本活动最终解释权归星视度所有
       </p>
-=======
->>>>>>> 36aaae31c66ab17669894f03250631bbaa30b0be
     </div>
   </div>
 </template>
@@ -60,7 +57,6 @@ export default {
     height: 3.77rem;
     margin: 0 auto 0.14rem;
   }
-<<<<<<< HEAD
   .activity-sponsor {
     margin: 0 auto;
     width: 1.48rem;
@@ -71,8 +67,6 @@ export default {
     font-size: 12px;
     color: #060606;
   }
-=======
->>>>>>> 36aaae31c66ab17669894f03250631bbaa30b0be
 }
 
 </style>
