@@ -147,7 +147,7 @@ export default {
       } catch (err) {
         if (err.response && err.response.data) {
 					alert(err.response.data.message)
-					this.$router.replace({ name: 'beatPig/index' })
+					this.$router.replace({ name: 'beatPigIndex' })
         }
       }
 		},
@@ -248,7 +248,7 @@ export default {
         const gameResult = await postUserGame(params)	
 				if (gameResult) {
 					this.$router.replace({ 
-						name: 'beatPig/result', 
+						name: 'beatPigResult', 
 						params: {
 							score: this.score,
 							pigNum: this.pigNum,
@@ -260,7 +260,7 @@ export default {
       } catch (err) {
         if (err.response && err.response.data) {
 					alert(err.response.data.message)
-					this.$router.replace({ name: 'beatPig/index' })
+					this.$router.replace({ name: 'beatPigIndex' })
         }
       }
 		},

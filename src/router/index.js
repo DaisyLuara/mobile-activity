@@ -31,7 +31,8 @@ const router = new Router({
           path: item.path,
           name: item.name,
           meta: item.meta,
-          component: _import(item.location)
+          component: _import(item.location),
+          children: item.children || []
         }
         if (item.hasOwnProperty('alias')) {
           routerItem.alias = item.alias
