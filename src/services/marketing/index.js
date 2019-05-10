@@ -11,3 +11,6 @@ export * from './game'
 
 // 520钻石相关接口
 export * from './diamond'
+
+// h5打猪游戏
+export * from './h5Game'
