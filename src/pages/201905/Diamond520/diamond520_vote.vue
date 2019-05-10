@@ -73,13 +73,9 @@ export default {
     }
   },
   mounted() {
-    if (process.env.NODE_ENV === 'development') {
-      this.sign = 'eyJpdiI6IlJ4Wk4yTDlsaHViRys0eURNZmVWQnc9PSIsInZhbHVlIjoiOTNcL3FPN3kzc2FzNWxTT3VnT2VmVUE9PSIsIm1hYyI6IjI5ZDFiNzNjOTg0M2Y3MWNiYWYyOTcyOGJiYzAwODBlNGU2MjRkZTNkOThmMDNlNjgzYWQwNTkyOGJjMTcwNmQifQ=='
-    }
+    this.handleWechatAuth()
     if (this.sign) {
       this.fetchDetail()
-    } else {
-      this.handleWechatAuth()
     }
   },
   methods: {
