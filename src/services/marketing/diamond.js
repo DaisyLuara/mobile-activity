@@ -107,7 +107,10 @@ const postActivityMedia = (args) => {
   }
   return new Promise((resolve, reject) => {
     axios
-      .post(UPLOAD_CALLBACK_URL, args, {
+      .post(UPLOAD_CALLBACK_URL, {
+        ...args,
+        utm_campaign: 'Love520Action' // 活动标识
+      }, {
         headers
       })
       .then((res) => {

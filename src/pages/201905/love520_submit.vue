@@ -165,8 +165,7 @@ export default {
         let callbackArgs = {
           name,
           key,
-          size,
-          activity_id: 1 // 活动标识
+          size
         }
         let { url, id } = await postActivityMedia(callbackArgs)
         this.imageUrl = url
