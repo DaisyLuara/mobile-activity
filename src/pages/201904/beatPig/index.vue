@@ -2,6 +2,7 @@
   <div class="container">
     <audio 
       id="music" 
+      autoplay
       autobuffer 
       autoloop 
       loop  

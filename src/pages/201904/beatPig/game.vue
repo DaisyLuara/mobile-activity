@@ -86,7 +86,11 @@
 <script>
 import { Toast } from "mint-ui";
 import lottie from "lottie-web";
-import { postUserGame, getWxUserInfo } from "services";
+import { 
+	userGameConfig,
+	postUserGame, 
+	getWxUserInfo 
+} from "services";
 
 const CDNURL = process.env.CDN_URL;
 
@@ -115,7 +119,7 @@ export default {
 			}, {
 				id: 8, position: 'hole8'
 			}],
-			gameTime: 15, // 游戏持续时长
+			gameTime: 60, // 游戏持续时长
 			score: 0, // 游戏得分
 			showPig: [], // 随机出现的猪ID,type
 			showPigID: [], // 随机出现的猪ID
@@ -126,21 +130,40 @@ export default {
     };
   },
   mounted() {
+		this.init()
 		getWxUserInfo()
       .then(result => {
         this.userAvatar = result.data.headimgurl
-      })
-		let timer = setInterval(() => {
-			if (this.startGameTime === 0) {
-				clearInterval(timer)	
-				this.showMask = false	
-				this.onStartGame()		
-			} else {
-				this.startGameTime--
-			}
-		}, 1000)
+			})
+		this.onReady()
 	},
   methods: {
+		async init() {
+      try {
+        const config = await userGameConfig({})
+				if (config && config.data && config.data.game_times) {   
+					this.gameTime = config.data.game_times      
+				}
+      } catch (err) {
+        if (err.response && err.response.data) {
+					alert(err.response.data.message)
+					this.$router.replace({ name: 'beatPig/index' })
+        }
+      }
+		},
+		
+		onReady() {
+			let timer = setInterval(() => {
+				if (this.startGameTime === 0) {
+					clearInterval(timer)	
+					this.showMask = false	
+					this.onStartGame()		
+				} else {
+					this.startGameTime--
+				}
+			}, 1000)
+		},
+
     initAnimation(id, imageUrl, jsonUrl, loop, autoplay ) {
 			let el = document.getElementById(id)
       let anim = lottie.loadAnimation({
@@ -269,7 +292,7 @@ export default {
 						clearInterval(timer)
 						this.showPig = []
 						this.showPigID = []			
-					} else if (this.gameTime <= 5) {
+					} else if (this.gameTime <= 20) {
 						this.showPigID = this.onRandomPigByNum(numeric, 5)
 						this.showPig = [{
 							id: this.showPigID[0],
@@ -292,7 +315,7 @@ export default {
 						this.anim3 = this.initAnimation(`pigHole${this.showPigID[2]}`, this.CDNURL+'/fe/wuyue-beatPig-pigJump/', this.CDNURL+'/fe/wuyue-beatPig-pigJump.json', false, true )
 						this.anim4 = this.initAnimation(`pigHole${this.showPigID[3]}`, this.CDNURL+'/fe/wuyue-beatPig-goldPig/', this.CDNURL+'/fe/wuyue-beatPig-goldPig.json', false, true )
 						this.anim5 = this.initAnimation(`pigHole${this.showPigID[4]}`, this.CDNURL+'/fe/wuyue-beatPig-bomb/', this.CDNURL+'/fe/wuyue-beatPig-bomb.json', false, true )
-					} else if (this.gameTime <= 10) {
+					} else if (this.gameTime <= 40) {
 						this.showPigID = this.onRandomPigByNum(numeric, 3)
 						this.showPig = [{
 							id: this.showPigID[0],
