@@ -25,10 +25,12 @@
         <span class="skip">跳过</span>
         <span class="time">{{ countDown }}</span>
       </div>
-      <img
-        :src="CDNURL + '/fe/wuyue-beatPig-advertisement.png'"
-        class="maskImg"
-      >
+      <a href="http://m.mallcoo.cn/a/home/10658">
+        <img
+          :src="CDNURL + '/fe/wuyue-beatPig-advertisement.png'"
+          class="maskImg"
+        >
+      </a>
     </div>
 
 
@@ -164,7 +166,7 @@ export default {
         if (init) {
           const config = await userGameConfig({})
           if (config && config.data && config.data.game_status) {   
-            this.gameStatus = game_status      
+            this.gameStatus = config.data.game_status      
           }
           this.onShowAdvertisement()
         }
@@ -189,7 +191,7 @@ export default {
               success: async function() {
                 const gameShare = await userGameShare({})
                 if (gameShare && gameShare.data && gameShare.data.game_status) {   
-                  this.gameStatus = game_status      
+                  this.gameStatus = gameShare.data.game_status      
                 }
               }
             })
@@ -284,25 +286,20 @@ export default {
     },
 
 		onStartGame() {
-      this.onMusicPlay('clickSound')
-      this.showStartModal = true
-      this.pigAnim.destroy()
-      this.pigAnim = null
-      
-      // switch(this.gameStatus) {
-      //   case 'game_enable':
-      //     this.showStartModal = true
-      //     this.pigAnim.destroy()
-      //     this.pigAnim = null
-      //     break
-      //   case 'game_share':
-      //     Toast('将游戏分享给好友，再次获得游戏机会')
-      //     break
-      //   case 'game_disable':
-      //     Toast('今日游戏机会已用尽，请明日再来')
-      //     break
-      //   default: break
-      // }
+      switch(this.gameStatus) {
+        case 'game_enable':
+          this.showStartModal = true
+          this.pigAnim.destroy()
+          this.pigAnim = null
+          break
+        case 'game_share':
+          Toast('将游戏分享给好友，再次获得游戏机会')
+          break
+        case 'game_disable':
+          Toast('今日游戏机会已用尽，请明日再来')
+          break
+        default: break
+      }
 		},
 
 		onCloseStartModal() {

@@ -159,7 +159,7 @@ export default {
               success: async function() {
                 const gameShare = await userGameShare({})
                 if (gameShare && gameShare.data && gameShare.data.game_status) {   
-                  this.gameStatus = game_status      
+                  this.gameStatus = gameShare.data.game_status      
                 }
               }
             })
@@ -180,7 +180,7 @@ export default {
 				}
         const config = await userGameConfig({})
         if (config && config.data && config.data.game_status) {   
-          this.gameStatus = game_status      
+          this.gameStatus = config.data.game_status      
         }
       } catch (err) {
         if (err.response && err.response.data) {
@@ -248,7 +248,7 @@ export default {
 		onClickResultBtn() {
       switch(this.gameStatus) {
         case 'game_enable':
-          this.$router.push({ name: 'beatPig/index' })
+          this.$router.replace({ name: 'beatPig/index' })
           break
         case 'game_share':
           this.showMask = true
