@@ -423,7 +423,8 @@ img {
 	.resultTip {
 		width: 67.59vw;
 		height: auto;
-		margin-top: 3.7vw;
+    margin-top: 3.7vw;
+    z-index: 999;
 	}
 
 	.bottomBg {

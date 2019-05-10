@@ -171,7 +171,6 @@ export default {
           this.onShowAdvertisement()
         }
       } catch (err) {
-        console.log(err)
         if (err.response && err.response.data) {
           alert(err.response.data.message)
         }
@@ -209,6 +208,7 @@ export default {
           clearInterval(timer)	
           this.showAdvertisement = false
           let music = document.getElementById('music')	
+          music.load()
           music.play()	
           this.topAnim = this.initAnimation('topBg', this.CDNURL+'/fe/wuyue-beatPig-topBg/', this.CDNURL+'/fe/wuyue-beatPig-topBg.json', true, true )
 		      this.bottomAnim = this.initAnimation('bottomBg', this.CDNURL+'/fe/wuyue-beatPig-bottomBg/', this.CDNURL+'/fe/wuyue-beatPig-bottomBg.json', true, true )
