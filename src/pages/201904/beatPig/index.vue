@@ -1,19 +1,5 @@
 <template>
   <div class="container">
-    <audio 
-      id="music" 
-      autobuffer 
-      autoloop 
-      loop  
-      hidden>
-      <source :src="CDNURL + '/autio/wuyue-beatPig-bgm.mp3'">
-    </audio>
-    <audio 
-      id="clickSound" 
-      hidden>
-      <source :src="CDNURL + '/audio/wuyue-click-sound.mp3'">
-    </audio>
-
     <div 
       v-if="showAdvertisement" 
       class="mask"
@@ -185,7 +171,7 @@ export default {
             res.share({
               title: "吾悦七周年，嗨玩赢壕礼！",
               desc: "Pick金猪，大牌美妆免费送",
-              link: window.location.href,
+              link: process.env.DIAMOND_API + (process.env.NODE_ENV === 'production' ? '/s/4L0?utm_campaign=h5_beat_pig' : '/s/APz?utm_campaign=h5_beat_pig'),
               imgUrl: CDNURL + "/fe/wuyue-beatPig-shareIcon.png",
               success: async function() {               
                 try {

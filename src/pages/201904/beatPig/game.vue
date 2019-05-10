@@ -1,11 +1,6 @@
 <template>
   <div class="container">
     <audio 
-      id="clickSound" 
-      hidden>
-      <source :src="CDNURL + '/audio/wuyue-click-sound.mp3'">
-    </audio>
-    <audio 
       id="bombSound" 
       hidden>
       <source :src="CDNURL + '/audio/wuyue-boom-sound.mp3'">
