@@ -187,36 +187,46 @@ const Date201904 = [
     isAbandoned: false
   },
   {
-    path: 'beatPig/index',
-    location: '201904/beatPig/index',
-    name: 'beatPig/index',
+    path: 'beatPig',
+    location: '201904/beatPig/main',
+    name: 'beatPig',
     meta: {
       title: 'Pick金猪赢壕礼！',
       author: 'ykk',
       desc: 'Pick金猪，大牌美妆免费送'
     },
-    isAbandoned: false
-  },
-  {
-    path: 'beatPig/game',
-    location: '201904/beatPig/game',
-    name: 'beatPig/game',
-    meta: {
-      title: 'Pick金猪赢壕礼！',
-      author: 'ykk',
-      desc: 'Pick金猪，大牌美妆免费送'
-    },
-    isAbandoned: false
-  },
-  {
-    path: 'beatPig/result',
-    location: '201904/beatPig/result',
-    name: 'beatPig/result',
-    meta: {
-      title: 'Pick金猪赢壕礼！',
-      author: 'ykk',
-      desc: 'Pick金猪，大牌美妆免费送'
-    },
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/pages/201904/beatPig/index'),
+        name: 'beatPigIndex',
+        meta: {
+          title: 'Pick金猪赢壕礼！',
+          author: 'ykk',
+          desc: 'Pick金猪，大牌美妆免费送'
+        },
+      },
+      {
+        path: 'game',
+        component: () => import('@/pages/201904/beatPig/game'),
+        name: 'beatPigGame',
+        meta: {
+          title: 'Pick金猪赢壕礼！',
+          author: 'ykk',
+          desc: 'Pick金猪，大牌美妆免费送'
+        },
+      },
+      {
+        path: 'result',
+        component: () => import('@/pages/201904/beatPig/result'),
+        name: 'beatPigResult',
+        meta: {
+          title: 'Pick金猪赢壕礼！',
+          author: 'ykk',
+          desc: 'Pick金猪，大牌美妆免费送'
+        },
+      }
+    ],
     isAbandoned: false
   }
 ]

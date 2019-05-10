@@ -249,13 +249,13 @@ export default {
 		},
 
 		onCloseResult() {
-			this.$router.replace({ name: 'beatPig/index' })
+			this.$router.replace({ name: 'beatPigIndex' })
 		},
 
 		onClickResultBtn() {
       switch(this.gameStatus) {
         case 'game_enable':
-          this.$router.replace({ name: 'beatPig/index' })
+          this.$router.replace({ name: 'beatPigIndex' })
           break
         case 'game_share':
           this.showMask = true
@@ -403,7 +403,7 @@ img {
 			.num {
 				font-family: "HKYT";
 				line-height: 25px;
-				font-size: 27px;
+				font-size: 25px;
 				font-weight: bold;
 				color: #FFF0C3;
 			}

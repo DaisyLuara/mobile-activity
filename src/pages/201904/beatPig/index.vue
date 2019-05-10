@@ -296,7 +296,7 @@ export default {
 		onStartGame() {
       this.onMusicPlay('clickSound')
       this.offMusic = false
-      this.onMusicPlay('music')
+      this.onMusicPlay('music')  
       switch(this.gameStatus) {
         case 'game_enable':
           this.showStartModal = true
@@ -320,7 +320,7 @@ export default {
 		},
 
 		onClickKnownBtn() {
-			this.$router.push({ name: 'beatPig/game' })
+			this.$router.push({ name: 'beatPigGame' })
 		},
 		
     palyOrOffMusic() {
