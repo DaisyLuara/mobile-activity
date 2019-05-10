@@ -1,33 +1,31 @@
 <template>
-  <div class="wrap">
-    <div class="content-wrap">
-      <div class="lottery-area">
+  <div class="content-wrap">
+    <div class="lottery-area">
+      <img
+        :src="`${CDNURL}/dimond520/lottery-roller.png`"
+        :style="rotateStyle"
+        :class="['lottery-roller', { noAnime: noAnime }]"
+      >
+      <img
+        :src="`${CDNURL}/dimond520/lottery_border.png`"
+        class="lottery-border"
+      >
+      <div class="lottery-button">
         <img
-          :src="`${CDNURL}/dimond520/lottery-roller.png`"
-          :style="rotateStyle"
-          :class="['lottery-roller', { noAnime: noAnime }]"
+          v-show="clickable"
+          :src="`${CDNURL}/dimond520/lottery_button.png`"
+          @click="clickable && handleLottery()"
         >
         <img
-          :src="`${CDNURL}/dimond520/lottery_border.png`"
-          class="lottery-border"
+          v-show="!clickable"
+          :src="`${CDNURL}/dimond520/lottery_button_disable.png`"
         >
-        <div class="lottery-button">
-          <img
-            v-show="clickable"
-            :src="`${CDNURL}/dimond520/lottery_button.png`"
-            @click="clickable && handleLottery()"
-          >
-          <img
-            v-show="!clickable"
-            :src="`${CDNURL}/dimond520/lottery_button_disable.png`"
-          >
-        </div>
       </div>
-      <DiamondCoupon
-        :coupon="coupon"
-        :status="status"
-      />
     </div>
+    <DiamondCoupon
+      :coupon="coupon"
+      :status="status"
+    />
   </div>
 </template>
 
