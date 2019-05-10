@@ -157,9 +157,15 @@ export default {
               link: window.location.href,
               imgUrl: CDNURL + "/fe/wuyue-beatPig-shareIcon.png",
               success: async function() {
-                const gameShare = await userGameShare({})
-                if (gameShare && gameShare.data && gameShare.data.game_status) {   
-                  that.gameStatus = gameShare.data.game_status      
+                try {
+                  const gameShare = await userGameShare({})
+                  if (gameShare && gameShare.data && gameShare.data.game_status) {   
+                    that.gameStatus = gameShare.data.game_status      
+                  }
+                } catch (err) {
+                  if (err.response && err.response.data) {
+                    alert(err.response.data.message)
+                  }
                 }
               }
             })
@@ -404,12 +410,12 @@ img {
 
 		.topLeft {
 			top: 19.12%;
-			left: 12.11%;
+			left: 10.11%;
 		}
 
 		.topRight {
 			top: 19.12%;
-			right: 12.11%;
+			right: 10.11%;
 		}
 
 		.bottomItem {
