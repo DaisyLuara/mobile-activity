@@ -62,7 +62,7 @@ export default {
   },
   async mounted() {
     if (process.env.NODE_ENV === 'development') {
-      this.sign = 'eyJpdiI6ImJINWM1ZjF0YWVrXC9uWW1IZUl0Z2pBPT0iLCJ2YWx1ZSI6IlRlc2VXcHc4NWozcjJFNVNQcmdjUHc9PSIsIm1hYyI6ImQ0OWJhZTBlZTE2YzIxOGRjMzQzOTU0ZDRlYjk0YzBmZTUwMzY5MWU0YWFhNmE0OTJhZjk3MTg4MjRlODAxNzIifQ=='
+      this.sign = 'eyJpdiI6IkRtNUNjVEV2RkdTOStUZ2dOUktGRnc9PSIsInZhbHVlIjoiY0F2S0cwVmtramRLQXlUSHBBVWZOZz09IiwibWFjIjoiOGEwN2U4NjIzOWYzZDJiZmEzMzc4NDQ5MzRkY2NmMmIxNTA1MWY0N2E5NTkxOTExNDNmMWFkNzEwNjkyYzZmMyJ9'
     } else {
       this.handleWechatAuth()
     }

@@ -5,12 +5,14 @@
       autobuffer 
       autoloop 
       loop  
-      hidden>
+      hidden
+    >
       <source :src="CDNURL + '/autio/wuyue-beatPig-bgm.mp3'">
     </audio>
     <audio 
       id="clickSound" 
-      hidden>
+      hidden
+    >
       <source :src="CDNURL + '/audio/wuyue-click-sound.mp3'">
     </audio>
 
@@ -41,7 +43,8 @@
 
       <div 
         v-if="showRegular" 
-        class="regularBox">
+        class="regularBox"
+      >
         <img 
           :src="CDNURL+'/fe/wuyue-beatPig-regularContent.png'"
           class="regularContent"
@@ -55,7 +58,8 @@
 
       <div 
         v-else-if="showStartModal" 
-        class="regularBox">
+        class="regularBox"
+      >
         <img 
           :src="CDNURL+'/fe/wuyue-beatPig-startModal.png'"
           class="regularContent"
@@ -74,7 +78,8 @@
 
       <div 
         v-else 
-        class="operationBox">
+        class="operationBox"
+      >
         <img 
           :src="CDNURL+'/fe/wuyue-beatPig-regular.png'"
           class="regular"

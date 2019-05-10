@@ -4,7 +4,13 @@
       :src="`${CDNURL}/dimond520/photo_back_top.png`"
       class="back-top"
     >
-    <DiamondLottery />
+    <div class="content-wrap">
+      <DiamondLottery />
+      <img
+        :src="`${CDNURL}/dimond520/lottery_c_rule.png`"
+        class="rule"
+      >
+    </div>
   </div>
 </template>
 
@@ -36,6 +42,14 @@ export default {
   width: 100%;
   top: 0;
   left: 0;
+}
+.content-wrap {
+  position: relative;
+  .rule {
+    width: 3.31rem;
+    height: 3.77rem;
+    margin: 0 auto 0.14rem;
+  }
 }
 
 </style>

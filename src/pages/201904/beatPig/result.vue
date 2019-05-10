@@ -2,7 +2,8 @@
   <div class="container">
     <audio 
       id="clickSound" 
-      hidden>
+      hidden
+    >
       <source :src="CDNURL + '/audio/wuyue-click-sound.mp3'">
     </audio> 
 
