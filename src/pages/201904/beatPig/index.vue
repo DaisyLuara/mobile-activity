@@ -2,7 +2,6 @@
   <div class="container">
     <audio 
       id="music" 
-      autoplay
       autobuffer 
       autoloop 
       loop  
@@ -129,7 +128,7 @@ export default {
 			topAnim: null,
 			bottomAnim: null,
 			pigAnim: null,
-			offMusic: false,
+			offMusic: true,
 			showRegular: false,
       showStartModal: false
     };
@@ -188,10 +187,16 @@ export default {
               desc: "Pick金猪，大牌美妆免费送",
               link: window.location.href,
               imgUrl: CDNURL + "/fe/wuyue-beatPig-shareIcon.png",
-              success: async function() {
-                const gameShare = await userGameShare({})
-                if (gameShare && gameShare.data && gameShare.data.game_status) {   
-                  that.gameStatus = gameShare.data.game_status      
+              success: async function() {               
+                try {
+                  const gameShare = await userGameShare({})
+                  if (gameShare && gameShare.data && gameShare.data.game_status) {   
+                    that.gameStatus = gameShare.data.game_status      
+                  }
+                } catch (err) {
+                  if (err.response && err.response.data) {
+                    alert(err.response.data.message)
+                  }
                 }
               }
             })
@@ -202,15 +207,11 @@ export default {
       }
     },
 
-
     onShowAdvertisement() {
       let timer = setInterval(() => {
         if (this.countDown === 0) {
           clearInterval(timer)	
           this.showAdvertisement = false
-          let music = document.getElementById('music')	
-          music.load()
-          music.play()	
           this.topAnim = this.initAnimation('topBg', this.CDNURL+'/fe/wuyue-beatPig-topBg/', this.CDNURL+'/fe/wuyue-beatPig-topBg.json', true, true )
 		      this.bottomAnim = this.initAnimation('bottomBg', this.CDNURL+'/fe/wuyue-beatPig-bottomBg/', this.CDNURL+'/fe/wuyue-beatPig-bottomBg.json', true, true )
 		      this.pigAnim = this.initAnimation('pigMove', this.CDNURL+'/fe/wuyue-beatPig-pigMove/', this.CDNURL+'/fe/wuyue-beatPig-pigMove.json', true, true )
@@ -234,34 +235,35 @@ export default {
       return anim
 		},
 
-		onMusicPlay(el) {
+		onMusicPlay(el) {     
       var music = document.getElementById(el)
-      if (!music) {
+      if (!music) {     
         return
       }
-      //调用 <audio> 元素提供的方法 play()
+      //调用 <audio> 元素提供的方法 play()      
       music.play()
       //判斷 WeixinJSBridge 是否存在
       if (
         typeof WeixinJSBridge == 'object' &&
         typeof WeixinJSBridge.invoke == 'function'
-      ) {
+      ) {        
         music.play()
       } else {
         //監聽客户端抛出事件"WeixinJSBridgeReady"
         if (document.addEventListener) {
+          
           document.addEventListener(
             'WeixinJSBridgeReady',
-            function() {
+            function() {                   
               music.play()
             },
             false
           )
         } else if (document.attachEvent) {
-          document.attachEvent('WeixinJSBridgeReady', function() {
+          document.attachEvent('WeixinJSBridgeReady', function() {               
             music.play()
           })
-          document.attachEvent('onWeixinJSBridgeReady', function() {
+          document.attachEvent('onWeixinJSBridgeReady', function() {   
             music.play()
           })
         }
@@ -273,7 +275,7 @@ export default {
       document.addEventListener(
         'touchstart',
         function(e) {
-          if (musicStatus) {
+          if (musicStatus) {   
             music.play()
             musicStatus = false
           }
@@ -287,6 +289,9 @@ export default {
     },
 
 		onStartGame() {
+      this.onMusicPlay('clickSound')
+      this.offMusic = false
+      this.onMusicPlay('music')
       switch(this.gameStatus) {
         case 'game_enable':
           this.showStartModal = true
