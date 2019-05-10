@@ -128,7 +128,11 @@ export default {
 		this.init()
 		getWxUserInfo()
       .then(result => {
-        this.userAvatar = result.data.headimgurl
+				if (result && result.data && result.data.headimgurl) {
+					this.userAvatar = result.data.headimgurl
+				} else {
+					this.userAvatar = this.CDNURL + '/fe/wuyue-beatPig-defaultAvatar.png'
+				}      
 			})
 		this.onReady()
 	},
