@@ -236,7 +236,8 @@ export default {
 				}		
       } catch (err) {
         if (err.response && err.response.data) {
-          alert(err.response.data.message)
+					alert(err.response.data.message)
+					this.$router.replace({ name: 'beatPig/index' })
         }
       }
 		},
