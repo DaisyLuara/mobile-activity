@@ -191,7 +191,7 @@ export default {
               success: async function() {
                 const gameShare = await userGameShare({})
                 if (gameShare && gameShare.data && gameShare.data.game_status) {   
-                  this.gameStatus = gameShare.data.game_status      
+                  that.gameStatus = gameShare.data.game_status      
                 }
               }
             })
