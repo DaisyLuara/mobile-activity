@@ -14,3 +14,6 @@ export * from './diamond'
 
 // h5打猪游戏
 export * from './h5Game'
+
+// 单独节目的对应相关接口
+export * from './other'
