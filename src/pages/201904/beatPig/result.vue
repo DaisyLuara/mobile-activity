@@ -148,7 +148,7 @@ export default {
             res.share({
               title: "吾悦七周年，嗨玩赢壕礼！",
               desc: "Pick金猪，大牌美妆免费送",
-              link: window.location.href,
+              link: process.env.DIAMOND_API + (process.env.NODE_ENV === 'production' ? '/s/4L0?utm_campaign=h5_beat_pig' : '/s/APz?utm_campaign=h5_beat_pig'),
               imgUrl: CDNURL + "/fe/wuyue-beatPig-shareIcon.png",
               success: async function() {
                 try {
