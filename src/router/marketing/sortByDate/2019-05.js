@@ -6,7 +6,7 @@ const Date201905 = [
     meta: {
       title: '星视度',
       author: 'chuxiaochen',
-      desc: '星视度'
+      desc: '520钻石活动大屏扫码落地页-先行版'
     },
     isAbandoned: false
   },
@@ -17,7 +17,7 @@ const Date201905 = [
     meta: {
       title: '星视度',
       author: 'chuxiaochen',
-      desc: '星视度'
+      desc: '520钻石活动抽奖-先行版'
     },
     isAbandoned: false
   },
@@ -29,6 +29,72 @@ const Date201905 = [
       title: '星视度 全城告白·钻石屏证',
       author: 'chuxiaochen',
       desc: '星视度'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'Diamond520/diamond520_top',
+    location: '201905/Diamond520/diamond520_top',
+    name: 'diamond520Top',
+    meta: {
+      title: '星视度',
+      author: 'chuxiaochen',
+      desc: '520钻石活动榜单'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'Diamond520/diamond520_vote/:pid',
+    location: '201905/Diamond520/diamond520_vote',
+    name: 'diamond520Vote',
+    meta: {
+      title: '星视度',
+      author: 'chuxiaochen',
+      desc: '520钻石活动投票页'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'Diamond520/diamond520_fetch',
+    location: '201905/Diamond520/diamond520_fetch',
+    name: 'diamond520Fetch',
+    meta: {
+      title: '星视度',
+      author: 'chuxiaochen',
+      desc: '520钻石活动告白提取页'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'Diamond520/diamond520',
+    location: '201905/Diamond520/diamond520_land',
+    name: 'diamond520Land',
+    meta: {
+      title: '星视度',
+      author: 'chuxiaochen',
+      desc: '520钻石活动扫码落地页-正式版'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'Diamond520/diamond520lottery_c',
+    location: '201905/Diamond520/diamond520lottery_couple',
+    name: 'diamond520LotteryCouple',
+    meta: {
+      title: '星视度',
+      author: 'chuxiaochen',
+      desc: '520钻石活动转盘抽奖页-正式版-双人'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'Diamond520/diamond520lottery_s',
+    location: '201905/Diamond520/diamond520lottery_single',
+    name: 'diamond520LotterySingle',
+    meta: {
+      title: '星视度',
+      author: 'chuxiaochen',
+      desc: '520钻石活动转盘抽奖页-正式版-单人'
     },
     isAbandoned: false
   },

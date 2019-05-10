@@ -3,13 +3,13 @@ import { apiToken } from 'services'
 const QINIU_TOKEN_URL = process.env.DIAMOND_API + '/qiniu_token'
 const QINIU_UPLOAD_URL = 'http://upload.qiniu.com'
 const UPLOAD_CALLBACK_URL = process.env.DIAMOND_API + '/activity_media'
-// const MOCK_API = 'http://0.0.0.0:7300/mock/5cc58e9caaa16bb98099478d/diamond520'
+const MOCK_API = 'http://0.0.0.0:7300/mock/5cc58e9caaa16bb98099478d/diamond520'
+const TOP_API = process.env.DIAMOND_TOP_API
 
 // 建立请求拦截器
 const fetchWithToken = axios.create({
   baseURL: process.env.DIAMOND_API
 })
-
 fetchWithToken.interceptors.request.use(config => {
   config.headers['Content-Type'] = 'application/json'
   config.headers['api-token'] = apiToken
@@ -19,7 +19,6 @@ fetchWithToken.interceptors.request.use(config => {
   console.log(error)
   Promise.reject(error)
 })
-
 fetchWithToken.interceptors.response.use(
   response => {
     const status = response.status
@@ -43,6 +42,28 @@ fetchWithToken.interceptors.response.use(
     } else {
       return Promise.reject(error)
     }
+  }
+)
+
+// 建立榜单请求拦截器
+const diamondTopReq = axios.create({
+  baseURL: process.env.DIAMOND_TOP_API
+})
+diamondTopReq.interceptors.request.use(config => {
+  return config
+}, error => {
+  console.log(error)
+  Promise.reject(error)
+})
+diamondTopReq.interceptors.response.use(
+  response => {
+    return {
+      code: 0,  
+      data: response.data
+    }
+  },
+  error => {
+    return Promise.reject(error)
   }
 )
 
@@ -160,4 +181,37 @@ const bindUserCoupon = (args) => {
   })
 }
 
-export { qiniuToken, uploadImgToQiniu, postActivityMedia, postLoveInfo, getLoveInfo, getVerificationCodes, bindUserPhone, queryUserCoupon, h5Batches, bindUserCoupon }
+// 获取照片投票榜单
+const getPhotoBoard = (args) => {
+  return diamondTopReq({
+    url: '/boards',
+    params: args
+  })
+}
+
+// 获取榜单照片详情
+const getVoteDetail = (id) => {
+  return diamondTopReq({
+    url: `/boards/${id}`
+  })
+}
+
+// 上榜
+const addToBoard = (args) => {
+  return diamondTopReq({
+    url: '/board',
+    method: 'post',
+    data: args
+  })
+}
+
+// 投票
+const vote = (args) => {
+  return diamondTopReq({
+    url: '/vote',
+    method: 'post',
+    data: args
+  })
+}
+
+export { qiniuToken, uploadImgToQiniu, postActivityMedia, postLoveInfo, getLoveInfo, getVerificationCodes, bindUserPhone, queryUserCoupon, h5Batches, bindUserCoupon, getPhotoBoard, getVoteDetail, addToBoard, vote }

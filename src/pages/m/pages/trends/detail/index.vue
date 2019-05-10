@@ -34,15 +34,10 @@
       :show="shouldShareModalShow"
       @onHandleShareModalHide="handleShareModalHide"
     />
-
-    <div
-      class="info"
-      v-html="infolink"
-    />
-    <div
-      class="info"
-      v-html="pslink"
-    />
+    <!-- eslint-disable-next-line -->
+    <div class="info" v-html="infolink" />
+    <!-- eslint-disable-next-line -->
+    <div class="info" v-html="pslink" />
     <div class="blank-holder" />
   </div>
 </template>
