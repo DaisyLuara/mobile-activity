@@ -27,7 +27,8 @@
 
       <div 
         v-if="showRegular" 
-        class="regularBox">
+        class="regularBox"
+      >
         <img 
           :src="CDNURL+'/fe/wuyue-beatPig-regularContent.png'"
           class="regularContent"
@@ -41,7 +42,8 @@
 
       <div 
         v-else-if="showStartModal" 
-        class="regularBox">
+        class="regularBox"
+      >
         <img 
           :src="CDNURL+'/fe/wuyue-beatPig-startModal.png'"
           class="regularContent"
@@ -60,7 +62,8 @@
 
       <div 
         v-else 
-        class="operationBox">
+        class="operationBox"
+      >
         <img 
           :src="CDNURL+'/fe/wuyue-beatPig-regular.png'"
           class="regular"

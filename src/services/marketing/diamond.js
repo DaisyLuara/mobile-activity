@@ -47,7 +47,8 @@ fetchWithToken.interceptors.response.use(
 
 // 建立榜单请求拦截器
 const diamondTopReq = axios.create({
-  baseURL: process.env.DIAMOND_TOP_API
+  baseURL: process.env.DIAMOND_TOP_API,
+  withCredentials: true
 })
 diamondTopReq.interceptors.request.use(config => {
   return config

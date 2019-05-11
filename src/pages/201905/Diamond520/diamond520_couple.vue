@@ -70,7 +70,7 @@
         >
       </div> 
       <img
-        :src="`${CDNURL}/dimond520/activity_rule.png`"
+        :src="`${CDNURL}/dimond520/couple_rule.png`"
         class="activity-rule"
       >
       <img
@@ -217,10 +217,11 @@ export default {
       try {
         let res = await bindUserPhone(params)
         if (res.code === 0) {
-          Toast.succeed('验证成功', 0, true)
+          Toast.succeed('验证成功')
           // 更新用户手机号信息
           this.userinfo.mobile = this.phone
           this.setLoginState(this.userinfo)
+          this.verifiedPhone = true
         } else {
           Toast.failed('验证失败', 2000, true)
         }

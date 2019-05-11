@@ -2,13 +2,15 @@
   <div class="container">
     <audio 
       id="bombSound" 
-      hidden>
+      hidden
+    >
       <source :src="CDNURL + '/audio/wuyue-boom-sound.mp3'">
     </audio>
 
     <div 
       v-if="showMask" 
-      class="startGameMask">
+      class="startGameMask"
+    >
       <img 
         :src="CDNURL+'/fe/wuyue-beatPig-mask.png'"
         class="maskBg"
@@ -25,7 +27,8 @@
     
     <div 
       v-else 
-      class="content">
+      class="content"
+    >
       <img 
         :src="CDNURL+'/fe/wuyue-beatPig-game-topBg.png'"
         class="gameTopBg"
