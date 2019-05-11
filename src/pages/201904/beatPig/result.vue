@@ -1,12 +1,5 @@
 <template>
   <div class="container">
-    <audio 
-      id="clickSound" 
-      hidden
-    >
-      <source :src="CDNURL + '/audio/wuyue-click-sound.mp3'">
-    </audio> 
-
     <div 
       v-if="showMask" 
       class="mask"
@@ -155,7 +148,7 @@ export default {
             res.share({
               title: "吾悦七周年，嗨玩赢壕礼！",
               desc: "Pick金猪，大牌美妆免费送",
-              link: window.location.href,
+              link: process.env.DIAMOND_API + (process.env.NODE_ENV === 'production' ? '/s/4L0?utm_campaign=h5_beat_pig' : '/s/APz?utm_campaign=h5_beat_pig'),
               imgUrl: CDNURL + "/fe/wuyue-beatPig-shareIcon.png",
               success: async function() {
                 try {
@@ -249,12 +242,20 @@ export default {
 		},
 
 		onCloseResult() {
-			this.$router.replace({ name: 'beatPigIndex' })
+      this.$router.replace({ name: 'beatPigIndex' })
+      let music = document.getElementById('music')
+      if (music) {
+        music.pause()
+      }
 		},
 
 		onClickResultBtn() {
       switch(this.gameStatus) {
         case 'game_enable':
+          let music = document.getElementById('music')
+          if (music) {
+            music.pause()
+          }
           this.$router.replace({ name: 'beatPigIndex' })
           break
         case 'game_share':
