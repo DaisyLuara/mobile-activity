@@ -46,6 +46,7 @@
 <script>
 import { reCalculateRem } from '@/mixins/reCalculateRem'
 import DiamondLottery from '@/modules/diamondLottery'
+import { $wechat, isInWechat } from 'services'
 const CDNURL = process.env.CDN_URL
 
 export default {
@@ -60,7 +61,28 @@ export default {
       showMask: false
     }
   },
+  mounted() {
+    this.handleWechatShare()
+  },
   methods: {
+    handleWechatShare() {
+      if (isInWechat() === true) {
+        let wxShareInfoValue = {
+          title: '钻石人气榜，等你来挑战',
+          desc: '为好友助力打call，赢取挚爱真钻',
+          link: location.origin + '/marketing/Diamond520/diamond520_vote/' + 1, // 应为榜单id
+          imgUrl: 'https://cdn.xingstation.cn/dimond520/share_icon.png'
+        }
+        $wechat()
+          .then(res => {
+            res.forbiddenCopy()
+            res.share(wxShareInfoValue)
+          })
+          .catch(e => {
+            console.warn(e)
+          })
+      }
+    },
     handleNaviTop() {
       this.$router.push({
         name: 'diamond520Top'

@@ -44,7 +44,8 @@ import {
   $wechat,
   isInWechat,
   filterNumber,
-  validatePhone
+  validatePhone,
+  fetchPhotoByPhone
 } from 'services'
 import { Toast } from 'mand-mobile'
 import "../../../assets/less/reset-mand.less"
@@ -81,9 +82,19 @@ export default {
       !valid && Toast.info('手机号输入错误，请重新输入')
       return valid
     },
-    handleFetch() {
+    async handleFetch() {
       if (!this.isValidPhone()) {
         return
+      }
+      let params = {
+        phone: this.phone
+      }
+      try {
+        let res = await fetchPhotoByPhone(params)
+        console.log(res)
+      } catch(e) {
+        console.log(e)
+        Toast.failed('提取失败')
       }
     }
   }

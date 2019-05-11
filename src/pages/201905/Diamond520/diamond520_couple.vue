@@ -5,6 +5,10 @@
       class="back-top"
     >
     <div class="content-wrap">
+      <img
+        :src="`${CDNURL}/dimond520/head_diamond.png`"
+        class="diamond-head"
+      >
       <div class="photo-area">
         <img :src="photo">
       </div>
@@ -289,10 +293,15 @@ img {
 }
 .content-wrap {
   position: relative;
-  padding-top: 0.14rem;
+  padding-top: 0.19rem;
   top: 0;
   left: 0;
   right: 0;
+  .diamond-head {
+    width: 3.24rem;
+    height: 1.57rem;
+    margin: 0 auto -0.06rem;
+  }
   .photo-area {
     width: 2.64rem;
     height: 4.35rem;

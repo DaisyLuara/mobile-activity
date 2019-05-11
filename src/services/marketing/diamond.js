@@ -48,7 +48,7 @@ fetchWithToken.interceptors.response.use(
 // 建立榜单请求拦截器
 const diamondTopReq = axios.create({
   baseURL: process.env.DIAMOND_TOP_API,
-  withCredentials: true
+  withCredentials: (process.env.NODE_ENV === 'production') ? true : false
 })
 diamondTopReq.interceptors.request.use(config => {
   return config
@@ -218,4 +218,17 @@ const vote = (args) => {
   })
 }
 
-export { qiniuToken, uploadImgToQiniu, postActivityMedia, postLoveInfo, getLoveInfo, getVerificationCodes, bindUserPhone, queryUserCoupon, h5Batches, bindUserCoupon, getPhotoBoard, getVoteDetail, addToBoard, vote }
+// 提取照片
+const fetchPhotoByPhone = (args) => {
+  return fetchWithToken({
+    url: '/user/upload/confession',
+    params: args
+  })
+}
+
+// 推送照片到大屏
+const pushPhoto = (args) => {
+
+}
+
+export { qiniuToken, uploadImgToQiniu, postActivityMedia, postLoveInfo, getLoveInfo, getVerificationCodes, bindUserPhone, queryUserCoupon, h5Batches, bindUserCoupon, getPhotoBoard, getVoteDetail, addToBoard, vote, fetchPhotoByPhone, pushPhoto }

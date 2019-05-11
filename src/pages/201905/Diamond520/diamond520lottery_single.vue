@@ -122,6 +122,7 @@ export default {
       }
       $wechat()
         .then(res => {
+          res.forbiddenCopy()
           res.share(wxShareInfoValue)
         })
         .catch(e => {
