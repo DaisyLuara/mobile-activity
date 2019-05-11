@@ -15,7 +15,7 @@
 import { reCalculateRem } from '@/mixins/reCalculateRem'
 import { mapGetters, mapMutations } from "vuex"
 import { getInfoById, splitParms } from 'services'
-import Diamond520Single from './diamond520_single'
+import Diamond520Single from './diamond520lottery_single'
 import Diamond520Couple from './diamond520_couple'
 import { Toast } from 'mand-mobile'
 import "../../../assets/less/reset-mand.less"

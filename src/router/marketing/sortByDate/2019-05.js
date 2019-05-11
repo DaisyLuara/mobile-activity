@@ -88,17 +88,6 @@ const Date201905 = [
     isAbandoned: false
   },
   {
-    path: 'Diamond520/diamond520lottery_s',
-    location: '201905/Diamond520/diamond520lottery_single',
-    name: 'diamond520LotterySingle',
-    meta: {
-      title: '星视度',
-      author: 'chuxiaochen',
-      desc: '520钻石活动转盘抽奖页-正式版-单人'
-    },
-    isAbandoned: false
-  },
-  {
     path: 'open_box',
     location: '201905/openBox',
     name: 'open_box',

@@ -74,8 +74,6 @@ export default {
     if (!this.z) {
       Toast.failed('用户信息为空', 0, true)
     } else {
-      // mock
-      Toast.loading('页面加载中')
       // debug
       // if (process.env.NODE_ENV === 'development') {
       //   this.qiniuId = 10929235
@@ -111,7 +109,7 @@ export default {
   methods: {
     // 获取抽奖所需的信息
     async initState() {
-      Toast.loading('页面加载中')
+      Toast.loading('转盘加载中')
       this.qiniuId = Number(this.$route.query.id)
       let { id, code, state } = this.$route.query
       try {
@@ -141,7 +139,8 @@ export default {
         Toast.hide()
       } catch(e) {
         console.log(e)
-        Toast.failed('加载失败', 0, true)
+        Toast.failed('加载失败', 2000, true)
+        this.clickable = false
       }
     },
     // 抽奖

@@ -21,12 +21,11 @@
         <div class="vote-area">
           <img
             :src="`${CDNURL}/dimond520/heart_vote_btn.png`"
-            class="heart-vote-btn"
-            @click="clickable && handleVote()"
+            :class="['heart-vote-btn', { 'animated bounceIn': playAnimation }]"
           >
           <img
             :src="`${CDNURL}/dimond520/plus_one.png`"
-            :class="['plus-one', { 'animate': playAnimation }]"
+            :class="['plus-one', { 'my-animate': playAnimation }]"
           >
         </div>
       </div>
@@ -34,6 +33,7 @@
         <img
           :src="`${CDNURL}/dimond520/help_btn.png`"
           class="button"
+          @click="clickable && handleVote()"
         >
         <img
           :src="`${CDNURL}/dimond520/navi_top_btn.png`"
@@ -54,6 +54,7 @@ import { reCalculateRem } from '@/mixins/reCalculateRem'
 import { Cookies, getVoteDetail, vote } from 'services'
 import { Toast } from 'mand-mobile'
 import "../../../assets/less/reset-mand.less"
+import "animate.css"
 const CDNURL = process.env.CDN_URL
 
 export default {
@@ -73,7 +74,11 @@ export default {
     }
   },
   mounted() {
-    this.handleWechatAuth()
+    if (process.env.NODE_ENV === 'development') {
+      this.sign = 'eyJpdiI6IkRtNUNjVEV2RkdTOStUZ2dOUktGRnc9PSIsInZhbHVlIjoiY0F2S0cwVmtramRLQXlUSHBBVWZOZz09IiwibWFjIjoiOGEwN2U4NjIzOWYzZDJiZmEzMzc4NDQ5MzRkY2NmMmIxNTA1MWY0N2E5NTkxOTExNDNmMWFkNzEwNjkyYzZmMyJ9'
+    } else {
+      this.handleWechatAuth()
+    }
     if (this.sign) {
       this.fetchDetail()
     }
@@ -138,7 +143,6 @@ export default {
       this.playAnimation = true
       return new Promise((resolve, reject) => {
         setTimeout(() => {
-          this.playAnimation = false
           resolve()
         }, 500) //动画时长
       })
@@ -209,6 +213,7 @@ export default {
       .heart-vote-btn {
         width: 100%;
         height: auto;
+        opacity: 0;
       }
       .plus-one {
         position: absolute;
@@ -217,7 +222,7 @@ export default {
         top: -0.05rem;
         right: -0.05rem;
         opacity: 0;
-        &.animate {
+        &.my-animate {
           animation: fadeOut 0.5s;
         }
       }

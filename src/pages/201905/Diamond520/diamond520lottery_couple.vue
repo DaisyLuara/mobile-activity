@@ -6,6 +6,18 @@
     >
     <div class="content-wrap">
       <DiamondLottery />
+      <div class="button-group">
+        <img
+          :src="`${CDNURL}/dimond520/friend_help_btn.png`"
+          class="button"
+          @click="handleShowMask"
+        >
+        <img
+          :src="`${CDNURL}/dimond520/navi_top_btn.png`"
+          class="button"
+          @click="handleNaviTop"
+        >
+      </div>
       <img
         :src="`${CDNURL}/dimond520/lottery_c_rule.png`"
         class="rule"
@@ -17,6 +29,16 @@
       <p class="activity-company">
         本活动最终解释权归星视度所有
       </p>
+    </div>
+    <div
+      v-show="showMask"
+      class="share-mask"
+      @click="handleHideMask"
+    >
+      <img
+        :src="`${CDNURL}/dimond520/share_tip.png`"
+        class="share-tip"
+      >
     </div>
   </div>
 </template>
@@ -34,7 +56,21 @@ export default {
   mixins: [reCalculateRem],
   data () {
     return {
-      CDNURL: CDNURL
+      CDNURL: CDNURL,
+      showMask: false
+    }
+  },
+  methods: {
+    handleNaviTop() {
+      this.$router.push({
+        name: 'diamond520Top'
+      })
+    },
+    handleShowMask() {
+      this.showMask = true
+    },
+    handleHideMask() {
+      this.showMask = false
     }
   }
 }
@@ -52,6 +88,16 @@ export default {
 }
 .content-wrap {
   position: relative;
+  .button-group {
+    display: flex;
+    margin-top: 0.05rem;
+    padding: 0 0.52rem;
+    justify-content: space-between;
+    .button {
+      width: 1.35rem;
+      height: 0.6rem;
+    }
+  }
   .rule {
     width: 3.31rem;
     height: 3.77rem;
@@ -66,6 +112,23 @@ export default {
     text-align: center;
     font-size: 12px;
     color: #060606;
+  }
+}
+.share-mask {
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: url("@{cdnUrl}/dimond520/share_mask.png");
+  background-size: 100% 100%;
+  .share-tip {
+    position: absolute;
+    top: 0.13rem;
+    right: 0.23rem;
+    width: 1.54rem;
+    height: 1.3rem;
   }
 }
 

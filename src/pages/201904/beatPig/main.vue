@@ -5,7 +5,8 @@
       autobuffer 
       autoloop 
       loop  
-      hidden>
+      hidden
+    >
       <source :src="CDNURL + '/autio/wuyue-beatPig-bgm.mp3'">
     </audio>
     <router-view />
