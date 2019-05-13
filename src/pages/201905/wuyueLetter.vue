@@ -565,7 +565,10 @@ export default {
       wx.downloadVoice({
         serverId: this.params.serverId,
         isShowProgressTips: 1,
-        success: res => (this.params.localId = res.localId),
+        success: res => {
+          this.ownList.voice = true
+          this.params.localId = res.localId
+        },
         fail: err => {
           alert('下载语音失败')
           this.ownList.voice = false
