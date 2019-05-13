@@ -326,19 +326,19 @@ export default {
       }
       if (this.id) getLetterInfoArgs.utm_source_id = this.id
       getLetter(getLetterInfoArgs).then(res => {
-        if (!res) return
-        this.newid = res.id
-        this.ownList.photo = res.url
-        this.params.serverId = res.record_id
-        res.record_id ? this.downloadVoice() : null
-        this.page1 = false
-        this.page3 = true
-        this.again = true
+        alert(res)
+        if (res) {
+          this.newid = res.id
+          this.ownList.photo = res.url
+          this.params.serverId = res.record_id
+          res.record_id ? this.downloadVoice() : null
+          this.page1 = false
+          this.page3 = true
+          this.again = true
+        }
+
       }).catch(err => {
         console.log(err)
-        this.page1 = true
-        this.page3 = false
-        this.again = false
       })
 
     },
@@ -380,9 +380,9 @@ export default {
           utm_campaign: "wuyue_invitation"
         }
         let { url, id } = await recordQiniuImage(callbackArgs)
-        this.mediaId = String(id)
+        this.mediaId = id
+        this.params.localId ? this.uploadVoice() : this.uploadOnceLetter()
         Toast.hide()
-        this.uploadVoice()
       } catch (err) {
         console.log(err)
       }
@@ -496,17 +496,20 @@ export default {
       this.record.starTime = Math.round(new Date())
       let timer = setTimeout(() => {
         wx.startRecord({
-          success: () => (this.status = 'recording'),
+          success: () => {
+            this.status = 'recording'
+            wx.onVoiceRecordEnd({
+              // 录音时间超过一分钟没有停止的时候会执行 complete 回调
+              complete: function (res) {
+                let localId = res.localId;
+              }
+            });
+          },
           cancel: () => alert('开始录音失败')
         })
         clearTimeout(timer)
       }, 300)
-      wx.onVoiceRecordEnd({
-        // 录音时间超过一分钟没有停止的时候会执行 complete 回调
-        complete: function (res) {
-          let localId = res.localId;
-        }
-      });
+
     },
     //停止录音
     stopRecord() {
@@ -527,24 +530,32 @@ export default {
     },
     //播放录音
     playVoice() {
+      let that = this
       wx.playVoice({
         localId: this.params.localId,
-        success: () => (this.status = 'playing'),
-        fail: err => console.log('播放异常')
-      });
-      let that = this
-      wx.onVoicePlayEnd({
-        success: function (res) {
-          that.status = 'play' // 返回音频的本地ID
+        success: () => {
+          this.status = 'playing'
+          wx.onVoicePlayEnd({
+            success: function (res) {
+              that.status = 'play' // 返回音频的本地ID
+            },
+            complete: () => (that.status = 'play')
+          });
+        },
+        fail: err => console.log('播放异常'),
+        complete: () => {
+          let that = this
+          wx.onVoicePlayEnd({
+            success: function (res) {
+              that.status = 'play' // 返回音频的本地ID
+            },
+            complete: () => (that.status = 'play')
+          });
         }
       });
     },
     //上传录音
     uploadVoice() {
-      if (!this.params.localId) {
-        this.uploadOnceLetter()
-        return
-      }
       wx.uploadVoice({
         localId: this.params.localId,
         isShowProgressTips: 1,
