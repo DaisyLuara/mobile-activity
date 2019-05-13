@@ -361,7 +361,7 @@ export default {
           return
         }
         this.qiniu.token = getTokenResult
-        let file = this.dataURLtoFile(this.ownList.photo)
+        let file = this.dataURLtoFile(this.ownList.photo, `${suffix}`)
         let [name, size] = [file.name, file.size]
         getQiniuKeyArgs.append('file', file)
         getQiniuKeyArgs.append('token', this.qiniu.token)
@@ -375,7 +375,6 @@ export default {
           name,
           key,
           size,
-          activity_id: 1, // 活动标识
           utm_campaign: "wuyue_invitation"
         }
         const recordImageResult = await recordQiniuImage(callbackArgs)
