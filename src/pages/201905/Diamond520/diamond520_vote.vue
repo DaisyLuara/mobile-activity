@@ -51,7 +51,7 @@
 
 <script>
 import { reCalculateRem } from '@/mixins/reCalculateRem'
-import { Cookies, getVoteDetail, vote, $wechat, isInWechat } from 'services'
+import { Cookies, getVoteDetail, vote, $wechat, isInWechat, isiOS } from 'services'
 import { Toast } from 'mand-mobile'
 import "../../../assets/less/reset-mand.less"
 import { mapGetters } from "vuex"
@@ -78,6 +78,17 @@ export default {
     ...mapGetters(["weixinUrl"])
   },
   mounted() {
+    if (isiOS && !this.$route.query.iosRand) {
+      const iosRand = 'iosRand=' + new Date().getTime()
+      const url = location.href
+      if (url.indexOf('?') > 0) {
+        url = url + '&' + iosRand
+      } else {
+        url = url + '?' + iosRand
+      }
+      location.replace(url)
+      return
+    }
     if (process.env.NODE_ENV === 'development') {
       this.sign = 'eyJpdiI6IkRtNUNjVEV2RkdTOStUZ2dOUktGRnc9PSIsInZhbHVlIjoiY0F2S0cwVmtramRLQXlUSHBBVWZOZz09IiwibWFjIjoiOGEwN2U4NjIzOWYzZDJiZmEzMzc4NDQ5MzRkY2NmMmIxNTA1MWY0N2E5NTkxOTExNDNmMWFkNzEwNjkyYzZmMyJ9'
     } else {

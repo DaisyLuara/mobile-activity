@@ -46,7 +46,7 @@
 <script>
 import { reCalculateRem } from '@/mixins/reCalculateRem'
 import DiamondLottery from '@/modules/diamondLottery'
-import { $wechat, isInWechat, getUserBoardId } from 'services'
+import { $wechat, isInWechat, isiOS, getUserBoardId } from 'services'
 import { mapGetters } from "vuex"
 import { Toast } from 'mand-mobile';
 const CDNURL = process.env.CDN_URL
@@ -68,6 +68,17 @@ export default {
     ...mapGetters(["z", "weixinUrl"])
   },
   async mounted() {
+    if (isiOS && !this.$route.query.iosRand) {
+      const iosRand = 'iosRand=' + new Date().getTime()
+      const url = location.href
+      if (url.indexOf('?') > 0) {
+        url = url + '&' + iosRand
+      } else {
+        url = url + '?' + iosRand
+      }
+      location.replace(url)
+      return
+    }
     window.scrollTo(0, 0)
     await this.getBoardId()
     this.handleWechatShare()
