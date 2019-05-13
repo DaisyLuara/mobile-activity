@@ -130,6 +130,17 @@ const Date201905 = [
       desc: '济南恒隆广场'
     },
     isAbandoned: false
+  },
+  {
+    path: 'wuyue_letter',
+    location: '201905/wuyueLetter',
+    name: 'wuyue_letter',
+    meta: {
+      title: '我爱你五月',
+      author: 'lipan',
+      desc: '我爱你五月-邀请函'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201905

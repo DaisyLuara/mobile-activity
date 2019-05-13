@@ -37,7 +37,9 @@ const forbidden = () => {
       'onMenuShareTimeline',
       'onMenuShareQQ',
       'onMenuShareWeibo',
-      'onMenuShareQZone'
+      'onMenuShareQZone',
+      'updateAppMessageShareData',
+      'updateTimelineShareData'
     ]
   })
 }
@@ -88,9 +90,20 @@ const $wechat = weixin_url => {
             'onMenuShareQQ',
             'onMenuShareWeibo',
             'onMenuShareQZone',
+            'updateAppMessageShareData',
+            'updateTimelineShareData',
             'hideMenuItems',
             'hideOptionMenu',
-            'scanQRCode'
+            'scanQRCode',
+            'startRecord',
+            'stopRecord',
+            'onVoiceRecordEnd',
+            'playVoice',
+            'pauseVoice',
+            'stopVoice',
+            'onVoicePlayEnd',
+            'uploadVoice',
+            'downloadVoice'
           ]
         })
         wx.ready(() => {
