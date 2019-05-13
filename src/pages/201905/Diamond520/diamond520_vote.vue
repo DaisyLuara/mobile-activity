@@ -111,7 +111,7 @@ export default {
         Toast.hide()
       } catch(e) {
         console.log(e)
-        Toast.failed('加载失败')
+        Toast.failed(e.response.data.message)
       }
     },
     //微信静默授权
