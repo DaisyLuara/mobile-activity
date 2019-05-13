@@ -210,6 +210,7 @@ import {
   getQiniuToken,
   qiniuUploadFile,
   recordQiniuImage,
+  setParameter
 } from "services";
 import { Toast } from 'mand-mobile'
 import "swiper/dist/css/swiper.css";
@@ -282,7 +283,6 @@ export default {
       wxShareInfoValue: {
         title: "我爱你五月，I love may",
         desc: "我爱你五月暨武进吾悦广场七周年庆",
-        link: '',
         imgUrl: CDNURL + "/fe/image/wuyueLetter/icon.png"
       }
     }
@@ -329,10 +329,11 @@ export default {
       getLetter(getLetterInfoArgs).then(res => {
         if (res) {
           this.newid = res.id
-          this.wxShareInfoValue.link = window.location.origin + window.location.pathname + '?id=' + this.newid
+          this.wxShareInfoValue.link = setParameter("id", this.newid, encodeURIComponent(window.location.href))
           this.mergebg = res.url
           this.ownList.photo = res.url
           this.params.serverId = res.record_id
+          alert(res.record_id)
           res.record_id ? this.downloadVoice() : null
           this.page1 = false
           this.page3 = true
@@ -441,6 +442,7 @@ export default {
       this.page2 = true
       this.tip = true
       this.status = 'start'
+      this.wxShareInfoValue.link = ''
       for (let item in this.ownList)
         this.ownList[item] = null
       for (let item in this.params)
@@ -485,10 +487,8 @@ export default {
     },
     handleData(res) {
       this.newid = res.id
-      alert('new id', this.newid)
-      this.wxShareInfoValue.link = window.location.origin + window.location.pathname + '?id=' + this.newid
-      console.log(this.wxShareInfoValue.link)
-      alert(this.wxShareInfoValue.link)
+      Toast.info(this.newid, 800)
+      this.wxShareInfoValue.link = setParameter("id", this.newid, encodeURIComponent(window.location.href))
       this.ownList.photo = res.url
       this.params.serverId = res.record_id
       this.status = 'play'
@@ -554,7 +554,7 @@ export default {
         wx.playVoice({
           localId: this.params.localId,
           success: res => (this.status = 'playing'),
-          fail: err => console.log('播放异常')
+          fail: err => Toast.info('播放异常', 800)
         });
       }
     },
@@ -574,24 +574,23 @@ export default {
           this.params.createTime = new Date().getTime()
           this.uploadOnceLetter()
         },
-        fail: err => console.log('上传录音失败')
+        fail: err => Toast.info('上传录音失败', 800)
       });
     },
     //下载语音
     downloadVoice() {
       let that = this
-      if (!this.params.serverId) return
+      this.ownList.voice = true
+      this.status = 'play'
+      Toast.info('download' + this.status, 800)
       wx.downloadVoice({
         serverId: this.params.serverId,
         isShowProgressTips: 1,
         success: res => {
-          that.ownList.voice = true
-          alert(that.ownList.voice, that.status, res.localId)
-          that.status = 'play'
           that.params.localId = res.localId
         },
         fail: err => {
-          console.log('下载语音失败')
+          Toast.info('下载语音失败', 800)
           that.ownList.voice = false
         }
       });
