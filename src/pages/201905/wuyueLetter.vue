@@ -279,7 +279,7 @@ export default {
       wxShareInfoValue: {
         title: "我爱你五月，I love may",
         desc: "我爱你五月暨武进吾悦广场七周年庆",
-        link: window.location.origin + window.location.pathname + '?id=' + this.newid,
+        link: '',
         imgUrl: CDNURL + "/fe/image/wuyueLetter/icon.png"
       }
     }
@@ -329,6 +329,7 @@ export default {
       getLetter(getLetterInfoArgs).then(res => {
         if (res) {
           this.newid = res.id
+          this.wxShareInfoValue.link = window.location.origin + window.location.pathname + '?id=' + this.newid
           this.mergebg = res.url
           this.ownList.photo = res.url
           this.params.serverId = res.record_id
@@ -484,6 +485,7 @@ export default {
     },
     handleData(res) {
       this.newid = res.id
+      this.wxShareInfoValue.link = window.location.origin + window.location.pathname + '?id=' + this.newid
       this.ownList.photo = res.url
       this.params.serverId = res.record_id
     },
