@@ -80,7 +80,7 @@ export default {
   mounted() {
     if (isiOS && !this.$route.query.iosRand) {
       const iosRand = 'iosRand=' + new Date().getTime()
-      const url = location.href
+      let url = location.href
       if (url.indexOf('?') > 0) {
         url = url + '&' + iosRand
       } else {
