@@ -45,7 +45,7 @@
             class="scoreBg"
           >
           <img 
-            :src="userAvatar"
+            :src="userAvatar || CDNURL + '/fe/wuyue-beatPig-default-avatar.png'"
             class="avatar"
           >
           <span class="score">{{ score }}</span>
@@ -133,9 +133,7 @@ export default {
       .then(result => {
 				if (result && result.data && result.data.headimgurl) {
 					this.userAvatar = result.data.headimgurl
-				} else {
-					this.userAvatar = this.CDNURL + '/fe/wuyue-beatPig-defaultAvatar.png'
-				}      
+				}  
 			})
 		this.onReady()
 	},

@@ -279,8 +279,6 @@ export default {
 
 		onStartGame() {
       this.onMusicPlay('clickSound')
-      this.offMusic = false
-      this.onMusicPlay('music')  
       switch(this.gameStatus) {
         case 'game_enable':
           this.showStartModal = true
