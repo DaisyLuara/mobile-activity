@@ -136,7 +136,7 @@
           >
           <a
             class="sub"
-            @click="msgPost"
+            @click="mergeImage"
           >
             <img :src="base + 'submit.png'">
           </a>
@@ -295,7 +295,11 @@ export default {
         this.handleWechatAuth()
       }
     }
-
+    wx.onVoicePlayEnd({
+      success: function (res) {
+        that.status = 'play' // 返回音频的本地ID
+      }
+    });
   },
   methods: {
     //微信静默授权
@@ -312,46 +316,32 @@ export default {
         this.userId = Cookies.get('user_id')
         this.params.userId = this.userId
         this.initVoice()
-        this.init()
+        this.initProceingLetter()
       }
     },
-    //七牛云，微信语音，邀请函，接口初始化  总汇
-    init() {
-      this.initProceingLetter()
-    },
-    msgPost() {
-      this.mergeImage()
-    },
     //邀请函相关接口  init
-    async initProceingLetter() {
-      try {
-        let getLetterInfoArgs = {
-          utm_campaign: "wuyue_invitation"
-        }
-        if (this.id) getLetterInfoArgs.utm_source_id = this.id
-        const getLetterInfoResult = await getLetter(getLetterInfoArgs)
-        if (!getLetterInfoResult) { return }
-        this.newid = getLetterInfoResult.id
-        this.ownList.photo = getLetterInfoResult.url
-        this.params.serverId = getLetterInfoResult.record_id
-        this.downloadVoice()
+    initProceingLetter() {
+      let getLetterInfoArgs = {
+        utm_campaign: "wuyue_invitation"
+      }
+      if (this.id) getLetterInfoArgs.utm_source_id = this.id
+      getLetter(getLetterInfoArgs).then(res => {
+        if (!res) return
+        this.newid = res.id
+        this.ownList.photo = res.url
+        this.params.serverId = res.record_id
+        res.record_id ? this.downloadVoice() : null
         this.page1 = false
         this.page3 = true
         this.again = true
+      }).catch(err => {
+        console.log(err)
+      })
 
-      } catch (err) {
-        if (err.response.data.message) {
-          alert(err.response.data.message);
-        }
-      }
     },
     //录音相关接口
-    async initVoice() {
+    initVoice() {
       $wechat().then(res => {
-        wx.onVoicePlayEnd({
-          success: res => (this.status = 'play'),
-          fail: err => console.log('监听播放失败')
-        });
       }).catch(err => {
         console.log(err)
       })
@@ -388,8 +378,8 @@ export default {
         }
         let { url, id } = await recordQiniuImage(callbackArgs)
         this.mediaId = String(id)
-        this.media_id && this.params.serverId ? this.uploadOnceLetter() : console.log('no serverId')
         Toast.hide()
+        this.uploadVoice()
       } catch (err) {
         console.log(err)
       }
@@ -445,6 +435,7 @@ export default {
       this.page3 = false
       this.page2 = true
       this.tip = true
+      this.status = 'start'
       for (let item in this.ownList)
         this.ownList[item] = null
       for (let item in this.params)
@@ -457,12 +448,12 @@ export default {
     updateUserLetter() {
       let args = {
         media_id: this.media_id,
-        record_id: this.params.serverId,
-        message: this.ownList.text,
-        utm_campaign: "wuyue_invitation",
-        utm_source_id: this.id,
-        createTime: this.params.createTime
+        utm_campaign: "wuyue_invitation"
       }
+      if (this.ownList.text) args.message = this.ownList.text
+      if (this.id) args.utm_source_id = this.id
+      if (this.params.serverId) args.record_id = this.params.serverId
+      if (this.params.createTime) args.createTime = this.params.createTime
       updateLetter(args).then(res => {
         this.handleData(res)
       }).catch(err => {
@@ -473,11 +464,11 @@ export default {
     uploadUserLetter() {
       let args = {
         media_id: this.media_id,
-        record_id: this.params.serverId,
-        message: this.ownList.text,
-        utm_campaign: "wuyue_invitation",
-        createTime: this.params.createTime
+        utm_campaign: "wuyue_invitation"
       }
+      if (this.ownList.text) args.message = this.ownList.text
+      if (this.params.serverId) args.record_id = this.params.serverId
+      if (this.params.createTime) args.createTime = this.params.createTime
       uploadLetter(args).then(res => {
         this.handleData(res)
       }).catch(err => {
@@ -485,6 +476,7 @@ export default {
       })
     },
     uploadOnceLetter() {
+      console.log(this.again)
       this.again ? this.updateUserLetter() : this.uploadUserLetter()
     },
     handleData(res) {
@@ -526,7 +518,6 @@ export default {
           this.params.localId = res.localId
           this.status = 'play'
           this.ownList.voice = true
-          this.uploadVoice()
         },
         fail: err => console.log(err)
       })
@@ -538,25 +529,33 @@ export default {
         success: () => (this.status = 'playing'),
         fail: err => console.log('播放异常')
       });
+      let that = this
       wx.onVoicePlayEnd({
-        success: res => (this.status = 'play'),
-        fail: err => console.log('监听播放失败')
+        success: function (res) {
+          that.status = 'play' // 返回音频的本地ID
+        }
       });
     },
     //上传录音
     uploadVoice() {
+      if (!this.params.localId) {
+        this.uploadOnceLetter()
+        return
+      }
       wx.uploadVoice({
         localId: this.params.localId,
         isShowProgressTips: 1,
         success: res => {
           this.params.serverId = res.serverId
           this.params.createTime = new Date().getTime()
+          this.uploadOnceLetter()
         },
         fail: err => alert('上传录音失败')
       });
     },
     //下载语音
     downloadVoice() {
+      if (!this.params.serverId) return
       wx.downloadVoice({
         serverId: this.params.serverId,
         isShowProgressTips: 1,
