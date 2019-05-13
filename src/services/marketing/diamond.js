@@ -218,6 +218,15 @@ const vote = (args) => {
   })
 }
 
+// 获取个人榜单id
+const getUserBoardId = (args) => {
+  return diamondTopReq({
+    url: '/user/board',
+    method: 'post',
+    data: args
+  })
+}
+
 // 提取照片
 const fetchPhotoByPhone = (args) => {
   return fetchWithToken({
@@ -234,4 +243,4 @@ const pushPhoto = (args) => {
   })
 }
 
-export { qiniuToken, uploadImgToQiniu, postActivityMedia, postLoveInfo, getLoveInfo, getVerificationCodes, bindUserPhone, queryUserCoupon, h5Batches, bindUserCoupon, getPhotoBoard, getVoteDetail, addToBoard, vote, fetchPhotoByPhone, pushPhoto }
+export { qiniuToken, uploadImgToQiniu, postActivityMedia, postLoveInfo, getLoveInfo, getVerificationCodes, bindUserPhone, queryUserCoupon, h5Batches, bindUserCoupon, getPhotoBoard, getVoteDetail, addToBoard, vote, fetchPhotoByPhone, pushPhoto, getUserBoardId }

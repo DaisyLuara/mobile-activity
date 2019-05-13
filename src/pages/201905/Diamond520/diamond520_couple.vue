@@ -196,11 +196,21 @@ export default {
             query: this.$route.query
           })
         } else {
-          Toast.failed('提交失败', 3000, true)
+          Toast.failed('提交失败', 2000, true)
         }
       } catch(e) {
         console.log(e)
-        Toast.failed(e.response.data.message)
+        if (e.response.data) {
+          Toast.failed(e.response.data.message, 2000, true)
+          setTimeout(() => {
+            this.$router.push({
+              name: 'diamond520LotteryCouple', // 双人抽奖页
+              query: this.$route.query
+            })
+          }, 2000)
+        } else {
+          Toast.failed('未知错误，请稍后重试', 2000, true)
+        }
       }
     },
     handleNaviTop() {

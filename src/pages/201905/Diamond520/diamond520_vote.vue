@@ -111,7 +111,11 @@ export default {
         Toast.hide()
       } catch(e) {
         console.log(e)
-        Toast.failed(e.response.data.message)
+        if (e.response.data) {
+          Toast.failed(e.response.data.message, 0, true)
+        } else {
+          Toast.failed('未知错误，请刷新', 0, true)
+        }
       }
     },
     //微信静默授权
@@ -148,7 +152,11 @@ export default {
         }
       } catch(e) {
         console.log(e)
-        Toast.failed(e.response.data.message, 2000, true)
+        if (e.response.data) {
+          Toast.failed(e.response.data.message, 2000, true)
+        } else {
+          Toast.failed('未知错误，请稍后重试', 2000, true)
+        }
         this.clickable = true
       }
     },
