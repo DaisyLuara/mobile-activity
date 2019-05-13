@@ -381,7 +381,8 @@ export default {
         const recordImageResult = await recordQiniuImage(callbackArgs)
         if (recordImageResult) {
           this.mediaId = recordImageResult.id
-          this.params.localId ? this.uploadVoice(recordImageResult.id) : this.uploadOnceLetter(recordImageResult.id)
+          console.log(mediaId)
+          this.params.localId ? this.uploadVoice() : this.uploadOnceLetter()
           Toast.hide()
         }
 
@@ -450,11 +451,11 @@ export default {
       this.mask = false
     },
     //修改邀请函
-    updateUserLetter(mediaId) {
+    updateUserLetter() {
       let args = {
-        media_id: media_id,
+        media_id: this.mediaId,
         utm_campaign: "wuyue_invitation",
-        message: this.ownList.text || " ",
+        message: this.ownList.text || "test",
         record_id: this.params.serverId || "",
         create_time: this.params.createTime || "",
         utm_source_id: this.id || ""
@@ -466,11 +467,11 @@ export default {
       })
     },
     // 上传邀请函
-    uploadUserLetter(mediaId) {
+    uploadUserLetter() {
       let args = {
-        media_id: media_id,
+        media_id: this.mediaId,
         utm_campaign: "wuyue_invitation",
-        message: this.ownList.text || " ",
+        message: this.ownList.text || "test",
         record_id: this.params.serverId || "",
         create_time: this.params.createTime || ""
       }
@@ -480,8 +481,8 @@ export default {
         console.log(err)
       })
     },
-    uploadOnceLetter(mediaId) {
-      this.again ? this.updateUserLetter(mediaId) : this.uploadUserLetter(mediaId)
+    uploadOnceLetter() {
+      this.again ? this.updateUserLetter() : this.uploadUserLetter()
     },
     handleData(res) {
       this.newid = res.id
@@ -546,14 +547,14 @@ export default {
       });
     },
     //上传录音
-    uploadVoice(mediaId) {
+    uploadVoice() {
       wx.uploadVoice({
         localId: this.params.localId,
         isShowProgressTips: 1,
         success: res => {
           this.params.serverId = res.serverId
           this.params.createTime = new Date().getTime()
-          this.uploadOnceLetter(mediaId)
+          this.uploadOnceLetter()
         },
         fail: err => alert('上传录音失败')
       });
