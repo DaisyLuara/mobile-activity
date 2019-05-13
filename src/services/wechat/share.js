@@ -46,7 +46,10 @@ const forbidden = () => {
 const forbiddenCopy = () => {
   wx.hideMenuItems({
     menuList: [
-      'menuItem:copyUrl'
+      'menuItem:copyUrl',
+      'menuItem:originPage',
+      'menuItem:openWithQQBrowser',
+      'menuItem:openWithSafari'
     ]
   })
 }

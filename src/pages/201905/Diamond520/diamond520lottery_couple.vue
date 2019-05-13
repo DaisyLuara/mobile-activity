@@ -68,6 +68,7 @@ export default {
     ...mapGetters(["z"])
   },
   async mounted() {
+    window.scrollTo(0, 0)
     await this.getBoardId()
     this.handleWechatShare()
   },

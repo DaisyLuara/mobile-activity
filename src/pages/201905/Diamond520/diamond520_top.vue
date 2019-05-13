@@ -97,7 +97,11 @@ export default {
         }
       } catch(e) {
         console.log(e)
-        Toast.failed('获取榜单失败')
+        if (e.response) {
+          e.response.data.message && Toast.failed(e.response.data.message, 0, true)
+        } else {
+          Toast.failed('未知错误，请刷新', 0, true)
+        }
       } finally {
         this.$refs.scrollView.finishLoadMore()
       }
