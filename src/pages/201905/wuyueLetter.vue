@@ -296,11 +296,6 @@ export default {
         this.handleWechatAuth()
       }
     }
-    wx.onVoicePlayEnd({
-      success: function (res) {
-        that.status = 'play' // 返回音频的本地ID
-      }
-    });
   },
   methods: {
     //微信静默授权
@@ -329,11 +324,10 @@ export default {
       getLetter(getLetterInfoArgs).then(res => {
         if (res) {
           this.newid = res.id
-          this.wxShareInfoValue.link = setParameter("id", this.newid, encodeURIComponent(window.location.href))
+          this.wxShareInfoValue.link = setParameter("id", this.newid, window.location.href)
           this.mergebg = res.url
           this.ownList.photo = res.url
           this.params.serverId = res.record_id
-          alert(res.record_id)
           res.record_id ? this.downloadVoice() : null
           this.page1 = false
           this.page3 = true
@@ -486,10 +480,8 @@ export default {
       this.again ? this.updateUserLetter() : this.uploadUserLetter()
     },
     handleData(res) {
-      console.log(res)
       this.newid = res.id
-      Toast.info(this.newid, 800)
-      this.wxShareInfoValue.link = setParameter("id", this.newid, encodeURIComponent(window.location.href))
+      this.wxShareInfoValue.link = setParameter("id", this.newid, window.location.href)
       this.ownList.photo = res.url
       this.params.serverId = res.record_id
       this.status = 'play'
@@ -544,7 +536,7 @@ export default {
     //播放录音
     playVoice() {
       let that = this
-      this.onVoicePlayEnd()
+      this.initVoice()
       if (this.status === 'playing') {
         wx.stopVoice({
           localId: this.params.localId,
@@ -553,8 +545,8 @@ export default {
       }
       if (this.status === 'play') {
         wx.playVoice({
-          localId: this.params.localId,
-          success: res => (this.status = 'playing'),
+          localId: that.params.localId,
+          success: res => (that.status = 'playing'),
           fail: err => Toast.info('播放异常', 800)
         });
       }
@@ -581,14 +573,15 @@ export default {
     //下载语音
     downloadVoice() {
       let that = this
-      this.ownList.voice = true
-      this.status = 'play'
       Toast.info('语音下载中')
       wx.downloadVoice({
         serverId: this.params.serverId,
         isShowProgressTips: 1,
         success: res => {
           that.params.localId = res.localId
+          that.ownList.voice = true
+          that.status = 'play'
+          this.initVoice()
           Toast.hide()
         },
         fail: err => {
