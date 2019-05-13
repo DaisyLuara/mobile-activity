@@ -378,10 +378,13 @@ export default {
           activity_id: 1, // 活动标识
           utm_campaign: "wuyue_invitation"
         }
-        let { url, id } = await recordQiniuImage(callbackArgs)
-        this.mediaId = id
-        this.params.localId ? this.uploadVoice() : this.uploadOnceLetter()
-        Toast.hide()
+        const recordImageResult = await recordQiniuImage(callbackArgs)
+        if (recordImageResult) {
+          this.mediaId = recordImageResult.id
+          this.params.localId ? this.uploadVoice(recordImageResult.id) : this.uploadOnceLetter(recordImageResult.id)
+          Toast.hide()
+        }
+
       } catch (err) {
         console.log(err)
       }
@@ -447,15 +450,15 @@ export default {
       this.mask = false
     },
     //修改邀请函
-    updateUserLetter() {
+    updateUserLetter(mediaId) {
       let args = {
-        media_id: this.media_id,
-        utm_campaign: "wuyue_invitation"
+        media_id: media_id,
+        utm_campaign: "wuyue_invitation",
+        message: this.ownList.text || " ",
+        record_id: this.params.serverId || "",
+        create_time: this.params.createTime || "",
+        utm_source_id: this.id || ""
       }
-      if (this.ownList.text) args.message = this.ownList.text
-      if (this.id) args.utm_source_id = this.id
-      if (this.params.serverId) args.record_id = this.params.serverId
-      if (this.params.createTime) args.createTime = this.params.createTime
       updateLetter(args).then(res => {
         this.handleData(res)
       }).catch(err => {
@@ -463,23 +466,22 @@ export default {
       })
     },
     // 上传邀请函
-    uploadUserLetter() {
+    uploadUserLetter(mediaId) {
       let args = {
-        media_id: this.media_id,
-        utm_campaign: "wuyue_invitation"
+        media_id: media_id,
+        utm_campaign: "wuyue_invitation",
+        message: this.ownList.text || " ",
+        record_id: this.params.serverId || "",
+        create_time: this.params.createTime || ""
       }
-      if (this.ownList.text) args.message = this.ownList.text
-      if (this.params.serverId) args.record_id = this.params.serverId
-      if (this.params.createTime) args.createTime = this.params.createTime
       uploadLetter(args).then(res => {
         this.handleData(res)
       }).catch(err => {
         console.log(err)
       })
     },
-    uploadOnceLetter() {
-      console.log(this.again)
-      this.again ? this.updateUserLetter() : this.uploadUserLetter()
+    uploadOnceLetter(mediaId) {
+      this.again ? this.updateUserLetter(mediaId) : this.uploadUserLetter(mediaId)
     },
     handleData(res) {
       this.newid = res.id
@@ -544,14 +546,14 @@ export default {
       });
     },
     //上传录音
-    uploadVoice() {
+    uploadVoice(mediaId) {
       wx.uploadVoice({
         localId: this.params.localId,
         isShowProgressTips: 1,
         success: res => {
           this.params.serverId = res.serverId
           this.params.createTime = new Date().getTime()
-          this.uploadOnceLetter()
+          this.uploadOnceLetter(mediaId)
         },
         fail: err => alert('上传录音失败')
       });
