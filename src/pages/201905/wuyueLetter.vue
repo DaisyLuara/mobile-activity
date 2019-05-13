@@ -153,6 +153,10 @@
       >
       <div
         v-if="ownList.voice"
+        class="voice-bg"
+      ></div>
+      <div
+        v-if="ownList.voice"
         class="div-voice"
         @click="playVoice"
       >
@@ -275,7 +279,6 @@ export default {
         localId: null,
         userId: null
       },
-      imageUrl: null,
       wxShareInfoValue: {
         title: "我爱你五月，I love may",
         desc: "我爱你五月暨武进吾悦广场七周年庆",
@@ -283,9 +286,6 @@ export default {
         imgUrl: CDNURL + "/fe/image/wuyueLetter/icon.png"
       }
     }
-  },
-  created() {
-
   },
   mounted() {
     if (isInWechat() === true) {
@@ -358,7 +358,7 @@ export default {
         let getQiniuKeyArgs = new FormData()
         const getTokenResult = await getQiniuToken()
         if (!getTokenResult) {
-          alert('token 获取失败！')
+          console.log('token 获取失败！')
           return
         }
         this.qiniu.token = getTokenResult
@@ -406,8 +406,8 @@ export default {
       files = e.target.files
       if (!files.length) return
       let file = files[0]
-      if (!file.type.match('image.*')) {
-        alert('不支持其他类型文件，请选择.png或.jpg或.jpeg文件')
+      if (!/\.(jpg|jpeg|png|JPG|PNG)$/.test(file.name)) {
+        Toast.info('不支持其他类型文件，请选择.png或.jpg或.jpeg文件', 800)
         return
       }
       let that = this
@@ -426,7 +426,7 @@ export default {
     // 页面操作方法
     editText() {
       if (!this.ownList.choose) {
-        alert('请先选择图片！')
+        Toast.info('请先选择图片！', 800)
         return
       }
       this.tip = false
@@ -488,11 +488,13 @@ export default {
       this.wxShareInfoValue.link = window.location.origin + window.location.pathname + '?id=' + this.newid
       this.ownList.photo = res.url
       this.params.serverId = res.record_id
+      this.status = 'play'
     },
     //开始录音
-    startRecord() {
+    startRecord(event) {
+      event.preventDefault();
       if (!this.ownList.choose) {
-        alert('请先选择图片！')
+        Toast.info('请先选择图片！', 800)
         return
       }
       this.record.starTime = Math.round(new Date())
@@ -503,7 +505,7 @@ export default {
             wx.onVoiceRecordEnd({
               // 录音时间超过一分钟没有停止的时候会执行 complete 回调
               complete: function (res) {
-                let localId = res.localId;
+                this.params.localId = res.localId;
               }
             });
           },
@@ -514,11 +516,16 @@ export default {
 
     },
     //停止录音
-    stopRecord() {
-      if (Math.round(new Date()) - this.record.startTime < 1000) {
-        alert('录音时间过短')
+    stopRecord(event) {
+      event.preventDefault();
+      if (!this.ownList.choose) {
+        Toast.info('请先选择图片！', 800)
+        return
+      }
+      if ((Math.round(new Date()) - this.record.startTime) < 1000 || this.record.starTime <= 0 || this.status === 'start') {
+        Toast.info('录音时间过短', 800)
         this.status = 'start'
-        record.startTime = 0
+        this.record.startTime = 0
         return
       }
       wx.stopRecord({
@@ -533,12 +540,20 @@ export default {
     //播放录音
     playVoice() {
       let that = this
-      wx.playVoice({
-        localId: this.params.localId,
-        success: res => (this.status = 'playing'),
-        fail: err => console.log('播放异常')
-      });
       this.onVoicePlayEnd()
+      if (this.status === 'playing') {
+        wx.stopVoice({
+          localId: this.params.localId
+        });
+
+      }
+      if (this.status === 'play') {
+        wx.playVoice({
+          localId: this.params.localId,
+          success: res => (this.status = 'playing'),
+          fail: err => console.log('播放异常')
+        });
+      }
     },
     onVoicePlayEnd() {
       wx.onVoicePlayEnd({
@@ -556,7 +571,7 @@ export default {
           this.params.createTime = new Date().getTime()
           this.uploadOnceLetter()
         },
-        fail: err => alert('上传录音失败')
+        fail: err => console.log('上传录音失败')
       });
     },
     //下载语音
@@ -571,7 +586,7 @@ export default {
           this.status = 'play'
         },
         fail: err => {
-          alert('下载语音失败')
+          console.log('下载语音失败')
           this.ownList.voice = false
         }
       });
@@ -806,6 +821,14 @@ a {
     position: relative;
     width: 100%;
     overflow: hidden;
+    .voice-bg {
+      width: 48vw;
+      height: 34vw;
+      .center;
+      bottom: -1%;
+      z-index: 9;
+      background-color: #f4c6c8;
+    }
     .div-voice {
       width: 17.5%;
       .center;
