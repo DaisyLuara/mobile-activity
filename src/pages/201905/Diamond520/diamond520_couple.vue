@@ -200,8 +200,8 @@ export default {
         }
       } catch(e) {
         console.log(e)
-        if (e.response.data) {
-          Toast.failed(e.response.data.message, 2000, true)
+        if (e.response) {
+          e.response.data.message && Toast.failed(e.response.data.message, 2000, true)
           setTimeout(() => {
             this.$router.push({
               name: 'diamond520LotteryCouple', // 双人抽奖页

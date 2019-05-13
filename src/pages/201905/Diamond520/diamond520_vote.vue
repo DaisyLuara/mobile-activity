@@ -111,8 +111,8 @@ export default {
         Toast.hide()
       } catch(e) {
         console.log(e)
-        if (e.response.data) {
-          Toast.failed(e.response.data.message, 0, true)
+        if (e.response) {
+          e.response.data.message && Toast.failed(e.response.data.message, 0, true)
         } else {
           Toast.failed('未知错误，请刷新', 0, true)
         }
@@ -152,8 +152,8 @@ export default {
         }
       } catch(e) {
         console.log(e)
-        if (e.response.data) {
-          Toast.failed(e.response.data.message, 2000, true)
+        if (e.response) {
+          e.response.data.message && Toast.failed(e.response.data.message, 2000, true)
         } else {
           Toast.failed('未知错误，请稍后重试', 2000, true)
         }
