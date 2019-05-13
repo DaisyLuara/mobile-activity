@@ -327,7 +327,8 @@ export default {
       if (this.id) getLetterInfoArgs.utm_source_id = this.id
       getLetter(getLetterInfoArgs).then(res => {
         alert(res)
-        if (res) {
+        if (res && res.url) {
+          console.log(res)
           this.newid = res.id
           this.ownList.photo = res.url
           this.params.serverId = res.record_id
