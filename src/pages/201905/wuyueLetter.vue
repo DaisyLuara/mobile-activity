@@ -200,8 +200,9 @@ import {
   $wechat,
   isInWechat,
   wechatShareTrack,
-  updateLetter,
   getLetter,
+  uploadLetter,
+  updateLetter,
   getQiniuToken,
   qiniuUploadFile,
   recordQiniuImage,
@@ -326,10 +327,9 @@ export default {
       }
       if (this.id) getLetterInfoArgs.utm_source_id = this.id
       getLetter(getLetterInfoArgs).then(res => {
-        alert(res)
         if (res && res.url) {
-          console.log(res)
           this.newid = res.id
+          this.mergebg = res.url
           this.ownList.photo = res.url
           this.params.serverId = res.record_id
           res.record_id ? this.downloadVoice() : null
@@ -337,11 +337,9 @@ export default {
           this.page3 = true
           this.again = true
         }
-
       }).catch(err => {
         console.log(err)
       })
-
     },
     //录音相关接口
     initVoice() {
@@ -534,25 +532,15 @@ export default {
       let that = this
       wx.playVoice({
         localId: this.params.localId,
-        success: () => {
-          this.status = 'playing'
-          wx.onVoicePlayEnd({
-            success: function (res) {
-              that.status = 'play' // 返回音频的本地ID
-            },
-            complete: () => (that.status = 'play')
-          });
-        },
-        fail: err => console.log('播放异常'),
-        complete: () => {
-          let that = this
-          wx.onVoicePlayEnd({
-            success: function (res) {
-              that.status = 'play' // 返回音频的本地ID
-            },
-            complete: () => (that.status = 'play')
-          });
-        }
+        success: res => (this.status = 'playing'),
+        fail: err => console.log('播放异常')
+      });
+      this.onVoicePlayEnd()
+    },
+    onVoicePlayEnd() {
+      wx.onVoicePlayEnd({
+        success: res => (that.status = 'play'),
+        complete: () => (that.status = 'play')
       });
     },
     //上传录音

@@ -110,7 +110,7 @@ const getLetter = params => {
     axios
       .get(LETTER_URL, { params, ...V3_HEADER })
       .then(response => {
-        resolve(response)
+        resolve(response.data)
       })
       .catch(err => {
         reject(err)
