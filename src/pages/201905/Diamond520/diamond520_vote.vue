@@ -51,7 +51,7 @@
 
 <script>
 import { reCalculateRem } from '@/mixins/reCalculateRem'
-import { Cookies, getVoteDetail, vote } from 'services'
+import { Cookies, getVoteDetail, vote, $wechat, isInWechat } from 'services'
 import { Toast } from 'mand-mobile'
 import "../../../assets/less/reset-mand.less"
 import "animate.css"
@@ -82,8 +82,26 @@ export default {
     if (this.sign) {
       this.fetchDetail()
     }
+    this.handleWechatShare()
   },
   methods: {
+    handleWechatShare() {
+      if (isInWechat() === true) {
+        let wxShareInfoValue = {
+          title: '钻石人气榜，等你来挑战',
+          desc: '为好友助力打call，赢取挚爱真钻',
+          link: location.href,
+          imgUrl: 'https://cdn.xingstation.cn/dimond520/share_icon.png'
+        }
+        $wechat()
+          .then(res => {
+            res.share(wxShareInfoValue)
+          })
+          .catch(e => {
+            console.warn(e)
+          })
+      }
+    },
     async fetchDetail() {
       Toast.loading('加载中')
       const id = this.$route.params.pid
@@ -93,7 +111,11 @@ export default {
         Toast.hide()
       } catch(e) {
         console.log(e)
-        Toast.failed('加载失败')
+        if (e.response.data) {
+          Toast.failed(e.response.data.message, 0, true)
+        } else {
+          Toast.failed('未知错误，请刷新', 0, true)
+        }
       }
     },
     //微信静默授权
@@ -130,7 +152,11 @@ export default {
         }
       } catch(e) {
         console.log(e)
-        Toast.failed(e.response.data.message, 2000, true)
+        if (e.response.data) {
+          Toast.failed(e.response.data.message, 2000, true)
+        } else {
+          Toast.failed('未知错误，请稍后重试', 2000, true)
+        }
         this.clickable = true
       }
     },

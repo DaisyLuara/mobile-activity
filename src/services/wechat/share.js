@@ -42,6 +42,15 @@ const forbidden = () => {
   })
 }
 
+// 禁止复制链接
+const forbiddenCopy = () => {
+  wx.hideMenuItems({
+    menuList: [
+      'menuItem:copyUrl'
+    ]
+  })
+}
+
 // 微信扫一扫
 const qRCode = scanQrCodeObject => {
   wx.scanQRCode(scanQrCodeObject)
@@ -87,6 +96,7 @@ const $wechat = weixin_url => {
             wx,
             share,
             forbidden,
+            forbiddenCopy,
             qRCode
           })
         })

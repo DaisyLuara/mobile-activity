@@ -4,7 +4,7 @@ const QINIU_TOKEN_URL = process.env.DIAMOND_API + '/qiniu_token'
 const QINIU_UPLOAD_URL = 'http://upload.qiniu.com'
 const UPLOAD_CALLBACK_URL = process.env.DIAMOND_API + '/activity_media'
 const MOCK_API = 'http://0.0.0.0:7300/mock/5cc58e9caaa16bb98099478d/diamond520'
-const TOP_API = process.env.DIAMOND_TOP_API
+const PUSH_API = 'http://dev.xingstation.net/api/push/520/add'
 
 // 建立请求拦截器
 const fetchWithToken = axios.create({
@@ -48,7 +48,7 @@ fetchWithToken.interceptors.response.use(
 // 建立榜单请求拦截器
 const diamondTopReq = axios.create({
   baseURL: process.env.DIAMOND_TOP_API,
-  withCredentials: true
+  withCredentials: (process.env.NODE_ENV === 'production') ? true : false
 })
 diamondTopReq.interceptors.request.use(config => {
   return config
@@ -218,4 +218,29 @@ const vote = (args) => {
   })
 }
 
-export { qiniuToken, uploadImgToQiniu, postActivityMedia, postLoveInfo, getLoveInfo, getVerificationCodes, bindUserPhone, queryUserCoupon, h5Batches, bindUserCoupon, getPhotoBoard, getVoteDetail, addToBoard, vote }
+// 获取个人榜单id
+const getUserBoardId = (args) => {
+  return diamondTopReq({
+    url: '/user/board',
+    method: 'post',
+    data: args
+  })
+}
+
+// 提取照片
+const fetchPhotoByPhone = (args) => {
+  return fetchWithToken({
+    url: '/user/upload/confession',
+    params: args
+  })
+}
+
+// 推送照片到大屏
+const pushPhoto = (args) => {
+  return axios({
+    url: PUSH_API,
+    params: args
+  })
+}
+
+export { qiniuToken, uploadImgToQiniu, postActivityMedia, postLoveInfo, getLoveInfo, getVerificationCodes, bindUserPhone, queryUserCoupon, h5Batches, bindUserCoupon, getPhotoBoard, getVoteDetail, addToBoard, vote, fetchPhotoByPhone, pushPhoto, getUserBoardId }

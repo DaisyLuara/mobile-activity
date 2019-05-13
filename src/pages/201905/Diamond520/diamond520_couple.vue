@@ -5,6 +5,10 @@
       class="back-top"
     >
     <div class="content-wrap">
+      <img
+        :src="`${CDNURL}/dimond520/head_diamond.png`"
+        class="diamond-head"
+      >
       <div class="photo-area">
         <img :src="photo">
       </div>
@@ -192,11 +196,21 @@ export default {
             query: this.$route.query
           })
         } else {
-          Toast.failed('提交失败', 3000, true)
+          Toast.failed('提交失败', 2000, true)
         }
       } catch(e) {
         console.log(e)
-        Toast.failed(e.response.data.message)
+        if (e.response.data) {
+          Toast.failed(e.response.data.message, 2000, true)
+          setTimeout(() => {
+            this.$router.push({
+              name: 'diamond520LotteryCouple', // 双人抽奖页
+              query: this.$route.query
+            })
+          }, 2000)
+        } else {
+          Toast.failed('未知错误，请稍后重试', 2000, true)
+        }
       }
     },
     handleNaviTop() {
@@ -289,10 +303,15 @@ img {
 }
 .content-wrap {
   position: relative;
-  padding-top: 0.14rem;
+  padding-top: 0.19rem;
   top: 0;
   left: 0;
   right: 0;
+  .diamond-head {
+    width: 3.24rem;
+    height: 1.57rem;
+    margin: 0 auto -0.06rem;
+  }
   .photo-area {
     width: 2.64rem;
     height: 4.35rem;
