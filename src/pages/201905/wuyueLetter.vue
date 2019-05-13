@@ -55,7 +55,7 @@
           class="photo1"
         >
         <div
-          v-show="!Boolean(ownList.choose)"
+          v-if="!ownList.choose"
           class="get-picture"
         >
           <img
@@ -66,6 +66,7 @@
             type="file"
             id="choose"
             accept="image/*"
+            ref="file"
             class="choose"
             @change="choosePhoto"
           >
@@ -88,8 +89,9 @@
             <textarea
               v-show="!tip"
               v-model="ownList.text"
-              class="word"
+              placeholder="不要超过20字"
               maxlength="20"
+              class="word"
             ></textarea>
           </div>
           <div class="voice">
@@ -198,18 +200,17 @@ import {
   $wechat,
   isInWechat,
   wechatShareTrack,
-  uploadLetter,
   updateLetter,
   getLetter,
-  uploadLetterImage,
-  qiniuToken,
-  uploadImgToQiniu,
-  postActivityMedia
+  getQiniuToken,
+  qiniuUploadFile,
+  recordQiniuImage,
 } from "services";
 import { Toast } from 'mand-mobile'
 import "swiper/dist/css/swiper.css";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
 import { onlyWechatShare } from "@/mixins/onlyWechatShare";
+import { format } from 'path';
 const wx = require('weixin-js-sdk')
 const CDNURL = process.env.CDN_URL;
 export default {
@@ -283,7 +284,7 @@ export default {
     }
   },
   created() {
-    this.init()
+
   },
   mounted() {
     if (isInWechat() === true) {
@@ -294,7 +295,7 @@ export default {
         this.handleWechatAuth()
       }
     }
-
+    this.init()
   },
   methods: {
     //微信静默授权
@@ -311,143 +312,99 @@ export default {
         this.userId = Cookies.get('user_id')
         this.params.userId = this.userId
         this.initVoice()
-        this.queryUserLetter()
       }
     },
-    // 七牛云上传图片
-    async getQiniuToken() {
+    //七牛云，微信语音，邀请函，接口初始化  总汇
+    init() {
+      this.initProceingLetter()
+    },
+    msgPost() {
+      this.mergeImage()
+    },
+    //邀请函相关接口  init
+    async initProceingLetter() {
       try {
-        let res = await qiniuToken()
-        if (res) {
-          this.qiniu.token = res
+        let getLetterInfoArgs = {
+          utm_campaign: "wuyue_invitation"
         }
-      } catch (e) {
-        console.log(e)
+        if (this.id) getLetterInfoArgs.utm_source_id = this.id
+        const getLetterInfoResult = await getLetter(getLetterInfoArgs)
+        if (getLetterInfoResult) {
+          this.newid = getLetterInfoResult.id
+          this.ownList.photo = getLetterInfoResult.url
+          this.params.serverId = getLetterInfoResult.record_id
+          this.downloadVoice(getLetterInfoResult.record_id)
+          this.page1 = false
+          this.page3 = true
+          this.again = true
+        }
+      } catch (err) {
+        if (err.response.data.message) {
+          alert(err.response.data.message);
+        }
       }
     },
-    getQiniuKey(file) {
-      let time = new Date().getTime()
-      let random = parseInt(String(Math.random() * 10 + 1), 10)
-      let suffix = time + '_' + random + '_' + name
-      let key = encodeURI(`${suffix}`)
-      let args = new FormData()
-      let img = new Image()
-      img.src = file
-      args.append('file', file)
-      args.append('token', this.qiniu.token)
-      args.append('key', key)
-      // 上传
-      Toast.loading('上传中')
-    },
-    async handleUpload(file) {
+    //录音相关接口
+    async initVoice() {
+      $wechat().then(res => {
 
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    //七牛 function initial
+    async initQiniu() {
       try {
-        let { key } = await uploadImgToQiniu(args)
-        let callbackArgs = {
-          name: time.toString(),
+        let time = new Date().getTime()
+        let random = parseInt(String(Math.random() * 1000 + 1), 10)
+        let suffix = time + '_' + random + '.png'
+        let getQiniuKeyArgs = new FormData()
+        const getTokenResult = await getQiniuToken()
+        if (!getTokenResult) {
+          alert('token 获取失败！')
+          return
+        }
+        this.qiniu.token = getTokenResult
+        let file = this.dataURLtoFile(this.ownList.photo)
+        let [name, size] = [file.name, file.size]
+        getQiniuKeyArgs.append('file', file)
+        getQiniuKeyArgs.append('token', this.qiniu.token)
+        getQiniuKeyArgs.append('key', encodeURI(`${suffix}`))
+        // 上传
+        Toast.loading('上传中')
+        let { key } = await qiniuUploadFile(getQiniuKeyArgs)
+        this.qiniu.key = key
+        // 记录图片
+        const callbackArgs = {
+          name,
           key,
-          size: 500,
+          size,
           activity_id: 1, // 活动标识
           utm_campaign: "wuyue_invitation"
         }
-        let { url, id } = await postActivityMedia(callbackArgs)
-        this.imageUrl = url
+        let { url, id } = await recordQiniuImage(callbackArgs)
         this.mediaId = String(id)
         this.media_id && this.params.serverId ? this.uploadOnceLetter() : console.log('no serverId')
-        this.uploadImage(name, key)
-
         Toast.hide()
-      } catch (e) {
-        Toast.info('上传失败')
-        console.log(e)
-      }
-    },
-    init() {
-      if (this.id) {
-        // 获取信息的方法
-        this.getData()
-        //获取完信息后
-        this.page1 = false
-        this.page3 = true
-      }
-    },
-    getData() {
-      console.log('data message')
-      //成功获取到信息以后
-      this.status = 'play'
-    },
-    //查询邀请函
-    queryUserLetter() {
-      let args = {
-        utm_campaign: "wuyue_invitation",
-        utm_source_id: this.id
-      }
-      getLetter(args).then(res => {
-        res ? this.handleData(res) : null
-      }).catch(err => {
+      } catch (err) {
         console.log(err)
-      })
-    },
-    //修改邀请函
-    updateUserLetter() {
-      let args = {
-        media_id: this.media_id,
-        record_id: this.params.serverId,
-        message: this.ownList.text,
-        utm_campaign: "wuyue_invitation",
-        utm_source_id: this.id
       }
-      updateLetter(args).then(res => {
-        // this.newid = res.id
-        this.handleData(res)
-      }).catch(err => {
-        console.log(err)
-      })
     },
-    // 上传邀请函
-    uploadUserLetter() {
-      let args = {
-        media_id: this.media_id,
-        record_id: this.params.serverId,
-        message: this.ownList.text,
-        utm_campaign: "wuyue_invitation",
+    dataURLtoFile(dataurl, filename) {
+      var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+      while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
       }
-      uploadLetter(args).then(res => {
-        // this.newid = res.id
-        this.handleData(res)
-      }).catch(err => {
-        console.log(err)
-      })
-    },
-    uploadImage(name, key) {
-      let args = {
-        name,
-        key,
-        size: 500,
-        activity_id: 1,
-        utm_campaign: "wuyue_invitation"
-      }
-      uploadLetterImage().then(res => {
-        console.log(res)
-      }).catch(err => {
-        console.log(err)
-      })
-    },
-    uploadOnceLetter() {
-      this.again ? this.updateUserLetter() : this.uploadUserLetter()
-    },
-    handleData(res) {
-      this.newid = res.id
-      this.ownList.photo = res.url
-      this.params.serverId = res.record_id
-      this.downloadVoice(res.record_id)
+      return new File([u8arr], filename, { type: mime });
     },
     toStart() {
       this.page1 = !this.page1
       this.page2 = true
     },
     choosePhoto(e) {
-      let files = e.target.files || e.srcElement.files || e.dataTransfer.files
+      let files = null
+      files = e.target.files
       if (!files.length) return
       let file = files[0]
       if (!file.type.match('image.*')) {
@@ -467,22 +424,69 @@ export default {
       })(file);
       reader.readAsDataURL(file);
     },
+    // 页面操作方法
     editText() {
       if (!this.ownList.choose) {
         alert('请先选择图片！')
         return
       }
       this.tip = false
-      document.querySelector('.word').focus()
-
     },
-    //录音相关接口
-    initVoice() {
-      $wechat().then(res => {
-
+    savePhoto() {
+      this.mask = true
+      window.scroll(0, 0)
+    },
+    doAgain() {
+      this.again = true
+      this.page3 = false
+      this.page2 = true
+      this.tip = true
+      for (let item in this.ownList)
+        this.ownList[item] = null
+      for (let item in this.params)
+        this.params[item] = null
+    },
+    closeMask() {
+      this.mask = false
+    },
+    //修改邀请函
+    updateUserLetter() {
+      let args = {
+        media_id: this.media_id,
+        record_id: this.params.serverId,
+        message: this.ownList.text,
+        utm_campaign: "wuyue_invitation",
+        utm_source_id: this.id,
+        createTime: this.params.createTime
+      }
+      updateLetter(args).then(res => {
+        this.handleData(res)
       }).catch(err => {
         console.log(err)
       })
+    },
+    // 上传邀请函
+    uploadUserLetter() {
+      let args = {
+        media_id: this.media_id,
+        record_id: this.params.serverId,
+        message: this.ownList.text,
+        utm_campaign: "wuyue_invitation",
+        createTime: this.params.createTime
+      }
+      uploadLetter(args).then(res => {
+        this.handleData(res)
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    uploadOnceLetter() {
+      this.again ? this.updateUserLetter() : this.uploadUserLetter()
+    },
+    handleData(res) {
+      this.newid = res.id
+      this.ownList.photo = res.url
+      this.params.serverId = res.record_id
     },
     //开始录音
     startRecord() {
@@ -509,6 +513,7 @@ export default {
     stopRecord() {
       if (Math.round(new Date()) - this.record.startTime < 1000) {
         alert('录音时间过短')
+        this.status = 'start'
         record.startTime = 0
         return
       }
@@ -541,7 +546,6 @@ export default {
         success: res => {
           this.params.serverId = res.serverId
           this.params.createTime = new Date().getTime()
-          this.media_id && this.params.serverId ? this.uploadOnceLetter() : console.log('no mediaId')
         },
         fail: err => alert('上传录音失败')
       });
@@ -552,17 +556,11 @@ export default {
         serverId: serverId,
         isShowProgressTips: 1,
         success: res => (this.params.localId = res.localId),
-        fail: err => alert('下载语音失败')
+        fail: err => {
+          alert('下载语音失败')
+          this.ownList.voice = false
+        }
       });
-    },
-    msgPost() {
-      this.mergeImage()
-    },
-    qiniuFunction() {
-      // 获取token
-      this.getQiniuToken()
-      //获取key
-      this.handleUpload(this.ownList.photo)
     },
     mergeImage() {
       let canvas = document.getElementById('canvas');
@@ -594,7 +592,7 @@ export default {
           bear.onload = () => {
             ctx.drawImage(bear, 0, 0, bear.width, bear.height, w * 0.3, h * 0.84, w * 0.4, (w * 0.4 / bear.width) * bear.height)
             this.ownList.photo = canvas.toDataURL('image/png')
-            // this.handleUpload(this.ownList.photo)
+            this.initQiniu()
             this.page2 = false
             this.page3 = true
           }
@@ -605,21 +603,6 @@ export default {
     },
     arrSetAttribute(key, value, ...args) {
       args.map(item => item.setAttribute(key, value))
-    },
-    savePhoto() {
-      this.mask = true
-      window.scroll(0, 0)
-    },
-    doAgain() {
-      this.again = true
-      this.page3 = false
-      this.page2 = true
-      this.tip = true
-      for (let item in this.ownList)
-        this.ownList[item] = null
-    },
-    closeMask() {
-      this.mask = false
     },
   }
 }
