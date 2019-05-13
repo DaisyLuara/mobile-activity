@@ -229,7 +229,11 @@ export default {
       page1: true,//true
       page2: false,//false
       page3: false,//false
-      token: null,
+      qiniu: {
+        token: null,
+        key: null,
+        url: null
+      },
       mediaId: '',
       again: false,
       sOption: {
@@ -246,10 +250,10 @@ export default {
         CDNURL + "/fe/image/wuyueLetter/top4.png",
         CDNURL + "/fe/image/wuyueLetter/top5.png",
       ],
-      mergebg: null,//CDNURL + "/fe/image/wuyueLetter/cover1.png",
+      mergebg: null,
       ownList: {
         choose: null,
-        photo: null,//CDNURL + "/fe/image/wuyueLetter/default.png",
+        photo: null,
         text: null,
         voice: null,
       },
@@ -290,7 +294,7 @@ export default {
         this.handleWechatAuth()
       }
     }
-    this.getQiniuToken()
+
   },
   methods: {
     //微信静默授权
@@ -315,13 +319,13 @@ export default {
       try {
         let res = await qiniuToken()
         if (res) {
-          this.token = res
+          this.qiniu.token = res
         }
       } catch (e) {
         console.log(e)
       }
     },
-    async handleUpload(file) {
+    getQiniuKey(file) {
       let time = new Date().getTime()
       let random = parseInt(String(Math.random() * 10 + 1), 10)
       let suffix = time + '_' + random + '_' + name
@@ -330,10 +334,13 @@ export default {
       let img = new Image()
       img.src = file
       args.append('file', file)
-      args.append('token', this.token)
+      args.append('token', this.qiniu.token)
       args.append('key', key)
       // 上传
       Toast.loading('上传中')
+    },
+    async handleUpload(file) {
+
       try {
         let { key } = await uploadImgToQiniu(args)
         let callbackArgs = {
@@ -550,7 +557,12 @@ export default {
     },
     msgPost() {
       this.mergeImage()
-
+    },
+    qiniuFunction() {
+      // 获取token
+      this.getQiniuToken()
+      //获取key
+      this.handleUpload(this.ownList.photo)
     },
     mergeImage() {
       let canvas = document.getElementById('canvas');
@@ -582,7 +594,7 @@ export default {
           bear.onload = () => {
             ctx.drawImage(bear, 0, 0, bear.width, bear.height, w * 0.3, h * 0.84, w * 0.4, (w * 0.4 / bear.width) * bear.height)
             this.ownList.photo = canvas.toDataURL('image/png')
-            this.handleUpload(this.ownList.photo)
+            // this.handleUpload(this.ownList.photo)
             this.page2 = false
             this.page3 = true
           }
@@ -628,6 +640,8 @@ body {
 }
 img {
   max-width: 100%;
+  pointer-events: none;
+  user-select: none;
 }
 .bg {
   position: relative;
