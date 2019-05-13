@@ -295,7 +295,7 @@ export default {
         this.handleWechatAuth()
       }
     }
-    this.init()
+
   },
   methods: {
     //微信静默授权
@@ -312,6 +312,7 @@ export default {
         this.userId = Cookies.get('user_id')
         this.params.userId = this.userId
         this.initVoice()
+        this.init()
       }
     },
     //七牛云，微信语音，邀请函，接口初始化  总汇
@@ -329,15 +330,15 @@ export default {
         }
         if (this.id) getLetterInfoArgs.utm_source_id = this.id
         const getLetterInfoResult = await getLetter(getLetterInfoArgs)
-        if (getLetterInfoResult) {
-          this.newid = getLetterInfoResult.id
-          this.ownList.photo = getLetterInfoResult.url
-          this.params.serverId = getLetterInfoResult.record_id
-          this.downloadVoice(getLetterInfoResult.record_id)
-          this.page1 = false
-          this.page3 = true
-          this.again = true
-        }
+        if (!getLetterInfoResult) { return }
+        this.newid = getLetterInfoResult.id
+        this.ownList.photo = getLetterInfoResult.url
+        this.params.serverId = getLetterInfoResult.record_id
+        this.downloadVoice()
+        this.page1 = false
+        this.page3 = true
+        this.again = true
+
       } catch (err) {
         if (err.response.data.message) {
           alert(err.response.data.message);
@@ -347,7 +348,10 @@ export default {
     //录音相关接口
     async initVoice() {
       $wechat().then(res => {
-
+        wx.onVoicePlayEnd({
+          success: res => (this.status = 'play'),
+          fail: err => console.log('监听播放失败')
+        });
       }).catch(err => {
         console.log(err)
       })
@@ -535,7 +539,8 @@ export default {
         fail: err => console.log('播放异常')
       });
       wx.onVoicePlayEnd({
-        success: res => this.status = 'play'
+        success: res => (this.status = 'play'),
+        fail: err => console.log('监听播放失败')
       });
     },
     //上传录音
@@ -551,9 +556,9 @@ export default {
       });
     },
     //下载语音
-    downloadVoice(serverId) {
+    downloadVoice() {
       wx.downloadVoice({
-        serverId: serverId,
+        serverId: this.params.serverId,
         isShowProgressTips: 1,
         success: res => (this.params.localId = res.localId),
         fail: err => {
