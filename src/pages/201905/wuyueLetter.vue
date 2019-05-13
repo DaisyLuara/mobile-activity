@@ -381,7 +381,6 @@ export default {
         const recordImageResult = await recordQiniuImage(callbackArgs)
         if (recordImageResult) {
           this.mediaId = recordImageResult.id
-          console.log(mediaId)
           this.params.localId ? this.uploadVoice() : this.uploadOnceLetter()
           Toast.hide()
         }
