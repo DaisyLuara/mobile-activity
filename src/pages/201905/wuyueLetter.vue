@@ -543,9 +543,9 @@ export default {
       this.onVoicePlayEnd()
       if (this.status === 'playing') {
         wx.stopVoice({
-          localId: this.params.localId
+          localId: this.params.localId,
+          success: res => (this.status = 'play')
         });
-
       }
       if (this.status === 'play') {
         wx.playVoice({
