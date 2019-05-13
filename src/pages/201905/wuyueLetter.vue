@@ -336,6 +336,9 @@ export default {
         this.again = true
       }).catch(err => {
         console.log(err)
+        this.page1 = true
+        this.page3 = false
+        this.again = false
       })
 
     },
