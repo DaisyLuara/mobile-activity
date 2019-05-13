@@ -537,6 +537,7 @@ export default {
     playVoice() {
       let that = this
       this.initVoice()
+      Toast.info(this.params.localId, 800)
       if (this.status === 'playing') {
         wx.stopVoice({
           localId: this.params.localId,
