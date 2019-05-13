@@ -88,7 +88,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["z"]),
+    ...mapGetters(["z", "weixinUrl"]),
     showJumpBtn() {
       return this.marketid && (this.jumpMarketList.indexOf(this.marketid) !== -1)
     },
@@ -259,7 +259,7 @@ export default {
     //禁止微信分享
     handleForbiddenShare() {
       if (isInWechat() === true) {
-        $wechat().then(res => {
+        $wechat(this.weixinUrl).then(res => {
           res.forbidden()
         })
       }

@@ -64,7 +64,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["z"]),
+    ...mapGetters(["z", "weixinUrl"]),
   },
   async mounted() {
     if (this.z) {
@@ -120,7 +120,7 @@ export default {
         link: location.origin + '/marketing/love520',
         imgUrl: 'https://cdn.xingstation.cn/dimond520/share_icon.png'
       }
-      $wechat()
+      $wechat(this.weixinUrl)
         .then(res => {
           res.forbiddenCopy()
           res.share(wxShareInfoValue)

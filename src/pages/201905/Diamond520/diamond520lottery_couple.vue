@@ -65,7 +65,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["z"])
+    ...mapGetters(["z", "weixinUrl"])
   },
   async mounted() {
     window.scrollTo(0, 0)
@@ -95,7 +95,7 @@ export default {
           link: location.origin + '/marketing/Diamond520/diamond520_vote/' + this.boardId,
           imgUrl: 'https://cdn.xingstation.cn/dimond520/share_icon.png'
         }
-        $wechat()
+        $wechat(this.weixinUrl)
           .then(res => {
             if (this.boardId === null) {
               res.forbidden()

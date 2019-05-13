@@ -54,6 +54,7 @@ import { reCalculateRem } from '@/mixins/reCalculateRem'
 import { Cookies, getVoteDetail, vote, $wechat, isInWechat } from 'services'
 import { Toast } from 'mand-mobile'
 import "../../../assets/less/reset-mand.less"
+import { mapGetters } from "vuex"
 import "animate.css"
 const CDNURL = process.env.CDN_URL
 
@@ -72,6 +73,9 @@ export default {
       clickable: true,
       playAnimation: false
     }
+  },
+  computed: {
+    ...mapGetters(["weixinUrl"])
   },
   mounted() {
     if (process.env.NODE_ENV === 'development') {
@@ -93,7 +97,7 @@ export default {
           link: location.href,
           imgUrl: 'https://cdn.xingstation.cn/dimond520/share_icon.png'
         }
-        $wechat()
+        $wechat(this.weixinUrl)
           .then(res => {
             res.share(wxShareInfoValue)
           })
