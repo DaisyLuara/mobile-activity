@@ -327,7 +327,7 @@ export default {
       }
       if (this.id) getLetterInfoArgs.utm_source_id = this.id
       getLetter(getLetterInfoArgs).then(res => {
-        if (res && res.url) {
+        if (res) {
           this.newid = res.id
           this.mergebg = res.url
           this.ownList.photo = res.url
