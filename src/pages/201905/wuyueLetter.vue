@@ -486,6 +486,7 @@ export default {
       this.again ? this.updateUserLetter() : this.uploadUserLetter()
     },
     handleData(res) {
+      console.log(res)
       this.newid = res.id
       Toast.info(this.newid, 800)
       this.wxShareInfoValue.link = setParameter("id", this.newid, encodeURIComponent(window.location.href))
@@ -582,12 +583,13 @@ export default {
       let that = this
       this.ownList.voice = true
       this.status = 'play'
-      Toast.info('download' + this.status, 800)
+      Toast.info('语音下载中')
       wx.downloadVoice({
         serverId: this.params.serverId,
         isShowProgressTips: 1,
         success: res => {
           that.params.localId = res.localId
+          Toast.hide()
         },
         fail: err => {
           Toast.info('下载语音失败', 800)
