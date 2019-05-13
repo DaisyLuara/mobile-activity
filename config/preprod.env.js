@@ -14,6 +14,6 @@ module.exports = merge(devEnv, {
   CDN_URL: "'http://cdn.xingstation.cn'",
   EXE_API: "'http://xingstation.cn/client'",
   PARSE_SERVER: "'http://120.27.138.242:1337'",
-  DIAMOND_API: "'http://papi.xingstation.com/api'",
-  DIAMOND_TOP_API: "'http://api.xingstation.com/api'"
+  DIAMOND_API: "'http://papi.xingstation.net/api'",
+  DIAMOND_TOP_API: "'http://api.xingstation.net/api'"
 })
