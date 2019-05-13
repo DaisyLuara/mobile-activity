@@ -485,7 +485,10 @@ export default {
     },
     handleData(res) {
       this.newid = res.id
+      alert('new id', this.newid)
       this.wxShareInfoValue.link = window.location.origin + window.location.pathname + '?id=' + this.newid
+      console.log(this.wxShareInfoValue.link)
+      alert(this.wxShareInfoValue.link)
       this.ownList.photo = res.url
       this.params.serverId = res.record_id
       this.status = 'play'
@@ -576,18 +579,20 @@ export default {
     },
     //下载语音
     downloadVoice() {
+      let that = this
       if (!this.params.serverId) return
       wx.downloadVoice({
         serverId: this.params.serverId,
         isShowProgressTips: 1,
         success: res => {
-          this.ownList.voice = true
-          this.params.localId = res.localId
-          this.status = 'play'
+          that.ownList.voice = true
+          alert(that.ownList.voice, that.status, res.localId)
+          that.status = 'play'
+          that.params.localId = res.localId
         },
         fail: err => {
           console.log('下载语音失败')
-          this.ownList.voice = false
+          that.ownList.voice = false
         }
       });
     },
@@ -792,11 +797,12 @@ a {
         .voice {
           width: 22.33%;
           .center;
-          bottom: 6%;
-          z-index: 9;
+          bottom: 8%;
+          z-index: 999;
           .v-start {
             display: block;
             width: 100%;
+            z-index: 999;
           }
         }
       }
@@ -826,14 +832,14 @@ a {
       height: 34vw;
       .center;
       bottom: -1%;
-      z-index: 9;
+      z-index: 999;
       background-color: #f4c6c8;
     }
     .div-voice {
       width: 17.5%;
       .center;
       bottom: 3%;
-      z-index: 99;
+      z-index: 99999;
     }
     .bear {
       width: 42%;
