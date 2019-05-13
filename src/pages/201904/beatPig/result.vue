@@ -74,7 +74,7 @@
       <div class="overScore">
         <div class="scoreItem">
           <span class="scoreText">本次得分</span>
-          <span class="scoreText">{{ currentScore }}</span>
+          <span class="scoreText">{{ currentScore || 0 }}</span>
         </div>
         <div class="scoreItem">
           <span class="scoreText">游戏总分</span>
