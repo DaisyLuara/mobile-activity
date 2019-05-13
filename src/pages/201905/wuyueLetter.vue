@@ -361,8 +361,8 @@ export default {
           return
         }
         this.qiniu.token = getTokenResult
-        let file = this.dataURLtoFile(this.ownList.photo, `${suffix}`)
-        let [name, size] = [file.name, file.size]
+        let file = this.dataURLtoFile(this.ownList.photo)
+        let [name, size] = [time + '_' + random, file.size]
         getQiniuKeyArgs.append('file', file)
         getQiniuKeyArgs.append('token', this.qiniu.token)
         getQiniuKeyArgs.append('key', encodeURI(`${suffix}`))
