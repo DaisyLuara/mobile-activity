@@ -568,6 +568,7 @@ export default {
         success: res => {
           this.ownList.voice = true
           this.params.localId = res.localId
+          this.status = 'play'
         },
         fail: err => {
           alert('下载语音失败')
