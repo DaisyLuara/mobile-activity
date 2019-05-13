@@ -50,6 +50,7 @@ import {
 } from 'services'
 import { Toast } from 'mand-mobile'
 import "../../../assets/less/reset-mand.less"
+import { mapGetters } from "vuex"
 const CDNURL = process.env.CDN_URL
 
 export default {
@@ -61,6 +62,9 @@ export default {
       phone: ''
     }
   },
+  computed: {
+    ...mapGetters(["weixinUrl"])
+  },
   mounted() {
     this.handleForbiddenShare()
   },
@@ -68,7 +72,7 @@ export default {
     //禁止微信分享
     handleForbiddenShare() {
       if (isInWechat() === true) {
-        $wechat().then(res => {
+        $wechat(this.weixinUrl).then(res => {
           res.forbidden()
         })
       }

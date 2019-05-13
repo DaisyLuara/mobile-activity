@@ -58,7 +58,7 @@ export default {
     }
   },
   computed: {
-
+    ...mapGetters(["weixinUrl"])
   },
   async mounted() {
     if (process.env.NODE_ENV === 'development') {
@@ -145,7 +145,7 @@ export default {
         link: location.href,
         imgUrl: 'https://cdn.xingstation.cn/dimond520/share_icon.png'
       }
-      $wechat()
+      $wechat(this.weixinUrl)
         .then(res => {
           res.share(wxShareInfoValue)
         })
