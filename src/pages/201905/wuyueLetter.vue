@@ -286,7 +286,7 @@ export default {
       wxShareInfoValue: {
         title: "我爱你五月，I love may",
         desc: "我爱你五月暨武进吾悦广场七周年庆",
-        link: 'http://papi.xingstation.com/api/s/69Q' + window.location.search,
+        link: process.env.NODE_ENV === 'production' ? ('http://papi.xingstation.com/api/s/69Q' + window.location.search) : window.location.href,
         imgUrl: CDNURL + "/fe/image/wuyueLetter/icon.png"
       }
     }
@@ -630,27 +630,27 @@ export default {
           let width = photo.width
           let height = photo.height
           let [x, y, pw] = [w * 0.1175, h * 0.15, w * 0.765]
-          EXIF.getData(photo, function () {
-            EXIF.getAllTags(this)
-            orientation = EXIF.getTag(this, 'Orientation');
+          this.EXIF.getData(photo, function () {
+            that.EXIF.getAllTags(this)
+            orientation = that.EXIF.getTag(this, 'Orientation');
             Toast.info(orientation, 800)
-            if (orientation == 6) {//需要顺时针90度旋转
-              ctx.rotate(90 * Math.PI / 180);
-              ctx.drawImage(photo, 0, 0, width, -height, x, y, pw, (pw / width) * height)
-              return
-            }
-            if (orientation == 8) {//需要逆时针90度旋转
-              ctx.rotate(-90 * Math.PI / 180);
-              ctx.drawImage(photo, 0, 0, -width, height, x, y, pw, (pw / width) * height)
-              return
-            }
-            if (orientation == 3) {//需要180度旋转
-              ctx.rotate(180 * Math.PI / 180);
-              ctx.drawImage(photo, 0, 0, -width, -height, x, y, pw, (pw / width) * height)
-              return
-            }
-            ctx.drawImage(photo, 0, 0, width, height, x, y, pw, (pw / width) * height)
           })
+          orientation = parseInt(orientation)
+          if (orientation == 6) {//需要顺时针90度旋转
+            ctx.rotate(90 * Math.PI / 180);
+            ctx.drawImage(photo, 0, 0, width, -height, x, y, pw, (pw / width) * height)
+          }
+          if (orientation == 8) {//需要逆时针90度旋转
+            ctx.rotate(-90 * Math.PI / 180);
+            ctx.drawImage(photo, 0, 0, -width, height, x, y, pw, (pw / width) * height)
+          }
+          if (orientation == 3) {//需要180度旋转
+            ctx.rotate(180 * Math.PI / 180);
+            ctx.drawImage(photo, 0, 0, -width, -height, x, y, pw, (pw / width) * height)
+          }
+          if (orientation !== 3 && orientation !== 6 && orientation !== 8) {
+            ctx.drawImage(photo, 0, 0, width, height, x, y, pw, (pw / width) * height)
+          }
           ctx.drawImage(bg, 0, 0)
           ctx.font = 'bold 40px 微软雅黑'
           ctx.textAlign = 'left'
