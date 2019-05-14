@@ -87,7 +87,7 @@
       class="cloud"
     >
     <img 
-      :src="CDNURL+'/fe/wuyue-beatPig-logo.png'"
+      :src="CDNURL+'/fe/wuyue-beatPig-bottomLogo.png'"
       class="logo"
     >
     <div id="bottomBg" />
