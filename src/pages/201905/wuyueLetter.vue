@@ -686,6 +686,13 @@ a {
   width: 100%;
   position: relative;
   overflow-x: hidden;
+  background-color: #e4007f;
+  .page1,
+  .page2,
+  .page3,
+  .mask {
+    min-height: 100vh;
+  }
   .page1 {
     width: 100%;
     height: 100vh;
