@@ -679,37 +679,7 @@ export default {
     // 设置属性
     arrSetAttribute(key, value, ...args) {
       args.map(item => item.setAttribute(key, value))
-    },
-    //上传图片旋转问题
-    setPhotoRotate(photo, ctx, x, y, pw) {
-      import('exif-js').then(EXIF => {
-        let orientation = null
-        let width = photo.width
-        let height = photo.height
-        EXIF.getData(photo, function () {
-          EXIF.getAllTags(this)
-          orientation = EXIF.getTag(this, 'Orientation');
-          if (orientation == 6) {//需要顺时针90度旋转
-            ctx.rotate(90 * Math.PI / 180);
-            ctx.drawImage(photo, 0, 0, width, -height, x, y, pw, (pw / width) * height)
-            return
-          }
-          if (orientation == 8) {//需要逆时针90度旋转
-            ctx.rotate(-90 * Math.PI / 180);
-            ctx.drawImage(photo, 0, 0, -width, height, x, y, pw, (pw / width) * height)
-            return
-          }
-          if (orientation == 3) {//需要180度旋转
-            ctx.rotate(180 * Math.PI / 180);
-            ctx.drawImage(photo, 0, 0, -width, -height, x, y, pw, (pw / width) * height)
-            return
-          }
-          console.log('orientation', orientation)
-          // ctx.drawImage(photo, 0, 0, width, height, x, y, pw, (pw / width) * height)
-          ctx.drawImage(photo, 0, 0)
-        })
-      })
-    },
+    }
   }
 }
 </script>
