@@ -403,6 +403,15 @@ export default {
       }
       return new File([u8arr], filename, { type: mime });
     },
+    // dataURLtoFile(url, filename, mimeType) {
+    //   urltoFile(url, filename, mimeType) {
+    //     mimeType = mimeType || (url.match(/^data:([^;]+);/) || '')[1];
+    //     return (fetch(url)
+    //       .then(function (res) { return res.arrayBuffer(); })
+    //       .then(function (buf) { return new File([buf], filename, { type: mimeType }); })
+    //     );
+    //   }
+    // },
     toStart() {
       this.page1 = !this.page1
       this.page2 = true
@@ -655,11 +664,13 @@ export default {
           // }
           // if (that.orientation == 8) {
           //   that.rotate = -Math.PI / 2
+          //   ctx.rotate(-Math.PI / 2);
+          //   ctx.drawImage(photo, -width, -height, width, height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
+          //   ctx.rotate(Math.PI / 2);
           // }
           // if (that.orientation == 3) {
-          //   that.rotate = Math.PI
           //   ctx.rotate(Math.PI);
-          //   ctx.drawImage(photo, 0, 0, photo.width, photo.height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
+          //   ctx.drawImage(photo, -width, -height, width, height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
           //   ctx.rotate(-Math.PI);
           // }
           ctx.drawImage(photo, 0, 0, width, height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
