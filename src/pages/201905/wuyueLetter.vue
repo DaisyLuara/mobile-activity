@@ -285,6 +285,7 @@ export default {
       wxShareInfoValue: {
         title: "我爱你五月，I love may",
         desc: "我爱你五月暨武进吾悦广场七周年庆",
+        link: 'http://papi.xingstation.com/api/s/69Q' + window.location.search,
         imgUrl: CDNURL + "/fe/image/wuyueLetter/icon.png"
       }
     }
@@ -326,7 +327,7 @@ export default {
       getLetter(getLetterInfoArgs).then(res => {
         if (res) {
           this.newid = res.id
-          this.wxShareInfoValue.link = setParameter("id", this.newid, window.location.href)
+          this.wxShareInfoValue.link = setParameter("id", this.newid, this.wxShareInfoValue.link)
           this.mergebg = res.url
           this.ownList.photo = res.url
           this.params.serverId = res.record_id
@@ -438,7 +439,6 @@ export default {
       this.page2 = true
       this.tip = true
       this.status = 'start'
-      this.wxShareInfoValue.link = ''
       for (let item in this.ownList)
         this.ownList[item] = null
       for (let item in this.params)
@@ -483,7 +483,7 @@ export default {
     },
     handleData(res) {
       this.newid = res.id
-      this.wxShareInfoValue.link = setParameter("id", this.newid, window.location.href)
+      this.wxShareInfoValue.link = setParameter("id", this.newid, this.wxShareInfoValue.link)
       this.ownList.photo = res.url
       this.params.serverId = res.record_id
       this.status = 'play'
