@@ -73,11 +73,7 @@ const uploadLetter = params => {
     axios
       .post(UPLOAD_LETTER, params, V3_HEADER)
       .then(response => {
-        if (response.data.success) {
-          resolve(response.data.data)
-        } else {
-          reject(response)
-        }
+        resolve(response.data)
       })
       .catch(err => {
         reject(err)
@@ -92,11 +88,7 @@ const updateLetter = params => {
     axios
       .patch(LETTER_URL, params, V3_HEADER)
       .then(response => {
-        if (response.data.success) {
-          resolve(response.data.data)
-        } else {
-          reject(response)
-        }
+        resolve(response.data)
       })
       .catch(err => {
         reject(err)

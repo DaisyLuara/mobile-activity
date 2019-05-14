@@ -154,20 +154,18 @@
       <div
         v-if="ownList.voice"
         class="voice-bg"
-      ></div>
-      <div
-        v-if="ownList.voice"
-        class="div-voice"
         @click="playVoice"
       >
-        <img
-          v-if="status==='play'"
-          :src="base + 'play.png'"
-        >
-        <img
-          v-if="status==='playing'"
-          :src="base + 'playing.png'"
-        >
+        <div class="div-voice">
+          <img
+            v-if="status==='play'"
+            :src="base + 'play.png'"
+          >
+          <img
+            v-if="status==='playing'"
+            :src="base + 'playing.png'"
+          >
+        </div>
       </div>
       <img
         v-else
@@ -210,6 +208,7 @@ import {
   getQiniuToken,
   qiniuUploadFile,
   recordQiniuImage,
+  setParameter
 } from "services";
 import { Toast } from 'mand-mobile'
 import "swiper/dist/css/swiper.css";
@@ -282,7 +281,6 @@ export default {
       wxShareInfoValue: {
         title: "我爱你五月，I love may",
         desc: "我爱你五月暨武进吾悦广场七周年庆",
-        link: '',
         imgUrl: CDNURL + "/fe/image/wuyueLetter/icon.png"
       }
     }
@@ -296,11 +294,6 @@ export default {
         this.handleWechatAuth()
       }
     }
-    wx.onVoicePlayEnd({
-      success: function (res) {
-        that.status = 'play' // 返回音频的本地ID
-      }
-    });
   },
   methods: {
     //微信静默授权
@@ -329,7 +322,7 @@ export default {
       getLetter(getLetterInfoArgs).then(res => {
         if (res) {
           this.newid = res.id
-          this.wxShareInfoValue.link = window.location.origin + window.location.pathname + '?id=' + this.newid
+          this.wxShareInfoValue.link = setParameter("id", this.newid, window.location.href)
           this.mergebg = res.url
           this.ownList.photo = res.url
           this.params.serverId = res.record_id
@@ -441,6 +434,7 @@ export default {
       this.page2 = true
       this.tip = true
       this.status = 'start'
+      this.wxShareInfoValue.link = ''
       for (let item in this.ownList)
         this.ownList[item] = null
       for (let item in this.params)
@@ -485,14 +479,14 @@ export default {
     },
     handleData(res) {
       this.newid = res.id
-      this.wxShareInfoValue.link = window.location.origin + window.location.pathname + '?id=' + this.newid
+      this.wxShareInfoValue.link = setParameter("id", this.newid, window.location.href)
       this.ownList.photo = res.url
       this.params.serverId = res.record_id
       this.status = 'play'
     },
     //开始录音
     startRecord(event) {
-      event.preventDefault();
+      // event.preventDefault();
       if (!this.ownList.choose) {
         Toast.info('请先选择图片！', 800)
         return
@@ -517,7 +511,7 @@ export default {
     },
     //停止录音
     stopRecord(event) {
-      event.preventDefault();
+      // event.preventDefault();
       if (!this.ownList.choose) {
         Toast.info('请先选择图片！', 800)
         return
@@ -540,18 +534,17 @@ export default {
     //播放录音
     playVoice() {
       let that = this
-      this.onVoicePlayEnd()
       if (this.status === 'playing') {
         wx.stopVoice({
-          localId: this.params.localId,
-          success: res => (this.status = 'play')
+          localId: that.params.localId,
+          success: res => (that.status = 'play')
         });
       }
       if (this.status === 'play') {
         wx.playVoice({
-          localId: this.params.localId,
-          success: res => (this.status = 'playing'),
-          fail: err => console.log('播放异常')
+          localId: that.params.localId,
+          success: res => (that.status = 'playing'),
+          fail: err => Toast.info('播放异常', 800)
         });
       }
     },
@@ -571,25 +564,38 @@ export default {
           this.params.createTime = new Date().getTime()
           this.uploadOnceLetter()
         },
-        fail: err => console.log('上传录音失败')
+        fail: err => Toast.info('上传录音失败', 800)
       });
     },
     //下载语音
     downloadVoice() {
-      if (!this.params.serverId) return
-      wx.downloadVoice({
-        serverId: this.params.serverId,
-        isShowProgressTips: 1,
-        success: res => {
-          this.ownList.voice = true
-          this.params.localId = res.localId
-          this.status = 'play'
-        },
-        fail: err => {
-          console.log('下载语音失败')
-          this.ownList.voice = false
-        }
-      });
+      let that = this
+      Toast.info('语音下载中')
+      $wechat().then(res => {
+        wx.downloadVoice({
+          serverId: this.params.serverId,
+          isShowProgressTips: 1,
+          success: res => {
+            that.params.localId = res.localId
+            that.ownList.voice = true
+            that.status = 'play'
+            Toast.hide()
+          },
+          fail: err => {
+            Toast.info('下载语音失败', 800)
+            that.ownList.voice = false
+          }
+        });
+        wx.onVoicePlayEnd({
+          success: function (res) {
+            Toast.info('语音播放完毕', 800)
+            that.status = 'play'
+          }
+        });
+      }).catch(err => {
+        console.log(err)
+      })
+
     },
     mergeImage() {
       let canvas = document.getElementById('canvas');
@@ -790,13 +796,25 @@ a {
           }
         }
         .voice {
-          width: 22.33%;
+          // width: 22.33%;
+          width: 48vw;
+          height: 35vw;
           .center;
-          bottom: 6%;
-          z-index: 9;
+          // bottom: 8%;
+          bottom: -1%;
+          z-index: 999;
           .v-start {
             display: block;
             width: 100%;
+            height: 100%;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            img {
+              width: 17.5vw;
+            }
           }
         }
       }
@@ -828,11 +846,15 @@ a {
       bottom: -1%;
       z-index: 9;
       background-color: #f4c6c8;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
     .div-voice {
-      width: 17.5%;
-      .center;
-      bottom: 3%;
+      width: 17.5vw;
+      // .center;
+      // bottom: 3%;
       z-index: 99;
     }
     .bear {
@@ -860,7 +882,7 @@ a {
     .mask {
       position: absolute;
       .cover;
-      z-index: 9999;
+      z-index: 999999;
       background: rgba(0, 0, 0, 0.7);
       display: flex;
       flex-direction: column;
