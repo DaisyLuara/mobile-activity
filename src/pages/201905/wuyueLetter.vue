@@ -403,6 +403,9 @@ export default {
       this.page2 = true
     },
     choosePhoto(e) {
+      let that = this
+      that.orientation = null
+      that.rotate = 0
       let files = null
       files = e.target.files
       if (!files.length) return
@@ -411,7 +414,6 @@ export default {
         Toast.info('不支持其他类型文件，请选择.png或.jpg或.jpeg文件', 800)
         return
       }
-      let that = this
       EXIF.getData(file, function () {
         EXIF.getAllTags(this)
         that.orientation = EXIF.getTag(this, 'Orientation');
@@ -638,7 +640,6 @@ export default {
         ctx.fillStyle = '#fff'
         ctx.fillRect(0, 0, w, h)
         photo.onload = () => {
-          console.log(that.rotate)
           ctx.rotate(that.rotate);
           ctx.drawImage(photo, 0, 0, photo.width, photo.height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
           ctx.rotate(-that.rotate);
