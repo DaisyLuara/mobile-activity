@@ -366,9 +366,9 @@ export default {
         }
         this.qiniu.token = getTokenResult
         let file = this.dataURLtoFile(this.ownList.photo)
-        setTimeout(() => {
-          alert('file:' + file.size)
-        }, 1500)
+        // setTimeout(() => {
+        //   alert('file:' + file.size)
+        // }, 1500)
         let [name, size] = [time + '_' + random, file.size]
         getQiniuKeyArgs.append('file', file)
         getQiniuKeyArgs.append('token', this.qiniu.token)
@@ -424,7 +424,7 @@ export default {
       files = e.target.files
       if (!files.length) return
       let file = files[0]
-      alert('upload_file' + file.size)
+      // alert('upload_file' + file.size)
       if (file.size <= 0) return
       if (!/\.(jpg|jpeg|png|JPG|PNG)$/.test(file.name)) {
         Toast.info('不支持其他类型文件，请选择.png或.jpg或.jpeg文件', 800)
@@ -656,25 +656,25 @@ export default {
         ctx.fillRect(0, 0, w, h)
         photo.onload = () => {
           let [width, height] = [photo.width, photo.height]
-          // if (that.orientation == 6) {
-          //   that.rotate = Math.PI / 2
-          //   // ctx.rotate(that.rotate);
-          //   // ctx.drawImage(photo, 0, 0, photo.width, photo.height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
-          //   // ctx.rotate(-that.rotate);
-          // }
-          // if (that.orientation == 8) {
-          //   that.rotate = -Math.PI / 2
-          //   ctx.rotate(-Math.PI / 2);
-          //   ctx.drawImage(photo, -width, -height, width, height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
-          //   ctx.rotate(Math.PI / 2);
-          // }
-          // if (that.orientation == 3) {
-          //   ctx.rotate(Math.PI);
-          //   ctx.drawImage(photo, -width, -height, width, height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
-          //   ctx.rotate(-Math.PI);
-          // }
-          ctx.drawImage(photo, 0, 0, width, height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
-
+          if (that.orientation == 6) {
+            that.rotate = Math.PI / 2
+            ctx.rotate(Math.PI / 2);
+            ctx.drawImage(photo, 0, -width, height, width, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
+            ctx.rotate(-Math.PI / 2);
+          }
+          if (that.orientation == 8) {
+            ctx.rotate(-Math.PI / 2);
+            ctx.drawImage(photo, -height, 0, height, width, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
+            ctx.rotate(Math.PI / 2);
+          }
+          if (that.orientation == 3) {
+            ctx.rotate(Math.PI);
+            ctx.drawImage(photo, -width, -height, width, height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
+            ctx.rotate(-Math.PI);
+          }
+          if (parseInt(that.orientation) !== 3 && parseInt(that.orientation) !== 6 && parseInt(that.orientation) !== 8) {
+            ctx.drawImage(photo, 0, 0, width, height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
+          }
           // ctx.rotate(that.rotate);
           // ctx.drawImage(photo, 0, 0, photo.width, photo.height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
           // ctx.rotate(-that.rotate);
@@ -696,8 +696,8 @@ export default {
           bear.onload = () => {
             ctx.drawImage(bear, 0, 0, bear.width, bear.height, w * 0.3, h * 0.84, w * 0.4, (w * 0.4 / bear.width) * bear.height)
             this.ownList.photo = canvas.toDataURL('image/png')
-            var base64String = this.ownList.photo.split(",")[1];
-            alert('base64:' + base64String.length);
+            let base64String = this.ownList.photo.split(",")[1];
+            // alert('base64:' + base64String.length);
             this.initQiniu()
             this.page2 = false
             this.page3 = true
