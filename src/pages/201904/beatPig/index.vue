@@ -11,7 +11,13 @@
         <span class="skip">跳过</span>
         <span class="time">{{ countDown }}</span>
       </div>
-      <a href="http://m.mallcoo.cn/a/home/10658">
+      <a 
+        class="maskBox" 
+        href="http://m.mallcoo.cn/a/home/10658">
+        <button 
+          class="hyperlink" 
+          hidden 
+          @click="onHyperlink"/>
         <img
           :src="CDNURL + '/fe/wuyue-beatPig-advertisement.png'"
           class="maskImg"
@@ -176,7 +182,8 @@ export default {
               desc: "Pick金猪，大牌美妆免费送",
               link: process.env.DIAMOND_API + (process.env.NODE_ENV === 'production' ? '/s/4L0?utm_campaign=h5_beat_pig' : '/s/APz?utm_campaign=h5_beat_pig'),
               imgUrl: CDNURL + "/fe/wuyue-beatPig-shareIcon.png",
-              success: async function() {               
+              success: async function() {  
+                that.onTracking('button', 'click', 'share')           
                 try {
                   const gameShare = await userGameShare({})
                   if (gameShare && gameShare.data && gameShare.data.game_status) {   
@@ -272,13 +279,29 @@ export default {
         false
       )
     },
+
+    onTracking(category, action, label) {
+      const params = {
+        hitType: 'event',
+        eventCategory: category,
+        eventAction: action,
+        eventLabel: label
+      }
+      window.ga('send', params)
+    },
     
     onSkip() {
       this.countDown = 0;
+      this.onTracking('button', 'click', 'ToSkip')
+    },
+
+    onHyperlink() {
+      this.onTracking('button', 'click', 'hyperlink')
     },
 
 		onStartGame() {
       this.onMusicPlay('clickSound')
+      this.onTracking('button', 'click', 'Click_play')
       switch(this.gameStatus) {
         case 'game_enable':
           this.showStartModal = true
@@ -296,17 +319,20 @@ export default {
 		},
 
 		onCloseStartModal() {
-			this.onMusicPlay('clickSound')
+      this.onMusicPlay('clickSound')
+      this.onTracking('button', 'click', 'goback1')
 			this.showStartModal = false
 			this.pigAnim = this.initAnimation('pigMove', this.CDNURL+'/fe/wuyue-beatPig-pigMove/', this.CDNURL+'/fe/wuyue-beatPig-pigMove.json', true, true )
 		},
 
 		onClickKnownBtn() {
-			this.$router.push({ name: 'beatPigGame' })
+      this.$router.push({ name: 'beatPigGame' })
+      this.onTracking('button', 'click', 'Click_get')
 		},
 		
     palyOrOffMusic() {
-			this.onMusicPlay('clickSound')
+      this.onMusicPlay('clickSound')
+      this.onTracking('button', 'click', 'music')
 			this.offMusic = !this.offMusic
       let music = document.getElementById('music')
       if (music.paused) {
@@ -317,7 +343,8 @@ export default {
 		},
 		
 		onViewRegular() {
-			this.onMusicPlay('clickSound')
+      this.onMusicPlay('clickSound')
+      this.onTracking('button', 'click', 'help')
 			this.showRegular = true
 			this.pigAnim.destroy()
 			this.pigAnim = null
@@ -393,11 +420,26 @@ img {
         margin: 0;
         font-size: 16px;
       }
-		}
-		.maskImg {
+    }
+
+    .maskBox {
+      position: relative;
       width: 86vw;
       height: auto;
-		}
+
+      .hyperlink {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .maskImg {
+        width: 86vw;
+        height: auto;
+      }
+    }
 	}
 	
 	#topBg {
