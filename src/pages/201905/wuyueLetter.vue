@@ -575,21 +575,30 @@ export default {
     downloadVoice() {
       let that = this
       Toast.info('语音下载中')
-      wx.downloadVoice({
-        serverId: this.params.serverId,
-        isShowProgressTips: 1,
-        success: res => {
-          that.params.localId = res.localId
-          that.ownList.voice = true
-          that.status = 'play'
-          this.initVoice()
-          Toast.hide()
-        },
-        fail: err => {
-          Toast.info('下载语音失败', 800)
-          that.ownList.voice = false
-        }
-      });
+      $wechat().then(res => {
+        wx.downloadVoice({
+          serverId: this.params.serverId,
+          isShowProgressTips: 1,
+          success: res => {
+            that.params.localId = res.localId
+            that.ownList.voice = true
+            that.status = 'play'
+            Toast.hide()
+          },
+          fail: err => {
+            Toast.info('下载语音失败', 800)
+            that.ownList.voice = false
+          }
+        });
+        wx.onVoicePlayEnd({
+          success: function (res) {
+            Toast.info('语音播放完毕', 800)
+          }
+        });
+      }).catch(err => {
+        console.log(err)
+      })
+
     },
     mergeImage() {
       let canvas = document.getElementById('canvas');
