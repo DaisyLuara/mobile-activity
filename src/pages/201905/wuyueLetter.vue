@@ -20,9 +20,9 @@
             <img :src="item">
           </swiper-slide>
           <div
-            class="swiper-pagination swiper-pagination-white"
             slot="pagination"
-          ></div>
+            class="swiper-pagination swiper-pagination-white"
+          />
         </swiper>
       </div>
       <div class="main">
@@ -63,10 +63,10 @@
             class="note"
           >
           <input
-            type="file"
             id="choose"
-            accept="image/*"
             ref="file"
+            type="file"
+            accept="image/*"
             class="choose"
             @change="choosePhoto"
           >
@@ -103,7 +103,7 @@
             >
               <img
                 v-if="status==='start'"
-                :src="base + 'v_start.png'"
+                :src="base + 'start2.png'"
               >
               <img
                 v-if="status==='recording'"
@@ -174,8 +174,12 @@
       >
       <div class="btn-group">
         <ul class="ul-btn">
-          <li @click="savePhoto"><img :src="base + 'save.png'"></li>
-          <li @click="doAgain"><img :src="base + 'again.png'"></li>
+          <li @click="savePhoto">
+            <img :src="base + 'save.png'">
+          </li>
+          <li @click="doAgain">
+            <img :src="base + 'again.png'">
+          </li>
         </ul>
       </div>
       <div
@@ -193,7 +197,7 @@
         >
       </div>
     </div>
-    <canvas id="canvas"></canvas>
+    <canvas id="canvas" />
   </div>
 </template>
 <script>
@@ -218,11 +222,11 @@ import { format } from 'path';
 const wx = require('weixin-js-sdk')
 const CDNURL = process.env.CDN_URL;
 export default {
-  mixins: [onlyWechatShare],
   components: {
     swiper,
     swiperSlide
   },
+  mixins: [onlyWechatShare],
   data() {
     return {
       base: CDNURL + "/fe/image/wuyueLetter/",
@@ -486,50 +490,59 @@ export default {
     },
     //开始录音
     startRecord(event) {
-      // event.preventDefault();
       if (!this.ownList.choose) {
         Toast.info('请先选择图片！', 800)
         return
       }
-      this.record.starTime = Math.round(new Date())
-      let timer = setTimeout(() => {
-        wx.startRecord({
-          success: () => {
-            this.status = 'recording'
-            wx.onVoiceRecordEnd({
-              // 录音时间超过一分钟没有停止的时候会执行 complete 回调
-              complete: function (res) {
-                this.params.localId = res.localId;
-              }
-            });
-          },
-          cancel: () => alert('开始录音失败')
-        })
-        clearTimeout(timer)
-      }, 300)
+      $wechat().then(res => {
+        this.record.starTime = Math.round(new Date())
+        let timer = setTimeout(() => {
+          wx.startRecord({
+            success: () => {
+              this.status = 'recording'
+              wx.onVoiceRecordEnd({
+                // 录音时间超过一分钟没有停止的时候会执行 complete 回调
+                complete: function (res) {
+                  this.params.localId = res.localId;
+                }
+              });
+            },
+            cancel: () => alert('开始录音失败')
+          })
+          clearTimeout(timer)
+        }, 300)
+      }).catch(err => {
+        console.log(err)
+      })
+
 
     },
     //停止录音
-    stopRecord(event) {
-      // event.preventDefault();
+    stopRecord() {
+      let that = this
       if (!this.ownList.choose) {
         Toast.info('请先选择图片！', 800)
         return
       }
       if ((Math.round(new Date()) - this.record.startTime) < 1000 || this.record.starTime <= 0 || this.status === 'start') {
+        that.status = 'start'
+        that.record.startTime = 0
         Toast.info('录音时间过短', 800)
-        this.status = 'start'
-        this.record.startTime = 0
         return
       }
-      wx.stopRecord({
-        success: res => {
-          this.params.localId = res.localId
-          this.status = 'play'
-          this.ownList.voice = true
-        },
-        fail: err => console.log(err)
+      $wechat().then(res => {
+        wx.stopRecord({
+          success: res => {
+            that.params.localId = res.localId
+            that.status = 'play'
+            that.ownList.voice = true
+          },
+          fail: err => console.log(err)
+        })
+      }).catch(err => {
+        console.log(err)
       })
+
     },
     //播放录音
     playVoice() {
@@ -598,46 +611,104 @@ export default {
 
     },
     mergeImage() {
-      let canvas = document.getElementById('canvas');
-      let ctx = canvas.getContext('2d')
-      let [bg, photo, bear] = [new Image(), new Image(), new Image()]
-      this.arrSetAttribute('crossOrigin', 'Anonymous', bg, photo, bear)
-      bg.src = this.ownList.text ? this.base + 'cover1.png' : this.base + 'default.png'
-      bg.onload = async () => {
-        let [w, h] = [bg.width, bg.height]
-        canvas.width = w
-        canvas.height = h
-        photo.onload = () => {
-          ctx.drawImage(photo, 0, 0, photo.width, photo.height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
-          ctx.drawImage(bg, 0, 0)
-          ctx.font = 'bold 40px 微软雅黑'
-          ctx.textAlign = 'left'
-          ctx.fillStyle = '#333'
-          if (this.ownList.text && this.ownList.text.length > 11) {
-            let [text1, text2] = []
-            text1 = this.ownList.text.slice(0, 11)
-            text2 = this.ownList.text.slice(11)
-            ctx.fillText(text1, w * 0.28, h * 0.65)
-            ctx.fillText(text2 + '...', w * 0.28, h * 0.65 + 55)
+      import('exif-js').then(EXIF => {
+        let canvas = document.getElementById('canvas');
+        let ctx = canvas.getContext('2d')
+        let that = this
+        let [bg, photo, bear] = [new Image(), new Image(), new Image()]
+        this.arrSetAttribute('crossOrigin', 'Anonymous', bg, photo, bear)
+        bg.src = this.ownList.text ? this.base + 'cover1.png' : this.base + 'default.png'
+        bg.onload = async () => {
+          let [w, h] = [bg.width, bg.height]
+          canvas.width = w
+          canvas.height = h
+          photo.onload = () => {
+            // ctx.drawImage(photo, 0, 0, photo.width, photo.height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
+            let orientation = null
+            let width = photo.width
+            let height = photo.height
+            let [x, y, pw] = [w * 0.1175, h * 0.15, w * 0.765]
+            EXIF.getData(photo, function () {
+              EXIF.getAllTags(this)
+              orientation = EXIF.getTag(this, 'Orientation');
+              if (orientation == 6) {//需要顺时针90度旋转
+                ctx.rotate(90 * Math.PI / 180);
+                ctx.drawImage(photo, 0, 0, width, -height, x, y, pw, (pw / width) * height)
+                return
+              }
+              if (orientation == 8) {//需要逆时针90度旋转
+                ctx.rotate(-90 * Math.PI / 180);
+                ctx.drawImage(photo, 0, 0, -width, height, x, y, pw, (pw / width) * height)
+                return
+              }
+              if (orientation == 3) {//需要180度旋转
+                ctx.rotate(180 * Math.PI / 180);
+                ctx.drawImage(photo, 0, 0, -width, -height, x, y, pw, (pw / width) * height)
+                return
+              }
+              ctx.drawImage(photo, 0, 0, width, height, x, y, pw, (pw / width) * height)
+            })
+            ctx.drawImage(bg, 0, 0)
+            ctx.font = 'bold 40px 微软雅黑'
+            ctx.textAlign = 'left'
+            ctx.fillStyle = '#333'
+            if (this.ownList.text && this.ownList.text.length > 11) {
+              let [text1, text2] = []
+              text1 = this.ownList.text.slice(0, 11)
+              text2 = this.ownList.text.slice(11)
+              ctx.fillText(text1, w * 0.28, h * 0.65)
+              ctx.fillText(text2 + '...', w * 0.28, h * 0.65 + 55)
+            }
+            if (this.ownList.text && this.ownList.text.length <= 11) {
+              ctx.fillText(this.ownList.text, w * 0.28, h * 0.66)
+            }
+            this.mergebg = canvas.toDataURL('image/png')
+            bear.onload = () => {
+              ctx.drawImage(bear, 0, 0, bear.width, bear.height, w * 0.3, h * 0.84, w * 0.4, (w * 0.4 / bear.width) * bear.height)
+              this.ownList.photo = canvas.toDataURL('image/png')
+              this.initQiniu()
+              this.page2 = false
+              this.page3 = true
+            }
+            bear.src = this.base + 'beer.png'
           }
-          if (this.ownList.text && this.ownList.text.length <= 11) {
-            ctx.fillText(this.ownList.text, w * 0.28, h * 0.66)
-          }
-          this.mergebg = canvas.toDataURL('image/png')
-          bear.onload = () => {
-            ctx.drawImage(bear, 0, 0, bear.width, bear.height, w * 0.3, h * 0.84, w * 0.4, (w * 0.4 / bear.width) * bear.height)
-            this.ownList.photo = canvas.toDataURL('image/png')
-            this.initQiniu()
-            this.page2 = false
-            this.page3 = true
-          }
-          bear.src = this.base + 'beer.png'
+          photo.src = this.ownList.choose
         }
-        photo.src = this.ownList.choose
-      }
+      })
     },
+    // 设置属性
     arrSetAttribute(key, value, ...args) {
       args.map(item => item.setAttribute(key, value))
+    },
+    //上传图片旋转问题
+    setPhotoRotate(photo, ctx, x, y, pw) {
+      import('exif-js').then(EXIF => {
+        let orientation = null
+        let width = photo.width
+        let height = photo.height
+        EXIF.getData(photo, function () {
+          EXIF.getAllTags(this)
+          orientation = EXIF.getTag(this, 'Orientation');
+          if (orientation == 6) {//需要顺时针90度旋转
+            ctx.rotate(90 * Math.PI / 180);
+            ctx.drawImage(photo, 0, 0, width, -height, x, y, pw, (pw / width) * height)
+            return
+          }
+          if (orientation == 8) {//需要逆时针90度旋转
+            ctx.rotate(-90 * Math.PI / 180);
+            ctx.drawImage(photo, 0, 0, -width, height, x, y, pw, (pw / width) * height)
+            return
+          }
+          if (orientation == 3) {//需要180度旋转
+            ctx.rotate(180 * Math.PI / 180);
+            ctx.drawImage(photo, 0, 0, -width, -height, x, y, pw, (pw / width) * height)
+            return
+          }
+          console.log('orientation', orientation)
+          // ctx.drawImage(photo, 0, 0, width, height, x, y, pw, (pw / width) * height)
+          ctx.drawImage(photo, 0, 0)
+        })
+      })
     },
   }
 }
@@ -740,7 +811,8 @@ a {
       .photo1 {
         width: 76.5%;
         .center;
-        top: 16.5%;
+        // top: 16.5%;
+        top: 26vw;
         z-index: 0;
       }
       .get-picture {
