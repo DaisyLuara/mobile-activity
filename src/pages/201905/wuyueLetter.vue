@@ -20,9 +20,9 @@
             <img :src="item">
           </swiper-slide>
           <div
-            class="swiper-pagination swiper-pagination-white"
             slot="pagination"
-          ></div>
+            class="swiper-pagination swiper-pagination-white"
+          />
         </swiper>
       </div>
       <div class="main">
@@ -63,10 +63,10 @@
             class="note"
           >
           <input
-            type="file"
             id="choose"
-            accept="image/*"
             ref="file"
+            type="file"
+            accept="image/*"
             class="choose"
             @change="choosePhoto"
           >
@@ -103,7 +103,7 @@
             >
               <img
                 v-if="status==='start'"
-                :src="base + 'v_start.png'"
+                :src="base + 'start2.png'"
               >
               <img
                 v-if="status==='recording'"
@@ -174,8 +174,12 @@
       >
       <div class="btn-group">
         <ul class="ul-btn">
-          <li @click="savePhoto"><img :src="base + 'save.png'"></li>
-          <li @click="doAgain"><img :src="base + 'again.png'"></li>
+          <li @click="savePhoto">
+            <img :src="base + 'save.png'">
+          </li>
+          <li @click="doAgain">
+            <img :src="base + 'again.png'">
+          </li>
         </ul>
       </div>
       <div
@@ -193,7 +197,7 @@
         >
       </div>
     </div>
-    <canvas id="canvas"></canvas>
+    <canvas id="canvas" />
   </div>
 </template>
 <script>
@@ -210,6 +214,7 @@ import {
   recordQiniuImage,
   setParameter
 } from "services";
+import EXIF from 'exif-js'
 import { Toast } from 'mand-mobile'
 import "swiper/dist/css/swiper.css";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
@@ -218,11 +223,11 @@ import { format } from 'path';
 const wx = require('weixin-js-sdk')
 const CDNURL = process.env.CDN_URL;
 export default {
-  mixins: [onlyWechatShare],
   components: {
     swiper,
     swiperSlide
   },
+  mixins: [onlyWechatShare],
   data() {
     return {
       base: CDNURL + "/fe/image/wuyueLetter/",
@@ -256,6 +261,10 @@ export default {
         CDNURL + "/fe/image/wuyueLetter/top5.png",
       ],
       mergebg: null,
+      orientation: null,
+      xw: 1,
+      xh: 1,
+      rotate: 0,
       ownList: {
         choose: null,
         photo: null,
@@ -281,6 +290,7 @@ export default {
       wxShareInfoValue: {
         title: "我爱你五月，I love may",
         desc: "我爱你五月暨武进吾悦广场七周年庆",
+        link: process.env.NODE_ENV === 'production' ? ('http://papi.xingstation.com/api/s/69Q' + window.location.search) : window.location.href,
         imgUrl: CDNURL + "/fe/image/wuyueLetter/icon.png"
       }
     }
@@ -322,7 +332,7 @@ export default {
       getLetter(getLetterInfoArgs).then(res => {
         if (res) {
           this.newid = res.id
-          this.wxShareInfoValue.link = setParameter("id", this.newid, window.location.href)
+          this.wxShareInfoValue.link = setParameter("id", this.newid, this.wxShareInfoValue.link)
           this.mergebg = res.url
           this.ownList.photo = res.url
           this.params.serverId = res.record_id
@@ -356,6 +366,9 @@ export default {
         }
         this.qiniu.token = getTokenResult
         let file = this.dataURLtoFile(this.ownList.photo)
+        setTimeout(() => {
+          alert('file:' + file.size)
+        }, 1500)
         let [name, size] = [time + '_' + random, file.size]
         getQiniuKeyArgs.append('file', file)
         getQiniuKeyArgs.append('token', this.qiniu.token)
@@ -383,7 +396,7 @@ export default {
       }
     },
     dataURLtoFile(dataurl, filename) {
-      var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+      let arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
         bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
       while (n--) {
         u8arr[n] = bstr.charCodeAt(n);
@@ -395,6 +408,9 @@ export default {
       this.page2 = true
     },
     choosePhoto(e) {
+      let that = this
+      that.orientation = null
+      that.rotate = 0
       let files = null
       files = e.target.files
       if (!files.length) return
@@ -403,7 +419,19 @@ export default {
         Toast.info('不支持其他类型文件，请选择.png或.jpg或.jpeg文件', 800)
         return
       }
-      let that = this
+      EXIF.getData(file, function () {
+        EXIF.getAllTags(this)
+        that.orientation = EXIF.getTag(this, 'Orientation');
+        if (that.orientation == 6) {
+          that.rotate = Math.PI / 2
+        }
+        if (that.orientation == 8) {
+          that.rotate = -Math.PI / 2
+        }
+        if (that.orientation == 3) {
+          that.rotate = Math.PI
+        }
+      })
       let reader = new FileReader();
       reader.onload = (theFile => {
         return e => {
@@ -434,7 +462,6 @@ export default {
       this.page2 = true
       this.tip = true
       this.status = 'start'
-      this.wxShareInfoValue.link = ''
       for (let item in this.ownList)
         this.ownList[item] = null
       for (let item in this.params)
@@ -479,57 +506,64 @@ export default {
     },
     handleData(res) {
       this.newid = res.id
-      this.wxShareInfoValue.link = setParameter("id", this.newid, window.location.href)
+      this.wxShareInfoValue.link = setParameter("id", this.newid, this.wxShareInfoValue.link)
       this.ownList.photo = res.url
       this.params.serverId = res.record_id
       this.status = 'play'
     },
     //开始录音
     startRecord(event) {
-      // event.preventDefault();
       if (!this.ownList.choose) {
         Toast.info('请先选择图片！', 800)
         return
       }
-      this.record.starTime = Math.round(new Date())
-      let timer = setTimeout(() => {
-        wx.startRecord({
-          success: () => {
-            this.status = 'recording'
-            wx.onVoiceRecordEnd({
-              // 录音时间超过一分钟没有停止的时候会执行 complete 回调
-              complete: function (res) {
-                this.params.localId = res.localId;
-              }
-            });
-          },
-          cancel: () => alert('开始录音失败')
-        })
-        clearTimeout(timer)
-      }, 300)
-
+      $wechat().then(res => {
+        this.record.starTime = Math.round(new Date())
+        let timer = setTimeout(() => {
+          wx.startRecord({
+            success: () => {
+              this.status = 'recording'
+              wx.onVoiceRecordEnd({
+                // 录音时间超过一分钟没有停止的时候会执行 complete 回调
+                complete: function (res) {
+                  this.params.localId = res.localId;
+                }
+              });
+            },
+            cancel: () => alert('开始录音失败')
+          })
+          clearTimeout(timer)
+        }, 300)
+      }).catch(err => {
+        console.log(err)
+      })
     },
     //停止录音
-    stopRecord(event) {
-      // event.preventDefault();
+    stopRecord() {
+      let that = this
       if (!this.ownList.choose) {
         Toast.info('请先选择图片！', 800)
         return
       }
       if ((Math.round(new Date()) - this.record.startTime) < 1000 || this.record.starTime <= 0 || this.status === 'start') {
+        that.status = 'start'
+        that.record.startTime = 0
         Toast.info('录音时间过短', 800)
-        this.status = 'start'
-        this.record.startTime = 0
         return
       }
-      wx.stopRecord({
-        success: res => {
-          this.params.localId = res.localId
-          this.status = 'play'
-          this.ownList.voice = true
-        },
-        fail: err => console.log(err)
+      $wechat().then(res => {
+        wx.stopRecord({
+          success: res => {
+            that.params.localId = res.localId
+            that.status = 'play'
+            that.ownList.voice = true
+          },
+          fail: err => console.log(err)
+        })
+      }).catch(err => {
+        console.log(err)
       })
+
     },
     //播放录音
     playVoice() {
@@ -595,20 +629,36 @@ export default {
       }).catch(err => {
         console.log(err)
       })
-
     },
     mergeImage() {
       let canvas = document.getElementById('canvas');
       let ctx = canvas.getContext('2d')
+      let that = this
       let [bg, photo, bear] = [new Image(), new Image(), new Image()]
       this.arrSetAttribute('crossOrigin', 'Anonymous', bg, photo, bear)
       bg.src = this.ownList.text ? this.base + 'cover1.png' : this.base + 'default.png'
-      bg.onload = async () => {
+      bg.onload = () => {
         let [w, h] = [bg.width, bg.height]
         canvas.width = w
         canvas.height = h
+        ctx.fillStyle = '#fff'
+        ctx.fillRect(0, 0, w, h)
         photo.onload = () => {
-          ctx.drawImage(photo, 0, 0, photo.width, photo.height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
+          let [width, height] = [photo.width, photo.height]
+          if (that.orientation == 6) {
+            that.rotate = Math.PI / 2
+          }
+          if (that.orientation == 8) {
+            that.rotate = -Math.PI / 2
+          }
+          if (that.orientation == 3) {
+            that.rotate = Math.PI
+          }
+          ctx.drawImage(photo, 0, 0, width, height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
+
+          // ctx.rotate(that.rotate);
+          // ctx.drawImage(photo, 0, 0, photo.width, photo.height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
+          // ctx.rotate(-that.rotate);
           ctx.drawImage(bg, 0, 0)
           ctx.font = 'bold 40px 微软雅黑'
           ctx.textAlign = 'left'
@@ -627,6 +677,8 @@ export default {
           bear.onload = () => {
             ctx.drawImage(bear, 0, 0, bear.width, bear.height, w * 0.3, h * 0.84, w * 0.4, (w * 0.4 / bear.width) * bear.height)
             this.ownList.photo = canvas.toDataURL('image/png')
+            var base64String = this.ownList.photo.split(",")[1];
+            alert('base64:' + base64String.length);
             this.initQiniu()
             this.page2 = false
             this.page3 = true
@@ -636,9 +688,10 @@ export default {
         photo.src = this.ownList.choose
       }
     },
+    // 设置属性
     arrSetAttribute(key, value, ...args) {
       args.map(item => item.setAttribute(key, value))
-    },
+    }
   }
 }
 </script>
@@ -686,6 +739,8 @@ a {
   width: 100%;
   position: relative;
   overflow-x: hidden;
+  background-color: #e4007f;
+  min-height: 100vh;
   .page1 {
     width: 100%;
     height: 100vh;
@@ -738,7 +793,8 @@ a {
       .photo1 {
         width: 76.5%;
         .center;
-        top: 16.5%;
+        // top: 16.5%;
+        top: 26vw;
         z-index: 0;
       }
       .get-picture {
@@ -796,11 +852,9 @@ a {
           }
         }
         .voice {
-          // width: 22.33%;
           width: 48vw;
           height: 35vw;
           .center;
-          // bottom: 8%;
           bottom: -1%;
           z-index: 999;
           .v-start {
@@ -838,12 +892,13 @@ a {
   .page3 {
     position: relative;
     width: 100%;
+    min-height: 80vh;
     overflow: hidden;
     .voice-bg {
       width: 48vw;
       height: 34vw;
       .center;
-      bottom: -1%;
+      bottom: 0%;
       z-index: 9;
       background-color: #f4c6c8;
       display: flex;
@@ -853,8 +908,6 @@ a {
     }
     .div-voice {
       width: 17.5vw;
-      // .center;
-      // bottom: 3%;
       z-index: 99;
     }
     .bear {
@@ -905,6 +958,7 @@ a {
     z-index: 0;
     display: none;
     letter-spacing: 5px;
+    background-color: #fff;
   }
 }
 </style>
