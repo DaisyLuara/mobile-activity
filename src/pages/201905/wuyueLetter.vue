@@ -214,6 +214,7 @@ import {
   recordQiniuImage,
   setParameter
 } from "services";
+import EXIF from 'exif-js'
 import { Toast } from 'mand-mobile'
 import "swiper/dist/css/swiper.css";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
@@ -611,70 +612,71 @@ export default {
 
     },
     mergeImage() {
-      import('exif-js').then(EXIF => {
-        let canvas = document.getElementById('canvas');
-        let ctx = canvas.getContext('2d')
-        let that = this
-        let [bg, photo, bear] = [new Image(), new Image(), new Image()]
-        this.arrSetAttribute('crossOrigin', 'Anonymous', bg, photo, bear)
-        bg.src = this.ownList.text ? this.base + 'cover1.png' : this.base + 'default.png'
-        bg.onload = async () => {
-          let [w, h] = [bg.width, bg.height]
-          canvas.width = w
-          canvas.height = h
-          photo.onload = () => {
-            // ctx.drawImage(photo, 0, 0, photo.width, photo.height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
-            let orientation = null
-            let width = photo.width
-            let height = photo.height
-            let [x, y, pw] = [w * 0.1175, h * 0.15, w * 0.765]
-            EXIF.getData(photo, function () {
-              EXIF.getAllTags(this)
-              orientation = EXIF.getTag(this, 'Orientation');
-              if (orientation == 6) {//需要顺时针90度旋转
-                ctx.rotate(90 * Math.PI / 180);
-                ctx.drawImage(photo, 0, 0, width, -height, x, y, pw, (pw / width) * height)
-                return
-              }
-              if (orientation == 8) {//需要逆时针90度旋转
-                ctx.rotate(-90 * Math.PI / 180);
-                ctx.drawImage(photo, 0, 0, -width, height, x, y, pw, (pw / width) * height)
-                return
-              }
-              if (orientation == 3) {//需要180度旋转
-                ctx.rotate(180 * Math.PI / 180);
-                ctx.drawImage(photo, 0, 0, -width, -height, x, y, pw, (pw / width) * height)
-                return
-              }
-              ctx.drawImage(photo, 0, 0, width, height, x, y, pw, (pw / width) * height)
-            })
-            ctx.drawImage(bg, 0, 0)
-            ctx.font = 'bold 40px 微软雅黑'
-            ctx.textAlign = 'left'
-            ctx.fillStyle = '#333'
-            if (this.ownList.text && this.ownList.text.length > 11) {
-              let [text1, text2] = []
-              text1 = this.ownList.text.slice(0, 11)
-              text2 = this.ownList.text.slice(11)
-              ctx.fillText(text1, w * 0.28, h * 0.65)
-              ctx.fillText(text2 + '...', w * 0.28, h * 0.65 + 55)
+      let canvas = document.getElementById('canvas');
+      let ctx = canvas.getContext('2d')
+      let that = this
+      let [bg, photo, bear] = [new Image(), new Image(), new Image()]
+      this.arrSetAttribute('crossOrigin', 'Anonymous', bg, photo, bear)
+      bg.src = this.ownList.text ? this.base + 'cover1.png' : this.base + 'default.png'
+      bg.onload = () => {
+        let [w, h] = [bg.width, bg.height]
+        canvas.width = w
+        canvas.height = h
+        ctx.fillStyle = '#fff'
+        ctx.fillRect(0, 0, w, h)
+        photo.onload = () => {
+          // ctx.drawImage(photo, 0, 0, photo.width, photo.height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
+          let orientation = null
+          let width = photo.width
+          let height = photo.height
+          let [x, y, pw] = [w * 0.1175, h * 0.15, w * 0.765]
+          EXIF.getData(photo, function () {
+            EXIF.getAllTags(this)
+            orientation = EXIF.getTag(this, 'Orientation');
+            Toast.info(orientation, 800)
+            if (orientation == 6) {//需要顺时针90度旋转
+              ctx.rotate(90 * Math.PI / 180);
+              ctx.drawImage(photo, 0, 0, width, -height, x, y, pw, (pw / width) * height)
+              return
             }
-            if (this.ownList.text && this.ownList.text.length <= 11) {
-              ctx.fillText(this.ownList.text, w * 0.28, h * 0.66)
+            if (orientation == 8) {//需要逆时针90度旋转
+              ctx.rotate(-90 * Math.PI / 180);
+              ctx.drawImage(photo, 0, 0, -width, height, x, y, pw, (pw / width) * height)
+              return
             }
-            this.mergebg = canvas.toDataURL('image/png')
-            bear.onload = () => {
-              ctx.drawImage(bear, 0, 0, bear.width, bear.height, w * 0.3, h * 0.84, w * 0.4, (w * 0.4 / bear.width) * bear.height)
-              this.ownList.photo = canvas.toDataURL('image/png')
-              this.initQiniu()
-              this.page2 = false
-              this.page3 = true
+            if (orientation == 3) {//需要180度旋转
+              ctx.rotate(180 * Math.PI / 180);
+              ctx.drawImage(photo, 0, 0, -width, -height, x, y, pw, (pw / width) * height)
+              return
             }
-            bear.src = this.base + 'beer.png'
+            ctx.drawImage(photo, 0, 0, width, height, x, y, pw, (pw / width) * height)
+          })
+          ctx.drawImage(bg, 0, 0)
+          ctx.font = 'bold 40px 微软雅黑'
+          ctx.textAlign = 'left'
+          ctx.fillStyle = '#333'
+          if (this.ownList.text && this.ownList.text.length > 11) {
+            let [text1, text2] = []
+            text1 = this.ownList.text.slice(0, 11)
+            text2 = this.ownList.text.slice(11)
+            ctx.fillText(text1, w * 0.28, h * 0.65)
+            ctx.fillText(text2 + '...', w * 0.28, h * 0.65 + 55)
           }
-          photo.src = this.ownList.choose
+          if (this.ownList.text && this.ownList.text.length <= 11) {
+            ctx.fillText(this.ownList.text, w * 0.28, h * 0.66)
+          }
+          this.mergebg = canvas.toDataURL('image/png')
+          bear.onload = () => {
+            ctx.drawImage(bear, 0, 0, bear.width, bear.height, w * 0.3, h * 0.84, w * 0.4, (w * 0.4 / bear.width) * bear.height)
+            this.ownList.photo = canvas.toDataURL('image/png')
+            this.initQiniu()
+            this.page2 = false
+            this.page3 = true
+          }
+          bear.src = this.base + 'beer.png'
         }
-      })
+        photo.src = this.ownList.choose
+      }
     },
     // 设置属性
     arrSetAttribute(key, value, ...args) {
@@ -880,6 +882,7 @@ a {
   .page3 {
     position: relative;
     width: 100%;
+    min-height: 80vh;
     overflow: hidden;
     .voice-bg {
       width: 48vw;
@@ -945,6 +948,7 @@ a {
     z-index: 0;
     display: none;
     letter-spacing: 5px;
+    background-color: #fff;
   }
 }
 </style>
