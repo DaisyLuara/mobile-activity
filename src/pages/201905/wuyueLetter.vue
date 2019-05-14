@@ -154,20 +154,18 @@
       <div
         v-if="ownList.voice"
         class="voice-bg"
-      ></div>
-      <div
-        v-if="ownList.voice"
-        class="div-voice"
         @click="playVoice"
       >
-        <img
-          v-if="status==='play'"
-          :src="base + 'play.png'"
-        >
-        <img
-          v-if="status==='playing'"
-          :src="base + 'playing.png'"
-        >
+        <div class="div-voice">
+          <img
+            v-if="status==='play'"
+            :src="base + 'play.png'"
+          >
+          <img
+            v-if="status==='playing'"
+            :src="base + 'playing.png'"
+          >
+        </div>
       </div>
       <img
         v-else
@@ -488,7 +486,7 @@ export default {
     },
     //开始录音
     startRecord(event) {
-      event.preventDefault();
+      // event.preventDefault();
       if (!this.ownList.choose) {
         Toast.info('请先选择图片！', 800)
         return
@@ -513,7 +511,7 @@ export default {
     },
     //停止录音
     stopRecord(event) {
-      event.preventDefault();
+      // event.preventDefault();
       if (!this.ownList.choose) {
         Toast.info('请先选择图片！', 800)
         return
@@ -536,12 +534,10 @@ export default {
     //播放录音
     playVoice() {
       let that = this
-      this.initVoice()
-      Toast.info(this.params.localId, 800)
       if (this.status === 'playing') {
         wx.stopVoice({
-          localId: this.params.localId,
-          success: res => (this.status = 'play')
+          localId: that.params.localId,
+          success: res => (that.status = 'play')
         });
       }
       if (this.status === 'play') {
@@ -593,6 +589,7 @@ export default {
         wx.onVoicePlayEnd({
           success: function (res) {
             Toast.info('语音播放完毕', 800)
+            that.status = 'play'
           }
         });
       }).catch(err => {
@@ -799,14 +796,25 @@ a {
           }
         }
         .voice {
-          width: 22.33%;
+          // width: 22.33%;
+          width: 48vw;
+          height: 35vw;
           .center;
-          bottom: 8%;
+          // bottom: 8%;
+          bottom: -1%;
           z-index: 999;
           .v-start {
             display: block;
             width: 100%;
+            height: 100%;
             z-index: 999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            img {
+              width: 17.5vw;
+            }
           }
         }
       }
@@ -836,14 +844,18 @@ a {
       height: 34vw;
       .center;
       bottom: -1%;
-      z-index: 999;
+      z-index: 9;
       background-color: #f4c6c8;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
     .div-voice {
-      width: 17.5%;
-      .center;
-      bottom: 3%;
-      z-index: 99999;
+      width: 17.5vw;
+      // .center;
+      // bottom: 3%;
+      z-index: 99;
     }
     .bear {
       width: 42%;
@@ -870,7 +882,7 @@ a {
     .mask {
       position: absolute;
       .cover;
-      z-index: 9999;
+      z-index: 999999;
       background: rgba(0, 0, 0, 0.7);
       display: flex;
       flex-direction: column;
