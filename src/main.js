@@ -6,9 +6,7 @@ import App from './App'
 import router from './router'
 import store from '@/store/index'
 import 'services/utils/helper'
-import EXIF from 'exif-js'
 Vue.prototype.$http = axios
-Vue.prototype.EXIF = EXIF
 Vue.config.productionTip = false
 // axios.defaults.withCredentials = true ;
 

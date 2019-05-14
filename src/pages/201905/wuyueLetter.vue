@@ -261,6 +261,7 @@ export default {
         CDNURL + "/fe/image/wuyueLetter/top5.png",
       ],
       mergebg: null,
+      orientation: null,
       ownList: {
         choose: null,
         photo: null,
@@ -410,6 +411,11 @@ export default {
         return
       }
       let that = this
+      EXIF.getData(file, function () {
+        that.EXIF.getAllTags(this)
+        that.orientation = that.EXIF.getTag(this, 'Orientation');
+        Toast.info(that.orientation, 800)
+      })
       let reader = new FileReader();
       reader.onload = (theFile => {
         return e => {
@@ -626,16 +632,10 @@ export default {
         ctx.fillRect(0, 0, w, h)
         photo.onload = () => {
           // ctx.drawImage(photo, 0, 0, photo.width, photo.height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
-          let orientation = null
           let width = photo.width
           let height = photo.height
           let [x, y, pw] = [w * 0.1175, h * 0.15, w * 0.765]
-          this.EXIF.getData(photo, function () {
-            that.EXIF.getAllTags(this)
-            orientation = that.EXIF.getTag(this, 'Orientation');
-            Toast.info(orientation, 800)
-          })
-          orientation = parseInt(orientation)
+          let orientation = parseInt(this.orientation)
           if (orientation == 6) {//需要顺时针90度旋转
             ctx.rotate(90 * Math.PI / 180);
             ctx.drawImage(photo, 0, 0, width, -height, x, y, pw, (pw / width) * height)
