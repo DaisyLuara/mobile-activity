@@ -1,7 +1,7 @@
 const Date201905 = [
   {
     path: 'diamond520',
-    location: '201905/diamond520',
+    location: '201905/Diamond520/diamond520_land',
     name: 'diamond520',
     meta: {
       title: '星视度',
