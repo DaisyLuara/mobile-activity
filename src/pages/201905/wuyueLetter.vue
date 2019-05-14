@@ -366,9 +366,6 @@ export default {
         }
         this.qiniu.token = getTokenResult
         let file = this.dataURLtoFile(this.ownList.photo)
-        setTimeout(() => {
-          alert('file:' + file.size)
-        }, 1500)
         let [name, size] = [time + '_' + random, file.size]
         getQiniuKeyArgs.append('file', file)
         getQiniuKeyArgs.append('token', this.qiniu.token)
@@ -415,7 +412,6 @@ export default {
       files = e.target.files
       if (!files.length) return
       let file = files[0]
-      alert('upload_file' + file.size)
       if (file.size <= 0) return
       if (!/\.(jpg|jpeg|png|JPG|PNG)$/.test(file.name)) {
         Toast.info('不支持其他类型文件，请选择.png或.jpg或.jpeg文件', 800)
@@ -686,7 +682,7 @@ export default {
             ctx.drawImage(bear, 0, 0, bear.width, bear.height, w * 0.3, h * 0.84, w * 0.4, (w * 0.4 / bear.width) * bear.height)
             this.ownList.photo = canvas.toDataURL('image/png')
             var base64String = this.ownList.photo.split(",")[1];
-            alert('base64:' + base64String.length);
+
             this.initQiniu()
             this.page2 = false
             this.page3 = true
