@@ -55,10 +55,6 @@ export default {
       let { id, code, state } = this.$route.query
       try {
         let { userinfo, image, parms } = await getInfoById(id, code, state)
-        if (parms) {
-          let params = splitParms(parms)
-          this.peopleNum = params.peopleNum ? Number(params.peopleNum) : 0
-        }
         if (userinfo) {
           this.setLoginState(userinfo)
         } else {
@@ -69,6 +65,10 @@ export default {
         } else {
           this.photo = image
           Toast.hide()
+          if (parms) {
+            let params = splitParms(parms)
+            this.peopleNum = params.peopleNum ? Number(params.peopleNum) : 0
+          }
         }
       } catch(e) {
         console.log(e)
