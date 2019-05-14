@@ -687,12 +687,7 @@ a {
   position: relative;
   overflow-x: hidden;
   background-color: #e4007f;
-  .page1,
-  .page2,
-  .page3,
-  .mask {
-    min-height: 100vh;
-  }
+  min-height: 100vh;
   .page1 {
     width: 100%;
     height: 100vh;
@@ -803,11 +798,9 @@ a {
           }
         }
         .voice {
-          // width: 22.33%;
           width: 48vw;
           height: 35vw;
           .center;
-          // bottom: 8%;
           bottom: -1%;
           z-index: 999;
           .v-start {
@@ -850,7 +843,7 @@ a {
       width: 48vw;
       height: 34vw;
       .center;
-      bottom: -1%;
+      bottom: 0%;
       z-index: 9;
       background-color: #f4c6c8;
       display: flex;
@@ -860,8 +853,6 @@ a {
     }
     .div-voice {
       width: 17.5vw;
-      // .center;
-      // bottom: 3%;
       z-index: 99;
     }
     .bear {
