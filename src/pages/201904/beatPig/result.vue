@@ -151,6 +151,7 @@ export default {
               link: process.env.DIAMOND_API + (process.env.NODE_ENV === 'production' ? '/s/4L0?utm_campaign=h5_beat_pig' : '/s/APz?utm_campaign=h5_beat_pig'),
               imgUrl: CDNURL + "/fe/wuyue-beatPig-shareIcon.png",
               success: async function() {
+                that.onTracking('button', 'click', 'share')  
                 try {
                   const gameShare = await userGameShare({})
                   if (gameShare && gameShare.data && gameShare.data.game_status) {   
@@ -235,7 +236,17 @@ export default {
         },
         false
       )
-		},
+    },
+    
+    onTracking(category, action, label) {
+      const params = {
+        hitType: 'event',
+        eventCategory: category,
+        eventAction: action,
+        eventLabel: label
+      }
+      window.ga('send', params)
+    },
 
 		onCloseMask() {
 			this.showMask = false
@@ -247,6 +258,7 @@ export default {
       if (music) {
         music.pause()
       }
+      this.onTracking('button', 'click', 'goback2')
 		},
 
 		onClickResultBtn() {
@@ -257,9 +269,11 @@ export default {
             music.pause()
           }
           this.$router.replace({ name: 'beatPigIndex' })
+          this.onTracking('button', 'click', 'Click_again')
           break
         case 'game_share':
           this.showMask = true
+          this.onTracking('button', 'click', 'Click_share')
           break
         default: break
       }
