@@ -134,7 +134,7 @@ export default {
       return this.phone && this.code
     }
   },
-  mounted() {
+  async mounted() {
     if (isiOS && !this.$route.query.iosRand) {
       const iosRand = 'iosRand=' + new Date().getTime()
       let url = location.href
@@ -154,6 +154,18 @@ export default {
       Toast.failed('获取用户信息失败', 0, true)
       this.handleForbiddenShare()
     } else {
+      let params = {
+        z: this.z,
+        campaign: '520Diamonds'
+      }
+      try {
+        let res = await getUserBoardId(params)
+        if (res.code === 0) {
+          this.boardId = res.data.id
+        }
+      } catch(e) {
+        console.log(e)
+      }
       this.handleWechatShare()
     }
   },
@@ -170,36 +182,24 @@ export default {
       }
     },
     async handleWechatShare() {
-      let params = {
-        z: this.z,
-        campaign: '520Diamonds'
-      }
-      try {
-        let res = await getUserBoardId(params)
-        if (res.code === 0) {
-          this.boardId = res.data.id
+      if (isInWechat() === true) {
+        let wxShareInfoValue = {
+          title: '钻石人气榜，等你来挑战',
+          desc: '为好友助力打call，赢取挚爱真钻',
+          link: location.origin + '/marketing/Diamond520/diamond520_vote/' + this.boardId,
+          imgUrl: 'https://cdn.xingstation.cn/dimond520/share_icon.png'
         }
-        if (isInWechat() === true) {
-          let wxShareInfoValue = {
-            title: '钻石人气榜，等你来挑战',
-            desc: '为好友助力打call，赢取挚爱真钻',
-            link: location.origin + '/marketing/Diamond520/diamond520_vote/' + this.boardId,
-            imgUrl: 'https://cdn.xingstation.cn/dimond520/share_icon.png'
-          }
-          $wechat(this.weixinUrl)
-            .then(res => {
-              if (this.boardId === null) {
-                res.forbidden()
-              } else {
-                res.share(wxShareInfoValue)
-              }
-            })
-            .catch(e => {
-              console.warn(e)
-            })
-        }
-      } catch(e) {
-        console.log(e)
+        $wechat(this.weixinUrl)
+          .then(res => {
+            if (this.boardId === null) {
+              res.forbidden()
+            } else {
+              res.share(wxShareInfoValue)
+            }
+          })
+          .catch(e => {
+            console.warn(e)
+          })
       }
     },
     handleInput(event, type) {
