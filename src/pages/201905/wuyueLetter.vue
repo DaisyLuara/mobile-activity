@@ -366,6 +366,9 @@ export default {
         }
         this.qiniu.token = getTokenResult
         let file = this.dataURLtoFile(this.ownList.photo)
+        setTimeout(() => {
+          alert('file:' + file.size)
+        }, 1500)
         let [name, size] = [time + '_' + random, file.size]
         getQiniuKeyArgs.append('file', file)
         getQiniuKeyArgs.append('token', this.qiniu.token)
@@ -393,7 +396,7 @@ export default {
       }
     },
     dataURLtoFile(dataurl, filename) {
-      var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+      let arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
         bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
       while (n--) {
         u8arr[n] = bstr.charCodeAt(n);
@@ -626,7 +629,6 @@ export default {
       }).catch(err => {
         console.log(err)
       })
-
     },
     mergeImage() {
       let canvas = document.getElementById('canvas');
@@ -643,17 +645,19 @@ export default {
         ctx.fillRect(0, 0, w, h)
         photo.onload = () => {
           let [width, height] = [photo.width, photo.height]
-          // if (that.orientation == 6) {
-          //   that.rotate = Math.PI / 2
-          // }
-          // if (that.orientation == 8) {
-          //   that.rotate = -Math.PI / 2
-          // }
-          // if (that.orientation == 3) {
-          //   that.rotate = Math.PI
-          // }
+          if (that.orientation == 6) {
+            that.rotate = Math.PI / 2
+          }
+          if (that.orientation == 8) {
+            that.rotate = -Math.PI / 2
+          }
+          if (that.orientation == 3) {
+            that.rotate = Math.PI
+          }
+          ctx.drawImage(photo, 0, 0, width, height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
+
           // ctx.rotate(that.rotate);
-          ctx.drawImage(photo, 0, 0, photo.width, photo.height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
+          // ctx.drawImage(photo, 0, 0, photo.width, photo.height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
           // ctx.rotate(-that.rotate);
           ctx.drawImage(bg, 0, 0)
           ctx.font = 'bold 40px 微软雅黑'
@@ -673,6 +677,8 @@ export default {
           bear.onload = () => {
             ctx.drawImage(bear, 0, 0, bear.width, bear.height, w * 0.3, h * 0.84, w * 0.4, (w * 0.4 / bear.width) * bear.height)
             this.ownList.photo = canvas.toDataURL('image/png')
+            var base64String = this.ownList.photo.split(",")[1];
+            alert('base64:' + base64String.length);
             this.initQiniu()
             this.page2 = false
             this.page3 = true
