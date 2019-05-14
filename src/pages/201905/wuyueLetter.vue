@@ -262,6 +262,8 @@ export default {
       ],
       mergebg: null,
       orientation: null,
+      xw: 1,
+      xh: 1,
       rotate: 0,
       ownList: {
         choose: null,
@@ -640,9 +642,19 @@ export default {
         ctx.fillStyle = '#fff'
         ctx.fillRect(0, 0, w, h)
         photo.onload = () => {
-          ctx.rotate(that.rotate);
+          let [width, height] = [photo.width, photo.height]
+          // if (that.orientation == 6) {
+          //   that.rotate = Math.PI / 2
+          // }
+          // if (that.orientation == 8) {
+          //   that.rotate = -Math.PI / 2
+          // }
+          // if (that.orientation == 3) {
+          //   that.rotate = Math.PI
+          // }
+          // ctx.rotate(that.rotate);
           ctx.drawImage(photo, 0, 0, photo.width, photo.height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
-          ctx.rotate(-that.rotate);
+          // ctx.rotate(-that.rotate);
           ctx.drawImage(bg, 0, 0)
           ctx.font = 'bold 40px 微软雅黑'
           ctx.textAlign = 'left'
