@@ -98,7 +98,8 @@ import {
   addToBoard,
   $wechat,
   isInWechat,
-  getUserBoardId
+  getUserBoardId,
+  isiOS
 } from 'services'
 import { mapGetters, mapMutations } from "vuex"
 import { Toast } from 'mand-mobile'
@@ -134,6 +135,17 @@ export default {
     }
   },
   mounted() {
+    if (isiOS && !this.$route.query.iosRand) {
+      const iosRand = 'iosRand=' + new Date().getTime()
+      let url = location.href
+      if (url.indexOf('?') > 0) {
+        url = url + '&' + iosRand
+      } else {
+        url = url + '?' + iosRand
+      }
+      location.replace(url)
+      return
+    }
     this.userinfo = this.loginState
     if (this.userinfo.mobile) {
       this.verifiedPhone = true
