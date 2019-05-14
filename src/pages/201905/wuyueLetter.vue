@@ -412,8 +412,8 @@ export default {
       }
       let that = this
       EXIF.getData(file, function () {
-        that.EXIF.getAllTags(this)
-        that.orientation = that.EXIF.getTag(this, 'Orientation');
+        EXIF.getAllTags(this)
+        that.orientation = EXIF.getTag(this, 'Orientation');
         Toast.info(that.orientation, 800)
       })
       let reader = new FileReader();
