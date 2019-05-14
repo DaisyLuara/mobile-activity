@@ -366,6 +366,9 @@ export default {
         }
         this.qiniu.token = getTokenResult
         let file = this.dataURLtoFile(this.ownList.photo)
+        // setTimeout(() => {
+        //   alert('file:' + file.size)
+        // }, 1500)
         let [name, size] = [time + '_' + random, file.size]
         getQiniuKeyArgs.append('file', file)
         getQiniuKeyArgs.append('token', this.qiniu.token)
@@ -393,13 +396,22 @@ export default {
       }
     },
     dataURLtoFile(dataurl, filename) {
-      var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+      let arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
         bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
       while (n--) {
         u8arr[n] = bstr.charCodeAt(n);
       }
       return new File([u8arr], filename, { type: mime });
     },
+    // dataURLtoFile(url, filename, mimeType) {
+    //   urltoFile(url, filename, mimeType) {
+    //     mimeType = mimeType || (url.match(/^data:([^;]+);/) || '')[1];
+    //     return (fetch(url)
+    //       .then(function (res) { return res.arrayBuffer(); })
+    //       .then(function (buf) { return new File([buf], filename, { type: mimeType }); })
+    //     );
+    //   }
+    // },
     toStart() {
       this.page1 = !this.page1
       this.page2 = true
@@ -412,6 +424,8 @@ export default {
       files = e.target.files
       if (!files.length) return
       let file = files[0]
+      // alert('upload_file' + file.size)
+      if (file.size <= 0) return
       if (!/\.(jpg|jpeg|png|JPG|PNG)$/.test(file.name)) {
         Toast.info('不支持其他类型文件，请选择.png或.jpg或.jpeg文件', 800)
         return
@@ -626,7 +640,6 @@ export default {
       }).catch(err => {
         console.log(err)
       })
-
     },
     mergeImage() {
       let canvas = document.getElementById('canvas');
@@ -643,17 +656,27 @@ export default {
         ctx.fillRect(0, 0, w, h)
         photo.onload = () => {
           let [width, height] = [photo.width, photo.height]
-          // if (that.orientation == 6) {
-          //   that.rotate = Math.PI / 2
-          // }
-          // if (that.orientation == 8) {
-          //   that.rotate = -Math.PI / 2
-          // }
-          // if (that.orientation == 3) {
-          //   that.rotate = Math.PI
-          // }
+          if (that.orientation == 6) {
+            that.rotate = Math.PI / 2
+            ctx.rotate(Math.PI / 2);
+            ctx.drawImage(photo, 0, -width, height, width, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
+            ctx.rotate(-Math.PI / 2);
+          }
+          if (that.orientation == 8) {
+            ctx.rotate(-Math.PI / 2);
+            ctx.drawImage(photo, -height, 0, height, width, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
+            ctx.rotate(Math.PI / 2);
+          }
+          if (that.orientation == 3) {
+            ctx.rotate(Math.PI);
+            ctx.drawImage(photo, -width, -height, width, height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
+            ctx.rotate(-Math.PI);
+          }
+          if (parseInt(that.orientation) !== 3 && parseInt(that.orientation) !== 6 && parseInt(that.orientation) !== 8) {
+            ctx.drawImage(photo, 0, 0, width, height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
+          }
           // ctx.rotate(that.rotate);
-          ctx.drawImage(photo, 0, 0, photo.width, photo.height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
+          // ctx.drawImage(photo, 0, 0, photo.width, photo.height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
           // ctx.rotate(-that.rotate);
           ctx.drawImage(bg, 0, 0)
           ctx.font = 'bold 40px 微软雅黑'
@@ -673,6 +696,8 @@ export default {
           bear.onload = () => {
             ctx.drawImage(bear, 0, 0, bear.width, bear.height, w * 0.3, h * 0.84, w * 0.4, (w * 0.4 / bear.width) * bear.height)
             this.ownList.photo = canvas.toDataURL('image/png')
+            let base64String = this.ownList.photo.split(",")[1];
+            // alert('base64:' + base64String.length);
             this.initQiniu()
             this.page2 = false
             this.page3 = true
