@@ -262,6 +262,7 @@ export default {
       ],
       mergebg: null,
       orientation: null,
+      rotate: 0,
       ownList: {
         choose: null,
         photo: null,
@@ -402,6 +403,9 @@ export default {
       this.page2 = true
     },
     choosePhoto(e) {
+      let that = this
+      that.orientation = null
+      that.rotate = 0
       let files = null
       files = e.target.files
       if (!files.length) return
@@ -410,11 +414,18 @@ export default {
         Toast.info('不支持其他类型文件，请选择.png或.jpg或.jpeg文件', 800)
         return
       }
-      let that = this
       EXIF.getData(file, function () {
         EXIF.getAllTags(this)
         that.orientation = EXIF.getTag(this, 'Orientation');
-        Toast.info(that.orientation, 800)
+        if (that.orientation == 6) {
+          that.rotate = Math.PI / 2
+        }
+        if (that.orientation == 8) {
+          that.rotate = -Math.PI / 2
+        }
+        if (that.orientation == 3) {
+          that.rotate = Math.PI
+        }
       })
       let reader = new FileReader();
       reader.onload = (theFile => {
@@ -521,8 +532,6 @@ export default {
       }).catch(err => {
         console.log(err)
       })
-
-
     },
     //停止录音
     stopRecord() {
@@ -631,26 +640,9 @@ export default {
         ctx.fillStyle = '#fff'
         ctx.fillRect(0, 0, w, h)
         photo.onload = () => {
-          // ctx.drawImage(photo, 0, 0, photo.width, photo.height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
-          let width = photo.width
-          let height = photo.height
-          let [x, y, pw] = [w * 0.1175, h * 0.15, w * 0.765]
-          let orientation = parseInt(this.orientation)
-          if (orientation == 6) {//需要顺时针90度旋转
-            ctx.rotate(90 * Math.PI / 180);
-            ctx.drawImage(photo, 0, 0, width, -height, x, y, pw, (pw / width) * height)
-          }
-          if (orientation == 8) {//需要逆时针90度旋转
-            ctx.rotate(-90 * Math.PI / 180);
-            ctx.drawImage(photo, 0, 0, -width, height, x, y, pw, (pw / width) * height)
-          }
-          if (orientation == 3) {//需要180度旋转
-            ctx.rotate(180 * Math.PI / 180);
-            ctx.drawImage(photo, 0, 0, -width, -height, x, y, pw, (pw / width) * height)
-          }
-          if (orientation !== 3 && orientation !== 6 && orientation !== 8) {
-            ctx.drawImage(photo, 0, 0, width, height, x, y, pw, (pw / width) * height)
-          }
+          ctx.rotate(that.rotate);
+          ctx.drawImage(photo, 0, 0, photo.width, photo.height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
+          ctx.rotate(-that.rotate);
           ctx.drawImage(bg, 0, 0)
           ctx.font = 'bold 40px 微软雅黑'
           ctx.textAlign = 'left'
