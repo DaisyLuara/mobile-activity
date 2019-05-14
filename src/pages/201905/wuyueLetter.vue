@@ -415,6 +415,8 @@ export default {
       files = e.target.files
       if (!files.length) return
       let file = files[0]
+      alert('upload_file' + file.size)
+      if (file.size <= 0) return
       if (!/\.(jpg|jpeg|png|JPG|PNG)$/.test(file.name)) {
         Toast.info('不支持其他类型文件，请选择.png或.jpg或.jpeg文件', 800)
         return
@@ -645,15 +647,21 @@ export default {
         ctx.fillRect(0, 0, w, h)
         photo.onload = () => {
           let [width, height] = [photo.width, photo.height]
-          if (that.orientation == 6) {
-            that.rotate = Math.PI / 2
-          }
-          if (that.orientation == 8) {
-            that.rotate = -Math.PI / 2
-          }
-          if (that.orientation == 3) {
-            that.rotate = Math.PI
-          }
+          // if (that.orientation == 6) {
+          //   that.rotate = Math.PI / 2
+          //   // ctx.rotate(that.rotate);
+          //   // ctx.drawImage(photo, 0, 0, photo.width, photo.height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
+          //   // ctx.rotate(-that.rotate);
+          // }
+          // if (that.orientation == 8) {
+          //   that.rotate = -Math.PI / 2
+          // }
+          // if (that.orientation == 3) {
+          //   that.rotate = Math.PI
+          //   ctx.rotate(Math.PI);
+          //   ctx.drawImage(photo, 0, 0, photo.width, photo.height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
+          //   ctx.rotate(-Math.PI);
+          // }
           ctx.drawImage(photo, 0, 0, width, height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
 
           // ctx.rotate(that.rotate);
