@@ -72,7 +72,7 @@ export default {
         }
       } catch(e) {
         console.log(e)
-        Toast.failed('获取用户信息失败', 0, true)
+        Toast.failed('出错了', 0, true)
       }
     }
   }

@@ -95,7 +95,10 @@ import {
   getVerificationCodes,
   getInfoById,
   bindUserPhone,
-  addToBoard
+  addToBoard,
+  $wechat,
+  isInWechat,
+  getUserBoardId
 } from 'services'
 import { mapGetters, mapMutations } from "vuex"
 import { Toast } from 'mand-mobile'
@@ -119,11 +122,12 @@ export default {
       waitTime: 0,
       verifyKey: '',
       verifiedPhone: false,
-      userinfo: null
+      userinfo: null,
+      boardId: null
     }
   },
   computed: {
-    ...mapGetters(["z", "loginState"]),
+    ...mapGetters(["z", "loginState", "weixinUrl"]),
     // 提交按钮是否可点击
     submitBtnClickable() {
       return this.phone && this.code
@@ -136,12 +140,56 @@ export default {
     }
     if (!this.z) {
       Toast.failed('获取用户信息失败', 0, true)
+      this.handleForbiddenShare()
+    } else {
+      this.handleWechatShare()
     }
   },
   methods: {
     ...mapMutations({
       setLoginState: "SET_LOGIN_STATE"
     }),
+    //禁止微信分享
+    handleForbiddenShare() {
+      if (isInWechat() === true) {
+        $wechat().then(res => {
+          res.forbidden()
+        })
+      }
+    },
+    async handleWechatShare() {
+      let params = {
+        z: this.z,
+        campaign: '520Diamonds'
+      }
+      try {
+        let res = await getUserBoardId(params)
+        if (res.code === 0) {
+          this.boardId = res.data.id
+        }
+        if (isInWechat() === true) {
+          let wxShareInfoValue = {
+            title: '钻石人气榜，等你来挑战',
+            desc: '为好友助力打call，赢取挚爱真钻',
+            link: location.origin + '/marketing/Diamond520/diamond520_vote/' + this.boardId,
+            imgUrl: 'https://cdn.xingstation.cn/dimond520/share_icon.png'
+          }
+          $wechat(this.weixinUrl)
+            .then(res => {
+              if (this.boardId === null) {
+                res.forbidden()
+              } else {
+                res.share(wxShareInfoValue)
+              }
+            })
+            .catch(e => {
+              console.warn(e)
+            })
+        }
+      } catch(e) {
+        console.log(e)
+      }
+    },
     handleInput(event, type) {
       const number = filterNumber(event.target.value)
       this[type] = number
