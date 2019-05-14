@@ -633,6 +633,7 @@ export default {
           EXIF.getData(photo, function () {
             EXIF.getAllTags(this)
             orientation = EXIF.getTag(this, 'Orientation');
+            Toast.info(orientation, 800)
             if (orientation == 6) {//需要顺时针90度旋转
               ctx.rotate(90 * Math.PI / 180);
               ctx.drawImage(photo, 0, 0, width, -height, x, y, pw, (pw / width) * height)
