@@ -1,7 +1,7 @@
 const Date201905 = [
   {
     path: 'diamond520',
-    location: '201905/diamond520',
+    location: '201905/Diamond520/diamond520_land',
     name: 'diamond520',
     meta: {
       title: '星视度',
@@ -84,17 +84,6 @@ const Date201905 = [
       title: '星视度',
       author: 'chuxiaochen',
       desc: '520钻石活动转盘抽奖页-正式版-双人'
-    },
-    isAbandoned: false
-  },
-  {
-    path: 'Diamond520/diamond520lottery_s',
-    location: '201905/Diamond520/diamond520lottery_single',
-    name: 'diamond520LotterySingle',
-    meta: {
-      title: '星视度',
-      author: 'chuxiaochen',
-      desc: '520钻石活动转盘抽奖页-正式版-单人'
     },
     isAbandoned: false
   },

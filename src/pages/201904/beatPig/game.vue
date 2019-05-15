@@ -1,19 +1,16 @@
 <template>
   <div class="container">
     <audio 
-      id="clickSound" 
-      hidden>
-      <source :src="CDNURL + '/audio/wuyue-click-sound.mp3'">
-    </audio>
-    <audio 
       id="bombSound" 
-      hidden>
+      hidden
+    >
       <source :src="CDNURL + '/audio/wuyue-boom-sound.mp3'">
     </audio>
 
     <div 
       v-if="showMask" 
-      class="startGameMask">
+      class="startGameMask"
+    >
       <img 
         :src="CDNURL+'/fe/wuyue-beatPig-mask.png'"
         class="maskBg"
@@ -30,7 +27,8 @@
     
     <div 
       v-else 
-      class="content">
+      class="content"
+    >
       <img 
         :src="CDNURL+'/fe/wuyue-beatPig-game-topBg.png'"
         class="gameTopBg"
@@ -47,7 +45,7 @@
             class="scoreBg"
           >
           <img 
-            :src="userAvatar"
+            :src="userAvatar || CDNURL + '/fe/wuyue-beatPig-default-avatar.png'"
             class="avatar"
           >
           <span class="score">{{ score }}</span>
@@ -133,7 +131,9 @@ export default {
 		this.init()
 		getWxUserInfo()
       .then(result => {
-        this.userAvatar = result.data.headimgurl
+				if (result && result.data && result.data.headimgurl) {
+					this.userAvatar = result.data.headimgurl
+				}  
 			})
 		this.onReady()
 	},

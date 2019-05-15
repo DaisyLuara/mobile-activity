@@ -418,7 +418,6 @@ export default {
       files = e.target.files
       if (!files.length) return
       let file = files[0]
-      // alert('upload_file' + file.size)
       if (file.size <= 0) return
       if (!/\.(jpg|jpeg|png|JPG|PNG)$/.test(file.name)) {
         Toast.info('不支持其他类型文件，请选择.png或.jpg或.jpeg文件', 800)

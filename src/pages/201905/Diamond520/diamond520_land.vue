@@ -15,7 +15,7 @@
 import { reCalculateRem } from '@/mixins/reCalculateRem'
 import { mapGetters, mapMutations } from "vuex"
 import { getInfoById, splitParms } from 'services'
-import Diamond520Single from './diamond520_single'
+import Diamond520Single from './diamond520lottery_single'
 import Diamond520Couple from './diamond520_couple'
 import { Toast } from 'mand-mobile'
 import "../../../assets/less/reset-mand.less"
@@ -55,10 +55,6 @@ export default {
       let { id, code, state } = this.$route.query
       try {
         let { userinfo, image, parms } = await getInfoById(id, code, state)
-        if (parms) {
-          let params = splitParms(parms)
-          this.peopleNum = params.peopleNum ? Number(params.peopleNum) : 0
-        }
         if (userinfo) {
           this.setLoginState(userinfo)
         } else {
@@ -69,10 +65,14 @@ export default {
         } else {
           this.photo = image
           Toast.hide()
+          if (parms) {
+            let params = splitParms(parms)
+            this.peopleNum = params.peopleNum ? Number(params.peopleNum) : 0
+          }
         }
       } catch(e) {
         console.log(e)
-        Toast.failed('获取用户信息失败', 0, true)
+        Toast.failed('出错了', 0, true)
       }
     }
   }

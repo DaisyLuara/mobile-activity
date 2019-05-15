@@ -5,8 +5,15 @@
       autobuffer 
       autoloop 
       loop  
-      hidden>
+      hidden
+    >
       <source :src="CDNURL + '/autio/wuyue-beatPig-bgm.mp3'">
+    </audio>
+    <audio 
+      id="clickSound" 
+      hidden
+    >
+      <source :src="CDNURL + '/audio/wuyue-click-sound.mp3'">
     </audio>
     <router-view />
   </div>

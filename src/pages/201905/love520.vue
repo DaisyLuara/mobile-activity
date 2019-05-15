@@ -58,11 +58,11 @@ export default {
     }
   },
   computed: {
-
+    ...mapGetters(["weixinUrl"])
   },
   async mounted() {
     if (process.env.NODE_ENV === 'development') {
-      this.sign = 'eyJpdiI6ImJINWM1ZjF0YWVrXC9uWW1IZUl0Z2pBPT0iLCJ2YWx1ZSI6IlRlc2VXcHc4NWozcjJFNVNQcmdjUHc9PSIsIm1hYyI6ImQ0OWJhZTBlZTE2YzIxOGRjMzQzOTU0ZDRlYjk0YzBmZTUwMzY5MWU0YWFhNmE0OTJhZjk3MTg4MjRlODAxNzIifQ=='
+      this.sign = 'eyJpdiI6ImpaM3NZQ0U1dVdBTEs0SjkwSTVmUlE9PSIsInZhbHVlIjoiTDhtbGp0MitjdmsxZFNUdkRFcjN6QT09IiwibWFjIjoiYTQ2Y2YzMzc4YzM0ZDQ4OGRkNjgwZGU4N2M3MTMwZmM3NjkyMTlhMGJmM2Q1MzM3YTU2Mzc2NWYzM2NmNjBhYiJ9'
     } else {
       this.handleWechatAuth()
     }
@@ -145,7 +145,7 @@ export default {
         link: location.href,
         imgUrl: 'https://cdn.xingstation.cn/dimond520/share_icon.png'
       }
-      $wechat()
+      $wechat(this.weixinUrl)
         .then(res => {
           res.share(wxShareInfoValue)
         })

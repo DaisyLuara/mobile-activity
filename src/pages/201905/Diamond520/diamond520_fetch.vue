@@ -44,10 +44,13 @@ import {
   $wechat,
   isInWechat,
   filterNumber,
-  validatePhone
+  validatePhone,
+  fetchPhotoByPhone,
+  pushPhoto
 } from 'services'
 import { Toast } from 'mand-mobile'
 import "../../../assets/less/reset-mand.less"
+import { mapGetters } from "vuex"
 const CDNURL = process.env.CDN_URL
 
 export default {
@@ -59,6 +62,9 @@ export default {
       phone: ''
     }
   },
+  computed: {
+    ...mapGetters(["weixinUrl"])
+  },
   mounted() {
     this.handleForbiddenShare()
   },
@@ -66,7 +72,7 @@ export default {
     //禁止微信分享
     handleForbiddenShare() {
       if (isInWechat() === true) {
-        $wechat().then(res => {
+        $wechat(this.weixinUrl).then(res => {
           res.forbidden()
         })
       }
@@ -81,9 +87,38 @@ export default {
       !valid && Toast.info('手机号输入错误，请重新输入')
       return valid
     },
-    handleFetch() {
+    async handleFetch() {
       if (!this.isValidPhone()) {
         return
+      }
+      let params = {
+        phone: this.phone
+      }
+      Toast.loading('提取中')
+      try {
+        let res = await fetchPhotoByPhone(params)
+        console.log(res)
+        if (res.code === 404) {
+          Toast.failed('无照片信息', 2000, true)
+          return
+        } else if (res.code === 0) {
+          let photo = res.data
+          if (photo.status === 1) {
+            let params = {
+              value: this.$route.query.value,
+              img: photo.url
+            }
+            await pushPhoto(params)
+            Toast.succeed('提取成功')
+          } else if (photo.status === 0) {
+            Toast.failed('照片审核未通过', 2000, true)
+          } else if (photo.status === 2) {
+            Toast.failed('照片待审核', 2000, true)
+          }
+        }
+      } catch(e) {
+        console.log(e)
+        Toast.failed('提取失败', 2000, true)
       }
     }
   }
