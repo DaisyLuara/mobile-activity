@@ -41,7 +41,7 @@
       <div class="step-edit">
         <div class="div-cover">
           <img
-            :src="base + 'cover.png'"
+            :src="base + 'cbg.png'"
             class="bg"
           >
           <img
@@ -537,7 +537,11 @@ export default {
             success: () => {
               this.status = 'recording'
             },
-            cancel: () => alert('开始录音失败')
+            fail: err => (this.status = 'start'),
+            cancel: () => {
+              this.status = 'start'
+              alert('开始录音失败')
+            }
           })
           clearTimeout(timer)
         }, 300)
@@ -566,7 +570,10 @@ export default {
             that.status = 'play'
             that.ownList.voice = true
           },
-          fail: err => console.log(err)
+          fail: err => {
+            that.status = 'start'
+            console.log(err)
+          }
         })
       }).catch(err => {
         console.log(err)
@@ -644,7 +651,7 @@ export default {
       let that = this
       let [bg, photo, bear] = [new Image(), new Image(), new Image()]
       this.arrSetAttribute('crossOrigin', 'Anonymous', bg, photo, bear)
-      bg.src = this.ownList.text ? this.base + 'cover1.png' : this.base + 'default.png'
+      bg.src = this.ownList.text ? this.base + 'bgbg1.png' : this.base + 'bgbg2.png'
       bg.onload = () => {
         let [w, h] = [bg.width, bg.height]
         canvas.width = w
@@ -653,25 +660,26 @@ export default {
         ctx.fillRect(0, 0, w, h)
         photo.onload = () => {
           let [width, height] = [photo.width, photo.height]
-          if (that.orientation == 6) {
-            that.rotate = Math.PI / 2
-            ctx.rotate(Math.PI / 2);
-            ctx.drawImage(photo, 0, 0, width, height, w * 0.26, -h * 0.495, (w * 0.765 / height) * width, w * 0.765)
-            ctx.rotate(-Math.PI / 2);
-          }
-          if (that.orientation == 8) {
-            ctx.rotate(-Math.PI / 2);
-            ctx.drawImage(photo, 0, 0, width, height, -h * 1.09, w * 0.1175, (w * 0.765 / height) * width, w * 0.765)
-            ctx.rotate(Math.PI / 2);
-          }
-          if (that.orientation == 3) {
-            ctx.rotate(Math.PI);
-            ctx.drawImage(photo, 0, 0, width, height, -w * 0.88, -h * 0.78, w * 0.765, (w * 0.765 / width) * height)
-            ctx.rotate(-Math.PI);
-          }
-          if (parseInt(that.orientation) !== 3 && parseInt(that.orientation) !== 6 && parseInt(that.orientation) !== 8) {
-            ctx.drawImage(photo, 0, 0, width, height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
-          }
+          // if (that.orientation == 6) {
+          //   that.rotate = Math.PI / 2
+          //   ctx.rotate(Math.PI / 2);
+          //   ctx.drawImage(photo, 0, 0, width, height, w * 0.26, -h * 0.495, (w * 0.765 / height) * width, w * 0.765)
+          //   ctx.rotate(-Math.PI / 2);
+          // }
+          // if (that.orientation == 8) {
+          //   ctx.rotate(-Math.PI / 2);
+          //   ctx.drawImage(photo, 0, 0, width, height, -h * 1.09, w * 0.1175, (w * 0.765 / height) * width, w * 0.765)
+          //   ctx.rotate(Math.PI / 2);
+          // }
+          // if (that.orientation == 3) {
+          //   ctx.rotate(Math.PI);
+          //   ctx.drawImage(photo, 0, 0, width, height, -w * 0.88, -h * 0.78, w * 0.765, (w * 0.765 / width) * height)
+          //   ctx.rotate(-Math.PI);
+          // }
+          // if (parseInt(that.orientation) !== 3 && parseInt(that.orientation) !== 6 && parseInt(that.orientation) !== 8) {
+          //   ctx.drawImage(photo, 0, 0, width, height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
+          // }
+          ctx.drawImage(photo, 0, 0, width, height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
           ctx.drawImage(bg, 0, 0)
           ctx.font = 'bold 40px 微软雅黑'
           ctx.textAlign = 'left'
