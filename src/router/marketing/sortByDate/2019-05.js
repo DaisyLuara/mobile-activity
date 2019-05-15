@@ -88,6 +88,17 @@ const Date201905 = [
     isAbandoned: false
   },
   {
+    path: 'heartCritical',
+    location: '201905/Diamond520/heartCritical',
+    name: 'heartCritical',
+    meta: {
+      title: '爱心暴击',
+      author: 'chuxiaochen',
+      desc: '爱心暴击'
+    },
+    isAbandoned: false
+  },
+  {
     path: 'open_box',
     location: '201905/openBox',
     name: 'open_box',

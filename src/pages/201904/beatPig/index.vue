@@ -13,11 +13,13 @@
       </div>
       <a 
         class="maskBox" 
-        href="http://m.mallcoo.cn/a/home/10658">
+        href="http://m.mallcoo.cn/a/home/10658"
+      >
         <button 
           class="hyperlink" 
           hidden 
-          @click="onHyperlink"/>
+          @click="onHyperlink"
+        />
         <img
           :src="CDNURL + '/fe/wuyue-beatPig-advertisement.png'"
           class="maskImg"

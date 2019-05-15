@@ -20,9 +20,9 @@
             <img :src="item">
           </swiper-slide>
           <div
-            class="swiper-pagination swiper-pagination-white"
             slot="pagination"
-          ></div>
+            class="swiper-pagination swiper-pagination-white"
+          />
         </swiper>
       </div>
       <div class="main">
@@ -63,10 +63,10 @@
             class="note"
           >
           <input
-            type="file"
             id="choose"
-            accept="image/*"
             ref="file"
+            type="file"
+            accept="image/*"
             class="choose"
             @change="choosePhoto"
           >
@@ -92,7 +92,7 @@
               placeholder="不要超过20字"
               maxlength="20"
               class="word"
-            ></textarea>
+            />
           </div>
           <div class="voice">
             <a
@@ -174,8 +174,12 @@
       >
       <div class="btn-group">
         <ul class="ul-btn">
-          <li @click="savePhoto"><img :src="base + 'save.png'"></li>
-          <li @click="doAgain"><img :src="base + 'again.png'"></li>
+          <li @click="savePhoto">
+            <img :src="base + 'save.png'">
+          </li>
+          <li @click="doAgain">
+            <img :src="base + 'again.png'">
+          </li>
         </ul>
       </div>
       <div
@@ -193,7 +197,7 @@
         >
       </div>
     </div>
-    <canvas id="canvas"></canvas>
+    <canvas id="canvas" />
   </div>
 </template>
 <script>
@@ -218,11 +222,11 @@ import { format } from 'path';
 const wx = require('weixin-js-sdk')
 const CDNURL = process.env.CDN_URL;
 export default {
-  mixins: [onlyWechatShare],
   components: {
     swiper,
     swiperSlide
   },
+  mixins: [onlyWechatShare],
   data() {
     return {
       base: CDNURL + "/fe/image/wuyueLetter/",
