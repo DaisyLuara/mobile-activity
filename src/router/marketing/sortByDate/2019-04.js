@@ -225,6 +225,26 @@ const Date201904 = [
           author: 'ykk',
           desc: 'Pick金猪，大牌美妆免费送'
         },
+      },
+      {
+        path: 'ranking',
+        component: () => import('@/pages/201904/beatPig/ranking'),
+        name: 'beatPigRanking',
+        meta: {
+          title: 'Pick金猪赢壕礼！',
+          author: 'ykk',
+          desc: 'Pick金猪，大牌美妆免费送'
+        },
+      },
+      {
+        path: 'receive',
+        component: () => import('@/pages/201904/beatPig/receive'),
+        name: 'beatPigReceive',
+        meta: {
+          title: 'Pick金猪赢壕礼！',
+          author: 'ykk',
+          desc: 'Pick金猪，大牌美妆免费送'
+        },
       }
     ],
     isAbandoned: false
