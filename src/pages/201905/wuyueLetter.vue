@@ -92,7 +92,7 @@
               placeholder="不要超过20字"
               maxlength="20"
               class="word"
-            ></textarea>
+            />
           </div>
           <div class="voice">
             <a
