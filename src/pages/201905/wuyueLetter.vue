@@ -130,7 +130,7 @@
           class="note-post"
         >
           <img
-            :src="base + 'tip2.png'"
+            :src="base + 'tiptip.png'"
             class="up-tip"
           >
           <a
