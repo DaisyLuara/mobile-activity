@@ -107,7 +107,7 @@
               class="v-start"
               @click="stopRecord"
             >
-              <img :src="base + 'recording.gif'">
+              <img :src="base + 'record.gif'">
             </a>
             <a
               v-if="status==='play'||status==='playing'"
