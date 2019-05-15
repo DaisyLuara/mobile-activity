@@ -147,9 +147,31 @@ const Date201905 = [
     location: '201905/wuyueLetter',
     name: 'wuyue_letter',
     meta: {
-      title: '我爱你五月',
+      title: '这里有我最想对你说的话',
       author: 'lipan',
       desc: '我爱你五月-邀请函'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'wys',
+    location: '201905/wuyue2',
+    name: 'wys',
+    meta: {
+      title: '',
+      author: 'lipan',
+      desc: '吾悦-金币第二期'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'wys_share',
+    location: '201905/wuyueShare2',
+    name: 'wys_share',
+    meta: {
+      title: '',
+      author: 'lipan',
+      desc: '吾悦-金币第二期-分享'
     },
     isAbandoned: false
   }
