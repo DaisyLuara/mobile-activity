@@ -41,7 +41,7 @@
       <div class="step-edit">
         <div class="div-cover">
           <img
-            :src="base + 'cover.png'"
+            :src="base + 'cbg.png'"
             class="bg"
           >
           <img
@@ -96,19 +96,18 @@
           </div>
           <div class="voice">
             <a
-              v-if="status==='start'||status==='recording'"
+              v-if="status==='start'"
               class="v-start"
-              @touchstart="startRecord"
-              @touchend="stopRecord"
+              @click="startRecord"
             >
-              <img
-                v-if="status==='start'"
-                :src="base + 'start2.png'"
-              >
-              <img
-                v-if="status==='recording'"
-                :src="base + 'recording.gif'"
-              >
+              <img :src="base + 'v_start.png'">
+            </a>
+            <a
+              v-if="status==='recording'"
+              class="v-start"
+              @click="stopRecord"
+            >
+              <img :src="base + 'recording.gif'">
             </a>
             <a
               v-if="status==='play'||status==='playing'"
@@ -288,7 +287,7 @@ export default {
         userId: null
       },
       wxShareInfoValue: {
-        title: "我爱你五月，I love may",
+        title: "亲爱的，我想对你说……",
         desc: "我爱你五月暨武进吾悦广场七周年庆",
         link: process.env.NODE_ENV === 'production' ? ('http://papi.xingstation.com/api/s/69Q' + window.location.search) : window.location.href,
         imgUrl: CDNURL + "/fe/image/wuyueLetter/icon.png"
@@ -348,6 +347,13 @@ export default {
     //录音相关接口
     initVoice() {
       $wechat().then(res => {
+        wx.onVoicePlayEnd({
+          success: res => (this.status = 'play')
+        });
+        wx.stopRecord({
+          success: res => console.log(res),
+          fail: err => console.log(err)
+        })
       }).catch(err => {
         console.log(err)
       })
@@ -511,24 +517,30 @@ export default {
     },
     //开始录音
     startRecord(event) {
+      event.preventDefault();
       if (!this.ownList.choose) {
         Toast.info('请先选择图片！', 800)
         return
       }
       $wechat().then(res => {
+        wx.onVoiceRecordEnd({
+          // 录音时间超过一分钟没有停止的时候会执行 complete 回调
+          complete: function (res) {
+            this.params.localId = res.localId;
+          }
+        });
+        // 开始录音
         this.record.starTime = Math.round(new Date())
         let timer = setTimeout(() => {
           wx.startRecord({
             success: () => {
               this.status = 'recording'
-              wx.onVoiceRecordEnd({
-                // 录音时间超过一分钟没有停止的时候会执行 complete 回调
-                complete: function (res) {
-                  this.params.localId = res.localId;
-                }
-              });
             },
-            cancel: () => alert('开始录音失败')
+            fail: err => (this.status = 'start'),
+            cancel: () => {
+              this.status = 'start'
+              alert('开始录音失败')
+            }
           })
           clearTimeout(timer)
         }, 300)
@@ -537,7 +549,8 @@ export default {
       })
     },
     //停止录音
-    stopRecord() {
+    stopRecord(event) {
+      event.preventDefault();
       let that = this
       if (!this.ownList.choose) {
         Toast.info('请先选择图片！', 800)
@@ -556,7 +569,10 @@ export default {
             that.status = 'play'
             that.ownList.voice = true
           },
-          fail: err => console.log(err)
+          fail: err => {
+            that.status = 'start'
+            console.log(err)
+          }
         })
       }).catch(err => {
         console.log(err)
@@ -634,7 +650,7 @@ export default {
       let that = this
       let [bg, photo, bear] = [new Image(), new Image(), new Image()]
       this.arrSetAttribute('crossOrigin', 'Anonymous', bg, photo, bear)
-      bg.src = this.ownList.text ? this.base + 'cover1.png' : this.base + 'default.png'
+      bg.src = this.ownList.text ? this.base + 'bgbg1.png' : this.base + 'bgbg2.png'
       bg.onload = () => {
         let [w, h] = [bg.width, bg.height]
         canvas.width = w
@@ -645,24 +661,24 @@ export default {
           let [width, height] = [photo.width, photo.height]
           // if (that.orientation == 6) {
           //   that.rotate = Math.PI / 2
-          //   // ctx.rotate(that.rotate);
-          //   // ctx.drawImage(photo, 0, 0, photo.width, photo.height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
-          //   // ctx.rotate(-that.rotate);
+          //   ctx.rotate(Math.PI / 2);
+          //   ctx.drawImage(photo, 0, 0, width, height, w * 0.26, -h * 0.495, (w * 0.765 / height) * width, w * 0.765)
+          //   ctx.rotate(-Math.PI / 2);
           // }
           // if (that.orientation == 8) {
-          //   that.rotate = -Math.PI / 2
+          //   ctx.rotate(-Math.PI / 2);
+          //   ctx.drawImage(photo, 0, 0, width, height, -h * 1.09, w * 0.1175, (w * 0.765 / height) * width, w * 0.765)
+          //   ctx.rotate(Math.PI / 2);
           // }
           // if (that.orientation == 3) {
-          //   that.rotate = Math.PI
           //   ctx.rotate(Math.PI);
-          //   ctx.drawImage(photo, 0, 0, photo.width, photo.height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
+          //   ctx.drawImage(photo, 0, 0, width, height, -w * 0.88, -h * 0.78, w * 0.765, (w * 0.765 / width) * height)
           //   ctx.rotate(-Math.PI);
           // }
+          // if (parseInt(that.orientation) !== 3 && parseInt(that.orientation) !== 6 && parseInt(that.orientation) !== 8) {
+          //   ctx.drawImage(photo, 0, 0, width, height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
+          // }
           ctx.drawImage(photo, 0, 0, width, height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
-
-          // ctx.rotate(that.rotate);
-          // ctx.drawImage(photo, 0, 0, photo.width, photo.height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
-          // ctx.rotate(-that.rotate);
           ctx.drawImage(bg, 0, 0)
           ctx.font = 'bold 40px 微软雅黑'
           ctx.textAlign = 'left'
@@ -681,8 +697,8 @@ export default {
           bear.onload = () => {
             ctx.drawImage(bear, 0, 0, bear.width, bear.height, w * 0.3, h * 0.84, w * 0.4, (w * 0.4 / bear.width) * bear.height)
             this.ownList.photo = canvas.toDataURL('image/png')
-            var base64String = this.ownList.photo.split(",")[1];
-
+            let base64String = this.ownList.photo.split(",")[1];
+            // alert('base64:' + base64String.length);
             this.initQiniu()
             this.page2 = false
             this.page3 = true
