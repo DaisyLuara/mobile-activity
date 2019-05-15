@@ -191,7 +191,7 @@ const Date201904 = [
     location: '201904/beatPig/main',
     name: 'beatPig',
     meta: {
-      title: 'Pick金猪赢壕礼！',
+      title: 'PICK武进吾悦7周年壕礼',
       author: 'ykk',
       desc: 'Pick金猪，大牌美妆免费送'
     },
@@ -201,7 +201,7 @@ const Date201904 = [
         component: () => import('@/pages/201904/beatPig/index'),
         name: 'beatPigIndex',
         meta: {
-          title: 'Pick金猪赢壕礼！',
+          title: 'PICK武进吾悦7周年壕礼',
           author: 'ykk',
           desc: 'Pick金猪，大牌美妆免费送'
         },
@@ -211,7 +211,7 @@ const Date201904 = [
         component: () => import('@/pages/201904/beatPig/game'),
         name: 'beatPigGame',
         meta: {
-          title: 'Pick金猪赢壕礼！',
+          title: 'PICK武进吾悦7周年壕礼',
           author: 'ykk',
           desc: 'Pick金猪，大牌美妆免费送'
         },
@@ -221,7 +221,7 @@ const Date201904 = [
         component: () => import('@/pages/201904/beatPig/result'),
         name: 'beatPigResult',
         meta: {
-          title: 'Pick金猪赢壕礼！',
+          title: 'PICK武进吾悦7周年壕礼',
           author: 'ykk',
           desc: 'Pick金猪，大牌美妆免费送'
         },

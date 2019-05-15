@@ -5,6 +5,10 @@
       class="back-top"
     >
     <div class="content-wrap">
+      <img
+        :src="`${CDNURL}/dimond520/head_diamond.png`"
+        class="diamond-head"
+      >
       <div class="photo-area">
         <img :src="photo">
       </div>
@@ -70,7 +74,7 @@
         >
       </div> 
       <img
-        :src="`${CDNURL}/dimond520/activity_rule.png`"
+        :src="`${CDNURL}/dimond520/couple_rule.png`"
         class="activity-rule"
       >
       <img
@@ -91,7 +95,11 @@ import {
   getVerificationCodes,
   getInfoById,
   bindUserPhone,
-  addToBoard
+  addToBoard,
+  $wechat,
+  isInWechat,
+  getUserBoardId,
+  isiOS
 } from 'services'
 import { mapGetters, mapMutations } from "vuex"
 import { Toast } from 'mand-mobile'
@@ -115,29 +123,85 @@ export default {
       waitTime: 0,
       verifyKey: '',
       verifiedPhone: false,
-      userinfo: null
+      userinfo: null,
+      boardId: null
     }
   },
   computed: {
-    ...mapGetters(["z", "loginState"]),
+    ...mapGetters(["z", "loginState", "weixinUrl"]),
     // 提交按钮是否可点击
     submitBtnClickable() {
       return this.phone && this.code
     }
   },
-  mounted() {
+  async mounted() {
+    if (isiOS && !this.$route.query.iosRand) {
+      const iosRand = 'iosRand=' + new Date().getTime()
+      let url = location.href
+      if (url.indexOf('?') > 0) {
+        url = url + '&' + iosRand
+      } else {
+        url = url + '?' + iosRand
+      }
+      location.replace(url)
+      return
+    }
     this.userinfo = this.loginState
     if (this.userinfo.mobile) {
       this.verifiedPhone = true
     }
     if (!this.z) {
       Toast.failed('获取用户信息失败', 0, true)
+      this.handleForbiddenShare()
+    } else {
+      let params = {
+        z: this.z,
+        campaign: '520Diamonds'
+      }
+      try {
+        let res = await getUserBoardId(params)
+        if (res.code === 0) {
+          this.boardId = res.data.id
+        }
+      } catch(e) {
+        console.log(e)
+      }
+      this.handleWechatShare()
     }
   },
   methods: {
     ...mapMutations({
       setLoginState: "SET_LOGIN_STATE"
     }),
+    //禁止微信分享
+    handleForbiddenShare() {
+      if (isInWechat() === true) {
+        $wechat().then(res => {
+          res.forbidden()
+        })
+      }
+    },
+    async handleWechatShare() {
+      if (isInWechat() === true) {
+        let wxShareInfoValue = {
+          title: '钻石人气榜，等你来挑战',
+          desc: '为好友助力打call，赢取挚爱真钻',
+          link: location.origin + '/marketing/Diamond520/diamond520_vote/' + this.boardId,
+          imgUrl: 'https://cdn.xingstation.cn/dimond520/share_icon.png'
+        }
+        $wechat(this.weixinUrl)
+          .then(res => {
+            if (this.boardId === null) {
+              res.forbidden()
+            } else {
+              res.share(wxShareInfoValue)
+            }
+          })
+          .catch(e => {
+            console.warn(e)
+          })
+      }
+    },
     handleInput(event, type) {
       const number = filterNumber(event.target.value)
       this[type] = number
@@ -192,11 +256,21 @@ export default {
             query: this.$route.query
           })
         } else {
-          Toast.failed('提交失败', 3000, true)
+          Toast.failed('提交失败', 2000, true)
         }
       } catch(e) {
         console.log(e)
-        Toast.failed(e.response.data.message)
+        if (e.response) {
+          e.response.data.message && Toast.failed(e.response.data.message, 2000, true)
+          setTimeout(() => {
+            this.$router.push({
+              name: 'diamond520LotteryCouple', // 双人抽奖页
+              query: this.$route.query
+            })
+          }, 2000)
+        } else {
+          Toast.failed('未知错误，请稍后重试', 2000, true)
+        }
       }
     },
     handleNaviTop() {
@@ -217,10 +291,11 @@ export default {
       try {
         let res = await bindUserPhone(params)
         if (res.code === 0) {
-          Toast.succeed('验证成功', 0, true)
+          Toast.succeed('验证成功')
           // 更新用户手机号信息
           this.userinfo.mobile = this.phone
           this.setLoginState(this.userinfo)
+          this.verifiedPhone = true
         } else {
           Toast.failed('验证失败', 2000, true)
         }
@@ -288,10 +363,15 @@ img {
 }
 .content-wrap {
   position: relative;
-  padding-top: 0.14rem;
+  padding-top: 0.19rem;
   top: 0;
   left: 0;
   right: 0;
+  .diamond-head {
+    width: 3.24rem;
+    height: 1.57rem;
+    margin: 0 auto -0.06rem;
+  }
   .photo-area {
     width: 2.64rem;
     height: 4.35rem;
