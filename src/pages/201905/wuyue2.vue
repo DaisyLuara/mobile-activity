@@ -20,7 +20,7 @@
       </div>
       <div class="get-click">
         <img
-          :src="base + 'all.png'"
+          :src="base + 'couponbg.png'"
           class="bg"
         >
         <a
@@ -33,7 +33,7 @@
       <div class="div-picture">
         <div class="picture">
           <img
-            :src="base + 'frame.png'"
+            :src="base + '1.png'"
             class="bg"
           >
           <img
@@ -55,10 +55,6 @@
       v-if="register&&!index"
       class="register-div"
     >
-      <img
-        :src="base + 'tip.png'"
-        class="title"
-      >
       <div class="div-form">
         <div class="div-phone">
           <img
@@ -137,10 +133,6 @@
         :src="base + 'bg4.png'"
         class="bg"
       >
-      <div
-        id="anim"
-        class="anim"
-      />
     </div>
     <div
       v-show="!index"
@@ -165,14 +157,13 @@ import {
   validatePhone
 } from "services";
 import { onlyWechatShare } from "@/mixins/onlyWechatShare";
-import lottie from 'lottie-web'
 const CDNURL = process.env.CDN_URL;
 export default {
   mixins: [onlyWechatShare],
   data() {
     return {
       CDNURL: CDNURL,
-      base: CDNURL + "/fe/image/wuyueOpenBox/",
+      base: CDNURL + "/fe/image/wuyueGold/",
       style: {
         root: {
           'min-height': this.$innerHeight() + 'px'
@@ -195,7 +186,7 @@ export default {
         title: "免费领“吃喝购”优惠礼包",
         desc: "还有额外小惊喜可领，先到先得",
         link: process.env.M_URL + '/marketing/openbox_share' + window.location.search,
-        imgUrl: CDNURL + "/fe/image/wuyueOpenBox/icon.png"
+        imgUrl: CDNURL + "/fe/image/wuyueGold/icon.png"
       }
     }
   },
@@ -339,14 +330,14 @@ export default {
         });
     },
     playLoading() {
-      const el = document.getElementById('anim')
-      lottie.loadAnimation({
-        container: el,
-        renderer: 'svg',
-        loop: true,
-        autoplay: true,
-        path: this.base + 'data.json'
-      })
+      // const el = document.getElementById('anim')
+      // lottie.loadAnimation({
+      //   container: el,
+      //   renderer: 'svg',
+      //   loop: true,
+      //   autoplay: true,
+      //   path: this.base + 'data.json'
+      // })
     },
     gotoLink() {
       this.couponList = false
@@ -358,7 +349,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@img: "https://cdn.xingstation.cn/fe/image/wuyueOpenBox/";
+@img: "https://cdn.xingstation.cn/fe/image/wuyueGold/";
 html,
 body {
   width: 100%;
@@ -387,23 +378,20 @@ a {
   position: relative;
   text-align: center;
   max-width: 750px;
-  background-image: url("@{img}bg2.png");
+  background-color: #170632;
+  background-image: url("@{img}bg.png");
   background-position: center top;
   background-size: 100% auto;
-  background-repeat: repeat;
+  background-repeat: no-repeat;
   .title {
     width: 71.76%;
     position: relative;
     z-index: 0;
-    margin-top: 8%;
-    margin-bottom: 5%;
+    margin-top: 10%;
+    margin-bottom: 2%;
   }
   .index-div {
     width: 100%;
-    background-image: url("@{img}bg0.png");
-    background-position: center top;
-    background-size: 100% auto;
-    background-repeat: no-repeat;
     position: relative;
     text-align: center;
     display: flex;
@@ -411,13 +399,11 @@ a {
     justify-content: center;
     align-items: center;
     z-index: 0;
-
     .get-click {
-      width: 63.52%;
+      width: 57.41%;
       position: relative;
       z-index: 0;
-      margin-top: 12%;
-      margin-bottom: 18%;
+      margin-bottom: 9%;
       .couponBtn {
         width: 77.23%;
         position: absolute;
@@ -430,8 +416,9 @@ a {
     .div-picture {
       width: 100%;
       position: relative;
+      padding-right: 15%;
       .picture {
-        width: 58%;
+        width: 50%;
         position: relative;
         z-index: 0;
         .photo {
@@ -447,28 +434,24 @@ a {
       }
       .save {
         position: absolute;
-        top: 10%;
-        right: 13%;
+        top: 1%;
+        right: 22%;
         z-index: 99;
-        width: 6.5%;
+        width: 10.65%;
       }
     }
   }
   .register-div {
-    width: 93.42%;
+    width: 64.26%;
     position: relative;
     background-image: url("@{img}kuang.png");
     background-position: center top;
     background-size: 100% auto;
     background-repeat: no-repeat;
-    .title {
-      width: 57.88%;
-      position: relative;
-      margin-top: 15%;
-      margin-bottom: 11%;
-    }
+    padding-top: 30%;
+    padding-bottom: 15%;
     .div-form {
-      width: 65%;
+      width: 80%;
       position: relative;
       & > div {
         margin-bottom: 8%;
@@ -545,8 +528,8 @@ a {
   .logo {
     position: relative;
     width: 58%;
-    margin-top: 2%;
-    margin-bottom: 3%;
+    margin-top: 8%;
+    margin-bottom: 5%;
   }
   .logo-div {
     position: absolute;

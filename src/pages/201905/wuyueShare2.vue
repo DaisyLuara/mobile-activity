@@ -20,7 +20,7 @@
       </div>
       <div class="get-click">
         <img
-          :src="base + 'all.png'"
+          :src="base + 'couponbg.png'"
           class="bg"
         >
         <a
@@ -149,14 +149,13 @@ import {
   validatePhone
 } from "services";
 import { onlyWechatShare } from "@/mixins/onlyWechatShare";
-import lottie from 'lottie-web'
 const CDNURL = process.env.CDN_URL;
 export default {
   mixins: [onlyWechatShare],
   data() {
     return {
       CDNURL: CDNURL,
-      base: CDNURL + "/fe/image/wuyueOpenBox/",
+      base: CDNURL + "/fe/image/wuyueGold/",
       style: {
         root: {
           'min-height': this.$innerHeight() + 'px'
@@ -179,7 +178,7 @@ export default {
         title: "免费领“吃喝购”优惠礼包！！！",
         desc: "还有额外小惊喜可领，先到先得",
         link: window.location.href,
-        imgUrl: CDNURL + "/fe/image/wuyueOpenBox/icon.png"
+        imgUrl: CDNURL + "/fe/image/wuyueGold/icon.png"
       }
     }
   },
@@ -323,14 +322,14 @@ export default {
         });
     },
     playLoading() {
-      const el = document.getElementById('anim')
-      lottie.loadAnimation({
-        container: el,
-        renderer: 'svg',
-        loop: true,
-        autoplay: true,
-        path: this.base + 'data.json'
-      })
+      // const el = document.getElementById('anim')
+      // lottie.loadAnimation({
+      //   container: el,
+      //   renderer: 'svg',
+      //   loop: true,
+      //   autoplay: true,
+      //   path: this.base + 'data.json'
+      // })
     },
     gotoLink() {
       this.couponList = false
@@ -342,7 +341,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@img: "https://cdn.xingstation.cn/fe/image/wuyueOpenBox/";
+@img: "https://cdn.xingstation.cn/fe/image/wuyueGold/";
 html,
 body {
   width: 100%;
@@ -371,7 +370,8 @@ a {
   position: relative;
   text-align: center;
   max-width: 750px;
-  background-image: url("@{img}bg2.png");
+  background-color: #170632;
+  background-image: url("@{img}bg.png");
   background-position: center top;
   background-size: 100% auto;
   background-repeat: repeat;
@@ -395,7 +395,6 @@ a {
     // justify-content: center;
     align-items: center;
     z-index: 0;
-
     .get-click {
       width: 63.52%;
       position: relative;
