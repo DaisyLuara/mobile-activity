@@ -56,6 +56,7 @@ import {
 	Cookies, 
 	$wechat,
 	isInWechat, 
+	getWxUserInfo,
 	userGameRank,
 	getMallcooUserCoupon,
 	checkMallMember,
