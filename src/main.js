@@ -6,7 +6,6 @@ import App from './App'
 import router from './router'
 import store from '@/store/index'
 import 'services/utils/helper'
-
 Vue.prototype.$http = axios
 Vue.config.productionTip = false
 // axios.defaults.withCredentials = true ;

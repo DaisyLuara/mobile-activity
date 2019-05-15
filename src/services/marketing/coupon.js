@@ -524,6 +524,39 @@ const receiveMallcooCoupon = params => {
       })
   })
 }
+
+// 猫酷-查询优惠券
+const getMallcooUserCoupon = params => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(MALLCOO_URL + '/user/coupon', { params }, {
+        headers: { 'api-token': apiToken }
+      })
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+
+// 猫酷-领取优惠券
+const mallcooCoupons = params => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(MALLCOO_URL + '/coupons', params, {
+        headers: { 'api-token': apiToken }
+      })
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+
 export {
   createCoupon,
   getCoupon,
@@ -555,5 +588,7 @@ export {
   sendMessageCode,
   openMallcooMemberByPhone,
   getMallcooCouponInfo,
-  receiveMallcooCoupon
+  receiveMallcooCoupon,
+  getMallcooUserCoupon,
+  mallcooCoupons
 }
