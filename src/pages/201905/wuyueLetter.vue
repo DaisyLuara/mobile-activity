@@ -107,7 +107,7 @@
               class="v-start"
               @click="stopRecord"
             >
-              <img :src="base + 'recording.gif'">
+              <img :src="base + 'record.gif'">
             </a>
             <a
               v-if="status==='play'||status==='playing'"
@@ -130,7 +130,7 @@
           class="note-post"
         >
           <img
-            :src="base + 'tip2.png'"
+            :src="base + 'tiptip.png'"
             class="up-tip"
           >
           <a
