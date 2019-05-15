@@ -88,7 +88,7 @@ const Date201905 = [
     isAbandoned: false
   },
   {
-    path: 'heartCritical',
+    path: 'Diamond520/heartCritical',
     location: '201905/Diamond520/heartCritical',
     name: 'heartCritical',
     meta: {
