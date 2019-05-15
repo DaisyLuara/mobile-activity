@@ -392,7 +392,6 @@ a {
     text-align: center;
     display: flex;
     flex-direction: column;
-    // justify-content: center;
     align-items: center;
     z-index: 0;
     .get-click {
@@ -418,12 +417,6 @@ a {
     background-position: center top;
     background-size: 100% auto;
     background-repeat: no-repeat;
-    .title {
-      width: 57.88%;
-      position: relative;
-      margin-top: 15%;
-      margin-bottom: 11%;
-    }
     .div-form {
       width: 65%;
       position: relative;
