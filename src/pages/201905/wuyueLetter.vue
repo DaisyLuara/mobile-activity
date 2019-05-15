@@ -287,7 +287,7 @@ export default {
         userId: null
       },
       wxShareInfoValue: {
-        title: "这里有我最想对你说的话",
+        title: "亲爱的，我想对你说……",
         desc: "我爱你五月暨武进吾悦广场七周年庆",
         link: process.env.NODE_ENV === 'production' ? ('http://papi.xingstation.com/api/s/69Q' + window.location.search) : window.location.href,
         imgUrl: CDNURL + "/fe/image/wuyueLetter/icon.png"
