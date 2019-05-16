@@ -43,7 +43,8 @@
           >
           <div 
             v-if="vcodeText" 
-            class="getVcode">
+            class="getVcode"
+          >
             <img 
               :src="CDNURL+'/fe/wuyue-beatPig-countDownBg.png'"
               class="getVcode"
