@@ -261,8 +261,6 @@ export default {
       ],
       mergebg: null,
       orientation: null,
-      xw: 1,
-      xh: 1,
       rotate: 0,
       ownList: {
         choose: null,
@@ -464,6 +462,7 @@ export default {
       this.again = true
       this.page3 = false
       this.page2 = true
+      // this.page1 = true
       this.tip = true
       this.status = 'start'
       for (let item in this.ownList)
