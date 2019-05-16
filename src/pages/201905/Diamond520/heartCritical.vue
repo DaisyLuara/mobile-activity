@@ -167,13 +167,13 @@ export default {
         }
         Toast.hide()
       } catch(e) {
+        this.clickable = false
         console.log(e)
         if (e.response) {
           e.response.data.message && Toast.failed(e.response.data.message, 0, true)
         } else {
           Toast.failed('未知错误', 0, true)
         }
-        this.clickable = true
       }
     },
     async handleLottery() {
@@ -223,7 +223,6 @@ export default {
         } else {
           Toast.failed('未知错误', 2000, true)
         }
-        this.clickable = true
       }
     }
   }
