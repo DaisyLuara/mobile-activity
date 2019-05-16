@@ -1,24 +1,20 @@
 <template>
   <div class="wrap">
-    <img
-      :src="`${CDNURL}/dimond520/photo_back_top.png`"
-      class="back-top"
-    >
     <div class="content-wrap">
       <div class="lottery-area">
         <img
-          :src="`${CDNURL}/dimond520/lottery-roller.png`"
+          :src="`${CDNURL}/jtree/lottery-roller.png`"
           :style="rotateStyle"
           :class="['lottery-roller', { noAnime: noAnime }]"
         >
         <img
-          :src="`${CDNURL}/dimond520/lottery_border.png`"
+          :src="`${CDNURL}/jtree/lottery_border.png`"
           class="lottery-border"
         >
         <div class="lottery-button">
           <img
             v-show="clickable"
-            :src="`${CDNURL}/dimond520/lottery_button.png`"
+            :src="`${CDNURL}/jtree/lottery_button.png`"
             @click="clickable && handleLottery()"
           >
           <img
@@ -27,23 +23,10 @@
           >
         </div>
       </div>
-      <DiamondCoupon
+      <TreeCoupon
         :coupon="coupon"
         :status="status"
       />
-      <img
-        v-if="showJumpBtn"
-        :src="`${CDNURL}/dimond520/jump_btn.png`"
-        class="jump-button"
-        @click="handleJump"
-      >
-      <img
-        :src="`${CDNURL}/dimond520/activity_sponsor.png`"
-        class="activity-sponsor"
-      >
-      <p class="activity-company">
-        本活动最终解释权归星视度所有
-      </p>
     </div>
   </div>
 </template>
@@ -61,14 +44,14 @@ import {
 } from 'services'
 import { mapGetters } from "vuex"
 import { Toast } from 'mand-mobile'
-import DiamondCoupon from "@/modules/diamondCoupon"
+import TreeCoupon from "@/modules/TreeCoupon"
 import "../../assets/less/reset-mand.less"
 const CDNURL = process.env.CDN_URL
 
 export default {
   name: "DiamondLottery",
   components: {
-    DiamondCoupon
+    TreeCoupon
   },
   mixins: [reCalculateRem],
   data () {
@@ -85,15 +68,11 @@ export default {
       coupon: null,
       status: 'beforeRolling',
       noAnime: false,
-      awardList: ['猫王·原子唱机B612', '滴滴出行优惠券', '兜约春季新品尝鲜', '兜约消费满100元立减50元', '5元换购爆米花(巨影)', '谢谢参与', '金石盟定制情侣对戒'],
-      jumpMarketList: ['14', '220', '8']
+      awardList: ['戴森吹风机', '抵用券', '现金券', '欢唱券', '咖啡券', '现金券', '点阵告白']
     }
   },
   computed: {
     ...mapGetters(["z", "weixinUrl"]),
-    showJumpBtn() {
-      return this.marketid && (this.jumpMarketList.indexOf(this.marketid) !== -1)
-    },
     rotateStyle() {
       return {
         transform: `rotate(${this.rotateDeg}deg)`
@@ -130,7 +109,7 @@ export default {
       let { id } = this.$route.query
       if (id) {
         try {
-          Toast.log('页面加载中')
+          Toast.loading('页面加载中')
           let { belong, oid } = await getInfoById(id)
           this.belong = belong
           this.oid = Number(oid)
@@ -143,25 +122,41 @@ export default {
         this.belong = this.defaultBelong
         this.oid = this.defaultOid
       }
+      this.queryCoupon()
+    },
+    async queryCoupon() {
       let params = {
-            sign: this.sign,
-            oid: this.oid,
-            belong: this.belong
-          }
-        // // debug
-        // let params = {
-        //   z: this.z,
-        //   qiniu_id: this.qiniuId,
-        //   oid: 683,
-        //   belong: 'Love520Market'
-        // }
-        // 查询用户是否有券，若有则直接显示
+        sign: this.sign,
+        oid: this.oid,
+        belong: this.belong
+      }
+      // debug
+      if (process.env.NODE_ENV === 'development') {
+        params = {
+          z: '0gq9f26c63856b760a0507f5e8c5ac35516j7h',
+          qiniu_id: 10929235,
+          oid: 564,
+          belong: 'leFitMotion'
+        }
+      }
+      // 查询用户是否有券，若有则直接显示
+      try {
         let res = await queryUserCoupon(params)
         if (res.code === 0) {
           this.clickable = false
           this.coupon = res.data
           this.status = 'showCoupon'
         }
+        Toast.hide()
+      } catch(e) {
+        console.log(e)
+        if (e.response) {
+          e.response.data.message && Toast.failed(e.response.data.message, 0, true)
+        } else {
+          Toast.failed('未知错误', 0, true)
+        }
+        this.status = 'beforeRolling'
+      }
     },
     // 抽奖
     async handleLottery() {
@@ -170,22 +165,22 @@ export default {
       this.rotateDeg = 0
       Toast.loading('请求中')
       let params = {
-        z: this.z,
-        qiniu_id: this.qiniuId,
+        sign: this.sign,
         belong: this.belong,
         oid: this.oid
       }
-      // // debug
-      // let params = {
-      //   z: this.z,
-      //   qiniu_id: this.qiniuId,
-      //   belong: 'Love520Market',
-      //   oid: 683
-      // }
+      // debug
+      if (process.env.NODE_ENV === 'development') {
+        params = {
+          z: '0gq9f26c63856b760a0507f5e8c5ac35516j7h',
+          qiniu_id: 10929235,
+          oid: 564,
+          belong: 'leFitMotion'
+        }
+      }
       try {
         let res = await h5Batches(params)
         if (res.code === 0) {
-          console.log(res)
           let res = await bindUserCoupon(params)
           if (res.code === 0) {
             this.coupon = res.data
@@ -198,7 +193,6 @@ export default {
           } else {
             Toast.failed('抽奖失败', 2000, true)
             this.status = 'beforeRolling'
-            this.clickable = true
           }
           // // debug
           // this.coupon = res.data
@@ -214,13 +208,11 @@ export default {
         } else {
           Toast.failed('抽奖失败', 2000, true)
           this.status = 'beforeRolling'
-          this.clickable = true
         }
       } catch(e) {
         console.log(e)
         Toast.failed('抽奖失败', 2000, true)
         this.status = 'beforeRolling'
-        this.clickable = true
       }
     },
     // 转盘动画
@@ -244,31 +236,6 @@ export default {
         }
       })
       return awardIndex
-    },
-    //禁止微信分享
-    handleForbiddenShare() {
-      if (isInWechat() === true) {
-        $wechat(this.weixinUrl).then(res => {
-          res.forbidden()
-        })
-      }
-    },
-    handleJump() {
-      let jumpUrl = ''
-      switch(this.marketid) {
-        case '14':
-          jumpUrl = 'https://mall.capitaland.com.cn/integral_mall/integral_index?mall_id=68'
-          break
-        case '220':
-          jumpUrl = 'https://mall.capitaland.com.cn/LUONE/lottery/egg?id=FF85CA42773DFE92'
-          break
-        case '8':
-          jumpUrl = 'https://mall.capitaland.com.cn/hongkoulongzhimeng/lottery/shake_new?id=A181FB8888BD1D9D'
-          break
-      }
-      if (jumpUrl) {
-        location.href = jumpUrl
-      }
     }
   }
 }
@@ -281,7 +248,7 @@ export default {
   width: 100%;
   min-height: 100vh;
   position: relative;
-  background-image: url("@{cdnUrl}/dimond520/photo_back.png");
+  background-image: url("@{cdnUrl}/jtree/background.png");
   background-size: 100% auto;
   background-repeat: repeat;
 }
@@ -291,12 +258,6 @@ img {
 p {
   margin: 0
 }
-.back-top {
-  position: absolute;
-  width: 100%;
-  top: 0;
-  left: 0;
-}
 .content-wrap {
   position: relative;
   padding-top: 0.06rem;
@@ -305,28 +266,26 @@ p {
   right: 0;
   .lottery-area {
     position: relative;
-    width: 3.36rem;
-    height: 3.51rem;
+    width: 3.16rem;
+    height: 3.16rem;
     margin: 0 auto;
-    background-image: url("@{cdnUrl}/dimond520/lottery_back.png");
+    background-image: url("@{cdnUrl}/jtree/lottery_back.png");
     background-size: 100% auto;
     background-repeat: repeat;
     .lottery-border {
       position: absolute;
-      width: 2.57rem;
-      height: 2.57rem;
-      top: 50%;
+      width: 2.48rem;
+      height: 2.48rem;
+      top: 0.31rem;
       left: 50%;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%);
     }
     .lottery-roller {
       position: absolute;
-      width: 2.27rem;
-      height: 2.26rem;
-      top: 50%;
-      left: 50%;
-      margin-top: -1.135rem;
-      margin-left: -1.13rem;
+      width: 2.19rem;
+      height: 2.14rem;
+      top: 0.49rem;
+      left: 0.48rem;
       transition: transform ease-in-out 3s;
       &.noAnime {
         transition: none;
@@ -336,9 +295,9 @@ p {
       position: absolute;
       width: 0.56rem;
       height: 0.56rem;
-      top: 50%;
+      top: 1.28rem;
       left: 50%;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%);
       img {
         width: 100%;
         height: 100%;
