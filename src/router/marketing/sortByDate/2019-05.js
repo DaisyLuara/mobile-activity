@@ -163,6 +163,16 @@ const Date201905 = [
       desc: '吾悦-金币第二期-分享'
     },
     isAbandoned: false
+  },
+  {
+    path: 'jtree_lottery',
+    location: '201905/jtreeLottery',
+    name: 'jt_tree',
+    meta: {
+      title: '勇敢告白 大声说爱',
+      author: 'chuxiaochen',
+      desc: '近铁广场许愿树-抽奖'
+    }
   }
 ]
 export default Date201905
