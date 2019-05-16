@@ -25,8 +25,12 @@
         >
       </div>
       <div class="rankingInfo">
-        <div class="score">游戏总分: {{ totalScore }}</div>
-        <div class="score ranking">游戏排名: {{ rank }}</div>
+        <div class="score">
+          游戏总分: {{ totalScore }}
+        </div>
+        <div class="score ranking">
+          游戏排名: {{ rank }}
+        </div>
       </div>
       <div v-if="showBtn">
         <img 

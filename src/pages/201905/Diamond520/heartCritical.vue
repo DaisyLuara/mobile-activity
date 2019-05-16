@@ -28,6 +28,11 @@
         <div class="coupon-code">
           {{ coupon.code }}
         </div>
+        <img
+          v-if="coupon.status === 1"
+          :src="`${CDNURL}/coupon_used.png`"
+          class="coupon-used"
+        >
       </div>
       <div class="lottery-btn-wrap">
         <img
@@ -67,6 +72,7 @@ import {
   getInfoById,
   h5Batches,
   bindUserCoupon,
+  queryUserCoupon,
   $wechat,
   isInWechat
 } from 'services'
@@ -111,8 +117,9 @@ export default {
     },
     async initState() {
       Toast.loading('页面加载中')
-      this.qiniuId = Number(this.$route.query.id)
-      let { id, code, state } = this.$route.query
+      let { id, code, state, ser } = this.$route.query
+      this.ser = Number(ser)
+      this.qiniuId = Number(id)
       try {
         let { userinfo, belong, oid } = await getInfoById(id, code, state)
         this.belong = belong
@@ -125,11 +132,48 @@ export default {
         if (!userinfo.z) {
           Toast.failed('获取用户信息失败', 0, true)
         } else {
-          Toast.hide()
+          this.queryCoupon()
         }
       } catch(e) {
         console.log(e)
         Toast.failed('出错了', 0, true)
+      }
+    },
+    // 查询用户是否有券，若有则直接显示
+     async queryCoupon() {
+      let params = {
+        z: this.z,
+        qiniu_id: this.qiniuId,
+        belong: this.belong,
+        oid: this.oid,
+        'ser_timestamp': this.ser
+      }
+      // debug
+      if (process.env.NODE_ENV === 'development') {
+        params = {
+          z: '0gq9f26c63856b760a0507f5e8c5ac35516j7h',
+          qiniu_id: 10929235,
+          belong: 'leFitMotion',
+          oid: 564,
+          'ser_timestamp': this.ser
+        }
+      }
+      try {
+        let res = await queryUserCoupon(params)
+        if (res.code === 0) {
+          this.clickable = false
+          this.coupon = res.data
+          this.showCoupon = true
+        }
+        Toast.hide()
+      } catch(e) {
+        console.log(e)
+        if (e.response) {
+          e.response.data.message && Toast.failed(e.response.data.message, 0, true)
+        } else {
+          Toast.failed('未知错误', 0, true)
+        }
+        this.clickable = true
       }
     },
     async handleLottery() {
@@ -140,7 +184,8 @@ export default {
         z: this.z,
         qiniu_id: this.qiniuId,
         belong: this.belong,
-        oid: this.oid
+        oid: this.oid,
+        'ser_timestamp': this.ser
       }
       // debug
       if (process.env.NODE_ENV === 'development') {
@@ -148,7 +193,8 @@ export default {
           z: '0gq9f26c63856b760a0507f5e8c5ac35516j7h',
           qiniu_id: 10929235,
           belong: 'leFitMotion',
-          oid: 564
+          oid: 564,
+          'ser_timestamp': this.ser
         }
       }
       try {
@@ -161,19 +207,14 @@ export default {
             this.showCoupon = true
             Dialog.alert({
               title: '抽奖成功',
-              content: '请截图保存抽奖结果',
+              content: '请至服务台领取',
               confirmText: '确定'
             })
-            setTimeout(() => {
-              this.clickable = true
-            }, 2000);
           } else {
             Toast.failed('抽奖失败', 2000, true)
-            this.clickable = true
           }
         } else {
           Toast.failed('抽奖失败', 2000, true)
-          this.clickable = true
         }
       } catch(e) {
         console.log(e)
@@ -255,6 +296,13 @@ img {
         left: 2.5rem;
         font-size:0.1rem;
         color: #FFF;
+      }
+      .coupon-used {
+        position: absolute;
+        width: 0.94rem;
+        height: 0.63rem;
+        top: 0.2rem;
+        right: 0.38rem;
       }
     }
     .lottery-btn-wrap {
