@@ -90,7 +90,7 @@
               class="getvalid"
               @click="onGetVcode"
             >
-              <img :src="base + 'getvalid.png'">
+              <img :src="base + 'getvalid2.png'">
             </a>
           </div>
           <div
@@ -124,11 +124,19 @@
         :src="base + '3.png'"
         class="list"
       >
+      <img
+        :src="base + 'tip.png'"
+        class="tip"
+      >
     </div>
     <div
       v-show="loading"
       class="loading"
     >
+      <img
+        :src="base + '0.png'"
+        class="circle"
+      >
       <img
         :src="base + 'bg4.png'"
         class="bg"
@@ -173,7 +181,7 @@ export default {
       qiniu_id: this.$route.query.id,
       photo: null,
       index: true,//true
-      couponList: false,
+      couponList: false,//false
       register: true,//true
       disabled: false,//false
       loading: false,//false
@@ -185,7 +193,7 @@ export default {
       wxShareInfoValue: {
         title: "免费领“吃喝购”优惠礼包",
         desc: "还有额外小惊喜可领，先到先得",
-        link: process.env.M_URL + '/marketing/openbox_share' + window.location.search,
+        link: process.env.M_URL + '/marketing/wys_share' + window.location.search,
         imgUrl: CDNURL + "/fe/image/wuyueGold/icon.png"
       }
     }
@@ -288,7 +296,11 @@ export default {
       }, 1000);
     },
     onGetVcode() {
-      if (!this.phone || !validatePhone(this.phone)) {
+      if (!this.phone) {
+        alert("请输入手机号码");
+        return;
+      }
+      if (!validatePhone(this.phone)) {
         alert("手机格式不正确，请重新输入");
         return;
       }
@@ -306,7 +318,11 @@ export default {
         });
     },
     doRegister() {
-      if (!this.phone || !validatePhone(this.phone)) {
+      if (!this.phone) {
+        alert("请输入手机号码");
+        return;
+      }
+      if (!validatePhone(this.phone)) {
         alert("手机格式不正确，请重新输入");
         return;
       }
@@ -329,20 +345,9 @@ export default {
           alert(err.response.data.message);
         });
     },
-    playLoading() {
-      // const el = document.getElementById('anim')
-      // lottie.loadAnimation({
-      //   container: el,
-      //   renderer: 'svg',
-      //   loop: true,
-      //   autoplay: true,
-      //   path: this.base + 'data.json'
-      // })
-    },
     gotoLink() {
       this.couponList = false
       this.loading = true
-      this.playLoading()
       window.location.href = 'https://m.mallcoo.cn/a/coupon/10658'
     }
   }
@@ -508,21 +513,27 @@ a {
     width: 100%;
     margin-bottom: 25%;
     .list {
-      width: 91.76%;
+      width: 88.7%;
       position: relative;
       margin-top: 3%;
+    }
+    .tip {
+      width: 57%;
+      position: relative;
+      margin-top: 15%;
     }
   }
   .loading {
     width: 64.3%;
     position: relative;
-    .anim {
-      width: 40%;
+    margin-top: 15%;
+    .circle {
       position: absolute;
+      width: 36.6%;
       top: 12%;
       left: 50%;
       z-index: 99;
-      transform: translateX(-50%);
+      animation: circle 1s linear infinite;
     }
   }
   .logo {
@@ -537,6 +548,14 @@ a {
     left: 50%;
     bottom: 3%;
     transform: translateX(-50%);
+  }
+}
+@keyframes circle {
+  0% {
+    transform: translateX(-50%) rotate(0deg);
+  }
+  100% {
+    transform: translateX(-50%) rotate(360deg);
   }
 }
 </style>
