@@ -186,6 +186,16 @@ const Date201905 = [
     }
   },
   {
+    path: 'jt_lottery_rain',
+    location: '201905/jintieCityGround/jtLottery_rain',
+    name: 'jt_lottery_rain',
+    meta: {
+      title: '勇敢告白 大声说爱',
+      author: 'chuxiaochen',
+      desc: '近铁广场许愿树-抽奖-红包雨'
+    }
+  },
+  {
     path: 'jintie_photo',
     location: '201905/jintieCityGround/photo',
     name: 'jintie_photo',
