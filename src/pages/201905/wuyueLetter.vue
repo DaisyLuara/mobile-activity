@@ -473,6 +473,7 @@ export default {
     doAgain() {
       this.again = true
       this.page3 = false
+      this.page2 = false
       this.page1 = true
       this.tip = true
       this.status = 'start'
@@ -675,7 +676,6 @@ export default {
         ctx.fillRect(0, 0, w, h)
         photo.onload = () => {
           let [width, height, x, y, pw, ph] = [photo.width, photo.height, 0, 0, 0, 0]
-
           pw = w * 0.765
           ph = (pw / width) * height
           if (height / width < 1) {
@@ -687,18 +687,18 @@ export default {
           let [tranx, trany] = [x + width / 2, y + height / 2];
           [x, y] = [-width / 2, -height / 2]
           ctx.translate(tranx, trany)
-          if (that.orientation == 6) {
-            that.rotate = Math.PI / 2;
-            [x, y] = [x - w * 1.1, y + h * 0.19];
-          }
-          if (that.orientation == 3) {
-            that.rotate = Math.PI;
-            [x, y] = [w * 0.4, h * 0.2];
-          }
-          if (that.orientation == 8) {
-            that.rotate = -Math.PI / 2;
-            [x, y] = [x + w * 0.15, y - h * 0.8];
-          }
+          // if (that.orientation == 6) {
+          //   that.rotate = Math.PI / 2;
+          //   [x, y] = [x - w * 1.1, y + h * 0.19];
+          // }
+          // if (that.orientation == 3) {
+          //   that.rotate = Math.PI;
+          //   [x, y] = [w * 0.4, h * 0.2];
+          // }
+          // if (that.orientation == 8) {
+          //   that.rotate = -Math.PI / 2;
+          //   [x, y] = [x + w * 0.15, y - h * 0.8];
+          // }
           ctx.rotate(that.rotate);
           ctx.drawImage(photo, 0, 0, width, height, x, y, pw, ph)
           ctx.rotate(-that.rotate);
