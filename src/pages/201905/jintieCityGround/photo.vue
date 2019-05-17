@@ -205,7 +205,8 @@ import {
   Cookies,
   $wechat,
   isInWechat,
-	qiniuToken,
+  qiniuToken,
+  getInfoById,
 	uploadImgToQiniu,
   postActivityMedia,
   filterNumber,
@@ -228,8 +229,8 @@ export default {
     return {
 			CDNURL: CDNURL,
 			type: 'verified',
-			showModal: false,
-			modalType: '',
+			showModal: true,
+			modalType: 'help',
 			showPlaceholder: true,
 			imageUrl: '',
       mediaId: '',
@@ -289,6 +290,7 @@ export default {
       }
     },
     async initState() {
+      console.log('init state')
       let { id } = this.$route.query
       if (id) {
         Toast.loading('提取照片中')
