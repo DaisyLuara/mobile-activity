@@ -173,6 +173,17 @@ const Date201905 = [
       author: 'chuxiaochen',
       desc: '近铁广场许愿树-抽奖'
     }
+  },
+  {
+    path: 'jintie_photo',
+    location: '201905/jintieCityGround/photo',
+    name: 'jintie_photo',
+    meta: {
+      title: '勇敢告白 大声说爱',
+      author: 'ykk',
+      desc: ''
+    },
+    isAbandoned: false
   }
 ]
 export default Date201905

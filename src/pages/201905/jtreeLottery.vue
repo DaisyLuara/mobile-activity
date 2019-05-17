@@ -58,6 +58,7 @@ export default {
     return {
       CDNURL: CDNURL,
       sign: '',
+      ser: null,
       belong: null,
       qiniuId: null,
       oid: null,
@@ -106,7 +107,8 @@ export default {
     },
     // 获取抽奖所需的信息
     async initState() {
-      let { id } = this.$route.query
+      let { id, ser } = this.$route.query
+      this.ser = Number(ser)
       if (id) {
         try {
           Toast.loading('页面加载中')
@@ -136,7 +138,8 @@ export default {
           z: '0gq9f26c63856b760a0507f5e8c5ac35516j7h',
           qiniu_id: 10929235,
           oid: 564,
-          belong: 'leFitMotion'
+          belong: 'leFitMotion',
+          ser_timestamp: this.ser
         }
       }
       // 查询用户是否有券，若有则直接显示
@@ -175,7 +178,8 @@ export default {
           z: '0gq9f26c63856b760a0507f5e8c5ac35516j7h',
           qiniu_id: 10929235,
           oid: 564,
-          belong: 'leFitMotion'
+          belong: 'leFitMotion',
+          ser_timestamp: this.ser
         }
       }
       try {

@@ -6,6 +6,13 @@ const UPLOAD_CALLBACK_URL = process.env.DIAMOND_API + '/activity_media'
 const MOCK_API = 'http://0.0.0.0:7300/mock/5cc58e9caaa16bb98099478d/diamond520'
 const PUSH_API = 'http://dev.xingstation.net/api/push/520/add'
 
+const HEADERS = {
+  'V1': {},
+  'V2': {
+    Accept: 'application/vdn.xingstation.v2+json'
+  }
+}
+
 // 建立请求拦截器
 const fetchWithToken = axios.create({
   baseURL: process.env.DIAMOND_API
@@ -186,43 +193,48 @@ const bindUserCoupon = (args) => {
 }
 
 // 获取照片投票榜单
-const getPhotoBoard = (args) => {
+const getPhotoBoard = (args, header = 'V1') => {
   return diamondTopReq({
     url: '/boards',
+    headers: HEADERS[header],
     params: args
   })
 }
 
 // 获取榜单照片详情
-const getVoteDetail = (id) => {
+const getVoteDetail = (id, header = 'V1') => {
   return diamondTopReq({
-    url: `/boards/${id}`
+    url: `/boards/${id}`,
+    headers: HEADERS[header]
   })
 }
 
 // 上榜
-const addToBoard = (args) => {
+const addToBoard = (args, header = 'V1') => {
   return diamondTopReq({
     url: '/board',
     method: 'post',
+    headers: HEADERS[header],
     data: args
   })
 }
 
 // 投票
-const vote = (args) => {
+const vote = (args, header = 'V1') => {
   return diamondTopReq({
     url: '/vote',
     method: 'post',
+    headers: HEADERS[header],
     data: args
   })
 }
 
-// 获取个人榜单id
-const getUserBoardId = (args) => {
+// 获取个人榜单（详情）id
+const getUserBoardId = (args, header = 'V1') => {
   return diamondTopReq({
     url: '/user/board',
     method: 'post',
+    headers: HEADERS[header],
     data: args
   })
 }

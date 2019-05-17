@@ -20,28 +20,34 @@
       v-if="status === 'showCoupon' && coupon"
       class="coupon-wrap"
     >
-      <div class="coupon-container">
-        <div
-          class="coupon-ticket"
-          @click="handleCouponClick"
-        >
-          <img
-            v-if="coupon.qrcode_url"
-            :src="coupon.qrcode_url"
-            class="coupon-qr"
-          >
-          <div
-            class="coupon-code"
-          >
-            {{ coupon.code }}
-          </div>
-        </div>
+      <img
+        :src="`${CDNURL}/jtree/coupon_back.png`"
+        class="coupon-back"
+      >
+      <div
+        class="coupon-ticket"
+        @click="handleCouponClick"
+      >
         <img
-          v-if="coupon.status === 1"
-          :src="`${CDNURL}/dimond520/coupon_used.png`"
-          class="coupon-used"
+          :src="coupon.couponBatch.image_url"
+          class="ticket-back"
         >
+        <img
+          v-if="coupon.qrcode_url"
+          :src="coupon.qrcode_url"
+          class="coupon-qr"
+        >
+        <div
+          class="coupon-code"
+        >
+          {{ coupon.code }}
+        </div>
       </div>
+      <img
+        v-if="coupon.status === 1"
+        :src="`${CDNURL}/dimond520/coupon_used.png`"
+        class="coupon-used"
+      >
     </div>
   </div>
 </template>
@@ -81,7 +87,7 @@ img {
 }
 
 .coupon-display {
-  width: 3.17rem;
+  width: 3.05rem;
   margin: 0 auto 0.24rem;
   min-height: 1.25rem;
   .roll-tip {
@@ -101,16 +107,29 @@ img {
   position: relative;
 }
 
+.coupon-back {
+  width: 100%;
+  height: auto;
+}
+
 .coupon-container {
-  position: relative;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: auto;
 }
 
 .coupon-ticket {
   position: absolute;
-  width: 2.67rem;
-  height: 1.34rem;
-  top: 0.24rem;
+  width: 2.54rem;
+  height: 1.26rem;
+  top: 0.23rem;
   left: 0.25rem;
+}
+
+.ticket-back {
+  width: 100%;
+  height: auto;
 }
 
 .coupon-qr {
@@ -119,6 +138,17 @@ img {
   height: 0.74rem;
   top: 0.1rem;
   right: 0.2rem;
+}
+
+.coupon-code {
+  position: absolute;
+  top: 0.88rem;
+  left: 1.68rem;
+  width: 0.725rem;
+  line-height: 0.19rem;
+  color: #FFF;
+  text-align: center;
+  font-size: 0.12rem;
 }
 
 .coupon-used {

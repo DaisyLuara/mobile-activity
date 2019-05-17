@@ -39,10 +39,6 @@
       v-if="register&&!index"
       class="register-div"
     >
-      <img
-        :src="base + 'tip.png'"
-        class="title"
-      >
       <div class="div-form">
         <div class="div-phone">
           <img
@@ -78,7 +74,7 @@
               class="getvalid"
               @click="onGetVcode"
             >
-              <img :src="base + 'getvalid.png'">
+              <img :src="base + 'getvalid2.png'">
             </a>
           </div>
           <div
@@ -109,8 +105,12 @@
       @click="gotoLink"
     >
       <img
-        :src="base + '3.png'"
+        :src="base + 'list.png'"
         class="list"
+      >
+      <img
+        :src="base + 'tip.png'"
+        class="tip"
       >
     </div>
     <div
@@ -118,13 +118,13 @@
       class="loading"
     >
       <img
+        :src="base + '0.png'"
+        class="circle"
+      >
+      <img
         :src="base + 'bg4.png'"
         class="bg"
       >
-      <div
-        id="anim"
-        class="anim"
-      />
     </div>
     <div
       v-show="!index"
@@ -165,7 +165,7 @@ export default {
       qiniu_id: this.$route.query.id,
       photo: null,
       index: true,//true
-      couponList: false,
+      couponList: false,//false
       register: true,//true
       disabled: false,//false
       loading: false,//false
@@ -280,7 +280,11 @@ export default {
       }, 1000);
     },
     onGetVcode() {
-      if (!this.phone || !validatePhone(this.phone)) {
+      if (!this.phone) {
+        alert("请输入手机号码");
+        return;
+      }
+      if (!validatePhone(this.phone)) {
         alert("手机格式不正确，请重新输入");
         return;
       }
@@ -298,7 +302,11 @@ export default {
         });
     },
     doRegister() {
-      if (!this.phone || !validatePhone(this.phone)) {
+      if (!this.phone) {
+        alert("请输入手机号码");
+        return;
+      }
+      if (!validatePhone(this.phone)) {
         alert("手机格式不正确，请重新输入");
         return;
       }
@@ -321,20 +329,9 @@ export default {
           alert(err.response.data.message);
         });
     },
-    playLoading() {
-      // const el = document.getElementById('anim')
-      // lottie.loadAnimation({
-      //   container: el,
-      //   renderer: 'svg',
-      //   loop: true,
-      //   autoplay: true,
-      //   path: this.base + 'data.json'
-      // })
-    },
     gotoLink() {
       this.couponList = false
       this.loading = true
-      this.playLoading()
       window.location.href = 'https://m.mallcoo.cn/a/coupon/10658'
     }
   }
@@ -395,11 +392,10 @@ a {
     align-items: center;
     z-index: 0;
     .get-click {
-      width: 63.52%;
+      width: 57.41%;
       position: relative;
       z-index: 0;
-      margin-top: 12%;
-      margin-bottom: 18%;
+      margin-bottom: 9%;
       .couponBtn {
         width: 77.23%;
         position: absolute;
@@ -411,14 +407,16 @@ a {
     }
   }
   .register-div {
-    width: 93.42%;
+    width: 64.26%;
     position: relative;
     background-image: url("@{img}kuang.png");
     background-position: center top;
     background-size: 100% auto;
     background-repeat: no-repeat;
+    padding-top: 30%;
+    padding-bottom: 15%;
     .div-form {
-      width: 65%;
+      width: 80%;
       position: relative;
       & > div {
         margin-bottom: 8%;
@@ -475,28 +473,34 @@ a {
     width: 100%;
     margin-bottom: 25%;
     .list {
-      width: 91.76%;
+      width: 88.7%;
       position: relative;
       margin-top: 3%;
+    }
+    .tip {
+      width: 57%;
+      position: relative;
+      margin-top: 15%;
     }
   }
   .loading {
     width: 64.3%;
     position: relative;
-    .anim {
-      width: 40%;
+    margin-top: 15%;
+    .circle {
       position: absolute;
+      width: 36.6%;
       top: 12%;
       left: 50%;
       z-index: 99;
-      transform: translateX(-50%);
+      animation: circle 1s linear infinite;
     }
   }
   .logo {
     position: relative;
     width: 58%;
-    margin-top: 2%;
-    margin-bottom: 3%;
+    margin-top: 8%;
+    margin-bottom: 5%;
   }
   .logo-div {
     position: absolute;
@@ -504,6 +508,14 @@ a {
     left: 50%;
     bottom: 3%;
     transform: translateX(-50%);
+  }
+}
+@keyframes circle {
+  0% {
+    transform: translateX(-50%) rotate(0deg);
+  }
+  100% {
+    transform: translateX(-50%) rotate(360deg);
   }
 }
 </style>
