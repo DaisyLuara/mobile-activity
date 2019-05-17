@@ -300,6 +300,7 @@ p {
     height: 0.19rem;
     padding-top: 0.14rem;
     margin: 0 auto;
+    box-sizing: content-box;
   }
   position: relative;
   padding-top: 0.06rem;

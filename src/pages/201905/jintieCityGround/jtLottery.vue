@@ -68,9 +68,6 @@ export default {
       belong: null,
       qiniuId: null,
       oid: null,
-      defaultBelong: 'leFitMotion',
-      defaultQiniuId: 10929238,
-      defaultOid: 564,
       clickable: true,
       rotateDeg: 0,
       coupon: null,
@@ -129,6 +126,7 @@ export default {
       let { id, ser } = this.$route.query
       this.ser = ser ? Number(ser) : null
       if (id) {
+        this.qiniuId = Number(id)
         try {
           Toast.loading('页面加载中')
           let { belong, oid } = await getInfoById(id)
@@ -140,15 +138,14 @@ export default {
           return
         }
       } else {
-        this.belong = this.defaultBelong
-        this.oid = this.defaultOid
+        Toast.failed('点位为空', 0, true)
       }
       this.queryCoupon()
     },
     async queryCoupon() {
       let params = {
         sign: this.sign,
-        qiniu_id: this.qiniuId ? this.qiniuId : this.defaultQiniuId,
+        qiniu_id: this.qiniuId,
         belong: this.belong,
         ser_timestamp: this.ser
       }
@@ -188,7 +185,7 @@ export default {
       Toast.loading('请求中')
       let params = {
         sign: this.sign,
-        qiniu_id: this.qiniuId ? this.qiniuId : this.defaultQiniuId,
+        qiniu_id: this.qiniuId,
         belong: this.belong,
         oid: this.oid,
         ser_timestamp: this.ser
@@ -314,6 +311,7 @@ p {
     height: 0.19rem;
     margin: 0 auto;
     padding-top: 0.14rem;
+    box-sizing: content-box;
   }
   .lottery-area {
     position: relative;

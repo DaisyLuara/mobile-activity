@@ -338,7 +338,7 @@ export default {
       try {
         Toast.loading('获取用户信息中')
         let userInfo = await getWxUserInfo()
-        if (userInfo.mobile) {
+        if (userInfo.data.mobile) {
           this.phoneVerified = true
         }
         Toast.hide()
