@@ -6,6 +6,13 @@ const UPLOAD_CALLBACK_URL = process.env.DIAMOND_API + '/activity_media'
 const MOCK_API = 'http://0.0.0.0:7300/mock/5cc58e9caaa16bb98099478d/diamond520'
 const PUSH_API = 'http://dev.xingstation.net/api/push/520/add'
 
+const HEADERS = {
+  'V1': {},
+  'V2': {
+    Accept: 'application/vdn.xingstation.v2+json'
+  }
+}
+
 // 建立请求拦截器
 const fetchWithToken = axios.create({
   baseURL: process.env.DIAMOND_API
@@ -110,7 +117,7 @@ const postActivityMedia = (args) => {
     axios
       .post(UPLOAD_CALLBACK_URL, {
         ...args,
-        utm_campaign: 'Love520Action' // 活动标识
+        utm_campaign: 'jt520Diamonds' // 活动标识
       }, {
         headers
       })
@@ -201,10 +208,11 @@ const getVoteDetail = (id) => {
 }
 
 // 上榜
-const addToBoard = (args) => {
+const addToBoard = (args, header = 'V1') => {
   return diamondTopReq({
     url: '/board',
     method: 'post',
+    headers: HEADERS[header],
     data: args
   })
 }
@@ -218,11 +226,12 @@ const vote = (args) => {
   })
 }
 
-// 获取个人榜单id
-const getUserBoardId = (args) => {
+// 获取个人榜单（详情）id
+const getUserBoardId = (args, header = 'V1') => {
   return diamondTopReq({
     url: '/user/board',
     method: 'post',
+    headers: HEADERS[header],
     data: args
   })
 }
