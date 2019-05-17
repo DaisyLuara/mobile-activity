@@ -145,6 +145,20 @@ export default {
 		this.handleWechatShare()
 	},
   methods: {
+		//微信静默授权
+    handleWechatAuth() {
+      if (Cookies.get('sign') === null) {
+        let base_url = encodeURIComponent(String(window.location.href))
+        let redirct_url =
+          process.env.WX_API +
+          '/wx/officialAccount/oauth?url=' +
+          base_url +
+          '&scope=snsapi_base'
+        window.location.href = redirct_url
+      } else {
+        this.sign = Cookies.get('sign')
+      }
+    },
 		async fetchDetail() {
 			Toast.loading('加载中')
 			const id = this.$route.params.pid
