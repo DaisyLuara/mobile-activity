@@ -65,7 +65,7 @@
             class="photoBg"
           >
           <img
-            :src="detail.image"
+            :src="detail.image_url"
             class="userImg"
           >
           <img
