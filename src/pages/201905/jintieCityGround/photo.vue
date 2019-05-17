@@ -338,7 +338,7 @@ export default {
       try {
         Toast.loading('获取用户信息中')
         let userInfo = await getWxUserInfo()
-        if (userInfo.phone) {
+        if (userInfo.mobile) {
           this.phoneVerified = true
         }
         Toast.hide()
@@ -366,8 +366,8 @@ export default {
       const file = event.target.files[0]
       const size = file.size
       const name = file.name
-      if (size / 1024 / 1024 > 8) {
-        Toast.info('图片大小不能超过8MB!')
+      if (size / 1024 / 1024 > 10) {
+        Toast.info('图片大小不能超过10MB!')
         return
       }
       if (!/\.(jpg|jpeg|png|JPG|PNG)$/.test(name)) {

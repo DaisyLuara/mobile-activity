@@ -103,7 +103,7 @@ export default {
     if (this.sign) {
       this.initState()
     }
-    this.handleWechatShare()
+    this.handleForbiddenShare()
   },
   methods: {
     //微信静默授权
@@ -261,23 +261,14 @@ export default {
       }
       return awardIndex
     },
-    handleWechatShare() {
-			if (isInWechat() === true) {
-				let wxShareInfoValue = {
-					title: '勇敢告白 大声说爱',
-					desc: '点击领取照片，还可参与大转盘抽奖，赢取最高50000元豪礼~',
-					link: location.origin + '/marketing/jt_lottery?id=' + this.$route.query.id,
-					imgUrl: 'https://cdn.xingstation.cn/fe/jintie-share-icon.png'
-      	}
-				$wechat(this.weixinUrl)
-					.then(res => {
-						res.share(wxShareInfoValue)
-					})
-					.catch(e => {
-						console.warn(e)
-					})
-				}
-		},
+    //禁止微信分享
+    handleForbiddenShare() {
+      if (isInWechat() === true) {
+        $wechat(this.weixinUrl).then(res => {
+          res.forbidden()
+        })
+      }
+    }
   }
 }
 </script>
@@ -289,7 +280,7 @@ export default {
   width: 100%;
   min-height: 100vh;
   position: relative;
-  background-image: url("@{cdnUrl}/jtree/background.png");
+  background-image: url("@{cdnUrl}/jtree/lottery_back_rain.png");
   background-size: 100% auto;
   background-repeat: repeat;
 }

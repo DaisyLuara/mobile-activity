@@ -118,6 +118,7 @@
 <script>
 import { Toast } from "mand-mobile"
 import "assets/less/reset-mand.less"
+import { mapGetters } from "vuex"
 import {
 	$wechat,
 	isInWechat,
@@ -149,7 +150,10 @@ export default {
 			campaign: 'jt520Diamonds',
 			hideBarrage: this.$route.query.barrage ? true : false
     };
-  },
+	},
+	computed: {
+		...mapGetters(["weixinUrl"])
+	},
   mounted() {
 		if (isiOS && !this.$route.query.iosRand) {
       const iosRand = 'iosRand=' + new Date().getTime()
