@@ -234,10 +234,11 @@ export default {
       } catch(e) {
         console.log(e)
         if (e.response) {
-          e.response.data.message && Toast.failed(e.response.data.message, 2000, true)
+          e.response.data.message && Toast.failed(e.response.data.message, 0, true)
         } else {
-          Toast.failed('未知错误', 2000, true)
+          Toast.failed('未知错误', 0, true)
         }
+        this.status = 'beforeRolling'
       }
     },
     // 转盘动画
