@@ -229,7 +229,7 @@ export default {
     return {
 			CDNURL: CDNURL,
 			type: 'verified',
-			showModal: false,
+			showModal: true,
 			modalType: 'help',
 			showPlaceholder: true,
 			imageUrl: '',
