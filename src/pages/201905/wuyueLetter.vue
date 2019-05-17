@@ -684,9 +684,9 @@ export default {
           }
           x = w / 2 - pw / 2 - 5
           y = h * 0.145
-          let [tranx, trany] = [x + width / 2, y + height / 2];
-          [x, y] = [-width / 2, -height / 2]
-          ctx.translate(tranx, trany)
+          // let [tranx, trany] = [x + width / 2, y + height / 2];
+          // [x, y] = [-width / 2, -height / 2]
+          // ctx.translate(tranx, trany)
           // if (that.orientation == 6) {
           //   that.rotate = Math.PI / 2;
           //   [x, y] = [x - w * 1.1, y + h * 0.19];
@@ -699,10 +699,10 @@ export default {
           //   that.rotate = -Math.PI / 2;
           //   [x, y] = [x + w * 0.15, y - h * 0.8];
           // }
-          ctx.rotate(that.rotate);
+          // ctx.rotate(that.rotate);
           ctx.drawImage(photo, 0, 0, width, height, x, y, pw, ph)
-          ctx.rotate(-that.rotate);
-          ctx.translate(-tranx, -trany)
+          // ctx.rotate(-that.rotate);
+          // ctx.translate(-tranx, -trany)
           ctx.drawImage(bg, 0, 0)
           ctx.font = 'bold 40px 微软雅黑'
           ctx.textAlign = 'left'
@@ -723,7 +723,7 @@ export default {
             this.ownList.photo = canvas.toDataURL('image/png')
             let base64String = this.ownList.photo.split(",")[1];
             // alert('base64:' + base64String.length);
-            this.initQiniu()
+            // this.initQiniu()
             this.page2 = false
             this.page3 = true
           }
