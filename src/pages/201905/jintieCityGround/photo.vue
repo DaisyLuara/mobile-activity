@@ -18,42 +18,10 @@
           @click="onModalClose"
         >
       </div>
-      <div
+      <Board
         v-if="modalType === 'ranking'"
-        class="modalBox"
-      >
-        <img 
-          :src="CDNURL+'/fe/jintie-ranking-bg.png'"
-          class="modal"
-        >
-        <img 
-          :src="CDNURL+'/fe/jintie-ranking-tip.png'"
-          class="tip"
-        >
-        <img 
-          :src="CDNURL+'/fe/jintie-close-btn.png'"
-          class="rankingClose"
-          @click="onModalClose"
-        >
-        <div class="rankingList">
-          <div
-            v-for="item in rankingList"
-            :key="item.id"
-            class="rankingItem"
-          >
-            <img 
-              :src="CDNURL+'/fe/jintie-ranking-info.png'"
-              class="rankingInfo"
-            >
-            <img 
-              :src="item.avatar"
-              class="avatar"
-            >
-            <span class="desc">{{ item.desc || '在这里全城见证，我们的5周年，2019感谢有你！' }}</span>
-            <span class="count">{{ item.count || 0 }}</span>
-          </div>
-        </div>
-      </div>
+        @closeRank="onModalClose"
+      />
       <div
         v-if="modalType === 'verify'"
         class="verifyBox"
@@ -71,7 +39,8 @@
             v-model="phone"
             type="text"
             class="phoneInput"
-            @input="onChangePhone"
+            maxlength="11"
+            @input="handleInput($event, 'phone')"
           >
         </div>
         <div class="validateBox">
@@ -81,9 +50,10 @@
           >
           <input
             v-model="vcode"
-            type="number"
+            type="text"
             class="validateInput"
-            @input="onChangeVcode"
+            maxlength="4"
+            @input="handleInput($event, 'vcode')"
           >
           <div 
             class="validateBtn" 
@@ -91,27 +61,27 @@
           >
             <img
               v-if="disabledGetVcode"
-              :src="CDNURL+'/fe/jintie-count-down.png'"
+              :src="CDNURL + '/fe/jintie-count-down.png'"
               class="countDownBg"
             >
             <img
               v-else
-              :src="CDNURL+'/fe/jintie-get-vcode.png'"
+              :src="CDNURL + '/fe/jintie-get-vcode.png'"
               class="countDownBg"
             >         
             <span class="vcodeText">{{ vcodeText }}</span>
           </div>
         </div>
         <img
-          v-if="disabledSubmit"
+          v-show="verfyPhoneClickable"
           :src="CDNURL+'/fe/jintie-submit-grey.png'"
           class="submitBtn"
         >
         <img
-          v-else
+          v-show="!verfyPhoneClickable"
           :src="CDNURL+'/fe/jintie-submit-btn.png'"
           class="submitBtn"
-          @click="onSubmit"
+          @click="!verfyPhoneClickable && handleVerfyPhone()"
         >
       </div>
     </div>
@@ -138,16 +108,6 @@
           :src="CDNURL+'/fe/jintie-heart.png'"
           class="heart"
         >
-        <div
-          v-if="type==='verified'"
-          class="likeBox"
-        >
-          <img
-            :src="CDNURL+'/fe/jintie-like.png'"
-            class="like"
-          >
-          <span class="number">100</span>
-        </div>
         <img 
           :src="CDNURL+'/fe/jintie-photo-wrapper.png'"
           class="photoWrapper"
@@ -167,6 +127,7 @@
             class="userImg"
           >
           <input
+            v-if="shouldUpload"
             type="file"
             accept="image/*"
             class="upload"
@@ -201,10 +162,16 @@
         </div>
       </div>
       <div class="participateBox">
-        <img 
+        <img
+          v-show="participateBtnClickable"
           :src="CDNURL+'/fe/jintie-participate-btn.png'"
           class="participateBtn"
-          @click="onModalShow('verify')"
+          @click="participateBtnClickable && handleParticipate()"
+        >
+        <img
+          v-show="!participateBtnClickable"
+          :src="CDNURL+'/jtree/jintie-participate-btn-d.png'"
+          class="participateBtn"
         >
         <img 
           :src="CDNURL+'/fe/jintie-help-icon.png'"
@@ -221,6 +188,7 @@
       <img 
         :src="CDNURL+'/fe/jintie-lottery-btn.png'"
         class="lotteryBtn"
+        @click="naviToLottery"
       >
       <img 
         :src="CDNURL+'/fe/jintie-hand-pointer_1.png'"
@@ -230,66 +198,139 @@
   </div>
 </template>
 <script>
-import { Toast } from "mand-mobile";
+import { Toast } from "mand-mobile"
+import "assets/less/reset-mand.less"
 import {
+  $wechat,
+  isInWechat,
 	qiniuToken,
 	uploadImgToQiniu,
   postActivityMedia,
-	validatePhone
-} from "services";
+  filterNumber,
+  validatePhone,
+  getVerificationCodes,
+  bindUserPhone,
+  getUserBoardId,
+  getWxUserInfo,
+  addToBoard
+} from "services"
+import Board from './board'
 
 const CDNURL = process.env.CDN_URL;
 
 export default {
+  components: {
+    Board
+  },
   data() {
     return {
 			CDNURL: CDNURL,
 			type: 'verified',
 			showModal: false,
 			modalType: '',
-			rankingList: [{
-				id: 1,
-				avatar: 'https://cdn.xingstation.cn/fe/jintie-share-icon.png',
-				desc: '',
-				count: 888
-			}, {
-				id: 2,
-				avatar: 'https://cdn.xingstation.cn/fe/jintie-share-icon.png',
-				desc: '',
-				count: 888
-			}, {
-				id: 3,
-				avatar: 'https://cdn.xingstation.cn/fe/jintie-share-icon.png',
-				desc: '',
-				count: 888
-			}, {
-				id: 4,
-				avatar: 'https://cdn.xingstation.cn/fe/jintie-share-icon.png',
-				desc: '',
-				count: 888
-			}, {
-				id: 5,
-				avatar: 'https://cdn.xingstation.cn/fe/jintie-share-icon.png',
-				desc: '',
-				count: 888
-			}],
 			showPlaceholder: true,
 			imageUrl: '',
       mediaId: '',
 			confession: '',
 			phone: "",
       vcode: "",
-      verification_key: "",
+      phoneVerified: false,
+      shouldUpload: true,
+      verifyKey: "",
       time: 60,
       vcodeText: "获取验证码",
-      disabledGetVcode: true,
-      disabledSubmit: true
+      disabledGetVcode: false,
+      campaign: 'jt520Diamonds'
     };
   },
+  computed: {
+    participateBtnClickable() {
+      return this.confession && this.imageUrl
+    },
+    verfyPhoneClickable() {
+      return !this.phone || !this.vcode
+    }
+  },
   mounted() {
-		this.getQiniuToken()
+    if (process.env.NODE_ENV === 'development') {
+      this.sign = 'eyJpdiI6ImpaM3NZQ0U1dVdBTEs0SjkwSTVmUlE9PSIsInZhbHVlIjoiTDhtbGp0MitjdmsxZFNUdkRFcjN6QT09IiwibWFjIjoiYTQ2Y2YzMzc4YzM0ZDQ4OGRkNjgwZGU4N2M3MTMwZmM3NjkyMTlhMGJmM2Q1MzM3YTU2Mzc2NWYzM2NmNjBhYiJ9'
+    } else {
+      this.handleWechatAuth()
+    }
+    if (this.sign) {
+      this.initState()
+    }
+    this.getQiniuToken()
+    this.handleForbiddenShare()
 	},
   methods: {
+    //禁止微信分享
+    handleForbiddenShare() {
+      if (isInWechat() === true) {
+        $wechat(this.weixinUrl).then(res => {
+          res.forbidden()
+        })
+      }
+    },
+    async initState() {
+      let { id } = this.$route.query
+      if (id) {
+        Toast.loading('提取照片中')
+        try {
+          let { image } = await getInfoById(id)
+          if (image) {
+            this.imageUrl = image
+            this.shouldUpload = false
+          }
+          Toast.hide()
+        } catch(e) {
+          console.log(e)
+          Toast.failed('提取照片出错', 0, true)
+        }
+      }
+      this.queryUserMsg()
+    },
+    // 验证用户是否在榜单上
+    async queryUserMsg() {
+      let params = {
+        sign: this.sign,
+        campaign: this.campaign
+      }
+      try {
+        Toast.loading('查询中')
+        let res = await getUserBoardId(params, 'V2')
+        if (res.code === 0) {
+          // 查询到用户榜单数据，跳转到详情页
+          this.$router.push({
+            name: 'jintie_detail', // 榜单详情页
+            params: {
+              id: res.data.id
+            }
+          })
+        } else {
+          Toast.hide()
+          this.queryVerfyStatus()
+        }
+      } catch(e) {
+        console.log(e)
+        Toast.hide()
+        this.queryVerfyStatus()
+      }
+    },
+    // 验证用户是否验证过手机号
+    async queryVerfyStatus() {
+      try {
+        Toast.loading('获取用户信息中')
+        let userInfo = await getWxUserInfo()
+        if (userInfo.phone) {
+          this.phoneVerified = true
+        }
+        Toast.hide()
+      } catch(e) {
+        console.log(e)
+        Toast.failed('获取用户信息失败', 0 ,true)
+      }
+    },
 		async getQiniuToken() {
       try {
         let res = await qiniuToken()
@@ -299,8 +340,12 @@ export default {
       } catch(e) {
         console.log(e)
       }
-		},
-
+    },
+    handleInput(event, type) {
+      const number = filterNumber(event.target.value)
+      this[type] = number
+      event.target.value = number
+    },
 		async handleUpload(event) {
       const file = event.target.files[0]
       const size = file.size
@@ -339,21 +384,17 @@ export default {
         console.log(e)
       }
     },
-		
 		onModalShow(type) {
 			this.showModal = true
 			this.modalType = type
 		},
-
 		onModalClose() {
 			this.showModal = false
 			this.modalType = ''
 		},
-
 		onClickConfession() {
 			this.showPlaceholder = false
 		},
-
 		onGetErrorTips() {
       if (!validatePhone(this.phone)) {
         return "手机格式不正确，请重新输入";
@@ -363,23 +404,6 @@ export default {
       }
       return "";
     },
-
-    onChangePhone() {
-      if (!this.phone || !validatePhone(this.phone)) {
-        this.disabledGetVcode = true;
-        return;
-      }
-      this.disabledGetVcode = false;
-    },
-
-    onChangeVcode() {
-      if (this.onGetErrorTips()) {
-        this.disabledSubmit = true;
-        return;
-      }
-      this.disabledSubmit = false;
-    },
-
     onCountDown() {
       this.disabledGetVcode = true;
       let timer = setInterval(() => {
@@ -394,18 +418,102 @@ export default {
         }
       }, 1000);
     },
-
-    onClickGetVcode() { 
-      if (this.disabledGetVcode) return;
-      this.onCountDown();
+    async onClickGetVcode() {
+      if (this.disabledGetVcode || !this.phone || !validatePhone(this.phone)) return
+      this.onCountDown()
       let params = {
         phone: this.phone
-      };
+      }
+      try {
+        Toast.loading('验证码发送中')
+        let res = await getVerificationCodes(params)
+        if (res.code === 0) {
+          Toast.succeed('验证码发送成功')
+          this.verifyKey = res.data.key
+        } else {
+          Toast.failed('未知错误')
+        }
+      } catch(e) {
+        console.log(e)
+        Toast.failed('验证码发送失败')
+      }
     },
-
-    onSubmit() {
-			this.onModalClose()
+    async handleVerfyPhone() {
+      let error = this.onGetErrorTips()
+      if (error) {
+        Toast.failed(error)
+        return
+      }
+      let params = {
+        sign: this.size,
+        verification_key: this.verifyKey,
+        verification_code: this.vcode
+      }
+      try {
+        //debug
+        if (process.env.NODE_ENV === 'development') {
+          Toast.succeed('验证成功')
+          this.phoneVerified = true
+          this.onModalClose()
+          return
+        }
+        let res = await bindUserPhone(params)
+        if (res.code === 0) {
+          Toast.succeed('验证成功')
+          this.phoneVerified = true
+          this.onModalClose()
+        } else {
+          Toast.failed('验证失败', 2000, true)
+        }
+      } catch(e) {
+        console.log(e)
+        Toast.failed('验证失败', 2000, true)
+      }
     },
+    async handleParticipate() {
+      if (!this.phoneVerified) {
+        this.onModalShow('verify')
+        return
+      }
+      let params = {
+        sign: this.sign,
+        campaign: "520Diamonds",
+        message: this.confession
+      }
+      if (this.mediaId) {
+        params.media_id = this.mediaId
+      } else {
+        params.qiniu_id = this.$route.query.id
+      }
+      try {
+        Toast.loading('提交中')
+        let res = await addToBoard(params, 'V2')
+        if (res.code === 0) {
+          Toast.succeed('提交成功', 0, true)
+          this.$router.push({
+            name: 'jintie_detail', // 榜单详情页
+            params: {
+              id: res.data.id
+            }
+          })
+        } else {
+          Toast.failed('提交失败', 2000, true)
+        }
+      } catch(e) {
+        console.log(e)
+        if (e.response) {
+          e.response.data.message && Toast.failed(e.response.data.message, 2000, true)
+        } else {
+          Toast.failed('未知错误，请稍后重试', 2000, true)
+        }
+      }
+    },
+    naviToLottery() {
+      this.$router.push({
+        name: 'jt_lottery',
+        query: this.$route.query 
+      })
+    }
 	}
 };
 </script>
@@ -431,13 +539,12 @@ img {
 	flex-direction: column;
 	align-items: center;
   width: 100%;
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100vh;
+  overflow-x: hidden;
   background-image: url('@{base}/fe/jintie-background.png');
   background-size: 100% 100%;
   background-position: center top;
 	background-repeat: no-repeat;
-
 	.modalBg {
 		display: flex;
 		justify-content: center;
@@ -449,94 +556,30 @@ img {
 		height: 100%;
 		background-color: rgba(0, 0, 0, 0.7);
 		z-index: 999;
-
 		.modalBox {
 			position: relative;
 			width: 100vw;
 			text-align: center;
-
 			.modal {
 				width: 100%;
 			}
-
 			.tip {
 				width: 52.44vw;
 				margin-top: 6.67vw;
 			}
-
 			.helpClose {
 				width: 11.3vw;
 				position: absolute;
 				right: 8.89%;
 				top: -0.9%;
 			}
-
-			.rankingClose {
-				width: 11.3vw;
-				position: absolute;
-				right: 8.89%;
-				top: -10.65%;
-			}
-
-			.rankingList {
-				position: absolute;
-				top: 23.56%;
-				left: 50%;
-				width: 57.03vw;
-				transform: translate(-50%, 0);
-
-				.rankingItem {
-					position: relative;
-					display: flex;
-					align-items: center;
-					width: 100%;
-					height: 11.67vw;
-					margin-bottom: 2%;
-
-					.rankingInfo {
-						position: absolute;
-						top: 0;
-						left: 0;
-						width: 100%;
-						height: 100%;
-					}
-
-					.avatar {
-						width: 11.6vw;
-						height: 11.6vw;
-						border-radius: 15px;
-					}
-
-					.desc {
-						flex: 1;
-						padding: 0 11.67vw 0 3vw;
-						font-size: 14px;
-						text-overflow: ellipsis;
-						white-space: nowrap;
-						overflow: hidden;
-						color: #000;
-						z-index: 999;
-					}
-
-					.count {
-						position: absolute;
-						right: 0;
-						bottom: 30%;
-						font-size: 12px;
-						color: #000;
-					}
-				}
-			}
 		}
-
 		.verifyBox {
       position: relative;
       width: 62.78vw;
-
       .verifyBg {
         width: 100%;
       }
-
       .phoneBox {
         position: absolute;
         top: 32.89%;
@@ -544,7 +587,6 @@ img {
 				width: 54.26vw;
 				height: 11.3vw;
         transform: translate(-50%, 0);
-
         .phoneBg {
           position: absolute;
           top: 0;
@@ -552,7 +594,6 @@ img {
 					width: 100%;
 					height: 100%;
         }
-
         .phoneInput {
           position: absolute;
           top: 50%;
@@ -566,6 +607,7 @@ img {
           font-size: 14px;
           color: #fff;
           box-sizing: border-box;      
+          background: transparent;
         }
       }
 
@@ -576,7 +618,6 @@ img {
 				width: 54.26vw;
 				height: 11.3vw;
         transform: translate(-50%, 0);
-
         .validateBg {
           position: absolute;
           top: 0;
@@ -584,7 +625,6 @@ img {
 					width: 100%;
 					height: 100%;
         }
-
         .validateBtn {
           display: flex;
           justify-content: center;
@@ -595,7 +635,6 @@ img {
           width: 40%;
           height: 60%;
           transform: translate(0, -50%);
-
           .countDownBg {
             position: absolute;
             top: 0;
@@ -604,14 +643,12 @@ img {
             height: 100%;
             z-index: 1;
           }
-
           .vcodeText {
             font-size: 10px;
             color: #fff;
             z-index: 999;
           }
         }
-
         .validateInput {
           position: absolute;
           top: 50%;
@@ -625,9 +662,9 @@ img {
           font-size: 14px;
           color: #fff;
           box-sizing: border-box;
+          background: transparent;
         }
       }
-
       .submitBtn {
         position: absolute;
         bottom: 10.29%;
@@ -637,27 +674,22 @@ img {
       }
     }
 	}
-
 	.top {
 		display: flex;
 		align-items: center;
 		width: 100%;
 		padding: 1.85vw 0;
-
 		.rankingBtn {
 			width: 19.07vw;
 		}
-
 		.logoBox {
 			flex: 1;
 			text-align: center;
-
 			.logo {
 				width: 26.1vw;
 			}
 		}
 	}
-
 	.content {
 		position: relative;
 		flex: 1;
@@ -665,53 +697,27 @@ img {
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-
 		.photoBox {
 			position: relative;
 			width: 80.56vw;
-
 			.heart {
 				position: absolute;
 				top: 8.63%;
 				left: -10.34%;
 				width: 16.48vw;				
 			}
-
-			.likeBox {
-				position: absolute;
-				right: -8.97%;
-				top: 47.67%;
-				width: 26.11vw;
-				z-index: 998;
-
-				.like {
-					width: 100%;
-				}
-
-				.number {
-					position: absolute;
-					left: 22.7%;
-					bottom: 24.4%;
-					font-size: 18px;
-					color: #fff;
-				}
-			}
-
 			.photoWrapper {
 				width: 100%;			
 			}
-
 			.uploadBox {
 				position: absolute;
 				top: 6.07%;
 				left: 50%;
 				width: 65.37vw;				
 				transform: translate(-50%, 0);
-
 				.photoBg {
 					width: 100%;					
 				}
-
 				.uploadText {
 					position: absolute;
 					top: 50%;
@@ -719,7 +725,6 @@ img {
 					width: 25.56vw;					
 					transform: translate(-50%, -50%);
 				}
-
 				.upload {
 					position: absolute;
 					top: 0;
@@ -729,7 +734,6 @@ img {
 					opacity: 0;
 					z-index: 998;
 				}
-
 				.userImg {
 					position: absolute;
 					top: 0;
@@ -738,7 +742,6 @@ img {
 					height: 100%;
 				}
 			}
-
 			.placeholderBox {
 				display: flex;
 				justify-content: center;
@@ -748,7 +751,6 @@ img {
 					width: 52.42vw;
 				}
 			}
-			
 			.confessionBox {
 				position: absolute;
 				bottom: 5.2%;
@@ -757,7 +759,6 @@ img {
 				height: 26.3%;
 				padding: 5vw;
 				transform: translate(-50%, 0);
-
 				.confessionInput {
 					width: 100%;					
 					line-height: 25px;
@@ -766,7 +767,6 @@ img {
 					outline: none;
 					resize: none;
 				}
-
 				.textCounter {
 					position: absolute;
 					bottom: 5%;
@@ -776,17 +776,14 @@ img {
 				}
 			}
 		}
-
 		.participateBox {
 			position: relative;
 			width: 63.52vw;			
 			margin: 4.63vw 0;
 		}
-
 		.participateBtn {
 			width: 100%;			
 		}
-
 		.help {
 			position: absolute;
 			right: -5.85vw;
@@ -795,16 +792,12 @@ img {
 			transform: translate(0, -50%);
 		}
 	}
-
 	.bottom {
 		display: flex;
 		align-items: center;
-
 		.pointer {
 			width: 12.96vw;
-			
 		}
-
 		.lotteryBtn {
 			width: 57.96vw;			
 			margin: 0 2.78vw;
