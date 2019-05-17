@@ -675,32 +675,33 @@ export default {
         ctx.fillRect(0, 0, w, h)
         photo.onload = () => {
           let [width, height, x, y, pw, ph] = [photo.width, photo.height, 0, 0, 0, 0]
-          let [tranx, trany] = [0, 0]
+
           pw = w * 0.765
           ph = (pw / width) * height
           if (height / width < 1) {
             ph = h * 0.44
             pw = (ph / height) * width
           }
-          x = w / 2 - pw / 2
+          x = w / 2 - pw / 2 - 5
           y = h * 0.145
-          // if (that.orientation == 6) {
-          //   that.rotate = Math.PI / 2;
-          //   // [x, y] = [x - w * 0.24, y + h * 0.2];
-          //   [x, y] = [-w, y];
-          // }
-          // if (that.orientation == 3) {
-          //   that.rotate = Math.PI;
-          //   [x, y] = [-w, -h];
-          // }
-          // if (that.orientation == 8) {
-          //   that.rotate = -Math.PI / 2;
-          //   // [x, y] = [x - w / 16, y + h / 8];
-          //   [x, y] = [0, -h];
-          // }
+          let [tranx, trany] = [x + width / 2, y + height / 2]
+          ctx.translate(tranx, trany)
+          if (that.orientation == 6) {
+            that.rotate = Math.PI / 2;
+            [x, y] = [x - w * 1.1, y + h * 0.19];
+          }
+          if (that.orientation == 3) {
+            that.rotate = Math.PI;
+            [x, y] = [w * 0.4, h * 0.2];
+          }
+          if (that.orientation == 8) {
+            that.rotate = -Math.PI / 2;
+            [x, y] = [x + w * 0.15, y - h * 0.8];
+          }
           ctx.rotate(that.rotate);
           ctx.drawImage(photo, 0, 0, width, height, x, y, pw, ph)
           ctx.rotate(-that.rotate);
+          ctx.translate(-tranx, -trany)
           ctx.drawImage(bg, 0, 0)
           ctx.font = 'bold 40px 微软雅黑'
           ctx.textAlign = 'left'
@@ -721,7 +722,7 @@ export default {
             this.ownList.photo = canvas.toDataURL('image/png')
             let base64String = this.ownList.photo.split(",")[1];
             // alert('base64:' + base64String.length);
-            // this.initQiniu()
+            this.initQiniu()
             this.page2 = false
             this.page3 = true
           }
