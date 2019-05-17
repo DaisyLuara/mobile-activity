@@ -162,7 +162,7 @@ export default {
     },
 		async fetchDetail() {
 			Toast.loading('加载中')
-			const id = this.$route.params.pid
+			const id = this.$route.params.id
 			try {
 				let res = await getVoteDetail(id)
 				if (res.code === 0) {
