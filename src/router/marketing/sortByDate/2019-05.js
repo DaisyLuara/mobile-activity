@@ -174,6 +174,17 @@ const Date201905 = [
       desc: ''
     },
     isAbandoned: false
+  },
+  {
+    path: 'jintie_detail',
+    location: '201905/jintieCityGround/detail',
+    name: 'jintie_detail',
+    meta: {
+      title: '勇敢告白 大声说爱',
+      author: 'ykk',
+      desc: ''
+    },
+    isAbandoned: false
   }
 ]
 export default Date201905
