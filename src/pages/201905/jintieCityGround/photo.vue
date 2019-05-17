@@ -460,7 +460,7 @@ export default {
         return
       }
       let params = {
-        sign: this.size,
+        sign: this.sign,
         verification_key: this.verifyKey,
         verification_code: this.vcode
       }
