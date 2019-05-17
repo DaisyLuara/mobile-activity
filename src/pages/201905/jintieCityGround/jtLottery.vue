@@ -34,6 +34,7 @@
 <script>
 import { reCalculateRem } from '@/mixins/reCalculateRem'
 import {
+  Cookies,
   $wechat,
   isInWechat,
   randomIntNum,
