@@ -186,7 +186,7 @@ const Date201905 = [
     isAbandoned: false
   },
   {
-    path: 'jintie_detail/:pid',
+    path: 'jintie_detail/:id',
     location: '201905/jintieCityGround/detail',
     name: 'jintie_detail',
     meta: {
