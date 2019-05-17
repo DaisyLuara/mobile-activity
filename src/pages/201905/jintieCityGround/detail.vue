@@ -205,7 +205,7 @@ export default {
 					} else {
 						Toast.hide()
 					}
-					this.detail = res.data
+					this.detail = detail
 				} else {
 					Toast.failed('加载失败')
 				}
