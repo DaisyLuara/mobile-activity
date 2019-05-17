@@ -111,6 +111,7 @@
 import { Toast } from "mand-mobile"
 import "assets/less/reset-mand.less"
 import {
+	Cookies,
 	getVoteDetail,
 	vote
 } from "services"

@@ -201,6 +201,7 @@
 import { Toast } from "mand-mobile"
 import "assets/less/reset-mand.less"
 import {
+  Cookies,
   $wechat,
   isInWechat,
 	qiniuToken,
