@@ -179,6 +179,9 @@
           <li @click="doAgain">
             <img :src="base + 'again.png'">
           </li>
+          <li @click="showShareTip">
+            <img :src="base + 'share.png'">
+          </li>
         </ul>
       </div>
       <div
@@ -187,12 +190,19 @@
         @click.self="closeMask"
       >
         <img
+          v-show="!share"
           :src="ownList.photo"
           class="photo"
         >
         <img
+          v-show="!share"
           :src="base + 'press.png'"
           class="press"
+        >
+        <img
+          v-show="share"
+          :src="base + 'share_tip.png'"
+          class="share-tip"
         >
       </div>
     </div>
@@ -219,6 +229,7 @@ import "swiper/dist/css/swiper.css";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
 import { onlyWechatShare } from "@/mixins/onlyWechatShare";
 import { format } from 'path';
+import { SSL_OP_NO_TLSv1_2 } from 'constants';
 const wx = require('weixin-js-sdk')
 const CDNURL = process.env.CDN_URL;
 export default {
@@ -269,6 +280,7 @@ export default {
         voice: null,
       },
       tip: true,
+      share: false,
       status: 'start',
       mask: false,
       id: this.$route.query.id,
@@ -461,8 +473,7 @@ export default {
     doAgain() {
       this.again = true
       this.page3 = false
-      this.page2 = true
-      // this.page1 = true
+      this.page1 = true
       this.tip = true
       this.status = 'start'
       for (let item in this.ownList)
@@ -470,8 +481,14 @@ export default {
       for (let item in this.params)
         this.params[item] = null
     },
+    showShareTip() {
+      this.mask = true
+      this.share = true
+      window.scroll(0, 0)
+    },
     closeMask() {
       this.mask = false
+      this.share = false
     },
     //修改邀请函
     updateUserLetter() {
@@ -657,27 +674,33 @@ export default {
         ctx.fillStyle = '#fff'
         ctx.fillRect(0, 0, w, h)
         photo.onload = () => {
-          let [width, height] = [photo.width, photo.height]
+          let [width, height, x, y, pw, ph] = [photo.width, photo.height, 0, 0, 0, 0]
+          let [tranx, trany] = [0, 0]
+          pw = w * 0.765
+          ph = (pw / width) * height
+          if (height / width < 1) {
+            ph = h * 0.44
+            pw = (ph / height) * width
+          }
+          x = w / 2 - pw / 2
+          y = h * 0.145
           // if (that.orientation == 6) {
-          //   that.rotate = Math.PI / 2
-          //   ctx.rotate(Math.PI / 2);
-          //   ctx.drawImage(photo, 0, 0, width, height, w * 0.26, -h * 0.495, (w * 0.765 / height) * width, w * 0.765)
-          //   ctx.rotate(-Math.PI / 2);
-          // }
-          // if (that.orientation == 8) {
-          //   ctx.rotate(-Math.PI / 2);
-          //   ctx.drawImage(photo, 0, 0, width, height, -h * 1.09, w * 0.1175, (w * 0.765 / height) * width, w * 0.765)
-          //   ctx.rotate(Math.PI / 2);
+          //   that.rotate = Math.PI / 2;
+          //   // [x, y] = [x - w * 0.24, y + h * 0.2];
+          //   [x, y] = [-w, y];
           // }
           // if (that.orientation == 3) {
-          //   ctx.rotate(Math.PI);
-          //   ctx.drawImage(photo, 0, 0, width, height, -w * 0.88, -h * 0.78, w * 0.765, (w * 0.765 / width) * height)
-          //   ctx.rotate(-Math.PI);
+          //   that.rotate = Math.PI;
+          //   [x, y] = [-w, -h];
           // }
-          // if (parseInt(that.orientation) !== 3 && parseInt(that.orientation) !== 6 && parseInt(that.orientation) !== 8) {
-          //   ctx.drawImage(photo, 0, 0, width, height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
+          // if (that.orientation == 8) {
+          //   that.rotate = -Math.PI / 2;
+          //   // [x, y] = [x - w / 16, y + h / 8];
+          //   [x, y] = [0, -h];
           // }
-          ctx.drawImage(photo, 0, 0, width, height, w * 0.1175, h * 0.15, w * 0.765, (w * 0.765 / photo.width) * photo.height)
+          ctx.rotate(that.rotate);
+          ctx.drawImage(photo, 0, 0, width, height, x, y, pw, ph)
+          ctx.rotate(-that.rotate);
           ctx.drawImage(bg, 0, 0)
           ctx.font = 'bold 40px 微软雅黑'
           ctx.textAlign = 'left'
@@ -698,7 +721,7 @@ export default {
             this.ownList.photo = canvas.toDataURL('image/png')
             let base64String = this.ownList.photo.split(",")[1];
             // alert('base64:' + base64String.length);
-            this.initQiniu()
+            // this.initQiniu()
             this.page2 = false
             this.page3 = true
           }
@@ -969,6 +992,13 @@ a {
       .press {
         width: 40.65%;
         position: relative;
+      }
+      .share-tip {
+        width: 31%;
+        position: absolute;
+        top: 0%;
+        right: 0%;
+        z-index: 9;
       }
     }
   }
