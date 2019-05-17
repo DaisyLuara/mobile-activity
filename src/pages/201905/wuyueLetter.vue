@@ -684,7 +684,8 @@ export default {
           }
           x = w / 2 - pw / 2 - 5
           y = h * 0.145
-          let [tranx, trany] = [x + width / 2, y + height / 2]
+          let [tranx, trany] = [x + width / 2, y + height / 2];
+          [x, y] = [-width / 2, -height / 2]
           ctx.translate(tranx, trany)
           if (that.orientation == 6) {
             that.rotate = Math.PI / 2;
