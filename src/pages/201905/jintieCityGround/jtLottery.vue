@@ -63,8 +63,9 @@ export default {
       belong: null,
       qiniuId: null,
       oid: null,
-      defaultBelong: null,
-      defaultOid: null,
+      defaultBelong: 'leFitMotion',
+      defaultQiniuId: 10929238,
+      defaultOid: 564,
       clickable: true,
       rotateDeg: 0,
       coupon: null,
@@ -130,8 +131,9 @@ export default {
     async queryCoupon() {
       let params = {
         sign: this.sign,
-        oid: this.oid,
-        belong: this.belong
+        qiniu_id: this.qiniuId ? this.qiniuId : this.defaultQiniuId,
+        belong: this.belong,
+        ser_timestamp: this.ser
       }
       // debug
       if (process.env.NODE_ENV === 'development') {
@@ -169,8 +171,10 @@ export default {
       Toast.loading('请求中')
       let params = {
         sign: this.sign,
+        qiniu_id: this.qiniuId ? this.qiniuId : this.defaultQiniuId,
         belong: this.belong,
-        oid: this.oid
+        oid: this.oid,
+        ser_timestamp: this.ser
       }
       // debug
       if (process.env.NODE_ENV === 'development') {
