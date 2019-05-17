@@ -126,10 +126,14 @@ import {
 	getVoteDetail,
 	vote
 } from "services"
+import Board from './board'
 
 const CDNURL = process.env.CDN_URL;
 
 export default {
+	components: {
+    Board
+  },
   data() {
     return {
 			CDNURL: CDNURL,
