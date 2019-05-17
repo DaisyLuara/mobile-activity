@@ -189,7 +189,7 @@ export default {
 			Toast.loading('投票中')
 			let params = {
 				sign: this.sign,
-        board_id: this.$route.params.pid,
+        board_id: this.$route.params.id,
         campaign: this.campaign
 			}
 			try {
