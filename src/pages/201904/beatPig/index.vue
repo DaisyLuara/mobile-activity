@@ -38,7 +38,7 @@
         class="regularBox"
       >
         <img 
-          :src="CDNURL+'/fe/wuyue-beatPig-regularContent.png'"
+          :src="CDNURL+'/fe/wuyue-beatPig-regular-content.png'"
           class="regularContent"
         >
         <img 
