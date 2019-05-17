@@ -492,7 +492,7 @@ export default {
       }
       let params = {
         sign: this.sign,
-        campaign: "520Diamonds",
+        campaign: this.campaign,
         message: this.confession
       }
       if (this.mediaId) {
@@ -505,12 +505,9 @@ export default {
         let res = await addToBoard(params, 'V2')
         if (res.code === 0) {
           Toast.succeed('提交成功', 0, true)
-          this.$router.push({
-            name: 'jintie_detail', // 榜单详情页
-            params: {
-              id: res.data.id
-            }
-          })
+          setTimeout(() => {
+            window.location.reload()
+          }, 1000)
         } else {
           Toast.failed('提交失败', 2000, true)
         }

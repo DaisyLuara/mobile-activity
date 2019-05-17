@@ -90,6 +90,7 @@ export default {
         let res = await getPhotoBoard(params)
         if (res.code === 0) {
           this.rankingList = res.data.data.slice(0, 5)
+          Toast.hide()
         } else {
           Toast.failed('获取榜单失败')
         }
