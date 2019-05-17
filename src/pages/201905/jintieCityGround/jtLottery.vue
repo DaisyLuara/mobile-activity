@@ -233,8 +233,11 @@ export default {
         }
       } catch(e) {
         console.log(e)
-        Toast.failed('抽奖失败', 2000, true)
-        this.status = 'beforeRolling'
+        if (e.response) {
+          e.response.data.message && Toast.failed(e.response.data.message, 2000, true)
+        } else {
+          Toast.failed('未知错误', 2000, true)
+        }
       }
     },
     // 转盘动画
