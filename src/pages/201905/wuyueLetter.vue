@@ -93,7 +93,7 @@
               maxlength="20"
               class="word"
             />
-          </div>
+            </div>
           <div class="voice">
             <a
               v-if="status==='start'"
@@ -723,7 +723,7 @@ export default {
             this.ownList.photo = canvas.toDataURL('image/png')
             let base64String = this.ownList.photo.split(",")[1];
             // alert('base64:' + base64String.length);
-            // this.initQiniu()
+            this.initQiniu()
             this.page2 = false
             this.page3 = true
           }
