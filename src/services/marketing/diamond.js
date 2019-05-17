@@ -117,7 +117,7 @@ const postActivityMedia = (args) => {
     axios
       .post(UPLOAD_CALLBACK_URL, {
         ...args,
-        utm_campaign: 'Love520Action' // 活动标识
+        utm_campaign: 'jt520Diamonds' // 活动标识
       }, {
         headers
       })
