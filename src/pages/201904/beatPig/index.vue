@@ -1,23 +1,23 @@
 <template>
   <div class="container">
-    <div 
-      v-if="showAdvertisement" 
+    <div
+      v-if="showAdvertisement"
       class="mask"
     >
-      <div 
+      <div
         class="countDownBox"
         @click="onSkip"
       >
         <span class="skip">跳过</span>
         <span class="time">{{ countDown }}</span>
       </div>
-      <a 
-        class="maskBox" 
-        href="http://m.mallcoo.cn/a/home/10658"
+      <a
+        class="maskBox"
+        href="http://papi.xingstation.com/api/s/g2l"
       >
-        <button 
-          class="hyperlink" 
-          hidden 
+        <button
+          class="hyperlink"
+          hidden
           @click="onHyperlink"
         />
         <img
@@ -27,62 +27,61 @@
       </a>
     </div>
 
-
     <div id="topBg" />
-    
+
     <div class="content">
       <div id="pigMove" />
 
-      <div 
-        v-if="showRegular" 
+      <div
+        v-if="showRegular"
         class="regularBox"
       >
-        <img 
+        <img
           :src="CDNURL+'/fe/wuyue-beatPig-regular-content.png'"
           class="regularContent"
         >
-        <img 
+        <img
           :src="CDNURL+'/fe/wuyue-beatPig-close-btn.png'"
           class="closeBtn"
           @click="onCloseRegular"
         >
       </div>
 
-      <div 
-        v-else-if="showStartModal" 
+      <div
+        v-else-if="showStartModal"
         class="regularBox"
       >
-        <img 
+        <img
           :src="CDNURL+'/fe/wuyue-beatPig-startModal.png'"
           class="regularContent"
         >
-        <img 
+        <img
           :src="CDNURL+'/fe/wuyue-beatPig-close-btn.png'"
           class="closeBtn"
           @click="onCloseStartModal"
         >
-        <img 
+        <img
           :src="CDNURL+'/fe/wuyue-beatPig-knownBtn.png'"
           class="knownBtn"
           @click="onClickKnownBtn"
         >
       </div>
 
-      <div 
-        v-else 
+      <div
+        v-else
         class="operationBox"
       >
-        <img 
+        <img
           :src="CDNURL+'/fe/wuyue-beatPig-regular.png'"
           class="regular"
           @click="onViewRegular"
         >
-        <img 
+        <img
           :src="CDNURL+'/fe/wuyue-beatPig-startBtn.png'"
           class="startBtn"
           @click="onStartGame"
         >
-        <img 
+        <img
           :src="CDNURL + (offMusic ? '/fe/wuyue-beatPig-musicClose.png' : '/fe/wuyue-beatPig-music.png')"
           class="regular"
           @click="palyOrOffMusic"
@@ -90,11 +89,11 @@
       </div>
     </div>
 
-    <img 
+    <img
       :src="CDNURL+'/fe/wuyue-beatPig-cloud.png'"
       class="cloud"
     >
-    <img 
+    <img
       :src="CDNURL+'/fe/wuyue-beatPig-bottomLogo.png'"
       class="logo"
     >
@@ -122,11 +121,11 @@ export default {
       countDown: 4, // 广告位倒计时
       gameStatus: 'game_enable', // 游戏状态
       showAdvertisement: true,
-			topAnim: null,
-			bottomAnim: null,
-			pigAnim: null,
-			offMusic: true,
-			showRegular: false,
+      topAnim: null,
+      bottomAnim: null,
+      pigAnim: null,
+      offMusic: true,
+      showRegular: false,
       showStartModal: false
     };
   },
@@ -162,8 +161,8 @@ export default {
         const init = await initUserGame({})
         if (init) {
           const config = await userGameConfig({})
-          if (config && config.data && config.data.game_status) {   
-            this.gameStatus = config.data.game_status      
+          if (config && config.data && config.data.game_status) {
+            this.gameStatus = config.data.game_status
           }
           this.onShowAdvertisement()
         }
@@ -184,12 +183,12 @@ export default {
               desc: "Pick金猪，大牌美妆免费送",
               link: process.env.DIAMOND_API + (process.env.NODE_ENV === 'production' ? '/s/4L0?utm_campaign=h5_beat_pig' : '/s/APz?utm_campaign=h5_beat_pig'),
               imgUrl: CDNURL + "/fe/wuyue-beatPig-shareIcon.png",
-              success: async function() {  
-                that.onTracking('button', 'click', 'share')           
+              success: async function () {
+                that.onTracking('button', 'click', 'share')
                 try {
                   const gameShare = await userGameShare({})
-                  if (gameShare && gameShare.data && gameShare.data.game_status) {   
-                    that.gameStatus = gameShare.data.game_status      
+                  if (gameShare && gameShare.data && gameShare.data.game_status) {
+                    that.gameStatus = gameShare.data.game_status
                   }
                 } catch (err) {
                   if (err.response && err.response.data) {
@@ -208,19 +207,19 @@ export default {
     onShowAdvertisement() {
       let timer = setInterval(() => {
         if (this.countDown === 0) {
-          clearInterval(timer)	
+          clearInterval(timer)
           this.showAdvertisement = false
-          this.topAnim = this.initAnimation('topBg', this.CDNURL+'/fe/wuyue-beatPig-topBg/', this.CDNURL+'/fe/wuyue-beatPig-topBg.json', true, true )
-		      this.bottomAnim = this.initAnimation('bottomBg', this.CDNURL+'/fe/wuyue-beatPig-bottomBg/', this.CDNURL+'/fe/wuyue-beatPig-bottomBg.json', true, true )
-		      this.pigAnim = this.initAnimation('pigMove', this.CDNURL+'/fe/wuyue-beatPig-pigMove/', this.CDNURL+'/fe/wuyue-beatPig-pigMove.json', true, true )
+          this.topAnim = this.initAnimation('topBg', this.CDNURL + '/fe/wuyue-beatPig-topBg/', this.CDNURL + '/fe/wuyue-beatPig-topBg.json', true, true)
+          this.bottomAnim = this.initAnimation('bottomBg', this.CDNURL + '/fe/wuyue-beatPig-bottomBg/', this.CDNURL + '/fe/wuyue-beatPig-bottomBg.json', true, true)
+          this.pigAnim = this.initAnimation('pigMove', this.CDNURL + '/fe/wuyue-beatPig-pigMove/', this.CDNURL + '/fe/wuyue-beatPig-pigMove.json', true, true)
         } else {
           this.countDown--
         }
-		  }, 1000)
+      }, 1000)
     },
 
-    initAnimation(id, imageUrl, jsonUrl, loop, autoplay ) {
-			let el = document.getElementById(id)
+    initAnimation(id, imageUrl, jsonUrl, loop, autoplay) {
+      let el = document.getElementById(id)
       let anim = lottie.loadAnimation({
         name: 'anim',
         container: el,
@@ -231,11 +230,11 @@ export default {
         path: jsonUrl
       })
       return anim
-		},
+    },
 
-		onMusicPlay(el) {     
+    onMusicPlay(el) {
       var music = document.getElementById(el)
-      if (!music) {     
+      if (!music) {
         return
       }
       //调用 <audio> 元素提供的方法 play()      
@@ -244,24 +243,24 @@ export default {
       if (
         typeof WeixinJSBridge == 'object' &&
         typeof WeixinJSBridge.invoke == 'function'
-      ) {        
+      ) {
         music.play()
       } else {
         //監聽客户端抛出事件"WeixinJSBridgeReady"
         if (document.addEventListener) {
-          
+
           document.addEventListener(
             'WeixinJSBridgeReady',
-            function() {                   
+            function () {
               music.play()
             },
             false
           )
         } else if (document.attachEvent) {
-          document.attachEvent('WeixinJSBridgeReady', function() {               
+          document.attachEvent('WeixinJSBridgeReady', function () {
             music.play()
           })
-          document.attachEvent('onWeixinJSBridgeReady', function() {   
+          document.attachEvent('onWeixinJSBridgeReady', function () {
             music.play()
           })
         }
@@ -272,8 +271,8 @@ export default {
       //监听 touchstart 事件进而调用 <audio> 元素提供的 play() 方法播放音频
       document.addEventListener(
         'touchstart',
-        function(e) {
-          if (musicStatus) {   
+        function (e) {
+          if (musicStatus) {
             music.play()
             musicStatus = false
           }
@@ -291,7 +290,7 @@ export default {
       }
       window.ga('send', params)
     },
-    
+
     onSkip() {
       this.countDown = 0;
       this.onTracking('button', 'click', 'ToSkip')
@@ -301,10 +300,10 @@ export default {
       this.onTracking('button', 'click', 'hyperlink')
     },
 
-		onStartGame() {
+    onStartGame() {
       this.onMusicPlay('clickSound')
       this.onTracking('button', 'click', 'Click_play')
-      switch(this.gameStatus) {
+      switch (this.gameStatus) {
         case 'game_enable':
           this.showStartModal = true
           this.pigAnim.destroy()
@@ -318,46 +317,46 @@ export default {
           break
         default: break
       }
-		},
+    },
 
-		onCloseStartModal() {
+    onCloseStartModal() {
       this.onMusicPlay('clickSound')
       this.onTracking('button', 'click', 'goback1')
-			this.showStartModal = false
-			this.pigAnim = this.initAnimation('pigMove', this.CDNURL+'/fe/wuyue-beatPig-pigMove/', this.CDNURL+'/fe/wuyue-beatPig-pigMove.json', true, true )
-		},
+      this.showStartModal = false
+      this.pigAnim = this.initAnimation('pigMove', this.CDNURL + '/fe/wuyue-beatPig-pigMove/', this.CDNURL + '/fe/wuyue-beatPig-pigMove.json', true, true)
+    },
 
-		onClickKnownBtn() {
+    onClickKnownBtn() {
       this.$router.push({ name: 'beatPigGame' })
       this.onTracking('button', 'click', 'Click_get')
-		},
-		
+    },
+
     palyOrOffMusic() {
       this.onMusicPlay('clickSound')
       this.onTracking('button', 'click', 'music')
-			this.offMusic = !this.offMusic
+      this.offMusic = !this.offMusic
       let music = document.getElementById('music')
       if (music.paused) {
         music.play()
       } else {
         music.pause()
       }
-		},
-		
-		onViewRegular() {
+    },
+
+    onViewRegular() {
       this.onMusicPlay('clickSound')
       this.onTracking('button', 'click', 'help')
-			this.showRegular = true
-			this.pigAnim.destroy()
-			this.pigAnim = null
-		},
+      this.showRegular = true
+      this.pigAnim.destroy()
+      this.pigAnim = null
+    },
 
-		onCloseRegular() {
-			this.onMusicPlay('clickSound')
-			this.showRegular = false
-			this.pigAnim = this.initAnimation('pigMove', this.CDNURL+'/fe/wuyue-beatPig-pigMove/', this.CDNURL+'/fe/wuyue-beatPig-pigMove.json', true, true )
-		}
-	}
+    onCloseRegular() {
+      this.onMusicPlay('clickSound')
+      this.showRegular = false
+      this.pigAnim = this.initAnimation('pigMove', this.CDNURL + '/fe/wuyue-beatPig-pigMove/', this.CDNURL + '/fe/wuyue-beatPig-pigMove.json', true, true)
+    }
+  }
 };
 </script>
 <style lang="less" scoped>
@@ -373,33 +372,33 @@ body {
   font-size: 0;
 }
 img {
-	max-width: 100%;
+  max-width: 100%;
   user-select: none;
 }
 
 .container {
-	position: relative;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   height: 100vh;
-	overflow: hidden;
-  background-color: #BFE7F0;
-  
+  overflow: hidden;
+  background-color: #bfe7f0;
+
   .mask {
     display: flex;
     justify-content: center;
     align-items: center;
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		z-index: 999;
-		background: rgba(0, 0, 0, 0.8);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    background: rgba(0, 0, 0, 0.8);
 
-		.countDownBox {
+    .countDownBox {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -442,105 +441,105 @@ img {
         height: auto;
       }
     }
-	}
-	
-	#topBg {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		max-height: 100%;
-	}
+  }
 
-	#bottomBg {
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		width: 100%;
-	}
+  #topBg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    max-height: 100%;
+  }
 
-	.content {
-		flex: 1;
-		display: flex;
-		justify-content: center;
-		align-items: center;
+  #bottomBg {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
 
-		.regularBox {
-			position: relative;
-			width: 83.65vw;
-			height: auto;
-			z-index: 999;
+  .content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-			.regularContent {
-				width: 100%;
-				height: auto;
-			}
+    .regularBox {
+      position: relative;
+      width: 83.65vw;
+      height: auto;
+      z-index: 999;
 
-			.closeBtn {
-				position: absolute;
-				right: -0.5%;
-				top: 3.1%;
-				width: 11.67vw;
-				height: auto;
-			}
+      .regularContent {
+        width: 100%;
+        height: auto;
+      }
 
-			.knownBtn {
-				position: absolute;
-				left: 50%;
-				bottom: 6.68%;
-				width: 46.7%;
-				height: auto;
-				transform: translate(-50%, 0);
-			}
-		}
+      .closeBtn {
+        position: absolute;
+        right: -0.5%;
+        top: 3.1%;
+        width: 11.67vw;
+        height: auto;
+      }
 
-		#pigMove {
-			position: relative;
+      .knownBtn {
+        position: absolute;
+        left: 50%;
+        bottom: 6.68%;
+        width: 46.7%;
+        height: auto;
+        transform: translate(-50%, 0);
+      }
+    }
+
+    #pigMove {
+      position: relative;
       flex: 1;
       box-sizing: border-box;
-			overflow: hidden;
-			z-index: 998;
-		}
+      overflow: hidden;
+      z-index: 998;
+    }
 
-		.operationBox {
-			display: flex;
-			align-items: center;
-			position: absolute;
-			left: 0;
-			bottom: 21.2vw;
-			width: 100%;
-			z-index: 998;
+    .operationBox {
+      display: flex;
+      align-items: center;
+      position: absolute;
+      left: 0;
+      bottom: 21.2vw;
+      width: 100%;
+      z-index: 998;
 
-			.regular {
-				width: 16.57vw;
-				height: auto;
-			}
+      .regular {
+        width: 16.57vw;
+        height: auto;
+      }
 
-			.startBtn {
-				width: 56.39vw;
-				height: auto;
-				margin: 0 6px;
-			}
-		}
-	}
+      .startBtn {
+        width: 56.39vw;
+        height: auto;
+        margin: 0 6px;
+      }
+    }
+  }
 
-	.cloud {
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		width: 100%;
-		height: auto;
-	}
+  .cloud {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+  }
 
   .logo {
-		position: absolute;
-		bottom: 4.17vw;
-		left: 50%;
+    position: absolute;
+    bottom: 4.17vw;
+    left: 50%;
     width: 48.7vw;
     height: auto;
-		margin-top: 13.7vw;
-		transform: translate(-50%, 0);
-		z-index: 998;
+    margin-top: 13.7vw;
+    transform: translate(-50%, 0);
+    z-index: 998;
   }
 }
 </style>
