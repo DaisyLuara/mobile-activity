@@ -87,10 +87,9 @@
       </div>
     </div>
 
-    <img 
-      :src="CDNURL+'/fe/wuyue-beatPig-resultTip.png'"
-      class="resultTip"
-    >
+    <div class="resultTip">
+      PS：实时排名存在一定误差，以5月20日24点后的最终排名为准
+    </div>
 
     <img 
       :src="CDNURL+'/fe/wuyue-beatPig-bottom-mask.png'"
@@ -443,9 +442,12 @@ img {
 	}
 
 	.resultTip {
-		width: 67.59vw;
+		width: 70vw;
 		height: auto;
     margin-top: 3.7vw;
+    text-align: center;
+    font-size: 12px;
+    color: #fff;
     z-index: 999;
 	}
 
