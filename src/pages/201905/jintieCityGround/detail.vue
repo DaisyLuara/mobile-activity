@@ -35,9 +35,11 @@
           class="logo"
         >
       </div>
-      <img 
+      <img
+        v-if="!hideBarrage"
         :src="CDNURL+'/fe/jintie-barrage-btn.png'"
         class="rankingBtn"
+        @click="naviToBarrage"
       >
     </div>
     <div class="content">
@@ -51,7 +53,7 @@
             :src="CDNURL+'/fe/jintie-like.png'"
             class="like"
           >
-          <span class="number">{{ detail.votes }}</span>
+          <span class="number">{{ detail.count }}</span>
         </div>
         <img 
           :src="CDNURL+'/fe/jintie-photo-wrapper.png'"
@@ -65,6 +67,12 @@
           <img
             :src="detail.image"
             class="userImg"
+          >
+          <img
+            v-if="showRefreshBtn"
+            :src="CDNURL+'/jtree/accelerate.png'"
+            class="refresh-btn"
+            @click="handleRefresh"
           >
         </div>
         <div class="confessionBox">
@@ -128,13 +136,14 @@ export default {
 			showModal: false,
 			modalType: '',
 			detail: {
-				image: 'https://cdn.xingstation.cn/fe/jintie-share-icon.png',
+				image_url: '',
 				message: '',
-				votes: 0
+				count: 0
 			},
-			likeCount: 100,
+			showRefreshBtn: false,
 			disabledLike: false,
 			campaign: 'jt520Diamonds',
+			hideBarrage: this.$route.query.barrage ? true : false
     };
   },
   mounted() {
@@ -181,12 +190,14 @@ export default {
 				let res = await getVoteDetail(id)
 				if (res.code === 0) {
 					let detail = res.data
-					if (!detail.image) {
+					if (!detail.image_url) {
 						Toast.info('照片审核中')
+						this.showRefreshBtn = true
+						detail.image_url = null
 					} else {
-						this.detail = res.data
 						Toast.hide()
 					}
+					this.detail = res.data
 				} else {
 					Toast.failed('加载失败')
 				}
@@ -233,7 +244,7 @@ export default {
 				let wxShareInfoValue = {
 					title: '勇敢告白 大声说爱',
 					desc: '点击领取照片，还可参与大转盘抽奖，赢取最高50000元豪礼~',
-					link: location.origin + '/marketing/jintie_detail/' + this.$route.params.id,
+					link: location.origin + '/marketing/jintie_detail/' + this.$route.params.id + '?id=' + this.$route.query.id + '&barrage=hide',
 					imgUrl: 'https://cdn.xingstation.cn/fe/jintie-share-icon.png'
       	}
 				$wechat(this.weixinUrl)
@@ -258,9 +269,15 @@ export default {
         name: 'jt_lottery',
         query: this.$route.query 
       })
+		},
+		handleRefresh() {
+			window.location.reload()
+		},
+		naviToBarrage() {
+      location.href = 'http://h5.xingstation.com/marketing/unlocksaas?mkey=w9n65503&mcode=v8'
     }
 	}
-};
+}
 </script>
 <style lang="less" scoped>
 @base: "http://cdn.xingstation.cn";
@@ -386,6 +403,12 @@ img {
 					left: 0;
 					width: 100%;				
 					height: 100%;
+				}
+				.refresh-btn {
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					transform: translate(-50%, -50%);
 				}
 			}
 			.confessionBox {

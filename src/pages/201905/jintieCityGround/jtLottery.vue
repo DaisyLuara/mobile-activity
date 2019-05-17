@@ -266,7 +266,7 @@ export default {
 				let wxShareInfoValue = {
 					title: '勇敢告白 大声说爱',
 					desc: '点击领取照片，还可参与大转盘抽奖，赢取最高50000元豪礼~',
-					link: location.origin + '/marketing/jt_lottery/?id=' + this.$route.query.id,
+					link: location.origin + '/marketing/jt_lottery?id=' + this.$route.query.id,
 					imgUrl: 'https://cdn.xingstation.cn/fe/jintie-share-icon.png'
       	}
 				$wechat(this.weixinUrl)
