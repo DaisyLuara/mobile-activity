@@ -100,6 +100,7 @@
       <img 
         :src="CDNURL+'/fe/jintie-barrage-btn.png'"
         class="rankingBtn"
+        @click="naviToBarrage"
       >
     </div>
     <div class="content">
@@ -525,6 +526,9 @@ export default {
         name: 'jt_lottery',
         query: this.$route.query 
       })
+    },
+    naviToBarrage() {
+      location.href = 'http://h5.xingstation.com/marketing/unlocksaas?mkey=w9n65503&mcode=v8'
     }
 	}
 };
