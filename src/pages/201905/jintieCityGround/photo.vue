@@ -321,7 +321,8 @@ export default {
             name: 'jintie_detail', // 榜单详情页
             params: {
               id: res.data.id
-            }
+            },
+            query: this.$route.query
           })
         } else {
           Toast.hide()
