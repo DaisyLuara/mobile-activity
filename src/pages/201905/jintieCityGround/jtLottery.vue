@@ -1,6 +1,10 @@
 <template>
   <div class="wrap">
     <div class="content-wrap">
+      <img
+        :src="`${CDNURL}/fe/jintie-logo.png`"
+        class="logo"
+      >
       <div class="lottery-area">
         <img
           :src="`${CDNURL}/jtree/lottery-roller.png`"
@@ -305,6 +309,12 @@ p {
   top: 0;
   left: 0;
   right: 0;
+  .logo {
+    width: 0.94rem;
+    height: 0.19rem;
+    margin: 0 auto;
+    padding-top: 0.14rem;
+  }
   .lottery-area {
     position: relative;
     width: 3.16rem;
