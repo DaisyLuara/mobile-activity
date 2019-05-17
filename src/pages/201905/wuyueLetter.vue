@@ -688,7 +688,7 @@ export default {
           ctx.translate(tranx, trany)
           if (that.orientation == 6) {
             that.rotate = Math.PI / 2;
-            [x, y] = [x - w * 1.095, y + h * 0.21];
+            [x, y] = [x - w * 1.1, y + h * 0.19];
           }
           if (that.orientation == 3) {
             that.rotate = Math.PI;
@@ -696,7 +696,7 @@ export default {
           }
           if (that.orientation == 8) {
             that.rotate = -Math.PI / 2;
-            [x, y] = [x + w * 0.18, y - h * 0.95];
+            [x, y] = [x + w * 0.15, y - h * 0.8];
           }
           ctx.rotate(that.rotate);
           ctx.drawImage(photo, 0, 0, width, height, x, y, pw, ph)
@@ -722,7 +722,7 @@ export default {
             this.ownList.photo = canvas.toDataURL('image/png')
             let base64String = this.ownList.photo.split(",")[1];
             // alert('base64:' + base64String.length);
-            this.initQiniu()
+            // this.initQiniu()
             this.page2 = false
             this.page3 = true
           }
