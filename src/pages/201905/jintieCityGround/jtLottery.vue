@@ -45,7 +45,7 @@ import {
 import { mapGetters } from "vuex"
 import { Toast } from 'mand-mobile'
 import TreeCoupon from "@/modules/TreeCoupon"
-import "../../assets/less/reset-mand.less"
+import "assets/less/reset-mand.less"
 const CDNURL = process.env.CDN_URL
 
 export default {
@@ -70,7 +70,7 @@ export default {
       status: 'beforeRolling',
       noAnime: false,
       awardList: ['戴森吹风机', '抵用券', '现金券', '欢唱券', '咖啡券', '现金券', '点阵告白']
-    }
+    } 
   },
   computed: {
     ...mapGetters(["z", "weixinUrl"]),
@@ -108,7 +108,7 @@ export default {
     // 获取抽奖所需的信息
     async initState() {
       let { id, ser } = this.$route.query
-      this.ser = Number(ser)
+      this.ser = ser ? Number(ser) : null
       if (id) {
         try {
           Toast.loading('页面加载中')
@@ -135,9 +135,8 @@ export default {
       // debug
       if (process.env.NODE_ENV === 'development') {
         params = {
-          z: '0gq9f26c63856b760a0507f5e8c5ac35516j7h',
-          qiniu_id: 10929235,
-          oid: 564,
+          sign: 'eyJpdiI6IlliSytIYzZIZlZraVwvNkJtSjZYbmFBPT0iLCJ2YWx1ZSI6IndZSk16THJabzVGRnZmY1RKN01Ncmc9PSIsIm1hYyI6ImEzMTA0YzE4ODViNGNjZTUwYzQ4NzdkYzM4Mzg0N2QwMTNkNTIwNGEzYzNkYWRmZGRiMmFiNGIxZGYwMTdkZjQifQ==',
+          qiniu_id: 10929238,
           belong: 'leFitMotion',
           ser_timestamp: this.ser
         }
@@ -175,8 +174,8 @@ export default {
       // debug
       if (process.env.NODE_ENV === 'development') {
         params = {
-          z: '0gq9f26c63856b760a0507f5e8c5ac35516j7h',
-          qiniu_id: 10929235,
+          sign: 'eyJpdiI6IlliSytIYzZIZlZraVwvNkJtSjZYbmFBPT0iLCJ2YWx1ZSI6IndZSk16THJabzVGRnZmY1RKN01Ncmc9PSIsIm1hYyI6ImEzMTA0YzE4ODViNGNjZTUwYzQ4NzdkYzM4Mzg0N2QwMTNkNTIwNGEzYzNkYWRmZGRiMmFiNGIxZGYwMTdkZjQifQ==',
+          qiniu_id: 10929238,
           oid: 564,
           belong: 'leFitMotion',
           ser_timestamp: this.ser
@@ -233,12 +232,15 @@ export default {
     },
     // 根据奖品名判断奖品序号
     getAwardIndex(awardName) {
-      let awardIndex = 5 // 谢谢参与
+      let awardIndex = 0
       this.awardList.forEach((item, index) => {
         if (item === awardName || awardName.indexOf(item) !== -1) {
           awardIndex = index
         }
       })
+      if (awardIndex === 2) {
+        awardIndex = (Math.random() > 0.5) ? 2 : 5
+      }
       return awardIndex
     }
   }
@@ -246,7 +248,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../../assets/less/cdnUrl.less";
+@import "../../../assets/less/cdnUrl.less";
 
 .wrap {
   width: 100%;

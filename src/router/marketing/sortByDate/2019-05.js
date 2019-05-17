@@ -165,9 +165,9 @@ const Date201905 = [
     isAbandoned: false
   },
   {
-    path: 'jtree_lottery',
-    location: '201905/jtreeLottery',
-    name: 'jt_tree',
+    path: 'jt_lottery',
+    location: '201905/jintieCityGround/jtLottery',
+    name: 'jt_lottery',
     meta: {
       title: '勇敢告白 大声说爱',
       author: 'chuxiaochen',
@@ -186,7 +186,7 @@ const Date201905 = [
     isAbandoned: false
   },
   {
-    path: 'jintie_detail',
+    path: 'jintie_detail/:pid',
     location: '201905/jintieCityGround/detail',
     name: 'jintie_detail',
     meta: {

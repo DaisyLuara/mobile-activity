@@ -26,7 +26,6 @@
       >
       <div
         class="coupon-ticket"
-        @click="handleCouponClick"
       >
         <img
           :src="coupon.couponBatch.image_url"

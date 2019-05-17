@@ -193,19 +193,17 @@ const bindUserCoupon = (args) => {
 }
 
 // 获取照片投票榜单
-const getPhotoBoard = (args, header = 'V1') => {
+const getPhotoBoard = (args) => {
   return diamondTopReq({
     url: '/boards',
-    headers: HEADERS[header],
     params: args
   })
 }
 
 // 获取榜单照片详情
-const getVoteDetail = (id, header = 'V1') => {
+const getVoteDetail = (id) => {
   return diamondTopReq({
-    url: `/boards/${id}`,
-    headers: HEADERS[header]
+    url: `/boards/${id}`
   })
 }
 
@@ -220,11 +218,10 @@ const addToBoard = (args, header = 'V1') => {
 }
 
 // 投票
-const vote = (args, header = 'V1') => {
+const vote = (args) => {
   return diamondTopReq({
     url: '/vote',
     method: 'post',
-    headers: HEADERS[header],
     data: args
   })
 }

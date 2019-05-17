@@ -18,42 +18,10 @@
           @click="onModalClose"
         >
       </div>
-      <div
+      <Board
         v-if="modalType === 'ranking'"
-        class="modalBox"
-      >
-        <img 
-          :src="CDNURL+'/fe/jintie-ranking-bg.png'"
-          class="modal"
-        >
-        <img 
-          :src="CDNURL+'/fe/jintie-ranking-tip.png'"
-          class="tip"
-        >
-        <img 
-          :src="CDNURL+'/fe/jintie-close-btn.png'"
-          class="rankingClose"
-          @click="onModalClose"
-        >
-        <div class="rankingList">
-          <div
-            v-for="item in rankingList"
-            :key="item.id"
-            class="rankingItem"
-          >
-            <img 
-              :src="CDNURL+'/fe/jintie-ranking-info.png'"
-              class="rankingInfo"
-            >
-            <img 
-              :src="item.avatar"
-              class="avatar"
-            >
-            <span class="desc">{{ item.desc || '在这里全城见证，我们的5周年，2019感谢有你！' }}</span>
-            <span class="count">{{ item.count || 0 }}</span>
-          </div>
-        </div>
-      </div>
+        @closeRank="onModalClose"
+      />
       <div
         v-if="modalType === 'verify'"
         class="verifyBox"
@@ -159,6 +127,7 @@
             class="userImg"
           >
           <input
+            v-if="shouldUpload"
             type="file"
             accept="image/*"
             class="upload"
@@ -219,6 +188,7 @@
       <img 
         :src="CDNURL+'/fe/jintie-lottery-btn.png'"
         class="lotteryBtn"
+        @click="naviToLottery"
       >
       <img 
         :src="CDNURL+'/fe/jintie-hand-pointer_1.png'"
@@ -228,7 +198,7 @@
   </div>
 </template>
 <script>
-import { Toast } from "mand-mobile";
+import { Toast } from "mand-mobile"
 import "assets/less/reset-mand.less"
 import {
   $wechat,
@@ -243,43 +213,21 @@ import {
   getUserBoardId,
   getWxUserInfo,
   addToBoard
-} from "services";
+} from "services"
+import Board from './board'
 
 const CDNURL = process.env.CDN_URL;
 
 export default {
+  components: {
+    Board
+  },
   data() {
     return {
 			CDNURL: CDNURL,
 			type: 'verified',
 			showModal: false,
 			modalType: '',
-			rankingList: [{
-				id: 1,
-				avatar: 'https://cdn.xingstation.cn/fe/jintie-share-icon.png',
-				desc: '',
-				count: 888
-			}, {
-				id: 2,
-				avatar: 'https://cdn.xingstation.cn/fe/jintie-share-icon.png',
-				desc: '',
-				count: 888
-			}, {
-				id: 3,
-				avatar: 'https://cdn.xingstation.cn/fe/jintie-share-icon.png',
-				desc: '',
-				count: 888
-			}, {
-				id: 4,
-				avatar: 'https://cdn.xingstation.cn/fe/jintie-share-icon.png',
-				desc: '',
-				count: 888
-			}, {
-				id: 5,
-				avatar: 'https://cdn.xingstation.cn/fe/jintie-share-icon.png',
-				desc: '',
-				count: 888
-			}],
 			showPlaceholder: true,
 			imageUrl: '',
       mediaId: '',
@@ -287,11 +235,12 @@ export default {
 			phone: "",
       vcode: "",
       phoneVerified: false,
+      shouldUpload: true,
       verifyKey: "",
       time: 60,
       vcodeText: "获取验证码",
       disabledGetVcode: false,
-      campaign: '520Diamonds'
+      campaign: 'jt520Diamonds'
     };
   },
   computed: {
@@ -331,6 +280,7 @@ export default {
           let { image } = await getInfoById(id)
           if (image) {
             this.imageUrl = image
+            this.shouldUpload = false
           }
           Toast.hide()
         } catch(e) {
@@ -348,11 +298,11 @@ export default {
       }
       try {
         Toast.loading('查询中')
-        let res = await getUserBoardId(params)
+        let res = await getUserBoardId(params, 'V2')
         if (res.code === 0) {
           // 查询到用户榜单数据，跳转到详情页
           this.$router.push({
-            name: 'detail', // 榜单详情页
+            name: 'jintie_detail', // 榜单详情页
             params: {
               id: res.data.id
             }
@@ -362,8 +312,9 @@ export default {
           this.queryVerfyStatus()
         }
       } catch(e) {
-        Toast.hide()
         console.log(e)
+        Toast.hide()
+        this.queryVerfyStatus()
       }
     },
     // 验证用户是否验证过手机号
@@ -529,12 +480,10 @@ export default {
         campaign: "520Diamonds",
         message: this.confession
       }
-      if (this.$route.query.id) {
-        params.qiniu_id = this.$route.query.id
-      } else if (this.mediaId) {
+      if (this.mediaId) {
         params.media_id = this.mediaId
       } else {
-        return
+        params.qiniu_id = this.$route.query.id
       }
       try {
         Toast.loading('提交中')
@@ -542,7 +491,7 @@ export default {
         if (res.code === 0) {
           Toast.succeed('提交成功', 0, true)
           this.$router.push({
-            name: 'detail', // 榜单详情页
+            name: 'jintie_detail', // 榜单详情页
             params: {
               id: res.data.id
             }
@@ -558,6 +507,12 @@ export default {
           Toast.failed('未知错误，请稍后重试', 2000, true)
         }
       }
+    },
+    naviToLottery() {
+      this.$router.push({
+        name: 'jt_lottery',
+        query: this.$route.query 
+      })
     }
 	}
 };
@@ -590,7 +545,6 @@ img {
   background-size: 100% 100%;
   background-position: center top;
 	background-repeat: no-repeat;
-
 	.modalBg {
 		display: flex;
 		justify-content: center;
@@ -602,94 +556,30 @@ img {
 		height: 100%;
 		background-color: rgba(0, 0, 0, 0.7);
 		z-index: 999;
-
 		.modalBox {
 			position: relative;
 			width: 100vw;
 			text-align: center;
-
 			.modal {
 				width: 100%;
 			}
-
 			.tip {
 				width: 52.44vw;
 				margin-top: 6.67vw;
 			}
-
 			.helpClose {
 				width: 11.3vw;
 				position: absolute;
 				right: 8.89%;
 				top: -0.9%;
 			}
-
-			.rankingClose {
-				width: 11.3vw;
-				position: absolute;
-				right: 8.89%;
-				top: -10.65%;
-			}
-
-			.rankingList {
-				position: absolute;
-				top: 23.56%;
-				left: 50%;
-				width: 57.03vw;
-				transform: translate(-50%, 0);
-
-				.rankingItem {
-					position: relative;
-					display: flex;
-					align-items: center;
-					width: 100%;
-					height: 11.67vw;
-					margin-bottom: 2%;
-
-					.rankingInfo {
-						position: absolute;
-						top: 0;
-						left: 0;
-						width: 100%;
-						height: 100%;
-					}
-
-					.avatar {
-						width: 11.6vw;
-						height: 11.6vw;
-						border-radius: 15px;
-					}
-
-					.desc {
-						flex: 1;
-						padding: 0 11.67vw 0 3vw;
-						font-size: 14px;
-						text-overflow: ellipsis;
-						white-space: nowrap;
-						overflow: hidden;
-						color: #000;
-						z-index: 999;
-					}
-
-					.count {
-						position: absolute;
-						right: 0;
-						bottom: 30%;
-						font-size: 12px;
-						color: #000;
-					}
-				}
-			}
 		}
-
 		.verifyBox {
       position: relative;
       width: 62.78vw;
-
       .verifyBg {
         width: 100%;
       }
-
       .phoneBox {
         position: absolute;
         top: 32.89%;
@@ -697,7 +587,6 @@ img {
 				width: 54.26vw;
 				height: 11.3vw;
         transform: translate(-50%, 0);
-
         .phoneBg {
           position: absolute;
           top: 0;
@@ -705,7 +594,6 @@ img {
 					width: 100%;
 					height: 100%;
         }
-
         .phoneInput {
           position: absolute;
           top: 50%;
@@ -730,7 +618,6 @@ img {
 				width: 54.26vw;
 				height: 11.3vw;
         transform: translate(-50%, 0);
-
         .validateBg {
           position: absolute;
           top: 0;
@@ -738,7 +625,6 @@ img {
 					width: 100%;
 					height: 100%;
         }
-
         .validateBtn {
           display: flex;
           justify-content: center;
@@ -749,7 +635,6 @@ img {
           width: 40%;
           height: 60%;
           transform: translate(0, -50%);
-
           .countDownBg {
             position: absolute;
             top: 0;
@@ -758,14 +643,12 @@ img {
             height: 100%;
             z-index: 1;
           }
-
           .vcodeText {
             font-size: 10px;
             color: #fff;
             z-index: 999;
           }
         }
-
         .validateInput {
           position: absolute;
           top: 50%;
@@ -782,7 +665,6 @@ img {
           background: transparent;
         }
       }
-
       .submitBtn {
         position: absolute;
         bottom: 10.29%;
@@ -792,27 +674,22 @@ img {
       }
     }
 	}
-
 	.top {
 		display: flex;
 		align-items: center;
 		width: 100%;
 		padding: 1.85vw 0;
-
 		.rankingBtn {
 			width: 19.07vw;
 		}
-
 		.logoBox {
 			flex: 1;
 			text-align: center;
-
 			.logo {
 				width: 26.1vw;
 			}
 		}
 	}
-
 	.content {
 		position: relative;
 		flex: 1;
@@ -820,33 +697,27 @@ img {
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-
 		.photoBox {
 			position: relative;
 			width: 80.56vw;
-
 			.heart {
 				position: absolute;
 				top: 8.63%;
 				left: -10.34%;
 				width: 16.48vw;				
 			}
-
 			.photoWrapper {
 				width: 100%;			
 			}
-
 			.uploadBox {
 				position: absolute;
 				top: 6.07%;
 				left: 50%;
 				width: 65.37vw;				
 				transform: translate(-50%, 0);
-
 				.photoBg {
 					width: 100%;					
 				}
-
 				.uploadText {
 					position: absolute;
 					top: 50%;
@@ -854,7 +725,6 @@ img {
 					width: 25.56vw;					
 					transform: translate(-50%, -50%);
 				}
-
 				.upload {
 					position: absolute;
 					top: 0;
@@ -864,7 +734,6 @@ img {
 					opacity: 0;
 					z-index: 998;
 				}
-
 				.userImg {
 					position: absolute;
 					top: 0;
@@ -873,7 +742,6 @@ img {
 					height: 100%;
 				}
 			}
-
 			.placeholderBox {
 				display: flex;
 				justify-content: center;
@@ -883,7 +751,6 @@ img {
 					width: 52.42vw;
 				}
 			}
-			
 			.confessionBox {
 				position: absolute;
 				bottom: 5.2%;
@@ -892,7 +759,6 @@ img {
 				height: 26.3%;
 				padding: 5vw;
 				transform: translate(-50%, 0);
-
 				.confessionInput {
 					width: 100%;					
 					line-height: 25px;
@@ -901,7 +767,6 @@ img {
 					outline: none;
 					resize: none;
 				}
-
 				.textCounter {
 					position: absolute;
 					bottom: 5%;
@@ -911,17 +776,14 @@ img {
 				}
 			}
 		}
-
 		.participateBox {
 			position: relative;
 			width: 63.52vw;			
 			margin: 4.63vw 0;
 		}
-
 		.participateBtn {
 			width: 100%;			
 		}
-
 		.help {
 			position: absolute;
 			right: -5.85vw;
@@ -930,16 +792,12 @@ img {
 			transform: translate(0, -50%);
 		}
 	}
-
 	.bottom {
 		display: flex;
 		align-items: center;
-
 		.pointer {
 			width: 12.96vw;
-			
 		}
-
 		.lotteryBtn {
 			width: 57.96vw;			
 			margin: 0 2.78vw;
