@@ -26,7 +26,7 @@
           class="rankingInfo"
         >
         <img 
-          :src="item.headimagurl || null"
+          :src="item.headimageurl || null"
           class="avatar"
         >
         <span class="desc">{{ item.message }}</span>
