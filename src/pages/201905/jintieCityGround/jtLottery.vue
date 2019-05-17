@@ -37,6 +37,7 @@ import {
   Cookies,
   $wechat,
   isInWechat,
+  isiOS,
   randomIntNum,
   getInfoById,
   queryUserCoupon,
@@ -83,6 +84,17 @@ export default {
     }
   },
   async mounted() {
+    if (isiOS && !this.$route.query.iosRand) {
+      const iosRand = 'iosRand=' + new Date().getTime()
+      let url = location.href
+      if (url.indexOf('?') > 0) {
+        url = url + '&' + iosRand
+      } else {
+        url = url + '?' + iosRand
+      }
+      location.replace(url)
+      return
+    }
     if (process.env.NODE_ENV === 'development') {
       this.sign = 'eyJpdiI6ImpaM3NZQ0U1dVdBTEs0SjkwSTVmUlE9PSIsInZhbHVlIjoiTDhtbGp0MitjdmsxZFNUdkRFcjN6QT09IiwibWFjIjoiYTQ2Y2YzMzc4YzM0ZDQ4OGRkNjgwZGU4N2M3MTMwZmM3NjkyMTlhMGJmM2Q1MzM3YTU2Mzc2NWYzM2NmNjBhYiJ9'
     } else {
@@ -91,6 +103,7 @@ export default {
     if (this.sign) {
       this.initState()
     }
+    this.handleWechatShare()
   },
   methods: {
     //微信静默授权
@@ -247,7 +260,24 @@ export default {
         awardIndex = (Math.random() > 0.5) ? 2 : 5
       }
       return awardIndex
-    }
+    },
+    handleWechatShare() {
+			if (isInWechat() === true) {
+				let wxShareInfoValue = {
+					title: '勇敢告白 大声说爱',
+					desc: '点击领取照片，还可参与大转盘抽奖，赢取最高50000元豪礼~',
+					link: location.origin + '/marketing/jt_lottery/?id=' + this.$route.query.id,
+					imgUrl: 'https://cdn.xingstation.cn/fe/jintie-share-icon.png'
+      	}
+				$wechat(this.weixinUrl)
+					.then(res => {
+						res.share(wxShareInfoValue)
+					})
+					.catch(e => {
+						console.warn(e)
+					})
+				}
+		},
   }
 }
 </script>

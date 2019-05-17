@@ -111,6 +111,9 @@
 import { Toast } from "mand-mobile"
 import "assets/less/reset-mand.less"
 import {
+	$wechat,
+	isInWechat,
+	isiOS,
 	Cookies,
 	getVoteDetail,
 	vote
@@ -135,6 +138,17 @@ export default {
     };
   },
   mounted() {
+		if (isiOS && !this.$route.query.iosRand) {
+      const iosRand = 'iosRand=' + new Date().getTime()
+      let url = location.href
+      if (url.indexOf('?') > 0) {
+        url = url + '&' + iosRand
+      } else {
+        url = url + '?' + iosRand
+      }
+      location.replace(url)
+      return
+    }
 		if (process.env.NODE_ENV === 'development') {
       this.sign = 'eyJpdiI6ImpaM3NZQ0U1dVdBTEs0SjkwSTVmUlE9PSIsInZhbHVlIjoiTDhtbGp0MitjdmsxZFNUdkRFcjN6QT09IiwibWFjIjoiYTQ2Y2YzMzc4YzM0ZDQ4OGRkNjgwZGU4N2M3MTMwZmM3NjkyMTlhMGJmM2Q1MzM3YTU2Mzc2NWYzM2NmNjBhYiJ9'
     } else {
@@ -189,7 +203,7 @@ export default {
 			Toast.loading('投票中')
 			let params = {
 				sign: this.sign,
-        board_id: this.$route.params.pid,
+        board_id: this.$route.params.id,
         campaign: this.campaign
 			}
 			try {
@@ -215,7 +229,21 @@ export default {
 			}
 		},
 		handleWechatShare() {
-
+			if (isInWechat() === true) {
+				let wxShareInfoValue = {
+					title: '勇敢告白 大声说爱',
+					desc: '点击领取照片，还可参与大转盘抽奖，赢取最高50000元豪礼~',
+					link: location.origin + '/marketing/jintie_detail/' + this.$route.params.id,
+					imgUrl: 'https://cdn.xingstation.cn/fe/jintie-share-icon.png'
+      	}
+				$wechat(this.weixinUrl)
+					.then(res => {
+						res.share(wxShareInfoValue)
+					})
+					.catch(e => {
+						console.warn(e)
+					})
+				}
 		},
 		onModalShow(type) {
 			this.showModal = true
