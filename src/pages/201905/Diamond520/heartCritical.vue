@@ -64,6 +64,10 @@
         </li>
       </ul>
     </div> -->
+    <img
+      :src="`${CDNURL}/juli-logo.png`"
+      :class="['juli-logo', { bottom: !showCoupon }]"
+    >
   </div>
 </template>
 
@@ -255,7 +259,7 @@ img {
     width: 100%;
     height: 4.46rem;
     position: relative;
-    margin-bottom: 0.25rem;
+    margin-bottom: 2.7rem;
     .lottery-holder {
       position: absolute;
       width: 3.02rem;
@@ -272,26 +276,25 @@ img {
       left: 0;
     }
     .coupon {
-      position: absolute;
+      position: relative;
       width: 3.34rem;
-      top: 2.5rem;
-      left: 0.2rem;
+      padding-top: 2.5rem;
+      margin: 0 auto;
       .coupon-back {
-        position: absolute;
-        top: 0;
+        position: relative;
         width: 100%;
         height: auto;
       }
       .coupon-qr {
         position: absolute;
-        top: 0.12rem;
+        top: 2.65rem;
         right: 0.45rem;
         width: 0.81rem;
         height: 0.81rem;
       }
       .coupon-code {
         position: absolute;
-        top: 1.06rem;
+        top: 3.56rem;
         left: 2.5rem;
         font-size:0.1rem;
         color: #FFF;
@@ -337,6 +340,18 @@ img {
         line-height: 0.2rem;
         color: #FFF;
       }
+    }
+  }
+  .juli-logo {
+    width: 1.5rem;
+    height: auto;
+    margin: 0 auto;
+    &.bottom {
+      margin: 0;
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%, 0)
     }
   }
 }
