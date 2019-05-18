@@ -264,7 +264,6 @@ export default {
       this.initState()
     }
     this.getQiniuToken()
-    this.handleForbiddenShare()
 	},
   methods: {
     //微信静默授权
@@ -328,11 +327,13 @@ export default {
           })
         } else {
           Toast.hide()
+          this.handleForbiddenShare()
           this.queryVerfyStatus()
         }
       } catch(e) {
         console.log(e)
         Toast.hide()
+        this.handleForbiddenShare()
         this.queryVerfyStatus()
       }
     },
