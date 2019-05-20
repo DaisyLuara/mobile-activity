@@ -532,7 +532,7 @@ export default {
       })
     },
     naviToBarrage() {
-      location.href = `http://saas.xingstation.com/w9n65503/v8/barrage?id=${this.$route.query.id}`
+      location.href = `http://saas.xingstation.com/w9n65503/v8/unlockbarrage?id=${this.$route.query.id}`
     }
 	}
 };
