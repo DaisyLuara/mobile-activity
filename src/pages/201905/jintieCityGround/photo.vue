@@ -532,7 +532,7 @@ export default {
       })
     },
     naviToBarrage() {
-      location.href = 'http://h5.xingstation.com/marketing/unlocksaas?mkey=w9n65503&mcode=v8'
+      location.href = `http://saas.xingstation.com/w9n65503/v8/barrage?id=${this.$route.query.id}`
     }
 	}
 };
