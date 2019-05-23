@@ -212,7 +212,7 @@ export default {
       } catch(e) {
         console.log(e)
         if (e.response) {
-          e.response.data.message && Toast.failed(e.response.data.message, 0, true)
+          e.response.data.message && Toast.failed(e.response.data.message)
         } else {
           Toast.failed('未知错误，请刷新', 0, true)
         }
