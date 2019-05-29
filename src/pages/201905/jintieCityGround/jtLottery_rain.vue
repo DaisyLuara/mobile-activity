@@ -68,6 +68,9 @@ export default {
       belong: null,
       qiniuId: null,
       oid: null,
+      defaultBelong: 'leFitMotion',
+      defaultQiniuId: 10929238,
+      defaultOid: 564,
       clickable: true,
       rotateDeg: 0,
       coupon: null,
@@ -104,7 +107,7 @@ export default {
     if (this.sign) {
       this.initState()
     }
-    this.handleWechatShare()
+    this.handleForbiddenShare()
   },
   methods: {
     //微信静默授权
@@ -126,7 +129,6 @@ export default {
       let { id, ser } = this.$route.query
       this.ser = ser ? Number(ser) : null
       if (id) {
-        this.qiniuId = Number(id)
         try {
           Toast.loading('页面加载中')
           let { belong, oid } = await getInfoById(id)
@@ -138,14 +140,15 @@ export default {
           return
         }
       } else {
-        Toast.failed('点位为空', 0, true)
+        this.belong = this.defaultBelong
+        this.oid = this.defaultOid
       }
       this.queryCoupon()
     },
     async queryCoupon() {
       let params = {
         sign: this.sign,
-        qiniu_id: this.qiniuId,
+        qiniu_id: this.qiniuId ? this.qiniuId : this.defaultQiniuId,
         belong: this.belong,
         ser_timestamp: this.ser
       }
@@ -185,7 +188,7 @@ export default {
       Toast.loading('请求中')
       let params = {
         sign: this.sign,
-        qiniu_id: this.qiniuId,
+        qiniu_id: this.qiniuId ? this.qiniuId : this.defaultQiniuId,
         belong: this.belong,
         oid: this.oid,
         ser_timestamp: this.ser
@@ -266,23 +269,14 @@ export default {
       }
       return awardIndex
     },
-    handleWechatShare() {
-			if (isInWechat() === true) {
-				let wxShareInfoValue = {
-					title: '勇敢告白 大声说爱',
-					desc: '点击领取照片，还可参与大转盘抽奖，赢取最高50000元豪礼~',
-					link: location.origin + '/marketing/jt_lottery?id=' + this.$route.query.id,
-					imgUrl: 'https://cdn.xingstation.cn/fe/jintie-share-icon.png'
-      	}
-				$wechat(this.weixinUrl)
-					.then(res => {
-						res.share(wxShareInfoValue)
-					})
-					.catch(e => {
-						console.warn(e)
-					})
-				}
-		},
+    //禁止微信分享
+    handleForbiddenShare() {
+      if (isInWechat() === true) {
+        $wechat(this.weixinUrl).then(res => {
+          res.forbidden()
+        })
+      }
+    }
   }
 }
 </script>
@@ -294,7 +288,7 @@ export default {
   width: 100%;
   min-height: 100vh;
   position: relative;
-  background-image: url("@{cdnUrl}/jtree/background.png");
+  background-image: url("@{cdnUrl}/jtree/lottery_back_rain.png");
   background-size: 100% auto;
   background-repeat: repeat;
 }
@@ -305,18 +299,18 @@ p {
   margin: 0
 }
 .content-wrap {
+  .logo {
+    width: 0.94rem;
+    height: 0.19rem;
+    padding-top: 0.14rem;
+    margin: 0 auto;
+    box-sizing: content-box;
+  }
   position: relative;
   padding-top: 0.06rem;
   top: 0;
   left: 0;
   right: 0;
-  .logo {
-    width: 0.94rem;
-    height: 0.19rem;
-    margin: 0 auto;
-    padding-top: 0.14rem;
-    box-sizing: content-box;
-  }
   .lottery-area {
     position: relative;
     width: 3.16rem;

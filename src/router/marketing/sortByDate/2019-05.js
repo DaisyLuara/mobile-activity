@@ -88,6 +88,17 @@ const Date201905 = [
     isAbandoned: false
   },
   {
+    path: 'Diamond520/heartCritical',
+    location: '201905/Diamond520/heartCritical',
+    name: 'heartCritical',
+    meta: {
+      title: '爱心暴击',
+      author: 'chuxiaochen',
+      desc: '爱心暴击'
+    },
+    isAbandoned: false
+  },
+  {
     path: 'open_box',
     location: '201905/openBox',
     name: 'open_box',
@@ -172,6 +183,16 @@ const Date201905 = [
       title: '勇敢告白 大声说爱',
       author: 'chuxiaochen',
       desc: '近铁广场许愿树-抽奖'
+    }
+  },
+  {
+    path: 'jt_lottery_rain',
+    location: '201905/jintieCityGround/jtLottery_rain',
+    name: 'jt_lottery_rain',
+    meta: {
+      title: '勇敢告白 大声说爱',
+      author: 'chuxiaochen',
+      desc: '近铁广场许愿树-抽奖-红包雨'
     }
   },
   {
