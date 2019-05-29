@@ -164,6 +164,7 @@ export default {
 					}
           const mallcooCouponsRes = await mallcooCoupons(mallcooCouponsParams)
 					if (mallcooCouponsRes) {
+						this.received = true
 						Toast('兑奖券码已短信形式发送至手机，请注意查收')
 					}
         } else {

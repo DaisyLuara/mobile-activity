@@ -65,7 +65,7 @@
             class="photoBg"
           >
           <img
-            :src="detail.image"
+            :src="detail.image_url"
             class="userImg"
           >
           <img
@@ -118,6 +118,7 @@
 <script>
 import { Toast } from "mand-mobile"
 import "assets/less/reset-mand.less"
+import { mapGetters } from "vuex"
 import {
 	$wechat,
 	isInWechat,
@@ -126,10 +127,14 @@ import {
 	getVoteDetail,
 	vote
 } from "services"
+import Board from './board'
 
 const CDNURL = process.env.CDN_URL;
 
 export default {
+	components: {
+    Board
+  },
   data() {
     return {
 			CDNURL: CDNURL,
@@ -145,7 +150,10 @@ export default {
 			campaign: 'jt520Diamonds',
 			hideBarrage: this.$route.query.barrage ? true : false
     };
-  },
+	},
+	computed: {
+		...mapGetters(["weixinUrl"])
+	},
   mounted() {
 		if (isiOS && !this.$route.query.iosRand) {
       const iosRand = 'iosRand=' + new Date().getTime()
@@ -197,14 +205,14 @@ export default {
 					} else {
 						Toast.hide()
 					}
-					this.detail = res.data
+					this.detail = detail
 				} else {
 					Toast.failed('加载失败')
 				}
       } catch(e) {
         console.log(e)
         if (e.response) {
-          e.response.data.message && Toast.failed(e.response.data.message, 0, true)
+          e.response.data.message && Toast.failed(e.response.data.message)
         } else {
           Toast.failed('未知错误，请刷新', 0, true)
         }
@@ -274,7 +282,7 @@ export default {
 			window.location.reload()
 		},
 		naviToBarrage() {
-      location.href = 'http://h5.xingstation.com/marketing/unlocksaas?mkey=w9n65503&mcode=v8'
+			location.href = `http://saas.xingstation.com/w9n65503/v8/unlockbarrage?id=${this.$route.query.id}`
     }
 	}
 }

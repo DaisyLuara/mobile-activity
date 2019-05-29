@@ -152,7 +152,10 @@ const getVerificationCodes = (args) => {
   return fetchWithToken({
     url: '/arMember/verificationCodes',
     method: 'post',
-    data: args
+    data: {
+      ...args,
+      utm_campaign: 'jt520Diamonds'
+    }
   })
 }
 

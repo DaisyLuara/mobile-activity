@@ -205,7 +205,8 @@ import {
   Cookies,
   $wechat,
   isInWechat,
-	qiniuToken,
+  qiniuToken,
+  getInfoById,
 	uploadImgToQiniu,
   postActivityMedia,
   filterNumber,
@@ -228,8 +229,8 @@ export default {
     return {
 			CDNURL: CDNURL,
 			type: 'verified',
-			showModal: false,
-			modalType: '',
+			showModal: true,
+			modalType: 'help',
 			showPlaceholder: true,
 			imageUrl: '',
       mediaId: '',
@@ -263,7 +264,6 @@ export default {
       this.initState()
     }
     this.getQiniuToken()
-    this.handleForbiddenShare()
 	},
   methods: {
     //微信静默授权
@@ -274,7 +274,7 @@ export default {
           process.env.WX_API +
           '/wx/officialAccount/oauth?url=' +
           base_url +
-          '&scope=snsapi_base'
+          '&scope=snsapi_userinfo'
         window.location.href = redirct_url
       } else {
         this.sign = Cookies.get('sign')
@@ -289,6 +289,7 @@ export default {
       }
     },
     async initState() {
+      console.log('init state')
       let { id } = this.$route.query
       if (id) {
         Toast.loading('提取照片中')
@@ -321,15 +322,18 @@ export default {
             name: 'jintie_detail', // 榜单详情页
             params: {
               id: res.data.id
-            }
+            },
+            query: this.$route.query
           })
         } else {
           Toast.hide()
+          this.handleForbiddenShare()
           this.queryVerfyStatus()
         }
       } catch(e) {
         console.log(e)
         Toast.hide()
+        this.handleForbiddenShare()
         this.queryVerfyStatus()
       }
     },
@@ -338,7 +342,7 @@ export default {
       try {
         Toast.loading('获取用户信息中')
         let userInfo = await getWxUserInfo()
-        if (userInfo.phone) {
+        if (userInfo.data.mobile) {
           this.phoneVerified = true
         }
         Toast.hide()
@@ -366,8 +370,8 @@ export default {
       const file = event.target.files[0]
       const size = file.size
       const name = file.name
-      if (size / 1024 / 1024 > 8) {
-        Toast.info('图片大小不能超过8MB!')
+      if (size / 1024 / 1024 > 10) {
+        Toast.info('图片大小不能超过10MB!')
         return
       }
       if (!/\.(jpg|jpeg|png|JPG|PNG)$/.test(name)) {
@@ -528,7 +532,7 @@ export default {
       })
     },
     naviToBarrage() {
-      location.href = 'http://h5.xingstation.com/marketing/unlocksaas?mkey=w9n65503&mcode=v8'
+      location.href = `http://saas.xingstation.com/w9n65503/v8/unlockbarrage?id=${this.$route.query.id}`
     }
 	}
 };
