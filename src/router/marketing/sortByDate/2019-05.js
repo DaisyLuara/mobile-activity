@@ -216,6 +216,17 @@ const Date201905 = [
       desc: ''
     },
     isAbandoned: false
+  },
+  {
+    path: 'white_rabbit',
+    location: '201905/rabbit',
+    name: 'white_rabbit',
+    meta: {
+      title: '大白兔奶茶店Luone站',
+      author: 'lipan',
+      desc: '大白兔奶茶店Luone站'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201905
