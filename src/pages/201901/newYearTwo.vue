@@ -26,19 +26,19 @@
         class="save"
       >
     </div>
-    <BottomBar
+    <!-- <BottomBar
       :replace-menu-code="'3o3o'"
       :replace-mkey="mkey"
-    />
+    /> -->
   </div>
 </template>
 <script>
 import { normalPages } from "@/mixins/normalPages";
-import BottomBar from "@/pages/m/components/Static/BottomBar";
+// import BottomBar from "@/pages/m/components/Static/BottomBar";
 const cdnUrl = process.env.CDN_URL;
 export default {
   components: {
-    BottomBar
+    // BottomBar
   },
   mixins: [normalPages],
   data() {

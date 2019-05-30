@@ -2,7 +2,7 @@ export * from './utils/index'
 export * from './common/index'
 export * from './marketing/index'
 export * from './wechat/index'
-export * from './msite/index'
+// export * from './msite/index'
 
 // 用法
 

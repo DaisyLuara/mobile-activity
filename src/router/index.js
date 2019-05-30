@@ -8,7 +8,6 @@ import PageNotFound from 'pages/404'
 import marketingRouter from './marketing/index'
 import wxBindRouter from './wxbind/index'
 import { H5PocketRouter } from './legacy/h5pocket'
-import { H5SaaSRouter } from './H5SaaS/index'
 
 // 引用模块
 const _import = require('../services/utils/import')
@@ -54,8 +53,7 @@ const router = new Router({
         return routerItem
       })
     },
-    H5PocketRouter,
-    H5SaaSRouter
+    H5PocketRouter
   ]
 })
 

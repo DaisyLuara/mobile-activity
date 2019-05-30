@@ -102,10 +102,10 @@
         @click="()=>{mask = true;}"
       >
     </div>
-    <BottomBar
+    <!-- <BottomBar
       :replace-menu-code="'3o3o'"
       :replace-mkey="mkey"
-    />
+    /> -->
   </div>
 </template>
 <script>
@@ -118,11 +118,11 @@ import {
 } from "services";
 import { normalPages } from "@/mixins/normalPages";
 import "animate.css";
-import BottomBar from "@/pages/m/components/Static/BottomBar";
+// import BottomBar from "@/pages/m/components/Static/BottomBar";
 const CDNURL = process.env.CDN_URL;
 export default {
   components: {
-    BottomBar
+    // BottomBar
   },
   mixins: [normalPages],
   props: {
@@ -171,7 +171,7 @@ export default {
     //   this.getGameHonour(3, '8b96bc7fba4c1176b3fc0861e94f22465c0f6a');
     // }
   },
-  mounted() { },
+  mounted() {},
   methods: {
     getGameHonour(bid, z) {
       getGameHonour(bid, z)
