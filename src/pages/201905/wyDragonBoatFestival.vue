@@ -141,7 +141,7 @@
             class="couponItem"
           >
           <img
-            :src="CDNURL+'/fe/wy-dw-coupon_4.png'"
+            :src="CDNURL+'/fe/wy-dw-coupon_item4.png'"
             class="couponItem"
           >
           <img
