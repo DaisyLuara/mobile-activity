@@ -404,6 +404,7 @@ export default {
       this.showLoadingText = true;
       setTimeout(() => {
         window.location.href = "https://m.mallcoo.cn/a/coupon/10658";
+        this.showLoading = false;
       }, 1000);
     }
   }
