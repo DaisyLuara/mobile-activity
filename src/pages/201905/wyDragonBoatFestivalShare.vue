@@ -7,7 +7,7 @@
 
     <div 
       v-show="showLoading" 
-      class="loadingBox"
+      class="loadingBox content"
     >
       <img 
         :src="CDNURL+'/fe/wy-dw-loading.png'" 
@@ -22,7 +22,7 @@
 
     <div
       v-show="type==='receive'"
-      class="receiveWrapper"
+      class="content"
     >
       <div class="couponBox">
         <img
@@ -39,7 +39,7 @@
 
     <div
       v-show="type==='login'"
-      class="loginWrapper"
+      class="content"
     >
       <div class="loginBox">
         <img
@@ -110,7 +110,7 @@
 
     <div
       v-show="type==='couponList'"
-      class="couponWrapper"
+      class="content"
     >
       <div class="couponBox">
         <img
@@ -184,7 +184,7 @@ export default {
       qiniu_id: this.$route.query.id,
       oid: null,
       belong: "",
-      type: "receive",
+      type: "",
       phone: "",
       vcode: "",
       verification_key: "",
@@ -426,24 +426,22 @@ img {
   min-height: 100vh;
 
   .bigBg {
+    width: 100%;
+  }
+
+  .content {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: auto;
-    z-index: -1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .loadingBox {
-    display: flex;
-    flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
+    justify-content: center;
 		z-index: 999;
 		background: rgba(0,0,0,0.7);
 
@@ -455,175 +453,161 @@ img {
     
     .transitionText {
       width: 47.47vw;
-      margin-top: 25.33vw;
+      margin-top: 5.33vw;
     }
   }
 
-  .receiveWrapper {
+  .couponBox {
+    position: relative;
+    width: 82.13vw;
+    margin-top: 27.47vw;
+
+    .couponBg {
+      width: 100%;
+    }
+
+    .couponBtn {
+      position: absolute;
+      bottom: 4.95%;
+      left: 50%;
+      transform: translate(-50%, 0);
+      width: 42.93vw;
+    }
+  }
+
+
+  .loginBox {
+    position: relative;
+    width: 74.67vw;
+    margin-top: 32.53vw;
+
+    .loginBg {
+      width: 100%;
+    }
+
+    .inputWrapper {
+      position: absolute;
+      left: 50%;
+      width: 58.13vw;
+      height: 11.2vw;
+      transform: translate(-50%, 0);
+
+      .inputBg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .inputItem {
+        flex: 1;
+        height: 100%;
+        z-index: 999;
+      }
+
+      .item {
+        width: 100%;
+        height: 100%;
+        padding: 0 3vw;
+        border: 0px;
+        outline: none;
+        text-align: left;
+        font-size: 14px;
+        color: #666;
+        background: transparent;
+      }
+    }
+
+    .phoneBox {
+      top: 37.56%;
+      display: flex;
+      align-items: center;
+
+      .phone {
+        width: 13.87vw;
+        margin-left: 4vw;
+        z-index: 999;
+      }
+    }
+
+    .vcodeBox {
+      top: 51.64%;
+      display: flex;
+      align-items: center;
+
+      .vcode {
+        width: 10.4vw;
+        margin-left: 4vw;
+        z-index: 999;
+      }
+
+      .vcodeBtn {
+        position: relative;
+        width: 17.6vw;
+        margin-right: 3vw;
+        z-index: 999;
+
+        .countDownBg {
+          width: 100%;
+        }
+
+        .vcodeText {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          font-size: 10px;
+          color: #666;
+        }
+      }
+    }
+
+    .completeBtn {
+      position: absolute;
+      bottom: 10.09%;
+      left: 50%;
+      width: 58.93vw;
+      transform: translate(-50%, 0);
+    }
+  }
+
+  .couponBox {
     display: flex;
     flex-direction: column;
     align-items: center;
-    flex: 1;
+    width: 82.13vw;
+    margin-top: 7.47vw;
 
-    .couponBox {
-      position: relative;
-      width: 82.13vw;
-      margin-top: 7.47vw;
+    .couponTop {
+      width: 100%;
+    }
 
-      .couponBg {
+    .couponList {
+      display: flex;
+      flex-direction: column;
+      width: 59.2vw;
+      margin-top: -17.87vw;
+
+      .couponItem {
         width: 100%;
-      }
-
-      .couponBtn {
-        position: absolute;
-        bottom: 4.95%;
-        left: 50%;
-        transform: translate(-50%, 0);
-        width: 42.93vw;
       }
     }
   }
 
-  .loginWrapper {
-    flex: 1;
+  .myCoupon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10.93vw;
 
-    .loginBox {
-      position: relative;
-      width: 74.67vw;
-      margin-top: 32.53vw;
-
-      .loginBg {
-        width: 100%;
-      }
-
-      .inputWrapper {
-        position: absolute;
-        left: 50%;
-        width: 58.13vw;
-        height: 11.2vw;
-        transform: translate(-50%, 0);
-
-        .inputBg {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-        }
-
-        .inputItem {
-          flex: 1;
-          height: 100%;
-          z-index: 999;
-        }
-
-        .item {
-          width: 100%;
-          height: 100%;
-          padding: 0 3vw;
-          border: 0px;
-          outline: none;
-          text-align: left;
-          font-size: 14px;
-          color: #666;
-          background: transparent;
-        }
-      }
-
-      .phoneBox {
-        top: 37.56%;
-        display: flex;
-        align-items: center;
-
-        .phone {
-          width: 13.87vw;
-          margin-left: 4vw;
-          z-index: 999;
-        }
-      }
-
-      .vcodeBox {
-        top: 51.64%;
-        display: flex;
-        align-items: center;
-
-        .vcode {
-          width: 10.4vw;
-          margin-left: 4vw;
-          z-index: 999;
-        }
-
-        .vcodeBtn {
-          position: relative;
-          width: 17.6vw;
-          margin-right: 3vw;
-          z-index: 999;
-
-          .countDownBg {
-            width: 100%;
-          }
-
-          .vcodeText {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 10px;
-            color: #666;
-          }
-        }
-      }
-
-      .completeBtn {
-        position: absolute;
-        bottom: 10.09%;
-        left: 50%;
-        width: 58.93vw;
-        transform: translate(-50%, 0);
-      }
-    }
-  }
-
-  .couponWrapper {
-    flex: 1;
-
-    .couponBox {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 82.13vw;
-      margin-top: 7.47vw;
-
-      .couponTop {
-        width: 100%;
-      }
-
-      .couponList {
-        display: flex;
-        flex-direction: column;
-        width: 59.2vw;
-        margin-top: -17.87vw;
-
-        .couponItem {
-          width: 100%;
-        }
-      }
+    .btnText {
+      width: 47.2vw;
+      margin-bottom: 2.93vw;
     }
 
-    .myCoupon {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 10.93vw;
-
-      .btnText {
-        width: 47.2vw;
-        margin-bottom: 2.93vw;
-      }
-
-      .desc {
-        width: 31.47vw;
-      }
+    .desc {
+      width: 31.47vw;
     }
   }
 }
