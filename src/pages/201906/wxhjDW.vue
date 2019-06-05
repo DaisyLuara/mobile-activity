@@ -132,7 +132,7 @@ export default {
         title: "全城招募-荟聚顶粽达人挑战赛",
         desc: "点击查看好友的专属靓照",
         link: window.location.href,
-        imgUrl: CDNURL + "/fe/wy-dw-share-icon.png"
+        imgUrl: CDNURL + "/fe/wxhj-dw-share-icon.png"
       }
     };
   },
