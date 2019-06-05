@@ -105,7 +105,7 @@ import {
   isInWechat,
   getInfoById,
   checkMallMember,
-  sendMessageCode,
+  sendHuiJuVCode,
   openMallcooMemberByPhone,
   validatePhone
 } from "services";
@@ -190,7 +190,7 @@ export default {
     // 发送短信验证码
     async onGetVcode(params) {
       try {
-        const vcodeRes = await sendMessageCode(params);
+        const vcodeRes = await sendHuiJuVCode(params);
         if (vcodeRes) {
           this.verification_key = vcodeRes.key;
         }
