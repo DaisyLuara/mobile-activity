@@ -47,24 +47,24 @@ export default {
       ]
     }
   },
-  data() {
+  data () {
     return {
       peopleID: null,
       base64Data: null
     }
   },
   watch: {
-    parms() {
+    parms () {
       this.peopleID = this.parms.peopleID
       this.drawing()
     }
   },
-  mounted() {
+  mounted () {
 
   },
   methods: {
     //获取随机数图片
-    randomImg(peopleID) {
+    randomImg (peopleID) {
       let that = this
       let path = ''
       for (let i = 0; i < that.paths.length; i++) {
@@ -79,7 +79,7 @@ export default {
       return path
     },
     //合成图片
-    drawing() {
+    drawing () {
       let width = this.$innerWidth()
       let height = (this.$innerWidth() / 1080) * 1800
       let that = this
@@ -126,14 +126,14 @@ export default {
           // default: .9;
           quality: 1,
           // 成功回调；
-          success(b64) {
+          success (b64) {
             that.base64Data = b64
             let url = canvas.toDataURL('image/png')
             let img = document.getElementById('test')
             img.src = url
           },
           // 错误回调；
-          error(err) {
+          error (err) {
             console.log(err)
           }
         })
@@ -141,9 +141,7 @@ export default {
   }
 }
 </script>
-
 <style lang="less" scoped>
-@imageHost: "http://cdn.xingstation.cn/fe/marketing/img/dreamland/";
 html,
 body {
   width: 100%;
