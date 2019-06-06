@@ -86,8 +86,12 @@
         class="photoBox"
       >
         <img
-          :src="CDNURL+'/fe/wxhj-dw-photo-wrapper.png'"
-          class="photoWrapper"
+          :src="CDNURL+'/fe/wxhj-dw-photo-graph.png'"
+          class="photoGraph"
+        >
+        <img
+          :src="CDNURL+'/fe/wxhj-dw-save-btn.png'"
+          class="saveBtn"
         >
         <img
           :src="userImage"
@@ -312,12 +316,19 @@ img {
 
   .photoBox {
     position: relative;
-    width: 86.67vw;
+    width: 90vw;
     margin-top: 19.53vw;
 
-    .photoWrapper {
-      position: relative;
+    .photoGraph {
+      width: 68vw;
+    }
+
+    .saveBtn {
+      position: absolute;
+      bottom: -16%;
+      left: 50%;
       width: 100%;
+      transform: translate(-50%, 0);
       z-index: 999;
     }
 
@@ -325,7 +336,8 @@ img {
       position: absolute;
       top: 2%;
       left: 50%;
-      width: 69.5%;
+      width: 62.5vw;
+      height: 100%;
       transform: translate(-50%, 0);
     }
   }
