@@ -134,7 +134,7 @@ export default {
       let timer = setInterval(() => {
         if (this.time === 0) {
           clearInterval(timer);
-          this.vcodeText = "60s后重发";
+          this.vcodeText = "点击获取";
           this.time = 60;
         } else {
           this.vcodeText = this.time + 's后重发';
@@ -143,7 +143,7 @@ export default {
       }, 1000);
     },
     onGetVcode () {
-      if (this.vcodeText !== '获取验证码') {
+      if (this.vcodeText !== '点击获取') {
         return
       }
       if (!this.phone) {
@@ -164,6 +164,7 @@ export default {
         })
         .catch(err => {
           alert(err.response.data.message);
+          this.vcodeText = '点击获取'
         });
     },
     doRegister () {
@@ -250,11 +251,11 @@ a {
       input {
         background: transparent;
         .center;
-        height: 8vw;
+        height: 8.5vw;
         line-height: 8vw;
         text-align: left;
         color: #956d5b;
-        font-size: 4vw;
+        font-size: 14px;
         z-index: 99;
       }
       .phone {
