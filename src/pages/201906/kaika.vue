@@ -15,23 +15,25 @@
         >
         <input
           id="phone"
-          type="text"
           v-model="phone"
+          type="text"
           maxlength="11"
           class="phone"
           @change="checkPhone"
         >
         <input
           id="vertify"
-          type="text"
           v-model="vcode"
+          type="text"
           maxlength="4"
           class="vertify"
         >
         <div
           class="vertify-text"
           @click="onGetVcode"
-        >{{vcodeText}}</div>
+        >
+          {{ vcodeText }}
+        </div>
         <a
           class="confirm"
           @click="doRegister"
