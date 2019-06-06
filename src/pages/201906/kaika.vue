@@ -71,7 +71,7 @@ export default {
       phone: "",
       vcode: "",
       time: 60,
-      vcodeText: "获取验证码",
+      vcodeText: "点击获取",
       verification_key: "",
       link: 'http://papi.xingstation.com/api/s/wkm' + window.location.search,
     }
@@ -278,7 +278,7 @@ a {
         line-height: 9vw;
         text-align: center;
         color: #956d5b;
-        font-size: 2.6vw;
+        font-size: 12px;
         z-index: 99;
       }
       .confirm {
