@@ -62,7 +62,6 @@
 </template>
 <script>
 /* eslint-disable */
-
 import { $wechat, isInWechat, wechatShareTrack, Cookies } from "services";
 import { normalPages } from "@/mixins/normalPages";
 const cdnUrl = process.env.CDN_URL;
@@ -87,7 +86,7 @@ export default {
     },
     link: {
       type: String,
-      required: true
+      required: false
     },
     imgUrl: {
       type: String,
@@ -96,8 +95,8 @@ export default {
     },
     paths: {
       type: Array,
-      required: true,
-      default: [
+      required: false,
+      default: () => [
         {
           scope: 6,
           paths: ["w_1.png", "w_2.png", "w_3.png", "w_4.png", "w_5.png"]
@@ -117,7 +116,7 @@ export default {
         '/fe/marketing/img/dreamland/bg.png");'
     }
   },
-  data() {
+  data () {
     return {
       baseUrl: cdnUrl + "/fe/marketing/img/dreamland/",
       style: {
@@ -138,22 +137,22 @@ export default {
     };
   },
   watch: {
-    parms() {
+    parms () {
       this.peopleID = this.parms.peopleID;
       this.drawing();
     }
   },
-  mounted() {
+  mounted () {
     if (!this.loadingClick) {
       this.go1();
     }
   },
   methods: {
-    go() {
+    go () {
       this.showImg = false;
       this.contentShow = true;
     },
-    go1() {
+    go1 () {
       let timer = setTimeout(() => {
         this.showImg = false;
         this.contentShow = true;
@@ -161,14 +160,14 @@ export default {
       }, 3000);
     },
     //获取随机数图片
-    randomImg(peopleID) {
+    randomImg (peopleID) {
       let that = this;
       let path = "";
       for (let i = 0; i < that.paths.length; i++) {
         if (peopleID <= that.paths[i].scope) {
           path =
             that.paths[i].paths[
-              Math.floor(Math.random() * that.paths[i].paths.length)
+            Math.floor(Math.random() * that.paths[i].paths.length)
             ];
           break;
         }
@@ -176,7 +175,7 @@ export default {
       return path;
     },
     //合成图片
-    drawing() {
+    drawing () {
       let width = this.$innerWidth();
       let height = (this.$innerWidth() / 1080) * 1800;
       let that = this;
@@ -223,14 +222,14 @@ export default {
           // default: .9;
           quality: 1,
           // 成功回调；
-          success(b64) {
+          success (b64) {
             that.base64Data = b64;
             let url = canvas.toDataURL("image/png");
             let img = document.getElementById("test");
             img.src = url;
           },
           // 错误回调；
-          error(err) {
+          error (err) {
             console.log(err);
           }
         });
