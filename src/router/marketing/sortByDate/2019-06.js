@@ -15,7 +15,7 @@ const Date201906 = [
     location: '201906/kaika',
     name: 'kaika',
     meta: {
-      title: '星视度',
+      title: '无锡荟聚',
       author: 'lipan',
       desc: '幻境-猫酷开卡'
     },

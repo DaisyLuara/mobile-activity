@@ -1,20 +1,24 @@
 <template>
   <div>
     <DreamLand
+      v-if="Boolean(photo)"
       :loading-click="loadingClick"
       :paths="paths"
-      :link="link"
+      :photo="photo"
+      :params="parms"
     />
   </div>
 </template>
 <script>
+import { normalPages } from "@/mixins/normalPages";
 import DreamLand from '@/modules/dreamLand'
 const cdnUrl = process.env.CDN_URL
 export default {
   components: {
     DreamLand
   },
-  data() {
+  mixins: [normalPages],
+  data () {
     return {
       loadingClick: false,
       paths: [
@@ -27,14 +31,13 @@ export default {
           paths: ['mc_1.png', 'mc_2.png', 'mc_3.png', 'mc_4.png', 'mc_5.png']
         }
       ],
-      link: 'http://papi.xingstation.com/api/s/A11' + window.location.search,
-      // wxShareInfoValue: {
-      //   title: '幻境奇缘',
-      //   desc: '揭开你的身世之谜！',
-      //   link: 'http://papi.xingstation.com/api/s/A11' + window.location.search,
-      //   imgUrl: cdnUrl + '/fe/marketing/img/dreamland/icon.png'
-      // }
+      wxShareInfoValue: {
+        title: '幻境奇缘',
+        desc: '揭开你的身世之谜！',
+        link: 'http://papi.xingstation.com/api/s/A11' + window.location.search,
+        imgUrl: cdnUrl + '/fe/marketing/img/dreamland/icon.png'
+      }
     }
-  }
+  },
 }
 </script>
