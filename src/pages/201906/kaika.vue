@@ -250,11 +250,11 @@ a {
       input {
         background: transparent;
         .center;
-        height: 8vw;
+        height: 8.5vw;
         line-height: 8vw;
         text-align: left;
         color: #956d5b;
-        font-size: 4vw;
+        font-size: 14px;
         z-index: 99;
       }
       .phone {
