@@ -1,6 +1,9 @@
 <template>
   <div class="warp">
-    <Dreamland v-if="isMember" />
+    <Dreamland
+      v-if="isMember"
+      :link="link"
+    />
     <div
       v-else
       class="mask"
@@ -68,24 +71,19 @@ export default {
       time: 60,
       vcodeText: "获取验证码",
       verification_key: "",
-      wxShareInfoValue: {
-        title: '幻境奇缘',
-        desc: '揭开你的身世之谜！',
-        link: 'http://papi.xingstation.com/api/s/wkm' + window.location.search,
-        imgUrl: CDNURL + '/fe/image/kaika/icon.jpg'
-      }
+      link: 'http://papi.xingstation.com/api/s/wkm' + window.location.search,
     }
   },
   mounted () {
     //微信授权
-    // if (isInWechat() === true) {
-    //   if (
-    //     process.env.NODE_ENV === 'production' ||
-    //     process.env.NODE_ENV === 'testing'
-    //   ) {
-    //     this.handleWechatAuth()
-    //   }
-    // }
+    if (isInWechat() === true) {
+      if (
+        process.env.NODE_ENV === 'production' ||
+        process.env.NODE_ENV === 'testing'
+      ) {
+        this.handleWechatAuth()
+      }
+    }
   },
   methods: {
     async init () {
