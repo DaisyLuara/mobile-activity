@@ -143,7 +143,7 @@ export default {
       }, 1000);
     },
     onGetVcode () {
-      if (this.vcodeText !== '获取验证码') {
+      if (this.vcodeText !== '点击获取') {
         return
       }
       if (!this.phone) {
