@@ -278,7 +278,7 @@ a {
         line-height: 9vw;
         text-align: center;
         color: #956d5b;
-        font-size: 2.6vw;
+        font-size: 12px;
         z-index: 99;
       }
       .confirm {
