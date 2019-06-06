@@ -71,7 +71,7 @@ export default {
       phone: "",
       vcode: "",
       time: 60,
-      vcodeText: "获取验证码",
+      vcodeText: "点击获取",
       verification_key: "",
       link: 'http://papi.xingstation.com/api/s/wkm' + window.location.search,
     }
