@@ -557,6 +557,19 @@ const mallcooCoupons = params => {
   })
 }
 
+const sendHuiJuVCode = params => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(MALLCOO_URL + '/huiju/verificationCodes', params)
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+
 export {
   createCoupon,
   getCoupon,
@@ -590,5 +603,6 @@ export {
   getMallcooCouponInfo,
   receiveMallcooCoupon,
   getMallcooUserCoupon,
-  mallcooCoupons
+  mallcooCoupons,
+  sendHuiJuVCode
 }
