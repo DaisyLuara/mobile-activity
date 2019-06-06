@@ -62,7 +62,6 @@
 </template>
 <script>
 /* eslint-disable */
-
 import { $wechat, isInWechat, wechatShareTrack, Cookies } from "services";
 import { normalPages } from "@/mixins/normalPages";
 const cdnUrl = process.env.CDN_URL;
