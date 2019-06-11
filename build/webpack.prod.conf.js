@@ -53,8 +53,8 @@ const webpackConfig = merge(baseWebpackConfig, {
         output: {
           comments: false
         },
+        warnings: process.argv[2] === 'preprod' ? true : false,
         compress: {
-          warnings: process.argv[2] === 'preprod' ? true : false,
           drop_debugger: process.argv[2] === 'preprod' ? false : true,
           drop_console: process.argv[2] === 'preprod' ? false : true
         }

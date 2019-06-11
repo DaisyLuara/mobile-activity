@@ -62,36 +62,25 @@
 </template>
 <script>
 /* eslint-disable */
-import { $wechat, isInWechat, wechatShareTrack, Cookies } from "services";
-import { normalPages } from "@/mixins/normalPages";
+// import { $wechat, isInWechat, wechatShareTrack, Cookies } from "services";
+// import { normalPages } from "@/mixins/normalPages";
 const cdnUrl = process.env.CDN_URL;
 import MC from "mcanvas";
 export default {
-  mixins: [normalPages],
+  // mixins: [normalPages],
   props: {
     loadingClick: {
       type: Boolean,
       required: false,
       default: true
     },
-    title: {
+    photo: {
       type: String,
-      required: false,
-      default: "幻境奇缘"
+      required: true
     },
-    desc: {
-      type: String,
-      required: false,
-      default: "揭开你的身世之谜！"
-    },
-    link: {
-      type: String,
-      required: false
-    },
-    imgUrl: {
-      type: String,
-      required: false,
-      default: cdnUrl + "/fe/marketing/img/dreamland/icon.png"
+    params: {
+      type: Object,
+      required: true
     },
     paths: {
       type: Array,
@@ -128,21 +117,25 @@ export default {
       contentShow: false,
       peopleID: null,
       base64Data: null,
-      wxShareInfoValue: {
-        title: this.title,
-        desc: this.desc,
-        link: this.link,
-        imgUrl: this.imgUrl
-      }
+      // wxShareInfoValue: {
+      //   title: this.title,
+      //   desc: this.desc,
+      //   link: this.link,
+      //   imgUrl: this.imgUrl
+      // }
     };
   },
-  watch: {
-    parms () {
-      this.peopleID = this.parms.peopleID;
-      this.drawing();
-    }
+  // watch: {
+  //   parms () {
+  //     this.peopleID = this.parms.peopleID;
+  //     this.drawing();
+  //   }
+  // },
+  created () {
+    this.peopleID = this.params.peopleID;
   },
   mounted () {
+    this.drawing();
     if (!this.loadingClick) {
       this.go1();
     }
@@ -289,7 +282,6 @@ img {
     width: 100%;
     position: relative;
     overflow: hidden;
-    // background-image: url("@{imageHost}bg.png");
     background-size: 100% auto;
     background-position: center top;
     background-repeat: no-repeat;

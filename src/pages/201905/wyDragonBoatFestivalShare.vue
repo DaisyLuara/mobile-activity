@@ -1,23 +1,49 @@
 <template>
   <div class="container">
     <img
-      v-if="type==='photo'"
-      :src="CDNURL+'/fe/wxhj-dw-bg2.png'"
-      class="bigBg"
-    >
-    <img
-      v-else
-      :src="CDNURL+'/fe/wxhj-dw-bg.png'"
+      :src="CDNURL+'/fe/wy-dw-bg.png'"
       class="bigBg"
     >
 
-    <div class="content">
-      <div
-        v-show="type==='login'"
-        class="loginBox"
+    <div 
+      v-show="showLoading" 
+      class="loadingBox content"
+    >
+      <img 
+        :src="CDNURL+'/fe/wy-dw-loading.png'" 
+        class="loadingIcon"
       >
+      <img 
+        v-if="showLoadingText"
+        :src="CDNURL+'/fe/wy-dw-transition-text.png'" 
+        class="transitionText"
+      >
+    </div>
+
+    <div
+      v-show="type==='receive'"
+      class="content"
+    >
+      <div class="couponBox">
         <img
-          :src="CDNURL+'/fe/wxhj-dw-login-bg.png'"
+          :src="CDNURL+'/fe/wy-dw-coupon-box.png'"
+          class="couponBg"
+        >
+        <img
+          :src="CDNURL+'/fe/wy-dw-receive-btn.png'"
+          class="couponBtn"
+          @click="onClickReceiveBtn"
+        >
+      </div>
+    </div>
+
+    <div
+      v-show="type==='login'"
+      class="content"
+    >
+      <div class="loginBox">
+        <img
+          :src="CDNURL+'/fe/wy-dw-input-bg.png'"
           class="loginBg"
         >
         <div class="inputWrapper phoneBox">
@@ -80,22 +106,51 @@
           @click="onLogin"
         >
       </div>
+    </div>
 
+    <div
+      v-show="type==='couponList'"
+      class="content"
+    >
+      <div class="couponBox">
+        <img
+          :src="CDNURL+'/fe/wy-dw-coupon-top.png'"
+          class="couponTop"
+        >
+        <div class="couponList">
+          <img
+            :src="CDNURL+'/fe/wy-dw-coupon_1.png'"
+            class="couponItem"
+          >
+          <img
+            :src="CDNURL+'/fe/wy-dw-coupon_2.png'"
+            class="couponItem"
+          >
+          <img
+            :src="CDNURL+'/fe/wy-dw-coupon_3.png'"
+            class="couponItem"
+          >
+          <img
+            :src="CDNURL+'/fe/wy-dw-coupon_item4.png'"
+            class="couponItem"
+          >
+          <img
+            :src="CDNURL+'/fe/wy-dw-coupon_5.png'"
+            class="couponItem"
+          >
+        </div>
+      </div>
       <div
-        v-show="type==='photo'"
-        class="photoBox"
+        class="myCoupon"
+        @click="onNavToCouponPacks"
       >
         <img
-          :src="CDNURL+'/fe/wxhj-dw-photo-graph.png'"
-          class="photoGraph"
+          :src="CDNURL+'/fe/wy-dw-my-coupon.png'"
+          class="btnText"
         >
         <img
-          :src="CDNURL+'/fe/wxhj-dw-save-btn.png'"
-          class="saveBtn"
-        >
-        <img
-          :src="userImage"
-          class="photo"
+          :src="CDNURL+'/fe/wy-dw-coupon-view.png'"
+          class="desc"
         >
       </div>
     </div>
@@ -107,15 +162,17 @@ import {
   Cookies,
   $wechat,
   isInWechat,
+  wechatShareTrack,
   getInfoById,
+  getMallcooCouponInfo,
   checkMallMember,
-  sendHuiJuVCode,
+  receiveMallcooCoupon,
+  sendMessageCode,
   openMallcooMemberByPhone,
   validatePhone
 } from "services";
-import { Toast } from "mand-mobile";
+import { Toast } from "mint-ui";
 import { onlyWechatShare } from "@/mixins/onlyWechatShare";
-import "assets/less/reset-mand.less";
 const CDNURL = process.env.CDN_URL;
 
 export default {
@@ -124,19 +181,22 @@ export default {
     return {
       CDNURL: CDNURL,
       sign: "",
+      qiniu_id: this.$route.query.id,
       oid: null,
-      userImage: "",
+      belong: "",
       type: "",
       phone: "",
       vcode: "",
       verification_key: "",
       time: 60,
       disabledGetVcode: false,
+      showLoading: false,
+      showLoadingText: false,
       wxShareInfoValue: {
-        title: "全城招募-荟聚顶粽达人挑战赛",
-        desc: "点击查看好友的专属靓照",
+        title: "吾悦全城招募-端午节顶粽王者挑战赛！",
+        desc: "点击发现大神",
         link: window.location.href,
-        imgUrl: CDNURL + "/fe/wxhj-dw-share-icon.png"
+        imgUrl: CDNURL + "/fe/wy-dw-share-icon.png"
       }
     };
   },
@@ -171,18 +231,21 @@ export default {
     async init() {
       try {
         let { id, code, state } = this.$route.query;
-        let { oid, image } = await getInfoById(id, code, state);
+        let { belong, oid, image } = await getInfoById(id, code, state);
         this.oid = oid;
-        this.userImage = image;
+        this.belong = belong;
         let params = {
           sign: this.sign,
-          oid: this.oid
+          qiniu_id: this.qiniu_id,
+          oid: this.oid,
+          type: 'share',
+          belong: this.belong
         };
-        const mallMember = await checkMallMember(params);
-        if (mallMember) {
-          this.type = "photo";
+        const userCouponRes = await getMallcooCouponInfo(params);
+        if (userCouponRes) {
+          this.type = "couponList";
         } else {
-          this.type = "login";
+          this.type = "receive";
         }
       } catch (err) {
         if (err.response && err.response.data) {
@@ -191,10 +254,34 @@ export default {
       }
     },
 
+    // 商场会员信息
+    async onGetMallcooUserInfo(params) {
+      try {
+        const mallcooUserInfoRes = await checkMallMember(params);
+        if (mallcooUserInfoRes) {
+          let params = {
+            qiniu_id: this.qiniu_id,
+            sign: this.sign,
+            belong: this.belong,
+            oid: this.oid
+          };
+          this.onReceiveCoupon(params);
+        } else {
+          this.showLoading = false;
+          this.type = "login";
+        }
+      } catch (err) {
+        if (err.response && err.response.data) {
+          this.showLoading = false;
+          alert(err.response.data.message);
+        }
+      }
+    },
+
     // 发送短信验证码
     async onGetVcode(params) {
       try {
-        const vcodeRes = await sendHuiJuVCode(params);
+        const vcodeRes = await sendMessageCode(params);
         if (vcodeRes) {
           this.verification_key = vcodeRes.key;
         }
@@ -210,15 +297,45 @@ export default {
       try {
         const mallcooUsersRes = await openMallcooMemberByPhone(params);
         if (mallcooUsersRes) {
-          Toast.hide();
-          this.type = 'photo';
+          let params = {
+            qiniu_id: this.qiniu_id,
+            sign: this.sign,
+            belong: this.belong,
+            oid: this.oid
+          };
+          this.onReceiveCoupon(params);
         }
       } catch (err) {
         if (err.response && err.response.data) {
-          Toast.hide();
+          this.showLoading = false;
           alert(err.response.data.message);
         }
       }
+    },
+
+    // 猫酷-领取优惠券包
+    async onReceiveCoupon(params) {
+      try {
+        const receiveMallcooCouponRes = await receiveMallcooCoupon(params);
+        if (receiveMallcooCouponRes) {
+          this.showLoading = false;
+          this.type = "couponList";
+        }
+      } catch (err) {
+        if (err.response && err.response.data) {
+          this.showLoading = false;
+          alert(err.response.data.message);
+        }
+      }
+    },
+
+    onClickReceiveBtn() {
+      let params = {
+        sign: this.sign,
+        oid: this.oid
+      };
+      this.showLoading = true;
+      this.onGetMallcooUserInfo(params);
     },
 
     onGetErrorTips() {
@@ -245,7 +362,7 @@ export default {
 
     onClickGetVcode() {
       if (!validatePhone(this.phone)) {
-        Toast.info('手机格式不正确，请重新输入');
+        Toast('手机格式不正确，请重新输入');
         return;
       }
       this.disabledGetVcode = true;
@@ -258,10 +375,10 @@ export default {
 
     onLogin() {
       if (this.onGetErrorTips()) {
-        Toast.info(this.onGetErrorTips());
+        Toast(this.onGetErrorTips());
         return;
       }
-      Toast.loading('照片提取中')
+      this.showLoading = true;
       let params = {
         verification_key: this.verification_key,
         verification_code: this.vcode,
@@ -269,6 +386,15 @@ export default {
         sign: this.sign
       };
       this.onOpenMallcooUsers(params);
+    },
+
+    onNavToCouponPacks() {
+      this.showLoading = true;
+      this.showLoadingText = true;
+      setTimeout(() => {
+        window.location.href = "https://m.mallcoo.cn/a/coupon/10658";
+        this.showLoading = false;
+      }, 1000);
     }
   }
 };
@@ -314,33 +440,41 @@ img {
     align-items: center;
   }
 
-  .photoBox {
-    position: relative;
-    width: 90vw;
-    margin-top: 19.53vw;
+  .loadingBox {
+    justify-content: center;
+		z-index: 999;
+		background: rgba(0,0,0,0.7);
 
-    .photoGraph {
-      width: 68vw;
+		.loadingIcon {
+			width: 12.8vw;
+			height: 12.8vw;
+			animation: loading 2s linear infinite;
     }
-
-    .saveBtn {
-      position: absolute;
-      bottom: -16%;
-      left: 50%;
-      width: 100%;
-      transform: translate(-50%, 0);
-      z-index: 999;
-    }
-
-    .photo {
-      position: absolute;
-      top: 2%;
-      left: 50%;
-      width: 62.5vw;
-      height: 100%;
-      transform: translate(-50%, 0);
+    
+    .transitionText {
+      width: 47.47vw;
+      margin-top: 5.33vw;
     }
   }
+
+  .couponBox {
+    position: relative;
+    width: 82.13vw;
+    margin-top: 27.47vw;
+
+    .couponBg {
+      width: 100%;
+    }
+
+    .couponBtn {
+      position: absolute;
+      bottom: 4.95%;
+      left: 50%;
+      transform: translate(-50%, 0);
+      width: 42.93vw;
+    }
+  }
+
 
   .loginBox {
     position: relative;
@@ -435,6 +569,45 @@ img {
       left: 50%;
       width: 58.93vw;
       transform: translate(-50%, 0);
+    }
+  }
+
+  .couponBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 82.13vw;
+    margin-top: 7.47vw;
+
+    .couponTop {
+      width: 100%;
+    }
+
+    .couponList {
+      display: flex;
+      flex-direction: column;
+      width: 59.2vw;
+      margin-top: -17.87vw;
+
+      .couponItem {
+        width: 100%;
+      }
+    }
+  }
+
+  .myCoupon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10.93vw;
+
+    .btnText {
+      width: 47.2vw;
+      margin-bottom: 2.93vw;
+    }
+
+    .desc {
+      width: 31.47vw;
     }
   }
 }

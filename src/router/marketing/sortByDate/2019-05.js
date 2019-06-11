@@ -227,6 +227,28 @@ const Date201905 = [
       desc: '大白兔奶茶店Luone站'
     },
     isAbandoned: false
+  },
+  {
+    path: 'wy_dragonBoatFestival',
+    location: '201905/wyDragonBoatFestival',
+    name: 'wy_dragonBoatFestival',
+    meta: {
+      title: '吾悦顶粽达人',
+      author: 'ykk',
+      desc: '吾悦顶粽达人'
+    },
+    isAbandoned: false
+  },
+  {
+    path: 'wy_dragonBoatFestival_share',
+    location: '201905/wyDragonBoatFestivalShare',
+    name: 'wy_dragonBoatFestival_share',
+    meta: {
+      title: '吾悦顶粽达人',
+      author: 'ykk',
+      desc: '吾悦顶粽达人'
+    },
+    isAbandoned: false
   }
 ]
 export default Date201905

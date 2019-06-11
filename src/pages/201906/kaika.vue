@@ -1,11 +1,13 @@
 <template>
   <div class="warp">
     <Dreamland
-      v-if="isMember"
-      :link="link"
+      v-if="photo"
+      :photo="photo"
+      :params="params"
+      class="main"
     />
     <div
-      v-else
+      v-show="!isMember"
       class="mask"
     >
       <div class="form">
@@ -54,7 +56,8 @@ import {
   checkMallMember,
   sendMessageCode,
   openMallcooMemberByPhone,
-  validatePhone
+  validatePhone,
+  splitParms
 } from "services";
 import { onlyWechatShare } from "@/mixins/onlyWechatShare";
 import Dreamland from '@/modules/dreamLand'
@@ -67,13 +70,20 @@ export default {
       base: CDNURL + '/fe/image/kaika/',
       oid: null,
       sign: '',
-      isMember: false,
+      isMember: false,//false
       phone: "",
+      photo: null,
+      params: null,
       vcode: "",
       time: 60,
       vcodeText: "点击获取",
       verification_key: "",
-      link: 'http://papi.xingstation.com/api/s/wkm' + window.location.search,
+      wxShareInfoValue: {
+        title: '你的前世人设竟然是.......',
+        desc: '速戳揭开你的专属身世',
+        link: 'http://papi.xingstation.com/api/s/wkm' + window.location.search,
+        imgUrl: CDNURL + '/fe/marketing/img/dreamland/icon.png'
+      }
     }
   },
   mounted () {
@@ -91,8 +101,10 @@ export default {
     async init () {
       try {
         let { id, code, state } = this.$route.query
-        let { belong, oid, image } = await getInfoById(id, code, state)
+        let { belong, oid, image, parms } = await getInfoById(id, code, state)
         this.oid = oid
+        this.photo = image
+        this.params = splitParms(parms)
         const getMallcooUserArgs = {
           sign: this.sign,
           oid: this.oid
@@ -122,9 +134,6 @@ export default {
         this.init()
       }
     },
-    onClickReceiveBtn () {
-      this.index = false
-    },
     checkPhone () {
       if (!this.phone || !validatePhone(this.phone)) {
         alert("手机格式不正确，请重新输入");
@@ -134,7 +143,7 @@ export default {
       let timer = setInterval(() => {
         if (this.time === 0) {
           clearInterval(timer);
-          this.vcodeText = "60s后重发";
+          this.vcodeText = "点击获取";
           this.time = 60;
         } else {
           this.vcodeText = this.time + 's后重发';
@@ -143,7 +152,7 @@ export default {
       }, 1000);
     },
     onGetVcode () {
-      if (this.vcodeText !== '获取验证码') {
+      if (this.vcodeText !== '点击获取') {
         return
       }
       if (!this.phone) {
@@ -156,6 +165,7 @@ export default {
       }
       this.onCountDown();
       let params = {
+        type: 'huiju',
         phone: this.phone
       };
       sendMessageCode(params)
@@ -164,6 +174,7 @@ export default {
         })
         .catch(err => {
           alert(err.response.data.message);
+          this.vcodeText = '点击获取'
         });
     },
     doRegister () {
@@ -232,6 +243,12 @@ a {
   position: relative;
   text-align: center;
   max-width: 750px;
+  .main {
+    position: relative;
+    width: 100%;
+    z-index: 0;
+    overflow-x: hidden;
+  }
   .mask {
     width: 100vw;
     height: 100vh;
@@ -250,11 +267,11 @@ a {
       input {
         background: transparent;
         .center;
-        height: 8vw;
+        height: 8.5vw;
         line-height: 8vw;
         text-align: left;
         color: #956d5b;
-        font-size: 4vw;
+        font-size: 14px;
         z-index: 99;
       }
       .phone {
