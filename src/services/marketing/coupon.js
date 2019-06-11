@@ -470,9 +470,15 @@ const checkMallMember = params => {
 
 //发送短信验证码
 const sendMessageCode = params => {
+  let url = MALLCOO_URL + '/verificationCodes'
+  if (params.type) {
+    let type = params.type
+    url = MALLCOO_URL + '/' + type + '/verificationCodes'
+    delete params.type
+  }
   return new Promise((resolve, reject) => {
     axios
-      .post(MALLCOO_URL + '/verificationCodes', params)
+      .post(url, params)
       .then(response => {
         resolve(response.data)
       })
@@ -529,9 +535,13 @@ const receiveMallcooCoupon = params => {
 const getMallcooUserCoupon = params => {
   return new Promise((resolve, reject) => {
     axios
-      .get(MALLCOO_URL + '/user/coupon', { params }, {
-        headers: { 'api-token': apiToken }
-      })
+      .get(
+        MALLCOO_URL + '/user/coupon',
+        { params },
+        {
+          headers: { 'api-token': apiToken }
+        }
+      )
       .then(response => {
         resolve(response.data)
       })
